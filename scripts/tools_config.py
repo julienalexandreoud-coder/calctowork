@@ -1348,4 +1348,836 @@ PARAMETRIC_VARIANTS = {
         "desc_fn": lambda p, tpl: tpl.format(l=p["largo"], h=p["alto"], e=int(p["espesor_cm"])),
         "wastage_default": 5,
     },
+
+    # ── 002 Reinforced concrete slab ── dimensions × steel ratio
+    "002": {
+        "inputs": {"largo": [3,5,8,10], "ancho": [2,3,5], "espesor": [0.15,0.20,0.25,0.30]},
+        "url_fn": lambda p: f"{_fmt(p['largo'])}x{_fmt(p['ancho'])}x{_fmt(p['espesor'])}m",
+        "title_template": {
+            "en": "Reinforced Concrete {l}×{a}m Slab {e}m Thick",
+            "es": "Hormigón Armado {l}×{a}m Espesor {e}m",
+            "fr": "Béton Armé Dalle {l}×{a}m Épaisseur {e}m",
+            "pt": "Concreto Armado Laje {l}×{a}m Esp. {e}m",
+            "de": "Stahlbeton {l}×{a}m Platte {e}m Stark",
+            "it": "Cemento Armato {l}×{a}m Spessore {e}m",
+        },
+        "title_fn": lambda p, tpl: tpl.format(l=p["largo"], a=p["ancho"], e=p["espesor"]),
+        "desc_template": {"en": "Calculate cement, steel and aggregates for a {l}×{a}m reinforced concrete slab {e}m thick."},
+        "desc_fn": lambda p, tpl: tpl.format(l=p["largo"], a=p["ancho"], e=p["espesor"]),
+        "wastage_default": 7,
+    },
+
+    # ── 003 Isolated footings ── size × quantity
+    "003": {
+        "inputs": {"largo": [1.0,1.2,1.5,1.8,2.0], "ancho": [1.0,1.2,1.5,1.8], "cantidad": [2,4,6,8,10]},
+        "url_fn": lambda p: f"{_fmt(p['largo'])}x{_fmt(p['ancho'])}m-{int(p['cantidad'])}ud",
+        "title_template": {
+            "en": "Footing {l}×{a}m – {n} Footings Concrete",
+            "es": "Zapata {l}×{a}m – {n} Zapatas Aisladas",
+            "fr": "Semelles {l}×{a}m – {n} Semelles Isolées",
+            "pt": "Sapata {l}×{a}m – {n} Sapatas Isoladas",
+            "de": "Fundament {l}×{a}m – {n} Einzelfundamente",
+            "it": "Platea {l}×{a}m – {n} Fondazioni Isolate",
+        },
+        "title_fn": lambda p, tpl: tpl.format(l=p["largo"], a=p["ancho"], n=int(p["cantidad"])),
+        "desc_template": {"en": "Calculate concrete and steel for {n} isolated footings of {l}×{a}m."},
+        "desc_fn": lambda p, tpl: tpl.format(l=p["largo"], a=p["ancho"], n=int(p["cantidad"])),
+        "wastage_default": 7,
+    },
+
+    # ── 004 Retaining wall ── length × height
+    "004": {
+        "inputs": {"largo": [3,5,8,10,15,20], "altura": [1.0,1.5,2.0,2.5,3.0]},
+        "url_fn": lambda p: f"{_fmt(p['largo'])}x{_fmt(p['altura'])}m",
+        "title_template": {
+            "en": "Retaining Wall {l}m Long {h}m High – Concrete",
+            "es": "Muro Contención {l}m Largo {h}m Alto",
+            "fr": "Mur de Soutènement {l}m × {h}m",
+            "pt": "Muro de Arrimo {l}m × {h}m",
+            "de": "Stützmauer {l}m Länge {h}m Höhe",
+            "it": "Muro di Contenimento {l}m × {h}m",
+        },
+        "title_fn": lambda p, tpl: tpl.format(l=p["largo"], h=p["altura"]),
+        "desc_template": {"en": "Calculate concrete and steel for a {l}m long, {h}m high retaining wall."},
+        "desc_fn": lambda p, tpl: tpl.format(l=p["largo"], h=p["altura"]),
+        "wastage_default": 7,
+    },
+
+    # ── 005 Concrete columns ── size × quantity
+    "005": {
+        "inputs": {"ancho": [0.25,0.30,0.35,0.40], "altura": [2.5,3.0,3.5,4.0], "cantidad": [2,4,6,8,10]},
+        "url_fn": lambda p: f"{_fmt(p['ancho'])}x{_fmt(p['ancho'])}m-h{_fmt(p['altura'])}m-{int(p['cantidad'])}ud",
+        "title_template": {
+            "en": "Concrete Columns {s}×{s}m, {h}m High – {n} Columns",
+            "es": "Pilares Hormigón {s}×{s}m, {h}m Alto – {n} Pilares",
+            "fr": "Poteaux Béton {s}×{s}m, {h}m Hauteur – {n}",
+            "pt": "Pilares Concreto {s}×{s}m, {h}m Alto – {n}",
+            "de": "Betonpfeiler {s}×{s}m, {h}m Hoch – {n} Stützen",
+            "it": "Pilastri Cemento {s}×{s}m, {h}m Alto – {n}",
+        },
+        "title_fn": lambda p, tpl: tpl.format(s=p["ancho"], h=p["altura"], n=int(p["cantidad"])),
+        "desc_template": {"en": "Calculate concrete, formwork and steel for {n} columns of {s}×{s}m section and {h}m height."},
+        "desc_fn": lambda p, tpl: tpl.format(s=p["ancho"], h=p["altura"], n=int(p["cantidad"])),
+        "wastage_default": 7,
+    },
+
+    # ── 006 Concrete beams ── section × length
+    "006": {
+        "inputs": {"ancho": [0.20,0.25,0.30], "canto": [0.40,0.50,0.60], "longitud": [3,4,5,6,8], "cantidad": [2,4,6]},
+        "url_fn": lambda p: f"{_fmt(p['ancho'])}x{_fmt(p['canto'])}m-{_fmt(p['longitud'])}m-{int(p['cantidad'])}ud",
+        "title_template": {
+            "en": "Concrete Beams {w}×{d}m Section {l}m Long – {n}",
+            "es": "Vigas Hormigón {w}×{d}m Sección {l}m Longitud",
+            "fr": "Poutres Béton {w}×{d}m Section {l}m Longueur",
+            "pt": "Vigas Concreto {w}×{d}m Seção {l}m",
+            "de": "Betonträger {w}×{d}m Querschnitt {l}m Lang",
+            "it": "Travi Cemento {w}×{d}m Sezione {l}m",
+        },
+        "title_fn": lambda p, tpl: tpl.format(w=p["ancho"], d=p["canto"], l=p["longitud"], n=int(p["cantidad"])),
+        "desc_template": {"en": "Calculate concrete and steel for {n} beams with {w}×{d}m section and {l}m span."},
+        "desc_fn": lambda p, tpl: tpl.format(w=p["ancho"], d=p["canto"], l=p["longitud"], n=int(p["cantidad"])),
+        "wastage_default": 7,
+    },
+
+    # ── 008 Concrete flat slab ── dimensions
+    "008": {
+        "inputs": {"largo": [4,5,6,8,10], "ancho": [3,4,5,6], "espesor": [0.15,0.20,0.25,0.30]},
+        "url_fn": lambda p: f"{_fmt(p['largo'])}x{_fmt(p['ancho'])}x{_fmt(p['espesor'])}m",
+        "title_template": {
+            "en": "Flat Slab {l}×{a}m, {e}m Thick – Concrete Calc",
+            "es": "Losa Maciza {l}×{a}m Espesor {e}m",
+            "fr": "Dalle Pleine {l}×{a}m Épaisseur {e}m",
+            "pt": "Laje Maciça {l}×{a}m Espessura {e}m",
+            "de": "Flachdecke {l}×{a}m, {e}m Stark",
+            "it": "Soletta Piena {l}×{a}m Spessore {e}m",
+        },
+        "title_fn": lambda p, tpl: tpl.format(l=p["largo"], a=p["ancho"], e=p["espesor"]),
+        "desc_template": {"en": "Calculate concrete volume and steel reinforcement for a {l}×{a}m flat slab {e}m thick."},
+        "desc_fn": lambda p, tpl: tpl.format(l=p["largo"], a=p["ancho"], e=p["espesor"]),
+        "wastage_default": 7,
+    },
+
+    # ── 009 Strip foundation ── length × width × depth
+    "009": {
+        "inputs": {"longitud": [5,10,15,20,30], "ancho": [0.4,0.5,0.6,0.8], "profundidad": [0.4,0.5,0.6,0.8]},
+        "url_fn": lambda p: f"{_fmt(p['longitud'])}x{_fmt(p['ancho'])}x{_fmt(p['profundidad'])}m",
+        "title_template": {
+            "en": "Strip Foundation {l}m Long {w}m Wide {d}m Deep",
+            "es": "Zapata Corrida {l}m Largo {w}m Ancho {d}m Profundo",
+            "fr": "Semelle Filante {l}m Longueur {w}m Largeur",
+            "pt": "Sapata Corrida {l}m Comprimento {w}m Largura",
+            "de": "Streifenfundament {l}m Lang {w}m Breit {d}m Tief",
+            "it": "Fondazione Continua {l}m × {w}m × {d}m",
+        },
+        "title_fn": lambda p, tpl: tpl.format(l=p["longitud"], w=p["ancho"], d=p["profundidad"]),
+        "desc_template": {"en": "Calculate concrete and steel for a {l}m long strip foundation, {w}m wide and {d}m deep."},
+        "desc_fn": lambda p, tpl: tpl.format(l=p["longitud"], w=p["ancho"], d=p["profundidad"]),
+        "wastage_default": 7,
+    },
+
+    # ── 010 Excavation ── dimensions
+    "010": {
+        "inputs": {"largo": [3,5,8,10,15], "ancho": [2,3,4,5,6], "profundidad": [0.5,1.0,1.5,2.0,2.5]},
+        "url_fn": lambda p: f"{_fmt(p['largo'])}x{_fmt(p['ancho'])}x{_fmt(p['profundidad'])}m",
+        "title_template": {
+            "en": "Excavation {l}×{a}m, {d}m Deep – Volume & Trucks",
+            "es": "Excavación {l}×{a}m Profundidad {d}m",
+            "fr": "Terrassement {l}×{a}m Profondeur {d}m",
+            "pt": "Escavação {l}×{a}m Profundidade {d}m",
+            "de": "Erdaushub {l}×{a}m Tiefe {d}m",
+            "it": "Scavo {l}×{a}m Profondità {d}m",
+        },
+        "title_fn": lambda p, tpl: tpl.format(l=p["largo"], a=p["ancho"], d=p["profundidad"]),
+        "desc_template": {"en": "Calculate excavation volume and number of trucks for a {l}×{a}m pit {d}m deep."},
+        "desc_fn": lambda p, tpl: tpl.format(l=p["largo"], a=p["ancho"], d=p["profundidad"]),
+        "wastage_default": 0,
+    },
+
+    # ── 012 Face brick ── wall dimensions
+    "012": {
+        "inputs": {"largo": [2,3,4,5,6,8,10], "alto": [2.2,2.5,2.8,3.0]},
+        "url_fn": lambda p: f"{_fmt(p['largo'])}x{_fmt(p['alto'])}m",
+        "title_template": {
+            "en": "How Many Face Bricks for {l}m × {h}m Wall?",
+            "es": "¿Cuántos Ladrillos Cara Vista para {l}×{h}m?",
+            "fr": "Combien de Briques Parement pour {l}×{h}m?",
+            "pt": "Quantos Tijolos Aparentes para {l}×{h}m?",
+            "de": "Wie Viele Klinker für {l}×{h}m Wand?",
+            "it": "Quanti Mattoni Faccia Vista per {l}×{h}m?",
+        },
+        "title_fn": lambda p, tpl: tpl.format(l=p["largo"], h=p["alto"]),
+        "desc_template": {"en": "Calculate face bricks and mortar for a {l}m wide, {h}m high wall."},
+        "desc_fn": lambda p, tpl: tpl.format(l=p["largo"], h=p["alto"]),
+        "wastage_default": 7,
+    },
+
+    # ── 013 Concrete block wall ── dimensions
+    "013": {
+        "inputs": {"largo": [2,3,5,6,8,10,12], "alto": [2.2,2.5,2.8,3.0,3.5]},
+        "url_fn": lambda p: f"{_fmt(p['largo'])}x{_fmt(p['alto'])}m",
+        "title_template": {
+            "en": "How Many CMU Blocks for {l}m × {h}m Wall?",
+            "es": "¿Cuántos Bloques para Pared {l}×{h}m?",
+            "fr": "Combien de Blocs Béton pour {l}×{h}m?",
+            "pt": "Quantos Blocos de Concreto para {l}×{h}m?",
+            "de": "Wie Viele Betonblöcke für {l}×{h}m Wand?",
+            "it": "Quanti Blocchi per Muro {l}×{h}m?",
+        },
+        "title_fn": lambda p, tpl: tpl.format(l=p["largo"], h=p["alto"]),
+        "desc_template": {"en": "Calculate the number of concrete blocks and mortar for a {l}m × {h}m wall."},
+        "desc_fn": lambda p, tpl: tpl.format(l=p["largo"], h=p["alto"]),
+        "wastage_default": 7,
+    },
+
+    # ── 016 Sprayed plaster ── area × thickness
+    "016": {
+        "inputs": {"area": [10,20,30,50,80,100,150], "espesor_mm": [10,15,20,25]},
+        "url_fn": lambda p: f"{int(p['area'])}m2-{int(p['espesor_mm'])}mm",
+        "title_template": {
+            "en": "Sprayed Plaster for {a}m² at {e}mm Thick",
+            "es": "Revoco Proyectado {a}m² Espesor {e}mm",
+            "fr": "Enduit Projeté {a}m² Épaisseur {e}mm",
+            "pt": "Reboco Projetado {a}m² Espessura {e}mm",
+            "de": "Aufgespritzter Putz {a}m² Stärke {e}mm",
+            "it": "Intonaco Proiettato {a}m² Spessore {e}mm",
+        },
+        "title_fn": lambda p, tpl: tpl.format(a=int(p["area"]), e=int(p["espesor_mm"])),
+        "desc_template": {"en": "Calculate kg of sprayed plaster mortar for {a}m² at {e}mm application thickness."},
+        "desc_fn": lambda p, tpl: tpl.format(a=int(p["area"]), e=int(p["espesor_mm"])),
+        "wastage_default": 5,
+    },
+
+    # ── 017 Cement mortar ── area × thickness
+    "017": {
+        "inputs": {"area": [10,20,30,50,80,100], "espesor_cm": [1,2,3,4,5]},
+        "url_fn": lambda p: f"{int(p['area'])}m2-{int(p['espesor_cm'])}cm",
+        "title_template": {
+            "en": "Cement Mortar for {a}m², {e}cm Layer",
+            "es": "Mortero de Cemento {a}m² Capa {e}cm",
+            "fr": "Mortier Ciment {a}m² Couche {e}cm",
+            "pt": "Argamassa Cimento {a}m² Camada {e}cm",
+            "de": "Zementmörtel {a}m² Schicht {e}cm",
+            "it": "Malta Cementizia {a}m² Strato {e}cm",
+        },
+        "title_fn": lambda p, tpl: tpl.format(a=int(p["area"]), e=int(p["espesor_cm"])),
+        "desc_template": {"en": "Calculate cement, sand and water for a {a}m² mortar layer {e}cm thick."},
+        "desc_fn": lambda p, tpl: tpl.format(a=int(p["area"]), e=int(p["espesor_cm"])),
+        "wastage_default": 5,
+    },
+
+    # ── 019 Stone masonry ── wall dimensions
+    "019": {
+        "inputs": {"largo": [2,3,5,6,8,10], "alto": [1.0,1.5,2.0,2.5,3.0]},
+        "url_fn": lambda p: f"{_fmt(p['largo'])}x{_fmt(p['alto'])}m",
+        "title_template": {
+            "en": "Stone Masonry Wall {l}m × {h}m – Stone & Mortar",
+            "es": "Mampostería Piedra Pared {l}×{h}m",
+            "fr": "Maçonnerie Pierre Mur {l}×{h}m",
+            "pt": "Alvenaria Pedra Parede {l}×{h}m",
+            "de": "Natursteinmauer {l}m × {h}m",
+            "it": "Muratura in Pietra {l}×{h}m",
+        },
+        "title_fn": lambda p, tpl: tpl.format(l=p["largo"], h=p["alto"]),
+        "desc_template": {"en": "Calculate stone and mortar quantities for a {l}m × {h}m stone masonry wall."},
+        "desc_fn": lambda p, tpl: tpl.format(l=p["largo"], h=p["alto"]),
+        "wastage_default": 7,
+    },
+
+    # ── 022 Porcelain stoneware ── area
+    "022": {
+        "inputs": {"area": [5,8,10,15,20,25,30,40,50,60]},
+        "url_fn": lambda p: f"{int(p['area'])}m2",
+        "title_template": {
+            "en": "Porcelain Tile Calculator for {a}m²",
+            "es": "Gres Porcelánico para {a}m²",
+            "fr": "Carrelage Grès Cérame pour {a}m²",
+            "pt": "Porcelanato para {a}m²",
+            "de": "Feinsteinzeug für {a}m²",
+            "it": "Gres Porcellanato per {a}m²",
+        },
+        "title_fn": lambda p, tpl: tpl.format(a=int(p["area"])),
+        "desc_template": {"en": "Calculate boxes, adhesive and grout for {a}m² of porcelain stoneware flooring."},
+        "desc_fn": lambda p, tpl: tpl.format(a=int(p["area"])),
+        "wastage_default": 10,
+    },
+
+    # ── 023 Laminate flooring ── area
+    "023": {
+        "inputs": {"area": [5,8,10,12,15,20,25,30,40,50]},
+        "url_fn": lambda p: f"{int(p['area'])}m2",
+        "title_template": {
+            "en": "How Many Laminate Flooring Boxes for {a}m²?",
+            "es": "¿Cuántas Cajas de Suelo Laminado para {a}m²?",
+            "fr": "Combien de Boîtes Parquet Laminé pour {a}m²?",
+            "pt": "Quantas Caixas de Laminado para {a}m²?",
+            "de": "Wie Viele Laminatboden-Kartons für {a}m²?",
+            "it": "Quante Confezioni Laminato per {a}m²?",
+        },
+        "title_fn": lambda p, tpl: tpl.format(a=int(p["area"])),
+        "desc_template": {"en": "Calculate the number of laminate flooring boxes, underlay and skirting for {a}m²."},
+        "desc_fn": lambda p, tpl: tpl.format(a=int(p["area"])),
+        "wastage_default": 10,
+    },
+
+    # ── 024 Wood parquet ── area
+    "024": {
+        "inputs": {"area": [5,8,10,12,15,20,25,30,40,50]},
+        "url_fn": lambda p: f"{int(p['area'])}m2",
+        "title_template": {
+            "en": "How Many Parquet Boxes for {a}m²?",
+            "es": "¿Cuántas Cajas de Parquet para {a}m²?",
+            "fr": "Combien de Boîtes Parquet pour {a}m²?",
+            "pt": "Quantas Caixas de Parquet para {a}m²?",
+            "de": "Wie Viele Parkett-Pakete für {a}m²?",
+            "it": "Quante Confezioni Parquet per {a}m²?",
+        },
+        "title_fn": lambda p, tpl: tpl.format(a=int(p["area"])),
+        "desc_template": {"en": "Calculate parquet boxes, varnish and underlay for {a}m² of wood flooring."},
+        "desc_fn": lambda p, tpl: tpl.format(a=int(p["area"])),
+        "wastage_default": 10,
+    },
+
+    # ── 025 Marble and granite ── area
+    "025": {
+        "inputs": {"area": [5,8,10,15,20,25,30,40,50]},
+        "url_fn": lambda p: f"{int(p['area'])}m2",
+        "title_template": {
+            "en": "Marble & Granite for {a}m² – Weight & Adhesive",
+            "es": "Mármol y Granito para {a}m²",
+            "fr": "Marbre et Granit pour {a}m²",
+            "pt": "Mármore e Granito para {a}m²",
+            "de": "Marmor und Granit für {a}m²",
+            "it": "Marmo e Granito per {a}m²",
+        },
+        "title_fn": lambda p, tpl: tpl.format(a=int(p["area"])),
+        "desc_template": {"en": "Calculate the weight and adhesive for {a}m² of marble or granite flooring."},
+        "desc_fn": lambda p, tpl: tpl.format(a=int(p["area"])),
+        "wastage_default": 10,
+    },
+
+    # ── 026 Terrazzo ── area × tile size
+    "026": {
+        "inputs": {"area": [5,10,15,20,25,30,40,50], "tam_pieza_cm": [20,30,40,50]},
+        "url_fn": lambda p: f"{int(p['tam_pieza_cm'])}x{int(p['tam_pieza_cm'])}-{int(p['area'])}m2",
+        "title_template": {
+            "en": "Terrazzo {s}×{s}cm Tiles for {a}m²",
+            "es": "Terrazo {s}×{s}cm para {a}m²",
+            "fr": "Terrazzo {s}×{s}cm pour {a}m²",
+            "pt": "Granilite {s}×{s}cm para {a}m²",
+            "de": "Terrazzo {s}×{s}cm für {a}m²",
+            "it": "Graniglia {s}×{s}cm per {a}m²",
+        },
+        "title_fn": lambda p, tpl: tpl.format(s=int(p["tam_pieza_cm"]), a=int(p["area"])),
+        "desc_template": {"en": "Calculate terrazzo tiles and bedding mortar for {a}m² with {s}×{s}cm pieces."},
+        "desc_fn": lambda p, tpl: tpl.format(s=int(p["tam_pieza_cm"]), a=int(p["area"])),
+        "wastage_default": 10,
+    },
+
+    # ── 028 Mosaic ── area
+    "028": {
+        "inputs": {"area": [2,3,5,8,10,15,20]},
+        "url_fn": lambda p: f"{int(p['area'])}m2",
+        "title_template": {
+            "en": "Mosaic Tiles for {a}m² – Sheets & Adhesive",
+            "es": "Mosaico para {a}m² – Mallas y Cola",
+            "fr": "Mosaïque pour {a}m² – Treillis et Colle",
+            "pt": "Mosaico para {a}m² – Malhas e Cola",
+            "de": "Mosaikfliesen für {a}m² – Matten",
+            "it": "Mosaico per {a}m² – Reti e Colla",
+        },
+        "title_fn": lambda p, tpl: tpl.format(a=int(p["area"])),
+        "desc_template": {"en": "Calculate mosaic mesh sheets, adhesive and grout for {a}m²."},
+        "desc_fn": lambda p, tpl: tpl.format(a=int(p["area"])),
+        "wastage_default": 10,
+    },
+
+    # ── 030 Tile grout ── area × tile size
+    "030": {
+        "inputs": {"area": [5,10,15,20,25,30,40,50], "tam_pieza_cm": [20,30,45,60,90]},
+        "url_fn": lambda p: f"{int(p['tam_pieza_cm'])}cm-{int(p['area'])}m2",
+        "title_template": {
+            "en": "Grout for {a}m² with {s}cm Tiles – kg Needed",
+            "es": "Lechada para {a}m² con Baldosas {s}cm",
+            "fr": "Joint pour {a}m² avec Carreaux {s}cm",
+            "pt": "Rejunte para {a}m² com Cerâmica {s}cm",
+            "de": "Fugenmörtel für {a}m² mit {s}cm Fliesen",
+            "it": "Stucco per {a}m² con Piastrelle {s}cm",
+        },
+        "title_fn": lambda p, tpl: tpl.format(a=int(p["area"]), s=int(p["tam_pieza_cm"])),
+        "desc_template": {"en": "Calculate kg of grout for {a}m² of {s}cm tiles."},
+        "desc_fn": lambda p, tpl: tpl.format(a=int(p["area"]), s=int(p["tam_pieza_cm"])),
+        "wastage_default": 5,
+    },
+
+    # ── 031 PVC drainage pipe ── length
+    "031": {
+        "inputs": {"longitud": [5,10,15,20,30,40,50]},
+        "url_fn": lambda p: f"{int(p['longitud'])}m",
+        "title_template": {
+            "en": "PVC Drain Pipe for {l}m – Pipes & Fittings",
+            "es": "Tubería PVC Saneamiento {l}m",
+            "fr": "Tuyaux PVC Évacuation {l}m",
+            "pt": "Tubos PVC Esgoto {l}m",
+            "de": "PVC-Abwasserrohr {l}m",
+            "it": "Tubi PVC Scarico {l}m",
+        },
+        "title_fn": lambda p, tpl: tpl.format(l=int(p["longitud"])),
+        "desc_template": {"en": "Calculate PVC pipes and fittings needed for a {l}m drainage run."},
+        "desc_fn": lambda p, tpl: tpl.format(l=int(p["longitud"])),
+        "wastage_default": 0,
+    },
+
+    # ── 032 Copper / PEX pipe ── length
+    "032": {
+        "inputs": {"longitud": [5,10,15,20,25,30,40,50]},
+        "url_fn": lambda p: f"{int(p['longitud'])}m",
+        "title_template": {
+            "en": "Plumbing Pipe for {l}m – Copper or PEX",
+            "es": "Tubería Fontanería {l}m – Cobre o PEX",
+            "fr": "Tuyaux Plomberie {l}m – Cuivre ou PEX",
+            "pt": "Tubulação Hidráulica {l}m – Cobre ou PEX",
+            "de": "Heizungsrohr {l}m – Kupfer oder PEX",
+            "it": "Tubi Impianto Idraulico {l}m",
+        },
+        "title_fn": lambda p, tpl: tpl.format(l=int(p["longitud"])),
+        "desc_template": {"en": "Calculate copper or PEX pipe and fittings for a {l}m plumbing installation."},
+        "desc_fn": lambda p, tpl: tpl.format(l=int(p["longitud"])),
+        "wastage_default": 0,
+    },
+
+    # ── 034 Water tank ── people × days
+    "034": {
+        "inputs": {"personas": [1,2,3,4,5,6,8,10], "dias_autonomia": [1,2,3,5,7]},
+        "url_fn": lambda p: f"{int(p['personas'])}p-{int(p['dias_autonomia'])}d",
+        "title_template": {
+            "en": "Water Tank for {p} People, {d} Day{dp} Autonomy",
+            "es": "Depósito Agua para {p} Personas, {d} Día{dp}",
+            "fr": "Cuve d'Eau pour {p} Personnes, {d} Jour{dp}",
+            "pt": "Caixa d'Água para {p} Pessoas, {d} Dia{dp}",
+            "de": "Wassertank für {p} Personen, {d} Tag{dp}",
+            "it": "Cisterna per {p} Persone, {d} Giorno{dp}",
+        },
+        "title_fn": lambda p, tpl: tpl.format(p=int(p["personas"]), d=int(p["dias_autonomia"]), dp="s" if int(p["dias_autonomia"]) > 1 else ""),
+        "desc_template": {"en": "Calculate the water tank capacity needed for {p} people with {d} day{dp} of autonomy."},
+        "desc_fn": lambda p, tpl: tpl.format(p=int(p["personas"]), d=int(p["dias_autonomia"]), dp="s" if int(p["dias_autonomia"]) > 1 else ""),
+        "wastage_default": 0,
+    },
+
+    # ── 036 Gas boiler ── room area
+    "036": {
+        "inputs": {"area_m2": [50,75,100,120,150,180,200,250]},
+        "url_fn": lambda p: f"{int(p['area_m2'])}m2",
+        "title_template": {
+            "en": "Gas Boiler kW for {a}m² Home",
+            "es": "Caldera Gas kW para Vivienda de {a}m²",
+            "fr": "Chaudière Gaz kW pour Maison {a}m²",
+            "pt": "Caldeira Gás kW para Casa de {a}m²",
+            "de": "Gasheizkessel kW für {a}m² Haus",
+            "it": "Caldaia Gas kW per Casa di {a}m²",
+        },
+        "title_fn": lambda p, tpl: tpl.format(a=int(p["area_m2"])),
+        "desc_template": {"en": "Calculate the gas boiler kW power needed to heat a {a}m² home."},
+        "desc_fn": lambda p, tpl: tpl.format(a=int(p["area_m2"])),
+        "wastage_default": 0,
+    },
+
+    # ── 038 Underfloor heating ── area
+    "038": {
+        "inputs": {"area_m2": [10,15,20,25,30,40,50,60,80,100]},
+        "url_fn": lambda p: f"{int(p['area_m2'])}m2",
+        "title_template": {
+            "en": "Underfloor Heating for {a}m² – Pipe Length",
+            "es": "Suelo Radiante para {a}m² – Metros de Tubería",
+            "fr": "Plancher Chauffant pour {a}m² – Longueur Tuyau",
+            "pt": "Piso Aquecido para {a}m² – Metros de Tubo",
+            "de": "Fußbodenheizung für {a}m² – Rohrlänge",
+            "it": "Riscaldamento a Pavimento {a}m² – Lunghezza Tubo",
+        },
+        "title_fn": lambda p, tpl: tpl.format(a=int(p["area_m2"])),
+        "desc_template": {"en": "Calculate pipe length and number of circuits for underfloor heating in {a}m²."},
+        "desc_fn": lambda p, tpl: tpl.format(a=int(p["area_m2"])),
+        "wastage_default": 0,
+    },
+
+    # ── 041 Pool filter ── pool dimensions
+    "041": {
+        "inputs": {"largo_m": [4,5,6,8,10,12], "ancho_m": [2,3,4,5]},
+        "url_fn": lambda p: f"{_fmt(p['largo_m'])}x{_fmt(p['ancho_m'])}m",
+        "title_template": {
+            "en": "Pool Filter for {l}×{a}m Pool – Pump Size",
+            "es": "Filtro Piscina para {l}×{a}m – Tamaño Bomba",
+            "fr": "Filtre Piscine pour {l}×{a}m",
+            "pt": "Filtro Piscina para {l}×{a}m",
+            "de": "Poolfilter für {l}×{a}m Schwimmbad",
+            "it": "Filtro Piscina per {l}×{a}m",
+        },
+        "title_fn": lambda p, tpl: tpl.format(l=p["largo_m"], a=p["ancho_m"]),
+        "desc_template": {"en": "Calculate the filter and pump size for a {l}×{a}m swimming pool."},
+        "desc_fn": lambda p, tpl: tpl.format(l=p["largo_m"], a=p["ancho_m"]),
+        "wastage_default": 0,
+    },
+
+    # ── 043 Cable cross-section ── current × length
+    "043": {
+        "inputs": {"corriente_a": [6,10,16,20,25,32,40], "longitud_m": [5,10,15,20,30,40,50]},
+        "url_fn": lambda p: f"{int(p['corriente_a'])}a-{int(p['longitud_m'])}m",
+        "title_template": {
+            "en": "Cable Size for {i}A, {l}m Circuit – mm²",
+            "es": "Sección Cable para {i}A y {l}m – mm²",
+            "fr": "Section Câble pour {i}A et {l}m – mm²",
+            "pt": "Seção do Cabo para {i}A e {l}m – mm²",
+            "de": "Kabelquerschnitt für {i}A, {l}m – mm²",
+            "it": "Sezione Cavo per {i}A e {l}m – mm²",
+        },
+        "title_fn": lambda p, tpl: tpl.format(i=int(p["corriente_a"]), l=int(p["longitud_m"])),
+        "desc_template": {"en": "Calculate the cable cross-section in mm² for a {i}A circuit over {l}m."},
+        "desc_fn": lambda p, tpl: tpl.format(i=int(p["corriente_a"]), l=int(p["longitud_m"])),
+        "wastage_default": 0,
+    },
+
+    # ── 044 Voltage drop ── section × length
+    "044": {
+        "inputs": {"seccion_mm2": [1.5,2.5,4,6,10,16], "longitud_m": [5,10,20,30,50]},
+        "url_fn": lambda p: f"{_fmt(p['seccion_mm2'])}mm2-{int(p['longitud_m'])}m",
+        "title_template": {
+            "en": "Voltage Drop {s}mm² Cable, {l}m Circuit",
+            "es": "Caída de Tensión Cable {s}mm², {l}m",
+            "fr": "Chute de Tension Câble {s}mm², {l}m",
+            "pt": "Queda de Tensão Cabo {s}mm², {l}m",
+            "de": "Spannungsfall Kabel {s}mm², {l}m",
+            "it": "Caduta di Tensione Cavo {s}mm², {l}m",
+        },
+        "title_fn": lambda p, tpl: tpl.format(s=p["seccion_mm2"], l=int(p["longitud_m"])),
+        "desc_template": {"en": "Calculate voltage drop in % and volts for a {s}mm² cable over {l}m."},
+        "desc_fn": lambda p, tpl: tpl.format(s=p["seccion_mm2"], l=int(p["longitud_m"])),
+        "wastage_default": 0,
+    },
+
+    # ── 048 Solar panels ── daily consumption
+    "048": {
+        "inputs": {"consumo_diario_kwh": [3,5,8,10,12,15,20,25,30]},
+        "url_fn": lambda p: f"{_fmt(p['consumo_diario_kwh'])}kwh-day",
+        "title_template": {
+            "en": "Solar Panels for {c}kWh/Day Consumption",
+            "es": "Paneles Solares para {c}kWh/Día",
+            "fr": "Panneaux Solaires pour {c}kWh/Jour",
+            "pt": "Painéis Solares para {c}kWh/Dia",
+            "de": "Solarmodule für {c}kWh/Tag Verbrauch",
+            "it": "Pannelli Solari per {c}kWh/Giorno",
+        },
+        "title_fn": lambda p, tpl: tpl.format(c=p["consumo_diario_kwh"]),
+        "desc_template": {"en": "Calculate how many solar panels you need for {c}kWh daily consumption."},
+        "desc_fn": lambda p, tpl: tpl.format(c=p["consumo_diario_kwh"]),
+        "wastage_default": 0,
+    },
+
+    # ── 049 Battery storage ── consumption × autonomy
+    "049": {
+        "inputs": {"consumo_diario_kwh": [3,5,8,10,15,20], "dias_autonomia": [1,2,3]},
+        "url_fn": lambda p: f"{_fmt(p['consumo_diario_kwh'])}kwh-{int(p['dias_autonomia'])}d",
+        "title_template": {
+            "en": "Solar Batteries for {c}kWh/Day, {d} Day Autonomy",
+            "es": "Baterías Solares para {c}kWh/Día, {d} Día",
+            "fr": "Batteries Solaires pour {c}kWh/Jour, {d}j",
+            "pt": "Baterias Solares para {c}kWh/Dia, {d}d",
+            "de": "Solarbatterien für {c}kWh/Tag, {d} Tag",
+            "it": "Batterie Solari per {c}kWh/Giorno, {d}g",
+        },
+        "title_fn": lambda p, tpl: tpl.format(c=p["consumo_diario_kwh"], d=int(p["dias_autonomia"])),
+        "desc_template": {"en": "Calculate how many solar batteries you need for {c}kWh daily with {d} day autonomy."},
+        "desc_fn": lambda p, tpl: tpl.format(c=p["consumo_diario_kwh"], d=int(p["dias_autonomia"])),
+        "wastage_default": 0,
+    },
+
+    # ── 052 Electricity monthly cost ── power × hours
+    "052": {
+        "inputs": {"potencia_w": [500,1000,1500,2000,3000,4000,5000], "horas_dia": [1,2,4,6,8,12]},
+        "url_fn": lambda p: f"{int(p['potencia_w'])}w-{int(p['horas_dia'])}h",
+        "title_template": {
+            "en": "Electricity Cost: {w}W for {h}h/Day – Monthly Bill",
+            "es": "Coste Electricidad: {w}W, {h}h/Día",
+            "fr": "Coût Électricité: {w}W, {h}h/Jour",
+            "pt": "Custo Eletricidade: {w}W, {h}h/Dia",
+            "de": "Stromkosten: {w}W für {h}h/Tag",
+            "it": "Costo Elettricità: {w}W, {h}h/Giorno",
+        },
+        "title_fn": lambda p, tpl: tpl.format(w=int(p["potencia_w"]), h=int(p["horas_dia"])),
+        "desc_template": {"en": "Calculate the monthly electricity cost for a {w}W appliance running {h} hours per day."},
+        "desc_fn": lambda p, tpl: tpl.format(w=int(p["potencia_w"]), h=int(p["horas_dia"])),
+        "wastage_default": 0,
+    },
+
+    # ── 061 Windows ── quantity × dimensions
+    "061": {
+        "inputs": {"num_ventanas": [1,2,3,4,5,6,8,10], "ancho_m": [0.8,1.0,1.2,1.5], "alto_m": [1.0,1.2,1.5]},
+        "url_fn": lambda p: f"{int(p['num_ventanas'])}ud-{_fmt(p['ancho_m'])}x{_fmt(p['alto_m'])}m",
+        "title_template": {
+            "en": "{n} Windows {w}×{h}m – PVC Aluminium Cost",
+            "es": "{n} Ventanas {w}×{h}m – Precio PVC Aluminio",
+            "fr": "{n} Fenêtres {w}×{h}m – Prix PVC Aluminium",
+            "pt": "{n} Janelas {w}×{h}m – Preço PVC Alumínio",
+            "de": "{n} Fenster {w}×{h}m – PVC Aluminium",
+            "it": "{n} Finestre {w}×{h}m – PVC Alluminio",
+        },
+        "title_fn": lambda p, tpl: tpl.format(n=int(p["num_ventanas"]), w=p["ancho_m"], h=p["alto_m"]),
+        "desc_template": {"en": "Calculate the total m² and glass area for {n} windows of {w}×{h}m."},
+        "desc_fn": lambda p, tpl: tpl.format(n=int(p["num_ventanas"]), w=p["ancho_m"], h=p["alto_m"]),
+        "wastage_default": 0,
+    },
+
+    # ── 062 Interior doors ── quantity
+    "062": {
+        "inputs": {"num_puertas": [1,2,3,4,5,6,8,10], "ancho_m": [0.70,0.82,0.90,1.00]},
+        "url_fn": lambda p: f"{int(p['num_puertas'])}ud-{_fmt(p['ancho_m'])}m",
+        "title_template": {
+            "en": "{n} Interior Doors {w}m Wide – Frames & Hinges",
+            "es": "{n} Puertas Interior {w}m – Marcos y Bisagras",
+            "fr": "{n} Portes Intérieures {w}m – Cadres",
+            "pt": "{n} Portas Internas {w}m – Marcos",
+            "de": "{n} Innentüren {w}m Breit – Zargen",
+            "it": "{n} Porte Interne {w}m – Telai",
+        },
+        "title_fn": lambda p, tpl: tpl.format(n=int(p["num_puertas"]), w=p["ancho_m"]),
+        "desc_template": {"en": "Calculate frames, hinges and hardware for {n} interior doors of {w}m width."},
+        "desc_fn": lambda p, tpl: tpl.format(n=int(p["num_puertas"]), w=p["ancho_m"]),
+        "wastage_default": 0,
+    },
+
+    # ── 064 Wooden staircase ── height
+    "064": {
+        "inputs": {"altura_total_m": [2.2,2.4,2.6,2.8,3.0,3.2,3.5,4.0]},
+        "url_fn": lambda p: f"h{_fmt(p['altura_total_m'])}m",
+        "title_template": {
+            "en": "Wooden Staircase for {h}m Floor Height – Steps",
+            "es": "Escalera Madera Altura {h}m – Peldaños",
+            "fr": "Escalier Bois Hauteur {h}m – Marches",
+            "pt": "Escada Madeira Altura {h}m – Degraus",
+            "de": "Holztreppe Geschosshöhe {h}m – Stufen",
+            "it": "Scala in Legno Altezza {h}m – Gradini",
+        },
+        "title_fn": lambda p, tpl: tpl.format(h=p["altura_total_m"]),
+        "desc_template": {"en": "Calculate treads, risers and wood for a staircase with {h}m total height."},
+        "desc_fn": lambda p, tpl: tpl.format(h=p["altura_total_m"]),
+        "wastage_default": 0,
+    },
+
+    # ── 065 Metal railing ── length × height
+    "065": {
+        "inputs": {"longitud_m": [2,3,5,6,8,10,12,15,20], "altura_m": [0.9,1.0,1.1,1.2]},
+        "url_fn": lambda p: f"{_fmt(p['longitud_m'])}x{_fmt(p['altura_m'])}m",
+        "title_template": {
+            "en": "Metal Railing {l}m Long, {h}m High – Steel",
+            "es": "Barandilla Metálica {l}m Longitud {h}m Alto",
+            "fr": "Garde-Corps Métal {l}m × {h}m",
+            "pt": "Corrimão Metálico {l}m × {h}m",
+            "de": "Metallgeländer {l}m Lang {h}m Hoch",
+            "it": "Ringhiera Metallica {l}m × {h}m",
+        },
+        "title_fn": lambda p, tpl: tpl.format(l=p["longitud_m"], h=p["altura_m"]),
+        "desc_template": {"en": "Calculate posts, handrail and balusters for a {l}m metal railing at {h}m height."},
+        "desc_fn": lambda p, tpl: tpl.format(l=p["longitud_m"], h=p["altura_m"]),
+        "wastage_default": 0,
+    },
+
+    # ── 069 Wall paint (with rendimiento field) ── area × coats
+    # Note: calc 069 uses area_m2 + manos + rendimiento_m2_l
+    # Already handled above as "069" with area+manos; keep consistent
+
+    # ── 071 Synthetic enamel ── area × coats
+    "071": {
+        "inputs": {"area_m2": [5,8,10,15,20,25,30,40,50], "manos": [1,2,3]},
+        "url_fn": lambda p: f"{int(p['area_m2'])}m2-{int(p['manos'])}c",
+        "title_template": {
+            "en": "Enamel Paint for {a}m² with {m} Coat{mp}",
+            "es": "Esmalte Sintético {a}m² con {m} Mano{mp}",
+            "fr": "Laque Synthétique {a}m² en {m} Couche{mp}",
+            "pt": "Esmalte Sintético {a}m² com {m} Demão{mp}",
+            "de": "Lack {a}m² mit {m} Anstrich{mp}",
+            "it": "Smalto Sintetico {a}m² con {m} Mano{mp}",
+        },
+        "title_fn": lambda p, tpl: tpl.format(a=int(p["area_m2"]), m=int(p["manos"]), mp="s" if int(p["manos"]) > 1 else ""),
+        "desc_template": {"en": "Calculate litres of synthetic enamel for {a}m² with {m} coat{mp}."},
+        "desc_fn": lambda p, tpl: tpl.format(a=int(p["area_m2"]), m=int(p["manos"]), mp="s" if int(p["manos"]) > 1 else ""),
+        "wastage_default": 5,
+    },
+
+    # ── 072 Exterior varnish ── area × coats
+    "072": {
+        "inputs": {"area_m2": [5,8,10,15,20,25,30,40], "manos": [2,3,4]},
+        "url_fn": lambda p: f"{int(p['area_m2'])}m2-{int(p['manos'])}c",
+        "title_template": {
+            "en": "Wood Varnish for {a}m² – {m} Coats",
+            "es": "Barniz Madera {a}m² – {m} Manos",
+            "fr": "Vernis Bois {a}m² – {m} Couches",
+            "pt": "Verniz Madeira {a}m² – {m} Demãos",
+            "de": "Holzlasur {a}m² – {m} Anstriche",
+            "it": "Verniciatura Legno {a}m² – {m} Mani",
+        },
+        "title_fn": lambda p, tpl: tpl.format(a=int(p["area_m2"]), m=int(p["manos"])),
+        "desc_template": {"en": "Calculate litres of exterior wood varnish for {a}m² with {m} coats."},
+        "desc_fn": lambda p, tpl: tpl.format(a=int(p["area_m2"]), m=int(p["manos"])),
+        "wastage_default": 5,
+    },
+
+    # ── 074 Textured finish ── area
+    "074": {
+        "inputs": {"area_m2": [10,15,20,30,40,50,60,80,100]},
+        "url_fn": lambda p: f"{int(p['area_m2'])}m2",
+        "title_template": {
+            "en": "Textured Finish for {a}m² – kg Needed",
+            "es": "Textura Paredes para {a}m² – kg",
+            "fr": "Enduit Décoratif pour {a}m² – kg",
+            "pt": "Textura Parede para {a}m² – kg",
+            "de": "Strukturputz für {a}m² – kg",
+            "it": "Finitura Decorativa per {a}m² – kg",
+        },
+        "title_fn": lambda p, tpl: tpl.format(a=int(p["area_m2"])),
+        "desc_template": {"en": "Calculate kg of textured coating for {a}m² of wall."},
+        "desc_fn": lambda p, tpl: tpl.format(a=int(p["area_m2"])),
+        "wastage_default": 5,
+    },
+
+    # ── 075 Primer ── area
+    "075": {
+        "inputs": {"area_m2": [10,15,20,30,40,50,60,80,100]},
+        "url_fn": lambda p: f"{int(p['area_m2'])}m2",
+        "title_template": {
+            "en": "Primer & Sealer for {a}m² – Litres",
+            "es": "Imprimación para {a}m² – Litros",
+            "fr": "Primaire d'Accrochage pour {a}m² – Litres",
+            "pt": "Selador para {a}m² – Litros",
+            "de": "Grundierung für {a}m² – Liter",
+            "it": "Primer per {a}m² – Litri",
+        },
+        "title_fn": lambda p, tpl: tpl.format(a=int(p["area_m2"])),
+        "desc_template": {"en": "Calculate litres of primer or sealer needed for {a}m² of wall."},
+        "desc_fn": lambda p, tpl: tpl.format(a=int(p["area_m2"])),
+        "wastage_default": 5,
+    },
+
+    # ── 076 Filler / putty ── area × coats
+    "076": {
+        "inputs": {"area_m2": [10,15,20,30,40,50,80,100], "pasadas": [1,2,3]},
+        "url_fn": lambda p: f"{int(p['area_m2'])}m2-{int(p['pasadas'])}p",
+        "title_template": {
+            "en": "Filler for {a}m² Wall – {p} Pass{pp}",
+            "es": "Masilla para {a}m² – {p} Mano{pp}",
+            "fr": "Enduit de Lissage {a}m² – {p} Passe{pp}",
+            "pt": "Massa Corrida {a}m² – {p} Demão{pp}",
+            "de": "Spachtelmasse {a}m² – {p} Lage{pp}",
+            "it": "Rasatura {a}m² – {p} Mano{pp}",
+        },
+        "title_fn": lambda p, tpl: tpl.format(a=int(p["area_m2"]), p=int(p["pasadas"]), pp="es" if int(p["pasadas"]) > 1 else ""),
+        "desc_template": {"en": "Calculate kg of filler or putty for {a}m² wall with {p} pass{pp}."},
+        "desc_fn": lambda p, tpl: tpl.format(a=int(p["area_m2"]), p=int(p["pasadas"]), pp="es" if int(p["pasadas"]) > 1 else ""),
+        "wastage_default": 5,
+    },
+
+    # ── 082 Fuel cost ── distance × consumption
+    "082": {
+        "inputs": {"km_viaje": [10,20,30,50,80,100,150,200], "consumo_l100km": [6,7,8,10,12]},
+        "url_fn": lambda p: f"{int(p['km_viaje'])}km-{_fmt(p['consumo_l100km'])}l",
+        "title_template": {
+            "en": "Fuel Cost for {k}km Trip at {c}L/100km",
+            "es": "Coste Combustible Viaje {k}km, {c}L/100km",
+            "fr": "Coût Carburant {k}km à {c}L/100km",
+            "pt": "Custo Combustível {k}km a {c}L/100km",
+            "de": "Kraftstoffkosten {k}km bei {c}L/100km",
+            "it": "Costo Carburante {k}km a {c}L/100km",
+        },
+        "title_fn": lambda p, tpl: tpl.format(k=int(p["km_viaje"]), c=p["consumo_l100km"]),
+        "desc_template": {"en": "Calculate fuel cost for a {k}km trip with a vehicle consuming {c}L/100km."},
+        "desc_fn": lambda p, tpl: tpl.format(k=int(p["km_viaje"]), c=p["consumo_l100km"]),
+        "wastage_default": 0,
+    },
+
+    # ── 085 Scaffolding ── length × height × weeks
+    "085": {
+        "inputs": {"longitud_m": [4,6,8,10,12,15,20], "altura_m": [3,4,6,8,10,12], "semanas": [1,2,3,4,6,8]},
+        "url_fn": lambda p: f"{_fmt(p['longitud_m'])}x{_fmt(p['altura_m'])}m-{int(p['semanas'])}w",
+        "title_template": {
+            "en": "Scaffolding {l}×{h}m for {w} Week{wp} – Cost",
+            "es": "Andamio {l}×{h}m durante {w} Semana{wp}",
+            "fr": "Échafaudage {l}×{h}m pour {w} Semaine{wp}",
+            "pt": "Andaime {l}×{h}m por {w} Semana{wp}",
+            "de": "Gerüst {l}×{h}m für {w} Woche{wp}",
+            "it": "Ponteggio {l}×{h}m per {w} Settimana{wp}",
+        },
+        "title_fn": lambda p, tpl: tpl.format(l=p["longitud_m"], h=p["altura_m"], w=int(p["semanas"]), wp="s" if int(p["semanas"]) > 1 else ""),
+        "desc_template": {"en": "Calculate rental cost for {l}m × {h}m scaffolding for {w} week{wp}."},
+        "desc_fn": lambda p, tpl: tpl.format(l=p["longitud_m"], h=p["altura_m"], w=int(p["semanas"]), wp="s" if int(p["semanas"]) > 1 else ""),
+        "wastage_default": 0,
+    },
+
+    # ── 090 Labour productivity ── workers × hours × productivity
+    "090": {
+        "inputs": {"operarios": [1,2,3,4,5,6,8], "horas_dia": [6,7,8,10], "rendimiento_m2_h": [3,4,5,6,8,10]},
+        "url_fn": lambda p: f"{int(p['operarios'])}op-{int(p['horas_dia'])}h-{_fmt(p['rendimiento_m2_h'])}m2h",
+        "title_template": {
+            "en": "{n} Workers, {h}h/Day at {r}m²/h – Daily Output",
+            "es": "{n} Operarios, {h}h/Día a {r}m²/h – Rendimiento",
+            "fr": "{n} Ouvriers, {h}h/Jour à {r}m²/h – Production",
+            "pt": "{n} Operários, {h}h/Dia a {r}m²/h – Produção",
+            "de": "{n} Arbeiter, {h}h/Tag bei {r}m²/h – Leistung",
+            "it": "{n} Operai, {h}h/Giorno a {r}m²/h – Resa",
+        },
+        "title_fn": lambda p, tpl: tpl.format(n=int(p["operarios"]), h=int(p["horas_dia"]), r=p["rendimiento_m2_h"]),
+        "desc_template": {"en": "Calculate daily m² output for {n} workers at {h}h/day with {r}m²/h productivity."},
+        "desc_fn": lambda p, tpl: tpl.format(n=int(p["operarios"]), h=int(p["horas_dia"]), r=p["rendimiento_m2_h"]),
+        "wastage_default": 0,
+    },
+
+    # ── 094 Equipment loan ── amount × rate × term
+    "094": {
+        "inputs": {"importe_eur": [5000,10000,15000,20000,30000,50000], "plazo_meses": [12,24,36,48,60]},
+        "url_fn": lambda p: f"{int(p['importe_eur'])}eur-{int(p['plazo_meses'])}m",
+        "title_template": {
+            "en": "Equipment Loan €{a} over {m} Months – Monthly Payment",
+            "es": "Préstamo Equipo €{a} en {m} Meses – Cuota",
+            "fr": "Crédit Matériel {a}€ sur {m} Mois – Mensualité",
+            "pt": "Financiamento Equipamento €{a} em {m} Meses",
+            "de": "Maschinenkredit {a}€ über {m} Monate – Rate",
+            "it": "Finanziamento Attrezzatura €{a} in {m} Mesi",
+        },
+        "title_fn": lambda p, tpl: tpl.format(a=int(p["importe_eur"]), m=int(p["plazo_meses"])),
+        "desc_template": {"en": "Calculate monthly payment for a €{a} equipment loan over {m} months."},
+        "desc_fn": lambda p, tpl: tpl.format(a=int(p["importe_eur"]), m=int(p["plazo_meses"])),
+        "wastage_default": 0,
+    },
+
+    # ── 095 Profit margin ── cost × price
+    "095": {
+        "inputs": {"coste_total_eur": [1000,2000,5000,8000,10000,15000,20000], "precio_venta_eur": [1200,2500,6000,10000,12000,18000,25000]},
+        "url_fn": lambda p: f"cost-{int(p['coste_total_eur'])}-price-{int(p['precio_venta_eur'])}",
+        "title_template": {
+            "en": "Profit Margin: Cost €{c} → Price €{p}",
+            "es": "Margen Beneficio: Coste €{c} → Precio €{p}",
+            "fr": "Marge Bénéficiaire: Coût {c}€ → Prix {p}€",
+            "pt": "Margem de Lucro: Custo €{c} → Preço €{p}",
+            "de": "Gewinnmarge: Kosten {c}€ → Preis {p}€",
+            "it": "Margine Profitto: Costo €{c} → Prezzo €{p}",
+        },
+        "title_fn": lambda p, tpl: tpl.format(c=int(p["coste_total_eur"]), p=int(p["precio_venta_eur"])),
+        "desc_template": {"en": "Calculate profit margin and markup when cost is €{c} and selling price is €{p}."},
+        "desc_fn": lambda p, tpl: tpl.format(c=int(p["coste_total_eur"]), p=int(p["precio_venta_eur"])),
+        "wastage_default": 0,
+    },
+
+    # ── 099 Workforce cost ── workers × days × rate
+    "099": {
+        "inputs": {"operarios": [1,2,3,4,5,6], "dias_obra": [5,10,15,20,30], "coste_hora_eur": [18,20,22,25,30]},
+        "url_fn": lambda p: f"{int(p['operarios'])}op-{int(p['dias_obra'])}d-{int(p['coste_hora_eur'])}eurh",
+        "title_template": {
+            "en": "{n} Workers, {d} Days at €{r}/h – Labour Cost",
+            "es": "{n} Operarios, {d} Días a €{r}/h – Coste Mano de Obra",
+            "fr": "{n} Ouvriers, {d} Jours à {r}€/h – Main d'Œuvre",
+            "pt": "{n} Operários, {d} Dias a €{r}/h – Custo",
+            "de": "{n} Arbeiter, {d} Tage à {r}€/h – Lohnkosten",
+            "it": "{n} Operai, {d} Giorni a €{r}/h – Costo",
+        },
+        "title_fn": lambda p, tpl: tpl.format(n=int(p["operarios"]), d=int(p["dias_obra"]), r=int(p["coste_hora_eur"])),
+        "desc_template": {"en": "Calculate total labour cost for {n} workers over {d} days at €{r}/hour."},
+        "desc_fn": lambda p, tpl: tpl.format(n=int(p["operarios"]), d=int(p["dias_obra"]), r=int(p["coste_hora_eur"])),
+        "wastage_default": 0,
+    },
 }
