@@ -1011,3 +1011,341 @@ TOOLS = [
 
 # Quick lookup
 TOOL_BY_ID = {t["id"]: t for t in TOOLS}
+
+# ---------------------------------------------------------------------------
+# Parametric variant matrices — cartesian product → pre-filled SEO pages
+# Each key is a calc ID.
+# "inputs": {field: [values…]}  — all combinations will be generated
+# "url_template": f-string using input keys (dots replaced with hyphens)
+# "title_template": per-language f-string using input keys
+# "desc_template": per-language (falls back to "en")
+# ---------------------------------------------------------------------------
+
+def _fmt(v):
+    """Format a numeric value for use in URLs (0.2 → 0-2, 10 → 10)."""
+    s = str(v).replace(".", "-")
+    return s
+
+PARAMETRIC_VARIANTS = {
+    # ── 021 Ceramic floor tiles ── tile size × room area
+    "021": {
+        "inputs": {
+            "tam_pieza_cm": [20, 30, 45, 60, 75, 90],
+            "area": [5, 8, 10, 12, 15, 20, 25, 30, 40, 50],
+        },
+        "url_fn": lambda p: f"tile-{int(p['tam_pieza_cm'])}x{int(p['tam_pieza_cm'])}-area-{int(p['area'])}m2",
+        "title_template": {
+            "en": "How Many {s}×{s}cm Tiles for {a}m²?",
+            "es": "¿Cuántas Baldosas {s}×{s}cm para {a}m²?",
+            "fr": "Combien de Carreaux {s}×{s}cm pour {a}m²?",
+            "pt": "Quantas Cerâmicas {s}×{s}cm para {a}m²?",
+            "de": "Wie Viele {s}×{s}cm Fliesen für {a}m²?",
+            "it": "Quante Piastrelle {s}×{s}cm per {a}m²?",
+        },
+        "title_fn": lambda p, tpl: tpl.format(s=int(p["tam_pieza_cm"]), a=int(p["area"])),
+        "desc_template": {
+            "en": "Calculate exactly how many {s}×{s}cm ceramic tiles you need to cover {a}m², including adhesive, grout and {w}% wastage.",
+            "es": "Calcula cuántas baldosas cerámicas de {s}×{s}cm necesitas para {a}m², incluyendo adhesivo, lechada y un {w}% de merma.",
+            "fr": "Calculez le nombre exact de carreaux céramique {s}×{s}cm pour {a}m², avec colle, joint et {w}% de perte.",
+            "pt": "Calcule quantas cerâmicas {s}×{s}cm você precisa para cobrir {a}m², com cola, rejunte e {w}% de perda.",
+            "de": "Berechnen Sie, wie viele {s}×{s}cm Fliesen Sie für {a}m² brauchen, inklusive Kleber, Fuge und {w}% Verschnitt.",
+            "it": "Calcola quante piastrelle {s}×{s}cm servono per {a}m², inclusi colla, stucco e {w}% di scarto.",
+        },
+        "desc_fn": lambda p, tpl: tpl.format(s=int(p["tam_pieza_cm"]), a=int(p["area"]), w=10),
+        "wastage_default": 10,
+    },
+
+    # ── 027 Wall tiles (bathroom) ── tile size × wall area
+    "027": {
+        "inputs": {
+            "tam_pieza_cm": [20, 30, 45, 60],
+            "area": [3, 5, 8, 10, 12, 15, 20, 25],
+        },
+        "url_fn": lambda p: f"wall-tile-{int(p['tam_pieza_cm'])}x{int(p['tam_pieza_cm'])}-area-{int(p['area'])}m2",
+        "title_template": {
+            "en": "How Many {s}×{s}cm Wall Tiles for {a}m²?",
+            "es": "¿Cuántos Azulejos {s}×{s}cm para {a}m²?",
+            "fr": "Combien d'Azulejos {s}×{s}cm pour {a}m²?",
+            "pt": "Quantos Revestimentos {s}×{s}cm para {a}m²?",
+            "de": "Wie Viele {s}×{s}cm Wandfliesen für {a}m²?",
+            "it": "Quante Piastrelle Muro {s}×{s}cm per {a}m²?",
+        },
+        "title_fn": lambda p, tpl: tpl.format(s=int(p["tam_pieza_cm"]), a=int(p["area"])),
+        "desc_template": {
+            "en": "Calculate how many {s}×{s}cm wall tiles, adhesive and grout you need for a {a}m² bathroom wall.",
+            "es": "Calcula cuántos azulejos de {s}×{s}cm, adhesivo y lechada necesitas para una pared de {a}m².",
+            "fr": "Calculez le nombre d'azulejos {s}×{s}cm, colle et joint pour {a}m² de mur de salle de bain.",
+            "pt": "Calcule quantos revestimentos {s}×{s}cm, cola e rejunte para {a}m² de parede de banheiro.",
+            "de": "Berechnen Sie Wandfliesen {s}×{s}cm, Kleber und Fuge für {a}m² Badezimmerwand.",
+            "it": "Calcola piastrelle muro {s}×{s}cm, colla e stucco per {a}m² di parete bagno.",
+        },
+        "desc_fn": lambda p, tpl: tpl.format(s=int(p["tam_pieza_cm"]), a=int(p["area"])),
+        "wastage_default": 10,
+    },
+
+    # ── 020 Roof tiles ── roof area × pitch
+    "020": {
+        "inputs": {
+            "area_planta": [20, 30, 40, 50, 60, 80, 100, 120, 150, 200],
+            "pendiente_pct": [15, 25, 35, 45],
+        },
+        "url_fn": lambda p: f"roof-area-{int(p['area_planta'])}m2-pitch-{int(p['pendiente_pct'])}pct",
+        "title_template": {
+            "en": "How Many Roof Tiles for {a}m² at {p}% Pitch?",
+            "es": "¿Cuántas Tejas para {a}m² con Pendiente {p}%?",
+            "fr": "Combien de Tuiles pour {a}m² à {p}% de Pente?",
+            "pt": "Quantas Telhas para {a}m² com {p}% de Inclinação?",
+            "de": "Wie Viele Dachziegel für {a}m² bei {p}% Neigung?",
+            "it": "Quante Tegole per {a}m² con Pendenza {p}%?",
+        },
+        "title_fn": lambda p, tpl: tpl.format(a=int(p["area_planta"]), p=int(p["pendiente_pct"])),
+        "desc_template": {
+            "en": "Calculate how many roof tiles and battens you need for a {a}m² roof plan with a {p}% pitch slope.",
+            "es": "Calcula cuántas tejas y rastreles necesitas para una cubierta de {a}m² de planta con pendiente del {p}%.",
+            "fr": "Calculez les tuiles et lattes pour une toiture de {a}m² avec {p}% de pente.",
+            "pt": "Calcule telhas e ripas para telhado de {a}m² com inclinação de {p}%.",
+            "de": "Berechnen Sie Dachziegel und Latten für ein {a}m² Dach mit {p}% Neigung.",
+            "it": "Calcola tegole e listelli per un tetto di {a}m² con pendenza del {p}%.",
+        },
+        "desc_fn": lambda p, tpl: tpl.format(a=int(p["area_planta"]), p=int(p["pendiente_pct"])),
+        "wastage_default": 7,
+    },
+
+    # ── 069 Wall paint ── room area × number of coats
+    "069": {
+        "inputs": {
+            "area": [10, 15, 20, 25, 30, 40, 50, 60, 80, 100],
+            "manos": [1, 2, 3],
+        },
+        "url_fn": lambda p: f"area-{int(p['area'])}m2-{int(p['manos'])}-coats",
+        "title_template": {
+            "en": "Wall Paint for {a}m² with {m} Coat{mp} – Litres",
+            "es": "Pintura para {a}m² con {m} Mano{mp} – Litros",
+            "fr": "Peinture pour {a}m² en {m} Couche{mp} – Litres",
+            "pt": "Tinta para {a}m² com {m} Demão{mp} – Litros",
+            "de": "Wandfarbe für {a}m² mit {m} Anstrich{mp}",
+            "it": "Vernice per {a}m² con {m} Mano{mp} – Litri",
+        },
+        "title_fn": lambda p, tpl: tpl.format(
+            a=int(p["area"]), m=int(p["manos"]),
+            mp="s" if int(p["manos"]) > 1 else ""
+        ),
+        "desc_template": {
+            "en": "Calculate how many litres of wall paint you need for {a}m² with {m} coat{mp}, including 10% extra.",
+            "es": "Calcula los litros de pintura para {a}m² con {m} mano{mp}, incluyendo un 10% extra.",
+            "fr": "Calculez les litres de peinture pour {a}m² en {m} couche{mp}, avec 10% de marge.",
+            "pt": "Calcule os litros de tinta para {a}m² com {m} demão{mp}, incluindo 10% a mais.",
+            "de": "Berechnen Sie Liter Wandfarbe für {a}m² mit {m} Anstrich{mp}, inkl. 10% Reserve.",
+            "it": "Calcola i litri di vernice per {a}m² con {m} mano{mp}, incluso 10% extra.",
+        },
+        "desc_fn": lambda p, tpl: tpl.format(
+            a=int(p["area"]), m=int(p["manos"]),
+            mp="s" if int(p["manos"]) > 1 else ""
+        ),
+        "wastage_default": 5,
+    },
+
+    # ── 070 Ceiling paint ── ceiling area × coats
+    "070": {
+        "inputs": {
+            "area_m2": [8, 10, 12, 15, 18, 20, 25, 30, 40, 50],
+            "manos": [1, 2, 3],
+        },
+        "url_fn": lambda p: f"ceiling-{int(p['area_m2'])}m2-{int(p['manos'])}-coats",
+        "title_template": {
+            "en": "Ceiling Paint for {a}m² – {m} Coat{mp}",
+            "es": "Pintura Techo {a}m² – {m} Mano{mp}",
+            "fr": "Peinture Plafond {a}m² – {m} Couche{mp}",
+            "pt": "Tinta Teto {a}m² – {m} Demão{mp}",
+            "de": "Deckenfarbe {a}m² – {m} Anstrich{mp}",
+            "it": "Vernice Soffitto {a}m² – {m} Mano{mp}",
+        },
+        "title_fn": lambda p, tpl: tpl.format(
+            a=int(p["area_m2"]), m=int(p["manos"]),
+            mp="s" if int(p["manos"]) > 1 else ""
+        ),
+        "desc_template": {
+            "en": "Calculate litres of ceiling paint for a {a}m² ceiling with {m} coat{mp}.",
+            "es": "Calcula litros de pintura para un techo de {a}m² con {m} mano{mp}.",
+            "fr": "Calculez les litres de peinture plafond pour {a}m² en {m} couche{mp}.",
+            "pt": "Calcule litros de tinta teto para {a}m² com {m} demão{mp}.",
+            "de": "Liter Deckenfarbe für {a}m² Decke mit {m} Anstrich{mp}.",
+            "it": "Calcola litri di vernice soffitto per {a}m² con {m} mano{mp}.",
+        },
+        "desc_fn": lambda p, tpl: tpl.format(
+            a=int(p["area_m2"]), m=int(p["manos"]),
+            mp="s" if int(p["manos"]) > 1 else ""
+        ),
+        "wastage_default": 5,
+    },
+
+    # ── 073 Wallpaper rolls ── wall dimensions
+    "073": {
+        "inputs": {
+            "longitud_pared_m": [2, 3, 4, 5, 6, 8, 10, 12],
+            "altura_m": [2.4, 2.6, 2.8, 3.0],
+        },
+        "url_fn": lambda p: f"wall-{_fmt(p['longitud_pared_m'])}m-x-{_fmt(p['altura_m'])}m",
+        "title_template": {
+            "en": "How Many Wallpaper Rolls for {l}m × {h}m Wall?",
+            "es": "¿Cuántos Rollos para Pared de {l}m × {h}m?",
+            "fr": "Combien de Rouleaux pour Mur {l}m × {h}m?",
+            "pt": "Quantos Rolos para Parede de {l}m × {h}m?",
+            "de": "Wie Viele Tapetenrollen für {l}m × {h}m Wand?",
+            "it": "Quanti Rotoli Carta da Parati per {l}m × {h}m?",
+        },
+        "title_fn": lambda p, tpl: tpl.format(l=p["longitud_pared_m"], h=p["altura_m"]),
+        "desc_template": {
+            "en": "Calculate the number of wallpaper rolls needed for a {l}m wide by {h}m high wall, including 10% wastage.",
+            "es": "Calcula los rollos de papel pintado para una pared de {l}m de ancho por {h}m de alto.",
+            "fr": "Calculez le nombre de rouleaux de papier peint pour un mur de {l}m × {h}m.",
+            "pt": "Calcule os rolos de papel de parede para uma parede de {l}m × {h}m.",
+            "de": "Berechnen Sie Tapetenrollen für eine {l}m × {h}m Wand.",
+            "it": "Calcola i rotoli di carta da parati per un muro di {l}m × {h}m.",
+        },
+        "desc_fn": lambda p, tpl: tpl.format(l=p["longitud_pared_m"], h=p["altura_m"]),
+        "wastage_default": 10,
+    },
+
+    # ── 001 Mass concrete ── slab dimensions
+    "001": {
+        "inputs": {
+            "largo": [2, 3, 4, 5, 6, 8, 10],
+            "ancho": [2, 3, 4, 5],
+            "espesor": [0.10, 0.15, 0.20, 0.25, 0.30],
+        },
+        "url_fn": lambda p: f"{_fmt(p['largo'])}x{_fmt(p['ancho'])}x{_fmt(p['espesor'])}m",
+        "title_template": {
+            "en": "Concrete for {l}×{a}m Slab {e}m Thick – Calculator",
+            "es": "Hormigón para Solera {l}×{a}m Espesor {e}m",
+            "fr": "Béton pour Dalle {l}×{a}m Épaisseur {e}m",
+            "pt": "Concreto para Laje {l}×{a}m Espessura {e}m",
+            "de": "Beton für {l}×{a}m Platte {e}m Stark",
+            "it": "Calcestruzzo per Soletta {l}×{a}m Spessore {e}m",
+        },
+        "title_fn": lambda p, tpl: tpl.format(l=p["largo"], a=p["ancho"], e=p["espesor"]),
+        "desc_template": {
+            "en": "Calculate cement bags, sand and gravel for a {l}m × {a}m concrete slab {e}m thick.",
+            "es": "Calcula sacos de cemento, arena y grava para una solera de {l}m × {a}m con {e}m de espesor.",
+            "fr": "Calculez ciment, sable et gravier pour une dalle {l}m × {a}m de {e}m d'épaisseur.",
+            "pt": "Calcule cimento, areia e brita para uma laje de {l}m × {a}m com {e}m de espessura.",
+            "de": "Berechnen Sie Zement, Sand und Kies für eine {l}m × {a}m Betonplatte mit {e}m Stärke.",
+            "it": "Calcola cemento, sabbia e ghiaia per una soletta {l}m × {a}m di {e}m di spessore.",
+        },
+        "desc_fn": lambda p, tpl: tpl.format(l=p["largo"], a=p["ancho"], e=p["espesor"]),
+        "wastage_default": 7,
+    },
+
+    # ── 011 Hollow brick wall ── wall dimensions
+    "011": {
+        "inputs": {
+            "largo": [2, 3, 4, 5, 6, 8, 10, 12],
+            "alto":  [2.2, 2.5, 2.8, 3.0, 3.5],
+        },
+        "url_fn": lambda p: f"wall-{_fmt(p['largo'])}x{_fmt(p['alto'])}m",
+        "title_template": {
+            "en": "How Many Bricks for {l}m × {h}m Wall? Calculator",
+            "es": "¿Cuántos Ladrillos para Pared {l}×{h}m?",
+            "fr": "Combien de Briques pour Mur {l}×{h}m?",
+            "pt": "Quantos Tijolos para Parede {l}×{h}m?",
+            "de": "Wie Viele Ziegel für {l}×{h}m Wand?",
+            "it": "Quanti Mattoni per Muro {l}×{h}m?",
+        },
+        "title_fn": lambda p, tpl: tpl.format(l=p["largo"], h=p["alto"]),
+        "desc_template": {
+            "en": "Calculate the exact number of hollow bricks and mortar needed for a {l}m wide, {h}m high wall.",
+            "es": "Calcula el número exacto de ladrillos huecos y mortero para una pared de {l}m × {h}m.",
+            "fr": "Calculez le nombre de briques creuses et mortier pour un mur de {l}m × {h}m.",
+            "pt": "Calcule tijolos furados e argamassa para parede de {l}m × {h}m.",
+            "de": "Berechnen Sie Hohlziegel und Mörtel für eine {l}m × {h}m Wand.",
+            "it": "Calcola mattoni forati e malta per un muro di {l}m × {h}m.",
+        },
+        "desc_fn": lambda p, tpl: tpl.format(l=p["largo"], h=p["alto"]),
+        "wastage_default": 7,
+    },
+
+    # ── 053 Air conditioning BTU ── room area × ceiling height
+    "053": {
+        "inputs": {
+            "area_m2": [10, 12, 15, 18, 20, 25, 30, 35, 40, 50],
+            "altura_techo": [2.4, 2.6, 2.8, 3.0],
+        },
+        "url_fn": lambda p: f"room-{int(p['area_m2'])}m2-ceiling-{_fmt(p['altura_techo'])}m",
+        "title_template": {
+            "en": "AC BTU for {a}m² Room with {h}m Ceiling",
+            "es": "BTU Aire Acondicionado para {a}m² y {h}m Techo",
+            "fr": "BTU Climatiseur pour Pièce {a}m² Hauteur {h}m",
+            "pt": "BTU Ar-Condicionado para {a}m² Teto {h}m",
+            "de": "Klimaanlage BTU für {a}m² Raum {h}m Decke",
+            "it": "BTU Climatizzatore per {a}m² Soffitto {h}m",
+        },
+        "title_fn": lambda p, tpl: tpl.format(a=int(p["area_m2"]), h=p["altura_techo"]),
+        "desc_template": {
+            "en": "Calculate the BTU and kW power needed for an air conditioner in a {a}m² room with {h}m ceiling height.",
+            "es": "Calcula los BTU y kW necesarios para un aire acondicionado en una habitación de {a}m² con techo de {h}m.",
+            "fr": "Calculez les BTU et kW pour climatiser une pièce de {a}m² avec {h}m de plafond.",
+            "pt": "Calcule BTU e kW para ar-condicionado em cômodo de {a}m² com teto de {h}m.",
+            "de": "Berechnen Sie BTU und kW für eine Klimaanlage in einem {a}m² Raum mit {h}m Deckenhöhe.",
+            "it": "Calcola BTU e kW per climatizzatore in una stanza di {a}m² con soffitto di {h}m.",
+        },
+        "desc_fn": lambda p, tpl: tpl.format(a=int(p["area_m2"]), h=p["altura_techo"]),
+        "wastage_default": 0,
+    },
+
+    # ── 045 LED lighting lumen ── room area × room type
+    "045": {
+        "inputs": {
+            "area_m2": [8, 10, 12, 15, 18, 20, 25, 30, 40],
+            "tipo_habitacion": [1, 2, 3],  # 1=living, 2=kitchen, 3=bedroom
+        },
+        "url_fn": lambda p: f"room-{int(p['area_m2'])}m2-type-{int(p['tipo_habitacion'])}",
+        "title_template": {
+            "en": "LED Lumens for {a}m² Room – Lighting Calculator",
+            "es": "Lúmenes LED para Habitación de {a}m²",
+            "fr": "Lumens LED pour Pièce de {a}m²",
+            "pt": "Lumens LED para Cômodo de {a}m²",
+            "de": "LED Lumen für {a}m² Raum",
+            "it": "Lumen LED per Stanza di {a}m²",
+        },
+        "title_fn": lambda p, tpl: tpl.format(a=int(p["area_m2"])),
+        "desc_template": {
+            "en": "Calculate how many lumens and LED watts you need to light a {a}m² room correctly.",
+            "es": "Calcula los lúmenes y vatios LED necesarios para iluminar correctamente una habitación de {a}m².",
+            "fr": "Calculez les lumens et watts LED pour éclairer correctement une pièce de {a}m².",
+            "pt": "Calcule lumens e watts LED para iluminar um cômodo de {a}m².",
+            "de": "Berechnen Sie Lumen und LED-Watt für einen {a}m² Raum.",
+            "it": "Calcola lumen e watt LED per illuminare una stanza di {a}m².",
+        },
+        "desc_fn": lambda p, tpl: tpl.format(a=int(p["area_m2"])),
+        "wastage_default": 0,
+    },
+
+    # ── 015 Thermal insulation ── wall area × thickness
+    "015": {
+        "inputs": {
+            "largo": [3, 4, 5, 6, 8, 10],
+            "alto":  [2.5, 2.8, 3.0, 3.5],
+            "espesor_cm": [4, 6, 8, 10, 12],
+        },
+        "url_fn": lambda p: f"wall-{_fmt(p['largo'])}x{_fmt(p['alto'])}m-{int(p['espesor_cm'])}cm",
+        "title_template": {
+            "en": "Insulation for {l}×{h}m Wall – {e}cm Thick",
+            "es": "Aislamiento Pared {l}×{h}m – Espesor {e}cm",
+            "fr": "Isolation Mur {l}×{h}m – Épaisseur {e}cm",
+            "pt": "Isolamento Parede {l}×{h}m – Espessura {e}cm",
+            "de": "Dämmung Wand {l}×{h}m – {e}cm Stärke",
+            "it": "Isolamento Muro {l}×{h}m – Spessore {e}cm",
+        },
+        "title_fn": lambda p, tpl: tpl.format(l=p["largo"], h=p["alto"], e=int(p["espesor_cm"])),
+        "desc_template": {
+            "en": "Calculate m² and volume of thermal insulation for a {l}m × {h}m wall with {e}cm EPS or mineral wool.",
+            "es": "Calcula m² y volumen de aislamiento térmico para una pared de {l}m × {h}m con {e}cm de espesor.",
+            "fr": "Calculez m² et volume d'isolant pour un mur {l}m × {h}m avec {e}cm d'épaisseur.",
+            "pt": "Calcule m² e volume de isolamento para parede {l}m × {h}m com {e}cm de espessura.",
+            "de": "Berechnen Sie m² und Volumen Wärmedämmung für eine {l}m × {h}m Wand mit {e}cm Dicke.",
+            "it": "Calcola m² e volume di isolamento per muro {l}m × {h}m con {e}cm di spessore.",
+        },
+        "desc_fn": lambda p, tpl: tpl.format(l=p["largo"], h=p["alto"], e=int(p["espesor_cm"])),
+        "wastage_default": 5,
+    },
+}

@@ -14,6 +14,7 @@ import shutil
 import sys
 from collections import defaultdict
 from datetime import date
+from itertools import product as cartesian_product
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
@@ -29,6 +30,7 @@ from tools_config import (
     classify_input,
     GROUP_LABELS, GROUP_ICONS,
     WASTAGE_DEFAULTS, SHOW_WASTAGE, UNIT_LABELS,
+    PARAMETRIC_VARIANTS,
 )
 
 try:
@@ -335,10 +337,11 @@ def generate() -> None:
     print(f"  Output dir : {PUBLIC}")
     copy_assets()
 
-    calc_tpl    = env.get_template("calculator.html.j2")
-    index_tpl   = env.get_template("index.html.j2")
-    block_tpl   = env.get_template("block.html.j2")
-    sitemap_tpl = env.get_template("sitemap.xml.j2")
+    calc_tpl         = env.get_template("calculator.html.j2")
+    index_tpl        = env.get_template("index.html.j2")
+    block_tpl        = env.get_template("block.html.j2")
+    sitemap_tpl      = env.get_template("sitemap.xml.j2")
+    sitemap_idx_tpl  = env.get_template("sitemap_index.xml.j2")
 
     sitemap_entries: list = []
     page_count = 0
@@ -517,9 +520,115 @@ def generate() -> None:
                 ],
             })
 
-    # ── Sitemap ───────────────────────────────────────────────────────────────
-    sitemap_xml = sitemap_tpl.render(sitemap_entries=sitemap_entries, build_date=BUILD_DATE)
-    write_file(PUBLIC / "sitemap.xml", sitemap_xml)
+    # ── Parametric pages ──────────────────────────────────────────────────────
+    param_count = 0
+    for lang in LANGS:
+        t          = translations[lang]
+        calcs_i18n = t["calculators"]
+        calc_url_by_id = {
+            calc["id"]: TOOL_BY_ID[calc["id"]]["slugs"].get(lang, calc["slug"])
+            for calc in calculators
+            if calc["id"] in TOOL_BY_ID
+        }
+
+        for calc in calculators:
+            cid = calc["id"]
+            if cid not in PARAMETRIC_VARIANTS:
+                continue
+            if cid not in TOOL_BY_ID:
+                continue
+
+            vcfg     = PARAMETRIC_VARIANTS[cid]
+            loc_slug = calc_url_by_id.get(cid, calc["slug"])
+            ci18n    = calcs_i18n.get(cid, {})
+            if not ci18n:
+                continue
+
+            tool_cfg   = TOOL_BY_ID[cid]
+            cat        = tool_cfg.get("cat", "C")
+            block_slug = calc.get("block_slug", "")
+            block_name = t.get("blocks", {}).get(block_slug, block_slug)
+            show_wastage   = SHOW_WASTAGE.get(cat, False)
+            wastage_default = vcfg.get("wastage_default", WASTAGE_DEFAULTS.get(cat, 0))
+
+            input_items = list(ci18n["inputs"].items())
+            input_keys  = [k for k, _ in input_items]
+            input_groups = build_input_groups(input_items, lang)
+            input_placeholders = build_placeholders(input_keys, lang)
+
+            # Build alt slugs for hreflang
+            alt_slugs = {al: TOOL_BY_ID[cid]["slugs"].get(al, calc["slug"]) for al in LANGS}
+
+            # Cartesian product of all variant dimensions
+            vkeys  = list(vcfg["inputs"].keys())
+            vlists = [vcfg["inputs"][k] for k in vkeys]
+
+            for combo in cartesian_product(*vlists):
+                params     = dict(zip(vkeys, combo))
+                param_slug = vcfg["url_fn"](params)
+                lang_tpl   = vcfg["title_template"].get(lang, vcfg["title_template"]["en"])
+                title      = vcfg["title_fn"](params, lang_tpl)
+                desc_tpl   = vcfg["desc_template"].get(lang, vcfg["desc_template"]["en"])
+                desc       = vcfg["desc_fn"](params, desc_tpl)
+
+                html = calc_tpl.render(
+                    lang=lang, t=t, all_langs=LANGS,
+                    calc=calc, calc_i18n=ci18n,
+                    block_name=block_name,
+                    related_calcs=[],
+                    brand_name=BRAND,
+                    site_base_url=BASE_URL,
+                    calc_url_path=loc_slug,
+                    calc_alt_slugs=alt_slugs,
+                    intro_text="",
+                    how_to_steps=[],
+                    faq=[],
+                    howto_title="",
+                    faq_title="",
+                    formula_explained="",
+                    formula_title="",
+                    input_groups=input_groups,
+                    input_placeholders=input_placeholders,
+                    show_wastage=show_wastage,
+                    wastage_default=wastage_default,
+                    wastage_label=WASTAGE_LABEL.get(lang, WASTAGE_LABEL["en"]),
+                    wastage_placeholder=WASTAGE_PLACEHOLDER.get(lang, "e.g. 10"),
+                    net_label=NET_LABEL.get(lang, NET_LABEL["en"]),
+                    total_label=TOTAL_LABEL.get(lang, TOTAL_LABEL["en"]),
+                    copied_label=COPIED_LABEL.get(lang, "Copied!"),
+                    link_copied_label=LINK_COPIED_LABEL.get(lang, "Link copied!"),
+                    btn_share_label=BTN_SHARE_LABEL.get(lang, "🔗 Share"),
+                    # Parametric overrides
+                    seo_title_override=title,
+                    seo_desc_override=desc,
+                    prefill_json=json.dumps(params),
+                    # AdSense
+                    adsense_head=ADSENSE_HEAD,
+                    adsense_banner=ADSENSE_BANNER,
+                    adsense_responsive=ADSENSE_RESPONSIVE,
+                )
+
+                out_path = PUBLIC / lang / loc_slug / param_slug / "index.html"
+                write_file(out_path, html)
+                param_count += 1
+
+                sitemap_entries.append({
+                    "loc": f"{BASE_URL}/{lang}/{loc_slug}/{param_slug}/",
+                    "priority": "0.5",
+                    "alternates": [],
+                })
+
+    # ── Sitemap (with splitting at 45k URLs) ──────────────────────────────────
+    CHUNK = 45000
+    chunks = [sitemap_entries[i:i+CHUNK] for i in range(0, len(sitemap_entries), CHUNK)]
+    for idx, chunk in enumerate(chunks, start=1):
+        xml = sitemap_tpl.render(sitemap_entries=chunk, build_date=BUILD_DATE)
+        write_file(PUBLIC / f"sitemap-{idx}.xml", xml)
+    if len(chunks) > 1:
+        idx_xml = sitemap_idx_tpl.render(count=len(chunks), base_url=BASE_URL)
+        write_file(PUBLIC / "sitemap.xml", idx_xml)
+    else:
+        write_file(PUBLIC / "sitemap.xml", sitemap_tpl.render(sitemap_entries=sitemap_entries, build_date=BUILD_DATE))
 
     # ── Root redirect ─────────────────────────────────────────────────────────
     write_file(PUBLIC / "index.html", (
@@ -533,11 +642,12 @@ def generate() -> None:
     # ── Legacy redirects (/lang/block_slug/slug/ → /lang/loc_slug/) ──────────
     redirect_count = generate_legacy_redirects(calculators, PUBLIC)
 
-    print(f"\n[OK] Generated {page_count} pages")
+    print(f"\n[OK] Generated {page_count} base pages")
+    print(f"[OK] Parametric: {param_count} variant pages")
     print(f"[OK] Redirects: {redirect_count} legacy URL redirects")
     if warn_count:
         print(f"[WARN] {warn_count} missing translations skipped")
-    print(f"[OK] Sitemap : {len(sitemap_entries)} URLs")
+    print(f"[OK] Sitemap : {len(sitemap_entries)} URLs ({len(chunks)} file(s))")
     print(f"[OK] Output  : {PUBLIC}")
     print(f"\nDeploy with:  firebase deploy --only hosting")
 

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ calc_i18n.seo_title }} | CalcToWork</title>
-  <meta name="description" content="{{ calc_i18n.seo_description }}">
+  <title>{% if seo_title_override is defined and seo_title_override %}{{ seo_title_override }}{% else %}{{ calc_i18n.seo_title }}{% endif %} | CalcToWork</title>
+  <meta name="description" content="{% if seo_desc_override is defined and seo_desc_override %}{{ seo_desc_override }}{% else %}{{ calc_i18n.seo_description }}{% endif %}">
   <meta name="robots" content="index, follow">
 
   {# ── Resolve URL paths (supports both flat and block/slug structures) ── #}
@@ -306,6 +306,9 @@ window.CALC_CONFIG = {
   }
 };
 </script>
+{% if prefill_json is defined and prefill_json %}
+<script>window.CALC_PREFILL = {{ prefill_json | safe }};</script>
+{% endif %}
 <script src="/js/calculator.js"></script>
 <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
 </body>

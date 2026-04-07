@@ -242,8 +242,18 @@
     setTimeout(function () { shareBtn.textContent = orig; shareBtn.classList.remove('copied'); }, 2000);
   }
 
-  /* ── On load: restore from URL hash or auto-calc if pre-filled ── */
+  /* ── On load: parametric prefill → hash restore → auto-calc ── */
   (function init() {
+    // Priority 1: parametric page pre-fill (injected by generator)
+    if (window.CALC_PREFILL) {
+      Object.keys(window.CALC_PREFILL).forEach(function (k) {
+        var el = form.querySelector('[name="' + k + '"]');
+        if (el) el.value = window.CALC_PREFILL[k];
+      });
+      calculate();
+      return;
+    }
+    // Priority 2: URL hash (share link)
     var restored = decodeFromHash();
     if (restored || allFilled()) calculate();
   })();
