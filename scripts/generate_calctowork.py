@@ -83,9 +83,21 @@ BTN_SHARE_LABEL = {
     "de": "🔗 Teilen",    "it": "🔗 Condividi",
 }
 
-ADSENSE_HEAD       = ""
-ADSENSE_BANNER     = "<!-- AdSense banner 728×90 -->"
-ADSENSE_RESPONSIVE = "<!-- AdSense responsive -->"
+ADSENSE_HEAD = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3048983871829953" crossorigin="anonymous"></script>'
+
+ADSENSE_BANNER = """<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3048983871829953"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>"""
+
+ADSENSE_RESPONSIVE = """<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3048983871829953"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>"""
 
 PLACEHOLDER_HINTS = {
     "largo": "e.g. 5.0",    "ancho": "e.g. 3.0",     "alto": "e.g. 2.5",
