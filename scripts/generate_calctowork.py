@@ -188,11 +188,12 @@ def copy_assets() -> None:
         (CSS_SRC,              PUBLIC / "css" / "styles.css"),
         (JS_SRC,               PUBLIC / "js"  / "calculator.js"),
         (SRC / "robots.txt",   PUBLIC / "robots.txt"),
+        (SRC / "favicon.svg",  PUBLIC / "favicon.svg"),
     ]
     for src, dest in assets:
         dest.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src, dest)
-    print("  [assets] Copied CSS, JS and robots.txt")
+    print("  [assets] Copied CSS, JS, robots.txt and favicon")
 
 
 def make_env() -> "Environment":
@@ -321,6 +322,13 @@ def generate() -> None:
         t          = translations[lang]
         calcs_i18n = t["calculators"]
 
+        # Localized slug lookup for this language: {calc_id: slug}
+        calc_url_by_id = {
+            calc["id"]: TOOL_BY_ID[calc["id"]]["slugs"].get(lang, calc["slug"])
+            for calc in calculators
+            if calc["id"] in TOOL_BY_ID
+        }
+
         # ── Index page ────────────────────────────────────────────────────────
         index_html = index_tpl.render(
             lang=lang, t=t, all_langs=LANGS,
@@ -329,6 +337,7 @@ def generate() -> None:
             block_icons=BLOCK_ICONS,
             brand_name=BRAND,
             site_base_url=BASE_URL,
+            calc_url_by_id=calc_url_by_id,
             adsense_head=ADSENSE_HEAD,
             adsense_banner=ADSENSE_BANNER,
             adsense_responsive=ADSENSE_RESPONSIVE,
@@ -350,6 +359,7 @@ def generate() -> None:
                 block_calcs=block_calcs, calcs_i18n=calcs_i18n,
                 brand_name=BRAND,
                 site_base_url=BASE_URL,
+                calc_url_by_id=calc_url_by_id,
                 adsense_head=ADSENSE_HEAD,
                 adsense_banner=ADSENSE_BANNER,
                 adsense_responsive=ADSENSE_RESPONSIVE,

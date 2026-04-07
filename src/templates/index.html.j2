@@ -3,38 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ t.site_name }} – {{ t.site_tagline }}</title>
+  <title>CalcToWork – {{ t.site_tagline }}</title>
   <meta name="description" content="{{ t.site_description }}">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://obracalc.com/{{ lang }}/">
+  <link rel="canonical" href="{{ site_base_url }}/{{ lang }}/">
 
   {% for alt_lang in all_langs %}
-  <link rel="alternate" hreflang="{{ alt_lang }}" href="https://obracalc.com/{{ alt_lang }}/">
+  <link rel="alternate" hreflang="{{ alt_lang }}" href="{{ site_base_url }}/{{ alt_lang }}/">
   {% endfor %}
-  <link rel="alternate" hreflang="x-default" href="https://obracalc.com/es/">
+  <link rel="alternate" hreflang="x-default" href="{{ site_base_url }}/es/">
 
-  <meta property="og:title" content="{{ t.site_name }} – {{ t.site_tagline }}">
+  <meta property="og:title" content="CalcToWork – {{ t.site_tagline }}">
   <meta property="og:description" content="{{ t.site_description }}">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://obracalc.com/{{ lang }}/">
-  <meta property="og:site_name" content="ObraCalc">
+  <meta property="og:url" content="{{ site_base_url }}/{{ lang }}/">
+  <meta property="og:site_name" content="CalcToWork">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="CalcToWork – {{ t.site_tagline }}">
+  <meta name="twitter:description" content="{{ t.site_description }}">
 
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "ObraCalc",
-    "url": "https://obracalc.com/",
+    "name": "CalcToWork",
+    "url": "{{ site_base_url }}/",
     "description": {{ t.site_description | tojson }},
     "inLanguage": "{{ lang }}",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://obracalc.com/{{ lang }}/?q={search_term_string}",
+      "target": "{{ site_base_url }}/{{ lang }}/?q={search_term_string}",
       "query-input": "required name=search_term_string"
     }
   }
   </script>
 
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/css/styles.css">
   {{ adsense_head | safe }}
 </head>
@@ -42,7 +46,7 @@
 
 <header>
   <div class="header-inner">
-    <a class="logo" href="/{{ lang }}/"><span>Obra</span>Calc</a>
+    <a class="logo" href="/{{ lang }}/">Calc<span>To</span>Work</a>
     <nav>
       <a href="/{{ lang }}/">{{ t.nav_home }}</a>
     </nav>
@@ -56,7 +60,7 @@
 
 <!-- Hero -->
 <section class="hero">
-  <h1><span>Obra</span>Calc</h1>
+  <h1>Calc<span>To</span>Work</h1>
   <p>{{ t.site_description }}</p>
 </section>
 
@@ -80,7 +84,7 @@
       <ul class="calc-list">
         {% for calc in block_calcs %}
         <li>
-          <a href="/{{ lang }}/{{ calc.block_slug }}/{{ calc.slug }}/">
+          <a href="/{{ lang }}/{{ calc_url_by_id.get(calc.id, calc.block_slug + '/' + calc.slug) }}/">
             {{ calcs_i18n[calc.id].name }}
           </a>
         </li>
@@ -88,7 +92,7 @@
       </ul>
       <div class="mt-2">
         <a href="/{{ lang }}/{{ block_slug }}/" style="font-size:.82rem;color:var(--primary);text-decoration:none;">
-          Ver todos →
+          {{ t.nav_calculators }} →
         </a>
       </div>
     </div>
@@ -100,7 +104,7 @@
 
 <footer>
   <div class="footer-inner">
-    <div>© <span id="yr"></span> ObraCalc — {{ t.footer_rights }}</div>
+    <div>© <span id="yr"></span> CalcToWork — {{ t.footer_rights }}</div>
     <div class="mt-1" style="font-size:.8rem;">{{ t.footer_disclaimer }}</div>
     <div class="footer-links">
       {% for alt_lang in all_langs %}
