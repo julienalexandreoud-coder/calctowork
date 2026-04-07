@@ -396,9 +396,11 @@ def generate() -> None:
         # ── Block pages ───────────────────────────────────────────────────────
         for block_slug, block_calcs in blocks_by_slug.items():
             block_name = t["blocks"].get(block_slug, block_slug)
+            block_desc = t.get("block_descriptions", {}).get(block_slug, f"{block_name} – free construction calculators.")
             block_html = block_tpl.render(
                 lang=lang, t=t, all_langs=LANGS,
                 block_slug=block_slug, block_name=block_name,
+                block_description=block_desc,
                 block_calcs=block_calcs, calcs_i18n=calcs_i18n,
                 brand_name=BRAND,
                 site_base_url=BASE_URL,
