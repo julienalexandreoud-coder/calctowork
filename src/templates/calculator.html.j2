@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ calc_i18n.seo_title }} {{ t.meta_suffix }}</title>
+  <title>{{ calc_i18n.seo_title }} (Free) | CalcToWork</title>
   <meta name="description" content="{{ calc_i18n.seo_description }}">
   <meta name="robots" content="index, follow">
 
@@ -211,9 +211,14 @@
       <div id="calc-results">
         <div class="result-placeholder">{{ t.label_results }}</div>
       </div>
-      <button class="btn btn-secondary copy-btn" id="btn-copy" style="display:none;">
-        {{ t.btn_copy }}
-      </button>
+      <div class="results-actions">
+        <button class="btn btn-secondary copy-btn" id="btn-copy" style="display:none;">
+          {{ t.btn_copy }}
+        </button>
+        <button class="btn btn-secondary share-btn" id="btn-share" style="display:none;">
+          {{ btn_share_label | default('🔗 Share') }}
+        </button>
+      </div>
     </div>
 
   </div><!-- /.calc-layout -->
@@ -231,6 +236,14 @@
       {% endfor %}
     </ol>
   </div>
+  {% endif %}
+
+  <!-- Formula explained -->
+  {% if formula_explained %}
+  <details class="formula-details">
+    <summary class="formula-summary">{{ formula_title }}</summary>
+    <div class="formula-body">{{ formula_explained }}</div>
+  </details>
   {% endif %}
 
   <!-- Related calculators -->
@@ -288,7 +301,8 @@ window.CALC_CONFIG = {
     btn_copy: {{ t.btn_copy | tojson }},
     net_label: {{ net_label | tojson }},
     total_label: {{ total_label | tojson }},
-    copied: {{ copied_label | tojson }}
+    copied: {{ copied_label | tojson }},
+    link_copied: {{ link_copied_label | tojson }}
   }
 };
 </script>

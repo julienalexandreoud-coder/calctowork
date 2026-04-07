@@ -154,6 +154,44 @@ GROUP_ICONS = {
 WASTAGE_DEFAULTS = {"A": 10, "B": 5, "C": 7, "D": 0, "E": 0}
 SHOW_WASTAGE = {"A": True, "B": True, "C": True, "D": False, "E": False}
 
+# Unit labels appended to input field labels
+UNIT_LABELS = {
+    "largo": "m", "ancho": "m", "alto": "m", "altura": "m",
+    "longitud": "m", "longitud_m": "m", "longitud_pared_m": "m",
+    "profundidad": "m", "canto": "m", "base": "m",
+    "area": "m²", "area_m2": "m²", "area_planta": "m²", "area_cubierta": "m²",
+    "perimetro": "m", "luz_m": "m", "altura_total_m": "m",
+    "ancho_m": "m", "alto_m": "m", "longitud_nave_m": "m",
+    "separacion_montantes_m": "m", "ancho_rollo_m": "m", "longitud_rollo_m": "m",
+    "intereje": "m", "canto_forjado": "m",
+    "espesor": "m", "espesor_base": "m", "espesor_corona": "m",
+    "espesor_cm": "cm", "espesor_mm": "mm",
+    "grosor_pieza_mm": "mm", "ancho_junta_mm": "mm",
+    "tam_pieza_cm": "cm", "tam_malla_cm": "cm",
+    "kg_acero_m3": "kg/m³", "kg_acero_m2": "kg/m²", "carga_kn_m2": "kN/m²",
+    "rendimiento_m2_l": "m²/L",
+    "separacion_cm": "cm", "separacion_lineas_m": "m", "separacion_goteros_cm": "cm",
+    "coste_eur": "€", "precio_dia_eur": "€/day", "precio_m2_semana": "€/m²/wk",
+    "precio_m2": "€/m²", "precio_hora_eur": "€/h", "coste_hora_eur": "€/h",
+    "precio_venta_eur": "€", "costes_fijos_eur": "€", "costes_variables_eur": "€",
+    "coste_variable_ud": "€/unit", "importe_eur": "€", "base_imponible_eur": "€",
+    "capital_asegurado_eur": "€", "presupuesto_obra_eur": "€",
+    "coste_herramienta_eur": "€", "coste_total_eur": "€",
+    "precio_l": "€/L", "precio_venta_ud": "€/unit",
+    "facturacion_anual_eur": "€/yr", "valor_residual_pct": "%",
+    "horas_dia": "h/day", "horas_facturables_mes": "h/mo",
+    "horas_jornada": "h", "dias_obra": "days", "dias_alquiler": "days",
+    "dias_autonomia": "days", "semanas": "wk", "anos_vida_util": "yr",
+    "plazo_meses": "mo", "meses_obra": "mo", "vida_util_anos": "yr",
+    "km_anuales": "km/yr", "km_diarios": "km/day",
+    "temperatura": "°C", "t_ext": "°C", "t_int": "°C",
+    "potencia": "W", "voltaje": "V", "longitud_cable": "m", "caida_max": "%",
+    "caudal": "L/min", "presion_entrada": "bar",
+    "pendiente_pct": "%", "merma_pct": "%", "beneficio_deseado_pct": "%",
+    "hsp": "h/day", "consumo_dia": "Wh/day", "autonomia": "days",
+    "cop": "COP", "lambda": "W/m·K", "u_muros": "W/m²K", "u_techo": "W/m²K",
+}
+
 
 # ---------------------------------------------------------------------------
 # Tools configuration – 100 entries

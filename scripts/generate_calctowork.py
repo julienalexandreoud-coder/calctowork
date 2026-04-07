@@ -21,14 +21,14 @@ sys.path.insert(0, str(Path(__file__).parent))
 from calc_content import (
     WASTAGE_LABEL, WASTAGE_PLACEHOLDER,
     NET_LABEL, TOTAL_LABEL,
-    HOW_TO_TITLE, FAQ_TITLE,
-    generate_intro, generate_how_to, generate_faq,
+    HOW_TO_TITLE, FAQ_TITLE, FORMULA_TITLE,
+    generate_intro, generate_how_to, generate_faq, generate_formula_explained,
 )
 from tools_config import (
     TOOLS, TOOL_BY_ID,
     classify_input,
     GROUP_LABELS, GROUP_ICONS,
-    WASTAGE_DEFAULTS, SHOW_WASTAGE,
+    WASTAGE_DEFAULTS, SHOW_WASTAGE, UNIT_LABELS,
 )
 
 try:
@@ -69,6 +69,18 @@ COPIED_LABEL = {
     "es": "¡Copiado!", "en": "Copied!",
     "fr": "Copié !",   "pt": "Copiado!",
     "de": "Kopiert!",  "it": "Copiato!",
+}
+
+LINK_COPIED_LABEL = {
+    "es": "¡Enlace copiado!", "en": "Link copied!",
+    "fr": "Lien copié !",     "pt": "Link copiado!",
+    "de": "Link kopiert!",    "it": "Link copiato!",
+}
+
+BTN_SHARE_LABEL = {
+    "es": "🔗 Compartir", "en": "🔗 Share",
+    "fr": "🔗 Partager",  "pt": "🔗 Compartilhar",
+    "de": "🔗 Teilen",    "it": "🔗 Condividi",
 }
 
 ADSENSE_HEAD       = ""
@@ -234,7 +246,9 @@ def build_input_groups(input_items: list, lang: str) -> list:
         if gid not in groups_data:
             groups_ordered.append(gid)
             groups_data[gid] = []
-        groups_data[gid].append({"key": key, "label": label})
+        unit = UNIT_LABELS.get(key, "")
+        full_label = f"{label} ({unit})" if unit else label
+        groups_data[gid].append({"key": key, "label": full_label})
 
     return [
         {
@@ -329,6 +343,19 @@ def generate() -> None:
             if calc["id"] in TOOL_BY_ID
         }
 
+        # Build search index for this language
+        calc_index = [
+            {
+                "id": calc["id"],
+                "name": calcs_i18n.get(calc["id"], {}).get("name", ""),
+                "slug": calc_url_by_id.get(calc["id"], calc["slug"]),
+                "block": t["blocks"].get(calc["block_slug"], calc["block_slug"]),
+                "block_slug": calc["block_slug"],
+            }
+            for calc in calculators
+            if calcs_i18n.get(calc["id"], {}).get("name")
+        ]
+
         # ── Index page ────────────────────────────────────────────────────────
         index_html = index_tpl.render(
             lang=lang, t=t, all_langs=LANGS,
@@ -338,6 +365,7 @@ def generate() -> None:
             brand_name=BRAND,
             site_base_url=BASE_URL,
             calc_url_by_id=calc_url_by_id,
+            calc_index_json=json.dumps(calc_index, ensure_ascii=False),
             adsense_head=ADSENSE_HEAD,
             adsense_banner=ADSENSE_BANNER,
             adsense_responsive=ADSENSE_RESPONSIVE,
@@ -412,9 +440,10 @@ def generate() -> None:
                     })
 
             # ── Content ──────────────────────────────────────────────────────
-            intro_text   = generate_intro(cid, lang, ci18n["name"], ci18n["description"])
-            how_to_steps = generate_how_to(calc["block_slug"], lang)
-            faq          = generate_faq(calc["block_slug"], lang)
+            intro_text        = generate_intro(cid, lang, ci18n["name"], ci18n["description"])
+            how_to_steps      = generate_how_to(calc["block_slug"], lang)
+            faq               = generate_faq(calc["block_slug"], lang)
+            formula_explained = generate_formula_explained(calc["block_slug"], lang)
 
             # ── Grouped inputs ───────────────────────────────────────────────
             input_items = list(ci18n["inputs"].items())
@@ -442,6 +471,8 @@ def generate() -> None:
                 faq=faq,
                 howto_title=HOW_TO_TITLE.get(lang, HOW_TO_TITLE["en"]),
                 faq_title=FAQ_TITLE.get(lang, FAQ_TITLE["en"]),
+                formula_explained=formula_explained,
+                formula_title=FORMULA_TITLE.get(lang, FORMULA_TITLE["en"]),
                 # Inputs
                 input_groups=input_groups,
                 input_placeholders=input_placeholders,
@@ -453,6 +484,8 @@ def generate() -> None:
                 net_label=NET_LABEL.get(lang, NET_LABEL["en"]),
                 total_label=TOTAL_LABEL.get(lang, TOTAL_LABEL["en"]),
                 copied_label=COPIED_LABEL.get(lang, "Copied!"),
+                link_copied_label=LINK_COPIED_LABEL.get(lang, "Link copied!"),
+                btn_share_label=BTN_SHARE_LABEL.get(lang, "🔗 Share"),
                 # AdSense
                 adsense_head=ADSENSE_HEAD,
                 adsense_banner=ADSENSE_BANNER,

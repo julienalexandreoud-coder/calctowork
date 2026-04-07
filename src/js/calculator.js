@@ -1,14 +1,14 @@
-/* ObraCalc – Calculator Engine v2.0 */
+/* CalcToWork – Calculator Engine v3.0 */
 (function () {
   'use strict';
 
-  var cfg = window.CALC_CONFIG || {};
-  var i18n = cfg.i18n || {};
-
-  var form = document.getElementById('calc-form');
+  var cfg    = window.CALC_CONFIG || {};
+  var i18n   = cfg.i18n || {};
+  var form   = document.getElementById('calc-form');
   var resultsBox = document.getElementById('calc-results');
-  var resetBtn = document.getElementById('btn-reset');
-  var copyBtn = document.getElementById('btn-copy');
+  var resetBtn   = document.getElementById('btn-reset');
+  var copyBtn    = document.getElementById('btn-copy');
+  var shareBtn   = document.getElementById('btn-share');
 
   if (!form || !resultsBox) return;
 
@@ -17,7 +17,7 @@
   try {
     calcFn = new Function('inputs', cfg.formula || 'return{error:true};');
   } catch (e) {
-    console.error('[ObraCalc] Formula compile error:', e);
+    console.error('[CalcToWork] Formula compile error:', e);
     calcFn = function () { return { error: true }; };
   }
 
@@ -29,6 +29,15 @@
       inputs[fields[i].name] = fields[i].value;
     }
     return inputs;
+  }
+
+  /* ── Check all required inputs are filled ── */
+  function allFilled() {
+    var fields = form.querySelectorAll('input[name]:not([name="desperdicio_merma"])');
+    for (var i = 0; i < fields.length; i++) {
+      if (!fields[i].value || parseFloat(fields[i].value) <= 0) return false;
+    }
+    return fields.length > 0;
   }
 
   /* ── Format number ── */
@@ -62,6 +71,7 @@
       resultsBox.innerHTML =
         '<div class="result-error">' + (i18n.error_invalid || 'Please enter valid values.') + '</div>';
       if (copyBtn) copyBtn.style.display = 'none';
+      if (shareBtn) shareBtn.style.display = 'none';
       return;
     }
 
@@ -73,7 +83,7 @@
     }
 
     var hasWaste = wastePct > 0;
-    var html = '';
+    var html = '<div class="results-animate">';
 
     if (hasWaste) {
       html += '<div class="result-section-title">' + esc(i18n.net_label || 'Net') + '</div>';
@@ -82,63 +92,95 @@
     for (var i = 0; i < keys.length; i++) {
       var key = keys[i];
       if (!(key in results)) continue;
-      var label = outputKeys[key] || key;
-      var value = results[key];
-      html += makeRow(label, value, hasWaste ? 'result-item--net' : '');
+      html += makeRow(outputKeys[key] || key, results[key], hasWaste ? 'result-item--net' : '');
     }
 
     if (hasWaste) {
       html += '<div class="result-section-title" style="margin-top:.75rem;">' +
         esc((i18n.total_label || 'Total to buy (+{pct}%)').replace('{pct}', wastePct)) +
       '</div>';
-
       for (var j = 0; j < keys.length; j++) {
         var k = keys[j];
         if (!(k in results)) continue;
-        var rawVal = results[k];
-        var num = parseFloat(rawVal);
-        var totalVal = !isNaN(num) ? +(num * (1 + wastePct / 100)).toFixed(3) : rawVal;
+        var num = parseFloat(results[k]);
+        var totalVal = !isNaN(num) ? +(num * (1 + wastePct / 100)).toFixed(3) : results[k];
         html += makeRow(outputKeys[k] || k, totalVal, 'result-item--total');
       }
     }
 
+    html += '</div>';
     resultsBox.innerHTML = html;
     if (copyBtn) copyBtn.style.display = '';
+    if (shareBtn) shareBtn.style.display = '';
+
+    // Scroll to results on all screen sizes
+    resultsBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  /* ── URL hash encode / decode ── */
+  function encodeToHash(inputs) {
+    try {
+      var filtered = {};
+      Object.keys(inputs).forEach(function (k) {
+        if (inputs[k] !== '' && k !== 'desperdicio_merma') filtered[k] = inputs[k];
+      });
+      history.replaceState(null, '', '#' + btoa(JSON.stringify(filtered)));
+    } catch (e) {}
+  }
+
+  function decodeFromHash() {
+    try {
+      var hash = window.location.hash;
+      if (!hash || hash.length < 4) return false;
+      var decoded = JSON.parse(atob(hash.slice(1)));
+      Object.keys(decoded).forEach(function (k) {
+        var el = form.querySelector('[name="' + k + '"]');
+        if (el) el.value = decoded[k];
+      });
+      return true;
+    } catch (e) { return false; }
   }
 
   /* ── Calculate ── */
   function calculate() {
-    var inputs = collectInputs();
+    var inputs  = collectInputs();
     var wastePct = parseFloat(inputs.desperdicio_merma) || 0;
-
-    // Pass all inputs to formula (formula ignores unknown keys)
     var results;
     try {
       results = calcFn(inputs);
     } catch (e) {
-      console.error('[ObraCalc] Runtime error:', e);
+      console.error('[CalcToWork] Runtime error:', e);
       results = { error: true };
     }
     renderResults(results, wastePct);
+    encodeToHash(inputs);
+  }
 
-    if (window.innerWidth < 768) {
-      resultsBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
+  /* ── Debounced auto-calculate ── */
+  var debounceTimer = null;
+  function onInputChange() {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(function () {
+      if (allFilled()) calculate();
+    }, 400);
   }
 
   /* ── Events ── */
   form.addEventListener('submit', function (e) { e.preventDefault(); calculate(); });
-  form.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); calculate(); } });
+  form.addEventListener('input', onInputChange);
 
   if (resetBtn) {
     resetBtn.addEventListener('click', function () {
       form.reset();
       resultsBox.innerHTML =
         '<div class="result-placeholder">' + (i18n.label_results || 'Results') + '</div>';
-      if (copyBtn) copyBtn.style.display = 'none';
+      if (copyBtn)  copyBtn.style.display  = 'none';
+      if (shareBtn) shareBtn.style.display = 'none';
+      history.replaceState(null, '', window.location.pathname);
     });
   }
 
+  /* ── Copy results ── */
   if (copyBtn) {
     copyBtn.style.display = 'none';
     copyBtn.addEventListener('click', function () {
@@ -164,6 +206,26 @@
     });
   }
 
+  /* ── Share calculation (copy URL with pre-filled values) ── */
+  if (shareBtn) {
+    shareBtn.style.display = 'none';
+    shareBtn.addEventListener('click', function () {
+      var inputs = collectInputs();
+      encodeToHash(inputs);
+      var url = window.location.href;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(flashShared);
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = url; ta.style.cssText = 'position:fixed;opacity:0';
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); } catch (ex) {}
+        document.body.removeChild(ta);
+        flashShared();
+      }
+    });
+  }
+
   function flashCopied() {
     if (!copyBtn) return;
     var orig = copyBtn.textContent;
@@ -172,19 +234,23 @@
     setTimeout(function () { copyBtn.textContent = orig; copyBtn.classList.remove('copied'); }, 1800);
   }
 
-  /* ── Auto-calculate on page load if inputs pre-filled ── */
-  (function autoCalc() {
-    var fields = form.querySelectorAll('input[name]:not([name="desperdicio_merma"])');
-    var allFilled = fields.length > 0;
-    for (var i = 0; i < fields.length; i++) {
-      if (!fields[i].value) { allFilled = false; break; }
-    }
-    if (allFilled) calculate();
+  function flashShared() {
+    if (!shareBtn) return;
+    var orig = shareBtn.textContent;
+    shareBtn.textContent = '✓ ' + (i18n.link_copied || 'Link copied!');
+    shareBtn.classList.add('copied');
+    setTimeout(function () { shareBtn.textContent = orig; shareBtn.classList.remove('copied'); }, 2000);
+  }
+
+  /* ── On load: restore from URL hash or auto-calc if pre-filled ── */
+  (function init() {
+    var restored = decodeFromHash();
+    if (restored || allFilled()) calculate();
   })();
 
 }());
 
-/* ── FAQ accordion (outside calculator IIFE so it always runs) ── */
+/* ── FAQ accordion (outside IIFE — always runs) ── */
 document.querySelectorAll('.faq-q').forEach(function (btn) {
   btn.addEventListener('click', function () {
     var item = btn.closest('.faq-item');

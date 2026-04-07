@@ -1308,6 +1308,98 @@ def generate_how_to(block_slug: str, lang: str) -> list:
     return block_steps.get(lang, block_steps.get("en", []))
 
 
+# ── Formula explanation per block per language ────────────────────────────────
+
+FORMULA_EXPLAINED = {
+    "estructuras": {
+        "es": "El volumen se obtiene multiplicando largo × ancho × altura. Los materiales se calculan con las dosificaciones estándar EN 206: ~350 kg de cemento, 0.65 m³ de arena y 0.90 m³ de grava por m³ de hormigón; el acero se estima con la cuantía introducida en kg/m³.",
+        "en": "Volume = length × width × height. Materials are derived using EN 206 standard ratios: ~350 kg cement, 0.65 m³ sand and 0.90 m³ gravel per m³ of concrete; steel is estimated from the kg/m³ ratio you enter.",
+        "fr": "Volume = longueur × largeur × hauteur. Les matériaux sont calculés selon les dosages EN 206 : ~350 kg de ciment, 0,65 m³ de sable et 0,90 m³ de gravier par m³ de béton ; l'acier est estimé à partir du taux saisi en kg/m³.",
+        "pt": "Volume = comprimento × largura × altura. Os materiais são calculados com dosagens EN 206: ~350 kg de cimento, 0,65 m³ de areia e 0,90 m³ de brita por m³ de concreto; o aço é estimado pela taxa inserida em kg/m³.",
+        "de": "Volumen = Länge × Breite × Höhe. Materialien werden nach EN 206 berechnet: ~350 kg Zement, 0,65 m³ Sand und 0,90 m³ Kies pro m³ Beton; Stahl wird aus dem eingegebenen kg/m³-Wert ermittelt.",
+        "it": "Volume = lunghezza × larghezza × altezza. I materiali sono calcolati con i dosaggi EN 206: ~350 kg di cemento, 0,65 m³ di sabbia e 0,90 m³ di ghiaia per m³ di calcestruzzo; l'acciaio è stimato dalla percentuale inserita in kg/m³.",
+    },
+    "mamposteria": {
+        "es": "El número de piezas se calcula dividiendo el área del muro entre el área de cada pieza (con juntas). El mortero se estima en 25–30 kg por m² de muro para juntas de 10 mm, ajustado por el coeficiente de dosificación cemento:arena.",
+        "en": "The number of units is calculated by dividing the wall area by each unit's area (including joints). Mortar is estimated at 25–30 kg per m² of wall for 10 mm joints, adjusted by the cement:sand dosing ratio.",
+        "fr": "Le nombre de pièces est obtenu en divisant la surface du mur par la surface de chaque pièce (joints compris). Le mortier est estimé à 25–30 kg par m² de mur pour des joints de 10 mm.",
+        "pt": "O número de peças é calculado dividindo a área da parede pela área de cada peça (com juntas). A argamassa é estimada em 25–30 kg por m² de parede para juntas de 10 mm.",
+        "de": "Die Stückzahl ergibt sich aus der Wandfläche geteilt durch die Fläche jedes Elements (inkl. Fugen). Mörtel wird mit 25–30 kg/m² Wandfläche für 10-mm-Fugen angesetzt.",
+        "it": "Il numero di elementi si calcola dividendo la superficie del muro per la superficie di ogni elemento (giunti inclusi). La malta è stimata a 25–30 kg per m² di parete per giunti da 10 mm.",
+    },
+    "pavimentos": {
+        "es": "Las piezas necesarias se calculan como: área ÷ área de cada pieza. La lechada se estima según el ancho de junta y el perímetro total de piezas; el adhesivo según el rendimiento del producto (kg/m²) especificado en ficha técnica.",
+        "en": "Units needed = floor area ÷ tile area. Grout is estimated from joint width and total tile perimeter; adhesive from the product yield (kg/m²) stated on the technical datasheet.",
+        "fr": "Pièces nécessaires = surface ÷ surface d'une pièce. Le coulis est estimé à partir de la largeur de joint et du périmètre total des pièces ; la colle selon le rendement produit (kg/m²).",
+        "pt": "Peças necessárias = área ÷ área de cada peça. O rejunte é estimado pela largura da junta e o perímetro total das peças; a cola pelo rendimento do produto (kg/m²).",
+        "de": "Benötigte Stücke = Fläche ÷ Fliesenfläche. Fugenmasse wird aus Fugenbreite und Gesamtumfang der Fliesen berechnet; Kleber nach Ergiebigkeit (kg/m²) laut Datenblatt.",
+        "it": "Pezzi necessari = area ÷ area di ogni pezzo. Lo stucco è stimato dalla larghezza della fugatura e dal perimetro totale; l'adesivo dalla resa del prodotto (kg/m²).",
+    },
+    "fontaneria": {
+        "es": "El caudal se calcula con la fórmula de Hazen-Williams o Darcy-Weisbach según el diámetro y la longitud de la tubería. La pérdida de presión se estima como: ΔP = f × (L/D) × (ρv²/2), donde f es el factor de fricción de Darcy.",
+        "en": "Flow rate is calculated using Hazen-Williams or Darcy-Weisbach equations depending on pipe diameter and length. Pressure loss is estimated as: ΔP = f × (L/D) × (ρv²/2), where f is the Darcy friction factor.",
+        "fr": "Le débit est calculé avec Hazen-Williams ou Darcy-Weisbach selon le diamètre et la longueur. La perte de pression est : ΔP = f × (L/D) × (ρv²/2), où f est le facteur de friction de Darcy.",
+        "pt": "A vazão é calculada com Hazen-Williams ou Darcy-Weisbach conforme o diâmetro e o comprimento da tubulação. A perda de carga: ΔP = f × (L/D) × (ρv²/2).",
+        "de": "Der Durchfluss wird nach Hazen-Williams oder Darcy-Weisbach berechnet. Druckverlust: ΔP = f × (L/D) × (ρv²/2), wobei f der Darcy-Reibungsbeiwert ist.",
+        "it": "La portata è calcolata con Hazen-Williams o Darcy-Weisbach. La perdita di pressione: ΔP = f × (L/D) × (ρv²/2), dove f è il fattore di attrito di Darcy.",
+    },
+    "electricidad": {
+        "es": "La sección del cable se calcula con la fórmula S = (2 × L × I) / (σ × ΔU), donde L es la longitud, I la intensidad, σ la conductividad del cobre (56 S·m/mm²) y ΔU la caída de tensión máxima permitida (normalmente 3–5 %).",
+        "en": "Cable cross-section is calculated as S = (2 × L × I) / (σ × ΔU), where L is the length, I the current, σ the conductivity of copper (56 S·m/mm²) and ΔU the maximum permitted voltage drop (usually 3–5 %).",
+        "fr": "La section du câble est calculée par S = (2 × L × I) / (σ × ΔU), où L est la longueur, I l'intensité, σ la conductivité du cuivre (56 S·m/mm²) et ΔU la chute de tension maximale autorisée (3–5 %).",
+        "pt": "A seção do cabo é calculada por S = (2 × L × I) / (σ × ΔU), onde L é o comprimento, I a corrente, σ a condutividade do cobre (56 S·m/mm²) e ΔU a queda de tensão máxima (3–5 %).",
+        "de": "Kabelquerschnitt: S = (2 × L × I) / (σ × ΔU), wobei L die Länge, I die Stromstärke, σ die Leitfähigkeit von Kupfer (56 S·m/mm²) und ΔU der max. Spannungsfall (3–5 %) ist.",
+        "it": "Sezione cavo: S = (2 × L × I) / (σ × ΔU), dove L è la lunghezza, I la corrente, σ la conduttività del rame (56 S·m/mm²) e ΔU la caduta di tensione massima (3–5 %).",
+    },
+    "climatizacion": {
+        "es": "La potencia necesaria se calcula como Q = U × A × ΔT, donde U es el coeficiente de transmisión térmica (W/m²K), A el área del cerramiento y ΔT la diferencia de temperatura interior-exterior. Se suman pérdidas por renovación de aire e infiltraciones.",
+        "en": "Required power = Q = U × A × ΔT, where U is the thermal transmittance (W/m²K), A the envelope area and ΔT the indoor-outdoor temperature difference. Air renewal and infiltration losses are added.",
+        "fr": "Puissance nécessaire : Q = U × A × ΔT, où U est la transmittance thermique (W/m²K), A la surface de l'enveloppe et ΔT la différence de température intérieur-extérieur. Les pertes par renouvellement d'air s'ajoutent.",
+        "pt": "Potência necessária: Q = U × A × ΔT, onde U é a transmitância térmica (W/m²K), A a área da envolvente e ΔT a diferença de temperatura interior-exterior. Adicionam-se perdas por renovação de ar.",
+        "de": "Erforderliche Leistung: Q = U × A × ΔT, wobei U der Wärmedurchgangskoeffizient (W/m²K), A die Gebäudehüllfläche und ΔT die Innen-Außen-Temperaturdifferenz ist. Lüftungsverluste werden addiert.",
+        "it": "Potenza necessaria: Q = U × A × ΔT, dove U è la trasmittanza termica (W/m²K), A l'area dell'involucro e ΔT la differenza di temperatura interno-esterno. Si aggiungono le perdite per ricambio d'aria.",
+    },
+    "carpinteria": {
+        "es": "El volumen de madera se calcula multiplicando largo × ancho × grosor de cada pieza, sumando todas las unidades. El peso se obtiene multiplicando el volumen total por la densidad de la especie (p. ej.: pino 500 kg/m³, roble 700 kg/m³).",
+        "en": "Timber volume = length × width × thickness per piece, summed over all units. Weight = total volume × species density (e.g. pine 500 kg/m³, oak 700 kg/m³).",
+        "fr": "Volume de bois = longueur × largeur × épaisseur de chaque pièce, additionné pour toutes les unités. Poids = volume total × densité de l'essence (ex. : pin 500 kg/m³, chêne 700 kg/m³).",
+        "pt": "Volume de madeira = comprimento × largura × espessura de cada peça, somando todas as unidades. Peso = volume total × densidade da espécie (ex.: pinheiro 500 kg/m³, carvalho 700 kg/m³).",
+        "de": "Holzvolumen = Länge × Breite × Dicke je Stück, summiert über alle Einheiten. Gewicht = Gesamtvolumen × Rohdichte der Holzart (z. B. Kiefer 500 kg/m³, Eiche 700 kg/m³).",
+        "it": "Volume legno = lunghezza × larghezza × spessore per pezzo, sommato per tutte le unità. Peso = volume totale × densità della specie (es. pino 500 kg/m³, rovere 700 kg/m³).",
+    },
+    "pintura": {
+        "es": "Los litros necesarios se calculan como: litros = área / rendimiento (m²/L) × número de manos. El rendimiento está indicado en la ficha técnica del producto (habitual: 10–14 m²/L). Se añade el porcentaje de merma para calcular la cantidad total a comprar.",
+        "en": "Litres needed = area / coverage (m²/L) × number of coats. Coverage is stated on the product datasheet (typical: 10–14 m²/L). The wastage % is added to determine the total amount to purchase.",
+        "fr": "Litres nécessaires = surface / rendement (m²/L) × nombre de couches. Le rendement est indiqué sur la fiche technique (habituel : 10–14 m²/L). Le taux de perte est ajouté pour calculer la quantité totale à acheter.",
+        "pt": "Litros necessários = área / rendimento (m²/L) × número de demãos. O rendimento está na ficha técnica (habitual: 10–14 m²/L). A % de perda é adicionada para a quantidade total a comprar.",
+        "de": "Benötigte Liter = Fläche / Ergiebigkeit (m²/L) × Anstrichanzahl. Die Ergiebigkeit steht im Produktdatenblatt (üblich: 10–14 m²/L). Der Verschnittfaktor wird zur Ermittlung der Gesamtmenge addiert.",
+        "it": "Litri necessari = area / resa (m²/L) × numero di mani. La resa è indicata nella scheda tecnica (tipica: 10–14 m²/L). La % di perdita è aggiunta per calcolare la quantità totale da acquistare.",
+    },
+    "gestion": {
+        "es": "El precio de venta se calcula como: PV = Coste directo × (1 + Gastos generales%) × (1 + Beneficio%) × (1 + IVA%). La tarifa horaria se obtiene dividiendo los costes fijos anuales entre las horas facturables y añadiendo el beneficio deseado.",
+        "en": "Selling price = Direct cost × (1 + Overhead%) × (1 + Profit%) × (1 + VAT%). Hourly rate = annual fixed costs ÷ billable hours + desired profit margin.",
+        "fr": "Prix de vente = Coût direct × (1 + Frais généraux%) × (1 + Bénéfice%) × (1 + TVA%). Taux horaire = coûts fixes annuels ÷ heures facturables + marge bénéficiaire souhaitée.",
+        "pt": "Preço de venda = Custo direto × (1 + Despesas gerais%) × (1 + Lucro%) × (1 + IVA%). Tarifa horária = custos fixos anuais ÷ horas faturáveis + margem de lucro desejada.",
+        "de": "Verkaufspreis = Direktkosten × (1 + Gemeinkosten%) × (1 + Gewinn%) × (1 + MwSt%). Stundensatz = jährliche Fixkosten ÷ abrechenbare Stunden + gewünschte Gewinnmarge.",
+        "it": "Prezzo di vendita = Costo diretto × (1 + Spese generali%) × (1 + Utile%) × (1 + IVA%). Tariffa oraria = costi fissi annui ÷ ore fatturabili + margine di utile desiderato.",
+    },
+}
+
+FORMULA_TITLE = {
+    "es": "Cómo funciona la fórmula",
+    "en": "How the formula works",
+    "fr": "Comment fonctionne la formule",
+    "pt": "Como funciona a fórmula",
+    "de": "Wie die Formel funktioniert",
+    "it": "Come funziona la formula",
+}
+
+
+def generate_formula_explained(block_slug: str, lang: str) -> str:
+    block = FORMULA_EXPLAINED.get(block_slug, {})
+    return block.get(lang, block.get("en", ""))
+
+
 def generate_faq(block_slug: str, lang: str) -> list:
     block_faqs = FAQS.get(block_slug, {})
     return block_faqs.get(lang, block_faqs.get("en", []))
