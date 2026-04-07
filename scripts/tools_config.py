@@ -1033,7 +1033,7 @@ PARAMETRIC_VARIANTS = {
             "tam_pieza_cm": [20, 30, 45, 60, 75, 90],
             "area": [5, 8, 10, 12, 15, 20, 25, 30, 40, 50],
         },
-        "url_fn": lambda p: f"tile-{int(p['tam_pieza_cm'])}x{int(p['tam_pieza_cm'])}-area-{int(p['area'])}m2",
+        "url_fn": lambda p: f"{int(p['tam_pieza_cm'])}x{int(p['tam_pieza_cm'])}-{int(p['area'])}m2",
         "title_template": {
             "en": "How Many {s}×{s}cm Tiles for {a}m²?",
             "es": "¿Cuántas Baldosas {s}×{s}cm para {a}m²?",
@@ -1061,7 +1061,7 @@ PARAMETRIC_VARIANTS = {
             "tam_pieza_cm": [20, 30, 45, 60],
             "area": [3, 5, 8, 10, 12, 15, 20, 25],
         },
-        "url_fn": lambda p: f"wall-tile-{int(p['tam_pieza_cm'])}x{int(p['tam_pieza_cm'])}-area-{int(p['area'])}m2",
+        "url_fn": lambda p: f"{int(p['tam_pieza_cm'])}x{int(p['tam_pieza_cm'])}-{int(p['area'])}m2",
         "title_template": {
             "en": "How Many {s}×{s}cm Wall Tiles for {a}m²?",
             "es": "¿Cuántos Azulejos {s}×{s}cm para {a}m²?",
@@ -1089,7 +1089,7 @@ PARAMETRIC_VARIANTS = {
             "area_planta": [20, 30, 40, 50, 60, 80, 100, 120, 150, 200],
             "pendiente_pct": [15, 25, 35, 45],
         },
-        "url_fn": lambda p: f"roof-area-{int(p['area_planta'])}m2-pitch-{int(p['pendiente_pct'])}pct",
+        "url_fn": lambda p: f"{int(p['area_planta'])}m2-{int(p['pendiente_pct'])}pct",
         "title_template": {
             "en": "How Many Roof Tiles for {a}m² at {p}% Pitch?",
             "es": "¿Cuántas Tejas para {a}m² con Pendiente {p}%?",
@@ -1117,7 +1117,7 @@ PARAMETRIC_VARIANTS = {
             "area": [10, 15, 20, 25, 30, 40, 50, 60, 80, 100],
             "manos": [1, 2, 3],
         },
-        "url_fn": lambda p: f"area-{int(p['area'])}m2-{int(p['manos'])}-coats",
+        "url_fn": lambda p: f"{int(p['area'])}m2-{int(p['manos'])}c",
         "title_template": {
             "en": "Wall Paint for {a}m² with {m} Coat{mp} – Litres",
             "es": "Pintura para {a}m² con {m} Mano{mp} – Litros",
@@ -1151,7 +1151,7 @@ PARAMETRIC_VARIANTS = {
             "area_m2": [8, 10, 12, 15, 18, 20, 25, 30, 40, 50],
             "manos": [1, 2, 3],
         },
-        "url_fn": lambda p: f"ceiling-{int(p['area_m2'])}m2-{int(p['manos'])}-coats",
+        "url_fn": lambda p: f"{int(p['area_m2'])}m2-{int(p['manos'])}c",
         "title_template": {
             "en": "Ceiling Paint for {a}m² – {m} Coat{mp}",
             "es": "Pintura Techo {a}m² – {m} Mano{mp}",
@@ -1185,7 +1185,7 @@ PARAMETRIC_VARIANTS = {
             "longitud_pared_m": [2, 3, 4, 5, 6, 8, 10, 12],
             "altura_m": [2.4, 2.6, 2.8, 3.0],
         },
-        "url_fn": lambda p: f"wall-{_fmt(p['longitud_pared_m'])}m-x-{_fmt(p['altura_m'])}m",
+        "url_fn": lambda p: f"{_fmt(p['longitud_pared_m'])}x{_fmt(p['altura_m'])}m",
         "title_template": {
             "en": "How Many Wallpaper Rolls for {l}m × {h}m Wall?",
             "es": "¿Cuántos Rollos para Pared de {l}m × {h}m?",
@@ -1242,7 +1242,7 @@ PARAMETRIC_VARIANTS = {
             "largo": [2, 3, 4, 5, 6, 8, 10, 12],
             "alto":  [2.2, 2.5, 2.8, 3.0, 3.5],
         },
-        "url_fn": lambda p: f"wall-{_fmt(p['largo'])}x{_fmt(p['alto'])}m",
+        "url_fn": lambda p: f"{_fmt(p['largo'])}x{_fmt(p['alto'])}m",
         "title_template": {
             "en": "How Many Bricks for {l}m × {h}m Wall? Calculator",
             "es": "¿Cuántos Ladrillos para Pared {l}×{h}m?",
@@ -1270,7 +1270,7 @@ PARAMETRIC_VARIANTS = {
             "area_m2": [10, 12, 15, 18, 20, 25, 30, 35, 40, 50],
             "altura_techo": [2.4, 2.6, 2.8, 3.0],
         },
-        "url_fn": lambda p: f"room-{int(p['area_m2'])}m2-ceiling-{_fmt(p['altura_techo'])}m",
+        "url_fn": lambda p: f"{int(p['area_m2'])}m2-{_fmt(p['altura_techo'])}m",
         "title_template": {
             "en": "AC BTU for {a}m² Room with {h}m Ceiling",
             "es": "BTU Aire Acondicionado para {a}m² y {h}m Techo",
@@ -1298,7 +1298,7 @@ PARAMETRIC_VARIANTS = {
             "area_m2": [8, 10, 12, 15, 18, 20, 25, 30, 40],
             "tipo_habitacion": [1, 2, 3],  # 1=living, 2=kitchen, 3=bedroom
         },
-        "url_fn": lambda p: f"room-{int(p['area_m2'])}m2-type-{int(p['tipo_habitacion'])}",
+        "url_fn": lambda p: f"{int(p['area_m2'])}m2-t{int(p['tipo_habitacion'])}",
         "title_template": {
             "en": "LED Lumens for {a}m² Room – Lighting Calculator",
             "es": "Lúmenes LED para Habitación de {a}m²",
@@ -1327,7 +1327,7 @@ PARAMETRIC_VARIANTS = {
             "alto":  [2.5, 2.8, 3.0, 3.5],
             "espesor_cm": [4, 6, 8, 10, 12],
         },
-        "url_fn": lambda p: f"wall-{_fmt(p['largo'])}x{_fmt(p['alto'])}m-{int(p['espesor_cm'])}cm",
+        "url_fn": lambda p: f"{_fmt(p['largo'])}x{_fmt(p['alto'])}m-{int(p['espesor_cm'])}cm",
         "title_template": {
             "en": "Insulation for {l}×{h}m Wall – {e}cm Thick",
             "es": "Aislamiento Pared {l}×{h}m – Espesor {e}cm",
