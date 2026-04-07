@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ block_name }} – {{ t.site_name }}</title>
+  <meta name="description" content="{{ block_name }} — {{ t.site_description }}">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://obracalc.com/{{ lang }}/{{ block_slug }}/">
+
+  {% for alt_lang in all_langs %}
+  <link rel="alternate" hreflang="{{ alt_lang }}" href="https://obracalc.com/{{ alt_lang }}/{{ block_slug }}/">
+  {% endfor %}
+  <link rel="alternate" hreflang="x-default" href="https://obracalc.com/es/{{ block_slug }}/">
+
+  <meta property="og:title" content="{{ block_name }} – {{ t.site_name }}">
+  <meta property="og:description" content="{{ block_name }} — {{ t.site_description }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://obracalc.com/{{ lang }}/{{ block_slug }}/">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": {{ block_name | tojson }},
+    "url": "https://obracalc.com/{{ lang }}/{{ block_slug }}/",
+    "inLanguage": "{{ lang }}",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "ObraCalc",
+      "url": "https://obracalc.com/"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="/css/styles.css">
+  {{ adsense_head | safe }}
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/{{ lang }}/"><span>Obra</span>Calc</a>
+    <nav>
+      <a href="/{{ lang }}/">{{ t.nav_home }}</a>
+      <a href="/{{ lang }}/{{ block_slug }}/">{{ block_name }}</a>
+    </nav>
+    <div class="lang-switcher">
+      {% for alt_lang in all_langs %}
+      <a href="/{{ alt_lang }}/{{ block_slug }}/"{% if alt_lang == lang %} class="active"{% endif %}>{{ alt_lang | upper }}</a>
+      {% endfor %}
+    </div>
+  </div>
+</header>
+
+<section class="block-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="breadcrumb" style="color:#64748b;margin-bottom:.75rem;">
+      <a href="/{{ lang }}/" style="color:var(--primary);">{{ t.nav_home }}</a>
+      <span class="breadcrumb-sep">›</span>
+      <span>{{ block_name }}</span>
+    </nav>
+    <h1><span>{{ block_name }}</span></h1>
+    <p>{{ block_calcs | length }} {{ t.nav_calculators }}</p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="ad-slot ad-slot-banner">{{ adsense_banner | safe }}</div>
+</div>
+
+<main class="container">
+  <div class="calcs-grid">
+    {% for calc in block_calcs %}
+    <a class="calc-thumb" href="/{{ lang }}/{{ block_slug }}/{{ calc.slug }}/">
+      <div class="calc-thumb-num">#{{ calc.id }}</div>
+      <h3>{{ calcs_i18n[calc.id].name }}</h3>
+      <p>{{ calcs_i18n[calc.id].description }}</p>
+    </a>
+    {% endfor %}
+  </div>
+
+  <div class="ad-slot ad-slot-responsive mt-3">{{ adsense_responsive | safe }}</div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>© <span id="yr"></span> ObraCalc — {{ t.footer_rights }}</div>
+    <div class="mt-1" style="font-size:.8rem;">{{ t.footer_disclaimer }}</div>
+    <div class="footer-links">
+      {% for alt_lang in all_langs %}
+      <a href="/{{ alt_lang }}/{{ block_slug }}/">{{ alt_lang | upper }}</a>
+      {% endfor %}
+    </div>
+  </div>
+</footer>
+
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+</body>
+</html>

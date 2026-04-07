@@ -1,0 +1,1889 @@
+{
+  "calculators": [
+    {
+      "id": "001",
+      "slug": "hormigon-masa",
+      "block": 1,
+      "block_slug": "estructuras",
+      "inputs": [
+        {"id": "largo", "type": "number", "min": 0.01, "max": 500, "step": 0.01, "default": 5, "unit": "m"},
+        {"id": "ancho", "type": "number", "min": 0.01, "max": 500, "step": 0.01, "default": 3, "unit": "m"},
+        {"id": "espesor", "type": "number", "min": 0.05, "max": 10, "step": 0.01, "default": 0.2, "unit": "m"}
+      ],
+      "formula": "var L=parseFloat(inputs.largo)||0,W=parseFloat(inputs.ancho)||0,H=parseFloat(inputs.espesor)||0;if(!L||!W||!H)return{error:true};var vol=L*W*H,c=Math.ceil(vol*7),s=+(vol*0.65).toFixed(2),g=+(vol*0.90).toFixed(2);return{volumen:+vol.toFixed(3),cemento_sacos:c,arena_m3:s,grava_m3:g};",
+      "outputs": [
+        {"id": "volumen", "unit": "m³", "highlight": true},
+        {"id": "cemento_sacos", "unit": "sacos 50kg"},
+        {"id": "arena_m3", "unit": "m³"},
+        {"id": "grava_m3", "unit": "m³"}
+      ],
+      "related": ["002", "008", "009"]
+    },
+    {
+      "id": "002",
+      "slug": "hormigon-armado",
+      "block": 1,
+      "block_slug": "estructuras",
+      "inputs": [
+        {"id": "largo", "type": "number", "min": 0.01, "max": 500, "step": 0.01, "default": 5, "unit": "m"},
+        {"id": "ancho", "type": "number", "min": 0.01, "max": 500, "step": 0.01, "default": 3, "unit": "m"},
+        {"id": "espesor", "type": "number", "min": 0.05, "max": 5, "step": 0.01, "default": 0.25, "unit": "m"},
+        {"id": "kg_acero_m3", "type": "number", "min": 50, "max": 400, "step": 5, "default": 100, "unit": "kg/m³"}
+      ],
+      "formula": "var L=parseFloat(inputs.largo)||0,W=parseFloat(inputs.ancho)||0,H=parseFloat(inputs.espesor)||0,ka=parseFloat(inputs.kg_acero_m3)||100;if(!L||!W||!H)return{error:true};var vol=L*W*H,c=Math.ceil(vol*7),s=+(vol*0.55).toFixed(2),g=+(vol*0.80).toFixed(2),acero=+(vol*ka).toFixed(0);return{volumen:+vol.toFixed(3),cemento_sacos:c,arena_m3:s,grava_m3:g,acero_kg:acero};",
+      "outputs": [
+        {"id": "volumen", "unit": "m³", "highlight": true},
+        {"id": "cemento_sacos", "unit": "sacos 50kg"},
+        {"id": "arena_m3", "unit": "m³"},
+        {"id": "grava_m3", "unit": "m³"},
+        {"id": "acero_kg", "unit": "kg"}
+      ],
+      "related": ["001", "005", "006"]
+    },
+    {
+      "id": "003",
+      "slug": "zapata-aislada",
+      "block": 1,
+      "block_slug": "estructuras",
+      "inputs": [
+        {"id": "largo", "type": "number", "min": 0.3, "max": 10, "step": 0.05, "default": 1.5, "unit": "m"},
+        {"id": "ancho", "type": "number", "min": 0.3, "max": 10, "step": 0.05, "default": 1.5, "unit": "m"},
+        {"id": "canto", "type": "number", "min": 0.2, "max": 2, "step": 0.05, "default": 0.5, "unit": "m"},
+        {"id": "cantidad", "type": "number", "min": 1, "max": 100, "step": 1, "default": 4, "unit": "ud"}
+      ],
+      "formula": "var L=parseFloat(inputs.largo)||0,W=parseFloat(inputs.ancho)||0,H=parseFloat(inputs.canto)||0,n=parseFloat(inputs.cantidad)||1;if(!L||!W||!H)return{error:true};var vol1=L*W*H,volT=vol1*n,c=Math.ceil(volT*7),acero=+(volT*120).toFixed(0),encofrado=+(2*(L+W)*H*n).toFixed(2);return{vol_unitario:+vol1.toFixed(3),vol_total:+volT.toFixed(3),cemento_sacos:c,acero_kg:acero,encofrado_m2:encofrado};",
+      "outputs": [
+        {"id": "vol_unitario", "unit": "m³/ud"},
+        {"id": "vol_total", "unit": "m³", "highlight": true},
+        {"id": "cemento_sacos", "unit": "sacos 50kg"},
+        {"id": "acero_kg", "unit": "kg"},
+        {"id": "encofrado_m2", "unit": "m²"}
+      ],
+      "related": ["002", "009", "010"]
+    },
+    {
+      "id": "004",
+      "slug": "muro-contencion",
+      "block": 1,
+      "block_slug": "estructuras",
+      "inputs": [
+        {"id": "largo", "type": "number", "min": 0.5, "max": 200, "step": 0.1, "default": 10, "unit": "m"},
+        {"id": "altura", "type": "number", "min": 0.5, "max": 10, "step": 0.1, "default": 2, "unit": "m"},
+        {"id": "espesor_base", "type": "number", "min": 0.2, "max": 2, "step": 0.05, "default": 0.4, "unit": "m"},
+        {"id": "espesor_corona", "type": "number", "min": 0.15, "max": 1, "step": 0.05, "default": 0.3, "unit": "m"}
+      ],
+      "formula": "var L=parseFloat(inputs.largo)||0,H=parseFloat(inputs.altura)||0,Eb=parseFloat(inputs.espesor_base)||0,Ec=parseFloat(inputs.espesor_corona)||0;if(!L||!H||!Eb||!Ec)return{error:true};var vol=L*H*(Eb+Ec)/2,c=Math.ceil(vol*7),acero=+(vol*90).toFixed(0),enc=+(L*H*2).toFixed(2),losa=+(L*(H*0.4)).toFixed(2);return{vol_muro:+vol.toFixed(3),cemento_sacos:c,acero_kg:acero,encofrado_m2:enc,vol_losa_cim:+losa.toFixed(3)};",
+      "outputs": [
+        {"id": "vol_muro", "unit": "m³", "highlight": true},
+        {"id": "cemento_sacos", "unit": "sacos 50kg"},
+        {"id": "acero_kg", "unit": "kg"},
+        {"id": "encofrado_m2", "unit": "m²"},
+        {"id": "vol_losa_cim", "unit": "m³"}
+      ],
+      "related": ["002", "003", "010"]
+    },
+    {
+      "id": "005",
+      "slug": "pilares-hormigon",
+      "block": 1,
+      "block_slug": "estructuras",
+      "inputs": [
+        {"id": "ancho", "type": "number", "min": 0.2, "max": 2, "step": 0.05, "default": 0.3, "unit": "m"},
+        {"id": "profundidad", "type": "number", "min": 0.2, "max": 2, "step": 0.05, "default": 0.3, "unit": "m"},
+        {"id": "altura", "type": "number", "min": 0.5, "max": 20, "step": 0.1, "default": 3, "unit": "m"},
+        {"id": "cantidad", "type": "number", "min": 1, "max": 200, "step": 1, "default": 6, "unit": "ud"}
+      ],
+      "formula": "var A=parseFloat(inputs.ancho)||0,P=parseFloat(inputs.profundidad)||0,H=parseFloat(inputs.altura)||0,n=parseFloat(inputs.cantidad)||1;if(!A||!P||!H)return{error:true};var v1=A*P*H,vT=v1*n,c=Math.ceil(vT*7),acero=+(vT*160).toFixed(0),enc=+(2*(A+P)*H*n).toFixed(2);return{vol_unitario:+v1.toFixed(3),vol_total:+vT.toFixed(3),cemento_sacos:c,acero_kg:acero,encofrado_m2:enc};",
+      "outputs": [
+        {"id": "vol_unitario", "unit": "m³/ud"},
+        {"id": "vol_total", "unit": "m³", "highlight": true},
+        {"id": "cemento_sacos", "unit": "sacos 50kg"},
+        {"id": "acero_kg", "unit": "kg"},
+        {"id": "encofrado_m2", "unit": "m²"}
+      ],
+      "related": ["002", "006", "007"]
+    },
+    {
+      "id": "006",
+      "slug": "vigas-hormigon",
+      "block": 1,
+      "block_slug": "estructuras",
+      "inputs": [
+        {"id": "ancho", "type": "number", "min": 0.1, "max": 2, "step": 0.05, "default": 0.25, "unit": "m"},
+        {"id": "canto", "type": "number", "min": 0.2, "max": 2, "step": 0.05, "default": 0.5, "unit": "m"},
+        {"id": "longitud", "type": "number", "min": 0.5, "max": 30, "step": 0.1, "default": 5, "unit": "m"},
+        {"id": "cantidad", "type": "number", "min": 1, "max": 500, "step": 1, "default": 4, "unit": "ud"}
+      ],
+      "formula": "var A=parseFloat(inputs.ancho)||0,C=parseFloat(inputs.canto)||0,L=parseFloat(inputs.longitud)||0,n=parseFloat(inputs.cantidad)||1;if(!A||!C||!L)return{error:true};var v1=A*C*L,vT=v1*n,bags=Math.ceil(vT*7),acero=+(vT*140).toFixed(0),enc=+(2*(A+C)*L*n).toFixed(2);return{vol_unitario:+v1.toFixed(3),vol_total:+vT.toFixed(3),cemento_sacos:bags,acero_kg:acero,encofrado_m2:enc};",
+      "outputs": [
+        {"id": "vol_unitario", "unit": "m³/ud"},
+        {"id": "vol_total", "unit": "m³", "highlight": true},
+        {"id": "cemento_sacos", "unit": "sacos 50kg"},
+        {"id": "acero_kg", "unit": "kg"},
+        {"id": "encofrado_m2", "unit": "m²"}
+      ],
+      "related": ["005", "007", "002"]
+    },
+    {
+      "id": "007",
+      "slug": "forjado-vigueta",
+      "block": 1,
+      "block_slug": "estructuras",
+      "inputs": [
+        {"id": "largo", "type": "number", "min": 1, "max": 100, "step": 0.1, "default": 8, "unit": "m"},
+        {"id": "ancho", "type": "number", "min": 1, "max": 100, "step": 0.1, "default": 6, "unit": "m"},
+        {"id": "intereje", "type": "number", "min": 0.5, "max": 1, "step": 0.05, "default": 0.7, "unit": "m"},
+        {"id": "canto_forjado", "type": "number", "min": 0.2, "max": 0.5, "step": 0.01, "default": 0.25, "unit": "m"}
+      ],
+      "formula": "var L=parseFloat(inputs.largo)||0,W=parseFloat(inputs.ancho)||0,ie=parseFloat(inputs.intereje)||0.7,cf=parseFloat(inputs.canto_forjado)||0.25;if(!L||!W)return{error:true};var area=L*W,viguetas=Math.ceil(W/ie)+1,vol_comp=+(area*0.04).toFixed(3),bovedillas=Math.ceil(area/(ie*0.25)),sacos=Math.ceil(vol_comp*7);return{area_m2:+area.toFixed(2),viguetas:viguetas,bovedillas_ud:bovedillas,vol_capa_comp:vol_comp,cemento_sacos:sacos};",
+      "outputs": [
+        {"id": "area_m2", "unit": "m²", "highlight": true},
+        {"id": "viguetas", "unit": "ud"},
+        {"id": "bovedillas_ud", "unit": "ud"},
+        {"id": "vol_capa_comp", "unit": "m³"},
+        {"id": "cemento_sacos", "unit": "sacos 50kg"}
+      ],
+      "related": ["006", "008", "005"]
+    },
+    {
+      "id": "008",
+      "slug": "losa-hormigon",
+      "block": 1,
+      "block_slug": "estructuras",
+      "inputs": [
+        {"id": "largo", "type": "number", "min": 0.5, "max": 200, "step": 0.1, "default": 6, "unit": "m"},
+        {"id": "ancho", "type": "number", "min": 0.5, "max": 200, "step": 0.1, "default": 4, "unit": "m"},
+        {"id": "espesor", "type": "number", "min": 0.1, "max": 0.5, "step": 0.01, "default": 0.2, "unit": "m"},
+        {"id": "kg_acero_m2", "type": "number", "min": 5, "max": 30, "step": 1, "default": 12, "unit": "kg/m²"}
+      ],
+      "formula": "var L=parseFloat(inputs.largo)||0,W=parseFloat(inputs.ancho)||0,E=parseFloat(inputs.espesor)||0,ka=parseFloat(inputs.kg_acero_m2)||12;if(!L||!W||!E)return{error:true};var area=L*W,vol=area*E,bags=Math.ceil(vol*7),acero=+(area*ka).toFixed(0),enc=+(area).toFixed(2);return{area_m2:+area.toFixed(2),vol_m3:+vol.toFixed(3),cemento_sacos:bags,acero_kg:acero};",
+      "outputs": [
+        {"id": "area_m2", "unit": "m²"},
+        {"id": "vol_m3", "unit": "m³", "highlight": true},
+        {"id": "cemento_sacos", "unit": "sacos 50kg"},
+        {"id": "acero_kg", "unit": "kg"}
+      ],
+      "related": ["001", "002", "007"]
+    },
+    {
+      "id": "009",
+      "slug": "cimiento-corrido",
+      "block": 1,
+      "block_slug": "estructuras",
+      "inputs": [
+        {"id": "longitud", "type": "number", "min": 1, "max": 500, "step": 0.1, "default": 20, "unit": "m"},
+        {"id": "ancho", "type": "number", "min": 0.3, "max": 3, "step": 0.05, "default": 0.6, "unit": "m"},
+        {"id": "profundidad", "type": "number", "min": 0.3, "max": 3, "step": 0.05, "default": 0.5, "unit": "m"}
+      ],
+      "formula": "var L=parseFloat(inputs.longitud)||0,W=parseFloat(inputs.ancho)||0,H=parseFloat(inputs.profundidad)||0;if(!L||!W||!H)return{error:true};var vol=L*W*H,bags=Math.ceil(vol*7),s=+(vol*0.65).toFixed(2),g=+(vol*0.90).toFixed(2),acero=+(vol*80).toFixed(0);return{vol_m3:+vol.toFixed(3),cemento_sacos:bags,arena_m3:s,grava_m3:g,acero_kg:acero};",
+      "outputs": [
+        {"id": "vol_m3", "unit": "m³", "highlight": true},
+        {"id": "cemento_sacos", "unit": "sacos 50kg"},
+        {"id": "arena_m3", "unit": "m³"},
+        {"id": "grava_m3", "unit": "m³"},
+        {"id": "acero_kg", "unit": "kg"}
+      ],
+      "related": ["001", "003", "010"]
+    },
+    {
+      "id": "010",
+      "slug": "excavacion-tierra",
+      "block": 1,
+      "block_slug": "estructuras",
+      "inputs": [
+        {"id": "largo", "type": "number", "min": 0.5, "max": 500, "step": 0.1, "default": 10, "unit": "m"},
+        {"id": "ancho", "type": "number", "min": 0.5, "max": 500, "step": 0.1, "default": 6, "unit": "m"},
+        {"id": "profundidad", "type": "number", "min": 0.2, "max": 20, "step": 0.1, "default": 1.5, "unit": "m"},
+        {"id": "esponjamiento", "type": "number", "min": 1, "max": 1.5, "step": 0.05, "default": 1.25, "unit": "factor"}
+      ],
+      "formula": "var L=parseFloat(inputs.largo)||0,W=parseFloat(inputs.ancho)||0,H=parseFloat(inputs.profundidad)||0,fe=parseFloat(inputs.esponjamiento)||1.25;if(!L||!W||!H)return{error:true};var vol_neto=L*W*H,vol_esp=+(vol_neto*fe).toFixed(2),camiones=Math.ceil(vol_esp/8),perim=+(2*(L+W)*H).toFixed(2);return{vol_neto_m3:+vol_neto.toFixed(2),vol_esponjado_m3:vol_esp,camiones_8m3:camiones,perimetro_talud_m2:perim};",
+      "outputs": [
+        {"id": "vol_neto_m3", "unit": "m³", "highlight": true},
+        {"id": "vol_esponjado_m3", "unit": "m³"},
+        {"id": "camiones_8m3", "unit": "camiones"},
+        {"id": "perimetro_talud_m2", "unit": "m²"}
+      ],
+      "related": ["003", "009", "001"]
+    },
+    {
+      "id": "011",
+      "slug": "ladrillo-hueco",
+      "block": 2,
+      "block_slug": "mamposteria",
+      "inputs": [
+        {"id": "largo", "type": "number", "min": 0.5, "max": 200, "step": 0.1, "default": 8, "unit": "m"},
+        {"id": "alto", "type": "number", "min": 0.5, "max": 10, "step": 0.1, "default": 2.8, "unit": "m"},
+        {"id": "descontar_huecos", "type": "number", "min": 0, "max": 50, "step": 0.1, "default": 2.5, "unit": "m²"}
+      ],
+      "formula": "var L=parseFloat(inputs.largo)||0,H=parseFloat(inputs.alto)||0,huecos=parseFloat(inputs.descontar_huecos)||0;if(!L||!H)return{error:true};var area_bruta=L*H,area_neta=Math.max(0,area_bruta-huecos),ladrillos=Math.ceil(area_neta*32*1.05),mortero=+(area_neta*8).toFixed(1);return{area_bruta:+area_bruta.toFixed(2),area_neta:+area_neta.toFixed(2),ladrillos_ud:ladrillos,mortero_kg:mortero};",
+      "outputs": [
+        {"id": "area_bruta", "unit": "m²"},
+        {"id": "area_neta", "unit": "m²", "highlight": true},
+        {"id": "ladrillos_ud", "unit": "uds (+5% merma)"},
+        {"id": "mortero_kg", "unit": "kg"}
+      ],
+      "related": ["012", "013", "017"]
+    },
+    {
+      "id": "012",
+      "slug": "ladrillo-cara-vista",
+      "block": 2,
+      "block_slug": "mamposteria",
+      "inputs": [
+        {"id": "largo", "type": "number", "min": 0.5, "max": 200, "step": 0.1, "default": 8, "unit": "m"},
+        {"id": "alto", "type": "number", "min": 0.5, "max": 10, "step": 0.1, "default": 2.8, "unit": "m"},
+        {"id": "descontar_huecos", "type": "number", "min": 0, "max": 50, "step": 0.1, "default": 4, "unit": "m²"}
+      ],
+      "formula": "var L=parseFloat(inputs.largo)||0,H=parseFloat(inputs.alto)||0,huecos=parseFloat(inputs.descontar_huecos)||0;if(!L||!H)return{error:true};var area_bruta=L*H,area_neta=Math.max(0,area_bruta-huecos),ladrillos=Math.ceil(area_neta*55*1.07),mortero=+(area_neta*20).toFixed(1),junta=+(area_neta*0.5).toFixed(1);return{area_bruta:+area_bruta.toFixed(2),area_neta:+area_neta.toFixed(2),ladrillos_ud:ladrillos,mortero_kg:mortero,lechada_kg:junta};",
+      "outputs": [
+        {"id": "area_bruta", "unit": "m²"},
+        {"id": "area_neta", "unit": "m²", "highlight": true},
+        {"id": "ladrillos_ud", "unit": "uds (+7% merma)"},
+        {"id": "mortero_kg", "unit": "kg"},
+        {"id": "lechada_kg", "unit": "kg"}
+      ],
+      "related": ["011", "013", "019"]
+    },
+    {
+      "id": "013",
+      "slug": "bloque-hormigon",
+      "block": 2,
+      "block_slug": "mamposteria",
+      "inputs": [
+        {"id": "largo", "type": "number", "min": 0.5, "max": 300, "step": 0.1, "default": 10, "unit": "m"},
+        {"id": "alto", "type": "number", "min": 0.5, "max": 10, "step": 0.1, "default": 3, "unit": "m"},
+        {"id": "descontar_huecos", "type": "number", "min": 0, "max": 50, "step": 0.1, "default": 3, "unit": "m²"}
+      ],
+      "formula": "var L=parseFloat(inputs.largo)||0,H=parseFloat(inputs.alto)||0,huecos=parseFloat(inputs.descontar_huecos)||0;if(!L||!H)return{error:true};var area_neta=Math.max(0,L*H-huecos),bloques=Math.ceil(area_neta*12.5*1.05),mortero=+(area_neta*12).toFixed(1);return{area_neta:+area_neta.toFixed(2),bloques_ud:bloques,mortero_kg:mortero};",
+      "outputs": [
+        {"id": "area_neta", "unit": "m²", "highlight": true},
+        {"id": "bloques_ud", "unit": "uds (+5% merma)"},
+        {"id": "mortero_kg", "unit": "kg"}
+      ],
+      "related": ["011", "012", "017"]
+    },
+    {
+      "id": "014",
+      "slug": "tabique-pladur",
+      "block": 2,
+      "block_slug": "mamposteria",
+      "inputs": [
+        {"id": "largo", "type": "number", "min": 0.5, "max": 200, "step": 0.1, "default": 10, "unit": "m"},
+        {"id": "alto", "type": "number", "min": 0.5, "max": 5, "step": 0.1, "default": 2.6, "unit": "m"},
+        {"id": "tipo_placa", "type": "select", "default": "single", "options": ["single", "double"]},
+        {"id": "aislamiento", "type": "select", "default": "si", "options": ["si", "no"]}
+      ],
+      "formula": "var L=parseFloat(inputs.largo)||0,H=parseFloat(inputs.alto)||0,doble=inputs.tipo_placa==='double'?2:1,aisl=inputs.aislamiento==='si';if(!L||!H)return{error:true};var area=L*H,placas=Math.ceil(area*doble/2.88*1.1),perfiles_canal=Math.ceil(L*2*1.1),perfiles_mont=Math.ceil(L/0.6+1)*doble,tornillos=Math.ceil(area*20),pasta_kg=+(area*0.5).toFixed(1),lana_m2=aisl?+area.toFixed(2):0;return{area_m2:+area.toFixed(2),placas_ud:placas,perfiles_canal:perfiles_canal,perfiles_montante:perfiles_mont,tornillos_ud:tornillos,pasta_juntas_kg:pasta_kg,lana_mineral_m2:lana_m2};",
+      "outputs": [
+        {"id": "area_m2", "unit": "m²", "highlight": true},
+        {"id": "placas_ud", "unit": "placas 2.88m²"},
+        {"id": "perfiles_canal", "unit": "uds"},
+        {"id": "perfiles_montante", "unit": "uds"},
+        {"id": "tornillos_ud", "unit": "uds"},
+        {"id": "pasta_juntas_kg", "unit": "kg"},
+        {"id": "lana_mineral_m2", "unit": "m²"}
+      ],
+      "related": ["015", "016", "018"]
+    },
+    {
+      "id": "015",
+      "slug": "aislamiento-termico",
+      "block": 2,
+      "block_slug": "mamposteria",
+      "inputs": [
+        {"id": "largo", "type": "number", "min": 0.5, "max": 300, "step": 0.1, "default": 10, "unit": "m"},
+        {"id": "alto", "type": "number", "min": 0.5, "max": 10, "step": 0.1, "default": 3, "unit": "m"},
+        {"id": "espesor_cm", "type": "number", "min": 2, "max": 25, "step": 1, "default": 6, "unit": "cm"}
+      ],
+      "formula": "var L=parseFloat(inputs.largo)||0,H=parseFloat(inputs.alto)||0,E=parseFloat(inputs.espesor_cm)||6;if(!L||!H)return{error:true};var area=L*H,plancha_m2=+(area*1.05).toFixed(2),vol_m3=+(area*E/100*1.05).toFixed(3);return{area_m2:+area.toFixed(2),plancha_m2:plancha_m2,vol_m3:vol_m3};",
+      "outputs": [
+        {"id": "area_m2", "unit": "m²", "highlight": true},
+        {"id": "plancha_m2", "unit": "m² (+5% merma)"},
+        {"id": "vol_m3", "unit": "m³"}
+      ],
+      "related": ["014", "053", "055"]
+    },
+    {
+      "id": "016",
+      "slug": "revoco-proyectado",
+      "block": 2,
+      "block_slug": "mamposteria",
+      "inputs": [
+        {"id": "area", "type": "number", "min": 1, "max": 2000, "step": 0.5, "default": 50, "unit": "m²"},
+        {"id": "espesor_mm", "type": "number", "min": 5, "max": 30, "step": 1, "default": 15, "unit": "mm"}
+      ],
+      "formula": "var A=parseFloat(inputs.area)||0,E=parseFloat(inputs.espesor_mm)||15;if(!A)return{error:true};var kg_m2=E*1.5,kg_total=+(A*kg_m2*1.1).toFixed(1),sacos=Math.ceil(kg_total/25);return{kg_m2:+kg_m2.toFixed(1),kg_total:kg_total,sacos_25kg:sacos};",
+      "outputs": [
+        {"id": "kg_m2", "unit": "kg/m²"},
+        {"id": "kg_total", "unit": "kg (+10% merma)", "highlight": true},
+        {"id": "sacos_25kg", "unit": "sacos 25kg"}
+      ],
+      "related": ["018", "017", "075"]
+    },
+    {
+      "id": "017",
+      "slug": "mortero-cemento",
+      "block": 2,
+      "block_slug": "mamposteria",
+      "inputs": [
+        {"id": "area", "type": "number", "min": 0.5, "max": 2000, "step": 0.5, "default": 30, "unit": "m²"},
+        {"id": "espesor_cm", "type": "number", "min": 0.5, "max": 5, "step": 0.5, "default": 2, "unit": "cm"},
+        {"id": "dosificacion", "type": "number", "min": 200, "max": 450, "step": 25, "default": 300, "unit": "kg/m³"}
+      ],
+      "formula": "var A=parseFloat(inputs.area)||0,E=parseFloat(inputs.espesor_cm)||2,D=parseFloat(inputs.dosificacion)||300;if(!A)return{error:true};var vol=A*E/100,ckg=+(vol*D).toFixed(1),sacos=Math.ceil(ckg/50),arena=+(vol*1.3).toFixed(2),agua=+(vol*0.25).toFixed(2);return{vol_m3:+vol.toFixed(3),cemento_kg:ckg,sacos_50kg:sacos,arena_m3:arena,agua_m3:agua};",
+      "outputs": [
+        {"id": "vol_m3", "unit": "m³", "highlight": true},
+        {"id": "cemento_kg", "unit": "kg"},
+        {"id": "sacos_50kg", "unit": "sacos 50kg"},
+        {"id": "arena_m3", "unit": "m³"},
+        {"id": "agua_m3", "unit": "m³"}
+      ],
+      "related": ["016", "018", "029"]
+    },
+    {
+      "id": "018",
+      "slug": "enfoscado-guarnecido",
+      "block": 2,
+      "block_slug": "mamposteria",
+      "inputs": [
+        {"id": "area", "type": "number", "min": 1, "max": 3000, "step": 0.5, "default": 80, "unit": "m²"},
+        {"id": "espesor_mm", "type": "number", "min": 10, "max": 25, "step": 1, "default": 15, "unit": "mm"},
+        {"id": "tipo", "type": "select", "default": "cemento", "options": ["cemento", "yeso"]}
+      ],
+      "formula": "var A=parseFloat(inputs.area)||0,E=parseFloat(inputs.espesor_mm)||15,yeso=inputs.tipo==='yeso';if(!A)return{error:true};var kg_m2=yeso?E*1.2:E*1.5,total=+(A*kg_m2*1.08).toFixed(1),sacos=Math.ceil(total/25);return{area_m2:+A.toFixed(2),kg_m2:+kg_m2.toFixed(1),total_kg:total,sacos_25kg:sacos};",
+      "outputs": [
+        {"id": "area_m2", "unit": "m²"},
+        {"id": "kg_m2", "unit": "kg/m²"},
+        {"id": "total_kg", "unit": "kg (+8% merma)", "highlight": true},
+        {"id": "sacos_25kg", "unit": "sacos 25kg"}
+      ],
+      "related": ["016", "017", "076"]
+    },
+    {
+      "id": "019",
+      "slug": "mamposteria-piedra",
+      "block": 2,
+      "block_slug": "mamposteria",
+      "inputs": [
+        {"id": "largo", "type": "number", "min": 0.5, "max": 200, "step": 0.1, "default": 6, "unit": "m"},
+        {"id": "alto", "type": "number", "min": 0.3, "max": 10, "step": 0.1, "default": 2, "unit": "m"},
+        {"id": "espesor", "type": "number", "min": 0.2, "max": 2, "step": 0.05, "default": 0.4, "unit": "m"}
+      ],
+      "formula": "var L=parseFloat(inputs.largo)||0,H=parseFloat(inputs.alto)||0,E=parseFloat(inputs.espesor)||0;if(!L||!H||!E)return{error:true};var vol=L*H*E,piedra=+(vol*1.1*1800).toFixed(0),mortero=+(vol*0.35).toFixed(3),sacos=Math.ceil(mortero*350/50);return{vol_m3:+vol.toFixed(3),piedra_kg:piedra,mortero_m3:mortero,cemento_sacos:sacos};",
+      "outputs": [
+        {"id": "vol_m3", "unit": "m³", "highlight": true},
+        {"id": "piedra_kg", "unit": "kg"},
+        {"id": "mortero_m3", "unit": "m³"},
+        {"id": "cemento_sacos", "unit": "sacos 50kg"}
+      ],
+      "related": ["017", "012", "004"]
+    },
+    {
+      "id": "020",
+      "slug": "cubierta-teja",
+      "block": 2,
+      "block_slug": "mamposteria",
+      "inputs": [
+        {"id": "area_planta", "type": "number", "min": 5, "max": 2000, "step": 0.5, "default": 60, "unit": "m²"},
+        {"id": "pendiente_pct", "type": "number", "min": 10, "max": 60, "step": 1, "default": 30, "unit": "%"},
+        {"id": "tipo_teja", "type": "select", "default": "arabe", "options": ["arabe", "plana", "mixta"]}
+      ],
+      "formula": "var Ap=parseFloat(inputs.area_planta)||0,pct=parseFloat(inputs.pendiente_pct)||30,arabe=inputs.tipo_teja==='arabe';if(!Ap)return{error:true};var factor_inc=1/Math.cos(Math.atan(pct/100)),area_real=+(Ap*factor_inc).toFixed(2),tejas_m2=arabe?30:20,tejas=Math.ceil(area_real*tejas_m2*1.07),rastreles=+(area_real*2.5).toFixed(1);return{area_real_m2:area_real,tejas_ud:tejas,rastreles_ml:rastreles};",
+      "outputs": [
+        {"id": "area_real_m2", "unit": "m²", "highlight": true},
+        {"id": "tejas_ud", "unit": "uds (+7% merma)"},
+        {"id": "rastreles_ml", "unit": "m.l."}
+      ],
+      "related": ["015", "011", "065"]
+    },
+    {
+      "id": "021",
+      "slug": "solado-ceramico",
+      "block": 3,
+      "block_slug": "pavimentos",
+      "inputs": [
+        {"id": "area", "type": "number", "min": 0.5, "max": 2000, "step": 0.5, "default": 25, "unit": "m²"},
+        {"id": "tam_pieza_cm", "type": "number", "min": 15, "max": 120, "step": 5, "default": 60, "unit": "cm"},
+        {"id": "piezas_por_caja", "type": "number", "min": 1, "max": 20, "step": 1, "default": 4, "unit": "ud"}
+      ],
+      "formula": "var A=parseFloat(inputs.area)||0,tam=parseFloat(inputs.tam_pieza_cm)||60,pxc=parseFloat(inputs.piezas_por_caja)||4;if(!A)return{error:true};var area_merma=+(A*1.10).toFixed(2),pieza_m2=(tam/100)*(tam/100),piezas=Math.ceil(area_merma/pieza_m2),cajas=Math.ceil(piezas/pxc),adhesivo=+(area_merma*4.5).toFixed(1),lechada=+(area_merma*0.3).toFixed(1);return{area_merma_m2:area_merma,piezas_ud:piezas,cajas_ud:cajas,adhesivo_kg:adhesivo,lechada_kg:lechada};",
+      "outputs": [
+        {"id": "area_merma_m2", "unit": "m² (+10% merma)", "highlight": true},
+        {"id": "piezas_ud", "unit": "piezas"},
+        {"id": "cajas_ud", "unit": "cajas"},
+        {"id": "adhesivo_kg", "unit": "kg"},
+        {"id": "lechada_kg", "unit": "kg"}
+      ],
+      "related": ["022", "029", "030"]
+    },
+    {
+      "id": "022",
+      "slug": "porcelanico",
+      "block": 3,
+      "block_slug": "pavimentos",
+      "inputs": [
+        {"id": "area", "type": "number", "min": 0.5, "max": 2000, "step": 0.5, "default": 30, "unit": "m²"},
+        {"id": "formato", "type": "select", "default": "60x60", "options": ["30x30","45x45","60x60","60x120","80x80","120x120"]},
+        {"id": "m2_por_caja", "type": "number", "min": 0.5, "max": 5, "step": 0.1, "default": 1.44, "unit": "m²/caja"}
+      ],
+      "formula": "var A=parseFloat(inputs.area)||0,mxc=parseFloat(inputs.m2_por_caja)||1.44;if(!A)return{error:true};var area_merma=+(A*1.10).toFixed(2),cajas=Math.ceil(area_merma/mxc),adhesivo=+(area_merma*6).toFixed(1),lechada=+(area_merma*0.35).toFixed(1);return{area_merma_m2:area_merma,cajas_ud:cajas,adhesivo_kg:adhesivo,lechada_kg:lechada};",
+      "outputs": [
+        {"id": "area_merma_m2", "unit": "m² (+10% merma)", "highlight": true},
+        {"id": "cajas_ud", "unit": "cajas"},
+        {"id": "adhesivo_kg", "unit": "kg"},
+        {"id": "lechada_kg", "unit": "kg"}
+      ],
+      "related": ["021", "029", "030"]
+    },
+    {
+      "id": "023",
+      "slug": "laminado-flotante",
+      "block": 3,
+      "block_slug": "pavimentos",
+      "inputs": [
+        {"id": "area", "type": "number", "min": 1, "max": 500, "step": 0.5, "default": 20, "unit": "m²"},
+        {"id": "m2_por_caja", "type": "number", "min": 1, "max": 5, "step": 0.1, "default": 2.5, "unit": "m²/caja"}
+      ],
+      "formula": "var A=parseFloat(inputs.area)||0,mxc=parseFloat(inputs.m2_por_caja)||2.5;if(!A)return{error:true};var area_merma=+(A*1.08).toFixed(2),cajas=Math.ceil(area_merma/mxc),sotobanda=+(area_merma*1.05).toFixed(2),rodc=Math.ceil(area_merma/15);return{area_merma_m2:area_merma,cajas_ud:cajas,sotobanda_m2:sotobanda,rodapie_ml:+(Math.sqrt(A)*4).toFixed(1)};",
+      "outputs": [
+        {"id": "area_merma_m2", "unit": "m² (+8% merma)", "highlight": true},
+        {"id": "cajas_ud", "unit": "cajas"},
+        {"id": "sotobanda_m2", "unit": "m²"},
+        {"id": "rodapie_ml", "unit": "m.l. (aprox)"}
+      ],
+      "related": ["024", "021", "025"]
+    },
+    {
+      "id": "024",
+      "slug": "parquet-madera",
+      "block": 3,
+      "block_slug": "pavimentos",
+      "inputs": [
+        {"id": "area", "type": "number", "min": 1, "max": 500, "step": 0.5, "default": 25, "unit": "m²"},
+        {"id": "m2_por_caja", "type": "number", "min": 0.5, "max": 5, "step": 0.1, "default": 2.2, "unit": "m²/caja"},
+        {"id": "colocacion", "type": "select", "default": "recto", "options": ["recto","diagonal","espiga"]}
+      ],
+      "formula": "var A=parseFloat(inputs.area)||0,mxc=parseFloat(inputs.m2_por_caja)||2.2,diag=inputs.colocacion!=='recto';if(!A)return{error:true};var merma=diag?0.12:0.07,area_merma=+(A*(1+merma)).toFixed(2),cajas=Math.ceil(area_merma/mxc),barniz=+(A/10).toFixed(1),rodapie=+(Math.sqrt(A)*4).toFixed(1);return{area_merma_m2:area_merma,cajas_ud:cajas,barniz_litros:barniz,rodapie_ml:rodapie};",
+      "outputs": [
+        {"id": "area_merma_m2", "unit": "m² (con merma)", "highlight": true},
+        {"id": "cajas_ud", "unit": "cajas"},
+        {"id": "barniz_litros", "unit": "litros"},
+        {"id": "rodapie_ml", "unit": "m.l."}
+      ],
+      "related": ["023", "025", "072"]
+    },
+    {
+      "id": "025",
+      "slug": "marmol-granito",
+      "block": 3,
+      "block_slug": "pavimentos",
+      "inputs": [
+        {"id": "area", "type": "number", "min": 0.5, "max": 500, "step": 0.5, "default": 15, "unit": "m²"},
+        {"id": "espesor_cm", "type": "number", "min": 1, "max": 5, "step": 0.5, "default": 2, "unit": "cm"},
+        {"id": "tipo", "type": "select", "default": "marmol", "options": ["marmol","granito","cuarcita"]}
+      ],
+      "formula": "var A=parseFloat(inputs.area)||0,E=parseFloat(inputs.espesor_cm)||2;if(!A)return{error:true};var area_merma=+(A*1.08).toFixed(2),densidad=inputs.tipo==='granito'?2700:2700,peso=+(area_merma*E/100*densidad).toFixed(0),adhesivo=+(area_merma*6).toFixed(1);return{area_merma_m2:area_merma,peso_total_kg:peso,adhesivo_kg:adhesivo};",
+      "outputs": [
+        {"id": "area_merma_m2", "unit": "m² (+8% merma)", "highlight": true},
+        {"id": "peso_total_kg", "unit": "kg"},
+        {"id": "adhesivo_kg", "unit": "kg"}
+      ],
+      "related": ["021", "022", "029"]
+    },
+    {
+      "id": "026",
+      "slug": "terrazo",
+      "block": 3,
+      "block_slug": "pavimentos",
+      "inputs": [
+        {"id": "area", "type": "number", "min": 1, "max": 1000, "step": 0.5, "default": 30, "unit": "m²"},
+        {"id": "tam_pieza_cm", "type": "number", "min": 20, "max": 60, "step": 5, "default": 40, "unit": "cm"},
+        {"id": "incluye_mortero", "type": "select", "default": "si", "options": ["si","no"]}
+      ],
+      "formula": "var A=parseFloat(inputs.area)||0,tam=parseFloat(inputs.tam_pieza_cm)||40;if(!A)return{error:true};var area_merma=+(A*1.08).toFixed(2),pieza_m2=(tam/100)*(tam/100),piezas=Math.ceil(area_merma/pieza_m2),mortero_kg=inputs.incluye_mortero==='si'?+(A*30).toFixed(0):0;return{area_merma_m2:area_merma,piezas_ud:piezas,mortero_base_kg:mortero_kg};",
+      "outputs": [
+        {"id": "area_merma_m2", "unit": "m² (+8% merma)", "highlight": true},
+        {"id": "piezas_ud", "unit": "piezas"},
+        {"id": "mortero_base_kg", "unit": "kg"}
+      ],
+      "related": ["021", "025", "030"]
+    },
+    {
+      "id": "027",
+      "slug": "azulejo-pared",
+      "block": 3,
+      "block_slug": "pavimentos",
+      "inputs": [
+        {"id": "area", "type": "number", "min": 0.5, "max": 500, "step": 0.5, "default": 20, "unit": "m²"},
+        {"id": "tam_pieza_cm", "type": "number", "min": 10, "max": 60, "step": 5, "default": 30, "unit": "cm"},
+        {"id": "piezas_por_caja", "type": "number", "min": 1, "max": 30, "step": 1, "default": 10, "unit": "ud"}
+      ],
+      "formula": "var A=parseFloat(inputs.area)||0,tam=parseFloat(inputs.tam_pieza_cm)||30,pxc=parseFloat(inputs.piezas_por_caja)||10;if(!A)return{error:true};var area_merma=+(A*1.15).toFixed(2),pieza_m2=(tam/100)*(tam/100),piezas=Math.ceil(area_merma/pieza_m2),cajas=Math.ceil(piezas/pxc),adhesivo=+(area_merma*4).toFixed(1),lechada=+(area_merma*0.4).toFixed(1);return{area_merma_m2:area_merma,piezas_ud:piezas,cajas_ud:cajas,adhesivo_kg:adhesivo,lechada_kg:lechada};",
+      "outputs": [
+        {"id": "area_merma_m2", "unit": "m² (+15% merma)", "highlight": true},
+        {"id": "piezas_ud", "unit": "piezas"},
+        {"id": "cajas_ud", "unit": "cajas"},
+        {"id": "adhesivo_kg", "unit": "kg"},
+        {"id": "lechada_kg", "unit": "kg"}
+      ],
+      "related": ["021", "028", "029"]
+    },
+    {
+      "id": "028",
+      "slug": "mosaico",
+      "block": 3,
+      "block_slug": "pavimentos",
+      "inputs": [
+        {"id": "area", "type": "number", "min": 0.1, "max": 300, "step": 0.1, "default": 8, "unit": "m²"},
+        {"id": "tam_malla_cm", "type": "number", "min": 20, "max": 60, "step": 5, "default": 30, "unit": "cm"}
+      ],
+      "formula": "var A=parseFloat(inputs.area)||0,tam=parseFloat(inputs.tam_malla_cm)||30;if(!A)return{error:true};var area_merma=+(A*1.10).toFixed(2),malla_m2=(tam/100)*(tam/100),mallas=Math.ceil(area_merma/malla_m2),adhesivo=+(area_merma*5).toFixed(1),lechada=+(area_merma*0.6).toFixed(1);return{area_merma_m2:area_merma,mallas_ud:mallas,adhesivo_kg:adhesivo,lechada_kg:lechada};",
+      "outputs": [
+        {"id": "area_merma_m2", "unit": "m² (+10%)", "highlight": true},
+        {"id": "mallas_ud", "unit": "mallas"},
+        {"id": "adhesivo_kg", "unit": "kg"},
+        {"id": "lechada_kg", "unit": "kg"}
+      ],
+      "related": ["027", "021", "029"]
+    },
+    {
+      "id": "029",
+      "slug": "adhesivo-ceramico",
+      "block": 3,
+      "block_slug": "pavimentos",
+      "inputs": [
+        {"id": "area", "type": "number", "min": 0.5, "max": 2000, "step": 0.5, "default": 25, "unit": "m²"},
+        {"id": "tipo_colocacion", "type": "select", "default": "suelo", "options": ["suelo","pared","exterior","piscina"]},
+        {"id": "tipo_adhesivo", "type": "select", "default": "C2", "options": ["C1","C2","C2S1","C2S2"]}
+      ],
+      "formula": "var A=parseFloat(inputs.area)||0,esp=inputs.tipo_colocacion==='pared'?4:6,ext=inputs.tipo_colocacion==='exterior'||inputs.tipo_colocacion==='piscina'?1.1:1;if(!A)return{error:true};var kg_m2=esp*ext,total=+(A*kg_m2*1.05).toFixed(1),sacos_25=Math.ceil(total/25);return{kg_m2:kg_m2,total_kg:total,sacos_25kg:sacos_25};",
+      "outputs": [
+        {"id": "kg_m2", "unit": "kg/m²"},
+        {"id": "total_kg", "unit": "kg (+5% merma)", "highlight": true},
+        {"id": "sacos_25kg", "unit": "sacos 25kg"}
+      ],
+      "related": ["021", "027", "030"]
+    },
+    {
+      "id": "030",
+      "slug": "lechada-junta",
+      "block": 3,
+      "block_slug": "pavimentos",
+      "inputs": [
+        {"id": "area", "type": "number", "min": 0.5, "max": 2000, "step": 0.5, "default": 25, "unit": "m²"},
+        {"id": "tam_pieza_cm", "type": "number", "min": 10, "max": 120, "step": 5, "default": 60, "unit": "cm"},
+        {"id": "ancho_junta_mm", "type": "number", "min": 2, "max": 15, "step": 1, "default": 3, "unit": "mm"},
+        {"id": "grosor_pieza_mm", "type": "number", "min": 6, "max": 25, "step": 1, "default": 10, "unit": "mm"}
+      ],
+      "formula": "var A=parseFloat(inputs.area)||0,T=parseFloat(inputs.tam_pieza_cm)||60,J=parseFloat(inputs.ancho_junta_mm)||3,G=parseFloat(inputs.grosor_pieza_mm)||10;if(!A)return{error:true};var kg_m2=(2*J*G)/(T*10)*1.7*1.6,total=+(A*kg_m2*1.1).toFixed(2),sacos=Math.ceil(total/5);return{kg_m2:+kg_m2.toFixed(3),total_kg:total,sacos_5kg:sacos};",
+      "outputs": [
+        {"id": "kg_m2", "unit": "kg/m²"},
+        {"id": "total_kg", "unit": "kg (+10%)", "highlight": true},
+        {"id": "sacos_5kg", "unit": "sacos 5kg"}
+      ],
+      "related": ["021", "029", "027"]
+    },
+    {
+      "id": "031",
+      "slug": "tuberia-pvc-saneamiento",
+      "block": 4,
+      "block_slug": "fontaneria",
+      "inputs": [
+        {"id": "longitud", "type": "number", "min": 1, "max": 500, "step": 0.5, "default": 20, "unit": "m"},
+        {"id": "diametro_mm", "type": "select", "default": "110", "options": ["50","75","110","125","160","200"]},
+        {"id": "tramos", "type": "number", "min": 1, "max": 50, "step": 1, "default": 4, "unit": "tramos"}
+      ],
+      "formula": "var L=parseFloat(inputs.longitud)||0,tr=parseFloat(inputs.tramos)||4;if(!L)return{error:true};var l_merma=+(L*1.10).toFixed(1),barras=Math.ceil(l_merma/3),codos=tr*2,manguitos=Math.ceil(L/3)+tr,tee_ud=Math.ceil(tr/2);return{longitud_merma_m:l_merma,barras_3m:barras,codos_ud:codos,manguitos_ud:manguitos,tee_ud:tee_ud};",
+      "outputs": [
+        {"id": "longitud_merma_m", "unit": "m (+10%)", "highlight": true},
+        {"id": "barras_3m", "unit": "barras 3m"},
+        {"id": "codos_ud", "unit": "codos"},
+        {"id": "manguitos_ud", "unit": "manguitos"},
+        {"id": "tee_ud", "unit": "tes"}
+      ],
+      "related": ["032", "042", "040"]
+    },
+    {
+      "id": "032",
+      "slug": "tuberia-cobre-pex",
+      "block": 4,
+      "block_slug": "fontaneria",
+      "inputs": [
+        {"id": "longitud", "type": "number", "min": 1, "max": 500, "step": 0.5, "default": 25, "unit": "m"},
+        {"id": "diametro_mm", "type": "select", "default": "15", "options": ["10","15","18","22","28","35","42","54"]},
+        {"id": "puntos_suministro", "type": "number", "min": 1, "max": 30, "step": 1, "default": 6, "unit": "ud"}
+      ],
+      "formula": "var L=parseFloat(inputs.longitud)||0,ps=parseFloat(inputs.puntos_suministro)||6;if(!L)return{error:true};var l_merma=+(L*1.10).toFixed(1),codos=ps*2,tee=Math.ceil(ps/2),llaves=ps,rollo_50=Math.ceil(l_merma/50);return{longitud_merma_m:l_merma,codos_ud:codos,tee_ud:tee,llaves_escuadra:llaves,rollos_50m:rollo_50};",
+      "outputs": [
+        {"id": "longitud_merma_m", "unit": "m (+10%)", "highlight": true},
+        {"id": "codos_ud", "unit": "codos"},
+        {"id": "tee_ud", "unit": "tes"},
+        {"id": "llaves_escuadra", "unit": "llaves"},
+        {"id": "rollos_50m", "unit": "rollos 50m (PEX)"}
+      ],
+      "related": ["031", "038", "040"]
+    },
+    {
+      "id": "033",
+      "slug": "presion-agua",
+      "block": 4,
+      "block_slug": "fontaneria",
+      "inputs": [
+        {"id": "altura_m", "type": "number", "min": 0.1, "max": 100, "step": 0.1, "default": 10, "unit": "m"},
+        {"id": "perdidas_carga_pct", "type": "number", "min": 0, "max": 40, "step": 1, "default": 15, "unit": "%"}
+      ],
+      "formula": "var H=parseFloat(inputs.altura_m)||0,ploss=parseFloat(inputs.perdidas_carga_pct)||15;if(!H)return{error:true};var bar_bruto=+(H*0.0981).toFixed(3),bar_neto=+(bar_bruto*(1-ploss/100)).toFixed(3),psi=+(bar_neto*14.504).toFixed(1),kpa=+(bar_neto*100).toFixed(1);return{bar_bruto:bar_bruto,bar_neto:bar_neto,psi:psi,kpa:kpa};",
+      "outputs": [
+        {"id": "bar_bruto", "unit": "bar (bruto)"},
+        {"id": "bar_neto", "unit": "bar (con pérdidas)", "highlight": true},
+        {"id": "psi", "unit": "PSI"},
+        {"id": "kpa", "unit": "kPa"}
+      ],
+      "related": ["034", "039", "031"]
+    },
+    {
+      "id": "034",
+      "slug": "deposito-agua",
+      "block": 4,
+      "block_slug": "fontaneria",
+      "inputs": [
+        {"id": "personas", "type": "number", "min": 1, "max": 200, "step": 1, "default": 4, "unit": "personas"},
+        {"id": "litros_persona_dia", "type": "number", "min": 50, "max": 400, "step": 10, "default": 150, "unit": "L/p/día"},
+        {"id": "dias_autonomia", "type": "number", "min": 0.5, "max": 7, "step": 0.5, "default": 1, "unit": "días"}
+      ],
+      "formula": "var P=parseFloat(inputs.personas)||0,L=parseFloat(inputs.litros_persona_dia)||150,D=parseFloat(inputs.dias_autonomia)||1;if(!P)return{error:true};var total=+(P*L*D).toFixed(0),deposito_norm=total<=500?500:total<=1000?1000:total<=2000?2000:5000;return{litros_necesarios:total,deposito_recomendado_L:deposito_norm,m3_dia:+(P*L/1000).toFixed(2)};",
+      "outputs": [
+        {"id": "litros_necesarios", "unit": "litros", "highlight": true},
+        {"id": "deposito_recomendado_L", "unit": "L (talla estándar)"},
+        {"id": "m3_dia", "unit": "m³/día"}
+      ],
+      "related": ["033", "035", "041"]
+    },
+    {
+      "id": "035",
+      "slug": "calentador-agua",
+      "block": 4,
+      "block_slug": "fontaneria",
+      "inputs": [
+        {"id": "litros_deposito", "type": "number", "min": 30, "max": 500, "step": 10, "default": 80, "unit": "L"},
+        {"id": "temp_entrada_c", "type": "number", "min": 5, "max": 20, "step": 1, "default": 12, "unit": "°C"},
+        {"id": "temp_salida_c", "type": "number", "min": 40, "max": 75, "step": 1, "default": 55, "unit": "°C"},
+        {"id": "horas_calentamiento", "type": "number", "min": 0.5, "max": 8, "step": 0.5, "default": 2, "unit": "h"}
+      ],
+      "formula": "var V=parseFloat(inputs.litros_deposito)||0,Ti=parseFloat(inputs.temp_entrada_c)||12,Ts=parseFloat(inputs.temp_salida_c)||55,H=parseFloat(inputs.horas_calentamiento)||2;if(!V)return{error:true};var kw=+(V*(Ts-Ti)*1.163/1000/H).toFixed(2),kwh=+(V*(Ts-Ti)*1.163/1000).toFixed(2);return{potencia_kw:kw,energia_kwh:kwh,consumo_mes_kwh:+(kwh*30).toFixed(1)};",
+      "outputs": [
+        {"id": "potencia_kw", "unit": "kW", "highlight": true},
+        {"id": "energia_kwh", "unit": "kWh/ciclo"},
+        {"id": "consumo_mes_kwh", "unit": "kWh/mes (1 ciclo/día)"}
+      ],
+      "related": ["036", "034", "052"]
+    },
+    {
+      "id": "036",
+      "slug": "caldera-gas",
+      "block": 4,
+      "block_slug": "fontaneria",
+      "inputs": [
+        {"id": "area_m2", "type": "number", "min": 20, "max": 2000, "step": 5, "default": 100, "unit": "m²"},
+        {"id": "altura_m", "type": "number", "min": 2.2, "max": 5, "step": 0.1, "default": 2.7, "unit": "m"},
+        {"id": "aislamiento", "type": "select", "default": "medio", "options": ["deficiente","medio","bueno","excelente"]}
+      ],
+      "formula": "var A=parseFloat(inputs.area_m2)||0,H=parseFloat(inputs.altura_m)||2.7,aisl={'deficiente':100,'medio':70,'bueno':50,'excelente':35};if(!A)return{error:true};var vol=A*H,kw_cal=+(vol*aisl[inputs.aislamiento]/1000).toFixed(1),kw_acs=+(A*0.05).toFixed(1),kw_total=+(kw_cal+kw_acs).toFixed(1),modelo=kw_total<=15?'15kW':kw_total<=24?'24kW':kw_total<=35?'35kW':'50kW+';return{vol_m3:+vol.toFixed(1),kw_calefaccion:kw_cal,kw_acs:kw_acs,kw_total:kw_total,modelo_recomendado:modelo};",
+      "outputs": [
+        {"id": "vol_m3", "unit": "m³"},
+        {"id": "kw_calefaccion", "unit": "kW (calef.)"},
+        {"id": "kw_acs", "unit": "kW (ACS)"},
+        {"id": "kw_total", "unit": "kW total", "highlight": true},
+        {"id": "modelo_recomendado", "unit": "modelo"}
+      ],
+      "related": ["035", "037", "053"]
+    },
+    {
+      "id": "037",
+      "slug": "radiador-aluminio",
+      "block": 4,
+      "block_slug": "fontaneria",
+      "inputs": [
+        {"id": "area_m2", "type": "number", "min": 5, "max": 100, "step": 0.5, "default": 15, "unit": "m²"},
+        {"id": "altura_m", "type": "number", "min": 2.2, "max": 5, "step": 0.1, "default": 2.7, "unit": "m"},
+        {"id": "orientacion", "type": "select", "default": "interior", "options": ["interior","exterior_norte","exterior_sur","sotano"]}
+      ],
+      "formula": "var A=parseFloat(inputs.area_m2)||0,H=parseFloat(inputs.altura_m)||2.7,coef={'interior':0.04,'exterior_norte':0.065,'exterior_sur':0.05,'sotano':0.07};if(!A)return{error:true};var vol=A*H,w_necesarios=+(vol*coef[inputs.orientacion]*1000).toFixed(0),elementos=Math.ceil(w_necesarios/175),radiadores=Math.ceil(elementos/12);return{vol_m3:+vol.toFixed(1),w_necesarios:w_necesarios,elementos_ud:elementos,radiadores_ud:radiadores};",
+      "outputs": [
+        {"id": "vol_m3", "unit": "m³"},
+        {"id": "w_necesarios", "unit": "W"},
+        {"id": "elementos_ud", "unit": "elementos (175W/elem)", "highlight": true},
+        {"id": "radiadores_ud", "unit": "radiadores (12 elem/rad)"}
+      ],
+      "related": ["036", "038", "053"]
+    },
+    {
+      "id": "038",
+      "slug": "suelo-radiante",
+      "block": 4,
+      "block_slug": "fontaneria",
+      "inputs": [
+        {"id": "area_m2", "type": "number", "min": 5, "max": 500, "step": 0.5, "default": 80, "unit": "m²"},
+        {"id": "separacion_cm", "type": "number", "min": 10, "max": 30, "step": 5, "default": 20, "unit": "cm"},
+        {"id": "circuitos_max_m", "type": "number", "min": 50, "max": 120, "step": 10, "default": 80, "unit": "m/circuito"}
+      ],
+      "formula": "var A=parseFloat(inputs.area_m2)||0,sep=parseFloat(inputs.separacion_cm)||20,cmax=parseFloat(inputs.circuitos_max_m)||80;if(!A)return{error:true};var ml_tubo=+(A*(100/sep)*1.1).toFixed(1),circuitos=Math.ceil(ml_tubo/cmax),colectores=Math.ceil(circuitos/8),mortero_kg=+(A*80).toFixed(0);return{ml_tubo:ml_tubo,circuitos:circuitos,colectores_ud:colectores,mortero_autonivelante_kg:mortero_kg};",
+      "outputs": [
+        {"id": "ml_tubo", "unit": "m.l. tubo (+10%)", "highlight": true},
+        {"id": "circuitos", "unit": "circuitos"},
+        {"id": "colectores_ud", "unit": "colectores (8 circ)"},
+        {"id": "mortero_autonivelante_kg", "unit": "kg"}
+      ],
+      "related": ["037", "032", "036"]
+    },
+    {
+      "id": "039",
+      "slug": "riego-goteo",
+      "block": 4,
+      "block_slug": "fontaneria",
+      "inputs": [
+        {"id": "area_m2", "type": "number", "min": 5, "max": 10000, "step": 5, "default": 200, "unit": "m²"},
+        {"id": "separacion_goteros_cm", "type": "number", "min": 20, "max": 100, "step": 10, "default": 30, "unit": "cm"},
+        {"id": "separacion_lineas_m", "type": "number", "min": 0.3, "max": 2, "step": 0.1, "default": 0.5, "unit": "m"}
+      ],
+      "formula": "var A=parseFloat(inputs.area_m2)||0,sg=parseFloat(inputs.separacion_goteros_cm)||30,sl=parseFloat(inputs.separacion_lineas_m)||0.5;if(!A)return{error:true};var lineas_m=+(A/sl).toFixed(1),goteros=Math.ceil((A/(sl*sg/100))),tuberia_m=+(lineas_m*1.15).toFixed(1),programador=1;return{lineas_tuberia_m:tuberia_m,goteros_ud:goteros,sectores:Math.ceil(A/500)};",
+      "outputs": [
+        {"id": "lineas_tuberia_m", "unit": "m.l. tubería (+15%)", "highlight": true},
+        {"id": "goteros_ud", "unit": "goteros"},
+        {"id": "sectores", "unit": "sectores (500m²/sector)"}
+      ],
+      "related": ["031", "033", "034"]
+    },
+    {
+      "id": "040",
+      "slug": "acometida-agua",
+      "block": 4,
+      "block_slug": "fontaneria",
+      "inputs": [
+        {"id": "caudal_lps", "type": "number", "min": 0.1, "max": 10, "step": 0.1, "default": 0.5, "unit": "L/s"},
+        {"id": "longitud_m", "type": "number", "min": 1, "max": 200, "step": 1, "default": 15, "unit": "m"},
+        {"id": "presion_disponible_bar", "type": "number", "min": 1, "max": 10, "step": 0.5, "default": 3, "unit": "bar"}
+      ],
+      "formula": "var Q=parseFloat(inputs.caudal_lps)||0,L=parseFloat(inputs.longitud_m)||15;if(!Q)return{error:true};var v=1.5,A_m2=Q/1000/v,D_m=Math.sqrt(4*A_m2/Math.PI),D_mm=+(D_m*1000).toFixed(1),D_norm=D_mm<=20?20:D_mm<=25?25:D_mm<=32?32:D_mm<=40?40:50;return{caudal_m3h:+(Q*3.6).toFixed(2),diametro_calc_mm:D_mm,diametro_normalizado_mm:D_norm};",
+      "outputs": [
+        {"id": "caudal_m3h", "unit": "m³/h"},
+        {"id": "diametro_calc_mm", "unit": "mm (calculado)"},
+        {"id": "diametro_normalizado_mm", "unit": "mm DN (normalizado)", "highlight": true}
+      ],
+      "related": ["033", "031", "032"]
+    },
+    {
+      "id": "041",
+      "slug": "depuradora-piscina",
+      "block": 4,
+      "block_slug": "fontaneria",
+      "inputs": [
+        {"id": "largo_m", "type": "number", "min": 2, "max": 50, "step": 0.5, "default": 8, "unit": "m"},
+        {"id": "ancho_m", "type": "number", "min": 2, "max": 20, "step": 0.5, "default": 4, "unit": "m"},
+        {"id": "profundidad_media_m", "type": "number", "min": 0.8, "max": 3, "step": 0.1, "default": 1.5, "unit": "m"},
+        {"id": "turnos_dia", "type": "number", "min": 1, "max": 4, "step": 0.5, "default": 2, "unit": "turnos/día"}
+      ],
+      "formula": "var L=parseFloat(inputs.largo_m)||0,W=parseFloat(inputs.ancho_m)||0,H=parseFloat(inputs.profundidad_media_m)||1.5,T=parseFloat(inputs.turnos_dia)||2;if(!L||!W)return{error:true};var vol=+(L*W*H).toFixed(1),caudal=+(vol/T/8).toFixed(2),filtro_m2=+(caudal/20).toFixed(2),cloro_sem=+(vol*0.003).toFixed(2);return{vol_m3:vol,caudal_m3h:caudal,filtro_area_m2:filtro_m2,cloro_semanal_kg:cloro_sem};",
+      "outputs": [
+        {"id": "vol_m3", "unit": "m³", "highlight": true},
+        {"id": "caudal_m3h", "unit": "m³/h"},
+        {"id": "filtro_area_m2", "unit": "m² filtro"},
+        {"id": "cloro_semanal_kg", "unit": "kg cloro/semana"}
+      ],
+      "related": ["034", "033", "039"]
+    },
+    {
+      "id": "042",
+      "slug": "sifon-sumidero",
+      "block": 4,
+      "block_slug": "fontaneria",
+      "inputs": [
+        {"id": "num_aparatos", "type": "number", "min": 1, "max": 20, "step": 1, "default": 5, "unit": "aparatos"},
+        {"id": "longitud_bajante_m", "type": "number", "min": 2, "max": 30, "step": 0.5, "default": 8, "unit": "m"},
+        {"id": "pendiente_pct", "type": "number", "min": 1, "max": 4, "step": 0.5, "default": 2, "unit": "%"}
+      ],
+      "formula": "var n=parseFloat(inputs.num_aparatos)||0,L=parseFloat(inputs.longitud_bajante_m)||8,pct=parseFloat(inputs.pendiente_pct)||2;if(!n)return{error:true};var sifones=n,bajante_dia=+(Math.sqrt(n)*30).toFixed(0),colector_dia=+(bajante_dia*1.2).toFixed(0),desnivel=+(L*pct/100).toFixed(2);return{sifones_ud:sifones,diametro_bajante_mm:bajante_dia,diametro_colector_mm:colector_dia,desnivel_m:desnivel};",
+      "outputs": [
+        {"id": "sifones_ud", "unit": "sifones"},
+        {"id": "diametro_bajante_mm", "unit": "mm Ø bajante", "highlight": true},
+        {"id": "diametro_colector_mm", "unit": "mm Ø colector"},
+        {"id": "desnivel_m", "unit": "m desnivel necesario"}
+      ],
+      "related": ["031", "040", "033"]
+    },
+    {
+      "id": "043",
+      "slug": "cable-electrico-seccion",
+      "block": 5,
+      "block_slug": "electricidad",
+      "inputs": [
+        {"id": "corriente_a", "type": "number", "min": 1, "max": 200, "step": 1, "default": 16, "unit": "A"},
+        {"id": "longitud_m", "type": "number", "min": 1, "max": 500, "step": 1, "default": 20, "unit": "m"},
+        {"id": "tension_v", "type": "select", "default": "230", "options": ["230","400"]},
+        {"id": "caida_max_pct", "type": "number", "min": 1, "max": 5, "step": 0.5, "default": 3, "unit": "%"}
+      ],
+      "formula": "var I=parseFloat(inputs.corriente_a)||0,L=parseFloat(inputs.longitud_m)||0,V=parseFloat(inputs.tension_v)||230,cp=parseFloat(inputs.caida_max_pct)||3;if(!I||!L)return{error:true};var sigma=56,dV=V*cp/100,S_calc=+(2*L*I/(sigma*dV)).toFixed(4),S_norm=S_calc<=1.5?1.5:S_calc<=2.5?2.5:S_calc<=4?4:S_calc<=6?6:S_calc<=10?10:S_calc<=16?16:S_calc<=25?25:35;return{seccion_calc_mm2:S_calc,seccion_normalizada_mm2:S_norm,caida_real_pct:+(2*L*I/(sigma*S_norm*V)*100).toFixed(2)};",
+      "outputs": [
+        {"id": "seccion_calc_mm2", "unit": "mm² (calculado)"},
+        {"id": "seccion_normalizada_mm2", "unit": "mm² (normalizado)", "highlight": true},
+        {"id": "caida_real_pct", "unit": "% caída real"}
+      ],
+      "related": ["044", "047", "052"]
+    },
+    {
+      "id": "044",
+      "slug": "caida-tension",
+      "block": 5,
+      "block_slug": "electricidad",
+      "inputs": [
+        {"id": "seccion_mm2", "type": "number", "min": 1.5, "max": 240, "step": 0.5, "default": 2.5, "unit": "mm²"},
+        {"id": "longitud_m", "type": "number", "min": 1, "max": 500, "step": 1, "default": 30, "unit": "m"},
+        {"id": "corriente_a", "type": "number", "min": 1, "max": 200, "step": 1, "default": 16, "unit": "A"},
+        {"id": "tension_v", "type": "select", "default": "230", "options": ["230","400"]}
+      ],
+      "formula": "var S=parseFloat(inputs.seccion_mm2)||0,L=parseFloat(inputs.longitud_m)||0,I=parseFloat(inputs.corriente_a)||0,V=parseFloat(inputs.tension_v)||230;if(!S||!L||!I)return{error:true};var sigma=56,dV=+(2*L*I/(sigma*S)).toFixed(3),dV_pct=+(dV/V*100).toFixed(2),ok=dV_pct<=3;return{caida_v:dV,caida_pct:dV_pct,cumple_rebt:ok?'SI':'NO (>3%)'};",
+      "outputs": [
+        {"id": "caida_v", "unit": "V"},
+        {"id": "caida_pct", "unit": "%", "highlight": true},
+        {"id": "cumple_rebt", "unit": "Cumple REBT"}
+      ],
+      "related": ["043", "047", "050"]
+    },
+    {
+      "id": "045",
+      "slug": "luminarias-lumenes",
+      "block": 5,
+      "block_slug": "electricidad",
+      "inputs": [
+        {"id": "area_m2", "type": "number", "min": 1, "max": 2000, "step": 0.5, "default": 20, "unit": "m²"},
+        {"id": "lux_requeridos", "type": "number", "min": 50, "max": 1000, "step": 50, "default": 300, "unit": "lux"},
+        {"id": "altura_techo_m", "type": "number", "min": 2, "max": 10, "step": 0.1, "default": 2.7, "unit": "m"},
+        {"id": "eficiencia_luminaria", "type": "number", "min": 50, "max": 150, "step": 5, "default": 90, "unit": "lm/W"}
+      ],
+      "formula": "var A=parseFloat(inputs.area_m2)||0,E=parseFloat(inputs.lux_requeridos)||300,eff=parseFloat(inputs.eficiencia_luminaria)||90;if(!A)return{error:true};var cu=0.6,fm=0.8,total_lm=+(A*E/(cu*fm)).toFixed(0),w_total=+(total_lm/eff).toFixed(0);return{lumenes_totales:total_lm,potencia_total_w:w_total,led_18w_ud:Math.ceil(total_lm/(18*eff)),led_36w_ud:Math.ceil(total_lm/(36*eff))};",
+      "outputs": [
+        {"id": "lumenes_totales", "unit": "lm", "highlight": true},
+        {"id": "potencia_total_w", "unit": "W"},
+        {"id": "led_18w_ud", "unit": "focos LED 18W"},
+        {"id": "led_36w_ud", "unit": "paneles LED 36W"}
+      ],
+      "related": ["046", "043", "052"]
+    },
+    {
+      "id": "046",
+      "slug": "puntos-luz-habitacion",
+      "block": 5,
+      "block_slug": "electricidad",
+      "inputs": [
+        {"id": "area_m2", "type": "number", "min": 4, "max": 200, "step": 0.5, "default": 15, "unit": "m²"},
+        {"id": "uso", "type": "select", "default": "dormitorio", "options": ["sala","dormitorio","cocina","bano","oficina","garaje"]}
+      ],
+      "formula": "var A=parseFloat(inputs.area_m2)||0,lux={'sala':150,'dormitorio':100,'cocina':300,'bano':200,'oficina':400,'garaje':150};if(!A)return{error:true};var e=lux[inputs.uso]||150,puntos=Math.max(1,Math.ceil(A/10)),enchufes=Math.max(2,Math.ceil(A/4));return{puntos_luz:puntos,enchufes:enchufes,lux_recomendados:e,w_led_estimados:puntos*12};",
+      "outputs": [
+        {"id": "puntos_luz", "unit": "puntos de luz", "highlight": true},
+        {"id": "enchufes", "unit": "enchufes"},
+        {"id": "lux_recomendados", "unit": "lux recomendados"},
+        {"id": "w_led_estimados", "unit": "W LED total"}
+      ],
+      "related": ["045", "043", "047"]
+    },
+    {
+      "id": "047",
+      "slug": "cuadro-electrico",
+      "block": 5,
+      "block_slug": "electricidad",
+      "inputs": [
+        {"id": "potencia_kw", "type": "number", "min": 1, "max": 200, "step": 0.5, "default": 9.2, "unit": "kW"},
+        {"id": "tension_v", "type": "select", "default": "230", "options": ["230","400"]},
+        {"id": "factor_simultaneidad", "type": "number", "min": 0.4, "max": 1, "step": 0.05, "default": 0.7, "unit": ""}
+      ],
+      "formula": "var P=parseFloat(inputs.potencia_kw)||0,V=parseFloat(inputs.tension_v)||230,fs=parseFloat(inputs.factor_simultaneidad)||0.7;if(!P)return{error:true};var i_max=+(P*1000*fs/(V*(V===230?1:Math.sqrt(3)))).toFixed(1),icp=i_max<=16?16:i_max<=25?25:i_max<=32?32:i_max<=40?40:i_max<=50?50:63,riti=Math.ceil(i_max/16);return{corriente_max_a:i_max,icp_recomendado_a:icp,circuitos_estimados:riti};",
+      "outputs": [
+        {"id": "corriente_max_a", "unit": "A"},
+        {"id": "icp_recomendado_a", "unit": "A (ICP/IGA)", "highlight": true},
+        {"id": "circuitos_estimados", "unit": "circuitos"}
+      ],
+      "related": ["043", "044", "050"]
+    },
+    {
+      "id": "048",
+      "slug": "instalacion-solar",
+      "block": 5,
+      "block_slug": "electricidad",
+      "inputs": [
+        {"id": "consumo_diario_kwh", "type": "number", "min": 1, "max": 200, "step": 0.5, "default": 15, "unit": "kWh/día"},
+        {"id": "hsp_dia", "type": "number", "min": 2, "max": 7, "step": 0.5, "default": 4.5, "unit": "HSP/día"},
+        {"id": "potencia_panel_w", "type": "number", "min": 200, "max": 600, "step": 25, "default": 400, "unit": "W/panel"}
+      ],
+      "formula": "var C=parseFloat(inputs.consumo_diario_kwh)||0,HSP=parseFloat(inputs.hsp_dia)||4.5,Wp=parseFloat(inputs.potencia_panel_w)||400;if(!C)return{error:true};var kwp_nec=+(C/HSP/0.8).toFixed(2),paneles=Math.ceil(kwp_nec*1000/Wp),kwp_inst=+(paneles*Wp/1000).toFixed(2),prod_anual=+(kwp_inst*HSP*365*0.8).toFixed(0);return{kwp_necesario:kwp_nec,paneles_ud:paneles,kwp_instalado:kwp_inst,produccion_anual_kwh:prod_anual};",
+      "outputs": [
+        {"id": "kwp_necesario", "unit": "kWp"},
+        {"id": "paneles_ud", "unit": "paneles", "highlight": true},
+        {"id": "kwp_instalado", "unit": "kWp instalado"},
+        {"id": "produccion_anual_kwh", "unit": "kWh/año estimado"}
+      ],
+      "related": ["049", "052", "047"]
+    },
+    {
+      "id": "049",
+      "slug": "baterias-autonomia",
+      "block": 5,
+      "block_slug": "electricidad",
+      "inputs": [
+        {"id": "consumo_diario_kwh", "type": "number", "min": 0.5, "max": 200, "step": 0.5, "default": 10, "unit": "kWh/día"},
+        {"id": "dias_autonomia", "type": "number", "min": 0.5, "max": 5, "step": 0.5, "default": 1, "unit": "días"},
+        {"id": "capacidad_bateria_kwh", "type": "number", "min": 2, "max": 20, "step": 0.5, "default": 5, "unit": "kWh/bat"}
+      ],
+      "formula": "var C=parseFloat(inputs.consumo_diario_kwh)||0,D=parseFloat(inputs.dias_autonomia)||1,CB=parseFloat(inputs.capacidad_bateria_kwh)||5;if(!C)return{error:true};var kwh_nec=+(C*D/0.8).toFixed(2),baterias=Math.ceil(kwh_nec/CB),kwh_inst=+(baterias*CB).toFixed(1);return{kwh_necesario:kwh_nec,baterias_ud:baterias,kwh_instalado:kwh_inst};",
+      "outputs": [
+        {"id": "kwh_necesario", "unit": "kWh necesario"},
+        {"id": "baterias_ud", "unit": "baterías", "highlight": true},
+        {"id": "kwh_instalado", "unit": "kWh instalado"}
+      ],
+      "related": ["048", "052", "047"]
+    },
+    {
+      "id": "050",
+      "slug": "trifasica-potencia",
+      "block": 5,
+      "block_slug": "electricidad",
+      "inputs": [
+        {"id": "corriente_a", "type": "number", "min": 1, "max": 400, "step": 1, "default": 63, "unit": "A"},
+        {"id": "tension_v", "type": "number", "min": 380, "max": 415, "step": 5, "default": 400, "unit": "V"},
+        {"id": "fp", "type": "number", "min": 0.7, "max": 1, "step": 0.05, "default": 0.9, "unit": "cos φ"}
+      ],
+      "formula": "var I=parseFloat(inputs.corriente_a)||0,V=parseFloat(inputs.tension_v)||400,fp=parseFloat(inputs.fp)||0.9;if(!I)return{error:true};var kva=+(Math.sqrt(3)*V*I/1000).toFixed(2),kw=+(kva*fp).toFixed(2),kvar=+(Math.sqrt(kva*kva-kw*kw)).toFixed(2);return{potencia_kva:kva,potencia_kw:kw,potencia_reactiva_kvar:kvar};",
+      "outputs": [
+        {"id": "potencia_kva", "unit": "kVA"},
+        {"id": "potencia_kw", "unit": "kW", "highlight": true},
+        {"id": "potencia_reactiva_kvar", "unit": "kVAr"}
+      ],
+      "related": ["043", "047", "044"]
+    },
+    {
+      "id": "051",
+      "slug": "puesta-tierra",
+      "block": 5,
+      "block_slug": "electricidad",
+      "inputs": [
+        {"id": "resistividad_ohm_m", "type": "number", "min": 10, "max": 5000, "step": 10, "default": 100, "unit": "Ω·m"},
+        {"id": "resistencia_max_ohm", "type": "number", "min": 1, "max": 50, "step": 1, "default": 10, "unit": "Ω"},
+        {"id": "tipo_pica", "type": "select", "default": "cobre", "options": ["cobre","acero_galv"]}
+      ],
+      "formula": "var rho=parseFloat(inputs.resistividad_ohm_m)||100,Rmax=parseFloat(inputs.resistencia_max_ohm)||10;if(!rho)return{error:true};var L_pica=2,R_pica=+(rho/(2*Math.PI*L_pica)*Math.log(4*L_pica/0.016)).toFixed(1),picas_nec=Math.ceil(R_pica/Rmax),cond_mm2=inputs.tipo_pica==='cobre'?16:25;return{r_pica_ohm:R_pica,picas_necesarias:picas_nec,conductor_mm2:cond_mm2,longitud_pica_m:L_pica};",
+      "outputs": [
+        {"id": "r_pica_ohm", "unit": "Ω (resist. pica)"},
+        {"id": "picas_necesarias", "unit": "picas 2m", "highlight": true},
+        {"id": "conductor_mm2", "unit": "mm² conductor"},
+        {"id": "longitud_pica_m", "unit": "m/pica"}
+      ],
+      "related": ["043", "047", "044"]
+    },
+    {
+      "id": "052",
+      "slug": "consumo-electrico-mensual",
+      "block": 5,
+      "block_slug": "electricidad",
+      "inputs": [
+        {"id": "potencia_w", "type": "number", "min": 10, "max": 50000, "step": 10, "default": 2000, "unit": "W"},
+        {"id": "horas_dia", "type": "number", "min": 0.1, "max": 24, "step": 0.1, "default": 4, "unit": "h/día"},
+        {"id": "precio_kwh", "type": "number", "min": 0.05, "max": 1, "step": 0.01, "default": 0.18, "unit": "€/kWh"}
+      ],
+      "formula": "var P=parseFloat(inputs.potencia_w)||0,H=parseFloat(inputs.horas_dia)||0,precio=parseFloat(inputs.precio_kwh)||0.18;if(!P||!H)return{error:true};var kwh_dia=+(P*H/1000).toFixed(3),kwh_mes=+(kwh_dia*30).toFixed(2),coste_mes=+(kwh_mes*precio).toFixed(2),coste_ano=+(kwh_mes*12*precio).toFixed(2);return{kwh_dia:kwh_dia,kwh_mes:kwh_mes,coste_mes_eur:coste_mes,coste_ano_eur:coste_ano};",
+      "outputs": [
+        {"id": "kwh_dia", "unit": "kWh/día"},
+        {"id": "kwh_mes", "unit": "kWh/mes", "highlight": true},
+        {"id": "coste_mes_eur", "unit": "€/mes"},
+        {"id": "coste_ano_eur", "unit": "€/año"}
+      ],
+      "related": ["048", "045", "047"]
+    },
+    {
+      "id": "053",
+      "slug": "aire-acondicionado-btu",
+      "block": 6,
+      "block_slug": "climatizacion",
+      "inputs": [
+        {"id": "area_m2", "type": "number", "min": 5, "max": 500, "step": 0.5, "default": 20, "unit": "m²"},
+        {"id": "altura_m", "type": "number", "min": 2.2, "max": 6, "step": 0.1, "default": 2.7, "unit": "m"},
+        {"id": "orientacion", "type": "select", "default": "norte", "options": ["norte","sur","este","oeste"]},
+        {"id": "aislamiento", "type": "select", "default": "medio", "options": ["deficiente","medio","bueno"]}
+      ],
+      "formula": "var A=parseFloat(inputs.area_m2)||0,H=parseFloat(inputs.altura_m)||2.7,orie={'norte':0.9,'sur':1.1,'este':1.0,'oeste':1.05},aisl={'deficiente':1.2,'medio':1.0,'bueno':0.85};if(!A)return{error:true};var vol=A*H,btu=+(vol*35*orie[inputs.orientacion]*aisl[inputs.aislamiento]).toFixed(0),kw=+(btu/3412).toFixed(2),frig=+(btu*0.252).toFixed(0),modelo=btu<=6000?'1x1':btu<=9000?'1x1 (9000)':btu<=12000?'1x1 (12000)':btu<=18000?'1x1.5 (18000)':'2x1+';return{vol_m3:+vol.toFixed(1),btu_necesarios:btu,kw_frio:kw,frigorias:frig,modelo_sugerido:modelo};",
+      "outputs": [
+        {"id": "vol_m3", "unit": "m³"},
+        {"id": "btu_necesarios", "unit": "BTU/h", "highlight": true},
+        {"id": "kw_frio", "unit": "kW frío"},
+        {"id": "frigorias", "unit": "kcal/h"},
+        {"id": "modelo_sugerido", "unit": "modelo split"}
+      ],
+      "related": ["036", "037", "055"]
+    },
+    {
+      "id": "054",
+      "slug": "conductos-aire",
+      "block": 6,
+      "block_slug": "climatizacion",
+      "inputs": [
+        {"id": "caudal_m3h", "type": "number", "min": 50, "max": 50000, "step": 50, "default": 500, "unit": "m³/h"},
+        {"id": "velocidad_ms", "type": "number", "min": 1, "max": 10, "step": 0.5, "default": 4, "unit": "m/s"}
+      ],
+      "formula": "var Q=parseFloat(inputs.caudal_m3h)||0,v=parseFloat(inputs.velocidad_ms)||4;if(!Q)return{error:true};var A_m2=Q/3600/v,D_mm=+(Math.sqrt(4*A_m2/Math.PI)*1000).toFixed(0),D_norm=D_mm<=100?100:D_mm<=125?125:D_mm<=160?160:D_mm<=200?200:D_mm<=250?250:D_mm<=315?315:400,lado=+(Math.sqrt(A_m2)*1000).toFixed(0);return{area_conducto_m2:+A_m2.toFixed(4),diametro_circular_mm:D_norm,lado_rectangular_mm:lado};",
+      "outputs": [
+        {"id": "diametro_circular_mm", "unit": "mm Ø (circular)", "highlight": true},
+        {"id": "lado_rectangular_mm", "unit": "mm (cuadrado equiv.)"},
+        {"id": "area_conducto_m2", "unit": "m² sección"}
+      ],
+      "related": ["055", "053", "059"]
+    },
+    {
+      "id": "055",
+      "slug": "ventilacion-mecanica",
+      "block": 6,
+      "block_slug": "climatizacion",
+      "inputs": [
+        {"id": "area_m2", "type": "number", "min": 5, "max": 1000, "step": 0.5, "default": 100, "unit": "m²"},
+        {"id": "altura_m", "type": "number", "min": 2.2, "max": 5, "step": 0.1, "default": 2.7, "unit": "m"},
+        {"id": "renovaciones_hora", "type": "number", "min": 0.5, "max": 10, "step": 0.5, "default": 0.8, "unit": "ren/h"}
+      ],
+      "formula": "var A=parseFloat(inputs.area_m2)||0,H=parseFloat(inputs.altura_m)||2.7,R=parseFloat(inputs.renovaciones_hora)||0.8;if(!A)return{error:true};var vol=A*H,m3h=+(vol*R).toFixed(1),ls=+(m3h/3.6).toFixed(1),kw_fan=+(m3h*0.0003).toFixed(2);return{vol_m3:+vol.toFixed(1),caudal_m3h:m3h,caudal_ls:ls,potencia_kw:kw_fan};",
+      "outputs": [
+        {"id": "vol_m3", "unit": "m³"},
+        {"id": "caudal_m3h", "unit": "m³/h", "highlight": true},
+        {"id": "caudal_ls", "unit": "L/s"},
+        {"id": "potencia_kw", "unit": "kW ventilador"}
+      ],
+      "related": ["053", "054", "058"]
+    },
+    {
+      "id": "056",
+      "slug": "bomba-calor-aerotermia",
+      "block": 6,
+      "block_slug": "climatizacion",
+      "inputs": [
+        {"id": "area_m2", "type": "number", "min": 20, "max": 1000, "step": 5, "default": 120, "unit": "m²"},
+        {"id": "aislamiento", "type": "select", "default": "medio", "options": ["deficiente","medio","bueno","passivhaus"]},
+        {"id": "acs_personas", "type": "number", "min": 0, "max": 20, "step": 1, "default": 4, "unit": "personas"}
+      ],
+      "formula": "var A=parseFloat(inputs.area_m2)||0,P=parseFloat(inputs.acs_personas)||4,coef={'deficiente':70,'medio':50,'bueno':35,'passivhaus':15};if(!A)return{error:true};var kw_cal=+(A*coef[inputs.aislamiento]/1000).toFixed(1),kw_acs=+(P*0.2).toFixed(1),kw_total=+(kw_cal+kw_acs).toFixed(1),cop=3.5,kw_el=+(kw_total/cop).toFixed(2);return{kw_termico:kw_total,kw_electrico:kw_el,cop_estimado:cop};",
+      "outputs": [
+        {"id": "kw_termico", "unit": "kW térmico", "highlight": true},
+        {"id": "kw_electrico", "unit": "kW eléctrico"},
+        {"id": "cop_estimado", "unit": "COP estimado"}
+      ],
+      "related": ["053", "036", "057"]
+    },
+    {
+      "id": "057",
+      "slug": "calculo-cop-eer",
+      "block": 6,
+      "block_slug": "climatizacion",
+      "inputs": [
+        {"id": "potencia_util_kw", "type": "number", "min": 0.5, "max": 200, "step": 0.5, "default": 3.5, "unit": "kW útil"},
+        {"id": "potencia_elec_kw", "type": "number", "min": 0.1, "max": 100, "step": 0.1, "default": 1, "unit": "kW eléctrico"}
+      ],
+      "formula": "var Qu=parseFloat(inputs.potencia_util_kw)||0,Qe=parseFloat(inputs.potencia_elec_kw)||0;if(!Qu||!Qe)return{error:true};var cop=+(Qu/Qe).toFixed(2),eer=cop,clase=cop>=5?'A+++':cop>=4?'A++':cop>=3.5?'A+':cop>=3?'A':'B';return{cop:cop,eer:eer,clase_eficiencia:clase,ahorro_vs_resistencia_pct:+((1-1/cop)*100).toFixed(1)};",
+      "outputs": [
+        {"id": "cop", "unit": "COP", "highlight": true},
+        {"id": "eer", "unit": "EER"},
+        {"id": "clase_eficiencia", "unit": "Clase energética"},
+        {"id": "ahorro_vs_resistencia_pct", "unit": "% ahorro vs eléctrico directo"}
+      ],
+      "related": ["056", "053", "036"]
+    },
+    {
+      "id": "058",
+      "slug": "dimensionado-conducto",
+      "block": 6,
+      "block_slug": "climatizacion",
+      "inputs": [
+        {"id": "caudal_m3h", "type": "number", "min": 10, "max": 100000, "step": 10, "default": 1000, "unit": "m³/h"},
+        {"id": "perdida_carga_pa_m", "type": "number", "min": 0.5, "max": 5, "step": 0.1, "default": 1.5, "unit": "Pa/m"}
+      ],
+      "formula": "var Q=parseFloat(inputs.caudal_m3h)||0,dP=parseFloat(inputs.perdida_carga_pa_m)||1.5;if(!Q)return{error:true};var rho=1.2,v=Math.pow(dP*2/rho*0.5,0.5)*2,A_m2=Q/3600/v,D_mm=+(Math.sqrt(4*A_m2/Math.PI)*1000).toFixed(0),D_norm=D_mm<=100?100:D_mm<=125?125:D_mm<=160?160:D_mm<=200?200:D_mm<=250?250:315;return{velocidad_ms:+v.toFixed(2),diametro_mm:D_norm,area_m2:+A_m2.toFixed(4)};",
+      "outputs": [
+        {"id": "velocidad_ms", "unit": "m/s"},
+        {"id": "diametro_mm", "unit": "mm Ø", "highlight": true},
+        {"id": "area_m2", "unit": "m² sección"}
+      ],
+      "related": ["054", "055", "059"]
+    },
+    {
+      "id": "059",
+      "slug": "rejillas-difusores",
+      "block": 6,
+      "block_slug": "climatizacion",
+      "inputs": [
+        {"id": "caudal_m3h", "type": "number", "min": 10, "max": 5000, "step": 10, "default": 200, "unit": "m³/h"},
+        {"id": "velocidad_cara_ms", "type": "number", "min": 1, "max": 4, "step": 0.1, "default": 2, "unit": "m/s"}
+      ],
+      "formula": "var Q=parseFloat(inputs.caudal_m3h)||0,v=parseFloat(inputs.velocidad_cara_ms)||2;if(!Q)return{error:true};var A_m2=Q/3600/v,lado_cm=+(Math.sqrt(A_m2)*100).toFixed(0),norm=lado_cm<=20?'20x20':lado_cm<=30?'30x30':lado_cm<=40?'40x40':'50x50',alcance_m=+(Math.sqrt(A_m2)*10).toFixed(1);return{area_libre_m2:+A_m2.toFixed(4),tamano_rejilla_cm:norm,alcance_m:alcance_m};",
+      "outputs": [
+        {"id": "area_libre_m2", "unit": "m² sección libre"},
+        {"id": "tamano_rejilla_cm", "unit": "cm (normalizado)", "highlight": true},
+        {"id": "alcance_m", "unit": "m alcance chorro"}
+      ],
+      "related": ["054", "058", "055"]
+    },
+    {
+      "id": "060",
+      "slug": "carga-gas-refrigerante",
+      "block": 6,
+      "block_slug": "climatizacion",
+      "inputs": [
+        {"id": "longitud_linea_m", "type": "number", "min": 3, "max": 50, "step": 0.5, "default": 5, "unit": "m"},
+        {"id": "potencia_eq_kw", "type": "number", "min": 1, "max": 30, "step": 0.5, "default": 3.5, "unit": "kW"},
+        {"id": "tipo_gas", "type": "select", "default": "R32", "options": ["R32","R410A","R22"]}
+      ],
+      "formula": "var L=parseFloat(inputs.longitud_linea_m)||0,Pkw=parseFloat(inputs.potencia_eq_kw)||3.5,base_kg={'R32':0.02,'R410A':0.025,'R22':0.03};if(!L)return{error:true};var extra_m=Math.max(0,L-5),carga_extra=+(extra_m*base_kg[inputs.tipo_gas]).toFixed(3),carga_base=+(Pkw*0.04).toFixed(3),carga_total=+(carga_base+carga_extra).toFixed(3);return{carga_base_kg:carga_base,carga_extra_kg:carga_extra,carga_total_kg:carga_total};",
+      "outputs": [
+        {"id": "carga_base_kg", "unit": "kg (base equipo)"},
+        {"id": "carga_extra_kg", "unit": "kg (linea >5m)"},
+        {"id": "carga_total_kg", "unit": "kg total", "highlight": true}
+      ],
+      "related": ["053", "057", "056"]
+    },
+    {
+      "id": "061",
+      "slug": "ventanas-aluminio-pvc",
+      "block": 7,
+      "block_slug": "carpinteria",
+      "inputs": [
+        {"id": "num_ventanas", "type": "number", "min": 1, "max": 100, "step": 1, "default": 6, "unit": "ud"},
+        {"id": "ancho_m", "type": "number", "min": 0.3, "max": 4, "step": 0.05, "default": 1.2, "unit": "m"},
+        {"id": "alto_m", "type": "number", "min": 0.4, "max": 3, "step": 0.05, "default": 1.2, "unit": "m"}
+      ],
+      "formula": "var n=parseFloat(inputs.num_ventanas)||0,W=parseFloat(inputs.ancho_m)||0,H=parseFloat(inputs.alto_m)||0;if(!n||!W||!H)return{error:true};var m2_ud=+(W*H).toFixed(2),m2_total=+(m2_ud*n).toFixed(2),perfc=+(2*(W+H)*n).toFixed(1),vidrio_m2=+(m2_total*0.75).toFixed(2);return{m2_por_unidad:m2_ud,m2_total:m2_total,perfil_ml:perfc,vidrio_m2:vidrio_m2};",
+      "outputs": [
+        {"id": "m2_por_unidad", "unit": "m²/ventana"},
+        {"id": "m2_total", "unit": "m² total", "highlight": true},
+        {"id": "perfil_ml", "unit": "m.l. perfil"},
+        {"id": "vidrio_m2", "unit": "m² vidrio"}
+      ],
+      "related": ["062", "068", "015"]
+    },
+    {
+      "id": "062",
+      "slug": "puertas-paso",
+      "block": 7,
+      "block_slug": "carpinteria",
+      "inputs": [
+        {"id": "num_puertas", "type": "number", "min": 1, "max": 50, "step": 1, "default": 8, "unit": "ud"},
+        {"id": "ancho_m", "type": "number", "min": 0.6, "max": 1.2, "step": 0.05, "default": 0.82, "unit": "m"},
+        {"id": "alto_m", "type": "number", "min": 1.8, "max": 2.5, "step": 0.05, "default": 2.03, "unit": "m"}
+      ],
+      "formula": "var n=parseFloat(inputs.num_puertas)||0,W=parseFloat(inputs.ancho_m)||0.82,H=parseFloat(inputs.alto_m)||2.03;if(!n)return{error:true};var m2_ud=+(W*H).toFixed(2),m2_tot=+(m2_ud*n).toFixed(2),marcos=n,tiradores=n,bisagras=n*3;return{m2_hoja:m2_ud,m2_total_hojas:m2_tot,marcos_ud:marcos,tiradores_ud:tiradores,bisagras_ud:bisagras};",
+      "outputs": [
+        {"id": "m2_hoja", "unit": "m²/hoja"},
+        {"id": "m2_total_hojas", "unit": "m² total", "highlight": true},
+        {"id": "marcos_ud", "unit": "marcos"},
+        {"id": "tiradores_ud", "unit": "tiradores"},
+        {"id": "bisagras_ud", "unit": "bisagras"}
+      ],
+      "related": ["061", "063", "066"]
+    },
+    {
+      "id": "063",
+      "slug": "puertas-correderas",
+      "block": 7,
+      "block_slug": "carpinteria",
+      "inputs": [
+        {"id": "num_puertas", "type": "number", "min": 1, "max": 20, "step": 1, "default": 3, "unit": "ud"},
+        {"id": "ancho_hoja_m", "type": "number", "min": 0.6, "max": 2, "step": 0.05, "default": 0.9, "unit": "m"},
+        {"id": "alto_m", "type": "number", "min": 1.8, "max": 2.5, "step": 0.05, "default": 2.1, "unit": "m"}
+      ],
+      "formula": "var n=parseFloat(inputs.num_puertas)||0,W=parseFloat(inputs.ancho_hoja_m)||0.9,H=parseFloat(inputs.alto_m)||2.1;if(!n)return{error:true};var rail_ud=+(W*2).toFixed(2),rail_total=+(rail_ud*n).toFixed(2),herrajes=n,m2_total=+(W*H*n).toFixed(2);return{rail_por_puerta_m:rail_ud,rail_total_m:rail_total,herrajes_ud:herrajes,m2_total_vidrio_madera:m2_total};",
+      "outputs": [
+        {"id": "rail_total_m", "unit": "m.l. carril", "highlight": true},
+        {"id": "herrajes_ud", "unit": "herrajes"},
+        {"id": "m2_total_vidrio_madera", "unit": "m² total"}
+      ],
+      "related": ["062", "061", "066"]
+    },
+    {
+      "id": "064",
+      "slug": "escalera-madera",
+      "block": 7,
+      "block_slug": "carpinteria",
+      "inputs": [
+        {"id": "altura_total_m", "type": "number", "min": 0.5, "max": 10, "step": 0.05, "default": 2.8, "unit": "m"},
+        {"id": "ancho_m", "type": "number", "min": 0.6, "max": 2, "step": 0.05, "default": 0.9, "unit": "m"},
+        {"id": "contrahuella_cm", "type": "number", "min": 16, "max": 22, "step": 0.5, "default": 18, "unit": "cm"}
+      ],
+      "formula": "var H=parseFloat(inputs.altura_total_m)||0,W=parseFloat(inputs.ancho_m)||0.9,ch=parseFloat(inputs.contrahuella_cm)||18;if(!H)return{error:true};var peldanos=Math.ceil(H*100/ch),huella=+(63-ch).toFixed(0),largo_zanca=+(Math.sqrt(H*H+(peldanos*huella/100)*(peldanos*huella/100))).toFixed(2),m2_peldano=+(W*(huella/100)).toFixed(3);return{num_peldanos:peldanos,huella_cm:huella,zanca_ml:largo_zanca,m2_peldano:m2_peldano,m2_total_tablas:+(m2_peldano*peldanos).toFixed(2)};",
+      "outputs": [
+        {"id": "num_peldanos", "unit": "peldaños", "highlight": true},
+        {"id": "huella_cm", "unit": "cm huella"},
+        {"id": "zanca_ml", "unit": "m.l. zanca"},
+        {"id": "m2_peldano", "unit": "m²/peldaño"},
+        {"id": "m2_total_tablas", "unit": "m² madera"}
+      ],
+      "related": ["065", "066", "062"]
+    },
+    {
+      "id": "065",
+      "slug": "barandilla-metalica",
+      "block": 7,
+      "block_slug": "carpinteria",
+      "inputs": [
+        {"id": "longitud_m", "type": "number", "min": 0.5, "max": 200, "step": 0.1, "default": 15, "unit": "m"},
+        {"id": "altura_m", "type": "number", "min": 0.9, "max": 1.2, "step": 0.05, "default": 1, "unit": "m"},
+        {"id": "separacion_montantes_m", "type": "number", "min": 0.5, "max": 1.5, "step": 0.1, "default": 1, "unit": "m"}
+      ],
+      "formula": "var L=parseFloat(inputs.longitud_m)||0,H=parseFloat(inputs.altura_m)||1,sep=parseFloat(inputs.separacion_montantes_m)||1;if(!L)return{error:true};var montantes=Math.ceil(L/sep)+1,pasamanos=+(L*1.05).toFixed(1),barrotes=Math.ceil(L*4),kg_acero=+(L*H*8).toFixed(1);return{montantes_ud:montantes,pasamanos_ml:pasamanos,barrotes_ud:barrotes,kg_acero:kg_acero};",
+      "outputs": [
+        {"id": "montantes_ud", "unit": "montantes", "highlight": true},
+        {"id": "pasamanos_ml", "unit": "m.l. pasamanos"},
+        {"id": "barrotes_ud", "unit": "barrotes"},
+        {"id": "kg_acero", "unit": "kg acero"}
+      ],
+      "related": ["064", "066", "067"]
+    },
+    {
+      "id": "066",
+      "slug": "estructuras-metalicas",
+      "block": 7,
+      "block_slug": "carpinteria",
+      "inputs": [
+        {"id": "luz_m", "type": "number", "min": 1, "max": 30, "step": 0.5, "default": 6, "unit": "m"},
+        {"id": "carga_kn_m2", "type": "number", "min": 1, "max": 20, "step": 0.5, "default": 5, "unit": "kN/m²"},
+        {"id": "longitud_nave_m", "type": "number", "min": 1, "max": 200, "step": 1, "default": 20, "unit": "m"}
+      ],
+      "formula": "var L=parseFloat(inputs.luz_m)||0,q=parseFloat(inputs.carga_kn_m2)||5,Ln=parseFloat(inputs.longitud_nave_m)||20;if(!L)return{error:true};var M=+(q*L*L/8).toFixed(2),Wy_cm3=+(M*100/23.5*10).toFixed(0),kg_viga=+(Wy_cm3*0.03).toFixed(1),n_vigas=Math.ceil(Ln/6)+1,kg_total=+(kg_viga*n_vigas).toFixed(0);return{momento_kn_m:M,modulo_resist_cm3:Wy_cm3,kg_por_viga:kg_viga,vigas_ud:n_vigas,kg_total:kg_total};",
+      "outputs": [
+        {"id": "momento_kn_m", "unit": "kN·m"},
+        {"id": "modulo_resist_cm3", "unit": "cm³ Wy mín."},
+        {"id": "kg_por_viga", "unit": "kg/viga"},
+        {"id": "vigas_ud", "unit": "vigas"},
+        {"id": "kg_total", "unit": "kg total", "highlight": true}
+      ],
+      "related": ["065", "002", "067"]
+    },
+    {
+      "id": "067",
+      "slug": "cerrajeria-puerta",
+      "block": 7,
+      "block_slug": "carpinteria",
+      "inputs": [
+        {"id": "ancho_m", "type": "number", "min": 0.8, "max": 5, "step": 0.1, "default": 1.5, "unit": "m"},
+        {"id": "alto_m", "type": "number", "min": 1, "max": 4, "step": 0.1, "default": 2, "unit": "m"},
+        {"id": "tipo", "type": "select", "default": "plegable", "options": ["plegable","basculante","corredera","batiente"]}
+      ],
+      "formula": "var W=parseFloat(inputs.ancho_m)||0,H=parseFloat(inputs.alto_m)||0;if(!W||!H)return{error:true};var m2=+(W*H).toFixed(2),kg_chapa=+(m2*15).toFixed(1),kg_marco=+(2*(W+H)*5).toFixed(1),kg_total=+(kg_chapa+kg_marco).toFixed(1);return{m2_puerta:m2,kg_chapa:kg_chapa,kg_marco:kg_marco,kg_total:kg_total};",
+      "outputs": [
+        {"id": "m2_puerta", "unit": "m²"},
+        {"id": "kg_chapa", "unit": "kg chapa"},
+        {"id": "kg_marco", "unit": "kg marco"},
+        {"id": "kg_total", "unit": "kg total", "highlight": true}
+      ],
+      "related": ["062", "065", "066"]
+    },
+    {
+      "id": "068",
+      "slug": "vidrio-cristal",
+      "block": 7,
+      "block_slug": "carpinteria",
+      "inputs": [
+        {"id": "m2_total", "type": "number", "min": 0.1, "max": 500, "step": 0.1, "default": 10, "unit": "m²"},
+        {"id": "tipo_vidrio", "type": "select", "default": "doble_4_16_4", "options": ["simple_6","doble_4_16_4","doble_4_20_4","triple","laminado"]},
+        {"id": "merma_pct", "type": "number", "min": 5, "max": 20, "step": 1, "default": 10, "unit": "%"}
+      ],
+      "formula": "var A=parseFloat(inputs.m2_total)||0,mp=parseFloat(inputs.merma_pct)||10,kg={'simple_6':15,'doble_4_16_4':20,'doble_4_20_4':22,'triple':30,'laminado':25};if(!A)return{error:true};var area_merma=+(A*(1+mp/100)).toFixed(2),kg_m2=kg[inputs.tipo_vidrio]||20,kg_total=+(area_merma*kg_m2).toFixed(1);return{area_merma_m2:area_merma,kg_m2:kg_m2,kg_total:kg_total};",
+      "outputs": [
+        {"id": "area_merma_m2", "unit": "m² (con merma)", "highlight": true},
+        {"id": "kg_m2", "unit": "kg/m²"},
+        {"id": "kg_total", "unit": "kg total"}
+      ],
+      "related": ["061", "062", "063"]
+    },
+    {
+      "id": "069",
+      "slug": "pintura-plastica-paredes",
+      "block": 8,
+      "block_slug": "pintura",
+      "inputs": [
+        {"id": "area_m2", "type": "number", "min": 1, "max": 3000, "step": 0.5, "default": 60, "unit": "m²"},
+        {"id": "manos", "type": "number", "min": 1, "max": 4, "step": 1, "default": 2, "unit": "manos"},
+        {"id": "rendimiento_m2_l", "type": "number", "min": 5, "max": 15, "step": 0.5, "default": 10, "unit": "m²/L"}
+      ],
+      "formula": "var A=parseFloat(inputs.area_m2)||0,M=parseFloat(inputs.manos)||2,R=parseFloat(inputs.rendimiento_m2_l)||10;if(!A)return{error:true};var litros_neto=+(A*M/R).toFixed(2),litros_merma=+(litros_neto*1.1).toFixed(2),cubos_15=Math.ceil(litros_merma/15),cubos_5=Math.ceil(litros_merma/5);return{litros_netos:litros_neto,litros_con_merma:litros_merma,cubos_15L:cubos_15,cubos_5L:cubos_5};",
+      "outputs": [
+        {"id": "litros_netos", "unit": "L"},
+        {"id": "litros_con_merma", "unit": "L (+10%)", "highlight": true},
+        {"id": "cubos_15L", "unit": "cubos 15L"},
+        {"id": "cubos_5L", "unit": "cubos 5L"}
+      ],
+      "related": ["070", "075", "076"]
+    },
+    {
+      "id": "070",
+      "slug": "pintura-techo",
+      "block": 8,
+      "block_slug": "pintura",
+      "inputs": [
+        {"id": "area_m2", "type": "number", "min": 1, "max": 2000, "step": 0.5, "default": 40, "unit": "m²"},
+        {"id": "manos", "type": "number", "min": 1, "max": 3, "step": 1, "default": 2, "unit": "manos"},
+        {"id": "color", "type": "select", "default": "blanco", "options": ["blanco","pastel","oscuro"]}
+      ],
+      "formula": "var A=parseFloat(inputs.area_m2)||0,M=parseFloat(inputs.manos)||2,extra=inputs.color==='oscuro'?1:0;if(!A)return{error:true};var R=9,manos_real=M+extra,litros=+(A*manos_real/R*1.1).toFixed(2),cubos=Math.ceil(litros/15);return{area_m2:+A.toFixed(2),litros_total:litros,cubos_15L:cubos,manos_totales:manos_real};",
+      "outputs": [
+        {"id": "area_m2", "unit": "m²"},
+        {"id": "litros_total", "unit": "L (+10%)", "highlight": true},
+        {"id": "cubos_15L", "unit": "cubos 15L"},
+        {"id": "manos_totales", "unit": "manos"}
+      ],
+      "related": ["069", "075", "074"]
+    },
+    {
+      "id": "071",
+      "slug": "esmalte-sintetico",
+      "block": 8,
+      "block_slug": "pintura",
+      "inputs": [
+        {"id": "area_m2", "type": "number", "min": 0.5, "max": 500, "step": 0.5, "default": 20, "unit": "m²"},
+        {"id": "manos", "type": "number", "min": 1, "max": 3, "step": 1, "default": 2, "unit": "manos"},
+        {"id": "rendimiento_m2_l", "type": "number", "min": 8, "max": 16, "step": 1, "default": 12, "unit": "m²/L"}
+      ],
+      "formula": "var A=parseFloat(inputs.area_m2)||0,M=parseFloat(inputs.manos)||2,R=parseFloat(inputs.rendimiento_m2_l)||12;if(!A)return{error:true};var litros=+(A*M/R*1.1).toFixed(2),imprimacion=+(A/R*1.1).toFixed(2),botes=Math.ceil(litros/0.75);return{litros_esmalte:litros,litros_imprimacion:imprimacion,botes_075L:botes};",
+      "outputs": [
+        {"id": "litros_esmalte", "unit": "L (+10%)", "highlight": true},
+        {"id": "litros_imprimacion", "unit": "L imprimación"},
+        {"id": "botes_075L", "unit": "botes 0.75L"}
+      ],
+      "related": ["072", "075", "069"]
+    },
+    {
+      "id": "072",
+      "slug": "barniz-exterior",
+      "block": 8,
+      "block_slug": "pintura",
+      "inputs": [
+        {"id": "area_m2", "type": "number", "min": 0.5, "max": 500, "step": 0.5, "default": 15, "unit": "m²"},
+        {"id": "manos", "type": "number", "min": 2, "max": 4, "step": 1, "default": 3, "unit": "manos"},
+        {"id": "tipo_madera", "type": "select", "default": "pino", "options": ["pino","roble","tropical","parquet"]}
+      ],
+      "formula": "var A=parseFloat(inputs.area_m2)||0,M=parseFloat(inputs.manos)||3;if(!A)return{error:true};var R=10,litros=+(A*M/R*1.1).toFixed(2),lija_sheets=Math.ceil(A*0.5);return{litros_barniz:litros,lija_hojas:lija_sheets,manos_recomendadas:M};",
+      "outputs": [
+        {"id": "litros_barniz", "unit": "L (+10%)", "highlight": true},
+        {"id": "lija_hojas", "unit": "hojas lija"},
+        {"id": "manos_recomendadas", "unit": "manos"}
+      ],
+      "related": ["071", "077", "024"]
+    },
+    {
+      "id": "073",
+      "slug": "papel-pintado",
+      "block": 8,
+      "block_slug": "pintura",
+      "inputs": [
+        {"id": "longitud_pared_m", "type": "number", "min": 1, "max": 100, "step": 0.1, "default": 12, "unit": "m"},
+        {"id": "altura_m", "type": "number", "min": 2, "max": 4, "step": 0.05, "default": 2.6, "unit": "m"},
+        {"id": "ancho_rollo_m", "type": "number", "min": 0.5, "max": 0.7, "step": 0.01, "default": 0.53, "unit": "m"},
+        {"id": "longitud_rollo_m", "type": "number", "min": 8, "max": 12, "step": 0.5, "default": 10, "unit": "m"}
+      ],
+      "formula": "var L=parseFloat(inputs.longitud_pared_m)||0,H=parseFloat(inputs.altura_m)||2.6,Wr=parseFloat(inputs.ancho_rollo_m)||0.53,Lr=parseFloat(inputs.longitud_rollo_m)||10;if(!L)return{error:true};var tiras_rollo=Math.floor(Lr/H),m2_pared=+(L*H).toFixed(2),tiras_nec=Math.ceil(L/Wr),rollos=Math.ceil(tiras_nec/tiras_rollo*1.1);return{m2_pared:m2_pared,tiras_nec:tiras_nec,rollos_ud:rollos};",
+      "outputs": [
+        {"id": "m2_pared", "unit": "m²"},
+        {"id": "tiras_nec", "unit": "tiras"},
+        {"id": "rollos_ud", "unit": "rollos (+10%)", "highlight": true}
+      ],
+      "related": ["069", "074", "076"]
+    },
+    {
+      "id": "074",
+      "slug": "acabado-texturado",
+      "block": 8,
+      "block_slug": "pintura",
+      "inputs": [
+        {"id": "area_m2", "type": "number", "min": 1, "max": 2000, "step": 0.5, "default": 80, "unit": "m²"},
+        {"id": "tipo_textura", "type": "select", "default": "proyectado", "options": ["proyectado","rodillo_gota","veneciano","estuco"]}
+      ],
+      "formula": "var A=parseFloat(inputs.area_m2)||0,kg_m2={'proyectado':1.5,'rodillo_gota':0.8,'veneciano':1.2,'estuco':1.0};if(!A)return{error:true};var kg_ud=kg_m2[inputs.tipo_textura]||1,total=+(A*kg_ud*1.1).toFixed(1),sacos=Math.ceil(total/25);return{kg_m2:kg_ud,kg_total:total,sacos_25kg:sacos};",
+      "outputs": [
+        {"id": "kg_m2", "unit": "kg/m²"},
+        {"id": "kg_total", "unit": "kg (+10%)", "highlight": true},
+        {"id": "sacos_25kg", "unit": "sacos 25kg"}
+      ],
+      "related": ["016", "069", "076"]
+    },
+    {
+      "id": "075",
+      "slug": "imprimacion-sellador",
+      "block": 8,
+      "block_slug": "pintura",
+      "inputs": [
+        {"id": "area_m2", "type": "number", "min": 1, "max": 3000, "step": 0.5, "default": 80, "unit": "m²"},
+        {"id": "tipo_soporte", "type": "select", "default": "normal", "options": ["normal","poroso","liso","metalico"]}
+      ],
+      "formula": "var A=parseFloat(inputs.area_m2)||0,r={'normal':8,'poroso':5,'liso':12,'metalico':10};if(!A)return{error:true};var rend=r[inputs.tipo_soporte]||8,litros=+(A/rend*1.1).toFixed(2),botes=Math.ceil(litros/4);return{rendimiento_m2_l:rend,litros_total:litros,botes_4L:botes};",
+      "outputs": [
+        {"id": "rendimiento_m2_l", "unit": "m²/L"},
+        {"id": "litros_total", "unit": "L (+10%)", "highlight": true},
+        {"id": "botes_4L", "unit": "botes 4L"}
+      ],
+      "related": ["069", "071", "076"]
+    },
+    {
+      "id": "076",
+      "slug": "masilla-filler",
+      "block": 8,
+      "block_slug": "pintura",
+      "inputs": [
+        {"id": "area_m2", "type": "number", "min": 1, "max": 2000, "step": 0.5, "default": 50, "unit": "m²"},
+        {"id": "pasadas", "type": "number", "min": 1, "max": 3, "step": 1, "default": 2, "unit": "pasadas"},
+        {"id": "espesor_mm", "type": "number", "min": 0.5, "max": 3, "step": 0.25, "default": 1, "unit": "mm"}
+      ],
+      "formula": "var A=parseFloat(inputs.area_m2)||0,P=parseFloat(inputs.pasadas)||2,E=parseFloat(inputs.espesor_mm)||1;if(!A)return{error:true};var kg_m2=E*1.4,total=+(A*kg_m2*P*1.1).toFixed(1),cubos=Math.ceil(total/7);return{kg_m2_pasada:kg_m2,kg_total:total,cubos_7kg:cubos};",
+      "outputs": [
+        {"id": "kg_m2_pasada", "unit": "kg/m²/pasada"},
+        {"id": "kg_total", "unit": "kg (+10%)", "highlight": true},
+        {"id": "cubos_7kg", "unit": "cubos 7kg"}
+      ],
+      "related": ["075", "069", "018"]
+    },
+    {
+      "id": "077",
+      "slug": "lija-abrasivo",
+      "block": 8,
+      "block_slug": "pintura",
+      "inputs": [
+        {"id": "area_m2", "type": "number", "min": 0.5, "max": 500, "step": 0.5, "default": 20, "unit": "m²"},
+        {"id": "grano_inicial", "type": "select", "default": "80", "options": ["40","60","80","120","180","240"]},
+        {"id": "num_granos", "type": "number", "min": 1, "max": 4, "step": 1, "default": 2, "unit": "granos"}
+      ],
+      "formula": "var A=parseFloat(inputs.area_m2)||0,ng=parseFloat(inputs.num_granos)||2;if(!A)return{error:true};var hojas_por_grano=Math.ceil(A),hojas_total=hojas_por_grano*ng,rollos=Math.ceil(hojas_total/50);return{hojas_por_grano:hojas_por_grano,hojas_total:hojas_total,rollos_estimados:rollos};",
+      "outputs": [
+        {"id": "hojas_por_grano", "unit": "hojas/grano"},
+        {"id": "hojas_total", "unit": "hojas total", "highlight": true},
+        {"id": "rollos_estimados", "unit": "rollos 50 hojas"}
+      ],
+      "related": ["072", "071", "076"]
+    },
+    {
+      "id": "078",
+      "slug": "presupuesto-reforma",
+      "block": 9,
+      "block_slug": "gestion",
+      "inputs": [
+        {"id": "area_m2", "type": "number", "min": 10, "max": 2000, "step": 5, "default": 100, "unit": "m²"},
+        {"id": "tipo_reforma", "type": "select", "default": "media", "options": ["basica","media","alta","lujo"]},
+        {"id": "zona_geografica", "type": "select", "default": "media", "options": ["rural","media","capital","premium"]}
+      ],
+      "formula": "var A=parseFloat(inputs.area_m2)||0,coste={'basica':400,'media':700,'alta':1100,'lujo':2000},geo={'rural':0.8,'media':1.0,'capital':1.2,'premium':1.5};if(!A)return{error:true};var eur_m2=+(coste[inputs.tipo_reforma]*geo[inputs.zona_geografica]).toFixed(0),total=+(A*eur_m2).toFixed(0),material=+(total*0.45).toFixed(0),mano_obra=+(total*0.40).toFixed(0),gestion=+(total*0.15).toFixed(0);return{eur_m2:eur_m2,total_eur:total,materiales_eur:material,mano_obra_eur:mano_obra,gestion_eur:gestion};",
+      "outputs": [
+        {"id": "eur_m2", "unit": "€/m²"},
+        {"id": "total_eur", "unit": "€ total", "highlight": true},
+        {"id": "materiales_eur", "unit": "€ materiales"},
+        {"id": "mano_obra_eur", "unit": "€ mano de obra"},
+        {"id": "gestion_eur", "unit": "€ gestión"}
+      ],
+      "related": ["092", "095", "099"]
+    },
+    {
+      "id": "079",
+      "slug": "precio-hora-trabajo",
+      "block": 9,
+      "block_slug": "gestion",
+      "inputs": [
+        {"id": "costes_fijos_mes", "type": "number", "min": 500, "max": 10000, "step": 100, "default": 2000, "unit": "€/mes"},
+        {"id": "costes_variables_mes", "type": "number", "min": 200, "max": 5000, "step": 100, "default": 800, "unit": "€/mes"},
+        {"id": "horas_facturables_mes", "type": "number", "min": 50, "max": 220, "step": 5, "default": 150, "unit": "h/mes"},
+        {"id": "beneficio_deseado_pct", "type": "number", "min": 0, "max": 50, "step": 5, "default": 20, "unit": "%"}
+      ],
+      "formula": "var Cf=parseFloat(inputs.costes_fijos_mes)||0,Cv=parseFloat(inputs.costes_variables_mes)||0,H=parseFloat(inputs.horas_facturables_mes)||150,Bp=parseFloat(inputs.beneficio_deseado_pct)||20;if(!H)return{error:true};var coste_h=+(( Cf+Cv)/H).toFixed(2),precio_h=+(coste_h*(1+Bp/100)).toFixed(2);return{coste_hora_eur:coste_h,precio_hora_sin_iva_eur:precio_h,precio_hora_con_iva_eur:+(precio_h*1.21).toFixed(2)};",
+      "outputs": [
+        {"id": "coste_hora_eur", "unit": "€/h (coste)"},
+        {"id": "precio_hora_sin_iva_eur", "unit": "€/h (sin IVA)", "highlight": true},
+        {"id": "precio_hora_con_iva_eur", "unit": "€/h (con IVA 21%)"}
+      ],
+      "related": ["095", "096", "099"]
+    },
+    {
+      "id": "080",
+      "slug": "amortizacion-maquinaria",
+      "block": 9,
+      "block_slug": "gestion",
+      "inputs": [
+        {"id": "coste_eur", "type": "number", "min": 100, "max": 500000, "step": 100, "default": 15000, "unit": "€"},
+        {"id": "anos_vida_util", "type": "number", "min": 1, "max": 20, "step": 1, "default": 5, "unit": "años"},
+        {"id": "valor_residual_pct", "type": "number", "min": 0, "max": 40, "step": 5, "default": 10, "unit": "%"}
+      ],
+      "formula": "var C=parseFloat(inputs.coste_eur)||0,Y=parseFloat(inputs.anos_vida_util)||5,Vr=parseFloat(inputs.valor_residual_pct)||10;if(!C||!Y)return{error:true};var residual=+(C*Vr/100).toFixed(2),base=C-residual,anual=+(base/Y).toFixed(2),mensual=+(anual/12).toFixed(2),diaria=+(anual/220).toFixed(2);return{amort_anual_eur:anual,amort_mensual_eur:mensual,amort_diaria_eur:diaria};",
+      "outputs": [
+        {"id": "amort_anual_eur", "unit": "€/año", "highlight": true},
+        {"id": "amort_mensual_eur", "unit": "€/mes"},
+        {"id": "amort_diaria_eur", "unit": "€/día"}
+      ],
+      "related": ["081", "094", "079"]
+    },
+    {
+      "id": "081",
+      "slug": "amortizacion-vehiculo",
+      "block": 9,
+      "block_slug": "gestion",
+      "inputs": [
+        {"id": "coste_eur", "type": "number", "min": 5000, "max": 100000, "step": 500, "default": 25000, "unit": "€"},
+        {"id": "anos_vida_util", "type": "number", "min": 3, "max": 15, "step": 1, "default": 7, "unit": "años"},
+        {"id": "km_anuales", "type": "number", "min": 5000, "max": 100000, "step": 1000, "default": 30000, "unit": "km/año"}
+      ],
+      "formula": "var C=parseFloat(inputs.coste_eur)||0,Y=parseFloat(inputs.anos_vida_util)||7,Km=parseFloat(inputs.km_anuales)||30000;if(!C)return{error:true};var residual=+(C*0.10).toFixed(0),anual=+((C-residual)/Y).toFixed(2),mensual=+(anual/12).toFixed(2),coste_km=+(anual/Km).toFixed(4);return{amort_anual_eur:anual,amort_mensual_eur:mensual,coste_km_eur:coste_km};",
+      "outputs": [
+        {"id": "amort_anual_eur", "unit": "€/año", "highlight": true},
+        {"id": "amort_mensual_eur", "unit": "€/mes"},
+        {"id": "coste_km_eur", "unit": "€/km"}
+      ],
+      "related": ["080", "082", "079"]
+    },
+    {
+      "id": "082",
+      "slug": "coste-combustible",
+      "block": 9,
+      "block_slug": "gestion",
+      "inputs": [
+        {"id": "km_viaje", "type": "number", "min": 1, "max": 5000, "step": 1, "default": 150, "unit": "km"},
+        {"id": "consumo_l100km", "type": "number", "min": 4, "max": 25, "step": 0.5, "default": 8, "unit": "L/100km"},
+        {"id": "precio_l", "type": "number", "min": 0.8, "max": 3, "step": 0.01, "default": 1.55, "unit": "€/L"}
+      ],
+      "formula": "var K=parseFloat(inputs.km_viaje)||0,C=parseFloat(inputs.consumo_l100km)||8,P=parseFloat(inputs.precio_l)||1.55;if(!K)return{error:true};var litros=+(K*C/100).toFixed(2),coste=+(litros*P).toFixed(2),ida_vuelta=+(coste*2).toFixed(2);return{litros_ud:litros,coste_eur:coste,coste_ida_vuelta_eur:ida_vuelta};",
+      "outputs": [
+        {"id": "litros_ud", "unit": "L"},
+        {"id": "coste_eur", "unit": "€ (ida)", "highlight": true},
+        {"id": "coste_ida_vuelta_eur", "unit": "€ (ida y vuelta)"}
+      ],
+      "related": ["081", "083", "099"]
+    },
+    {
+      "id": "083",
+      "slug": "dietas-desplazamiento",
+      "block": 9,
+      "block_slug": "gestion",
+      "inputs": [
+        {"id": "dias_obra", "type": "number", "min": 1, "max": 365, "step": 1, "default": 20, "unit": "días"},
+        {"id": "tipo_dieta", "type": "select", "default": "media_dieta", "options": ["media_dieta","dieta_completa","con_pernocta"]},
+        {"id": "km_diarios", "type": "number", "min": 0, "max": 500, "step": 5, "default": 80, "unit": "km/día"}
+      ],
+      "formula": "var D=parseFloat(inputs.dias_obra)||0,km=parseFloat(inputs.km_diarios)||0,dieta={'media_dieta':11.36,'dieta_completa':26.67,'con_pernocta':53.34};if(!D)return{error:true};var dieta_eur=+(D*dieta[inputs.tipo_dieta]).toFixed(2),km_eur=+(D*km*0.19).toFixed(2),total=+(dieta_eur+km_eur).toFixed(2);return{dieta_total_eur:dieta_eur,km_total_eur:km_eur,total_eur:total};",
+      "outputs": [
+        {"id": "dieta_total_eur", "unit": "€ dietas"},
+        {"id": "km_total_eur", "unit": "€ km (0.19€/km)"},
+        {"id": "total_eur", "unit": "€ total", "highlight": true}
+      ],
+      "related": ["082", "099", "079"]
+    },
+    {
+      "id": "084",
+      "slug": "alquiler-contenedor",
+      "block": 9,
+      "block_slug": "gestion",
+      "inputs": [
+        {"id": "m3_escombros", "type": "number", "min": 1, "max": 200, "step": 1, "default": 8, "unit": "m³"},
+        {"id": "dias_alquiler", "type": "number", "min": 1, "max": 90, "step": 1, "default": 7, "unit": "días"},
+        {"id": "precio_dia_eur", "type": "number", "min": 2, "max": 30, "step": 0.5, "default": 6, "unit": "€/día"}
+      ],
+      "formula": "var V=parseFloat(inputs.m3_escombros)||0,D=parseFloat(inputs.dias_alquiler)||7,P=parseFloat(inputs.precio_dia_eur)||6;if(!V)return{error:true};var tam=V<=7?7:V<=12?12:20,alq=+(D*P).toFixed(2),transporte=+(80+tam*5).toFixed(2),gestion_residuos=+(V*15).toFixed(2),total=+(alq+transporte+gestion_residuos).toFixed(2);return{tam_contenedor_m3:tam,alquiler_eur:alq,transporte_eur:transporte,gestion_residuos_eur:gestion_residuos,total_eur:total};",
+      "outputs": [
+        {"id": "tam_contenedor_m3", "unit": "m³ contenedor"},
+        {"id": "alquiler_eur", "unit": "€ alquiler"},
+        {"id": "gestion_residuos_eur", "unit": "€ gestión residuos"},
+        {"id": "total_eur", "unit": "€ total estimado", "highlight": true}
+      ],
+      "related": ["085", "086", "098"]
+    },
+    {
+      "id": "085",
+      "slug": "alquiler-andamio",
+      "block": 9,
+      "block_slug": "gestion",
+      "inputs": [
+        {"id": "longitud_m", "type": "number", "min": 2, "max": 200, "step": 0.5, "default": 12, "unit": "m"},
+        {"id": "altura_m", "type": "number", "min": 2, "max": 30, "step": 0.5, "default": 6, "unit": "m"},
+        {"id": "semanas", "type": "number", "min": 1, "max": 52, "step": 1, "default": 4, "unit": "semanas"},
+        {"id": "precio_m2_semana", "type": "number", "min": 0.5, "max": 5, "step": 0.1, "default": 1.5, "unit": "€/m²·sem"}
+      ],
+      "formula": "var L=parseFloat(inputs.longitud_m)||0,H=parseFloat(inputs.altura_m)||0,S=parseFloat(inputs.semanas)||4,P=parseFloat(inputs.precio_m2_semana)||1.5;if(!L||!H)return{error:true};var m2=+(L*H).toFixed(2),alquiler=+(m2*S*P).toFixed(2),montaje=+(m2*4).toFixed(2),total=+(alquiler+montaje*2).toFixed(2);return{m2_andamio:m2,coste_alquiler_eur:alquiler,montaje_desmontaje_eur:+(montaje*2).toFixed(2),total_eur:total};",
+      "outputs": [
+        {"id": "m2_andamio", "unit": "m²"},
+        {"id": "coste_alquiler_eur", "unit": "€ alquiler"},
+        {"id": "montaje_desmontaje_eur", "unit": "€ montaje+desmontaje"},
+        {"id": "total_eur", "unit": "€ total", "highlight": true}
+      ],
+      "related": ["084", "089", "078"]
+    },
+    {
+      "id": "086",
+      "slug": "limpieza-obra",
+      "block": 9,
+      "block_slug": "gestion",
+      "inputs": [
+        {"id": "area_m2", "type": "number", "min": 10, "max": 5000, "step": 5, "default": 100, "unit": "m²"},
+        {"id": "tipo_limpieza", "type": "select", "default": "final_obra", "options": ["final_obra","industrial","cristales","exterior"]},
+        {"id": "precio_m2", "type": "number", "min": 2, "max": 25, "step": 0.5, "default": 6, "unit": "€/m²"}
+      ],
+      "formula": "var A=parseFloat(inputs.area_m2)||0,P=parseFloat(inputs.precio_m2)||6,mult={'final_obra':1,'industrial':1.3,'cristales':0.5,'exterior':0.8};if(!A)return{error:true};var coste=+(A*P*mult[inputs.tipo_limpieza]).toFixed(2),horas=+(A*0.06).toFixed(1),operarios=Math.max(1,Math.ceil(horas/8));return{horas_estimadas:horas,operarios_jornada:operarios,coste_eur:coste};",
+      "outputs": [
+        {"id": "horas_estimadas", "unit": "h"},
+        {"id": "operarios_jornada", "unit": "operarios/jornada"},
+        {"id": "coste_eur", "unit": "€ total", "highlight": true}
+      ],
+      "related": ["085", "088", "084"]
+    },
+    {
+      "id": "087",
+      "slug": "seguro-responsabilidad",
+      "block": 9,
+      "block_slug": "gestion",
+      "inputs": [
+        {"id": "facturacion_anual_eur", "type": "number", "min": 10000, "max": 2000000, "step": 5000, "default": 150000, "unit": "€/año"},
+        {"id": "tipo_actividad", "type": "select", "default": "reforma", "options": ["reforma","obra_nueva","instalaciones","servicios"]},
+        {"id": "capital_asegurado_eur", "type": "number", "min": 100000, "max": 2000000, "step": 50000, "default": 300000, "unit": "€"}
+      ],
+      "formula": "var F=parseFloat(inputs.facturacion_anual_eur)||0,Ca=parseFloat(inputs.capital_asegurado_eur)||300000,tasa={'reforma':0.003,'obra_nueva':0.004,'instalaciones':0.0035,'servicios':0.002};if(!F)return{error:true};var prima=+(Math.max(F*tasa[inputs.tipo_actividad],Ca*0.001)).toFixed(2),mensual=+(prima/12).toFixed(2);return{prima_anual_eur:prima,prima_mensual_eur:mensual};",
+      "outputs": [
+        {"id": "prima_anual_eur", "unit": "€/año", "highlight": true},
+        {"id": "prima_mensual_eur", "unit": "€/mes"}
+      ],
+      "related": ["079", "078", "092"]
+    },
+    {
+      "id": "088",
+      "slug": "epi-equipos-proteccion",
+      "block": 9,
+      "block_slug": "gestion",
+      "inputs": [
+        {"id": "num_trabajadores", "type": "number", "min": 1, "max": 100, "step": 1, "default": 5, "unit": "trabajadores"},
+        {"id": "meses_obra", "type": "number", "min": 1, "max": 36, "step": 1, "default": 6, "unit": "meses"},
+        {"id": "tipo_obra", "type": "select", "default": "reforma", "options": ["reforma","estructura","tejado","demolicion"]}
+      ],
+      "formula": "var N=parseFloat(inputs.num_trabajadores)||0,M=parseFloat(inputs.meses_obra)||6,coef={'reforma':1,'estructura':1.3,'tejado':1.5,'demolicion':1.4};if(!N)return{error:true};var base_trabaj=+(45*coef[inputs.tipo_obra]).toFixed(2),base_total=+(base_trabaj*N).toFixed(2),recambios=+(base_total*M*0.1).toFixed(2),total=+(base_total+recambios).toFixed(2);return{coste_inicial_eur:base_total,recambios_eur:recambios,total_eur:total,coste_por_trabajador_eur:+(total/N).toFixed(2)};",
+      "outputs": [
+        {"id": "coste_inicial_eur", "unit": "€ EPIs iniciales"},
+        {"id": "recambios_eur", "unit": "€ recambios"},
+        {"id": "total_eur", "unit": "€ total", "highlight": true},
+        {"id": "coste_por_trabajador_eur", "unit": "€/trabajador"}
+      ],
+      "related": ["089", "086", "087"]
+    },
+    {
+      "id": "089",
+      "slug": "senalizacion-obra",
+      "block": 9,
+      "block_slug": "gestion",
+      "inputs": [
+        {"id": "perimetro_m", "type": "number", "min": 5, "max": 1000, "step": 5, "default": 60, "unit": "m"},
+        {"id": "altura_riesgo", "type": "select", "default": "medio", "options": ["bajo","medio","alto"]}
+      ],
+      "formula": "var P=parseFloat(inputs.perimetro_m)||0,coef={'bajo':1,'medio':1.3,'alto':1.6};if(!P)return{error:true};var vallas=Math.ceil(P/2),senales_oblig=Math.ceil(P/15)*coef[inputs.altura_riesgo],senales_pelig=Math.ceil(P/20),coste=+(vallas*3+senales_oblig*12+senales_pelig*10).toFixed(2);return{vallas_2m_ud:vallas,senales_obligacion_ud:Math.ceil(senales_oblig),senales_peligro_ud:senales_pelig,coste_estimado_eur:coste};",
+      "outputs": [
+        {"id": "vallas_2m_ud", "unit": "vallas 2m"},
+        {"id": "senales_obligacion_ud", "unit": "señales obligación"},
+        {"id": "senales_peligro_ud", "unit": "señales peligro"},
+        {"id": "coste_estimado_eur", "unit": "€ estimado", "highlight": true}
+      ],
+      "related": ["088", "085", "086"]
+    },
+    {
+      "id": "090",
+      "slug": "rendimiento-diario",
+      "block": 9,
+      "block_slug": "gestion",
+      "inputs": [
+        {"id": "operarios", "type": "number", "min": 1, "max": 50, "step": 1, "default": 2, "unit": "operarios"},
+        {"id": "horas_dia", "type": "number", "min": 4, "max": 10, "step": 0.5, "default": 8, "unit": "h/día"},
+        {"id": "rendimiento_m2_h", "type": "number", "min": 0.5, "max": 20, "step": 0.5, "default": 5, "unit": "m²/h/op"}
+      ],
+      "formula": "var N=parseFloat(inputs.operarios)||0,H=parseFloat(inputs.horas_dia)||8,R=parseFloat(inputs.rendimiento_m2_h)||5;if(!N)return{error:true};var dia=+(N*H*R).toFixed(1),semana=+(dia*5).toFixed(1),mes=+(dia*22).toFixed(1);return{m2_dia:dia,m2_semana:semana,m2_mes:mes,h_por_100m2:+(100/(N*R)).toFixed(1)};",
+      "outputs": [
+        {"id": "m2_dia", "unit": "m²/día", "highlight": true},
+        {"id": "m2_semana", "unit": "m²/semana"},
+        {"id": "m2_mes", "unit": "m²/mes"},
+        {"id": "h_por_100m2", "unit": "h/100m²"}
+      ],
+      "related": ["099", "079", "091"]
+    },
+    {
+      "id": "091",
+      "slug": "planificacion-gantt",
+      "block": 9,
+      "block_slug": "gestion",
+      "inputs": [
+        {"id": "num_tareas", "type": "number", "min": 2, "max": 50, "step": 1, "default": 8, "unit": "tareas"},
+        {"id": "duracion_media_dias", "type": "number", "min": 1, "max": 30, "step": 1, "default": 5, "unit": "días/tarea"},
+        {"id": "paralelismo_pct", "type": "number", "min": 0, "max": 70, "step": 5, "default": 30, "unit": "%"}
+      ],
+      "formula": "var N=parseFloat(inputs.num_tareas)||0,D=parseFloat(inputs.duracion_media_dias)||5,par=parseFloat(inputs.paralelismo_pct)||30;if(!N)return{error:true};var dias_total=Math.ceil(N*D*(1-par/100)),semanas=+(dias_total/5).toFixed(1),semanas_imprevistos=+(semanas*1.15).toFixed(1);return{dias_total:dias_total,semanas:semanas,semanas_con_imprevistos:semanas_imprevistos};",
+      "outputs": [
+        {"id": "dias_total", "unit": "días laborables"},
+        {"id": "semanas", "unit": "semanas", "highlight": true},
+        {"id": "semanas_con_imprevistos", "unit": "semanas (+15% imprevistos)"}
+      ],
+      "related": ["090", "078", "099"]
+    },
+    {
+      "id": "092",
+      "slug": "licencias-municipales",
+      "block": 9,
+      "block_slug": "gestion",
+      "inputs": [
+        {"id": "presupuesto_obra_eur", "type": "number", "min": 1000, "max": 5000000, "step": 1000, "default": 50000, "unit": "€"},
+        {"id": "tipo_licencia", "type": "select", "default": "obra_menor", "options": ["comunicacion","obra_menor","obra_mayor","actividad"]},
+        {"id": "tasa_municipal_pct", "type": "number", "min": 0.5, "max": 5, "step": 0.1, "default": 2, "unit": "%"}
+      ],
+      "formula": "var P=parseFloat(inputs.presupuesto_obra_eur)||0,tp=parseFloat(inputs.tasa_municipal_pct)||2,base={'comunicacion':0,'obra_menor':150,'obra_mayor':300,'actividad':500};if(!P)return{error:true};var tasa=+(P*tp/100).toFixed(2),icio=+(P*0.04).toFixed(2),min=base[inputs.tipo_licencia],total=+(Math.max(tasa,min)+icio).toFixed(2);return{tasa_licencia_eur:+(Math.max(tasa,min)).toFixed(2),icio_eur:icio,total_estimado_eur:total};",
+      "outputs": [
+        {"id": "tasa_licencia_eur", "unit": "€ tasa licencia"},
+        {"id": "icio_eur", "unit": "€ ICIO (4%)"},
+        {"id": "total_estimado_eur", "unit": "€ total estimado", "highlight": true}
+      ],
+      "related": ["078", "093", "087"]
+    },
+    {
+      "id": "093",
+      "slug": "iva-irpf",
+      "block": 9,
+      "block_slug": "gestion",
+      "inputs": [
+        {"id": "base_imponible_eur", "type": "number", "min": 1, "max": 1000000, "step": 1, "default": 5000, "unit": "€"},
+        {"id": "tipo_iva_pct", "type": "number", "min": 0, "max": 21, "step": 0.5, "default": 21, "unit": "%"},
+        {"id": "tipo_irpf_pct", "type": "number", "min": 0, "max": 21, "step": 0.5, "default": 15, "unit": "%"}
+      ],
+      "formula": "var B=parseFloat(inputs.base_imponible_eur)||0,iva=parseFloat(inputs.tipo_iva_pct)||21,irpf=parseFloat(inputs.tipo_irpf_pct)||15;if(!B)return{error:true};var iva_eur=+(B*iva/100).toFixed(2),irpf_eur=+(B*irpf/100).toFixed(2),total_factura=+(B+iva_eur).toFixed(2),liquido=+(B-irpf_eur).toFixed(2);return{iva_eur:iva_eur,irpf_retencion_eur:irpf_eur,total_factura_eur:total_factura,liquido_percibir_eur:liquido};",
+      "outputs": [
+        {"id": "iva_eur", "unit": "€ IVA"},
+        {"id": "irpf_retencion_eur", "unit": "€ IRPF retención"},
+        {"id": "total_factura_eur", "unit": "€ total factura", "highlight": true},
+        {"id": "liquido_percibir_eur", "unit": "€ líquido a percibir"}
+      ],
+      "related": ["079", "092", "095"]
+    },
+    {
+      "id": "094",
+      "slug": "prestamo-equipo",
+      "block": 9,
+      "block_slug": "gestion",
+      "inputs": [
+        {"id": "importe_eur", "type": "number", "min": 500, "max": 500000, "step": 500, "default": 20000, "unit": "€"},
+        {"id": "tae_pct", "type": "number", "min": 1, "max": 30, "step": 0.1, "default": 6.5, "unit": "% TAE"},
+        {"id": "plazo_meses", "type": "number", "min": 6, "max": 120, "step": 6, "default": 48, "unit": "meses"}
+      ],
+      "formula": "var P=parseFloat(inputs.importe_eur)||0,tae=parseFloat(inputs.tae_pct)||6.5,n=parseFloat(inputs.plazo_meses)||48;if(!P||!n)return{error:true};var r=tae/100/12,cuota=+(P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1)).toFixed(2),total_pag=+(cuota*n).toFixed(2),total_int=+(total_pag-P).toFixed(2);return{cuota_mensual_eur:cuota,total_pagado_eur:total_pag,total_intereses_eur:total_int};",
+      "outputs": [
+        {"id": "cuota_mensual_eur", "unit": "€/mes", "highlight": true},
+        {"id": "total_pagado_eur", "unit": "€ total pagado"},
+        {"id": "total_intereses_eur", "unit": "€ intereses"}
+      ],
+      "related": ["080", "081", "079"]
+    },
+    {
+      "id": "095",
+      "slug": "margen-beneficio",
+      "block": 9,
+      "block_slug": "gestion",
+      "inputs": [
+        {"id": "coste_total_eur", "type": "number", "min": 1, "max": 10000000, "step": 1, "default": 8000, "unit": "€"},
+        {"id": "precio_venta_eur", "type": "number", "min": 1, "max": 10000000, "step": 1, "default": 10000, "unit": "€"}
+      ],
+      "formula": "var C=parseFloat(inputs.coste_total_eur)||0,V=parseFloat(inputs.precio_venta_eur)||0;if(!C||!V||V<C)return{error:true};var ben=+(V-C).toFixed(2),margen_pct=+(ben/V*100).toFixed(2),markup_pct=+(ben/C*100).toFixed(2);return{beneficio_eur:ben,margen_pct:margen_pct,markup_pct:markup_pct};",
+      "outputs": [
+        {"id": "beneficio_eur", "unit": "€ beneficio", "highlight": true},
+        {"id": "margen_pct", "unit": "% margen (sobre PV)"},
+        {"id": "markup_pct", "unit": "% markup (sobre coste)"}
+      ],
+      "related": ["096", "079", "093"]
+    },
+    {
+      "id": "096",
+      "slug": "punto-equilibrio",
+      "block": 9,
+      "block_slug": "gestion",
+      "inputs": [
+        {"id": "costes_fijos_eur", "type": "number", "min": 100, "max": 1000000, "step": 100, "default": 5000, "unit": "€/mes"},
+        {"id": "precio_venta_ud", "type": "number", "min": 1, "max": 100000, "step": 1, "default": 800, "unit": "€/ud"},
+        {"id": "coste_variable_ud", "type": "number", "min": 1, "max": 100000, "step": 1, "default": 500, "unit": "€/ud"}
+      ],
+      "formula": "var Cf=parseFloat(inputs.costes_fijos_eur)||0,Pv=parseFloat(inputs.precio_venta_ud)||0,Cv=parseFloat(inputs.coste_variable_ud)||0;if(!Cf||!Pv||Pv<=Cv)return{error:true};var margen_contrib=Pv-Cv,umb_unidades=+(Cf/margen_contrib).toFixed(1),umb_euros=+(umb_unidades*Pv).toFixed(2);return{unidades_break_even:umb_unidades,facturacion_break_even_eur:umb_euros,margen_contribucion_eur:margen_contrib};",
+      "outputs": [
+        {"id": "unidades_break_even", "unit": "unidades/trabajos", "highlight": true},
+        {"id": "facturacion_break_even_eur", "unit": "€ facturación mínima"},
+        {"id": "margen_contribucion_eur", "unit": "€/ud margen"}
+      ],
+      "related": ["095", "079", "097"]
+    },
+    {
+      "id": "097",
+      "slug": "consumo-agua-obra",
+      "block": 9,
+      "block_slug": "gestion",
+      "inputs": [
+        {"id": "operarios", "type": "number", "min": 1, "max": 200, "step": 1, "default": 8, "unit": "operarios"},
+        {"id": "dias_obra", "type": "number", "min": 1, "max": 500, "step": 1, "default": 60, "unit": "días"},
+        {"id": "tipo_obra", "type": "select", "default": "reforma", "options": ["reforma","obra_nueva","demolicion"]}
+      ],
+      "formula": "var N=parseFloat(inputs.operarios)||0,D=parseFloat(inputs.dias_obra)||60,l_dia={'reforma':80,'obra_nueva':120,'demolicion':60};if(!N)return{error:true};var l_op_dia=l_dia[inputs.tipo_obra],total_litros=+(N*D*l_op_dia).toFixed(0),m3=+(total_litros/1000).toFixed(2),coste=+(m3*2).toFixed(2);return{litros_total:total_litros,m3_total:m3,coste_estimado_eur:coste};",
+      "outputs": [
+        {"id": "litros_total", "unit": "litros"},
+        {"id": "m3_total", "unit": "m³", "highlight": true},
+        {"id": "coste_estimado_eur", "unit": "€ coste estimado"}
+      ],
+      "related": ["099", "086", "091"]
+    },
+    {
+      "id": "098",
+      "slug": "factor-merma-material",
+      "block": 9,
+      "block_slug": "gestion",
+      "inputs": [
+        {"id": "cantidad_neta", "type": "number", "min": 0.1, "max": 100000, "step": 0.1, "default": 100, "unit": "(unidades)"},
+        {"id": "factor_merma_pct", "type": "number", "min": 1, "max": 30, "step": 0.5, "default": 10, "unit": "%"},
+        {"id": "precio_ud", "type": "number", "min": 0.01, "max": 10000, "step": 0.01, "default": 25, "unit": "€/ud"}
+      ],
+      "formula": "var Q=parseFloat(inputs.cantidad_neta)||0,mp=parseFloat(inputs.factor_merma_pct)||10,P=parseFloat(inputs.precio_ud)||25;if(!Q)return{error:true};var q_pedir=+(Q*(1+mp/100)).toFixed(2),q_merma=+(q_pedir-Q).toFixed(2),coste_merma=+(q_merma*P).toFixed(2),coste_total=+(q_pedir*P).toFixed(2);return{cantidad_pedir:q_pedir,cantidad_merma:q_merma,coste_merma_eur:coste_merma,coste_total_eur:coste_total};",
+      "outputs": [
+        {"id": "cantidad_pedir", "unit": "uds a pedir", "highlight": true},
+        {"id": "cantidad_merma", "unit": "uds merma"},
+        {"id": "coste_merma_eur", "unit": "€ coste merma"},
+        {"id": "coste_total_eur", "unit": "€ coste total"}
+      ],
+      "related": ["078", "090", "084"]
+    },
+    {
+      "id": "099",
+      "slug": "coste-mano-obra",
+      "block": 9,
+      "block_slug": "gestion",
+      "inputs": [
+        {"id": "operarios", "type": "number", "min": 1, "max": 100, "step": 1, "default": 3, "unit": "operarios"},
+        {"id": "horas_jornada", "type": "number", "min": 4, "max": 10, "step": 0.5, "default": 8, "unit": "h/día"},
+        {"id": "dias_obra", "type": "number", "min": 1, "max": 365, "step": 1, "default": 15, "unit": "días"},
+        {"id": "coste_hora_eur", "type": "number", "min": 10, "max": 100, "step": 1, "default": 25, "unit": "€/h"}
+      ],
+      "formula": "var N=parseFloat(inputs.operarios)||0,H=parseFloat(inputs.horas_jornada)||8,D=parseFloat(inputs.dias_obra)||15,Ch=parseFloat(inputs.coste_hora_eur)||25;if(!N||!D)return{error:true};var total_h=+(N*H*D).toFixed(0),total=+(total_h*Ch).toFixed(2),dia=+(N*H*Ch).toFixed(2),semana=+(dia*5).toFixed(2);return{total_horas:total_h,coste_dia_eur:dia,coste_semana_eur:semana,coste_total_eur:total};",
+      "outputs": [
+        {"id": "total_horas", "unit": "horas"},
+        {"id": "coste_dia_eur", "unit": "€/día"},
+        {"id": "coste_semana_eur", "unit": "€/semana"},
+        {"id": "coste_total_eur", "unit": "€ total", "highlight": true}
+      ],
+      "related": ["079", "090", "078"]
+    },
+    {
+      "id": "100",
+      "slug": "roi-herramienta",
+      "block": 9,
+      "block_slug": "gestion",
+      "inputs": [
+        {"id": "coste_herramienta_eur", "type": "number", "min": 50, "max": 50000, "step": 50, "default": 1200, "unit": "€"},
+        {"id": "ahorro_horas_mes", "type": "number", "min": 0.5, "max": 200, "step": 0.5, "default": 8, "unit": "h/mes"},
+        {"id": "coste_hora_eur", "type": "number", "min": 10, "max": 150, "step": 1, "default": 30, "unit": "€/h"},
+        {"id": "vida_util_anos", "type": "number", "min": 1, "max": 20, "step": 1, "default": 5, "unit": "años"}
+      ],
+      "formula": "var C=parseFloat(inputs.coste_herramienta_eur)||0,Ah=parseFloat(inputs.ahorro_horas_mes)||0,Ch=parseFloat(inputs.coste_hora_eur)||30,Y=parseFloat(inputs.vida_util_anos)||5;if(!C||!Ah)return{error:true};var ahorro_mes=+(Ah*Ch).toFixed(2),meses_payback=+(C/ahorro_mes).toFixed(1),ahorro_total=+(ahorro_mes*12*Y).toFixed(2),roi_pct=+((ahorro_total-C)/C*100).toFixed(1);return{ahorro_mensual_eur:ahorro_mes,payback_meses:meses_payback,ahorro_total_eur:ahorro_total,roi_pct:roi_pct};",
+      "outputs": [
+        {"id": "ahorro_mensual_eur", "unit": "€/mes"},
+        {"id": "payback_meses", "unit": "meses payback", "highlight": true},
+        {"id": "ahorro_total_eur", "unit": "€ ahorro total"},
+        {"id": "roi_pct", "unit": "% ROI"}
+      ],
+      "related": ["080", "079", "094"]
+    }
+  ]
+}
