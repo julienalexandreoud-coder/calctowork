@@ -145,8 +145,8 @@ document.getElementById('yr').textContent = new Date().getFullYear();
   var blocksGrid  = document.getElementById('blocks-grid');
   if (!searchInput || !blocksGrid) return;
 
-  searchInput.addEventListener('input', function () {
-    var q = this.value.trim().toLowerCase();
+  function filterCalcs() {
+    var q = searchInput.value.trim().toLowerCase();
     var blockCards = blocksGrid.querySelectorAll('.block-card');
     var totalVisible = 0;
 
@@ -154,7 +154,7 @@ document.getElementById('yr').textContent = new Date().getFullYear();
       var links = card.querySelectorAll('.calc-list a');
       var cardVisible = 0;
       links.forEach(function (a) {
-        var text = a.textContent.toLowerCase();
+        var text = a.textContent.trim().toLowerCase();
         var show = !q || text.indexOf(q) !== -1;
         a.parentElement.style.display = show ? '' : 'none';
         if (show) cardVisible++;
@@ -163,8 +163,11 @@ document.getElementById('yr').textContent = new Date().getFullYear();
       totalVisible += cardVisible;
     });
 
-    noResults.style.display = (q && totalVisible === 0) ? '' : 'none';
-  });
+    if (noResults) noResults.style.display = (q && totalVisible === 0) ? '' : 'none';
+  }
+
+  searchInput.addEventListener('input', filterCalcs);
+  searchInput.addEventListener('search', filterCalcs);
 })();
 </script>
 </body>
