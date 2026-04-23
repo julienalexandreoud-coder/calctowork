@@ -24,6 +24,7 @@ from calc_content import (
     NET_LABEL, TOTAL_LABEL,
     HOW_TO_TITLE, FAQ_TITLE, FORMULA_TITLE,
     generate_intro, generate_how_to, generate_faq, generate_formula_explained,
+    generate_variant_intro,
 )
 from tools_config import (
     TOOLS, TOOL_BY_ID,
@@ -573,6 +574,12 @@ def generate() -> None:
                 desc_tpl   = vcfg["desc_template"].get(lang, vcfg["desc_template"]["en"])
                 desc       = vcfg["desc_fn"](params, desc_tpl)
 
+                variant_url_path = f"{loc_slug}/{param_slug}"
+                variant_alt_slugs = {
+                    al: f"{TOOL_BY_ID[cid]['slugs'].get(al, loc_slug)}/{param_slug}"
+                    for al in LANGS
+                }
+
                 html = calc_tpl.render(
                     lang=lang, t=t, all_langs=LANGS,
                     calc=calc, calc_i18n=ci18n,
@@ -580,15 +587,15 @@ def generate() -> None:
                     related_calcs=[],
                     brand_name=BRAND,
                     site_base_url=BASE_URL,
-                    calc_url_path=loc_slug,
-                    calc_alt_slugs=alt_slugs,
-                    intro_text="",
-                    how_to_steps=[],
-                    faq=[],
-                    howto_title="",
-                    faq_title="",
-                    formula_explained="",
-                    formula_title="",
+                    calc_url_path=variant_url_path,
+                    calc_alt_slugs=variant_alt_slugs,
+                    intro_text=generate_variant_intro(title, desc, lang),
+                    how_to_steps=generate_how_to(block_slug, lang),
+                    faq=generate_faq(block_slug, lang),
+                    howto_title=HOW_TO_TITLE.get(lang, HOW_TO_TITLE["en"]),
+                    faq_title=FAQ_TITLE.get(lang, FAQ_TITLE["en"]),
+                    formula_explained=generate_formula_explained(block_slug, lang),
+                    formula_title=FORMULA_TITLE.get(lang, FORMULA_TITLE["en"]),
                     input_groups=input_groups,
                     input_placeholders=input_placeholders,
                     show_wastage=show_wastage,

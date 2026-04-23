@@ -1303,6 +1303,45 @@ def generate_intro(calc_id: str, lang: str, name: str, desc: str) -> str:
     return tpl.format(name=name, desc=desc)
 
 
+VARIANT_INTRO_TEMPLATES = {
+    "es": (
+        "<strong>{title}</strong>. {desc} "
+        "Introduce los valores en el formulario y obtén el resultado al instante, "
+        "incluyendo materiales desglosados y un margen de merma ajustable."
+    ),
+    "en": (
+        "<strong>{title}</strong>. {desc} "
+        "Enter your values in the form and get instant results, "
+        "including a full materials breakdown and an adjustable wastage allowance."
+    ),
+    "fr": (
+        "<strong>{title}</strong>. {desc} "
+        "Saisissez vos valeurs dans le formulaire et obtenez un résultat instantané, "
+        "avec une décomposition complète des matériaux et un taux de perte ajustable."
+    ),
+    "pt": (
+        "<strong>{title}</strong>. {desc} "
+        "Insira os valores no formulário e obtenha resultados instantâneos, "
+        "incluindo detalhamento completo dos materiais e uma margem de perda ajustável."
+    ),
+    "de": (
+        "<strong>{title}</strong>. {desc} "
+        "Geben Sie Ihre Werte in das Formular ein und erhalten Sie sofort Ergebnisse, "
+        "einschließlich einer vollständigen Materialaufstellung und eines anpassbaren Verschnittfaktors."
+    ),
+    "it": (
+        "<strong>{title}</strong>. {desc} "
+        "Inserisci i valori nel modulo e ottieni risultati istantanei, "
+        "inclusa una ripartizione completa dei materiali e un margine di perdita regolabile."
+    ),
+}
+
+
+def generate_variant_intro(title: str, desc: str, lang: str) -> str:
+    tpl = VARIANT_INTRO_TEMPLATES.get(lang, VARIANT_INTRO_TEMPLATES["en"])
+    return tpl.format(title=title, desc=desc)
+
+
 def generate_how_to(block_slug: str, lang: str) -> list:
     block_steps = HOWTO.get(block_slug, {})
     return block_steps.get(lang, block_steps.get("en", []))
