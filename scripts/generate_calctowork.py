@@ -147,6 +147,37 @@ PLACEHOLDER_HINTS = {
 }
 
 
+POPULAR_COMBOS_TITLE = {
+    "es": "Combinaciones populares",
+    "en": "Popular combinations",
+    "fr": "Combinaisons populaires",
+    "pt": "Combinações populares",
+    "de": "Beliebte Kombinationen",
+    "it": "Combinazioni popolari",
+}
+
+
+def build_popular_combos(cid: str, lang: str, loc_slug: str, max_combos: int = 8) -> list:
+    """Return up to max_combos popular variant links for a base calculator page."""
+    vcfg = PARAMETRIC_VARIANTS.get(cid)
+    if not vcfg:
+        return []
+    vkeys = list(vcfg["inputs"].keys())
+    vlists = [vcfg["inputs"][k] for k in vkeys]
+    lang_tpl = vcfg["title_template"].get(lang, vcfg["title_template"]["en"])
+    combos = []
+    for combo in cartesian_product(*vlists):
+        params = dict(zip(vkeys, combo))
+        param_slug = vcfg["url_fn"](params)
+        label = vcfg["title_fn"](params, lang_tpl)
+        combos.append({"path": f"{loc_slug}/{param_slug}", "label": label})
+    mid = len(combos) // 2
+    quarter = len(combos) // 4
+    indices = sorted(set([0, quarter, mid, mid + quarter, len(combos) - 1,
+                          quarter // 2, mid + quarter // 2, len(combos) - quarter // 2 - 1]))
+    return [combos[i] for i in indices if i < len(combos)][:max_combos]
+
+
 # ── I/O helpers ────────────────────────────────────────────────────────────────
 
 def load_json(path: Path) -> dict:
@@ -392,6 +423,7 @@ def generate() -> None:
             "loc": f"{BASE_URL}/{lang}/",
             "priority": "1.0",
             "alternates": [{"lang": al, "href": f"{BASE_URL}/{al}/"} for al in LANGS],
+            "lang": lang,
         })
 
         # ── Block pages ───────────────────────────────────────────────────────
@@ -418,6 +450,7 @@ def generate() -> None:
                 "alternates": [
                     {"lang": al, "href": f"{BASE_URL}/{al}/{block_slug}/"} for al in LANGS
                 ],
+                "lang": lang,
             })
 
         # ── Calculator pages ──────────────────────────────────────────────────
@@ -491,6 +524,8 @@ def generate() -> None:
                 faq_title=FAQ_TITLE.get(lang, FAQ_TITLE["en"]),
                 formula_explained=formula_explained,
                 formula_title=FORMULA_TITLE.get(lang, FORMULA_TITLE["en"]),
+                popular_combos=build_popular_combos(cid, lang, loc_slug),
+                popular_combos_title=POPULAR_COMBOS_TITLE.get(lang, POPULAR_COMBOS_TITLE["en"]),
                 # Inputs
                 input_groups=input_groups,
                 input_placeholders=input_placeholders,
@@ -521,6 +556,7 @@ def generate() -> None:
                     {"lang": al, "href": f"{BASE_URL}/{al}/{tool_cfg['slugs'].get(al, loc_slug)}/"}
                     for al in LANGS
                 ],
+                "lang": lang,
             })
 
     # ── Parametric pages ──────────────────────────────────────────────────────
@@ -573,6 +609,8 @@ def generate() -> None:
                 title      = vcfg["title_fn"](params, lang_tpl)
                 desc_tpl   = vcfg["desc_template"].get(lang, vcfg["desc_template"]["en"])
                 desc       = vcfg["desc_fn"](params, desc_tpl)
+                result_fn  = vcfg.get("result_fn")
+                quick_ans  = result_fn(params, lang) if result_fn else ""
 
                 variant_url_path = f"{loc_slug}/{param_slug}"
                 variant_alt_slugs = {
@@ -589,7 +627,7 @@ def generate() -> None:
                     site_base_url=BASE_URL,
                     calc_url_path=variant_url_path,
                     calc_alt_slugs=variant_alt_slugs,
-                    intro_text=generate_variant_intro(title, desc, lang),
+                    intro_text=generate_variant_intro(title, desc, lang, quick_ans),
                     how_to_steps=generate_how_to(block_slug, lang),
                     faq=generate_faq(block_slug, lang),
                     howto_title=HOW_TO_TITLE.get(lang, HOW_TO_TITLE["en"]),
@@ -625,19 +663,20 @@ def generate() -> None:
                     "loc": f"{BASE_URL}/{lang}/{loc_slug}/{param_slug}/",
                     "priority": "0.5",
                     "alternates": [],
+                    "lang": lang,
                 })
 
-    # ── Sitemap (with splitting at 45k URLs) ──────────────────────────────────
-    CHUNK = 45000
-    chunks = [sitemap_entries[i:i+CHUNK] for i in range(0, len(sitemap_entries), CHUNK)]
-    for idx, chunk in enumerate(chunks, start=1):
-        xml = sitemap_tpl.render(sitemap_entries=chunk, build_date=BUILD_DATE)
-        write_file(PUBLIC / f"sitemap-{idx}.xml", xml)
-    if len(chunks) > 1:
-        idx_xml = sitemap_idx_tpl.render(count=len(chunks), base_url=BASE_URL)
-        write_file(PUBLIC / "sitemap.xml", idx_xml)
-    else:
-        write_file(PUBLIC / "sitemap.xml", sitemap_tpl.render(sitemap_entries=sitemap_entries, build_date=BUILD_DATE))
+    # ── Sitemap: one file per language + sitemap index ────────────────────────
+    by_lang = {lang: [] for lang in LANGS}
+    for entry in sitemap_entries:
+        entry_lang = entry.get("lang")
+        if entry_lang and entry_lang in by_lang:
+            by_lang[entry_lang].append(entry)
+    for lang, entries in by_lang.items():
+        xml = sitemap_tpl.render(sitemap_entries=entries, build_date=BUILD_DATE)
+        write_file(PUBLIC / f"sitemap-{lang}.xml", xml)
+    idx_xml = sitemap_idx_tpl.render(langs=LANGS, base_url=BASE_URL, build_date=BUILD_DATE)
+    write_file(PUBLIC / "sitemap.xml", idx_xml)
 
     # ── Root redirect ─────────────────────────────────────────────────────────
     write_file(PUBLIC / "index.html", (
@@ -656,7 +695,7 @@ def generate() -> None:
     print(f"[OK] Redirects: {redirect_count} legacy URL redirects")
     if warn_count:
         print(f"[WARN] {warn_count} missing translations skipped")
-    print(f"[OK] Sitemap : {len(sitemap_entries)} URLs ({len(chunks)} file(s))")
+    print(f"[OK] Sitemap : {len(sitemap_entries)} URLs ({len(LANGS)} language files)")
     print(f"[OK] Output  : {PUBLIC}")
     print(f"\nDeploy with:  firebase deploy --only hosting")
 

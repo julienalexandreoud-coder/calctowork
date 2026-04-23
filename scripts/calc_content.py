@@ -1337,9 +1337,23 @@ VARIANT_INTRO_TEMPLATES = {
 }
 
 
-def generate_variant_intro(title: str, desc: str, lang: str) -> str:
+QUICK_ANSWER_TEMPLATES = {
+    "es": " <strong>Respuesta rápida:</strong> {answer}",
+    "en": " <strong>Quick answer:</strong> {answer}",
+    "fr": " <strong>Réponse rapide :</strong> {answer}",
+    "pt": " <strong>Resposta rápida:</strong> {answer}",
+    "de": " <strong>Schnelle Antwort:</strong> {answer}",
+    "it": " <strong>Risposta rapida:</strong> {answer}",
+}
+
+
+def generate_variant_intro(title: str, desc: str, lang: str, quick_answer: str = "") -> str:
     tpl = VARIANT_INTRO_TEMPLATES.get(lang, VARIANT_INTRO_TEMPLATES["en"])
-    return tpl.format(title=title, desc=desc)
+    base = tpl.format(title=title, desc=desc)
+    if quick_answer:
+        qa_tpl = QUICK_ANSWER_TEMPLATES.get(lang, QUICK_ANSWER_TEMPLATES["en"])
+        base += qa_tpl.format(answer=quick_answer)
+    return base
 
 
 def generate_how_to(block_slug: str, lang: str) -> list:

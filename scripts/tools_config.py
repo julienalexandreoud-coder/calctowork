@@ -1007,6 +1007,30 @@ TOOLS = [
         "de": "werkzeug-roi-rechner",
         "it": "calcolatore-roi-strumento",
     }},
+    {"id": "101", "cat": "D", "block": "fontaneria", "slugs": {
+        "es": "calculadora-volumen-piscina",
+        "en": "swimming-pool-volume-calculator",
+        "fr": "calculateur-volume-piscine",
+        "pt": "calculadora-volume-piscina",
+        "de": "schwimmbad-volumen-rechner",
+        "it": "calcolatore-volume-piscina",
+    }},
+    {"id": "102", "cat": "D", "block": "fontaneria", "slugs": {
+        "es": "calculadora-tierra-jardin",
+        "en": "garden-topsoil-calculator",
+        "fr": "calculateur-terre-jardin",
+        "pt": "calculadora-terra-jardim",
+        "de": "gartenerde-rechner",
+        "it": "calcolatore-terra-giardino",
+    }},
+    {"id": "103", "cat": "C", "block": "mamposteria", "slugs": {
+        "es": "calculadora-postes-valla",
+        "en": "fence-post-calculator",
+        "fr": "calculateur-cloture-poteaux",
+        "pt": "calculadora-postes-cerca",
+        "de": "zaunpfosten-rechner",
+        "it": "calcolatore-pali-recinzione",
+    }},
 ]
 
 # Quick lookup
@@ -1025,6 +1049,97 @@ def _fmt(v):
     """Format a numeric value for use in URLs (0.2 → 0-2, 10 → 10)."""
     s = str(v).replace(".", "-")
     return s
+
+
+import math as _math
+
+def _tile_result(size_cm, area_m2, wastage_pct, lang):
+    """Pre-compute tile count for a parametric variant."""
+    tile_m2 = (size_cm / 100) ** 2
+    total_area = area_m2 * (1 + wastage_pct / 100)
+    tiles = _math.ceil(total_area / tile_m2)
+    msgs = {
+        "es": f"necesitas aproximadamente <strong>{tiles} baldosas</strong> ({int(area_m2 / tile_m2)} neto + {wastage_pct}% merma)",
+        "en": f"you need approximately <strong>{tiles} tiles</strong> ({int(area_m2 / tile_m2)} net + {wastage_pct}% wastage)",
+        "fr": f"il vous faut environ <strong>{tiles} carreaux</strong> ({int(area_m2 / tile_m2)} net + {wastage_pct}% perte)",
+        "pt": f"você precisa de aproximadamente <strong>{tiles} peças</strong> ({int(area_m2 / tile_m2)} líquido + {wastage_pct}% perda)",
+        "de": f"Sie benötigen etwa <strong>{tiles} Fliesen</strong> ({int(area_m2 / tile_m2)} netto + {wastage_pct}% Verschnitt)",
+        "it": f"servono circa <strong>{tiles} piastrelle</strong> ({int(area_m2 / tile_m2)} nette + {wastage_pct}% scarto)",
+    }
+    return msgs.get(lang, msgs["en"])
+
+
+def _paint_result(area_m2, coats, wastage_pct, lang):
+    """Pre-compute paint litres for a parametric variant."""
+    coverage = 12.0  # m²/L typical
+    litres = area_m2 * coats / coverage * (1 + wastage_pct / 100)
+    litres_rounded = round(litres, 1)
+    msgs = {
+        "es": f"necesitas aproximadamente <strong>{litres_rounded} litros</strong> de pintura",
+        "en": f"you need approximately <strong>{litres_rounded} litres</strong> of paint",
+        "fr": f"il vous faut environ <strong>{litres_rounded} litres</strong> de peinture",
+        "pt": f"você precisa de aproximadamente <strong>{litres_rounded} litros</strong> de tinta",
+        "de": f"Sie benötigen etwa <strong>{litres_rounded} Liter</strong> Farbe",
+        "it": f"servono circa <strong>{litres_rounded} litri</strong> di vernice",
+    }
+    return msgs.get(lang, msgs["en"])
+
+
+def _brick_result(largo_m, alto_m, wastage_pct, lang):
+    """Pre-compute hollow brick count for a parametric variant."""
+    brick_area = 0.30 * 0.155  # standard hollow brick with 10mm joint
+    wall_area = largo_m * alto_m
+    bricks = _math.ceil(wall_area / brick_area * (1 + wastage_pct / 100))
+    msgs = {
+        "es": f"necesitas aproximadamente <strong>{bricks} ladrillos huecos</strong>",
+        "en": f"you need approximately <strong>{bricks} hollow bricks</strong>",
+        "fr": f"il vous faut environ <strong>{bricks} briques creuses</strong>",
+        "pt": f"você precisa de aproximadamente <strong>{bricks} tijolos furados</strong>",
+        "de": f"Sie benötigen etwa <strong>{bricks} Hohlziegel</strong>",
+        "it": f"servono circa <strong>{bricks} mattoni forati</strong>",
+    }
+    return msgs.get(lang, msgs["en"])
+
+
+def _pool_result(largo_m, ancho_m, prof_m, lang):
+    litros = round(largo_m * ancho_m * prof_m * 1000)
+    msgs = {
+        "es": f"tu piscina tiene aproximadamente <strong>{litros:,} litros</strong> ({largo_m * ancho_m * prof_m:.1f} m³)",
+        "en": f"your pool holds approximately <strong>{litros:,} litres</strong> ({largo_m * ancho_m * prof_m:.1f} m³)",
+        "fr": f"votre piscine contient environ <strong>{litros:,} litres</strong> ({largo_m * ancho_m * prof_m:.1f} m³)",
+        "pt": f"sua piscina tem aproximadamente <strong>{litros:,} litros</strong> ({largo_m * ancho_m * prof_m:.1f} m³)",
+        "de": f"Ihr Pool fasst etwa <strong>{litros:,} Liter</strong> ({largo_m * ancho_m * prof_m:.1f} m³)",
+        "it": f"la tua piscina contiene circa <strong>{litros:,} litri</strong> ({largo_m * ancho_m * prof_m:.1f} m³)",
+    }
+    return msgs.get(lang, msgs["en"])
+
+
+def _topsoil_result(largo_m, ancho_m, prof_cm, lang):
+    vol = round(largo_m * ancho_m * prof_cm / 100, 3)
+    bags_40 = _math.ceil(vol / 0.040)
+    msgs = {
+        "es": f"necesitas aproximadamente <strong>{vol} m³</strong> de tierra ({bags_40} sacos de 40L)",
+        "en": f"you need approximately <strong>{vol} m³</strong> of topsoil ({bags_40} × 40L bags)",
+        "fr": f"il vous faut environ <strong>{vol} m³</strong> de terreau ({bags_40} sacs de 40L)",
+        "pt": f"você precisa de aproximadamente <strong>{vol} m³</strong> de terra ({bags_40} sacos de 40L)",
+        "de": f"Sie benötigen etwa <strong>{vol} m³</strong> Gartenerde ({bags_40} × 40L-Säcke)",
+        "it": f"servono circa <strong>{vol} m³</strong> di terra ({bags_40} sacchi da 40L)",
+    }
+    return msgs.get(lang, msgs["en"])
+
+
+def _fence_result(longitud_m, separacion_m, lang):
+    postes = _math.ceil(longitud_m / separacion_m) + 1
+    paneles = _math.ceil(longitud_m / separacion_m)
+    msgs = {
+        "es": f"necesitas <strong>{postes} postes</strong> y <strong>{paneles} paneles</strong>",
+        "en": f"you need <strong>{postes} posts</strong> and <strong>{paneles} panels</strong>",
+        "fr": f"il vous faut <strong>{postes} poteaux</strong> et <strong>{paneles} panneaux</strong>",
+        "pt": f"você precisa de <strong>{postes} postes</strong> e <strong>{paneles} painéis</strong>",
+        "de": f"Sie benötigen <strong>{postes} Pfosten</strong> und <strong>{paneles} Paneele</strong>",
+        "it": f"servono <strong>{postes} pali</strong> e <strong>{paneles} pannelli</strong>",
+    }
+    return msgs.get(lang, msgs["en"])
 
 PARAMETRIC_VARIANTS = {
     # ── 021 Ceramic floor tiles ── tile size × room area
@@ -1052,6 +1167,7 @@ PARAMETRIC_VARIANTS = {
             "it": "Calcola quante piastrelle {s}×{s}cm servono per {a}m², inclusi colla, stucco e {w}% di scarto.",
         },
         "desc_fn": lambda p, tpl: tpl.format(s=int(p["tam_pieza_cm"]), a=int(p["area"]), w=10),
+        "result_fn": lambda p, lang: _tile_result(p["tam_pieza_cm"], p["area"], 10, lang),
         "wastage_default": 10,
     },
 
@@ -1080,6 +1196,7 @@ PARAMETRIC_VARIANTS = {
             "it": "Calcola piastrelle muro {s}×{s}cm, colla e stucco per {a}m² di parete bagno.",
         },
         "desc_fn": lambda p, tpl: tpl.format(s=int(p["tam_pieza_cm"]), a=int(p["area"])),
+        "result_fn": lambda p, lang: _tile_result(p["tam_pieza_cm"], p["area"], 10, lang),
         "wastage_default": 10,
     },
 
@@ -1142,6 +1259,7 @@ PARAMETRIC_VARIANTS = {
             a=int(p["area"]), m=int(p["manos"]),
             mp="s" if int(p["manos"]) > 1 else ""
         ),
+        "result_fn": lambda p, lang: _paint_result(p["area"], p["manos"], 5, lang),
         "wastage_default": 5,
     },
 
@@ -1261,6 +1379,7 @@ PARAMETRIC_VARIANTS = {
             "it": "Calcola mattoni forati e malta per un muro di {l}m × {h}m.",
         },
         "desc_fn": lambda p, tpl: tpl.format(l=p["largo"], h=p["alto"]),
+        "result_fn": lambda p, lang: _brick_result(p["largo"], p["alto"], 7, lang),
         "wastage_default": 7,
     },
 
@@ -2178,6 +2297,95 @@ PARAMETRIC_VARIANTS = {
         "title_fn": lambda p, tpl: tpl.format(n=int(p["operarios"]), d=int(p["dias_obra"]), r=int(p["coste_hora_eur"])),
         "desc_template": {"en": "Calculate total labour cost for {n} workers over {d} days at €{r}/hour."},
         "desc_fn": lambda p, tpl: tpl.format(n=int(p["operarios"]), d=int(p["dias_obra"]), r=int(p["coste_hora_eur"])),
+        "wastage_default": 0,
+    },
+
+    # ── 101 Swimming pool volume ── length × width × depth
+    "101": {
+        "inputs": {
+            "largo_m": [4, 5, 6, 8, 10, 12],
+            "ancho_m": [2, 3, 4, 5, 6],
+            "profundidad_m": [1.2, 1.5, 1.8, 2.0],
+        },
+        "url_fn": lambda p: f"{_fmt(p['largo_m'])}x{_fmt(p['ancho_m'])}x{_fmt(p['profundidad_m'])}m",
+        "title_template": {
+            "es": "Piscina {l}×{a}m Profundidad {d}m – Volumen y Cloro",
+            "en": "{l}×{a}m Pool {d}m Deep – Volume & Chlorine",
+            "fr": "Piscine {l}×{a}m Profondeur {d}m – Volume et Chlore",
+            "pt": "Piscina {l}×{a}m Prof. {d}m – Volume e Cloro",
+            "de": "Pool {l}×{a}m Tiefe {d}m – Volumen und Chlor",
+            "it": "Piscina {l}×{a}m Profondità {d}m – Volume e Cloro",
+        },
+        "title_fn": lambda p, tpl: tpl.format(l=p["largo_m"], a=p["ancho_m"], d=p["profundidad_m"]),
+        "desc_template": {
+            "es": "Calcula los litros, m³ y cloro necesarios para una piscina de {l}m × {a}m con profundidad de {d}m.",
+            "en": "Calculate litres, m³ and chlorine needed for a {l}m × {a}m pool with {d}m depth.",
+            "fr": "Calculez les litres, m³ et chlore pour une piscine de {l}m × {a}m avec {d}m de profondeur.",
+            "pt": "Calcule litros, m³ e cloro para uma piscina de {l}m × {a}m com {d}m de profundidade.",
+            "de": "Berechnen Sie Liter, m³ und Chlor für einen {l}m × {a}m Pool mit {d}m Tiefe.",
+            "it": "Calcola litri, m³ e cloro per una piscina di {l}m × {a}m con profondità {d}m.",
+        },
+        "desc_fn": lambda p, tpl: tpl.format(l=p["largo_m"], a=p["ancho_m"], d=p["profundidad_m"]),
+        "result_fn": lambda p, lang: _pool_result(p["largo_m"], p["ancho_m"], p["profundidad_m"], lang),
+        "wastage_default": 0,
+    },
+
+    # ── 102 Garden topsoil ── area × depth
+    "102": {
+        "inputs": {
+            "largo_m": [1, 2, 3, 4, 5, 6, 8, 10],
+            "ancho_m": [1, 2, 3, 4, 5],
+            "profundidad_cm": [10, 15, 20, 25, 30],
+        },
+        "url_fn": lambda p: f"{_fmt(p['largo_m'])}x{_fmt(p['ancho_m'])}m-{int(p['profundidad_cm'])}cm",
+        "title_template": {
+            "es": "Tierra para Jardín {l}×{a}m – {d}cm Profundidad",
+            "en": "Topsoil for {l}×{a}m Garden Bed – {d}cm Deep",
+            "fr": "Terreau pour {l}×{a}m – {d}cm de Profondeur",
+            "pt": "Terra para Jardim {l}×{a}m – {d}cm de Profundidade",
+            "de": "Gartenerde für {l}×{a}m – {d}cm Tiefe",
+            "it": "Terra da Giardino {l}×{a}m – {d}cm Profondità",
+        },
+        "title_fn": lambda p, tpl: tpl.format(l=p["largo_m"], a=p["ancho_m"], d=int(p["profundidad_cm"])),
+        "desc_template": {
+            "es": "Calcula los m³ y sacos de tierra vegetal para una zona de {l}m × {a}m con {d}cm de profundidad.",
+            "en": "Calculate m³ and bags of topsoil for a {l}m × {a}m area with {d}cm depth.",
+            "fr": "Calculez les m³ et sacs de terreau pour {l}m × {a}m avec {d}cm de profondeur.",
+            "pt": "Calcule m³ e sacos de terra vegetal para {l}m × {a}m com {d}cm de profundidade.",
+            "de": "Berechnen Sie m³ und Säcke Gartenerde für {l}m × {a}m mit {d}cm Tiefe.",
+            "it": "Calcola m³ e sacchi di terra per {l}m × {a}m con {d}cm di profondità.",
+        },
+        "desc_fn": lambda p, tpl: tpl.format(l=p["largo_m"], a=p["ancho_m"], d=int(p["profundidad_cm"])),
+        "result_fn": lambda p, lang: _topsoil_result(p["largo_m"], p["ancho_m"], p["profundidad_cm"], lang),
+        "wastage_default": 0,
+    },
+
+    # ── 103 Fence posts ── total length × post spacing
+    "103": {
+        "inputs": {
+            "longitud_m": [10, 15, 20, 30, 40, 50, 60, 80, 100],
+            "separacion_m": [1.5, 2.0, 2.5, 3.0],
+        },
+        "url_fn": lambda p: f"{int(p['longitud_m'])}m-{_fmt(p['separacion_m'])}sep",
+        "title_template": {
+            "es": "Valla de {l}m – Postes cada {s}m",
+            "en": "{l}m Fence – Posts every {s}m",
+            "fr": "Clôture {l}m – Poteaux tous les {s}m",
+            "pt": "Cerca de {l}m – Postes a cada {s}m",
+            "de": "{l}m Zaun – Pfosten alle {s}m",
+            "it": "Recinzione {l}m – Pali ogni {s}m",
+        },
+        "title_fn": lambda p, tpl: tpl.format(l=int(p["longitud_m"]), s=p["separacion_m"]),
+        "desc_template": {
+            "es": "Calcula cuántos postes, paneles y hormigón necesitas para una valla de {l}m con postes cada {s}m.",
+            "en": "Calculate posts, panels and concrete for a {l}m fence with posts spaced every {s}m.",
+            "fr": "Calculez les poteaux, panneaux et béton pour une clôture de {l}m avec poteaux tous les {s}m.",
+            "pt": "Calcule postes, painéis e concreto para uma cerca de {l}m com postes a cada {s}m.",
+            "de": "Berechnen Sie Pfosten, Paneele und Beton für einen {l}m Zaun mit Pfostenabstand {s}m.",
+            "it": "Calcola pali, pannelli e calcestruzzo per una recinzione di {l}m con pali ogni {s}m.",
+        },
+        "desc_fn": lambda p, tpl: tpl.format(l=int(p["longitud_m"]), s=p["separacion_m"]),
+        "result_fn": lambda p, lang: _fence_result(p["longitud_m"], p["separacion_m"], lang),
         "wastage_default": 0,
     },
 }

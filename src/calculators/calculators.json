@@ -1884,6 +1884,64 @@
         {"id": "roi_pct", "unit": "% ROI"}
       ],
       "related": ["080", "079", "094"]
+    },
+    {
+      "id": "101",
+      "slug": "volumen-piscina",
+      "block": 4,
+      "block_slug": "fontaneria",
+      "inputs": [
+        {"id": "largo_m", "type": "number", "min": 2, "max": 50, "step": 0.5, "default": 8, "unit": "m"},
+        {"id": "ancho_m", "type": "number", "min": 1, "max": 25, "step": 0.5, "default": 4, "unit": "m"},
+        {"id": "profundidad_m", "type": "number", "min": 0.5, "max": 3, "step": 0.1, "default": 1.5, "unit": "m"}
+      ],
+      "formula": "var L=parseFloat(inputs.largo_m)||0,W=parseFloat(inputs.ancho_m)||0,D=parseFloat(inputs.profundidad_m)||0;if(!L||!W||!D)return{error:true};var vol=+(L*W*D).toFixed(2),litros=Math.round(vol*1000),cloro_g=Math.round(litros*0.002),tratamiento_semanas=+(litros/1000*0.15).toFixed(1);return{volumen_m3:vol,volumen_litros:litros,cloro_inicial_g:cloro_g,producto_mantenimiento_kg:tratamiento_semanas};",
+      "outputs": [
+        {"id": "volumen_m3", "unit": "m³", "highlight": true},
+        {"id": "volumen_litros", "unit": "litros"},
+        {"id": "cloro_inicial_g", "unit": "g cloro inicial"},
+        {"id": "producto_mantenimiento_kg", "unit": "kg mantenimiento/semana"}
+      ],
+      "related": ["041", "039", "040"]
+    },
+    {
+      "id": "102",
+      "slug": "tierra-jardin",
+      "block": 5,
+      "block_slug": "fontaneria",
+      "inputs": [
+        {"id": "largo_m", "type": "number", "min": 0.5, "max": 50, "step": 0.5, "default": 4, "unit": "m"},
+        {"id": "ancho_m", "type": "number", "min": 0.5, "max": 20, "step": 0.5, "default": 2, "unit": "m"},
+        {"id": "profundidad_cm", "type": "number", "min": 5, "max": 60, "step": 5, "default": 20, "unit": "cm"}
+      ],
+      "formula": "var L=parseFloat(inputs.largo_m)||0,W=parseFloat(inputs.ancho_m)||0,D=parseFloat(inputs.profundidad_cm)||0;if(!L||!W||!D)return{error:true};var vol_m3=+(L*W*D/100).toFixed(3),sacos_40L=Math.ceil(vol_m3/0.040),sacos_50L=Math.ceil(vol_m3/0.050),kg_aprox=Math.round(vol_m3*900);return{volumen_m3:vol_m3,sacos_40L:sacos_40L,sacos_50L:sacos_50L,peso_aprox_kg:kg_aprox};",
+      "outputs": [
+        {"id": "volumen_m3", "unit": "m³", "highlight": true},
+        {"id": "sacos_40L", "unit": "sacos 40L"},
+        {"id": "sacos_50L", "unit": "sacos 50L"},
+        {"id": "peso_aprox_kg", "unit": "kg aprox."}
+      ],
+      "related": ["001", "010", "017"]
+    },
+    {
+      "id": "103",
+      "slug": "postes-valla",
+      "block": 3,
+      "block_slug": "mamposteria",
+      "inputs": [
+        {"id": "longitud_m", "type": "number", "min": 2, "max": 500, "step": 1, "default": 20, "unit": "m"},
+        {"id": "separacion_m", "type": "number", "min": 1, "max": 4, "step": 0.5, "default": 2, "unit": "m"},
+        {"id": "altura_m", "type": "number", "min": 0.5, "max": 3, "step": 0.25, "default": 1.5, "unit": "m"}
+      ],
+      "formula": "var L=parseFloat(inputs.longitud_m)||0,S=parseFloat(inputs.separacion_m)||2,H=parseFloat(inputs.altura_m)||0;if(!L||!H)return{error:true};var postes=Math.ceil(L/S)+1,paneles=Math.ceil(L/S),hormigon_L=postes*25,tornillos=paneles*8,longitud_poste_m=+(H+0.5).toFixed(2);return{postes_ud:postes,paneles_ud:paneles,hormigon_L:hormigon_L,tornillos_ud:tornillos,longitud_poste_m:longitud_poste_m};",
+      "outputs": [
+        {"id": "postes_ud", "unit": "postes", "highlight": true},
+        {"id": "paneles_ud", "unit": "paneles"},
+        {"id": "hormigon_L", "unit": "L hormigón (dados)"},
+        {"id": "tornillos_ud", "unit": "tornillos/anclajes"},
+        {"id": "longitud_poste_m", "unit": "m por poste"}
+      ],
+      "related": ["011", "017", "013"]
     }
   ]
 }
