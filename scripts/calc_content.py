@@ -411,6 +411,42 @@ HOWTO = {
             "Cliccare «Calcola» per ottenere il dettaglio dei costi, il prezzo unitario e i totali.",
         ],
     },
+
+    "matematicas": {
+        "es": ["Introduce los valores numéricos en los campos correspondientes.", "Pulsa «Calcular» para obtener el resultado al instante.", "Puedes usar decimales con punto o coma."],
+        "en": ["Enter the numeric values in the corresponding fields.", "Click 'Calculate' to get the result instantly.", "You can use decimal points for non-integer values."],
+        "fr": ["Saisissez les valeurs numériques dans les champs.", "Cliquez sur «Calculer» pour obtenir le résultat instantanément.", "Vous pouvez utiliser des décimales."],
+        "pt": ["Insira os valores numéricos nos campos.", "Clique em «Calcular» para obter o resultado.", "Pode usar decimais com ponto ou vírgula."],
+        "de": ["Geben Sie die Zahlenwerte in die entsprechenden Felder ein.", "Klicken Sie auf «Berechnen», um das Ergebnis sofort zu erhalten.", "Dezimalzahlen sind erlaubt."],
+        "it": ["Inserire i valori numerici nei campi corrispondenti.", "Cliccare «Calcola» per ottenere il risultato immediatamente.", "Si possono usare i decimali."],
+    },
+
+    "finanzas": {
+        "es": ["Introduce el importe principal o precio de partida.", "Ajusta el tipo de interés y el plazo según tu oferta bancaria.", "Revisa todos los resultados: cuota, intereses totales y coste total.", "Compara diferentes escenarios cambiando el plazo o el tipo de interés.", "Pulsa «Calcular» para ver el resultado al instante."],
+        "en": ["Enter the principal amount or starting price.", "Adjust the interest rate and term to match your bank offer.", "Review all results: monthly payment, total interest and total cost.", "Compare scenarios by changing the term or interest rate.", "Click 'Calculate' to see the result instantly."],
+        "fr": ["Saisissez le montant principal ou le prix de départ.", "Ajustez le taux d'intérêt et la durée selon votre offre bancaire.", "Consultez tous les résultats : mensualité, intérêts totaux et coût total.", "Comparez des scénarios en modifiant la durée ou le taux.", "Cliquez sur «Calculer» pour voir le résultat immédiatement."],
+        "pt": ["Insira o montante principal ou preço de partida.", "Ajuste a taxa de juro e o prazo de acordo com a proposta do banco.", "Reveja todos os resultados: prestação, juros totais e custo total.", "Compare cenários alterando o prazo ou a taxa.", "Clique em «Calcular» para ver o resultado."],
+        "de": ["Geben Sie den Hauptbetrag oder Ausgangspreis ein.", "Passen Sie Zinssatz und Laufzeit an Ihr Bankangebot an.", "Überprüfen Sie alle Ergebnisse: Rate, Gesamtzinsen und Gesamtkosten.", "Vergleichen Sie Szenarien durch Änderung von Laufzeit oder Zinssatz.", "Klicken Sie auf «Berechnen», um das Ergebnis sofort zu sehen."],
+        "it": ["Inserire il capitale principale o il prezzo di partenza.", "Regolare il tasso di interesse e la durata in base all'offerta bancaria.", "Rivedere tutti i risultati: rata, interessi totali e costo totale.", "Confrontare scenari modificando la durata o il tasso.", "Cliccare «Calcola» per vedere il risultato immediatamente."],
+    },
+
+    "salud": {
+        "es": ["Introduce tu peso en kilogramos y tu altura en centímetros.", "Indica tu sexo y nivel de actividad física para el cálculo de calorías.", "Pulsa «Calcular» para obtener tu resultado personalizado.", "Consulta siempre a un profesional de la salud antes de hacer cambios en tu dieta o ejercicio."],
+        "en": ["Enter your weight in kilograms and height in centimetres.", "Indicate your sex and physical activity level for calorie calculations.", "Click 'Calculate' for your personalised result.", "Always consult a health professional before making changes to your diet or exercise routine."],
+        "fr": ["Saisissez votre poids en kilogrammes et votre taille en centimètres.", "Indiquez votre sexe et votre niveau d'activité physique pour les calories.", "Cliquez sur «Calculer» pour votre résultat personnalisé.", "Consultez toujours un professionnel de santé avant de modifier votre alimentation."],
+        "pt": ["Insira o seu peso em quilogramas e a altura em centímetros.", "Indique o seu sexo e nível de atividade física para o cálculo de calorias.", "Clique em «Calcular» para o resultado personalizado.", "Consulte sempre um profissional de saúde antes de alterar dieta ou exercício."],
+        "de": ["Geben Sie Ihr Gewicht in Kilogramm und Ihre Körpergröße in Zentimetern ein.", "Geben Sie Ihr Geschlecht und Aktivitätsniveau für die Kalorienberechnung an.", "Klicken Sie auf «Berechnen» für Ihr persönliches Ergebnis.", "Konsultieren Sie immer einen Arzt, bevor Sie Ernährung oder Sport ändern."],
+        "it": ["Inserire il peso in chilogrammi e l'altezza in centimetri.", "Indicare il sesso e il livello di attività fisica per il calcolo delle calorie.", "Cliccare «Calcola» per il risultato personalizzato.", "Consultare sempre un medico prima di modificare dieta o esercizio fisico."],
+    },
+
+    "cotidiano": {
+        "es": ["Introduce los valores solicitados en el formulario.", "Para la propina, indica el total de la cuenta, el porcentaje y el número de comensales.", "Para la edad o fechas, usa año y mes numéricos.", "Pulsa «Calcular» para obtener el resultado."],
+        "en": ["Enter the requested values in the form.", "For tips, enter the bill total, percentage and number of people.", "For age or dates, use numeric year and month.", "Click 'Calculate' to get the result."],
+        "fr": ["Saisissez les valeurs demandées dans le formulaire.", "Pour le pourboire, entrez le total, le pourcentage et le nombre de convives.", "Pour l'âge ou les dates, utilisez des années et mois numériques.", "Cliquez sur «Calculer» pour obtenir le résultat."],
+        "pt": ["Insira os valores pedidos no formulário.", "Para gorjetas, insira o total, a percentagem e o número de pessoas.", "Para idade ou datas, use ano e mês numéricos.", "Clique em «Calcular» para obter o resultado."],
+        "de": ["Geben Sie die angeforderten Werte in das Formular ein.", "Für Trinkgeld: Rechnungsbetrag, Prozentsatz und Personenzahl eingeben.", "Für Alter oder Daten: numerisches Jahr und Monat verwenden.", "Klicken Sie auf «Berechnen», um das Ergebnis zu erhalten."],
+        "it": ["Inserire i valori richiesti nel modulo.", "Per la mancia, inserire il totale, la percentuale e il numero di persone.", "Per età o date, usare anno e mese numerici.", "Cliccare «Calcola» per ottenere il risultato."],
+    },
 }
 
 
@@ -1199,6 +1235,156 @@ FAQS = {
             },
         ],
     },
+
+    "matematicas": {
+        "es": [
+            {"q": "¿Cuánto es el 15% de 200?", "a": "El 15% de 200 es 30. Se calcula como 200 × 15 / 100 = 30."},
+            {"q": "¿Cómo se calcula el cambio porcentual?", "a": "Cambio (%) = ((valor final − valor inicial) / |valor inicial|) × 100. Si sube de 80 a 100, el cambio es (20/80)×100 = 25%."},
+            {"q": "¿Qué es el teorema de Pitágoras?", "a": "El teorema de Pitágoras establece que en un triángulo rectángulo, c² = a² + b², donde c es la hipotenusa y a, b los catetos."},
+            {"q": "¿Cómo funciona la regla de tres?", "a": "Si A corresponde a B, y queremos saber qué corresponde a C, la regla de tres dice: X = (B × C) / A."},
+        ],
+        "en": [
+            {"q": "What is 15% of 200?", "a": "15% of 200 is 30. Calculated as 200 × 15 / 100 = 30."},
+            {"q": "How do you calculate percentage change?", "a": "Percentage change = ((final − initial) / |initial|) × 100. From 80 to 100 it is (20/80)×100 = 25%."},
+            {"q": "What is the Pythagorean theorem?", "a": "The Pythagorean theorem states that in a right triangle, c² = a² + b², where c is the hypotenuse and a, b are the legs."},
+            {"q": "How does the rule of three work?", "a": "If A corresponds to B, and we want what corresponds to C: X = (B × C) / A."},
+        ],
+        "fr": [
+            {"q": "Combien est 15% de 200 ?", "a": "15% de 200 est 30. Calculé comme 200 × 15 / 100 = 30."},
+            {"q": "Comment calculer une variation en pourcentage ?", "a": "Variation (%) = ((final − initial) / |initial|) × 100. De 80 à 100 : (20/80)×100 = 25%."},
+            {"q": "Qu'est-ce que le théorème de Pythagore ?", "a": "Dans un triangle rectangle, c² = a² + b², où c est l'hypoténuse et a, b les côtés."},
+            {"q": "Comment fonctionne la règle de trois ?", "a": "Si A correspond à B et on cherche ce qui correspond à C : X = (B × C) / A."},
+        ],
+        "pt": [
+            {"q": "Quanto é 15% de 200?", "a": "15% de 200 é 30. Calculado como 200 × 15 / 100 = 30."},
+            {"q": "Como se calcula a variação percentual?", "a": "Variação (%) = ((final − inicial) / |inicial|) × 100. De 80 a 100: (20/80)×100 = 25%."},
+            {"q": "O que é o teorema de Pitágoras?", "a": "Num triângulo retângulo, c² = a² + b², onde c é a hipotenusa e a, b os catetos."},
+            {"q": "Como funciona a regra de três?", "a": "Se A corresponde a B e queremos o que corresponde a C: X = (B × C) / A."},
+        ],
+        "de": [
+            {"q": "Wie viel sind 15% von 200?", "a": "15% von 200 sind 30. Berechnung: 200 × 15 / 100 = 30."},
+            {"q": "Wie berechnet man eine prozentuale Änderung?", "a": "Änderung (%) = ((End − Anfang) / |Anfang|) × 100. Von 80 auf 100: (20/80)×100 = 25%."},
+            {"q": "Was ist der Satz des Pythagoras?", "a": "Im rechtwinkligen Dreieck gilt: c² = a² + b², wobei c die Hypotenuse und a, b die Katheten sind."},
+            {"q": "Wie funktioniert der Dreisatz?", "a": "Wenn A zu B entspricht und man wissen will, was zu C entspricht: X = (B × C) / A."},
+        ],
+        "it": [
+            {"q": "Quanto è il 15% di 200?", "a": "Il 15% di 200 è 30. Si calcola come 200 × 15 / 100 = 30."},
+            {"q": "Come si calcola la variazione percentuale?", "a": "Variazione (%) = ((finale − iniziale) / |iniziale|) × 100. Da 80 a 100: (20/80)×100 = 25%."},
+            {"q": "Cos'è il teorema di Pitagora?", "a": "In un triangolo rettangolo, c² = a² + b², dove c è l'ipotenusa e a, b i cateti."},
+            {"q": "Come funziona la regola del tre?", "a": "Se A corrisponde a B e vogliamo sapere cosa corrisponde a C: X = (B × C) / A."},
+        ],
+    },
+
+    "finanzas": {
+        "es": [
+            {"q": "¿Cómo se calcula la cuota mensual de una hipoteca?", "a": "Se usa la fórmula de amortización francesa: C = P × [r(1+r)ⁿ] / [(1+r)ⁿ − 1], donde P es el capital, r el tipo mensual y n el número de cuotas."},
+            {"q": "¿Cuál es la diferencia entre interés simple y compuesto?", "a": "El interés simple se calcula solo sobre el capital inicial: I = P×r×t. El interés compuesto se calcula sobre el capital más los intereses acumulados: A = P(1+r/f)^(f×t)."},
+            {"q": "¿Cómo calculo el IVA de un precio?", "a": "IVA = precio sin IVA × (porcentaje / 100). Precio con IVA = precio sin IVA × (1 + porcentaje/100)."},
+            {"q": "¿Qué es el punto de equilibrio?", "a": "El punto de equilibrio (break-even) es el número de unidades que hay que vender para cubrir exactamente todos los costes. Se calcula como: PE = Costes fijos / (Precio venta − Coste variable unitario)."},
+        ],
+        "en": [
+            {"q": "How is a monthly mortgage payment calculated?", "a": "Using the French amortisation formula: C = P × [r(1+r)ⁿ] / [(1+r)ⁿ − 1], where P is principal, r the monthly rate and n the number of payments."},
+            {"q": "What is the difference between simple and compound interest?", "a": "Simple interest is calculated only on the principal: I = P×r×t. Compound interest is calculated on the principal plus accumulated interest: A = P(1+r/f)^(f×t)."},
+            {"q": "How do I calculate VAT on a price?", "a": "VAT = price excl. tax × (percentage / 100). Price incl. VAT = price × (1 + percentage/100)."},
+            {"q": "What is the break-even point?", "a": "The break-even point is the number of units that must be sold to cover all costs: BE = Fixed costs / (Selling price − Variable cost per unit)."},
+        ],
+        "fr": [
+            {"q": "Comment calcule-t-on la mensualité d'un prêt ?", "a": "Avec la formule d'amortissement français : C = P × [r(1+r)ⁿ] / [(1+r)ⁿ − 1], où P est le capital, r le taux mensuel et n le nombre d'échéances."},
+            {"q": "Quelle est la différence entre intérêt simple et composé ?", "a": "L'intérêt simple est calculé sur le capital initial : I = P×r×t. L'intérêt composé tient compte des intérêts accumulés : A = P(1+r/f)^(f×t)."},
+            {"q": "Comment calculer la TVA ?", "a": "TVA = prix HT × (taux / 100). Prix TTC = prix HT × (1 + taux/100)."},
+            {"q": "Qu'est-ce que le seuil de rentabilité ?", "a": "Le seuil de rentabilité est le nombre d'unités à vendre pour couvrir tous les coûts : SR = Coûts fixes / (Prix − Coût variable unitaire)."},
+        ],
+        "pt": [
+            {"q": "Como se calcula a prestação mensal de um empréstimo?", "a": "Com a fórmula de amortização francesa: C = P × [r(1+r)ⁿ] / [(1+r)ⁿ − 1], onde P é o capital, r a taxa mensal e n o número de prestações."},
+            {"q": "Qual é a diferença entre juro simples e composto?", "a": "O juro simples calcula-se só sobre o capital inicial: I = P×r×t. O juro composto inclui os juros acumulados: A = P(1+r/f)^(f×t)."},
+            {"q": "Como calculo o IVA de um preço?", "a": "IVA = preço sem IVA × (percentagem / 100). Preço com IVA = preço × (1 + percentagem/100)."},
+            {"q": "O que é o ponto de equilíbrio?", "a": "O ponto de equilíbrio é o número de unidades a vender para cobrir todos os custos: PE = Custos fixos / (Preço venda − Custo variável unitário)."},
+        ],
+        "de": [
+            {"q": "Wie wird eine monatliche Kreditrate berechnet?", "a": "Mit der Annuitätenformel: C = P × [r(1+r)ⁿ] / [(1+r)ⁿ − 1], wobei P das Kapital, r der Monatszins und n die Anzahl der Raten ist."},
+            {"q": "Was ist der Unterschied zwischen einfachem und Zinseszins?", "a": "Einfacher Zins auf das Anfangskapital: I = P×r×t. Zinseszins auf Kapital plus aufgelaufene Zinsen: A = P(1+r/f)^(f×t)."},
+            {"q": "Wie berechne ich die Mehrwertsteuer?", "a": "MwSt. = Nettobetrag × (Satz / 100). Bruttobetrag = Nettobetrag × (1 + Satz/100)."},
+            {"q": "Was ist die Gewinnschwelle (Break-Even)?", "a": "Die Gewinnschwelle ist die Stückzahl, bei der alle Kosten gedeckt sind: BE = Fixkosten / (Preis − variable Stückkosten)."},
+        ],
+        "it": [
+            {"q": "Come si calcola la rata mensile di un mutuo?", "a": "Con la formula di ammortamento francese: C = P × [r(1+r)ⁿ] / [(1+r)ⁿ − 1], dove P è il capitale, r il tasso mensile e n il numero di rate."},
+            {"q": "Qual è la differenza tra interesse semplice e composto?", "a": "L'interesse semplice si calcola sul capitale iniziale: I = P×r×t. L'interesse composto include gli interessi maturati: A = P(1+r/f)^(f×t)."},
+            {"q": "Come si calcola l'IVA su un prezzo?", "a": "IVA = prezzo IVA esclusa × (aliquota / 100). Prezzo IVA inclusa = prezzo × (1 + aliquota/100)."},
+            {"q": "Cos'è il punto di pareggio?", "a": "Il punto di pareggio è il numero di unità da vendere per coprire tutti i costi: PE = Costi fissi / (Prezzo vendita − Costo variabile unitario)."},
+        ],
+    },
+
+    "salud": {
+        "es": [
+            {"q": "¿Qué IMC se considera normal?", "a": "Un IMC entre 18.5 y 24.9 se considera peso normal según la OMS. Por debajo de 18.5 es bajo peso; entre 25 y 29.9, sobrepeso; 30 o más, obesidad."},
+            {"q": "¿Cuántas calorías necesito para adelgazar?", "a": "Para perder aproximadamente 0.5 kg por semana necesitas un déficit de 500 kcal/día respecto a tu TDEE (calorías de mantenimiento)."},
+            {"q": "¿Cuánta agua debo beber al día?", "a": "La recomendación general es 33 ml por kg de peso corporal. Para una persona de 70 kg, esto equivale a 2.3 litros al día, más el extra por el ejercicio realizado."},
+            {"q": "¿Qué es el metabolismo basal (BMR)?", "a": "El BMR es la cantidad de calorías que tu cuerpo quema en reposo para mantener las funciones vitales. Se calcula con la ecuación de Mifflin-St Jeor."},
+        ],
+        "en": [
+            {"q": "What BMI is considered normal?", "a": "A BMI between 18.5 and 24.9 is considered normal weight by the WHO. Below 18.5 is underweight; 25–29.9 is overweight; 30 or above is obese."},
+            {"q": "How many calories do I need to lose weight?", "a": "To lose approximately 0.5 kg per week you need a deficit of 500 kcal/day compared to your TDEE (maintenance calories)."},
+            {"q": "How much water should I drink per day?", "a": "The general recommendation is 33 ml per kg of body weight. For a 70 kg person, that is 2.3 litres per day, plus extra for exercise."},
+            {"q": "What is basal metabolic rate (BMR)?", "a": "BMR is the number of calories your body burns at rest to maintain vital functions. It is calculated using the Mifflin-St Jeor equation."},
+        ],
+        "fr": [
+            {"q": "Quel IMC est considéré normal ?", "a": "Un IMC entre 18.5 et 24.9 est considéré comme normal selon l'OMS. En dessous de 18.5, sous-poids ; 25–29.9, surpoids ; 30 ou plus, obésité."},
+            {"q": "Combien de calories pour maigrir ?", "a": "Pour perdre environ 0.5 kg par semaine, il faut un déficit de 500 kcal/jour par rapport à votre TDEE."},
+            {"q": "Combien d'eau boire par jour ?", "a": "La recommandation générale est 33 ml par kg de poids. Pour 70 kg, c'est 2.3 litres par jour, plus l'extra pour l'exercice."},
+            {"q": "Qu'est-ce que le métabolisme de base (BMR) ?", "a": "Le BMR est le nombre de calories que votre corps brûle au repos. Il est calculé avec l'équation de Mifflin-St Jeor."},
+        ],
+        "pt": [
+            {"q": "Que IMC é considerado normal?", "a": "Um IMC entre 18.5 e 24.9 é considerado peso normal pela OMS. Abaixo de 18.5 é baixo peso; 25–29.9 é excesso de peso; 30 ou mais, obesidade."},
+            {"q": "Quantas calorias preciso para emagrecer?", "a": "Para perder cerca de 0.5 kg por semana precisa de um défice de 500 kcal/dia face ao seu TDEE."},
+            {"q": "Quanta água devo beber por dia?", "a": "A recomendação geral é 33 ml por kg de peso. Para 70 kg, são 2.3 litros por dia, mais o extra pelo exercício."},
+            {"q": "O que é o metabolismo basal (BMR)?", "a": "O BMR é a quantidade de calorias que o organismo queima em repouso. É calculado com a equação de Mifflin-St Jeor."},
+        ],
+        "de": [
+            {"q": "Welcher BMI gilt als normal?", "a": "Ein BMI zwischen 18.5 und 24.9 gilt laut WHO als Normalgewicht. Unter 18.5 ist Untergewicht; 25–29.9 Übergewicht; 30 oder mehr Adipositas."},
+            {"q": "Wie viele Kalorien brauche ich zum Abnehmen?", "a": "Um ca. 0.5 kg pro Woche abzunehmen, benötigen Sie ein Defizit von 500 kcal/Tag gegenüber Ihrem TDEE."},
+            {"q": "Wie viel Wasser sollte ich täglich trinken?", "a": "Die allgemeine Empfehlung lautet 33 ml pro kg Körpergewicht. Bei 70 kg sind das 2.3 Liter täglich, zuzüglich Sport-Extra."},
+            {"q": "Was ist der Grundumsatz (BMR)?", "a": "Der BMR ist die Kalorienmenge, die Ihr Körper im Ruhezustand verbrennt. Er wird mit der Mifflin-St-Jeor-Formel berechnet."},
+        ],
+        "it": [
+            {"q": "Quale IMC è considerato normale?", "a": "Un IMC tra 18.5 e 24.9 è considerato normale dall'OMS. Sotto 18.5 è sottopeso; 25–29.9 sovrappeso; 30 o più obesità."},
+            {"q": "Quante calorie mi servono per dimagrire?", "a": "Per perdere circa 0.5 kg a settimana serve un deficit di 500 kcal/giorno rispetto al proprio TDEE."},
+            {"q": "Quanta acqua devo bere al giorno?", "a": "La raccomandazione generale è 33 ml per kg di peso corporeo. Per 70 kg, sono 2.3 litri al giorno, più l'extra per l'esercizio."},
+            {"q": "Cos'è il metabolismo basale (BMR)?", "a": "Il BMR è la quantità di calorie che il corpo brucia a riposo. Si calcola con l'equazione di Mifflin-St Jeor."},
+        ],
+    },
+
+    "cotidiano": {
+        "es": [
+            {"q": "¿Cuánto se deja de propina normalmente?", "a": "En España el porcentaje habitual es 5–10%. En EE. UU. el estándar es 15–20%. Puedes ajustar el porcentaje según el servicio recibido."},
+            {"q": "¿Cómo se calcula la diferencia entre dos fechas?", "a": "La diferencia en días se obtiene restando las dos fechas en milisegundos y dividiendo entre 86.400.000 (milisegundos por día)."},
+            {"q": "¿Cómo calculo mi edad exacta?", "a": "Resta el año de nacimiento al año actual. Si el mes de nacimiento todavía no ha llegado este año, réstale 1 al resultado."},
+        ],
+        "en": [
+            {"q": "How much tip is normal?", "a": "In the UK and most of Europe, 5–10% is typical. In the US, 15–20% is standard. Adjust the percentage based on the service quality."},
+            {"q": "How do you calculate the difference between two dates?", "a": "Subtract the two dates in milliseconds and divide by 86,400,000 (milliseconds per day) to get the number of days."},
+            {"q": "How do I calculate my exact age?", "a": "Subtract your birth year from the current year. If your birth month hasn't occurred yet this year, subtract 1 from the result."},
+        ],
+        "fr": [
+            {"q": "Quel est le pourboire habituel ?", "a": "En France, le pourboire n'est pas obligatoire mais 5–10% est courant dans les restaurants. Aux États-Unis, le standard est 15–20%."},
+            {"q": "Comment calculer la différence entre deux dates ?", "a": "Soustrayez les deux dates en millisecondes et divisez par 86 400 000 (millisecondes par jour) pour obtenir le nombre de jours."},
+            {"q": "Comment calculer mon âge exact ?", "a": "Soustrayez l'année de naissance à l'année actuelle. Si le mois de naissance n'est pas encore passé cette année, soustrayez 1 au résultat."},
+        ],
+        "pt": [
+            {"q": "Quanto se deixa de gorjeta normalmente?", "a": "Em Portugal a gorjeta não é obrigatória, mas 5–10% é habitual. Nos EUA, o padrão é 15–20%."},
+            {"q": "Como se calcula a diferença entre duas datas?", "a": "Subtraia as duas datas em milissegundos e divida por 86.400.000 (milissegundos por dia) para obter o número de dias."},
+            {"q": "Como calculo a minha idade exata?", "a": "Subtraia o ano de nascimento ao ano atual. Se o mês de nascimento ainda não chegou este ano, subtraia 1 ao resultado."},
+        ],
+        "de": [
+            {"q": "Wie viel Trinkgeld ist üblich?", "a": "In Deutschland sind 5–10% üblich. In den USA ist 15–20% Standard. Passen Sie den Betrag je nach Servicequalität an."},
+            {"q": "Wie berechnet man die Differenz zwischen zwei Daten?", "a": "Die Differenz in Millisekunden dividiert durch 86.400.000 (Millisekunden pro Tag) ergibt die Anzahl der Tage."},
+            {"q": "Wie berechne ich mein genaues Alter?", "a": "Geburtsjahr vom aktuellen Jahr subtrahieren. Wenn der Geburtsmonat noch nicht erreicht ist, 1 abziehen."},
+        ],
+        "it": [
+            {"q": "Quanto si lascia di mancia di solito?", "a": "In Italia la mancia non è obbligatoria, ma il 5–10% è comune. Negli USA lo standard è 15–20%."},
+            {"q": "Come si calcola la differenza tra due date?", "a": "Si sottraggono le due date in millisecondi e si divide per 86.400.000 (millisecondi al giorno) per ottenere i giorni."},
+            {"q": "Come calcolo la mia età esatta?", "a": "Si sottrae l'anno di nascita dall'anno corrente. Se il mese di nascita non è ancora arrivato quest'anno, si sottrae 1 al risultato."},
+        ],
+    },
 }
 
 
@@ -1435,6 +1621,38 @@ FORMULA_EXPLAINED = {
         "pt": "Preço de venda = Custo direto × (1 + Despesas gerais%) × (1 + Lucro%) × (1 + IVA%). Tarifa horária = custos fixos anuais ÷ horas faturáveis + margem de lucro desejada.",
         "de": "Verkaufspreis = Direktkosten × (1 + Gemeinkosten%) × (1 + Gewinn%) × (1 + MwSt%). Stundensatz = jährliche Fixkosten ÷ abrechenbare Stunden + gewünschte Gewinnmarge.",
         "it": "Prezzo di vendita = Costo diretto × (1 + Spese generali%) × (1 + Utile%) × (1 + IVA%). Tariffa oraria = costi fissi annui ÷ ore fatturabili + margine di utile desiderato.",
+    },
+    "matematicas": {
+        "es": "El porcentaje se calcula como: resultado = (valor × porcentaje) / 100. El cambio porcentual entre dos valores: cambio = ((final − inicial) / |inicial|) × 100. El teorema de Pitágoras: c² = a² + b², por lo que c = √(a² + b²). La regla de tres directa: si A → B, entonces C → X = (B × C) / A.",
+        "en": "Percentage result = (value × percentage) / 100. Percentage change = ((final − initial) / |initial|) × 100. Pythagorean theorem: c² = a² + b², so c = √(a² + b²). Direct rule of three: if A → B then C → X = (B × C) / A.",
+        "fr": "Résultat pourcentage = (valeur × pourcentage) / 100. Variation = ((final − initial) / |initial|) × 100. Théorème de Pythagore : c² = a² + b², donc c = √(a² + b²). Règle de trois : si A → B alors C → X = (B × C) / A.",
+        "pt": "Resultado percentagem = (valor × percentagem) / 100. Variação = ((final − inicial) / |inicial|) × 100. Teorema de Pitágoras: c² = a² + b², logo c = √(a² + b²). Regra de três: se A → B então C → X = (B × C) / A.",
+        "de": "Prozentwert = (Wert × Prozentsatz) / 100. Prozentuale Änderung = ((End − Anfang) / |Anfang|) × 100. Satz des Pythagoras: c² = a² + b², also c = √(a² + b²). Dreisatz: wenn A → B, dann C → X = (B × C) / A.",
+        "it": "Risultato percentuale = (valore × percentuale) / 100. Variazione = ((finale − iniziale) / |iniziale|) × 100. Teorema di Pitagora: c² = a² + b², quindi c = √(a² + b²). Regola del tre: se A → B allora C → X = (B × C) / A.",
+    },
+    "finanzas": {
+        "es": "La cuota mensual de un préstamo o hipoteca se calcula con la fórmula de amortización francesa: C = P × [r(1+r)ⁿ] / [(1+r)ⁿ − 1], donde P es el capital, r el tipo de interés mensual y n el número de cuotas. El interés compuesto: A = P(1 + r/f)^(f×t). El IVA: precio con IVA = precio × (1 + IVA/100).",
+        "en": "Monthly loan/mortgage payment uses the French amortisation formula: C = P × [r(1+r)ⁿ] / [(1+r)ⁿ − 1], where P is principal, r the monthly interest rate and n the number of payments. Compound interest: A = P(1 + r/f)^(f×t). VAT: price with tax = price × (1 + VAT/100).",
+        "fr": "La mensualité d'un prêt ou d'une hypothèque utilise la formule d'amortissement français : C = P × [r(1+r)ⁿ] / [(1+r)ⁿ − 1]. L'intérêt composé : A = P(1 + r/f)^(f×t). TVA : prix TTC = prix × (1 + TVA/100).",
+        "pt": "A prestação mensal usa a fórmula de amortização francesa: C = P × [r(1+r)ⁿ] / [(1+r)ⁿ − 1]. Juros compostos: A = P(1 + r/f)^(f×t). IVA: preço com IVA = preço × (1 + IVA/100).",
+        "de": "Monatliche Kreditrate nach der Annuitätenformel: C = P × [r(1+r)ⁿ] / [(1+r)ⁿ − 1]. Zinseszins: A = P(1 + r/f)^(f×t). MwSt.: Bruttopreis = Nettopreis × (1 + MwSt./100).",
+        "it": "La rata mensile usa la formula di ammortamento francese: C = P × [r(1+r)ⁿ] / [(1+r)ⁿ − 1]. Interesse composto: A = P(1 + r/f)^(f×t). IVA: prezzo IVA inclusa = prezzo × (1 + IVA/100).",
+    },
+    "salud": {
+        "es": "El IMC se calcula como: IMC = peso(kg) / altura(m)². Las calorías de mantenimiento (TDEE) usan la ecuación de Mifflin-St Jeor: Hombres: BMR = 10P + 6.25H − 5E + 5; Mujeres: BMR = 10P + 6.25H − 5E − 161. El TDEE = BMR × factor de actividad (1.2–1.9). La ingesta de agua base se estima en 33 ml/kg de peso corporal.",
+        "en": "BMI = weight(kg) / height(m)². Daily calorie maintenance (TDEE) uses the Mifflin-St Jeor equation: Men: BMR = 10W + 6.25H − 5A + 5; Women: BMR = 10W + 6.25H − 5A − 161. TDEE = BMR × activity factor (1.2–1.9). Base water intake is estimated at 33 ml/kg of body weight.",
+        "fr": "IMC = poids(kg) / taille(m)². Les calories journalières (TDEE) utilisent Mifflin-St Jeor : Hommes : BMR = 10P + 6.25H − 5E + 5 ; Femmes : BMR = 10P + 6.25H − 5E − 161. TDEE = BMR × facteur d'activité (1.2–1.9). L'hydratation de base : 33 ml/kg.",
+        "pt": "IMC = peso(kg) / altura(m)². Calorias diárias (TDEE) usa Mifflin-St Jeor: Homens: BMR = 10P + 6.25H − 5I + 5; Mulheres: BMR = 10P + 6.25H − 5I − 161. TDEE = BMR × fator atividade (1.2–1.9). Ingestão base de água: 33 ml/kg.",
+        "de": "BMI = Gewicht(kg) / Körpergröße(m)². TDEE nach Mifflin-St Jeor: Männer: BMR = 10G + 6.25H − 5A + 5; Frauen: BMR = 10G + 6.25H − 5A − 161. TDEE = BMR × Aktivitätsfaktor (1,2–1,9). Basaler Wasserbedarf: 33 ml/kg Körpergewicht.",
+        "it": "IMC = peso(kg) / altezza(m)². TDEE con Mifflin-St Jeor: Uomini: BMR = 10P + 6.25H − 5E + 5; Donne: BMR = 10P + 6.25H − 5E − 161. TDEE = BMR × fattore attività (1.2–1.9). Fabbisogno idrico base: 33 ml/kg di peso corporeo.",
+    },
+    "cotidiano": {
+        "es": "La propina se calcula como: propina = total × (%) / 100; importe por persona = (total + propina) / n personas. La edad exacta se obtiene restando la fecha de nacimiento a la fecha actual. La diferencia entre fechas: días = (fecha2 − fecha1) en milisegundos / 86.400.000.",
+        "en": "Tip = total × (%) / 100; per person = (total + tip) / n people. Exact age = current date − birth date. Date difference: days = (date2 − date1) in milliseconds / 86,400,000.",
+        "fr": "Pourboire = total × (%) / 100 ; par personne = (total + pourboire) / n personnes. Âge exact = date actuelle − date de naissance. Différence de dates : jours = (date2 − date1) en millisecondes / 86 400 000.",
+        "pt": "Gorjeta = total × (%) / 100; por pessoa = (total + gorjeta) / n pessoas. Idade exata = data atual − data de nascimento. Diferença de datas: dias = (data2 − data1) em milissegundos / 86.400.000.",
+        "de": "Trinkgeld = Betrag × (%) / 100; pro Person = (Betrag + Trinkgeld) / n Personen. Genaues Alter = aktuelles Datum − Geburtsdatum. Datumsdifferenz: Tage = (Datum2 − Datum1) in Millisekunden / 86.400.000.",
+        "it": "Mancia = totale × (%) / 100; per persona = (totale + mancia) / n persone. Età esatta = data attuale − data di nascita. Differenza tra date: giorni = (data2 − data1) in millisecondi / 86.400.000.",
     },
 }
 

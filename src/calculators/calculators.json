@@ -1942,6 +1942,201 @@
         {"id": "longitud_poste_m", "unit": "m por poste"}
       ],
       "related": ["011", "017", "013"]
-    }
+    },
+
+    {"id":"200","slug":"porcentaje","block":10,"block_slug":"matematicas",
+      "inputs":[
+        {"id":"valor","type":"number","min":0,"max":1e12,"step":"any","default":200,"unit":""},
+        {"id":"porcentaje","type":"number","min":0,"max":10000,"step":"any","default":15,"unit":"%"}
+      ],
+      "formula":"var X=parseFloat(inputs.valor)||0,P=parseFloat(inputs.porcentaje)||0;if(isNaN(X)||isNaN(P))return{error:true};var resultado=+(X*P/100).toFixed(4),resto=+(X-X*P/100).toFixed(4);return{resultado:resultado,resto:resto};",
+      "outputs":[{"id":"resultado","unit":"","highlight":true},{"id":"resto","unit":""}],
+      "related":["201","204","202"]},
+
+    {"id":"201","slug":"cambio-porcentual","block":10,"block_slug":"matematicas",
+      "inputs":[
+        {"id":"valor_inicial","type":"number","min":-1e12,"max":1e12,"step":"any","default":80,"unit":""},
+        {"id":"valor_final","type":"number","min":-1e12,"max":1e12,"step":"any","default":100,"unit":""}
+      ],
+      "formula":"var V1=parseFloat(inputs.valor_inicial),V2=parseFloat(inputs.valor_final);if(isNaN(V1)||isNaN(V2)||V1===0)return{error:true};var cambio=+((V2-V1)/Math.abs(V1)*100).toFixed(2),diferencia=+(V2-V1).toFixed(6);return{cambio_pct:cambio,diferencia:diferencia};",
+      "outputs":[{"id":"cambio_pct","unit":"%","highlight":true},{"id":"diferencia","unit":""}],
+      "related":["200","204","306"]},
+
+    {"id":"202","slug":"area-rectangulo","block":10,"block_slug":"matematicas",
+      "inputs":[
+        {"id":"largo","type":"number","min":0.001,"max":1e9,"step":"any","default":5,"unit":"m"},
+        {"id":"ancho","type":"number","min":0.001,"max":1e9,"step":"any","default":3,"unit":"m"}
+      ],
+      "formula":"var L=parseFloat(inputs.largo)||0,W=parseFloat(inputs.ancho)||0;if(!L||!W)return{error:true};var area=+(L*W).toFixed(6),perim=+(2*(L+W)).toFixed(4),diag=+(Math.sqrt(L*L+W*W)).toFixed(4);return{area_m2:area,perimetro_m:perim,diagonal_m:diag};",
+      "outputs":[{"id":"area_m2","unit":"m²","highlight":true},{"id":"perimetro_m","unit":"m"},{"id":"diagonal_m","unit":"m"}],
+      "related":["203","200","021"]},
+
+    {"id":"203","slug":"pitagoras","block":10,"block_slug":"matematicas",
+      "inputs":[
+        {"id":"cateto_a","type":"number","min":0.001,"max":1e9,"step":"any","default":3,"unit":""},
+        {"id":"cateto_b","type":"number","min":0.001,"max":1e9,"step":"any","default":4,"unit":""}
+      ],
+      "formula":"var A=parseFloat(inputs.cateto_a)||0,B=parseFloat(inputs.cateto_b)||0;if(!A||!B)return{error:true};var c=+(Math.sqrt(A*A+B*B)).toFixed(6),area=+(A*B/2).toFixed(6),perim=+(A+B+Math.sqrt(A*A+B*B)).toFixed(4);return{hipotenusa:c,area_triangulo:area,perimetro:perim};",
+      "outputs":[{"id":"hipotenusa","unit":"","highlight":true},{"id":"area_triangulo","unit":""},{"id":"perimetro","unit":""}],
+      "related":["202","200","204"]},
+
+    {"id":"204","slug":"regla-de-tres","block":10,"block_slug":"matematicas",
+      "inputs":[
+        {"id":"a","type":"number","min":-1e12,"max":1e12,"step":"any","default":3,"unit":""},
+        {"id":"b","type":"number","min":-1e12,"max":1e12,"step":"any","default":9,"unit":""},
+        {"id":"c","type":"number","min":-1e12,"max":1e12,"step":"any","default":5,"unit":""}
+      ],
+      "formula":"var A=parseFloat(inputs.a),B=parseFloat(inputs.b),C=parseFloat(inputs.c);if(isNaN(A)||isNaN(B)||isNaN(C)||A===0)return{error:true};var x=+(B*C/A).toFixed(6);return{x:x};",
+      "outputs":[{"id":"x","unit":"","highlight":true}],
+      "related":["200","201","202"]},
+
+    {"id":"300","slug":"hipoteca","block":11,"block_slug":"finanzas",
+      "inputs":[
+        {"id":"precio_vivienda","type":"number","min":1000,"max":1e9,"step":1000,"default":200000,"unit":"€"},
+        {"id":"entrada_pct","type":"number","min":0,"max":90,"step":1,"default":20,"unit":"%"},
+        {"id":"interes_anual_pct","type":"number","min":0.01,"max":25,"step":0.01,"default":3.5,"unit":"%"},
+        {"id":"plazo_anos","type":"number","min":1,"max":40,"step":1,"default":25,"unit":"años"}
+      ],
+      "formula":"var P=parseFloat(inputs.precio_vivienda)||0,E=parseFloat(inputs.entrada_pct)||20,R=parseFloat(inputs.interes_anual_pct)||0,N=parseFloat(inputs.plazo_anos)||0;if(!P||!R||!N)return{error:true};var principal=P*(1-E/100),r=R/100/12,n=N*12,cuota=r?principal*(r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1):principal/n,total=+(cuota*n).toFixed(2),intereses=+(total-principal).toFixed(2);return{cuota_mensual:+cuota.toFixed(2),principal_eur:+principal.toFixed(0),total_intereses:intereses,total_pagado:total};",
+      "outputs":[{"id":"cuota_mensual","unit":"€/mes","highlight":true},{"id":"principal_eur","unit":"€"},{"id":"total_intereses","unit":"€"},{"id":"total_pagado","unit":"€"}],
+      "related":["301","302","303"]},
+
+    {"id":"301","slug":"prestamo","block":11,"block_slug":"finanzas",
+      "inputs":[
+        {"id":"capital","type":"number","min":100,"max":1e9,"step":100,"default":10000,"unit":"€"},
+        {"id":"interes_anual_pct","type":"number","min":0.01,"max":50,"step":0.01,"default":5,"unit":"%"},
+        {"id":"plazo_meses","type":"number","min":1,"max":600,"step":1,"default":48,"unit":"meses"}
+      ],
+      "formula":"var P=parseFloat(inputs.capital)||0,R=parseFloat(inputs.interes_anual_pct)||0,N=parseFloat(inputs.plazo_meses)||0;if(!P||!R||!N)return{error:true};var r=R/100/12,cuota=r?P*(r*Math.pow(1+r,N))/(Math.pow(1+r,N)-1):P/N,total=+(cuota*N).toFixed(2),intereses=+(total-P).toFixed(2);return{cuota_mensual:+cuota.toFixed(2),total_intereses:intereses,total_pagado:total};",
+      "outputs":[{"id":"cuota_mensual","unit":"€/mes","highlight":true},{"id":"total_intereses","unit":"€"},{"id":"total_pagado","unit":"€"}],
+      "related":["300","302","303"]},
+
+    {"id":"302","slug":"interes-compuesto","block":11,"block_slug":"finanzas",
+      "inputs":[
+        {"id":"capital_inicial","type":"number","min":1,"max":1e12,"step":1,"default":1000,"unit":"€"},
+        {"id":"interes_anual_pct","type":"number","min":0.01,"max":100,"step":0.01,"default":7,"unit":"%"},
+        {"id":"anos","type":"number","min":1,"max":100,"step":1,"default":10,"unit":"años"},
+        {"id":"frecuencia_anual","type":"number","min":1,"max":365,"step":1,"default":12,"unit":"veces/año"}
+      ],
+      "formula":"var P=parseFloat(inputs.capital_inicial)||0,R=parseFloat(inputs.interes_anual_pct)||0,N=parseFloat(inputs.anos)||0,F=parseFloat(inputs.frecuencia_anual)||12;if(!P||!R||!N)return{error:true};var A=+(P*Math.pow(1+R/100/F,F*N)).toFixed(2),intereses=+(A-P).toFixed(2),mult=+(A/P).toFixed(3);return{capital_final:A,intereses_ganados:intereses,multiplicador:mult};",
+      "outputs":[{"id":"capital_final","unit":"€","highlight":true},{"id":"intereses_ganados","unit":"€"},{"id":"multiplicador","unit":"x"}],
+      "related":["303","301","300"]},
+
+    {"id":"303","slug":"interes-simple","block":11,"block_slug":"finanzas",
+      "inputs":[
+        {"id":"capital","type":"number","min":1,"max":1e12,"step":1,"default":5000,"unit":"€"},
+        {"id":"interes_anual_pct","type":"number","min":0.01,"max":100,"step":0.01,"default":5,"unit":"%"},
+        {"id":"anos","type":"number","min":0.01,"max":100,"step":0.01,"default":3,"unit":"años"}
+      ],
+      "formula":"var P=parseFloat(inputs.capital)||0,R=parseFloat(inputs.interes_anual_pct)||0,T=parseFloat(inputs.anos)||0;if(!P||!R||!T)return{error:true};var I=+(P*R*T/100).toFixed(2),A=+(P+I).toFixed(2);return{intereses:I,capital_final:A};",
+      "outputs":[{"id":"intereses","unit":"€","highlight":true},{"id":"capital_final","unit":"€"}],
+      "related":["302","301","304"]},
+
+    {"id":"304","slug":"calculadora-iva","block":11,"block_slug":"finanzas",
+      "inputs":[
+        {"id":"precio_sin_iva","type":"number","min":0.01,"max":1e12,"step":"any","default":100,"unit":"€"},
+        {"id":"iva_pct","type":"number","min":0,"max":50,"step":0.5,"default":21,"unit":"%"}
+      ],
+      "formula":"var P=parseFloat(inputs.precio_sin_iva)||0,T=parseFloat(inputs.iva_pct)||21;if(!P)return{error:true};var iva_importe=+(P*T/100).toFixed(2),con_iva=+(P+P*T/100).toFixed(2),sin_iva_desde_con=+(con_iva/(1+T/100)).toFixed(2);return{iva_importe:iva_importe,precio_con_iva:con_iva};",
+      "outputs":[{"id":"iva_importe","unit":"€","highlight":true},{"id":"precio_con_iva","unit":"€"}],
+      "related":["305","306","303"]},
+
+    {"id":"305","slug":"salario-neto","block":11,"block_slug":"finanzas",
+      "inputs":[
+        {"id":"salario_bruto_anual","type":"number","min":1000,"max":1e8,"step":100,"default":30000,"unit":"€"},
+        {"id":"irpf_pct","type":"number","min":0,"max":60,"step":0.5,"default":19,"unit":"%"},
+        {"id":"seg_social_pct","type":"number","min":0,"max":20,"step":0.01,"default":6.35,"unit":"%"}
+      ],
+      "formula":"var B=parseFloat(inputs.salario_bruto_anual)||0,irpf=parseFloat(inputs.irpf_pct)||19,ss=parseFloat(inputs.seg_social_pct)||6.35;if(!B)return{error:true};var ret_irpf=+(B*irpf/100).toFixed(0),ret_ss=+(B*ss/100).toFixed(0),neto=+(B-ret_irpf-ret_ss).toFixed(0),neto_mes=+(neto/12).toFixed(0);return{neto_anual:neto,neto_mensual:neto_mes,retencion_irpf:ret_irpf,cotizacion_ss:ret_ss};",
+      "outputs":[{"id":"neto_anual","unit":"€/año","highlight":true},{"id":"neto_mensual","unit":"€/mes"},{"id":"retencion_irpf","unit":"€"},{"id":"cotizacion_ss","unit":"€"}],
+      "related":["304","306","303"]},
+
+    {"id":"306","slug":"descuento","block":11,"block_slug":"finanzas",
+      "inputs":[
+        {"id":"precio_original","type":"number","min":0.01,"max":1e12,"step":"any","default":120,"unit":"€"},
+        {"id":"descuento_pct","type":"number","min":0.01,"max":99,"step":0.5,"default":25,"unit":"%"}
+      ],
+      "formula":"var P=parseFloat(inputs.precio_original)||0,D=parseFloat(inputs.descuento_pct)||0;if(!P||!D)return{error:true};var ahorro=+(P*D/100).toFixed(2),final=+(P-ahorro).toFixed(2);return{precio_final:final,ahorro:ahorro};",
+      "outputs":[{"id":"precio_final","unit":"€","highlight":true},{"id":"ahorro","unit":"€"}],
+      "related":["304","200","201"]},
+
+    {"id":"307","slug":"punto-de-equilibrio","block":11,"block_slug":"finanzas",
+      "inputs":[
+        {"id":"costes_fijos","type":"number","min":0.01,"max":1e12,"step":1,"default":5000,"unit":"€"},
+        {"id":"precio_venta","type":"number","min":0.01,"max":1e12,"step":"any","default":50,"unit":"€"},
+        {"id":"coste_variable","type":"number","min":0,"max":1e12,"step":"any","default":20,"unit":"€"}
+      ],
+      "formula":"var CF=parseFloat(inputs.costes_fijos)||0,PV=parseFloat(inputs.precio_venta)||0,CV=parseFloat(inputs.coste_variable)||0;if(!CF||!PV||PV<=CV)return{error:true};var mc=+(PV-CV).toFixed(4),pe_u=Math.ceil(CF/mc),pe_v=+(pe_u*PV).toFixed(2);return{pe_unidades:pe_u,pe_ventas_eur:pe_v,margen_contribucion:mc};",
+      "outputs":[{"id":"pe_unidades","unit":"uds","highlight":true},{"id":"pe_ventas_eur","unit":"€"},{"id":"margen_contribucion","unit":"€/ud"}],
+      "related":["096","095","305"]},
+
+    {"id":"400","slug":"imc-bmi","block":12,"block_slug":"salud",
+      "inputs":[
+        {"id":"peso_kg","type":"number","min":10,"max":500,"step":0.1,"default":70,"unit":"kg"},
+        {"id":"altura_cm","type":"number","min":50,"max":250,"step":0.5,"default":175,"unit":"cm"}
+      ],
+      "formula":"var P=parseFloat(inputs.peso_kg)||0,H=parseFloat(inputs.altura_cm)||0;if(!P||!H||H<50)return{error:true};var h=H/100,imc=+(P/(h*h)).toFixed(1),cat;if(imc<18.5)cat='Bajo peso / Underweight';else if(imc<25)cat='Normal / Healthy';else if(imc<30)cat='Sobrepeso / Overweight';else if(imc<35)cat='Obesidad I / Obese I';else cat='Obesidad II+ / Obese II+';return{imc:imc,categoria:cat};",
+      "outputs":[{"id":"imc","unit":"kg/m²","highlight":true},{"id":"categoria","unit":""}],
+      "related":["401","402","403"]},
+
+    {"id":"401","slug":"calorias-diarias","block":12,"block_slug":"salud",
+      "inputs":[
+        {"id":"peso_kg","type":"number","min":20,"max":300,"step":0.1,"default":70,"unit":"kg"},
+        {"id":"altura_cm","type":"number","min":100,"max":250,"step":0.5,"default":175,"unit":"cm"},
+        {"id":"edad","type":"number","min":10,"max":100,"step":1,"default":30,"unit":"años"},
+        {"id":"genero","type":"number","min":1,"max":2,"step":1,"default":1,"unit":"1=H 2=M"},
+        {"id":"nivel_actividad","type":"number","min":1,"max":5,"step":1,"default":3,"unit":"1-5"}
+      ],
+      "formula":"var P=parseFloat(inputs.peso_kg)||0,H=parseFloat(inputs.altura_cm)||0,E=parseFloat(inputs.edad)||0,G=parseFloat(inputs.genero)||1,A=parseFloat(inputs.nivel_actividad)||3;if(!P||!H||!E)return{error:true};var bmr=G<=1?(10*P+6.25*H-5*E+5):(10*P+6.25*H-5*E-161);var fact=[1.2,1.375,1.55,1.725,1.9][Math.min(4,Math.max(0,Math.round(A)-1))];var tdee=+(bmr*fact).toFixed(0),bajar=+(tdee-500).toFixed(0),subir=+(tdee+500).toFixed(0);return{calorias_mantenimiento:tdee,para_adelgazar:bajar,para_ganar_peso:subir,metabolismo_basal:+bmr.toFixed(0)};",
+      "outputs":[{"id":"calorias_mantenimiento","unit":"kcal/día","highlight":true},{"id":"para_adelgazar","unit":"kcal/día"},{"id":"para_ganar_peso","unit":"kcal/día"},{"id":"metabolismo_basal","unit":"kcal/día"}],
+      "related":["400","402","403"]},
+
+    {"id":"402","slug":"peso-ideal","block":12,"block_slug":"salud",
+      "inputs":[
+        {"id":"altura_cm","type":"number","min":100,"max":250,"step":0.5,"default":175,"unit":"cm"},
+        {"id":"genero","type":"number","min":1,"max":2,"step":1,"default":1,"unit":"1=H 2=M"}
+      ],
+      "formula":"var H=parseFloat(inputs.altura_cm)||0,G=parseFloat(inputs.genero)||1;if(!H||H<100)return{error:true};var h2=H/100,min_bmi=+(18.5*h2*h2).toFixed(1),max_bmi=+(24.9*h2*h2).toFixed(1),lorentz=G<=1?(H-100-(H-150)/4):(H-100-(H-150)/2.5),devine=G<=1?(50+2.3*(H/2.54-60)):(45.5+2.3*(H/2.54-60));return{rango_min_kg:min_bmi,rango_max_kg:max_bmi,formula_lorentz:+lorentz.toFixed(1),formula_devine:+devine.toFixed(1)};",
+      "outputs":[{"id":"rango_min_kg","unit":"kg","highlight":true},{"id":"rango_max_kg","unit":"kg"},{"id":"formula_lorentz","unit":"kg"},{"id":"formula_devine","unit":"kg"}],
+      "related":["400","401","403"]},
+
+    {"id":"403","slug":"agua-diaria","block":12,"block_slug":"salud",
+      "inputs":[
+        {"id":"peso_kg","type":"number","min":10,"max":300,"step":0.5,"default":70,"unit":"kg"},
+        {"id":"ejercicio_min","type":"number","min":0,"max":480,"step":5,"default":30,"unit":"min/día"}
+      ],
+      "formula":"var P=parseFloat(inputs.peso_kg)||0,E=parseFloat(inputs.ejercicio_min)||0;if(!P)return{error:true};var base=P*0.033,extra=E*0.5/60,total=+(base+extra).toFixed(2),vasos=Math.ceil(total/0.25);return{agua_total_litros:total,agua_base_litros:+base.toFixed(2),agua_extra_litros:+extra.toFixed(2),vasos_250ml:vasos};",
+      "outputs":[{"id":"agua_total_litros","unit":"L/día","highlight":true},{"id":"agua_base_litros","unit":"L/día"},{"id":"agua_extra_litros","unit":"L/día"},{"id":"vasos_250ml","unit":"vasos"}],
+      "related":["400","401","402"]},
+
+    {"id":"500","slug":"propina","block":13,"block_slug":"cotidiano",
+      "inputs":[
+        {"id":"total_cuenta","type":"number","min":0.01,"max":1e9,"step":"any","default":65,"unit":"€"},
+        {"id":"propina_pct","type":"number","min":0,"max":100,"step":1,"default":15,"unit":"%"},
+        {"id":"num_personas","type":"number","min":1,"max":1000,"step":1,"default":4,"unit":"pers."}
+      ],
+      "formula":"var C=parseFloat(inputs.total_cuenta)||0,P=parseFloat(inputs.propina_pct)||0,N=Math.max(1,parseFloat(inputs.num_personas)||1);if(!C)return{error:true};var prop=+(C*P/100).toFixed(2),total=+(C+prop).toFixed(2),pp=+(total/N).toFixed(2);return{propina_total:prop,total_con_propina:total,por_persona:pp};",
+      "outputs":[{"id":"propina_total","unit":"€","highlight":true},{"id":"total_con_propina","unit":"€"},{"id":"por_persona","unit":"€/pers."}],
+      "related":["501","306","200"]},
+
+    {"id":"501","slug":"calculadora-edad","block":13,"block_slug":"cotidiano",
+      "inputs":[
+        {"id":"anio_nacimiento","type":"number","min":1900,"max":2025,"step":1,"default":1990,"unit":"año"},
+        {"id":"mes_nacimiento","type":"number","min":1,"max":12,"step":1,"default":6,"unit":"mes"}
+      ],
+      "formula":"var Y=parseFloat(inputs.anio_nacimiento)||0,M=parseFloat(inputs.mes_nacimiento)||1;if(!Y||Y<1900||Y>2025)return{error:true};var hoy=new Date(2026,3,23),nac=new Date(Y,M-1,1),edad=hoy.getFullYear()-nac.getFullYear()-(hoy.getMonth()<nac.getMonth()||hoy.getMonth()===nac.getMonth()&&hoy.getDate()<nac.getDate()?1:0),prox_mes=M-1,prox=new Date(2026,prox_mes,1);if(prox<hoy)prox.setFullYear(2027);var diff_ms=prox-hoy,dias_cumple=Math.round(diff_ms/86400000),meses_vividos=edad*12+(hoy.getMonth()-nac.getMonth()+12)%12;return{edad_anios:edad,meses_vividos:meses_vividos,dias_proximo_cumple:dias_cumple};",
+      "outputs":[{"id":"edad_anios","unit":"años","highlight":true},{"id":"meses_vividos","unit":"meses"},{"id":"dias_proximo_cumple","unit":"días"}],
+      "related":["502","500","200"]},
+
+    {"id":"502","slug":"diferencia-fechas","block":13,"block_slug":"cotidiano",
+      "inputs":[
+        {"id":"anio1","type":"number","min":1900,"max":2100,"step":1,"default":2020,"unit":"año"},
+        {"id":"mes1","type":"number","min":1,"max":12,"step":1,"default":1,"unit":"mes"},
+        {"id":"anio2","type":"number","min":1900,"max":2100,"step":1,"default":2026,"unit":"año"},
+        {"id":"mes2","type":"number","min":1,"max":12,"step":1,"default":4,"unit":"mes"}
+      ],
+      "formula":"var y1=parseFloat(inputs.anio1)||0,m1=parseFloat(inputs.mes1)||1,y2=parseFloat(inputs.anio2)||0,m2=parseFloat(inputs.mes2)||1;if(!y1||!y2)return{error:true};var d1=new Date(y1,m1-1,1),d2=new Date(y2,m2-1,1),ms=Math.abs(d2-d1),dias=Math.round(ms/86400000),meses=Math.round(dias/30.44),semanas=Math.round(dias/7),anios=+(dias/365.25).toFixed(2);return{dias:dias,semanas:semanas,meses:meses,anios:anios};",
+      "outputs":[{"id":"dias","unit":"días","highlight":true},{"id":"semanas","unit":"semanas"},{"id":"meses","unit":"meses"},{"id":"anios","unit":"años"}],
+      "related":["501","500","200"]}
   ]
 }
