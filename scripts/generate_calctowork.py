@@ -24,7 +24,7 @@ from calc_content import (
     NET_LABEL, TOTAL_LABEL,
     HOW_TO_TITLE, FAQ_TITLE, FORMULA_TITLE,
     generate_intro, generate_how_to, generate_faq, generate_formula_explained,
-    generate_variant_intro,
+    generate_variant_intro, generate_long_content,
 )
 from tools_config import (
     TOOLS, TOOL_BY_ID,
@@ -491,7 +491,7 @@ def generate() -> None:
                     })
 
             # ── Content ──────────────────────────────────────────────────────
-            intro_text        = generate_intro(cid, lang, ci18n["name"], ci18n["description"])
+            intro_text        = generate_intro(cid, lang, ci18n["name"], ci18n["description"], block_slug=calc["block_slug"])
             how_to_steps      = generate_how_to(calc["block_slug"], lang)
             faq               = generate_faq(calc["block_slug"], lang)
             formula_explained = generate_formula_explained(calc["block_slug"], lang)
@@ -524,6 +524,7 @@ def generate() -> None:
                 faq_title=FAQ_TITLE.get(lang, FAQ_TITLE["en"]),
                 formula_explained=formula_explained,
                 formula_title=FORMULA_TITLE.get(lang, FORMULA_TITLE["en"]),
+                long_content=generate_long_content(cid, lang),
                 popular_combos=build_popular_combos(cid, lang, loc_slug),
                 popular_combos_title=POPULAR_COMBOS_TITLE.get(lang, POPULAR_COMBOS_TITLE["en"]),
                 # Inputs
