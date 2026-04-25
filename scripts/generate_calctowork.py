@@ -524,7 +524,7 @@ def generate() -> None:
                 faq_title=FAQ_TITLE.get(lang, FAQ_TITLE["en"]),
                 formula_explained=formula_explained,
                 formula_title=FORMULA_TITLE.get(lang, FORMULA_TITLE["en"]),
-                long_content=generate_long_content(cid, lang),
+                long_content=generate_long_content(cid, lang, calc_name=ci18n["name"]),
                 popular_combos=build_popular_combos(cid, lang, loc_slug),
                 popular_combos_title=POPULAR_COMBOS_TITLE.get(lang, POPULAR_COMBOS_TITLE["en"]),
                 # Inputs
