@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ block_name }} Calculators – CalcToWork</title>
+  <title>{{ block_name }} – CalcToWork</title>
   <meta name="description" content="{{ block_description }}">
   <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#f97316">
   <link rel="canonical" href="{{ site_base_url }}/{{ lang }}/{{ block_slug }}/">
 
   {% for alt_lang in all_langs %}
@@ -18,9 +19,12 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ site_base_url }}/{{ lang }}/{{ block_slug }}/">
   <meta property="og:site_name" content="CalcToWork">
-  <meta property="og:image" content="{{ site_base_url }}/images/og-default.png">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="{{ site_base_url }}/images/og-default.png">
+  <meta property="og:image" content="{{ site_base_url }}/favicon.svg">
+  <meta property="og:locale" content="{{ 'es_ES' if lang=='es' else 'en_US' if lang=='en' else 'fr_FR' if lang=='fr' else 'pt_BR' if lang=='pt' else 'de_DE' if lang=='de' else 'it_IT' }}">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{{ block_name }} – CalcToWork">
+  <meta name="twitter:description" content="{{ block_description }}">
+  <meta name="twitter:image" content="{{ site_base_url }}/favicon.svg">
 
   <script type="application/ld+json">
   {
@@ -39,22 +43,25 @@
 
   <meta name="google-site-verification" content="IODnwsJUNWyjMxqiXR1jY6lM-4IR7r-n0rgZ6OGMdLg">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
   <link rel="stylesheet" href="/css/styles.css">
   {{ adsense_head | safe }}
 </head>
 <body>
 
+<a href="#main-content" class="skip-link">Skip to content</a>
+
 <header>
   <div class="header-inner">
     <a class="logo" href="/{{ lang }}/">
-      <img src="/favicon.svg" alt="CalcToWork" class="logo-icon">
+      <img src="/favicon.svg" alt="" class="logo-icon" width="32" height="32">
       Calc<span>To</span>Work
     </a>
     <nav>
       <a href="/{{ lang }}/">{{ t.nav_home }}</a>
       <a href="/{{ lang }}/{{ block_slug }}/">{{ block_name }}</a>
     </nav>
-    <div class="lang-switcher">
+    <div class="lang-switcher" aria-label="Language">
       {% for alt_lang in all_langs %}
       <a href="/{{ alt_lang }}/{{ block_slug }}/"{% if alt_lang == lang %} class="active"{% endif %}>{{ alt_lang | upper }}</a>
       {% endfor %}
@@ -66,8 +73,8 @@
   <div class="container">
     <nav class="breadcrumb" aria-label="breadcrumb" style="color:#64748b;margin-bottom:.75rem;">
       <a href="/{{ lang }}/" style="color:var(--primary);">{{ t.nav_home }}</a>
-      <span class="breadcrumb-sep">›</span>
-      <span>{{ block_name }}</span>
+      <span class="breadcrumb-sep" aria-hidden="true">›</span>
+      <span aria-current="page">{{ block_name }}</span>
     </nav>
     <h1><span>{{ block_name }}</span></h1>
     <p>{{ block_description }}</p>
@@ -78,7 +85,7 @@
   <div class="ad-slot ad-slot-banner">{{ adsense_banner | safe }}</div>
 </div>
 
-<main class="container">
+<main class="container" id="main-content">
   <div class="calcs-grid">
     {% for calc in block_calcs %}
     <a class="calc-thumb" href="/{{ lang }}/{{ calc_url_by_id.get(calc.id, calc.block_slug + '/' + calc.slug) }}/">

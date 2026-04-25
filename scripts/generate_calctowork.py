@@ -413,6 +413,7 @@ def generate() -> None:
             site_base_url=BASE_URL,
             calc_url_by_id=calc_url_by_id,
             calc_index_json=json.dumps(calc_index, ensure_ascii=False),
+            calc_count=len(calculators),
             adsense_head=ADSENSE_HEAD,
             adsense_banner=ADSENSE_BANNER,
             adsense_responsive=ADSENSE_RESPONSIVE,

@@ -1,4 +1,4 @@
-/* CalcToWork – Calculator Engine v3.0 */
+/* CalcToWork – Calculator Engine v5.0 */
 (function () {
   'use strict';
 
@@ -35,7 +35,8 @@
   function allFilled() {
     var fields = form.querySelectorAll('input[name]:not([name="desperdicio_merma"])');
     for (var i = 0; i < fields.length; i++) {
-      if (!fields[i].value || parseFloat(fields[i].value) <= 0) return false;
+      var v = fields[i].value.trim();
+      if (v === '' || isNaN(parseFloat(v))) return false;
     }
     return fields.length > 0;
   }
@@ -113,7 +114,6 @@
     if (copyBtn) copyBtn.style.display = '';
     if (shareBtn) shareBtn.style.display = '';
 
-    // Scroll to results on all screen sizes
     resultsBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
@@ -173,7 +173,7 @@
     resetBtn.addEventListener('click', function () {
       form.reset();
       resultsBox.innerHTML =
-        '<div class="result-placeholder">' + (i18n.label_results || 'Results') + '</div>';
+        '<div class="result-placeholder">' + (i18n.result_placeholder || i18n.label_results || 'Results') + '</div>';
       if (copyBtn)  copyBtn.style.display  = 'none';
       if (shareBtn) shareBtn.style.display = 'none';
       history.replaceState(null, '', window.location.pathname);
@@ -229,7 +229,7 @@
   function flashCopied() {
     if (!copyBtn) return;
     var orig = copyBtn.textContent;
-    copyBtn.textContent = '✓ ' + (i18n.copied || 'Copied!');
+    copyBtn.textContent = '\u2713 ' + (i18n.copied || 'Copied!');
     copyBtn.classList.add('copied');
     setTimeout(function () { copyBtn.textContent = orig; copyBtn.classList.remove('copied'); }, 1800);
   }
@@ -237,14 +237,13 @@
   function flashShared() {
     if (!shareBtn) return;
     var orig = shareBtn.textContent;
-    shareBtn.textContent = '✓ ' + (i18n.link_copied || 'Link copied!');
+    shareBtn.textContent = '\u2713 ' + (i18n.link_copied || 'Link copied!');
     shareBtn.classList.add('copied');
     setTimeout(function () { shareBtn.textContent = orig; shareBtn.classList.remove('copied'); }, 2000);
   }
 
-  /* ── On load: parametric prefill → hash restore → auto-calc ── */
+  /* ── On load: parametric prefill -> hash restore -> auto-calc ── */
   (function init() {
-    // Priority 1: parametric page pre-fill (injected by generator)
     if (window.CALC_PREFILL) {
       Object.keys(window.CALC_PREFILL).forEach(function (k) {
         var el = form.querySelector('[name="' + k + '"]');
@@ -253,20 +252,28 @@
       calculate();
       return;
     }
-    // Priority 2: URL hash (share link)
     var restored = decodeFromHash();
     if (restored || allFilled()) calculate();
   })();
 
 }());
 
-/* ── FAQ accordion (outside IIFE — always runs) ── */
+/* ── FAQ accordion (accessible) ── */
 document.querySelectorAll('.faq-q').forEach(function (btn) {
   btn.addEventListener('click', function () {
     var item = btn.closest('.faq-item');
+    var answer = item.querySelector('.faq-a');
     var isOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item.open').forEach(function (el) { el.classList.remove('open'); });
-    if (!isOpen) item.classList.add('open');
+    document.querySelectorAll('.faq-item.open').forEach(function (el) {
+      el.classList.remove('open');
+      el.querySelector('.faq-a').style.maxHeight = null;
+      el.querySelector('.faq-a').style.opacity = null;
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+      answer.style.opacity = '1';
+    }
     btn.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
   });
 });

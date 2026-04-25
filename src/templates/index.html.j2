@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Free Construction Calculators – Materials, Costs & Estimates | CalcToWork</title>
+  <title>{{ t.home_title | default('CalcToWork – Free Online Calculators') }}</title>
   <meta name="description" content="{{ t.site_description }}">
   <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#f97316">
   <link rel="canonical" href="{{ site_base_url }}/{{ lang }}/">
 
   {% for alt_lang in all_langs %}
@@ -18,11 +19,12 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ site_base_url }}/{{ lang }}/">
   <meta property="og:site_name" content="CalcToWork">
-  <meta property="og:image" content="{{ site_base_url }}/images/og-default.png">
-  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="{{ site_base_url }}/favicon.svg">
+  <meta property="og:locale" content="{{ 'es_ES' if lang=='es' else 'en_US' if lang=='en' else 'fr_FR' if lang=='fr' else 'pt_BR' if lang=='pt' else 'de_DE' if lang=='de' else 'it_IT' }}">
+  <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="CalcToWork – {{ t.site_tagline }}">
   <meta name="twitter:description" content="{{ t.site_description }}">
-  <meta name="twitter:image" content="{{ site_base_url }}/images/og-default.png">
+  <meta name="twitter:image" content="{{ site_base_url }}/favicon.svg">
 
   <script type="application/ld+json">
   {
@@ -31,28 +33,30 @@
     "name": "CalcToWork",
     "url": "{{ site_base_url }}/",
     "description": {{ t.site_description | tojson }},
-    "inLanguage": "{{ lang }}",
     "inLanguage": "{{ lang }}"
   }
   </script>
 
   <meta name="google-site-verification" content="IODnwsJUNWyjMxqiXR1jY6lM-4IR7r-n0rgZ6OGMdLg">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
   <link rel="stylesheet" href="/css/styles.css">
   {{ adsense_head | safe }}
 </head>
 <body>
 
+<a href="#main-content" class="skip-link">Skip to content</a>
+
 <header>
   <div class="header-inner">
     <a class="logo" href="/{{ lang }}/">
-      <img src="/favicon.svg" alt="CalcToWork" class="logo-icon">
+      <img src="/favicon.svg" alt="" class="logo-icon" width="32" height="32">
       Calc<span>To</span>Work
     </a>
     <nav>
       <a href="/{{ lang }}/">{{ t.nav_home }}</a>
     </nav>
-    <div class="lang-switcher">
+    <div class="lang-switcher" aria-label="Language">
       {% for alt_lang in all_langs %}
       <a href="/{{ alt_lang }}/"{% if alt_lang == lang %} class="active"{% endif %}>{{ alt_lang | upper }}</a>
       {% endfor %}
@@ -62,8 +66,8 @@
 
 <!-- Hero -->
 <section class="hero">
-  <h1>{{ t.home_h1 | default('Free Construction Calculators') }}</h1>
-  <p>{{ t.site_description }}</p>
+  <h1>{{ t.home_h1 | default('Free Online Calculators') }}</h1>
+  <p>{{ t.site_tagline }}</p>
 </section>
 
 <div class="container">
@@ -74,14 +78,15 @@
 window.CALC_INDEX = {{ calc_index_json | safe }};
 </script>
 
-<main class="container">
+<main class="container" id="main-content">
   <div class="text-center mt-2">
     <div class="section-title">{{ t.nav_calculators }}</div>
-    <div class="section-sub">188 {{ t.nav_calculators }}</div>
+    <div class="section-sub">{{ calc_count | default(188) }} {{ t.nav_calculators }}</div>
   </div>
 
   <!-- Search box -->
   <div class="search-box-wrap">
+    <label for="calc-search" class="sr-only">{{ t.search_placeholder | default('Search calculators') }}</label>
     <input
       type="search"
       id="calc-search"
@@ -89,6 +94,7 @@ window.CALC_INDEX = {{ calc_index_json | safe }};
       placeholder="{{ t.search_placeholder | default('Search calculators…') }}"
       autocomplete="off"
       spellcheck="false"
+      aria-label="{{ t.search_placeholder | default('Search calculators') }}"
     >
     <div id="search-no-results" class="search-no-results" style="display:none;">
       {{ t.search_no_results | default('No calculators found.') }}

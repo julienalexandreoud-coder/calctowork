@@ -1,4 +1,4 @@
-/* ObraCalc – Construction Orange Theme */
+/* CalcToWork – Calculator Theme */
 :root {
   --primary: #f97316;
   --primary-dark: #ea580c;
@@ -7,12 +7,36 @@
   --bg: #f8fafc;
   --card-bg: #ffffff;
   --text: #1e293b;
-  --text-muted: #64748b;
+  --text-muted: #5a6478;
   --border: #e2e8f0;
   --success: #16a34a;
   --error: #dc2626;
   --radius: 10px;
   --shadow: 0 1px 3px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.06);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: #fb923c;
+    --primary-dark: #f97316;
+    --primary-light: #431407;
+    --secondary: #0f172a;
+    --bg: #0f172a;
+    --card-bg: #1e293b;
+    --text: #e2e8f0;
+    --text-muted: #94a3b8;
+    --border: #334155;
+    --success: #22c55e;
+    --error: #f87171;
+    --shadow: 0 1px 3px rgba(0,0,0,.3), 0 4px 12px rgba(0,0,0,.2);
+  }
+  .form-group input { background: #1e293b; color: #e2e8f0; border-color: #475569; }
+  .form-group input:focus { box-shadow: 0 0 0 3px rgba(251,146,60,.2); }
+  .wastage-group { background: #431407; border-color: #9a3412; }
+  .calc-intro { background: #1e293b; }
+  .calc-search-input { background: #1e293b; color: #e2e8f0; border-color: #475569; }
+  .result-error { background: #1c1111; border-color: #7f1d1d; color: #f87171; }
+  .ad-slot { background: #1e293b; border-color: #475569; }
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -661,14 +685,11 @@ footer a:hover { text-decoration: underline; }
 }
 .faq-item.open .faq-icon { transform: rotate(45deg); }
 .faq-a {
-  display: none;
-  padding: 0 1.25rem 1rem;
   font-size: .9rem;
   color: var(--text-muted);
   line-height: 1.65;
   border-top: 1px solid var(--border);
 }
-.faq-item.open .faq-a { display: block; }
 
 /* ── Smooth copy feedback ── */
 .btn.copied {
@@ -788,4 +809,59 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   .related-grid { grid-template-columns: 1fr 1fr; }
   .blocks-grid { grid-template-columns: 1fr; }
   .calc-search-input { font-size: .95rem; padding: .7rem 1rem; }
+}
+
+/* ── Skip link (accessibility) ── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--primary);
+  color: #fff;
+  padding: .6rem 1.2rem;
+  border-radius: 0 0 8px 8px;
+  font-weight: 700;
+  font-size: .9rem;
+  text-decoration: none;
+  z-index: 9999;
+  transition: top .2s;
+}
+.skip-link:focus {
+  top: 0;
+}
+
+/* ── Larger touch targets ── */
+@media (max-width: 768px) {
+  .lang-switcher a {
+    padding: .4rem .6rem;
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+  }
+  nav a { padding: .45rem .75rem; min-height: 36px; display: inline-flex; align-items: center; }
+}
+
+/* ── Accessible FAQ (smooth open/close) ── */
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height .3s ease, opacity .25s ease, padding .3s ease;
+  padding: 0 1.25rem;
+}
+.faq-item.open .faq-a {
+  max-height: 500px;
+  opacity: 1;
+  padding: 0 1.25rem 1rem;
+}
+
+/* ── Print stylesheet ── */
+@media print {
+  header, footer, .ad-slot, .lang-switcher, .btn-row, .results-actions,
+  .search-box-wrap, .skip-link, .related-section, .popular-section { display: none !important; }
+  body { background: #fff; color: #000; font-size: 12pt; }
+  .card { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
+  .calc-layout { grid-template-columns: 1fr 1fr; }
+  main { padding: 0; }
 }

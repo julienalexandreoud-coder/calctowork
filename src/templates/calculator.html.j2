@@ -6,9 +6,10 @@
   <title>{% if seo_title_override is defined and seo_title_override %}{{ seo_title_override }}{% else %}{{ calc_i18n.seo_title }}{% endif %} | CalcToWork</title>
   <meta name="description" content="{% if seo_desc_override is defined and seo_desc_override %}{{ seo_desc_override }}{% else %}{{ calc_i18n.seo_description }}{% endif %}">
   <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#f97316">
 
   {# ── Resolve URL paths (supports both flat and block/slug structures) ── #}
-  {% set _base = site_base_url | default("https://obracalc.com") %}
+  {% set _base = site_base_url | default("https://calcto.work") %}
   {% set _path = calc_url_path | default(calc.block_slug + "/" + calc.slug) %}
   {% set _alt  = calc_alt_slugs | default({}) %}
 
@@ -18,7 +19,7 @@
   {% set _ap = _alt[alt_lang] if (alt_lang in _alt) else _path %}
   <link rel="alternate" hreflang="{{ alt_lang }}" href="{{ _base }}/{{ alt_lang }}/{{ _ap }}/">
   {% endfor %}
-  <link rel="alternate" hreflang="x-default" href="{{ _base }}/es/{{ _alt['es'] if 'es' in _alt else _path }}/">
+  <link rel="alternate" hreflang="x-default" href="{{ _base }}/en/{{ _alt['en'] if 'en' in _alt else _path }}/">
 
   <meta property="og:title" content="{{ calc_i18n.seo_title }}">
   <meta property="og:description" content="{{ calc_i18n.seo_description }}">
@@ -26,6 +27,10 @@
   <meta property="og:url" content="{{ _base }}/{{ lang }}/{{ _path }}/">
   <meta property="og:site_name" content="CalcToWork">
   <meta property="og:image" content="{{ _base }}/favicon.svg">
+  <meta property="og:locale" content="{{ 'es_ES' if lang=='es' else 'en_US' if lang=='en' else 'fr_FR' if lang=='fr' else 'pt_BR' if lang=='pt' else 'de_DE' if lang=='de' else 'it_IT' }}">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{{ calc_i18n.seo_title }}">
+  <meta name="twitter:description" content="{{ calc_i18n.seo_description }}">
 
   <!-- Schema: WebApplication -->
   <script type="application/ld+json">
@@ -39,7 +44,7 @@
     "operatingSystem": "Any",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "inLanguage": "{{ lang }}",
-    "isPartOf": { "@type": "WebSite", "name": {{ (brand_name | default('ObraCalc')) | tojson }}, "url": "{{ _base }}/" }
+    "isPartOf": { "@type": "WebSite", "name": "CalcToWork", "url": "{{ _base }}/" }
   }
   </script>
 
@@ -49,7 +54,7 @@
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      {"@type":"ListItem","position":1,"name":{{ (brand_name | default('ObraCalc')) | tojson }},"item":"{{ _base }}/{{ lang }}/"},
+      {"@type":"ListItem","position":1,"name":"CalcToWork","item":"{{ _base }}/{{ lang }}/"},
       {"@type":"ListItem","position":2,"name":{{ block_name | tojson }},"item":"{{ _base }}/{{ lang }}/{{ calc.block_slug }}/"},
       {"@type":"ListItem","position":3,"name":{{ calc_i18n.name | tojson }},"item":"{{ _base }}/{{ lang }}/{{ _path }}/"}
     ]
@@ -77,23 +82,26 @@
 
   <meta name="google-site-verification" content="IODnwsJUNWyjMxqiXR1jY6lM-4IR7r-n0rgZ6OGMdLg">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
   <link rel="stylesheet" href="/css/styles.css">
   {{ adsense_head | safe }}
 </head>
 <body>
 
+<a href="#main-content" class="skip-link">Skip to content</a>
+
 <!-- Header -->
 <header>
   <div class="header-inner">
     <a class="logo" href="/{{ lang }}/">
-      <img src="/favicon.svg" alt="CalcToWork" class="logo-icon">
+      <img src="/favicon.svg" alt="" class="logo-icon" width="32" height="32">
       Calc<span>To</span>Work
     </a>
     <nav>
       <a href="/{{ lang }}/">{{ t.nav_home }}</a>
       <a href="/{{ lang }}/{{ calc.block_slug }}/">{{ block_name }}</a>
     </nav>
-    <div class="lang-switcher">
+    <div class="lang-switcher" aria-label="Language">
       {% for alt_lang in all_langs %}
       {% set _ap2 = _alt[alt_lang] if (alt_lang in _alt) else _path %}
       <a href="/{{ alt_lang }}/{{ _ap2 }}/"{% if alt_lang == lang %} class="active"{% endif %}>{{ alt_lang | upper }}</a>
@@ -107,15 +115,15 @@
   <div class="ad-slot ad-slot-banner">{{ adsense_banner | safe }}</div>
 </div>
 
-<main class="container">
+<main class="container" id="main-content">
 
   <!-- Breadcrumb -->
   <nav class="breadcrumb" aria-label="breadcrumb">
     <a href="/{{ lang }}/">{{ t.nav_home }}</a>
-    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-sep" aria-hidden="true">›</span>
     <a href="/{{ lang }}/{{ calc.block_slug }}/">{{ block_name }}</a>
-    <span class="breadcrumb-sep">›</span>
-    <span>{{ calc_i18n.name }}</span>
+    <span class="breadcrumb-sep" aria-hidden="true">›</span>
+    <span aria-current="page">{{ calc_i18n.name }}</span>
   </nav>
 
   <!-- H1 + description -->
@@ -152,9 +160,9 @@
               name="{{ field.key }}"
               inputmode="decimal"
               step="any"
-              min="0"
               placeholder="{{ input_placeholders.get(field.key, '') }}"
               autocomplete="off"
+              required
             >
           </div>
           {% endfor %}
@@ -171,9 +179,9 @@
               name="{{ input_key }}"
               inputmode="decimal"
               step="any"
-              min="0"
               placeholder="{{ input_placeholders.get(input_key, '') }}"
               autocomplete="off"
+              required
             >
           </div>
           {% endfor %}
@@ -208,8 +216,8 @@
     <!-- Results -->
     <div class="card results-panel">
       <div class="card-title">{{ t.label_results }}</div>
-      <div id="calc-results">
-        <div class="result-placeholder">{{ t.label_results }}</div>
+      <div id="calc-results" aria-live="polite">
+        <div class="result-placeholder">{{ t.result_placeholder | default('Enter values and press Calculate') }}</div>
       </div>
       <div class="results-actions">
         <button class="btn btn-secondary copy-btn" id="btn-copy" style="display:none;">
@@ -277,7 +285,7 @@
 
   <!-- FAQ -->
   {% if faq %}
-  <div class="faq-section">
+  <section class="faq-section">
     <h2 class="faq-title">{{ faq_title }}</h2>
     {% for item in faq %}
     <div class="faq-item">
@@ -285,10 +293,10 @@
         {{ item.q }}
         <span class="faq-icon" aria-hidden="true">+</span>
       </button>
-      <div class="faq-a">{{ item.a }}</div>
+      <div class="faq-a" role="region">{{ item.a }}</div>
     </div>
     {% endfor %}
-  </div>
+  </section>
   {% endif %}
 
 </main>
@@ -296,7 +304,7 @@
 <!-- Footer -->
 <footer>
   <div class="footer-inner">
-    <div>© <span id="yr"></span> {{ brand_name | default('ObraCalc') }} — {{ t.footer_rights }}</div>
+    <div>© <span id="yr"></span> CalcToWork — {{ t.footer_rights }}</div>
     <div class="mt-1" style="font-size:.8rem;">{{ t.footer_disclaimer }}</div>
     <div class="footer-links">
       {% for alt_lang in all_langs %}
@@ -319,14 +327,15 @@ window.CALC_CONFIG = {
     net_label: {{ net_label | tojson }},
     total_label: {{ total_label | tojson }},
     copied: {{ copied_label | tojson }},
-    link_copied: {{ link_copied_label | tojson }}
+    link_copied: {{ link_copied_label | tojson }},
+    result_placeholder: {{ t.result_placeholder | default('"Enter values and press Calculate"') | tojson }}
   }
 };
 </script>
 {% if prefill_json is defined and prefill_json %}
 <script>window.CALC_PREFILL = {{ prefill_json | safe }};</script>
 {% endif %}
-<script src="/js/calculator.js?v=4"></script>
+<script src="/js/calculator.js?v=5"></script>
 <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
 </body>
 </html>
