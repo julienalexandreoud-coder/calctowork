@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {{ ga4_head | safe }}
+  <title>{{ page_title }} | CalcToWork</title>
+  <meta name="description" content="{{ page_description }}">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#f97316">
+  <link rel="canonical" href="{{ site_base_url }}/{{ lang }}/{{ page_slug }}/">
+
+  {% for alt_lang in all_langs %}
+  <link rel="alternate" hreflang="{{ alt_lang }}" href="{{ site_base_url }}/{{ alt_lang }}/{{ page_slug }}/">
+  {% endfor %}
+  <link rel="alternate" hreflang="x-default" href="{{ site_base_url }}/en/{{ page_slug }}/">
+
+  <meta property="og:title" content="{{ page_title }} | CalcToWork">
+  <meta property="og:description" content="{{ page_description }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site_base_url }}/{{ lang }}/{{ page_slug }}/">
+  <meta property="og:site_name" content="CalcToWork">
+  <meta property="og:image" content="{{ site_base_url }}/favicon.svg">
+  <meta property="og:locale" content="{{ 'es_ES' if lang=='es' else 'en_US' if lang=='en' else 'fr_FR' if lang=='fr' else 'pt_BR' if lang=='pt' else 'de_DE' if lang=='de' else 'it_IT' }}">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{{ page_title }} | CalcToWork">
+  <meta name="twitter:description" content="{{ page_description }}">
+
+  <meta name="google-site-verification" content="IODnwsJUNWyjMxqiXR1jY6lM-4IR7r-n0rgZ6OGMdLg">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <link rel="stylesheet" href="/css/styles.css">
+  {{ adsense_head | safe }}
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to content</a>
+
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/{{ lang }}/">
+      <img src="/favicon.svg" alt="" class="logo-icon" width="32" height="32">
+      Calc<span>To</span>Work
+    </a>
+    <nav>
+      <a href="/{{ lang }}/">{{ t.nav_home }}</a>
+    </nav>
+    <div class="lang-switcher" aria-label="Language">
+      {% for alt_lang in all_langs %}
+      <a href="/{{ alt_lang }}/{{ page_slug }}/"{% if alt_lang == lang %} class="active"{% endif %}>{{ alt_lang | upper }}</a>
+      {% endfor %}
+    </div>
+  </div>
+</header>
+
+<main class="container" id="main-content">
+  <nav class="breadcrumb" aria-label="breadcrumb">
+    <a href="/{{ lang }}/">{{ t.nav_home }}</a>
+    <span class="breadcrumb-sep" aria-hidden="true">›</span>
+    <span aria-current="page">{{ page_title }}</span>
+  </nav>
+
+  <div class="static-page">
+    <h1>{{ page_title }}</h1>
+    <div class="static-page-content">
+      {{ page_body | safe }}
+    </div>
+    {% if author_line %}
+    <p class="author-line">{{ author_line }}</p>
+    {% endif %}
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>&copy; <span id="yr"></span> CalcToWork &mdash; {{ t.footer_rights }}</div>
+    <div class="mt-1" style="font-size:.8rem;">{{ t.footer_disclaimer }}</div>
+    <div class="footer-legal">
+      <a href="/{{ lang }}/privacy/">{{ t.nav_privacy }}</a>
+      <a href="/{{ lang }}/terms/">{{ t.nav_terms }}</a>
+      <a href="/{{ lang }}/contact/">{{ t.nav_contact }}</a>
+      <a href="/{{ lang }}/about/">{{ t.nav_about }}</a>
+    </div>
+    <div class="footer-links">
+      {% for alt_lang in all_langs %}
+      <a href="/{{ alt_lang }}/{{ page_slug }}/">{{ alt_lang | upper }}</a>
+      {% endfor %}
+    </div>
+  </div>
+</footer>
+
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+</body>
+</html>

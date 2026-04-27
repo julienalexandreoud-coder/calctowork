@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {{ ga4_head | safe }}
   <title>{% if seo_title_override is defined and seo_title_override %}{{ seo_title_override }}{% else %}{{ calc_i18n.seo_title }}{% endif %} | CalcToWork</title>
   <meta name="description" content="{% if seo_desc_override is defined and seo_desc_override %}{{ seo_desc_override }}{% else %}{{ calc_i18n.seo_description }}{% endif %}">
   <meta name="robots" content="index, follow">
@@ -48,6 +49,29 @@
   }
   </script>
 
+  {% if long_content %}
+  <!-- Schema: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": {{ calc_i18n.name | tojson }},
+    "description": {{ calc_i18n.seo_description | tojson }},
+    "author": {
+      "@type": "Organization",
+      "name": "CalcToWork Editorial Team",
+      "url": "{{ _base }}/"
+    },
+    "publisher": { "@type": "Organization", "name": "CalcToWork", "url": "{{ _base }}/" },
+    "url": "{{ _base }}/{{ lang }}/{{ _path }}/",
+    "mainEntityOfPage": "{{ _base }}/{{ lang }}/{{ _path }}/",
+    "inLanguage": "{{ lang }}",
+    "datePublished": "{{ date_published | default('2025-01-01') }}",
+    "dateModified": "{{ date_modified | default(BUILD_DATE) }}"
+  }
+  </script>
+  {% endif %}
+
   <!-- Schema: BreadcrumbList -->
   <script type="application/ld+json">
   {
@@ -84,6 +108,10 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="preconnect" href="https://pagead2.googlesyndication.com">
   <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YrqzHgFeFEpC71bBHsl7UO2/9ueHz3pwpB9z4" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqt+117yCQKLkYWuOgR8BHans9j6A4zSfL5N6p3G9v9lL/6j7G0" crossorigin="anonymous"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
   {{ adsense_head | safe }}
 </head>
 <body>
@@ -135,6 +163,21 @@
   <!-- Intro paragraph (SEO) -->
   <div class="calc-intro">{{ intro_text | safe }}</div>
 
+  <div class="sticky-sentinel" aria-hidden="true"></div>
+
+  {% if toc_items %}
+  <div class="content-with-toc">
+    <aside class="toc-sidebar">
+      <div class="toc-title">{{ toc_title }}</div>
+      <nav>
+        {% for item in toc_items %}
+        <a class="toc-link" href="#{{ item.id }}">{{ item.text }}</a>
+        {% endfor %}
+      </nav>
+    </aside>
+    <div class="content-main">
+  {% endif %}
+
   <!-- Calculator grid -->
   <div class="calc-layout">
 
@@ -145,25 +188,45 @@
 
         {% if input_groups %}
           {# ── Grouped inputs (CalcToWork mode) ── #}
+          {% set show_headings = (input_groups|length > 1) or (input_groups|length == 1 and input_groups[0].id != 'other') %}
           {% for group in input_groups %}
           {% if group.fields %}
+          {% if show_headings %}
           <div class="input-group-heading">
             <span aria-hidden="true">{{ group.icon }}</span>
             {{ group.label }}
           </div>
+          {% endif %}
           {% for field in group.fields %}
           <div class="form-group">
             <label for="input-{{ field.key }}">{{ field.label }}</label>
-            <input
-              type="number"
-              id="input-{{ field.key }}"
-              name="{{ field.key }}"
-              inputmode="decimal"
-              step="any"
-              placeholder="{{ input_placeholders.get(field.key, '') }}"
-              autocomplete="off"
-              required
-            >
+            {% if field.type == 'select' %}
+            <select class="form-select" id="input-{{ field.key }}" name="{{ field.key }}" required>
+              {% for opt in field.options %}
+              <option value="{{ opt.value }}" {% if opt.selected %}selected{% endif %}>{{ opt.label }}</option>
+              {% endfor %}
+            </select>
+            {% else %}
+            <div class="input-with-unit">
+              <input
+                type="number"
+                id="input-{{ field.key }}"
+                name="{{ field.key }}"
+                inputmode="decimal"
+                step="any"
+                placeholder="{{ input_placeholders.get(field.key, '') }}"
+                autocomplete="off"
+                required
+              >
+              {% if field.unit_options %}
+              <select class="unit-select" data-input="{{ field.key }}" data-category="{{ field.unit_category }}">
+                {% for u in field.unit_options %}
+                <option value="{{ u }}" {% if u == field.unit_default %}selected{% endif %}>{{ u }}</option>
+                {% endfor %}
+              </select>
+              {% endif %}
+            </div>
+            {% endif %}
           </div>
           {% endfor %}
           {% endif %}
@@ -171,18 +234,29 @@
         {% else %}
           {# ── Flat inputs (legacy mode) ── #}
           {% for input_key, input_label in calc_i18n.inputs.items() %}
+          {% set meta = input_meta.get(input_key, {}) %}
+          {% set unit_opts = meta.get('unit_options', []) %}
           <div class="form-group">
             <label for="input-{{ input_key }}">{{ input_label }}</label>
-            <input
-              type="number"
-              id="input-{{ input_key }}"
-              name="{{ input_key }}"
-              inputmode="decimal"
-              step="any"
-              placeholder="{{ input_placeholders.get(input_key, '') }}"
-              autocomplete="off"
-              required
-            >
+            <div class="input-with-unit">
+              <input
+                type="number"
+                id="input-{{ input_key }}"
+                name="{{ input_key }}"
+                inputmode="decimal"
+                step="any"
+                placeholder="{{ input_placeholders.get(input_key, '') }}"
+                autocomplete="off"
+                required
+              >
+              {% if unit_opts %}
+              <select class="unit-select" data-input="{{ input_key }}" data-category="{{ meta.get('unit_category', '') }}">
+                {% for u in unit_opts %}
+                <option value="{{ u }}" {% if u == meta.get('unit', '') %}selected{% endif %}>{{ u }}</option>
+                {% endfor %}
+              </select>
+              {% endif %}
+            </div>
           </div>
           {% endfor %}
         {% endif %}
@@ -216,6 +290,7 @@
     <!-- Results -->
     <div class="card results-panel">
       <div class="card-title">{{ t.label_results }}</div>
+      <div id="result-gauge" style="display:none;"></div>
       <div id="calc-results" aria-live="polite">
         <div class="result-placeholder">{{ t.result_placeholder | default('Enter values and press Calculate') }}</div>
       </div>
@@ -226,6 +301,11 @@
         <button class="btn btn-secondary share-btn" id="btn-share" style="display:none;">
           {{ btn_share_label | default('🔗 Share') }}
         </button>
+      </div>
+      <div class="feedback-wrap">
+        <span class="feedback-label">{{ feedback_label | default('Was this helpful?') }}</span>
+        <button class="feedback-btn" data-val="yes" aria-label="Yes">&#128077;</button>
+        <button class="feedback-btn" data-val="no" aria-label="No">&#128078;</button>
       </div>
     </div>
 
@@ -257,6 +337,15 @@
   <!-- Long-form article content -->
   {% if long_content %}
   <div class="long-content-wrap">{{ long_content | safe }}</div>
+  {% endif %}
+
+  {% if author_line %}
+  <p class="author-line">{{ author_line }}</p>
+  {% endif %}
+
+  {% if toc_items %}
+    </div><!-- /.content-main -->
+  </div><!-- /.content-with-toc -->
   {% endif %}
 
   <!-- Popular combinations (on base calculator pages with parametric variants) -->
@@ -306,6 +395,12 @@
   <div class="footer-inner">
     <div>© <span id="yr"></span> CalcToWork — {{ t.footer_rights }}</div>
     <div class="mt-1" style="font-size:.8rem;">{{ t.footer_disclaimer }}</div>
+    <div class="footer-legal">
+      <a href="/{{ lang }}/privacy/">{{ t.nav_privacy }}</a>
+      <a href="/{{ lang }}/terms/">{{ t.nav_terms }}</a>
+      <a href="/{{ lang }}/contact/">{{ t.nav_contact }}</a>
+      <a href="/{{ lang }}/about/">{{ t.nav_about }}</a>
+    </div>
     <div class="footer-links">
       {% for alt_lang in all_langs %}
       {% set _ap3 = _alt[alt_lang] if (alt_lang in _alt) else _path %}
@@ -320,6 +415,9 @@ window.CALC_CONFIG = {
   formula: {{ calc.formula | tojson }},
   outputs: {{ calc_i18n.outputs | tojson }},
   showWastage: {{ 'true' if (show_wastage is not defined or show_wastage) else 'false' }},
+  {% if gauge_config %}
+  gauge: {{ gauge_config | tojson }},
+  {% endif %}
   i18n: {
     error_invalid: {{ t.error_invalid | tojson }},
     label_results: {{ t.label_results | tojson }},
@@ -328,14 +426,28 @@ window.CALC_CONFIG = {
     total_label: {{ total_label | tojson }},
     copied: {{ copied_label | tojson }},
     link_copied: {{ link_copied_label | tojson }},
-    result_placeholder: {{ t.result_placeholder | default('"Enter values and press Calculate"') | tojson }}
+    result_placeholder: {{ t.result_placeholder | default('Enter values and press Calculate') | tojson }},
+    feedback_thanks: {{ feedback_thanks | tojson }}
   }
 };
 </script>
 {% if prefill_json is defined and prefill_json %}
 <script>window.CALC_PREFILL = {{ prefill_json | safe }};</script>
 {% endif %}
-<script src="/js/calculator.js?v=5"></script>
+<script src="/js/calculator.js?v=6"></script>
 <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    if (typeof renderMathInElement !== 'undefined') {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false}
+        ],
+        throwOnError: false
+      });
+    }
+  });
+</script>
 </body>
 </html>

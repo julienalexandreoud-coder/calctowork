@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {{ ga4_head | safe }}
   <title>{{ t.home_title | default('CalcToWork – Free Online Calculators') }}</title>
   <meta name="description" content="{{ t.site_description }}">
   <meta name="robots" content="index, follow">
@@ -127,12 +128,22 @@ window.CALC_INDEX = {{ calc_index_json | safe }};
   </div>
 
   <div class="ad-slot ad-slot-responsive mt-3">{{ adsense_responsive | safe }}</div>
+
+  {% if author_line %}
+  <p class="author-line">{{ author_line }}</p>
+  {% endif %}
 </main>
 
 <footer>
   <div class="footer-inner">
     <div>© <span id="yr"></span> CalcToWork — {{ t.footer_rights }}</div>
     <div class="mt-1" style="font-size:.8rem;">{{ t.footer_disclaimer }}</div>
+    <div class="footer-legal">
+      <a href="/{{ lang }}/privacy/">{{ t.nav_privacy }}</a>
+      <a href="/{{ lang }}/terms/">{{ t.nav_terms }}</a>
+      <a href="/{{ lang }}/contact/">{{ t.nav_contact }}</a>
+      <a href="/{{ lang }}/about/">{{ t.nav_about }}</a>
+    </div>
     <div class="footer-links">
       {% for alt_lang in all_langs %}
       <a href="/{{ alt_lang }}/">{{ alt_lang | upper }}</a>
