@@ -329,6 +329,7 @@
     resultsBox.innerHTML = html;
     if (copyBtn) copyBtn.style.display = '';
     if (shareBtn) shareBtn.style.display = '';
+    if (socialShare) showSocialShare();
 
     resultsBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
@@ -405,6 +406,7 @@
       if (copyBtn)  copyBtn.style.display  = 'none';
       if (shareBtn) shareBtn.style.display = 'none';
       if (gaugeEl) gaugeEl.innerHTML = '';
+      if (socialShare) hideSocialShare();
       history.replaceState(null, '', window.location.pathname);
     });
   }
@@ -450,6 +452,57 @@
         document.body.removeChild(ta);
         flashShared();
       }
+    });
+  }
+
+  /* Social share buttons */
+  var socialShare = document.getElementById('social-share');
+  var btnWhatsapp = document.getElementById('btn-whatsapp');
+  var btnTwitter = document.getElementById('btn-twitter');
+  var btnFacebook = document.getElementById('btn-facebook');
+
+  function showSocialShare() {
+    if (socialShare) socialShare.style.display = '';
+  }
+  function hideSocialShare() {
+    if (socialShare) socialShare.style.display = 'none';
+  }
+
+  function getShareUrl() {
+    var inputs = collectInputs();
+    encodeToHash(inputs);
+    return window.location.href;
+  }
+
+  function getShareText() {
+    var title = i18n.seo_title || document.title;
+    return title + ' – CalcToWork';
+  }
+
+  if (btnWhatsapp) {
+    btnWhatsapp.addEventListener('click', function (e) {
+      e.preventDefault();
+      var url = encodeURIComponent(getShareUrl());
+      var text = encodeURIComponent(getShareText());
+      window.open('https://wa.me/?text=' + text + '%20' + url, '_blank');
+      trackEvent('share_whatsapp', 'calculator', cfg.slug || window.location.pathname);
+    });
+  }
+  if (btnTwitter) {
+    btnTwitter.addEventListener('click', function (e) {
+      e.preventDefault();
+      var url = encodeURIComponent(getShareUrl());
+      var text = encodeURIComponent(getShareText());
+      window.open('https://twitter.com/intent/tweet?text=' + text + '&url=' + url, '_blank');
+      trackEvent('share_twitter', 'calculator', cfg.slug || window.location.pathname);
+    });
+  }
+  if (btnFacebook) {
+    btnFacebook.addEventListener('click', function (e) {
+      e.preventDefault();
+      var url = encodeURIComponent(getShareUrl());
+      window.open('https://www.facebook.com/sharer/sharer.php?u=' + url, '_blank');
+      trackEvent('share_facebook', 'calculator', cfg.slug || window.location.pathname);
     });
   }
 
