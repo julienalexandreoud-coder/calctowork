@@ -1169,6 +1169,7 @@ def copy_assets() -> None:
     assets = [
         (CSS_SRC,              PUBLIC / "css" / "styles.css"),
         (JS_SRC,               PUBLIC / "js"  / "calculator.js"),
+        (SRC / "js" / "dark-mode.js", PUBLIC / "js" / "dark-mode.js"),
         (SRC / "robots.txt",   PUBLIC / "robots.txt"),
         (SRC / "favicon.svg",  PUBLIC / "favicon.svg"),
     ]
