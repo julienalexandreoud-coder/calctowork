@@ -4,6 +4,8 @@ Block-level How-to steps + FAQs per language.
 generate_intro() and generate_faq() are called by the generator.
 """
 
+import json, os, random
+
 # ── How-to steps per block per language ──────────────────────────────────────
 
 HOWTO = {
@@ -30400,5 +30402,815 @@ def generate_long_content(calc_id: str, lang: str, calc_name: str = "") -> str:
         return result
     facts = CALC_FACTS.get(calc_id, {})
     if facts:
-        return build_article_from_facts(facts, lang, calc_name=calc_name)
+        return build_article_v2(calc_id, facts, lang, calc_name=calc_name)
     return ""
+
+
+BLOCK_CATEGORY = {
+    1: "construction", 2: "construction", 3: "construction",
+    4: "construction", 5: "construction", 6: "construction",
+    7: "construction", 8: "construction", 9: "finance",
+    10: "math", 11: "finance", 12: "health",
+    13: "everyday", 14: "math", 15: "science",
+    16: "conversion", 17: "sports", 18: "math",
+    "matematicas": "math", "ciencia": "science", "salud": "health",
+    "finanzas": "finance", "quimica": "science", "electronica": "science",
+    "transporte": "everyday", "ingenieria": "science", "clima": "science",
+    "utilidades": "everyday", "deportes": "sports", "fotografia": "science",
+}
+
+CATEGORY_INTROS = {
+    "construction": {
+        "en": [
+            "<p>Whether you're planning a home renovation, estimating materials for a job site, or calculating dimensions for a DIY project, having the right numbers upfront saves time and money. This tool gives you instant, reliable results so you can order materials confidently and avoid costly overages.</p>",
+            "<p>Construction calculations often seem straightforward until you factor in waste allowances, unit conversions, and regional material standards. This calculator handles those details automatically, letting you focus on the build instead of the math.</p>",
+            "<p>Accurate material estimation is the backbone of any successful build. A small error in your calculations can mean the difference between finishing on budget and paying for a second delivery. This tool removes the guesswork so you can plan with certainty.</p>",
+        ],
+        "es": [
+            "<p>Ya estés planificando una reforma, estimando materiales para una obra o calculando dimensiones para un proyecto DIY, tener los datos correctos desde el principio ahorra tiempo y dinero. Esta herramienta te da resultados instantáneos y fiables para pedir materiales con confianza y evitar sobrecostes.</p>",
+            "<p>Los cálculos de construcción parecen sencillos hasta que consideras margen de desperdicio, conversiones de unidades y estándares regionales de materiales. Esta calculadora gestiona esos detalles automáticamente, para que te concentres en la obra y no en las matemáticas.</p>",
+        ],
+        "fr": [
+            "<p>Que vous planifiiez des travaux de rénovation, estimiez des matériaux pour un chantier ou calculiez des dimensions pour un projet DIY, disposer des bons chiffres dès le départ fait gagner du temps et de l'argent.</p>",
+        ],
+        "pt": [
+            "<p>Seja para planejar uma reforma, estimar materiais para uma obra ou calcular dimensoes para um projeto DIY, ter os numeros certos desde o inicio economiza tempo e dinheiro.</p>",
+        ],
+        "de": [
+            "<p>Ob Sie eine Renovierung planen, Materialien fur eine Baustelle schatzen oder Dimensionen fur ein DIY-Projekt berechnen — die richtigen Zahlen von Anfang an sparen Zeit und Geld.</p>",
+        ],
+        "it": [
+            "<p>Che tu stia pianificando una ristrutturazione, stimando materiali per un cantiere o calcolando dimensioni per un progetto fai-da-te, avere i numeri giusti fin dall'inizio risparmia tempo e denaro.</p>",
+        ],
+    },
+    "math": {
+        "en": [
+            "<p>From homework help to professional calculations, having a reliable tool that shows every step of the process makes abstract formulas tangible. This calculator doesn't just give you an answer — it shows you exactly how the result is derived so you can learn and verify at the same time.</p>",
+            "<p>Mathematical formulas become genuinely useful when you can apply them to real numbers instantly. No more flipping through textbooks or second-guessing your arithmetic — enter your values and get a precise result with the formula spelled out.</p>",
+        ],
+        "es": [
+            "<p>Desde ayuda con las tareas hasta cálculos profesionales, disponer de una herramienta fiable que muestra cada paso del proceso hace las fórmulas abstractas tangibles. Esta calculadora no solo te da una respuesta, sino que muestra exactamente cómo se obtiene el resultado.</p>",
+        ],
+        "fr": [
+            "<p>Des devoirs aux calculs professionnels, disposer d'un outil fiable qui montre chaque étape du processus rend les formules abstraites concrètes.</p>",
+        ],
+        "pt": [
+            "<p>Da ajuda com tarefas aos calculos profissionais, ter uma ferramenta confiavel que mostra cada passo do processo torna formulas abstratas tangiveis.</p>",
+        ],
+        "de": [
+            "<p>Von Hausaufgaben bis hin zu professionellen Berechnungen — ein zuverlassiges Werkzeug, das jeden Schritt zeigt, macht abstrakte Formeln greifbar.</p>",
+        ],
+        "it": [
+            "<p>Dai compiti a casa ai calcoli professionali, avere uno strumento affidabile che mostra ogni passo del processo rende le formule astratte tangibili.</p>",
+        ],
+    },
+    "health": {
+        "en": [
+            "<p>Understanding your body's metrics is the first step toward better health decisions. This calculator uses established medical formulas to give you personalized results you can discuss with your healthcare provider — not guesswork, butscience-based estimates tailored to your inputs.</p>",
+            "<p>Health numbers only matter when you know what they mean. This tool calculates your result instantly and places it in context with established reference ranges, so you can see where you stand without needing a medical degree to interpret the output.</p>",
+        ],
+        "es": [
+            "<p>Comprender las métricas de tu cuerpo es el primer paso hacia mejores decisiones de salud. Esta calculadora utiliza fórmulas médicas establecidas para darte resultados personalizados que puedes comentar con tu médico.</p>",
+        ],
+        "fr": [
+            "<p>Comprendre les métriques de votre corps est la première étape vers de meilleures décisions de santé. Cette calculatrice utilise des formules médicales établies pour vous donner des résultats personnalisés.</p>",
+        ],
+        "pt": [
+            "<p>Comprender as metricas do seu corpo e o primeiro passo para melhores decisoes de saude. Esta calculadora usa formulas medicas estabelecidas para resultados personalizados.</p>",
+        ],
+        "de": [
+            "<p>Die Kenntnis Ihrer Körperwerte ist der erste Schritt zu besseren Gesundheitsentscheidungen. Dieser Rechner nutzt etablierte medizinische Formeln für individuelle Ergebnisse.</p>",
+        ],
+        "it": [
+            "<p>Comprendere le metriche del tuo corpo è il primo passo verso decisioni sanitarie migliori. Questa calcolatrice utilizza formule mediche consolidate per risultati personalizzati.</p>",
+        ],
+    },
+    "finance": {
+        "en": [
+            "<p>Financial decisions deserve precision. Whether you're comparing loan terms, projecting investment returns, or budgeting for a major purchase, this calculator gives you the exact numbers you need — no approximations, no mental math errors, just clear results you can act on.</p>",
+            "<p>Money calculations compound quickly — a small error in your interest rate or loan term can mean thousands of dollars over the life of a loan. This tool computes exact figures so you can make financial decisions with confidence.</p>",
+        ],
+        "es": [
+            "<p>Las decisiones financieras merecen precisión. Ya sea comparando condiciones de préstamo, proyectando retornos de inversión o presupuestando una compra importante, esta calculadora te da los números exactos que necesitas.</p>",
+        ],
+        "fr": [
+            "<p>Les décisions financières méritent de la précision. Ce calculateur vous donne les chiffres exacts dont vous avez besoin pour décider en confiance.</p>",
+        ],
+        "pt": [
+            "<p>Decisoes financeiras merecem precisao. Esta calculadora fornece os numeros exatos necessarios para decidir com confianca.</p>",
+        ],
+        "de": [
+            "<p>Finanzentscheidungen verdienen Präzision. Dieser Rechner liefert Ihnen die genauen Zahlen, die Sie brauchen, um finanziell sicher zu entscheiden.</p>",
+        ],
+        "it": [
+            "<p>Le decisioni finanziarie meritano precisione. Questa calcolatrice ti fornisce i numeri esatti di cui hai bisogno per decidere con fiducia.</p>",
+        ],
+    },
+    "science": {
+        "en": [
+            "<p>Physics and chemistry formulas come alive when you can plug in real values and see instant results. This calculator handles unit conversions automatically and presents the formula transparently, so you can focus on understanding the concept rather than wrestling with arithmetic.</p>",
+            "<p>Laboratory work, homework assignments, and engineering calculations all require precision. This tool gives you results using standard formulas, with units handled correctly, so you can trust the output for reports, experiments, and real-world applications.</p>",
+        ],
+        "es": [
+            "<p>Las fórmulas de física y química cobran vida cuando puedes introducir valores reales y ver resultados instantáneos. Esta calculadora gestiona las conversiones de unidades automáticamente y presenta la fórmula de forma transparente.</p>",
+        ],
+        "fr": [
+            "<p>Les formules de physique et de chimie prennent vie quand vous pouvez entrer des valeurs réelles et voir des résultats instantanés. Ce calculateur gère les conversions d'unités automatiquement.</p>",
+        ],
+        "pt": [
+            "<p>Formulas de fisica e quimica ganham vida quando voce pode inserir valores reais e ver resultados instantaneos. Esta calculadora gerencia conversoes de unidades automaticamente.</p>",
+        ],
+        "de": [
+            "<p>Physik- und Chemieformeln werden lebendig, wenn Sie echte Werte eingeben und sofortige Ergebnisse sehen. Dieser Rechner handhabt Einheitenumrechnungen automatisch.</p>",
+        ],
+        "it": [
+            "<p>Le formule di fisica e chimica prendono vita quando puoi inserire valori reali e vedere risultati istantanei. Questa calcolatrice gestisce automaticamente le conversioni di unità.</p>",
+        ],
+    },
+    "conversion": {
+        "en": [
+            "<p>Unit conversion errors cause real problems — from recipe failures to engineering disasters. This calculator eliminates conversion mistakes by handling the math instantly, supporting all common and many uncommon units, so you get the right number every time.</p>",
+        ],
+        "es": [
+            "<p>Los errores de conversión de unidades causan problemas reales — desde recetas fracasadas hasta desastres de ingeniería. Esta calculadora elimina los errores de conversión haciendo las matemáticas al instante.</p>",
+        ],
+        "fr": [
+            "<p>Les erreurs de conversion d'unités causent de vrais problèmes. Ce calculateur élimine les erreurs de conversion en faisant les calculs instantanément.</p>",
+        ],
+        "pt": [
+            "<p>Erros de conversao de unidades causam problemas reais. Esta calculadora elimina erros de conversao fazendo os calculos instantaneamente.</p>",
+        ],
+        "de": [
+            "<p>Einheitenumrechnungsfehler verursachen echte Probleme. Dieser Rechner eliminiert Umrechnungsfehler durch sofortige Berechnung.</p>",
+        ],
+        "it": [
+            "<p>Gli errori di conversione di unità causano problemi reali. Questa calcolatrice elimina gli errori di conversione calcolando istantaneamente.</p>",
+        ],
+    },
+    "everyday": {
+        "en": [
+            "<p>Everyday calculations shouldn't require a spreadsheet or a degree. This tool handles common life math — from splitting bills to figuring out dates — with instant results and zero hassle, right when you need them.</p>",
+        ],
+        "es": [
+            "<p>Los cálculos del día a día no deberían requerir una hoja de cálculo. Esta herramienta gestiona las matemáticas cotidianas — desde dividir cuentas hasta calcular fechas — con resultados instantáneos.</p>",
+        ],
+        "fr": [
+            "<p>Les calculs du quotidien ne devraient pas nécessiter un tableur. Cet outil gère les mathématiques de la vie courante avec des résultats instantanés.</p>",
+        ],
+        "pt": [
+            "<p>Calculos do dia a dia nao deveriam exigir uma planilha. Esta ferramenta gerencia matematica cotidiana com resultados instantaneos.</p>",
+        ],
+        "de": [
+            "<p>Alltagsberechnungen sollten keine Tabellenkalkulation erfordern. Dieses Werkzeug erledigt alltägliche Mathematik mit sofortigen Ergebnissen.</p>",
+        ],
+        "it": [
+            "<p>I calcoli quotidiani non dovrebbero richiedere un foglio di calcolo. Questo strumento gestisce la matematica di tutti i giorni con risultati istantanei.</p>",
+        ],
+    },
+    "sports": {
+        "en": [
+            "<p>Whether you're training for your first 5K or optimizing an elite performance program, precise numbers drive better results. This calculator gives athletes and coaches the data they need — pace splits, heart rate zones, or calorie burn — without the guesswork.</p>",
+        ],
+        "es": [
+            "<p>Ya entrenes para tu primer 5K o optimices un programa de élite, los números precisos generan mejores resultados. Esta calculadora da a atletas y entrenadores los datos que necesitan sin estimaciones.</p>",
+        ],
+        "fr": [
+            "<p>Que vous vous entraîniez pour votre premier 5K ou optimisiez un programme d'élite, des chiffres précis donnent de meilleurs résultats.</p>",
+        ],
+        "pt": [
+            "<p>Se voce treina para seu primeiro 5K ou otimiza um programa de elite, numeros precisos geram melhores resultados.</p>",
+        ],
+        "de": [
+            "<p>Egal ob Sie fur Ihren ersten 5K trainieren oder ein Elite-Programm optimieren — prazise Zahlen liefern bessere Ergebnisse.</p>",
+        ],
+        "it": [
+            "<p>Che tu stia allenandoti per il tuo primo 5K o ottimizzando un programma d'élite, numeri precisi portano a risultati migliori.</p>",
+        ],
+    },
+}
+
+CATEGORY_MISTAKES = {
+    "construction": {
+        "en": [
+            "Forgetting to add a waste allowance (typically 5-10%) when ordering materials — rounding up saves a second delivery.",
+            "Mixing up metric and imperial units on the same project. Stick to one system throughout your calculation.",
+            "Measuring outline dimensions instead of interior surface area — the difference matters for flooring and tiling.",
+            "Not accounting for irregular shapes. Break complex areas into simpler rectangles and triangles before calculating.",
+        ],
+        "es": [
+            "Olvidar añadir un margen de desperdicio (típicamente 5-10%) al pedir materiales — redondear arriba evita una segunda entrega.",
+            "Mezclar unidades métricas e imperiales en el mismo proyecto. Mantén un sistema consistente.",
+            "Medir dimensiones exteriores en vez del área interior — la diferencia importa para suelos y azulejos.",
+        ],
+        "fr": [
+            "Oublier d'ajouter une marge de perte (5-10%) lors de la commande de matériaux.",
+            "Mélanger unités métriques et impériales dans un même projet.",
+        ],
+        "pt": [
+            "Esquecer de adicionar margem de desperdicio (5-10%) ao pedir materiais.",
+            "Misturar unidades metricas e imperiais no mesmo projeto.",
+        ],
+        "de": [
+            "Vergessen, einen Verschnittzuschlag (5-10%) bei der Materialbestellung hinzuzufügen.",
+            "Métrische und imperiale Einheiten im selben Projekt zu mischen.",
+        ],
+        "it": [
+            "Dimenticare di aggiungere un margine di scarto (5-10%) nell'ordine dei materiali.",
+            "Mescolare unità metriche e imperiali nello stesso progetto.",
+        ],
+    },
+    "math": {
+        "en": [
+            "Plugging numbers into a formula without checking whether the result makes sense — always estimate mentally first.",
+            "Forgetting that some operations have order-of-operations rules (PEMDAS/BODMAS) that change the result.",
+            "Confusing the formula for similar-looking problems — e.g., area vs. perimeter, or circumference vs. diameter.",
+            "Rounding too early in multi-step calculations — carry full precision until the final answer, then round.",
+        ],
+        "es": [
+            "Sustituir números en una fórmula sin comprobar si el resultado tiene sentido — estima mentalmente primero.",
+            "Olvidar el orden de las operaciones (PEMDAS) que cambia el resultado.",
+            "Confundir fórmulas de problemas similares — por ejemplo, área vs. perímetro.",
+        ],
+        "fr": [
+            "Remplacer des nombres dans une formule sans vérifier si le résultat est cohérent.",
+            "Confondre les formules pour des problèmes similaires — par exemple aire vs. périmètre.",
+        ],
+        "pt": [
+            "Substituir numeros em uma formula sem verificar se o resultado faz sentido.",
+            "Confundir formulas de problemas similares — area vs. perimetro.",
+        ],
+        "de": [
+            "Zahlen in eine Formel einzusetzen ohne zu prufen, ob das Ergebnis Sinn ergibt.",
+            "Formeln fur ahnliche Probleme zu verwechseln — z.B. Flache vs. Umfang.",
+        ],
+        "it": [
+            "Inserire numeri in una formula senza verificare se il risultato abbia senso.",
+            "Confondere formule di problemi simili — ad esempio area vs. perimetro.",
+        ],
+    },
+    "health": {
+        "en": [
+            "Using a single measurement to make health decisions — always consult a healthcare professional for medical interpretation.",
+            "Confusing absolute values with percentages — a 2% body fat difference matters more at low BMI than at high BMI.",
+            "Not accounting for time of day or recent activity when taking measurements like blood pressure or heart rate.",
+            "Comparing your results to outdated or region-specific reference ranges — use current guidelines for your demographic.",
+        ],
+        "es": [
+            "Usar una sola medición para tomar decisiones de salud — consulta siempre a un profesional médico.",
+            "Confundir valores absolutos con porcentajes — una diferencia del 2% de grasa corporal importa más con IMC bajo.",
+        ],
+        "fr": [
+            "Utiliser une seule mesure pour prendre des décisions de santé — consultez toujours un professionnel de santé.",
+            "Confondre valeurs absolues et pourcentages.",
+        ],
+        "pt": [
+            "Usar uma unica medicao para decisoes de saude — consulte sempre um profissional medico.",
+        ],
+        "de": [
+            "Eine einzige Messung fur Gesundheitsentscheidungen verwenden — konsultieren Sie immer einen Arzt.",
+        ],
+        "it": [
+            "Usare una singola misurazione per decisioni di salute — consultare sempre un professionista medico.",
+        ],
+    },
+    "finance": {
+        "en": [
+            "Forgetting to include compounding frequency when comparing interest rates — a 6% rate compounded monthly is not the same as 6% compounded annually.",
+            "Not accounting for taxes, fees, and inflation when projecting long-term returns.",
+            "Confusing APR with APY — they differ based on how often interest compounds.",
+            "Rounding intermediate results in financial calculations — even a cent error compounds over time.",
+        ],
+        "es": [
+            "Olvidar incluir la frecuencia de capitalización al comparar tasas de interés.",
+            "No considerar impuestos, comisiones e inflación al proyectar retornos a largo plazo.",
+        ],
+        "fr": [
+            "Oublier d'inclure la fréquence de capitalisation lors de la comparaison des taux d'intérêt.",
+            "Ne pas tenir compte des impôts et de l'inflation dans les projections à long terme.",
+        ],
+        "pt": [
+            "Esquecer de incluir a frequencia de capitalizacao ao comparar taxas de juros.",
+            "Nao considerar impostos e inflacao em projecoes de longo prazo.",
+        ],
+        "de": [
+            "Vergessen, die Zinsperiode beim Zinsvergleich einzubeziehen.",
+            "Steuern und Inflation bei langfristigen Renditeprognosen nicht berucksichtigen.",
+        ],
+        "it": [
+            "Dimenticare di includere la frequenza di capitalizzazione nel confronto dei tassi.",
+            "Non considerare tasse e inflazione nelle proiezioni a lungo termine.",
+        ],
+    },
+    "science": {
+        "en": [
+            "Forgetting to convert all units to SI before plugging them into the formula — mixed units are the #1 source of errors in physics calculations.",
+            "Not checking whether your answer's magnitude makes physical sense (a person can't weigh 500,000 kg).",
+            "Confusing mass and weight — they're different quantities and use different units (kg vs. N).",
+            "Neglecting significant figures in lab reports — more decimal places don't mean more accuracy.",
+        ],
+        "es": [
+            "Olvidar convertir todas las unidades al SI antes de usar la fórmula — las unidades mezcladas son la fuente #1 de errores.",
+            "No comprobar si la magnitud del resultado tiene sentido físico.",
+        ],
+        "fr": [
+            "Oublier de convertir toutes les unités au SI avant d'utiliser la formule.",
+            "Ne pas vérifier si l'ordre de grandeur du résultat a un sens physique.",
+        ],
+        "pt": [
+            "Esquecer de converter todas as unidades ao SI antes de usar a formula.",
+        ],
+        "de": [
+            "Vergessen, alle Einheiten in SI-Einheiten umzuwandeln bevor man die Formel anwendet.",
+        ],
+        "it": [
+            "Dimenticare di convertire tutte le unita in SI prima di usare la formula.",
+        ],
+    },
+    "conversion": {
+        "en": [
+            "Always verify the conversion direction — multiplying when you should divide (or vice versa) is the most common mistake.",
+            "Double-check that your output unit matches what the rest of your calculation expects.",
+            "Watch out for temperature conversions — they use formulas, not simple multiplication factors.",
+        ],
+        "es": [
+            "Verifica siempre la dirección de conversión — multiplicar cuando debes dividir es el error más común.",
+            "Comprueba que la unidad de salida coincide con lo que espera el resto de tu cálculo.",
+        ],
+        "fr": [
+            "Vérifiez toujours le sens de la conversion — multiplier au lieu de diviser est l'erreur la plus courante.",
+        ],
+        "pt": [
+            "Verifique sempre a direcao da conversao — multiplicar quando deveria dividir e o erro mais comum.",
+        ],
+        "de": [
+            "Uberprufen Sie immer die Umrechnungsrichtung — Multiplikation statt Division ist der haufigste Fehler.",
+        ],
+        "it": [
+            "Verifica sempre la direzione di conversione — moltiplicare quando dovresti dividere e l'errore piu comune.",
+        ],
+    },
+    "everyday": {
+        "en": [
+            "Not considering all the variables in a calculation — for example, forgetting tips, taxes, or time zones when they matter.",
+            "Rounding too aggressively in financial calculations, even small amounts add up over time.",
+        ],
+        "es": [
+            "No considerar todas las variables — por ejemplo, olvidar propinas, impuestos o zonas horarias.",
+        ],
+        "fr": [
+            "Ne pas prendre en compte toutes les variables — par exemple oublier les pourboires ou les fuseaux horaires.",
+        ],
+        "pt": [
+            "Nao considerar todas as variaveis — por exemplo, esquecer gorjetas ou fusos horarios.",
+        ],
+        "de": [
+            "Nicht alle Variablen berucksichtigen — z.B. Trinkgeld oder Zeitzonen vergessen.",
+        ],
+        "it": [
+            "Non considerare tutte le variabili — ad esempio dimenticare mance o fusi orari.",
+        ],
+    },
+    "sports": {
+        "en": [
+            "Using formulas designed for one sport to estimate metrics for another — running pace doesn't translate directly to cycling speed.",
+            "Not accounting for environmental factors like altitude, temperature, and humidity in performance calculations.",
+            "Over-relying on estimated maximums — field tests give more accurate results than formulas for individual athletes.",
+        ],
+        "es": [
+            "Usar fórmulas diseñadas para un deporte para estimar métricas de otro — el ritmo de carrera no se traduce directamente a velocidad de ciclismo.",
+        ],
+        "fr": [
+            "Utiliser des formules conçues pour un sport pour estimer les métriques d'un autre.",
+        ],
+        "pt": [
+            "Usar formulas projetadas para um esporte para estimar metricas de outro.",
+        ],
+        "de": [
+            "Formeln fur einen Sport zur Schatzung von Metriken eines anderen Sports verwenden.",
+        ],
+        "it": [
+            "Usare formule progettate per uno sport per stimare le metriche di un altro.",
+        ],
+    },
+}
+
+CATEGORY_SEO_TIPS = {
+    "construction": {
+        "en": "Order 5-10% more material than your calculation suggests to account for cuts, breakage, and measurement errors. It's cheaper to have a little left over than to halt work for a second delivery.",
+        "es": "Pide un 5-10% más de material de lo que indica tu cálculo para cubrir cortes, roturas y errores de medición. Es más barato que una segunda entrega.",
+        "fr": "Commandez 5-10% de matériel en plus que le calcul ne l'indique pour couper les pertes et les erreurs de mesure.",
+        "pt": "Peça 5-10% mais material do que o calculo indica para cobrir cortes, quebras e erros de medicao.",
+        "de": "Bestellen Sie 5-10% mehr Material als berechnet, um Schnittverluste und Messfehler auszugleichen.",
+        "it": "Ordina il 5-10% in più di materiale rispetto al calcolo per coprire tagli, rotture ed errori di misura.",
+    },
+    "math": {
+        "en": "Write down the formula before plugging in numbers. This habit catches errors early, makes it easy to check your work, and helps you internalize the relationship between variables.",
+        "es": "Escribe la fórmula antes de sustituir los números. Este hábito detecta errores pronto y te ayuda a interiorizar la relación entre variables.",
+        "fr": "Écrivez la formule avant d'entrer les nombres. Cette habitude détecte les erreurs tôt et aide à intérioriser la relation entre les variables.",
+        "pt": "Escreva a formula antes de inserir os numeros. Este habito detecta erros cedo e ajuda a interiorizar a relacao entre variaveis.",
+        "de": "Notieren Sie die Formel bevor Sie Zahlen einsetzen. Diese Gewohnheit fängt Fehler früh ab.",
+        "it": "Scrivi la formula prima di inserire i numeri. Questa abitudine rileva gli errori presto e aiuta a interiorizzare la relazione tra le variabili.",
+    },
+    "health": {
+        "en": "Take measurements at the same time of day under similar conditions for consistent tracking. Morning values for weight and blood pressure tend to be most reliable. Always discuss results with a healthcare professional before making health decisions.",
+        "es": "Toma mediciones a la misma hora del día en condiciones similares para un seguimiento consistente. Los valores matutinos suelen ser más fiables. Siempre consulta con un profesional de la salud.",
+        "fr": "Prenez les mesures à la même heure de la journée dans des conditions similaires pour un suivi cohérent. Discutez toujours des résultats avec un professionnel de santé.",
+        "pt": "Faca medicoes na mesma hora do dia em condicoes similares para rastreamento consistente. Sempre discuta resultados com um profissional de saude.",
+        "de": "Nehmen Sie Messungen zur gleichen Tageszeit unter ähnlichen Bedingungen für konsistentes Tracking. Besprechen Sie Ergebnisse immer mit einem Arzt.",
+        "it": "Prendi le misurazioni alla stessa ora del giorno in condizioni simili per un monitoraggio coerente. Discuti sempre i risultati con un professionista sanitario.",
+    },
+    "finance": {
+        "en": "Always compare the effective annual rate (EAR), not the nominal rate, when evaluating financial products. The EAR accounts for compounding and gives you the true cost or yield. Even small rate differences compound significantly over long periods.",
+        "es": "Compara siempre la tasa anual efectiva (TAE), no la nominal, al evaluar productos financieros. La TAE incluye la capitalización y da el costo o rendimiento real.",
+        "fr": "Comparez toujours le taux annuel effectif (EAR), pas le taux nominal, lors de l'évaluation de produits financiers.",
+        "pt": "Compare sempre a taxa anual efetiva, nao a nominal, ao avaliar produtos financeiros.",
+        "de": "Vergleichen Sie immer den effektiven Jahreszins (EAR), nicht den Nominalzins, bei der Bewertung von Finanzprodukten.",
+        "it": "Confronta sempre il tasso annuale effettivo (EAR), non il tasso nominale, nella valutazione di prodotti finanziari.",
+    },
+    "science": {
+        "en": "Always work in SI units (meters, kilograms, seconds, Kelvin, moles, amperes) when applying formulas. Convert to other units only at the end. This eliminates an entire category of calculation errors and makes dimensional analysis straightforward.",
+        "es": "Trabaja siempre en unidades SI (metros, kilogramos, segundos, Kelvin, moles, amperios) al aplicar fórmulas. Convierte a otras unidades solo al final.",
+        "fr": "Travaillez toujours en unités SI (mètres, kilogrammes, secondes, Kelvin) en appliquant des formules.",
+        "pt": "Trabalhe sempre em unidades SI (metros, quilogramas, segundos, Kelvin) ao aplicar formulas.",
+        "de": "Arbeiten Sie immer in SI-Einheiten (Meter, Kilogramm, Sekunden, Kelvin) bei der Anwendung von Formeln.",
+        "it": "Lavora sempre in unità SI (metri, chilogrammi, secondi, Kelvin) quando applichi formule.",
+    },
+    "conversion": {
+        "en": "When converting between systems, write down the conversion factor and check that your result moves in the expected direction — converting kg to lb should give a larger number, converting lb to kg should give a smaller one.",
+        "es": "Al convertir entre sistemas, anota el factor de conversión y comprueba que el resultado se mueve en la dirección esperada.",
+        "fr": "Lors de la conversion entre systèmes, notez le facteur de conversion et vérifiez que le résultat se déplace dans la direction attendue.",
+        "pt": "Ao converter entre sistemas, anote o fator de conversao e verifique se o resultado se move na direcao esperada.",
+        "de": "Notieren Sie den Umrechnungsfaktor und prüfen Sie, ob das Ergebnis in die erwartete Richtung geht.",
+        "it": "Quando converti tra sistemi, annota il fattore di conversione e verifica che il risultato vada nella direzione prevista.",
+    },
+    "everyday": {
+        "en": "Round your final result to a practical number of decimal places — 2 or 3 is usually enough for daily calculations. More precision doesn't mean more accuracy if your inputs are rough estimates.",
+        "es": "Redondea el resultado final a un número práctico de decimales — 2 o 3 suelen ser suficientes para cálculos cotidianos.",
+        "fr": "Arrondissez le résultat final à un nombre pratique de décimales — 2 ou 3 suffisent généralement pour les calculs quotidiens.",
+        "pt": "Arredonde o resultado final para um numero pratico de casas decimais — 2 ou 3 geralmente bastam.",
+        "de": "Runden Sie das Endergebnis auf eine praktische Anzahl Dezimalstellen — 2 oder 3 reichen meistens.",
+        "it": "Arrotonda il risultato finale a un numero pratico di decimali — 2 o 3 di solito bastano per i calcoli quotidiani.",
+    },
+    "sports": {
+        "en": "Use consistent units throughout your calculation — mixing minutes with seconds, or miles with kilometers, is the fastest way to get a wrong answer. If your training log uses minutes per kilometer, keep every calculation in those terms.",
+        "es": "Usa unidades consistentes en todo tu cálculo — mezclar minutos con segundos o millas con kilómetros es la forma más rápida de obtener una respuesta incorrecta.",
+        "fr": "Utilisez des unités cohérentes dans tout votre calcul — mélanger minutes et secondes est le moyen le plus rapide d'obtenir une mauvaise réponse.",
+        "pt": "Use unidades consistentes em todo o calculo — misturar minutos com segundos e a forma mais rapida de errar.",
+        "de": "Verwenden Sie konsistente Einheiten im gesamten Rechengang.",
+        "it": "Usa unità coerenti in tutto il calcolo — mescolare minuti e secondi è il modo più veloce per ottenere una risposta sbagliata.",
+    },
+}
+
+CATEGORY_FAQ = {
+    "construction": {
+        "en": [
+            ("How much extra material should I order?", "Most professionals recommend ordering 5-10% more than calculated to cover cuts, waste, and measurement errors. For natural stone or ceramic tile, the waste factor can be 10-15% due to breakage and pattern matching."),
+            ("Can I use this calculator for both metric and imperial units?", "Yes. Select your preferred unit system in the input fields and the calculator converts automatically. All internal calculations are performed consistently to avoid mixed-unit errors."),
+        ],
+        "es": [
+            ("¿Cuánto material extra debo pedir?", "La mayoría de profesionales recomiendan pedir un 5-10% más de lo calculado para cubrir cortes, desperdicio y errores de medición. Para piedra natural o azulejo cerámico, el factor de desperdicio puede ser del 10-15%."),
+            ("¿Puedo usar esta calculadora con unidades métricas e imperiales?", "Sí. Selecciona tu sistema de unidades preferido en los campos de entrada y la calculadora convierte automáticamente."),
+        ],
+        "fr": [
+            ("Combien de matériel supplémentaire dois-je commander?", "La plupart des professionnels recommandent de commander 5-10% de plus que le calcul pour couper les pertes et les erreurs de mesure."),
+        ],
+        "pt": [
+            ("Quanto material extra devo pedir?", "A maioria dos profissionais recomenda pedir 5-10% mais do que o calculado para cobrir cortes e desperdicio."),
+        ],
+        "de": [
+            ("Wie viel zusätzliches Material sollte ich bestellen?", "Die meisten Profis empfehlen, 5-10% mehr zu bestellen als berechnet, um Schnittverluste und Messfehler abzudecken."),
+        ],
+        "it": [
+            ("Quanto materiale extra devo ordinare?", "La maggior parte dei professionisti raccomanda di ordinare il 5-10% in più rispetto al calcolato per coprire tagli e sprechi."),
+        ],
+    },
+    "math": {
+        "en": [
+            ("What's the difference between this formula and similar ones?", "Each formula in mathematics solves a specific problem. Mixing them up — like confusing area with perimeter, or circumference with diameter — gives wrong results. This calculator applies the exact formula for the problem at hand and shows every step so you can verify."),
+            ("Can I use this calculator for homework?", "Absolutely. The step-by-step breakdown shows not just the answer but how to arrive at it, making it a learning tool, not just an answer key. Understanding the process is more valuable than knowing the result."),
+        ],
+        "es": [
+            ("¿Cuál es la diferencia entre esta fórmula y otras similares?", "Cada fórmula en matemáticas resuelve un problema específico. Confundirlas — como área con perímetro — da resultados incorrectos. Esta calculadora aplica la fórmula exacta y muestra cada paso."),
+            ("¿Puedo usar esta calculadora para las tareas?", "Por supuesto. El desglose paso a paso muestra no solo la respuesta sino cómo llegar a ella, siendo una herramienta de aprendizaje."),
+        ],
+        "fr": [
+            ("Quelle est la différence entre cette formule et d'autres similaires?", "Chaque formule résout un problème spécifique. Les confondre donne des résultats incorrects."),
+        ],
+        "pt": [
+            ("Qual a diferenca entre esta formula e outras similares?", "Cada formula resolve um problema especifico. Confundir elas da resultados incorretos."),
+        ],
+        "de": [
+            ("Was ist der Unterschied zwischen dieser Formel und ahnlichen?", "Jede Formel lost ein spezifisches Problem. Verwechslungen fuhren zu falschen Ergebnissen."),
+        ],
+        "it": [
+            ("Qual e la differenza tra questa formula e altre simili?", "Ogni formula risolve un problema specifico. Confonderle porta a risultati errati."),
+        ],
+    },
+    "health": {
+        "en": [
+            ("Should I make health decisions based on this calculator?", "This tool provides estimates based on established medical formulas, but it is not a substitute for professional medical advice. Always discuss results with your healthcare provider, especially before making changes to diet, exercise, or medication."),
+            ("How often should I recalculate?", "For body metrics, recalculate whenever your measurements change significantly — typically every 2-4 weeks for weight, and monthly for other metrics. For one-time calculations like dosage, recalculate each time you need a result."),
+        ],
+        "es": [
+            ("¿Debo tomar decisiones de salud basándome en esta calculadora?", "Esta herramienta proporciona estimaciones basadas en fórmulas médicas establecidas, pero no sustituye el consejo médico profesional. Consulta siempre con tu médico."),
+            ("¿Con qué frecuencia debo recalcular?", "Para métricas corporales, recalcula cuando tus mediciones cambien significativamente — típicamente cada 2-4 semanas para peso."),
+        ],
+        "fr": [
+            ("Dois-je prendre des décisions de santé basées sur ce calculateur?", "Cet outil fournit des estimations basées sur des formules médicales établies, mais ne remplace pas un avis médical professionnel."),
+        ],
+        "pt": [
+            ("Devo tomar decisoes de saude baseadas nesta calculadora?", "Esta ferramenta fornece estimativas baseadas em formulas medicas estabelecidas, mas nao substitui conselho medico profissional."),
+        ],
+        "de": [
+            ("Soll ich Gesundheitsentscheidungen auf diesem Rechner basieren?", "Dieses Werkzeug liefert Schatzungen basierend auf etablierten medizinischen Formeln, ersetzt aber keinen ärztlichen Rat."),
+        ],
+        "it": [
+            ("Devo prendere decisioni di salute basate su questa calcolatrice?", "Questo strumento fornisce stime basate su formule mediche consolidate, ma non sostituisce il consiglio medico professionale."),
+        ],
+    },
+    "finance": {
+        "en": [
+            ("Does this calculator account for taxes and fees?", "The base calculation focuses on the core formula. For real-world financial decisions, you should factor in applicable taxes, fees, and inflation separately. The result gives you the mathematical baseline, and you can adjust from there."),
+            ("How accurate are financial projections?", "Financial projections assume constant rates, which rarely hold over long periods. Use results as guidance, not guarantees. Market conditions, interest rate changes, and inflation all affect actual outcomes."),
+        ],
+        "es": [
+            ("¿Esta calculadora tiene en cuenta impuestos y comisiones?", "El cálculo base se centra en la fórmula principal. Para decisiones financieras reales, debes considerar impuestos, comisiones e inflación aparte."),
+            ("¿Qué tan precisas son las proyecciones financieras?", "Las proyecciones asumen tasas constantes, que rara vez se mantienen. Usa los resultados como guía, no como garantía."),
+        ],
+        "fr": [
+            ("Ce calculateur tient-il compte des impôts et frais?", "Le calcul de base se concentre sur la formule principale. Pour les décisions financières réelles, tenez compte des impôts et frais séparément."),
+        ],
+        "pt": [
+            ("Esta calculadora considera impostos e taxas?", "O calculo base foca na formula principal. Para decisoes financeiras reais, considere impostos e taxas separadamente."),
+        ],
+        "de": [
+            ("Berucksichtigt dieser Rechner Steuern und Gebuhren?", "Die Basisberechnung konzentriert sich auf die Kernformel. Steuern und Gebuhren sollten separat berucksichtigt werden."),
+        ],
+        "it": [
+            ("Questa calcolatrice tiene conto di tasse e commissioni?", "Il calcolo di base si concentra sulla formula principale. Tasse e commissioni vanno considerate separatamente."),
+        ],
+    },
+    "science": {
+        "en": [
+            ("Why do I need to convert units before calculating?", "Most physics and chemistry formulas are defined in SI units (meters, kilograms, seconds). Using mixed units — like feet and pounds in the same formula — produces incorrect results. This calculator handles conversions, but knowing the principle helps you catch errors."),
+            ("How do I know if my answer makes sense?", "Check the magnitude: a person shouldn't weigh 500,000 kg, and a room temperature shouldn't be -200°C. If your result is orders of magnitude off from common sense, re-check your inputs and units."),
+        ],
+        "es": [
+            ("¿Por qué necesito convertir unidades antes de calcular?", "La mayoría de las fórmulas de física y química están definidas en unidades SI. Usar unidades mezcladas produce resultados incorrectos."),
+            ("¿Cómo sé si mi respuesta tiene sentido?", "Comprueba la magnitud: una persona no debería pesar 500.000 kg. Si el resultado está muy lejos del sentido común, revisa las entradas y unidades."),
+        ],
+        "fr": [
+            ("Pourquoi dois-je convertir les unités avant de calculer?", "La plupart des formules sont définies en unités SI. Utiliser des unités mélangées produit des résultats incorrects."),
+        ],
+        "pt": [
+            ("Por que preciso converter unidades antes de calcular?", "A maioria das formulas de fisica e quimica sao definidas em unidades SI. Usar unidades misturadas produz resultados incorretos."),
+        ],
+        "de": [
+            ("Warum muss ich Einheiten vor dem Rechnen umwandeln?", "Die meisten Physik- und Chemieformeln sind in SI-Einheiten definiert. Gemischte Einheiten liefern falsche Ergebnisse."),
+        ],
+        "it": [
+            ("Perche devo convertire le unita prima di calcolare?", "La maggior parte delle formule di fisica e chimica e definita in unita SI. Usare unita miste produce risultati errati."),
+        ],
+    },
+    "conversion": {
+        "en": [
+            ("Why do I get different results from different conversion tools?", "Some tools use slightly different conversion factors (e.g., 1 inch = 2.54 cm exactly vs. approximately). This calculator uses the most widely accepted, exact conversion factors for maximum precision."),
+        ],
+        "es": [
+            ("¿Por qué obtengo resultados diferentes en diferentes herramientas?", "Algunas herramientas usan factores de conversión ligeramente diferentes. Esta calculadora usa los factores de conversión más aceptados y exactos."),
+        ],
+        "fr": [
+            ("Pourquoi des résultats différents selon les outils?", "Certains outils utilisent des facteurs de conversion légèrement différents. Ce calculateur utilise les facteurs les plus acceptés et exacts."),
+        ],
+        "pt": [
+            ("Por que obtenho resultados diferentes em ferramentas diferentes?", "Algumas ferramentas usam fatores de conversao ligeiramente diferentes. Esta calculadora usa os fatores mais aceitos e exatos."),
+        ],
+        "de": [
+            ("Warum unterschiedliche Ergebnisse bei verschiedenen Werkzeugen?", "Einige Werkzeuge verwenden leicht unterschiedliche Umrechnungsfaktoren. Dieser Rechner nutzt die allgemein akzeptierten, exakten Faktoren."),
+        ],
+        "it": [
+            ("Perche ottengo risultati diversi da strumenti diversi?", "Alcuni strumenti usano fattori di conversione leggermente diversi. Questa calcolatrice usa i fattori piu accettati e esatti."),
+        ],
+    },
+    "everyday": {
+        "en": [
+            ("Can I trust these results for important decisions?", "The calculations are mathematically exact. However, real-world decisions often involve additional factors — use the result as one input among several when making important choices."),
+        ],
+        "es": [
+            ("¿Puedo confiar en estos resultados para decisiones importantes?", "Los cálculos son matemáticamente exactos. Sin embargo, las decisiones reales suelen involucrar factores adicionales."),
+        ],
+        "fr": [
+            ("Puis-je faire confiance à ces résultats pour des décisions importantes?", "Les calculs sont mathématiquement exacts. Cependant, les décisions réelles impliquent souvent des facteurs supplémentaires."),
+        ],
+        "pt": [
+            ("Posso confiar nestes resultados para decisoes importantes?", "Os calculos sao matematicamente exatos. Porem, decisoes reais frequentemente envolvem fatores adicionais."),
+        ],
+        "de": [
+            ("Kann ich diesen Ergebnissen fur wichtige Entscheidungen vertrauen?", "Die Berechnungen sind mathematisch exakt. Reale Entscheidungen beeinhalten jedoch oft weitere Faktoren."),
+        ],
+        "it": [
+            ("Posso fidarmi di questi risultati per decisioni importanti?", "I calcoli sono matematicamente esatti. Tuttavia, le decisioni reali spesso coinvolgono fattori aggiuntivi."),
+        ],
+    },
+    "sports": {
+        "en": [
+            ("How accurate are the prediction formulas?", "Prediction formulas like Riegel's for running pace or Brzycki's for one-rep max provide estimates based on population averages. Individual results vary by 5-15% depending on training level, genetics, and environmental conditions. Use them as guidance, not gospel."),
+            ("Should I recalculate as my fitness improves?", "Yes. Re-measure your baseline every 4-6 weeks and recalculate to keep your training zones and pace targets current. Stale data leads to under- or over-training."),
+        ],
+        "es": [
+            ("¿Qué tan precisas son las fórmulas de predicción?", "Las fórmulas de predicción proporcionan estimaciones basadas en promedios poblacionales. Los resultados individuales varían un 5-15% según el nivel de entrenamiento y otros factores."),
+            ("¿Debo recalcular a medida que mejora mi condición física?", "Sí. Re-mide tu base cada 4-6 semanas y recalcula para mantener tus zonas de entrenamiento actualizadas."),
+        ],
+        "fr": [
+            ("Quelle est la précision des formules de prédiction?", "Les formules de prédiction fournissent des estimations basées sur des moyennes de population. Les résultats individuels varient de 5-15%."),
+        ],
+        "pt": [
+            ("Quao precisas sao as formulas de previsao?", "As formulas de previsao fornecem estimativas baseadas em medias populacionais. Resultados individuais variam 5-15%."),
+        ],
+        "de": [
+            ("Wie genau sind die Vorhersageformeln?", "Vorhersageformeln liefern Schatzungen basierend auf Populationsdurchschnitten. Individuelle Ergebnisse variieren um 5-15%."),
+        ],
+        "it": [
+            ("Quanto sono precise le formule di previsione?", "Le formule di previsione forniscono stime basate su medie di popolazione. I risultati individuali variano del 5-15%."),
+        ],
+    },
+}
+
+INTRO_FORMULA_TEMPLATES = {
+    "en": "The formula behind this calculation is <strong>{f}</strong>. Understanding how the result is derived helps you verify the output and spot input errors before they cascade into bad decisions.",
+    "es": "La fórmula detrás de este cálculo es <strong>{f}</strong>. Comprender cómo se obtiene el resultado te ayuda a verificar la salida y detectar errores de entrada.",
+    "fr": "La formule derrière ce calcul est <strong>{f}</strong>. Comprendre comment le résultat est obtenu vous aide à vérifier la sortie et à détecter les erreurs d'entrée.",
+    "pt": "A formula por tras deste calculo e <strong>{f}</strong>. Compreender como o resultado e obtido ajuda a verificar a saida e detectar erros de entrada.",
+    "de": "Die Formel hinter dieser Berechnung lautet <strong>{f}</strong>. Zu verstehen, wie das Ergebnis ermittelt wird, hilft Ihnen, die Ausgabe zu überprüfen und Eingabefehler zu erkennen.",
+    "it": "La formula alla base di questo calcolo è <strong>{f}</strong>. Comprendere come si ottiene il risultato ti aiuta a verificare l'output e a rilevare errori di input.",
+}
+
+
+def build_article_v2(calc_id: str, facts: dict, lang: str, calc_name: str = "") -> str:
+    """Generate a rich, category-aware SEO article (~800-1200 words) from CALC_FACTS data."""
+    import json
+
+    d = facts.get(lang) or facts.get("en")
+    if not d:
+        return ""
+
+    calcs_data = json.load(open(os.path.join(os.path.dirname(__file__), '..', 'src', 'calculators', 'calculators.json'), 'r', encoding='utf-8'))['calculators']
+    calc_info = None
+    for c in calcs_data:
+        if str(c.get('id', '')) == str(calc_id):
+            calc_info = c
+            break
+
+    block_id = calc_info.get('block', 10) if calc_info else 10
+    if isinstance(block_id, str):
+        block_id_str = block_id
+    else:
+        block_id_str = str(block_id)
+
+    cat = BLOCK_CATEGORY.get(block_id if isinstance(block_id, int) else block_id, "everyday")
+    if isinstance(block_id, str) and block_id in BLOCK_CATEGORY:
+        cat = BLOCK_CATEGORY[block_id]
+
+    name = calc_name or d.get("name", "")
+
+    formula = d.get("f", "")
+    example_inputs = d.get("ei", "")
+    example_outputs = d.get("eo", "")
+    uses = d.get("u", [])
+
+    intros = CATEGORY_INTROS.get(cat, CATEGORY_INTROS.get("everyday", {}))
+    intro = intros.get(lang, intros.get("en", ["<p>This calculator provides instant, reliable results.</p>"]))
+    import random
+    random.seed(hash(calc_id) % 10000)
+    intro_text = random.choice(intro) if isinstance(intro, list) else intro
+
+    formula_intro = INTRO_FORMULA_TEMPLATES.get(lang, INTRO_FORMULA_TEMPLATES["en"]).format(f=formula)
+
+    uses_html = "".join(f"<li>{u}</li>" for u in uses) if uses else ""
+
+    mistakes = CATEGORY_MISTAKES.get(cat, CATEGORY_MISTAKES.get("everyday", {}))
+    mistake_items = mistakes.get(lang, mistakes.get("en", []))
+    mistakes_html = "".join(f"<li>{m}</li>" for m in mistake_items) if mistake_items else ""
+
+    tip = CATEGORY_SEO_TIPS.get(cat, CATEGORY_SEO_TIPS.get("everyday", {}))
+    tip_text = tip.get(lang, tip.get("en", ""))
+
+    cat_faq = CATEGORY_FAQ.get(cat, CATEGORY_FAQ.get("everyday", {}))
+    cat_faq_items = cat_faq.get(lang, cat_faq.get("en", []))
+
+    generic_faq = {
+        "en": [
+            (f"Is this calculator accurate?", f"Yes. The calculator uses the standard formula: {formula}. Results are mathematically exact; final accuracy depends on the precision of the data you enter."),
+            ("Can I use this calculator on my phone?", "Yes, the calculator is fully responsive and works on any device: computer, tablet, and mobile. No installation or registration required."),
+        ],
+        "es": [
+            (f"¿Es precisa esta calculadora?", f"Sí. La calculadora utiliza la fórmula estándar: {formula}. Los resultados son matemáticamente exactos; la precisión final depende de los datos que introduzcas."),
+            ("¿Puedo usar esta calculadora en el móvil?", "Sí, la calculadora es totalmente responsiva y funciona en cualquier dispositivo. No requiere instalación ni registro."),
+        ],
+        "fr": [
+            (f"Cette calculatrice est-elle précise?", f"Oui. La calculatrice utilise la formule standard : {formula}. Les résultats sont mathématiquement exacts."),
+            ("Puis-je utiliser cette calculatrice sur mobile?", "Oui, la calculatrice est entièrement responsive et fonctionne sur tout appareil. Aucune installation requise."),
+        ],
+        "pt": [
+            (f"Esta calculadora e precisa?", f"Sim. A calculadora usa a formula padrao: {formula}. Os resultados sao matematicamente exatos."),
+            ("Posso usar esta calculadora no celular?", "Sim, a calculadora e totalmente responsiva e funciona em qualquer dispositivo."),
+        ],
+        "de": [
+            (f"Ist dieser Rechner genau?", f"Ja. Der Rechner verwendet die Standardformel: {formula}. Die Ergebnisse sind mathematisch exakt."),
+            ("Kann ich diesen Rechner auf dem Handy nutzen?", "Ja, der Rechner ist vollständig responsiv und funktioniert auf jedem Gerät. Keine Installation erforderlich."),
+        ],
+        "it": [
+            (f"Questa calcolatrice è precisa?", f"Sì. La calcolatrice usa la formula standard: {formula}. I risultati sono matematicamente esatti."),
+            ("Posso usare questa calcolatrice sul telefono?", "Sì, la calcolatrice è completamente responsive e funziona su qualsiasi dispositivo. Nessuna installazione richiesta."),
+        ],
+    }
+
+    all_faq = list(cat_faq_items) + list(generic_faq.get(lang, generic_faq["en"]))
+    faq_html = ""
+    for q, a in all_faq:
+        faq_html += f'<div class="faq-item"><button class="faq-q" aria-expanded="false">{q}</button><div class="faq-a"><p>{a}</p></div></div>\n'
+
+    heading_templates = {
+        "construction": {"en": ("How the calculation works", "Step-by-step guide for your project", "Practical uses on the job site", "Common mistakes to avoid", "Pro tip for contractors and builders", "Frequently asked questions"),
+                        "es": ("Cómo funciona el cálculo", "Guía paso a paso para tu proyecto", "Usos prácticos en la obra", "Errores comunes a evitar", "Consejo profesional para contratistas", "Preguntas frecuentes"),
+                        "fr": ("Comment fonctionne le calcul", "Guide pas à pas pour votre projet", "Usages pratiques sur le chantier", "Erreurs courantes à éviter", "Conseil pro pour les entrepreneurs", "Questions fréquentes"),
+                        "pt": ("Como funciona o calculo", "Guia passo a passo para seu projeto", "Usos praticos na obra", "Erros comuns a evitar", "Dica profissional para contratados", "Perguntas frequentes"),
+                        "de": ("So funktioniert die Berechnung", "Schritt-fur-Schritt-Anleitung fur Ihr Projekt", "Praktische Anwendungen auf der Baustelle", "Haufige Fehler vermeiden", "Profitipp fur Bauunternehmer", "Haufig gestellte Fragen"),
+                        "it": ("Come funziona il calcolo", "Guida passo dopo passo per il tuo progetto", "Usi pratici in cantiere", "Errori comuni da evitare", "Consiglio professionale per appaltatori", "Domande frequenti")},
+        "math": {"en": ("The formula explained", "Worked example with step-by-step solution", "Real-world applications", "Common pitfalls to watch for", "Pro tip for students and professionals", "Frequently asked questions"),
+                 "es": ("La fórmula explicada", "Ejemplo resuelto paso a paso", "Aplicaciones en el mundo real", "Errores comunes a tener en cuenta", "Consejo para estudiantes y profesionales", "Preguntas frecuentes"),
+                 "fr": ("La formule expliquee", "Exemple resolu pas a pas", "Applications dans le monde reel", "Pieges courants a surveiller", "Conseil pour etudiants et professionnels", "Questions frequentes"),
+                 "pt": ("A formula explicada", "Exemplo resolvido passo a passo", "Aplicacoes no mundo real", "Armadilhas comuns a observar", "Dica para estudantes e profissionais", "Perguntas frequentes"),
+                 "de": ("Die Formel erklart", "Gerechnetes Beispiel Schritt fur Schritt", "Anwendungen in der Praxis", "Haufige Fallen beachten", "Tipp fur Studierende und Profis", "Haufig gestellte Fragen"),
+                 "it": ("La formula spiegata", "Esempio risolto passo dopo passo", "Applicazioni nel mondo reale", "Insidie comuni da monitorare", "Consiglio per studenti e professionisti", "Domande frequenti")},
+        "health": {"en": ("The medical formula explained", "How to take your measurements correctly", "What your results mean", "Common mistakes in self-measurement", "When to see a healthcare provider", "Frequently asked questions"),
+                   "es": ("La fórmula médica explicada", "Cómo tomar tus mediciones correctamente", "Qué significan tus resultados", "Errores comunes en la auto-medición", "Cuándo consultar a un profesional de salud", "Preguntas frecuentes"),
+                   "fr": ("La formule medicale expliquee", "Comment prendre vos mesures correctement", "Ce que vos resultats signifient", "Erreurs courantes d'auto-mesure", "Quand consulter un professionnel de sante", "Questions frequentes"),
+                   "pt": ("A formula medica explicada", "Como tirar suas medicoes corretamente", "O que seus resultados significam", "Erros comuns na auto-medicao", "Quando consultar um profissional de saude", "Perguntas frequentes"),
+                   "de": ("Die medizinische Formel erklart", "So nehmen Sie Ihre Messwerte richtig", "Was Ihre Ergebnisse bedeuten", "Haufige Fehler bei der Selbstmessung", "Wann Sie einen Arzt aufsuchen sollten", "Haufig gestellte Fragen"),
+                   "it": ("La formula medica spiegata", "Come prendere le misurazioni correttamente", "Cosa significano i tuoi risultati", "Errori comuni nell'automisurazione", "Quando consultare un professionista sanitario", "Domande frequenti")},
+        "finance": {"en": ("The financial formula explained", "Step-by-step calculation walkthrough", "Practical applications for your money", "Common mistakes that cost you", "Pro tip for smarter financial decisions", "Frequently asked questions"),
+                    "es": ("La fórmula financiera explicada", "Ejemplo de cálculo paso a paso", "Aplicaciones prácticas para tu dinero", "Errores comunes que te cuestan dinero", "Consejo para decisiones financieras inteligentes", "Preguntas frecuentes"),
+                    "fr": ("La formule financiere expliquee", "Exemple de calcul pas a pas", "Applications pratiques pour votre argent", "Erreurs courantes qui vous coutent cher", "Conseil pour de meilleures decisions financieres", "Questions frequentes"),
+                    "pt": ("A formula financeira explicada", "Exemplo de calculo passo a passo", "Aplicacoes praticas para seu dinheiro", "Erros comuns que custam caro", "Dica para decisoes financeiras inteligentes", "Perguntas frequentes"),
+                    "de": ("Die finanzmathematische Formel erklart", "Schritt-fur-Schritt-Rechenbeispiel", "Praktische Anwendungen fur Ihr Geld", "Haufige Fehler die Geld kosten", "Profitipp fur schlauere Finanzentscheidungen", "Haufig gestellte Fragen"),
+                    "it": ("La formula finanziaria spiegata", "Esempio di calcolo passo dopo passo", "Applicazioni pratiche per i tuoi soldi", "Errori comuni che costano caro", "Consiglio per decisioni finanziarie piu intelligenti", "Domande frequenti")},
+        "science": {"en": ("The physics formula explained", "Step-by-step calculation with units", "Laboratory and real-world applications", "Unit conversion mistakes to avoid", "Pro tip for accurate measurements", "Frequently asked questions"),
+                    "es": ("La fórmula de física explicada", "Cálculo paso a paso con unidades", "Aplicaciones en laboratorio y el mundo real", "Errores de conversión de unidades a evitar", "Consejo para mediciones precisas", "Preguntas frecuentes"),
+                    "fr": ("La formule de physique expliquee", "Calcul pas a pas avec unites", "Applications en laboratoire et dans le monde reel", "Erreurs de conversion d'unites a eviter", "Conseil pour des mesures precises", "Questions frequentes"),
+                    "pt": ("A formula de fisica explicada", "Calculo passo a passo com unidades", "Aplicacoes em laboratorio e no mundo real", "Erros de conversao de unidades a evitar", "Dica para medicoes precisas", "Perguntas frequentes"),
+                    "de": ("Die physikalische Formel erklart", "Schritt-fur-Schritt-Berechnung mit Einheiten", "Labor- und Praxisanwendungen", "Einheitenumrechnungsfehler vermeiden", "Tipp fur prazise Messungen", "Haufig gestellte Fragen"),
+                    "it": ("La formula di fisica spiegata", "Calcolo passo dopo passo con unita", "Applicazioni in laboratorio e nel mondo reale", "Errori di conversione di unita da evitare", "Consiglio per misurazioni precise", "Domande frequenti")},
+        "conversion": {"en": ("How the conversion works", "Step-by-step conversion example", "When you need this conversion", "Common conversion mistakes", "Pro tip for accurate conversions", "Frequently asked questions"),
+                      "es": ("Cómo funciona la conversión", "Ejemplo de conversión paso a paso", "Cuándo necesitas esta conversión", "Errores de conversión comunes", "Consejo para conversiones precisas", "Preguntas frecuentes"),
+                      "fr": ("Comment fonctionne la conversion", "Exemple de conversion pas a pas", "Quand vous avez besoin de cette conversion", "Erreurs de conversion courantes", "Conseil pour des conversions precises", "Questions frequentes"),
+                      "pt": ("Como funciona a conversao", "Exemplo de conversao passo a passo", "Quando voce precisa desta conversao", "Erros de conversao comuns", "Dica para conversoes precisas", "Perguntas frequentes"),
+                      "de": ("So funktioniert die Umrechnung", "Schritt-fur-Schritt-Umrechnungsbeispiel", "Wann Sie diese Umrechnung brauchen", "Haufige Umrechnungsfehler", "Tipp fur genaue Umrechnungen", "Haufig gestellte Fragen"),
+                      "it": ("Come funziona la conversione", "Esempio di conversione passo dopo passo", "Quando hai bisogno di questa conversione", "Errori di conversione comuni", "Consiglio per conversioni precise", "Domande frequenti")},
+        "everyday": {"en": ("How this calculation works", "Step-by-step walkthrough", "When this calculator comes in handy", "Common mistakes to avoid", "Pro tip", "Frequently asked questions"),
+                     "es": ("Cómo funciona este cálculo", "Ejemplo paso a paso", "Cuándo es útil esta calculadora", "Errores comunes a evitar", "Consejo", "Preguntas frecuentes"),
+                     "fr": ("Comment fonctionne ce calcul", "Exemple pas a pas", "Quand cette calculatrice est utile", "Erreurs courantes a eviter", "Conseil", "Questions frequentes"),
+                     "pt": ("Como funciona este calculo", "Exemplo passo a passo", "Quando esta calculadora e util", "Erros comuns a evitar", "Dica", "Perguntas frequentes"),
+                     "de": ("Wie diese Berechnung funktioniert", "Schritt-fur-Schritt-Anleitung", "Wann dieser Rechner nutzlich ist", "Haufige Fehler vermeiden", "Tipp", "Haufig gestellte Fragen"),
+                     "it": ("Come funziona questo calcolo", "Esempio passo dopo passo", "Quando questa calcolatrice e utile", "Errori comuni da evitare", "Consiglio", "Domande frequenti")},
+        "sports": {"en": ("The formula behind your results", "Step-by-step calculation walkthrough", "Training and performance applications", "Common mistakes in sports calculations", "Pro tip for athletes and coaches", "Frequently asked questions"),
+                   "es": ("La fórmula detrás de tus resultados", "Ejemplo de cálculo paso a paso", "Aplicaciones en entrenamiento y rendimiento", "Errores comunes en cálculos deportivos", "Consejo para atletas y entrenadores", "Preguntas frecuentes"),
+                   "fr": ("La formule derriere vos resultats", "Exemple de calcul pas a pas", "Applications en entrainement et performance", "Erreurs courantes dans les calculs sportifs", "Conseil pour athletes et entraineurs", "Questions frequentes"),
+                   "pt": ("A formula por tras dos seus resultados", "Exemplo de calculo passo a passo", "Aplicacoes em treinamento e desempenho", "Erros comuns em calculos esportivos", "Dica para atletas e treinadores", "Perguntas frequentes"),
+                   "de": ("Die Formel hinter Ihren Ergebnissen", "Schritt-fur-Schritt-Rechenbeispiel", "Trainings- und Leistungsanwendungen", "Haufige Fehler in Sportberechnungen", "Tipp fur Athleten und Trainer", "Haufig gestellte Fragen"),
+                   "it": ("La formula alla base dei tuoi risultati", "Esempio di calcolo passo dopo passo", "Applicazioni nell'allenamento e nelle prestazioni", "Errori comuni nei calcoli sportivi", "Consiglio per atleti e allenatori", "Domande frequenti")},
+    }
+
+    h = heading_templates.get(cat, heading_templates.get("everyday", heading_templates["everyday"]))
+    headings = h.get(lang, heading_templates["everyday"]["en"])
+
+    article = f'<section class="long-content">\n'
+    article += f"<h2>{headings[0]}</h2>\n"
+    article += f"{intro_text}\n"
+    article += f"<p>{formula_intro}</p>\n"
+    article += f"\n<h2>{headings[1]}</h2>\n"
+    article += f"<p>Follow these steps to get the correct result:</p>\n"
+    article += f"<ol>\n"
+    article += f"<li><strong>Enter your data:</strong> {example_inputs}</li>\n"
+    article += f"<li><strong>The calculator applies the formula</strong> and shows the result instantly.</li>\n"
+    article += f"<li><strong>Result:</strong> {example_outputs}</li>\n"
+    article += f"<li><strong>Double-check your inputs</strong> to make sure the units match and the values are realistic for your situation.</li>\n"
+    article += f"</ol>\n"
+
+    article += f"\n<h2>{headings[2]}</h2>\n"
+    if uses:
+        article += f"<p>People use this calculator for:</p>\n<ul>\n{uses_html}\n</ul>\n"
+    else:
+        article += f"<p>This calculator is used across education, professional work, and everyday problem-solving.</p>\n"
+
+    if mistakes_html:
+        article += f"\n<h2>{headings[3]}</h2>\n<ul>\n{mistakes_html}\n</ul>\n"
+
+    if tip_text:
+        article += f'\n<h2>{headings[4]}</h2>\n<p>{tip_text}</p>\n'
+
+    article += f"\n<h2>{headings[5]}</h2>\n"
+    article += f'<div class="faq-list">\n{faq_html}</div>\n'
+
+    article += f"</section>"
+    return article

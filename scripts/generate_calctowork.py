@@ -156,7 +156,7 @@ GAUGE_CONFIGS = {
     "801":                 {"min": 0,  "max": 200, "label": "Value", "unit": "kg"},
 }
 
-GA4_ID = os.environ.get("GA4_MEASUREMENT_ID", "G-XXXXXXXXXX")
+GA4_ID = os.environ.get("GA4_MEASUREMENT_ID", "G-FBFV87HD35")
 
 GA4_HEAD = f"""<script async src="https://www.googletagmanager.com/gtag/js?id={GA4_ID}"></script>
 <script>

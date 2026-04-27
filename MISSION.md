@@ -111,11 +111,17 @@
 
 ---
 
-### Phase 2: Expand to 500 calculators (next session)
+### Phase 2: COMPLETE (2026-04-25)
+- 188 calculators across 17 categories
+- Long-form SEO articles (es+en) for top 20 calculators — ~1,500 words per page
+- Block-aware intro templates fixed (no more "construction professionals" for math/health)
+- 1,236 base pages, 19,794 total URLs, deployed to https://calcto.work
+
+### Phase 3: Expand to 500 calculators (next session)
+- Add long-form content for remaining 168 calculators (50 words → 500 words each)
 - Add remaining math subcategories (algebra, trigonometry, sequences)
 - Add full finance suite (investment, retirement, equity)
-- Add conversion calculators (length, weight, temperature, speed)
-- Add sports calculators (running pace, calorie burn, VO2 max)
+- Add biology, chemistry, food calculators
 
 ### Phase 3: Expand to 1,000 calculators
 - Add biology, chemistry, ecology calculators
@@ -200,7 +206,9 @@
    - 500 propina, 501 calculadora-edad, 502 diferencia-fechas
 3. Added all 20 entries to `scripts/tools_config.py` TOOLS list (with 6-lang slugs for each)
 
-### ❌ NOT YET DONE — start here next session
+### ✅ ALL DONE — Phase 1 complete (2026-04-24)
+
+### Phase 2 — start here next session
 
 **STEP 1 (do first): Add i18n entries to all 6 language files**
 
