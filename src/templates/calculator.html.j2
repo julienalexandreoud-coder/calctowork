@@ -104,6 +104,27 @@
   </script>
   {% endif %}
 
+  {% if how_to_steps %}
+  <!-- Schema: HowTo -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": {{ calc_i18n.name | tojson }},
+    "description": {{ calc_i18n.seo_description | tojson }},
+    "step": [
+      {% for step in how_to_steps %}
+      {
+        "@type": "HowToStep",
+        "position": {{ loop.index }},
+        "text": {{ step | tojson }}
+      }{% if not loop.last %},{% endif %}
+      {% endfor %}
+    ]
+  }
+  </script>
+  {% endif %}
+
   <meta name="google-site-verification" content="IODnwsJUNWyjMxqiXR1jY6lM-4IR7r-n0rgZ6OGMdLg">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="preconnect" href="https://pagead2.googlesyndication.com">
@@ -160,6 +181,12 @@
     <h1>{% if seo_title_override is defined and seo_title_override %}{{ seo_title_override }}{% else %}{{ calc_i18n.name }}{% endif %}</h1>
     <p>{{ calc_i18n.description }}</p>
   </div>
+
+  <!-- Favorite button -->
+  <button id="fav-btn" class="fav-btn" data-calc-id="{{ calc.id }}" data-calc-name="{{ calc_i18n.name }}" title="Save to favorites">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+  </button>
+  <script src="/js/favorites.js" defer></script>
 
   <!-- Intro paragraph (SEO) -->
   <div class="calc-intro">{{ intro_text | safe }}</div>

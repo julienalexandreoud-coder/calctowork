@@ -1219,6 +1219,21 @@ def extract_toc(html_content: str) -> list:
     return items
 
 
+def extract_faq_from_html(html_content: str) -> list:
+    """Extract FAQ question-answer pairs from article HTML for JSON-LD structured data."""
+    if not html_content:
+        return []
+    faq_items = []
+    pattern = r'<button[^>]*class="faq-q"[^>]*>(.*?)</button>\s*<div[^>]*class="faq-a"[^>]*>\s*<p>(.*?)</p>'
+    matches = re.findall(pattern, html_content, re.DOTALL)
+    for q_html, a_html in matches:
+        q_text = re.sub(r'<[^>]+>', '', q_html).strip()
+        a_text = re.sub(r'<[^>]+>', '', a_html).strip()
+        if q_text and a_text:
+            faq_items.append({"q": q_text, "a": a_text})
+    return faq_items
+
+
 def inject_heading_ids(html_content: str) -> str:
     if not html_content:
         return html_content
@@ -1485,15 +1500,17 @@ def generate() -> None:
             intro_text        = generate_intro(cid, lang, ci18n["name"], ci18n["description"], block_slug=calc["block_slug"])
             if has_long_content:
                 how_to_steps = []
-                faq = []
+                block_faq = []
                 formula_explained = ""
             else:
                 how_to_steps      = generate_how_to(calc["block_slug"], lang)
-                faq               = generate_faq(calc["block_slug"], lang)
+                block_faq         = generate_faq(calc["block_slug"], lang)
                 formula_explained = generate_formula_explained(calc["block_slug"], lang)
             long_content_raw = inject_cross_links(long_content_raw, cid, lang, calc_url_by_id, calcs_i18n)
             long_content = inject_heading_ids(long_content_raw) if long_content_raw else ""
             toc_items = extract_toc(long_content_raw) if long_content_raw else []
+            article_faq = extract_faq_from_html(long_content) if long_content else []
+            faq = article_faq if article_faq else block_faq
 
             # ── Grouped inputs ───────────────────────────────────────────────
             input_items = list(ci18n["inputs"].items())
