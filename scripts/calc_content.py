@@ -1693,7 +1693,54 @@ def generate_variant_intro(title: str, desc: str, lang: str, quick_answer: str =
     return base
 
 
-def generate_how_to(block_slug: str, lang: str) -> list:
+CALC_SPECIFIC_HOWTO = {
+    "001": {
+        "en": ["Measure the length, width, and thickness of your slab, footing, or element in meters.", "Enter each dimension in the corresponding input field.", "Select the concrete mix ratio (default is 250 kg/m³ for standard concrete).", "Add wastage percentage (5–10% recommended for on-site spills and corrections).", "Click Calculate to get the exact volume of concrete, number of cement bags, and quantities of sand and gravel."],
+        "es": ["Mida el largo, ancho y espesor de su losa, zapata o elemento en metros.", "Introduzca cada dimensión en el campo correspondiente.", "Seleccione la dosificación del hormigón (por defecto 250 kg/m³ para hormigón estándar).", "Añada el porcentaje de desperdicio (se recomienda 5–10% para derrames y correcciones en obra).", "Pulse Calcular para obtener el volumen exacto, sacos de cemento y cantidades de arena y grava."],
+        "fr": ["Mesurez la longueur, la largeur et l'épaisseur de votre dalle ou élément en mètres.", "Saisissez chaque dimension dans le champ correspondant.", "Sélectionnez le dosage du béton (par défaut 250 kg/m³ pour du béton standard).", "Ajoutez le pourcentage de perte (5–10 % recommandé pour les pertes sur chantier).", "Cliquez sur Calculer pour obtenir le volume exact, les sacs de ciment et les quantités de sable et gravier."],
+        "pt": ["Meça o comprimento, largura e espessura da sua laje, sapata ou elemento em metros.", "Insira cada dimensão no campo correspondente.", "Selecione o traço do concreto (padrão 250 kg/m³ para concreto simples).", "Adicione a porcentagem de perda (5–10% recomendado para derramamentos e correções).", "Clique em Calcular para obter o volume exato, sacos de cimento e quantidades de areia e brita."],
+        "de": ["Messen Sie Länge, Breite und Dicke Ihrer Bodenplatte oder Ihres Elements in Metern.", "Geben Sie jede Abmessung in das entsprechende Eingabefeld ein.", "Wählen Sie das Betonmischungsverhältnis (Standard: 250 kg/m³ für Standardbeton).", "Fügen Sie den Verschnittfaktor hinzu (5–10 % empfohlen für Baustellenverluste).", "Klicken Sie auf Berechnen, um das genaue Volumen, die Zementsäcke und die Mengen an Sand und Kies zu erhalten."],
+        "it": ["Misurare la lunghezza, la larghezza e lo spessore della soletta o dell'elemento in metri.", "Inserire ogni dimensione nel campo corrispondente.", "Selezionare il dosaggio del calcestruzzo (predefinito 250 kg/m³ per calcestruzzo standard).", "Aggiungere la percentuale di scarto (5–10% consigliato per perdite in cantiere).", "Cliccare su Calcolare per ottenere il volume esatto, i sacchi di cemento e le quantità di sabbia e ghiaia."],
+    },
+    "936": {
+        "en": ["Enter the total loan amount (principal) you want to borrow.", "Input the annual interest rate offered by your lender.", "Select the mortgage term in years (typically 15, 20, or 30 years).", "Optionally add property tax and insurance estimates.", "Click Calculate to see your monthly payment, total interest, and full amortization schedule."],
+        "es": ["Introduzca el importe total del préstamo (capital) que desea solicitar.", "Ingrese el tipo de interés anual que le ofrece su entidad financiera.", "Seleccione el plazo de la hipoteca en años (típicamente 15, 20 o 30 años).", "Opcionalmente, añada estimaciones de impuestos y seguro.", "Pulse Calcular para ver su cuota mensual, intereses totales y cuadro de amortización completo."],
+        "fr": ["Entrez le montant total du prêt (capital) que vous souhaitez emprunter.", "Saisissez le taux d'intérêt annuel proposé par votre prêteur.", "Sélectionnez la durée de l'hypothèque en années (généralement 15, 20 ou 30 ans).", "Ajoutez éventuellement les estimations de taxes foncières et d'assurance.", "Cliquez sur Calculer pour voir votre mensualité, les intérêts totaux et le tableau d'amortissement."],
+        "pt": ["Insira o valor total do empréstimo (principal) que deseja solicitar.", "Digite a taxa de juros anual oferecida pelo seu credor.", "Selecione o prazo da hipoteca em anos (tipicamente 15, 20 ou 30 anos).", "Opcionalmente, adicione estimativas de impostos e seguro.", "Clique em Calcular para ver sua parcela mensal, juros totais e tabela de amortização completa."],
+        "de": ["Geben Sie den Gesamtdarlehensbetrag (Kapital) ein, den Sie aufnehmen möchten.", "Geben Sie den jährlichen Zinssatz Ihres Kreditgebers ein.", "Wählen Sie die Hypothekenlaufzeit in Jahren (typisch: 15, 20 oder 30 Jahre).", "Fügen Sie optional Grundsteuer- und VersicherungsSchätzwerte hinzu.", "Klicken Sie auf Berechnen, um Ihre Monatsrate, die Gesamtzinsen und den Tilgungsplan zu sehen."],
+        "it": ["Inserire l'importo totale del prestito (capitale) che si desidera richiedere.", "Inserire il tasso di interesse annuale offerto dal prestatore.", "Selezionare la durata del mutuo in anni (tipicamente 15, 20 o 30 anni).", "Aggiungere facoltativamente le stime delle tasse e dell'assicurazione.", "Cliccare su Calcolare per vedere la rata mensile, gli interessi totali e il piano di ammortamento."],
+    },
+    "426": {
+        "en": ["Enter your weight in kilograms.", "Enter your height in centimeters.", "Enter your age in years.", "Select your biological gender.", "Choose your activity level: Sedentary (little exercise), Lightly active (1-3 days/week), Moderately active (3-5 days), Very active (6-7 days), or Extra active (physical job).", "Click Calculate to see your TDEE — the total calories you burn per day."],
+        "es": ["Introduzca su peso en kilogramos.", "Ingrese su altura en centímetros.", "Introduzca su edad en años.", "Seleccione su género biológico.", "Elija su nivel de actividad: Sedentario, Ligero (1-3 días/semana), Moderado (3-5 días), Activo (6-7 días) o Muy activo (trabajo físico).", "Pulse Calcular para ver su TDEE — las calorías totales que quema al día."],
+        "fr": ["Entrez votre poids en kilogrammes.", "Saisissez votre taille en centimètres.", "Entrez votre âge en années.", "Sélectionnez votre sexe biologique.", "Choisissez votre niveau d'activité : Sédentaire, Légèrement actif (1-3 jours/semaine), Actif (3-5 jours), Très actif (6-7 jours) ou Extrêmement actif (travail physique).", "Cliquez sur Calculer pour voir votre TDEE — les calories totales que vous brûlez par jour."],
+        "pt": ["Insira seu peso em quilogramas.", "Digite sua altura em centímetros.", "Insira sua idade em anos.", "Selecione seu gênero biológico.", "Escolha seu nível de atividade: Sedentário, Levemente ativo (1-3 dias/semana), Moderado (3-5 dias), Muito ativo (6-7 dias) ou Extremamente ativo (trabalho físico).", "Clique em Calcular para ver seu TDEE — as calorias totais que você queima por dia."],
+        "de": ["Geben Sie Ihr Gewicht in Kilogramm ein.", "Geben Sie Ihre Größe in Zentimetern ein.", "Geben Sie Ihr Alter in Jahren ein.", "Wählen Sie Ihr biologisches Geschlecht.", "Wählen Sie Ihr Aktivitätsniveau: Sitzend, Leicht aktiv (1-3 Tage/Woche), Mäßig aktiv (3-5 Tage), Sehr aktiv (6-7 Tage) oder Extrem aktiv (körperlicher Beruf).", "Klicken Sie auf Berechnen, um Ihren TDEE zu sehen — die Gesamtzahl der täglich verbrannten Kalorien."],
+        "it": ["Inserire il proprio peso in chilogrammi.", "Inserire la propria altezza in centimetri.", "Inserire la propria età in anni.", "Selezionare il proprio sesso biologico.", "Scegliere il livello di attività: Sedentario, Leggermente attivo (1-3 giorni/settimana), Moderato (3-5 giorni), Molto attivo (6-7 giorni) o Estremamente attivo (lavoro fisico).", "Cliccare su Calcolare per vedere il TDEE — le calorie totali bruciate al giorno."],
+    },
+    "928": {
+        "en": ["Enter your weight in kilograms.", "Enter your height in centimeters.", "Enter your age and select your gender.", "Enter your average weekly exercise hours.", "Choose your goal: Fat loss, Maintenance, Muscle gain, or Endurance.", "Click Calculate to get your personalized macro breakdown (protein, carbs, fat in grams)."],
+        "es": ["Introduzca su peso en kilogramos.", "Ingrese su altura en centímetros.", "Introduzca su edad y seleccione su género.", "Ingrese sus horas de ejercicio semanales promedio.", "Elija su objetivo: Perder grasa, Mantenimiento, Ganar músculo o Resistencia.", "Pulse Calcular para obtener su desglose personalizado de macros (proteínas, carbohidratos, grasas en gramos)."],
+        "fr": ["Entrez votre poids en kilogrammes.", "Saisissez votre taille en centimètres.", "Entrez votre âge et sélectionnez votre sexe.", "Entrez vos heures d'exercice hebdomadaires moyennes.", "Choisissez votre objectif : Perte de gras, Maintien, Prise musculaire ou Endurance.", "Cliquez sur Calculer pour obtenir votre répartition personnalisée des macros (protéines, glucides, lipides en grammes)."],
+        "pt": ["Insira seu peso em quilogramas.", "Digite sua altura em centímetros.", "Insira sua idade e selecione seu gênero.", "Insira suas horas de exercício semanais médias.", "Escolha seu objetivo: Perda de gordura, Manutenção, Ganho muscular ou Resistência.", "Clique em Calcular para obter sua distribuição personalizada de macros (proteínas, carboidratos, gorduras em gramas)."],
+        "de": ["Geben Sie Ihr Gewicht in Kilogramm ein.", "Geben Sie Ihre Größe in Zentimetern ein.", "Geben Sie Ihr Alter ein und wählen Sie Ihr Geschlecht.", "Geben Sie Ihre durchschnittlichen wöchentlichen Trainingsstunden ein.", "Wählen Sie Ihr Ziel: Fettabbau, Erhaltung, Muskelaufbau oder Ausdauer.", "Klicken Sie auf Berechnen, um Ihre persönliche Makro-Verteilung zu erhalten (Protein, Kohlenhydrate, Fett in Gramm)."],
+        "it": ["Inserire il proprio peso in chilogrammi.", "Inserire la propria altezza in centimetri.", "Inserire la propria età e selezionare il sesso.", "Inserire le ore medie di allenamento settimanali.", "Scegliere l'obiettivo: Perdita di grasso, Mantenimento, Massa muscolare o Resistenza.", "Cliccare su Calcolare per ottenere la ripartizione personalizzata dei macro (proteine, carboidrati, grassi in grammi)."],
+    },
+    "938": {
+        "en": ["Enter your initial deposit (principal amount).", "Enter the annual interest rate as a percentage.", "Select the compounding frequency: monthly, quarterly, or annually.", "Enter the number of years you plan to save.", "Optionally add any monthly or annual contributions.", "Click Calculate to see your total savings, interest earned, and growth chart over time."],
+        "es": ["Introduzca su depósito inicial (capital).", "Ingrese el tipo de interés anual en porcentaje.", "Seleccione la frecuencia de capitalización: mensual, trimestral o anual.", "Introduzca el número de años que planea ahorrar.", "Opcionalmente, añada aportaciones mensuales o anuales.", "Pulse Calcular para ver sus ahorros totales, intereses ganados y gráfico de crecimiento."],
+        "fr": ["Entrez votre dépôt initial (capital).", "Saisissez le taux d'intérêt annuel en pourcentage.", "Sélectionnez la fréquence de capitalisation : mensuelle, trimestrielle ou annuelle.", "Entrez le nombre d'années de placement.", "Ajoutez éventuellement des versements mensuels ou annuels.", "Cliquez sur Calculer pour voir vos économies totales, les intérêts gagnés et le graphique de croissance."],
+        "pt": ["Insira seu depósito inicial (capital).", "Digite a taxa de juros anual em porcentagem.", "Selecione a frequência de capitalização: mensal, trimestral ou anual.", "Insira o número de anos que planeja poupar.", "Opcionalmente, adicione contribuições mensais ou anuais.", "Clique em Calcular para ver suas economias totais, juros ganhos e gráfico de crescimento."],
+        "de": ["Geben Sie Ihre Ersteinlage (Kapital) ein.", "Geben Sie den jährlichen Zinssatz in Prozent ein.", "Wählen Sie die Zinseszinsfrequenz: monatlich, quartalsweise oder jährlich.", "Geben Sie die Anzahl der Jahre ein, die Sie sparen möchten.", "Fügen Sie optional monatliche oder jährliche Einzahlungen hinzu.", "Klicken Sie auf Berechnen, um Ihre Gesamttersparnisse, die Zinserträge und das WachstumDiagramm zu sehen."],
+        "it": ["Inserire il deposito iniziale (capitale).", "Inserire il tasso di interesse annuale in percentuale.", "Selezionare la frequenza di capitalizzazione: mensile, trimestrale o annuale.", "Inserire il numero di anni di risparmio pianificati.", "Aggiungere facoltativamente contributi mensili o annuali.", "Cliccare su Calcolare per vedere i risparmi totali, gli interessi guadagnati e il grafico di crescita."],
+    },
+}
+
+
+def generate_how_to(calc_id: str, block_slug: str, lang: str) -> list:
+    calc_steps = CALC_SPECIFIC_HOWTO.get(calc_id, {})
+    if calc_steps:
+        return calc_steps.get(lang, calc_steps.get("en", []))
     block_steps = HOWTO.get(block_slug, {})
     return block_steps.get(lang, block_steps.get("en", []))
 
@@ -1854,7 +1901,174 @@ def generate_formula_explained(block_slug: str, lang: str) -> str:
     return block.get(lang, block.get("en", ""))
 
 
-def generate_faq(block_slug: str, lang: str) -> list:
+CALC_SPECIFIC_FAQS = {
+    "001": {
+        "en": [
+            {"q": "How many cement bags do I need for 1 m³ of mass concrete?", "a": "For standard mass concrete at 250 kg/m³, you need approximately 5 bags of 50 kg each per cubic meter. This calculator factors in the exact mix design and wastage percentage you specify."},
+            {"q": "What wastage percentage should I use for concrete?", "a": "A wastage of 5-10% is typical. Use 5% for large pours with professional crews, and 8-10% for smaller residential projects or complex formwork where spills are more likely."},
+            {"q": "How do I calculate concrete volume for a slab?", "a": "Multiply length × width × thickness (all in meters). For example, a 6m × 4m slab that is 0.15m thick requires 6 × 4 × 0.15 = 3.6 m³ of concrete."},
+        ],
+        "es": [
+            {"q": "¿Cuántos sacos de cemento necesito para 1 m³ de hormigón en masa?", "a": "Para hormigón estándar a 250 kg/m³, necesitas aproximadamente 5 sacos de 50 kg por metro cúbico. Esta calculadora incluye la dosificación exacta y el porcentaje de desperdicio."},
+            {"q": "¿Qué porcentaje de desperdicio debo usar para el hormigón?", "a": "Un desperdicio del 5-10% es lo habitual. Usa 5% para grandes vaciados con cuadrillas profesionales y 8-10% para proyectos residenciales pequeños o encofrados complejos."},
+            {"q": "¿Cómo calculo el volumen de hormigón para una losa?", "a": "Multiplica largo × ancho × espesor (todo en metros). Por ejemplo, una losa de 6m × 4m y 0,15m de espesor requiere 6 × 4 × 0,15 = 3,6 m³ de hormigón."},
+        ],
+        "fr": [
+            {"q": "Combien de sacs de ciment faut-il pour 1 m³ de béton de masse ?", "a": "Pour du béton standard à 250 kg/m³, il faut environ 5 sacs de 50 kg par mètre cube. Ce calculateur tient compte du dosage exact et du pourcentage de perte."},
+            {"q": "Quel pourcentage de perte dois-je utiliser pour le béton ?", "a": "Une perte de 5 à 10 % est courante. Utilisez 5 % pour les grands coulés avec des équipes professionnelles et 8 à 10 % pour les petits projets résidentiels."},
+            {"q": "Comment calculer le volume de béton pour une dalle ?", "a": "Multipliez longueur × largeur × épaisseur (tout en mètres). Par exemple, une dalle de 6 m × 4 m et 0,15 m d'épaisseur nécessite 6 × 4 × 0,15 = 3,6 m³ de béton."},
+        ],
+        "pt": [
+            {"q": "Quantos sacos de cimento preciso para 1 m³ de concreto simples?", "a": "Para concreto padrão a 250 kg/m³, você precisa de aproximadamente 5 sacos de 50 kg por metro cúbico. Esta calculadora inclui o traço exato e a porcentagem de perda."},
+            {"q": "Que porcentagem de perda devo usar para concreto?", "a": "Uma perda de 5-10% é típica. Use 5% para grandes concretagens com equipes profissional e 8-10% para projetos residenciais menores."},
+            {"q": "Como calcular o volume de concreto para uma laje?", "a": "Multiplique comprimento × largura × espessura (tudo em metros). Por exemplo, uma laje de 6m × 4m com 0,15m de espessura precisa de 6 × 4 × 0,15 = 3,6 m³ de concreto."},
+        ],
+        "de": [
+            {"q": "Wie viele Zementsäcke brauche ich für 1 m³ Massenbeton?", "a": "Für Standard-Massenbeton bei 250 kg/m³ benötigen Sie etwa 5 Säcke à 50 kg pro Kubikmeter. Dieser Rechner berücksichtigt die genaue Mischung und den Verschnitt."},
+            {"q": "Welchen Verschnittfaktor soll ich für Beton verwenden?", "a": "Ein Verschnitt von 5-10 % ist üblich. Verwenden Sie 5 % für große Betonierungsarbeiten mit professionellen Teams und 8-10 % für kleinere Wohnprojekte."},
+            {"q": "Wie berechne ich das Betonvolumen für eine Bodenplatte?", "a": "Multiplizieren Sie Länge × Breite × Dicke (alles in Metern). Eine 6 m × 4 m × 0,15 m dicke Platte erfordert 6 × 4 × 0,15 = 3,6 m³ Beton."},
+        ],
+        "it": [
+            {"q": "Quanti sacchi di cemento servono per 1 m³ di calcestruzzo in massa?", "a": "Per calcestruzzo standard a 250 kg/m³, servono circa 5 sacchi da 50 kg per metro cubo. Questa calcolatrice considera il dosaggio esatto e la percentuale di scarto."},
+            {"q": "Quale percentuale di scarto devo usare per il calcestruzzo?", "a": "Uno scarto del 5-10% è tipico. Usa il 5% per grandi getti con squadre professionali e l'8-10% per piccoli progetti residenziali."},
+            {"q": "Come calcolo il volume di calcestruzzo per una soletta?", "a": "Moltiplica lunghezza × larghezza × spessore (tutto in metri). Ad esempio, una soletta di 6 m × 4 m e 0,15 m di spessore richiede 6 × 4 × 0,15 = 3,6 m³ di calcestruzzo."},
+        ],
+    },
+    "936": {
+        "en": [
+            {"q": "How do I calculate my monthly mortgage payment?", "a": "Enter the loan amount (principal), annual interest rate, and loan term in years. The calculator uses the standard amortization formula: M = P × [r(1+r)^n] / [(1+r)^n − 1], where r is the monthly rate and n is total months."},
+            {"q": "What is a good interest rate for a mortgage?", "a": "Rates vary by country and market conditions. As of 2025, typical rates range from 3-7% for fixed-rate mortgages. A rate below 4% is generally considered favorable. Your credit score, down payment, and loan type all affect your rate."},
+            {"q": "How much of my payment goes to interest vs principal?", "a": "In the early years, most of your payment goes to interest. For a 30-year mortgage at 6%, roughly 80% of the first payment is interest. Over time, the principal portion increases. The calculator shows the full amortization schedule."},
+        ],
+        "es": [
+            {"q": "¿Cómo calculo mi cuota mensual de hipoteca?", "a": "Introduzca el importe del préstamo, el tipo de interés anual y el plazo en años. La calculadora usa la fórmula: M = P × [r(1+r)^n] / [(1+r)^n − 1], donde r es el tipo mensual y n el total de meses."},
+            {"q": "¿Cuál es un buen tipo de interés para una hipoteca?", "a": "Los tipos varían según el país y el mercado. En 2025, los tipos típicos oscilan entre el 3-7% para hipotecas a tipo fijo. Un tipo inferior al 4% se considera favorable."},
+            {"q": "¿Cuánto de mi cuota va a intereses vs capital?", "a": "En los primeros años, la mayor parte va a intereses. En una hipoteca a 30 años al 6%, aproximadamente el 80% de la primera cuota son intereses."},
+        ],
+        "fr": [
+            {"q": "Comment calculer ma mensualité d'hypothèque ?", "a": "Entrez le montant du prêt, le taux d'intérêt annuel et la durée en années. Le calculateur utilise la formule : M = P × [r(1+r)^n] / [(1+r)^n − 1]."},
+            {"q": "Quel est un bon taux d'intérêt pour une hypothèque ?", "a": "Les taux varient selon le pays et le marché. En 2025, les taux typiques vont de 3 à 7 % pour les hypothèques à taux fixe. Un taux inférieur à 4 % est généralement favorable."},
+            {"q": "Quelle part de mon versement va aux intérêts vs au capital ?", "a": "Dans les premières années, la plus grande part va aux intérêts. Pour une hypothèque de 30 ans à 6 %, environ 80 % du premier versement est constitué d'intérêts."},
+        ],
+        "pt": [
+            {"q": "Como calculo minha parcela mensal de hipoteca?", "a": "Insira o valor do empréstimo, a taxa de juros anual e o prazo em anos. A calculadora usa a fórmula: M = P × [r(1+r)^n] / [(1+r)^n − 1]."},
+            {"q": "Qual é uma boa taxa de juros para hipoteca?", "a": "As taxas variam por país e mercado. Em 2025, taxas típicas variam de 3-7% para hipotecas de taxa fixa. Uma taxa abaixo de 4% é geralmente favorável."},
+            {"q": "Quanto da minha parcela vai para juros vs principal?", "a": "Nos primeiros anos, a maior parte vai para juros. Em uma hipoteca de 30 anos a 6%, cerca de 80% da primeira parcela são juros."},
+        ],
+        "de": [
+            {"q": "Wie berechne ich meine monatliche Hypothekenrate?", "a": "Geben Sie den Darlehensbetrag, den jährlichen Zinssatz und die Laufzeit in Jahren ein. Formel: M = P × [r(1+r)^n] / [(1+r)^n − 1]."},
+            {"q": "Was ist ein guter Zinssatz für eine Hypothek?", "a": "Die Zinsen variieren je nach Land und Markt. 2025 liegen typische Zinsen zwischen 3 und 7 % für Festzins-Hypotheken. Ein Zins unter 4 % gilt als günstig."},
+            {"q": "Wie viel meiner Rate geht an Zinsen vs. Tilgung?", "a": "In den ersten Jahren geht der Großteil an Zinsen. Bei einer 30-jährigen Hypothek mit 6 % sind etwa 80 % der ersten Rate Zinsen."},
+        ],
+        "it": [
+            {"q": "Come calcolo la rata mensile del mutuo?", "a": "Inserisci l'importo del prestito, il tasso di interesse annuo e la durata in anni. Formula: M = P × [r(1+r)^n] / [(1+r)^n − 1]."},
+            {"q": "Qual è un buon tasso di interesse per un mutuo?", "a": "I tassi variano per paese e mercato. Nel 2025, i tassi tipici variano dal 3-7% per mutui a tasso fisso. Un tasso inferiore al 4% è generalmente favorevole."},
+            {"q": "Quanto della rata va agli interessi vs al capitale?", "a": "Nei primi anni, la maggior parte va agli interessi. Per un mutuo di 30 anni al 6%, circa l'80% della prima rata sono interessi."},
+        ],
+    },
+    "426": {
+        "en": [
+            {"q": "How is TDEE calculated?", "a": "TDEE (Total Daily Energy Expenditure) is calculated by multiplying your BMR by an activity multiplier. Sedentary: × 1.2; Lightly active: × 1.375; Moderately active: × 1.55; Very active: × 1.725; Extra active: × 1.9."},
+            {"q": "What activity level should I choose?", "a": "Sedentary: little or no exercise. Lightly active: 1-3 days/week. Moderately active: 3-5 days/week. Very active: 6-7 days of hard exercise. Extra active: very hard exercise twice daily or a physical job."},
+            {"q": "Can I use TDEE to lose weight?", "a": "Yes. Eat 300-500 calories below your TDEE for sustainable loss of 0.25-0.5 kg/week. Never eat below your BMR for extended periods."},
+        ],
+        "es": [
+            {"q": "¿Cómo se calcula el TDEE?", "a": "El TDEE se calcula multiplicando tu TMB por un multiplicador de actividad. Sedentario: × 1,2; Ligero: × 1,375; Moderado: × 1,55; Activo: × 1,725; Muy activo: × 1,9."},
+            {"q": "¿Qué nivel de actividad debo elegir?", "a": "Sedentario: poco ejercicio. Ligero: 1-3 días/semana. Moderado: 3-5 días. Activo: 6-7 días de ejercicio intenso. Muy activo: ejercicio muy intenso dos veces al día."},
+            {"q": "¿Puedo usar el TDEE para perder peso?", "a": "Sí. Come 300-500 calorías menos que tu TDEE para una pérdida de 0,25-0,5 kg/semana. Nunca comas por debajo de tu TMB por períodos prolongados."},
+        ],
+        "fr": [
+            {"q": "Comment le TDEE est-il calculé ?", "a": "Le TDEE est calculé en multipliant votre BMR par un coefficient d'activité. Sédentaire : × 1,2 ; Légèrement actif : × 1,375 ; Actif : × 1,55 ; Très actif : × 1,725 ; Extrêmement actif : × 1,9."},
+            {"q": "Quel niveau d'activité dois-je choisir ?", "a": "Sédentaire : peu d'exercice. Légèrement actif : 1-3 jours/semaine. Actif : 3-5 jours. Très actif : 6-7 jours d'exercice intense. Extrêmement actif : exercice deux fois par jour."},
+            {"q": "Puis-je utiliser le TDEE pour perdre du poids ?", "a": "Oui. Mangez 300-500 calories de moins que votre TDEE pour une perte durable de 0,25-0,5 kg/semaine."},
+        ],
+        "pt": [
+            {"q": "Como o TDEE é calculado?", "a": "O TDEE é calculado multiplicando sua TMB por um multiplicador de atividade. Sedentário: × 1,2; Leve: × 1,375; Moderado: × 1,55; Ativo: × 1,725; Muito ativo: × 1,9."},
+            {"q": "Qual nível de atividade devo escolher?", "a": "Sedentário: pouco exercício. Leve: 1-3 dias/semana. Moderado: 3-5 dias. Ativo: 6-7 dias de exercício intenso. Muito ativo: exercício intenso duas vezes ao dia."},
+            {"q": "Posso usar o TDEE para perder peso?", "a": "Sim. Coma 300-500 calorias abaixo do seu TDEE para uma perda de 0,25-0,5 kg/semana."},
+        ],
+        "de": [
+            {"q": "Wie wird der TDEE berechnet?", "a": "Der TDEE wird berechnet, indem der Grundumsatz (BMR) mit einem Aktivitätsfaktor multipliziert wird. Sitzend: × 1,2; Leicht aktiv: × 1,375; Mäßig aktiv: × 1,55; Sehr aktiv: × 1,725; Extrem aktiv: × 1,9."},
+            {"q": "Welches Aktivitätsniveau soll ich wählen?", "a": "Sitzend: wenig Training. Leicht aktiv: 1-3 Tage/Woche. Mäßig aktiv: 3-5 Tage. Sehr aktiv: 6-7 Tage hartes Training. Extrem aktiv: hartes Training zweimal täglich."},
+            {"q": "Kann ich den TDEE zum Abnehmen nutzen?", "a": "Ja. Essen Sie 300-500 kcal unter Ihrem TDEE für einen nachhaltigen Verlust von 0,25-0,5 kg/Woche."},
+        ],
+        "it": [
+            {"q": "Come si calcola il TDEE?", "a": "Il TDEE si calcola moltiplicando il BMR per un moltiplicatore di attività. Sedentario: × 1,2; Leggermente attivo: × 1,375; Moderato: × 1,55; Molto attivo: × 1,725; Estremamente attivo: × 1,9."},
+            {"q": "Quale livello di attività devo scegliere?", "a": "Sedentario: poco esercizio. Leggermente attivo: 1-3 giorni/settimana. Moderato: 3-5 giorni. Molto attivo: 6-7 giorni di allenamento intenso."},
+            {"q": "Posso usare il TDEE per perdere peso?", "a": "Sì. Mangia 300-500 calorie sotto il tuo TDEE per una perdita sostenibile di 0,25-0,5 kg/settimana."},
+        ],
+    },
+    "928": {
+        "en": [
+            {"q": "How do I calculate my macros for muscle gain?", "a": "For muscle gain, aim for 1.6-2.2 g of protein per kg of body weight, 25-35% of calories from fat, and the rest from carbs. This calculator distributes your TDEE calories across these macro ratios based on your goal."},
+            {"q": "What is the best macro ratio for fat loss?", "a": "For fat loss, a common starting point is 40% protein, 30% carbs, 30% fat. High protein preserves muscle during a calorie deficit. Adjust after 2-3 weeks."},
+            {"q": "Should I count macros or just calories?", "a": "Counting macros is more effective because it ensures enough protein for muscle, enough fat for hormones, and enough carbs for energy. Calories determine weight change; macros determine body composition."},
+        ],
+        "es": [
+            {"q": "¿Cómo calculo mis macros para ganar músculo?", "a": "Para ganar músculo, apunta a 1,6-2,2 g de proteína por kg de peso, 25-35% de calorías de grasas y el resto de carbohidratos."},
+            {"q": "¿Cuál es la mejor proporción de macros para perder grasa?", "a": "Para perder grasa, un punto de partida común es 40% proteínas, 30% carbohidratos, 30% grasas. La proteína alta preserva el músculo."},
+            {"q": "¿Debo contar macros o solo calorías?", "a": "Contar macros es más efectivo porque asegura suficiente proteína, grasa y carbohidratos. Las calorías determinan el peso; los macros determinan la composición corporal."},
+        ],
+        "fr": [
+            {"q": "Comment calculer mes macronutriments pour la prise musculaire ?", "a": "Pour la prise musculaire, visez 1,6 à 2,2 g de protéines par kg, 25-35 % de calories depuis les graisses, et le reste en glucides."},
+            {"q": "Quelle est la meilleure répartition des macros pour perdre du gras ?", "a": "Pour la perte de gras : 40 % protéines, 30 % glucides, 30 % lipides. Les protéines élevées préservent la masse musculaire."},
+            {"q": "Dois-je compter les macros ou juste les calories ?", "a": "Compter les macros est plus efficace car cela garantit suffisamment de protéines, lipides et glucides. Les calories déterminent le poids ; les macros déterminent la composition."},
+        ],
+        "pt": [
+            {"q": "Como calculo meus macros para ganho muscular?", "a": "Para ganho muscular, aponte para 1,6-2,2 g de proteína por kg de peso, 25-35% de calorias de gordura e o resto de carboidratos."},
+            {"q": "Qual a melhor proporção de macros para perder gordura?", "a": "Para perder gordura: 40% proteínas, 30% carboidratos, 30% gorduras. Proteína alta preserva músculo no déficit calórico."},
+            {"q": "Devo contar macros ou apenas calorias?", "a": "Contar macros é mais eficaz porque garante proteína, gordura e carboidratos suficientes. Calorias determinam o peso; macros determinam a composição corporal."},
+        ],
+        "de": [
+            {"q": "Wie berechne ich meine Makros für Muskelaufbau?", "a": "Für Muskelaufbau: 1,6-2,2 g Protein pro kg Körpergewicht, 25-35 % der Kalorien aus Fett, den Rest aus Kohlenhydraten."},
+            {"q": "Was ist das beste Makro-Verhältnis für Fettabbau?", "a": "Für Fettabbau: 40 % Protein, 30 % Kohlenhydrate, 30 % Fett. Hohes Protein erhält die Muskulatur im Defizit."},
+            {"q": "Soll ich Makros oder nur Kalorien zählen?", "a": "Makros zu zählen ist effektiver, da es genug Protein, Fett und Kohlenhydrate sicherstellt. Kalorien bestimmen das Gewicht; Makros bestimmen die Körperzusammensetzung."},
+        ],
+        "it": [
+            {"q": "Come calcolo i macro per la massa muscolare?", "a": "Per la massa muscolare: 1,6-2,2 g di proteine per kg di peso, 25-35% di calorie dai grassi e il resto dai carboidrati."},
+            {"q": "Qual è la migliore ripartizione dei macro per perdere grasso?", "a": "Per perdere grasso: 40% proteine, 30% carboidrati, 30% grassi. Proteine elevate preservano la massa muscolare."},
+            {"q": "Devo contare i macro o solo le calorie?", "a": "Contare i macro è più efficace perché garantisce proteine, grassi e carboidrati sufficienti. Le calorie determinano il peso; i macro determinano la composizione corporea."},
+        ],
+    },
+    "938": {
+        "en": [
+            {"q": "How does compound interest work?", "a": "Compound interest means you earn interest on both your initial deposit and previously earned interest. Formula: A = P × (1 + r/n)^(nt), where P is principal, r is annual rate, n is compounding frequency, and t is years."},
+            {"q": "What compounding frequency should I choose?", "a": "Monthly compounding (12/year) is most common for savings accounts. Daily compounding (365) gives slightly higher returns. More frequent compounding = higher returns, but the difference between monthly and daily is usually small."},
+            {"q": "How much will $10,000 be worth in 10 years at 5%?", "a": "At 5% annual interest with monthly compounding, $10,000 grows to approximately $16,470 in 10 years. That's $6,470 in interest earned."},
+        ],
+        "es": [
+            {"q": "¿Cómo funciona el interés compuesto?", "a": "El interés compuesto significa que ganas intereses sobre el depósito inicial y los intereses previamente ganados. Fórmula: A = P × (1 + r/n)^(nt)."},
+            {"q": "¿Qué frecuencia de capitalización debo elegir?", "a": "La capitalización mensual (12 veces/año) es la más común. La diaria (365) da rendimientos ligeramente mayores. Más frecuencia = mayores rendimientos."},
+            {"q": "¿Cuánto valdrán $10,000 en 10 años al 5%?", "a": "Al 5% anual con capitalización mensual, $10,000 crecen a aproximadamente $16,470 en 10 años."},
+        ],
+        "fr": [
+            {"q": "Comment fonctionne l'intérêt composé ?", "a": "L'intérêt composé signifie que vous gagnez des intérêts sur le dépôt initial et les intérêts précédemment gagnés. Formule : A = P × (1 + r/n)^(nt)."},
+            {"q": "Quelle fréquence de capitalisation choisir ?", "a": "La capitalisation mensuelle (12/an) est la plus courante. La quotidienne (365) donne des rendements légèrement supérieurs."},
+            {"q": "Que vaudront 10 000 € dans 10 ans à 5 % ?", "a": "À 5 % d'intérêt annuel avec capitalisation mensuelle, 10 000 € valent environ 16 470 € dans 10 ans."},
+        ],
+        "pt": [
+            {"q": "Como funciona o juro composto?", "a": "Juro composto significa que você ganha juros sobre o depósito inicial e os juros previamente ganhos. Fórmula: A = P × (1 + r/n)^(nt)."},
+            {"q": "Que frequência de capitalização devo escolher?", "a": "A capitalização mensal (12/ano) é a mais comum. A diária (365) dá rendimentos ligeiramente maiores."},
+            {"q": "Quanto valerão $10.000 em 10 anos a 5%?", "a": "A 5% de juros anuais com capitalização mensal, $10.000 crescem para aproximadamente $16.470 em 10 anos."},
+        ],
+        "de": [
+            {"q": "Wie funktioniert Zinseszins?", "a": "Zinseszins bedeutet, dass Sie Zinsen auf die Ersteinlage und die bisher verdienten Zinsen erhalten. Formel: A = P × (1 + r/n)^(nt)."},
+            {"q": "Welchen Zinseszins-Zyklus soll ich wählen?", "a": "Monatliche Zinseszinsberechnung (12/Jahr) ist am häufigsten. Tägliche (365) bringt etwas höhere Erträge."},
+            {"q": "Wie viel sind 10.000 € in 10 Jahren bei 5 % wert?", "a": "Bei 5 % Jahreszins mit monatlicher Zinseszinsberechnung wachsen 10.000 € auf ca. 16.470 € in 10 Jahren."},
+        ],
+        "it": [
+            {"q": "Come funziona l'interesse composto?", "a": "L'interesse composto significa che guadagni interessi sul deposito iniziale e sugli interessi precedentemente maturati. Formula: A = P × (1 + r/n)^(nt)."},
+            {"q": "Quale frequenza di capitalizzazione scegliere?", "a": "La capitalizzazione mensile (12/anno) è la più comune. Quella giornaliera (365) dà rendimenti leggermente maggiori."},
+            {"q": "Quanto varranno 10.000 € in 10 anni al 5%?", "a": "Al 5% di interesse annuo con capitalizzazione mensile, 10.000 € crescono a circa 16.470 € in 10 anni."},
+        ],
+    },
+}
+
+
+def generate_faq(calc_id: str, block_slug: str, lang: str) -> list:
+    calc_faqs = CALC_SPECIFIC_FAQS.get(calc_id, {})
+    if calc_faqs:
+        return calc_faqs.get(lang, calc_faqs.get("en", []))
     block_faqs = FAQS.get(block_slug, {})
     return block_faqs.get(lang, block_faqs.get("en", []))
 

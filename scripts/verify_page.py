@@ -1,0 +1,11 @@
+f = open(r'C:\Microsaas\obra\public\en\mass-concrete-calculator\index.html', 'r', encoding='utf-8')
+html = f.read()
+f.close()
+print('SoftwareApplication:', 'SoftwareApplication' in html)
+print('AggregateRating:', 'AggregateRating' in html)
+print('HowTo:', 'HowTo' in html)
+print('FAQPage:', 'FAQPage' in html)
+print('datePublished:', 'datePublished' in html)
+print('date 2024-06:', '2024-06' in html)
+# Check specific FAQ
+print('cement bags FAQ:', 'How many cement bags' in html)

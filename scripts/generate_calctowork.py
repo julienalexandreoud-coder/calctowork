@@ -59,6 +59,14 @@ BASE_URL   = "https://calcto.work"
 BRAND      = "CalcToWork"
 BUILD_DATE = date.today().isoformat()
 
+DATE_PUBLISHED = {
+    1: "2024-06-01", 2: "2024-06-01", 3: "2024-06-01", 4: "2024-06-01",
+    5: "2024-06-15", 6: "2024-06-15", 7: "2024-06-15", 8: "2024-06-15",
+    9: "2024-07-01", 10: "2024-07-01", 11: "2024-07-01", 12: "2024-07-01",
+    13: "2024-07-15", 14: "2024-07-15", 15: "2024-08-01", 16: "2024-08-01",
+    17: "2024-08-15", 18: "2024-08-15",
+}
+
 BLOCK_ICONS = {
     "estructuras":   "🏗️",
     "mamposteria":   "🧱",
@@ -1503,8 +1511,8 @@ def generate() -> None:
                 block_faq = []
                 formula_explained = ""
             else:
-                how_to_steps      = generate_how_to(calc["block_slug"], lang)
-                block_faq         = generate_faq(calc["block_slug"], lang)
+                how_to_steps      = generate_how_to(cid, calc["block_slug"], lang)
+                block_faq         = generate_faq(cid, calc["block_slug"], lang)
                 formula_explained = generate_formula_explained(calc["block_slug"], lang)
             long_content_raw = inject_cross_links(long_content_raw, cid, lang, calc_url_by_id, calcs_i18n)
             long_content = inject_heading_ids(long_content_raw) if long_content_raw else ""
@@ -1573,7 +1581,7 @@ def generate() -> None:
                 # Gauge
                 gauge_config=GAUGE_CONFIGS.get(cid),
                 # Dates
-                date_published="2025-01-01",
+                date_published=DATE_PUBLISHED.get(calc.get("block", 0), "2025-01-01"),
                 date_modified=BUILD_DATE,
                 BUILD_DATE=BUILD_DATE,
                 author_line=AUTHOR_LINE.get(lang, AUTHOR_LINE["en"]).format(date=BUILD_DATE),
@@ -1693,7 +1701,7 @@ def generate() -> None:
                     feedback_label=FEEDBACK_LABEL.get(lang, FEEDBACK_LABEL["en"]),
                     feedback_thanks=FEEDBACK_THANKS.get(lang, FEEDBACK_THANKS["en"]),
                     gauge_config=GAUGE_CONFIGS.get(cid),
-                    date_published="2025-01-01",
+date_published=DATE_PUBLISHED.get(calc.get("block", 0), "2025-01-01"),
                     date_modified=BUILD_DATE,
                     BUILD_DATE=BUILD_DATE,
                     author_line=AUTHOR_LINE.get(lang, AUTHOR_LINE["en"]).format(date=BUILD_DATE),
