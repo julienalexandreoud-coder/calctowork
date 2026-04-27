@@ -1184,7 +1184,23 @@ def copy_assets() -> None:
     for src, dest in assets:
         dest.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src, dest)
-    print("  [assets] Copied CSS, JS, robots.txt and favicon")
+    
+    og_dir = PUBLIC / "og"
+    og_dir.mkdir(parents=True, exist_ok=True)
+    src_og = Path(__file__).resolve().parent.parent / "public" / "og"
+    if src_og.exists():
+        for f in src_og.glob("*.png"):
+            shutil.copy2(f, og_dir / f.name)
+    
+    favicon_ico = Path(__file__).resolve().parent.parent / "public" / "favicon.ico"
+    if favicon_ico.exists():
+        shutil.copy2(favicon_ico, PUBLIC / "favicon.ico")
+    
+    touch_icon = Path(__file__).resolve().parent.parent / "public" / "apple-touch-icon.png"
+    if touch_icon.exists():
+        shutil.copy2(touch_icon, PUBLIC / "apple-touch-icon.png")
+    
+    print("  [assets] Copied CSS, JS, robots.txt, favicon, OG images")
 
 
 def make_env() -> "Environment":
