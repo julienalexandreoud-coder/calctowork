@@ -4,7 +4,7 @@ Block-level How-to steps + FAQs per language.
 generate_intro() and generate_faq() are called by the generator.
 """
 
-import json, os, random
+import json, os, random, hashlib
 
 # ── How-to steps per block per language ──────────────────────────────────────
 
@@ -480,6 +480,62 @@ HOWTO = {
         "pt": ["Insira os dados do seu exercício ou corrida.", "Para ritmo de corrida: distância percorrida e tempo gasto.", "Para calorias: peso, duração e intensidade (MET).", "Clique em «Calcular» para obter o resultado."],
         "de": ["Geben Sie Ihre Trainings- oder Laufdaten ein.", "Für Laufpacing: zurückgelegte Strecke und benötigte Zeit.", "Für Kalorien: Gewicht, Dauer und Intensität (MET).", "Klicken Sie auf «Berechnen» für das Ergebnis."],
         "it": ["Inserire i dati dell'esercizio o della corsa.", "Per il ritmo di corsa: distanza percorsa e tempo impiegato.", "Per le calorie: peso, durata e intensità (MET).", "Cliccare «Calcola» per ottenere il risultato."],
+    },
+    "quimica": {
+        "es": ["Introduce los valores conocidos: masa, moles, concentración o volumen.", "Verifica que las unidades coincidan con las indicadas (g, mol, mol/L, L).", "Para gases ideales aporta presión y temperatura en Kelvin.", "Pulsa «Calcular» para obtener el resultado."],
+        "en": ["Enter the known values: mass, moles, concentration or volume.", "Check that units match those shown (g, mol, mol/L, L).", "For ideal-gas calculations provide pressure and temperature in Kelvin.", "Click 'Calculate' to get the result."],
+        "fr": ["Saisissez les valeurs connues : masse, moles, concentration ou volume.", "Vérifiez que les unités correspondent (g, mol, mol/L, L).", "Pour les gaz parfaits, donnez la pression et la température en Kelvin.", "Cliquez sur «Calculer» pour obtenir le résultat."],
+        "pt": ["Insira os valores conhecidos: massa, mols, concentração ou volume.", "Verifique se as unidades correspondem (g, mol, mol/L, L).", "Para gases ideais informe pressão e temperatura em Kelvin.", "Clique em «Calcular» para obter o resultado."],
+        "de": ["Geben Sie die bekannten Werte ein: Masse, Mol, Konzentration oder Volumen.", "Prüfen Sie, dass die Einheiten passen (g, mol, mol/L, L).", "Für ideales Gas: Druck und Temperatur in Kelvin angeben.", "Klicken Sie auf «Berechnen» für das Ergebnis."],
+        "it": ["Inserire i valori noti: massa, moli, concentrazione o volume.", "Verificare che le unità corrispondano (g, mol, mol/L, L).", "Per i gas ideali fornire pressione e temperatura in Kelvin.", "Cliccare «Calcola» per ottenere il risultato."],
+    },
+    "electronica": {
+        "es": ["Introduce las magnitudes eléctricas conocidas: tensión (V), corriente (A) o resistencia (Ω).", "Para potencia: dos de los tres valores anteriores son suficientes.", "Para circuitos RC/RL: añade capacitancia (F) o inductancia (H).", "Pulsa «Calcular» para obtener el resultado."],
+        "en": ["Enter the known electrical magnitudes: voltage (V), current (A) or resistance (Ω).", "For power: any two of those three values are enough.", "For RC/RL circuits: add capacitance (F) or inductance (H).", "Click 'Calculate' to get the result."],
+        "fr": ["Saisissez les grandeurs électriques connues : tension (V), courant (A) ou résistance (Ω).", "Pour la puissance : deux des trois valeurs ci-dessus suffisent.", "Pour les circuits RC/RL : ajoutez la capacité (F) ou l'inductance (H).", "Cliquez sur «Calculer» pour obtenir le résultat."],
+        "pt": ["Insira as grandezas elétricas conhecidas: tensão (V), corrente (A) ou resistência (Ω).", "Para potência: dois dos três valores acima são suficientes.", "Para circuitos RC/RL: adicione capacitância (F) ou indutância (H).", "Clique em «Calcular» para obter o resultado."],
+        "de": ["Geben Sie die bekannten elektrischen Größen ein: Spannung (V), Strom (A) oder Widerstand (Ω).", "Für die Leistung: zwei der drei oben genannten Werte reichen.", "Für RC/RL-Schaltungen: Kapazität (F) oder Induktivität (H) hinzufügen.", "Klicken Sie auf «Berechnen» für das Ergebnis."],
+        "it": ["Inserire le grandezze elettriche note: tensione (V), corrente (A) o resistenza (Ω).", "Per la potenza: due dei tre valori sopra sono sufficienti.", "Per circuiti RC/RL: aggiungere capacità (F) o induttanza (H).", "Cliccare «Calcola» per ottenere il risultato."],
+    },
+    "clima": {
+        "es": ["Introduce los datos meteorológicos conocidos: temperatura, humedad, presión o viento.", "Verifica las unidades (°C, %, hPa, km/h) antes de calcular.", "Para sensación térmica añade temperatura y velocidad de viento.", "Pulsa «Calcular» para obtener el resultado."],
+        "en": ["Enter the known weather data: temperature, humidity, pressure or wind.", "Check the units (°C, %, hPa, km/h) before calculating.", "For wind chill, provide temperature and wind speed.", "Click 'Calculate' to get the result."],
+        "fr": ["Saisissez les données météo connues : température, humidité, pression ou vent.", "Vérifiez les unités (°C, %, hPa, km/h) avant de calculer.", "Pour le ressenti, donnez la température et la vitesse du vent.", "Cliquez sur «Calculer» pour obtenir le résultat."],
+        "pt": ["Insira os dados meteorológicos conhecidos: temperatura, umidade, pressão ou vento.", "Verifique as unidades (°C, %, hPa, km/h) antes de calcular.", "Para sensação térmica, informe temperatura e velocidade do vento.", "Clique em «Calcular» para obter o resultado."],
+        "de": ["Geben Sie die bekannten Wetterdaten ein: Temperatur, Luftfeuchtigkeit, Druck oder Wind.", "Prüfen Sie die Einheiten (°C, %, hPa, km/h) vor der Berechnung.", "Für gefühlte Temperatur: Temperatur und Windgeschwindigkeit angeben.", "Klicken Sie auf «Berechnen» für das Ergebnis."],
+        "it": ["Inserire i dati meteo noti: temperatura, umidità, pressione o vento.", "Verificare le unità (°C, %, hPa, km/h) prima di calcolare.", "Per la temperatura percepita: temperatura e velocità del vento.", "Cliccare «Calcola» per ottenere il risultato."],
+    },
+    "utilidades": {
+        "es": ["Introduce los datos requeridos por la herramienta.", "Revisa que el formato del valor coincide con el esperado.", "Las herramientas trabajan en local: tus datos no se envían a ningún servidor.", "Pulsa «Calcular» para obtener el resultado."],
+        "en": ["Enter the data required by the tool.", "Make sure the value format matches what is expected.", "These tools run locally — your data is never sent to a server.", "Click 'Calculate' to get the result."],
+        "fr": ["Saisissez les données demandées par l'outil.", "Vérifiez que le format de la valeur correspond à celui attendu.", "Les outils fonctionnent en local : vos données ne sont pas envoyées sur un serveur.", "Cliquez sur «Calculer» pour obtenir le résultat."],
+        "pt": ["Insira os dados solicitados pela ferramenta.", "Verifique se o formato do valor corresponde ao esperado.", "As ferramentas funcionam localmente: seus dados não são enviados a nenhum servidor.", "Clique em «Calcular» para obter o resultado."],
+        "de": ["Geben Sie die vom Tool geforderten Daten ein.", "Achten Sie darauf, dass das Werteformat dem erwarteten entspricht.", "Die Tools laufen lokal — Ihre Daten werden nicht an einen Server gesendet.", "Klicken Sie auf «Berechnen» für das Ergebnis."],
+        "it": ["Inserire i dati richiesti dallo strumento.", "Verificare che il formato del valore corrisponda a quello atteso.", "Gli strumenti funzionano in locale: i dati non vengono inviati a nessun server.", "Cliccare «Calcola» per ottenere il risultato."],
+    },
+    "transporte": {
+        "es": ["Introduce los datos del trayecto: distancia, velocidad o tiempo.", "Para consumo: añade litros consumidos y kilómetros recorridos.", "Para coste: indica el precio del combustible o billete.", "Pulsa «Calcular» para obtener el resultado."],
+        "en": ["Enter trip data: distance, speed or time.", "For fuel consumption: add litres used and kilometres driven.", "For cost: enter fuel price or ticket cost.", "Click 'Calculate' to get the result."],
+        "fr": ["Saisissez les données du trajet : distance, vitesse ou temps.", "Pour la consommation : ajoutez les litres utilisés et les kilomètres parcourus.", "Pour le coût : indiquez le prix du carburant ou du billet.", "Cliquez sur «Calculer» pour obtenir le résultat."],
+        "pt": ["Insira os dados da viagem: distância, velocidade ou tempo.", "Para consumo: adicione litros gastos e quilômetros percorridos.", "Para custo: indique o preço do combustível ou do bilhete.", "Clique em «Calcular» para obter o resultado."],
+        "de": ["Geben Sie die Fahrtdaten ein: Strecke, Geschwindigkeit oder Zeit.", "Für den Verbrauch: verbrauchte Liter und gefahrene Kilometer ergänzen.", "Für die Kosten: Kraftstoffpreis oder Ticketpreis angeben.", "Klicken Sie auf «Berechnen» für das Ergebnis."],
+        "it": ["Inserire i dati del viaggio: distanza, velocità o tempo.", "Per il consumo: aggiungere litri usati e chilometri percorsi.", "Per il costo: indicare il prezzo del carburante o del biglietto.", "Cliccare «Calcola» per ottenere il risultato."],
+    },
+    "fotografia": {
+        "es": ["Introduce los parámetros de cámara: distancia focal, apertura, ISO o sensor.", "Para profundidad de campo: añade distancia al sujeto.", "Para exposición: indica al menos dos del trío apertura/velocidad/ISO.", "Pulsa «Calcular» para obtener el resultado."],
+        "en": ["Enter the camera parameters: focal length, aperture, ISO or sensor size.", "For depth of field: add the subject distance.", "For exposure: provide at least two of aperture/shutter/ISO.", "Click 'Calculate' to get the result."],
+        "fr": ["Saisissez les paramètres de l'appareil : focale, ouverture, ISO ou taille du capteur.", "Pour la profondeur de champ : ajoutez la distance au sujet.", "Pour l'exposition : donnez au moins deux des trois (ouverture/vitesse/ISO).", "Cliquez sur «Calculer» pour obtenir le résultat."],
+        "pt": ["Insira os parâmetros da câmera: distância focal, abertura, ISO ou sensor.", "Para profundidade de campo: adicione a distância ao motivo.", "Para exposição: informe ao menos dois entre abertura/velocidade/ISO.", "Clique em «Calcular» para obter o resultado."],
+        "de": ["Geben Sie die Kamera-Parameter ein: Brennweite, Blende, ISO oder Sensorgröße.", "Für die Schärfentiefe: Motivabstand ergänzen.", "Für die Belichtung: mindestens zwei aus Blende/Zeit/ISO angeben.", "Klicken Sie auf «Berechnen» für das Ergebnis."],
+        "it": ["Inserire i parametri della fotocamera: focale, diaframma, ISO o sensore.", "Per la profondità di campo: aggiungere la distanza dal soggetto.", "Per l'esposizione: fornire almeno due tra diaframma/tempo/ISO.", "Cliccare «Calcola» per ottenere il risultato."],
+    },
+    "ingenieria": {
+        "es": ["Introduce los datos técnicos solicitados (geometría, carga, material).", "Verifica las unidades antes de calcular (m, N, MPa, kg).", "Aplica los coeficientes de seguridad propios de la norma aplicable.", "Pulsa «Calcular» para obtener el resultado."],
+        "en": ["Enter the technical inputs requested (geometry, load, material).", "Check units before calculating (m, N, MPa, kg).", "Apply the safety factors required by the relevant standard.", "Click 'Calculate' to get the result."],
+        "fr": ["Saisissez les données techniques demandées (géométrie, charge, matériau).", "Vérifiez les unités avant le calcul (m, N, MPa, kg).", "Appliquez les coefficients de sécurité de la norme concernée.", "Cliquez sur «Calculer» pour obtenir le résultat."],
+        "pt": ["Insira os dados técnicos solicitados (geometria, carga, material).", "Verifique as unidades antes de calcular (m, N, MPa, kg).", "Aplique os coeficientes de segurança da norma aplicável.", "Clique em «Calcular» para obter o resultado."],
+        "de": ["Geben Sie die technischen Eingaben ein (Geometrie, Last, Material).", "Einheiten vor der Berechnung prüfen (m, N, MPa, kg).", "Sicherheitsbeiwerte gemäß der maßgeblichen Norm anwenden.", "Klicken Sie auf «Berechnen» für das Ergebnis."],
+        "it": ["Inserire i dati tecnici richiesti (geometria, carico, materiale).", "Verificare le unità prima del calcolo (m, N, MPa, kg).", "Applicare i coefficienti di sicurezza della norma di riferimento.", "Cliccare «Calcola» per ottenere il risultato."],
     },
 }
 
@@ -1547,6 +1603,260 @@ FAQS = {
             {"q": "Come si calcola la frequenza cardiaca massima?", "a": "FC max = 220 − età. La formula di Tanaka (208 − 0,7 × età) è più precisa per over 40."},
         ],
     },
+    "quimica": {
+        "es": [
+            {"q": "¿Qué es un mol?", "a": "Un mol contiene 6,022 × 10²³ partículas (número de Avogadro). Es la unidad SI de cantidad de sustancia."},
+            {"q": "¿Cómo se calcula la masa molar?", "a": "Sumando las masas atómicas de cada elemento de la molécula multiplicadas por el subíndice. Ejemplo: H₂O = 2(1,008) + 16,00 = 18,016 g/mol."},
+            {"q": "¿Qué es la molaridad?", "a": "Concentración expresada en moles de soluto por litro de disolución (mol/L o M). M = n / V."},
+            {"q": "¿Cuál es la ecuación de los gases ideales?", "a": "PV = nRT, donde R = 8,314 J/(mol·K) en unidades SI o 0,0821 L·atm/(mol·K)."},
+        ],
+        "en": [
+            {"q": "What is a mole?", "a": "A mole contains 6.022 × 10²³ particles (Avogadro's number). It is the SI unit of amount of substance."},
+            {"q": "How do I calculate molar mass?", "a": "Add the atomic masses of each element in the molecule multiplied by its subscript. Example: H₂O = 2(1.008) + 16.00 = 18.016 g/mol."},
+            {"q": "What is molarity?", "a": "Concentration expressed as moles of solute per litre of solution (mol/L or M). M = n / V."},
+            {"q": "What is the ideal gas equation?", "a": "PV = nRT, where R = 8.314 J/(mol·K) in SI units, or 0.0821 L·atm/(mol·K)."},
+        ],
+        "fr": [
+            {"q": "Qu'est-ce qu'une mole ?", "a": "Une mole contient 6,022 × 10²³ particules (nombre d'Avogadro). C'est l'unité SI de quantité de matière."},
+            {"q": "Comment calculer la masse molaire ?", "a": "Additionnez les masses atomiques de chaque élément multipliées par leur indice. Ex. : H₂O = 2(1,008) + 16,00 = 18,016 g/mol."},
+            {"q": "Qu'est-ce que la molarité ?", "a": "Concentration exprimée en moles de soluté par litre de solution (mol/L ou M). M = n / V."},
+            {"q": "Quelle est l'équation des gaz parfaits ?", "a": "PV = nRT, où R = 8,314 J/(mol·K) en SI ou 0,0821 L·atm/(mol·K)."},
+        ],
+        "pt": [
+            {"q": "O que é um mol?", "a": "Um mol contém 6,022 × 10²³ partículas (número de Avogadro). É a unidade SI de quantidade de substância."},
+            {"q": "Como se calcula a massa molar?", "a": "Some as massas atômicas de cada elemento multiplicadas pelo subíndice. Ex.: H₂O = 2(1,008) + 16,00 = 18,016 g/mol."},
+            {"q": "O que é molaridade?", "a": "Concentração em mols de soluto por litro de solução (mol/L ou M). M = n / V."},
+            {"q": "Qual é a equação dos gases ideais?", "a": "PV = nRT, onde R = 8,314 J/(mol·K) em SI ou 0,0821 L·atm/(mol·K)."},
+        ],
+        "de": [
+            {"q": "Was ist ein Mol?", "a": "Ein Mol enthält 6,022 × 10²³ Teilchen (Avogadro-Zahl). SI-Einheit der Stoffmenge."},
+            {"q": "Wie berechnet man die molare Masse?", "a": "Atommassen jedes Elements mit dem Index multiplizieren und addieren. Bsp.: H₂O = 2(1,008) + 16,00 = 18,016 g/mol."},
+            {"q": "Was ist Molarität?", "a": "Konzentration in mol Stoffmenge pro Liter Lösung (mol/L oder M). M = n / V."},
+            {"q": "Wie lautet die ideale Gasgleichung?", "a": "PV = nRT, mit R = 8,314 J/(mol·K) in SI bzw. 0,0821 L·atm/(mol·K)."},
+        ],
+        "it": [
+            {"q": "Cos'è una mole?", "a": "Una mole contiene 6,022 × 10²³ particelle (numero di Avogadro). Unità SI di quantità di sostanza."},
+            {"q": "Come si calcola la massa molare?", "a": "Sommando le masse atomiche di ogni elemento moltiplicate per il pedice. Es.: H₂O = 2(1,008) + 16,00 = 18,016 g/mol."},
+            {"q": "Cos'è la molarità?", "a": "Concentrazione in moli di soluto per litro di soluzione (mol/L o M). M = n / V."},
+            {"q": "Qual è l'equazione dei gas ideali?", "a": "PV = nRT, con R = 8,314 J/(mol·K) in SI o 0,0821 L·atm/(mol·K)."},
+        ],
+    },
+    "electronica": {
+        "es": [
+            {"q": "¿Qué es la ley de Ohm?", "a": "Establece que la tensión es proporcional a la corriente: V = I × R. Mientras la temperatura no cambie, R se mantiene constante."},
+            {"q": "¿Cómo se calcula la potencia eléctrica?", "a": "P = V × I (potencia activa, en vatios). Equivalentemente: P = I²R o P = V²/R."},
+            {"q": "¿Qué es la constante de tiempo de un circuito RC?", "a": "τ = R × C. En 1 τ el condensador se carga al 63 %; en 5 τ se considera totalmente cargado."},
+            {"q": "¿Cuál es la diferencia entre AC y DC?", "a": "DC (corriente continua) tiene polaridad fija. AC (alterna) cambia de polaridad periódicamente — la red europea oscila a 50 Hz, 230 V."},
+        ],
+        "en": [
+            {"q": "What is Ohm's law?", "a": "Voltage is proportional to current: V = I × R. As long as temperature is constant, R stays constant."},
+            {"q": "How do I calculate electrical power?", "a": "P = V × I (active power, in watts). Equivalently: P = I²R or P = V²/R."},
+            {"q": "What is the RC time constant?", "a": "τ = R × C. After 1 τ the capacitor is charged to 63%; after 5 τ it is considered fully charged."},
+            {"q": "What is the difference between AC and DC?", "a": "DC (direct current) has fixed polarity. AC (alternating) reverses polarity periodically — European mains is 50 Hz, 230 V."},
+        ],
+        "fr": [
+            {"q": "Qu'est-ce que la loi d'Ohm ?", "a": "La tension est proportionnelle au courant : V = I × R. À température constante, R reste constante."},
+            {"q": "Comment calculer la puissance électrique ?", "a": "P = V × I (puissance active, en watts). De manière équivalente : P = I²R ou P = V²/R."},
+            {"q": "Qu'est-ce que la constante de temps RC ?", "a": "τ = R × C. Après 1 τ le condensateur est chargé à 63 % ; après 5 τ il est considéré comme totalement chargé."},
+            {"q": "Quelle est la différence entre AC et DC ?", "a": "DC (continu) a une polarité fixe. AC (alternatif) change de polarité périodiquement — le secteur européen est à 50 Hz, 230 V."},
+        ],
+        "pt": [
+            {"q": "O que é a lei de Ohm?", "a": "A tensão é proporcional à corrente: V = I × R. Enquanto a temperatura não muda, R permanece constante."},
+            {"q": "Como se calcula a potência elétrica?", "a": "P = V × I (potência ativa, em watts). Equivalente: P = I²R ou P = V²/R."},
+            {"q": "O que é a constante de tempo RC?", "a": "τ = R × C. Em 1 τ o capacitor carrega a 63 %; em 5 τ está totalmente carregado."},
+            {"q": "Qual é a diferença entre AC e DC?", "a": "DC (corrente contínua) tem polaridade fixa. AC (alternada) inverte a polaridade — a rede europeia oscila a 50 Hz, 230 V."},
+        ],
+        "de": [
+            {"q": "Was ist das Ohmsche Gesetz?", "a": "Spannung ist proportional zum Strom: V = I × R. Bei konstanter Temperatur bleibt R konstant."},
+            {"q": "Wie wird elektrische Leistung berechnet?", "a": "P = V × I (Wirkleistung in Watt). Äquivalent: P = I²R oder P = V²/R."},
+            {"q": "Was ist die RC-Zeitkonstante?", "a": "τ = R × C. Nach 1 τ ist der Kondensator zu 63 % geladen; nach 5 τ gilt er als voll geladen."},
+            {"q": "Was ist der Unterschied zwischen AC und DC?", "a": "DC (Gleichstrom) hat feste Polarität. AC (Wechselstrom) wechselt periodisch die Polarität — Europa: 50 Hz, 230 V."},
+        ],
+        "it": [
+            {"q": "Cos'è la legge di Ohm?", "a": "La tensione è proporzionale alla corrente: V = I × R. A temperatura costante, R rimane costante."},
+            {"q": "Come si calcola la potenza elettrica?", "a": "P = V × I (potenza attiva, in watt). Equivalente: P = I²R oppure P = V²/R."},
+            {"q": "Cos'è la costante di tempo RC?", "a": "τ = R × C. In 1 τ il condensatore si carica al 63 %; in 5 τ è considerato completamente carico."},
+            {"q": "Qual è la differenza tra AC e DC?", "a": "DC (corrente continua) ha polarità fissa. AC (alternata) inverte periodicamente — rete europea: 50 Hz, 230 V."},
+        ],
+    },
+    "clima": {
+        "es": [
+            {"q": "¿Qué es la sensación térmica?", "a": "Temperatura percibida que combina temperatura del aire y velocidad del viento (en frío) o humedad (en calor). Puede diferir 5–10 °C de la temperatura real."},
+            {"q": "¿Qué es la humedad relativa?", "a": "Porcentaje de vapor de agua en el aire respecto al máximo que puede contener a esa temperatura. 100 % equivale a saturación."},
+            {"q": "¿Qué presión atmosférica es normal?", "a": "1013,25 hPa al nivel del mar. Cae aproximadamente 1 hPa cada 8 m de elevación."},
+            {"q": "¿Qué es el punto de rocío?", "a": "Temperatura a la que el aire se satura y el vapor empieza a condensarse. A mayor punto de rocío, mayor sensación de bochorno."},
+        ],
+        "en": [
+            {"q": "What is wind chill / heat index?", "a": "Perceived temperature that combines air temperature with wind speed (cold) or humidity (hot). It can differ 5–10 °C from the actual reading."},
+            {"q": "What is relative humidity?", "a": "Percentage of water vapour in the air relative to the maximum it can hold at that temperature. 100% means saturation."},
+            {"q": "What is normal atmospheric pressure?", "a": "1013.25 hPa at sea level. It drops by roughly 1 hPa for every 8 m of elevation."},
+            {"q": "What is the dew point?", "a": "Temperature at which the air becomes saturated and water vapour starts to condense. Higher dew points feel muggier."},
+        ],
+        "fr": [
+            {"q": "Qu'est-ce que le ressenti / refroidissement éolien ?", "a": "Température perçue combinant la température de l'air et le vent (froid) ou l'humidité (chaud). Peut différer de 5 à 10 °C de la valeur réelle."},
+            {"q": "Qu'est-ce que l'humidité relative ?", "a": "Pourcentage de vapeur d'eau dans l'air par rapport au maximum à cette température. 100 % = saturation."},
+            {"q": "Quelle est la pression atmosphérique normale ?", "a": "1013,25 hPa au niveau de la mer. Elle baisse d'environ 1 hPa tous les 8 m d'altitude."},
+            {"q": "Qu'est-ce que le point de rosée ?", "a": "Température à laquelle l'air est saturé et la vapeur d'eau commence à condenser. Plus il est élevé, plus il fait lourd."},
+        ],
+        "pt": [
+            {"q": "O que é a sensação térmica?", "a": "Temperatura percebida que combina temperatura do ar e velocidade do vento (frio) ou umidade (calor). Pode diferir 5–10 °C da real."},
+            {"q": "O que é umidade relativa?", "a": "Porcentagem de vapor d'água no ar em relação ao máximo a essa temperatura. 100 % = saturação."},
+            {"q": "Qual é a pressão atmosférica normal?", "a": "1013,25 hPa ao nível do mar. Cai cerca de 1 hPa a cada 8 m de elevação."},
+            {"q": "O que é ponto de orvalho?", "a": "Temperatura na qual o ar fica saturado e o vapor começa a condensar. Quanto maior, maior sensação de abafamento."},
+        ],
+        "de": [
+            {"q": "Was ist die gefühlte Temperatur?", "a": "Wahrgenommene Temperatur aus Lufttemperatur und Wind (Kälte) bzw. Feuchte (Hitze). Kann 5–10 °C vom Messwert abweichen."},
+            {"q": "Was ist relative Luftfeuchtigkeit?", "a": "Prozentsatz Wasserdampf im Verhältnis zum Maximum bei dieser Temperatur. 100 % = Sättigung."},
+            {"q": "Was ist normaler Luftdruck?", "a": "1013,25 hPa auf Meereshöhe. Pro 8 m Höhe ca. 1 hPa weniger."},
+            {"q": "Was ist der Taupunkt?", "a": "Temperatur, bei der Luft gesättigt ist und Dampf kondensiert. Höher = schwüler."},
+        ],
+        "it": [
+            {"q": "Cos'è la temperatura percepita?", "a": "Temperatura percepita che combina temperatura dell'aria e vento (freddo) o umidità (caldo). Può differire 5–10 °C da quella reale."},
+            {"q": "Cos'è l'umidità relativa?", "a": "Percentuale di vapore acqueo nell'aria rispetto al massimo a quella temperatura. 100 % = saturazione."},
+            {"q": "Qual è la pressione atmosferica normale?", "a": "1013,25 hPa a livello del mare. Cala di circa 1 hPa ogni 8 m di quota."},
+            {"q": "Cos'è il punto di rugiada?", "a": "Temperatura alla quale l'aria si satura e il vapore inizia a condensare. Più è alto, più è afoso."},
+        ],
+    },
+    "utilidades": {
+        "es": [
+            {"q": "¿Mis datos se envían al servidor?", "a": "No. Las herramientas se ejecutan en tu navegador y nada se transmite a un servidor externo."},
+            {"q": "¿Puedo usar las herramientas sin conexión?", "a": "Sí, una vez cargada la página el cálculo funciona sin conexión a Internet."},
+            {"q": "¿Por qué obtengo un resultado distinto al esperado?", "a": "Verifica que el formato y las unidades sean correctos. Pequeñas diferencias suelen deberse a redondeo."},
+        ],
+        "en": [
+            {"q": "Is my data sent to a server?", "a": "No. The tools run inside your browser and nothing is transmitted to an external server."},
+            {"q": "Can I use the tools offline?", "a": "Yes — once the page is loaded the calculation works without an internet connection."},
+            {"q": "Why does my result differ from what I expected?", "a": "Check that format and units are correct. Small differences are usually due to rounding."},
+        ],
+        "fr": [
+            {"q": "Mes données sont-elles envoyées à un serveur ?", "a": "Non. Les outils fonctionnent dans votre navigateur, rien n'est transmis à un serveur."},
+            {"q": "Puis-je utiliser les outils hors ligne ?", "a": "Oui, une fois la page chargée, le calcul fonctionne sans Internet."},
+            {"q": "Pourquoi le résultat diffère-t-il de mes attentes ?", "a": "Vérifiez le format et les unités. Les petites différences viennent souvent d'arrondis."},
+        ],
+        "pt": [
+            {"q": "Meus dados são enviados ao servidor?", "a": "Não. As ferramentas rodam no seu navegador e nada é transmitido a um servidor externo."},
+            {"q": "Posso usar as ferramentas offline?", "a": "Sim — depois de carregada a página, o cálculo funciona sem internet."},
+            {"q": "Por que obtenho um resultado diferente do esperado?", "a": "Verifique formato e unidades. Pequenas diferenças costumam ser arredondamento."},
+        ],
+        "de": [
+            {"q": "Werden meine Daten an einen Server gesendet?", "a": "Nein. Die Tools laufen im Browser, nichts wird an einen externen Server übertragen."},
+            {"q": "Kann ich die Tools offline nutzen?", "a": "Ja — nach dem Laden der Seite funktioniert die Berechnung ohne Internet."},
+            {"q": "Warum weicht mein Ergebnis ab?", "a": "Prüfen Sie Format und Einheiten. Kleine Abweichungen sind meist Rundungsfehler."},
+        ],
+        "it": [
+            {"q": "I miei dati vengono inviati al server?", "a": "No. Gli strumenti funzionano nel browser e nulla viene trasmesso a un server esterno."},
+            {"q": "Posso usare gli strumenti offline?", "a": "Sì — una volta caricata la pagina il calcolo funziona senza Internet."},
+            {"q": "Perché ottengo un risultato diverso?", "a": "Verifica formato e unità. Piccole differenze sono solitamente arrotondamento."},
+        ],
+    },
+    "transporte": {
+        "es": [
+            {"q": "¿Cómo se calcula el consumo de combustible?", "a": "L/100 km = (litros consumidos × 100) / km recorridos. Ejemplo: 50 L para 800 km = 6,25 L/100 km."},
+            {"q": "¿Cuál es la velocidad media adecuada?", "a": "En carretera abierta 90–110 km/h optimiza consumo en la mayoría de coches modernos."},
+            {"q": "¿Cómo se convierte mpg a L/100 km?", "a": "L/100 km = 235.215 / mpg (US). Ejemplo: 30 mpg ≈ 7,84 L/100 km."},
+            {"q": "¿Influye la presión de los neumáticos?", "a": "Sí. 0,3 bar por debajo del recomendado puede aumentar el consumo en torno al 3 %."},
+        ],
+        "en": [
+            {"q": "How do I calculate fuel consumption?", "a": "L/100 km = (litres used × 100) / km driven. Example: 50 L for 800 km = 6.25 L/100 km."},
+            {"q": "What is an efficient cruising speed?", "a": "On open road 90–110 km/h (55–70 mph) gives best fuel economy for most modern cars."},
+            {"q": "How do I convert mpg to L/100 km?", "a": "L/100 km = 235.215 / mpg (US). Example: 30 mpg ≈ 7.84 L/100 km."},
+            {"q": "Does tyre pressure matter?", "a": "Yes — running 0.3 bar below the recommended pressure can raise fuel use by about 3%."},
+        ],
+        "fr": [
+            {"q": "Comment calculer la consommation ?", "a": "L/100 km = (litres consommés × 100) / km parcourus. Exemple : 50 L pour 800 km = 6,25 L/100 km."},
+            {"q": "Quelle est la vitesse de croisière efficace ?", "a": "Sur route ouverte 90–110 km/h optimise la consommation pour la plupart des voitures modernes."},
+            {"q": "Comment convertir mpg en L/100 km ?", "a": "L/100 km = 235,215 / mpg (US). Ex. : 30 mpg ≈ 7,84 L/100 km."},
+            {"q": "La pression des pneus est-elle importante ?", "a": "Oui — 0,3 bar en dessous du recommandé peut augmenter la conso d'environ 3 %."},
+        ],
+        "pt": [
+            {"q": "Como calcular o consumo?", "a": "L/100 km = (litros gastos × 100) / km percorridos. Ex.: 50 L em 800 km = 6,25 L/100 km."},
+            {"q": "Qual é uma velocidade de cruzeiro eficiente?", "a": "Em estrada aberta 90–110 km/h otimiza o consumo na maioria dos carros modernos."},
+            {"q": "Como converter mpg para L/100 km?", "a": "L/100 km = 235,215 / mpg (US). Ex.: 30 mpg ≈ 7,84 L/100 km."},
+            {"q": "A pressão dos pneus influencia?", "a": "Sim — 0,3 bar abaixo do recomendado pode aumentar o consumo em ~3 %."},
+        ],
+        "de": [
+            {"q": "Wie berechne ich den Verbrauch?", "a": "L/100 km = (verbrauchte Liter × 100) / gefahrene km. Bsp.: 50 L für 800 km = 6,25 L/100 km."},
+            {"q": "Was ist eine wirtschaftliche Reisegeschwindigkeit?", "a": "Auf offener Strecke 90–110 km/h für die meisten modernen Pkw optimal."},
+            {"q": "Wie rechnet man mpg in L/100 km um?", "a": "L/100 km = 235,215 / mpg (US). Bsp.: 30 mpg ≈ 7,84 L/100 km."},
+            {"q": "Spielt der Reifendruck eine Rolle?", "a": "Ja — 0,3 bar unter dem empfohlenen Wert können den Verbrauch um ca. 3 % erhöhen."},
+        ],
+        "it": [
+            {"q": "Come si calcola il consumo?", "a": "L/100 km = (litri consumati × 100) / km percorsi. Es.: 50 L per 800 km = 6,25 L/100 km."},
+            {"q": "Qual è una velocità di crociera efficiente?", "a": "Su strada aperta 90–110 km/h ottimizza il consumo nella maggior parte delle auto moderne."},
+            {"q": "Come si convertono i mpg in L/100 km?", "a": "L/100 km = 235,215 / mpg (US). Es.: 30 mpg ≈ 7,84 L/100 km."},
+            {"q": "La pressione delle gomme influisce?", "a": "Sì — 0,3 bar sotto il valore consigliato può aumentare il consumo di circa il 3 %."},
+        ],
+    },
+    "fotografia": {
+        "es": [
+            {"q": "¿Qué es el triángulo de exposición?", "a": "La combinación de apertura (f), velocidad de obturación y sensibilidad ISO. Cambiar uno obliga a compensar otro para mantener la misma exposición."},
+            {"q": "¿Cómo afecta la apertura a la profundidad de campo?", "a": "Cuanto más abierto el diafragma (número f menor), menos profundidad de campo. f/1.8 desenfoca el fondo; f/11 lo mantiene nítido."},
+            {"q": "¿Qué es la regla del 500 para astrofotografía?", "a": "Exposición máxima sin estelas = 500 / focal equivalente (mm). Con 24 mm full-frame ≈ 20,8 s."},
+            {"q": "¿Qué diferencia hay entre full-frame y APS-C?", "a": "El sensor APS-C es ~1,5× más pequeño. Multiplica la focal por el factor de recorte para obtener la equivalencia (50 mm APS-C ≈ 75 mm)."},
+        ],
+        "en": [
+            {"q": "What is the exposure triangle?", "a": "The combination of aperture (f-number), shutter speed and ISO sensitivity. Changing one forces compensating another to keep the same exposure."},
+            {"q": "How does aperture affect depth of field?", "a": "Wider aperture (smaller f-number) gives shallower depth of field. f/1.8 blurs backgrounds; f/11 keeps everything sharp."},
+            {"q": "What is the 500 rule for astrophotography?", "a": "Max exposure without star trails = 500 / equivalent focal length (mm). With 24 mm full-frame ≈ 20.8 s."},
+            {"q": "Full-frame vs APS-C — what's the difference?", "a": "APS-C sensors are ~1.5× smaller. Multiply focal length by the crop factor for the equivalent (50 mm APS-C ≈ 75 mm)."},
+        ],
+        "fr": [
+            {"q": "Qu'est-ce que le triangle d'exposition ?", "a": "Combinaison ouverture (f), vitesse d'obturation et sensibilité ISO. Modifier l'un impose de compenser un autre pour garder la même exposition."},
+            {"q": "Comment l'ouverture influence-t-elle la profondeur de champ ?", "a": "Une ouverture plus grande (f plus petit) réduit la profondeur de champ. f/1,8 floute l'arrière-plan ; f/11 garde tout net."},
+            {"q": "Qu'est-ce que la règle des 500 en astrophoto ?", "a": "Exposition max sans filé = 500 / focale équivalente (mm). 24 mm plein format ≈ 20,8 s."},
+            {"q": "Quelle est la différence entre plein format et APS-C ?", "a": "Le capteur APS-C est ~1,5× plus petit. Multipliez la focale par le facteur de crop (50 mm APS-C ≈ 75 mm)."},
+        ],
+        "pt": [
+            {"q": "O que é o triângulo de exposição?", "a": "Combinação de abertura (f), velocidade de obturação e ISO. Mudar um obriga compensar outro para manter a mesma exposição."},
+            {"q": "Como a abertura afeta a profundidade de campo?", "a": "Quanto maior a abertura (menor número f), menor a profundidade. f/1.8 desfoca o fundo; f/11 mantém tudo nítido."},
+            {"q": "O que é a regra dos 500 na astrofotografia?", "a": "Exposição máxima sem rastros = 500 / focal equivalente (mm). Com 24 mm full-frame ≈ 20,8 s."},
+            {"q": "Full-frame vs APS-C — qual a diferença?", "a": "APS-C é ~1,5× menor. Multiplique a focal pelo fator de corte (50 mm APS-C ≈ 75 mm)."},
+        ],
+        "de": [
+            {"q": "Was ist das Belichtungsdreieck?", "a": "Kombination aus Blende (f), Belichtungszeit und ISO. Ändert man eines, muss man ein anderes anpassen."},
+            {"q": "Wie beeinflusst die Blende die Schärfentiefe?", "a": "Größere Blende (kleinere f-Zahl) = geringere Schärfentiefe. f/1,8 macht Hintergrund unscharf; f/11 hält alles scharf."},
+            {"q": "Was ist die 500er-Regel für Astrofotografie?", "a": "Maximale Belichtung ohne Sternspuren = 500 / äquivalente Brennweite (mm). 24 mm Vollformat ≈ 20,8 s."},
+            {"q": "Vollformat vs APS-C — was ist der Unterschied?", "a": "APS-C-Sensoren sind ~1,5× kleiner. Brennweite mit dem Crop-Faktor multiplizieren (50 mm APS-C ≈ 75 mm)."},
+        ],
+        "it": [
+            {"q": "Cos'è il triangolo dell'esposizione?", "a": "Combinazione di apertura (f), tempo di scatto e ISO. Modificare uno richiede di compensare un altro per mantenere la stessa esposizione."},
+            {"q": "Come influisce l'apertura sulla profondità di campo?", "a": "Apertura maggiore (f più basso) = minore profondità. f/1.8 sfuoca lo sfondo; f/11 mantiene tutto nitido."},
+            {"q": "Cos'è la regola del 500 per l'astrofotografia?", "a": "Esposizione massima senza strisciate = 500 / focale equivalente (mm). 24 mm full-frame ≈ 20,8 s."},
+            {"q": "Full-frame vs APS-C — qual è la differenza?", "a": "I sensori APS-C sono ~1,5× più piccoli. Moltiplica la focale per il fattore di crop (50 mm APS-C ≈ 75 mm)."},
+        ],
+    },
+    "ingenieria": {
+        "es": [
+            {"q": "¿Qué coeficientes de seguridad se aplican?", "a": "Depende de la norma: 1,5 en estructuras de acero (Eurocódigo), 1,5–2,0 en hormigón, 3–10 en cargas dinámicas o fatiga."},
+            {"q": "¿Qué unidades usar para tensiones?", "a": "El SI usa Pascales (Pa) o megapascales (MPa). 1 MPa = 1 N/mm². El acero típico: límite elástico 235–500 MPa."},
+            {"q": "¿Qué es el momento de inercia?", "a": "Propiedad geométrica que mide la resistencia de una sección a la flexión. Mayor I = sección más rígida ante flexión (mm⁴ en SI)."},
+        ],
+        "en": [
+            {"q": "Which safety factors apply?", "a": "Depends on the code: 1.5 for steel structures (Eurocode), 1.5–2.0 for concrete, 3–10 for dynamic loads or fatigue."},
+            {"q": "Which units should I use for stress?", "a": "SI uses Pascals (Pa) or megapascals (MPa). 1 MPa = 1 N/mm². Typical steel yield: 235–500 MPa."},
+            {"q": "What is the moment of inertia?", "a": "Geometric property measuring a section's resistance to bending. Higher I = stiffer section under bending (mm⁴ in SI)."},
+        ],
+        "fr": [
+            {"q": "Quels coefficients de sécurité appliquer ?", "a": "Selon la norme : 1,5 pour les structures acier (Eurocode), 1,5–2,0 pour le béton, 3–10 pour charges dynamiques ou fatigue."},
+            {"q": "Quelles unités pour les contraintes ?", "a": "Le SI utilise Pascals (Pa) ou mégapascals (MPa). 1 MPa = 1 N/mm². Acier classique : limite élastique 235–500 MPa."},
+            {"q": "Qu'est-ce que le moment d'inertie ?", "a": "Propriété géométrique mesurant la résistance à la flexion. Plus I est grand, plus la section est rigide (mm⁴ en SI)."},
+        ],
+        "pt": [
+            {"q": "Quais fatores de segurança se aplicam?", "a": "Depende da norma: 1,5 em estruturas de aço (Eurocódigo), 1,5–2,0 em concreto, 3–10 em cargas dinâmicas ou fadiga."},
+            {"q": "Que unidades usar para tensões?", "a": "O SI usa Pascals (Pa) ou megapascals (MPa). 1 MPa = 1 N/mm². Aço típico: limite elástico 235–500 MPa."},
+            {"q": "O que é o momento de inércia?", "a": "Propriedade geométrica que mede a resistência à flexão. Maior I = seção mais rígida (mm⁴ em SI)."},
+        ],
+        "de": [
+            {"q": "Welche Sicherheitsbeiwerte gelten?", "a": "Hängt von der Norm ab: 1,5 für Stahlbau (Eurocode), 1,5–2,0 für Beton, 3–10 bei dynamischen Lasten oder Ermüdung."},
+            {"q": "Welche Einheiten für Spannungen?", "a": "SI verwendet Pascal (Pa) oder Megapascal (MPa). 1 MPa = 1 N/mm². Übliche Stahlstreckgrenze: 235–500 MPa."},
+            {"q": "Was ist das Flächenträgheitsmoment?", "a": "Geometrische Größe für die Biegesteifigkeit eines Querschnitts. Höheres I = steiferer Querschnitt (mm⁴ in SI)."},
+        ],
+        "it": [
+            {"q": "Quali coefficienti di sicurezza applicare?", "a": "Dipende dalla norma: 1,5 per strutture in acciaio (Eurocodice), 1,5–2,0 per calcestruzzo, 3–10 per carichi dinamici o fatica."},
+            {"q": "Quali unità per le tensioni?", "a": "Il SI usa Pascal (Pa) o megapascal (MPa). 1 MPa = 1 N/mm². Acciaio tipico: snervamento 235–500 MPa."},
+            {"q": "Cos'è il momento d'inerzia?", "a": "Proprietà geometrica che misura la resistenza alla flessione. Maggiore I = sezione più rigida (mm⁴ in SI)."},
+        ],
+    },
 }
 
 
@@ -2242,42 +2552,63 @@ LONG_CONTENT = {
 </section>""",
         "en": """<section class="long-content">
 <h2>What is a percentage calculator?</h2>
-<p>The <strong>percentage calculator</strong> instantly solves the three most common percentage problems: finding what percent one number is of another, calculating the value of a percentage of a number, or finding the whole when you know the part and its percentage. It's the most-used math operation in everyday life: discounts, taxes, tips, statistics, salary increases, and financial analysis.</p>
+<p>The <strong>percentage calculator</strong> instantly solves the three most common percentage problems: finding what percent one number is of another, calculating the value of a percentage of a number, or finding the whole when you know the part and its percentage. It's the most-used math operation in everyday life — discounts, taxes, tips, statistics, salary increases, and financial analysis all reduce to percentage arithmetic at their core.</p>
+<p>Most people encounter percentage calculations dozens of times a week and still get them wrong under pressure. The confusion almost always comes from not knowing <em>which</em> of the three percentage formulas applies to the question being asked. This calculator identifies the right variant and shows the full working, so you both get the right answer and understand why.</p>
 
-<h2>Percentage formulas</h2>
+<h2>The three percentage formulas</h2>
+<p>Percentage problems always involve three quantities: a <strong>part</strong>, a <strong>whole</strong>, and a <strong>percentage rate</strong>. Depending on which two you know, you solve for the third:</p>
 <ul>
-  <li><strong>What % is A of B?</strong> → Percentage = (A ÷ B) × 100</li>
-  <li><strong>What is X% of B?</strong> → Value = (X × B) ÷ 100</li>
-  <li><strong>A is X% of what total?</strong> → Total = A × 100 ÷ X</li>
+  <li><strong>Find the rate — what % is A of B?</strong><br>Rate = (A ÷ B) × 100<br><em>Example: 45 out of 180 students passed → (45 ÷ 180) × 100 = 25%</em></li>
+  <li><strong>Find the value — what is X% of B?</strong><br>Value = (X × B) ÷ 100<br><em>Example: 15% tip on a $48 meal → (15 × 48) ÷ 100 = $7.20</em></li>
+  <li><strong>Find the whole — A is X% of what total?</strong><br>Total = A × 100 ÷ X<br><em>Example: $240 is 30% of what? → 240 × 100 ÷ 30 = $800</em></li>
 </ul>
 
-<h2>Step-by-step examples</h2>
-<p><strong>Example 1 – Shopping discount:</strong> A TV costs $650 with a 30% discount.</p>
+<h2>Worked examples</h2>
+<p><strong>Example 1 — Shopping discount:</strong> A jacket costs $120 with a 35% discount. How much do you save and what's the final price?</p>
 <ol>
-  <li>Discount amount: (30 × 650) ÷ 100 = <strong>$195</strong></li>
-  <li>Final price: 650 − 195 = <strong>$455</strong></li>
+  <li>Discount amount: (35 × 120) ÷ 100 = <strong>$42</strong></li>
+  <li>Final price: 120 − 42 = <strong>$78</strong></li>
 </ol>
-<p><strong>Example 2 – Price increase:</strong> Your electricity bill goes from $80 to $96. What % increase?</p>
+<p><strong>Example 2 — Electricity bill increase:</strong> Your electricity bill rises from $85 to $102. What's the percentage increase?</p>
 <ol>
-  <li>Difference: 96 − 80 = $16</li>
-  <li>Percentage increase: (16 ÷ 80) × 100 = <strong>20%</strong></li>
+  <li>Difference: 102 − 85 = $17</li>
+  <li>Percentage increase: (17 ÷ 85) × 100 = <strong>20%</strong></li>
+</ol>
+<p><strong>Example 3 — Reverse VAT:</strong> A product costs $119 including 19% VAT. What's the price before tax?</p>
+<ol>
+  <li>The after-tax price is 119% of the pre-tax price (100% + 19%)</li>
+  <li>Pre-tax price: 119 × 100 ÷ 119 = <strong>$100</strong></li>
 </ol>
 
-<h2>Common uses</h2>
+<h2>Common uses of percentage calculations</h2>
 <ul>
-  <li><strong>Discounts:</strong> Black Friday, sales, and coupon codes.</li>
-  <li><strong>Tax calculations:</strong> Find the price with or without VAT/sales tax.</li>
-  <li><strong>Personal finance:</strong> What % of income goes to savings or expenses.</li>
-  <li><strong>Grade conversions:</strong> Turn correct answers into a percentage score.</li>
-  <li><strong>Tips:</strong> Calculate 10%, 15%, or 20% of a restaurant bill.</li>
+  <li><strong>Retail discounts and sales:</strong> Black Friday, seasonal sales, coupon codes. Calculate the actual saving and final price instantly.</li>
+  <li><strong>Tax and VAT:</strong> Find the price including or excluding tax; calculate the tax amount separately.</li>
+  <li><strong>Personal finance:</strong> What percentage of your income goes to rent, food, savings? Track budget allocation precisely.</li>
+  <li><strong>Academic scores:</strong> Convert correct answers to percentage grades or check what score you need on the final to pass the course.</li>
+  <li><strong>Restaurant tips:</strong> Calculate 10%, 15%, 18%, or 20% gratuity in seconds.</li>
+  <li><strong>Salary negotiations:</strong> Calculate the percentage difference between two salary offers or the raise percentage relative to current pay.</li>
+  <li><strong>Statistics and data:</strong> Market share, survey results, growth rates — all expressed as percentages.</li>
 </ul>
 
 <h2>Common mistakes to avoid</h2>
 <ul>
-  <li><strong>"10% more" ≠ "10%":</strong> 10% more than $100 is $110, not just $10.</li>
-  <li><strong>Wrong division order:</strong> To find what % 20 is of 80, divide 20 ÷ 80, not 80 ÷ 20.</li>
-  <li><strong>Stacking discounts:</strong> 20% off then 10% off is a 28% total discount, not 30%.</li>
+  <li><strong>"X% more" is not the same as "X%":</strong> 20% more than $100 is $120 (the base + 20%), not just $20. Confusing the absolute change with the relative change is the most common percentage error.</li>
+  <li><strong>Wrong division order:</strong> To find what percentage 20 is of 80, divide 20 ÷ 80 (= 0.25 = 25%), not 80 ÷ 20. The "part" goes in the numerator.</li>
+  <li><strong>Stacked discounts don't add:</strong> A 20% discount followed by a 10% discount is a 28% total discount, not 30%. Each percentage applies to the reduced price, not the original.</li>
+  <li><strong>Percentage change vs. percentage point change:</strong> If a tax rate rises from 15% to 18%, it increased by 3 <em>percentage points</em> — but by 20% <em>relative to its previous level</em> (3 ÷ 15 × 100). These measure different things.</li>
 </ul>
+
+<h2>Pro tip</h2>
+<p>When mental math isn't fast enough, the 1% shortcut works for any percentage: divide the number by 100 to get 1%, then multiply. For example, 7% of $350: 350 ÷ 100 = $3.50 per 1%; $3.50 × 7 = <strong>$24.50</strong>. Combine this with the calculator for verification and you'll never second-guess a percentage again.</p>
+
+<h2>Frequently asked questions</h2>
+<div class="faq-list">
+<div class="faq-item"><button class="faq-q" aria-expanded="false">What's the difference between percentage and percentage point?</button><div class="faq-a"><p>A <strong>percentage</strong> expresses a ratio relative to a base (e.g., "a 5% increase"). A <strong>percentage point</strong> is an absolute difference between two percentages. If unemployment rises from 4% to 6%, it rose by 2 percentage points — but by 50% in relative terms (because 2 ÷ 4 = 0.5). Journalists and politicians often mix these up intentionally or unintentionally, so knowing the distinction helps you read statistics critically.</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">How do I calculate a percentage increase or decrease?</button><div class="faq-a"><p>Percentage change = ((New value − Old value) ÷ Old value) × 100. A positive result means an increase; negative means a decrease. Example: price drops from $200 to $150 → ((150 − 200) ÷ 200) × 100 = −25%, a 25% decrease. Our <a href="/en/percentage-change-calculator/">percentage change calculator</a> handles this automatically.</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">How do I remove VAT (reverse percentage)?</button><div class="faq-a"><p>Divide the inclusive price by (1 + VAT rate). For a 20% VAT: pre-tax price = $120 ÷ 1.20 = $100. Never subtract the rate directly ($120 − 20% = $96 is wrong — that removes 20% of the inclusive price, not 20% of the exclusive price).</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">Is this calculator accurate?</button><div class="faq-a"><p>Yes. The calculator uses exact arithmetic (IEEE 754 double precision) and rounds only the displayed result. It correctly handles all three percentage formula variants and shows step-by-step working so you can verify the logic.</p></div></div>
+</div>
 </section>""",
     },
 
@@ -2379,28 +2710,64 @@ LONG_CONTENT = {
 </section>""",
         "en": """<section class="long-content">
 <h2>What is the Pythagorean theorem?</h2>
-<p>The <strong>Pythagorean theorem</strong> states that in a right triangle, the square of the hypotenuse equals the sum of the squares of the other two sides (legs). It's one of the most fundamental theorems in geometry, with direct applications in construction, architecture, surveying, engineering, and physics.</p>
+<p>The <strong>Pythagorean theorem</strong> states that in a right triangle, the square of the hypotenuse equals the sum of the squares of the other two sides (legs): <strong>a² + b² = c²</strong>. It's one of the most fundamental theorems in geometry, attributed to the ancient Greek mathematician Pythagoras (though known in Babylonian mathematics more than 1,000 years earlier), with direct applications in construction, architecture, surveying, engineering, and physics.</p>
+<p>This calculator solves for any one of the three sides given the other two. You can find the hypotenuse (c) from both legs, or find a missing leg (a or b) when you know the hypotenuse and the other leg — useful for checking diagonal cuts, verifying square corners, and calculating distances in coordinate geometry.</p>
 
-<h2>Pythagorean theorem formula</h2>
-<p><strong>a² + b² = c²</strong></p>
-<p>Where <em>a</em> and <em>b</em> are the legs and <em>c</em> is the hypotenuse. To find a missing leg: <strong>a = √(c² − b²)</strong></p>
+<h2>The three Pythagorean formulas</h2>
+<ul>
+  <li><strong>Find the hypotenuse:</strong> c = √(a² + b²)</li>
+  <li><strong>Find leg a:</strong> a = √(c² − b²)</li>
+  <li><strong>Find leg b:</strong> b = √(c² − a²)</li>
+</ul>
+<p>The hypotenuse is always the longest side — it must be greater than either leg. If your result produces an imaginary number (square root of a negative), your triangle dimensions are geometrically impossible: the two shorter sides cannot form a right triangle with the hypotenuse you specified.</p>
 
-<h2>Step-by-step example</h2>
-<p><strong>Situation:</strong> You want to verify a 90° corner. The horizontal leg is 3 m, the vertical leg is 4 m. What should the diagonal measure?</p>
+<h2>Worked examples</h2>
+<p><strong>Example 1 — Construction site square:</strong> A builder measures 3 m along one wall and 4 m along the adjacent wall. If the corner is truly 90°, the diagonal should be:</p>
 <ol>
   <li>c² = 3² + 4² = 9 + 16 = 25</li>
   <li>c = √25 = <strong>5 m</strong></li>
 </ol>
-<p>This is the famous 3-4-5 Pythagorean triple, widely used in construction to check right angles.</p>
+<p>This is the famous 3-4-5 Pythagorean triple. If your measured diagonal is exactly 5 m, the corner is square. Any deviation indicates an out-of-square corner.</p>
+<p><strong>Example 2 — Diagonal of a room:</strong> A room is 5.4 m long and 3.8 m wide. What's the diagonal distance (useful for planning furniture placement or running cable)?</p>
+<ol>
+  <li>c² = 5.4² + 3.8² = 29.16 + 14.44 = 43.60</li>
+  <li>c = √43.60 ≈ <strong>6.60 m</strong></li>
+</ol>
 
-<h2>Common uses</h2>
+<h2>Pythagorean triples</h2>
+<p>A Pythagorean triple is a set of three positive integers (a, b, c) that satisfy a² + b² = c². They're useful because they give exact integer results:</p>
 <ul>
-  <li><strong>Construction:</strong> Checking right angles and squares on site.</li>
-  <li><strong>Geometry:</strong> Finding diagonals of rectangles, triangle heights.</li>
-  <li><strong>Navigation:</strong> Distances using Cartesian map coordinates.</li>
-  <li><strong>Physics:</strong> Vector force and velocity composition.</li>
-  <li><strong>Computer graphics:</strong> Distance between two points on screen.</li>
+  <li><strong>3 – 4 – 5</strong> (and multiples: 6-8-10, 9-12-15…)</li>
+  <li><strong>5 – 12 – 13</strong></li>
+  <li><strong>8 – 15 – 17</strong></li>
+  <li><strong>7 – 24 – 25</strong></li>
+  <li><strong>20 – 21 – 29</strong></li>
 </ul>
+<p>In real-world applications, the legs and hypotenuse are rarely whole numbers, but the theorem works identically for any real-valued measurements — the calculator returns the exact result regardless.</p>
+
+<h2>Common applications</h2>
+<ul>
+  <li><strong>Construction and carpentry:</strong> Checking right angles on site using the 3-4-5 method or any scaled version.</li>
+  <li><strong>Architecture and floor plans:</strong> Calculating diagonal dimensions of rooms, finding the actual length of a sloped rafter.</li>
+  <li><strong>Surveying and navigation:</strong> Computing straight-line distances between two points with known horizontal and vertical offsets.</li>
+  <li><strong>Physics:</strong> Resolving vector components — force, velocity, and displacement in two dimensions.</li>
+  <li><strong>Computer graphics:</strong> Finding the Euclidean distance between two pixels or screen coordinates.</li>
+  <li><strong>Stair design:</strong> The rise and run of a staircase form the two legs; the stringer length is the hypotenuse.</li>
+</ul>
+
+<h2>Common mistakes</h2>
+<ul>
+  <li><strong>Using the formula on non-right triangles:</strong> The theorem only applies when one angle is exactly 90°. For other triangles, use the Law of Cosines instead.</li>
+  <li><strong>Squaring instead of finding the square root:</strong> The formula gives c² = a² + b², so you must take the square root at the end. Forgetting this final step is the most common arithmetic error.</li>
+  <li><strong>Confusing legs and hypotenuse:</strong> The hypotenuse is always opposite the right angle and always the longest side. If you label a shorter side as the hypotenuse, the result will be wrong.</li>
+</ul>
+
+<h2>Frequently asked questions</h2>
+<div class="faq-list">
+<div class="faq-item"><button class="faq-q" aria-expanded="false">Does the theorem work in 3D?</button><div class="faq-a"><p>Yes — in three dimensions, the space diagonal of a rectangular box with sides a, b, c is d = √(a² + b² + c²), which is just the Pythagorean theorem applied twice. Similarly, the distance formula between two points in 3D space is the 3D extension of the Pythagorean theorem.</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">What if I need to verify a right angle on site without a measuring tool?</button><div class="faq-a"><p>Use the 3-4-5 method: measure 3 units along one wall, 4 units along the adjacent wall, and check that the diagonal is exactly 5 units. Any consistent unit works (metres, feet, tiles). If the diagonal doesn't measure 5 units, the corner is not square and needs adjustment.</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">Is this calculator accurate?</button><div class="faq-a"><p>Yes. The calculator uses IEEE 754 double-precision arithmetic, which gives 15–17 significant decimal digits of accuracy. For practical construction and engineering purposes, the result is more than sufficiently precise.</p></div></div>
+</div>
 </section>""",
     },
 
@@ -3149,23 +3516,41 @@ LONG_CONTENT = {
 </section>""",
         "en": """<section class="long-content">
 <h2>What is an age calculator?</h2>
-<p>The <strong>age calculator</strong> computes your exact age in years, months, and days from your birth date. It can also calculate how many days until your next birthday, what day of the week you were born, and your age in other useful formats.</p>
+<p>The <strong>age calculator</strong> computes your exact age in years, months, weeks, and days from your date of birth to any reference date (today by default). Beyond a simple year count, it tells you the day of the week you were born, how many days remain until your next birthday, and your total age expressed in days, hours, or minutes — details that are surprisingly useful in legal, medical, and financial contexts.</p>
+<p>While subtracting birth year from current year seems simple, an accurate age calculation must account for whether the birthday has passed yet this year, the variable lengths of months (28–31 days), and leap years. A manual calculation is error-prone; this calculator handles all edge cases automatically.</p>
 
 <h2>How exact age is calculated</h2>
+<p>The algorithm works in three steps:</p>
 <ol>
-  <li>If today is after your birthday this year: age = current year − birth year</li>
-  <li>If your birthday hasn't occurred yet this year: age = current year − birth year − 1</li>
+  <li><strong>Year difference:</strong> Subtract the birth year from the current year to get a preliminary age.</li>
+  <li><strong>Birthday check:</strong> If today's month/day is before the birth month/day, subtract 1 (the birthday hasn't occurred yet this year).</li>
+  <li><strong>Days elapsed:</strong> Count the total calendar days from the birth date to today, accounting for leap years (366 days instead of 365).</li>
 </ol>
-<p>For the exact count in days: total days elapsed from birth date to today.</p>
+<p>The result in years is the legal age in most jurisdictions. The total days and hours figures are often surprising — a 30-year-old has lived more than 10,950 days.</p>
 
 <h2>Common uses</h2>
 <ul>
-  <li><strong>Legal purposes:</strong> Proving legal age, retirement, inheritance eligibility.</li>
-  <li><strong>Medicine:</strong> Calculating exact patient age for dosing or diagnosis.</li>
-  <li><strong>Insurance:</strong> Premiums often depend on age at the contract date.</li>
-  <li><strong>Nutrition and fitness:</strong> Calculating BMR and calorie needs.</li>
-  <li><strong>Personal curiosity:</strong> What day were you born? How many days have you lived?</li>
+  <li><strong>Legal and administrative:</strong> Proving minimum age for driving, voting, drinking, retirement, or inheritance. Many official forms require age at a specific reference date, not today.</li>
+  <li><strong>Medical:</strong> Physicians use exact age (often to the day) when calculating dosages for children, assessing developmental milestones, or computing gestational age for newborns.</li>
+  <li><strong>Insurance:</strong> Premiums and eligibility thresholds depend on age at the policy's effective date, which can differ from today's date.</li>
+  <li><strong>Fitness and nutrition:</strong> Many formulas — BMR (basal metabolic rate), VO₂ max, maximum heart rate — use exact age in years as an input.</li>
+  <li><strong>Personal milestones:</strong> Find out what day of the week you were born, when you hit 10,000 days old, or how many hours you've been alive.</li>
 </ul>
+
+<h2>Age conventions around the world</h2>
+<p>Most Western countries count age from the birthday anniversary. However, conventions differ globally:</p>
+<ul>
+  <li><strong>South Korea (traditional system):</strong> Babies are born with age 1, and everyone gains a year on January 1st — so a baby born in December could be considered 2 years old just weeks after birth. South Korea officially moved to Western age counting in 2023 for legal and administrative purposes.</li>
+  <li><strong>East Asian lunisolar calendar:</strong> Some ceremonies and zodiac calculations use lunar birthday dates, which fall on different Gregorian calendar dates each year.</li>
+  <li><strong>Medical (gestational age):</strong> Premature infants are often assessed using "corrected age" — chronological age minus weeks of prematurity — to account for developmental milestones.</li>
+</ul>
+
+<h2>Frequently asked questions</h2>
+<div class="faq-list">
+<div class="faq-item"><button class="faq-q" aria-expanded="false">How do I calculate age at a past or future date?</button><div class="faq-a"><p>Change the "as of" date in the calculator to any date — past or future. This is useful for legal documents that require your age on a specific reference date (like a contract signing date or an exam cutoff date).</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">Why does the day count differ from years × 365?</button><div class="faq-a"><p>Leap years add an extra day every 4 years (with corrections for century years). Over 30 years, this adds roughly 7 extra days compared to a simple 30 × 365 = 10,950 calculation. The calculator counts actual calendar days, not estimated days.</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">Is this calculator accurate for legal age verification?</button><div class="faq-a"><p>Yes. The calculation matches the birthday-anniversary method used in most legal systems. For edge cases like being born on February 29th (leap day), most jurisdictions treat March 1st as the legal birthday in non-leap years — this calculator handles that convention correctly.</p></div></div>
+</div>
 </section>""",
     },
 
@@ -31259,9 +31644,165 @@ INTRO_FORMULA_TEMPLATES = {
     "it": "La formula alla base di questo calcolo è <strong>{f}</strong>. Comprendere come si ottiene il risultato ti aiuta a verificare l'output e a rilevare errori di input.",
 }
 
+CATEGORY_THEORY = {
+    "construction": {
+        "en": "<p>Construction projects live and die by accurate material estimates. Ordering too little halts the job and triggers costly emergency deliveries; ordering too much wastes money and clutters the site. Professional estimators typically add a 5–10&nbsp;% waste factor on top of the theoretical quantity to account for cuts, off-cuts, breakage, and minor measurement errors — a discipline built from hard-won job-site experience.</p><p>Modern construction calculations follow standards set by bodies like ISO, ASTM, or EN (European Norm), which define material properties, tolerances, and design allowances. Knowing the standard behind a formula helps you adapt it when conditions differ from the textbook — for example, when working with reclaimed materials, non-standard dimensions, or sites at altitude where concrete curing behaves differently.</p>",
+        "es": "<p>Los proyectos de construcción dependen de estimaciones precisas de materiales para mantenerse dentro del presupuesto y el cronograma. Pedir demasiado poco detiene la obra y genera entregas de emergencia costosas; pedir demasiado desperdicia dinero y ocupa espacio en el sitio. Los estimadores profesionales suelen añadir un 5–10&nbsp;% de factor de merma sobre la cantidad teórica para cubrir cortes, recortes, roturas y pequeños errores de medición.</p><p>Los cálculos modernos de construcción siguen normas establecidas por organismos como ISO, DIN o UNE, que definen propiedades de materiales, tolerancias y márgenes de diseño. Conocer la norma detrás de una fórmula ayuda a adaptarla cuando las condiciones difieren del caso estándar — por ejemplo, al trabajar con materiales recuperados, dimensiones no estándar o sitios en altitud donde el fraguado del hormigón se comporta de forma diferente.</p>",
+        "fr": "<p>Les projets de construction dépendent d'estimations précises des matériaux. Les professionnels ajoutent généralement 5–10&nbsp;% de marge de perte aux quantités théoriques pour les coupes, la casse et les erreurs de mesure. Les normes ISO et EN définissent les propriétés des matériaux et les tolérances utilisées dans ces formules.</p>",
+        "pt": "<p>Projetos de construção dependem de estimativas precisas de materiais para cumprir orçamento e cronograma. Profissionais geralmente adicionam 5–10&nbsp;% de margem de perda sobre a quantidade teórica para cobrir cortes, quebras e erros de medição. As normas ISO e ABNT definem as propriedades dos materiais utilizadas nestas fórmulas.</p>",
+        "de": "<p>Bauprojekte hängen von genauen Materialschätzungen ab. Fachleute addieren typischerweise 5–10&nbsp;% Verschnittzuschlag auf die theoretische Menge für Schnitte, Bruch und Messfehler. DIN-, ISO- und EN-Normen definieren Materialeigenschaften und Toleranzen, die diesen Formeln zugrunde liegen.</p>",
+        "it": "<p>I progetti di costruzione dipendono da stime precise dei materiali. I professionisti aggiungono tipicamente il 5–10&nbsp;% di tolleranza per sfridi, rotture ed errori di misura. Le norme ISO, EN e UNI definiscono le proprietà dei materiali e le tolleranze alla base di queste formule.</p>",
+    },
+    "math": {
+        "en": "<p>Every formula in mathematics encodes a relationship that was discovered — often the hard way — and then proven to hold universally. The formula this calculator uses isn't a rule of thumb or an approximation; it's an exact algebraic relationship valid for any real numbers within its domain. That precision is what makes mathematics the foundation of every quantitative discipline: from physics and chemistry to finance and data science.</p><p>One often-overlooked aspect of using formulas is understanding their domain — the set of input values for which the formula produces a valid result. Division by zero, square roots of negative numbers, and logarithms of non-positive values are common boundaries. Staying within the domain ensures the result is mathematically meaningful, not just a number the calculator returned without error.</p>",
+        "es": "<p>Cada fórmula matemática codifica una relación que fue descubierta y demostrada de forma universal. La fórmula que usa esta calculadora no es una regla empírica ni una aproximación: es una relación algebraica exacta válida para cualquier número real dentro de su dominio. Esa precisión es lo que hace de las matemáticas la base de toda disciplina cuantitativa: física, química, finanzas y ciencia de datos.</p><p>Un aspecto frecuentemente pasado por alto es el dominio de la fórmula: el conjunto de valores de entrada para los que produce un resultado válido. División por cero, raíces de números negativos y logaritmos de valores no positivos son límites habituales. Mantenerse dentro del dominio garantiza que el resultado sea matemáticamente significativo.</p>",
+        "fr": "<p>Chaque formule mathématique encode une relation exacte, valable pour tout nombre dans son domaine. Ce domaine — là où la formule est valide — est aussi important à connaître que la formule elle-même. Cette calculatrice identifie les entrées hors plage valide pour éviter des résultats indéfinis.</p>",
+        "pt": "<p>Cada fórmula matemática codifica uma relação exata, válida para qualquer número real no seu domínio. Compreender esse domínio — onde a fórmula é válida — é tão importante quanto a própria fórmula. Esta calculadora identifica entradas fora da faixa válida para evitar resultados matematicamente indefinidos.</p>",
+        "de": "<p>Jede mathematische Formel kodiert eine genaue Beziehung, die für alle reellen Zahlen in ihrem Definitionsbereich gilt. Diesen Definitionsbereich zu kennen — wo die Formel gültig ist — ist genauso wichtig wie die Formel selbst. Dieser Rechner erkennt Eingaben außerhalb des gültigen Bereichs.</p>",
+        "it": "<p>Ogni formula matematica codifica una relazione esatta, valida per qualsiasi numero reale nel suo dominio. Capire questo dominio — dove la formula è valida — è importante quanto la formula stessa. Questa calcolatrice segnala input fuori dall'intervallo valido per evitare risultati matematicamente indefiniti.</p>",
+    },
+    "health": {
+        "en": "<p>Health calculators are grounded in population studies, where researchers measure thousands of subjects and identify mathematical relationships between measurable quantities (like height and weight) and outcomes (like resting metabolic rate or body-fat percentage). These formulas represent the best available evidence-based estimates, but they are statistical models — they describe the average person in the study population, not you as an individual.</p><p>When a health result falls outside a 'normal' range, that doesn't automatically mean something is wrong — it means your measurement falls outside what's typical for the reference population. Age, ethnicity, athletic conditioning, and medical conditions all shift what 'normal' looks like. Always discuss outlier results with a qualified healthcare professional before making any changes to diet, exercise, or medication.</p>",
+        "es": "<p>Las calculadoras de salud se basan en estudios poblacionales donde los investigadores miden a miles de sujetos e identifican relaciones matemáticas entre magnitudes medibles y resultados de salud. Estas fórmulas representan las mejores estimaciones disponibles basadas en evidencia, pero son modelos estadísticos: describen a la persona promedio de la población estudiada.</p><p>Cuando un resultado de salud queda fuera del rango «normal», eso no significa automáticamente que algo esté mal, sino que tu medición está fuera de lo típico para la población de referencia. La edad, la etnia y el condicionamiento atlético desplazan lo que se considera «normal». Consulta siempre con un profesional sanitario antes de cambiar dieta, ejercicio o medicación.</p>",
+        "fr": "<p>Les calculatrices de santé sont fondées sur des études de population identifiant des relations mathématiques entre mesures et résultats de santé. Ces formules fournissent des estimations basées sur des preuves mais représentent des moyennes de population. Consultez toujours un professionnel de santé avant de modifier alimentation, exercice ou médicaments.</p>",
+        "pt": "<p>As calculadoras de saúde são baseadas em estudos populacionais que identificam relações matemáticas entre medidas e resultados de saúde. Essas fórmulas fornecem estimativas baseadas em evidências, mas representam médias populacionais. Consulte sempre um profissional de saúde antes de alterar dieta, exercício ou medicação.</p>",
+        "de": "<p>Gesundheitsrechner basieren auf Bevölkerungsstudien, die mathematische Zusammenhänge zwischen Messwerten und Gesundheitsergebnissen identifizieren. Diese Formeln liefern evidenzbasierte Schätzungen, stellen aber Bevölkerungsdurchschnitte dar. Sprechen Sie immer mit einem Arzt, bevor Sie Ernährung, Sport oder Medikamente ändern.</p>",
+        "it": "<p>Le calcolatrici sanitarie si basano su studi di popolazione che identificano relazioni matematiche tra misure e risultati di salute. Queste formule forniscono stime basate su prove, ma rappresentano medie di popolazione. Consulta sempre un professionista sanitario prima di modificare dieta, esercizio o farmaci.</p>",
+    },
+    "finance": {
+        "en": "<p>Financial calculations hinge on the time value of money: a dollar received today is worth more than a dollar received tomorrow, because today's dollar can be invested to earn interest. This principle, compounded over months and years, explains why mortgage payments are disproportionately weighted toward interest in the early years and why investing early has far more impact than investing more later.</p><p>Interest rate and compounding frequency are the two most commonly misread inputs in financial calculations. An annual rate of 6&nbsp;% compounded monthly is not the same as a rate of 6&nbsp;% compounded annually — the effective annual rate (EAR) in the first case is actually 6.17&nbsp;%. This calculator uses the correct compounding convention for the specific financial product you're evaluating, so the result matches what you'll actually pay or earn.</p>",
+        "es": "<p>Los cálculos financieros giran en torno al valor temporal del dinero: un euro recibido hoy vale más que uno recibido mañana porque el de hoy puede invertirse para generar intereses. Este principio, compuesto a lo largo de meses y años, explica por qué los pagos de hipoteca se cargan principalmente a intereses en los primeros años y por qué invertir pronto tiene mucho más impacto que invertir más tarde.</p><p>El tipo de interés y la frecuencia de capitalización son los dos inputs más frecuentemente mal leídos. Un tipo anual del 6&nbsp;% capitalizado mensualmente no es lo mismo que uno del 6&nbsp;% capitalizado anualmente: la TAE en el primer caso es en realidad del 6,17&nbsp;%. Esta calculadora utiliza la convención de capitalización correcta para el producto que estás evaluando.</p>",
+        "fr": "<p>Les calculs financiers reposent sur la valeur temporelle de l'argent : un euro aujourd'hui vaut plus qu'un euro demain car il peut être investi. Le taux d'intérêt et la fréquence de capitalisation sont les deux variables les plus souvent mal lues. Cette calculatrice applique la convention de capitalisation correcte pour produire des résultats exacts.</p>",
+        "pt": "<p>Os cálculos financeiros dependem do valor temporal do dinheiro: um real recebido hoje vale mais que um amanhã porque pode ser investido. Taxa de juros e frequência de capitalização são os dois inputs mais frequentemente lidos errado. Esta calculadora aplica a convenção de capitalização correta para o produto que você está avaliando.</p>",
+        "de": "<p>Finanzberechnungen hängen vom Zeitwert des Geldes ab: Ein heute erhaltener Euro ist mehr wert als ein morgen erhaltener, weil er investiert werden kann. Zinssatz und Zinsperiode sind die zwei am häufigsten falsch gelesenen Eingaben. Dieser Rechner wendet die korrekte Zinsmethode für das jeweilige Finanzprodukt an.</p>",
+        "it": "<p>I calcoli finanziari dipendono dal valore temporale del denaro: un euro ricevuto oggi vale più di uno ricevuto domani perché può essere investito. Tasso di interesse e frequenza di capitalizzazione sono i due input più spesso mal interpretati. Questa calcolatrice applica la convenzione di capitalizzazione corretta per il prodotto che stai valutando.</p>",
+    },
+    "science": {
+        "en": "<p>Physics formulas are not approximations — they are precise mathematical descriptions of how the universe behaves, validated through centuries of experiment. The formulas used in this calculator follow from fundamental principles confirmed across generations of measurement and are applied correctly within the conditions for which the theory holds (classical mechanics assumes speeds well below the speed of light; thermodynamic equations assume equilibrium systems).</p><p>Unit consistency is the most frequent source of error in scientific calculations. In the SI system, lengths are in metres, masses in kilograms, time in seconds, and forces in newtons — every formula is calibrated for these exact units. Mixing SI with imperial (pounds, feet, inches) corrupts every step that follows. Convert all inputs to a single consistent unit system before running any calculation.</p>",
+        "es": "<p>Las fórmulas de física no son aproximaciones: son descripciones matemáticamente exactas de cómo se comporta el universo, validadas a través de siglos de experimentación. Las ecuaciones utilizadas aquí se aplican correctamente dentro de las condiciones en que la teoría es válida (la mecánica clásica asume velocidades muy por debajo de la velocidad de la luz).</p><p>La consistencia de unidades es la fuente de error más frecuente en los cálculos científicos. En el sistema SI, longitudes en metros, masas en kilogramos, tiempo en segundos y fuerzas en newtons — cada fórmula está calibrada para estas unidades exactas. Mezclar SI con el sistema imperial corrompe todo lo que sigue. Convierte todas las entradas a un único sistema antes de calcular.</p>",
+        "fr": "<p>Les formules physiques décrivent mathématiquement des relations réelles validées par des siècles d'expérimentation. La cohérence des unités est la source d'erreur la plus fréquente : mélanger le SI avec l'impérial corrompt tous les calculs suivants. Convertissez toujours toutes les entrées dans un système d'unités cohérent.</p>",
+        "pt": "<p>As fórmulas de física descrevem matematicamente relações reais validadas por séculos de experimentação. A consistência de unidades é a fonte de erro mais frequente: misturar SI com imperial compromete todos os cálculos seguintes. Sempre converta todas as entradas para um único sistema de unidades antes de calcular.</p>",
+        "de": "<p>Physikalische Formeln beschreiben mathematisch exakt reale Zusammenhänge, die durch Jahrhunderte von Experimenten bestätigt wurden. Einheitenkonsistenz ist die häufigste Fehlerquelle: SI und imperial zu mischen korrumpiert alle nachfolgenden Berechnungen. Wandeln Sie alle Eingaben in ein einheitliches Einheitensystem um.</p>",
+        "it": "<p>Le formule fisiche descrivono matematicamente relazioni reali validate da secoli di sperimentazione. La coerenza delle unità è la fonte di errore più frequente: mischiare SI e imperiale compromette tutti i calcoli successivi. Converti sempre tutti gli input in un unico sistema di unità prima di calcolare.</p>",
+    },
+    "conversion": {
+        "en": "<p>Unit systems arose historically in isolation — different cultures developed their own standards for length, mass, and volume, optimized for the tools and trade goods of their era. The imperial system (inches, pounds, gallons) was codified in Britain in the 1800s; the metric (SI) system was designed by French scientists in the 1790s for universal scientific use. Today, nearly all countries have adopted SI as their primary system, but legacy imperial units persist in everyday life, especially in the United States and United Kingdom.</p><p>Unlike measurement readings (which carry inherent instrument uncertainty), unit conversion factors are exact by definition. One inch is exactly 2.54 centimetres — not approximately 2.54, but defined as exactly that. This means unit conversions add no rounding error; any rounding in the result comes from the significant figures of the original measurement, not the conversion itself.</p>",
+        "es": "<p>Los sistemas de unidades surgieron históricamente de forma independiente: diferentes culturas desarrollaron sus propios estándares. El sistema imperial fue codificado en Gran Bretaña en el siglo XIX; el sistema métrico (SI) fue diseñado por científicos franceses en los años 1790 para uso científico universal. Hoy casi todos los países han adoptado el SI, pero las unidades imperiales persisten especialmente en EE.UU. y Reino Unido.</p><p>A diferencia de las lecturas de medición, los factores de conversión de unidades son exactos por definición. Una pulgada equivale exactamente a 2,54 centímetros — no aproximadamente, sino por definición. Esto significa que las conversiones no añaden error de redondeo; cualquier redondeo proviene de la precisión de la medición original.</p>",
+        "fr": "<p>Les facteurs de conversion d'unités sont exacts par définition — 1 pouce = exactement 2,54 cm. Les conversions n'ajoutent donc pas d'erreur d'arrondi. Les différents systèmes (SI, impérial, US) coexistent parce qu'ils se sont développés historiquement de manière indépendante, le SI étant adopté quasi universellement pour l'usage scientifique.</p>",
+        "pt": "<p>Os fatores de conversão de unidades são exatos por definição — 1 polegada = exatamente 2,54 cm. As conversões não adicionam erro de arredondamento. Os diferentes sistemas (SI, imperial) coexistem porque se desenvolveram historicamente de forma independente; o SI é o padrão científico universal.</p>",
+        "de": "<p>Umrechnungsfaktoren sind per Definition exakt — 1 Zoll = genau 2,54 cm. Umrechnungen fügen daher keinen Rundungsfehler hinzu. Verschiedene Einheitensysteme (SI, imperial) koexistieren, weil sie historisch unabhängig entstanden; SI ist der universelle wissenschaftliche Standard.</p>",
+        "it": "<p>I fattori di conversione delle unità sono esatti per definizione — 1 pollice = esattamente 2,54 cm. Le conversioni non aggiungono errori di arrotondamento. I diversi sistemi (SI, imperiale) coesistono perché si sono sviluppati storicamente in modo indipendente; il SI è lo standard scientifico universale.</p>",
+    },
+    "everyday": {
+        "en": "<p>The calculations we face most often — calculating a tip, splitting a bill, comparing prices per unit, figuring out a percentage discount — seem straightforward but are surprisingly easy to get wrong under pressure. Research shows that humans systematically underestimate compound growth and overestimate the impact of linear changes, which is why intuitive percentage and ratio estimates often lead to bad decisions.</p><p>The value of an instant, reliable calculator isn't speed alone — it's confidence. When you can verify a result in seconds, you make decisions based on fact rather than a rough mental estimate. This matters especially in time-sensitive situations: negotiating a price, splitting a restaurant bill, or checking whether a sale is actually worth it before committing to a purchase.</p>",
+        "es": "<p>Los cálculos que realizamos con más frecuencia — calcular una propina, dividir una cuenta, comparar precios por unidad, averiguar un descuento — parecen sencillos pero son sorprendentemente fáciles de equivocar bajo presión. Las investigaciones muestran que las personas somos especialmente malos en los cálculos intuitivos de porcentaje y tendemos a subestimar el crecimiento compuesto.</p><p>El valor de una calculadora instantánea y fiable no es solo la velocidad, sino la confianza. Cuando puedes verificar un resultado en segundos, tomas decisiones basadas en hechos en lugar de estimaciones aproximadas — especialmente útil al negociar precios o verificar si una oferta realmente merece la pena.</p>",
+        "fr": "<p>Les calculs quotidiens comme les pourboires, les partages ou les remises semblent simples mais sont faciles à rater sous pression. Les recherches montrent que les humains surestiment leur précision en arithmétique mentale. Une calculatrice prend moins de temps que le calcul mental et donne un résultat fiable, permettant des décisions fondées sur des faits.</p>",
+        "pt": "<p>Os cálculos do dia a dia como gorjetas, divisões de contas ou descontos parecem simples mas são fáceis de errar sob pressão. Pesquisas mostram que as pessoas superestimam sua precisão em aritmética mental. Uma calculadora leva menos tempo que o cálculo mental e fornece um resultado confiável para decisões baseadas em fatos.</p>",
+        "de": "<p>Alltägliche Berechnungen wie Trinkgeld, Rechnungsteilung oder Rabatte scheinen einfach, sind aber unter Druck leicht falsch. Studien zeigen, dass Menschen ihre mentale Rechenpräzision überschätzen. Ein Rechner dauert weniger als mentale Arithmetik und liefert ein zuverlässiges Ergebnis für faktenbasierte Entscheidungen.</p>",
+        "it": "<p>I calcoli quotidiani come mance, divisioni di conto o sconti sembrano semplici ma sono facili da sbagliare sotto pressione. Le ricerche mostrano che le persone sovrastimano la loro precisione nell'aritmetica mentale. Una calcolatrice richiede meno tempo del calcolo mentale e fornisce un risultato affidabile per decisioni basate sui fatti.</p>",
+    },
+    "sports": {
+        "en": "<p>Athletic performance science has evolved from subjective coaching intuition to a data-rich discipline built on physiology research. The formulas used in sports calculations — VO₂ max estimates, pace-to-speed conversions, training zone calculations, caloric expenditure — were derived from studies with competitive athletes and validated across large populations, providing reliable baselines for evidence-based training.</p><p>Individual variation is larger in sport than in most domains: a predicted VO₂ max or caloric burn can be off by 10–15 % for any given individual. The value of these formulas isn't perfect accuracy — it's consistency. Using the same formula week after week reveals real fitness trends that wouldn't be visible if you switched methods each time. Progress, not single-point precision, is what most athletes need to track.</p>",
+        "es": "<p>La ciencia del rendimiento atlético ha evolucionado de la intuición subjetiva del entrenador a una disciplina rica en datos construida sobre la investigación fisiológica. Las fórmulas utilizadas — estimaciones de VO₂ máx, conversiones de ritmo a velocidad, zonas de entrenamiento, gasto calórico — se derivaron de estudios con atletas de competición y se validaron en grandes poblaciones.</p><p>La variación individual es mayor en el deporte que en la mayoría de los dominios: un VO₂ máx predicho puede desviarse un 10–15&nbsp;% para cualquier individuo. El valor de estas fórmulas no es la precisión perfecta, sino la consistencia. Usar la misma fórmula semana tras semana revela tendencias reales de mejora que no serían visibles cambiando de método.</p>",
+        "fr": "<p>La science de la performance sportive utilise des formules dérivées d'études avec des athlètes de compétition pour estimer VO₂ max, dépenses caloriques et zones d'entraînement. La variabilité individuelle peut atteindre 10-15 %, mais la valeur réside dans la cohérence : utiliser la même formule régulièrement révèle des tendances de progression réelles.</p>",
+        "pt": "<p>A ciência da performance esportiva usa fórmulas derivadas de estudos com atletas de competição para estimar VO₂ máx, gastos calóricos e zonas de treino. A variabilidade individual pode chegar a 10-15%, mas o valor está na consistência: usar a mesma fórmula regularmente revela tendências reais de progresso.</p>",
+        "de": "<p>Die Sportwissenschaft nutzt Formeln aus Studien mit Leistungssportlern zur Schätzung von VO₂ max, Kalorienverbrauch und Trainingszonen. Die individuelle Variabilität kann 10-15 % betragen, aber der Wert liegt in der Konsistenz: Dieselbe Formel regelmäßig anzuwenden zeigt echte Fortschrittstrends.</p>",
+        "it": "<p>La scienza della prestazione sportiva usa formule derivate da studi con atleti agonisti per stimare VO₂ max, dispendio calorico e zone di allenamento. La variabilità individuale può arrivare al 10-15%, ma il valore sta nella coerenza: usare la stessa formula regolarmente rivela tendenze reali di miglioramento.</p>",
+    },
+}
+
+BACKGROUND_HEADINGS = {
+    "construction": {"en": "Construction standards and best practices", "es": "Normas de construcción y buenas prácticas", "fr": "Normes de construction et bonnes pratiques", "pt": "Normas de construção e boas práticas", "de": "Baustandards und bewährte Praktiken", "it": "Norme di costruzione e buone pratiche"},
+    "math": {"en": "Mathematical foundations", "es": "Fundamentos matemáticos", "fr": "Fondements mathématiques", "pt": "Fundamentos matemáticos", "de": "Mathematische Grundlagen", "it": "Fondamenti matematici"},
+    "health": {"en": "Understanding health formulas", "es": "Cómo interpretar las fórmulas de salud", "fr": "Comprendre les formules de santé", "pt": "Compreendendo fórmulas de saúde", "de": "Gesundheitsformeln verstehen", "it": "Comprendere le formule sanitarie"},
+    "finance": {"en": "How financial formulas work", "es": "Cómo funcionan las fórmulas financieras", "fr": "Comment fonctionnent les formules financières", "pt": "Como as fórmulas financeiras funcionam", "de": "So funktionieren Finanzformeln", "it": "Come funzionano le formule finanziarie"},
+    "science": {"en": "Physics and scientific context", "es": "Contexto físico y científico", "fr": "Contexte physique et scientifique", "pt": "Contexto físico e científico", "de": "Physikalischer und wissenschaftlicher Kontext", "it": "Contesto fisico e scientifico"},
+    "conversion": {"en": "About unit systems and conversions", "es": "Sobre los sistemas de unidades", "fr": "À propos des systèmes d'unités", "pt": "Sobre sistemas de unidades", "de": "Über Einheitensysteme und Umrechnungen", "it": "Sistemi di unità e conversioni"},
+    "everyday": {"en": "Why accurate calculation matters", "es": "Por qué importa calcular con precisión", "fr": "Pourquoi le calcul précis est important", "pt": "Por que o cálculo preciso é importante", "de": "Warum genaue Berechnungen wichtig sind", "it": "Perché il calcolo preciso è importante"},
+    "sports": {"en": "Sports science and performance metrics", "es": "Ciencia deportiva y métricas de rendimiento", "fr": "Science du sport et métriques de performance", "pt": "Ciência esportiva e métricas de desempenho", "de": "Sportwissenschaft und Leistungsmetriken", "it": "Scienza dello sport e metriche di prestazione"},
+}
+
+CATEGORY_RESULTS_READING = {
+    "construction": {
+        "en": "<p>Your result shows the theoretical quantity required. Before ordering, apply the appropriate waste factor for your material: 5–10&nbsp;% for concrete and mortar, 10–15&nbsp;% for ceramic tile, natural stone, and brick (to account for cuts, breakage, and pattern matching), and 3–5&nbsp;% for steel and timber. Always round up to the next full unit — bag, tonne, or pallet — to avoid halting work for a second delivery.</p>",
+        "es": "<p>Tu resultado muestra la cantidad teórica necesaria. Antes de pedir, aplica el factor de merma adecuado al material: 5–10&nbsp;% para hormigón y mortero, 10–15&nbsp;% para azulejo, piedra natural y ladrillo (para cubrir cortes, roturas y encaje de juntas), y 3–5&nbsp;% para acero y madera. Redondea siempre al alza a la siguiente unidad completa — saco, tonelada o palé — para evitar parar la obra por una segunda entrega.</p>",
+        "fr": "<p>Votre résultat indique la quantité théorique requise. Ajoutez le facteur de perte approprié avant de commander : 5–10&nbsp;% pour le béton et le mortier, 10–15&nbsp;% pour les carreaux, la pierre naturelle et la brique, et 3–5&nbsp;% pour l'acier et le bois. Arrondissez toujours à l'unité supérieure — sac, tonne ou palette.</p>",
+        "pt": "<p>Seu resultado mostra a quantidade teórica necessária. Antes de pedir, aplique o fator de perda adequado: 5–10&nbsp;% para concreto e argamassa, 10–15&nbsp;% para cerâmica, pedra natural e tijolo, e 3–5&nbsp;% para aço e madeira. Sempre arredonde para cima à próxima unidade inteira — saco, tonelada ou palete.</p>",
+        "de": "<p>Ihr Ergebnis zeigt die theoretisch benötigte Menge. Rechnen Sie vor der Bestellung den passenden Verschnittzuschlag ein: 5–10&nbsp;% für Beton und Mörtel, 10–15&nbsp;% für Fliesen, Naturstein und Ziegel, und 3–5&nbsp;% für Stahl und Holz. Runden Sie stets auf die nächste volle Einheit — Sack, Tonne oder Palette.</p>",
+        "it": "<p>Il tuo risultato mostra la quantità teoricamente richiesta. Prima di ordinare, applica il fattore di scarto appropriato: 5–10&nbsp;% per calcestruzzo e malta, 10–15&nbsp;% per piastrelle, pietra naturale e mattoni, e 3–5&nbsp;% per acciaio e legname. Arrotonda sempre all'unità intera superiore — sacco, tonnellata o pallet.</p>",
+    },
+    "math": {
+        "en": "<p>Before accepting a mathematical result, run a quick sanity check: does the order of magnitude make sense? Is the result positive when you expected it to be? Is it in the right range for the real-world context (e.g., a triangle's area can't be larger than its enclosing rectangle)? Most formula errors reveal themselves at this stage — a result that's 10× too large almost always means a unit conversion was forgotten or an input was entered in the wrong field.</p>",
+        "es": "<p>Antes de aceptar un resultado matemático, haz una comprobación rápida: ¿tiene sentido el orden de magnitud? ¿Es el resultado positivo cuando lo esperas? ¿Está en el rango correcto para el contexto (por ejemplo, el área de un triángulo no puede ser mayor que su rectángulo envolvente)? La mayoría de errores de fórmula se detectan en esta etapa: un resultado 10 veces mayor casi siempre indica una conversión de unidades olvidada.</p>",
+        "fr": "<p>Avant d'accepter un résultat mathématique, effectuez une vérification rapide : l'ordre de grandeur est-il cohérent ? La plupart des erreurs de formule apparaissent à cette étape — un résultat 10 fois trop grand indique presque toujours une conversion d'unités oubliée.</p>",
+        "pt": "<p>Antes de aceitar um resultado matemático, faça uma verificação rápida: a ordem de grandeza faz sentido? A maioria dos erros de fórmula aparece nesta etapa — um resultado 10 vezes maior quase sempre indica uma conversão de unidades esquecida.</p>",
+        "de": "<p>Prüfen Sie ein mathematisches Ergebnis immer mit einer schnellen Plausibilitätsprüfung: Stimmt die Größenordnung? Ein 10-fach zu großes Ergebnis bedeutet fast immer eine vergessene Einheitenumrechnung oder einen falschen Eingabewert.</p>",
+        "it": "<p>Prima di accettare un risultato matematico, esegui un rapido controllo di plausibilità: l'ordine di grandezza ha senso? La maggior parte degli errori di formula emerge in questa fase — un risultato 10 volte troppo grande indica quasi sempre una conversione di unità dimenticata.</p>",
+    },
+    "health": {
+        "en": "<p>Health calculator results are estimates, not diagnoses. A BMI of 27 doesn't mean you're unhealthy, and a calculated daily calorie need of 2,200 kcal doesn't mean you'll gain weight on 2,201 kcal. These figures are population averages with error bands of roughly ±10–15&nbsp;%. Use them as orientation points to guide conversations with your doctor, nutritionist, or trainer — not as bright lines that define your health status.</p>",
+        "es": "<p>Los resultados de las calculadoras de salud son estimaciones, no diagnósticos. Un IMC de 27 no significa que estés enfermo, y un gasto calórico calculado de 2.200 kcal/día no significa que engordarás con 2.201 kcal. Estas cifras son medias poblacionales con márgenes de error del ±10–15&nbsp;%. Úsalas como puntos de orientación para dialogar con tu médico, nutricionista o entrenador, no como umbrales absolutos.</p>",
+        "fr": "<p>Les résultats des calculatrices de santé sont des estimations, pas des diagnostics. Ces chiffres sont des moyennes de population avec des marges d'erreur d'environ ±10–15&nbsp;%. Utilisez-les comme points d'orientation pour discuter avec votre médecin ou nutritionniste, pas comme des seuils absolus.</p>",
+        "pt": "<p>Os resultados das calculadoras de saúde são estimativas, não diagnósticos. Esses números são médias populacionais com margens de erro de ±10–15&nbsp;%. Use-os como pontos de orientação para conversar com seu médico ou nutricionista, não como limites absolutos.</p>",
+        "de": "<p>Gesundheitsrechner liefern Schätzungen, keine Diagnosen. Diese Zahlen sind Bevölkerungsdurchschnitte mit Fehlermargen von ±10–15&nbsp;%. Verwenden Sie sie als Orientierungspunkte für Gespräche mit Ihrem Arzt oder Ernährungsberater, nicht als absolute Grenzwerte.</p>",
+        "it": "<p>I risultati delle calcolatrici sanitarie sono stime, non diagnosi. Questi numeri sono medie di popolazione con margini di errore di ±10–15&nbsp;%. Usali come punti di orientamento per parlare con il tuo medico o nutrizionista, non come soglie assolute.</p>",
+    },
+    "finance": {
+        "en": "<p>Pay special attention to three aspects of your financial result: (1) the total cost over the full term, not just the monthly payment — a low monthly payment on a long-term loan can cost twice as much as a larger monthly payment on a shorter-term loan; (2) the effective annual rate (EAR), which accounts for compounding and gives you a true apples-to-apples comparison between offers; and (3) the break-even point, which tells you how long it takes for an investment or refinancing to pay off its upfront costs.</p>",
+        "es": "<p>Presta especial atención a tres aspectos de tu resultado financiero: (1) el coste total a lo largo del plazo completo, no solo la cuota mensual — una cuota baja en un préstamo a largo plazo puede costar el doble que una cuota mayor a corto plazo; (2) la TAE (tasa anual equivalente), que permite comparar ofertas en igualdad de condiciones; y (3) el punto de equilibrio, que indica cuánto tiempo tarda una inversión o refinanciación en cubrir sus costes iniciales.</p>",
+        "fr": "<p>Faites attention au coût total sur toute la durée, pas seulement à la mensualité, au taux annuel effectif global (TAEG) pour une comparaison équitable, et au point mort qui indique quand un investissement couvre ses coûts initiaux.</p>",
+        "pt": "<p>Preste atenção ao custo total ao longo do prazo completo, não apenas à parcela mensal, à taxa anual efetiva para comparação equitativa e ao ponto de equilíbrio que indica quando um investimento cobre seus custos iniciais.</p>",
+        "de": "<p>Achten Sie auf den Gesamtkosten über die gesamte Laufzeit, nicht nur auf die monatliche Rate, den effektiven Jahreszins für einen fairen Vergleich und den Break-even-Punkt, der anzeigt, wann eine Investition ihre Anfangskosten gedeckt hat.</p>",
+        "it": "<p>Prestate attenzione al costo totale per l'intera durata, non solo alla rata mensile, al tasso annuo effettivo per un confronto equo e al punto di pareggio che indica quando un investimento copre i costi iniziali.</p>",
+    },
+    "science": {
+        "en": "<p>When reviewing your scientific result, check the significant figures first: your answer cannot be more precise than your least-precise input. If you measured length to the nearest centimetre, a result expressed in millimetres is false precision. Standard practice is to round the final result to the same number of significant figures as the least-precise measurement used. This matters in laboratory reports, engineering documents, and any context where the precision of a number carries meaning.</p>",
+        "es": "<p>Al revisar tu resultado científico, comprueba primero las cifras significativas: tu respuesta no puede ser más precisa que tu medición menos precisa. Si mediste la longitud al centímetro más próximo, un resultado expresado en milímetros es una falsa precisión. La práctica estándar es redondear el resultado final al mismo número de cifras significativas que la medición menos precisa utilizada.</p>",
+        "fr": "<p>Vérifiez les chiffres significatifs : votre résultat ne peut pas être plus précis que votre mesure la moins précise. Arrondissez le résultat final au même nombre de chiffres significatifs que la mesure la moins précise utilisée.</p>",
+        "pt": "<p>Verifique os algarismos significativos: seu resultado não pode ser mais preciso que sua medição menos precisa. Arredonde o resultado final para o mesmo número de algarismos significativos da medição menos precisa utilizada.</p>",
+        "de": "<p>Prüfen Sie die signifikanten Stellen: Ihr Ergebnis kann nicht genauer sein als Ihre ungenaueste Eingabe. Runden Sie auf die gleiche Anzahl signifikanter Stellen wie die ungenaueste verwendete Messung.</p>",
+        "it": "<p>Verificate le cifre significative: il vostro risultato non può essere più preciso della misura meno precisa. Arrotondate il risultato finale allo stesso numero di cifre significative della misura meno precisa utilizzata.</p>",
+    },
+    "conversion": {
+        "en": "<p>After converting, ask yourself: does the result make intuitive sense? One mile is about 1.6 kilometres, so converting 10 miles should give roughly 16 km — not 6.2 or 160. A quick magnitude check prevents the most embarrassing conversion errors. Also watch for US vs. UK variations in 'imperial' units: a US gallon (3.785 L) differs from a UK imperial gallon (4.546 L) — the same word refers to two different quantities, which is a common source of confusion in recipes and fuel economy comparisons.</p>",
+        "es": "<p>Después de convertir, comprueba que el resultado tenga sentido intuitivo: una milla son aproximadamente 1,6 km, por lo que 10 millas deberían dar unos 16 km. Una comprobación rápida de magnitud evita los errores de conversión más llamativos. También ten en cuenta las variaciones entre EE.UU. y Reino Unido: un galón americano (3,785 L) difiere del galón imperial británico (4,546 L).</p>",
+        "fr": "<p>Après la conversion, vérifiez que le résultat a un sens intuitif. Attention aux variantes US et britanniques pour les unités 'impériales' : un gallon américain (3,785 L) diffère d'un gallon impérial britannique (4,546 L).</p>",
+        "pt": "<p>Após converter, verifique se o resultado faz sentido intuitivo. Atenção às variantes americanas e britânicas das unidades 'imperiais': um galão americano (3,785 L) difere de um galão imperial britânico (4,546 L).</p>",
+        "de": "<p>Prüfen Sie nach der Umrechnung, ob das Ergebnis intuitiv Sinn ergibt. Beachten Sie US- und UK-Varianten 'imperialer' Einheiten: ein US-Gallon (3,785 L) unterscheidet sich von einem britischen Imperial-Gallon (4,546 L).</p>",
+        "it": "<p>Dopo la conversione, verificate che il risultato abbia senso intuitivo. Attenzione alle varianti US e UK delle unità 'imperiali': un gallone americano (3,785 L) differisce da un gallone imperiale britannico (4,546 L).</p>",
+    },
+    "everyday": {
+        "en": "<p>For everyday calculations, the most important question isn't 'is this result exact?' but 'is it accurate enough for the decision I'm making?' A tip calculated to the cent is no more useful than one rounded to the nearest dollar. Percentage discounts matter when comparing two options; the exact decimal is irrelevant. Calibrate how much precision you actually need to the stakes of the decision — this prevents both under-thinking (rough guesses that mislead) and over-thinking (false precision that creates busy-work).</p>",
+        "es": "<p>Para los cálculos cotidianos, la pregunta más importante no es «¿es exacto este resultado?» sino «¿es suficientemente preciso para la decisión que voy a tomar?». Una propina calculada al céntimo no es más útil que una redondeada al euro más próximo. Los porcentajes de descuento importan al comparar opciones; el decimal exacto es irrelevante. Calibra la precisión necesaria según las consecuencias de la decisión.</p>",
+        "fr": "<p>Pour les calculs quotidiens, la question n'est pas 'est-ce exact ?' mais 'est-ce assez précis pour ma décision ?'. Calibrez la précision nécessaire selon les enjeux de la décision — cela évite autant la sous-estimation que la fausse précision.</p>",
+        "pt": "<p>Para cálculos cotidianos, a pergunta não é 'é exato?' mas 'é preciso o suficiente para minha decisão?'. Calibre a precisão necessária de acordo com as consequências da decisão — isso evita tanto a subestimação quanto a falsa precisão.</p>",
+        "de": "<p>Bei Alltagsberechnungen ist die Frage nicht 'Ist das exakt?' sondern 'Ist das präzise genug für meine Entscheidung?'. Kalibrieren Sie die erforderliche Genauigkeit an den Konsequenzen der Entscheidung — das verhindert sowohl Unterschätzung als auch falsche Präzision.</p>",
+        "it": "<p>Per i calcoli quotidiani, la domanda non è 'è esatto?' ma 'è abbastanza preciso per la mia decisione?'. Calibrate la precisione necessaria in base alle conseguenze della decisione — questo evita sia la sottostima che la falsa precisione.</p>",
+    },
+    "sports": {
+        "en": "<p>Athletic performance numbers are most useful when tracked over time, not evaluated in isolation. A single VO₂ max estimate tells you roughly where you stand; the same estimate recalculated every four weeks tells you whether your training is working. Focus on the trend rather than the absolute value, and make sure you're measuring under consistent conditions — same time of day, same hydration and rest status, same protocol — so that changes in the number reflect changes in your fitness rather than measurement variation.</p>",
+        "es": "<p>Los números de rendimiento atlético son más útiles cuando se siguen a lo largo del tiempo, no cuando se evalúan de forma aislada. Una estimación de VO₂ máx te dice aproximadamente dónde estás; la misma estimación recalculada cada cuatro semanas te dice si tu entrenamiento está funcionando. Concéntrate en la tendencia más que en el valor absoluto, y mide siempre en condiciones consistentes para que los cambios reflejen cambios reales en tu condición física.</p>",
+        "fr": "<p>Les chiffres de performance sportive sont plus utiles suivis dans le temps. Concentrez-vous sur la tendance plutôt que sur la valeur absolue, et mesurez toujours dans des conditions cohérentes pour que les changements reflètent des améliorations réelles de la condition physique.</p>",
+        "pt": "<p>Os números de desempenho esportivo são mais úteis acompanhados ao longo do tempo. Concentre-se na tendência em vez do valor absoluto, e meça sempre em condições consistentes para que as mudanças reflitam melhorias reais na sua condição física.</p>",
+        "de": "<p>Sportliche Leistungswerte sind am nützlichsten, wenn sie über die Zeit verfolgt werden. Konzentrieren Sie sich auf den Trend statt auf den absoluten Wert, und messen Sie immer unter konsistenten Bedingungen, damit Änderungen echte Verbesserungen der Fitness widerspiegeln.</p>",
+        "it": "<p>I numeri di prestazione sportiva sono più utili se seguiti nel tempo. Concentratevi sulla tendenza piuttosto che sul valore assoluto, e misurate sempre in condizioni coerenti per far sì che i cambiamenti riflettano miglioramenti reali della forma fisica.</p>",
+    },
+}
+
+RESULTS_READING_HEADINGS = {
+    "construction": {"en": "Interpreting and applying your results", "es": "Cómo aplicar los resultados", "fr": "Interpréter et appliquer vos résultats", "pt": "Como aplicar os resultados", "de": "Ergebnisse richtig anwenden", "it": "Come applicare i risultati"},
+    "math": {"en": "Checking your result", "es": "Comprueba tu resultado", "fr": "Vérifier votre résultat", "pt": "Verificando seu resultado", "de": "Ergebnis überprüfen", "it": "Verificare il risultato"},
+    "health": {"en": "What your result means", "es": "Qué significa tu resultado", "fr": "Ce que votre résultat signifie", "pt": "O que seu resultado significa", "de": "Was Ihr Ergebnis bedeutet", "it": "Cosa significa il tuo risultato"},
+    "finance": {"en": "Reading your financial result", "es": "Cómo leer el resultado financiero", "fr": "Lire votre résultat financier", "pt": "Como ler o resultado financeiro", "de": "Finanzergebnis richtig lesen", "it": "Come leggere il risultato finanziario"},
+    "science": {"en": "Precision and significant figures", "es": "Precisión y cifras significativas", "fr": "Précision et chiffres significatifs", "pt": "Precisão e algarismos significativos", "de": "Präzision und signifikante Stellen", "it": "Precisione e cifre significative"},
+    "conversion": {"en": "Verifying your conversion", "es": "Verifica tu conversión", "fr": "Vérifier votre conversion", "pt": "Verificando sua conversão", "de": "Umrechnung überprüfen", "it": "Verificare la conversione"},
+    "everyday": {"en": "Deciding how precise you need to be", "es": "Cuánta precisión necesitas", "fr": "Définir le niveau de précision nécessaire", "pt": "Decidindo quanta precisão você precisa", "de": "Nötigen Genauigkeitsgrad bestimmen", "it": "Decidere la precisione necessaria"},
+    "sports": {"en": "Tracking progress over time", "es": "Seguimiento del progreso a lo largo del tiempo", "fr": "Suivre les progrès dans le temps", "pt": "Acompanhando o progresso ao longo do tempo", "de": "Fortschritt im Zeitverlauf verfolgen", "it": "Monitorare i progressi nel tempo"},
+}
+
 
 def build_article_v2(calc_id: str, facts: dict, lang: str, calc_name: str = "") -> str:
-    """Generate a rich, category-aware SEO article (~800-1200 words) from CALC_FACTS data."""
+    """Generate a rich, category-aware SEO article (~900-1100 words) from CALC_FACTS data."""
     import json
 
     d = facts.get(lang) or facts.get("en")
@@ -31339,11 +31880,6 @@ def build_article_v2(calc_id: str, facts: dict, lang: str, calc_name: str = "") 
         ],
     }
 
-    all_faq = list(cat_faq_items) + list(generic_faq.get(lang, generic_faq["en"]))
-    faq_html = ""
-    for q, a in all_faq:
-        faq_html += f'<div class="faq-item"><button class="faq-q" aria-expanded="false">{q}</button><div class="faq-a"><p>{a}</p></div></div>\n'
-
     heading_templates = {
         "construction": {"en": ("How the calculation works", "Step-by-step guide for your project", "Practical uses on the job site", "Common mistakes to avoid", "Pro tip for contractors and builders", "Frequently asked questions"),
                         "es": ("Cómo funciona el cálculo", "Guía paso a paso para tu proyecto", "Usos prácticos en la obra", "Errores comunes a evitar", "Consejo profesional para contratistas", "Preguntas frecuentes"),
@@ -31398,33 +31934,133 @@ def build_article_v2(calc_id: str, facts: dict, lang: str, calc_name: str = "") 
     h = heading_templates.get(cat, heading_templates.get("everyday", heading_templates["everyday"]))
     headings = h.get(lang, heading_templates["everyday"]["en"])
 
-    article = f'<section class="long-content">\n'
+    # ── Step-by-step instruction localisation ────────────────────────────────
+    steps_intro = {
+        "en": "Follow these steps to get a reliable result:",
+        "es": "Sigue estos pasos para obtener un resultado fiable:",
+        "fr": "Suivez ces étapes pour obtenir un résultat fiable :",
+        "pt": "Siga estes passos para obter um resultado confiável:",
+        "de": "Folgen Sie diesen Schritten für ein zuverlässiges Ergebnis:",
+        "it": "Segui questi passaggi per ottenere un risultato affidabile:",
+    }
+    enter_data_lbl = {"en": "Enter your values", "es": "Introduce tus datos", "fr": "Saisissez vos valeurs", "pt": "Insira seus dados", "de": "Geben Sie Ihre Werte ein", "it": "Inserisci i tuoi valori"}
+    formula_step_lbl = {"en": "The calculator applies the formula", "es": "La calculadora aplica la fórmula", "fr": "La calculatrice applique la formule", "pt": "A calculadora aplica a fórmula", "de": "Der Rechner wendet die Formel an", "it": "La calcolatrice applica la formula"}
+    result_lbl = {"en": "Read your result", "es": "Lee tu resultado", "fr": "Lisez votre résultat", "pt": "Leia seu resultado", "de": "Lesen Sie Ihr Ergebnis", "it": "Leggi il tuo risultato"}
+    verify_lbl = {
+        "en": "Verify: confirm units are consistent and the numbers are realistic for your context before acting on the result.",
+        "es": "Verifica: confirma que las unidades sean coherentes y los valores realistas antes de actuar en base al resultado.",
+        "fr": "Vérifiez : confirmez que les unités sont cohérentes et les valeurs réalistes avant d'agir sur le résultat.",
+        "pt": "Verifique: confirme que as unidades são consistentes e os valores realistas antes de agir com base no resultado.",
+        "de": "Prüfen Sie: Bestätigen Sie, dass die Einheiten konsistent und die Werte realistisch sind, bevor Sie auf das Ergebnis reagieren.",
+        "it": "Verificate: confermate che le unità siano coerenti e i valori realistici prima di agire sul risultato.",
+    }
+    uses_intro_lbl = {
+        "en": "This calculator is particularly useful in the following situations:",
+        "es": "Esta calculadora es especialmente útil en las siguientes situaciones:",
+        "fr": "Cette calculatrice est particulièrement utile dans les situations suivantes :",
+        "pt": "Esta calculadora é especialmente útil nas seguintes situações:",
+        "de": "Dieser Rechner ist besonders nützlich in folgenden Situationen:",
+        "it": "Questa calcolatrice è particolarmente utile nelle seguenti situazioni:",
+    }
+
+    # ── Pick a second intro variant for a two-paragraph opening ──────────────
+    intros_list = intros.get(lang, intros.get("en", ["<p>This calculator provides instant, reliable results.</p>"]))
+    if not isinstance(intros_list, list):
+        intros_list = [intros_list]
+    random.seed(hash(calc_id + "v2") % 10000)
+    idx2 = (int(hashlib.md5((calc_id + "_2").encode()).hexdigest(), 16)) % len(intros_list)
+    intro_text2 = intros_list[idx2] if len(intros_list) > 1 and idx2 != (int(hashlib.md5(calc_id.encode()).hexdigest(), 16) % len(intros_list)) else (intros_list[1] if len(intros_list) > 1 else "")
+
+    # ── Theory / background section ───────────────────────────────────────────
+    theory_block = CATEGORY_THEORY.get(cat, CATEGORY_THEORY.get("everyday", {}))
+    theory_html = theory_block.get(lang, theory_block.get("en", ""))
+    bg_heading_block = BACKGROUND_HEADINGS.get(cat, BACKGROUND_HEADINGS.get("everyday", {}))
+    bg_heading = bg_heading_block.get(lang, bg_heading_block.get("en", "Background"))
+
+    # ── Results reading section ───────────────────────────────────────────────
+    rr_block = CATEGORY_RESULTS_READING.get(cat, CATEGORY_RESULTS_READING.get("everyday", {}))
+    rr_html = rr_block.get(lang, rr_block.get("en", ""))
+    rr_heading_block = RESULTS_READING_HEADINGS.get(cat, RESULTS_READING_HEADINGS.get("everyday", {}))
+    rr_heading = rr_heading_block.get(lang, rr_heading_block.get("en", "Reading your results"))
+
+    # ── Extra generic FAQ questions ───────────────────────────────────────────
+    extra_faq = {
+        "en": [
+            ("How do I save or share my calculation?", "Use the <strong>Share</strong> button to generate a URL that encodes all your inputs — anyone who opens the link will see the same values and result. The <strong>Copy</strong> button copies the formatted result text to your clipboard for pasting into a spreadsheet, email, or document."),
+            ("What if my result seems wrong?", f"First recheck your inputs: confirm the values are in the correct units and within a realistic range. Common causes include unit mismatch (mixing metric and imperial), transposed digits, or selecting the wrong calculator for the problem. If inputs look correct and the result still seems off, verify that the formula <em>{formula}</em> applies to exactly the situation you are in — some calculators with similar names solve slightly different variants of the same problem."),
+        ],
+        "es": [
+            ("¿Cómo guardo o comparto mi cálculo?", "Usa el botón <strong>Compartir</strong> para generar una URL que codifica todos tus datos — quien abra el enlace verá los mismos valores y resultado. El botón <strong>Copiar</strong> copia el texto del resultado para pegarlo en una hoja de cálculo, correo o documento."),
+            ("¿Qué hago si el resultado parece incorrecto?", f"Primero revisa tus datos: comprueba que los valores estén en las unidades correctas y en un rango realista. Las causas más comunes son la mezcla de unidades métricas e imperiales, dígitos transpuestos o el uso de una calculadora equivocada. Si los datos parecen correctos y el resultado sigue siendo extraño, verifica que la fórmula <em>{formula}</em> se aplica exactamente a tu caso."),
+        ],
+        "fr": [
+            ("Comment sauvegarder ou partager mon calcul ?", "Utilisez le bouton <strong>Partager</strong> pour générer une URL qui encode toutes vos entrées. Le bouton <strong>Copier</strong> copie le résultat dans le presse-papiers."),
+            ("Que faire si mon résultat semble incorrect ?", f"Vérifiez d'abord vos entrées : valeurs dans les bonnes unités et plage réaliste. Vérifiez aussi que la formule <em>{formula}</em> s'applique exactement à votre situation."),
+        ],
+        "pt": [
+            ("Como salvo ou compartilho meu cálculo?", "Use o botão <strong>Compartilhar</strong> para gerar uma URL com todos os seus dados. O botão <strong>Copiar</strong> copia o resultado para a área de transferência."),
+            ("O que fazer se o resultado parecer errado?", f"Verifique suas entradas: valores nas unidades corretas e faixa realista. Confirme também que a fórmula <em>{formula}</em> se aplica exatamente à sua situação."),
+        ],
+        "de": [
+            ("Wie speichere oder teile ich meine Berechnung?", "Verwenden Sie die Schaltfläche <strong>Teilen</strong>, um eine URL mit allen Ihren Eingaben zu generieren. Die Schaltfläche <strong>Kopieren</strong> kopiert das Ergebnis in die Zwischenablage."),
+            ("Was tun, wenn das Ergebnis falsch erscheint?", f"Überprüfen Sie zuerst Ihre Eingaben: Werte in den richtigen Einheiten und realistischem Bereich. Bestätigen Sie auch, dass die Formel <em>{formula}</em> genau auf Ihre Situation zutrifft."),
+        ],
+        "it": [
+            ("Come salvo o condivido il mio calcolo?", "Usa il pulsante <strong>Condividi</strong> per generare un URL con tutti i tuoi dati. Il pulsante <strong>Copia</strong> copia il risultato negli appunti."),
+            ("Cosa fare se il risultato sembra sbagliato?", f"Controlla prima i tuoi dati: valori nelle unità corrette e intervallo realistico. Verifica anche che la formula <em>{formula}</em> si applichi esattamente alla tua situazione."),
+        ],
+    }
+    all_faq = list(cat_faq_items) + list(generic_faq.get(lang, generic_faq["en"])) + list(extra_faq.get(lang, extra_faq["en"]))
+    faq_html = ""
+    for q, a in all_faq:
+        faq_html += f'<div class="faq-item"><button class="faq-q" aria-expanded="false">{q}</button><div class="faq-a"><p>{a}</p></div></div>\n'
+
+    # ── Build article ─────────────────────────────────────────────────────────
+    article = '<section class="long-content">\n'
+
+    # Section 1 – Overview (~180 words)
     article += f"<h2>{headings[0]}</h2>\n"
     article += f"{intro_text}\n"
+    if intro_text2:
+        article += f"{intro_text2}\n"
     article += f"<p>{formula_intro}</p>\n"
-    article += f"\n<h2>{headings[1]}</h2>\n"
-    article += f"<p>Follow these steps to get the correct result:</p>\n"
-    article += f"<ol>\n"
-    article += f"<li><strong>Enter your data:</strong> {example_inputs}</li>\n"
-    article += f"<li><strong>The calculator applies the formula</strong> and shows the result instantly.</li>\n"
-    article += f"<li><strong>Result:</strong> {example_outputs}</li>\n"
-    article += f"<li><strong>Double-check your inputs</strong> to make sure the units match and the values are realistic for your situation.</li>\n"
-    article += f"</ol>\n"
 
+    # Section 2 – Step-by-step guide (~120 words)
+    article += f"\n<h2>{headings[1]}</h2>\n"
+    article += f"<p>{steps_intro.get(lang, steps_intro['en'])}</p>\n"
+    article += "<ol>\n"
+    article += f"<li><strong>{enter_data_lbl.get(lang, enter_data_lbl['en'])}:</strong> {example_inputs} — ensure all values use a single consistent unit system.</li>\n"
+    article += f"<li><strong>{formula_step_lbl.get(lang, formula_step_lbl['en'])}:</strong> <em>{formula}</em>.</li>\n"
+    article += f"<li><strong>{result_lbl.get(lang, result_lbl['en'])}:</strong> {example_outputs}.</li>\n"
+    article += f"<li>{verify_lbl.get(lang, verify_lbl['en'])}</li>\n"
+    article += "</ol>\n"
+
+    # Section 3 – Uses (~160 words)
     article += f"\n<h2>{headings[2]}</h2>\n"
     if uses:
-        article += f"<p>People use this calculator for:</p>\n<ul>\n{uses_html}\n</ul>\n"
+        article += f"<p>{uses_intro_lbl.get(lang, uses_intro_lbl['en'])}</p>\n<ul>\n{uses_html}\n</ul>\n"
     else:
-        article += f"<p>This calculator is used across education, professional work, and everyday problem-solving.</p>\n"
+        article += "<p>This calculator is used across education, professional work, and everyday problem-solving.</p>\n"
 
+    # Section 4 – Results reading (~100 words — unique per category)
+    if rr_html:
+        article += f"\n<h2>{rr_heading}</h2>\n{rr_html}\n"
+
+    # Section 5 – Background / theory (~200 words — unique per category)
+    if theory_html:
+        article += f"\n<h2>{bg_heading}</h2>\n{theory_html}\n"
+
+    # Section 6 – Common mistakes (~120 words)
     if mistakes_html:
         article += f"\n<h2>{headings[3]}</h2>\n<ul>\n{mistakes_html}\n</ul>\n"
 
+    # Section 7 – Pro tip (~80 words)
     if tip_text:
-        article += f'\n<h2>{headings[4]}</h2>\n<p>{tip_text}</p>\n'
+        article += f"\n<h2>{headings[4]}</h2>\n<p>{tip_text}</p>\n"
 
+    # Section 8 – FAQ (~300 words — now 6 questions)
     article += f"\n<h2>{headings[5]}</h2>\n"
     article += f'<div class="faq-list">\n{faq_html}</div>\n'
 
-    article += f"</section>"
+    article += "</section>"
     return article
