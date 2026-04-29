@@ -1,0 +1,122 @@
+<section class="long-content">
+<h2>What Is a Password Entropy Calculator?</h2>
+<p>A password entropy calculator measures the theoretical strength of passwords by quantifying randomness in bits. Higher entropy means more possible combinations, making brute-force attacks exponentially harder. A 12-character password using uppercase, lowercase, numbers, and symbols achieves approximately 78 bits of entropy — requiring trillions of years to crack with current technology.</p>
+<p>For a 12-character password using 62 possible symbols (26 lowercase + 26 uppercase + 10 digits), the calculator determines entropy as 12 × log₂(62) = 71.4 bits. This means an attacker must try 2⁷¹·⁴ ≈ 2.9 × 10²¹ combinations — computationally infeasible even for nation-state adversaries. But an 8-character password with the same character set achieves only 47.6 bits — crackable in hours by dedicated hardware.</p>
+<p>Security teams enforce minimum entropy requirements for corporate accounts. Password managers generate random passwords targeting specific entropy levels. Individuals verify their passwords meet security standards. Compliance frameworks (NIST, PCI-DSS, HIPAA) specify minimum entropy for different access levels. The calculator translates password composition into measurable security metrics.</p>
+
+<h2>The Formula Behind Password Entropy Calculations</h2>
+<p>The fundamental formula expresses as: <strong>Entropy (bits) = Length × log₂(Symbol Pool Size)</strong></p>
+<p>Where:</p>
+<ul>
+<li>Length = number of characters in the password</li>
+<li>Symbol Pool Size = total unique characters available (charset size)</li>
+<li>log₂ = logarithm base 2</li>
+</ul>
+<p>For a 12-character password using lowercase, uppercase, numbers (62 symbols):</p>
+<p>Entropy = 12 × log₂(62) = 12 × 5.954 = 71.45 bits</p>
+<p>Symbol pool sizes for common character sets:</p>
+<ul>
+<li>Lowercase only (a-z): 26 symbols</li>
+<li>Uppercase only (A-Z): 26 symbols</li>
+<li>Numbers only (0-9): 10 symbols</li>
+<li>Lowercase + Numbers: 36 symbols</li>
+<li>Lowercase + Uppercase: 52 symbols</li>
+<li>Lowercase + Uppercase + Numbers: 62 symbols</li>
+<li>ASCII printable (including symbols): 95 symbols</li>
+<li>Extended ASCII: 256 symbols</li>
+<li>Unicode (all characters): 149,813 symbols (theoretical maximum)</li>
+</ul>
+<p>Time to crack estimate: <strong>Attempts = 2^Entropy</strong></p>
+<p>At 1 trillion (10¹²) guesses per second:</p>
+<p>Time (seconds) = 2^Entropy / 10¹²</p>
+<p>For 71.45 bits: 2⁷¹·⁴⁵ / 10¹² = 2.9 × 10²¹ / 10¹² = 2.9 × 10⁹ seconds ≈ 92 years</p>
+<p>NIST guidelines recommend minimum 80 bits entropy for high-security applications, 60 bits for standard accounts, 40 bits minimum for low-risk systems.</p>
+
+<h2>6 Steps to Calculate Password Entropy Accurately</h2>
+<p><strong>Step 1: Count the Password Length</strong><br>
+Count every character including spaces, symbols, and numbers. "MyP@ssw0rd!" has 11 characters. "correct horse battery staple" has 28 characters (including spaces). Length is the most critical factor — each additional character adds 5-7 bits of entropy depending on character set. A 16-character lowercase-only password (16 × 4.7 = 75.2 bits) exceeds a 10-character mixed-case password (10 × 6.5 = 65 bits).</p>
+<p><strong>Step 2: Identify Which Character Sets Are Used</strong><br>
+Determine which character types appear in the password: lowercase (a-z), uppercase (A-Z), digits (0-9), symbols (!@#$%^&*(), etc.), spaces. "Password123" uses three sets (lowercase, uppercase, numbers) = 62 symbols. "password" uses one set (lowercase) = 26 symbols. "P@ssw0rd!" uses four sets (lowercase, uppercase, numbers, symbols) = 95 symbols (ASCII printable).</p>
+<p><strong>Step 3: Calculate the Total Symbol Pool Size</strong><br>
+Sum the sizes of all character sets used. Lowercase (26) + uppercase (26) + numbers (10) + symbols (33 common symbols) = 95 total. If using only alphanumeric: 26 + 26 + 10 = 62. If using lowercase + numbers only: 26 + 10 = 36. Be conservative — if the system allows symbols but you don't use them, don't count them in your pool size.</p>
+<p><strong>Step 4: Apply the Entropy Formula</strong><br>
+Calculate: Entropy = Length × log₂(Pool Size). Use a calculator for the logarithm. For "MyP@ssw0rd!" (11 chars, 95 symbols): 11 × log₂(95) = 11 × 6.57 = 72.27 bits. For "password123" (11 chars, 62 symbols): 11 × log₂(62) = 11 × 5.95 = 65.45 bits. The symbol adds 7 bits despite being one character because it expands the pool size.</p>
+<p><strong>Step 5: Compare Against Security Thresholds</strong><br>
+Evaluate entropy against standards: 0-35 bits (instant crack), 36-49 bits (hours to days), 50-59 bits (weeks to months), 60-79 bits (years to centuries), 80+ bits (effectively uncrackable). For email accounts: minimum 60 bits. For banking: minimum 70 bits. For corporate admin accounts: minimum 80 bits. For encryption keys: minimum 128 bits (use passphrase or key file).</p>
+<p><strong>Step 6: Adjust for Real-World Weaknesses</strong><br>
+Theoretical entropy assumes truly random character selection. Human-chosen passwords have patterns reducing effective entropy by 20-50%. "Password123!" appears strong (12 chars, 95 symbols = 78.8 bits) but is a common pattern — actual entropy closer to 30-40 bits. Dictionary words reduce entropy: "correcthorsebatterystaple" (25 chars, 26 symbols = 117.5 bits theoretical) but as four dictionary words, actual entropy is ~44 bits. Use randomly generated passwords for accurate entropy.</p>
+
+<h2>5 Worked Examples With Complete Calculations</h2>
+<p><strong>Example 1: Corporate Password Policy Compliance</strong><br>
+Policy requires: minimum 12 characters, must include uppercase, lowercase, numbers, symbols.<br>
+Password: "Tr0ub4dor&3" (11 characters)<br>
+Character sets: lowercase (26) + uppercase (26) + numbers (10) + symbols (33) = 95 symbols<br>
+Entropy: 11 × log₂(95) = 11 × 6.57 = 72.27 bits<br>
+Verdict: Fails length requirement (needs 12). Add one character: "Tr0ub4dor&3!" (12 chars)<br>
+New entropy: 12 × 6.57 = 78.84 bits<br>
+Verdict: Passes policy, exceeds 60-bit standard for corporate accounts.</p>
+<p><strong>Example 2: Passphrase vs. Random Password</strong><br>
+Passphrase: "correct horse battery staple" (28 characters including spaces, lowercase + space = 27 symbols)<br>
+Entropy: 28 × log₂(27) = 28 × 4.75 = 133 bits theoretical<br>
+But as 4 dictionary words from ~7,000 common words: log₂(7000⁴) = log₂(2.4 × 10¹⁵) = 51 bits<br>
+Random 12-character password (95 symbols): 12 × 6.57 = 78.8 bits<br>
+Verdict: Random password has higher actual entropy despite fewer characters. Passphrases work only if words are randomly selected, not common phrases.</p>
+<p><strong>Example 3: PIN Code Security</strong><br>
+4-digit PIN: "8374" (4 characters, digits only = 10 symbols)<br>
+Entropy: 4 × log₂(10) = 4 × 3.32 = 13.28 bits<br>
+Time to crack at 1 billion guesses/second: 2¹³·²⁸ / 10⁹ = 10,000 / 10⁹ = 0.00001 seconds<br>
+6-digit PIN: "837429" (6 characters, 10 symbols)<br>
+Entropy: 6 × 3.32 = 19.92 bits<br>
+Time to crack: 2¹⁹·⁹² / 10⁹ = 1,000,000 / 10⁹ = 0.001 seconds<br>
+Verdict: PINs provide convenience, not security. Use only with rate limiting (3 attempts max) or as second factor.</p>
+<p><strong>Example 4: Password Manager Generated Password</strong><br>
+Generated: "xK7#mN2$pL9@qR5" (16 characters, 95 symbols)<br>
+Entropy: 16 × log₂(95) = 16 × 6.57 = 105.12 bits<br>
+Time to crack at 1 trillion guesses/second: 2¹⁰⁵·¹² / 10¹² = 4.2 × 10³¹ / 10¹² = 4.2 × 10¹⁹ seconds<br>
+In years: 4.2 × 10¹⁹ / (365 × 24 × 3600) = 1.33 × 10¹² years = 1.33 trillion years<br>
+Verdict: Exceeds all practical security requirements. Universe is only 13.8 billion years old.</p>
+<p><strong>Example 5: Minimum Viable Password for Low-Security Forum</strong><br>
+Requirement: 8 characters minimum, any characters allowed.<br>
+Minimum entropy target: 40 bits (acceptable for non-critical accounts)<br>
+Solve for length: 40 = Length × log₂(95)<br>
+Length = 40 / 6.57 = 6.09 → round up to 7 characters<br>
+But policy requires 8, so: 8 × 6.57 = 52.56 bits<br>
+Verdict: 8-character random password exceeds 40-bit minimum. However, "password" (8 chars, 26 symbols) = 8 × 4.7 = 37.6 bits — below minimum despite meeting length. Character diversity matters.</p>
+
+<h2>4 Critical Mistakes That Inflate Entropy Estimates</h2>
+<p><strong>Mistake 1: Counting Character Sets Not Actually Used</strong><br>
+Including symbols in pool size when the password contains no symbols inflates entropy. A password "abc123XYZ" uses 62 symbols (alphanumeric), not 95 (ASCII). Calculating with 95 symbols gives 9 × 6.57 = 59.1 bits; correct calculation with 62 symbols gives 9 × 5.95 = 53.6 bits — a 10% overestimate. Only count character sets actually present in the password.</p>
+<p><strong>Mistake 2: Assuming Dictionary Words Have Full Entropy</strong><br>
+The word "elephant" (8 characters) appears to have 8 × 4.7 = 37.6 bits entropy (lowercase). But as one of ~100,000 dictionary words, it has log₂(100,000) = 16.6 bits — less than half the theoretical value. "correcthorsebatterystaple" seems uncrackable at 117 bits but as 4 common words from 7,000-word vocabulary, actual entropy is ~51 bits. Attackers use dictionary attacks, not brute force, against word-based passwords.</p>
+<p><strong>Mistake 3: Ignoring Common Substitution Patterns</strong><br>
+Replacing letters with similar-looking symbols (a→@, e→3, o→0, s→$) doesn't significantly increase security. "P@ssw0rd" and "Password" are both in every cracking dictionary. These substitutions add maybe 2-4 bits of entropy, not the 6-7 bits per character that random symbols provide. Attackers' rule-based systems try all common substitutions automatically. Use truly random characters, not predictable substitutions.</p>
+<p><strong>Mistake 4: Not Accounting for Rate Limiting and Hashing</strong><br>
+Entropy calculations assume online brute-force attacks. Real-world attacks target stolen password databases offline, where rate limiting doesn't apply. A database with unsalted MD5 hashes can be cracked at 100+ billion guesses/second. A 50-bit entropy password cracks in hours. Salted bcrypt with 12 cost factors slows to ~100 guesses/second — the same password takes centuries. Entropy requirements depend on storage method: 60+ bits for properly salted/hashed, 80+ bits for weak hashing.</p>
+
+<h2>4 Professional Tips for Password Security</h2>
+<p><strong>Tip 1: Use a Password Manager for True Randomness</strong><br>
+Password managers (Bitwarden, 1Password, KeePass) generate cryptographically random passwords achieving theoretical entropy. Humans cannot create random passwords — we introduce patterns reducing entropy by 30-50%. Let your password manager generate 16-20 character passwords using all character sets. You only need to remember one strong master password (use a passphrase); the manager handles the rest. Enable auto-fill to avoid typing complex passwords.</p>
+<p><strong>Tip 2: Prioritize Length Over Complexity</strong><br>
+Each character adds more entropy than expanding the character set. Compare: 8 characters from 95 symbols = 52.6 bits. 12 characters from 26 symbols (lowercase only) = 56.4 bits. The longer lowercase-only password exceeds the shorter mixed password. For memorable high-entropy passwords, use 5-6 random words: 6 words × 13 bits/word (from 7,000-word list) = 78 bits. Length beats complexity for both security and memorability.</p>
+<p><strong>Tip 3: Enable Multi-Factor Authentication Regardless of Entropy</strong><br>
+Even 100-bit entropy passwords can be phished, keylogged, or leaked in database breaches. Multi-factor authentication (MFA) provides independent security layers. SMS codes add 20-30 bits (6-digit code, rate-limited). Authenticator apps (TOTP) add ~30 bits. Hardware security keys (FIDO2/WebAuthn) add 80+ bits of phishing-resistant authentication. A 50-bit password + TOTP exceeds a 100-bit password alone. Enable MFA on all accounts supporting it.</p>
+<p><strong>Tip 4: Check Passwords Against Breach Databases</strong><br>
+High entropy doesn't protect leaked passwords. "xK7#mN2$pL9@qR5" is uncrackable by brute force but useless if exposed in a breach. Use HaveIBeenPwned.com or password manager breach monitoring to check if passwords appear in known breaches. NIST guidelines require checking passwords against breach databases before allowing their use. If your password appears in a breach, change it immediately regardless of entropy — attackers have it in their dictionaries.</p>
+
+<h2>4 FAQs About Password Entropy</h2>
+<div class="faq-list">
+<div class="faq-item"><button class="faq-q" aria-expanded="false">How long would it take to crack a 70-bit entropy password?</button><div class="faq-a"><p>At 1 trillion (10¹²) guesses per second (high-end GPU cluster): 2⁷⁰ / 10¹² = 1.18 × 10²¹ / 10¹² = 1.18 × 10⁹ seconds = 37 years. At 100 billion guesses/second (single high-end GPU): 370 years. At 1 billion guesses/second (older hardware): 37,000 years. However, if the password uses patterns or dictionary words, effective entropy may be 30-40 bits lower, reducing crack time to hours or days. True randomness is essential for entropy estimates to hold.</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">Is a 12-character password strong enough for banking?</button><div class="faq-a"><p>A truly random 12-character password using all character sets achieves ~79 bits entropy — sufficient for banking when combined with other protections. However, banks typically implement additional security: MFA, transaction limits, fraud monitoring, and device fingerprinting. A 12-character password alone is inadequate if the bank suffers a database breach with weak hashing. Use a password manager to generate 16+ character passwords for financial accounts and enable all available MFA options.</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">Do special characters really make passwords stronger?</button><div class="faq-a"><p>Special characters increase the symbol pool size, adding ~0.6 bits per character compared to alphanumeric. "abcdefgh" (8 chars, 26 symbols) = 37.6 bits. "abcdefgh" (8 chars, 62 symbols with uppercase/numbers) = 47.6 bits. "abcdefgh!" (9 chars, 95 symbols) = 59.1 bits. The exclamation mark adds 11.5 bits — more than an alphanumeric character. However, predictable substitutions (@ for a, 0 for o) add minimal entropy because attackers try these automatically. Use random symbols, not predictable replacements.</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">What's better: a longer passphrase or a shorter complex password?</button><div class="faq-a"><p>For randomly selected words, longer passphrases win. Five random words from 7,000-word list: 5 × log₂(7000) = 5 × 12.77 = 63.85 bits. Ten random words: 127.7 bits. A 10-character random password with symbols: 10 × 6.57 = 65.7 bits. The 10-word passphrase exceeds the 10-character password. However, common phrases ("letmein", "password123") have near-zero entropy regardless of length. Use Diceware or similar for truly random word selection, not self-chosen phrases.</p></div></div>
+</div>
+
+<h2>Related Calculators</h2>
+<ul>
+<li><strong>Password Generator:</strong> Creates cryptographically secure random passwords with customizable length and character sets.</li>
+<li><strong>Brute Force Time Calculator:</strong> Estimates time to crack passwords based on entropy and attack speed.</li>
+<li><strong>Have I Been Pwned Checker:</strong> Searches breach databases to determine if passwords or emails have been compromised.</li>
+<li><strong>Encryption Key Strength Calculator:</strong> Compares symmetric and asymmetric key lengths for equivalent security levels.</li>
+<li><strong>Two-Factor Authentication Guide:</strong> Explains MFA methods and setup procedures for various services.</li>
+</ul>
+</section>

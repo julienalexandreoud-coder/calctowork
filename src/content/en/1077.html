@@ -1,0 +1,86 @@
+<section class="long-content">
+  <h1>Voltage Divider Calculator: Design Precision Divider Circuits</h1>
+  <p>The Voltage Divider calculator computes the output voltage of a two-resistor voltage divider circuit. This fundamental circuit topology is used in nearly every electronic device for sensor interfacing, level shifting, reference generation, and signal attenuation. Whether you are designing an Arduino sensor circuit, an audio amplifier, or a power supply monitor, the voltage divider is an essential building block.</p>
+
+  <div class="formula-section">
+    <h2>Voltage Divider Formula</h2>
+    <p class="formula-display">V<sub>out</sub> = V<sub>in</sub> &times; R<sub>2</sub> &divide; (R<sub>1</sub> + R<sub>2</sub>)</p>
+    <p>The formula derives from Ohm's law and the fact that the same current flows through both resistors in series. The input voltage Vin is applied across the series combination of R1 and R2. The output voltage Vout is taken across R2, the bottom resistor. The division ratio depends only on the resistor values, not on the absolute voltage level.</p>
+    <p>The current flowing through the divider is I = Vin / (R1 + R2). This current determines the power dissipated in each resistor: P1 = I² × R1 and P2 = I² × R2. For battery-powered circuits, larger resistor values (100 kΩ or more) are used to minimize current drain, while for precision applications, smaller values (1 kΩ to 10 kΩ) are preferred to reduce noise and loading effects.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Worked Examples</h2>
+    <div class="example">
+      <h3>Example 1: 5 V to 3.3 V Level Shifter</h3>
+      <p>A 5 V microcontroller output needs to be reduced to 3.3 V for a sensor module input. Choose R1 = 10 kΩ and R2 = 6.8 kΩ (standard E12 values).</p>
+      <p><strong>Calculation:</strong> Vout = 5 V &times; 6,800 &divide; (10,000 + 6,800) = 5 &times; 6,800 &divide; 16,800 = <strong>2.02 V</strong></p>
+      <p>This produces only 2.02 V, not the desired 3.3 V. To get 3.3 V from a 5 V supply, solve for R2: 3.3 = 5 × R2 / (R1 + R2). With R1 = 10 kΩ: 3.3 × (10,000 + R2) = 5 × R2, giving 33,000 + 3.3 R2 = 5 R2, so 33,000 = 1.7 R2, and R2 = 19.4 kΩ. Use R1 = 10 kΩ and R2 = 20 kΩ (standard value) to get approximately 3.33 V.</p>
+    </div>
+    <div class="example">
+      <h3>Example 2: Battery Voltage Monitor</h3>
+      <p>A 12 V lead-acid battery (12.6 V fully charged) needs to be measured by an ADC that accepts a maximum of 5 V. Design a voltage divider that maps 12.6 V to 5 V.</p>
+      <p><strong>Calculation:</strong> Using Vout / Vin = R2 / (R1 + R2) = 5 / 12.6 = 0.397. If R2 = 10 kΩ, then 0.397 = 10,000 / (R1 + 10,000). R1 + 10,000 = 10,000 / 0.397 = 25,189 Ω. R1 = 15,189 Ω ≈ 15 kΩ (standard value).</p>
+      <p>With R1 = 15 kΩ and R2 = 10 kΩ, Vout at 12.6 V battery = 12.6 × 10,000 / (15,000 + 10,000) = 12.6 × 0.4 = <strong>5.04 V</strong>. This is close to the 5 V ADC limit. At 11.5 V (discharged), Vout = 11.5 × 0.4 = 4.6 V. The divider draws 12.6 / 25,000 = 0.5 mA from the battery, which is acceptable for continuous monitoring.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Common Uses</h2>
+    <ul>
+      <li>Reducing sensor output voltages (e.g., 0-10 V to 0-3.3 V) to match the input range of microcontrollers and ADCs</li>
+      <li>Creating reference voltages for operational amplifier circuits and comparator thresholds</li>
+      <li>Biasing transistor amplifier stages by setting the base voltage at the correct operating point</li>
+      <li>Attenuating audio signals to prevent clipping in recording interfaces and audio processing chains</li>
+      <li>Monitoring battery voltages in portable electronics without exceeding ADC input limits</li>
+      <li>Setting the feedback voltage in adjustable voltage regulators and switch-mode power supplies</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Common Mistakes</h2>
+    <ul>
+      <li>Forgetting that the voltage divider output changes when a load is connected &mdash; always consider the load impedance as a resistor in parallel with R2</li>
+      <li>Using resistor values that are too high, making the divider susceptible to noise coupling from nearby signals</li>
+      <li>Using resistor values that are too low, wasting power and potentially exceeding resistor power ratings &mdash; a 100 &Omega; divider at 12 V dissipates 1.44 W</li>
+      <li>Assuming the voltage divider provides a regulated output &mdash; a divider is not a voltage regulator; if the input voltage fluctuates, the output fluctuates proportionally</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Pro Tip</h2>
+    <p>When designing a voltage divider for an ADC input, add a small capacitor (0.1 &micro;F) in parallel with R2 to create a low-pass filter. This filters out high-frequency noise and provides a charge reservoir for the ADC's sample-and-hold circuit, improving measurement accuracy. The cutoff frequency is fc = 1 / (2&pi; × R_equivalent × C), where R_equivalent is the parallel combination of R1 and R2. For R1 = 10 k&Omega; and R2 = 10 k&Omega;, the equivalent resistance is 5 k&Omega;, so with C = 0.1 &micro;F, fc = 1 / (6.28 × 5000 × 1e-7) = 318 Hz, which removes high-frequency noise while preserving the DC signal.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">When should I use a voltage divider vs. a voltage regulator?</button>
+        <div class="faq-ap"><p>Use a voltage divider only for reference voltages or biasing where the load draws negligible current (less than 1% of the divider current). For powering loads that draw significant current, use a voltage regulator. A voltage divider's output voltage drops when a load is connected because the load resistor appears in parallel with R2, changing the division ratio.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How do I choose resistor values for a voltage divider?</button>
+        <div class="faq-ap"><p>Choose resistor values that are large enough to minimize power waste but small enough that the load current is negligible compared to the divider current. A good rule is to make the current through the divider 100 times larger than the expected load current. For a 5 V to 3.3 V divider, 10 kΩ and 6.8 kΩ work well, drawing about 0.3 mA from the supply.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What is the loaded voltage divider problem?</button>
+        <div class="faq-ap"><p>When you connect a load resistor (RL) to a voltage divider output, RL appears in parallel with R2, reducing the effective resistance of the bottom half. This lowers the output voltage. The actual Vout becomes Vin × R2∥RL / (R1 + R2∥RL). To minimize this effect, ensure RL is at least 100 times larger than R2.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Can I use a voltage divider with AC signals?</button>
+        <div class="faq-ap"><p>Yes, the voltage divider formula works for both DC and AC signals as long as the frequency is low enough that parasitic capacitance is negligible. At high frequencies, the capacitor formed by the resistor leads and PCB traces creates a frequency-dependent voltage divider (RC filter) that attenuates higher frequencies more than lower ones.</p></div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/resistor-color-code-calculator">Resistor Color Code Calculator</a></li>
+      <li><a href="/capacitor-energy-calculator">Capacitor Energy Calculator</a></li>
+      <li><a href="/rc-time-constant-calculator">RC Time Constant Calculator</a></li>
+      <li><a href="/wheatstone-bridge-calculator">Wheatstone Bridge Calculator</a></li>
+    </ul>
+  </div>
+</section>

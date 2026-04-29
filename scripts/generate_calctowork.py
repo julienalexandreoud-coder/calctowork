@@ -19,6 +19,15 @@ from datetime import date
 from itertools import product as cartesian_product
 from pathlib import Path
 
+try:
+    import csscompressor
+except ImportError:
+    csscompressor = None
+try:
+    import rjsmin
+except ImportError:
+    rjsmin = None
+
 sys.path.insert(0, str(Path(__file__).parent))
 
 from calc_content import (
@@ -1173,34 +1182,57 @@ def write_file(path: Path, content: str) -> None:
     path.write_text(content, encoding="utf-8")
 
 
+def _minify_css(src: Path) -> str:
+    css = src.read_text(encoding="utf-8")
+    if csscompressor:
+        return csscompressor.compress(css)
+    css = re.sub(r'/\*.*?\*/', '', css, flags=re.DOTALL)
+    css = re.sub(r'\s+', ' ', css)
+    css = re.sub(r'\s*([{}:;,>+~])\s*', r'\1', css)
+    css = re.sub(r';}', '}', css)
+    return css.strip()
+
+def _minify_js(src: Path) -> str:
+    js = src.read_text(encoding="utf-8")
+    if rjsmin:
+        return rjsmin.jsmin(js)
+    return js
+
 def copy_assets() -> None:
-    assets = [
-        (CSS_SRC,              PUBLIC / "css" / "styles.css"),
-        (JS_SRC,               PUBLIC / "js"  / "calculator.js"),
-        (SRC / "js" / "dark-mode.js", PUBLIC / "js" / "dark-mode.js"),
-        (SRC / "robots.txt",   PUBLIC / "robots.txt"),
-        (SRC / "favicon.svg",  PUBLIC / "favicon.svg"),
-    ]
-    for src, dest in assets:
-        dest.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(src, dest)
-    
+    (PUBLIC / "css").mkdir(parents=True, exist_ok=True)
+    (PUBLIC / "js").mkdir(parents=True, exist_ok=True)
+
+    min_css = _minify_css(CSS_SRC)
+    (PUBLIC / "css" / "styles.css").write_text(min_css, encoding="utf-8")
+
+    min_js = _minify_js(JS_SRC)
+    (PUBLIC / "js" / "calculator.js").write_text(min_js, encoding="utf-8")
+
+    for name in ("dark-mode.js", "favorites.js"):
+        src_path = SRC / "js" / name
+        if src_path.exists():
+            minified = _minify_js(src_path)
+            (PUBLIC / "js" / name).write_text(minified, encoding="utf-8")
+
+    for name in ("robots.txt", "favicon.svg"):
+        shutil.copy2(SRC / name, PUBLIC / name)
+
     og_dir = PUBLIC / "og"
     og_dir.mkdir(parents=True, exist_ok=True)
     src_og = Path(__file__).resolve().parent.parent / "public" / "og"
     if src_og.exists():
         for f in src_og.glob("*.png"):
             shutil.copy2(f, og_dir / f.name)
-    
+
     favicon_ico = Path(__file__).resolve().parent.parent / "public" / "favicon.ico"
     if favicon_ico.exists():
         shutil.copy2(favicon_ico, PUBLIC / "favicon.ico")
-    
+
     touch_icon = Path(__file__).resolve().parent.parent / "public" / "apple-touch-icon.png"
     if touch_icon.exists():
         shutil.copy2(touch_icon, PUBLIC / "apple-touch-icon.png")
-    
-    print("  [assets] Copied CSS, JS, robots.txt, favicon, OG images")
+
+    print("  [assets] Minified CSS/JS, copied favicon, OG images")
 
 
 def make_env() -> "Environment":
@@ -1522,14 +1554,13 @@ def generate() -> None:
             # long content exists. This prevents wrong FAQ/formulas/how-to from
             # appearing on batch-generated calculators.
             intro_text        = generate_intro(cid, lang, ci18n["name"], ci18n["description"], block_slug=calc["block_slug"])
-            if has_long_content:
-                how_to_steps = []
-                block_faq = []
-                formula_explained = ""
-            else:
-                how_to_steps      = generate_how_to(cid, calc["block_slug"], lang)
-                block_faq         = generate_faq(cid, calc["block_slug"], lang)
-                formula_explained = generate_formula_explained(calc["block_slug"], lang)
+            # Always compute block-level fallbacks so HowTo + FAQ JSON-LD schema is emitted on every
+            # page. The template suppresses the *visible* HowTo/formula sections when long_content
+            # is present (those topics are covered inside the article body) but the schema stays —
+            # rich-result eligibility is the goal here.
+            how_to_steps      = generate_how_to(cid, calc["block_slug"], lang)
+            block_faq         = generate_faq(cid, calc["block_slug"], lang)
+            formula_explained = generate_formula_explained(calc["block_slug"], lang)
             long_content_raw = inject_cross_links(long_content_raw, cid, lang, calc_url_by_id, calcs_i18n)
             long_content = inject_heading_ids(long_content_raw) if long_content_raw else ""
             toc_items = extract_toc(long_content_raw) if long_content_raw else []
@@ -1573,6 +1604,7 @@ def generate() -> None:
                 formula_explained=formula_explained,
                 formula_title=FORMULA_TITLE.get(lang, FORMULA_TITLE["en"]),
                 long_content=long_content,
+                has_long_content=bool(long_content),
                 toc_items=toc_items,
                 toc_title=TOC_TITLE.get(lang, TOC_TITLE["en"]),
                 popular_combos=build_popular_combos(cid, lang, loc_slug),

@@ -1,0 +1,138 @@
+<section class="long-content">
+<h2>What Is a Day of Year Calculator?</h2>
+<p>A day of year calculator determines which numbered day (1-365 or 1-366) a specific date represents within a calendar year. January 1 equals day 1, February 1 equals day 32, and December 31 equals day 365 in common years or day 366 in leap years. This ordinal date format — also called Julian day number (not to be confused with astronomical Julian dates) — simplifies date arithmetic for scientific research, project scheduling, and data analysis.</p>
+<p>Scientists, engineers, and data analysts use day-of-year numbering because it eliminates the complexity of varying month lengths. Calculating the span between March 15 and October 8 requires counting across 7 different month lengths in standard format. In day-of-year format, it's simply day 282 minus day 74 = 208 days. This straightforward subtraction enables faster computations in spreadsheet formulas, programming algorithms, and statistical models.</p>
+<p>The calculation accounts for leap years using the Gregorian calendar rules established in 1582. Years divisible by 4 are leap years (366 days), except century years must be divisible by 400. This means 2000 was a leap year, but 1900 and 2100 are not. The extra day inserts after February 28, making March 1 shift from day 60 to day 61 in leap years.</p>
+
+<h2>Day of Year Formula Explained with Examples</h2>
+<p>The day of year calculation sums all days in preceding months plus the current day number:</p>
+<p><strong>Day of Year = Σ(days in months 1 to M-1) + D + L</strong></p>
+<p>Where:</p>
+<ul>
+<li>M = Month number (1-12)</li>
+<li>D = Day of month (1-31)</li>
+<li>L = Leap year adjustment (0 or 1)</li>
+<li>L = 1 if year is leap year AND month > 2, otherwise L = 0</li>
+</ul>
+<p><strong>Month day totals (non-leap year):</strong></p>
+<ul>
+<li>January: 31 days (cumulative: 31)</li>
+<li>February: 28 days (cumulative: 59)</li>
+<li>March: 31 days (cumulative: 90)</li>
+<li>April: 30 days (cumulative: 120)</li>
+<li>May: 31 days (cumulative: 151)</li>
+<li>June: 30 days (cumulative: 181)</li>
+<li>July: 31 days (cumulative: 212)</li>
+<li>August: 31 days (cumulative: 243)</li>
+<li>September: 30 days (cumulative: 273)</li>
+<li>October: 31 days (cumulative: 304)</li>
+<li>November: 30 days (cumulative: 334)</li>
+<li>December: 31 days (cumulative: 365)</li>
+</ul>
+<p><strong>Leap year test:</strong></p>
+<p>A year is a leap year if:</p>
+<ul>
+<li>(Year divisible by 4) AND (Year NOT divisible by 100 OR Year divisible by 400)</li>
+<li>In programming: <code>leap = (year % 4 == 0) && (year % 100 != 0 || year % 400 == 0)</code></li>
+</ul>
+<p><strong>Worked Example 1 — March 15, 2024 (leap year):</strong></p>
+<p>Step 1: Check if 2024 is a leap year: 2024 ÷ 4 = 506 (no remainder), 2024 ÷ 100 = 20.24 (has remainder), so 2024 IS a leap year.</p>
+<p>Step 2: Sum days in preceding months (January + February): 31 + 29 = 60 days (February has 29 days in leap year)</p>
+<p>Step 3: Add current day: 60 + 15 = 75</p>
+<p>Step 4: Apply leap adjustment: Month 3 > 2, so L = 0 (already counted in February total)</p>
+<p><strong>Day of Year = 75</strong> (March 15, 2024 is the 75th day)</p>
+<p><strong>Worked Example 2 — October 8, 2023 (non-leap year):</strong></p>
+<p>Step 1: Check if 2023 is a leap year: 2023 ÷ 4 = 505.75 (has remainder), so 2023 is NOT a leap year.</p>
+<p>Step 2: Sum days in preceding months (Jan-Sep): 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 = 273 days</p>
+<p>Step 3: Add current day: 273 + 8 = 281</p>
+<p>Step 4: Leap adjustment: Not a leap year, so L = 0</p>
+<p><strong>Day of Year = 281</strong> (October 8, 2023 is the 281st day)</p>
+
+<h2>6 Steps to Calculate Day of Year</h2>
+<ol>
+<li><strong>Identify the input date components:</strong> Extract the year (YYYY), month (MM), and day (DD) from your date. For "2024-07-20", year = 2024, month = 7, day = 20. Ensure the date is valid — February 30 and April 31 don't exist in any calendar system.</li>
+<li><strong>Determine if the year is a leap year:</strong> Apply the Gregorian calendar rule: divide the year by 4. If divisible, check if it's a century year (divisible by 100). Century years must also be divisible by 400 to qualify as leap years. Mark this result — it affects the calculation only if the month is March or later.</li>
+<li><strong>Look up cumulative days before the target month:</strong> Use a reference table or memorize the cumulative totals. For month 7 (July), the preceding 6 months contain 181 days in non-leap years or 182 days in leap years. Many people remember "July 4 is day 185/186" as an anchor point for mental calculations.</li>
+<li><strong>Add the current day number:</strong> Simply add the day of month to the cumulative total from step 3. If July 1 starts at day 182 (leap year), then July 20 = 182 + 20 = 202. This intermediate result is your day of year for non-leap years or leap years with months before March.</li>
+<li><strong>Apply leap year adjustment if needed:</strong> If the year is a leap year AND the month is March (3) or later, add 1 to your result. This accounts for February 29. For January and February dates in leap years, no adjustment is needed because the extra day hasn't occurred yet in the calendar sequence.</li>
+<li><strong>Verify the result is within valid range:</strong> Day of year must fall between 1 and 365 (common year) or 1 and 366 (leap year). December 31 should equal 365 or 366. If your result exceeds these bounds, recheck your month totals and leap year calculation — common errors include double-counting the leap day or using wrong month lengths.</li>
+</ol>
+
+<h2>5 Practical Day of Year Calculation Examples</h2>
+<p><strong>Example 1 — Tax Filing Deadline (April 15, 2024):</strong></p>
+<ul>
+<li>Year: 2024 (leap year: 2024 ÷ 4 = 506, no remainder)</li>
+<li>Month: 4 (April), Day: 15</li>
+<li>Cumulative days Jan-Mar: 31 + 29 + 31 = 91 (leap year February)</li>
+<li>Add day: 91 + 15 = 106</li>
+<li>Leap adjustment: Month 4 > 2, but already counted in cumulative</li>
+<li><strong>Day of Year: 106</strong> — April 15 is the 106th day of 2024</li>
+</ul>
+<p><strong>Example 2 — Employee Start Date (September 1, 2023):</strong></p>
+<ul>
+<li>Year: 2023 (not leap year: 2023 ÷ 4 = 505.75)</li>
+<li>Month: 9 (September), Day: 1</li>
+<li>Cumulative days Jan-Aug: 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 = 243</li>
+<li>Add day: 243 + 1 = 244</li>
+<li><strong>Day of Year: 244</strong> — September 1 is the 244th day of 2023</li>
+</ul>
+<p><strong>Example 3 — Warranty Expiration (December 31, 2025):</strong></p>
+<ul>
+<li>Year: 2025 (not leap year: 2025 ÷ 4 = 506.25)</li>
+<li>Month: 12 (December), Day: 31</li>
+<li>Cumulative days Jan-Nov: 334 (standard non-leap total)</li>
+<li>Add day: 334 + 31 = 365</li>
+<li><strong>Day of Year: 365</strong> — Final day of a common year</li>
+</ul>
+<p><strong>Example 4 — Leap Day Birthday (February 29, 2024):</strong></p>
+<ul>
+<li>Year: 2024 (leap year)</li>
+<li>Month: 2 (February), Day: 29</li>
+<li>Cumulative days in January: 31</li>
+<li>Add day: 31 + 29 = 60</li>
+<li>Leap adjustment: Month 2 is NOT > 2, so no adjustment</li>
+<li><strong>Day of Year: 60</strong> — February 29 exists only in leap years</li>
+</ul>
+<p><strong>Example 5 — Project Milestone (June 30, 2024):</strong></p>
+<ul>
+<li>Year: 2024 (leap year)</li>
+<li>Month: 6 (June), Day: 30</li>
+<li>Cumulative days Jan-May: 31 + 29 + 31 + 30 + 31 = 152</li>
+<li>Add day: 152 + 30 = 182</li>
+<li><strong>Day of Year: 182</strong> — Exactly halfway through a leap year (366 / 2 = 183, so June 30 is day before midpoint)</li>
+</ul>
+
+<h2>4 Common Day of Year Calculation Mistakes</h2>
+<ul>
+<li><strong>Forgetting the leap year adjustment for months after February:</strong> Many people correctly identify a leap year but fail to add 1 for dates from March onward. March 1, 2024 should be day 61 (31 + 29 + 1), not day 60. This error persists through December, making all subsequent dates off by one day in leap year calculations.</li>
+<li><strong>Using 30 days for every month (the "knuckle method" failure):</strong> The old mnemonic "30 days hath September..." gets misremembered as "all months have 30 days except February." This produces errors of 1-2 days per month. April, June, September, and November have 30 days; the other 8 months have 31 (except February). Cumulative errors reach 7 days by December.</li>
+<li><strong>Incorrectly applying Gregorian calendar rules to historical dates:</strong> The Gregorian calendar was adopted in 1582 (October 15 in Catholic countries, later elsewhere). Dates before adoption used the Julian calendar, which had different leap year rules (every 4 years, no exceptions). Calculating day of year for July 4, 1776 requires Julian rules: 1776 was a leap year in both systems, but the calendar offset was 11 days by that point.</li>
+<li><strong>Confusing day of year with Julian date:</strong> Astronomical Julian dates count continuously from January 1, 4713 BCE (Julian Day Number 0 = January 1, 4713 BC at 12:00 UTC). January 1, 2024 = JD 2460310.5, not day 1. Day of year (ordinal date) resets to 1 each January 1. Mixing these systems produces errors of over 2.4 million days.</li>
+</ul>
+
+<h2>5 Pro Tips for Day of Year Calculations</h2>
+<ul>
+<li><strong>Memorize anchor dates for mental math:</strong> Learn key reference points: January 1 = day 1, March 1 = day 60/61, April 15 = day 105/106 (tax day), July 4 = day 185/186 (Independence Day), October 31 = day 304/305 (Halloween), December 31 = day 365/366. To find any date, count forward or backward from the nearest anchor. July 20 is 16 days after July 4: 185 + 16 = 201 (non-leap) or 186 + 16 = 202 (leap).</li>
+<li><strong>Use the "Doomsday algorithm" for quick verification:</strong> John Conway's Doomsday method identifies the day of week for any date. Each year has a "Doomsday" — the weekday of dates like 4/4, 6/6, 8/8, 10/10, 12/12. If you know January 1, 2024 is Monday (day 1), then day 366 must be Tuesday (2024 is leap year). This cross-check catches off-by-one errors in your day-of-year count.</li>
+<li><strong>Implement ISO 8601 ordinal date format in programming:</strong> Use the standard format YYYY-DDD where DDD is zero-padded to 3 digits. January 1, 2024 = 2024-001, December 31, 2024 = 2024-366. Python: <code>datetime.date(2024, 7, 20).strftime("%Y-%j")</code> returns "2024-202". Excel: <code>=TEXT(A1,"yyyy")&"-"&TEXT(A1,"ddd")</code> where "ddd" gives day of year. This format sorts chronologically in alphabetical order.</li>
+<li><strong>Account for timezone boundaries in international applications:</strong> Day of year changes at midnight local time, not UTC. A timestamp of 2024-01-01T02:00:00+03:00 (Moscow) is still December 31, 2023 in New York (UTC-5). For global datasets, convert to UTC first, then calculate day of year. Aviation, meteorology, and scientific research universally use UTC to avoid this ambiguity.</li>
+<li><strong>Build lookup tables for high-performance applications:</strong> In database queries or real-time systems, precompute cumulative month totals in an array: <code>[0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334]</code>. Day of year = array[month-1] + day + (isLeap && month > 2 ? 1 : 0). This O(1) lookup beats iterative month-by-month addition in loops processing millions of records.</li>
+</ul>
+
+<h2>4 Day of Year FAQs</h2>
+<div class="faq-list">
+<div class="faq-item"><button class="faq-q" aria-expanded="false">Why does day of year matter for business applications?</button><div class="faq-a"><p>Day of year simplifies year-over-year comparisons by eliminating month-length variability. Retailers compare "day 200" sales across years without worrying that July has 31 days but June has 30. Manufacturing schedules use day numbers for production planning — "complete assembly by day 150" is unambiguous regardless of when Easter or other moving holidays fall. Financial models use day-of-year fractions (day/365) for interest accrual calculations.</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">How do I calculate days remaining in the year?</button><div class="faq-a"><p>Subtract the current day of year from 365 (or 366 for leap years). For October 15, 2024 (day 289 in leap year): 366 - 289 = 77 days remaining. In programming: <code>daysRemaining = (isLeapYear(year) ? 366 : 365) - dayOfYear</code>. For countdown applications, add 1 if you want to include today: 78 days including October 15.</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">What's the average day of year for common events?</button><div class="faq-a"><p>Statistical averages vary by culture and hemisphere. In the US: tax filing deadline = day 105/106 (April 15), Independence Day = day 185/186 (July 4), Halloween = day 304/305 (October 31). The median date (day 183/184) falls on July 2 in common years or July 1 in leap years. Globally, New Year's Day celebrations peak on day 1, while Southern Hemisphere summer holidays cluster around days 1-30 (January).</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">Can day of year be negative or exceed 366?</button><div class="faq-a"><p>Not in standard usage — day of year is defined as 1-365/366. However, some scientific applications use "day 0" for December 31 of the previous year or negative days for dates before January 1 in multi-year calculations. Day 400 might represent a date 35 days into the next year for project timelines spanning multiple years. Always clarify the coordinate system when working outside the 1-366 range.</p></div></div>
+</div>
+
+<h2>Related Calculators</h2>
+<ul>
+<li><a href="/week-number-calculator">Week Number Calculator</a> — Determines ISO week number (1-53) for any date</li>
+<li><a href="/days-between-dates-calculator">Days Between Dates Calculator</a> — Calculates exact day count between two calendar dates</li>
+<li><a href="/age-in-days-calculator">Age in Days Calculator</a> — Converts birth date to total days lived</li>
+<li><a href="/date-duration-calculator">Date Duration Calculator</a> — Adds or subtracts days, weeks, months from a date</li>
+<li><a href="/business-days-calculator">Business Days Calculator</a> — Counts weekdays excluding weekends and holidays</li>
+</ul>
+</section>

@@ -4969,6 +4969,15557 @@ Median = (value at position n/2 + value at position n/2+1) / 2</p>
 </section>""",
     },
 
+
+    "415": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de Masa Corporal Magra: Controla tu Composición Corporal</h1>
+  <p>La Masa Corporal Magra (MCM) representa el peso total de tu cuerpo excluyendo toda la grasa, incluyendo m&uacute;sculos, huesos, &oacute;rganos y agua. Comprender tu MCM es fundamental para seguir el progreso f&iacute;sico, optimizar planes nutricionales y evaluar la salud de tu composici&oacute;n corporal.</p>
+
+  <div class="formula-section">
+    <h2>F&oacute;rmula de la Masa Corporal Magra</h2>
+    <p class="formula-display">MCM = Peso &times; (1 &minus; % Grasa Corporal / 100)</p>
+    <p>Para calcular tu masa corporal magra, necesitas dos datos: tu peso corporal total y tu porcentaje de grasa corporal. La f&oacute;rmula resta la proporci&oacute;n de grasa de 1 y luego multiplica por tu peso total. Por ejemplo, si pesas 80 kg con un 20% de grasa corporal, tu MCM equivale a 80 &times; (1 &minus; 0,20) = 64 kg. Esto significa que 64 kilogramos de tu peso corporal est&aacute;n compuestos por m&uacute;sculo, hueso, &oacute;rganos y agua, mientras que los 16 kg restantes son tejido graso.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Ejemplos Pr&aacute;cticos</h2>
+    <div class="example">
+      <h3>Ejemplo 1: Atleta Masculino</h3>
+      <p>Un atleta var&oacute;n de 28 a&ntilde;os pesa 90 kg y tiene un porcentaje de grasa corporal medido del 12%.</p>
+      <p>MCM = 90 &times; (1 &minus; 12 / 100) = 90 &times; 0,88 = <strong>79,2 kg</strong></p>
+      <p>Este atleta tiene 79,2 kg de tejido magro y 10,8 kg de masa grasa, lo que indica una composici&oacute;n corporal excelente, t&iacute;pica de personas entrenadas.</p>
+    </div>
+    <div class="example">
+      <h3>Ejemplo 2: Mujer con Actividad Recreativa</h3>
+      <p>Una mujer de 35 a&ntilde;os pesa 65 kg con un porcentaje de grasa corporal del 28%.</p>
+      <p>MCM = 65 &times; (1 &minus; 28 / 100) = 65 &times; 0,72 = <strong>46,8 kg</strong></p>
+      <p>Su masa corporal magra de 46,8 kg se encuentra dentro del rango saludable para mujeres. Aumentar la MCM mediante entrenamiento de fuerza podr&iacute;a mejorar la tasa metab&oacute;lica y la fuerza funcional.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Usos Comunes</h2>
+    <ul>
+      <li>Seguimiento del aumento muscular durante programas de entrenamiento de fuerza independientemente de los cambios de grasa</li>
+      <li>C&aacute;lculo de requerimientos proteicos basados en tejido magro en lugar del peso corporal total</li>
+      <li>Evaluaci&oacute;n de cambios en la composici&oacute;n corporal durante fases de p&eacute;rdida o ganancia de peso</li>
+      <li>Determinaci&oacute;n de dosis de medicamentos apropiadas que se correlacionan con la masa magra</li>
+      <li>Evaluaci&oacute;n del estado nutricional en entornos de medicina cl&iacute;nica y deportiva</li>
+      <li>Establecimiento de metas realistas de composici&oacute;n corporal para atletas y entusiastas del fitness</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Errores Comunes</h2>
+    <ul>
+      <li>Usar solo el peso de la b&aacute;scula sin considerar el porcentaje de grasa corporal, lo que oculta cambios en la composici&oacute;n corporal</li>
+      <li>Confiar en m&eacute;todos imprecisos de medici&oacute;n de grasa como b&aacute;sculas de bioimpedancia de consumo que pueden variar &plusmn;5%</li>
+      <li>Confundir la masa corporal magra con la masa muscular esquel&eacute;tica, que es solo un componente de la MCM</li>
+      <li>Ignorar el estado de hidrataci&oacute;n al medir la composici&oacute;n corporal, ya que la deshidrataci&oacute;n puede alterar significativamente los resultados</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Consejo Profesional</h2>
+    <p>Para un seguimiento m&aacute;s preciso de la MCM, utiliza esc&aacute;neres DEXA o pesaje hidrost&aacute;tico cada 8&ndash;12 semanas en lugar de depender del peso diario de la b&aacute;scula. Estos m&eacute;todos proporcionan mediciones precisas de grasa corporal que hacen que tus c&aacute;lculos de MCM sean significativos. Sigue las tendencias de MCM a lo largo del tiempo en lugar de valores absolutos, ya que la consistencia en el m&eacute;todo de medici&oacute;n importa m&aacute;s que la perfecci&oacute;n en una sola lectura.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Cu&aacute;l es un buen porcentaje de masa corporal magra?</button>
+        <div class="faq-ap"><p>Para hombres, un porcentaje saludable de MCM oscila entre el 75&ndash;90% del peso corporal total. Para mujeres, el rango saludable es del 70&ndash;85%. Los atletas suelen ubicarse en el extremo superior de estos rangos debido a una mayor masa muscular y menor grasa corporal.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Puede aumentar la masa corporal magra mientras se pierde peso?</button>
+        <div class="faq-ap"><p>S&iacute;, especialmente para principiantes en el entrenamiento de fuerza o quienes regresan despu&eacute;s de un par&oacute;n. Este fen&oacute;meno, llamado recomposici&oacute;n corporal, ocurre cuando la ganancia muscular supera la p&eacute;rdida de grasa. La ingesta adecuada de prote&iacute;nas (1,6&ndash;2,2 g/kg de MCM) y el entrenamiento de sobrecarga progresiva son clave.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;C&oacute;mo afecta la edad a la masa corporal magra?</button>
+        <div class="faq-ap"><p>Despu&eacute;s de los 30 a&ntilde;os, los adultos pierden t&iacute;picamente entre un 3&ndash;8% de masa muscular magra por d&eacute;cada sin intervenci&oacute;n. Esta sarcopenia se acelera despu&eacute;s de los 60 a&ntilde;os. El entrenamiento regular de fuerza y la ingesta suficiente de prote&iacute;nas pueden ralentizar o revertir significativamente este deterioro.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Es la masa corporal magra lo mismo que la masa muscular?</button>
+        <div class="faq-ap"><p>No. La masa corporal magra incluye todos los tejidos no grasos: m&uacute;sculo esquel&eacute;tico, m&uacute;sculo liso, huesos, &oacute;rganos, tejido conectivo y agua corporal. La masa muscular esquel&eacute;tica es solo un componente de la MCM, que t&iacute;picamente representa aproximadamente el 50% de la MCM total en adultos sanos.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/body-adiposity-index-calculator">Body Adiposity Index Calculator</a></li>
+      <li><a href="/bmi-prime-calculator">BMI Prime Calculator</a></li>
+      <li><a href="/waist-to-hip-ratio-calculator">Waist-to-Hip Ratio Calculator</a></li>
+      <li><a href="/waist-to-height-ratio-calculator">Waist-to-Height Ratio Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/body-adiposity-index-calculator">Body Adiposity Index Calculator</a></li>
+      <li><a href="/bmi-prime-calculator">BMI Prime Calculator</a></li>
+      <li><a href="/body-fat-us-navy-calculator">Body Fat (US Navy) Calculator</a></li>
+      <li><a href="/waist-to-hip-ratio-calculator">Waist-to-Hip Ratio Calculator</a></li>
+      <li><a href="/waist-to-height-ratio-calculator">Waist-to-Height Ratio Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Lean Body Mass Calculator: Track Your Body Composition</h1>
+  <p>Lean Body Mass (LBM) represents the total weight of your body minus all fat mass, including muscles, bones, organs, and water. Understanding your LBM is essential for tracking fitness progress, optimizing nutrition plans, and assessing overall body composition health.</p>
+
+  <div class="formula-section">
+    <h2>Lean Body Mass Formula</h2>
+    <p class="formula-display">LBM = Weight &times; (1 &minus; Body Fat % / 100)</p>
+    <p>To calculate your lean body mass, you need two inputs: your total body weight and your body fat percentage. The formula subtracts the fat proportion from 1, then multiplies by your total weight. For example, if you weigh 80 kg with 20% body fat, your LBM equals 80 &times; (1 &minus; 0.20) = 64 kg. This means 64 kilograms of your body weight consists of muscle, bone, organs, and water, while the remaining 16 kg is fat tissue.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Worked Examples</h2>
+    <div class="example">
+      <h3>Example 1: Male Athlete</h3>
+      <p>A 28-year-old male athlete weighs 90 kg and has a measured body fat percentage of 12%.</p>
+      <p>LBM = 90 &times; (1 &minus; 12 / 100) = 90 &times; 0.88 = <strong>79.2 kg</strong></p>
+      <p>This athlete has 79.2 kg of lean tissue and 10.8 kg of fat mass, indicating an excellent body composition typical of trained individuals.</p>
+    </div>
+    <div class="example">
+      <h3>Example 2: Female Recreational Exerciser</h3>
+      <p>A 35-year-old woman weighs 65 kg with a body fat percentage of 28%.</p>
+      <p>LBM = 65 &times; (1 &minus; 28 / 100) = 65 &times; 0.72 = <strong>46.8 kg</strong></p>
+      <p>Her lean body mass of 46.8 kg falls within the healthy range for women. Increasing LBM through resistance training could improve metabolic rate and functional strength.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Common Uses</h2>
+    <ul>
+      <li>Tracking muscle gain during strength training programs independent of fat changes</li>
+      <li>Calculating protein requirements based on lean tissue rather than total body weight</li>
+      <li>Assessing body composition changes during weight loss or weight gain phases</li>
+      <li>Determining appropriate medication dosages that correlate with lean tissue mass</li>
+      <li>Evaluating nutritional status in clinical and sports medicine settings</li>
+      <li>Setting realistic body composition goals for athletes and fitness enthusiasts</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Common Mistakes</h2>
+    <ul>
+      <li>Using scale weight alone without considering body fat percentage, which masks changes in body composition</li>
+      <li>Relying on inaccurate body fat measurement methods like consumer bioimpedance scales that can vary by &plusmn;5%</li>
+      <li>Confusing lean body mass with skeletal muscle mass, which is only one component of LBM</li>
+      <li>Ignoring hydration status when measuring body composition, as dehydration can skew results significantly</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Pro Tip</h2>
+    <p>For the most accurate LBM tracking, use DEXA scans or hydrostatic weighing every 8&ndash;12 weeks rather than relying on daily scale weight. These methods provide precise body fat measurements that make your LBM calculations meaningful. Track LBM trends over time rather than absolute values, as consistency in measurement method matters more than perfection in any single reading.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What is a good lean body mass percentage?</button>
+        <div class="faq-ap"><p>For men, a healthy LBM percentage ranges from 75&ndash;90% of total body weight. For women, the healthy range is 70&ndash;85%. Athletes typically fall at the higher end of these ranges due to greater muscle mass and lower body fat.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Can lean body mass increase while losing weight?</button>
+        <div class="faq-ap"><p>Yes, especially for beginners to resistance training or those returning after a layoff. This phenomenon, called body recomposition, occurs when muscle gain outpaces fat loss. Adequate protein intake (1.6&ndash;2.2 g/kg of LBM) and progressive overload training are key.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How does age affect lean body mass?</button>
+        <div class="faq-ap"><p>After age 30, adults typically lose 3&ndash;8% of lean muscle mass per decade without intervention. This sarcopenia accelerates after age 60. Regular resistance training and sufficient protein intake can significantly slow or reverse this decline.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Is lean body mass the same as muscle mass?</button>
+        <div class="faq-ap"><p>No. Lean body mass includes all non-fat tissues: skeletal muscle, smooth muscle, bones, organs, connective tissue, and body water. Skeletal muscle mass is only one component of LBM, typically representing about 50% of total LBM in healthy adults.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/body-adiposity-index-calculator">Body Adiposity Index Calculator</a></li>
+      <li><a href="/bmi-prime-calculator">BMI Prime Calculator</a></li>
+      <li><a href="/waist-to-hip-ratio-calculator">Waist-to-Hip Ratio Calculator</a></li>
+      <li><a href="/waist-to-height-ratio-calculator">Waist-to-Height Ratio Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/body-adiposity-index-calculator">Body Adiposity Index Calculator</a></li>
+      <li><a href="/bmi-prime-calculator">BMI Prime Calculator</a></li>
+      <li><a href="/body-fat-us-navy-calculator">Body Fat (US Navy) Calculator</a></li>
+      <li><a href="/waist-to-hip-ratio-calculator">Waist-to-Hip Ratio Calculator</a></li>
+      <li><a href="/waist-to-height-ratio-calculator">Waist-to-Height Ratio Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "416": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de Índice de Adiposidad Corporal: Mide tu Grasa Corporal</h1>
+  <p>&Iacute;ndice de Adiposidad Corporal (IAC) ofrece un m&eacute;todo sencillo para estimar el porcentaje de grasa corporal utilizando &uacute;nicamente medidas de circunferencia de cadera y estatura. A diferencia del IMC, que depende del peso, el IAC incorpora directamente medidas de forma corporal que pueden reflejar mejor la adiposidad en diferentes poblaciones.</p>
+
+  <div class="formula-section">
+    <h2>F&oacute;rmula del &Iacute;ndice de Adiposidad Corporal</h2>
+    <p class="formula-display">IAC = (Circunferencia de Cadera en cm / Estatura en m<sup>1.5</sup>) &minus; 18</p>
+    <p>La f&oacute;rmula del IAC divide tu circunferencia de cadera en cent&iacute;metros entre tu estatura en metros elevada a la potencia de 1,5, y luego resta 18 al resultado. El valor obtenido estima tu porcentaje de grasa corporal. Por ejemplo, una persona con una cadera de 100 cm y una estatura de 1,70 m calcular&iacute;a: IAC = (100 / 1,70<sup>1.5</sup>) &minus; 18 = (100 / 2,216) &minus; 18 = 45,13 &minus; 18 = <strong>27,1%</strong> de grasa corporal estimada.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Ejemplos Pr&aacute;cticos</h2>
+    <div class="example">
+      <h3>Ejemplo 1: Hombre Adulto</h3>
+      <p>Un hombre de 40 a&ntilde;os tiene una circunferencia de cadera de 98 cm y mide 1,75 m de estatura.</p>
+      <p>IAC = (98 / 1,75<sup>1.5</sup>) &minus; 18 = (98 / 2,315) &minus; 18 = 42,33 &minus; 18 = <strong>24,3%</strong></p>
+      <p>Este porcentaje estimado de grasa corporal del 24,3% se encuentra dentro del rango aceptable para hombres de 40&ndash;59 a&ntilde;os, lo que sugiere una composici&oacute;n corporal generalmente saludable.</p>
+    </div>
+    <div class="example">
+      <h3>Ejemplo 2: Mujer Adulta</h3>
+      <p>Una mujer de 32 a&ntilde;os mide 105 cm de cadera y tiene una estatura de 1,62 m.</p>
+      <p>IAC = (105 / 1,62<sup>1.5</sup>) &minus; 18 = (105 / 2,062) &minus; 18 = 50,92 &minus; 18 = <strong>32,9%</strong></p>
+      <p>Su grasa corporal estimada del 32,9% se encuentra dentro del rango saludable para mujeres de 20&ndash;39 a&ntilde;os. Las mujeres naturalmente llevan m&aacute;s grasa corporal que los hombres debido a factores hormonales y reproductivos.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Usos Comunes</h2>
+    <ul>
+      <li>Estimaci&oacute;n r&aacute;pida de grasa corporal en entornos donde no hay calibradores o esc&aacute;neres DEXA disponibles</li>
+      <li>Evaluaciones de salud a nivel poblacional en estudios epidemiol&oacute;gicos</li>
+      <li>Seguimiento de cambios en la composici&oacute;n corporal a lo largo del tiempo con protocolos de medici&oacute;n consistentes</li>
+      <li>Herramienta de detecci&oacute;n para identificar personas que pueden necesitar un an&aacute;lisis m&aacute;s profundo de composici&oacute;n corporal</li>
+      <li>Comparaci&oacute;n de adiposidad entre diferentes grupos &eacute;tnicos donde el IMC puede ser menos preciso</li>
+      <li>Entornos educativos para ense&ntilde;ar conceptos de composici&oacute;n corporal sin equipos costosos</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Errores Comunes</h2>
+    <ul>
+      <li>Medir la circunferencia de cadera en el lugar incorrecto en lugar del punto m&aacute;s ancho de los gl&uacute;teos</li>
+      <li>Usar la estatura en cent&iacute;metros en lugar de metros, lo que produce resultados dram&aacute;ticamente incorrectos</li>
+      <li>Aplicar el IAC a ni&ntilde;os o adolescentes, ya que la f&oacute;rmula fue validada solo para adultos mayores de 20 a&ntilde;os</li>
+      <li>Tratar el IAC como una herramienta diagn&oacute;stica en lugar de un m&eacute;todo de estimaci&oacute;n con m&aacute;rgenes de error inherentes</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Consejo Profesional</h2>
+    <p>Para las mediciones de IAC m&aacute;s confiables, utiliza una cinta m&eacute;trica flexible y no el&aacute;stica, y toma la circunferencia de cadera en la protrusi&oacute;n m&aacute;xima de los m&uacute;sculos gl&uacute;teos. Mide la estatura sin zapatos contra una pared plana usando un estadi&oacute;metro. Sigue el IAC mensualmente bajo condiciones consistentes en lugar de semanalmente, ya que los cambios en la composici&oacute;n corporal son graduales y la variabilidad de medici&oacute;n puede ocultar tendencias reales.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Qu&eacute; tan preciso es el IAC comparado con otros m&eacute;todos?</button>
+        <div class="faq-ap"><p>El IAC se correlaciona razonablemente bien con la grasa corporal medida por DEXA (r &asymp; 0,80&ndash;0,85) pero tiende a sobreestimar la grasa corporal en personas delgadas y subestimarla en personas obesas. Es m&aacute;s preciso que el IMC para estimar el porcentaje de grasa corporal, pero menos preciso que DEXA o pesaje hidrost&aacute;tico.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Cu&aacute;les son los rangos saludables de IAC para hombres y mujeres?</button>
+        <div class="faq-ap"><p>Para hombres de 20&ndash;39 a&ntilde;os, un IAC saludable oscila entre 8&ndash;21%. Para mujeres del mismo grupo de edad, el rango es de 21&ndash;33%. Estos rangos se desplazan ligeramente hacia arriba con la edad. Los valores por encima de estos rangos pueden indicar adiposidad excesiva.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Se puede usar el IAC para atletas?</button>
+        <div class="faq-ap"><p>El IAC es menos confiable para atletas con alta masa muscular, particularmente en la regi&oacute;n gl&uacute;tea, ya que el aumento de la circunferencia de cadera por m&uacute;sculo puede inflar el valor del IAC. Los atletas deben usar calibradores de pliegues cut&aacute;neos o DEXA para una evaluaci&oacute;n m&aacute;s precisa de la grasa corporal.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Por qu&eacute; el IAC usa la circunferencia de cadera en lugar de la cintura?</button>
+        <div class="faq-ap"><p>La investigaci&oacute;n original del IAC encontr&oacute; que la circunferencia de cadera se correlacionaba mejor con el porcentaje total de grasa corporal medido por DEXA que la circunferencia de cintura. Sin embargo, la circunferencia de cintura sigue siendo valiosa para evaluar la grasa visceral y el riesgo cardiometab&oacute;lico, que el IAC no aborda espec&iacute;ficamente.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/lean-body-mass-calculator">Lean Body Mass Calculator</a></li>
+      <li><a href="/bmi-prime-calculator">BMI Prime Calculator</a></li>
+      <li><a href="/waist-to-hip-ratio-calculator">Waist-to-Hip Ratio Calculator</a></li>
+      <li><a href="/waist-to-height-ratio-calculator">Waist-to-Height Ratio Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/lean-body-mass-calculator">Lean Body Mass Calculator</a></li>
+      <li><a href="/bmi-prime-calculator">BMI Prime Calculator</a></li>
+      <li><a href="/body-fat-us-navy-calculator">Body Fat (US Navy) Calculator</a></li>
+      <li><a href="/waist-to-hip-ratio-calculator">Waist-to-Hip Ratio Calculator</a></li>
+      <li><a href="/waist-to-height-ratio-calculator">Waist-to-Height Ratio Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Body Adiposity Index Calculator: Measure Body Fat</h1>
+  <p>The Body Adiposity Index (BAI) offers a simple method to estimate body fat percentage using only hip circumference and height measurements. Unlike BMI, which relies on weight, BAI directly incorporates body shape measurements that may better reflect adiposity across different populations.</p>
+
+  <div class="formula-section">
+    <h2>Body Adiposity Index Formula</h2>
+    <p class="formula-display">BAI = (Hip Circumference in cm / Height in m<sup>1.5</sup>) &minus; 18</p>
+    <p>The BAI formula divides your hip circumference in centimeters by your height in meters raised to the power of 1.5, then subtracts 18 from the result. The resulting value estimates your body fat percentage. For instance, a person with a hip circumference of 100 cm and a height of 1.70 m would calculate: BAI = (100 / 1.70<sup>1.5</sup>) &minus; 18 = (100 / 2.216) &minus; 18 = 45.13 &minus; 18 = <strong>27.1%</strong> estimated body fat.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Worked Examples</h2>
+    <div class="example">
+      <h3>Example 1: Adult Male</h3>
+      <p>A 40-year-old man has a hip circumference of 98 cm and stands 1.75 m tall.</p>
+      <p>BAI = (98 / 1.75<sup>1.5</sup>) &minus; 18 = (98 / 2.315) &minus; 18 = 42.33 &minus; 18 = <strong>24.3%</strong></p>
+      <p>This estimated body fat percentage of 24.3% falls within the acceptable range for men aged 40&ndash;59, suggesting a generally healthy body composition.</p>
+    </div>
+    <div class="example">
+      <h3>Example 2: Adult Female</h3>
+      <p>A 32-year-old woman measures 105 cm at the hip and is 1.62 m tall.</p>
+      <p>BAI = (105 / 1.62<sup>1.5</sup>) &minus; 18 = (105 / 2.062) &minus; 18 = 50.92 &minus; 18 = <strong>32.9%</strong></p>
+      <p>Her estimated body fat of 32.9% is within the healthy range for women aged 20&ndash;39. Women naturally carry more body fat than men due to hormonal and reproductive factors.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Common Uses</h2>
+    <ul>
+      <li>Quick body fat estimation in settings where calipers or DEXA scans are unavailable</li>
+      <li>Population-level health assessments in epidemiological studies</li>
+      <li>Tracking body composition changes over time with consistent measurement protocols</li>
+      <li>Screening tool for identifying individuals who may need further body composition analysis</li>
+      <li>Comparing adiposity across different ethnic groups where BMI may be less accurate</li>
+      <li>Educational settings for teaching body composition concepts without expensive equipment</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Common Mistakes</h2>
+    <ul>
+      <li>Measuring hip circumference at the wrong location instead of the widest point of the buttocks</li>
+      <li>Using height in centimeters instead of meters, which produces dramatically incorrect results</li>
+      <li>Applying BAI to children or adolescents, as the formula was validated only for adults aged 20 and above</li>
+      <li>Treating BAI as a diagnostic tool rather than an estimation method with inherent margins of error</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Pro Tip</h2>
+    <p>For the most reliable BAI measurements, use a flexible, non-stretchable measuring tape and take hip circumference at the maximum protrusion of the gluteal muscles. Measure height without shoes against a flat wall using a stadiometer. Track BAI monthly under consistent conditions rather than weekly, as body composition changes gradually and measurement variability can obscure real trends.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How accurate is the Body Adiposity Index compared to other methods?</button>
+        <div class="faq-ap"><p>BAI correlates reasonably well with DEXA-measured body fat (r &asymp; 0.80&ndash;0.85) but tends to overestimate body fat in lean individuals and underestimate it in obese individuals. It is more accurate than BMI for estimating body fat percentage but less precise than DEXA or hydrostatic weighing.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What are healthy BAI ranges for men and women?</button>
+        <div class="faq-ap"><p>For men aged 20&ndash;39, a healthy BAI ranges from 8&ndash;21%. For women in the same age group, the range is 21&ndash;33%. These ranges shift slightly upward with age. Values above these ranges may indicate excess adiposity.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Can BAI be used for athletes?</button>
+        <div class="faq-ap"><p>BAI is less reliable for athletes with high muscle mass, particularly in the gluteal region, as increased hip circumference from muscle can inflate the BAI value. Athletes should use skinfold calipers or DEXA for more accurate body fat assessment.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Why does BAI use hip circumference instead of waist circumference?</button>
+        <div class="faq-ap"><p>The original BAI research found that hip circumference correlated better with total body fat percentage measured by DEXA than waist circumference did. However, waist circumference remains valuable for assessing visceral fat and cardiometabolic risk, which BAI does not specifically address.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/lean-body-mass-calculator">Lean Body Mass Calculator</a></li>
+      <li><a href="/bmi-prime-calculator">BMI Prime Calculator</a></li>
+      <li><a href="/waist-to-hip-ratio-calculator">Waist-to-Hip Ratio Calculator</a></li>
+      <li><a href="/waist-to-height-ratio-calculator">Waist-to-Height Ratio Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/lean-body-mass-calculator">Lean Body Mass Calculator</a></li>
+      <li><a href="/bmi-prime-calculator">BMI Prime Calculator</a></li>
+      <li><a href="/body-fat-us-navy-calculator">Body Fat (US Navy) Calculator</a></li>
+      <li><a href="/waist-to-hip-ratio-calculator">Waist-to-Hip Ratio Calculator</a></li>
+      <li><a href="/waist-to-height-ratio-calculator">Waist-to-Height Ratio Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "417": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de Proteína Diaria: Cuánta Proteína Necesitas</h1>
+  <p>El c&aacute;lculo de ingesta diaria de prote&iacute;nas te ayuda a determinar la cantidad &oacute;ptima de prote&iacute;na que tu cuerpo necesita seg&uacute;n tu peso y nivel de actividad. Obtener la cantidad adecuada de prote&iacute;na favorece la recuperaci&oacute;n muscular, la funci&oacute;n inmunol&oacute;gica, la producci&oacute;n hormonal y la salud metab&oacute;lica general.</p>
+
+  <div class="formula-section">
+    <h2>F&oacute;rmula de Ingesta Diaria de Prote&iacute;nas</h2>
+    <p class="formula-display">Prote&iacute;na (g/d&iacute;a) = Peso Corporal (kg) &times; Factor de Actividad</p>
+    <p>Tu requerimiento diario de prote&iacute;nas depende de tu peso corporal en kilogramos multiplicado por un factor de actividad que oscila entre 0,8 y 2,2 gramos por kilogramo. Los adultos sedentarios necesitan 0,8 g/kg, las personas moderadamente activas necesitan 1,2&ndash;1,4 g/kg, los atletas de resistencia necesitan 1,2&ndash;1,6 g/kg, y los atletas de fuerza necesitan 1,6&ndash;2,2 g/kg. Por ejemplo, una persona de 75 kg que entrena fuerza regularmente necesitar&iacute;a 75 &times; 1,8 = <strong>135 g de prote&iacute;na al d&iacute;a</strong>.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Ejemplos Pr&aacute;cticos</h2>
+    <div class="example">
+      <h3>Ejemplo 1: Trabajadora de Oficina Sedentaria</h3>
+      <p>Una mujer de 45 a&ntilde;os pesa 68 kg y trabaja en un escritorio con m&iacute;nima actividad f&iacute;sica.</p>
+      <p>Prote&iacute;na = 68 &times; 0,8 = <strong>54,4 g/d&iacute;a</strong></p>
+      <p>Su requerimiento m&iacute;nimo diario de 54,4 gramos puede cubrirse con una dieta equilibrada que incluya huevos, l&aacute;cteos, legumbres y carnes magras. Esta cantidad previene la deficiencia pero no optimiza el mantenimiento muscular.</p>
+    </div>
+    <div class="example">
+      <h3>Ejemplo 2: Fisicoculturista Competitivo</h3>
+      <p>Un fisicoculturista masculino de 25 a&ntilde;os pesa 88 kg y entrena intensamente 6 d&iacute;as por semana.</p>
+      <p>Prote&iacute;na = 88 &times; 2,0 = <strong>176 g/d&iacute;a</strong></p>
+      <p>Sus necesidades de prote&iacute;na de 176 gramos al d&iacute;a favorecen la s&iacute;ntesis de prote&iacute;na muscular y la recuperaci&oacute;n del entrenamiento intenso. Esto se distribuir&iacute;a en 4&ndash;6 comidas de aproximadamente 30&ndash;40 g cada una para una absorci&oacute;n &oacute;ptima.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Usos Comunes</h2>
+    <ul>
+      <li>Dise&ntilde;o de planes de alimentaci&oacute;n para atletas de diferentes deportes e intensidades de entrenamiento</li>
+      <li>Apoyo a la preservaci&oacute;n muscular durante dietas con d&eacute;ficit cal&oacute;rico y programas de p&eacute;rdida de peso</li>
+      <li>Establecimiento de pautas nutricionales para poblaciones mayores para combatir la sarcopenia</li>
+      <li>Planificaci&oacute;n de dietas de recuperaci&oacute;n postquir&uacute;rgica donde las necesidades de prote&iacute;nas est&aacute;n elevadas para la reparaci&oacute;n tisular</li>
+      <li>Optimizaci&oacute;n de la composici&oacute;n corporal durante fases de construcci&oacute;n muscular para entusiastas del fitness</li>
+      <li>Evaluaci&oacute;n de la adecuaci&oacute;n diet&eacute;tica en evaluaciones cl&iacute;nicas de nutrici&oacute;n y consultas con dietistas</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Errores Comunes</h2>
+    <ul>
+      <li>Consumir toda la prote&iacute;na diaria en una o dos comidas en lugar de distribuirla uniformemente en 3&ndash;6 comidas para una s&iacute;ntesis proteica muscular &oacute;ptima</li>
+      <li>Usar el peso corporal total para personas obesas en lugar de la masa magra o el peso objetivo, lo que sobreestima las necesidades de prote&iacute;nas</li>
+      <li>Ignorar la calidad de las fuentes de prote&iacute;na y enfocarse solo en la cantidad, cuando los perfiles de amino&aacute;cidos esenciales importan significativamente</li>
+      <li>Asumir que m&aacute;s prote&iacute;na siempre es mejor, cuando ingestas superiores a 2,2 g/kg ofrecen rendimientos decrecientes para la mayor&iacute;a de las personas</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Consejo Profesional</h2>
+    <p>Distribuye tu ingesta de prote&iacute;nas de manera estrat&eacute;gica consumiendo 20&ndash;40 g de prote&iacute;na de alta calidad dentro de las 2 horas posteriores al entrenamiento de resistencia para maximizar la s&iacute;ntesis de prote&iacute;na muscular. Prioriza fuentes de prote&iacute;na completa como suero de leche, huevos, carne y soja que contengan los nueve amino&aacute;cidos esenciales. Para dietas basadas en plantas, combina prote&iacute;nas complementarias (arroz + frijoles, hummus + trigo integral) para garantizar un perfil completo de amino&aacute;cidos durante el d&iacute;a.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Es 2,2 g/kg la m&aacute;xima prote&iacute;na que debo consumir?</button>
+        <div class="faq-ap"><p>Para la mayor&iacute;a de las personas sanas, 2,2 g/kg representa el punto de rendimientos decrecientes para la construcci&oacute;n muscular. Las investigaciones no muestran beneficios adicionales m&aacute;s all&aacute; de este nivel para atletas entrenados en resistencia. Sin embargo, durante d&eacute;ficits cal&oacute;ricos agresivos, ingestas de hasta 2,3&ndash;3,1 g/kg de masa magra pueden ayudar a preservar el m&uacute;sculo.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;La prote&iacute;na da&ntilde;a los ri&ntilde;ones en personas sanas?</button>
+        <div class="faq-ap"><p>No. M&uacute;ltiples estudios han demostrado que una ingesta alta de prote&iacute;nas no da&ntilde;a la funci&oacute;n renal en personas sanas sin enfermedad renal preexistente. Sin embargo, quienes tienen enfermedad renal cr&oacute;nica deben seguir las restricciones de prote&iacute;nas recomendadas por su m&eacute;dico.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Cu&aacute;nta prote&iacute;na puede absorber el cuerpo en una comida?</button>
+        <div class="faq-ap"><p>El cuerpo puede absorber pr&aacute;cticamente toda la prote&iacute;na consumida en una sola comida, pero la s&iacute;ntesis de prote&iacute;na muscular alcanza su m&aacute;ximo con aproximadamente 20&ndash;40 g por comida. Consumir m&aacute;s de esto en una sentada significa que los amino&aacute;cidos en exceso se oxidan para obtener energ&iacute;a en lugar de usarse para construir m&uacute;sculo.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Debo ajustar la ingesta de prote&iacute;nas en los d&iacute;as de descanso?</button>
+        <div class="faq-ap"><p>Mant&eacute;n la ingesta de prote&iacute;nas de manera constante en los d&iacute;as de descanso. La reparaci&oacute;n y el crecimiento muscular contin&uacute;an durante 24&ndash;48 horas despu&eacute;s del entrenamiento, por lo que tus necesidades de prote&iacute;nas permanecen elevadas incluso cuando no est&aacute;s haciendo ejercicio. Reducir la prote&iacute;na en los d&iacute;as de descanso puede perjudicar la recuperaci&oacute;n y la adaptaci&oacute;n.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/daily-fiber-intake-calculator">Daily Fiber Intake Calculator</a></li>
+      <li><a href="/macronutrient-calculator">Macronutrient Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/daily-fiber-intake-calculator">Daily Fiber Intake Calculator</a></li>
+      <li><a href="/macronutrient-calculator">Macronutrient Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Daily Protein Intake Calculator: How Much Protein You Need</h1>
+  <p>Daily protein intake calculation helps you determine the optimal amount of protein your body needs based on your weight and activity level. Getting the right amount of protein supports muscle recovery, immune function, hormone production, and overall metabolic health.</p>
+
+  <div class="formula-section">
+    <h2>Daily Protein Intake Formula</h2>
+    <p class="formula-display">Protein (g/day) = Body Weight (kg) &times; Activity Factor</p>
+    <p>Your daily protein requirement depends on your body weight in kilograms multiplied by an activity factor that ranges from 0.8 to 2.2 grams per kilogram. Sedentary adults need 0.8 g/kg, moderately active individuals need 1.2&ndash;1.4 g/kg, endurance athletes need 1.2&ndash;1.6 g/kg, and strength athletes need 1.6&ndash;2.2 g/kg. For example, a 75 kg person who strength trains regularly would need 75 &times; 1.8 = <strong>135 g of protein per day</strong>.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Worked Examples</h2>
+    <div class="example">
+      <h3>Example 1: Sedentary Office Worker</h3>
+      <p>A 45-year-old woman weighs 68 kg and works a desk job with minimal physical activity.</p>
+      <p>Protein = 68 &times; 0.8 = <strong>54.4 g/day</strong></p>
+      <p>Her minimum daily protein requirement of 54.4 grams can be met through a balanced diet including eggs, dairy, legumes, and lean meats. This amount prevents deficiency but does not optimize for muscle maintenance.</p>
+    </div>
+    <div class="example">
+      <h3>Example 2: Competitive Bodybuilder</h3>
+      <p>A 25-year-old male bodybuilder weighs 88 kg and trains intensely 6 days per week.</p>
+      <p>Protein = 88 &times; 2.0 = <strong>176 g/day</strong></p>
+      <p>His protein needs of 176 grams per day support muscle protein synthesis and recovery from intense training. This would be distributed across 4&ndash;6 meals of approximately 30&ndash;40 g each for optimal absorption and muscle protein synthesis stimulation.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Common Uses</h2>
+    <ul>
+      <li>Designing meal plans for athletes across different sports and training intensities</li>
+      <li>Supporting muscle preservation during caloric deficit diets and weight loss programs</li>
+      <li>Establishing nutritional guidelines for elderly populations to combat sarcopenia</li>
+      <li>Planning post-surgical recovery diets where protein needs are elevated for tissue repair</li>
+      <li>Optimizing body composition during muscle-building phases for fitness enthusiasts</li>
+      <li>Assessing dietary adequacy in clinical nutrition evaluations and dietitian consultations</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Common Mistakes</h2>
+    <ul>
+      <li>Consuming all daily protein in one or two meals instead of distributing it evenly across 3&ndash;6 meals for optimal muscle protein synthesis</li>
+      <li>Using total body weight for obese individuals instead of lean body mass or target body weight, which overestimates protein needs</li>
+      <li>Ignoring the quality of protein sources and focusing only on quantity, when essential amino acid profiles matter significantly</li>
+      <li>Assuming more protein is always better, when intakes above 2.2 g/kg offer diminishing returns for most individuals</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Pro Tip</h2>
+    <p>Time your protein intake strategically by consuming 20&ndash;40 g of high-quality protein within 2 hours after resistance training to maximize muscle protein synthesis. Prioritize complete protein sources like whey, eggs, meat, and soy that contain all nine essential amino acids. For plant-based diets, combine complementary proteins (rice + beans, hummus + whole wheat) to ensure a complete amino acid profile throughout the day.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Is 2.2 g/kg the maximum protein I should consume?</button>
+        <div class="faq-ap"><p>For most healthy individuals, 2.2 g/kg represents the point of diminishing returns for muscle building. Research shows no additional benefit beyond this level for resistance-trained athletes. However, during aggressive calorie deficits, intakes up to 2.3&ndash;3.1 g/kg of lean body mass may help preserve muscle.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Does protein damage kidneys in healthy people?</button>
+        <div class="faq-ap"><p>No. Multiple studies have shown that high protein intake does not harm kidney function in healthy individuals with no pre-existing kidney disease. However, those with chronic kidney disease should follow their physician&rsquo;s recommended protein restrictions.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How much protein can the body absorb in one meal?</button>
+        <div class="faq-ap"><p>The body can absorb virtually all protein consumed in a single meal, but muscle protein synthesis maxes out at approximately 20&ndash;40 g per meal. Consuming more than this in one sitting means excess amino acids are oxidized for energy rather than used for muscle building.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Should I adjust protein intake on rest days?</button>
+        <div class="faq-ap"><p>Keep protein intake consistent on rest days. Muscle repair and growth continue for 24&ndash;48 hours after training, so your protein needs remain elevated even when you&rsquo;re not exercising. Reducing protein on rest days can impair recovery and adaptation.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/daily-fiber-intake-calculator">Daily Fiber Intake Calculator</a></li>
+      <li><a href="/macronutrient-calculator">Macronutrient Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/daily-fiber-intake-calculator">Daily Fiber Intake Calculator</a></li>
+      <li><a href="/macronutrient-calculator">Macronutrient Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "418": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de Fibra Diaria: Optimiza tu Digestión</h1>
+  <p>Las recomendaciones de ingesta diaria de fibra var&iacute;an seg&uacute;n tu edad y g&eacute;nero, reflejando las diferentes necesidades nutricionales a lo largo de las etapas de la vida. Una ingesta adecuada de fibra diet&eacute;tica favorece la salud digestiva, ayuda a controlar los niveles de az&uacute;car en sangre, reduce el colesterol y promueve un microbioma intestinal saludable.</p>
+
+  <div class="formula-section">
+    <h2>Recomendaciones de Ingesta Diaria de Fibra</h2>
+    <p class="formula-display">Hombres &lt; 50 a&ntilde;os: 38 g/d&iacute;a &nbsp;|&nbsp; Hombres 50+: 30 g/d&iacute;a<br>Mujeres &lt; 50 a&ntilde;os: 25 g/d&iacute;a &nbsp;|&nbsp; Mujeres 50+: 21 g/d&iacute;a</p>
+    <p>Estas recomendaciones provienen del Instituto de Medicina y se basan en ingestas observadas asociadas con un menor riesgo de enfermedad coronaria. Las necesidades de fibra disminuyen despu&eacute;s de los 50 a&ntilde;os porque los requerimientos cal&oacute;ricos generalmente disminuyen con la edad. Por ejemplo, una mujer de 35 a&ntilde;os deber&iacute;a aspirar a al menos 25 gramos de fibra al d&iacute;a, lo que se puede lograr mediante una combinaci&oacute;n de granos integrales (6 g), legumbres (8 g), frutas (5 g) y verduras (6 g) a lo largo del d&iacute;a.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Ejemplos Pr&aacute;cticos</h2>
+    <div class="example">
+      <h3>Ejemplo 1: Hombre Adulto Joven</h3>
+      <p>Un hombre de 28 a&ntilde;os necesita alcanzar la recomendaci&oacute;n de 38 g/d&iacute;a de fibra.</p>
+      <p>Ingesta diaria de ejemplo: Avena (4 g) + pan integral 2 rebanadas (4 g) + sopa de lentejas 1 taza (15,5 g) + manzana con c&aacute;scara (4,4 g) + br&oacute;coli 1 taza (5,1 g) + almendras 28 g (3,5 g) = <strong>36,5 g</strong></p>
+      <p>Est&aacute; ligeramente por debajo del objetivo de 38 g. A&ntilde;adir una pera mediana (5,5 g) o cambiar a cereal alto en fibra lo llevar&iacute;a por encima de la recomendaci&oacute;n. Esto demuestra c&oacute;mo las elecciones de alimentos integrales a lo largo del d&iacute;a se acumulan hacia la meta diaria.</p>
+    </div>
+    <div class="example">
+      <h3>Ejemplo 2: Mujer Mayor</h3>
+      <p>Una mujer de 62 a&ntilde;os tiene un objetivo diario de fibra de 21 gramos.</p>
+      <p>Ingesta diaria de ejemplo: Copos de salvado 1 taza (7 g) + pl&aacute;tano (3,1 g) + frijoles negros &frac12; taza (7,5 g) + zanahorias 1 taza (3,6 g) = <strong>21,2 g</strong></p>
+      <p>Alcanza su meta diaria de 21 g con una ingesta relativamente modesta de alimentos altos en fibra. Los adultos mayores suelen beneficiarse de enfocarse en fuentes de fibra soluble como avena y legumbres, que adicionalmente favorecen la salud card&iacute;aca y el manejo del az&uacute;car en sangre.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Usos Comunes</h2>
+    <ul>
+      <li>Planificaci&oacute;n de comidas equilibradas que cumplan con las pautas de fibra diet&eacute;tica del Instituto de Medicina</li>
+      <li>Manejo del estre&ntilde;imiento y promoci&oacute;n de movimientos intestinales regulares mediante una ingesta adecuada de fibra</li>
+      <li>Apoyo a los objetivos de manejo de peso ya que los alimentos altos en fibra aumentan la saciedad y reducen la ingesta cal&oacute;rica total</li>
+      <li>Reducci&oacute;n del riesgo de enfermedad cardiovascular a trav&eacute;s de los efectos reductores del colesterol de la fibra soluble</li>
+      <li>Manejo de los niveles de glucosa en sangre en diabetes tipo 2 mediante el impacto de la fibra viscosa en la absorci&oacute;n de carbohidratos</li>
+      <li>Alimentaci&oacute;n de bacterias intestinales beneficiosas que producen &aacute;cidos grasos de cadena corta esenciales para la salud del colon</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Errores Comunes</h2>
+    <ul>
+      <li>Aumentar la ingesta de fibra demasiado r&aacute;pidamente, lo que causa hinchaz&oacute;n, gases y molestias abdominales en lugar de aumentar gradualmente durante 2&ndash;3 semanas</li>
+      <li>Aumentar la fibra sin aumentar la ingesta de agua, lo que puede empeorar el estre&ntilde;imiento en lugar de aliviarlo</li>
+      <li>Confiar &uacute;nicamente en suplementos de fibra en lugar de fuentes de alimentos integrales que proporcionan nutrientes adicionales y fitoqu&iacute;micos</li>
+      <li>Ignorar la diferencia entre fibra soluble e insoluble, cuando ambos tipos ofrecen beneficios distintos para la salud y deben consumirse en equilibrio</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Consejo Profesional</h2>
+    <p>Apunta a una proporci&oacute;n de 3:1 de fibra insoluble a soluble para una salud digestiva &oacute;ptima. La fibra insoluble (presente en trigo integral, nueces y c&aacute;scaras de verduras) a&ntilde;ade volumen a las heces y promueve la regularidad, mientras que la fibra soluble (presente en avena, frijoles y frutas) forma un gel que ralentiza la digesti&oacute;n y ayuda a regular el az&uacute;car en sangre. Registra tu ingesta de fibra durante una semana usando una aplicaci&oacute;n de diario alimentario para identificar brechas, luego a&ntilde;ade estrat&eacute;gicamente un alimento alto en fibra por comida en lugar de intentar alcanzar tu objetivo todo de una vez.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Qu&eacute; pasa si no obtengo suficiente fibra?</button>
+        <div class="faq-ap"><p>Una ingesta cr&oacute;nica baja de fibra se asocia con estre&ntilde;imiento, hemorroides, diverticulitis, colesterol elevado, az&uacute;car en sangre inestable y mayor riesgo de c&aacute;ncer colorrectal. La mayor&iacute;a de los adultos consumen solo 10&ndash;15 g/d&iacute;a, muy por debajo de las recomendaciones. Aumentar gradualmente la ingesta de fibra puede revertir muchos de estos problemas en semanas.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Puedo obtener suficiente fibra solo de suplementos?</button>
+        <div class="faq-ap"><p>Aunque suplementos como la c&aacute;scara de psyllium pueden ayudar a cubrir brechas, las fuentes de alimentos integrales proporcionan una mezcla diversa de tipos de fibra m&aacute;s vitaminas, minerales y antioxidantes que los suplementos no pueden replicar. Usa suplementos como complemento, no como reemplazo, de una dieta rica en fibra.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;La coccioni destruye la fibra en los alimentos?</button>
+        <div class="faq-ap"><p>No. La fibra es termoestable y no se destruye por cocción, hervido u horneado. De hecho, cocinar puede hacer que algunos alimentos altos en fibra sean más apetecibles y más fáciles de consumir en mayores cantidades. Sin embargo, pelar frutas y verduras elimina cantidades significativas de fibra insoluble presente en las cáscaras.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Por qu&eacute; disminuyen las necesidades de fibra despu&eacute;s de los 50 a&ntilde;os?</button>
+        <div class="faq-ap"><p>Las recomendaciones de fibra se basan parcialmente en la ingesta cal&oacute;rica (14 g por cada 1.000 kcal). Dado que los adultos mayores t&iacute;picamente requieren menos calor&iacute;as debido a la reducci&oacute;n de la tasa metab&oacute;lica y los niveles de actividad, sus necesidades absolutas de fibra disminuyen proporcionalmente. Sin embargo, la importancia de la fibra para la salud sigue siendo igual de cr&iacute;tica en cada edad.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/daily-protein-intake-calculator">Daily Protein Intake Calculator</a></li>
+      <li><a href="/macronutrient-calculator">Macronutrient Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/daily-protein-intake-calculator">Daily Protein Intake Calculator</a></li>
+      <li><a href="/macronutrient-calculator">Macronutrient Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Daily Fiber Intake Calculator: Optimize Your Digestion</h1>
+  <p>Daily fiber intake recommendations vary based on your age and gender, reflecting the different nutritional needs throughout life stages. Adequate dietary fiber supports digestive health, helps control blood sugar levels, lowers cholesterol, and promotes a healthy gut microbiome.</p>
+
+  <div class="formula-section">
+    <h2>Daily Fiber Intake Recommendations</h2>
+    <p class="formula-display">Men &lt; 50 years: 38 g/day &nbsp;|&nbsp; Men 50+: 30 g/day<br>Women &lt; 50 years: 25 g/day &nbsp;|&nbsp; Women 50+: 21 g/day</p>
+    <p>These recommendations come from the Institute of Medicine and are based on observed intakes associated with reduced coronary heart disease risk. Fiber needs decrease after age 50 because caloric requirements generally decline with age. For example, a 35-year-old woman should aim for at least 25 grams of fiber daily, which can be achieved through a combination of whole grains (6 g), legumes (8 g), fruits (5 g), and vegetables (6 g) throughout the day.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Worked Examples</h2>
+    <div class="example">
+      <h3>Example 1: Young Adult Male</h3>
+      <p>A 28-year-old man needs to meet the 38 g/day fiber recommendation.</p>
+      <p>Sample daily intake: Oatmeal (4 g) + whole wheat bread 2 slices (4 g) + lentil soup 1 cup (15.5 g) + apple with skin (4.4 g) + broccoli 1 cup (5.1 g) + almonds 28 g (3.5 g) = <strong>36.5 g</strong></p>
+      <p>He is slightly below the 38 g target. Adding a medium pear (5.5 g) or switching to high-fiber cereal would bring him above the recommendation. This demonstrates how whole food choices throughout the day accumulate toward the daily goal.</p>
+    </div>
+    <div class="example">
+      <h3>Example 2: Senior Woman</h3>
+      <p>A 62-year-old woman has a daily fiber target of 21 grams.</p>
+      <p>Sample daily intake: Bran flakes 1 cup (7 g) + banana (3.1 g) + black beans &frac12; cup (7.5 g) + carrots 1 cup (3.6 g) = <strong>21.2 g</strong></p>
+      <p>She meets her daily fiber goal of 21 g with a relatively modest intake of high-fiber foods. Older adults often benefit from focusing on soluble fiber sources like oats and legumes, which additionally support heart health and blood sugar management.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Common Uses</h2>
+    <ul>
+      <li>Planning balanced meals that meet Institute of Medicine dietary fiber guidelines</li>
+      <li>Managing constipation and promoting regular bowel movements through adequate fiber intake</li>
+      <li>Supporting weight management goals since high-fiber foods increase satiety and reduce overall calorie intake</li>
+      <li>Reducing cardiovascular disease risk through soluble fiber&rsquo;s cholesterol-lowering effects</li>
+      <li>Managing blood glucose levels in type 2 diabetes through viscous fiber&rsquo;s impact on carbohydrate absorption</li>
+      <li>Feeding beneficial gut bacteria that produce short-chain fatty acids essential for colon health</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Common Mistakes</h2>
+    <ul>
+      <li>Increasing fiber intake too rapidly, which causes bloating, gas, and abdominal discomfort instead of gradually increasing over 2&ndash;3 weeks</li>
+      <li>Increasing fiber without increasing water intake, which can worsen constipation rather than relieve it</li>
+      <li>Relying solely on fiber supplements instead of whole food sources that provide additional nutrients and phytochemicals</li>
+      <li>Ignoring the difference between soluble and insoluble fiber, when both types offer distinct health benefits and should be consumed in balance</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Pro Tip</h2>
+    <p>Aim for a 3:1 ratio of insoluble to soluble fiber for optimal digestive health. Insoluble fiber (found in whole wheat, nuts, and vegetable skins) adds bulk to stool and promotes regularity, while soluble fiber (found in oats, beans, and fruits) forms a gel that slows digestion and helps regulate blood sugar. Track your fiber intake for one week using a food diary app to identify gaps, then strategically add one high-fiber food per meal rather than trying to hit your target all at once.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What happens if I don't get enough fiber?</button>
+        <div class="faq-ap"><p>Chronic low fiber intake is associated with constipation, hemorrhoids, diverticulitis, elevated cholesterol, unstable blood sugar, and increased risk of colorectal cancer. Most adults consume only 10&ndash;15 g/day, far below recommendations. Gradually increasing fiber intake can reverse many of these issues within weeks.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Can I get enough fiber from supplements alone?</button>
+        <div class="faq-ap"><p>While supplements like psyllium husk can help bridge gaps, whole food sources provide a diverse mix of fiber types plus vitamins, minerals, and antioxidants that supplements cannot replicate. Use supplements as a complement to, not a replacement for, a fiber-rich diet.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Does cooking destroy fiber in foods?</button>
+        <div class="faq-ap"><p>No. Fiber is heat-stable and is not destroyed by cooking, boiling, or baking. In fact, cooking can make some high-fiber foods more palatable and easier to consume in larger quantities. However, peeling fruits and vegetables removes significant amounts of insoluble fiber found in skins.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Why do fiber needs decrease after age 50?</button>
+        <div class="faq-ap"><p>Fiber recommendations are partly based on caloric intake (14 g per 1,000 kcal). Since older adults typically require fewer calories due to reduced metabolic rate and activity levels, their absolute fiber needs decrease proportionally. However, the importance of fiber for health remains just as critical at every age.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/daily-protein-intake-calculator">Daily Protein Intake Calculator</a></li>
+      <li><a href="/macronutrient-calculator">Macronutrient Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/daily-protein-intake-calculator">Daily Protein Intake Calculator</a></li>
+      <li><a href="/macronutrient-calculator">Macronutrient Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "419": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de Frecuencia Cardíaca Karvonen: Encuentra tus Zonas Objetivo</h1>
+  <p>La f&oacute;rmula de Karvonen proporciona un enfoque m&aacute;s personalizado para calcular la frecuencia card&iacute;aca objetivo al considerar tu frecuencia card&iacute;aca en reposo junto con tu frecuencia card&iacute;aca m&aacute;xima. Este m&eacute;todo, tambi&eacute;n conocido como m&eacute;todo de Reserva de Frecuencia Card&iacute;aca (RFC), te ofrece zonas de entrenamiento que reflejan tu nivel real de aptitud cardiovascular en lugar de depender &uacute;nicamente de estimaciones basadas en la edad.</p>
+
+  <div class="formula-section">
+    <h2>F&oacute;rmula de Frecuencia Card&iacute;aca de Karvonen</h2>
+    <p class="formula-display">FC Objetivo = ((FC M&aacute;x &minus; FC Reposo) &times; % Intensidad) + FC Reposo</p>
+    <p>La f&oacute;rmula primero calcula tu Reserva de Frecuencia Card&iacute;aca (RFC) restando tu frecuencia card&iacute;aca en reposo de tu frecuencia card&iacute;aca m&aacute;xima. Luego multiplica la RFC por el porcentaje de intensidad de entrenamiento deseado y suma tu frecuencia card&iacute;aca en reposo. La frecuencia card&iacute;aca m&aacute;xima se estima com&uacute;nmente como 220 &minus; edad. Por ejemplo, una persona de 30 a&ntilde;os con una frecuencia card&iacute;aca en reposo de 60 lpm entrenando al 70% de intensidad: FC M&aacute;x = 220 &minus; 30 = 190; RFC = 190 &minus; 60 = 130; FC Objetivo = (130 &times; 0,70) + 60 = 91 + 60 = <strong>151 lpm</strong>.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Ejemplos Pr&aacute;cticos</h2>
+    <div class="example">
+      <h3>Ejemplo 1: Corredor Principiante</h3>
+      <p>Un corredor principiante de 45 a&ntilde;os tiene una frecuencia card&iacute;aca en reposo de 72 lpm y quiere entrenar al 60% de intensidad para quemar grasa.</p>
+      <p>FC M&aacute;x = 220 &minus; 45 = 175 lpm<br>RFC = 175 &minus; 72 = 103 lpm<br>FC Objetivo = (103 &times; 0,60) + 72 = 61,8 + 72 = <strong>134 lpm</strong></p>
+      <p>Entrenar a aproximadamente 134 latidos por minuto coloca a este corredor en la zona de intensidad moderada, ideal para construir base aer&oacute;bica y promover la oxidaci&oacute;n de grasas sin estr&eacute;s cardiovascular excesivo.</p>
+    </div>
+    <div class="example">
+      <h3>Ejemplo 2: Ciclista Competitivo</h3>
+      <p>Un ciclista competitivo de 28 a&ntilde;os tiene una frecuencia card&iacute;aca en reposo de 48 lpm y quiere entrenar al 85% de intensidad para trabajo de umbral.</p>
+      <p>FC M&aacute;x = 220 &minus; 28 = 192 lpm<br>RFC = 192 &minus; 48 = 144 lpm<br>FC Objetivo = (144 &times; 0,85) + 48 = 122,4 + 48 = <strong>170 lpm</strong></p>
+      <p>Su frecuencia card&iacute;aca objetivo de 170 lpm refleja su excelente aptitud cardiovascular, demostrada por la baja frecuencia card&iacute;aca en reposo. La f&oacute;rmula de Karvonen tiene en cuenta este nivel de aptitud, produciendo un objetivo de entrenamiento m&aacute;s alto que el m&eacute;todo simple de porcentaje del m&aacute;ximo.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Usos Comunes</h2>
+    <ul>
+      <li>Establecimiento de zonas de entrenamiento de frecuencia card&iacute;aca personalizadas para atletas de resistencia en todos los niveles de aptitud</li>
+      <li>Monitoreo de mejoras en la aptitud cardiovascular a medida que la frecuencia card&iacute;aca en reposo disminuye con el tiempo</li>
+      <li>Prescripci&oacute;n de intensidad de ejercicio en programas de rehabilitaci&oacute;n card&iacute;aca bajo supervisi&oacute;n m&eacute;dica</li>
+      <li>Optimizaci&oacute;n de entrenamientos para quemar grasa entrenando en la zona del 60&ndash;70% de reserva de frecuencia card&iacute;aca</li>
+      <li>Prevenci&oacute;n del sobreentrenamiento asegurando tiempo adecuado en zonas de recuperaci&oacute;n de menor intensidad</li>
+      <li>Dise&ntilde;o de protocolos de entrenamiento por intervalos que alternan entre objetivos espec&iacute;ficos de frecuencia card&iacute;aca</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Errores Comunes</h2>
+    <ul>
+      <li>Usar una medici&oacute;n inexacta de la frecuencia card&iacute;aca en reposo en lugar de tomarla al despertar antes de levantarse de la cama</li>
+      <li>Confiar en la f&oacute;rmula 220 &minus; edad para la frecuencia card&iacute;aca m&aacute;xima, que puede tener un error de &plusmn;10&ndash;15 lpm para individuos</li>
+      <li>Entrenar con la misma intensidad en cada sesi&oacute;n en lugar de periodizar entre diferentes zonas de frecuencia card&iacute;aca a lo largo del ciclo de entrenamiento</li>
+      <li>Ignorar factores externos como calor, humedad, cafe&iacute;na y estr&eacute;s que elevan la frecuencia card&iacute;aca independientemente de la intensidad del ejercicio</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Consejo Profesional</h2>
+    <p>Mide tu frecuencia card&iacute;aca en reposo real tomando tu pulso durante 60 segundos inmediatamente al despertar, antes de cualquier cafe&iacute;na o actividad, durante 7 d&iacute;as consecutivos y promediando los resultados. Para una mayor precisi&oacute;n, determina tu frecuencia card&iacute;aca m&aacute;xima real mediante una prueba de esfuerzo graduada en lugar de usar la estimaci&oacute;n de 220 &minus; edad. Reeval&uacute;a tu frecuencia card&iacute;aca en reposo mensualmente, ya que las mejoras en la aptitud la reducir&aacute;n y desplazar&aacute;n tus zonas de entrenamiento de Karvonen hacia arriba, asegurando que tu intensidad de entrenamiento progrese con tu aptitud.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Por qu&eacute; la f&oacute;rmula de Karvonen es mejor que el porcentaje simple de FC m&aacute;x?</button>
+        <div class="faq-ap"><p>La f&oacute;rmula de Karvonen tiene en cuenta las diferencias individuales en la frecuencia card&iacute;aca en reposo, que refleja la aptitud cardiovascular. Dos personas de 40 a&ntilde;os con la misma FC m&aacute;x pero diferentes frecuencias card&iacute;acas en reposo (una a 50 lpm, otra a 80 lpm) tendr&aacute;n diferentes zonas de entrenamiento usando Karvonen, haci&eacute;ndolo m&aacute;s personalizado y preciso para prescribir la intensidad del ejercicio.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;A qu&eacute; intensidad debo entrenar para perder peso?</button>
+        <div class="faq-ap"><p>Para quemar grasa, apunta al 60&ndash;70% de tu reserva de frecuencia card&iacute;aca. Esta intensidad moderada maximiza el porcentaje de calor&iacute;as derivadas de la grasa y sigue siendo sostenible para duraciones m&aacute;s largas. Sin embargo, el gasto cal&oacute;rico total es lo que m&aacute;s importa para la p&eacute;rdida de peso, por lo que las sesiones de mayor intensidad tambi&eacute;n juegan un papel valioso.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Con qu&eacute; frecuencia debo recalcular mi frecuencia card&iacute;aca objetivo de Karvonen?</button>
+        <div class="faq-ap"><p>Recalcula cada 4&ndash;6 semanas o cada vez que notes que tu frecuencia card&iacute;aca en reposo ha cambiado. A medida que mejora la aptitud, la frecuencia card&iacute;aca en reposo t&iacute;picamente disminuye entre 5&ndash;15 lpm, lo que desplaza tus zonas de entrenamiento. El rec&aacute;lculo regular asegura que tu intensidad de entrenamiento permanezca apropiadamente desafiante.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Pueden los medicamentos afectar los c&aacute;lculos de frecuencia card&iacute;aca de Karvonen?</button>
+        <div class="faq-ap"><p>S&iacute;. Los betabloqueantes, bloqueadores de canales de calcio y algunos otros medicamentos reducen tanto la frecuencia card&iacute;aca en reposo como la m&aacute;xima, haciendo que los c&aacute;lculos est&aacute;ndar de Karvonen sean inexactos. Si tomas medicamentos que afectan la frecuencia card&iacute;aca, consulta a tu m&eacute;dico para m&eacute;todos alternativos de monitoreo de la intensidad del ejercicio, como escalas de esfuerzo percibido.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/heart-rate-training-zones-calculator">Heart Rate Training Zones Calculator</a></li>
+      <li><a href="/bmr-harris-benedict-calculator">BMR (Harris-Benedict) Calculator</a></li>
+      <li><a href="/bmr-katch-mcardle-calculator">BMR (Katch-McArdle) Calculator</a></li>
+      <li><a href="/weight-loss-calculator">Weight Loss Calculator</a></li>
+      <li><a href="/heart-rate-zones-calculator">Heart Rate Zones Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/heart-rate-training-zones-calculator">Heart Rate Training Zones Calculator</a></li>
+      <li><a href="/bmr-harris-benedict-calculator">BMR (Harris-Benedict) Calculator</a></li>
+      <li><a href="/bmr-katch-mcardle-calculator">BMR (Katch-McArdle) Calculator</a></li>
+      <li><a href="/weight-loss-calculator">Weight Loss Calculator</a></li>
+      <li><a href="/heart-rate-zones-calculator">Heart Rate Zones Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Karvonen Heart Rate Calculator: Find Your Target Zones</h1>
+  <p>The Karvonen formula provides a more personalized approach to calculating target heart rate by factoring in your resting heart rate alongside your maximum heart rate. This method, also known as the Heart Rate Reserve (HRR) method, gives you training zones that reflect your actual cardiovascular fitness level rather than relying on age-based estimates alone.</p>
+
+  <div class="formula-section">
+    <h2>Karvonen Heart Rate Formula</h2>
+    <p class="formula-display">Target HR = ((Max HR &minus; Resting HR) &times; Intensity %) + Resting HR</p>
+    <p>The formula first calculates your Heart Rate Reserve (HRR) by subtracting your resting heart rate from your maximum heart rate. Then it multiplies the HRR by your desired training intensity percentage and adds back your resting heart rate. Maximum heart rate is commonly estimated as 220 &minus; age. For example, a 30-year-old with a resting heart rate of 60 bpm training at 70% intensity: Max HR = 220 &minus; 30 = 190; HRR = 190 &minus; 60 = 130; Target HR = (130 &times; 0.70) + 60 = 91 + 60 = <strong>151 bpm</strong>.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Worked Examples</h2>
+    <div class="example">
+      <h3>Example 1: Beginner Runner</h3>
+      <p>A 45-year-old beginner runner has a resting heart rate of 72 bpm and wants to train at 60% intensity for fat burning.</p>
+      <p>Max HR = 220 &minus; 45 = 175 bpm<br>HRR = 175 &minus; 72 = 103 bpm<br>Target HR = (103 &times; 0.60) + 72 = 61.8 + 72 = <strong>134 bpm</strong></p>
+      <p>Training at approximately 134 beats per minute places this runner in the moderate-intensity zone, ideal for building aerobic base and promoting fat oxidation without excessive cardiovascular strain.</p>
+    </div>
+    <div class="example">
+      <h3>Example 2: Competitive Cyclist</h3>
+      <p>A 28-year-old competitive cyclist has a resting heart rate of 48 bpm and wants to train at 85% intensity for threshold work.</p>
+      <p>Max HR = 220 &minus; 28 = 192 bpm<br>HRR = 192 &minus; 48 = 144 bpm<br>Target HR = (144 &times; 0.85) + 48 = 122.4 + 48 = <strong>170 bpm</strong></p>
+      <p>His target heart rate of 170 bpm reflects his excellent cardiovascular fitness, demonstrated by the low resting heart rate. The Karvonen formula accounts for this fitness level, producing a higher training target than the simple percentage-of-max method would.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Common Uses</h2>
+    <ul>
+      <li>Setting personalized heart rate training zones for endurance athletes across all fitness levels</li>
+      <li>Monitoring cardiovascular fitness improvements as resting heart rate decreases over time</li>
+      <li>Prescribing exercise intensity in cardiac rehabilitation programs under medical supervision</li>
+      <li>Optimizing fat-burning workouts by training in the 60&ndash;70% heart rate reserve zone</li>
+      <li>Preventing overtraining by ensuring adequate time spent in lower-intensity recovery zones</li>
+      <li>Designing interval training protocols that alternate between specific heart rate targets</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Common Mistakes</h2>
+    <ul>
+      <li>Using an inaccurate resting heart rate measurement instead of taking it first thing in the morning before getting out of bed</li>
+      <li>Relying on the 220 &minus; age formula for maximum heart rate, which can be off by &plusmn;10&ndash;15 bpm for individuals</li>
+      <li>Training at the same intensity every session instead of periodizing across different heart rate zones throughout the training cycle</li>
+      <li>Ignoring external factors like heat, humidity, caffeine, and stress that elevate heart rate independently of exercise intensity</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Pro Tip</h2>
+    <p>Measure your true resting heart rate by taking your pulse for 60 seconds immediately upon waking, before any caffeine or activity, for 7 consecutive days and averaging the results. For even greater accuracy, determine your actual maximum heart rate through a graded exercise test rather than using the 220 &minus; age estimate. Reassess your resting heart rate monthly, as improvements in fitness will lower it and shift your Karvonen training zones upward, ensuring your training intensity progresses with your fitness.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Why is the Karvonen formula better than simple percentage of max HR?</button>
+        <div class="faq-ap"><p>The Karvonen formula accounts for individual differences in resting heart rate, which reflects cardiovascular fitness. Two 40-year-olds with the same max HR but different resting heart rates (one at 50 bpm, one at 80 bpm) will have different training zones using Karvonen, making it more personalized and accurate for prescribing exercise intensity.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What intensity should I train at for weight loss?</button>
+        <div class="faq-ap"><p>For fat burning, aim for 60&ndash;70% of your heart rate reserve. This moderate intensity maximizes the percentage of calories derived from fat while still being sustainable for longer durations. However, total calorie expenditure matters most for weight loss, so higher-intensity sessions also play a valuable role.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How often should I recalculate my Karvonen target heart rate?</button>
+        <div class="faq-ap"><p>Recalculate every 4&ndash;6 weeks or whenever you notice your resting heart rate has changed. As fitness improves, resting heart rate typically drops by 5&ndash;15 bpm, which shifts your training zones. Regular recalculation ensures your training intensity remains appropriately challenging.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Can medications affect Karvonen heart rate calculations?</button>
+        <div class="faq-ap"><p>Yes. Beta-blockers, calcium channel blockers, and some other medications lower both resting and maximum heart rate, making standard Karvonen calculations inaccurate. If you take heart rate&ndash;affecting medications, consult your physician for alternative methods of monitoring exercise intensity, such as perceived exertion scales.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/heart-rate-training-zones-calculator">Heart Rate Training Zones Calculator</a></li>
+      <li><a href="/bmr-harris-benedict-calculator">BMR (Harris-Benedict) Calculator</a></li>
+      <li><a href="/bmr-katch-mcardle-calculator">BMR (Katch-McArdle) Calculator</a></li>
+      <li><a href="/weight-loss-calculator">Weight Loss Calculator</a></li>
+      <li><a href="/heart-rate-zones-calculator">Heart Rate Zones Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/heart-rate-training-zones-calculator">Heart Rate Training Zones Calculator</a></li>
+      <li><a href="/bmr-harris-benedict-calculator">BMR (Harris-Benedict) Calculator</a></li>
+      <li><a href="/bmr-katch-mcardle-calculator">BMR (Katch-McArdle) Calculator</a></li>
+      <li><a href="/weight-loss-calculator">Weight Loss Calculator</a></li>
+      <li><a href="/heart-rate-zones-calculator">Heart Rate Zones Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "420": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de Zonas de Entrenamiento: Entrena de Forma Inteligente</h1>
+  <p>Las zonas de entrenamiento de frecuencia card&iacute;aca dividen tu frecuencia card&iacute;aca m&aacute;xima en cinco rangos de intensidad distintos, cada uno orientado a diferentes adaptaciones fisiol&oacute;gicas y sistemas energ&eacute;ticos. Entrenar en la zona correcta asegura que obtengas el est&iacute;mulo adecuado para tus objetivos de fitness espec&iacute;ficos, ya sea construir una base aer&oacute;bica, mejorar la resistencia o desarrollar un rendimiento &oacute;ptimo.</p>
+
+  <div class="formula-section">
+    <h2>F&oacute;rmula de Zonas de Entrenamiento de Frecuencia Card&iacute;aca</h2>
+    <p class="formula-display">Zona 1: 50&ndash;60% FC M&aacute;x &nbsp;|&nbsp; Zona 2: 60&ndash;70% FC M&aacute;x &nbsp;|&nbsp; Zona 3: 70&ndash;80% FC M&aacute;x<br>Zona 4: 80&ndash;90% FC M&aacute;x &nbsp;|&nbsp; Zona 5: 90&ndash;100% FC M&aacute;x</p>
+    <p>Primero estima tu frecuencia card&iacute;aca m&aacute;xima usando 220 &minus; edad (o un valor medido de una prueba de esfuerzo graduada). Luego calcula cada zona multiplicando tu FC m&aacute;x por el rango de porcentaje correspondiente. Para una persona de 35 a&ntilde;os con una FC m&aacute;x estimada de 185 lpm: Zona 1 = 93&ndash;111 lpm (calentamiento/recuperaci&oacute;n), Zona 2 = 111&ndash;130 lpm (quema de grasa/base aer&oacute;bica), Zona 3 = 130&ndash;148 lpm (resistencia aer&oacute;bica), Zona 4 = 148&ndash;167 lpm (umbral de lactato), Zona 5 = 167&ndash;185 lpm (esfuerzo m&aacute;ximo/anaer&oacute;bico).</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Ejemplos Pr&aacute;cticos</h2>
+    <div class="example">
+      <h3>Ejemplo 1: Plan de Entrenamiento para Marat&oacute;n</h3>
+      <p>Una persona de 40 a&ntilde;os prepar&aacute;ndose para un marat&oacute;n tiene una FC m&aacute;x de 180 lpm y quiere estructurar el entrenamiento semanal por zonas.</p>
+      <p>Zona 2 (60&ndash;70%): 108&ndash;126 lpm &mdash; 3 carreras largas por semana<br>Zona 3 (70&ndash;80%): 126&ndash;144 lpm &mdash; 1 carrera de tempo por semana<br>Zona 4 (80&ndash;90%): 144&ndash;162 lpm &mdash; 1 sesi&oacute;n de intervalos por semana</p>
+      <p>Este enfoque polarizado dedica el 80% del tiempo de entrenamiento en Zona 2 para desarrollo aer&oacute;bico mientras usa zonas superiores con moderaci&oacute;n para trabajo de umbral y velocidad. Esta distribuci&oacute;n refleja los patrones de entrenamiento de atletas de resistencia de &eacute;lite.</p>
+    </div>
+    <div class="example">
+      <h3>Ejemplo 2: Sesi&oacute;n HIIT para P&eacute;rdida de Grasa</h3>
+      <p>Una mujer de 30 a&ntilde;os con una FC m&aacute;x de 190 lpm dise&ntilde;a una sesi&oacute;n de entrenamiento por intervalos de alta intensidad.</p>
+      <p>Calentamiento: Zona 1 (95&ndash;114 lpm) durante 5 minutos<br>Intervalos de trabajo: Zona 5 (171&ndash;190 lpm) durante 30 segundos &times; 8 rondas<br>Recuperaci&oacute;n: Zona 2 (114&ndash;133 lpm) durante 90 segundos entre intervalos<br>Enfriamiento: Zona 1 (95&ndash;114 lpm) durante 5 minutos</p>
+      <p>Esta sesi&oacute;n de 28 minutos maximiza el EPOC (consumo excesivo de ox&iacute;geno post-ejercicio), creando una tasa metab&oacute;lica elevada durante horas despu&eacute;s del ejercicio. La alternancia entre Zona 5 y Zona 2 entrena tanto la capacidad anaer&oacute;bica como la eficiencia de recuperaci&oacute;n.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Usos Comunes</h2>
+    <ul>
+      <li>Estructuraci&oacute;n de programas de entrenamiento periodizado que desarrollan sistem&aacute;ticamente diferentes sistemas energ&eacute;ticos durante una temporada</li>
+      <li>Asegurar que los d&iacute;as f&aacute;ciles sean realmente f&aacute;ciles manteniendo las carreras de recuperaci&oacute;n en Zona 1&ndash;2</li>
+      <li>Dise&ntilde;o de protocolos de entrenamiento por intervalos con objetivos precisos de frecuencia card&iacute;aca de trabajo y recuperaci&oacute;n</li>
+      <li>Monitoreo de la carga de entrenamiento y prevenci&oacute;n del sobreentrenamiento mediante an&aacute;lisis de distribuci&oacute;n de tiempo por zonas</li>
+      <li>Establecimiento de intensidad apropiada para clases de fitness grupales para acomodar diferentes niveles de aptitud</li>
+      <li>Seguimiento de mejoras en la aptitud a medida que el mismo ritmo produce una frecuencia card&iacute;aca m&aacute;s baja con el tiempo</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Errores Comunes</h2>
+    <ul>
+      <li>Pasar demasiado tiempo en Zona 3 (la &ldquo;zona gris&rdquo;), que es demasiado dura para la recuperaci&oacute;n pero demasiado f&aacute;cil para una adaptaci&oacute;n significativa</li>
+      <li>Usar una estimaci&oacute;n inexacta de la frecuencia card&iacute;aca m&aacute;xima que desplaza todas las zonas incorrectamente, llevando a un subentrenamiento o sobreentrenamiento</li>
+      <li>Ignorar que las zonas basadas en FC m&aacute;x difieren de las zonas basadas en umbral de lactato, que pueden diferir en 10&ndash;20 lpm</li>
+      <li>No ajustar las zonas a medida que mejora la aptitud, haciendo que el entrenamiento sea progresivamente menos desafiante de lo previsto</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Consejo Profesional</h2>
+    <p>Sigue la regla 80/20: dedica aproximadamente el 80% de tu tiempo de entrenamiento semanal en Zonas 1&ndash;2 y el 20% en Zonas 4&ndash;5. Este enfoque polarizado, validado por investigaciones en atletas de resistencia de &eacute;lite, produce mejoras de aptitud superiores en comparaci&oacute;n con el entrenamiento de intensidad moderada. Usa un monitor de frecuencia card&iacute;aca de banda tor&aacute;cica para mayor precisi&oacute;n, ya que los sensores &oacute;pticos de mu&ntilde;eca pueden tener un retraso de 5&ndash;15 segundos durante cambios r&aacute;pidos de intensidad, haciendo que el seguimiento de zonas sea menos confiable durante sesiones de intervalos.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Debo usar FC m&aacute;x o umbral de lactato para c&aacute;lculos de zonas?</button>
+        <div class="faq-ap"><p>Las zonas basadas en umbral de lactato son m&aacute;s precisas para atletas serios, ya que la frecuencia card&iacute;aca de umbral var&iacute;a independientemente de la FC m&aacute;x. Sin embargo, las zonas de FC m&aacute;x son m&aacute;s simples de calcular y suficientes para personas que hacen ejercicio recreativamente. Si tienes acceso a pruebas de umbral de lactato, usa esos valores. De lo contrario, las zonas de FC m&aacute;x proporcionan una aproximaci&oacute;n razonable.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;En qu&eacute; zona deben entrenar los principiantes?</button>
+        <div class="faq-ap"><p>Los principiantes deben pasar la mayor parte de su tiempo en Zona 2 (60&ndash;70% FC m&aacute;x) durante las primeras 8&ndash;12 semanas. Esto construye capacidad aer&oacute;bica, fortalece el sistema cardiovascular y desarrolla la eficiencia de quema de grasa sin fatiga excesiva o riesgo de lesiones. Introduce gradualmente trabajo en Zona 3 despu&eacute;s de establecer una base aer&oacute;bica.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Cu&aacute;nto tiempo debo permanecer en Zona 5 durante intervalos?</button>
+        <div class="faq-ap"><p>Los esfuerzos en Zona 5 deben ser breves: de 30 segundos a 2 minutos m&aacute;ximo por intervalo, con recuperaci&oacute;n completa entre esfuerzos. La Zona 5 representa un esfuerzo casi m&aacute;ximo a m&aacute;ximo y no puede sostenerse durante largos per&iacute;odos. Las sesiones de HIIT t&iacute;picas incluyen 6&ndash;12 intervalos en Zona 5 con per&iacute;odos de recuperaci&oacute;n iguales o m&aacute;s largos en Zona 1&ndash;2.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Las zonas de frecuencia card&iacute;aca cambian con la edad?</button>
+        <div class="faq-ap"><p>S&iacute;. Dado que la frecuencia card&iacute;aca m&aacute;xima disminuye aproximadamente 1 lpm por a&ntilde;o, los l&iacute;mites absolutos de tus zonas se desplazan hacia abajo con la edad. Recalcula tus zonas anualmente o cada vez que notes un cambio consistente en tu FC m&aacute;x. Sin embargo, los l&iacute;mites porcentuales (50&ndash;60%, 60&ndash;70%, etc.) permanecen iguales independientemente de la edad.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/karvonen-heart-rate-calculator">Karvonen Heart Rate Calculator</a></li>
+      <li><a href="/bmr-harris-benedict-calculator">BMR (Harris-Benedict) Calculator</a></li>
+      <li><a href="/bmr-katch-mcardle-calculator">BMR (Katch-McArdle) Calculator</a></li>
+      <li><a href="/weight-loss-calculator">Weight Loss Calculator</a></li>
+      <li><a href="/heart-rate-zones-calculator">Heart Rate Zones Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/karvonen-heart-rate-calculator">Karvonen Heart Rate Calculator</a></li>
+      <li><a href="/bmr-harris-benedict-calculator">BMR (Harris-Benedict) Calculator</a></li>
+      <li><a href="/bmr-katch-mcardle-calculator">BMR (Katch-McArdle) Calculator</a></li>
+      <li><a href="/weight-loss-calculator">Weight Loss Calculator</a></li>
+      <li><a href="/heart-rate-zones-calculator">Heart Rate Zones Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Heart Rate Training Zones Calculator: Train Smarter</h1>
+  <p>Heart rate training zones divide your maximum heart rate into five distinct intensity ranges, each targeting different physiological adaptations and energy systems. Training in the correct zone ensures you get the right stimulus for your specific fitness goals, whether that&rsquo;s building an aerobic base, improving endurance, or developing peak performance.</p>
+
+  <div class="formula-section">
+    <h2>Heart Rate Training Zones Formula</h2>
+    <p class="formula-display">Zone 1: 50&ndash;60% Max HR &nbsp;|&nbsp; Zone 2: 60&ndash;70% Max HR &nbsp;|&nbsp; Zone 3: 70&ndash;80% Max HR<br>Zone 4: 80&ndash;90% Max HR &nbsp;|&nbsp; Zone 5: 90&ndash;100% Max HR</p>
+    <p>First estimate your maximum heart rate using 220 &minus; age (or a measured value from a graded exercise test). Then calculate each zone by multiplying your max HR by the corresponding percentage range. For a 35-year-old with an estimated max HR of 185 bpm: Zone 1 = 93&ndash;111 bpm (warm-up/recovery), Zone 2 = 111&ndash;130 bpm (fat burning/aerobic base), Zone 3 = 130&ndash;148 bpm (aerobic endurance), Zone 4 = 148&ndash;167 bpm (lactate threshold), Zone 5 = 167&ndash;185 bpm (maximum effort/anaerobic).</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Worked Examples</h2>
+    <div class="example">
+      <h3>Example 1: Marathon Training Plan</h3>
+      <p>A 40-year-old preparing for a marathon has a max HR of 180 bpm and wants to structure weekly training across zones.</p>
+      <p>Zone 2 (60&ndash;70%): 108&ndash;126 bpm &mdash; 3 long runs per week<br>Zone 3 (70&ndash;80%): 126&ndash;144 bpm &mdash; 1 tempo run per week<br>Zone 4 (80&ndash;90%): 144&ndash;162 bpm &mdash; 1 interval session per week</p>
+      <p>This polarized approach spends 80% of training time in Zone 2 for aerobic development while using higher zones sparingly for threshold and speed work. This distribution mirrors the training patterns of elite endurance athletes.</p>
+    </div>
+    <div class="example">
+      <h3>Example 2: HIIT Session for Fat Loss</h3>
+      <p>A 30-year-old woman with a max HR of 190 bpm designs a high-intensity interval training session.</p>
+      <p>Warm-up: Zone 1 (95&ndash;114 bpm) for 5 minutes<br>Work intervals: Zone 5 (171&ndash;190 bpm) for 30 seconds &times; 8 rounds<br>Recovery: Zone 2 (114&ndash;133 bpm) for 90 seconds between intervals<br>Cool-down: Zone 1 (95&ndash;114 bpm) for 5 minutes</p>
+      <p>This 28-minute session maximizes EPOC (excess post-exercise oxygen consumption), creating an elevated metabolic rate for hours after exercise. The alternating between Zone 5 and Zone 2 trains both anaerobic capacity and recovery efficiency.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Common Uses</h2>
+    <ul>
+      <li>Structuring periodized training programs that systematically develop different energy systems over a season</li>
+      <li>Ensuring easy days stay truly easy by keeping recovery runs in Zone 1&ndash;2</li>
+      <li>Designing interval training protocols with precise work and recovery heart rate targets</li>
+      <li>Monitoring training load and preventing overtraining through zone-based time distribution analysis</li>
+      <li>Setting appropriate intensity for group fitness classes to accommodate varying fitness levels</li>
+      <li>Tracking fitness improvements as the same pace produces a lower heart rate over time</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Common Mistakes</h2>
+    <ul>
+      <li>Spending too much time in Zone 3 (the &ldquo;grey zone&rdquo;), which is too hard for recovery but too easy for meaningful adaptation</li>
+      <li>Using an inaccurate maximum heart rate estimate that shifts all zones incorrectly, leading to undertraining or overtraining</li>
+      <li>Ignoring that zones based on max HR differ from zones based on lactate threshold, which can be 10&ndash;20 bpm different</li>
+      <li>Not adjusting zones as fitness improves, causing training to become progressively less challenging than intended</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Pro Tip</h2>
+    <p>Follow the 80/20 rule: spend approximately 80% of your weekly training time in Zones 1&ndash;2 and 20% in Zones 4&ndash;5. This polarized approach, validated by research on elite endurance athletes, produces superior fitness gains compared to moderate-intensity training. Use a chest-strap heart rate monitor for accuracy, as wrist-based optical sensors can lag by 5&ndash;15 seconds during rapid intensity changes, making zone tracking less reliable during interval sessions.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Should I use max HR or lactate threshold for zone calculations?</button>
+        <div class="faq-ap"><p>Lactate threshold-based zones are more accurate for serious athletes, as threshold heart rate varies independently of max HR. However, max HR zones are simpler to calculate and sufficient for recreational exercisers. If you have access to lactate threshold testing, use those values. Otherwise, max HR zones provide a reasonable approximation.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What zone should beginners train in?</button>
+        <div class="faq-ap"><p>Beginners should spend most of their time in Zone 2 (60&ndash;70% max HR) for the first 8&ndash;12 weeks. This builds aerobic capacity, strengthens the cardiovascular system, and develops fat-burning efficiency without excessive fatigue or injury risk. Gradually introduce Zone 3 work after establishing an aerobic base.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How long should I stay in Zone 5 during intervals?</button>
+        <div class="faq-ap"><p>Zone 5 efforts should be brief: 30 seconds to 2 minutes maximum per interval, with full recovery between efforts. Zone 5 represents near-maximal to maximal effort and cannot be sustained for long periods. Typical HIIT sessions include 6&ndash;12 Zone 5 intervals with equal or longer recovery periods in Zone 1&ndash;2.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Do heart rate zones change with age?</button>
+        <div class="faq-ap"><p>Yes. Since maximum heart rate decreases by approximately 1 bpm per year, your absolute zone boundaries shift downward with age. Recalculate your zones annually or whenever you notice a consistent change in your max HR. However, the percentage boundaries (50&ndash;60%, 60&ndash;70%, etc.) remain the same regardless of age.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/karvonen-heart-rate-calculator">Karvonen Heart Rate Calculator</a></li>
+      <li><a href="/bmr-harris-benedict-calculator">BMR (Harris-Benedict) Calculator</a></li>
+      <li><a href="/bmr-katch-mcardle-calculator">BMR (Katch-McArdle) Calculator</a></li>
+      <li><a href="/weight-loss-calculator">Weight Loss Calculator</a></li>
+      <li><a href="/heart-rate-zones-calculator">Heart Rate Zones Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/karvonen-heart-rate-calculator">Karvonen Heart Rate Calculator</a></li>
+      <li><a href="/bmr-harris-benedict-calculator">BMR (Harris-Benedict) Calculator</a></li>
+      <li><a href="/bmr-katch-mcardle-calculator">BMR (Katch-McArdle) Calculator</a></li>
+      <li><a href="/weight-loss-calculator">Weight Loss Calculator</a></li>
+      <li><a href="/heart-rate-zones-calculator">Heart Rate Zones Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "421": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de Depuración de Creatinina: Evalúa tu Función Renal</h1>
+  <p>El aclaramiento de creatinina (CrCl) estimado mediante la ecuaci&oacute;n de Cockcroft-Gault es una herramienta cl&iacute;nica ampliamente utilizada para evaluar la funci&oacute;n renal y guiar ajustes de dosificaci&oacute;n de medicamentos. Al combinar edad, peso, sexo y niveles de creatinina s&eacute;rica, esta f&oacute;rmula proporciona una estimaci&oacute;n pr&aacute;ctica de la tasa de filtraci&oacute;n glomerular sin requerir recolecci&oacute;n de orina de 24 horas.</p>
+
+  <div class="formula-section">
+    <h2>F&oacute;rmula de Aclaramiento de Creatinina de Cockcroft-Gault</h2>
+    <p class="formula-display">CrCl (mL/min) = ((140 &minus; Edad) &times; Peso (kg) &times; (0,85 si mujer)) / (72 &times; Creatinina S&eacute;rica (mg/dL))</p>
+    <p>La f&oacute;rmula multiplica la diferencia entre 140 y tu edad por tu peso corporal en kilogramos. Para mujeres, el resultado se multiplica por un factor de correcci&oacute;n de 0,85 para tener en cuenta la menor masa muscular general. Este producto se divide luego entre 72 veces tu nivel de creatinina s&eacute;rica. Por ejemplo, un hombre de 65 a&ntilde;os que pesa 78 kg con una creatinina s&eacute;rica de 1,2 mg/dL: CrCl = ((140 &minus; 65) &times; 78) / (72 &times; 1,2) = (75 &times; 78) / 86,4 = 5850 / 86,4 = <strong>67,7 mL/min</strong>.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Ejemplos Pr&aacute;cticos</h2>
+    <div class="example">
+      <h3>Ejemplo 1: Paciente Mujer Mayor</h3>
+      <p>Una mujer de 72 a&ntilde;os que pesa 60 kg tiene una creatinina s&eacute;rica de 1,0 mg/dL.</p>
+      <p>CrCl = ((140 &minus; 72) &times; 60 &times; 0,85) / (72 &times; 1,0) = (68 &times; 60 &times; 0,85) / 72 = 3468 / 72 = <strong>48,2 mL/min</strong></p>
+      <p>Este CrCl de 48,2 mL/min indica deterioro renal moderado (ERC Etapa 3a). Los medicamentos eliminados por los ri&ntilde;ones requerir&iacute;an ajustes de dosis. Por ejemplo, la metformina podr&iacute;a necesitar reducci&oacute;n y ciertos antibi&oacute;ticos requerir&iacute;an intervalos de dosificaci&oacute;n extendidos.</p>
+    </div>
+    <div class="example">
+      <h3>Ejemplo 2: Paciente Hombre Joven</h3>
+      <p>Un hombre de 30 a&ntilde;os que pesa 85 kg tiene una creatinina s&eacute;rica de 0,9 mg/dL.</p>
+      <p>CrCl = ((140 &minus; 30) &times; 85) / (72 &times; 0,9) = (110 &times; 85) / 64,8 = 9350 / 64,8 = <strong>144,3 mL/min</strong></p>
+      <p>Este CrCl de 144,3 mL/min se encuentra dentro del rango normal para un hombre joven sano (normal: 90&ndash;140 mL/min, con ligera variaci&oacute;n). No se necesitar&iacute;an ajustes de dosis de medicamentos basados en la funci&oacute;n renal. El valor m&aacute;s alto refleja mayor masa muscular y menor edad.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Usos Comunes</h2>
+    <ul>
+      <li>Ajuste de dosis de medicamentos eliminados por v&iacute;a renal, incluyendo antibi&oacute;ticos, antivirales y agentes de quimioterapia</li>
+      <li>Estadificaci&oacute;n de la enfermedad renal cr&oacute;nica (ERC) para guiar decisiones de manejo cl&iacute;nico y derivaci&oacute;n</li>
+      <li>Monitoreo del deterioro de la funci&oacute;n renal a lo largo del tiempo en pacientes con diabetes o hipertensi&oacute;n</li>
+      <li>Determinaci&oacute;n de elegibilidad para procedimientos de imagen con contraste que conllevan riesgo de nefrotoxicidad</li>
+      <li>C&aacute;lculo del aclaramiento de f&aacute;rmacos para estudios farmacocin&eacute;ticos cl&iacute;nicos y monitoreo terap&eacute;utico de f&aacute;rmacos</li>
+      <li>Detecci&oacute;n de deterioro renal en evaluaciones preoperatorias antes de cirug&iacute;as mayores</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Errores Comunes</h2>
+    <ul>
+      <li>Usar el peso corporal total para pacientes obesos en lugar del peso ideal o ajustado, lo que sobreestima significativamente el CrCl</li>
+      <li>Olvidar aplicar el factor de correcci&oacute;n femenino de 0,85, lo que lleva a una sobreestimaci&oacute;n de la funci&oacute;n renal en mujeres en aproximadamente un 15%</li>
+      <li>Aplicar la f&oacute;rmula a pacientes con niveles de creatinina en cambio r&aacute;pido (lesi&oacute;n renal aguda), cuando se requieren condiciones de estado estable</li>
+      <li>Usar valores de creatinina en &micro;mol/L sin convertir a mg/dL (dividir &micro;mol/L entre 88,4), lo que produce resultados dram&aacute;ticamente incorrectos</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Consejo Profesional</h2>
+    <p>Para pacientes obesos (IMC &ge; 30), usa el peso corporal ajustado en lugar del peso corporal total: PCA = PI + 0,4 &times; (PCT &minus; PI). Esto previene la sobreestimaci&oacute;n del CrCl que ocurre porque el exceso de tejido adiposo no contribuye proporcionalmente a la producci&oacute;n de creatinina. Adicionalmente, verifica siempre las unidades de creatinina s&eacute;rica &mdash; muchos laboratorios internacionales reportan en &micro;mol/L mientras que la f&oacute;rmula de Cockcroft-Gault requiere mg/dL. Una creatinina de 100 &micro;mol/L equivale a 1,13 mg/dL, y usar 100 directamente producir&iacute;a un CrCl aproximadamente 100 veces m&aacute;s bajo.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Cu&aacute;ndo debo usar Cockcroft-Gault versus MDRD o CKD-EPI?</button>
+        <div class="faq-ap"><p>Cockcroft-Gault sigue siendo el est&aacute;ndar para ajustes de dosificaci&oacute;n de medicamentos seg&uacute;n el etiquetado de la FDA. MDRD y CKD-EPI se prefieren para la estadificaci&oacute;n de ERC y estudios epidemiol&oacute;gicos. Para decisiones cl&iacute;nicas de dosificaci&oacute;n de f&aacute;rmacos, Cockcroft-Gault sigue siendo la ecuaci&oacute;n m&aacute;s referenciada en la informaci&oacute;n de prescripci&oacute;n farmac&eacute;utica.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Qu&eacute; valores de aclaramiento de creatinina indican funci&oacute;n renal normal?</button>
+        <div class="faq-ap"><p>El CrCl normal oscila entre 90&ndash;140 mL/min para hombres y 80&ndash;125 mL/min para mujeres. Valores de 60&ndash;89 mL/min indican funci&oacute;n ligeramente reducida, 30&ndash;59 mL/min indican deterioro moderado (Etapa 3), 15&ndash;29 mL/min indican deterioro grave (Etapa 4), y por debajo de 15 mL/min indican insuficiencia renal (Etapa 5).</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Por qu&eacute; la f&oacute;rmula incluye un factor de correcci&oacute;n de g&eacute;nero?</button>
+        <div class="faq-ap"><p>Las mujeres generalmente tienen menos masa muscular esquel&eacute;tica que los hombres del mismo peso, lo que resulta en menor producci&oacute;n de creatinina. Dado que la creatinina s&eacute;rica refleja tanto la producci&oacute;n de creatinina (del m&uacute;sculo) como el aclaramiento renal, el factor de 0,85 ajusta esta diferencia fisiol&oacute;gica para proporcionar una estimaci&oacute;n m&aacute;s precisa del TFG real en mujeres.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Qu&eacute; tan precisa es la ecuaci&oacute;n de Cockcroft-Gault?</button>
+        <div class="faq-ap"><p>Cockcroft-Gault estima el CrCl dentro de &plusmn;20% de los valores medidos en aproximadamente el 70&ndash;80% de los pacientes. Es menos precisa en extremos de edad, composici&oacute;n corporal, masa muscular y dieta. Para una medici&oacute;n precisa del TFG, el aclaramiento de inulina o de ioftalamato son el est&aacute;ndar de oro pero rara vez se usan en la pr&aacute;ctica cl&iacute;nica rutinaria.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/blood-pressure-calculator">Blood Pressure Calculator</a></li>
+      <li><a href="/bsa-and-ideal-body-weight-calculator">BSA and Ideal Body Weight Calculator</a></li>
+      <li><a href="/a1c-to-eag-calculator">A1c to eAG Calculator</a></li>
+      <li><a href="/ldl-cholesterol-calculator">LDL Cholesterol Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/blood-pressure-calculator">Blood Pressure Calculator</a></li>
+      <li><a href="/bsa-and-ideal-body-weight-calculator">BSA and Ideal Body Weight Calculator</a></li>
+      <li><a href="/a1c-to-eag-calculator">A1c to eAG Calculator</a></li>
+      <li><a href="/ldl-cholesterol-calculator">LDL Cholesterol Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Creatinine Clearance Calculator: Assess Kidney Function</h1>
+  <p>Creatinine clearance (CrCl) estimated by the Cockcroft-Gault equation is a widely used clinical tool for assessing kidney function and guiding medication dosing adjustments. By combining age, weight, sex, and serum creatinine levels, this formula provides a practical estimate of glomerular filtration rate without requiring 24-hour urine collection.</p>
+
+  <div class="formula-section">
+    <h2>Cockcroft-Gault Creatinine Clearance Formula</h2>
+    <p class="formula-display">CrCl (mL/min) = ((140 &minus; Age) &times; Weight (kg) &times; (0.85 if female)) / (72 &times; Serum Creatinine (mg/dL))</p>
+    <p>The formula multiplies the difference between 140 and your age by your body weight in kilograms. For women, the result is multiplied by a correction factor of 0.85 to account for generally lower muscle mass. This product is then divided by 72 times your serum creatinine level. For example, a 65-year-old man weighing 78 kg with a serum creatinine of 1.2 mg/dL: CrCl = ((140 &minus; 65) &times; 78) / (72 &times; 1.2) = (75 &times; 78) / 86.4 = 5850 / 86.4 = <strong>67.7 mL/min</strong>.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Worked Examples</h2>
+    <div class="example">
+      <h3>Example 1: Elderly Female Patient</h3>
+      <p>A 72-year-old woman weighing 60 kg has a serum creatinine of 1.0 mg/dL.</p>
+      <p>CrCl = ((140 &minus; 72) &times; 60 &times; 0.85) / (72 &times; 1.0) = (68 &times; 60 &times; 0.85) / 72 = 3468 / 72 = <strong>48.2 mL/min</strong></p>
+      <p>This CrCl of 48.2 mL/min indicates moderate renal impairment (Stage 3a CKD). Medications cleared by the kidneys would require dose adjustments. For instance, metformin may need reduction and certain antibiotics would require extended dosing intervals.</p>
+    </div>
+    <div class="example">
+      <h3>Example 2: Young Male Patient</h3>
+      <p>A 30-year-old man weighing 85 kg has a serum creatinine of 0.9 mg/dL.</p>
+      <p>CrCl = ((140 &minus; 30) &times; 85) / (72 &times; 0.9) = (110 &times; 85) / 64.8 = 9350 / 64.8 = <strong>144.3 mL/min</strong></p>
+      <p>This CrCl of 144.3 mL/min falls within the normal range for a young healthy male (normal: 90&ndash;140 mL/min, with slight variation). No medication dose adjustments would be needed based on renal function. The higher value reflects greater muscle mass and younger age.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Common Uses</h2>
+    <ul>
+      <li>Adjusting doses of renally eliminated medications including antibiotics, antivirals, and chemotherapy agents</li>
+      <li>Staging chronic kidney disease (CKD) to guide clinical management and referral decisions</li>
+      <li>Monitoring kidney function decline over time in patients with diabetes or hypertension</li>
+      <li>Determining eligibility for contrast imaging procedures that carry nephrotoxicity risk</li>
+      <li>Calculating drug clearance for clinical pharmacokinetic studies and therapeutic drug monitoring</li>
+      <li>Screening for renal impairment in pre-operative assessments before major surgery</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Common Mistakes</h2>
+    <ul>
+      <li>Using total body weight for obese patients instead of ideal or adjusted body weight, which overestimates CrCl significantly</li>
+      <li>Forgetting to apply the 0.85 female correction factor, leading to overestimation of kidney function in women by approximately 15%</li>
+      <li>Applying the formula to patients with rapidly changing creatinine levels (acute kidney injury), when steady-state conditions are required</li>
+      <li>Using creatinine values in &micro;mol/L without converting to mg/dL (divide &micro;mol/L by 88.4), which produces dramatically incorrect results</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Pro Tip</h2>
+    <p>For obese patients (BMI &ge; 30), use adjusted body weight instead of total body weight: AdjBW = IBW + 0.4 &times; (TBW &minus; IBW). This prevents overestimation of CrCl that occurs because excess adipose tissue does not contribute proportionally to creatinine production. Additionally, always verify the units of serum creatinine &mdash; many international labs report in &micro;mol/L while the Cockcroft-Gault formula requires mg/dL. A creatinine of 100 &micro;mol/L equals 1.13 mg/dL, and using 100 directly would yield a CrCl roughly 100 times too low.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">When should I use Cockcroft-Gault versus MDRD or CKD-EPI?</button>
+        <div class="faq-ap"><p>Cockcroft-Gault remains the standard for medication dosing adjustments per FDA labeling. MDRD and CKD-EPI are preferred for CKD staging and epidemiological studies. For clinical drug dosing decisions, Cockcroft-Gault is still the most widely referenced equation in pharmaceutical prescribing information.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What creatinine clearance values indicate normal kidney function?</button>
+        <div class="faq-ap"><p>Normal CrCl ranges from 90&ndash;140 mL/min for men and 80&ndash;125 mL/min for women. Values of 60&ndash;89 mL/min indicate mildly reduced function, 30&ndash;59 mL/min indicate moderate impairment (Stage 3), 15&ndash;29 mL/min indicate severe impairment (Stage 4), and below 15 mL/min indicate kidney failure (Stage 5).</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Why does the formula include a gender correction factor?</button>
+        <div class="faq-ap"><p>Women generally have less skeletal muscle mass than men of the same weight, resulting in lower creatinine production. Since serum creatinine reflects both creatinine production (from muscle) and kidney clearance, the 0.85 factor adjusts for this physiological difference to provide a more accurate estimate of true GFR in women.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How accurate is the Cockcroft-Gault equation?</button>
+        <div class="faq-ap"><p>Cockcroft-Gault estimates CrCl within &plusmn;20% of measured values in approximately 70&ndash;80% of patients. It is less accurate in extremes of age, body composition, muscle mass, and diet. For precise GFR measurement, inulin clearance or iothalamate clearance studies are the gold standard but are rarely used in routine clinical practice.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/blood-pressure-calculator">Blood Pressure Calculator</a></li>
+      <li><a href="/bsa-and-ideal-body-weight-calculator">BSA and Ideal Body Weight Calculator</a></li>
+      <li><a href="/a1c-to-eag-calculator">A1c to eAG Calculator</a></li>
+      <li><a href="/ldl-cholesterol-calculator">LDL Cholesterol Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/blood-pressure-calculator">Blood Pressure Calculator</a></li>
+      <li><a href="/bsa-and-ideal-body-weight-calculator">BSA and Ideal Body Weight Calculator</a></li>
+      <li><a href="/a1c-to-eag-calculator">A1c to eAG Calculator</a></li>
+      <li><a href="/ldl-cholesterol-calculator">LDL Cholesterol Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "422": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de BMI Prime: Comprende tu Índice de Masa Corporal</h1>
+  <p>El IMC Prime proporciona una raz&oacute;n simple que expresa tu IMC real como una proporci&oacute;n del l&iacute;mite superior del IMC normal, facilitando la comprensi&oacute;n de cu&aacute;nto se desv&iacute;a tu &iacute;ndice de masa corporal del rango saludable. Un valor de 1,0 representa el umbral entre peso normal y sobrepeso, mientras que los valores por encima o por debajo muestran claramente el grado de desviaci&oacute;n.</p>
+
+  <div class="formula-section">
+    <h2>F&oacute;rmula del IMC Prime</h2>
+    <p class="formula-display">IMC Prime = IMC / 25</p>
+    <p>El IMC Prime divide tu &iacute;ndice de masa corporal calculado entre 25, que es el l&iacute;mite superior del rango normal de IMC (18,5&ndash;24,9). Un IMC Prime de 1,0 significa que est&aacute;s exactamente en el umbral de sobrepeso. Los valores por debajo de 1,0 indican peso normal o bajo peso, mientras que los valores por encima de 1,0 indican sobrepeso u obesidad. Por ejemplo, una persona con un IMC de 30 tiene un IMC Prime de 30 / 25 = <strong>1,20</strong>, lo que significa que su IMC est&aacute; un 20% por encima del l&iacute;mite normal superior.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Ejemplos Pr&aacute;cticos</h2>
+    <div class="example">
+      <h3>Ejemplo 1: Persona con Peso Normal</h3>
+      <p>Una persona que pesa 70 kg y mide 1,75 m tiene un IMC de 70 / (1,75 &times; 1,75) = 22,86.</p>
+      <p>IMC Prime = 22,86 / 25 = <strong>0,91</strong></p>
+      <p>Un IMC Prime de 0,91 indica que esta persona est&aacute; al 91% del l&iacute;mite normal superior, c&oacute;modamente dentro del rango saludable. Tiene aproximadamente un 10% de margen antes de alcanzar el umbral de sobrepeso.</p>
+    </div>
+    <div class="example">
+      <h3>Ejemplo 2: Persona con Obesidad</h3>
+      <p>Una persona que pesa 110 kg y mide 1,70 m tiene un IMC de 110 / (1,70 &times; 1,70) = 38,06.</p>
+      <p>IMC Prime = 38,06 / 25 = <strong>1,52</strong></p>
+      <p>Un IMC Prime de 1,52 indica que el IMC de esta persona est&aacute; un 52% por encima del l&iacute;mite normal superior, ubic&aacute;ndola en la categor&iacute;a de obesidad Clase II (IMC 35&ndash;39,9). Esto comunica claramente la magnitud del exceso de masa corporal en relaci&oacute;n con el rango saludable.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Usos Comunes</h2>
+    <ul>
+      <li>Proporcionar una m&eacute;trica intuitiva para que los pacientes comprendan su IMC en relaci&oacute;n con el rango saludable</li>
+      <li>Seguimiento del progreso en el manejo del peso a medida que el IMC Prime se acerca a 1,0 desde cualquier direcci&oacute;n</li>
+      <li>Investigaci&oacute;n de salud poblacional comparando la desviaci&oacute;n relativa del IMC entre diferentes grupos demogr&aacute;ficos</li>
+      <li>Establecimiento de objetivos de p&eacute;rdida de peso expresados como una reducci&oacute;n deseada del IMC Prime</li>
+      <li>Estratificaci&oacute;n de riesgo en programas de detecci&oacute;n de enfermedades cardiovasculares y metab&oacute;licas</li>
+      <li>Comunicaci&oacute;n del estado de salud en campa&ntilde;as de salud p&uacute;blica donde las razones son m&aacute;s f&aacute;ciles de entender que los valores absolutos de IMC</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Errores Comunes</h2>
+    <ul>
+      <li>Interpretar el IMC Prime como una evaluaci&oacute;n directa de salud sin considerar la composici&oacute;n corporal, la masa muscular y la distribuci&oacute;n de grasa</li>
+      <li>Usar el IMC Prime para ni&ntilde;os y adolescentes, ya que la interpretaci&oacute;n del IMC requiere percentiles espec&iacute;ficos por edad y sexo en estas poblaciones</li>
+      <li>Asumir que un IMC Prime de exactamente 1,0 es el objetivo ideal, cuando el medio del rango normal (IMC Prime &asymp; 0,86) puede ser m&aacute;s &oacute;ptimo</li>
+      <li>Ignorar que el IMC Prime comparte todas las limitaciones del IMC, incluyendo la incapacidad de distinguir entre masa muscular y grasa</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Consejo Profesional</h2>
+    <p>Usa el IMC Prime junto con la circunferencia de cintura para una imagen m&aacute;s completa del riesgo para la salud. Una persona con un IMC Prime de 1,10 pero una circunferencia de cintura por debajo de 88 cm (mujeres) o 102 cm (hombres) puede tener un riesgo cardiometab&oacute;lico menor que alguien con el mismo IMC Prime y obesidad central. Sigue las tendencias del IMC Prime mensualmente en lugar de diariamente, ya que los cambios significativos en la composici&oacute;n corporal tardan semanas en manifestarse en los c&aacute;lculos de IMC.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Cu&aacute;l es el valor ideal de IMC Prime?</button>
+        <div class="faq-ap"><p>El IMC Prime ideal oscila entre 0,74 y 1,0, correspondiente a un IMC de 18,5&ndash;24,9. El punto medio del rango saludable (IMC &asymp; 22) corresponde a un IMC Prime de aproximadamente 0,88, que algunos estudios sugieren est&aacute; asociado con la menor mortalidad por todas las causas.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Puede el IMC Prime ser menor que 0,74?</button>
+        <div class="faq-ap"><p>S&iacute;. Un IMC Prime por debajo de 0,74 corresponde a un IMC por debajo de 18,5, que se clasifica como bajo peso. Por ejemplo, un IMC de 16 da un IMC Prime de 0,64. Valores tan bajos pueden indicar desnutrici&oacute;n, trastornos alimentarios o condiciones m&eacute;dicas subyacentes que requieren evaluaci&oacute;n cl&iacute;nica.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Por qu&eacute; usar IMC Prime en lugar de solo IMC?</button>
+        <div class="faq-ap"><p>El IMC Prime proporciona contexto inmediato: los valores por encima de 1,0 indican instant&aacute;neamente exceso de peso, mientras que los valores por debajo de 1,0 indican peso normal o bajo. Esto es m&aacute;s intuitivo que recordar que IMC 25 es el punto de corte. El IMC Prime tambi&eacute;n permite una comparaci&oacute;n m&aacute;s f&aacute;cil de la desviaci&oacute;n relativa del normal entre individuos con diferentes IMC.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;El IMC Prime se aplica a atletas?</button>
+        <div class="faq-ap"><p>Al igual que el IMC, el IMC Prime no distingue entre m&uacute;sculo y grasa. Un atleta musculoso puede tener un IMC Prime por encima de 1,0 a pesar de tener baja grasa corporal. Para atletas, las medidas de composici&oacute;n corporal como el porcentaje de grasa corporal o los esc&aacute;neres DEXA proporcionan evaluaciones de salud m&aacute;s significativas que el IMC Prime.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/lean-body-mass-calculator">Lean Body Mass Calculator</a></li>
+      <li><a href="/body-adiposity-index-calculator">Body Adiposity Index Calculator</a></li>
+      <li><a href="/waist-to-hip-ratio-calculator">Waist-to-Hip Ratio Calculator</a></li>
+      <li><a href="/waist-to-height-ratio-calculator">Waist-to-Height Ratio Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/lean-body-mass-calculator">Lean Body Mass Calculator</a></li>
+      <li><a href="/body-adiposity-index-calculator">Body Adiposity Index Calculator</a></li>
+      <li><a href="/body-fat-us-navy-calculator">Body Fat (US Navy) Calculator</a></li>
+      <li><a href="/waist-to-hip-ratio-calculator">Waist-to-Hip Ratio Calculator</a></li>
+      <li><a href="/waist-to-height-ratio-calculator">Waist-to-Height Ratio Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>BMI Prime Calculator: Understand Your Body Mass Index</h1>
+  <p>BMI Prime provides a simple ratio that expresses your actual BMI as a proportion of the upper limit of normal BMI, making it easier to understand how far your body mass index deviates from the healthy range. A value of 1.0 represents the threshold between normal weight and overweight, while values above or below clearly show the degree of deviation.</p>
+
+  <div class="formula-section">
+    <h2>BMI Prime Formula</h2>
+    <p class="formula-display">BMI Prime = BMI / 25</p>
+    <p>BMI Prime divides your calculated body mass index by 25, which is the upper limit of the normal BMI range (18.5&ndash;24.9). A BMI Prime of 1.0 means you are exactly at the overweight threshold. Values below 1.0 indicate normal weight or underweight, while values above 1.0 indicate overweight or obesity. For example, a person with a BMI of 30 has a BMI Prime of 30 / 25 = <strong>1.20</strong>, meaning their BMI is 20% above the upper normal limit.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Worked Examples</h2>
+    <div class="example">
+      <h3>Example 1: Normal Weight Individual</h3>
+      <p>A person weighing 70 kg at 1.75 m tall has a BMI of 70 / (1.75 &times; 1.75) = 22.86.</p>
+      <p>BMI Prime = 22.86 / 25 = <strong>0.91</strong></p>
+      <p>A BMI Prime of 0.91 indicates this person is at 91% of the upper normal limit, comfortably within the healthy range. They have approximately 10% room before reaching the overweight threshold.</p>
+    </div>
+    <div class="example">
+      <h3>Example 2: Obese Individual</h3>
+      <p>A person weighing 110 kg at 1.70 m tall has a BMI of 110 / (1.70 &times; 1.70) = 38.06.</p>
+      <p>BMI Prime = 38.06 / 25 = <strong>1.52</strong></p>
+      <p>A BMI Prime of 1.52 indicates this person&rsquo;s BMI is 52% above the upper normal limit, placing them in the Class II obesity category (BMI 35&ndash;39.9). This clearly communicates the magnitude of excess body mass relative to the healthy range.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Common Uses</h2>
+    <ul>
+      <li>Providing an intuitive metric for patients to understand their BMI relative to the healthy range</li>
+      <li>Tracking weight management progress as BMI Prime moves toward 1.0 from either direction</li>
+      <li>Population health research comparing relative BMI deviation across different demographic groups</li>
+      <li>Setting weight loss targets expressed as a desired BMI Prime reduction</li>
+      <li>Risk stratification in cardiovascular and metabolic disease screening programs</li>
+      <li>Communicating health status in public health campaigns where ratios are easier to grasp than absolute BMI values</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Common Mistakes</h2>
+    <ul>
+      <li>Interpreting BMI Prime as a direct health assessment without considering body composition, muscle mass, and fat distribution</li>
+      <li>Using BMI Prime for children and adolescents, as BMI interpretation requires age- and sex-specific percentiles in these populations</li>
+      <li>Assuming a BMI Prime of exactly 1.0 is the ideal target, when the middle of the normal range (BMI Prime &asymp; 0.86) may be more optimal</li>
+      <li>Ignoring that BMI Prime shares all the limitations of BMI, including inability to distinguish between muscle and fat mass</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Pro Tip</h2>
+    <p>Use BMI Prime alongside waist circumference for a more complete picture of health risk. A person with a BMI Prime of 1.10 but a waist circumference below 88 cm (women) or 102 cm (men) may have lower cardiometabolic risk than someone with the same BMI Prime and central obesity. Track BMI Prime trends monthly rather than daily, as meaningful changes in body composition take weeks to manifest in BMI calculations.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What is the ideal BMI Prime value?</button>
+        <div class="faq-ap"><p>The ideal BMI Prime falls between 0.74 and 1.0, corresponding to a BMI of 18.5&ndash;24.9. The midpoint of the healthy range (BMI &asymp; 22) corresponds to a BMI Prime of approximately 0.88, which some studies suggest is associated with the lowest all-cause mortality.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Can BMI Prime be less than 0.74?</button>
+        <div class="faq-ap"><p>Yes. A BMI Prime below 0.74 corresponds to a BMI below 18.5, which is classified as underweight. For example, a BMI of 16 gives a BMI Prime of 0.64. Values this low may indicate malnutrition, eating disorders, or underlying medical conditions requiring clinical evaluation.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Why use BMI Prime instead of just BMI?</button>
+        <div class="faq-ap"><p>BMI Prime provides immediate context: values above 1.0 instantly signal excess weight, while values below 1.0 signal normal or low weight. This is more intuitive than remembering that BMI 25 is the cutoff. BMI Prime also allows easier comparison of relative deviation from normal across individuals with different BMIs.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Does BMI Prime apply to athletes?</button>
+        <div class="faq-ap"><p>Like BMI, BMI Prime does not distinguish between muscle and fat. A muscular athlete may have a BMI Prime above 1.0 despite having low body fat. For athletes, body composition measures like body fat percentage or DEXA scans provide more meaningful health assessments than BMI Prime.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/lean-body-mass-calculator">Lean Body Mass Calculator</a></li>
+      <li><a href="/body-adiposity-index-calculator">Body Adiposity Index Calculator</a></li>
+      <li><a href="/waist-to-hip-ratio-calculator">Waist-to-Hip Ratio Calculator</a></li>
+      <li><a href="/waist-to-height-ratio-calculator">Waist-to-Height Ratio Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/lean-body-mass-calculator">Lean Body Mass Calculator</a></li>
+      <li><a href="/body-adiposity-index-calculator">Body Adiposity Index Calculator</a></li>
+      <li><a href="/body-fat-us-navy-calculator">Body Fat (US Navy) Calculator</a></li>
+      <li><a href="/waist-to-hip-ratio-calculator">Waist-to-Hip Ratio Calculator</a></li>
+      <li><a href="/waist-to-height-ratio-calculator">Waist-to-Height Ratio Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "423": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de Fecha de Parto: Estima el Cronograma de tu Embarazo</h1>
+  <p>La calculadora de fecha probable de parto estima tu fecha de entrega esperada utilizando la regla de Naegele, uno de los m&eacute;todos m&aacute;s utilizados en obstetricia para predecir la duraci&oacute;n del embarazo. Aunque solo aproximadamente el 5% de los beb&eacute;s llegan en su fecha exacta, este c&aacute;lculo proporciona un punto de referencia crucial para la planificaci&oacute;n del cuidado prenatal y el monitoreo del desarrollo fetal.</p>
+
+  <div class="formula-section">
+    <h2>C&aacute;lculo de Fecha Probable de Parto (Regla de Naegele)</h2>
+    <p class="formula-display">Fecha Probable de Parto = Primer D&iacute;a de la &Uacute;ltima Menstruaci&oacute;n (FUM) + 280 d&iacute;as</p>
+    <p>La regla de Naegele suma 280 d&iacute;as (40 semanas) al primer d&iacute;a de tu &uacute;ltimo per&iacute;odo menstrual. Un atajo pr&aacute;ctico: resta 3 meses de la fecha de la FUM, luego suma 7 d&iacute;as. Por ejemplo, si tu FUM fue el 15 de marzo de 2025: resta 3 meses = 15 de diciembre de 2024; suma 7 d&iacute;as = <strong>22 de diciembre de 2025</strong>. Este c&aacute;lculo asume un ciclo regular de 28 d&iacute;as con ovulaci&oacute;n ocurriendo en el d&iacute;a 14. Si tu ciclo es m&aacute;s largo o m&aacute;s corto, pueden necesitarse ajustes.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Ejemplos Pr&aacute;cticos</h2>
+    <div class="example">
+      <h3>Ejemplo 1: Ciclo Regular de 28 D&iacute;as</h3>
+      <p>Una mujer con ciclos regulares de 28 d&iacute;as tuvo su &uacute;ltimo per&iacute;odo menstrual el 10 de enero de 2025.</p>
+      <p>FUM: 10 de enero de 2025<br>Resta 3 meses: 10 de octubre de 2024<br>Suma 7 d&iacute;as: <strong>17 de octubre de 2025</strong></p>
+      <p>Su fecha probable de parto estimada es el 17 de octubre de 2025. Esto corresponde a 40 semanas de gestaci&oacute;n. Su ecograf&iacute;a del primer trimestre puede refinar esta fecha si el tama&ntilde;o fetal medido difiere en m&aacute;s de 7 d&iacute;as de la estimaci&oacute;n basada en la FUM.</p>
+    </div>
+    <div class="example">
+      <h3>Ejemplo 2: Ciclo M&aacute;s Largo de 32 D&iacute;as</h3>
+      <p>Una mujer con ciclos regulares de 32 d&iacute;as tuvo su FUM el 5 de junio de 2025. Su ciclo es 4 d&iacute;as m&aacute;s largo que el ciclo est&aacute;ndar de 28 d&iacute;as.</p>
+      <p>C&aacute;lculo est&aacute;ndar: 5 de junio &minus; 3 meses = 5 de marzo; + 7 d&iacute;as = 12 de marzo de 2026<br>Ajuste por ciclo m&aacute;s largo: 12 de marzo + 4 d&iacute;as = <strong>16 de marzo de 2026</strong></p>
+      <p>Debido a que ovula aproximadamente 4 d&iacute;as m&aacute;s tarde que la suposici&oacute;n est&aacute;ndar del d&iacute;a 14, su fecha probable de parto se desplaza 4 d&iacute;as adelante. Este ajuste es importante para una evaluaci&oacute;n precisa de la edad gestacional y el momento de los ex&aacute;menes prenatales.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Usos Comunes</h2>
+    <ul>
+      <li>Establecimiento de la fecha probable de parto (FPP) para la programaci&oacute;n del cuidado prenatal y seguimiento de hitos</li>
+      <li>Programaci&oacute;n de ex&aacute;menes prenatales cr&iacute;ticos como la translucencia nucal (11&ndash;14 semanas) y la ecograf&iacute;a anat&oacute;mica (18&ndash;22 semanas)</li>
+      <li>Determinaci&oacute;n de la edad gestacional en cualquier momento durante el embarazo para la evaluaci&oacute;n del crecimiento fetal</li>
+      <li>Planificaci&oacute;n de la licencia de maternidad y preparaci&oacute;n para la llegada del beb&eacute; con un plazo objetivo</li>
+      <li>Identificaci&oacute;n de embarazos post&eacute;rmino (m&aacute;s all&aacute; de las 42 semanas) que pueden requerir inducci&oacute;n del parto</li>
+      <li>Coordinaci&oacute;n de la atenci&oacute;n entre obstetras, parteras y especialistas usando una fecha de referencia compartida</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Errores Comunes</h2>
+    <ul>
+      <li>Usar el &uacute;ltimo d&iacute;a de la menstruaci&oacute;n en lugar del primer d&iacute;a como punto de partida, lo que desplaza la fecha probable de parto 3&ndash;7 d&iacute;as incorrectamente</li>
+      <li>No ajustar por ciclos que difieren de 28 d&iacute;as, lo que lleva a una dataci&oacute;n inexacta en mujeres con ciclos naturalmente m&aacute;s largos o m&aacute;s cortos</li>
+      <li>Ignorar la dataci&oacute;n por ecograf&iacute;a temprana, que es m&aacute;s precisa que el c&aacute;lculo basado en la FUM cuando la discrepancia supera los 7 d&iacute;as en el primer trimestre</li>
+      <li>Tratar la fecha probable de parto como una fecha de entrega exacta en lugar de una estimaci&oacute;n, cuando solo el 4% de los beb&eacute;s nacen en su fecha calculada</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Consejo Profesional</h2>
+    <p>Si conoces tu fecha exacta de ovulaci&oacute;n (a trav&eacute;s de kits predictores de ovulaci&oacute;n, seguimiento de temperatura corporal basal o monitoreo de fertilidad), calcula tu fecha probable de parto como fecha de ovulaci&oacute;n + 266 d&iacute;as (38 semanas). Este m&eacute;todo es m&aacute;s preciso que la regla de Naegele para mujeres con ciclos irregulares o quienes concibieron mediante tecnolog&iacute;a de reproducci&oacute;n asistida. Adicionalmente, una medici&oacute;n ecogr&aacute;fica del primer trimestre de la longitud cr&uacute;neo-caudal (LCC) entre 8&ndash;13 semanas proporciona la dataci&oacute;n m&aacute;s precisa, con un margen de error de solo &plusmn;3&ndash;5 d&iacute;as.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Qu&eacute; tan preciso es el c&aacute;lculo de la fecha probable de parto?</button>
+        <div class="faq-ap"><p>La fecha probable de parto es una estimaci&oacute;n con una ventana normal de entrega de 37&ndash;42 semanas. Solo aproximadamente el 4&ndash;5% de los beb&eacute;s nacen en su fecha exacta. La dataci&oacute;n por ecograf&iacute;a del primer trimestre es precisa a &plusmn;5 d&iacute;as, mientras que la dataci&oacute;n basada en la FUM es precisa a &plusmn;7&ndash;10 d&iacute;as en mujeres con ciclos regulares.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Puede cambiar la fecha probable de parto durante el embarazo?</button>
+        <div class="faq-ap"><p>S&iacute;. Si una ecograf&iacute;a temprana muestra una discrepancia significativa (m&aacute;s de 7 d&iacute;as en el primer trimestre, o m&aacute;s de 10&ndash;14 d&iacute;as en el segundo trimestre) respecto a la fecha basada en la FUM, tu proveedor de atenci&oacute;n m&eacute;dica puede ajustar la fecha probable de parto. Una vez establecida basada en ecograf&iacute;a temprana, la fecha no debe cambiarse m&aacute;s tarde en el embarazo.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Qu&eacute; pasa si no conozco la fecha de mi &uacute;ltima menstruaci&oacute;n?</button>
+        <div class="faq-ap"><p>Si no est&aacute;s segura de la fecha de tu FUM, una ecograf&iacute;a temprana es la mejor alternativa. Una medici&oacute;n de longitud cr&uacute;neo-caudal entre 8&ndash;13 semanas de gestaci&oacute;n proporciona la dataci&oacute;n m&aacute;s precisa. Si concebiste mediante FIV, la fecha probable de parto se calcula desde la fecha de transferencia del embri&oacute;n (fecha de transferencia + 266 d&iacute;as para un embri&oacute;n de d&iacute;a 3, o + 263 d&iacute;as para un blastocisto de d&iacute;a 6).</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Por qu&eacute; el embarazo se cuenta como 40 semanas si los beb&eacute;s se desarrollan durante 9 meses?</button>
+        <div class="faq-ap"><p>El embarazo se cuenta desde el primer d&iacute;a del &uacute;ltimo per&iacute;odo menstrual, que es aproximadamente 2 semanas antes de que ocurra realmente la concepci&oacute;n. Entonces, aunque el desarrollo fetal toma aproximadamente 38 semanas desde la concepci&oacute;n, la duraci&oacute;n cl&iacute;nica del embarazo es de 40 semanas desde la FUM. Por eso la primera &ldquo;semana&rdquo; de embarazo ocurre antes de que est&eacute;s realmente embarazada.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/ovulation-calculator">Ovulation Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Due Date Calculator: Estimate Your Pregnancy Timeline</h1>
+  <p>The due date calculator estimates your expected delivery date using Naegele&rsquo;s rule, one of the most widely used methods in obstetrics for predicting pregnancy duration. While only about 5% of babies arrive on their exact due date, this calculation provides a crucial reference point for prenatal care planning and fetal development monitoring.</p>
+
+  <div class="formula-section">
+    <h2>Due Date Calculation (Naegele&rsquo;s Rule)</h2>
+    <p class="formula-display">Due Date = First Day of Last Menstrual Period (LMP) + 280 days</p>
+    <p>Naegele&rsquo;s rule adds 280 days (40 weeks) to the first day of your last menstrual period. A practical shortcut: subtract 3 months from the LMP date, then add 7 days. For example, if your LMP was March 15, 2025: subtract 3 months = December 15, 2024; add 7 days = <strong>December 22, 2025</strong>. This calculation assumes a regular 28-day cycle with ovulation occurring on day 14. If your cycle is longer or shorter, adjustments may be needed.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Worked Examples</h2>
+    <div class="example">
+      <h3>Example 1: Regular 28-Day Cycle</h3>
+      <p>A woman with regular 28-day cycles had her last menstrual period begin on January 10, 2025.</p>
+      <p>LMP: January 10, 2025<br>Subtract 3 months: October 10, 2024<br>Add 7 days: <strong>October 17, 2025</strong></p>
+      <p>Her estimated due date is October 17, 2025. This corresponds to 40 weeks gestation. Her first-trimester ultrasound may refine this date if the measured fetal size differs by more than 7 days from the LMP-based estimate.</p>
+    </div>
+    <div class="example">
+      <h3>Example 2: Longer 32-Day Cycle</h3>
+      <p>A woman with regular 32-day cycles had her LMP on June 5, 2025. Her cycle is 4 days longer than the standard 28-day cycle.</p>
+      <p>Standard calculation: June 5 &minus; 3 months = March 5; + 7 days = March 12, 2026<br>Adjustment for longer cycle: March 12 + 4 days = <strong>March 16, 2026</strong></p>
+      <p>Because she ovulates approximately 4 days later than the standard day-14 assumption, her due date shifts forward by 4 days. This adjustment is important for accurate gestational age assessment and timing of prenatal screenings.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Common Uses</h2>
+    <ul>
+      <li>Establishing estimated date of delivery (EDD) for prenatal care scheduling and milestone tracking</li>
+      <li>Timing critical prenatal screening tests such as nuchal translucency (11&ndash;14 weeks) and anatomy scan (18&ndash;22 weeks)</li>
+      <li>Determining gestational age at any point during pregnancy for fetal growth assessment</li>
+      <li>Planning maternity leave and preparing for the baby&rsquo;s arrival with a target timeframe</li>
+      <li>Identifying post-term pregnancies (beyond 42 weeks) that may require induction of labor</li>
+      <li>Coordinating care among obstetricians, midwives, and specialists using a shared reference date</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Common Mistakes</h2>
+    <ul>
+      <li>Using the last day of menstruation instead of the first day as the starting point, which shifts the due date forward by 3&ndash;7 days incorrectly</li>
+      <li>Not adjusting for cycles that differ from 28 days, leading to inaccurate dating in women with naturally longer or shorter cycles</li>
+      <li>Ignoring early ultrasound dating, which is more accurate than LMP-based calculation when the discrepancy exceeds 7 days in the first trimester</li>
+      <li>Treating the due date as an exact delivery date rather than an estimate, when only 4% of babies are born on their calculated due date</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Pro Tip</h2>
+    <p>If you know your exact ovulation date (through ovulation predictor kits, basal body temperature tracking, or fertility monitoring), calculate your due date as ovulation date + 266 days (38 weeks). This method is more accurate than Naegele&rsquo;s rule for women with irregular cycles or those who conceived through assisted reproductive technology. Additionally, a first-trimester ultrasound measurement of crown-rump length (CRL) between 8&ndash;13 weeks provides the most accurate dating, with a margin of error of only &plusmn;3&ndash;5 days.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How accurate is the due date calculation?</button>
+        <div class="faq-ap"><p>The due date is an estimate with a normal delivery window of 37&ndash;42 weeks. Only about 4&ndash;5% of babies are born on their exact due date. First-trimester ultrasound dating is accurate to &plusmn;5 days, while LMP-based dating is accurate to &plusmn;7&ndash;10 days in women with regular cycles.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Can the due date change during pregnancy?</button>
+        <div class="faq-ap"><p>Yes. If an early ultrasound shows a significant discrepancy (more than 7 days in the first trimester, or more than 10&ndash;14 days in the second trimester) from the LMP-based date, your healthcare provider may adjust the due date. Once set based on early ultrasound, the due date should not be changed later in pregnancy.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What if I don't know my last menstrual period date?</button>
+        <div class="faq-ap"><p>If you are unsure of your LMP date, an early ultrasound is the best alternative. A crown-rump length measurement between 8&ndash;13 weeks gestation provides the most accurate dating. If you conceived through IVF, the due date is calculated from the embryo transfer date (transfer date + 266 days for a day-3 embryo, or + 263 days for a day-6 blastocyst).</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Why is pregnancy counted as 40 weeks when babies develop for 9 months?</button>
+        <div class="faq-ap"><p>Pregnancy is counted from the first day of the last menstrual period, which is approximately 2 weeks before conception actually occurs. So while fetal development takes about 38 weeks from conception, the clinical pregnancy duration is 40 weeks from LMP. This is why the first &ldquo;week&rdquo; of pregnancy occurs before you are actually pregnant.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/ovulation-calculator">Ovulation Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "424": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de Ovulación: Encuentra tu Ventana Fértil</h1>
+  <p>La calculadora de ovulaci&oacute;n ayuda a estimar tus d&iacute;as m&aacute;s f&eacute;rtiles trabajando hacia atr&aacute;s desde tu pr&oacute;ximo per&iacute;odo esperado, ya que la ovulaci&oacute;n t&iacute;picamente ocurre aproximadamente 14 d&iacute;as antes de que comience la menstruaci&oacute;n. Comprender tu ventana de ovulaci&oacute;n es esencial tanto para lograr un embarazo como para la planificaci&oacute;n familiar natural.</p>
+
+  <div class="formula-section">
+    <h2>F&oacute;rmula de Fecha de Ovulaci&oacute;n</h2>
+    <p class="formula-display">Fecha de Ovulaci&oacute;n = Fecha del Pr&oacute;ximo Per&iacute;odo Esperado &minus; 14 d&iacute;as</p>
+    <p>La fase l&uacute;tea (tiempo desde la ovulaci&oacute;n hasta el pr&oacute;ximo per&iacute;odo) es relativamente constante de aproximadamente 14 d&iacute;as para la mayor&iacute;a de las mujeres, independientemente de la duraci&oacute;n total del ciclo. Para encontrar tu fecha de ovulaci&oacute;n, primero determina cu&aacute;ndo se espera tu pr&oacute;ximo per&iacute;odo basado en tu duraci&oacute;n promedio de ciclo, luego resta 14 d&iacute;as. La ventana f&eacute;rtil se extiende desde 5 d&iacute;as antes de la ovulaci&oacute;n hasta el d&iacute;a de la ovulaci&oacute;n, ya que los espermatozoides pueden sobrevivir en el tracto reproductivo hasta 5 d&iacute;as. Por ejemplo, una mujer con un ciclo de 30 d&iacute;as cuyo &uacute;ltimo per&iacute;odo comenz&oacute; el 1 de abril: pr&oacute;ximo per&iacute;odo esperado 30 de abril + 1 = 1 de mayo; ovulaci&oacute;n = 1 de mayo &minus; 14 = <strong>17 de abril</strong>; ventana f&eacute;rtil = 12&ndash;17 de abril.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Ejemplos Pr&aacute;cticos</h2>
+    <div class="example">
+      <h3>Ejemplo 1: Ciclo Est&aacute;ndar de 28 D&iacute;as</h3>
+      <p>Una mujer con un ciclo regular de 28 d&iacute;as tuvo su &uacute;ltimo per&iacute;odo el 1 de marzo.</p>
+      <p>Pr&oacute;ximo per&iacute;odo esperado: 1 de marzo + 28 d&iacute;as = 29 de marzo<br>Fecha de ovulaci&oacute;n: 29 de marzo &minus; 14 = <strong>15 de marzo</strong><br>Ventana f&eacute;rtil: 10&ndash;15 de marzo</p>
+      <p>Sus d&iacute;as m&aacute;s f&eacute;rtiles son del 10 al 15 de marzo, con fertilidad m&aacute;xima el 14&ndash;15 de marzo. El &oacute;vulo sobrevive solo 12&ndash;24 horas despu&eacute;s de la ovulaci&oacute;n, por lo que programar las relaciones sexuales en los d&iacute;as previos a la ovulaci&oacute;n maximiza las posibilidades de concepci&oacute;n.</p>
+    </div>
+    <div class="example">
+      <h3>Ejemplo 2: Ciclo M&aacute;s Largo de 35 D&iacute;as</h3>
+      <p>Una mujer con un ciclo regular de 35 d&iacute;as tuvo su &uacute;ltimo per&iacute;odo el 10 de junio.</p>
+      <p>Pr&oacute;ximo per&iacute;odo esperado: 10 de junio + 35 d&iacute;as = 15 de julio<br>Fecha de ovulaci&oacute;n: 15 de julio &minus; 14 = <strong>1 de julio</strong><br>Ventana f&eacute;rtil: 26 de junio&ndash;1 de julio</p>
+      <p>A pesar de tener un ciclo m&aacute;s largo, su fase l&uacute;tea permanece en 14 d&iacute;as. Los d&iacute;as adicionales del ciclo ocurren en la fase folicular (antes de la ovulaci&oacute;n), retrasando la ovulaci&oacute;n. Su ventana f&eacute;rtil cae a finales de junio y principios de julio, lo cual es importante reconocer ya que muchas mujeres incorrectamente asumen que la ovulaci&oacute;n siempre ocurre a mitad del ciclo.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Usos Comunes</h2>
+    <ul>
+      <li>Identificaci&oacute;n de la ventana f&eacute;rtil para maximizar las posibilidades de concepci&oacute;n cuando se busca un embarazo</li>
+      <li>Planificaci&oacute;n familiar natural y m&eacute;todos de conciencia de fertilidad para evitar el embarazo</li>
+      <li>Programaci&oacute;n de procedimientos de inseminaci&oacute;n intrauterina (IIU) para coincidir con la ovulaci&oacute;n</li>
+      <li>Planificaci&oacute;n del inicio de pruebas con kits predictores de ovulaci&oacute;n 2&ndash;3 d&iacute;as antes de la fecha estimada de ovulaci&oacute;n</li>
+      <li>Comprensi&oacute;n de los patrones del ciclo menstrual e identificaci&oacute;n de irregularidades que puedan warrant evaluaci&oacute;n m&eacute;dica</li>
+      <li>Coordinaci&oacute;n de tratamientos de fertilidad y protocolos de monitoreo con endocrin&oacute;logos reproductivos</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Errores Comunes</h2>
+    <ul>
+      <li>Asumir que la ovulaci&oacute;n siempre ocurre en el d&iacute;a 14 del ciclo, cuando en realidad ocurre 14 d&iacute;as antes del pr&oacute;ximo per&iacute;odo (lo cual var&iacute;a con la duraci&oacute;n del ciclo)</li>
+      <li>Contar solo el d&iacute;a de la ovulaci&oacute;n como f&eacute;rtil, cuando los 5 d&iacute;as antes de la ovulaci&oacute;n son igual o m&aacute;s importantes para la concepci&oacute;n</li>
+      <li>Usar c&aacute;lculos basados en el calendario &uacute;nicamente para anticoncepci&oacute;n sin confirmar la ovulaci&oacute;n mediante seguimiento de temperatura u observaci&oacute;n del moco cervical</li>
+      <li>Ignorar la variabilidad del ciclo por estr&eacute;s, enfermedad, viajes o cambios hormonales que pueden desplazar la ovulaci&oacute;n varios d&iacute;as en cualquier mes dado</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Consejo Profesional</h2>
+    <p>Combina los c&aacute;lculos del calendario con kits predictores de ovulaci&oacute;n (OPK) que detectan el pico de hormona luteinizante (LH), que ocurre 24&ndash;36 horas antes de la ovulaci&oacute;n. Comienza a hacer pruebas 3&ndash;4 d&iacute;as antes de tu fecha estimada de ovulaci&oacute;n y hazlas diariamente a primera hora de la tarde. Para un seguimiento m&aacute;s preciso, monitorea tambi&eacute;n la temperatura corporal basal (TCB), que aumenta entre 0,3&ndash;0,5&deg;C despu&eacute;s de la ovulaci&oacute;n y confirma que la ovulaci&oacute;n ha ocurrido. La combinaci&oacute;n de predicci&oacute;n por calendario, detecci&oacute;n por OPK y confirmaci&oacute;n por TCB te da la imagen m&aacute;s completa de tu ventana f&eacute;rtil.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Puede ocurrir la ovulaci&oacute;n m&aacute;s de una vez en un ciclo?</button>
+        <div class="faq-ap"><p>No. Solo ocurre una ovulaci&oacute;n por ciclo menstrual. Sin embargo, ambos ovarios pueden liberar un &oacute;vulo dentro de la misma ventana de 24 horas (superfecundaci&oacute;n), lo que puede resultar en gemelos fraternos. Despu&eacute;s de la ovulaci&oacute;n, el aumento de los niveles de progesterona previene una ovulaci&oacute;n adicional hasta el siguiente ciclo.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Cu&aacute;nto tiempo sobrevive el &oacute;vulo despu&eacute;s de la ovulaci&oacute;n?</button>
+        <div class="faq-ap"><p>El &oacute;vulo sobrevive aproximadamente 12&ndash;24 horas despu&eacute;s de la ovulaci&oacute;n. Sin embargo, dado que los espermatozoides pueden vivir en el tracto reproductivo femenino hasta 5 d&iacute;as, la ventana f&eacute;rtil total abarca aproximadamente 6 d&iacute;as: los 5 d&iacute;as antes de la ovulaci&oacute;n m&aacute;s el d&iacute;a de la ovulaci&oacute;n en s&iacute;.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Qu&eacute; pasa si mis ciclos son irregulares?</button>
+        <div class="faq-ap"><p>Con ciclos irregulares, la estimaci&oacute;n de ovulaci&oacute;n basada en el calendario se vuelve poco confiable. Usa kits predictores de ovulaci&oacute;n, rastrea los cambios en el moco cervical (que se vuelve claro y el&aacute;stico alrededor de la ovulaci&oacute;n) y monitorea la temperatura corporal basal. Si los ciclos var&iacute;an en m&aacute;s de 7&ndash;9 d&iacute;as regularmente, consulta a un proveedor de atenci&oacute;n m&eacute;dica para descartar condiciones como SOP o trastornos tiroideos.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;La fase l&uacute;tea siempre dura exactamente 14 d&iacute;as?</button>
+        <div class="faq-ap"><p>La fase l&uacute;tea promedia 14 d&iacute;as pero normalmente oscila entre 12&ndash;16 d&iacute;as. Una fase l&uacute;tea m&aacute;s corta de 10 d&iacute;as (defecto de fase l&uute;ea) puede dificultar la implantaci&oacute;n y el mantenimiento temprano del embarazo. Si sospechas una fase l&uacute;tea corta, rastrea tu TCB para medir la duraci&oacute;n real desde la ovulaci&oacute;n hasta tu pr&oacute;ximo per&iacute;odo.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/due-date-calculator">Due Date Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/due-date-calculator">Due Date Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Ovulation Calculator: Find Your Fertile Window</h1>
+  <p>The ovulation calculator helps estimate your most fertile days by working backward from your expected next period, since ovulation typically occurs approximately 14 days before menstruation begins. Understanding your ovulation window is essential for both achieving pregnancy and natural family planning.</p>
+
+  <div class="formula-section">
+    <h2>Ovulation Date Formula</h2>
+    <p class="formula-display">Ovulation Date = Next Expected Period Date &minus; 14 days</p>
+    <p>The luteal phase (time from ovulation to the next period) is relatively constant at approximately 14 days for most women, regardless of total cycle length. To find your ovulation date, first determine when your next period is expected based on your average cycle length, then subtract 14 days. The fertile window extends from 5 days before ovulation through the day of ovulation, as sperm can survive in the reproductive tract for up to 5 days. For example, a woman with a 30-day cycle whose last period began on April 1: next period expected April 30 + 1 = May 1; ovulation = May 1 &minus; 14 = <strong>April 17</strong>; fertile window = April 12&ndash;17.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Worked Examples</h2>
+    <div class="example">
+      <h3>Example 1: Standard 28-Day Cycle</h3>
+      <p>A woman with a regular 28-day cycle had her last period start on March 1.</p>
+      <p>Next expected period: March 1 + 28 days = March 29<br>Ovulation date: March 29 &minus; 14 = <strong>March 15</strong><br>Fertile window: March 10&ndash;15</p>
+      <p>Her most fertile days are March 10 through March 15, with peak fertility on March 14&ndash;15. The egg survives only 12&ndash;24 hours after ovulation, so timing intercourse in the days leading up to ovulation maximizes conception chances.</p>
+    </div>
+    <div class="example">
+      <h3>Example 2: Longer 35-Day Cycle</h3>
+      <p>A woman with a regular 35-day cycle had her last period start on June 10.</p>
+      <p>Next expected period: June 10 + 35 days = July 15<br>Ovulation date: July 15 &minus; 14 = <strong>July 1</strong><br>Fertile window: June 26&ndash;July 1</p>
+      <p>Despite having a longer cycle, her luteal phase remains 14 days. The extra cycle days occur in the follicular phase (before ovulation), pushing ovulation later. Her fertile window falls in late June to early July, which is important to recognize since many women incorrectly assume ovulation always occurs mid-cycle.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Common Uses</h2>
+    <ul>
+      <li>Identifying the fertile window to maximize chances of conception when trying to conceive</li>
+      <li>Natural family planning and fertility awareness methods for avoiding pregnancy</li>
+      <li>Timing intrauterine insemination (IUI) procedures to coincide with ovulation</li>
+      <li>Planning ovulation predictor kit testing to begin 2&ndash;3 days before the estimated ovulation date</li>
+      <li>Understanding menstrual cycle patterns and identifying irregularities that may warrant medical evaluation</li>
+      <li>Coordinating fertility treatments and monitoring protocols with reproductive endocrinologists</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Common Mistakes</h2>
+    <ul>
+      <li>Assuming ovulation always occurs on day 14 of the cycle, when it actually occurs 14 days before the next period (which varies with cycle length)</li>
+      <li>Counting only the day of ovulation as fertile, when the 5 days before ovulation are equally or more important for conception</li>
+      <li>Using calendar-based calculations alone for contraception without confirming ovulation through temperature tracking or cervical mucus observation</li>
+      <li>Ignoring cycle variability from stress, illness, travel, or hormonal changes that can shift ovulation by several days in any given month</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Pro Tip</h2>
+    <p>Combine calendar calculations with ovulation predictor kits (OPKs) that detect the luteinizing hormone (LH) surge, which occurs 24&ndash;36 hours before ovulation. Start testing 3&ndash;4 days before your estimated ovulation date and test daily in the early afternoon. For the most accurate tracking, also monitor basal body temperature (BBT), which rises by 0.3&ndash;0.5&deg;C after ovulation and confirms that ovulation has occurred. The combination of calendar prediction, OPK detection, and BBT confirmation gives you the most complete picture of your fertile window.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Can ovulation occur more than once in a cycle?</button>
+        <div class="faq-ap"><p>No. Only one ovulation occurs per menstrual cycle. However, both ovaries can release an egg within the same 24-hour window (superfecundation), which can result in fraternal twins. After ovulation, rising progesterone levels prevent further ovulation until the next cycle.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How long does the egg survive after ovulation?</button>
+        <div class="faq-ap"><p>The egg survives approximately 12&ndash;24 hours after ovulation. However, since sperm can live in the female reproductive tract for up to 5 days, the total fertile window spans approximately 6 days: the 5 days before ovulation plus the day of ovulation itself.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What if my cycles are irregular?</button>
+        <div class="faq-ap"><p>With irregular cycles, calendar-based ovulation estimation becomes unreliable. Use ovulation predictor kits, track cervical mucus changes (becoming clear and stretchy around ovulation), and monitor basal body temperature. If cycles vary by more than 7&ndash;9 days regularly, consult a healthcare provider to rule out conditions like PCOS or thyroid disorders.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Does the luteal phase always last exactly 14 days?</button>
+        <div class="faq-ap"><p>The luteal phase averages 14 days but normally ranges from 12&ndash;16 days. A luteal phase shorter than 10 days (luteal phase defect) may impair implantation and early pregnancy maintenance. If you suspect a short luteal phase, track your BBT to measure the actual length from ovulation to your next period.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/due-date-calculator">Due Date Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/due-date-calculator">Due Date Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "425": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de Grasa Corporal US Navy: Mide tu Composición</h1>
+  <p>El m&eacute;todo de grasa corporal de la Marina de EE. UU. estima el porcentaje de grasa corporal utilizando medidas simples de circunferencia del cuello, cintura y estatura (m&aacute;s cadera para mujeres). Esta f&oacute;rmula probada en campo proporciona una manera pr&aacute;ctica y razonablemente precisa de evaluar la composici&oacute;n corporal sin equipos costosos ni entrenamiento especializado.</p>
+
+  <div class="formula-section">
+    <h2>F&oacute;rmula de Grasa Corporal de la Marina de EE. UU.</h2>
+    <p class="formula-display">Hombres: % Grasa Corporal = 86,010 &times; log<sub>10</sub>(Cintura &minus; Cuello) &minus; 70,041 &times; log<sub>10</sub>(Estatura) + 36,76<br>Mujeres: % Grasa Corporal = 163,205 &times; log<sub>10</sub>(Cintura + Cadera &minus; Cuello) &minus; 97,684 &times; log<sub>10</sub>(Estatura) &minus; 78,387</p>
+    <p>Todas las medidas est&aacute;n en cent&iacute;metros. La f&oacute;rmula utiliza relaciones logar&iacute;tmicas entre las diferencias de circunferencia y la grasa corporal. Para hombres, la medida clave es la diferencia entre circunferencia de cintura y cuello. Para mujeres, se usa cintura m&aacute;s cadera menos cuello. Por ejemplo, un hombre con una cintura de 90 cm, cuello de 38 cm y estatura de 178 cm: % Grasa Corporal = 86,010 &times; log<sub>10</sub>(90 &minus; 38) &minus; 70,041 &times; log<sub>10</sub>(178) + 36,76 = 86,010 &times; 1,716 &minus; 70,041 &times; 2,250 + 36,76 = 147,60 &minus; 157,59 + 36,76 = <strong>26,8%</strong>.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Ejemplos Pr&aacute;cticos</h2>
+    <div class="example">
+      <h3>Ejemplo 1: Aspirante Militar Masculino</h3>
+      <p>Un hombre de 22 a&ntilde;os mide: cintura 84 cm, cuello 37 cm, estatura 180 cm.</p>
+      <p>% Grasa Corporal = 86,010 &times; log<sub>10</sub>(84 &minus; 37) &minus; 70,041 &times; log<sub>10</sub>(180) + 36,76<br>= 86,010 &times; log<sub>10</sub>(47) &minus; 70,041 &times; 2,255 + 36,76<br>= 86,010 &times; 1,672 &minus; 157,94 + 36,76<br>= 143,81 &minus; 157,94 + 36,76 = <strong>22,6%</strong></p>
+      <p>Con un 22,6% de grasa corporal, este individuo se encuentra dentro del rango aceptable para su grupo de edad. Para los est&aacute;ndares de servicio militar, los hombres de 17&ndash;21 a&ntilde;os deben estar por debajo del 20%, por lo que necesitar&iacute;a reducir ligeramente la grasa corporal para cumplir con los requisitos de ingreso.</p>
+    </div>
+    <div class="example">
+      <h3>Ejemplo 2: Mujer Entusiasta del Fitness</h3>
+      <p>Una mujer de 30 a&ntilde;os mide: cintura 76 cm, cadera 98 cm, cuello 33 cm, estatura 165 cm.</p>
+      <p>% Grasa Corporal = 163,205 &times; log<sub>10</sub>(76 + 98 &minus; 33) &minus; 97,684 &times; log<sub>10</sub>(165) &minus; 78,387<br>= 163,205 &times; log<sub>10</sub>(141) &minus; 97,684 &times; 2,217 &minus; 78,387<br>= 163,205 &times; 2,149 &minus; 216,57 &minus; 78,387<br>= 350,73 &minus; 216,57 &minus; 78,387 = <strong>25,8%</strong></p>
+      <p>Su grasa corporal estimada del 25,8% se encuentra en la categor&iacute;a aceptable para mujeres (21&ndash;24% es fitness, 25&ndash;31% es aceptable). Esta es una composici&oacute;n corporal saludable que favorece tanto el rendimiento atl&eacute;tico como el equilibrio hormonal.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Usos Comunes</h2>
+    <ul>
+      <li>Programas de evaluaci&oacute;n de composici&oacute;n corporal y aptitud f&iacute;sica militar</li>
+      <li>Seguimiento de cambios en la grasa corporal durante programas de p&eacute;rdida de peso o construcci&oacute;n muscular usando protocolos de medici&oacute;n consistentes</li>
+      <li>Evaluaci&oacute;n inicial de composici&oacute;n corporal en centros de fitness donde no hay DEXA o pesaje hidrost&aacute;tico disponible</li>
+      <li>Estudios de investigaci&oacute;n que requieren estimaci&oacute;n de grasa corporal a gran escala con m&iacute;nimo equipo y costo</li>
+      <li>Monitoreo personal de aptitud f&iacute;sica para individuos que desean una estimaci&oacute;n r&aacute;pida y repetible de grasa corporal en casa</li>
+      <li>Establecimiento de metas de composici&oacute;n corporal para atletas en deportes de categor&iacute;a de peso como lucha y artes marciales</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Errores Comunes</h2>
+    <ul>
+      <li>Medir la circunferencia de cintura en el ombligo en lugar del punto m&aacute;s estrecho (hombres) o al nivel del ombligo (mujeres), lo que produce resultados inconsistentes</li>
+      <li>Tirar de la cinta m&eacute;trica demasiado apretada o demasiado floja, cuando debe descansar ajustada contra la piel sin comprimir el tejido</li>
+      <li>Tomar medidas a diferentes horas del d&iacute;a, cuando la circunferencia de cintura puede variar 2&ndash;4 cm entre la ma&ntilde;ana y la noche debido a la ingesta de alimentos y la hinchaz&oacute;n</li>
+      <li>Usar la f&oacute;rmula de hombres para mujeres o viceversa, ya que las ecuaciones son espec&iacute;ficas por g&eacute;nero y producen resultados significativamente diferentes</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Consejo Profesional</h2>
+    <p>Para los resultados m&aacute;s consistentes, toma todas las medidas a primera hora de la ma&ntilde;ana antes de comer o beber, despu&eacute;s de usar el ba&ntilde;o. Usa una cinta m&eacute;trica flexible de fibra de vidrio y toma cada medida tres veces, usando el promedio. Mide la circunferencia del cuello justo debajo de la laringe (nuez de Ad&aacute;n) con la cinta inclinada ligeramente hacia abajo al frente. Para la cintura, los hombres deben medir al nivel del ombligo, mientras que las mujeres deben medir en el punto m&aacute;s estrecho por encima del ombligo. Sigue las medidas semanalmente bajo condiciones id&eacute;nticas para detectar tendencias significativas.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Qu&eacute; tan preciso es el m&eacute;todo de grasa corporal de la Marina?</button>
+        <div class="faq-ap"><p>El m&eacute;todo de la Marina se correlaciona bien con las mediciones DEXA (r &asymp; 0,75&ndash;0,85) con un error t&iacute;pico de &plusmn;3&ndash;4% de grasa corporal. Tiende a sobreestimar la grasa corporal en individuos muy delgados y subestimarla en individuos obesos. Para seguir cambios a lo largo del tiempo, es suficientemente confiable cuando las medidas se toman de manera consistente.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Por qu&eacute; la f&oacute;rmula de mujeres incluye la circunferencia de cadera?</button>
+        <div class="faq-ap"><p>Las mujeres naturalmente almacenan m&aacute;s grasa en la regi&oacute;n de cadera y muslo (patr&oacute;n ginoide) en comparaci&oacute;n con los hombres, que tienden a almacenar grasa centralmente (patr&oacute;n androide). Incluir la circunferencia de cadera en la f&oacute;rmula de mujeres tiene en cuenta este patr&oacute;n de distribuci&oacute;n de grasa espec&iacute;fico del sexo, mejorando la precisi&oacute;n de la estimaci&oacute;n de grasa corporal para mujeres.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Puedo usar este m&eacute;todo si soy muy musculoso?</button>
+        <div class="faq-ap"><p>El m&eacute;todo de la Marina puede sobreestimar la grasa corporal en individuos muy musculosos, particularmente aquellos con circunferencias de cuello grandes por entrenamiento. Un cuello grueso por m&uacute;sculo reduce la diferencia cintura-cuello, lo que lleva a un porcentaje de grasa corporal calculado m&aacute;s alto. Para individuos musculosos, los calibradores de pliegues cut&aacute;neos o DEXA proporcionan evaluaciones m&aacute;s precisas.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Cu&aacute;les son los rangos saludables de porcentaje de grasa corporal?</button>
+        <div class="faq-ap"><p>Para hombres: grasa esencial 2&ndash;5%, atletas 6&ndash;13%, fitness 14&ndash;17%, aceptable 18&ndash;24%, obesidad 25%+. Para mujeres: grasa esencial 10&ndash;13%, atletas 14&ndash;20%, fitness 21&ndash;24%, aceptable 25&ndash;31%, obesidad 32%+. Estos rangos var&iacute;an ligeramente con la edad, con rangos aceptables m&aacute;s altos para adultos mayores.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/lean-body-mass-calculator">Lean Body Mass Calculator</a></li>
+      <li><a href="/body-adiposity-index-calculator">Body Adiposity Index Calculator</a></li>
+      <li><a href="/bmi-prime-calculator">BMI Prime Calculator</a></li>
+      <li><a href="/waist-to-hip-ratio-calculator">Waist-to-Hip Ratio Calculator</a></li>
+      <li><a href="/waist-to-height-ratio-calculator">Waist-to-Height Ratio Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/lean-body-mass-calculator">Lean Body Mass Calculator</a></li>
+      <li><a href="/body-adiposity-index-calculator">Body Adiposity Index Calculator</a></li>
+      <li><a href="/bmi-prime-calculator">BMI Prime Calculator</a></li>
+      <li><a href="/waist-to-hip-ratio-calculator">Waist-to-Hip Ratio Calculator</a></li>
+      <li><a href="/waist-to-height-ratio-calculator">Waist-to-Height Ratio Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>US Navy Body Fat Calculator: Measure Body Composition</h1>
+  <p>The US Navy body fat method estimates body fat percentage using simple circumference measurements of the neck, waist, and height (plus hip for women). This field-tested formula provides a practical and reasonably accurate way to assess body composition without expensive equipment or specialized training.</p>
+
+  <div class="formula-section">
+    <h2>US Navy Body Fat Formula</h2>
+    <p class="formula-display">Men: Body Fat % = 86.010 &times; log<sub>10</sub>(Waist &minus; Neck) &minus; 70.041 &times; log<sub>10</sub>(Height) + 36.76<br>Women: Body Fat % = 163.205 &times; log<sub>10</sub>(Waist + Hip &minus; Neck) &minus; 97.684 &times; log<sub>10</sub>(Height) &minus; 78.387</p>
+    <p>All measurements are in centimeters. The formula uses logarithmic relationships between circumference differences and body fat. For men, the key measurement is the difference between waist and neck circumference. For women, waist plus hip minus neck is used. For example, a man with a 90 cm waist, 38 cm neck, and 178 cm height: Body Fat % = 86.010 &times; log<sub>10</sub>(90 &minus; 38) &minus; 70.041 &times; log<sub>10</sub>(178) + 36.76 = 86.010 &times; 1.716 &minus; 70.041 &times; 2.250 + 36.76 = 147.60 &minus; 157.59 + 36.76 = <strong>26.8%</strong>.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Worked Examples</h2>
+    <div class="example">
+      <h3>Example 1: Male Military Applicant</h3>
+      <p>A 22-year-old man measures: waist 84 cm, neck 37 cm, height 180 cm.</p>
+      <p>Body Fat % = 86.010 &times; log<sub>10</sub>(84 &minus; 37) &minus; 70.041 &times; log<sub>10</sub>(180) + 36.76<br>= 86.010 &times; log<sub>10</sub>(47) &minus; 70.041 &times; 2.255 + 36.76<br>= 86.010 &times; 1.672 &minus; 157.94 + 36.76<br>= 143.81 &minus; 157.94 + 36.76 = <strong>22.6%</strong></p>
+      <p>At 22.6% body fat, this individual falls within the acceptable range for his age group. For military service standards, men aged 17&ndash;21 must be below 20%, so he would need to reduce body fat slightly to meet entry requirements.</p>
+    </div>
+    <div class="example">
+      <h3>Example 2: Female Fitness Enthusiast</h3>
+      <p>A 30-year-old woman measures: waist 76 cm, hip 98 cm, neck 33 cm, height 165 cm.</p>
+      <p>Body Fat % = 163.205 &times; log<sub>10</sub>(76 + 98 &minus; 33) &minus; 97.684 &times; log<sub>10</sub>(165) &minus; 78.387<br>= 163.205 &times; log<sub>10</sub>(141) &minus; 97.684 &times; 2.217 &minus; 78.387<br>= 163.205 &times; 2.149 &minus; 216.57 &minus; 78.387<br>= 350.73 &minus; 216.57 &minus; 78.387 = <strong>25.8%</strong></p>
+      <p>Her estimated body fat of 25.8% falls within the fitness category for women (21&ndash;24% is fitness, 25&ndash;31% is acceptable). This is a healthy body composition that supports both athletic performance and hormonal balance.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Common Uses</h2>
+    <ul>
+      <li>Military body composition screening and fitness assessment programs</li>
+      <li>Tracking body fat changes during weight loss or muscle-building programs using consistent measurement protocols</li>
+      <li>Initial body composition assessment in fitness centers where DEXA or hydrostatic weighing is unavailable</li>
+      <li>Research studies requiring large-scale body fat estimation with minimal equipment and cost</li>
+      <li>Personal fitness monitoring for individuals who want a quick, repeatable body fat estimate at home</li>
+      <li>Setting body composition goals for athletes in weight-class sports like wrestling and martial arts</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Common Mistakes</h2>
+    <ul>
+      <li>Measuring waist circumference at the navel instead of at the narrowest point (men) or at the level of the navel (women), which produces inconsistent results</li>
+      <li>Pulling the measuring tape too tight or too loose, when it should rest snugly against the skin without compressing tissue</li>
+      <li>Taking measurements at different times of day, when waist circumference can vary by 2&ndash;4 cm between morning and evening due to food intake and bloating</li>
+      <li>Using the men&rsquo;s formula for women or vice versa, as the equations are gender-specific and produce significantly different results</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Pro Tip</h2>
+    <p>For the most consistent results, take all measurements first thing in the morning before eating or drinking, after using the bathroom. Use a flexible fiberglass tape measure and take each measurement three times, using the average. Measure neck circumference just below the larynx (Adam&rsquo;s apple) with the tape sloping slightly downward in front. For waist, men should measure at the navel level, while women should measure at the narrowest point above the navel. Track measurements weekly under identical conditions to detect meaningful trends.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How accurate is the US Navy body fat method?</button>
+        <div class="faq-ap"><p>The US Navy method correlates well with DEXA measurements (r &asymp; 0.75&ndash;0.85) with a typical error of &plusmn;3&ndash;4% body fat. It tends to overestimate body fat in very lean individuals and underestimate it in obese individuals. For tracking changes over time, it is sufficiently reliable when measurements are taken consistently.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Why does the women&rsquo;s formula include hip circumference?</button>
+        <div class="faq-ap"><p>Women naturally store more fat in the hip and thigh region (gynoid pattern) compared to men, who tend to store fat centrally (android pattern). Including hip circumference in the women&rsquo;s formula accounts for this sex-specific fat distribution pattern, improving the accuracy of body fat estimation for females.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Can I use this method if I am very muscular?</button>
+        <div class="faq-ap"><p>The US Navy method may overestimate body fat in very muscular individuals, particularly those with large neck circumferences from training. A thick neck from muscle reduces the waist-minus-neck difference, leading to a higher calculated body fat percentage. For muscular individuals, skinfold calipers or DEXA provide more accurate assessments.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What are healthy body fat percentage ranges?</button>
+        <div class="faq-ap"><p>For men: essential fat 2&ndash;5%, athletes 6&ndash;13%, fitness 14&ndash;17%, acceptable 18&ndash;24%, obesity 25%+. For women: essential fat 10&ndash;13%, athletes 14&ndash;20%, fitness 21&ndash;24%, acceptable 25&ndash;31%, obesity 32%+. These ranges vary slightly by age, with higher acceptable ranges for older adults.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/lean-body-mass-calculator">Lean Body Mass Calculator</a></li>
+      <li><a href="/body-adiposity-index-calculator">Body Adiposity Index Calculator</a></li>
+      <li><a href="/bmi-prime-calculator">BMI Prime Calculator</a></li>
+      <li><a href="/waist-to-hip-ratio-calculator">Waist-to-Hip Ratio Calculator</a></li>
+      <li><a href="/waist-to-height-ratio-calculator">Waist-to-Height Ratio Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/lean-body-mass-calculator">Lean Body Mass Calculator</a></li>
+      <li><a href="/body-adiposity-index-calculator">Body Adiposity Index Calculator</a></li>
+      <li><a href="/bmi-prime-calculator">BMI Prime Calculator</a></li>
+      <li><a href="/waist-to-hip-ratio-calculator">Waist-to-Hip Ratio Calculator</a></li>
+      <li><a href="/waist-to-height-ratio-calculator">Waist-to-Height Ratio Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "426": {
+        "es": """<section class="long-content">
+  <p>El Gasto Energ&eacute;tico Diario Total (GEDT) representa el n&uacute;mero total de calor&iacute;as que tu cuerpo quema en un d&iacute;a, combinando tu tasa metab&oacute;lica basal con toda la actividad f&iacute;sica. Conocer tu GEDT es la base de cualquier plan de nutrici&oacute;n, ya sea que tu objetivo sea la p&eacute;rdida de peso, la ganancia muscular o el mantenimiento del peso corporal.</p>
+
+  <div class="formula-section">
+    <h2>F&oacute;rmula del GEDT</h2>
+    <p class="formula-display">GEDT = TMB &times; Factor de Actividad</p>
+    <p>Primero calcula tu Tasa Metab&oacute;lica Basal (TMB) usando la ecuaci&oacute;n de Mifflin-St Jeor, luego multiplica por un factor de actividad que refleja tu movimiento diario y nivel de ejercicio. Sedentario (poco o ning&uacute;n ejercicio): 1,2; Ligeramente activo (ejercicio ligero 1&ndash;3 d&iacute;as/semana): 1,375; Moderadamente activo (ejercicio moderado 3&ndash;5 d&iacute;as/semana): 1,55; Muy activo (ejercicio intenso 6&ndash;7 d&iacute;as/semana): 1,725; Extra activo (ejercicio muy intenso + trabajo f&iacute;sico): 1,9. Por ejemplo, una mujer con una TMB de 1.400 kcal que hace ejercicio moderadamente 4 d&iacute;as por semana: GEDT = 1.400 &times; 1,55 = <strong>2.170 kcal/d&iacute;a</strong>.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Ejemplos Pr&aacute;cticos</h2>
+    <div class="example">
+      <h3>Ejemplo 1: Trabajador de Oficina Sedentario</h3>
+      <p>Un hombre de 40 a&ntilde;os pesa 85 kg, mide 175 cm y trabaja en un escritorio sin ejercicio regular.</p>
+      <p>TMB = (10 &times; 85) + (6,25 &times; 175) &minus; (5 &times; 40) + 5 = 850 + 1093,75 &minus; 200 + 5 = 1.748,75 kcal<br>GEDT = 1.748,75 &times; 1,2 = <strong>2.099 kcal/d&iacute;a</strong></p>
+      <p>Su GEDT de aproximadamente 2.100 calor&iacute;as al d&iacute;a representa su nivel de mantenimiento. Para perder peso a un ritmo sostenible de 0,5 kg por semana, consumir&iacute;a aproximadamente 1.600 kcal/d&iacute;a (un d&eacute;ficit diario de 500 kcal). Para ganar m&uacute;sculo, comer&iacute;a 2.350&ndash;2.600 kcal/d&iacute;a (un super&aacute;vit de 250&ndash;500 kcal).</p>
+    </div>
+    <div class="example">
+      <h3>Ejemplo 2: Atleta Femenina Activa</h3>
+      <p>Una mujer de 25 a&ntilde;os pesa 62 kg, mide 168 cm y entrena intensamente 6 d&iacute;as por semana.</p>
+      <p>TMB = (10 &times; 62) + (6,25 &times; 168) &minus; (5 &times; 25) &minus; 161 = 620 + 1050 &minus; 125 &minus; 161 = 1.384 kcal<br>GEDT = 1.384 &times; 1,725 = <strong>2.387 kcal/d&iacute;a</strong></p>
+      <p>Su GEDT de aproximadamente 2.390 calor&iacute;as refleja su alto nivel de actividad. A pesar de una TMB m&aacute;s baja que la del hombre sedentario anterior, su GEDT es mayor debido al multiplicador de actividad de 1,725. Para el rendimiento de resistencia, debe consumir en o ligeramente por encima de este nivel para apoyar las demandas de entrenamiento y la recuperaci&oacute;n.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Usos Comunes</h2>
+    <ul>
+      <li>Establecimiento de objetivos cal&oacute;ricos diarios para programas de p&eacute;rdida de peso, ganancia de peso o mantenimiento de peso</li>
+      <li>Dise&ntilde;o de planes de distribuci&oacute;n de macronutrientes asignando porcentajes del GEDT a prote&iacute;nas, carbohidratos y grasas</li>
+      <li>Ajuste de la ingesta cal&oacute;rica a medida que los niveles de actividad cambian en diferentes fases de entrenamiento o temporadas</li>
+      <li>Estimaci&oacute;n de necesidades energ&eacute;ticas para la preparaci&oacute;n de comidas y planificaci&oacute;n de compras en entornos atl&eacute;ticos y cl&iacute;nicos</li>
+      <li>C&aacute;lculo del d&eacute;ficit o super&aacute;vit cal&oacute;rico necesario para alcanzar objetivos espec&iacute;ficos de composici&oacute;n corporal dentro de un plazo</li>
+      <li>Evaluaci&oacute;n de si la ingesta actual de alimentos se alinea con el gasto energ&eacute;tico para evaluaciones de salud metab&oacute;lica</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Errores Comunes</h2>
+    <ul>
+      <li>Sobreestimar el nivel de actividad eligiendo &ldquo;muy activo&rdquo; cuando el volumen real de ejercicio corresponde a &ldquo;moderadamente activo&rdquo;, lo que lleva a un consumo excesivo de calor&iacute;as</li>
+      <li>Tratar el GEDT como un n&uacute;mero fijo en lugar de una estimaci&oacute;n que requiere ajuste basado en cambios reales de peso durante 2&ndash;4 semanas</li>
+      <li>No tener en cuenta los cambios en la termog&eacute;nesis por actividad sin ejercicio (NEAT) al comenzar una dieta, ya que el cuerpo reduce inconscientemente el movimiento espont&aacute;neo durante la restricci&oacute;n cal&oacute;rica</li>
+      <li>Ignorar que el GEDT disminuye a medida que el peso corporal disminuye, requiriendo rec&aacute;lculo peri&oacute;dico cada 5&ndash;10 kg de p&eacute;rdida de peso</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Consejo Profesional</h2>
+    <p>Usa tu GEDT calculado como punto de partida, luego sigue tu peso corporal real diariamente durante 2&ndash;3 semanas y calcula el promedio semanal. Si tu peso permanece estable, tu estimaci&oacute;n de GEDT es precisa. Si est&aacute;s ganando, reduce la ingesta en 200&ndash;300 kcal. Si est&aacute;s perdiendo sin intenci&oacute;n, aumenta en 200&ndash;300 kcal. Esta calibraci&oacute;n del mundo real es m&aacute;s precisa que cualquier f&oacute;rmula. Adicionalmente, considera usar un enfoque de dieta inversa despu&eacute;s de d&eacute;ficits cal&oacute;ricos prolongados: aumenta gradualmente las calor&iacute;as en 100&ndash;150 kcal por semana para restaurar la tasa metab&oacute;lica sin r&aacute;pida recuperaci&oacute;n de grasa.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Qu&eacute; tan preciso es el c&aacute;lculo del GEDT?</button>
+        <div class="faq-ap"><p>Los c&aacute;lculos de GEDT son estimaciones con un error t&iacute;pico de &plusmn;10&ndash;20%. La variaci&oacute;n individual en metabolismo, NEAT, eficiencia digestiva e intensidad del ejercicio significa que la f&oacute;rmula proporciona un punto de partida, no un valor preciso. El seguimiento en el mundo real y el ajuste durante 2&ndash;4 semanas es esencial para encontrar tu GEDT real.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Debo comer de vuelta las calor&iacute;as del ejercicio?</button>
+        <div class="faq-ap"><p>Si seleccionaste el factor de actividad correcto, las calor&iacute;as de tu ejercicio ya est&aacute;n incluidas en tu GEDT. A&ntilde;adirlas adicionalmente sobre tu objetivo basado en GEDT lleva a comer en exceso. Solo ajusta si tu nivel de actividad cambia significativamente de tu l&iacute;nea base (por ejemplo, entrenar para un marat&oacute;n vs. fuera de temporada).</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;El GEDT cambia con la edad?</button>
+        <div class="faq-ap"><p>S&iacute;. La TMB disminuye aproximadamente un 1&ndash;2% por d&eacute;cada despu&eacute;s de los 30 a&ntilde;os debido a la p&eacute;rdida de masa muscular magra y cambios hormonales. Esto significa que tu GEDT disminuye gradualmente con la edad incluso si los niveles de actividad permanecen constantes. Recalcula tu GEDT anualmente y ajusta la ingesta cal&oacute;rica en consecuencia para prevenir el aumento gradual de peso.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Qu&eacute; factor de actividad debo elegir?</button>
+        <div class="faq-ap"><p>S&eacute; honesto y conservador. Sedentario significa trabajo de escritorio sin ejercicio planificado. Ligeramente activo significa 1&ndash;3 d&iacute;as de ejercicio ligero por semana. Moderadamente activo significa 3&ndash;5 d&iacute;as de ejercicio moderado. Muy activo significa entrenamiento intenso diario. La mayor&iacute;a de las personas sobreestiman y deben elegir un nivel por debajo de lo que creen que les corresponde.</p></div>
+      </div>
+    </div>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <p>Total Daily Energy Expenditure (TDEE) represents the total number of calories your body burns in a day, combining your basal metabolic rate with all physical activity. Knowing your TDEE is the foundation for any nutrition plan, whether your goal is weight loss, muscle gain, or body weight maintenance.</p>
+
+  <div class="formula-section">
+    <h2>TDEE Formula</h2>
+    <p class="formula-display">TDEE = BMR &times; Activity Factor</p>
+    <p>First calculate your Basal Metabolic Rate (BMR) using the Mifflin-St Jeor equation, then multiply by an activity factor that reflects your daily movement and exercise level. Sedentary (little or no exercise): 1.2; Lightly active (light exercise 1&ndash;3 days/week): 1.375; Moderately active (moderate exercise 3&ndash;5 days/week): 1.55; Very active (hard exercise 6&ndash;7 days/week): 1.725; Extra active (very hard exercise + physical job): 1.9. For example, a woman with a BMR of 1,400 kcal who exercises moderately 4 days per week: TDEE = 1,400 &times; 1.55 = <strong>2,170 kcal/day</strong>.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Worked Examples</h2>
+    <div class="example">
+      <h3>Example 1: Sedentary Office Worker</h3>
+      <p>A 40-year-old man weighs 85 kg, is 175 cm tall, and works a desk job with no regular exercise.</p>
+      <p>BMR = (10 &times; 85) + (6.25 &times; 175) &minus; (5 &times; 40) + 5 = 850 + 1093.75 &minus; 200 + 5 = 1,748.75 kcal<br>TDEE = 1,748.75 &times; 1.2 = <strong>2,099 kcal/day</strong></p>
+      <p>His TDEE of approximately 2,100 calories per day represents his maintenance level. To lose weight at a sustainable rate of 0.5 kg per week, he would consume approximately 1,600 kcal/day (a 500 kcal daily deficit). To gain muscle, he would eat 2,350&ndash;2,600 kcal/day (a 250&ndash;500 kcal surplus).</p>
+    </div>
+    <div class="example">
+      <h3>Example 2: Active Female Athlete</h3>
+      <p>A 25-year-old woman weighs 62 kg, is 168 cm tall, and trains intensely 6 days per week.</p>
+      <p>BMR = (10 &times; 62) + (6.25 &times; 168) &minus; (5 &times; 25) &minus; 161 = 620 + 1050 &minus; 125 &minus; 161 = 1,384 kcal<br>TDEE = 1,384 &times; 1.725 = <strong>2,387 kcal/day</strong></p>
+      <p>Her TDEE of approximately 2,390 calories reflects her high activity level. Despite a lower BMR than the sedentary man above, her TDEE is higher due to the 1.725 activity multiplier. For endurance performance, she should consume at or slightly above this level to support training demands and recovery.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Common Uses</h2>
+    <ul>
+      <li>Establishing daily calorie targets for weight loss, weight gain, or weight maintenance programs</li>
+      <li>Designing macronutrient distribution plans by allocating percentages of TDEE to protein, carbohydrates, and fats</li>
+      <li>Adjusting calorie intake as activity levels change across different training phases or seasons</li>
+      <li>Estimating energy needs for meal preparation and grocery planning in athletic and clinical settings</li>
+      <li>Calculating the caloric deficit or surplus needed to achieve specific body composition goals within a timeframe</li>
+      <li>Evaluating whether current food intake aligns with energy expenditure for metabolic health assessments</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Common Mistakes</h2>
+    <ul>
+      <li>Overestimating activity level by choosing &ldquo;very active&rdquo; when actual exercise volume corresponds to &ldquo;moderately active,&rdquo; leading to excessive calorie intake</li>
+      <li>Treating TDEE as a fixed number rather than an estimate that requires adjustment based on actual weight changes over 2&ndash;4 weeks</li>
+      <li>Not accounting for non-exercise activity thermogenesis (NEAT) changes when starting a diet, as the body unconsciously reduces spontaneous movement during caloric restriction</li>
+      <li>Ignoring that TDEE decreases as body weight decreases, requiring periodic recalculation every 5&ndash;10 kg of weight loss</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Pro Tip</h2>
+    <p>Use your calculated TDEE as a starting point, then track your actual body weight daily for 2&ndash;3 weeks and calculate the weekly average. If your weight remains stable, your TDEE estimate is accurate. If you&rsquo;re gaining, reduce intake by 200&ndash;300 kcal. If you&rsquo;re losing unintentionally, increase by 200&ndash;300 kcal. This real-world calibration is more accurate than any formula. Additionally, consider using a reverse dieting approach after prolonged caloric deficits: gradually increase calories by 100&ndash;150 kcal per week to restore metabolic rate without rapid fat regain.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How accurate is TDEE calculation?</button>
+        <div class="faq-ap"><p>TDEE calculations are estimates with a typical error of &plusmn;10&ndash;20%. Individual variation in metabolism, NEAT, digestion efficiency, and exercise intensity means the formula provides a starting point, not a precise value. Real-world tracking and adjustment over 2&ndash;4 weeks is essential for finding your true TDEE.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Should I eat back exercise calories?</button>
+        <div class="faq-ap"><p>If you selected the correct activity factor, your exercise calories are already included in your TDEE. Adding them back on top of your TDEE-based target leads to overeating. Only adjust if your activity level changes significantly from your baseline (e.g., training for a marathon vs. off-season).</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Does TDEE change with age?</button>
+        <div class="faq-ap"><p>Yes. BMR decreases by approximately 1&ndash;2% per decade after age 30 due to loss of lean muscle mass and hormonal changes. This means your TDEE gradually declines with age even if activity levels remain constant. Recalculate your TDEE annually and adjust calorie intake accordingly to prevent gradual weight gain.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What activity factor should I choose?</button>
+        <div class="faq-ap"><p>Be honest and conservative. Sedentary means desk job with no planned exercise. Lightly active means 1&ndash;3 days of light exercise per week. Moderately active means 3&ndash;5 days of moderate exercise. Very active means daily intense training. Most people overestimate and should choose one level below what they think applies to them.</p></div>
+      </div>
+    </div>
+  </div>
+</section>""",
+    },
+
+    "427": {
+        "es": """<section class="long-content">
+  <p>La ecuaci&oacute;n de Mifflin-St Jeor se considera la f&oacute;rmula m&aacute;s precisa para estimar la tasa metab&oacute;lica basal (TMB) en individuos sanos, superando a ecuaciones m&aacute;s antiguas como Harris-Benedict en estudios de validaci&oacute;n cl&iacute;nica. Tu TMB representa las calor&iacute;as m&iacute;nimas que tu cuerpo necesita para sostener funciones vitales en reposo completo, representando entre el 60&ndash;75% de tu gasto energ&eacute;tico diario total.</p>
+
+  <div class="formula-section">
+    <h2>F&oacute;rmula TMB de Mifflin-St Jeor</h2>
+    <p class="formula-display">Hombres: TMB = (10 &times; Peso) + (6,25 &times; Estatura) &minus; (5 &times; Edad) + 5<br>Mujeres: TMB = (10 &times; Peso) + (6,25 &times; Estatura) &minus; (5 &times; Edad) &minus; 161</p>
+    <p>El peso est&aacute; en kilogramos, la estatura en cent&iacute;metros y la edad en a&ntilde;os. La &uacute;nica diferencia entre las f&oacute;rmulas masculina y femenina es el t&eacute;rmino constante (+5 para hombres, &minus;161 para mujeres), reflejando la menor masa muscular general y mayor porcentaje de grasa corporal en mujeres. Por ejemplo, una mujer de 35 a&ntilde;os que pesa 68 kg y mide 165 cm: TMB = (10 &times; 68) + (6,25 &times; 165) &minus; (5 &times; 35) &minus; 161 = 680 + 1031,25 &minus; 175 &minus; 161 = <strong>1.375 kcal/d&iacute;a</strong>.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Ejemplos Pr&aacute;cticos</h2>
+    <div class="example">
+      <h3>Ejemplo 1: Hombre de Mediana Edad</h3>
+      <p>Un hombre de 50 a&ntilde;os pesa 92 kg y mide 180 cm.</p>
+      <p>TMB = (10 &times; 92) + (6,25 &times; 180) &minus; (5 &times; 50) + 5 = 920 + 1125 &minus; 250 + 5 = <strong>1.800 kcal/d&iacute;a</strong></p>
+      <p>Su TMB de 1.800 calor&iacute;as representa la energ&iacute;a que su cuerpo necesita en reposo completo para respiraci&oacute;n, circulaci&oacute;n, producci&oacute;n celular y funci&oacute;n neural. Con un estilo de vida sedentario (factor de actividad 1,2), su GEDT ser&iacute;a 1.800 &times; 1,2 = 2.160 kcal/d&iacute;a. Esto significa que incluso sin ning&uacute;n ejercicio, su cuerpo quema 1.800 calor&iacute;as solo para mantener funciones fisiol&oacute;gicas b&aacute;sicas.</p>
+    </div>
+    <div class="example">
+      <h3>Ejemplo 2: Mujer Joven</h3>
+      <p>Una mujer de 22 a&ntilde;os pesa 55 kg y mide 160 cm.</p>
+      <p>TMB = (10 &times; 55) + (6,25 &times; 160) &minus; (5 &times; 22) &minus; 161 = 550 + 1000 &minus; 110 &minus; 161 = <strong>1.279 kcal/d&iacute;a</strong></p>
+      <p>Su TMB de 1.279 calor&iacute;as es menor que la del hombre debido a un menor tama&ntilde;o corporal y la constante femenina. Con actividad moderada (factor 1,55), su GEDT = 1.279 &times; 1,55 = 1.982 kcal/d&iacute;a. Para una p&eacute;rdida de peso saludable, no debe consumir por debajo de su TMB de 1.279 kcal sin supervisi&oacute;n m&eacute;dica, ya que esto podr&iacute;a comprometer funciones corporales esenciales.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Usos Comunes</h2>
+    <ul>
+      <li>C&aacute;lculo de la tasa metab&oacute;lica basal como base para el GEDT y objetivos cal&oacute;ricos personalizados</li>
+      <li>Evaluaci&oacute;n de nutrici&oacute;n cl&iacute;nica para pacientes hospitalizados que requieren soporte de nutrici&oacute;n enteral o parenteral</li>
+      <li>Establecimiento de umbrales m&iacute;nimos de calor&iacute;as para dietas seguras de p&eacute;rdida de peso para prevenir la adaptaci&oacute;n metab&oacute;lica</li>
+      <li>Comparaci&oacute;n de tasas metab&oacute;licas entre poblaciones en estudios de investigaci&oacute;n epidemiol&oacute;gica y nutricional</li>
+      <li>Evaluaci&oacute;n de la salud metab&oacute;lica comparando la tasa metab&oacute;lica en reposo medida (v&iacute;a calorimetr&iacute;a indirecta) con la TMB predicha</li>
+      <li>Dise&ntilde;o de protocolos de realimentaci&oacute;n para individuos que se recuperan de trastornos alimentarios o desnutrici&oacute;n prolongada</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Errores Comunes</h2>
+    <ul>
+      <li>Confundir TMB con GEDT y comer al nivel de TMB mientras se est&aacute; f&iacute;sicamente activo, creando un d&eacute;ficit cal&oacute;rico involuntariamente grande</li>
+      <li>Usar libras y pulgadas en lugar de kilogramos y cent&iacute;metros, lo que produce valores de TMB completamente incorrectos</li>
+      <li>Asumir que la TMB es fija e inmutable, cuando aumentar la masa muscular mediante entrenamiento de fuerza puede elevar la TMB en 50&ndash;100 kcal/d&iacute;a</li>
+      <li>Aplicar la ecuaci&oacute;n de Mifflin-St Jeor a individuos obesos sin ajuste, ya que puede sobreestimar la TMB en aquellos con altos porcentajes de grasa corporal</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Consejo Profesional</h2>
+    <p>Aunque las f&oacute;rmulas de TMB proporcionan estimaciones &uacute;tiles, la calorimetr&iacute;a indirecta (midiendo el consumo de ox&iacute;geno y la producci&oacute;n de di&oacute;xido de carbono) es el est&aacute;ndar de oro para determinar la tasa metab&oacute;lica en reposo real. Dispositivos como FitMate o BodyGem cuestan entre $5.000&ndash;$15.000 pero est&aacute;n disponibles en muchas cl&iacute;nicas de medicina deportiva. Si no puedes acceder a la calorimetr&iacute;a indirecta, usa la ecuaci&oacute;n de Mifflin-St Jeor y luego val&iacute;dala con datos del mundo real: sigue tu peso e ingesta cal&oacute;rica durante 3&ndash;4 semanas. Si el peso es estable, tu GEDT real equivale a tu ingesta promedio. Resta la contribuci&oacute;n del factor de actividad para calcular tu TMB real.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Por qu&eacute; se prefiere Mifflin-St Jeor sobre Harris-Benedict?</button>
+        <div class="faq-ap"><p>La ecuaci&oacute;n de Mifflin-St Jeor fue desarrollada en 1990 usando una muestra m&aacute;s diversa y contempor&aacute;nea que la ecuaci&oacute;n de Harris-Benedict de 1919. Los estudios muestran que Mifflin-St Jeor predice la TMB dentro del 10% de los valores medidos en el 82% de los individuos, comparado con el 67% de Harris-Benedict. Ahora es la ecuaci&oacute;n est&aacute;ndar recomendada por la Asociaci&oacute;n Diet&eacute;tica Americana.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Puedo aumentar mi TMB?</button>
+        <div class="faq-ap"><p>S&iacute;. Cada kilogramo de masa muscular quema aproximadamente 13 kcal/d&iacute;a en reposo, comparado con 4,5 kcal/d&iacute;a para el tejido graso. Ganar 5 kg de m&uacute;sculo mediante entrenamiento de fuerza podr&iacute;a aumentar tu TMB en aproximadamente 65 kcal/d&iacute;a. Adicionalmente, la ingesta adecuada de prote&iacute;nas, el sue&ntilde;o de calidad y evitar d&eacute;ficits cal&oacute;ricos severos prolongados ayudan a mantener una tasa metab&oacute;lica saludable.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;La TMB disminuye durante las dietas?</button>
+        <div class="faq-ap"><p>S&iacute;. La adaptaci&oacute;n metab&oacute;lica ocurre durante la restricci&oacute;n cal&oacute;rica ya que el cuerpo se vuelve m&aacute;s eficiente, reduciendo la TMB en un 5&ndash;15% m&aacute;s all&aacute; de lo que se esperar&iacute;a solo por la p&eacute;rdida de peso. Esta &ldquo;respuesta de hambruna&rdquo; es la causa de los estancamientos en la p&eacute;rdida de peso. Las pausas de dieta (1&ndash;2 semanas en calor&iacute;as de mantenimiento) y el entrenamiento de fuerza pueden ayudar a mitigar esta adaptaci&oacute;n.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Es la TMB lo mismo que la TMR?</button>
+        <div class="faq-ap"><p>La TMB y la TMR son similares pero se miden bajo diferentes condiciones. La TMB requiere condiciones estrictas: medida despu&eacute;s de 8 horas de sue&ntilde;o y 12 horas de ayuno en un ambiente termoneutral. La TMR se mide bajo condiciones menos restrictivas y t&iacute;picamente es un 10&ndash;20% m&aacute;s alta que la TMB. Para prop&oacute;sitos pr&aacute;cticos, los t&eacute;rminos se usan a menudo indistintamente en la planificaci&oacute;n nutricional.</p></div>
+      </div>
+    </div>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <p>The Mifflin-St Jeor equation is considered the most accurate formula for estimating basal metabolic rate (BMR) in healthy individuals, outperforming older equations like Harris-Benedict in clinical validation studies. Your BMR represents the minimum calories your body needs to sustain vital functions at complete rest, accounting for 60&ndash;75% of your total daily energy expenditure.</p>
+
+  <div class="formula-section">
+    <h2>Mifflin-St Jeor BMR Formula</h2>
+    <p class="formula-display">Men: BMR = (10 &times; Weight) + (6.25 &times; Height) &minus; (5 &times; Age) + 5<br>Women: BMR = (10 &times; Weight) + (6.25 &times; Height) &minus; (5 &times; Age) &minus; 161</p>
+    <p>Weight is in kilograms, height in centimeters, and age in years. The only difference between the male and female formulas is the constant term (+5 for men, &minus;161 for women), reflecting the generally lower muscle mass and higher body fat percentage in women. For example, a 35-year-old woman weighing 68 kg at 165 cm tall: BMR = (10 &times; 68) + (6.25 &times; 165) &minus; (5 &times; 35) &minus; 161 = 680 + 1031.25 &minus; 175 &minus; 161 = <strong>1,375 kcal/day</strong>.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Worked Examples</h2>
+    <div class="example">
+      <h3>Example 1: Middle-Aged Man</h3>
+      <p>A 50-year-old man weighs 92 kg and is 180 cm tall.</p>
+      <p>BMR = (10 &times; 92) + (6.25 &times; 180) &minus; (5 &times; 50) + 5 = 920 + 1125 &minus; 250 + 5 = <strong>1,800 kcal/day</strong></p>
+      <p>His BMR of 1,800 calories represents the energy his body needs at complete rest for breathing, circulation, cell production, and neural function. With a sedentary lifestyle (activity factor 1.2), his TDEE would be 1,800 &times; 1.2 = 2,160 kcal/day. This means even without any exercise, his body burns 1,800 calories just to maintain basic physiological functions.</p>
+    </div>
+    <div class="example">
+      <h3>Example 2: Young Woman</h3>
+      <p>A 22-year-old woman weighs 55 kg and is 160 cm tall.</p>
+      <p>BMR = (10 &times; 55) + (6.25 &times; 160) &minus; (5 &times; 22) &minus; 161 = 550 + 1000 &minus; 110 &minus; 161 = <strong>1,279 kcal/day</strong></p>
+      <p>Her BMR of 1,279 calories is lower than the man&rsquo;s due to smaller body size and the female constant. With moderate activity (factor 1.55), her TDEE = 1,279 &times; 1.55 = 1,982 kcal/day. For healthy weight loss, she should not consume below her BMR of 1,279 kcal without medical supervision, as this could compromise essential bodily functions.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Common Uses</h2>
+    <ul>
+      <li>Calculating the base metabolic rate as the foundation for TDEE and personalized calorie targets</li>
+      <li>Clinical nutrition assessment for hospitalized patients requiring enteral or parenteral nutrition support</li>
+      <li>Setting minimum calorie thresholds for safe weight loss diets to prevent metabolic adaptation</li>
+      <li>Comparing metabolic rates across populations in epidemiological and nutritional research studies</li>
+      <li>Evaluating metabolic health by comparing measured resting metabolic rate (via indirect calorimetry) to predicted BMR</li>
+      <li>Designing refeeding protocols for individuals recovering from eating disorders or prolonged malnutrition</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Common Mistakes</h2>
+    <ul>
+      <li>Confusing BMR with TDEE and eating at BMR level while being physically active, creating an unintentionally large calorie deficit</li>
+      <li>Using pounds and inches instead of kilograms and centimeters, which produces completely incorrect BMR values</li>
+      <li>Assuming BMR is fixed and unchangeable, when increasing muscle mass through resistance training can raise BMR by 50&ndash;100 kcal/day</li>
+      <li>Applying the Mifflin-St Jeor equation to obese individuals without adjustment, as it may overestimate BMR in those with high body fat percentages</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Pro Tip</h2>
+    <p>While BMR formulas provide useful estimates, indirect calorimetry (measuring oxygen consumption and carbon dioxide production) is the gold standard for determining actual resting metabolic rate. Devices like the FitMate or BodyGem cost $5,000&ndash;$15,000 but are available at many sports medicine clinics. If you cannot access indirect calorimetry, use the Mifflin-St Jeor equation and then validate it against real-world data: track your weight and calorie intake for 3&ndash;4 weeks. If weight is stable, your actual TDEE equals your average intake. Subtract the activity factor contribution to back-calculate your true BMR.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Why is Mifflin-St Jeor preferred over Harris-Benedict?</button>
+        <div class="faq-ap"><p>The Mifflin-St Jeor equation was developed in 1990 using a more diverse and contemporary sample than the 1919 Harris-Benedict equation. Studies show Mifflin-St Jeor predicts BMR within 10% of measured values in 82% of individuals, compared to 67% for Harris-Benedict. It is now the standard equation recommended by the American Dietetic Association.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Can I increase my BMR?</button>
+        <div class="faq-ap"><p>Yes. Each kilogram of muscle mass burns approximately 13 kcal/day at rest, compared to 4.5 kcal/day for fat tissue. Gaining 5 kg of muscle through resistance training could increase your BMR by approximately 65 kcal/day. Additionally, adequate protein intake, quality sleep, and avoiding prolonged severe calorie deficits help maintain a healthy metabolic rate.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Does BMR decrease during dieting?</button>
+        <div class="faq-ap"><p>Yes. Metabolic adaptation occurs during caloric restriction as the body becomes more efficient, reducing BMR by 5&ndash;15% beyond what would be expected from weight loss alone. This &ldquo;starvation response&rdquo; is why weight loss plateaus occur. Diet breaks (1&ndash;2 weeks at maintenance calories) and resistance training can help mitigate this adaptation.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Is BMR the same as RMR?</button>
+        <div class="faq-ap"><p>BMR and RMR are similar but measured under different conditions. BMR requires strict conditions: measured after 8 hours of sleep and 12 hours of fasting in a thermoneutral environment. RMR is measured under less restrictive conditions and is typically 10&ndash;20% higher than BMR. For practical purposes, the terms are often used interchangeably in nutrition planning.</p></div>
+      </div>
+    </div>
+  </div>
+</section>""",
+    },
+
+    "428": {
+        "es": """<section class="long-content">
+  <p>La Tasa Metab&oacute;lica en Reposo (TMR) mide las calor&iacute;as que tu cuerpo quema en reposo bajo condiciones menos estrictas que la TMB, lo que la hace m&aacute;s pr&aacute;ctica para el uso cotidiano. Mientras que la TMB requiere medici&oacute;n despu&eacute;s de 12 horas de ayuno y 8 horas de sue&ntilde;o, la TMR puede medirse despu&eacute;s de un per&iacute;odo de descanso m&aacute;s corto y proporciona un valor t&iacute;picamente dentro del 10% de la TMB real.</p>
+
+  <div class="formula-section">
+    <h2>F&oacute;rmula de la Tasa Metab&oacute;lica en Reposo</h2>
+    <p class="formula-display">TMR = TMB &times; (0,9 a 1,0)</p>
+    <p>La TMR est&aacute; estrechamente relacionada con la TMB y a menudo se estima como el 90&ndash;100% de la TMB calculada mediante la ecuaci&oacute;n de Mifflin-St Jeor. En la pr&aacute;ctica, la TMR se mide t&iacute;picamente usando calorimetr&iacute;a indirecta despu&eacute;s de un ayuno de 4 horas y 30 minutos de descanso tranquilo, produciendo un valor ligeramente superior a la TMB. Por ejemplo, una persona con una TMB calculada de 1.600 kcal/d&iacute;a tendr&iacute;a una TMR que oscila entre 1.600 &times; 0,9 = 1.440 y 1.600 &times; 1,0 = <strong>1.600 kcal/d&iacute;a</strong>. La mayor&iacute;a de los entornos cl&iacute;nicos usan el extremo superior de este rango, ya que las condiciones de medici&oacute;n para la TMR est&aacute;n m&aacute;s cerca del estado de reposo normal que el protocolo estricto de TMB.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Ejemplos Pr&aacute;cticos</h2>
+    <div class="example">
+      <h3>Ejemplo 1: Hombre Adulto Sano</h3>
+      <p>Un hombre de 38 a&ntilde;os que pesa 78 kg y mide 176 cm tiene una TMB calculada de 1.723 kcal/d&iacute;a.</p>
+      <p>Rango TMR = 1.723 &times; 0,9 a 1.723 &times; 1,0 = 1.551 a <strong>1.723 kcal/d&iacute;a</strong></p>
+      <p>Su TMR medida mediante calorimetr&iacute;a indirecta despu&eacute;s de un ayuno de 4 horas fue de 1.680 kcal/d&iacute;a, que se ubica en el 97,5% de su TMB calculada. Esta estrecha concordancia valida la ecuaci&oacute;n de Mifflin-St Jeor para este individuo. Su TMR de 1.680 kcal representa el costo energ&eacute;tico de mantener la funci&oacute;n de &oacute;rganos vitales, procesos celulares y termorregulaci&oacute;n en reposo.</p>
+    </div>
+    <div class="example">
+      <h3>Ejemplo 2: Mujer Post-Dieta</h3>
+      <p>Una mujer de 30 a&ntilde;os que ha estado en una dieta de 1.200 kcal/d&iacute;a durante 3 meses tiene una TMB calculada de 1.350 kcal/d&iacute;a basada en su peso actual de 58 kg y estatura de 163 cm.</p>
+      <p>Rango TMR = 1.350 &times; 0,9 a 1.350 &times; 1,0 = 1.215 a <strong>1.350 kcal/d&iacute;a</strong></p>
+      <p>Sin embargo, su TMR medida fue de solo 1.180 kcal/d&iacute;a, que es el 87% de su TMB calculada &mdash; por debajo del rango esperado. Esto indica adaptaci&oacute;n metab&oacute;lica por restricci&oacute;n cal&oacute;rica prolongada. Su cuerpo ha reducido el gasto energ&eacute;tico para conservar recursos, una respuesta com&uacute;n al dietado sostenido que dificulta la p&eacute;rdida de peso adicional.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Usos Comunes</h2>
+    <ul>
+      <li>Evaluaci&oacute;n cl&iacute;nica de la salud metab&oacute;lica en programas de manejo de peso y tratamiento de trastornos alimentarios</li>
+      <li>Detecci&oacute;n de adaptaci&oacute;n metab&oacute;lica en individuos que han estado en dietas restringidas en calor&iacute;as durante períodos prolongados</li>
+      <li>Establecimiento de l&iacute;nea base de gasto energ&eacute;tico antes de comenzar una intervenci&oacute;n nutricional o programa de ejercicio</li>
+      <li>Monitoreo de la recuperaci&oacute;n metab&oacute;lica durante protocolos de realimentaci&oacute;n para pacientes desnutridos</li>
+      <li>Estudios de investigaci&oacute;n que investigan los efectos de la composici&oacute;n de la dieta, el momento de las comidas y los suplementos sobre el gasto energ&eacute;tico en reposo</li>
+      <li>Planificaci&oacute;n nutricional personalizada donde se necesitan objetivos cal&oacute;ricos precisos para atletas competitivos</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Errores Comunes</h2>
+    <ul>
+      <li>Asumir que TMR y TMB son id&eacute;nticas e intercambiables, cuando la TMR es t&iacute;picamente un 10&ndash;20% m&aacute;s alta debido a condiciones de medici&oacute;n menos estrictas</li>
+      <li>Medir la TMR demasiado pronto despu&eacute;s de comer o hacer ejercicio, lo que eleva la tasa metab&oacute;lica a trav&eacute;s del efecto t&eacute;rmico de los alimentos y el consumo excesivo de ox&iacute;geno post-ejercicio</li>
+      <li>Usar la TMR como &uacute;nica base para objetivos cal&oacute;ricos sin a&ntilde;adir un factor de actividad, lo que crear&iacute;a un d&eacute;ficit insostenible y potencialmente peligroso</li>
+      <li>Ignorar que la TMR var&iacute;a un 5&ndash;10% d&iacute;a a d&iacute;a debido a factores como calidad del sue&ntilde;o, hormonas del estr&eacute;s, fase del ciclo menstrual y temperatura ambiente</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Consejo Profesional</h2>
+    <p>Si deseas medir tu TMR real en casa sin equipos costosos, usa un dispositivo port&aacute;til como Lumen o Breezing que estima la tasa metab&oacute;lica a partir de la concentraci&oacute;n de CO2 en el aliento. Aunque no es tan preciso como la calorimetr&iacute;a indirecta cl&iacute;nica, estos dispositivos proporcionan una estimaci&oacute;n razonable dentro de &plusmn;5&ndash;10%. Alternativamente, sigue tu peso e ingesta cal&oacute;rica meticulosamente durante 4 semanas con un peso estable. Tu ingesta diaria promedio equivale a tu GEDT. Divide por tu factor de actividad (1,2&ndash;1,9) para estimar tu TMR. Este enfoque del mundo real a menudo resulta m&aacute;s preciso que cualquier ecuaci&oacute;n predictiva.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Cu&aacute;l es la diferencia entre TMR y TMB?</button>
+        <div class="faq-ap"><p>La TMB se mide bajo estrictas condiciones de laboratorio: despu&eacute;s de 12 horas de ayuno, 8 horas de sue&ntilde;o, en un ambiente termoneutral, sin actividad f&iacute;sica durante 24 horas. La TMR se mide bajo condiciones menos restrictivas: t&iacute;picamente despu&eacute;s de un ayuno de 4 horas y 30 minutos de descanso. Los valores de TMR son usualmente un 10&ndash;20% m&aacute;s altos que la TMB porque las condiciones de medici&oacute;n permiten un gasto energ&eacute;tico ligeramente mayor.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;C&oacute;mo puedo aumentar mi tasa metab&oacute;lica en reposo?</button>
+        <div class="faq-ap"><p>La forma m&aacute;s efectiva de aumentar la TMR es construir masa muscular magra mediante entrenamiento de fuerza, ya que el tejido muscular quema m&aacute;s calor&iacute;as en reposo que el tejido graso. Adicionalmente, la ingesta adecuada de prote&iacute;nas (1,6&ndash;2,2 g/kg), sue&ntilde;o de calidad (7&ndash;9 horas), mantenerse hidratado y evitar d&eacute;ficits cal&oacute;ricos severos prolongados favorecen una tasa metab&oacute;lica saludable. La exposici&oacute;n al fr&iacute;o puede proporcionar un peque&ntilde;o impulso temporal a trav&eacute;s de la activaci&oacute;n de grasa marr&oacute;n.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;La TMR cambia durante el ciclo menstrual?</button>
+        <div class="faq-ap"><p>S&iacute;. La TMR aumenta aproximadamente 100&ndash;300 kcal/d&iacute;a durante la fase l&uute;ea (despu&eacute;s de la ovulaci&oacute;n, antes de la menstruaci&oacute;n) debido a los niveles elevados de progesterona y el aumento de la temperatura corporal. Esta fluctuaci&oacute;n natural significa que las mujeres pueden experimentar mayor hambre y necesidades cal&oacute;ricas ligeramente m&aacute;s altas en la semana anterior a su per&iacute;odo. Seguir la TMR a lo largo del ciclo proporciona una imagen m&aacute;s completa que una sola medici&oacute;n.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Cu&aacute;ndo debo medir mi TMR profesionalmente?</button>
+        <div class="faq-ap"><p>La medici&oacute;n profesional de TMR es m&aacute;s valiosa si has estado haciendo dieta durante un per&iacute;odo prolongado y sospechas adaptaci&oacute;n metab&oacute;lica, si eres un atleta competitivo que necesita objetivos cal&oacute;ricos precisos, o si tienes una condici&oacute;n m&eacute;dica que afecta el metabolismo (trastornos tiroideos, SOP). Para objetivos generales de fitness, las ecuaciones predictivas combinadas con seguimiento de peso del mundo real suelen ser suficientes.</p></div>
+      </div>
+    </div>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <p>Resting Metabolic Rate (RMR) measures the calories your body burns at rest under less strict conditions than BMR, making it more practical for everyday use. While BMR requires measurement after 12 hours of fasting and 8 hours of sleep, RMR can be measured after a shorter rest period and provides a value typically within 10% of true BMR.</p>
+
+  <div class="formula-section">
+    <h2>Resting Metabolic Rate Formula</h2>
+    <p class="formula-display">RMR = BMR &times; (0.9 to 1.0)</p>
+    <p>RMR is closely related to BMR and is often estimated as 90&ndash;100% of the BMR calculated using the Mifflin-St Jeor equation. In practice, RMR is typically measured using indirect calorimetry after a 4-hour fast and 30 minutes of quiet rest, yielding a value slightly higher than BMR. For example, a person with a calculated BMR of 1,600 kcal/day would have an RMR ranging from 1,600 &times; 0.9 = 1,440 to 1,600 &times; 1.0 = <strong>1,600 kcal/day</strong>. Most clinical settings use the upper end of this range, as the measurement conditions for RMR are closer to normal resting state than the strict BMR protocol.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Worked Examples</h2>
+    <div class="example">
+      <h3>Example 1: Healthy Adult Male</h3>
+      <p>A 38-year-old man weighing 78 kg at 176 cm tall has a calculated BMR of 1,723 kcal/day.</p>
+      <p>RMR range = 1,723 &times; 0.9 to 1,723 &times; 1.0 = 1,551 to <strong>1,723 kcal/day</strong></p>
+      <p>His measured RMR via indirect calorimetry after a 4-hour fast was 1,680 kcal/day, which falls at 97.5% of his calculated BMR. This close agreement validates the Mifflin-St Jeor equation for this individual. His RMR of 1,680 kcal represents the energy cost of maintaining vital organ function, cellular processes, and thermoregulation at rest.</p>
+    </div>
+    <div class="example">
+      <h3>Example 2: Post-Diet Female</h3>
+      <p>A 30-year-old woman who has been on a 1,200 kcal/day diet for 3 months has a calculated BMR of 1,350 kcal/day based on her current weight of 58 kg and height of 163 cm.</p>
+      <p>RMR range = 1,350 &times; 0.9 to 1,350 &times; 1.0 = 1,215 to <strong>1,350 kcal/day</strong></p>
+      <p>However, her measured RMR was only 1,180 kcal/day, which is 87% of her calculated BMR &mdash; below the expected range. This indicates metabolic adaptation from prolonged calorie restriction. Her body has downregulated energy expenditure to conserve resources, a common response to sustained dieting that makes further weight loss more difficult.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Common Uses</h2>
+    <ul>
+      <li>Clinical assessment of metabolic health in weight management programs and eating disorder treatment</li>
+      <li>Detecting metabolic adaptation in individuals who have been on prolonged calorie-restricted diets</li>
+      <li>Establishing baseline energy expenditure before beginning a nutrition intervention or exercise program</li>
+      <li>Monitoring metabolic recovery during refeeding protocols for malnourished patients</li>
+      <li>Research studies investigating the effects of diet composition, meal timing, and supplements on resting energy expenditure</li>
+      <li>Personalized nutrition planning where precise calorie targets are needed for competitive athletes</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Common Mistakes</h2>
+    <ul>
+      <li>Assuming RMR and BMR are identical and interchangeable, when RMR is typically 10&ndash;20% higher due to less stringent measurement conditions</li>
+      <li>Measuring RMR too soon after eating or exercising, which elevates metabolic rate through the thermic effect of food and excess post-exercise oxygen consumption</li>
+      <li>Using RMR as the sole basis for calorie targets without adding an activity factor, which would create an unsustainable and potentially dangerous deficit</li>
+      <li>Ignoring that RMR varies by 5&ndash;10% day-to-day due to factors like sleep quality, stress hormones, menstrual cycle phase, and ambient temperature</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Pro Tip</h2>
+    <p>If you want to measure your actual RMR at home without expensive equipment, use a wearable device like the Lumen or Breezing that estimates metabolic rate from breath CO2 concentration. While not as accurate as clinical indirect calorimetry, these devices provide a reasonable estimate within &plusmn;5&ndash;10%. Alternatively, track your weight and calorie intake meticulously for 4 weeks at a stable weight. Your average daily intake equals your TDEE. Divide by your activity factor (1.2&ndash;1.9) to estimate your RMR. This real-world approach often proves more accurate than any predictive equation.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What is the difference between RMR and BMR?</button>
+        <div class="faq-ap"><p>BMR is measured under strict laboratory conditions: after 12 hours of fasting, 8 hours of sleep, in a thermoneutral environment, with no physical activity for 24 hours. RMR is measured under less restrictive conditions: typically after a 4-hour fast and 30 minutes of rest. RMR values are usually 10&ndash;20% higher than BMR because the measurement conditions allow for slightly higher energy expenditure.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How can I increase my resting metabolic rate?</button>
+        <div class="faq-ap"><p>The most effective way to increase RMR is to build lean muscle mass through resistance training, as muscle tissue burns more calories at rest than fat tissue. Additionally, adequate protein intake (1.6&ndash;2.2 g/kg), quality sleep (7&ndash;9 hours), staying hydrated, and avoiding prolonged severe calorie deficits all support a healthy metabolic rate. Cold exposure may provide a small temporary boost through brown fat activation.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Does RMR change during the menstrual cycle?</button>
+        <div class="faq-ap"><p>Yes. RMR increases by approximately 100&ndash;300 kcal/day during the luteal phase (after ovulation, before menstruation) due to elevated progesterone levels and increased body temperature. This natural fluctuation means women may experience increased hunger and slightly higher calorie needs in the week before their period. Tracking RMR across the cycle provides a more complete picture than a single measurement.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">When should I get my RMR measured professionally?</button>
+        <div class="faq-ap"><p>Professional RMR measurement is most valuable if you have been dieting for an extended period and suspect metabolic adaptation, if you are a competitive athlete needing precise calorie targets, or if you have a medical condition affecting metabolism (thyroid disorders, PCOS). For general fitness goals, predictive equations combined with real-world weight tracking are usually sufficient.</p></div>
+      </div>
+    </div>
+  </div>
+</section>""",
+    },
+
+    "429": {
+        "es": """<section class="long-content">
+  <p>La calculadora de calor&iacute;as MET (Equivalente Metab&oacute;lico de Tarea) estima el gasto energ&eacute;tico para cualquier actividad f&iacute;sica usando su valor MET estandarizado, que representa la relaci&oacute;n entre la tasa metab&oacute;lica de trabajo y la tasa metab&oacute;lica en reposo. Esta f&oacute;rmula simple te permite comparar el costo cal&oacute;rico de diferentes actividades y planificar entrenamientos basados en tus objetivos de gasto energ&eacute;tico.</p>
+
+  <div class="formula-section">
+    <h2>F&oacute;rmula de la Calculadora de Calor&iacute;as MET</h2>
+    <p class="formula-display">Calor&iacute;as Quemadas = MET &times; Peso (kg) &times; Duraci&oacute;n (horas)</p>
+    <p>Un MET equivale al costo energ&eacute;tico de estar sentado tranquilamente, aproximadamente 1 kcal/kg/hora. Las actividades con valores MET m&aacute;s altos requieren m&aacute;s energ&iacute;a. Por ejemplo, caminar a 5 km/h tiene un MET de 3,5, correr a 10 km/h tiene un MET de 10, y nadar lapsos tiene un MET de 8. Una persona de 70 kg corriendo a 10 km/h (MET 10) durante 30 minutos (0,5 horas) quema: Calor&iacute;as = 10 &times; 70 &times; 0,5 = <strong>350 kcal</strong>. Esta f&oacute;rmula proporciona una estimaci&oacute;n pr&aacute;ctica que funciona con cientos de actividades catalogadas en el Compendio de Actividades F&iacute;sicas.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Ejemplos Pr&aacute;cticos</h2>
+    <div class="example">
+      <h3>Ejemplo 1: Trayecto en Bicicleta</h3>
+      <p>Una persona de 65 kg va en bicicleta al trabajo a un ritmo moderado (MET 7,5) durante 45 minutos.</p>
+      <p>Calor&iacute;as = 7,5 &times; 65 &times; 0,75 = <strong>365,6 kcal</strong></p>
+      <p>Este trayecto de 45 minutos quema aproximadamente 366 calor&iacute;as, equivalente a un entrenamiento de intensidad moderada. Durante una semana laboral de 5 d&iacute;as, esto suma 1.828 calor&iacute;as, contribuyendo significativamente al gasto energ&eacute;tico semanal y la salud cardiovascular sin requerir tiempo dedicado en el gimnasio.</p>
+    </div>
+    <div class="example">
+      <h3>Ejemplo 2: Sesi&oacute;n de Yoga</h3>
+      <p>Una persona de 80 kg practica yoga Hatha (MET 2,5) durante 60 minutos.</p>
+      <p>Calor&iacute;as = 2,5 &times; 80 &times; 1,0 = <strong>200 kcal</strong></p>
+      <p>Aunque el yoga quema menos calor&iacute;as por minuto que el ejercicio de alta intensidad, una sesi&oacute;n de 60 minutos a&uacute;n gasta 200 calor&iacute;as. El valor del yoga se extiende m&aacute;s all&aacute; del gasto cal&oacute;rico para incluir beneficios de flexibilidad, equilibrio, reducci&oacute;n del estr&eacute;s y atenci&oacute;n plena que favorecen la salud general y complementan el entrenamiento de mayor intensidad.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Usos Comunes</h2>
+    <ul>
+      <li>Estimaci&oacute;n del gasto cal&oacute;rico para registro de ejercicio en aplicaciones de fitness y diarios de entrenamiento</li>
+      <li>Comparaci&oacute;n del costo energ&eacute;tico de diferentes actividades para elegir el entrenamiento m&aacute;s eficiente para el tiempo disponible</li>
+      <li>C&aacute;lculo del gasto energ&eacute;tico diario total sumando valores MET para todas las actividades a lo largo del d&iacute;a</li>
+      <li>Planificaci&oacute;n de programas de p&eacute;rdida de peso identificando actividades que crean el mayor d&eacute;ficit cal&oacute;rico por unidad de tiempo</li>
+      <li>Estudios de investigaci&oacute;n que cuantifican los niveles de actividad f&iacute;sica en investigaciones epidemiol&oacute;gicas y de salud p&uacute;blica</li>
+      <li>Establecimiento de prescripciones de ejercicio en programas de rehabilitaci&oacute;n card&iacute;aca y fisiolog&iacute;a del ejercicio cl&iacute;nico</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Errores Comunes</h2>
+    <ul>
+      <li>Usar el valor MET gen&eacute;rico sin ajustar por el nivel de aptitud individual, ya que la misma actividad tiene una intensidad relativa m&aacute;s alta (y por lo tanto un mayor costo energ&eacute;tico real) para individuos menos aptos</li>
+      <li>Ignorar que los valores MET representan promedios y el gasto cal&oacute;rico individual puede variar &plusmn;20&ndash;30% seg&uacute;n la eficiencia, t&eacute;cnica y condiciones ambientales</li>
+      <li>A&ntilde;adir calor&iacute;as de ejercicio sobre la ingesta de alimentos basada en GEDT sin reconocer que el factor de actividad en el GEDT ya tiene en cuenta alg&uacute;n nivel de actividad f&iacute;sica</li>
+      <li>Usar valores MET para actividades que involucran trabajo significativo del tren superior (como remar) sin considerar que el MET est&aacute;ndar puede subestimar la quema de calor&iacute;as para individuos con mayor masa en el tren superior</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Consejo Profesional</h2>
+    <p>Para estimaciones de calor&iacute;as m&aacute;s precisas, ajusta el valor MET seg&uacute;n tu nivel de esfuerzo real. El Compendio de Actividades F&iacute;sicas lista valores MET para velocidades e intensidades espec&iacute;ficas. Por ejemplo, caminar a 3 km/h es MET 2,5, a 5 km/h es MET 3,5, y a 6,5 km/h es MET 5,0. Elige el valor MET que coincida con tu ritmo real en lugar de usar un valor gen&eacute;rico de &ldquo;caminar&rdquo;. Adicionalmente, considera el terreno: caminar cuesta arriba aumenta los valores MET en un 50&ndash;100%, mientras que cycling contra resistencia del viento puede aumentar el gasto energ&eacute;tico en un 20&ndash;40% comparado con el MET est&aacute;ndar.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;De d&oacute;nde provienen los valores MET?</button>
+        <div class="faq-ap"><p>Los valores MET provienen del Compendio de Actividades F&iacute;sicas, una base de datos integral mantenida por investigadores de la Universidad Estatal de Arizona. Los valores se basan en estudios publicados que miden el consumo de ox&iacute;geno durante actividades espec&iacute;ficas. El compendio incluye m&aacute;s de 1.000 actividades con valores MET asignados, actualizados regularmente a medida que nuevas investigaciones est&aacute;n disponibles.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;La f&oacute;rmula MET tiene en cuenta la edad y el g&eacute;nero?</button>
+        <div class="faq-ap"><p>No. La f&oacute;rmula MET est&aacute;ndar usa solo peso y duraci&oacute;n. Sin embargo, el gasto energ&eacute;tico real var&iacute;a seg&uacute;n la edad, el g&eacute;nero, la composici&oacute;n corporal y el nivel de aptitud. Los adultos mayores y las mujeres pueden quemar ligeramente menos calor&iacute;as de lo que la f&oacute;rmula predice para la misma actividad, mientras que los individuos con m&aacute;s masa muscular pueden quemar m&aacute;s. La f&oacute;rmula proporciona una estimaci&oacute;n razonable a nivel poblacional.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Qu&eacute; actividades tienen los valores MET m&aacute;s altos?</button>
+        <div class="faq-ap"><p>Algunas de las actividades con MET m&aacute;s alto incluyen: correr a 16 km/h (MET 16), saltar la cuerda a ritmo r&aacute;pido (MET 12,3), nadar estilo mariposa (MET 13,8), esqu&iacute; de fondo a ritmo de carrera (MET 15), y cargar pesos pesados escaleras arriba (MET 12). Como referencia, estar sentado tranquilamente es MET 1,0 y dormir es MET 0,9.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Puedo usar valores MET para entrenamiento de fuerza?</button>
+        <div class="faq-ap"><p>Los valores MET de entrenamiento de fuerza oscilan entre 3,0 (esfuerzo ligero) y 6,0 (esfuerzo vigoroso), pero son menos precisos que para actividades aer&oacute;bicas porque el entrenamiento de fuerza involucra per&iacute;odos de descanso entre series. La f&oacute;rmula MET asume actividad continua. Para entrenamiento de resistencia, considera usar el MET promedio durante toda la sesi&oacute;n incluyendo per&iacute;odos de descanso, o sigue las calor&iacute;as usando m&eacute;todos basados en frecuencia card&iacute;aca para mayor precisi&oacute;n.</p></div>
+      </div>
+    </div>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <p>The MET (Metabolic Equivalent of Task) calorie calculator estimates energy expenditure for any physical activity using its standardized MET value, which represents the ratio of working metabolic rate to resting metabolic rate. This simple formula allows you to compare the calorie cost of different activities and plan workouts based on your energy expenditure goals.</p>
+
+  <div class="formula-section">
+    <h2>MET Calorie Calculator Formula</h2>
+    <p class="formula-display">Calories Burned = MET &times; Weight (kg) &times; Duration (hours)</p>
+    <p>One MET equals the energy cost of sitting quietly, approximately 1 kcal/kg/hour. Activities with higher MET values require more energy. For example, walking at 5 km/h has a MET of 3.5, running at 10 km/h has a MET of 10, and swimming laps has a MET of 8. A 70 kg person running at 10 km/h (MET 10) for 30 minutes (0.5 hours) burns: Calories = 10 &times; 70 &times; 0.5 = <strong>350 kcal</strong>. This formula provides a practical estimate that works across hundreds of activities cataloged in the Compendium of Physical Activities.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Worked Examples</h2>
+    <div class="example">
+      <h3>Example 1: Cycling Commute</h3>
+      <p>A 65 kg person cycles to work at a moderate pace (MET 7.5) for 45 minutes.</p>
+      <p>Calories = 7.5 &times; 65 &times; 0.75 = <strong>365.6 kcal</strong></p>
+      <p>This 45-minute commute burns approximately 366 calories, equivalent to a moderate-intensity workout. Over a 5-day work week, this adds up to 1,828 calories, contributing significantly to weekly energy expenditure and cardiovascular health without requiring dedicated gym time.</p>
+    </div>
+    <div class="example">
+      <h3>Example 2: Yoga Session</h3>
+      <p>An 80 kg person practices Hatha yoga (MET 2.5) for 60 minutes.</p>
+      <p>Calories = 2.5 &times; 80 &times; 1.0 = <strong>200 kcal</strong></p>
+      <p>While yoga burns fewer calories per minute than high-intensity exercise, a 60-minute session still expends 200 calories. The value of yoga extends beyond calorie expenditure to include flexibility, balance, stress reduction, and mindfulness benefits that support overall health and complement higher-intensity training.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Common Uses</h2>
+    <ul>
+      <li>Estimating calorie expenditure for exercise logging in fitness apps and training journals</li>
+      <li>Comparing the energy cost of different activities to choose the most efficient workout for time available</li>
+      <li>Calculating total daily energy expenditure by summing MET values for all activities throughout the day</li>
+      <li>Planning weight loss programs by identifying activities that create the largest calorie deficit per unit of time</li>
+      <li>Research studies quantifying physical activity levels in epidemiological and public health investigations</li>
+      <li>Setting exercise prescriptions in cardiac rehabilitation and clinical exercise physiology programs</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Common Mistakes</h2>
+    <ul>
+      <li>Using the generic MET value without adjusting for individual fitness level, as the same activity has a higher relative intensity (and thus higher actual energy cost) for less fit individuals</li>
+      <li>Ignoring that MET values represent averages and individual calorie expenditure can vary by &plusmn;20&ndash;30% based on efficiency, technique, and environmental conditions</li>
+      <li>Adding exercise calories on top of TDEE-based food intake without recognizing that the activity factor in TDEE already accounts for some level of physical activity</li>
+      <li>Using MET values for activities that involve significant upper body work (like rowing) without considering that the standard MET may underestimate calorie burn for individuals with greater upper body mass</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Pro Tip</h2>
+    <p>For more accurate calorie estimates, adjust the MET value based on your actual effort level. The Compendium of Physical Activities lists MET values for specific speeds and intensities. For example, walking at 3 km/h is MET 2.5, at 5 km/h is MET 3.5, and at 6.5 km/h is MET 5.0. Choose the MET value that matches your actual pace rather than using a generic &ldquo;walking&rdquo; value. Additionally, factor in terrain: walking uphill increases MET values by 50&ndash;100%, while cycling against wind resistance can increase energy expenditure by 20&ndash;40% compared to the standard MET.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Where do MET values come from?</button>
+        <div class="faq-ap"><p>MET values are derived from the Compendium of Physical Activities, a comprehensive database maintained by researchers at Arizona State University. Values are based on published studies measuring oxygen consumption during specific activities. The compendium includes over 1,000 activities with assigned MET values, regularly updated as new research becomes available.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Does the MET formula account for age and gender?</button>
+        <div class="faq-ap"><p>No. The standard MET formula uses only weight and duration. However, actual energy expenditure varies by age, gender, body composition, and fitness level. Older adults and women may burn slightly fewer calories than the formula predicts for the same activity, while individuals with more muscle mass may burn more. The formula provides a reasonable population-level estimate.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What activities have the highest MET values?</button>
+        <div class="faq-ap"><p>Some of the highest MET activities include: running at 16 km/h (MET 16), jumping rope at fast pace (MET 12.3), swimming butterfly stroke (MET 13.8), cross-country skiing at racing pace (MET 15), and carrying heavy loads upstairs (MET 12). For reference, sitting quietly is MET 1.0 and sleeping is MET 0.9.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Can I use MET values for strength training?</button>
+        <div class="faq-ap"><p>Strength training MET values range from 3.0 (light effort) to 6.0 (vigorous effort), but these are less accurate than for aerobic activities because strength training involves rest periods between sets. The MET formula assumes continuous activity. For resistance training, consider using the average MET across the entire session including rest periods, or track calories using heart rate-based methods for better accuracy.</p></div>
+      </div>
+    </div>
+  </div>
+</section>""",
+    },
+
+    "430": {
+        "es": """<section class="long-content">
+  <p>La calculadora de peso objetivo te ayuda a determinar cu&aacute;nto tiempo tomar&aacute; alcanzar tu peso deseado bas&aacute;ndote en un d&eacute;ficit o super&aacute;vit cal&oacute;rico diario espec&iacute;fico. Al comprender la relaci&oacute;n matem&aacute;tica entre el balance energ&eacute;tico y el cambio de peso corporal, puedes establecer plazos realistas y ajustar tu enfoque para lograr resultados sostenibles.</p>
+
+  <div class="formula-section">
+    <h2>F&oacute;rmula de Tiempo para Peso Objetivo</h2>
+    <p class="formula-display">D&iacute;as = (Peso Actual &minus; Peso Objetivo) &times; 7.700 / D&eacute;ficit Cal&oacute;rico Diario</p>
+    <p>La f&oacute;rmula se basa en la aproximaci&oacute;n de que 1 kg de grasa corporal contiene aproximadamente 7.700 kcal de energ&iacute;a almacenada. Para perder peso, creas un d&eacute;ficit cal&oacute;rico diario (comiendo menos que tu GEDT). El d&eacute;ficit cal&oacute;rico total necesario equivale al peso a perder multiplicado por 7.700. Dividir por tu d&eacute;ficit diario da el n&uacute;mero de d&iacute;as requeridos. Por ejemplo, para perder 10 kg con un d&eacute;ficit diario de 500 kcal: D&iacute;as = (10 &times; 7.700) / 500 = 77.000 / 500 = <strong>154 d&iacute;as</strong> (aproximadamente 22 semanas o 5 meses).</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Ejemplos Pr&aacute;cticos</h2>
+    <div class="example">
+      <h3>Ejemplo 1: P&eacute;rdida de Peso Moderada</h3>
+      <p>Una persona que pesa 90 kg quiere llegar a 80 kg con un d&eacute;ficit cal&oacute;rico diario de 500 kcal.</p>
+      <p>Peso a perder: 90 &minus; 80 = 10 kg<br>D&eacute;ficit total necesario: 10 &times; 7.700 = 77.000 kcal<br>D&iacute;as = 77.000 / 500 = <strong>154 d&iacute;as</strong></p>
+      <p>Con un d&eacute;ficit diario de 500 kcal, esta persona puede esperar perder aproximadamente 0,5 kg por semana (500 &times; 7 = 3.500 kcal/semana &divide; 7.700 = 0,45 kg/semana). El plazo de 154 d&iacute;as asume adherencia consistente y sin adaptaci&oacute;n metab&oacute;lica. En la pr&aacute;ctica, el plazo real puede ser un 10&ndash;20% m&aacute;s largo debido a la ralentizaci&oacute;n metab&oacute;lica del cuerpo durante la p&eacute;rdida de peso.</p>
+    </div>
+    <div class="example">
+      <h3>Ejemplo 2: P&eacute;rdida de Peso Agresiva</h3>
+      <p>Una persona que pesa 100 kg quiere llegar a 85 kg con un d&eacute;ficit cal&oacute;rico diario de 1.000 kcal.</p>
+      <p>Peso a perder: 100 &minus; 85 = 15 kg<br>D&eacute;ficit total necesario: 15 &times; 7.700 = 115.500 kcal<br>D&iacute;as = 115.500 / 1.000 = <strong>115,5 d&iacute;as</strong></p>
+      <p>Aunque las matem&aacute;ticas sugieren 116 d&iacute;as, un d&eacute;ficit diario de 1.000 kcal es agresivo y puede no ser sostenible o saludable para todos. Un d&eacute;ficit tan grande puede desencadenar adaptaci&oacute;n metab&oacute;lica significativa, p&eacute;rdida muscular y deficiencias de nutrientes. Un enfoque m&aacute;s sostenible ser&iacute;a un d&eacute;ficit de 500&ndash;750 kcal, extendiendo el plazo a 154&ndash;231 d&iacute;as pero preservando la masa muscular y la salud metab&oacute;lica.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Usos Comunes</h2>
+    <ul>
+      <li>Establecimiento de plazos realistas de p&eacute;rdida de peso para establecimiento de metas personales y motivaci&oacute;n</li>
+      <li>Planificaci&oacute;n de la duraci&oacute;n de fases de corte en culturismo y ciclos de preparaci&oacute;n atl&eacute;tica</li>
+      <li>Comparaci&oacute;n de diferentes estrategias de d&eacute;ficit cal&oacute;rico para encontrar el equilibrio &oacute;ptimo entre velocidad y sostenibilidad</li>
+      <li>C&aacute;lculo del super&aacute;vit cal&oacute;rico necesario y el plazo para fases de ganancia muscular (volumen)</li>
+      <li>Proveedores de atenci&oacute;n m&eacute;dica estableciendo trayectorias esperadas de p&eacute;rdida de peso para pacientes en programas de manejo de peso</li>
+      <li>Evaluaci&oacute;n de si una meta de p&eacute;rdida de peso deseada es alcanzable dentro de un plazo espec&iacute;fico (por ejemplo, antes de un evento)</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Errores Comunes</h2>
+    <ul>
+      <li>Asumir una p&eacute;rdida de peso lineal cuando la tasa metab&oacute;lica del cuerpo disminuye a medida que el peso baja, haciendo que cada kilogramo subsiguiente tome m&aacute;s tiempo en perderse que el anterior</li>
+      <li>Crear d&eacute;ficits mayores a 1.000 kcal/d&iacute;a, lo que lleva a p&eacute;rdida muscular, deficiencias de nutrientes y adaptaci&oacute;n metab&oacute;lica que en &uacute;ltima instancia ralentiza el progreso</li>
+      <li>No tener en cuenta que la p&eacute;rdida de peso inicial incluye peso significativo de agua (2&ndash;4 kg en la primera semana), haciendo que el progreso temprano parezca m&aacute;s r&aacute;pido que la tasa a largo plazo</li>
+      <li>Ignorar que la regla de 7.700 kcal/kg es una aproximaci&oacute;n que se vuelve menos precisa en porcentajes de grasa corporal m&aacute;s bajos, donde una mayor proporci&oacute;n de la p&eacute;rdida de peso proviene de tejido magro</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Consejo Profesional</h2>
+    <p>Usa un enfoque por fases para la p&eacute;rdida de peso: comienza con un d&eacute;ficit moderado de 500&ndash;750 kcal/d&iacute;a durante las primeras 8&ndash;12 semanas, luego implementa un &ldquo;descanso de dieta&rdquo; de 1&ndash;2 semanas en calor&iacute;as de mantenimiento para restaurar los niveles de leptina y la tasa metab&oacute;lica. Despu&eacute;s del descanso, reanuda el d&eacute;ficit. Este enfoque, respaldado por el estudio MATADOR, resulta en mayor p&eacute;rdida de grasa y mejor salud metab&oacute;lica comparado con el dietado continuo. Adicionalmente, recalcula tu GEDT y ajusta tu objetivo cal&oacute;rico cada 5 kg de p&eacute;rdida de peso, ya que tus necesidades energ&eacute;ticas disminuyen con tu tama&ntilde;o corporal.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Es 0,5&ndash;1 kg por semana una tasa segura de p&eacute;rdida de peso?</button>
+        <div class="faq-ap"><p>S&iacute;. La mayor&iacute;a de las organizaciones de salud recomiendan perder 0,5&ndash;1 kg (1&ndash;2 lbs) por semana como una tasa segura y sostenible. Esto corresponde a un d&eacute;ficit diario de 550&ndash;1.100 kcal. Una p&eacute;rdida de peso m&aacute;s r&aacute;pida aumenta el riesgo de p&eacute;rdida muscular, c&aacute;lculos biliares, deficiencias de nutrientes y adaptaci&oacute;n metab&oacute;lica. Individuos con mayor grasa corporal inicial pueden perder peso de manera m&aacute;s r&aacute;pida y segura al principio.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Por qu&eacute; la p&eacute;rdida de peso se ralentiza con el tiempo?</button>
+        <div class="faq-ap"><p>Tres factores causan que la p&eacute;rdida de peso se desacelere: (1) un cuerpo m&aacute;s peque&ntilde;o requiere menos calor&iacute;as para mantenerse, reduciendo tu GEDT; (2) la adaptaci&oacute;n metab&oacute;lica reduce la TMB m&aacute;s all&aacute; de lo esperado solo por la p&eacute;rdida de peso; y (3) reducciones inconscientes en NEAT (actividad sin ejercicio) ya que el cuerpo conserva energ&iacute;a. Estos factores significan que el mismo d&eacute;ficit cal&oacute;rico produce menos p&eacute;rdida de peso con el tiempo.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Puedo usar esta f&oacute;rmula para ganancia de peso?</button>
+        <div class="faq-ap"><p>S&iacute;. La misma f&oacute;rmula funciona para ganancia de peso usando un super&aacute;vit cal&oacute;rico en lugar de un d&eacute;ficit. Para ganancia muscular, apunta a un super&aacute;vit de 250&ndash;500 kcal/d&iacute;a, que a&ntilde;ade aproximadamente 0,25&ndash;0,5 kg por semana. Ten en cuenta que no todo el peso ganado ser&aacute; m&uacute;sculo &mdash; algo de ganancia de grasa es inevitable incluso con entrenamiento &oacute;ptimo e ingesta de prote&iacute;nas.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Qu&eacute; tan precisa es la regla de 7.700 kcal por kg?</button>
+        <div class="faq-ap"><p>La regla de 7.700 kcal/kg es una aproximaci&oacute;n &uacute;til pero no perfectamente precisa. El contenido energ&eacute;tico real del peso perdido var&iacute;a seg&uacute;n la composici&oacute;n corporal: la grasa pura contiene aproximadamente 9.400 kcal/kg, pero el tejido graso corporal es aproximadamente 87% l&iacute;pido (produciendo ~7.700 kcal/kg). Cuando tambi&eacute;n se pierde tejido magro, el d&eacute;ficit energ&eacute;tico efectivo por kg es menor. Para la mayor&iacute;a de los prop&oacute;sitos pr&aacute;cticos, 7.700 kcal/kg es suficientemente preciso.</p></div>
+      </div>
+    </div>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <p>The target weight calculator helps you determine how long it will take to reach your desired weight based on a specific daily calorie deficit or surplus. By understanding the mathematical relationship between energy balance and body weight change, you can set realistic timelines and adjust your approach to achieve sustainable results.</p>
+
+  <div class="formula-section">
+    <h2>Target Weight Time Formula</h2>
+    <p class="formula-display">Days = (Current Weight &minus; Target Weight) &times; 7,700 / Daily Calorie Deficit</p>
+    <p>The formula is based on the approximation that 1 kg of body fat contains approximately 7,700 kcal of stored energy. To lose weight, you create a daily calorie deficit (eating less than your TDEE). The total calorie deficit needed equals the weight to lose multiplied by 7,700. Dividing by your daily deficit gives the number of days required. For example, to lose 10 kg with a daily deficit of 500 kcal: Days = (10 &times; 7,700) / 500 = 77,000 / 500 = <strong>154 days</strong> (approximately 22 weeks or 5 months).</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Worked Examples</h2>
+    <div class="example">
+      <h3>Example 1: Moderate Weight Loss</h3>
+      <p>A person weighing 90 kg wants to reach 80 kg with a daily calorie deficit of 500 kcal.</p>
+      <p>Weight to lose: 90 &minus; 80 = 10 kg<br>Total deficit needed: 10 &times; 7,700 = 77,000 kcal<br>Days = 77,000 / 500 = <strong>154 days</strong></p>
+      <p>At a 500 kcal daily deficit, this person can expect to lose approximately 0.5 kg per week (500 &times; 7 = 3,500 kcal/week &divide; 7,700 = 0.45 kg/week). The 154-day timeline assumes consistent adherence and no metabolic adaptation. In practice, the actual timeline may be 10&ndash;20% longer due to the body&rsquo;s metabolic slowdown during weight loss.</p>
+    </div>
+    <div class="example">
+      <h3>Example 2: Aggressive Weight Loss</h3>
+      <p>A person weighing 100 kg wants to reach 85 kg with a daily calorie deficit of 1,000 kcal.</p>
+      <p>Weight to lose: 100 &minus; 85 = 15 kg<br>Total deficit needed: 15 &times; 7,700 = 115,500 kcal<br>Days = 115,500 / 1,000 = <strong>115.5 days</strong></p>
+      <p>While the math suggests 116 days, a 1,000 kcal daily deficit is aggressive and may not be sustainable or healthy for everyone. A deficit this large can trigger significant metabolic adaptation, muscle loss, and nutrient deficiencies. A more sustainable approach would be a 500&ndash;750 kcal deficit, extending the timeline to 154&ndash;231 days but preserving muscle mass and metabolic health.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Common Uses</h2>
+    <ul>
+      <li>Setting realistic weight loss timelines for personal goal-setting and motivation</li>
+      <li>Planning the duration of cutting phases in bodybuilding and athletic preparation cycles</li>
+      <li>Comparing different calorie deficit strategies to find the optimal balance between speed and sustainability</li>
+      <li>Calculating the calorie surplus needed and timeline for muscle-building (bulking) phases</li>
+      <li>Healthcare providers establishing expected weight loss trajectories for patients in weight management programs</li>
+      <li>Evaluating whether a desired weight loss goal is achievable within a specific deadline (e.g., before an event)</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Common Mistakes</h2>
+    <ul>
+      <li>Assuming linear weight loss when the body&rsquo;s metabolic rate decreases as weight drops, making each subsequent kilogram take longer to lose than the previous one</li>
+      <li>Creating deficits larger than 1,000 kcal/day, which leads to muscle loss, nutrient deficiencies, and metabolic adaptation that ultimately slows progress</li>
+      <li>Not accounting for the fact that initial weight loss includes significant water weight (2&ndash;4 kg in the first week), making early progress appear faster than the long-term rate</li>
+      <li>Ignoring that the 7,700 kcal/kg rule is an approximation that becomes less accurate at lower body fat percentages, where a greater proportion of weight loss comes from lean tissue</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Pro Tip</h2>
+    <p>Use a phased approach to weight loss: start with a moderate deficit of 500&ndash;750 kcal/day for the first 8&ndash;12 weeks, then implement a 1&ndash;2 week &ldquo;diet break&rdquo; at maintenance calories to restore leptin levels and metabolic rate. After the break, resume the deficit. This approach, supported by the MATADOR study, results in greater fat loss and better metabolic health compared to continuous dieting. Additionally, recalculate your TDEE and adjust your calorie target every 5 kg of weight loss, as your energy needs decrease with your body size.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Is 0.5&ndash;1 kg per week a safe rate of weight loss?</button>
+        <div class="faq-ap"><p>Yes. Most health organizations recommend losing 0.5&ndash;1 kg (1&ndash;2 lbs) per week as a safe and sustainable rate. This corresponds to a daily deficit of 550&ndash;1,100 kcal. Faster weight loss increases the risk of muscle loss, gallstones, nutrient deficiencies, and metabolic adaptation. Individuals with higher starting body fat may safely lose weight faster initially.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Why does weight loss slow down over time?</button>
+        <div class="faq-ap"><p>Three factors cause weight loss to decelerate: (1) a smaller body requires fewer calories to maintain, reducing your TDEE; (2) metabolic adaptation reduces BMR beyond what is expected from weight loss alone; and (3) unconscious reductions in NEAT (non-exercise activity) as the body conserves energy. These factors mean the same calorie deficit produces less weight loss over time.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Can I use this formula for weight gain?</button>
+        <div class="faq-ap"><p>Yes. The same formula works for weight gain by using a calorie surplus instead of a deficit. For muscle gain, aim for a surplus of 250&ndash;500 kcal/day, which adds approximately 0.25&ndash;0.5 kg per week. Note that not all gained weight will be muscle &mdash; some fat gain is inevitable even with optimal training and protein intake.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How accurate is the 7,700 kcal per kg rule?</button>
+        <div class="faq-ap"><p>The 7,700 kcal/kg rule is a useful approximation but not perfectly accurate. Actual energy content of lost weight varies based on body composition: pure fat contains about 9,400 kcal/kg, but body fat tissue is approximately 87% lipid (yielding ~7,700 kcal/kg). When lean tissue is also lost, the effective energy deficit per kg is lower. For most practical purposes, 7,700 kcal/kg is sufficiently accurate.</p></div>
+      </div>
+    </div>
+  </div>
+</section>""",
+    },
+
+    "431": {
+        "es": """<section class="long-content">
+  <p>Las recomendaciones de aumento de peso durante el embarazo se basan en tu &Iacute;ndice de Masa Corporal (IMC) previo al embarazo, con diferentes rangos objetivo para mujeres con bajo peso, peso normal, sobrepeso y obesidad. Aumentar la cantidad adecuada de peso durante el embarazo favorece un desarrollo fetal saludable mientras minimiza los riesgos tanto para la madre como para el beb&eacute;.</p>
+
+  <div class="formula-section">
+    <h2>Recomendaciones de Aumento de Peso en el Embarazo</h2>
+    <p class="formula-display">Bajo peso (IMC &lt; 18,5): 12,5&ndash;18 kg<br>Peso normal (IMC 18,5&ndash;24,9): 11,5&ndash;16 kg<br>Sobrepeso (IMC 25&ndash;29,9): 7&ndash;11,5 kg<br>Obesidad (IMC &ge; 30): 5&ndash;9 kg</p>
+    <p>Estas pautas del Instituto de Medicina (2009) se basan en extensas investigaciones que vinculan el aumento de peso gestacional con resultados maternos e infantiles. El peso ganado durante el embarazo incluye el beb&eacute; (aproximadamente 3,5 kg), placenta (0,7 kg), l&iacute;quido amni&oacute;tico (0,9 kg), aumento del volumen sangu&iacute;neo (1,8 kg), tejido mamario (0,9 kg), tejido uterino (0,9 kg) y reservas de grasa materna (2,5&ndash;4 kg). Para una mujer con peso normal, el total recomendado de 11,5&ndash;16 kg proporciona reservas adecuadas para el crecimiento fetal y la preparaci&oacute;n para la lactancia.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Ejemplos Pr&aacute;cticos</h2>
+    <div class="example">
+      <h3>Ejemplo 1: Embarazo con Peso Normal</h3>
+      <p>Una mujer con un peso previo al embarazo de 60 kg y estatura de 165 cm (IMC = 22,0) espera un embarazo de un solo feto.</p>
+      <p>IMC previo al embarazo: 60 / (1,65 &times; 1,65) = 22,0 (Peso normal)<br>Aumento de peso recomendado: <strong>11,5&ndash;16 kg</strong><br>Peso objetivo al parto: 71,5&ndash;76 kg</p>
+      <p>Debe aspirar a ganar aproximadamente 0,4 kg por semana durante el segundo y tercer trimestre. El primer trimestre t&iacute;picamente implica un aumento m&iacute;nimo de peso (0,5&ndash;2 kg en total). Mantenerse dentro del rango de 11,5&ndash;16 kg reduce el riesgo de diabetes gestacional, parto por ces&aacute;rea y retenci&oacute;n de peso postparto.</p>
+    </div>
+    <div class="example">
+      <h3>Ejemplo 2: Embarazo con Sobrepeso</h3>
+      <p>Una mujer con un peso previo al embarazo de 78 kg y estatura de 165 cm (IMC = 28,7) espera gemelos.</p>
+      <p>IMC previo al embarazo: 78 / (1,65 &times; 1,65) = 28,7 (Sobrepeso)<br>Aumento de peso recomendado para gemelos (sobrepeso): <strong>14&ndash;23 kg</strong><br>Peso objetivo al parto: 92&ndash;101 kg</p>
+      <p>Para embarazos m&uacute;ltiples, las recomendaciones de aumento de peso son mayores que para fetos &uacute;nicos. El Instituto de Medicina recomienda 14&ndash;23 kg para mujeres con sobrepeso que llevan gemelos. Este peso adicional favorece el crecimiento de dos beb&eacute;s, dos placentas y el aumento del volumen sangu&iacute;neo materno. El monitoreo cercano por un obstetra es esencial durante todo el embarazo.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Usos Comunes</h2>
+    <ul>
+      <li>Establecimiento de objetivos individualizados de aumento de peso gestacional en la primera visita prenatal basados en el IMC previo al embarazo</li>
+      <li>Monitoreo de la trayectoria de aumento de peso durante el embarazo para identificar desviaciones de los rangos recomendados</li>
+      <li>Orientaci&oacute;n de consejer&iacute;a nutricional y ajustes diet&eacute;ticos durante las visitas de atenci&oacute;n prenatal</li>
+      <li>Evaluaci&oacute;n del riesgo de complicaciones del embarazo asociadas con aumento de peso inadecuado o excesivo</li>
+      <li>Planificaci&oacute;n de estrategias de p&eacute;rdida de peso postparto basadas en el aumento de peso gestacional total</li>
+      <li>Educaci&oacute;n de madres expectantes sobre patrones saludables de aumento de peso y qu&eacute; representa el peso</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Errores Comunes</h2>
+    <ul>
+      <li>&ldquo;Comer por dos&rdquo; y consumir el doble de calor&iacute;as, cuando la necesidad cal&oacute;rica adicional real es solo de aproximadamente 340 kcal/d&iacute;a en el segundo trimestre y 450 kcal/d&iacute;a en el tercer trimestre</li>
+      <li>Intentar perder peso o restringir el aumento durante el embarazo, lo que puede llevar a bajo peso al nacer, parto prematuro y problemas de desarrollo</li>
+      <li>No ajustar las expectativas de aumento de peso para embarazos m&uacute;ltiples (gemelos: 17&ndash;25 kg para IMC normal; trillizos: a&uacute;n m&aacute;s)</li>
+      <li>Ignorar que el aumento de peso debe ser gradual, con la mayor&iacute;a del aumento ocurriendo en el segundo y tercer trimestre en lugar de distribuido uniformemente en las 40 semanas</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Consejo Profesional</h2>
+    <p>Sigue tu aumento de peso semanalmente comenzando desde el inicio del segundo trimestre (semana 13). Para una mujer con peso normal, apunta a aproximadamente 0,4 kg por semana. Si est&aacute;s ganando demasiado r&aacute;pido, enf&oacute;cate en alimentos densos en nutrientes en lugar de restricci&oacute;n cal&oacute;rica: verduras, prote&iacute;nas magras, granos integrales y grasas saludables. Si est&aacute;s ganando demasiado lento, a&ntilde;ade 200&ndash;300 kcal/d&iacute;a a trav&eacute;s de bocadillos ricos en nutrientes como nueces, yogur y batidos. Recuerda que las fluctuaciones semanales de &plusmn;0,5 kg son normales debido a la retenci&oacute;n de l&iacute;quidos y no deben causar preocupaci&oacute;n. Enf&oacute;cate en la tendencia general en lugar de mediciones semanales individuales.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Qu&eacute; pasa si gan&eacute; demasiado peso al principio del embarazo?</button>
+        <div class="faq-ap"><p>Si has ganado m&aacute;s de lo recomendado en la primera mitad del embarazo, no intentes perder peso. En su lugar, apunta al extremo inferior de la tasa recomendada para las semanas restantes. Discute tu patr&oacute;n de aumento de peso con tu obstetra, quien puede ajustar tu orientaci&oacute;n nutricional. El aumento excesivo temprano aumenta el riesgo de diabetes gestacional y beb&eacute;s grandes para la edad gestacional.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Cu&aacute;nto peso pierdo inmediatamente despu&eacute;s del parto?</button>
+        <div class="faq-ap"><p>La mayor&iacute;a de las mujeres pierden aproximadamente 5&ndash;6 kg inmediatamente despu&eacute;s del parto por el beb&eacute; (3,5 kg), placenta (0,7 kg) y l&iacute;quido amni&oacute;tico (0,9 kg). La p&eacute;rdida de peso adicional ocurre en las semanas siguientes a medida que el exceso de l&iacute;quido se elimina a trav&eacute;s de la orina y el sudor. A las 6 semanas postparto, muchas mujeres han perdido aproximadamente la mitad del aumento de peso del embarazo. El peso restante t&iacute;picamente requiere una combinaci&oacute;n de lactancia y retorno gradual a los h&aacute;bitos de alimentaci&oacute;n y ejercicio previos al embarazo.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Las recomendaciones cambian para embarazos adolescentes?</button>
+        <div class="faq-ap"><p>S&iacute;. Las madres adolescentes (menores de 20 a&ntilde;os) que a&uacute;n est&aacute;n creciendo deben apuntar al extremo superior de los rangos recomendados de aumento de peso. Las madres adolescentes con un IMC normal previo al embarazo deben ganar 14&ndash;18 kg en lugar de 11,5&ndash;16 kg, ya que necesitan nutrientes y energ&iacute;a adicionales para su propio crecimiento y desarrollo continuo junto con el embarazo.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;La lactancia ayuda con la p&eacute;rdida de peso postparto?</button>
+        <div class="faq-ap"><p>La lactancia quema aproximadamente 300&ndash;500 kcal/d&iacute;a, lo que puede contribuir a la p&eacute;rdida de peso postparto gradual. Sin embargo, el efecto var&iacute;a entre individuos. Algunas mujeres pierden peso r&aacute;pidamente mientras amamantan, mientras que otras retienen peso hasta el destete. La clave es mantener una dieta equilibrada que favorezca la producci&oacute;n de leche mientras permite una p&eacute;rdida de peso gradual de 0,5&ndash;1 kg por semana.</p></div>
+      </div>
+    </div>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <p>Pregnancy weight gain recommendations are based on your pre-pregnancy Body Mass Index (BMI), with different target ranges for underweight, normal weight, overweight, and obese women. Gaining the appropriate amount of weight during pregnancy supports healthy fetal development while minimizing risks for both mother and baby.</p>
+
+  <div class="formula-section">
+    <h2>Pregnancy Weight Gain Recommendations</h2>
+    <p class="formula-display">Underweight (BMI &lt; 18.5): 12.5&ndash;18 kg<br>Normal weight (BMI 18.5&ndash;24.9): 11.5&ndash;16 kg<br>Overweight (BMI 25&ndash;29.9): 7&ndash;11.5 kg<br>Obese (BMI &ge; 30): 5&ndash;9 kg</p>
+    <p>These guidelines from the Institute of Medicine (2009) are based on extensive research linking gestational weight gain to maternal and infant outcomes. The weight gained during pregnancy includes the baby (approximately 3.5 kg), placenta (0.7 kg), amniotic fluid (0.9 kg), increased blood volume (1.8 kg), breast tissue (0.9 kg), uterine tissue (0.9 kg), and maternal fat stores (2.5&ndash;4 kg). For a normal-weight woman, the recommended 11.5&ndash;16 kg total provides adequate reserves for fetal growth and breastfeeding preparation.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Worked Examples</h2>
+    <div class="example">
+      <h3>Example 1: Normal Weight Pregnancy</h3>
+      <p>A woman with a pre-pregnancy weight of 60 kg and height of 165 cm (BMI = 22.0) is expecting a singleton pregnancy.</p>
+      <p>Pre-pregnancy BMI: 60 / (1.65 &times; 1.65) = 22.0 (Normal weight)<br>Recommended weight gain: <strong>11.5&ndash;16 kg</strong><br>Target delivery weight: 71.5&ndash;76 kg</p>
+      <p>She should aim to gain approximately 0.4 kg per week during the second and third trimesters. The first trimester typically involves minimal weight gain (0.5&ndash;2 kg total). Staying within the 11.5&ndash;16 kg range reduces the risk of gestational diabetes, cesarean delivery, and postpartum weight retention.</p>
+    </div>
+    <div class="example">
+      <h3>Example 2: Overweight Pregnancy</h3>
+      <p>A woman with a pre-pregnancy weight of 78 kg and height of 165 cm (BMI = 28.7) is expecting twins.</p>
+      <p>Pre-pregnancy BMI: 78 / (1.65 &times; 1.65) = 28.7 (Overweight)<br>Recommended weight gain for twins (overweight): <strong>14&ndash;23 kg</strong><br>Target delivery weight: 92&ndash;101 kg</p>
+      <p>For twin pregnancies, weight gain recommendations are higher than for singletons. The Institute of Medicine recommends 14&ndash;23 kg for overweight women carrying twins. This additional weight supports the growth of two babies, two placentas, and increased maternal blood volume. Close monitoring by an obstetrician is essential throughout the pregnancy.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Common Uses</h2>
+    <ul>
+      <li>Setting individualized gestational weight gain targets at the first prenatal visit based on pre-pregnancy BMI</li>
+      <li>Monitoring weight gain trajectory throughout pregnancy to identify deviations from recommended ranges</li>
+      <li>Guiding nutritional counseling and dietary adjustments during prenatal care visits</li>
+      <li>Assessing risk for pregnancy complications associated with inadequate or excessive weight gain</li>
+      <li>Planning postpartum weight loss strategies based on total gestational weight gained</li>
+      <li>Educating expectant mothers about healthy weight gain patterns and what the weight represents</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Common Mistakes</h2>
+    <ul>
+      <li>&ldquo;Eating for two&rdquo; and consuming double the calories, when the actual additional calorie need is only about 340 kcal/day in the second trimester and 450 kcal/day in the third trimester</li>
+      <li>Trying to lose weight or restrict gain during pregnancy, which can lead to low birth weight, preterm delivery, and developmental issues</li>
+      <li>Not adjusting weight gain expectations for multiple pregnancies (twins: 17&ndash;25 kg for normal BMI; triplets: even more)</li>
+      <li>Ignoring that weight gain should be gradual, with most gain occurring in the second and third trimesters rather than evenly distributed across all 40 weeks</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Pro Tip</h2>
+    <p>Track your weight gain weekly starting from the beginning of the second trimester (week 13). For a normal-weight woman, aim for approximately 0.4 kg per week. If you are gaining too quickly, focus on nutrient-dense foods rather than calorie restriction: vegetables, lean proteins, whole grains, and healthy fats. If you are gaining too slowly, add 200&ndash;300 kcal/day through nutrient-rich snacks like nuts, yogurt, and smoothies. Remember that week-to-week fluctuations of &plusmn;0.5 kg are normal due to fluid retention and should not cause concern. Focus on the overall trend rather than individual weekly measurements.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What if I gained too much weight early in pregnancy?</button>
+        <div class="faq-ap"><p>If you have gained more than recommended in the first half of pregnancy, do not try to lose weight. Instead, aim for the lower end of the recommended rate for the remaining weeks. Discuss your weight gain pattern with your obstetrician, who may adjust your nutritional guidance. Excessive early gain increases the risk of gestational diabetes and large-for-gestational-age babies.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How much weight do I lose immediately after delivery?</button>
+        <div class="faq-ap"><p>Most women lose approximately 5&ndash;6 kg immediately after delivery from the baby (3.5 kg), placenta (0.7 kg), and amniotic fluid (0.9 kg). Additional weight loss occurs in the following weeks as excess fluid is eliminated through urination and sweating. By 6 weeks postpartum, many women have lost about half of their pregnancy weight gain. The remaining weight typically requires a combination of breastfeeding and gradual return to pre-pregnancy eating and exercise habits.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Do the recommendations change for teenage pregnancies?</button>
+        <div class="faq-ap"><p>Yes. Adolescent mothers (under 20 years) who are still growing themselves should aim for the higher end of the recommended weight gain ranges. Teenage mothers with a normal pre-pregnancy BMI should gain 14&ndash;18 kg rather than 11.5&ndash;16 kg, as they need additional nutrients and energy for their own continued growth and development alongside the pregnancy.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Does breastfeeding help with postpartum weight loss?</button>
+        <div class="faq-ap"><p>Breastfeeding burns approximately 300&ndash;500 kcal/day, which can contribute to gradual postpartum weight loss. However, the effect varies among individuals. Some women lose weight quickly while breastfeeding, while others retain weight until they wean. The key is to maintain a balanced diet that supports milk production while allowing for gradual weight loss of 0.5&ndash;1 kg per week.</p></div>
+      </div>
+    </div>
+  </div>
+</section>""",
+    },
+
+    "432": {
+        "es": """<section class="long-content">
+  <p>Calcular las calor&iacute;as quemadas al caminar te ayuda a comprender el costo energ&eacute;tico de una de las formas de ejercicio m&aacute;s accesibles. Caminar quema calor&iacute;as bas&aacute;ndose en tu peso corporal, velocidad de caminata y duraci&oacute;n, lo que facilita estimar el impacto metab&oacute;lico de tus caminatas diarias o entrenamientos estructurados de caminata.</p>
+
+  <div class="formula-section">
+    <h2>F&oacute;rmula de Calor&iacute;as Quemadas Caminando</h2>
+    <p class="formula-display">Calor&iacute;as = MET (3,5&ndash;5,0) &times; Peso (kg) &times; Duraci&oacute;n (horas)</p>
+    <p>El valor MET para caminar depende de tu velocidad y terreno. Caminar a 3 km/h (ritmo lento) tiene un MET de 2,5, a 5 km/h (ritmo moderado) tiene un MET de 3,5, a 6,5 km/h (ritmo en&eacute;rgico) tiene un MET de 5,0, y caminar cuesta arriba a 5 km/h tiene un MET de 6,0. Una persona de 70 kg caminando a un ritmo moderado (5 km/h, MET 3,5) durante 45 minutos (0,75 horas) quema: Calor&iacute;as = 3,5 &times; 70 &times; 0,75 = <strong>183,8 kcal</strong>. Esto hace que caminar sea un ejercicio efectivo de bajo impacto para gasto cal&oacute;rico y salud cardiovascular.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Ejemplos Pr&aacute;cticos</h2>
+    <div class="example">
+      <h3>Ejemplo 1: Caminata Diaria de Trayecto</h3>
+      <p>Una persona de 60 kg camina hacia y desde el trabajo a 5 km/h, totalizando 30 minutos de caminata por d&iacute;a.</p>
+      <p>Calor&iacute;as = 3,5 &times; 60 &times; 0,5 = <strong>105 kcal/d&iacute;a</strong></p>
+      <p>Esta caminata diaria quema 105 calor&iacute;as, que se suman a 525 calor&iacute;as en una semana laboral de 5 d&iacute;as. Durante un a&ntilde;o, esto equivale a aproximadamente 27.300 calor&iacute;as, equivalente a aproximadamente 3,5 kg de grasa corporal. M&aacute;s all&aacute; del gasto cal&oacute;rico, esta rutina diaria de caminata mejora la salud cardiovascular, reduce el estr&eacute;s y proporciona claridad mental.</p>
+    </div>
+    <div class="example">
+      <h3>Ejemplo 2: Entrenamiento de Caminata En&eacute;rgica</h3>
+      <p>Una persona de 85 kg hace una caminata en&eacute;rgica de 60 minutos a 6,5 km/h en terreno plano.</p>
+      <p>Calor&iacute;as = 5,0 &times; 85 &times; 1,0 = <strong>425 kcal</strong></p>
+      <p>Esta caminata de una hora quema 425 calor&iacute;as, comparable a una sesi&oacute;n de gimnasio de intensidad moderada. La mayor velocidad aumenta significativamente el gasto cal&oacute;rico comparado con un paseo casual (que quemar&iacute;a solo 3,5/5,0 = 70% de calor&iacute;as). A&ntilde;adir inclinaci&oacute;n o usar un chaleco lastrado puede aumentar adicionalmente la quema de calor&iacute;as en un 20&ndash;50%.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Usos Comunes</h2>
+    <ul>
+      <li>Estimaci&oacute;n del gasto cal&oacute;rico para objetivos diarios de pasos y programas de fitness basados en caminata</li>
+      <li>Planificaci&oacute;n de rutas y duraciones de caminata para alcanzar objetivos espec&iacute;ficos de quema de calor&iacute;as</li>
+      <li>Comparaci&oacute;n del costo energ&eacute;tico de caminar versus otras formas de ejercicio para entrenamientos eficientes en tiempo</li>
+      <li>Seguimiento del gasto cal&oacute;rico acumulado de caminata incidental (trayecto, recados, pasear al perro)</li>
+      <li>Dise&ntilde;o de prescripciones de caminata para rehabilitaci&oacute;n card&iacute;aca y programas de manejo de peso</li>
+      <li>Motivaci&oacute;n de individuos sedentarios cuantificando el impacto en la salud de a&ntilde;adir caminata diaria</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Errores Comunes</h2>
+    <ul>
+      <li>Usar el mismo valor MET para todas las velocidades de caminata, cuando caminar a 3 km/h quema significativamente menos calor&iacute;as por minuto que caminar a 6,5 km/h</li>
+      <li>Ignorar los efectos del terreno, ya que caminar en arena, grava o cuesta arriba puede aumentar el gasto cal&oacute;rico en un 30&ndash;100% comparado con caminar en pavimento plano</li>
+      <li>Sobreestimar la duraci&oacute;n de la caminata incluyendo paradas de pie o sentado en el c&aacute;lculo del tiempo total</li>
+      <li>No tener en cuenta que los caminantes fitness se vuelven m&aacute;s eficientes con el tiempo, quemando ligeramente menos calor&iacute;as para el mismo ritmo a medida que sus cuerpos se adaptan al patr&oacute;n de movimiento</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Consejo Profesional</h2>
+    <p>Maximiza la quema de calor&iacute;as durante la caminata incorporando caminata por intervalos: alterna 3 minutos de caminata en&eacute;rgica (MET 5,0) con 2 minutos de caminata moderada (MET 3,5). Este enfoque de intervalos aumenta el gasto cal&oacute;rico total en un 15&ndash;20% comparado con la caminata a ritmo constante y proporciona beneficios cardiovasculares adicionales. Adicionalmente, usa bastones de trekking (caminata n&oacute;rdica), que involucran el tren superior y aumentan la quema de calor&iacute;as en un 20&ndash;46% comparado con la caminata regular. Para un seguimiento m&aacute;s preciso, usa un reloj fitness habilitado para GPS que tenga en cuenta los cambios de elevaci&oacute;n, ya que caminar cuesta arriba con una pendiente del 5% aumenta el MET de 3,5 a aproximadamente 5,3.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Cu&aacute;ntos pasos equivalen a 100 calor&iacute;as quemadas?</button>
+        <div class="faq-ap"><p>Para una persona de peso promedio (70 kg) caminando a un ritmo moderado, aproximadamente 2.000&ndash;2.500 pasos queman 100 calor&iacute;as. Esto se traduce en aproximadamente 1 milla (1,6 km) de caminata. Las personas m&aacute;s ligeras necesitan m&aacute;s pasos para quemar las mismas calor&iacute;as, mientras que las personas m&aacute;s pesadas necesitan menos. El n&uacute;mero exacto depende de la velocidad de caminata, el terreno y el metabolismo individual.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Caminar es suficiente ejercicio para perder peso?</button>
+        <div class="faq-ap"><p>Caminar puede contribuir a la p&eacute;rdida de peso cuando se combina con una dieta controlada en calor&iacute;as. Para perder 0,5 kg por semana solo caminando, necesitar&iacute;as caminar aproximadamente 10&ndash;12 km por d&iacute;a (dependiendo de tu peso). Para la mayor&iacute;a de las personas, combinar caminar con cambios diet&eacute;ticos y algo de entrenamiento de fuerza produce mejores resultados que caminar solo. Sin embargo, caminar es un excelente punto de partida para individuos sedentarios.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;La velocidad de caminata importa para la quema de calor&iacute;as?</button>
+        <div class="faq-ap"><p>S&iacute;, significativamente. Caminar a 3 km/h (MET 2,5) quema aproximadamente un 40% menos de calor&iacute;as por minuto que caminar a 6,5 km/h (MET 5,0). Para una persona de 70 kg caminando 30 minutos: ritmo lento quema 87,5 kcal, ritmo moderado (5 km/h) quema 122,5 kcal, y ritmo en&eacute;rgico (6,5 km/h) quema 175 kcal. Aumentar tu ritmo es una de las formas m&aacute;s simples de impulsar el gasto cal&oacute;rico sin a&ntilde;adir tiempo.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Puedo contar caminar hacia mis objetivos diarios de ejercicio?</button>
+        <div class="faq-ap"><p>Absolutamente. La Organizaci&oacute;n Mundial de la Salud recomienda 150&ndash;300 minutos de actividad aer&oacute;bica de intensidad moderada por semana. Caminar en&eacute;rgicamente a 5&ndash;6,5 km/h califica como ejercicio de intensidad moderada. Una caminata en&eacute;rgica de 30 minutos 5 d&iacute;as por semana cumple con la recomendaci&oacute;n m&iacute;nima. Caminar tambi&eacute;n cuenta hacia los objetivos de movimiento diario y puede combinarse con otras formas de ejercicio para un fitness integral.</p></div>
+      </div>
+    </div>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <p>Calculating calories burned while walking helps you understand the energy cost of one of the most accessible forms of exercise. Walking burns calories based on your body weight, walking speed, and duration, making it easy to estimate the metabolic impact of your daily walks or structured walking workouts.</p>
+
+  <div class="formula-section">
+    <h2>Calories Burned Walking Formula</h2>
+    <p class="formula-display">Calories = MET (3.5&ndash;5.0) &times; Weight (kg) &times; Duration (hours)</p>
+    <p>The MET value for walking depends on your speed and terrain. Walking at 3 km/h (slow pace) has a MET of 2.5, at 5 km/h (moderate pace) has a MET of 3.5, at 6.5 km/h (brisk pace) has a MET of 5.0, and walking uphill at 5 km/h has a MET of 6.0. A 70 kg person walking at a moderate pace (5 km/h, MET 3.5) for 45 minutes (0.75 hours) burns: Calories = 3.5 &times; 70 &times; 0.75 = <strong>183.8 kcal</strong>. This makes walking an effective low-impact exercise for calorie expenditure and cardiovascular health.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Worked Examples</h2>
+    <div class="example">
+      <h3>Example 1: Daily Commute Walk</h3>
+      <p>A 60 kg person walks to and from work at 5 km/h, totaling 30 minutes of walking per day.</p>
+      <p>Calories = 3.5 &times; 60 &times; 0.5 = <strong>105 kcal/day</strong></p>
+      <p>This daily walk burns 105 calories, which adds up to 525 calories over a 5-day work week. Over a year, this amounts to approximately 27,300 calories, equivalent to about 3.5 kg of body fat. Beyond calorie expenditure, this daily walking routine improves cardiovascular health, reduces stress, and provides mental clarity.</p>
+    </div>
+    <div class="example">
+      <h3>Example 2: Brisk Walking Workout</h3>
+      <p>An 85 kg person does a 60-minute brisk walk at 6.5 km/h on flat terrain.</p>
+      <p>Calories = 5.0 &times; 85 &times; 1.0 = <strong>425 kcal</strong></p>
+      <p>This hour-long brisk walk burns 425 calories, comparable to a moderate-intensity gym session. The higher speed significantly increases calorie expenditure compared to a casual stroll (which would burn only 3.5/5.0 = 70% as many calories). Adding incline or wearing a weighted vest can further increase the calorie burn by 20&ndash;50%.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Common Uses</h2>
+    <ul>
+      <li>Estimating calorie expenditure for daily step goals and walking-based fitness programs</li>
+      <li>Planning walking routes and durations to meet specific calorie-burning targets</li>
+      <li>Comparing the energy cost of walking versus other forms of exercise for time-efficient workouts</li>
+      <li>Tracking cumulative calorie expenditure from incidental walking (commuting, errands, dog walking)</li>
+      <li>Designing walking prescriptions for cardiac rehabilitation and weight management programs</li>
+      <li>Motivating sedentary individuals by quantifying the health impact of adding daily walking</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Common Mistakes</h2>
+    <ul>
+      <li>Using the same MET value for all walking speeds, when walking at 3 km/h burns significantly fewer calories per minute than walking at 6.5 km/h</li>
+      <li>Ignoring terrain effects, as walking on sand, gravel, or uphill can increase calorie expenditure by 30&ndash;100% compared to walking on flat pavement</li>
+      <li>Overestimating walking duration by including standing or sitting breaks in the total time calculation</li>
+      <li>Not accounting for the fact that fitness walkers become more efficient over time, burning slightly fewer calories for the same pace as their bodies adapt to the movement pattern</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Pro Tip</h2>
+    <p>Maximize calorie burn during walking by incorporating interval walking: alternate 3 minutes of brisk walking (MET 5.0) with 2 minutes of moderate walking (MET 3.5). This interval approach increases total calorie expenditure by 15&ndash;20% compared to steady-pace walking and provides additional cardiovascular benefits. Additionally, use trekking poles (Nordic walking), which engage the upper body and increase calorie burn by 20&ndash;46% compared to regular walking. For the most accurate tracking, use a GPS-enabled fitness watch that accounts for elevation changes, as walking uphill at a 5% grade increases MET from 3.5 to approximately 5.3.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How many steps equal 100 calories burned?</button>
+        <div class="faq-ap"><p>For an average-weight person (70 kg) walking at a moderate pace, approximately 2,000&ndash;2,500 steps burn 100 calories. This translates to roughly 1 mile (1.6 km) of walking. Lighter individuals need more steps to burn the same calories, while heavier individuals need fewer. The exact number depends on walking speed, terrain, and individual metabolism.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Is walking enough exercise for weight loss?</button>
+        <div class="faq-ap"><p>Walking can contribute to weight loss when combined with a calorie-controlled diet. To lose 0.5 kg per week through walking alone, you would need to walk approximately 10&ndash;12 km per day (depending on your weight). For most people, combining walking with dietary changes and some strength training produces better results than walking alone. However, walking is an excellent starting point for sedentary individuals.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Does walking speed matter for calorie burn?</button>
+        <div class="faq-ap"><p>Yes, significantly. Walking at 3 km/h (MET 2.5) burns about 40% fewer calories per minute than walking at 6.5 km/h (MET 5.0). For a 70 kg person walking 30 minutes: slow pace burns 87.5 kcal, moderate pace (5 km/h) burns 122.5 kcal, and brisk pace (6.5 km/h) burns 175 kcal. Increasing your pace is one of the simplest ways to boost calorie expenditure without adding time.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Can I count walking toward my daily exercise goals?</button>
+        <div class="faq-ap"><p>Absolutely. The World Health Organization recommends 150&ndash;300 minutes of moderate-intensity aerobic activity per week. Brisk walking at 5&ndash;6.5 km/h qualifies as moderate-intensity exercise. A 30-minute brisk walk 5 days per week meets the minimum recommendation. Walking also counts toward daily movement goals and can be combined with other forms of exercise for comprehensive fitness.</p></div>
+      </div>
+    </div>
+  </div>
+</section>""",
+    },
+
+    "433": {
+        "es": """<section class="long-content">
+  <p>Las calculadoras de percentil de crecimiento infantil comparan las medidas de estatura y peso de un ni&ntilde;o con los est&aacute;ndares de crecimiento de la Organizaci&oacute;n Mundial de la Salud (OMS), proporcionando una manera estandarizada de evaluar si el patr&oacute;n de crecimiento de un ni&ntilde;o es t&iacute;pico para su edad y sexo. Comprender los percentiles ayuda a los padres y proveedores de atenci&oacute;n m&eacute;dica a monitorear un desarrollo saludable e identificar posibles preocupaciones temprano.</p>
+
+  <div class="formula-section">
+    <h2>Interpretaci&oacute;n del Percentil de Crecimiento</h2>
+    <p class="formula-display">Percentil = Posici&oacute;n de la medida del ni&ntilde;o en relaci&oacute;n con la poblaci&oacute;n de referencia de la OMS de la misma edad y sexo</p>
+    <p>Los percentiles de crecimiento indican el porcentaje de ni&ntilde;os en la poblaci&oacute;n de referencia que se encuentran por debajo de una medida dada. Un ni&ntilde;o en el percentil 50 para peso es m&aacute;s pesado que el 50% de los ni&ntilde;os de la misma edad y sexo. Los est&aacute;ndares de crecimiento de la OMS se basan en datos de ni&ntilde;os amamantados saludables de seis pa&iacute;ses criados en condiciones &oacute;ptimas. Los percentiles t&iacute;picamente se grafican en tablas de crecimiento con curvas que representan los percentiles 3, 15, 50, 85 y 97. Por ejemplo, un ni&ntilde;o de 2 a&ntilde;os que pesa 12,5 kg se ubica aproximadamente en el <strong>percentil 50</strong> para peso, lo que significa que su peso es t&iacute;pico para su grupo de edad.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Ejemplos Pr&aacute;cticos</h2>
+    <div class="example">
+      <h3>Ejemplo 1: Ni&ntilde;a de 18 Meses</h3>
+      <p>Una ni&ntilde;a de 18 meses pesa 10,5 kg y mide 80 cm de longitud.</p>
+      <p>Percentil de peso: 10,5 kg a 18 meses para ni&ntilde;as &asymp; <strong>percentil 40</strong><br>Percentil de longitud: 80 cm a 18 meses para ni&ntilde;as &asymp; <strong>percentil 45</strong></p>
+      <p>Ambos percentiles de peso y longitud se encuentran cerca del medio del rango normal (percentil 3&ndash;97), indicando un crecimiento saludable y proporcional. Su relaci&oacute;n peso-longitud tambi&eacute;n es apropiada, sugiriendo una nutrici&oacute;n equilibrada. El seguimiento continuo en visitas regulares de ni&ntilde;o sano confirmar&aacute; que mantiene su trayectoria de crecimiento a lo largo de su curva percentil individual.</p>
+    </div>
+    <div class="example">
+      <h3>Ejemplo 2: Ni&ntilde;o de 4 A&ntilde;os</h3>
+      <p>Un ni&ntilde;o de 4 a&ntilde;os pesa 22 kg y mide 108 cm de estatura.</p>
+      <p>Percentil de peso: 22 kg a 4 a&ntilde;os para ni&ntilde;os &asymp; <strong>percentil 90</strong><br>Percentil de estatura: 108 cm a 4 a&ntilde;os para ni&ntilde;os &asymp; <strong>percentil 75</strong></p>
+      <p>Su percentil de peso (90) es notablemente m&aacute;s alto que su percentil de estatura (75), lo que puede warrant atenci&oacute;n. Aunque esto podr&iacute;a simplemente reflejar una complexi&oacute;n naturalmente m&aacute;s grande, una brecha significativa entre los percentiles de peso y estatura a veces puede indicar un aumento excesivo de peso en relaci&oacute;n con el crecimiento lineal. Su pediatra evaluar&iacute;a su trayectoria de crecimiento a lo largo del tiempo, h&aacute;bitos diet&eacute;ticos y nivel de actividad para determinar si se necesita alguna intervenci&oacute;n.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Usos Comunes</h2>
+    <ul>
+      <li>Monitoreo del crecimiento infantil en visitas regulares de ni&ntilde;o sano desde el nacimiento hasta los 5 a&ntilde;os usando est&aacute;ndares de la OMS</li>
+      <li>Identificaci&oacute;n de fallo de medro (por debajo del percentil 3) o riesgo de sobrepeso/obesidad (por encima del percentil 85)</li>
+      <li>Seguimiento de la velocidad de crecimiento a lo largo del tiempo para detectar desviaciones del patr&oacute;n de crecimiento establecido de un ni&ntilde;o</li>
+      <li>Comparaci&oacute;n del crecimiento entre poblaciones y evaluaci&oacute;n del impacto de intervenciones nutricionales</li>
+      <li>Orientaci&oacute;n de recomendaciones de alimentaci&oacute;n y consejer&iacute;a nutricional para lactantes y ni&ntilde;os peque&ntilde;os</li>
+      <li>Detecci&oacute;n de condiciones endocrinas, gen&eacute;ticas o cr&oacute;nicas que afectan los patrones de crecimiento</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Errores Comunes</h2>
+    <ul>
+      <li>Enfocarse en una sola medida percentil en lugar de la trayectoria de crecimiento a lo largo del tiempo, cuando el patr&oacute;n de crecimiento es m&aacute;s importante que cualquier punto de datos individual</li>
+      <li>Comparar el percentil de un ni&ntilde;o con hermanos o pares en lugar de reconocer que cada ni&ntilde;o sigue su propia curva de crecimiento determinada gen&eacute;ticamente</li>
+      <li>Usar tablas de crecimiento de los CDC para ni&ntilde;os menores de 2 a&ntilde;os, cuando los est&aacute;ndares de la OMS son la referencia recomendada para este grupo de edad</li>
+      <li>Asumir que una ca&iacute;da percentil de una visita a la siguiente siempre indica un problema, cuando las fluctuaciones menores son normales y solo el cruce sostenido de dos l&iacute;neas percentiles mayores es preocupante</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Consejo Profesional</h2>
+    <p>El aspecto m&aacute;s importante del monitoreo del crecimiento es la tendencia, no las medidas individuales. Un ni&ntilde;o que sigue consistentemente en el percentil 15 est&aacute; creciendo normalmente, al igual que un ni&ntilde;o consistentemente en el percentil 85. La preocupaci&oacute;n surge cuando un ni&ntilde;o cruza dos o m&aacute;s l&iacute;neas percentiles mayores (por ejemplo, cayendo del percentil 75 al 25) o cuando los percentiles de peso y estatura divergen significativamente. Grafica las medidas en una tabla de crecimiento en cada visita de ni&ntilde;o sano y conecta los puntos para visualizar la trayectoria. Para ni&ntilde;os prematuros, usa la edad corregida (edad cronol&oacute;gica menos semanas de prematuridad) para la evaluaci&oacute;n del crecimiento hasta los 2&ndash;3 a&ntilde;os de edad.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Qu&eacute; rango percentil se considera normal?</button>
+        <div class="faq-ap"><p>El rango normal abarca desde el percentil 3 hasta el 97. Los ni&ntilde;os dentro de este rango est&aacute;n creciendo apropiadamente para su edad y sexo. Sin embargo, el percentil espec&iacute;fico importa menos que la consistencia: un ni&ntilde;o en el percentil 5 que siempre ha estado en el percentil 5 est&aacute; creciendo normalmente, mientras que un ni&ntilde;o que cae del percentil 50 al 5 necesita evaluaci&oacute;n.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Los beb&eacute;s amamantados y alimentados con f&oacute;rmula crecen de manera diferente?</button>
+        <div class="faq-ap"><p>S&iacute;. Los est&aacute;ndares de crecimiento de la OMS se basan en lactantes amamantados, que tienden a ganar peso m&aacute;s r&aacute;pidamente en los primeros 2&ndash;3 meses y luego m&aacute;s lentamente comparados con lactantes alimentados con f&oacute;rmula. Los beb&eacute;s con f&oacute;rmula pueden aparecer m&aacute;s pesados en las tablas de la OMS despu&eacute;s de 3&ndash;4 meses, lo cual es normal y no necesariamente una preocupaci&oacute;n. Los est&aacute;ndares de la OMS representan el patr&oacute;n de crecimiento &oacute;ptimo, no necesariamente el promedio.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Cu&aacute;ndo debo preocuparme por el percentil de crecimiento de mi hijo?</button>
+        <div class="faq-ap"><p>Consulta a tu pediatra si: (1) la medida de tu hijo se encuentra por debajo del percentil 3 o por encima del 97; (2) hay una ca&iacute;da o aumento sostenido cruzando dos o m&aacute;s l&iacute;neas percentiles mayores; (3) los percentiles de peso y estatura divergen significativamente; o (4) la velocidad de crecimiento de tu hijo se ralentiza notablemente comparada con medidas anteriores. Las medidas individuales fuera del rango normal son menos preocupantes que las tendencias a lo largo del tiempo.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;C&oacute;mo afecta la gen&eacute;tica a los percentiles de crecimiento?</button>
+        <div class="faq-ap"><p>La gen&eacute;tica juega un papel importante en la determinaci&oacute;n de la trayectoria de crecimiento de un ni&ntilde;o. Los hijos de padres altos tienden a seguir percentiles m&aacute;s altos para estatura, mientras que los hijos de padres m&aacute;s bajos tienden a seguir percentiles m&aacute;s bajos. Los c&aacute;lculos de estatura media parental pueden estimar el potencial de estatura gen&eacute;tica de un ni&ntilde;o. El percentil de crecimiento de un ni&ntilde;o debe interpretarse en el contexto de los patrones de crecimiento familiares, no de forma aislada.</p></div>
+      </div>
+    </div>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <p>Child growth percentile calculators compare a child&rsquo;s height and weight measurements to the World Health Organization (WHO) growth standards, providing a standardized way to assess whether a child&rsquo;s growth pattern is typical for their age and sex. Understanding percentiles helps parents and healthcare providers monitor healthy development and identify potential concerns early.</p>
+
+  <div class="formula-section">
+    <h2>Growth Percentile Interpretation</h2>
+    <p class="formula-display">Percentile = Position of child's measurement relative to WHO reference population of same age and sex</p>
+    <p>Growth percentiles indicate the percentage of children in the reference population who fall below a given measurement. A child at the 50th percentile for weight is heavier than 50% of children of the same age and sex. The WHO growth standards are based on data from healthy, breastfed children from six countries raised under optimal conditions. Percentiles are typically plotted on growth charts with curves representing the 3rd, 15th, 50th, 85th, and 97th percentiles. For example, a 2-year-old boy weighing 12.5 kg falls at approximately the <strong>50th percentile</strong> for weight, meaning his weight is typical for his age group.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Worked Examples</h2>
+    <div class="example">
+      <h3>Example 1: 18-Month-Old Girl</h3>
+      <p>An 18-month-old girl weighs 10.5 kg and measures 80 cm in length.</p>
+      <p>Weight percentile: 10.5 kg at 18 months for girls &asymp; <strong>40th percentile</strong><br>Length percentile: 80 cm at 18 months for girls &asymp; <strong>45th percentile</strong></p>
+      <p>Both her weight and length percentiles fall near the middle of the normal range (3rd&ndash;97th percentile), indicating healthy, proportional growth. Her weight-for-length ratio is also appropriate, suggesting balanced nutrition. Continued tracking at regular well-child visits will confirm she maintains her growth trajectory along her individual percentile curve.</p>
+    </div>
+    <div class="example">
+      <h3>Example 2: 4-Year-Old Boy</h3>
+      <p>A 4-year-old boy weighs 22 kg and measures 108 cm in height.</p>
+      <p>Weight percentile: 22 kg at 4 years for boys &asymp; <strong>90th percentile</strong><br>Height percentile: 108 cm at 4 years for boys &asymp; <strong>75th percentile</strong></p>
+      <p>His weight percentile (90th) is notably higher than his height percentile (75th), which may warrant attention. While this could simply reflect a naturally larger build, a significant gap between weight and height percentiles can sometimes indicate excessive weight gain relative to linear growth. His pediatrician would assess his growth trajectory over time, dietary habits, and activity level to determine if any intervention is needed.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Common Uses</h2>
+    <ul>
+      <li>Monitoring child growth at regular well-child visits from birth through age 5 using WHO standards</li>
+      <li>Identifying failure to thrive (below 3rd percentile) or risk of overweight/obesity (above 85th percentile)</li>
+      <li>Tracking growth velocity over time to detect deviations from a child&rsquo;s established growth pattern</li>
+      <li>Comparing growth between populations and assessing the impact of nutritional interventions</li>
+      <li>Guiding feeding recommendations and nutritional counseling for infants and young children</li>
+      <li>Screening for endocrine, genetic, or chronic conditions that affect growth patterns</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Common Mistakes</h2>
+    <ul>
+      <li>Focusing on a single percentile measurement rather than the growth trajectory over time, when the pattern of growth is more important than any single data point</li>
+      <li>Comparing a child&rsquo;s percentile to siblings or peers instead of recognizing that each child follows their own genetically determined growth curve</li>
+      <li>Using CDC growth charts for children under 2 years of age, when WHO standards are the recommended reference for this age group</li>
+      <li>Assuming that a percentile drop from one visit to the next always indicates a problem, when minor fluctuations are normal and only sustained crossing of two major percentile lines is concerning</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Pro Tip</h2>
+    <p>The most important aspect of growth monitoring is the trend, not individual measurements. A child consistently tracking at the 15th percentile is growing normally, just as a child consistently at the 85th percentile is. Concern arises when a child crosses two or more major percentile lines (e.g., dropping from the 75th to the 25th percentile) or when weight and height percentiles diverge significantly. Plot measurements on a growth chart at every well-child visit and connect the dots to visualize the trajectory. For premature infants, use corrected age (chronological age minus weeks of prematurity) for growth assessment until age 2&ndash;3 years.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What percentile range is considered normal?</button>
+        <div class="faq-ap"><p>The normal range spans from the 3rd to the 97th percentile. Children within this range are growing appropriately for their age and sex. However, the specific percentile matters less than consistency: a child at the 5th percentile who has always been at the 5th percentile is growing normally, while a child who drops from the 50th to the 5th percentile needs evaluation.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Do breastfed and formula-fed babies grow differently?</button>
+        <div class="faq-ap"><p>Yes. The WHO growth standards are based on breastfed infants, who tend to gain weight more rapidly in the first 2&ndash;3 months and then more slowly compared to formula-fed infants. Formula-fed babies may appear heavier on WHO charts after 3&ndash;4 months, which is normal and not necessarily a concern. The WHO standards represent the optimal growth pattern, not necessarily the average.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">When should I be concerned about my child's growth percentile?</button>
+        <div class="faq-ap"><p>Consult your pediatrician if: (1) your child&rsquo;s measurement falls below the 3rd or above the 97th percentile; (2) there is a sustained drop or rise crossing two or more major percentile lines; (3) weight and height percentiles diverge significantly; or (4) your child&rsquo;s growth velocity slows noticeably compared to previous measurements. Single measurements outside the normal range are less concerning than trends over time.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How do genetics affect growth percentiles?</button>
+        <div class="faq-ap"><p>Genetics play a major role in determining a child&rsquo;s growth trajectory. Children of tall parents tend to track at higher percentiles for height, while children of shorter parents tend to track lower. Mid-parental height calculations can estimate a child&rsquo;s genetic height potential. A child&rsquo;s growth percentile should be interpreted in the context of family growth patterns, not in isolation.</p></div>
+      </div>
+    </div>
+  </div>
+</section>""",
+    },
+
+    "434": {
+        "es": """<section class="long-content">
+  <p>El c&aacute;lculo de ingesta diaria de agua basado en el peso corporal proporciona un objetivo de hidrataci&oacute;n personalizado que tiene en cuenta que los cuerpos m&aacute;s grandes requieren m&aacute;s agua para mantener una funci&oacute;n fisiol&oacute;gica adecuada. Mientras que la regla com&uacute;n de &ldquo;8 vasos al d&iacute;a&rdquo; es una gu&iacute;a conveniente, una f&oacute;rmula basada en el peso te da una recomendaci&oacute;n individualizada m&aacute;s precisa.</p>
+
+  <div class="formula-section">
+    <h2>F&oacute;rmula de Ingesta Diaria de Agua</h2>
+    <p class="formula-display">Agua (ml/d&iacute;a) = Peso Corporal (kg) &times; 35</p>
+    <p>La f&oacute;rmula multiplica tu peso corporal en kilogramos por 35 ml para estimar tus necesidades diarias basales de agua. Este factor de 35 ml/kg se deriva de los requerimientos fisiol&oacute;gicos generales para mantener la hidrataci&oacute;n en climas templados con niveles de actividad moderados. Por ejemplo, una persona que pesa 70 kg necesitar&iacute;a: 70 &times; 35 = <strong>2.450 ml/d&iacute;a</strong> (aproximadamente 2,45 litros o aproximadamente 10 vasos). Esto representa las necesidades totales de agua, que incluyen agua de todas las bebidas y alimentos, no solo agua potable pura.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Ejemplos Pr&aacute;cticos</h2>
+    <div class="example">
+      <h3>Ejemplo 1: Adulto Promedio</h3>
+      <p>Un trabajador de oficina de 72 kg en un clima templado con actividad ligera.</p>
+      <p>Agua = 72 &times; 35 = <strong>2.520 ml/d&iacute;a</strong> (2,52 litros)</p>
+      <p>Esta persona necesita aproximadamente 2,5 litros de agua total por d&iacute;a. Aproximadamente el 20% de esto (500 ml) t&iacute;picamente proviene de los alimentos, dejando aproximadamente 2 litros para consumir como bebidas. Esto se alinea estrechamente con la recomendaci&oacute;n com&uacute;nmente citada de &ldquo;8 vasos de 250 ml&rdquo;. Distribuir la ingesta a lo largo del d&iacute;a &mdash; ma&ntilde;ana, mediod&iacute;a, tarde y noche &mdash; asegura una hidrataci&oacute;n constante sin sobrecargar los ri&ntilde;ones.</p>
+    </div>
+    <div class="example">
+      <h3>Ejemplo 2: Individuo Activo en Clima C&aacute;lido</h3>
+      <p>Una persona de 80 kg que hace ejercicio vigorosamente y vive en un ambiente c&aacute;lido y h&uacute;medo.</p>
+      <p>Agua basal = 80 &times; 35 = <strong>2.800 ml/d&iacute;a</strong><br>Ajuste por ejercicio: +500&ndash;1.000 ml por hora de ejercicio<br>Ajuste por calor: +500 ml por clima c&aacute;lido<br>Necesidad total estimada: <strong>3.800&ndash;4.300 ml/d&iacute;a</strong></p>
+      <p>Aunque la f&oacute;rmula basal da 2,8 litros, las necesidades reales de este individuo son significativamente mayores debido a las p&eacute;rdidas de sudor inducidas por el ejercicio y la mayor transpiraci&oacute;n en clima c&aacute;lido. Durante ejercicio intenso en calor, las tasas de sudoraci&oacute;n pueden alcanzar 1&ndash;2 litros por hora. Reemplazar estas p&eacute;rdidas es cr&iacute;tico para mantener el rendimiento y prevenir enfermedades relacionadas con el calor. Monitorear el color de la orina (amarillo p&aacute;lido indica hidrataci&oacute;n adecuada) proporciona una verificaci&oacute;n pr&aacute;ctica diaria.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Usos Comunes</h2>
+    <ul>
+      <li>Establecimiento de objetivos de hidrataci&oacute;n diaria personalizados para salud general y bienestar</li>
+      <li>Planificaci&oacute;n de ingesta de l&iacute;quidos para atletas antes, durante y despu&eacute;s de sesiones de entrenamiento y competiciones</li>
+      <li>Prevenci&oacute;n de la deshidrataci&oacute;n en entornos laborales con exposici&oacute;n al calor o trabajo f&iacute;sico</li>
+      <li>Apoyo a la funci&oacute;n renal y reducci&oacute;n del riesgo de c&aacute;lculos renales mediante una ingesta adecuada de l&iacute;quidos</li>
+      <li>Optimizaci&oacute;n del rendimiento cognitivo, ya que incluso la deshidrataci&oacute;n leve (1&ndash;2% de p&eacute;rdida de peso corporal) deteriora la concentraci&oacute;n y la memoria</li>
+      <li>Orientaci&oacute;n de recomendaciones de l&iacute;quidos para personas mayores que tienen una sensaci&oacute;n de sed disminuida</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Errores Comunes</h2>
+    <ul>
+      <li>Beber toda el agua diaria de una vez en lugar de distribuir la ingesta a lo largo del d&iacute;a, cuando los ri&ntilde;ones solo pueden procesar aproximadamente 800&ndash;1.000 ml por hora</li>
+      <li>Ignorar las necesidades adicionales de agua por ejercicio, exposici&oacute;n al calor, enfermedad (fiebre, diarrea), gran altitud y embarazo/lactancia, todos los cuales aumentan los requerimientos en 500&ndash;2.000 ml/d&iacute;a</li>
+      <li>Confundir las necesidades totales de agua con agua potable solamente, cuando aproximadamente el 20% de la ingesta diaria de agua proviene de los alimentos (frutas, verduras, sopas)</li>
+      <li>Sobrehidratarse m&aacute;s all&aacute; de las necesidades, lo que en casos extremos puede causar hiponatremia (sodio en sangre peligrosamente bajo), particularmente durante eventos de resistencia que duran m&aacute;s de 4 horas</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Consejo Profesional</h2>
+    <p>Usa el color de la orina como tu indicador principal de hidrataci&oacute;n: amarillo p&aacute;lido (como limonada) significa que est&aacute;s bien hidratado, amarillo oscuro o &aacute;mbar significa que necesitas m&aacute;s agua, y completamente transparente puede indicar sobrehidrataci&oacute;n. P&eacute;sate antes y despu&eacute;s del ejercicio para cuantificar las p&eacute;rdidas de sudor: cada kilogramo de peso corporal perdido equivale aproximadamente a 1 litro de l&iacute;quido que necesita ser reemplazado. Para una hidrataci&oacute;n &oacute;ptima, bebe 500 ml de agua 2 horas antes del ejercicio, 150&ndash;250 ml cada 15&ndash;20 minutos durante el ejercicio, y el 150% del peso corporal perdido despu&eacute;s del ejercicio. Mant&eacute;n una botella de agua reutilizable visible durante todo el d&iacute;a &mdash; las se&ntilde;ales visuales aumentan el consumo de agua hasta en un 50% comparado con confiar solo en la sed.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;El caf&eacute; cuenta para la ingesta diaria de agua?</button>
+        <div class="faq-ap"><p>S&iacute;. A pesar del mito com&uacute;n de que la cafe&iacute;na es deshidratante, las investigaciones muestran que el consumo moderado de caf&eacute; (hasta 400 mg de cafe&iacute;na, aproximadamente 4 tazas) contribuye a la hidrataci&oacute;n diaria. El agua en el caf&eacute; compensa con creces cualquier efecto diur&eacute;tico leve de la cafe&iacute;na. El t&eacute;, la leche y otras bebidas no alcoh&oacute;licas tambi&eacute;n cuentan para tu total diario de agua. El alcohol, sin embargo, s&iacute; tiene un efecto neto deshidratante.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Debo beber m&aacute;s agua si estoy intentando perder peso?</button>
+        <div class="faq-ap"><p>Beber 500 ml de agua 30 minutos antes de las comidas ha demostrado aumentar la p&eacute;rdida de peso en un 44% durante 12 semanas en algunos estudios, probablemente porque promueve la saciedad y reduce la ingesta cal&oacute;rica. Adicionalmente, reemplazar bebidas azucaradas con agua elimina calor&iacute;as vac&iacute;as. Sin embargo, el requerimiento base de agua (peso &times; 35 ml) permanece igual independientemente de los objetivos de p&eacute;rdida de peso.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;C&oacute;mo s&eacute; si estoy bebiendo suficiente agua?</button>
+        <div class="faq-ap"><p>Tres indicadores pr&aacute;cticos: (1) El color de la orina debe ser amarillo p&aacute;lido; (2) Debes orinar 4&ndash;7 veces por d&iacute;a; (3) Raramente debes sentir sed. La sed es en realidad un indicador tard&iacute;o de deshidrataci&oacute;n &mdash; cuando sientes sed, ya puedes estar deshidratado un 1&ndash;2%. Si tu orina es consistentemente oscura, aumenta tu ingesta de agua en 500 ml/d&iacute;a y reeval&uacute;a.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Las necesidades de agua cambian con la edad?</button>
+        <div class="faq-ap"><p>S&iacute;. Los adultos mayores tienen un porcentaje reducido de agua corporal total y una sensaci&oacute;n de sed disminuida, lo que los hace m&aacute;s vulnerables a la deshidrataci&oacute;n. Aunque la f&oacute;rmula de 35 ml/kg sigue aplicando, las personas mayores deben ser proactivas sobre beber en un horario en lugar de confiar en la sed. Los lactantes y ni&ntilde;os peque&ntilde;os tienen necesidades de agua m&aacute;s altas por kilogramo (aproximadamente 80&ndash;100 ml/kg/d&iacute;a) debido a tasas metab&oacute;licas m&aacute;s altas y &aacute;rea de superficie corporal relativa al peso.</p></div>
+      </div>
+    </div>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <p>Daily water intake calculation based on body weight provides a personalized hydration target that accounts for the fact that larger bodies require more water to maintain proper physiological function. While the common &ldquo;8 glasses a day&rdquo; rule is a convenient guideline, a weight-based formula gives you a more accurate individualized recommendation.</p>
+
+  <div class="formula-section">
+    <h2>Daily Water Intake Formula</h2>
+    <p class="formula-display">Water (ml/day) = Body Weight (kg) &times; 35</p>
+    <p>The formula multiplies your body weight in kilograms by 35 ml to estimate your baseline daily water needs. This factor of 35 ml/kg is derived from general physiological requirements for maintaining hydration in temperate climates with moderate activity levels. For example, a person weighing 70 kg would need: 70 &times; 35 = <strong>2,450 ml/day</strong> (approximately 2.45 liters or about 10 cups). This represents total water needs, which include water from all beverages and foods, not just plain drinking water.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Worked Examples</h2>
+    <div class="example">
+      <h3>Example 1: Average Adult</h3>
+      <p>A 72 kg office worker in a temperate climate with light activity.</p>
+      <p>Water = 72 &times; 35 = <strong>2,520 ml/day</strong> (2.52 liters)</p>
+      <p>This person needs approximately 2.5 liters of total water per day. About 20% of this (500 ml) typically comes from food, leaving approximately 2 liters to be consumed as beverages. This aligns closely with the commonly cited &ldquo;8 glasses of 250 ml&rdquo; recommendation. Spreading intake throughout the day &mdash; morning, midday, afternoon, and evening &mdash; ensures consistent hydration without overwhelming the kidneys.</p>
+    </div>
+    <div class="example">
+      <h3>Example 2: Active Individual in Hot Climate</h3>
+      <p>An 80 kg person who exercises vigorously and lives in a hot, humid environment.</p>
+      <p>Baseline water = 80 &times; 35 = <strong>2,800 ml/day</strong><br>Exercise adjustment: +500&ndash;1,000 ml per hour of exercise<br>Heat adjustment: +500 ml for hot climate<br>Total estimated need: <strong>3,800&ndash;4,300 ml/day</strong></p>
+      <p>While the baseline formula gives 2.8 liters, this individual&rsquo;s actual needs are significantly higher due to exercise-induced sweat losses and increased perspiration in hot weather. During intense exercise in heat, sweat rates can reach 1&ndash;2 liters per hour. Replacing these losses is critical to maintain performance and prevent heat-related illness. Monitoring urine color (pale yellow indicates adequate hydration) provides a practical daily check.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Common Uses</h2>
+    <ul>
+      <li>Establishing personalized daily hydration targets for general health and wellness</li>
+      <li>Planning fluid intake for athletes before, during, and after training sessions and competitions</li>
+      <li>Preventing dehydration in occupational settings with heat exposure or physical labor</li>
+      <li>Supporting kidney function and reducing the risk of kidney stones through adequate fluid intake</li>
+      <li>Optimizing cognitive performance, as even mild dehydration (1&ndash;2% body weight loss) impairs concentration and memory</li>
+      <li>Guiding fluid recommendations for elderly individuals who have diminished thirst sensation</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Common Mistakes</h2>
+    <ul>
+      <li>Drinking all daily water at once instead of spreading intake throughout the day, when the kidneys can only process approximately 800&ndash;1,000 ml per hour</li>
+      <li>Ignoring additional water needs from exercise, heat exposure, illness (fever, diarrhea), high altitude, and pregnancy/breastfeeding, all of which increase requirements by 500&ndash;2,000 ml/day</li>
+      <li>Confusing total water needs with drinking water only, when approximately 20% of daily water intake comes from food (fruits, vegetables, soups)</li>
+      <li>Overhydrating beyond needs, which in extreme cases can cause hyponatremia (dangerously low blood sodium), particularly during endurance events lasting more than 4 hours</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Pro Tip</h2>
+    <p>Use urine color as your primary hydration indicator: pale yellow (like lemonade) means you are well hydrated, dark yellow or amber means you need more water, and completely clear may indicate overhydration. Weigh yourself before and after exercise to quantify sweat losses: each kilogram of body weight lost equals approximately 1 liter of fluid that needs to be replaced. For optimal hydration, drink 500 ml of water 2 hours before exercise, 150&ndash;250 ml every 15&ndash;20 minutes during exercise, and 150% of body weight lost after exercise. Keep a reusable water bottle visible throughout the day &mdash; visual cues increase water consumption by up to 50% compared to relying on thirst alone.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Does coffee count toward daily water intake?</button>
+        <div class="faq-ap"><p>Yes. Despite the common myth that caffeine is dehydrating, research shows that moderate coffee consumption (up to 400 mg caffeine, about 4 cups) contributes to daily hydration. The water in coffee more than compensates for any mild diuretic effect of caffeine. Tea, milk, and other non-alcoholic beverages also count toward your daily water total. Alcohol, however, does have a net dehydrating effect.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Should I drink more water if I'm trying to lose weight?</button>
+        <div class="faq-ap"><p>Drinking 500 ml of water 30 minutes before meals has been shown to increase weight loss by 44% over 12 weeks in some studies, likely because it promotes satiety and reduces calorie intake. Additionally, replacing sugary beverages with water eliminates empty calories. However, the base water requirement (weight &times; 35 ml) remains the same regardless of weight loss goals.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How do I know if I'm drinking enough water?</button>
+        <div class="faq-ap"><p>Three practical indicators: (1) Urine color should be pale yellow; (2) You should urinate 4&ndash;7 times per day; (3) You should rarely feel thirsty. Thirst is actually a late indicator of dehydration &mdash; by the time you feel thirsty, you may already be 1&ndash;2% dehydrated. If your urine is consistently dark, increase your water intake by 500 ml/day and reassess.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Do water needs change with age?</button>
+        <div class="faq-ap"><p>Yes. Older adults have reduced total body water percentage and diminished thirst sensation, making them more vulnerable to dehydration. While the 35 ml/kg formula still applies, elderly individuals should be proactive about drinking on a schedule rather than relying on thirst. Infants and young children have higher water needs per kilogram (approximately 80&ndash;100 ml/kg/day) due to higher metabolic rates and body surface area relative to weight.</p></div>
+      </div>
+    </div>
+  </div>
+</section>""",
+    },
+
+    "910": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de fracciones: suma, resta, multiplicación y división</h1>
+  <p>Esta calculadora de fracciones te permite operar con dos fracciones a/b y c/d realizando sumas, restas, multiplicaciones y divisiones, simplificando el resultado al máximo usando el máximo común divisor.</p>
+
+  <h2>Fórmulas para operar con fracciones</h2>
+  <p>Las operaciones básicas con fracciones siguen estas reglas:</p>
+  <ul>
+    <li><strong>Suma:</strong> a/b + c/d = (a×d + b×c) / (b×d)</li>
+    <li><strong>Resta:</strong> a/b − c/d = (a×d − b×c) / (b×d)</li>
+    <li><strong>Multiplicación:</strong> a/b × c/d = (a×c) / (b×d)</li>
+    <li><strong>División:</strong> a/b ÷ c/d = (a×d) / (b×c)</li>
+  </ul>
+  <p>Después de cada operación, el resultado se simplifica dividiendo numerador y denominador por su máximo común divisor (MCD).</p>
+
+  <h2>Ejemplo 1: suma de fracciones</h2>
+  <p><strong>Problema:</strong> Calcular 2/3 + 1/4.</p>
+  <ol>
+    <li>Aplicar la fórmula de suma:
+      <ul>
+        <li>(2×4 + 3×1) / (3×4) = (8 + 3) / 12 = 11/12.</li>
+      </ul>
+    </li>
+    <li>Simplificar:
+      <ul>
+        <li>MCD(11, 12) = 1, ya está simplificada.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> 2/3 + 1/4 = 11/12.</p>
+
+  <h2>Ejemplo 2: multiplicación de fracciones</h2>
+  <p><strong>Problema:</strong> Calcular 3/8 × 4/9.</p>
+  <ol>
+    <li>Aplicar la fórmula de multiplicación:
+      <ul>
+        <li>(3×4) / (8×9) = 12/72.</li>
+      </ul>
+    </li>
+    <li>Simplificar:
+      <ul>
+        <li>MCD(12, 72) = 12, entonces 12/72 = 1/6.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> 3/8 × 4/9 = 1/6.</p>
+
+  <h2>Usos comunes de la calculadora de fracciones</h2>
+  <ul>
+    <li>Resolver ejercicios de aritmética con fracciones en matemáticas escolares.</li>
+    <li>Convertir recetas de cocina ajustando proporciones de ingredientes.</li>
+    <li>Calcular medidas en carpintería y construcción donde se usan fracciones de pulgada.</li>
+    <li>Verificar resultados de operaciones con fracciones en exámenes.</li>
+    <li>Trabajar con proporciones y porcentajes en contextos financieros.</li>
+    <li>Simplificar fracciones complejas en problemas de álgebra.</li>
+  </ul>
+
+  <h2>Errores frecuentes al operar con fracciones</h2>
+  <ul>
+    <li>Sumar numeradores y denominadores directamente (2/3 + 1/4 ≠ 3/7).</li>
+    <li>Olvidar simplificar el resultado final.</li>
+    <li>En la división, no invertir la segunda fracción antes de multiplicar.</li>
+    <li>Confundir las reglas de multiplicación con las de suma.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Antes de multiplicar fracciones grandes, intenta simplificar cruzando factores comunes entre numeradores y denominadores. Esto reduce los números intermedios y facilita el cálculo mental.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué pasa si el denominador es 0?</button>
+      <div class="faq-ap">
+        <p>Una fracción con denominador 0 no está definida. La calculadora mostrará un error si intentas usar 0 como denominador.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Puedo usar fracciones negativas?</button>
+      <div class="faq-ap">
+        <p>Sí. Las reglas de signos se aplican normalmente: negativo por negativo da positivo, negativo por positivo da negativo.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cómo convierto el resultado a decimal?</button>
+      <div class="faq-ap">
+        <p>Divide el numerador entre el denominador. Por ejemplo, 11/12 ≈ 0.9167.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué es el MCD y cómo se calcula?</button>
+      <div class="faq-ap">
+        <p>El máximo común divisor es el mayor número que divide exactamente a ambos. Se calcula eficientemente con el algoritmo de Euclides.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/slope-calculator">Slope Calculator</a></li>
+      <li><a href="/scientific-notation-calculator">Scientific Notation Calculator</a></li>
+      <li><a href="/rounding-numbers-calculator">Rounding Numbers Calculator</a></li>
+      <li><a href="/gcf-and-lcm-calculator">GCF and LCM Calculator</a></li>
+      <li><a href="/prime-factorization-calculator">Prime Factorization Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/slope-calculator">Slope Calculator</a></li>
+      <li><a href="/scientific-notation-calculator">Scientific Notation Calculator</a></li>
+      <li><a href="/rounding-numbers-calculator">Rounding Numbers Calculator</a></li>
+      <li><a href="/gcf-and-lcm-calculator">GCF and LCM Calculator</a></li>
+      <li><a href="/prime-factorization-calculator">Prime Factorization Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Fraction Calculator: add, subtract, multiply and divide</h1>
+  <p>This fraction calculator lets you operate on two fractions a/b and c/d through addition, subtraction, multiplication and division, simplifying the result to lowest terms using the greatest common divisor.</p>
+
+  <h2>Formulas for fraction operations</h2>
+  <p>Basic fraction operations follow these rules:</p>
+  <ul>
+    <li><strong>Addition:</strong> a/b + c/d = (a×d + b×c) / (b×d)</li>
+    <li><strong>Subtraction:</strong> a/b − c/d = (a×d − b×c) / (b×d)</li>
+    <li><strong>Multiplication:</strong> a/b × c/d = (a×c) / (b×d)</li>
+    <li><strong>Division:</strong> a/b ÷ c/d = (a×d) / (b×c)</li>
+  </ul>
+  <p>After each operation, the result is simplified by dividing numerator and denominator by their greatest common divisor (GCD).</p>
+
+  <h2>Example 1: adding fractions</h2>
+  <p><strong>Problem:</strong> Compute 2/3 + 1/4.</p>
+  <ol>
+    <li>Apply the addition formula:
+      <ul>
+        <li>(2×4 + 3×1) / (3×4) = (8 + 3) / 12 = 11/12.</li>
+      </ul>
+    </li>
+    <li>Simplify:
+      <ul>
+        <li>GCD(11, 12) = 1, already in lowest terms.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> 2/3 + 1/4 = 11/12.</p>
+
+  <h2>Example 2: multiplying fractions</h2>
+  <p><strong>Problem:</strong> Compute 3/8 × 4/9.</p>
+  <ol>
+    <li>Apply the multiplication formula:
+      <ul>
+        <li>(3×4) / (8×9) = 12/72.</li>
+      </ul>
+    </li>
+    <li>Simplify:
+      <ul>
+        <li>GCD(12, 72) = 12, so 12/72 = 1/6.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> 3/8 × 4/9 = 1/6.</p>
+
+  <h2>Common uses of the fraction calculator</h2>
+  <ul>
+    <li>Solving arithmetic exercises with fractions in school mathematics.</li>
+    <li>Adjusting recipe proportions in cooking.</li>
+    <li>Computing measurements in carpentry and construction using fractional inches.</li>
+    <li>Verifying fraction operation results on exams.</li>
+    <li>Working with proportions and percentages in financial contexts.</li>
+    <li>Simplifying complex fractions in algebra problems.</li>
+  </ul>
+
+  <h2>Common mistakes when working with fractions</h2>
+  <ul>
+    <li>Adding numerators and denominators directly (2/3 + 1/4 ≠ 3/7).</li>
+    <li>Forgetting to simplify the final result.</li>
+    <li>In division, not flipping the second fraction before multiplying.</li>
+    <li>Confusing multiplication rules with addition rules.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>Before multiplying large fractions, try cross-canceling common factors between numerators and denominators. This reduces intermediate numbers and makes mental calculation easier.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What happens if the denominator is 0?</button>
+      <div class="faq-ap">
+        <p>A fraction with denominator 0 is undefined. The calculator will show an error if you try to use 0 as a denominator.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Can I use negative fractions?</button>
+      <div class="faq-ap">
+        <p>Yes. Standard sign rules apply: negative times negative gives positive, negative times positive gives negative.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How do I convert the result to a decimal?</button>
+      <div class="faq-ap">
+        <p>Divide the numerator by the denominator. For example, 11/12 ≈ 0.9167.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What is the GCD and how is it calculated?</button>
+      <div class="faq-ap">
+        <p>The greatest common divisor is the largest number that divides both exactly. It is efficiently computed using Euclid's algorithm.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/slope-calculator">Slope Calculator</a></li>
+      <li><a href="/scientific-notation-calculator">Scientific Notation Calculator</a></li>
+      <li><a href="/rounding-numbers-calculator">Rounding Numbers Calculator</a></li>
+      <li><a href="/gcf-and-lcm-calculator">GCF and LCM Calculator</a></li>
+      <li><a href="/prime-factorization-calculator">Prime Factorization Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/slope-calculator">Slope Calculator</a></li>
+      <li><a href="/scientific-notation-calculator">Scientific Notation Calculator</a></li>
+      <li><a href="/rounding-numbers-calculator">Rounding Numbers Calculator</a></li>
+      <li><a href="/gcf-and-lcm-calculator">GCF and LCM Calculator</a></li>
+      <li><a href="/prime-factorization-calculator">Prime Factorization Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "911": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de pendiente: ecuación de la recta entre dos puntos</h1>
+  <p>Esta calculadora determina la pendiente de una recta que pasa por dos puntos dados y encuentra la ecuación de la recta en forma pendiente-intersección (y = mx + b).</p>
+
+  <h2>Fórmulas de la pendiente y la ecuación de la recta</h2>
+  <p>Dados dos puntos (x₁, y₁) y (x₂, y₂):</p>
+  <ul>
+    <li><strong>Pendiente:</strong> m = (y₂ − y₁) / (x₂ − x₁)</li>
+    <li><strong>Ecuación:</strong> y = mx + b, donde b = y₁ − m×x₁</li>
+    <li><strong>Forma punto-pendiente:</strong> y − y₁ = m(x − x₁)</li>
+  </ul>
+  <p>La pendiente indica la inclinación de la recta: positiva significa que sube, negativa que baja, cero es horizontal y undefined es vertical.</p>
+
+  <h2>Ejemplo 1: pendiente positiva</h2>
+  <p><strong>Problema:</strong> Hallar la recta que pasa por (2, 3) y (6, 11).</p>
+  <ol>
+    <li>Pendiente:
+      <ul>
+        <li>m = (11 − 3) / (6 − 2) = 8 / 4 = 2.</li>
+      </ul>
+    </li>
+    <li>Intersección con el eje y:
+      <ul>
+        <li>b = 3 − 2×2 = 3 − 4 = −1.</li>
+      </ul>
+    </li>
+    <li>Ecuación:
+      <ul>
+        <li>y = 2x − 1.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> m = 2, ecuación: y = 2x − 1.</p>
+
+  <h2>Ejemplo 2: pendiente negativa</h2>
+  <p><strong>Problema:</strong> Hallar la recta que pasa por (1, 5) y (4, 2).</p>
+  <ol>
+    <li>Pendiente:
+      <ul>
+        <li>m = (2 − 5) / (4 − 1) = −3 / 3 = −1.</li>
+      </ul>
+    </li>
+    <li>Intersección:
+      <ul>
+        <li>b = 5 − (−1)×1 = 5 + 1 = 6.</li>
+      </ul>
+    </li>
+    <li>Ecuación:
+      <ul>
+        <li>y = −x + 6.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> m = −1, ecuación: y = −x + 6.</p>
+
+  <h2>Usos comunes de la calculadora de pendiente</h2>
+  <ul>
+    <li>Determinar la inclinación de rampas, techos y carreteras en ingeniería.</li>
+    <li>Analizar tendencias lineales en datos económicos y estadísticos.</li>
+    <li>Resolver problemas de geometría analítica en matemáticas.</li>
+    <li>Calcular tasas de cambio en física y ciencias aplicadas.</li>
+    <li>Verificar si dos rectas son paralelas (misma pendiente) o perpendiculares (pendientes inversas y opuestas).</li>
+    <li>Modelar relaciones lineales entre variables en investigación.</li>
+  </ul>
+
+  <h2>Errores frecuentes al calcular pendientes</h2>
+  <ul>
+    <li>Invertir el orden de las coordenadas al restar (usar x₁ − x₂ en lugar de x₂ − x₁).</li>
+    <li>Confundir la pendiente con la intersección.</li>
+    <li>No detectar rectas verticales donde x₂ − x₁ = 0 (pendiente indefinida).</li>
+    <li>Mezclar las coordenadas x e y al sustituir en la fórmula.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Si dos rectas tienen la misma pendiente, son paralelas. Si el producto de sus pendientes es −1, son perpendiculares. Estas reglas rápidas te permiten verificar relaciones geométricas sin graficar.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué significa una pendiente de 0?</button>
+      <div class="faq-ap">
+        <p>Una pendiente de 0 indica una recta horizontal. El valor de y es constante para todos los valores de x.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué pasa si x₁ = x₂?</button>
+      <div class="faq-ap">
+        <p>Si las coordenadas x son iguales, la recta es vertical y la pendiente es indefinida (división por cero). La ecuación es x = constante.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Puedo usar coordenadas negativas?</button>
+      <div class="faq-ap">
+        <p>Sí. La fórmula funciona con cualquier valor real, positivo o negativo. Solo asegúrate de mantener el orden correcto al restar.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cómo sé si dos rectas son perpendiculares?</button>
+      <div class="faq-ap">
+        <p>Dos rectas son perpendiculares si el producto de sus pendientes es −1. Por ejemplo, m₁ = 2 y m₂ = −1/2 son perpendiculares.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/fraction-calculator">Fraction Calculator</a></li>
+      <li><a href="/scientific-notation-calculator">Scientific Notation Calculator</a></li>
+      <li><a href="/rounding-numbers-calculator">Rounding Numbers Calculator</a></li>
+      <li><a href="/gcf-and-lcm-calculator">GCF and LCM Calculator</a></li>
+      <li><a href="/prime-factorization-calculator">Prime Factorization Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/fraction-calculator">Fraction Calculator</a></li>
+      <li><a href="/scientific-notation-calculator">Scientific Notation Calculator</a></li>
+      <li><a href="/rounding-numbers-calculator">Rounding Numbers Calculator</a></li>
+      <li><a href="/gcf-and-lcm-calculator">GCF and LCM Calculator</a></li>
+      <li><a href="/prime-factorization-calculator">Prime Factorization Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Slope Calculator: equation of a line through two points</h1>
+  <p>This calculator determines the slope of a line passing through two given points and finds the line equation in slope-intercept form (y = mx + b).</p>
+
+  <h2>Slope and line equation formulas</h2>
+  <p>Given two points (x₁, y₁) and (x₂, y₂):</p>
+  <ul>
+    <li><strong>Slope:</strong> m = (y₂ − y₁) / (x₂ − x₁)</li>
+    <li><strong>Equation:</strong> y = mx + b, where b = y₁ − m×x₁</li>
+    <li><strong>Point-slope form:</strong> y − y₁ = m(x − x₁)</li>
+  </ul>
+  <p>The slope indicates the line's steepness: positive means it rises, negative means it falls, zero is horizontal and undefined is vertical.</p>
+
+  <h2>Example 1: positive slope</h2>
+  <p><strong>Problem:</strong> Find the line through (2, 3) and (6, 11).</p>
+  <ol>
+    <li>Slope:
+      <ul>
+        <li>m = (11 − 3) / (6 − 2) = 8 / 4 = 2.</li>
+      </ul>
+    </li>
+    <li>y-intercept:
+      <ul>
+        <li>b = 3 − 2×2 = 3 − 4 = −1.</li>
+      </ul>
+    </li>
+    <li>Equation:
+      <ul>
+        <li>y = 2x − 1.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> m = 2, equation: y = 2x − 1.</p>
+
+  <h2>Example 2: negative slope</h2>
+  <p><strong>Problem:</strong> Find the line through (1, 5) and (4, 2).</p>
+  <ol>
+    <li>Slope:
+      <ul>
+        <li>m = (2 − 5) / (4 − 1) = −3 / 3 = −1.</li>
+      </ul>
+    </li>
+    <li>Intercept:
+      <ul>
+        <li>b = 5 − (−1)×1 = 5 + 1 = 6.</li>
+      </ul>
+    </li>
+    <li>Equation:
+      <ul>
+        <li>y = −x + 6.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> m = −1, equation: y = −x + 6.</p>
+
+  <h2>Common uses of the slope calculator</h2>
+  <ul>
+    <li>Determining the incline of ramps, roofs and roads in engineering.</li>
+    <li>Analyzing linear trends in economic and statistical data.</li>
+    <li>Solving analytic geometry problems in mathematics.</li>
+    <li>Computing rates of change in physics and applied sciences.</li>
+    <li>Checking whether two lines are parallel (same slope) or perpendicular (negative reciprocal slopes).</li>
+    <li>Modeling linear relationships between variables in research.</li>
+  </ul>
+
+  <h2>Common mistakes when calculating slopes</h2>
+  <ul>
+    <li>Reversing the coordinate order when subtracting (using x₁ − x₂ instead of x₂ − x₁).</li>
+    <li>Confusing the slope with the y-intercept.</li>
+    <li>Not detecting vertical lines where x₂ − x₁ = 0 (undefined slope).</li>
+    <li>Mixing up x and y coordinates when substituting into the formula.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>If two lines have the same slope, they are parallel. If the product of their slopes is −1, they are perpendicular. These quick rules let you verify geometric relationships without graphing.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What does a slope of 0 mean?</button>
+      <div class="faq-ap">
+        <p>A slope of 0 indicates a horizontal line. The y value is constant for all x values.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What if x₁ = x₂?</button>
+      <div class="faq-ap">
+        <p>If the x coordinates are equal, the line is vertical and the slope is undefined (division by zero). The equation is x = constant.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Can I use negative coordinates?</button>
+      <div class="faq-ap">
+        <p>Yes. The formula works with any real values, positive or negative. Just make sure to maintain the correct subtraction order.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How do I know if two lines are perpendicular?</button>
+      <div class="faq-ap">
+        <p>Two lines are perpendicular if the product of their slopes is −1. For example, m₁ = 2 and m₂ = −1/2 are perpendicular.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/fraction-calculator">Fraction Calculator</a></li>
+      <li><a href="/scientific-notation-calculator">Scientific Notation Calculator</a></li>
+      <li><a href="/rounding-numbers-calculator">Rounding Numbers Calculator</a></li>
+      <li><a href="/gcf-and-lcm-calculator">GCF and LCM Calculator</a></li>
+      <li><a href="/prime-factorization-calculator">Prime Factorization Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/fraction-calculator">Fraction Calculator</a></li>
+      <li><a href="/scientific-notation-calculator">Scientific Notation Calculator</a></li>
+      <li><a href="/rounding-numbers-calculator">Rounding Numbers Calculator</a></li>
+      <li><a href="/gcf-and-lcm-calculator">GCF and LCM Calculator</a></li>
+      <li><a href="/prime-factorization-calculator">Prime Factorization Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "912": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de notación científica: conversión y operaciones</h1>
+  <p>La notación científica expresa números muy grandes o muy pequeños en la forma a × 10ⁿ, donde 1 ≤ a < 10 y n es un entero. Esta calculadora convierte números entre notación decimal y científica.</p>
+
+  <h2>Formato de la notación científica</h2>
+  <p>Todo número en notación científica tiene dos partes:</p>
+  <ul>
+    <li><strong>Coeficiente (a):</strong> un número entre 1 y 10 (incluyendo 1, excluyendo 10)</li>
+    <li><strong>Exponente (n):</strong> un entero que indica la potencia de 10</li>
+  </ul>
+  <p>Por ejemplo, 3,500,000 = 3.5 × 10⁶ y 0.00042 = 4.2 × 10⁻⁴.</p>
+
+  <h2>Ejemplo 1: número grande a notación científica</h2>
+  <p><strong>Problema:</strong> Convertir 6,780,000 a notación científica.</p>
+  <ol>
+    <li>Mover el punto decimal hasta obtener un número entre 1 y 10:
+      <ul>
+        <li>6,780,000 → 6.78 (movido 6 posiciones a la izquierda).</li>
+      </ul>
+    </li>
+    <li>Escribir en notación científica:
+      <ul>
+        <li>6.78 × 10⁶.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> 6,780,000 = 6.78 × 10⁶.</p>
+
+  <h2>Ejemplo 2: número pequeño a notación científica</h2>
+  <p><strong>Problema:</strong> Convertir 0.0000567 a notación científica.</p>
+  <ol>
+    <li>Mover el punto decimal hasta obtener un número entre 1 y 10:
+      <ul>
+        <li>0.0000567 → 5.67 (movido 5 posiciones a la derecha).</li>
+      </ul>
+    </li>
+    <li>Escribir en notación científica:
+      <ul>
+        <li>5.67 × 10⁻⁵.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> 0.0000567 = 5.67 × 10⁻⁵.</p>
+
+  <h2>Usos comunes de la notación científica</h2>
+  <ul>
+    <li>Expresar distancias astronómicas en física y astronomía.</li>
+    <li>Representar tamaños de átomos y moléculas en química.</li>
+    <li>Trabajar con números muy grandes en informática y estadística.</li>
+    <li>Simplificar cálculos con números extremadamente grandes o pequeños.</li>
+    <li>Estándar en calculadoras científicas y software de ingeniería.</li>
+    <li>Comunicar resultados de mediciones con cifras significativas.</li>
+  </ul>
+
+  <h2>Errores frecuentes con la notación científica</h2>
+  <ul>
+    <li>Usar un coeficiente fuera del rango [1, 10), por ejemplo 12.5 × 10³ en lugar de 1.25 × 10⁴.</li>
+    <li>Confundir el signo del exponente: mover a la izquierda da exponente positivo, a la derecha negativo.</li>
+    <li>No contar correctamente el número de posiciones del punto decimal.</li>
+    <li>Perder cifras significativas al redondear el coeficiente.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Para verificar tu conversión, cuenta los ceros: un exponente positivo n significa que el número original tiene aproximadamente n ceros después del primer dígito. Un exponente negativo −n significa n ceros después del punto decimal antes del primer dígito significativo.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Por qué el coeficiente debe estar entre 1 y 10?</button>
+      <div class="faq-ap">
+        <p>Esta convención garantiza una representación única para cada número, evitando ambigüedades como 3.5 × 10³ y 35 × 10² para el mismo valor.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cómo multiplico números en notación científica?</button>
+      <div class="faq-ap">
+        <p>Multiplica los coeficientes y suma los exponentes: (a × 10ⁿ) × (b × 10ᵐ) = (a×b) × 10ⁿ⁺ᵐ. Luego ajusta si el producto excede 10.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué es la notación E?</button>
+      <div class="faq-ap">
+        <p>Es una forma compacta usada en calculadoras: 3.5E6 significa 3.5 × 10⁶. La E reemplaza "× 10".</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Puedo convertir notación científica a fracción?</button>
+      <div class="faq-ap">
+        <p>Sí. Por ejemplo, 2.5 × 10⁻³ = 2.5/1000 = 25/10000 = 1/400.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/fraction-calculator">Fraction Calculator</a></li>
+      <li><a href="/slope-calculator">Slope Calculator</a></li>
+      <li><a href="/rounding-numbers-calculator">Rounding Numbers Calculator</a></li>
+      <li><a href="/gcf-and-lcm-calculator">GCF and LCM Calculator</a></li>
+      <li><a href="/prime-factorization-calculator">Prime Factorization Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/fraction-calculator">Fraction Calculator</a></li>
+      <li><a href="/slope-calculator">Slope Calculator</a></li>
+      <li><a href="/rounding-numbers-calculator">Rounding Numbers Calculator</a></li>
+      <li><a href="/gcf-and-lcm-calculator">GCF and LCM Calculator</a></li>
+      <li><a href="/prime-factorization-calculator">Prime Factorization Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Scientific Notation Converter</h1>
+  <p>Scientific notation expresses very large or very small numbers in the form a × 10ⁿ, where 1 ≤ a < 10 and n is an integer. This calculator converts numbers between decimal and scientific notation.</p>
+
+  <h2>Scientific notation format</h2>
+  <p>Every number in scientific notation has two parts:</p>
+  <ul>
+    <li><strong>Coefficient (a):</strong> a number between 1 and 10 (including 1, excluding 10)</li>
+    <li><strong>Exponent (n):</strong> an integer indicating the power of 10</li>
+  </ul>
+  <p>For example, 3,500,000 = 3.5 × 10⁶ and 0.00042 = 4.2 × 10⁻⁴.</p>
+
+  <h2>Example 1: large number to scientific notation</h2>
+  <p><strong>Problem:</strong> Convert 6,780,000 to scientific notation.</p>
+  <ol>
+    <li>Move the decimal point to get a number between 1 and 10:
+      <ul>
+        <li>6,780,000 → 6.78 (moved 6 places left).</li>
+      </ul>
+    </li>
+    <li>Write in scientific notation:
+      <ul>
+        <li>6.78 × 10⁶.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> 6,780,000 = 6.78 × 10⁶.</p>
+
+  <h2>Example 2: small number to scientific notation</h2>
+  <p><strong>Problem:</strong> Convert 0.0000567 to scientific notation.</p>
+  <ol>
+    <li>Move the decimal point to get a number between 1 and 10:
+      <ul>
+        <li>0.0000567 → 5.67 (moved 5 places right).</li>
+      </ul>
+    </li>
+    <li>Write in scientific notation:
+      <ul>
+        <li>5.67 × 10⁻⁵.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> 0.0000567 = 5.67 × 10⁻⁵.</p>
+
+  <h2>Common uses of scientific notation</h2>
+  <ul>
+    <li>Expressing astronomical distances in physics and astronomy.</li>
+    <li>Representing atom and molecule sizes in chemistry.</li>
+    <li>Working with very large numbers in computing and statistics.</li>
+    <li>Simplifying calculations with extremely large or small numbers.</li>
+    <li>Standard format in scientific calculators and engineering software.</li>
+    <li>Communicating measurement results with significant figures.</li>
+  </ul>
+
+  <h2>Common mistakes with scientific notation</h2>
+  <ul>
+    <li>Using a coefficient outside the [1, 10) range, e.g. 12.5 × 10³ instead of 1.25 × 10⁴.</li>
+    <li>Confusing the exponent sign: moving left gives positive exponent, moving right gives negative.</li>
+    <li>Not counting decimal point positions correctly.</li>
+    <li>Losing significant figures when rounding the coefficient.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>To verify your conversion, count the zeros: a positive exponent n means the original number has roughly n zeros after the first digit. A negative exponent −n means n zeros after the decimal point before the first significant digit.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Why must the coefficient be between 1 and 10?</button>
+      <div class="faq-ap">
+        <p>This convention guarantees a unique representation for each number, avoiding ambiguities like 3.5 × 10³ and 35 × 10² for the same value.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How do I multiply numbers in scientific notation?</button>
+      <div class="faq-ap">
+        <p>Multiply the coefficients and add the exponents: (a × 10ⁿ) × (b × 10ᵐ) = (a×b) × 10ⁿ⁺ᵐ. Then adjust if the product exceeds 10.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What is E notation?</button>
+      <div class="faq-ap">
+        <p>It is a compact form used in calculators: 3.5E6 means 3.5 × 10⁶. The E replaces "× 10".</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Can I convert scientific notation to a fraction?</button>
+      <div class="faq-ap">
+        <p>Yes. For example, 2.5 × 10⁻³ = 2.5/1000 = 25/10000 = 1/400.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/fraction-calculator">Fraction Calculator</a></li>
+      <li><a href="/slope-calculator">Slope Calculator</a></li>
+      <li><a href="/rounding-numbers-calculator">Rounding Numbers Calculator</a></li>
+      <li><a href="/gcf-and-lcm-calculator">GCF and LCM Calculator</a></li>
+      <li><a href="/prime-factorization-calculator">Prime Factorization Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/fraction-calculator">Fraction Calculator</a></li>
+      <li><a href="/slope-calculator">Slope Calculator</a></li>
+      <li><a href="/rounding-numbers-calculator">Rounding Numbers Calculator</a></li>
+      <li><a href="/gcf-and-lcm-calculator">GCF and LCM Calculator</a></li>
+      <li><a href="/prime-factorization-calculator">Prime Factorization Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "913": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de redondeo: redondear números a decimales o enteros</h1>
+  <p>Esta calculadora redondea cualquier número a la cantidad de decimales o cifras significativas que necesites, usando el método de redondeo estándar (mitad hacia arriba) o el redondeo bancario.</p>
+
+  <h2>Reglas de redondeo</h2>
+  <p>Los métodos más comunes son:</p>
+  <ul>
+    <li><strong>Redondeo estándar (mitad hacia arriba):</strong> si el dígito siguiente es 5 o mayor, se redondea hacia arriba; si es menor que 5, se redondea hacia abajo.</li>
+    <li><strong>Redondeo bancario:</strong> cuando el dígito siguiente es exactamente 5, se redondea al dígito par más cercano para evitar sesgos acumulativos.</li>
+    <li><strong>Truncamiento:</strong> simplemente se eliminan los dígitos sobrantes sin redondear.</li>
+  </ul>
+  <p>El redondeo estándar es el más utilizado en la vida cotidiana y la educación.</p>
+
+  <h2>Ejemplo 1: redondeo a 2 decimales</h2>
+  <p><strong>Problema:</strong> Redondear 3.14159 a 2 decimales.</p>
+  <ol>
+    <li>Identificar el tercer decimal:
+      <ul>
+        <li>3.14<strong>1</strong>59, el tercer decimal es 1.</li>
+      </ul>
+    </li>
+    <li>Como 1 < 5, redondear hacia abajo:
+      <ul>
+        <li>3.14.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> 3.14159 redondeado a 2 decimales = 3.14.</p>
+
+  <h2>Ejemplo 2: redondeo a entero</h2>
+  <p><strong>Problema:</strong> Redondear 7.85 al entero más cercano.</p>
+  <ol>
+    <li>Identificar el primer decimal:
+      <ul>
+        <li>7.<strong>8</strong>5, el primer decimal es 8.</li>
+      </ul>
+    </li>
+    <li>Como 8 ≥ 5, redondear hacia arriba:
+      <ul>
+        <li>8.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> 7.85 redondeado al entero más cercano = 8.</p>
+
+  <h2>Usos comunes de la calculadora de redondeo</h2>
+  <ul>
+    <li>Redondear resultados monetarios a centimos en finanzas.</li>
+    <li>Ajustar cifras significativas en informes científicos y técnicos.</li>
+    <li>Simplificar números para presentaciones y gráficos.</li>
+    <li>Calcular estimaciones rápidas en compras y presupuestos.</li>
+    <li>Preparar datos para sistemas que requieren precision fija.</li>
+    <li>Verificar ejercicios de redondeo en tareas escolares.</li>
+  </ul>
+
+  <h2>Errores frecuentes al redondear</h2>
+  <ul>
+    <li>Redondear en múltiples pasos (3.456 → 3.46 → 3.5) en lugar de hacerlo directamente.</li>
+    <li>Confundir cifras significativas con decimales.</li>
+    <li>No considerar que el redondeo introduce un pequeño error.</li>
+    <li>Redondear intermedios en cálculos largos, acumulando errores.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>En cálculos con múltiples pasos, nunca redondees los valores intermedios. Guarda todos los decimales durante el proceso y redondea solo el resultado final para minimizar el error acumulado.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué pasa cuando el dígito es exactamente 5?</button>
+      <div class="faq-ap">
+        <p>Con redondeo estándar se redondea hacia arriba. Con redondeo bancario se redondea al dígito par más cercano (2.5 → 2, 3.5 → 4).</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Puedo redondear números negativos?</button>
+      <div class="faq-ap">
+        <p>Sí. Las mismas reglas se aplican: −3.7 redondeado al entero más cercano es −4.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cuál es la diferencia entre decimales y cifras significativas?</button>
+      <div class="faq-ap">
+        <p>Los decimales cuentan posiciones después del punto. Las cifras significativas cuentan todos los dígitos importantes desde el primer dígito no cero.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿El redondeo afecta la precisión?</button>
+      <div class="faq-ap">
+        <p>Sí, siempre introduce un pequeño error. Por eso es importante redondear solo al final de los cálculos y usar la precision adecuada al contexto.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/fraction-calculator">Fraction Calculator</a></li>
+      <li><a href="/slope-calculator">Slope Calculator</a></li>
+      <li><a href="/scientific-notation-calculator">Scientific Notation Calculator</a></li>
+      <li><a href="/gcf-and-lcm-calculator">GCF and LCM Calculator</a></li>
+      <li><a href="/prime-factorization-calculator">Prime Factorization Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/fraction-calculator">Fraction Calculator</a></li>
+      <li><a href="/slope-calculator">Slope Calculator</a></li>
+      <li><a href="/scientific-notation-calculator">Scientific Notation Calculator</a></li>
+      <li><a href="/gcf-and-lcm-calculator">GCF and LCM Calculator</a></li>
+      <li><a href="/prime-factorization-calculator">Prime Factorization Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Rounding Calculator: round numbers to decimals or integers</h1>
+  <p>This rounding calculator rounds any number to the number of decimal places or significant figures you need, using standard rounding (half up) or banker's rounding.</p>
+
+  <h2>Rounding rules</h2>
+  <p>The most common methods are:</p>
+  <ul>
+    <li><strong>Standard rounding (half up):</strong> if the next digit is 5 or greater, round up; if less than 5, round down.</li>
+    <li><strong>Banker's rounding:</strong> when the next digit is exactly 5, round to the nearest even digit to avoid cumulative bias.</li>
+    <li><strong>Truncation:</strong> simply drop the extra digits without rounding.</li>
+  </ul>
+  <p>Standard rounding is the most widely used in everyday life and education.</p>
+
+  <h2>Example 1: rounding to 2 decimal places</h2>
+  <p><strong>Problem:</strong> Round 3.14159 to 2 decimal places.</p>
+  <ol>
+    <li>Identify the third decimal:
+      <ul>
+        <li>3.14<strong>1</strong>59, the third decimal is 1.</li>
+      </ul>
+    </li>
+    <li>Since 1 < 5, round down:
+      <ul>
+        <li>3.14.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> 3.14159 rounded to 2 decimal places = 3.14.</p>
+
+  <h2>Example 2: rounding to nearest integer</h2>
+  <p><strong>Problem:</strong> Round 7.85 to the nearest integer.</p>
+  <ol>
+    <li>Identify the first decimal:
+      <ul>
+        <li>7.<strong>8</strong>5, the first decimal is 8.</li>
+      </ul>
+    </li>
+    <li>Since 8 ≥ 5, round up:
+      <ul>
+        <li>8.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> 7.85 rounded to the nearest integer = 8.</p>
+
+  <h2>Common uses of the rounding calculator</h2>
+  <ul>
+    <li>Rounding monetary results to cents in finance.</li>
+    <li>Adjusting significant figures in scientific and technical reports.</li>
+    <li>Simplifying numbers for presentations and charts.</li>
+    <li>Computing quick estimates for shopping and budgeting.</li>
+    <li>Preparing data for systems that require fixed precision.</li>
+    <li>Verifying rounding exercises in school homework.</li>
+  </ul>
+
+  <h2>Common mistakes when rounding</h2>
+  <ul>
+    <li>Rounding in multiple steps (3.456 → 3.46 → 3.5) instead of directly.</li>
+    <li>Confusing significant figures with decimal places.</li>
+    <li>Not considering that rounding introduces a small error.</li>
+    <li>Rounding intermediates in long calculations, accumulating errors.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>In multi-step calculations, never round intermediate values. Keep all decimals during the process and round only the final result to minimize accumulated error.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What happens when the digit is exactly 5?</button>
+      <div class="faq-ap">
+        <p>With standard rounding, round up. With banker's rounding, round to the nearest even digit (2.5 → 2, 3.5 → 4).</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Can I round negative numbers?</button>
+      <div class="faq-ap">
+        <p>Yes. The same rules apply: −3.7 rounded to the nearest integer is −4.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What is the difference between decimal places and significant figures?</button>
+      <div class="faq-ap">
+        <p>Decimal places count positions after the point. Significant figures count all important digits from the first non-zero digit.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Does rounding affect accuracy?</button>
+      <div class="faq-ap">
+        <p>Yes, it always introduces a small error. That is why you should round only at the end of calculations and use precision appropriate to the context.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/fraction-calculator">Fraction Calculator</a></li>
+      <li><a href="/slope-calculator">Slope Calculator</a></li>
+      <li><a href="/scientific-notation-calculator">Scientific Notation Calculator</a></li>
+      <li><a href="/gcf-and-lcm-calculator">GCF and LCM Calculator</a></li>
+      <li><a href="/prime-factorization-calculator">Prime Factorization Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/fraction-calculator">Fraction Calculator</a></li>
+      <li><a href="/slope-calculator">Slope Calculator</a></li>
+      <li><a href="/scientific-notation-calculator">Scientific Notation Calculator</a></li>
+      <li><a href="/gcf-and-lcm-calculator">GCF and LCM Calculator</a></li>
+      <li><a href="/prime-factorization-calculator">Prime Factorization Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "914": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de MCD y MCM: máximo común divisor y mínimo común múltiplo</h1>
+  <p>Esta calculadora encuentra el máximo común divisor (MCD) y el mínimo común múltiplo (MCM) de dos o más números enteros, herramientas fundamentales para simplificar fracciones y operar con denominadores diferentes.</p>
+
+  <h2>Fórmulas del MCD y MCM</h2>
+  <p>Para dos números a y b:</p>
+  <ul>
+    <li><strong>MCD:</strong> se calcula usando el algoritmo de Euclides, que divide repetidamente el mayor por el menor hasta obtener residuo 0.</li>
+    <li><strong>MCM:</strong> se obtiene como MCM(a, b) = |a × b| / MCD(a, b).</li>
+  </ul>
+  <p>El MCD es el mayor número que divide exactamente a ambos. El MCM es el menor número que es múltiplo de ambos.</p>
+
+  <h2>Ejemplo 1: MCD y MCM de 12 y 18</h2>
+  <p><strong>Problema:</strong> Hallar el MCD y MCM de 12 y 18.</p>
+  <ol>
+    <li>MCD por Euclides:
+      <ul>
+        <li>18 = 12 × 1 + 6; 12 = 6 × 2 + 0 → MCD = 6.</li>
+      </ul>
+    </li>
+    <li>MCM:
+      <ul>
+        <li>MCM = |12 × 18| / 6 = 216 / 6 = 36.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> MCD(12, 18) = 6, MCM(12, 18) = 36.</p>
+
+  <h2>Ejemplo 2: MCD y MCM de 24 y 36</h2>
+  <p><strong>Problema:</strong> Hallar el MCD y MCM de 24 y 36.</p>
+  <ol>
+    <li>MCD por Euclides:
+      <ul>
+        <li>36 = 24 × 1 + 12; 24 = 12 × 2 + 0 → MCD = 12.</li>
+      </ul>
+    </li>
+    <li>MCM:
+      <ul>
+        <li>MCM = |24 × 36| / 12 = 864 / 12 = 72.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> MCD(24, 36) = 12, MCM(24, 36) = 72.</p>
+
+  <h2>Usos comunes del MCD y MCM</h2>
+  <ul>
+    <li>Simplificar fracciones dividiendo numerador y denominador por el MCD.</li>
+    <li>Encontrar denominadores comunes para sumar o restar fracciones usando el MCM.</li>
+    <li>Resolver problemas de divisibilidad en aritmética y teoría de números.</li>
+    <li>Planificar eventos periódicos que coinciden (problemas de sincronización).</li>
+    <li>Factorizar polinomios en álgebra usando el MCD de coeficientes.</li>
+    <li>Optimizar agrupaciones y distribuciones en problemas prácticos.</li>
+  </ul>
+
+  <h2>Errores frecuentes al calcular MCD y MCM</h2>
+  <ul>
+    <li>Confundir MCD con MCM: el MCD es menor o igual que los números, el MCM es mayor o igual.</li>
+    <li>No usar el valor absoluto al calcular el producto para el MCM.</li>
+    <li>Intentar listar todos los divisores en lugar de usar el algoritmo de Euclides.</li>
+    <li>Aplicar la fórmula del MCM sin primero calcular el MCD correctamente.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>El algoritmo de Euclides es extremadamente eficiente: incluso para números de millones de dígitos, converge en muy pocos pasos. Es mucho más rápido que listar todos los divisores o factores primos.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué pasa si los números son primos entre sí?</button>
+      <div class="faq-ap">
+        <p>Si dos números no comparten factores comunes, su MCD es 1 y su MCM es simplemente su producto.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Puedo calcular el MCD de más de dos números?</button>
+      <div class="faq-ap">
+        <p>Sí. Calcula el MCD de dos números y luego usa ese resultado con el siguiente: MCD(a, b, c) = MCD(MCD(a, b), c).</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿El MCD y MCM funcionan con números negativos?</button>
+      <div class="faq-ap">
+        <p>Sí. El MCD siempre es positivo y el MCM también. Se usa el valor absoluto de los números en los cálculos.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cuál es la relación entre MCD y MCM?</button>
+      <div class="faq-ap">
+        <p>Para dos números: MCD(a, b) × MCM(a, b) = |a × b|. Esta relación permite calcular uno si conoces el otro.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/fraction-calculator">Fraction Calculator</a></li>
+      <li><a href="/slope-calculator">Slope Calculator</a></li>
+      <li><a href="/scientific-notation-calculator">Scientific Notation Calculator</a></li>
+      <li><a href="/rounding-numbers-calculator">Rounding Numbers Calculator</a></li>
+      <li><a href="/prime-factorization-calculator">Prime Factorization Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/fraction-calculator">Fraction Calculator</a></li>
+      <li><a href="/slope-calculator">Slope Calculator</a></li>
+      <li><a href="/scientific-notation-calculator">Scientific Notation Calculator</a></li>
+      <li><a href="/rounding-numbers-calculator">Rounding Numbers Calculator</a></li>
+      <li><a href="/prime-factorization-calculator">Prime Factorization Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>GCF & LCM Calculator: greatest common factor and least common multiple</h1>
+  <p>This calculator finds the greatest common factor (GCF) and least common multiple (LCM) of two or more integers, fundamental tools for simplifying fractions and operating with different denominators.</p>
+
+  <h2>GCF and LCM formulas</h2>
+  <p>For two numbers a and b:</p>
+  <ul>
+    <li><strong>GCF:</strong> computed using Euclid's algorithm, which repeatedly divides the larger by the smaller until the remainder is 0.</li>
+    <li><strong>LCM:</strong> obtained as LCM(a, b) = |a × b| / GCF(a, b).</li>
+  </ul>
+  <p>The GCF is the largest number that divides both exactly. The LCM is the smallest number that is a multiple of both.</p>
+
+  <h2>Example 1: GCF and LCM of 12 and 18</h2>
+  <p><strong>Problem:</strong> Find the GCF and LCM of 12 and 18.</p>
+  <ol>
+    <li>GCF by Euclid:
+      <ul>
+        <li>18 = 12 × 1 + 6; 12 = 6 × 2 + 0 → GCF = 6.</li>
+      </ul>
+    </li>
+    <li>LCM:
+      <ul>
+        <li>LCM = |12 × 18| / 6 = 216 / 6 = 36.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> GCF(12, 18) = 6, LCM(12, 18) = 36.</p>
+
+  <h2>Example 2: GCF and LCM of 24 and 36</h2>
+  <p><strong>Problem:</strong> Find the GCF and LCM of 24 and 36.</p>
+  <ol>
+    <li>GCF by Euclid:
+      <ul>
+        <li>36 = 24 × 1 + 12; 24 = 12 × 2 + 0 → GCF = 12.</li>
+      </ul>
+    </li>
+    <li>LCM:
+      <ul>
+        <li>LCM = |24 × 36| / 12 = 864 / 12 = 72.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> GCF(24, 36) = 12, LCM(24, 36) = 72.</p>
+
+  <h2>Common uses of GCF and LCM</h2>
+  <ul>
+    <li>Simplifying fractions by dividing numerator and denominator by the GCF.</li>
+    <li>Finding common denominators for adding or subtracting fractions using the LCM.</li>
+    <li>Solving divisibility problems in arithmetic and number theory.</li>
+    <li>Planning periodic events that coincide (synchronization problems).</li>
+    <li>Factoring polynomials in algebra using the GCF of coefficients.</li>
+    <li>Optimizing groupings and distributions in practical problems.</li>
+  </ul>
+
+  <h2>Common mistakes when computing GCF and LCM</h2>
+  <ul>
+    <li>Confusing GCF with LCM: the GCF is less than or equal to the numbers, the LCM is greater than or equal.</li>
+    <li>Not using absolute value when computing the product for LCM.</li>
+    <li>Trying to list all divisors instead of using Euclid's algorithm.</li>
+    <li>Applying the LCM formula without first computing the GCF correctly.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>Euclid's algorithm is extremely efficient: even for numbers with millions of digits, it converges in very few steps. It is much faster than listing all divisors or prime factors.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What if the numbers are coprime?</button>
+      <div class="faq-ap">
+        <p>If two numbers share no common factors, their GCF is 1 and their LCM is simply their product.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Can I compute the GCF of more than two numbers?</button>
+      <div class="faq-ap">
+        <p>Yes. Compute the GCF of two numbers and then use that result with the next: GCF(a, b, c) = GCF(GCF(a, b), c).</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Do GCF and LCM work with negative numbers?</button>
+      <div class="faq-ap">
+        <p>Yes. The GCF is always positive and so is the LCM. Absolute values of the numbers are used in the calculations.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What is the relationship between GCF and LCM?</button>
+      <div class="faq-ap">
+        <p>For two numbers: GCF(a, b) × LCM(a, b) = |a × b|. This relationship lets you compute one if you know the other.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/fraction-calculator">Fraction Calculator</a></li>
+      <li><a href="/slope-calculator">Slope Calculator</a></li>
+      <li><a href="/scientific-notation-calculator">Scientific Notation Calculator</a></li>
+      <li><a href="/rounding-numbers-calculator">Rounding Numbers Calculator</a></li>
+      <li><a href="/prime-factorization-calculator">Prime Factorization Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/fraction-calculator">Fraction Calculator</a></li>
+      <li><a href="/slope-calculator">Slope Calculator</a></li>
+      <li><a href="/scientific-notation-calculator">Scientific Notation Calculator</a></li>
+      <li><a href="/rounding-numbers-calculator">Rounding Numbers Calculator</a></li>
+      <li><a href="/prime-factorization-calculator">Prime Factorization Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "915": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de factorización prima: descomposición en factores primos</h1>
+  <p>La factorización prima descompone un número entero en el producto de sus factores primos. Esta calculadora encuentra todos los factores primos de un número usando el método de división por primos sucesivos.</p>
+
+  <h2>Método de factorización prima</h2>
+  <p>El algoritmo prueba divisores primos en orden ascendente:</p>
+  <ul>
+    <li>Dividir el número por 2 tantas veces como sea posible.</li>
+    <li>Luego probar con 3, 5, 7, 11, etc., hasta que el cociente sea 1.</li>
+    <li>Solo es necesario probar primos hasta la raíz cuadrada del número.</li>
+  </ul>
+  <p>El resultado se expresa como producto de potencias de primos, por ejemplo 60 = 2² × 3 × 5.</p>
+
+  <h2>Ejemplo 1: factorización de 60</h2>
+  <p><strong>Problema:</strong> Factorizar 60 en factores primos.</p>
+  <ol>
+    <li>Dividir por 2:
+      <ul>
+        <li>60 ÷ 2 = 30; 30 ÷ 2 = 15. (dos factores de 2)</li>
+      </ul>
+    </li>
+    <li>Dividir por 3:
+      <ul>
+        <li>15 ÷ 3 = 5. (un factor de 3)</li>
+      </ul>
+    </li>
+    <li>Dividir por 5:
+      <ul>
+        <li>5 ÷ 5 = 1. (un factor de 5)</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> 60 = 2² × 3 × 5.</p>
+
+  <h2>Ejemplo 2: factorización de 315</h2>
+  <p><strong>Problema:</strong> Factorizar 315 en factores primos.</p>
+  <ol>
+    <li>Dividir por 3:
+      <ul>
+        <li>315 ÷ 3 = 105; 105 ÷ 3 = 35. (dos factores de 3)</li>
+      </ul>
+    </li>
+    <li>Dividir por 5:
+      <ul>
+        <li>35 ÷ 5 = 7. (un factor de 5)</li>
+      </ul>
+    </li>
+    <li>Dividir por 7:
+      <ul>
+        <li>7 ÷ 7 = 1. (un factor de 7)</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> 315 = 3² × 5 × 7.</p>
+
+  <h2>Usos comunes de la factorización prima</h2>
+  <ul>
+    <li>Calcular el MCD y MCM de números grandes mediante sus factores primos.</li>
+    <li>Simplificar fracciones y radicales en álgebra.</li>
+    <li>Entender la estructura fundamental de los números en teoría de números.</li>
+    <li>Base de la criptografía RSA y sistemas de seguridad.</li>
+    <li>Resolver problemas de divisibilidad y congruencias.</li>
+    <li>Verificar si un número es primo o compuesto.</li>
+  </ul>
+
+  <h2>Errores frecuentes en la factorización prima</h2>
+  <ul>
+    <li>Incluir números compuestos como factores (por ejemplo, 4 en lugar de 2²).</li>
+    <li>No verificar que todos los factores sean realmente primos.</li>
+    <li>Detenerse antes de llegar a 1, dejando factores sin descomponer.</li>
+    <li>No probar suficientes primos, especialmente para números grandes.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>El Teorema Fundamental de la Aritmética garantiza que cada número entero mayor que 1 tiene una factorización prima única. Esto significa que no importa el método que uses, siempre llegarás a los mismos factores primos.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué es un número primo?</button>
+      <div class="faq-ap">
+        <p>Un número primo es un entero mayor que 1 que solo es divisible por 1 y por sí mismo. Los primeros primos son 2, 3, 5, 7, 11, 13, 17, 19...</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿El 1 es un número primo?</button>
+      <div class="faq-ap">
+        <p>No. Por definición, un número primo debe tener exactamente dos divisores positivos. El 1 solo tiene un divisor (él mismo).</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Hasta qué número debo probar divisores?</button>
+      <div class="faq-ap">
+        <p>Solo necesitas probar primos hasta la raíz cuadrada del número. Si no encuentras divisores hasta ahí, el número es primo.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cómo uso la factorización para hallar el MCD?</button>
+      <div class="faq-ap">
+        <p>El MCD es el producto de los factores primos comunes elevados al menor exponente. Por ejemplo, MCD(60, 315) = 3 × 5 = 15.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/fraction-calculator">Fraction Calculator</a></li>
+      <li><a href="/slope-calculator">Slope Calculator</a></li>
+      <li><a href="/scientific-notation-calculator">Scientific Notation Calculator</a></li>
+      <li><a href="/rounding-numbers-calculator">Rounding Numbers Calculator</a></li>
+      <li><a href="/gcf-and-lcm-calculator">GCF and LCM Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/fraction-calculator">Fraction Calculator</a></li>
+      <li><a href="/slope-calculator">Slope Calculator</a></li>
+      <li><a href="/scientific-notation-calculator">Scientific Notation Calculator</a></li>
+      <li><a href="/rounding-numbers-calculator">Rounding Numbers Calculator</a></li>
+      <li><a href="/gcf-and-lcm-calculator">GCF and LCM Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Prime Factorization Calculator</h1>
+  <p>Prime factorization decomposes an integer into the product of its prime factors. This calculator finds all prime factors of a number using successive prime division.</p>
+
+  <h2>Prime factorization method</h2>
+  <p>The algorithm tests prime divisors in ascending order:</p>
+  <ul>
+    <li>Divide the number by 2 as many times as possible.</li>
+    <li>Then try 3, 5, 7, 11, etc., until the quotient is 1.</li>
+    <li>You only need to test primes up to the square root of the number.</li>
+  </ul>
+  <p>The result is expressed as a product of prime powers, for example 60 = 2² × 3 × 5.</p>
+
+  <h2>Example 1: factorizing 60</h2>
+  <p><strong>Problem:</strong> Factorize 60 into prime factors.</p>
+  <ol>
+    <li>Divide by 2:
+      <ul>
+        <li>60 ÷ 2 = 30; 30 ÷ 2 = 15. (two factors of 2)</li>
+      </ul>
+    </li>
+    <li>Divide by 3:
+      <ul>
+        <li>15 ÷ 3 = 5. (one factor of 3)</li>
+      </ul>
+    </li>
+    <li>Divide by 5:
+      <ul>
+        <li>5 ÷ 5 = 1. (one factor of 5)</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> 60 = 2² × 3 × 5.</p>
+
+  <h2>Example 2: factorizing 315</h2>
+  <p><strong>Problem:</strong> Factorize 315 into prime factors.</p>
+  <ol>
+    <li>Divide by 3:
+      <ul>
+        <li>315 ÷ 3 = 105; 105 ÷ 3 = 35. (two factors of 3)</li>
+      </ul>
+    </li>
+    <li>Divide by 5:
+      <ul>
+        <li>35 ÷ 5 = 7. (one factor of 5)</li>
+      </ul>
+    </li>
+    <li>Divide by 7:
+      <ul>
+        <li>7 ÷ 7 = 1. (one factor of 7)</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> 315 = 3² × 5 × 7.</p>
+
+  <h2>Common uses of prime factorization</h2>
+  <ul>
+    <li>Computing GCF and LCM of large numbers from their prime factors.</li>
+    <li>Simplifying fractions and radicals in algebra.</li>
+    <li>Understanding the fundamental structure of numbers in number theory.</li>
+    <li>Foundation of RSA cryptography and security systems.</li>
+    <li>Solving divisibility and congruence problems.</li>
+    <li>Verifying whether a number is prime or composite.</li>
+  </ul>
+
+  <h2>Common mistakes in prime factorization</h2>
+  <ul>
+    <li>Including composite numbers as factors (e.g., 4 instead of 2²).</li>
+    <li>Not verifying that all factors are actually prime.</li>
+    <li>Stopping before reaching 1, leaving factors undecomposed.</li>
+    <li>Not testing enough primes, especially for large numbers.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>The Fundamental Theorem of Arithmetic guarantees that every integer greater than 1 has a unique prime factorization. This means no matter which method you use, you will always arrive at the same prime factors.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What is a prime number?</button>
+      <div class="faq-ap">
+        <p>A prime number is an integer greater than 1 that is only divisible by 1 and itself. The first primes are 2, 3, 5, 7, 11, 13, 17, 19...</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Is 1 a prime number?</button>
+      <div class="faq-ap">
+        <p>No. By definition, a prime number must have exactly two positive divisors. The number 1 has only one divisor (itself).</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How far do I need to test divisors?</button>
+      <div class="faq-ap">
+        <p>You only need to test primes up to the square root of the number. If you find no divisors by then, the number is prime.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How do I use factorization to find the GCF?</button>
+      <div class="faq-ap">
+        <p>The GCF is the product of common prime factors raised to the smallest exponent. For example, GCF(60, 315) = 3 × 5 = 15.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/fraction-calculator">Fraction Calculator</a></li>
+      <li><a href="/slope-calculator">Slope Calculator</a></li>
+      <li><a href="/scientific-notation-calculator">Scientific Notation Calculator</a></li>
+      <li><a href="/rounding-numbers-calculator">Rounding Numbers Calculator</a></li>
+      <li><a href="/gcf-and-lcm-calculator">GCF and LCM Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/fraction-calculator">Fraction Calculator</a></li>
+      <li><a href="/slope-calculator">Slope Calculator</a></li>
+      <li><a href="/scientific-notation-calculator">Scientific Notation Calculator</a></li>
+      <li><a href="/rounding-numbers-calculator">Rounding Numbers Calculator</a></li>
+      <li><a href="/gcf-and-lcm-calculator">GCF and LCM Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "916": {
+        "es": """<section class="long-content">
+  <h1>Calculadora del círculo: área, perímetro y diámetro</h1>
+  <p>El círculo es una de las figuras geométricas más fundamentales. Esta calculadora obtiene el área, la circunferencia (perímetro) y el diámetro a partir del radio del círculo.</p>
+
+  <h2>Fórmulas del círculo</h2>
+  <p>Para un círculo con radio r:</p>
+  <ul>
+    <li><strong>Área:</strong> A = π × r²</li>
+    <li><strong>Circunferencia:</strong> C = 2 × π × r</li>
+    <li><strong>Diámetro:</strong> d = 2 × r</li>
+  </ul>
+  <p>El número π (pi ≈ 3.14159) es la razón entre la circunferencia y el diámetro de cualquier círculo, una constante universal.</p>
+
+  <h2>Ejemplo 1: círculo con radio entero</h2>
+  <p><strong>Problema:</strong> Un círculo tiene radio r = 10 cm.</p>
+  <ol>
+    <li>Área:
+      <ul>
+        <li>A = π × 10² = π × 100 ≈ 314.16 cm².</li>
+      </ul>
+    </li>
+    <li>Circunferencia:
+      <ul>
+        <li>C = 2 × π × 10 ≈ 62.83 cm.</li>
+      </ul>
+    </li>
+    <li>Diámetro:
+      <ul>
+        <li>d = 2 × 10 = 20 cm.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> A ≈ 314.16 cm², C ≈ 62.83 cm, d = 20 cm.</p>
+
+  <h2>Ejemplo 2: círculo con radio decimal</h2>
+  <p><strong>Problema:</strong> Un círculo tiene radio r = 3.5 m.</p>
+  <ol>
+    <li>Área:
+      <ul>
+        <li>A = π × 3.5² = π × 12.25 ≈ 38.48 m².</li>
+      </ul>
+    </li>
+    <li>Circunferencia:
+      <ul>
+        <li>C = 2 × π × 3.5 ≈ 21.99 m.</li>
+      </ul>
+    </li>
+    <li>Diámetro:
+      <ul>
+        <li>d = 2 × 3.5 = 7 m.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> A ≈ 38.48 m², C ≈ 21.99 m, d = 7 m.</p>
+
+  <h2>Usos comunes de la calculadora del círculo</h2>
+  <ul>
+    <li>Calcular el área de terrenos circulares, jardines y plazas.</li>
+    <li>Determinar la longitud de bordes, marcos y anillos circulares.</li>
+    <li>Estimar materiales para pisos, alfombras y revestimientos circulares.</li>
+    <li>Resolver problemas de geometría en matemáticas y física.</li>
+    <li>Diseñar piezas mecánicas como engranajes, ruedas y poleas.</li>
+    <li>Calcular áreas de secciones transversales de tuberías y cables.</li>
+  </ul>
+
+  <h2>Errores frecuentes al trabajar con círculos</h2>
+  <ul>
+    <li>Usar el diámetro en lugar del radio en las fórmulas sin dividir por 2.</li>
+    <li>Confundir el área (πr²) con la circunferencia (2πr).</li>
+    <li>Usar una aproximación de π demasiado grosera (como 3.14) cuando se necesita precisión.</li>
+    <li>Olvidar elevar al cuadrado el radio al calcular el área.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Si conoces el diámetro en lugar del radio, las fórmulas se pueden reescribir: A = π × (d/2)² = π × d²/4 y C = π × d. Esto evita el paso intermedio de calcular el radio.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cuál es la diferencia entre círculo y circunferencia?</button>
+      <div class="faq-ap">
+        <p>La circunferencia es solo el borde (la línea curva). El círculo incluye toda el área interior. La circunferencia es una longitud y el círculo es una superficie.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Puedo usar el diámetro directamente?</button>
+      <div class="faq-ap">
+        <p>Sí. A = π × d²/4 y C = π × d. La calculadora puede aceptar radio o diámetro como entrada.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué es un arco y un sector circular?</button>
+      <div class="faq-ap">
+        <p>Un arco es una porción de la circunferencia. Un sector es una porción del área del círculo, como una reja de pizza. Sus fórmulas dependen del ángulo central.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Por qué π es tan importante?</button>
+      <div class="faq-ap">
+        <p>π aparece en todas las fórmulas circulares y en muchas áreas de las matemáticas y la física. Es una constante irracional que conecta geometría, trigonometría y análisis.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+      <li><a href="/cylinder-calculator">Cylinder Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+      <li><a href="/cylinder-calculator">Cylinder Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Circle Calculator: area, circumference and diameter</h1>
+  <p>The circle is one of the most fundamental geometric shapes. This calculator computes the area, circumference (perimeter) and diameter from the circle's radius.</p>
+
+  <h2>Circle formulas</h2>
+  <p>For a circle with radius r:</p>
+  <ul>
+    <li><strong>Area:</strong> A = π × r²</li>
+    <li><strong>Circumference:</strong> C = 2 × π × r</li>
+    <li><strong>Diameter:</strong> d = 2 × r</li>
+  </ul>
+  <p>The number π (pi ≈ 3.14159) is the ratio of circumference to diameter of any circle, a universal constant.</p>
+
+  <h2>Example 1: circle with integer radius</h2>
+  <p><strong>Problem:</strong> A circle has radius r = 10 cm.</p>
+  <ol>
+    <li>Area:
+      <ul>
+        <li>A = π × 10² = π × 100 ≈ 314.16 cm².</li>
+      </ul>
+    </li>
+    <li>Circumference:
+      <ul>
+        <li>C = 2 × π × 10 ≈ 62.83 cm.</li>
+      </ul>
+    </li>
+    <li>Diameter:
+      <ul>
+        <li>d = 2 × 10 = 20 cm.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> A ≈ 314.16 cm², C ≈ 62.83 cm, d = 20 cm.</p>
+
+  <h2>Example 2: circle with decimal radius</h2>
+  <p><strong>Problem:</strong> A circle has radius r = 3.5 m.</p>
+  <ol>
+    <li>Area:
+      <ul>
+        <li>A = π × 3.5² = π × 12.25 ≈ 38.48 m².</li>
+      </ul>
+    </li>
+    <li>Circumference:
+      <ul>
+        <li>C = 2 × π × 3.5 ≈ 21.99 m.</li>
+      </ul>
+    </li>
+    <li>Diameter:
+      <ul>
+        <li>d = 2 × 3.5 = 7 m.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> A ≈ 38.48 m², C ≈ 21.99 m, d = 7 m.</p>
+
+  <h2>Common uses of the circle calculator</h2>
+  <ul>
+    <li>Computing areas of circular plots, gardens and plazas.</li>
+    <li>Determining lengths of circular edges, frames and rings.</li>
+    <li>Estimating materials for circular floors, rugs and coverings.</li>
+    <li>Solving geometry problems in mathematics and physics.</li>
+    <li>Designing mechanical parts like gears, wheels and pulleys.</li>
+    <li>Calculating cross-sectional areas of pipes and cables.</li>
+  </ul>
+
+  <h2>Common mistakes when working with circles</h2>
+  <ul>
+    <li>Using the diameter instead of the radius in formulas without dividing by 2.</li>
+    <li>Confusing area (πr²) with circumference (2πr).</li>
+    <li>Using a rough approximation of π (like 3.14) when precision is needed.</li>
+    <li>Forgetting to square the radius when calculating area.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>If you know the diameter instead of the radius, the formulas can be rewritten: A = π × (d/2)² = π × d²/4 and C = π × d. This avoids the intermediate step of computing the radius.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What is the difference between circle and circumference?</button>
+      <div class="faq-ap">
+        <p>The circumference is just the boundary (the curved line). The circle includes the entire interior area. Circumference is a length and circle is a surface.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Can I use diameter directly?</button>
+      <div class="faq-ap">
+        <p>Yes. A = π × d²/4 and C = π × d. The calculator can accept radius or diameter as input.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What is an arc and a circular sector?</button>
+      <div class="faq-ap">
+        <p>An arc is a portion of the circumference. A sector is a portion of the circle's area, like a pizza slice. Their formulas depend on the central angle.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Why is π so important?</button>
+      <div class="faq-ap">
+        <p>π appears in all circular formulas and many areas of mathematics and physics. It is an irrational constant connecting geometry, trigonometry and analysis.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+      <li><a href="/cylinder-calculator">Cylinder Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+      <li><a href="/cylinder-calculator">Cylinder Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "917": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de triángulo rectángulo: Pitágoras y trigonometría</h1>
+  <p>El triángulo rectángulo tiene un ángulo de 90° y es la base de la trigonometría. Esta calculadora usa el teorema de Pitágoras y las funciones seno, coseno y tangente para encontrar lados y ángulos desconocidos.</p>
+
+  <h2>Teorema de Pitágoras y trigonometría</h2>
+  <p>En un triángulo rectángulo con catetos a, b e hipotenusa c:</p>
+  <ul>
+    <li><strong>Pitágoras:</strong> a² + b² = c²</li>
+    <li><strong>Seno:</strong> sin(θ) = cateto opuesto / hipotenusa</li>
+    <li><strong>Coseno:</strong> cos(θ) = cateto adyacente / hipotenusa</li>
+    <li><strong>Tangente:</strong> tan(θ) = cateto opuesto / cateto adyacente</li>
+  </ul>
+  <p>Conociendo dos lados o un lado y un ángulo, puedes determinar todos los demás valores del triángulo.</p>
+
+  <h2>Ejemplo 1: hallar la hipotenusa</h2>
+  <p><strong>Problema:</strong> Un triángulo rectángulo tiene catetos a = 3 cm y b = 4 cm.</p>
+  <ol>
+    <li>Aplicar Pitágoras:
+      <ul>
+        <li>c² = 3² + 4² = 9 + 16 = 25.</li>
+      </ul>
+    </li>
+    <li>Hipotenusa:
+      <ul>
+        <li>c = √25 = 5 cm.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> c = 5 cm (el famoso triángulo 3-4-5).</p>
+
+  <h2>Ejemplo 2: hallar un ángulo</h2>
+  <p><strong>Problema:</strong> Un triángulo tiene cateto opuesto = 5 cm y cateto adyacente = 12 cm.</p>
+  <ol>
+    <li>Hipotenusa:
+      <ul>
+        <li>c = √(5² + 12²) = √(25 + 144) = √169 = 13 cm.</li>
+      </ul>
+    </li>
+    <li>Ángulo θ:
+      <ul>
+        <li>tan(θ) = 5/12 ≈ 0.4167.</li>
+        <li>θ = arctan(0.4167) ≈ 22.62°.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> c = 13 cm, θ ≈ 22.62°.</p>
+
+  <h2>Usos comunes del triángulo rectángulo</h2>
+  <ul>
+    <li>Calcular distancias y alturas inaccesibles en topografía.</li>
+    <li>Determinar la inclinación de rampas, escaleras y tejados.</li>
+    <li>Resolver problemas de navegación y orientación.</li>
+    <li>Analizar fuerzas y componentes en física e ingeniería.</li>
+    <li>Calcular distancias en pantallas y monitores (diagonal).</li>
+    <li>Fundamento de la trigonometría aplicada en arquitectura.</li>
+  </ul>
+
+  <h2>Errores frecuentes con triángulos rectángulos</h2>
+  <ul>
+    <li>Confundir el cateto opuesto con el adyacente respecto al ángulo de referencia.</li>
+    <li>Usar grados en lugar de radianes (o viceversa) en la calculadora.</li>
+    <li>Aplicar Pitágoras a triángulos que no son rectángulos.</li>
+    <li>Olvidar que la hipotenusa siempre es el lado más largo.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Memoriza los triángulos pitagóricos comunes (3-4-5, 5-12-13, 8-15-17) y los ángulos notables (30°-60°-90° y 45°-45°-90°). Te ahorrarán cálculos en muchos problemas prácticos.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Pitágoras funciona con cualquier triángulo?</button>
+      <div class="faq-ap">
+        <p>No. El teorema de Pitágoras solo aplica a triángulos rectángulos. Para otros triángulos se usa la ley de cosenos.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué es SOH-CAH-TOA?</button>
+      <div class="faq-ap">
+        <p>Es un mnemotécnico: Sin = Opuesto/Hipotenusa, Cos = Adyacente/Hipotenusa, Tan = Opuesto/Adyacente.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Puedo usar esta calculadora para triángulos no rectángulos?</button>
+      <div class="faq-ap">
+        <p>No directamente. Para triángulos generales necesitas la ley de senos o la ley de cosenos.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cómo sé qué función trigonométrica usar?</button>
+      <div class="faq-ap">
+        <p>Depende de qué datos tienes y qué buscas. Si tienes opuesto e hipotenusa, usa seno. Si tienes adyacente e hipotenusa, usa coseno. Si tienes ambos catetos, usa tangente.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+      <li><a href="/cylinder-calculator">Cylinder Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+      <li><a href="/cylinder-calculator">Cylinder Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Right Triangle Calculator: Pythagorean theorem and trigonometry</h1>
+  <p>A right triangle has a 90° angle and is the foundation of trigonometry. This calculator uses the Pythagorean theorem and sine, cosine and tangent functions to find unknown sides and angles.</p>
+
+  <h2>Pythagorean theorem and trigonometry</h2>
+  <p>In a right triangle with legs a, b and hypotenuse c:</p>
+  <ul>
+    <li><strong>Pythagoras:</strong> a² + b² = c²</li>
+    <li><strong>Sine:</strong> sin(θ) = opposite / hypotenuse</li>
+    <li><strong>Cosine:</strong> cos(θ) = adjacent / hypotenuse</li>
+    <li><strong>Tangent:</strong> tan(θ) = opposite / adjacent</li>
+  </ul>
+  <p>Knowing two sides or one side and one angle, you can determine all remaining values of the triangle.</p>
+
+  <h2>Example 1: finding the hypotenuse</h2>
+  <p><strong>Problem:</strong> A right triangle has legs a = 3 cm and b = 4 cm.</p>
+  <ol>
+    <li>Apply Pythagoras:
+      <ul>
+        <li>c² = 3² + 4² = 9 + 16 = 25.</li>
+      </ul>
+    </li>
+    <li>Hypotenuse:
+      <ul>
+        <li>c = √25 = 5 cm.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> c = 5 cm (the famous 3-4-5 triangle).</p>
+
+  <h2>Example 2: finding an angle</h2>
+  <p><strong>Problem:</strong> A triangle has opposite leg = 5 cm and adjacent leg = 12 cm.</p>
+  <ol>
+    <li>Hypotenuse:
+      <ul>
+        <li>c = √(5² + 12²) = √(25 + 144) = √169 = 13 cm.</li>
+      </ul>
+    </li>
+    <li>Angle θ:
+      <ul>
+        <li>tan(θ) = 5/12 ≈ 0.4167.</li>
+        <li>θ = arctan(0.4167) ≈ 22.62°.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> c = 13 cm, θ ≈ 22.62°.</p>
+
+  <h2>Common uses of right triangles</h2>
+  <ul>
+    <li>Computing inaccessible distances and heights in surveying.</li>
+    <li>Determining the incline of ramps, stairs and roofs.</li>
+    <li>Solving navigation and orientation problems.</li>
+    <li>Analyzing forces and components in physics and engineering.</li>
+    <li>Computing diagonal distances on screens and monitors.</li>
+    <li>Foundation of applied trigonometry in architecture.</li>
+  </ul>
+
+  <h2>Common mistakes with right triangles</h2>
+  <ul>
+    <li>Confusing the opposite leg with the adjacent leg relative to the reference angle.</li>
+    <li>Using degrees instead of radians (or vice versa) on the calculator.</li>
+    <li>Applying Pythagoras to triangles that are not right triangles.</li>
+    <li>Forgetting that the hypotenuse is always the longest side.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>Memorize common Pythagorean triples (3-4-5, 5-12-13, 8-15-17) and special angles (30°-60°-90° and 45°-45°-90°). They will save you calculations in many practical problems.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Does Pythagoras work with any triangle?</button>
+      <div class="faq-ap">
+        <p>No. The Pythagorean theorem only applies to right triangles. For other triangles, use the law of cosines.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What is SOH-CAH-TOA?</button>
+      <div class="faq-ap">
+        <p>It is a mnemonic: Sin = Opposite/Hypotenuse, Cos = Adjacent/Hypotenuse, Tan = Opposite/Adjacent.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Can I use this calculator for non-right triangles?</button>
+      <div class="faq-ap">
+        <p>Not directly. For general triangles you need the law of sines or the law of cosines.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How do I know which trig function to use?</button>
+      <div class="faq-ap">
+        <p>It depends on what you have and what you need. If you have opposite and hypotenuse, use sine. If adjacent and hypotenuse, use cosine. If both legs, use tangent.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+      <li><a href="/cylinder-calculator">Cylinder Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+      <li><a href="/cylinder-calculator">Cylinder Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "918": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de área de triángulo: fórmula de Herón</h1>
+  <p>La fórmula de Herón permite calcular el área de cualquier triángulo conociendo solo las longitudes de sus tres lados, sin necesidad de conocer la altura ni ningún ángulo.</p>
+
+  <h2>Fórmula de Herón</h2>
+  <p>Dado un triángulo con lados a, b y c:</p>
+  <ul>
+    <li><strong>Semiperímetro:</strong> s = (a + b + c) / 2</li>
+    <li><strong>Área:</strong> A = √[s × (s − a) × (s − b) × (s − c)]</li>
+  </ul>
+  <p>El semiperímetro es la mitad del perímetro total. La fórmula funciona para triángulos equiláteros, isósceles y escalenos.</p>
+
+  <h2>Ejemplo 1: triángulo 3-4-5</h2>
+  <p><strong>Problema:</strong> Un triángulo tiene lados a = 3 cm, b = 4 cm, c = 5 cm.</p>
+  <ol>
+    <li>Semiperímetro:
+      <ul>
+        <li>s = (3 + 4 + 5) / 2 = 6 cm.</li>
+      </ul>
+    </li>
+    <li>Área:
+      <ul>
+        <li>A = √[6 × (6−3) × (6−4) × (6−5)] = √[6 × 3 × 2 × 1] = √36 = 6 cm².</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> A = 6 cm².</p>
+
+  <h2>Ejemplo 2: triángulo escaleno</h2>
+  <p><strong>Problema:</strong> Un triángulo tiene lados a = 7 m, b = 8 m, c = 9 m.</p>
+  <ol>
+    <li>Semiperímetro:
+      <ul>
+        <li>s = (7 + 8 + 9) / 2 = 12 m.</li>
+      </ul>
+    </li>
+    <li>Área:
+      <ul>
+        <li>A = √[12 × (12−7) × (12−8) × (12−9)] = √[12 × 5 × 4 × 3] = √720 ≈ 26.83 m².</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> A ≈ 26.83 m².</p>
+
+  <h2>Usos comunes de la fórmula de Herón</h2>
+  <ul>
+    <li>Calcular áreas de terrenos triangulares en topografía y agrimensura.</li>
+    <li>Determinar superficies de estructuras triangulares en ingeniería.</li>
+    <li>Resolver problemas de geometría cuando no se conoce la altura.</li>
+    <li>Verificar si tres longitudes pueden formar un triángulo válido.</li>
+    <li>Calcular áreas en diseño gráfico y modelado 3D.</li>
+    <li>Estimar materiales para coberturas triangulares en construcción.</li>
+  </ul>
+
+  <h2>Errores frecuentes con la fórmula de Herón</h2>
+  <ul>
+    <li>Usar lados que no forman un triángulo válido (la suma de dos lados debe ser mayor que el tercero).</li>
+    <li>Calcular mal el semiperímetro olvidando dividir por 2.</li>
+    <li>Obtener un valor negativo dentro de la raíz, lo que indica lados inválidos.</li>
+    <li>Mezclar unidades entre los tres lados.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Antes de aplicar la fórmula de Herón, verifica la desigualdad triangular: a + b > c, a + c > b y b + c > a. Si alguna no se cumple, esas longitudes no pueden formar un triángulo.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Quién fue Herón?</button>
+      <div class="faq-ap">
+        <p>Herón de Alejandría fue un matemático e ingeniero griego del siglo I d.C. que describió esta fórmula en su obra "Métrica".</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Funciona con triángulos obtusángulos?</button>
+      <div class="faq-ap">
+        <p>Sí. La fórmula de Herón funciona para cualquier triángulo válido, sin importar si sus ángulos son agudos, rectos u obtusos.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué pasa si el resultado dentro de la raíz es 0?</button>
+      <div class="faq-ap">
+        <p>Significa que los tres lados son colineales (forman una línea recta, no un triángulo). El área es 0.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Hay otras formas de calcular el área?</button>
+      <div class="faq-ap">
+        <p>Sí. Si conoces la base y la altura: A = (base × altura) / 2. Si conoces dos lados y el ángulo entre ellos: A = 0.5 × a × b × sin(C).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+      <li><a href="/cylinder-calculator">Cylinder Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+      <li><a href="/cylinder-calculator">Cylinder Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Triangle Area Calculator: Heron's formula</h1>
+  <p>Heron's formula lets you compute the area of any triangle knowing only the lengths of its three sides, without needing the height or any angle.</p>
+
+  <h2>Heron's formula</h2>
+  <p>Given a triangle with sides a, b and c:</p>
+  <ul>
+    <li><strong>Semi-perimeter:</strong> s = (a + b + c) / 2</li>
+    <li><strong>Area:</strong> A = √[s × (s − a) × (s − b) × (s − c)]</li>
+  </ul>
+  <p>The semi-perimeter is half the total perimeter. The formula works for equilateral, isosceles and scalene triangles.</p>
+
+  <h2>Example 1: 3-4-5 triangle</h2>
+  <p><strong>Problem:</strong> A triangle has sides a = 3 cm, b = 4 cm, c = 5 cm.</p>
+  <ol>
+    <li>Semi-perimeter:
+      <ul>
+        <li>s = (3 + 4 + 5) / 2 = 6 cm.</li>
+      </ul>
+    </li>
+    <li>Area:
+      <ul>
+        <li>A = √[6 × (6−3) × (6−4) × (6−5)] = √[6 × 3 × 2 × 1] = √36 = 6 cm².</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> A = 6 cm².</p>
+
+  <h2>Example 2: scalene triangle</h2>
+  <p><strong>Problem:</strong> A triangle has sides a = 7 m, b = 8 m, c = 9 m.</p>
+  <ol>
+    <li>Semi-perimeter:
+      <ul>
+        <li>s = (7 + 8 + 9) / 2 = 12 m.</li>
+      </ul>
+    </li>
+    <li>Area:
+      <ul>
+        <li>A = √[12 × (12−7) × (12−8) × (12−9)] = √[12 × 5 × 4 × 3] = √720 ≈ 26.83 m².</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> A ≈ 26.83 m².</p>
+
+  <h2>Common uses of Heron's formula</h2>
+  <ul>
+    <li>Computing areas of triangular land plots in surveying.</li>
+    <li>Determining surface areas of triangular structures in engineering.</li>
+    <li>Solving geometry problems when the height is unknown.</li>
+    <li>Verifying whether three lengths can form a valid triangle.</li>
+    <li>Computing areas in graphic design and 3D modeling.</li>
+    <li>Estimating materials for triangular coverings in construction.</li>
+  </ul>
+
+  <h2>Common mistakes with Heron's formula</h2>
+  <ul>
+    <li>Using sides that do not form a valid triangle (the sum of two sides must exceed the third).</li>
+    <li>Miscalculating the semi-perimeter by forgetting to divide by 2.</li>
+    <li>Getting a negative value under the square root, which indicates invalid sides.</li>
+    <li>Mixing units among the three sides.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>Before applying Heron's formula, verify the triangle inequality: a + b > c, a + c > b and b + c > a. If any fails, those lengths cannot form a triangle.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Who was Heron?</button>
+      <div class="faq-ap">
+        <p>Heron of Alexandria was a Greek mathematician and engineer from the 1st century AD who described this formula in his work "Metrica".</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Does it work with obtuse triangles?</button>
+      <div class="faq-ap">
+        <p>Yes. Heron's formula works for any valid triangle, regardless of whether its angles are acute, right or obtuse.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What if the value under the root is 0?</button>
+      <div class="faq-ap">
+        <p>It means the three sides are collinear (they form a straight line, not a triangle). The area is 0.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Are there other ways to compute the area?</button>
+      <div class="faq-ap">
+        <p>Yes. If you know base and height: A = (base × height) / 2. If you know two sides and the included angle: A = 0.5 × a × b × sin(C).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+      <li><a href="/cylinder-calculator">Cylinder Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+      <li><a href="/cylinder-calculator">Cylinder Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "919": {
+        "es": """<section class="long-content">
+  <h1>Calculadora del rectángulo: área, perímetro y diagonal</h1>
+  <p>El rectángulo es un cuadrilátero con cuatro ángulos rectos y lados opuestos iguales. Esta calculadora obtiene el área, el perímetro y la diagonal a partir de la longitud y la anchura.</p>
+
+  <h2>Fórmulas del rectángulo</h2>
+  <p>Para un rectángulo con longitud l y anchura w:</p>
+  <ul>
+    <li><strong>Área:</strong> A = l × w</li>
+    <li><strong>Perímetro:</strong> P = 2 × (l + w)</li>
+    <li><strong>Diagonal:</strong> d = √(l² + w²)</li>
+  </ul>
+  <p>La diagonal se calcula usando el teorema de Pitágoras, ya que divide el rectángulo en dos triángulos rectángulos congruentes.</p>
+
+  <h2>Ejemplo 1: rectángulo con dimensiones enteras</h2>
+  <p><strong>Problema:</strong> Un rectángulo tiene longitud l = 8 cm y anchura w = 5 cm.</p>
+  <ol>
+    <li>Área:
+      <ul>
+        <li>A = 8 × 5 = 40 cm².</li>
+      </ul>
+    </li>
+    <li>Perímetro:
+      <ul>
+        <li>P = 2 × (8 + 5) = 2 × 13 = 26 cm.</li>
+      </ul>
+    </li>
+    <li>Diagonal:
+      <ul>
+        <li>d = √(8² + 5²) = √(64 + 25) = √89 ≈ 9.43 cm.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> A = 40 cm², P = 26 cm, d ≈ 9.43 cm.</p>
+
+  <h2>Ejemplo 2: rectángulo con medidas decimales</h2>
+  <p><strong>Problema:</strong> Una habitación rectangular mide l = 4.5 m y w = 3.2 m.</p>
+  <ol>
+    <li>Área:
+      <ul>
+        <li>A = 4.5 × 3.2 = 14.4 m².</li>
+      </ul>
+    </li>
+    <li>Perímetro:
+      <ul>
+        <li>P = 2 × (4.5 + 3.2) = 2 × 7.7 = 15.4 m.</li>
+      </ul>
+    </li>
+    <li>Diagonal:
+      <ul>
+        <li>d = √(4.5² + 3.2²) = √(20.25 + 10.24) = √30.49 ≈ 5.52 m.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> A = 14.4 m², P = 15.4 m, d ≈ 5.52 m.</p>
+
+  <h2>Usos comunes de la calculadora de rectángulos</h2>
+  <ul>
+    <li>Calcular el área de habitaciones, terrenos y superficies rectangulares.</li>
+    <li>Estimar materiales para pisos, pintura y revestimientos.</li>
+    <li>Determinar el perímetro para cercas, marcos y bordes.</li>
+    <li>Calcular la diagonal de pantallas, monitores y televisores.</li>
+    <li>Resolver problemas de geometría básica en matemáticas escolares.</li>
+    <li>Planificar distribución de muebles y espacios interiores.</li>
+  </ul>
+
+  <h2>Errores frecuentes al trabajar con rectángulos</h2>
+  <ul>
+    <li>Confundir longitud con anchura al aplicar fórmulas de otras figuras.</li>
+    <li>Olvidar multiplicar por 2 en la fórmula del perímetro.</li>
+    <li>Usar la suma de lados en lugar del teorema de Pitágoras para la diagonal.</li>
+    <li>Mezclar unidades, por ejemplo longitud en metros y anchura en centímetros.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Si conoces el área y un lado, puedes encontrar el otro lado dividiendo: w = A / l. Si conoces el perímetro y un lado: w = P/2 − l. Estas relaciones inversas son útiles cuando no tienes ambas dimensiones.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Un cuadrado es un rectángulo?</button>
+      <div class="faq-ap">
+        <p>Sí. Un cuadrado es un caso especial de rectángulo donde todos los lados son iguales. Las fórmulas del rectángulo se aplican perfectamente.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cómo calculo un lado si conozco el área y el otro lado?</button>
+      <div class="faq-ap">
+        <p>Simplemente divide: lado desconocido = área / lado conocido. Por ejemplo, si A = 24 y l = 6, entonces w = 24/6 = 4.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Las diagonales de un rectángulo son iguales?</button>
+      <div class="faq-ap">
+        <p>Sí. Ambas diagonales tienen la misma longitud y se cortan en su punto medio.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Puedo usar esta calculadora para un rombo?</button>
+      <div class="faq-ap">
+        <p>No directamente. El rombo tiene lados iguales pero ángulos que no son necesariamente rectos. Su área se calcula como (diagonal1 × diagonal2) / 2.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+      <li><a href="/cylinder-calculator">Cylinder Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+      <li><a href="/cylinder-calculator">Cylinder Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Rectangle Calculator: area, perimeter and diagonal</h1>
+  <p>A rectangle is a quadrilateral with four right angles and equal opposite sides. This calculator computes the area, perimeter and diagonal from the length and width.</p>
+
+  <h2>Rectangle formulas</h2>
+  <p>For a rectangle with length l and width w:</p>
+  <ul>
+    <li><strong>Area:</strong> A = l × w</li>
+    <li><strong>Perimeter:</strong> P = 2 × (l + w)</li>
+    <li><strong>Diagonal:</strong> d = √(l² + w²)</li>
+  </ul>
+  <p>The diagonal is computed using the Pythagorean theorem, as it divides the rectangle into two congruent right triangles.</p>
+
+  <h2>Example 1: rectangle with integer dimensions</h2>
+  <p><strong>Problem:</strong> A rectangle has length l = 8 cm and width w = 5 cm.</p>
+  <ol>
+    <li>Area:
+      <ul>
+        <li>A = 8 × 5 = 40 cm².</li>
+      </ul>
+    </li>
+    <li>Perimeter:
+      <ul>
+        <li>P = 2 × (8 + 5) = 2 × 13 = 26 cm.</li>
+      </ul>
+    </li>
+    <li>Diagonal:
+      <ul>
+        <li>d = √(8² + 5²) = √(64 + 25) = √89 ≈ 9.43 cm.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> A = 40 cm², P = 26 cm, d ≈ 9.43 cm.</p>
+
+  <h2>Example 2: rectangle with decimal measurements</h2>
+  <p><strong>Problem:</strong> A rectangular room measures l = 4.5 m and w = 3.2 m.</p>
+  <ol>
+    <li>Area:
+      <ul>
+        <li>A = 4.5 × 3.2 = 14.4 m².</li>
+      </ul>
+    </li>
+    <li>Perimeter:
+      <ul>
+        <li>P = 2 × (4.5 + 3.2) = 2 × 7.7 = 15.4 m.</li>
+      </ul>
+    </li>
+    <li>Diagonal:
+      <ul>
+        <li>d = √(4.5² + 3.2²) = √(20.25 + 10.24) = √30.49 ≈ 5.52 m.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> A = 14.4 m², P = 15.4 m, d ≈ 5.52 m.</p>
+
+  <h2>Common uses of the rectangle calculator</h2>
+  <ul>
+    <li>Computing areas of rooms, plots and rectangular surfaces.</li>
+    <li>Estimating materials for flooring, paint and coverings.</li>
+    <li>Determining perimeter for fences, frames and borders.</li>
+    <li>Computing the diagonal of screens, monitors and TVs.</li>
+    <li>Solving basic geometry problems in school mathematics.</li>
+    <li>Planning furniture layout and interior spaces.</li>
+  </ul>
+
+  <h2>Common mistakes when working with rectangles</h2>
+  <ul>
+    <li>Confusing length with width when applying formulas for other shapes.</li>
+    <li>Forgetting to multiply by 2 in the perimeter formula.</li>
+    <li>Using the sum of sides instead of the Pythagorean theorem for the diagonal.</li>
+    <li>Mixing units, such as length in meters and width in centimeters.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>If you know the area and one side, you can find the other side by dividing: w = A / l. If you know the perimeter and one side: w = P/2 − l. These inverse relationships are useful when you do not have both dimensions.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Is a square a rectangle?</button>
+      <div class="faq-ap">
+        <p>Yes. A square is a special case of rectangle where all sides are equal. The rectangle formulas apply perfectly.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How do I find one side if I know the area and the other side?</button>
+      <div class="faq-ap">
+        <p>Simply divide: unknown side = area / known side. For example, if A = 24 and l = 6, then w = 24/6 = 4.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Are the diagonals of a rectangle equal?</button>
+      <div class="faq-ap">
+        <p>Yes. Both diagonals have the same length and bisect each other at their midpoint.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Can I use this calculator for a rhombus?</button>
+      <div class="faq-ap">
+        <p>Not directly. A rhombus has equal sides but angles that are not necessarily right angles. Its area is computed as (diagonal1 × diagonal2) / 2.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+      <li><a href="/cylinder-calculator">Cylinder Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+      <li><a href="/cylinder-calculator">Cylinder Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "920": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de cuadrado: área, perímetro y diagonal</h1>
+  <p>El cuadrado es una figura geométrica básica con cuatro lados iguales y cuatro ángulos rectos. Esta calculadora de cuadrados te permite obtener el área, el perímetro y la longitud de la diagonal a partir de la medida de un solo lado.</p>
+
+  <h2>Fórmulas esenciales del cuadrado</h2>
+  <p>Sea un cuadrado con lado s. Las fórmulas clave son:</p>
+  <ul>
+    <li><strong>Área:</strong> A = s²</li>
+    <li><strong>Perímetro:</strong> P = 4s</li>
+    <li><strong>Diagonal:</strong> d = s · √2</li>
+  </ul>
+  <p>La fórmula de la diagonal se obtiene aplicando el teorema de Pitágoras al triángulo rectángulo formado por dos lados del cuadrado y la diagonal, de modo que d² = s² + s² = 2s².</p>
+
+  <h2>Cómo usa la calculadora la longitud del lado</h2>
+  <p>El flujo de cálculo es muy directo: introduces el valor del lado s, y la calculadora aplica automáticamente las tres fórmulas. En la práctica:</p>
+  <ul>
+    <li>Calcula el área elevando el lado al cuadrado: s × s.</li>
+    <li>Obtiene el perímetro multiplicando el lado por 4.</li>
+    <li>Obtiene la diagonal multiplicando el lado por la raíz de 2, usando una aproximación como √2 ≈ 1.41421356.</li>
+  </ul>
+  <p>Si cambias las unidades del lado (por ejemplo de cm a m), todas las magnitudes se actualizan automáticamente con unidades coherentes (m² para el área, m para perímetro y diagonal).</p>
+
+  <h2>Ejemplo 1: cuadrado con lado entero</h2>
+  <p><strong>Problema:</strong> Un cuadrado tiene lado s = 5 m. Calcula el área, el perímetro y la diagonal.</p>
+  <ol>
+    <li>Área:
+      <ul>
+        <li>A = s² = 5² = 25 m².</li>
+      </ul>
+    </li>
+    <li>Perímetro:
+      <ul>
+        <li>P = 4s = 4 × 5 = 20 m.</li>
+      </ul>
+    </li>
+    <li>Diagonal:
+      <ul>
+        <li>d = s · √2 ≈ 5 × 1.4142 ≈ 7.07 m.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> A = 25 m², P = 20 m, d ≈ 7.07 m.</p>
+
+  <h2>Ejemplo 2: lado decimal en centímetros</h2>
+  <p><strong>Problema:</strong> Un cuadrado tiene lado s = 8.3 cm. Encuentra área, perímetro y diagonal.</p>
+  <ol>
+    <li>Área:
+      <ul>
+        <li>A = 8.3² = 8.3 × 8.3 ≈ 68.89 cm².</li>
+      </ul>
+    </li>
+    <li>Perímetro:
+      <ul>
+        <li>P = 4 × 8.3 = 33.2 cm.</li>
+      </ul>
+    </li>
+    <li>Diagonal:
+      <ul>
+        <li>d = 8.3 × √2 ≈ 8.3 × 1.4142 ≈ 11.75 cm.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> A ≈ 68.89 cm², P = 33.2 cm, d ≈ 11.75 cm.</p>
+
+  <h2>Usos comunes de la calculadora de cuadrados</h2>
+  <ul>
+    <li>Calcular el área de baldosas, paneles o mesas cuadradas en diseño interior y construcción.</li>
+    <li>Determinar el perímetro de parcelas, patios o jardines de forma cuadrada.</li>
+    <li>Dimensionar iconos, tarjetas y elementos gráficos con proporciones 1:1.</li>
+    <li>Resolver ejercicios de geometría básica relacionados con áreas y perímetros.</li>
+    <li>Estimar cantidades de material para suelos cuadrados, alfombras o piezas modulares.</li>
+    <li>Analizar escalado de figuras en problemas de semejanza y áreas en matemáticas.</li>
+  </ul>
+
+  <h2>Errores frecuentes al trabajar con cuadrados</h2>
+  <ul>
+    <li>Confundir el perímetro con el área, especialmente al interpretar unidades (m frente a m²).</li>
+    <li>Olvidar elevar al cuadrado el lado al calcular el área, usando A = s en lugar de A = s².</li>
+    <li>Usar una aproximación de √2 demasiado grosera, lo que afecta a la precisión de la diagonal.</li>
+    <li>Mezclar unidades, por ejemplo lado en cm pero interpretar el resultado del área como m².</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Si trabajas con escalas (por ejemplo, planos a escala 1:100), recuerda que el perímetro escala de forma lineal, pero el área escala con el cuadrado del factor. Un cuadrado cuyo lado se duplica tiene un perímetro doble, pero un área cuatro veces mayor.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿La calculadora admite valores decimales para el lado?</button>
+      <div class="faq-ap">
+        <p>Sí. Puedes introducir valores enteros o decimales. Los resultados se calculan con precisión y se redondean a un número razonable de cifras decimales.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué ocurre si el lado es 0 o negativo?</button>
+      <div class="faq-ap">
+        <p>Un cuadrado válido debe tener lado positivo. Si introduces 0 o un valor negativo, la calculadora mostrará un error indicando que la medida no representa un cuadrado real.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Puedo usar esta calculadora para cubos?</button>
+      <div class="faq-ap">
+        <p>No directamente. El cubo es una figura tridimensional que requiere fórmulas de volumen y área superficial. Sin embargo, el valor del lado sí puede reutilizarse como entrada en una calculadora específica de cubos.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿La diagonal siempre es mayor que el lado?</button>
+      <div class="faq-ap">
+        <p>Sí. Como d = s · √2 y √2 es mayor que 1, la diagonal siempre es mayor que el lado, lo que refleja la geometría del triángulo rectángulo formado dentro del cuadrado.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+      <li><a href="/cylinder-calculator">Cylinder Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+      <li><a href="/cylinder-calculator">Cylinder Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Square Calculator: area, perimeter and diagonal</h1>
+  <p>The square is a fundamental geometric shape with four equal sides and four right angles. This square calculator lets you compute its area, perimeter and diagonal from a single input: the side length.</p>
+
+  <h2>Key formulas for a square</h2>
+  <p>For a square with side length s, the main formulas are:</p>
+  <ul>
+    <li><strong>Area:</strong> A = s²</li>
+    <li><strong>Perimeter:</strong> P = 4s</li>
+    <li><strong>Diagonal:</strong> d = s · √2</li>
+  </ul>
+  <p>The diagonal formula comes from the Pythagorean theorem applied to the right triangle formed by two adjacent sides and the diagonal, so d² = s² + s² = 2s².</p>
+
+  <h2>How the calculator uses the side length</h2>
+  <p>The calculation flow is straightforward: you enter the side length s, and the tool applies all three formulas automatically. In practice:</p>
+  <ul>
+    <li>It finds the area by squaring the side: s × s.</li>
+    <li>It finds the perimeter by multiplying the side by 4.</li>
+    <li>It finds the diagonal by multiplying the side by √2, using an accurate numerical approximation such as √2 ≈ 1.41421356.</li>
+  </ul>
+  <p>If you change the side's units (for example from cm to m), all outputs update consistently, with area in square units (m²) and perimeter and diagonal in linear units (m).</p>
+
+  <h2>Example 1: square with integer side</h2>
+  <p><strong>Problem:</strong> A square has side length s = 5 m. Compute its area, perimeter and diagonal.</p>
+  <ol>
+    <li>Area:
+      <ul>
+        <li>A = s² = 5² = 25 m².</li>
+      </ul>
+    </li>
+    <li>Perimeter:
+      <ul>
+        <li>P = 4s = 4 × 5 = 20 m.</li>
+      </ul>
+    </li>
+    <li>Diagonal:
+      <ul>
+        <li>d = s · √2 ≈ 5 × 1.4142 ≈ 7.07 m.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> A = 25 m², P = 20 m, d ≈ 7.07 m.</p>
+
+  <h2>Example 2: decimal side in centimeters</h2>
+  <p><strong>Problem:</strong> A square has side length s = 8.3 cm. Find its area, perimeter and diagonal.</p>
+  <ol>
+    <li>Area:
+      <ul>
+        <li>A = 8.3² = 8.3 × 8.3 ≈ 68.89 cm².</li>
+      </ul>
+    </li>
+    <li>Perimeter:
+      <ul>
+        <li>P = 4 × 8.3 = 33.2 cm.</li>
+      </ul>
+    </li>
+    <li>Diagonal:
+      <ul>
+        <li>d = 8.3 × √2 ≈ 8.3 × 1.4142 ≈ 11.75 cm.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> A ≈ 68.89 cm², P = 33.2 cm, d ≈ 11.75 cm.</p>
+
+  <h2>Common uses of the square calculator</h2>
+  <ul>
+    <li>Computing areas of square tiles, panels or tabletops in interior design and construction.</li>
+    <li>Determining the perimeter of square plots, patios or garden beds.</li>
+    <li>Sizing square icons, avatars and UI elements with a 1:1 aspect ratio.</li>
+    <li>Solving basic geometry problems involving area and perimeter.</li>
+    <li>Estimating material requirements for square floors, rugs or modular pieces.</li>
+    <li>Studying scaling and similarity problems where side length changes affect area.</li>
+  </ul>
+
+  <h2>Common mistakes when working with squares</h2>
+  <ul>
+    <li>Confusing area with perimeter and misinterpreting units (m versus m²).</li>
+    <li>Forgetting to square the side when calculating area and using A = s instead of A = s².</li>
+    <li>Using a very rough approximation for √2, which reduces the accuracy of the diagonal.</li>
+    <li>Mixing units, such as entering the side in cm but reading the area as if it were in m².</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>When scaling designs, remember that perimeter scales linearly with the side, while area scales with the square of the scale factor. Doubling the side doubles the perimeter but quadruples the area, which matters when estimating cost and materials.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Does the calculator accept decimal side lengths?</button>
+      <div class="faq-ap">
+        <p>Yes. You can enter integer or decimal side values. The results are computed accurately and rounded to a sensible number of decimal places.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What if the side is 0 or negative?</button>
+      <div class="faq-ap">
+        <p>A valid square must have a positive side length. Zero or negative values are invalid and the calculator will flag them as errors because they do not represent a real square.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Can I use this for cubes?</button>
+      <div class="faq-ap">
+        <p>Not directly. A cube is a 3D shape that requires volume and surface area formulas. However, the side length you enter here can be reused as input for a dedicated cube calculator.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Is the diagonal always longer than the side?</button>
+      <div class="faq-ap">
+        <p>Yes. Since d = s · √2 and √2 is greater than 1, the diagonal is always longer than the side in any non‑degenerate square.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+      <li><a href="/cylinder-calculator">Cylinder Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+      <li><a href="/cylinder-calculator">Cylinder Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "921": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de área de un trapecio: fórmula y ejemplos</h1>
+  <p>El trapecio es un cuadrilátero con al menos un par de lados paralelos llamados bases. Esta calculadora te permite obtener el área de cualquier trapecio a partir de las longitudes de sus dos bases y su altura.</p>
+
+  <h2>Fórmula del área del trapecio</h2>
+  <p>El área se calcula como el promedio de las bases multiplicado por la altura:</p>
+  <p><strong>A = 0.5 × (a + b) × h</strong></p>
+  <p>Donde <em>a</em> y <em>b</em> son las longitudes de las bases paralelas y <em>h</em> es la altura perpendicular entre ellas. Esta fórmula funciona para trapecios isósceles, escalenos y rectángulos por igual.</p>
+
+  <h2>Ejemplo 1: trapecio con bases enteras</h2>
+  <p><strong>Problema:</strong> Un trapecio tiene base mayor a = 10 cm, base menor b = 6 cm y altura h = 4 cm.</p>
+  <ol>
+    <li>Suma de bases:
+      <ul>
+        <li>a + b = 10 + 6 = 16 cm.</li>
+      </ul>
+    </li>
+    <li>Área:
+      <ul>
+        <li>A = 0.5 × 16 × 4 = 32 cm².</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> A = 32 cm².</p>
+
+  <h2>Ejemplo 2: trapecio con medidas decimales</h2>
+  <p><strong>Problema:</strong> Un trapecio tiene base a = 7.5 m, base b = 4.2 m y altura h = 3.8 m.</p>
+  <ol>
+    <li>Suma de bases:
+      <ul>
+        <li>a + b = 7.5 + 4.2 = 11.7 m.</li>
+      </ul>
+    </li>
+    <li>Área:
+      <ul>
+        <li>A = 0.5 × 11.7 × 3.8 ≈ 22.23 m².</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> A ≈ 22.23 m².</p>
+
+  <h2>Usos comunes de la calculadora de trapecios</h2>
+  <ul>
+    <li>Calcular el área de terrenos con forma trapezoidal en topografía y agrimensura.</li>
+    <li>Determinar superficies de rampas, tejados inclinados o secciones transversales.</li>
+    <li>Resolver problemas de geometría en cursos de matemáticas de secundaria.</li>
+    <li>Estimar cantidades de material para revestimientos de superficies trapezoidales.</li>
+    <li>Calcular áreas de secciones en ingeniería civil, como canales o presas.</li>
+    <li>Diseñar elementos gráficos y layouts con proporciones trapezoidales.</li>
+  </ul>
+
+  <h2>Errores frecuentes al calcular áreas de trapecios</h2>
+  <ul>
+    <li>Usar los lados no paralelos en lugar de las bases en la fórmula.</li>
+    <li>Confundir la altura perpendicular con la longitud de los lados oblicuos.</li>
+    <li>Olvidar dividir por 2 (o multiplicar por 0.5) al aplicar la fórmula.</li>
+    <li>Mezclar unidades, por ejemplo bases en cm y altura en metros.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Si no conoces la altura directamente pero tienes las longitudes de los lados oblicuos y las bases, puedes calcular la altura usando el teorema de Pitágoras en el triángulo rectángulo formado por la altura, la diferencia de bases y el lado oblicuo.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Esta fórmula sirve para cualquier trapecio?</button>
+      <div class="faq-ap">
+        <p>Sí. La fórmula A = 0.5 × (a + b) × h funciona para trapecios isósceles, escalenos y rectángulos, siempre que conozcas las dos bases y la altura perpendicular.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué hago si no conozco la altura?</button>
+      <div class="faq-ap">
+        <p>Si conoces los lados oblicuos y las bases, puedes usar trigonometría o el teorema de Pitágoras para calcular la altura antes de aplicar la fórmula del área.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Un paralelogramo es un trapecio?</button>
+      <div class="faq-ap">
+        <p>Según la definición inclusiva, sí, porque tiene al menos un par de lados paralelos. La fórmula del área sigue funcionando: si a = b, se reduce a A = a × h.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Puedo calcular el perímetro con esta calculadora?</button>
+      <div class="faq-ap">
+        <p>No directamente. El perímetro requiere la suma de los cuatro lados. Esta calculadora se centra en el área, pero puedes sumar manualmente las longitudes de todos los lados.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/cylinder-calculator">Cylinder Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/cylinder-calculator">Cylinder Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Trapezoid Area Calculator: formula and examples</h1>
+  <p>A trapezoid is a quadrilateral with at least one pair of parallel sides called bases. This calculator lets you compute the area of any trapezoid from the lengths of its two bases and its height.</p>
+
+  <h2>Trapezoid area formula</h2>
+  <p>The area is the average of the bases multiplied by the height:</p>
+  <p><strong>A = 0.5 × (a + b) × h</strong></p>
+  <p>Where <em>a</em> and <em>b</em> are the lengths of the parallel bases and <em>h</em> is the perpendicular height between them. This formula works for isosceles, scalene and right trapezoids alike.</p>
+
+  <h2>Example 1: trapezoid with integer bases</h2>
+  <p><strong>Problem:</strong> A trapezoid has base a = 10 cm, base b = 6 cm and height h = 4 cm.</p>
+  <ol>
+    <li>Sum of bases:
+      <ul>
+        <li>a + b = 10 + 6 = 16 cm.</li>
+      </ul>
+    </li>
+    <li>Area:
+      <ul>
+        <li>A = 0.5 × 16 × 4 = 32 cm².</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> A = 32 cm².</p>
+
+  <h2>Example 2: trapezoid with decimal measurements</h2>
+  <p><strong>Problem:</strong> A trapezoid has base a = 7.5 m, base b = 4.2 m and height h = 3.8 m.</p>
+  <ol>
+    <li>Sum of bases:
+      <ul>
+        <li>a + b = 7.5 + 4.2 = 11.7 m.</li>
+      </ul>
+    </li>
+    <li>Area:
+      <ul>
+        <li>A = 0.5 × 11.7 × 3.8 ≈ 22.23 m².</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> A ≈ 22.23 m².</p>
+
+  <h2>Common uses of the trapezoid calculator</h2>
+  <ul>
+    <li>Computing areas of trapezoidal land plots in surveying and topography.</li>
+    <li>Determining surface areas of ramps, sloped roofs or cross-sections.</li>
+    <li>Solving geometry problems in secondary school mathematics.</li>
+    <li>Estimating material quantities for trapezoidal surface coverings.</li>
+    <li>Calculating cross-sectional areas in civil engineering, such as channels or dams.</li>
+    <li>Designing graphic elements and layouts with trapezoidal proportions.</li>
+  </ul>
+
+  <h2>Common mistakes when calculating trapezoid areas</h2>
+  <ul>
+    <li>Using the non-parallel sides instead of the bases in the formula.</li>
+    <li>Confusing the perpendicular height with the length of the slanted sides.</li>
+    <li>Forgetting to divide by 2 (or multiply by 0.5) when applying the formula.</li>
+    <li>Mixing units, such as bases in cm and height in meters.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>If you do not know the height directly but have the slanted side lengths and bases, you can compute the height using the Pythagorean theorem on the right triangle formed by the height, the base difference and the slanted side.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Does this formula work for any trapezoid?</button>
+      <div class="faq-ap">
+        <p>Yes. The formula A = 0.5 × (a + b) × h works for isosceles, scalene and right trapezoids, as long as you know both bases and the perpendicular height.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What if I do not know the height?</button>
+      <div class="faq-ap">
+        <p>If you know the slanted sides and bases, you can use trigonometry or the Pythagorean theorem to find the height before applying the area formula.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Is a parallelogram a trapezoid?</button>
+      <div class="faq-ap">
+        <p>Under the inclusive definition, yes, because it has at least one pair of parallel sides. The area formula still works: if a = b, it reduces to A = a × h.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Can I calculate the perimeter with this calculator?</button>
+      <div class="faq-ap">
+        <p>Not directly. The perimeter requires the sum of all four sides. This calculator focuses on area, but you can manually add up all side lengths.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/cylinder-calculator">Cylinder Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/cylinder-calculator">Cylinder Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "922": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de volumen y área superficial de un cilindro</h1>
+  <p>El cilindro circular recto es un sólido geométrico con dos bases circulares paralelas conectadas por una superficie curva. Esta calculadora obtiene tanto el volumen como el área superficial total a partir del radio de la base y la altura del cilindro.</p>
+
+  <h2>Fórmulas del cilindro</h2>
+  <p>Para un cilindro con radio r y altura h:</p>
+  <ul>
+    <li><strong>Volumen:</strong> V = π × r² × h</li>
+    <li><strong>Área superficial total:</strong> SA = 2 × π × r × (r + h)</li>
+    <li><strong>Área lateral:</strong> AL = 2 × π × r × h</li>
+  </ul>
+  <p>El área superficial incluye las dos bases circulares (2 × π × r²) más el área lateral (2 × π × r × h).</p>
+
+  <h2>Ejemplo 1: cilindro con dimensiones enteras</h2>
+  <p><strong>Problema:</strong> Un cilindro tiene radio r = 5 cm y altura h = 12 cm.</p>
+  <ol>
+    <li>Volumen:
+      <ul>
+        <li>V = π × 5² × 12 = π × 25 × 12 ≈ 942.48 cm³.</li>
+      </ul>
+    </li>
+    <li>Área superficial:
+      <ul>
+        <li>SA = 2 × π × 5 × (5 + 12) = 2 × π × 5 × 17 ≈ 534.07 cm².</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> V ≈ 942.48 cm³, SA ≈ 534.07 cm².</p>
+
+  <h2>Ejemplo 2: cilindro con medidas decimales</h2>
+  <p><strong>Problema:</strong> Un tanque cilíndrico tiene radio r = 1.5 m y altura h = 3.2 m.</p>
+  <ol>
+    <li>Volumen:
+      <ul>
+        <li>V = π × 1.5² × 3.2 = π × 2.25 × 3.2 ≈ 22.62 m³.</li>
+      </ul>
+    </li>
+    <li>Área superficial:
+      <ul>
+        <li>SA = 2 × π × 1.5 × (1.5 + 3.2) = 2 × π × 1.5 × 4.7 ≈ 44.30 m².</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> V ≈ 22.62 m³, SA ≈ 44.30 m².</p>
+
+  <h2>Usos comunes de la calculadora de cilindros</h2>
+  <ul>
+    <li>Calcular la capacidad de tanques de agua, barriles y recipientes cilíndricos.</li>
+    <li>Estimar la cantidad de pintura necesaria para cubrir superficies cilíndricas.</li>
+    <li>Determinar el volumen de tuberías y conductos cilíndricos.</li>
+    <li>Resolver problemas de geometría espacial en matemáticas y física.</li>
+    <li>Diseñar envases y embalajes con forma cilíndrica en ingeniería de producto.</li>
+    <li>Calcular materiales para columnas, pilares y elementos arquitectónicos circulares.</li>
+  </ul>
+
+  <h2>Errores frecuentes al trabajar con cilindros</h2>
+  <ul>
+    <li>Usar el diámetro en lugar del radio en las fórmulas sin dividir por 2.</li>
+    <li>Confundir el área lateral con el área superficial total.</li>
+    <li>Olvidar incluir ambas bases al calcular el área superficial.</li>
+    <li>Mezclar unidades, por ejemplo radio en cm y altura en metros.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Si trabajas con cilindros huecos (como tuberías), calcula el volumen del material restando el volumen interior del exterior: V_material = π × (R_exterior² - R_interior²) × h. Esto es esencial para estimar peso y coste de materiales.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué valor de π usa la calculadora?</button>
+      <div class="faq-ap">
+        <p>La calculadora utiliza una aproximación de alta precisión de π (pi ≈ 3.14159265359), suficiente para la mayoría de aplicaciones prácticas.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Puedo usar el diámetro en lugar del radio?</button>
+      <div class="faq-ap">
+        <p>Sí, simplemente divide el diámetro por 2 para obtener el radio antes de aplicar las fórmulas. La calculadora puede aceptar ambos formatos.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿La fórmula funciona para cilindros inclinados?</button>
+      <div class="faq-ap">
+        <p>El volumen es el mismo si la altura perpendicular se mantiene, pero el área superficial cambia. Estas fórmulas asumen un cilindro circular recto.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cómo calculo solo el área lateral?</button>
+      <div class="faq-ap">
+        <p>El área lateral es AL = 2 × π × r × h. Es la superficie curva sin incluir las dos bases circulares.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Cylinder Volume & Surface Area Calculator</h1>
+  <p>A right circular cylinder is a geometric solid with two parallel circular bases connected by a curved surface. This calculator computes both the volume and total surface area from the base radius and cylinder height.</p>
+
+  <h2>Cylinder formulas</h2>
+  <p>For a cylinder with radius r and height h:</p>
+  <ul>
+    <li><strong>Volume:</strong> V = π × r² × h</li>
+    <li><strong>Total surface area:</strong> SA = 2 × π × r × (r + h)</li>
+    <li><strong>Lateral area:</strong> LA = 2 × π × r × h</li>
+  </ul>
+  <p>The total surface area includes both circular bases (2 × π × r²) plus the lateral area (2 × π × r × h).</p>
+
+  <h2>Example 1: cylinder with integer dimensions</h2>
+  <p><strong>Problem:</strong> A cylinder has radius r = 5 cm and height h = 12 cm.</p>
+  <ol>
+    <li>Volume:
+      <ul>
+        <li>V = π × 5² × 12 = π × 25 × 12 ≈ 942.48 cm³.</li>
+      </ul>
+    </li>
+    <li>Surface area:
+      <ul>
+        <li>SA = 2 × π × 5 × (5 + 12) = 2 × π × 5 × 17 ≈ 534.07 cm².</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> V ≈ 942.48 cm³, SA ≈ 534.07 cm².</p>
+
+  <h2>Example 2: cylinder with decimal measurements</h2>
+  <p><strong>Problem:</strong> A cylindrical tank has radius r = 1.5 m and height h = 3.2 m.</p>
+  <ol>
+    <li>Volume:
+      <ul>
+        <li>V = π × 1.5² × 3.2 = π × 2.25 × 3.2 ≈ 22.62 m³.</li>
+      </ul>
+    </li>
+    <li>Surface area:
+      <ul>
+        <li>SA = 2 × π × 1.5 × (1.5 + 3.2) = 2 × π × 1.5 × 4.7 ≈ 44.30 m².</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> V ≈ 22.62 m³, SA ≈ 44.30 m².</p>
+
+  <h2>Common uses of the cylinder calculator</h2>
+  <ul>
+    <li>Calculating the capacity of water tanks, barrels and cylindrical containers.</li>
+    <li>Estimating paint quantities needed to cover cylindrical surfaces.</li>
+    <li>Determining the volume of pipes and cylindrical conduits.</li>
+    <li>Solving solid geometry problems in mathematics and physics.</li>
+    <li>Designing cylindrical packaging and containers in product engineering.</li>
+    <li>Computing materials for columns, pillars and circular architectural elements.</li>
+  </ul>
+
+  <h2>Common mistakes when working with cylinders</h2>
+  <ul>
+    <li>Using the diameter instead of the radius in formulas without dividing by 2.</li>
+    <li>Confusing lateral area with total surface area.</li>
+    <li>Forgetting to include both bases when calculating total surface area.</li>
+    <li>Mixing units, such as radius in cm and height in meters.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>When working with hollow cylinders (like pipes), compute the material volume by subtracting the inner volume from the outer: V_material = π × (R_outer² − R_inner²) × h. This is essential for estimating material weight and cost.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What value of π does the calculator use?</button>
+      <div class="faq-ap">
+        <p>The calculator uses a high-precision approximation of π (pi ≈ 3.14159265359), which is sufficient for most practical applications.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Can I use diameter instead of radius?</button>
+      <div class="faq-ap">
+        <p>Yes, simply divide the diameter by 2 to get the radius before applying the formulas. The calculator may accept both formats.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Do the formulas work for oblique cylinders?</button>
+      <div class="faq-ap">
+        <p>The volume is the same if the perpendicular height is maintained, but the surface area changes. These formulas assume a right circular cylinder.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How do I calculate just the lateral area?</button>
+      <div class="faq-ap">
+        <p>The lateral area is LA = 2 × π × r × h. It is the curved surface area without including the two circular bases.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "923": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de volumen y área superficial de un cono</h1>
+  <p>El cono circular recto es un sólido geométrico con una base circular y un vértice que se eleva perpendicularmente sobre el centro de la base. Esta calculadora obtiene el volumen y el área superficial total a partir del radio y la altura.</p>
+
+  <h2>Fórmulas del cono</h2>
+  <p>Para un cono con radio r, altura h y generatriz (altura inclinada) l:</p>
+  <ul>
+    <li><strong>Volumen:</strong> V = (1/3) × π × r² × h</li>
+    <li><strong>Área superficial total:</strong> SA = π × r × (r + l)</li>
+    <li><strong>Generatriz:</strong> l = √(r² + h²)</li>
+  </ul>
+  <p>La generatriz se calcula usando el teorema de Pitágoras, ya que forma un triángulo rectángulo con el radio y la altura.</p>
+
+  <h2>Ejemplo 1: cono con dimensiones enteras</h2>
+  <p><strong>Problema:</strong> Un cono tiene radio r = 6 cm y altura h = 8 cm.</p>
+  <ol>
+    <li>Generatriz:
+      <ul>
+        <li>l = √(6² + 8²) = √(36 + 64) = √100 = 10 cm.</li>
+      </ul>
+    </li>
+    <li>Volumen:
+      <ul>
+        <li>V = (1/3) × π × 6² × 8 = (1/3) × π × 36 × 8 ≈ 301.59 cm³.</li>
+      </ul>
+    </li>
+    <li>Área superficial:
+      <ul>
+        <li>SA = π × 6 × (6 + 10) = π × 6 × 16 ≈ 301.59 cm².</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> V ≈ 301.59 cm³, SA ≈ 301.59 cm², l = 10 cm.</p>
+
+  <h2>Ejemplo 2: cono con medidas decimales</h2>
+  <p><strong>Problema:</strong> Un cono tiene radio r = 3.5 m y altura h = 5.2 m.</p>
+  <ol>
+    <li>Generatriz:
+      <ul>
+        <li>l = √(3.5² + 5.2²) = √(12.25 + 27.04) = √39.29 ≈ 6.27 m.</li>
+      </ul>
+    </li>
+    <li>Volumen:
+      <ul>
+        <li>V = (1/3) × π × 3.5² × 5.2 ≈ 66.73 m³.</li>
+      </ul>
+    </li>
+    <li>Área superficial:
+      <ul>
+        <li>SA = π × 3.5 × (3.5 + 6.27) ≈ 107.43 m².</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> V ≈ 66.73 m³, SA ≈ 107.43 m², l ≈ 6.27 m.</p>
+
+  <h2>Usos comunes de la calculadora de conos</h2>
+  <ul>
+    <li>Calcular la capacidad de embudos, conos de tráfico y recipientes cónicos.</li>
+    <li>Estimar material para techos cónicos, carpas y sombrillas.</li>
+    <li>Determinar volúmenes de montículos de arena, grava o materiales a granel.</li>
+    <li>Resolver problemas de geometría espacial en cursos de matemáticas.</li>
+    <li>Diseñar elementos decorativos y arquitectónicos con forma cónica.</li>
+    <li>Calcular la superficie de conos de helado y envases alimentarios.</li>
+  </ul>
+
+  <h2>Errores frecuentes al trabajar con conos</h2>
+  <ul>
+    <li>Usar la altura vertical en lugar de la generatriz en la fórmula del área superficial.</li>
+    <li>Olvidar el factor 1/3 en la fórmula del volumen.</li>
+    <li>Confundir el área lateral con el área superficial total (que incluye la base).</li>
+    <li>No calcular la generatriz cuando solo se conocen radio y altura.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Recuerda que el volumen de un cono es exactamente un tercio del volumen de un cilindro con la misma base y altura. Esta relación puede ayudarte a verificar tus cálculos mentalmente.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué es la generatriz de un cono?</button>
+      <div class="faq-ap">
+        <p>La generatriz es la distancia desde el vértice hasta cualquier punto del borde de la base. Se calcula como l = √(r² + h²) usando el teorema de Pitágoras.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Por qué el volumen tiene un factor de 1/3?</button>
+      <div class="faq-ap">
+        <p>Un cono ocupa exactamente un tercio del volumen de un cilindro con la misma base y altura. Esto se demuestra mediante integración o el principio de Cavalieri.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿La fórmula funciona para conos inclinados?</button>
+      <div class="faq-ap">
+        <p>El volumen es el mismo si la altura perpendicular se mantiene, pero el área superficial cambia. Estas fórmulas son para conos circulares rectos.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cómo calculo solo el área lateral?</button>
+      <div class="faq-ap">
+        <p>El área lateral es AL = π × r × l. No incluye el área de la base circular. El área total añade π × r².</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Cone Volume & Surface Area Calculator</h1>
+  <p>A right circular cone is a geometric solid with a circular base and a vertex that rises perpendicularly above the center of the base. This calculator computes both the volume and total surface area from the radius and height.</p>
+
+  <h2>Cone formulas</h2>
+  <p>For a cone with radius r, height h and slant height l:</p>
+  <ul>
+    <li><strong>Volume:</strong> V = (1/3) × π × r² × h</li>
+    <li><strong>Total surface area:</strong> SA = π × r × (r + l)</li>
+    <li><strong>Slant height:</strong> l = √(r² + h²)</li>
+  </ul>
+  <p>The slant height is found using the Pythagorean theorem, as it forms a right triangle with the radius and the height.</p>
+
+  <h2>Example 1: cone with integer dimensions</h2>
+  <p><strong>Problem:</strong> A cone has radius r = 6 cm and height h = 8 cm.</p>
+  <ol>
+    <li>Slant height:
+      <ul>
+        <li>l = √(6² + 8²) = √(36 + 64) = √100 = 10 cm.</li>
+      </ul>
+    </li>
+    <li>Volume:
+      <ul>
+        <li>V = (1/3) × π × 6² × 8 = (1/3) × π × 36 × 8 ≈ 301.59 cm³.</li>
+      </ul>
+    </li>
+    <li>Surface area:
+      <ul>
+        <li>SA = π × 6 × (6 + 10) = π × 6 × 16 ≈ 301.59 cm².</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> V ≈ 301.59 cm³, SA ≈ 301.59 cm², l = 10 cm.</p>
+
+  <h2>Example 2: cone with decimal measurements</h2>
+  <p><strong>Problem:</strong> A cone has radius r = 3.5 m and height h = 5.2 m.</p>
+  <ol>
+    <li>Slant height:
+      <ul>
+        <li>l = √(3.5² + 5.2²) = √(12.25 + 27.04) = √39.29 ≈ 6.27 m.</li>
+      </ul>
+    </li>
+    <li>Volume:
+      <ul>
+        <li>V = (1/3) × π × 3.5² × 5.2 ≈ 66.73 m³.</li>
+      </ul>
+    </li>
+    <li>Surface area:
+      <ul>
+        <li>SA = π × 3.5 × (3.5 + 6.27) ≈ 107.43 m².</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> V ≈ 66.73 m³, SA ≈ 107.43 m², l ≈ 6.27 m.</p>
+
+  <h2>Common uses of the cone calculator</h2>
+  <ul>
+    <li>Computing the capacity of funnels, traffic cones and conical containers.</li>
+    <li>Estimating materials for conical roofs, tents and umbrellas.</li>
+    <li>Determining volumes of sand, gravel or bulk material piles.</li>
+    <li>Solving solid geometry problems in mathematics courses.</li>
+    <li>Designing decorative and architectural conical elements.</li>
+    <li>Calculating the surface area of ice cream cones and food packaging.</li>
+  </ul>
+
+  <h2>Common mistakes when working with cones</h2>
+  <ul>
+    <li>Using the vertical height instead of the slant height in the surface area formula.</li>
+    <li>Forgetting the 1/3 factor in the volume formula.</li>
+    <li>Confusing lateral area with total surface area (which includes the base).</li>
+    <li>Not computing the slant height when only radius and height are known.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>Remember that a cone's volume is exactly one-third of a cylinder's volume with the same base and height. This relationship can help you mentally verify your calculations.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What is the slant height of a cone?</button>
+      <div class="faq-ap">
+        <p>The slant height is the distance from the vertex to any point on the edge of the base. It is computed as l = √(r² + h²) using the Pythagorean theorem.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Why does the volume have a 1/3 factor?</button>
+      <div class="faq-ap">
+        <p>A cone occupies exactly one-third of the volume of a cylinder with the same base and height. This can be proven through integration or Cavalieri's principle.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Do the formulas work for oblique cones?</button>
+      <div class="faq-ap">
+        <p>The volume is the same if the perpendicular height is maintained, but the surface area changes. These formulas are for right circular cones.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How do I calculate just the lateral area?</button>
+      <div class="faq-ap">
+        <p>The lateral area is LA = π × r × l. It does not include the circular base area. Total surface area adds π × r².</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "924": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de volumen de una pirámide rectangular</h1>
+  <p>La pirámide rectangular es un sólido geométrico con una base rectangular y cuatro caras triangulares que convergen en un vértice. Esta calculadora obtiene el volumen a partir de la longitud, anchura y altura de la pirámide.</p>
+
+  <h2>Fórmula del volumen de la pirámide rectangular</h2>
+  <p>El volumen se calcula como un tercio del área de la base multiplicada por la altura:</p>
+  <p><strong>V = (1/3) × l × w × h</strong></p>
+  <p>Donde <em>l</em> es la longitud de la base, <em>w</em> es la anchura y <em>h</em> es la altura perpendicular desde la base hasta el vértice.</p>
+
+  <h2>Ejemplo 1: pirámide con dimensiones enteras</h2>
+  <p><strong>Problema:</strong> Una pirámide tiene base l = 12 cm, w = 8 cm y altura h = 10 cm.</p>
+  <ol>
+    <li>Área de la base:
+      <ul>
+        <li>A_base = 12 × 8 = 96 cm².</li>
+      </ul>
+    </li>
+    <li>Volumen:
+      <ul>
+        <li>V = (1/3) × 96 × 10 = 320 cm³.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> V = 320 cm³.</p>
+
+  <h2>Ejemplo 2: pirámide con medidas decimales</h2>
+  <p><strong>Problema:</strong> Una pirámide tiene base l = 5.5 m, w = 3.2 m y altura h = 4.8 m.</p>
+  <ol>
+    <li>Área de la base:
+      <ul>
+        <li>A_base = 5.5 × 3.2 = 17.6 m².</li>
+      </ul>
+    </li>
+    <li>Volumen:
+      <ul>
+        <li>V = (1/3) × 17.6 × 4.8 ≈ 28.16 m³.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> V ≈ 28.16 m³.</p>
+
+  <h2>Usos comunes de la calculadora de pirámides</h2>
+  <ul>
+    <li>Calcular volúmenes de estructuras piramidales en arquitectura e ingeniería.</li>
+    <li>Estimar cantidades de material para techos piramidales y carpas.</li>
+    <li>Resolver problemas de geometría espacial en matemáticas.</li>
+    <li>Determinar la capacidad de recipientes con forma de pirámide invertida.</li>
+    <li>Calcular volúmenes de montículos de tierra o materiales de construcción.</li>
+    <li>Diseñar elementos decorativos y esculturas con forma piramidal.</li>
+  </ul>
+
+  <h2>Errores frecuentes al calcular volúmenes de pirámides</h2>
+  <ul>
+    <li>Olvidar el factor 1/3 y calcular como si fuera un prisma rectangular.</li>
+    <li>Usar la altura de la cara triangular en lugar de la altura perpendicular de la pirámide.</li>
+    <li>Confundir las dimensiones de la base con las aristas laterales.</li>
+    <li>Mezclar unidades entre longitud, anchura y altura.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>El volumen de cualquier pirámide es siempre un tercio del volumen del prisma con la misma base y altura. Esta regla universal se aplica independientemente de la forma de la base (triangular, cuadrada, pentagonal, etc.).</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Esta fórmula sirve para pirámides con otras bases?</button>
+      <div class="faq-ap">
+        <p>Sí. El volumen de cualquier pirámide es V = (1/3) × Área_base × altura. Solo cambia la fórmula del área de la base según su forma.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cómo calculo el área superficial?</button>
+      <div class="faq-ap">
+        <p>El área superficial es el área de la base más el área de las cuatro caras triangulares. Cada cara triangular tiene área = (1/2) × base_triángulo × altura_triángulo.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué diferencia hay entre altura y apotema?</button>
+      <div class="faq-ap">
+        <p>La altura es la distancia perpendicular desde la base al vértice. La apotema es la altura de cada cara triangular, medida desde el vértice hasta el centro de un lado de la base.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿El volumen cambia si la pirámide está inclinada?</button>
+      <div class="faq-ap">
+        <p>No, siempre que la altura perpendicular se mantenga. El volumen depende solo del área de la base y la altura perpendicular, no de la inclinación.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Rectangular Pyramid Volume Calculator</h1>
+  <p>A rectangular pyramid is a geometric solid with a rectangular base and four triangular faces that converge at a single vertex. This calculator computes the volume from the length, width and height of the pyramid.</p>
+
+  <h2>Rectangular pyramid volume formula</h2>
+  <p>The volume is one-third of the base area multiplied by the height:</p>
+  <p><strong>V = (1/3) × l × w × h</strong></p>
+  <p>Where <em>l</em> is the base length, <em>w</em> is the base width and <em>h</em> is the perpendicular height from the base to the vertex.</p>
+
+  <h2>Example 1: pyramid with integer dimensions</h2>
+  <p><strong>Problem:</strong> A pyramid has base l = 12 cm, w = 8 cm and height h = 10 cm.</p>
+  <ol>
+    <li>Base area:
+      <ul>
+        <li>A_base = 12 × 8 = 96 cm².</li>
+      </ul>
+    </li>
+    <li>Volume:
+      <ul>
+        <li>V = (1/3) × 96 × 10 = 320 cm³.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> V = 320 cm³.</p>
+
+  <h2>Example 2: pyramid with decimal measurements</h2>
+  <p><strong>Problem:</strong> A pyramid has base l = 5.5 m, w = 3.2 m and height h = 4.8 m.</p>
+  <ol>
+    <li>Base area:
+      <ul>
+        <li>A_base = 5.5 × 3.2 = 17.6 m².</li>
+      </ul>
+    </li>
+    <li>Volume:
+      <ul>
+        <li>V = (1/3) × 17.6 × 4.8 ≈ 28.16 m³.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> V ≈ 28.16 m³.</p>
+
+  <h2>Common uses of the pyramid calculator</h2>
+  <ul>
+    <li>Computing volumes of pyramidal structures in architecture and engineering.</li>
+    <li>Estimating material quantities for pyramidal roofs and tents.</li>
+    <li>Solving solid geometry problems in mathematics.</li>
+    <li>Determining the capacity of inverted pyramid-shaped containers.</li>
+    <li>Calculating volumes of earth mounds or construction material piles.</li>
+    <li>Designing decorative elements and pyramidal sculptures.</li>
+  </ul>
+
+  <h2>Common mistakes when calculating pyramid volumes</h2>
+  <ul>
+    <li>Forgetting the 1/3 factor and computing as if it were a rectangular prism.</li>
+    <li>Using the triangular face height instead of the perpendicular pyramid height.</li>
+    <li>Confusing base dimensions with the lateral edge lengths.</li>
+    <li>Mixing units between length, width and height.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>The volume of any pyramid is always one-third of the volume of the prism with the same base and height. This universal rule applies regardless of the base shape (triangular, square, pentagonal, etc.).</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Does this formula work for pyramids with other base shapes?</button>
+      <div class="faq-ap">
+        <p>Yes. The volume of any pyramid is V = (1/3) × Base_area × height. Only the base area formula changes depending on the base shape.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How do I calculate the surface area?</button>
+      <div class="faq-ap">
+        <p>Surface area is the base area plus the area of the four triangular faces. Each triangular face has area = (1/2) × triangle_base × triangle_height.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What is the difference between height and slant height?</button>
+      <div class="faq-ap">
+        <p>The height is the perpendicular distance from the base to the vertex. The slant height is the height of each triangular face, measured from the vertex to the center of a base edge.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Does volume change if the pyramid is oblique?</button>
+      <div class="faq-ap">
+        <p>No, as long as the perpendicular height is maintained. Volume depends only on base area and perpendicular height, not on tilt.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "925": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de esfera: volumen y área superficial</h1>
+  <p>La esfera es un sólido geométrico perfectamente simétrico donde todos los puntos de su superficie están a la misma distancia del centro. Esta calculadora obtiene el volumen y el área superficial a partir del radio de la esfera.</p>
+
+  <h2>Fórmulas de la esfera</h2>
+  <p>Para una esfera con radio r:</p>
+  <ul>
+    <li><strong>Volumen:</strong> V = (4/3) × π × r³</li>
+    <li><strong>Área superficial:</strong> SA = 4 × π × r²</li>
+    <li><strong>Diámetro:</strong> d = 2 × r</li>
+  </ul>
+  <p>Estas fórmulas fueron demostradas por Arquímedes, quien descubrió que el volumen de una esfera es dos tercios del volumen del cilindro circunscrito.</p>
+
+  <h2>Ejemplo 1: esfera con radio entero</h2>
+  <p><strong>Problema:</strong> Una esfera tiene radio r = 7 cm.</p>
+  <ol>
+    <li>Volumen:
+      <ul>
+        <li>V = (4/3) × π × 7³ = (4/3) × π × 343 ≈ 1,436.76 cm³.</li>
+      </ul>
+    </li>
+    <li>Área superficial:
+      <ul>
+        <li>SA = 4 × π × 7² = 4 × π × 49 ≈ 615.75 cm².</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> V ≈ 1,436.76 cm³, SA ≈ 615.75 cm².</p>
+
+  <h2>Ejemplo 2: esfera con radio decimal</h2>
+  <p><strong>Problema:</strong> Una esfera tiene radio r = 2.5 m.</p>
+  <ol>
+    <li>Volumen:
+      <ul>
+        <li>V = (4/3) × π × 2.5³ = (4/3) × π × 15.625 ≈ 65.45 m³.</li>
+      </ul>
+    </li>
+    <li>Área superficial:
+      <ul>
+        <li>SA = 4 × π × 2.5² = 4 × π × 6.25 ≈ 78.54 m².</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> V ≈ 65.45 m³, SA ≈ 78.54 m².</p>
+
+  <h2>Usos comunes de la calculadora de esferas</h2>
+  <ul>
+    <li>Calcular la capacidad de tanques esféricos y depósitos de almacenamiento.</li>
+    <li>Determinar la cantidad de material para fabricar bolas, balones y esferas.</li>
+    <li>Estimar la superficie de planetas y cuerpos celestes en astronomía.</li>
+    <li>Resolver problemas de geometría espacial en física y matemáticas.</li>
+    <li>Calcular volúmenes de gotas, burbujas y partículas esféricas.</li>
+    <li>Diseñar elementos arquitectónicos como domos y cúpulas geodésicas.</li>
+  </ul>
+
+  <h2>Errores frecuentes al trabajar con esferas</h2>
+  <ul>
+    <li>Usar el diámetro en lugar del radio sin dividir por 2.</li>
+    <li>Confundir la fórmula del volumen con la del área superficial.</li>
+    <li>Olvidar elevar al cubo el radio en la fórmula del volumen.</li>
+    <li>Mezclar unidades, por ejemplo radio en cm y resultado esperado en metros.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>La esfera es la forma que minimiza el área superficial para un volumen dado. Esta propiedad explica por qué las gotas de agua y las burbujas de jabón tienden a ser esféricas: la tensión superficial minimiza la energía buscando la menor superficie posible.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Puedo usar el diámetro en lugar del radio?</button>
+      <div class="faq-ap">
+        <p>Sí, simplemente divide el diámetro por 2 para obtener el radio. Las fórmulas en términos del diámetro serían V = (π/6) × d³ y SA = π × d².</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cuál es la relación entre volumen y área?</button>
+      <div class="faq-ap">
+        <p>Para una esfera, SA = 3V/r. Esto significa que el área superficial es proporcional al volumen dividido por el radio.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué pasa si la esfera es hueca?</button>
+      <div class="faq-ap">
+        <p>Para una esfera hueca con radio exterior R e interior r, el volumen del material es V = (4/3) × π × (R³ − r³). El área superficial exterior sigue siendo 4 × π × R².</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cómo se relaciona con el cilindro circunscrito?</button>
+      <div class="faq-ap">
+        <p>Arquímedes demostró que el volumen de la esfera es 2/3 del cilindro circunscrito (mismo radio y altura = 2r), y lo mismo para las áreas superficiales.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Sphere Calculator: volume and surface area</h1>
+  <p>A sphere is a perfectly symmetrical geometric solid where every point on its surface is equidistant from the center. This calculator computes both the volume and surface area from the sphere's radius.</p>
+
+  <h2>Sphere formulas</h2>
+  <p>For a sphere with radius r:</p>
+  <ul>
+    <li><strong>Volume:</strong> V = (4/3) × π × r³</li>
+    <li><strong>Surface area:</strong> SA = 4 × π × r²</li>
+    <li><strong>Diameter:</strong> d = 2 × r</li>
+  </ul>
+  <p>These formulas were proven by Archimedes, who discovered that a sphere's volume is two-thirds of the volume of its circumscribed cylinder.</p>
+
+  <h2>Example 1: sphere with integer radius</h2>
+  <p><strong>Problem:</strong> A sphere has radius r = 7 cm.</p>
+  <ol>
+    <li>Volume:
+      <ul>
+        <li>V = (4/3) × π × 7³ = (4/3) × π × 343 ≈ 1,436.76 cm³.</li>
+      </ul>
+    </li>
+    <li>Surface area:
+      <ul>
+        <li>SA = 4 × π × 7² = 4 × π × 49 ≈ 615.75 cm².</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> V ≈ 1,436.76 cm³, SA ≈ 615.75 cm².</p>
+
+  <h2>Example 2: sphere with decimal radius</h2>
+  <p><strong>Problem:</strong> A sphere has radius r = 2.5 m.</p>
+  <ol>
+    <li>Volume:
+      <ul>
+        <li>V = (4/3) × π × 2.5³ = (4/3) × π × 15.625 ≈ 65.45 m³.</li>
+      </ul>
+    </li>
+    <li>Surface area:
+      <ul>
+        <li>SA = 4 × π × 2.5² = 4 × π × 6.25 ≈ 78.54 m².</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> V ≈ 65.45 m³, SA ≈ 78.54 m².</p>
+
+  <h2>Common uses of the sphere calculator</h2>
+  <ul>
+    <li>Computing the capacity of spherical tanks and storage vessels.</li>
+    <li>Determining material quantities for manufacturing balls, spheres and globes.</li>
+    <li>Estimating the surface area of planets and celestial bodies in astronomy.</li>
+    <li>Solving solid geometry problems in physics and mathematics.</li>
+    <li>Calculating volumes of droplets, bubbles and spherical particles.</li>
+    <li>Designing architectural elements like domes and geodesic structures.</li>
+  </ul>
+
+  <h2>Common mistakes when working with spheres</h2>
+  <ul>
+    <li>Using the diameter instead of the radius without dividing by 2.</li>
+    <li>Confusing the volume formula with the surface area formula.</li>
+    <li>Forgetting to cube the radius in the volume formula.</li>
+    <li>Mixing units, such as radius in cm but expecting results in meters.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>The sphere is the shape that minimizes surface area for a given volume. This property explains why water droplets and soap bubbles tend to be spherical: surface tension minimizes energy by seeking the smallest possible surface area.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Can I use diameter instead of radius?</button>
+      <div class="faq-ap">
+        <p>Yes, simply divide the diameter by 2 to get the radius. In terms of diameter: V = (π/6) × d³ and SA = π × d².</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What is the relationship between volume and area?</button>
+      <div class="faq-ap">
+        <p>For a sphere, SA = 3V/r. This means the surface area is proportional to the volume divided by the radius.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What if the sphere is hollow?</button>
+      <div class="faq-ap">
+        <p>For a hollow sphere with outer radius R and inner radius r, the material volume is V = (4/3) × π × (R³ − r³). The outer surface area remains 4 × π × R².</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How does it relate to the circumscribed cylinder?</button>
+      <div class="faq-ap">
+        <p>Archimedes proved that the sphere's volume is 2/3 of the circumscribed cylinder (same radius and height = 2r), and the same ratio holds for surface areas.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/circle-calculator">Circle Calculator</a></li>
+      <li><a href="/right-triangle-calculator">Right Triangle Calculator</a></li>
+      <li><a href="/herons-formula-calculator">Heron's Formula Calculator</a></li>
+      <li><a href="/rectangle-calculator">Rectangle Calculator</a></li>
+      <li><a href="/square-calculator">Square Calculator</a></li>
+      <li><a href="/trapezoid-calculator">Trapezoid Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "926": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de BMR Harris-Benedict: metabolismo basal clásico</h1>
+  <p>La fórmula de Harris-Benedict original de 1919 es uno de los métodos más conocidos para estimar la tasa metabólica basal (BMR) a partir del peso, la altura, la edad y el sexo. Esta calculadora aplica esas ecuaciones para ayudarte a estimar cuántas calorías quema tu cuerpo en reposo absoluto cada día.</p>
+
+  <h2>Fórmulas originales de Harris-Benedict</h2>
+  <p>Las ecuaciones originales usan peso en kilogramos, altura en centímetros y edad en años completos:</p>
+  <ul>
+    <li><strong>Hombres:</strong> BMR = 88.36 + 13.4 · W + 4.8 · H − 5.7 · edad</li>
+    <li><strong>Mujeres:</strong> BMR = 447.6 + 9.2 · W + 3.1 · H − 4.3 · edad</li>
+  </ul>
+  <p>W es el peso corporal, H es la altura y la edad suele expresarse en años cumplidos. El resultado es una estimación de las calorías diarias que tu organismo necesita para mantener funciones vitales en reposo.</p>
+
+  <h2>Ejemplo 1: hombre adulto</h2>
+  <p><strong>Problema:</strong> Hombre de 30 años, 80 kg de peso y 180 cm de altura.</p>
+  <ol>
+    <li>Sustituye en la fórmula:
+      <ul>
+        <li>BMR = 88.36 + 13.4 · 80 + 4.8 · 180 − 5.7 · 30</li>
+      </ul>
+    </li>
+    <li>Calcula paso a paso:
+      <ul>
+        <li>13.4 · 80 = 1,072</li>
+        <li>4.8 · 180 = 864</li>
+        <li>5.7 · 30 = 171</li>
+        <li>BMR ≈ 88.36 + 1,072 + 864 − 171 ≈ 1,853.36 kcal/día</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> BMR ≈ 1,853 kcal/día en reposo.</p>
+
+  <h2>Ejemplo 2: mujer adulta</h2>
+  <p><strong>Problema:</strong> Mujer de 28 años, 60 kg de peso y 165 cm de altura.</p>
+  <ol>
+    <li>Formula para mujeres:
+      <ul>
+        <li>BMR = 447.6 + 9.2 · 60 + 3.1 · 165 − 4.3 · 28</li>
+      </ul>
+    </li>
+    <li>Cálculos:
+      <ul>
+        <li>9.2 · 60 = 552</li>
+        <li>3.1 · 165 = 511.5</li>
+        <li>4.3 · 28 = 120.4</li>
+        <li>BMR ≈ 447.6 + 552 + 511.5 − 120.4 ≈ 1,390.7 kcal/día</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> BMR ≈ 1,391 kcal/día en reposo.</p>
+
+  <h2>Usos comunes de la calculadora Harris-Benedict</h2>
+  <ul>
+    <li>Estimar el punto de partida para planes de pérdida o ganancia de peso.</li>
+    <li>Calcular el gasto energético total (TDEE) multiplicando por un factor de actividad.</li>
+    <li>Ajustar la ingesta calórica en programas de nutrición clínica y deportiva.</li>
+    <li>Comparar el metabolismo basal entre diferentes personas o perfiles.</li>
+    <li>Diseñar dietas de mantenimiento para evitar fluctuaciones de peso.</li>
+    <li>Educar en clases de nutrición sobre el concepto de metabolismo basal.</li>
+  </ul>
+
+  <h2>Errores frecuentes al usar Harris-Benedict</h2>
+  <ul>
+    <li>Introducir peso en libras y altura en pulgadas sin convertir a unidades métricas.</li>
+    <li>Elegir el sexo incorrecto, lo que cambia por completo la ecuación utilizada.</li>
+    <li>Interpretar el BMR como calorías totales del día sin aplicar el factor de actividad.</li>
+    <li>Redondear en exceso, lo que puede acumular errores al pasar a cálculos de dieta.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Utiliza el BMR de Harris-Benedict como <strong>estimación inicial</strong>, pero ajusta la cifra según tu evolución real de peso y energía. Si tras varias semanas tu peso no cambia como esperabas, revisa factores de actividad, registro de alimentos y posibles variaciones individuales de metabolismo.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Esta fórmula es la más precisa disponible?</button>
+      <div class="faq-ap">
+        <p>No necesariamente. Es una de las más antiguas y utilizadas, pero existen revisiones y alternativas (como Mifflin-St Jeor o Katch-McArdle) que pueden adaptarse mejor a ciertos perfiles.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué unidades debo usar?</button>
+      <div class="faq-ap">
+        <p>Las ecuaciones originales usan peso en kilogramos, altura en centímetros y edad en años. Si trabajas con libras y pulgadas, la calculadora hará la conversión interna.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cómo paso de BMR a calorías diarias totales?</button>
+      <div class="faq-ap">
+        <p>Multiplica tu BMR por un factor de actividad (sedentario, ligero, moderado, alto, atleta). Esto produce el TDEE, una estimación de calorías para mantener tu peso actual según tu estilo de vida.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Puedo usar esta fórmula si tengo mucho músculo o poco?</button>
+      <div class="faq-ap">
+        <p>Puedes, pero en casos de mucha masa muscular o muy poca, fórmulas basadas en masa magra, como Katch-McArdle, suelen reflejar mejor tu metabolismo real.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/karvonen-heart-rate-calculator">Karvonen Heart Rate Calculator</a></li>
+      <li><a href="/heart-rate-training-zones-calculator">Heart Rate Training Zones Calculator</a></li>
+      <li><a href="/bmr-katch-mcardle-calculator">BMR (Katch-McArdle) Calculator</a></li>
+      <li><a href="/weight-loss-calculator">Weight Loss Calculator</a></li>
+      <li><a href="/heart-rate-zones-calculator">Heart Rate Zones Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/karvonen-heart-rate-calculator">Karvonen Heart Rate Calculator</a></li>
+      <li><a href="/heart-rate-training-zones-calculator">Heart Rate Training Zones Calculator</a></li>
+      <li><a href="/bmr-katch-mcardle-calculator">BMR (Katch-McArdle) Calculator</a></li>
+      <li><a href="/weight-loss-calculator">Weight Loss Calculator</a></li>
+      <li><a href="/heart-rate-zones-calculator">Heart Rate Zones Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Harris-Benedict BMR Calculator: classic basal metabolism</h1>
+  <p>The original 1919 Harris-Benedict equations are among the best-known methods for estimating basal metabolic rate (BMR) from weight, height, age and sex. This calculator applies those equations to estimate how many calories your body burns at rest each day.</p>
+
+  <h2>Original Harris-Benedict formulas</h2>
+  <p>The equations use weight in kilograms, height in centimeters and age in full years:</p>
+  <ul>
+    <li><strong>Men:</strong> BMR = 88.36 + 13.4 · W + 4.8 · H − 5.7 · age</li>
+    <li><strong>Women:</strong> BMR = 447.6 + 9.2 · W + 3.1 · H − 4.3 · age</li>
+  </ul>
+  <p>Here W is body weight, H is height and age is given in years. The result is an estimate of daily calories required to maintain vital functions in complete rest.</p>
+
+  <h2>Example 1: adult male</h2>
+  <p><strong>Problem:</strong> Male, 30 years old, 80 kg, 180 cm tall.</p>
+  <ol>
+    <li>Plug into the men's formula:
+      <ul>
+        <li>BMR = 88.36 + 13.4 · 80 + 4.8 · 180 − 5.7 · 30</li>
+      </ul>
+    </li>
+    <li>Step-by-step:
+      <ul>
+        <li>13.4 · 80 = 1,072</li>
+        <li>4.8 · 180 = 864</li>
+        <li>5.7 · 30 = 171</li>
+        <li>BMR ≈ 88.36 + 1,072 + 864 − 171 ≈ 1,853.36 kcal/day</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> BMR ≈ 1,853 kcal/day at rest.</p>
+
+  <h2>Example 2: adult female</h2>
+  <p><strong>Problem:</strong> Female, 28 years old, 60 kg, 165 cm tall.</p>
+  <ol>
+    <li>Use the women's formula:
+      <ul>
+        <li>BMR = 447.6 + 9.2 · 60 + 3.1 · 165 − 4.3 · 28</li>
+      </ul>
+    </li>
+    <li>Calculations:
+      <ul>
+        <li>9.2 · 60 = 552</li>
+        <li>3.1 · 165 = 511.5</li>
+        <li>4.3 · 28 = 120.4</li>
+        <li>BMR ≈ 447.6 + 552 + 511.5 − 120.4 ≈ 1,390.7 kcal/day</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> BMR ≈ 1,391 kcal/day at rest.</p>
+
+  <h2>Common uses of the Harris-Benedict calculator</h2>
+  <ul>
+    <li>Estimating a starting point for weight loss or weight gain plans.</li>
+    <li>Deriving total daily energy expenditure (TDEE) by multiplying by an activity factor.</li>
+    <li>Adjusting calorie intake in clinical and sports nutrition programs.</li>
+    <li>Comparing basal metabolism across individuals or client profiles.</li>
+    <li>Designing maintenance diets to avoid unwanted weight changes.</li>
+    <li>Teaching the concept of basal metabolism in nutrition courses.</li>
+  </ul>
+
+  <h2>Common mistakes when using Harris-Benedict</h2>
+  <ul>
+    <li>Entering weight in pounds and height in inches without proper metric conversion.</li>
+    <li>Selecting the wrong sex, which completely changes the equation used.</li>
+    <li>Treating BMR as total daily calories without applying any activity factor.</li>
+    <li>Rounding too aggressively, which can skew follow‑on diet calculations.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>Use the Harris-Benedict BMR as a <strong>first approximation</strong> and adjust it based on real‑world feedback. If weight does not change as expected after a few weeks, revisit your activity factor, food logging accuracy and the possibility that your individual metabolism runs above or below the estimate.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Is this the most accurate BMR formula?</button>
+      <div class="faq-ap">
+        <p>Not always. It is widely used and well‑known, but newer or alternative formulas such as Mifflin-St Jeor or Katch-McArdle may better reflect certain body types and populations.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Which units should I use?</button>
+      <div class="faq-ap">
+        <p>The original equations use kilograms, centimeters and years. If you prefer pounds and inches, the calculator can convert them to metric internally before applying the formulas.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How do I go from BMR to total daily calories?</button>
+      <div class="faq-ap">
+        <p>Multiply your BMR by an activity multiplier (sedentary, light, moderate, active, athlete). The result is your estimated TDEE, or total calories to maintain your current weight.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Should muscular or very lean people use this formula?</button>
+      <div class="faq-ap">
+        <p>They can, but formulas based on lean body mass such as Katch-McArdle tend to be more accurate when body composition differs strongly from average.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/karvonen-heart-rate-calculator">Karvonen Heart Rate Calculator</a></li>
+      <li><a href="/heart-rate-training-zones-calculator">Heart Rate Training Zones Calculator</a></li>
+      <li><a href="/bmr-katch-mcardle-calculator">BMR (Katch-McArdle) Calculator</a></li>
+      <li><a href="/weight-loss-calculator">Weight Loss Calculator</a></li>
+      <li><a href="/heart-rate-zones-calculator">Heart Rate Zones Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/karvonen-heart-rate-calculator">Karvonen Heart Rate Calculator</a></li>
+      <li><a href="/heart-rate-training-zones-calculator">Heart Rate Training Zones Calculator</a></li>
+      <li><a href="/bmr-katch-mcardle-calculator">BMR (Katch-McArdle) Calculator</a></li>
+      <li><a href="/weight-loss-calculator">Weight Loss Calculator</a></li>
+      <li><a href="/heart-rate-zones-calculator">Heart Rate Zones Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "927": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de BMR Katch-McArdle: metabolismo basal según masa magra</h1>
+  <p>La fórmula de Katch-McArdle estima la tasa metabólica basal usando exclusivamente la masa magra, lo que la hace especialmente útil para personas con porcentajes de grasa muy altos o muy bajos. Esta calculadora toma tu masa corporal magra en kilogramos y devuelve una estimación de calorías diarias en reposo.</p>
+
+  <h2>Fórmula de Katch-McArdle</h2>
+  <p>La ecuación es la misma para hombres y mujeres, siempre que se use la <strong>masa magra</strong> (LBM) y no el peso total:</p>
+  <p><strong>BMR = 370 + 21.6 · LBM</strong></p>
+  <p>LBM se expresa en kilogramos y representa tu peso total menos el peso de la grasa. Puedes obtenerla a partir de un porcentaje de grasa corporal estimado: LBM = peso total · (1 − %grasa).</p>
+
+  <h2>Ejemplo 1: persona con buena masa muscular</h2>
+  <p><strong>Problema:</strong> Peso total 80 kg, grasa corporal 15 %.</p>
+  <ol>
+    <li>Masa magra:
+      <ul>
+        <li>LBM = 80 · (1 − 0.15) = 80 · 0.85 = 68 kg.</li>
+      </ul>
+    </li>
+    <li>BMR:
+      <ul>
+        <li>BMR = 370 + 21.6 · 68 ≈ 370 + 1,468.8 ≈ 1,838.8 kcal/día.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> BMR ≈ 1,839 kcal/día.</p>
+
+  <h2>Ejemplo 2: persona con más grasa corporal</h2>
+  <p><strong>Problema:</strong> Peso total 90 kg, grasa corporal 30 %.</p>
+  <ol>
+    <li>Masa magra:
+      <ul>
+        <li>LBM = 90 · (1 − 0.30) = 90 · 0.70 = 63 kg.</li>
+      </ul>
+    </li>
+    <li>BMR:
+      <ul>
+        <li>BMR = 370 + 21.6 · 63 ≈ 370 + 1,360.8 ≈ 1,730.8 kcal/día.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> BMR ≈ 1,731 kcal/día.</p>
+
+  <h2>Usos comunes de Katch-McArdle</h2>
+  <ul>
+    <li>Planificar dietas en personas deportistas con mucha masa muscular.</li>
+    <li>Estimaciones de calorías en programas de pérdida de grasa con preservación de músculo.</li>
+    <li>Ajustar la ingesta energética para culturismo, powerlifting o fitness competitivo.</li>
+    <li>Comparar el impacto de cambios en la composición corporal sobre el metabolismo.</li>
+    <li>Calcular el TDEE partiendo de un BMR muy ligado a la masa activa.</li>
+    <li>Evaluar la recuperación tras cambios grandes de peso o recomposición corporal.</li>
+  </ul>
+
+  <h2>Errores frecuentes al usar Katch-McArdle</h2>
+  <ul>
+    <li>Utilizar el peso total en lugar de la masa magra en la fórmula.</li>
+    <li>Subestimar o sobreestimar el porcentaje de grasa corporal, distorsionando la LBM.</li>
+    <li>Olvidar que la fórmula da BMR y no calorías totales del día.</li>
+    <li>Redondear el porcentaje de grasa sin sentido (por ejemplo, 17 % → 10 %) por comodidad.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Si no dispones de una medición precisa del porcentaje de grasa (DXA, pliegues, bioimpedancia seria), usa varias fuentes de estimación visual y revisa los resultados cada pocas semanas. Un pequeño error en el % de grasa no arruina el cálculo, pero grandes desviaciones sí pueden afectar a la planificación de tu dieta.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Es más precisa que Harris-Benedict?</button>
+      <div class="faq-ap">
+        <p>Suele ser más precisa en personas con mucha o muy poca grasa, porque se centra en la masa magra, que es la que más energía consume en reposo. Sin embargo, depende de la calidad de la estimación de tu % de grasa.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cómo obtengo mi masa magra?</button>
+      <div class="faq-ap">
+        <p>Necesitas tu peso total y una estimación de tu porcentaje de grasa corporal. Luego aplicas LBM = peso · (1 − %grasa). Muchas básculas y evaluaciones antropométricas ofrecen este dato aproximado.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿La fórmula cambia para hombres y mujeres?</button>
+      <div class="faq-ap">
+        <p>No, la ecuación es la misma. La diferencia entre sexos se refleja en la distinta masa magra típica de hombres y mujeres, no en coeficientes separados en la fórmula.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Puedo usar esta cifra para definir mi superávit o déficit calórico?</button>
+      <div class="faq-ap">
+        <p>Sí, pero primero debes pasar de BMR a TDEE con un factor de actividad. Una vez tengas el TDEE, añade o resta calorías (por ejemplo ±10–20 %) según tu objetivo de ganancia o pérdida de peso.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/karvonen-heart-rate-calculator">Karvonen Heart Rate Calculator</a></li>
+      <li><a href="/heart-rate-training-zones-calculator">Heart Rate Training Zones Calculator</a></li>
+      <li><a href="/bmr-harris-benedict-calculator">BMR (Harris-Benedict) Calculator</a></li>
+      <li><a href="/weight-loss-calculator">Weight Loss Calculator</a></li>
+      <li><a href="/heart-rate-zones-calculator">Heart Rate Zones Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/karvonen-heart-rate-calculator">Karvonen Heart Rate Calculator</a></li>
+      <li><a href="/heart-rate-training-zones-calculator">Heart Rate Training Zones Calculator</a></li>
+      <li><a href="/bmr-harris-benedict-calculator">BMR (Harris-Benedict) Calculator</a></li>
+      <li><a href="/weight-loss-calculator">Weight Loss Calculator</a></li>
+      <li><a href="/heart-rate-zones-calculator">Heart Rate Zones Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Katch-McArdle BMR Calculator: metabolism from lean body mass</h1>
+  <p>The Katch-McArdle formula estimates basal metabolic rate using lean body mass only, making it especially useful for people with very high or very low body fat percentages. This calculator takes your lean body mass in kilograms and returns an estimate of daily resting calories.</p>
+
+  <h2>Katch-McArdle formula</h2>
+  <p>The equation is the same for men and women as long as you use <strong>lean body mass</strong> (LBM), not total weight:</p>
+  <p><strong>BMR = 370 + 21.6 · LBM</strong></p>
+  <p>LBM is expressed in kilograms and represents your body weight minus fat mass. You can derive it from estimated body fat: LBM = total weight · (1 − body fat fraction).</p>
+
+  <h2>Example 1: muscular individual</h2>
+  <p><strong>Problem:</strong> Total weight 80 kg, body fat 15 %.</p>
+  <ol>
+    <li>Lean body mass:
+      <ul>
+        <li>LBM = 80 · (1 − 0.15) = 80 · 0.85 = 68 kg.</li>
+      </ul>
+    </li>
+    <li>BMR:
+      <ul>
+        <li>BMR = 370 + 21.6 · 68 ≈ 370 + 1,468.8 ≈ 1,838.8 kcal/day.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> BMR ≈ 1,839 kcal/day.</p>
+
+  <h2>Example 2: higher body fat</h2>
+  <p><strong>Problem:</strong> Total weight 90 kg, body fat 30 %.</p>
+  <ol>
+    <li>Lean body mass:
+      <ul>
+        <li>LBM = 90 · (1 − 0.30) = 90 · 0.70 = 63 kg.</li>
+      </ul>
+    </li>
+    <li>BMR:
+      <ul>
+        <li>BMR = 370 + 21.6 · 63 ≈ 370 + 1,360.8 ≈ 1,730.8 kcal/day.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> BMR ≈ 1,731 kcal/day.</p>
+
+  <h2>Common uses of Katch-McArdle</h2>
+  <ul>
+    <li>Designing diets for athletes with significant muscle mass.</li>
+    <li>Planning fat‑loss programs that prioritize muscle preservation.</li>
+    <li>Tuning calorie targets for bodybuilding, powerlifting or physique sports.</li>
+    <li>Assessing how changes in body composition affect metabolism.</li>
+    <li>Estimating TDEE starting from a BMR tightly linked to active tissue.</li>
+    <li>Evaluating progress after major weight or body‑composition changes.</li>
+  </ul>
+
+  <h2>Common mistakes when using Katch-McArdle</h2>
+  <ul>
+    <li>Using total body weight instead of lean body mass in the formula.</li>
+    <li>Grossly over‑ or under‑estimating body fat percentage, which distorts LBM.</li>
+    <li>Forgetting that the formula outputs BMR, not full daily calorie needs.</li>
+    <li>Rounding body fat estimates unrealistically just to get "nice" numbers.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>If you do not have precise body fat measurements (DXA, calipers, high‑quality BIA), combine several visual and measurement‑based estimates and update them every few weeks. Small errors in body fat do not ruin the calculation, but large misestimates can meaningfully affect your calorie planning.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Is this more accurate than Harris-Benedict?</button>
+      <div class="faq-ap">
+        <p>It tends to be more accurate for people whose body composition differs strongly from average, because it focuses on lean mass, which drives most resting energy expenditure. Accuracy still depends on how well you estimate body fat.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How do I get my lean body mass?</button>
+      <div class="faq-ap">
+        <p>You need your total body weight and an estimate of your body fat percentage. Then compute LBM = weight · (1 − body fat fraction). Many scales and anthropometric assessments provide an approximate body fat value.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Does the formula differ for men and women?</button>
+      <div class="faq-ap">
+        <p>No, the equation is identical. Sex differences are reflected in typical lean mass levels, not in different coefficients in the formula itself.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Can I use this BMR to set my surplus or deficit?</button>
+      <div class="faq-ap">
+        <p>Yes, but first convert BMR to TDEE with an activity factor. Once you know your TDEE, add or subtract calories (for example ±10–20 %) depending on whether you want to gain or lose weight.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/karvonen-heart-rate-calculator">Karvonen Heart Rate Calculator</a></li>
+      <li><a href="/heart-rate-training-zones-calculator">Heart Rate Training Zones Calculator</a></li>
+      <li><a href="/bmr-harris-benedict-calculator">BMR (Harris-Benedict) Calculator</a></li>
+      <li><a href="/weight-loss-calculator">Weight Loss Calculator</a></li>
+      <li><a href="/heart-rate-zones-calculator">Heart Rate Zones Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/karvonen-heart-rate-calculator">Karvonen Heart Rate Calculator</a></li>
+      <li><a href="/heart-rate-training-zones-calculator">Heart Rate Training Zones Calculator</a></li>
+      <li><a href="/bmr-harris-benedict-calculator">BMR (Harris-Benedict) Calculator</a></li>
+      <li><a href="/weight-loss-calculator">Weight Loss Calculator</a></li>
+      <li><a href="/heart-rate-zones-calculator">Heart Rate Zones Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "928": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de macronutrientes: proteínas, grasas y carbohidratos diarios</h1>
+  <p>La calculadora de macronutrientes convierte tus calorías diarias objetivo en gramos de proteínas, grasas y carbohidratos. A partir de tu TDEE y de tu meta (mantener, perder grasa o ganar masa muscular), distribuye la energía en macros usando porcentajes o cantidades por kilo de peso.</p>
+
+  <h2>Relación entre calorías y macronutrientes</h2>
+  <p>Cada macronutriente aporta una cantidad fija de energía por gramo:</p>
+  <ul>
+    <li><strong>Proteínas:</strong> 4 kcal/g</li>
+    <li><strong>Carbohidratos:</strong> 4 kcal/g</li>
+    <li><strong>Grasas:</strong> 9 kcal/g</li>
+  </ul>
+  <p>Si defines cuántas calorías quieres que procedan de cada macro, puedes pasar de calorías a gramos dividiendo por el factor correspondiente: gramos = calorías del macro / calorías por gramo.</p>
+
+  <h2>Ejemplo 1: mantenimiento con reparto 30/25/45</h2>
+  <p><strong>Problema:</strong> TDEE = 2,400 kcal/día. Objetivo: mantenimiento con 30 % proteínas, 25 % grasas y 45 % carbohidratos.</p>
+  <ol>
+    <li>Calorías por macro:
+      <ul>
+        <li>Proteínas: 0.30 · 2,400 = 720 kcal.</li>
+        <li>Grasas: 0.25 · 2,400 = 600 kcal.</li>
+        <li>Carbohidratos: 0.45 · 2,400 = 1,080 kcal.</li>
+      </ul>
+    </li>
+    <li>Gramos por macro:
+      <ul>
+        <li>Proteínas: 720 / 4 = 180 g/día.</li>
+        <li>Grasas: 600 / 9 ≈ 66.7 g/día.</li>
+        <li>Carbohidratos: 1,080 / 4 = 270 g/día.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> 180 g de proteína, 67 g de grasa y 270 g de carbohidratos diarios.</p>
+
+  <h2>Ejemplo 2: déficit para pérdida de grasa</h2>
+  <p><strong>Problema:</strong> TDEE = 2,200 kcal/día. Se aplica un déficit del 15 %, quedando 1,870 kcal. Objetivo: alto en proteína 35 %, grasas 25 %, carbohidratos 40 %.</p>
+  <ol>
+    <li>Calorías objetivo:
+      <ul>
+        <li>1,870 kcal/día tras déficit.</li>
+      </ul>
+    </li>
+    <li>Calorías por macro:
+      <ul>
+        <li>Proteínas: 0.35 · 1,870 ≈ 654.5 kcal.</li>
+        <li>Grasas: 0.25 · 1,870 ≈ 467.5 kcal.</li>
+        <li>Carbohidratos: 0.40 · 1,870 ≈ 748 kcal.</li>
+      </ul>
+    </li>
+    <li>Gramos:
+      <ul>
+        <li>Proteínas: 654.5 / 4 ≈ 164 g.</li>
+        <li>Grasas: 467.5 / 9 ≈ 52 g.</li>
+        <li>Carbohidratos: 748 / 4 ≈ 187 g.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> Aproximadamente 164 g de proteína, 52 g de grasa y 187 g de carbohidratos al día.</p>
+
+  <h2>Usos comunes de la calculadora de macronutrientes</h2>
+  <ul>
+    <li>Planificar dietas de pérdida de grasa preservando la masa muscular.</li>
+    <li>Diseñar esquemas de nutrición para hipertrofia con suficiente proteína.</li>
+    <li>Ajustar macros en dietas bajas en carbohidratos o altas en grasas.</li>
+    <li>Periodizar la alimentación según sesiones de entrenamiento o competición.</li>
+    <li>Convertir objetivos calóricos abstractos en cantidades concretas de alimentos.</li>
+    <li>Educar sobre el impacto de diferentes repartos de macros en energía y saciedad.</li>
+  </ul>
+
+  <h2>Errores frecuentes al repartir macronutrientes</h2>
+  <ul>
+    <li>Elegir porcentajes que no suman 100 %, generando calorías "fantasma".</li>
+    <li>No respetar mínimos razonables de proteína (por ejemplo, 1.6–2.2 g/kg en fuerza).</li>
+    <li>Olvidar que el alcohol también aporta calorías y no está incluido en los macros básicos.</li>
+    <li>Cambiar los macros cada pocos días sin dar tiempo a ver resultados reales.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Empieza con un reparto de macros simple (por ejemplo, proteína en función de tu peso y el resto repartido entre grasa y carbohidratos según tus preferencias) y ajústalo según tu rendimiento, hambre y evolución del peso. La consistencia suele ser más importante que el reparto perfecto en teoría.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué es más importante, calorías o macros?</button>
+      <div class="faq-ap">
+        <p>Para ganar o perder peso, el balance calórico es la base. Los macros afinan la calidad del peso que pierdes o ganas (grasa vs músculo) y cómo te sientes en el día a día.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cuánta proteína debería tomar?</button>
+      <div class="faq-ap">
+        <p>Para la mayoría de personas activas, un rango de 1.6–2.2 g de proteína por kg de peso corporal es un buen punto de partida, ajustable según preferencias y tolerancia digestiva.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Las fibras cuentan como carbohidratos?</button>
+      <div class="faq-ap">
+        <p>Depende del enfoque. Algunas personas cuentan todos los carbohidratos, otras restan la fibra para obtener "carbohidratos netos". La calculadora puede configurarse en uno u otro modo siempre que seas consistente.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Debo cambiar los macros en días de entrenamiento y descanso?</button>
+      <div class="faq-ap">
+        <p>No es obligatorio. Algunas personas ciclan carbohidratos para rendir mejor en entrenamientos duros, pero un reparto estable que se ajuste a tu semana completa suele funcionar muy bien para la mayoría.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/daily-protein-intake-calculator">Daily Protein Intake Calculator</a></li>
+      <li><a href="/daily-fiber-intake-calculator">Daily Fiber Intake Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/daily-protein-intake-calculator">Daily Protein Intake Calculator</a></li>
+      <li><a href="/daily-fiber-intake-calculator">Daily Fiber Intake Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Macronutrient Calculator: daily protein, fat and carbs</h1>
+  <p>The macronutrient calculator converts your daily calorie target into grams of protein, fat and carbohydrates. Starting from your TDEE and goal (maintenance, fat loss or muscle gain), it distributes energy into macros using percentages or grams per kilogram of body weight.</p>
+
+  <h2>Link between calories and macronutrients</h2>
+  <p>Each macronutrient provides a fixed amount of energy per gram:</p>
+  <ul>
+    <li><strong>Protein:</strong> 4 kcal/g</li>
+    <li><strong>Carbohydrates:</strong> 4 kcal/g</li>
+    <li><strong>Fat:</strong> 9 kcal/g</li>
+  </ul>
+  <p>Once you decide what share of your calories comes from each macro, you convert calories to grams by dividing by the relevant factor: grams = macro calories / kcal per gram.</p>
+
+  <h2>Example 1: maintenance with 30/25/45 split</h2>
+  <p><strong>Problem:</strong> TDEE = 2,400 kcal/day. Goal: maintenance with 30 % protein, 25 % fat and 45 % carbohydrates.</p>
+  <ol>
+    <li>Macro calories:
+      <ul>
+        <li>Protein: 0.30 · 2,400 = 720 kcal.</li>
+        <li>Fat: 0.25 · 2,400 = 600 kcal.</li>
+        <li>Carbs: 0.45 · 2,400 = 1,080 kcal.</li>
+      </ul>
+    </li>
+    <li>Grams per macro:
+      <ul>
+        <li>Protein: 720 / 4 = 180 g/day.</li>
+        <li>Fat: 600 / 9 ≈ 66.7 g/day.</li>
+        <li>Carbs: 1,080 / 4 = 270 g/day.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> 180 g protein, 67 g fat and 270 g carbohydrates per day.</p>
+
+  <h2>Example 2: deficit for fat loss</h2>
+  <p><strong>Problem:</strong> TDEE = 2,200 kcal/day. Apply a 15 % deficit, so target calories = 1,870 kcal/day. Macro split: 35 % protein, 25 % fat, 40 % carbs.</p>
+  <ol>
+    <li>Target calories:
+      <ul>
+        <li>1,870 kcal/day after deficit.</li>
+      </ul>
+    </li>
+    <li>Macro calories:
+      <ul>
+        <li>Protein: 0.35 · 1,870 ≈ 654.5 kcal.</li>
+        <li>Fat: 0.25 · 1,870 ≈ 467.5 kcal.</li>
+        <li>Carbs: 0.40 · 1,870 ≈ 748 kcal.</li>
+      </ul>
+    </li>
+    <li>Grams:
+      <ul>
+        <li>Protein: 654.5 / 4 ≈ 164 g.</li>
+        <li>Fat: 467.5 / 9 ≈ 52 g.</li>
+        <li>Carbs: 748 / 4 ≈ 187 g.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> Around 164 g protein, 52 g fat and 187 g carbohydrates per day.</p>
+
+  <h2>Common uses of the macronutrient calculator</h2>
+  <ul>
+    <li>Planning fat‑loss diets that preserve muscle mass.</li>
+    <li>Designing hypertrophy programs with adequate protein intake.</li>
+    <li>Setting up low‑carb or higher‑fat eating patterns with clear targets.</li>
+    <li>Periodizing nutrition around training and competition days.</li>
+    <li>Turning abstract calorie goals into concrete food quantities.</li>
+    <li>Teaching how different macro splits affect energy, performance and satiety.</li>
+  </ul>
+
+  <h2>Common mistakes when splitting macros</h2>
+  <ul>
+    <li>Choosing percentages that do not add up to 100 %, creating "missing" calories.</li>
+    <li>Ignoring reasonable protein minimums (for example, 1.6–2.2 g/kg in strength athletes).</li>
+    <li>Forgetting that alcohol also provides calories and is not counted in the basic macros.</li>
+    <li>Changing macro targets too frequently, making it impossible to see consistent results.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>Start with a simple macro framework (for instance, set protein from body weight and split the remaining calories between fat and carbs according to your preferences), then tweak based on performance, hunger and weight trends. Consistency usually matters more than theoretically "perfect" macro ratios.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What matters more, calories or macros?</button>
+      <div class="faq-ap">
+        <p>For weight change, calorie balance is fundamental. Macros fine‑tune what kind of weight you gain or lose (fat versus muscle) and how you feel and perform along the way.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How much protein should I eat?</button>
+      <div class="faq-ap">
+        <p>Most active people do well in the 1.6–2.2 g of protein per kg body weight range, adjusted to preference, training volume and digestion comfort.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Do fibers count as carbs?</button>
+      <div class="faq-ap">
+        <p>It depends on your tracking style. Some track total carbs, others subtract fiber and track "net" carbs. The calculator can support either approach as long as you are consistent.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Should I change macros on training vs rest days?</button>
+      <div class="faq-ap">
+        <p>It is optional. Some people benefit from higher carbs on hard training days, but many see great results with a steady macro setup that fits their weekly energy needs.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/daily-protein-intake-calculator">Daily Protein Intake Calculator</a></li>
+      <li><a href="/daily-fiber-intake-calculator">Daily Fiber Intake Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/daily-protein-intake-calculator">Daily Protein Intake Calculator</a></li>
+      <li><a href="/daily-fiber-intake-calculator">Daily Fiber Intake Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "929": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de interpretación de presión arterial: categorías AHA</h1>
+  <p>La calculadora de presión arterial interpreta tus valores de sistólica y diastólica según las guías de la American Heart Association (AHA). Introduces tu lectura, por ejemplo 128/82 mmHg, y la herramienta la clasifica en normal, elevada o distintos grados de hipertensión.</p>
+
+  <h2>Categorías básicas de presión arterial (AHA)</h2>
+  <p>De forma simplificada, las categorías principales son:</p>
+  <ul>
+    <li><strong>Normal:</strong> sistólica &lt; 120 <em>y</em> diastólica &lt; 80 mmHg.</li>
+    <li><strong>Elevada:</strong> sistólica 120–129 <em>y</em> diastólica &lt; 80 mmHg.</li>
+    <li><strong>Hipertensión etapa 1:</strong> sistólica 130–139 o diastólica 80–89 mmHg.</li>
+    <li><strong>Hipertensión etapa 2:</strong> sistólica ≥ 140 o diastólica ≥ 90 mmHg.</li>
+  </ul>
+  <p>Al introducir tu lectura, la calculadora compara ambos valores con estos rangos y toma la categoría más alta cuando sistólica y diastólica caen en categorías diferentes.</p>
+
+  <h2>Ejemplo 1: presión elevada</h2>
+  <p><strong>Problema:</strong> Lectura de 125/78 mmHg.</p>
+  <ol>
+    <li>Sistólica 125:
+      <ul>
+        <li>Está en el rango 120–129 → categoría "elevada".</li>
+      </ul>
+    </li>
+    <li>Diastólica 78:
+      <ul>
+        <li>Está por debajo de 80 → categoría "normal".</li>
+      </ul>
+    </li>
+    <li>Clasificación final:
+      <ul>
+        <li>Se toma la categoría más alta entre ambas → presión <strong>elevada</strong>.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> La lectura 125/78 se interpreta como presión arterial elevada.</p>
+
+  <h2>Ejemplo 2: hipertensión etapa 2</h2>
+  <p><strong>Problema:</strong> Lectura de 142/92 mmHg.</p>
+  <ol>
+    <li>Sistólica 142:
+      <ul>
+        <li>Es ≥ 140 → <strong>hipertensión etapa 2</strong>.</li>
+      </ul>
+    </li>
+    <li>Diastólica 92:
+      <ul>
+        <li>Es ≥ 90 → también etapa 2.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> La lectura 142/92 se clasifica como hipertensión etapa 2.</p>
+
+  <h2>Usos comunes de la calculadora de presión arterial</h2>
+  <ul>
+    <li>Entender rápidamente qué significa una lectura reciente de tensión.</li>
+    <li>Monitoreo doméstico de la presión en personas con riesgo cardiovascular.</li>
+    <li>Educación básica sobre rangos saludables de presión arterial.</li>
+    <li>Seguimiento de cambios tras ajustes en medicación o estilo de vida.</li>
+    <li>Preparación de datos antes de consultas médicas o revisiones periódicas.</li>
+    <li>Complemento a dispositivos de medición que no muestran la categoría textual.</li>
+  </ul>
+
+  <h2>Errores frecuentes al interpretar la presión arterial</h2>
+  <ul>
+    <li>Basarse en una sola medición aislada en lugar de varias lecturas en distintos días.</li>
+    <li>Medir inmediatamente después de café, tabaco o ejercicio intenso.</li>
+    <li>Usar un manguito de tamaño incorrecto, lo que distorsiona la lectura.</li>
+    <li>Tomar decisiones médicas sin consultar a un profesional sanitario.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Utiliza la calculadora como herramienta educativa, no como sustituto de un diagnóstico médico. Si tus lecturas caen de forma repetida en categorías de hipertensión, registra varias mediciones en distintos días y comparte los resultados con tu médico o profesional de salud.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cuántas veces debo medir para tener una lectura fiable?</button>
+      <div class="faq-ap">
+        <p>Se recomiendan al menos dos o tres lecturas separadas por un minuto, en reposo y en distintos días. La calculadora interpreta cada lectura, pero el patrón repetido es lo más relevante.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué significa si sistólica y diastólica están en categorías distintas?</button>
+      <div class="faq-ap">
+        <p>Se adopta la categoría más alta. Por ejemplo, 135/78 se clasifica como hipertensión etapa 1 por la sistólica, aunque la diastólica sea normal.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿La calculadora tiene en cuenta la edad?</button>
+      <div class="faq-ap">
+        <p>No, aplica rangos generales de adultos. La interpretación específica según edad y patologías debe hacerla un profesional sanitario.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Puedo usar esta herramienta para ajustar mi medicación?</button>
+      <div class="faq-ap">
+        <p>No. Nunca modifiques medicación por tu cuenta. Usa los resultados como información adicional y coméntalos con tu médico antes de hacer cualquier cambio.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/creatinine-clearance-calculator">Creatinine Clearance Calculator</a></li>
+      <li><a href="/bsa-and-ideal-body-weight-calculator">BSA and Ideal Body Weight Calculator</a></li>
+      <li><a href="/a1c-to-eag-calculator">A1c to eAG Calculator</a></li>
+      <li><a href="/ldl-cholesterol-calculator">LDL Cholesterol Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/creatinine-clearance-calculator">Creatinine Clearance Calculator</a></li>
+      <li><a href="/bsa-and-ideal-body-weight-calculator">BSA and Ideal Body Weight Calculator</a></li>
+      <li><a href="/a1c-to-eag-calculator">A1c to eAG Calculator</a></li>
+      <li><a href="/ldl-cholesterol-calculator">LDL Cholesterol Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Blood Pressure Interpreter: AHA categories</h1>
+  <p>The blood pressure interpreter classifies your systolic and diastolic readings according to American Heart Association (AHA) categories. You enter values such as 128/82 mmHg, and the tool labels them as normal, elevated or various stages of hypertension.</p>
+
+  <h2>Basic blood pressure categories (AHA)</h2>
+  <p>In simplified form, the main adult categories are:</p>
+  <ul>
+    <li><strong>Normal:</strong> systolic &lt; 120 <em>and</em> diastolic &lt; 80 mmHg.</li>
+    <li><strong>Elevated:</strong> systolic 120–129 <em>and</em> diastolic &lt; 80 mmHg.</li>
+    <li><strong>Hypertension stage 1:</strong> systolic 130–139 or diastolic 80–89 mmHg.</li>
+    <li><strong>Hypertension stage 2:</strong> systolic ≥ 140 or diastolic ≥ 90 mmHg.</li>
+  </ul>
+  <p>The calculator compares both numbers to these ranges and assigns the highest applicable category if systolic and diastolic fall into different groups.</p>
+
+  <h2>Example 1: elevated blood pressure</h2>
+  <p><strong>Problem:</strong> Reading of 125/78 mmHg.</p>
+  <ol>
+    <li>Systolic 125:
+      <ul>
+        <li>Falls in the 120–129 range → "elevated".</li>
+      </ul>
+    </li>
+    <li>Diastolic 78:
+      <ul>
+        <li>Is under 80 → "normal".</li>
+      </ul>
+    </li>
+    <li>Final category:
+      <ul>
+        <li>Use the higher of the two → <strong>elevated blood pressure</strong>.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> The 125/78 reading is interpreted as elevated blood pressure.</p>
+
+  <h2>Example 2: stage 2 hypertension</h2>
+  <p><strong>Problem:</strong> Reading of 142/92 mmHg.</p>
+  <ol>
+    <li>Systolic 142:
+      <ul>
+        <li>Is ≥ 140 → <strong>stage 2 hypertension</strong>.</li>
+      </ul>
+    </li>
+    <li>Diastolic 92:
+      <ul>
+        <li>Is ≥ 90 → also stage 2.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> The 142/92 reading is classified as stage 2 hypertension.</p>
+
+  <h2>Common uses of the blood pressure interpreter</h2>
+  <ul>
+    <li>Quickly understanding what a recent home blood pressure reading means.</li>
+    <li>Self‑monitoring for people with cardiovascular risk factors.</li>
+    <li>Basic education about healthy versus high blood pressure ranges.</li>
+    <li>Tracking changes after lifestyle or medication adjustments.</li>
+    <li>Preparing a summary of readings to discuss with a healthcare provider.</li>
+    <li>Adding category labels to devices that only display raw numbers.</li>
+  </ul>
+
+  <h2>Common mistakes when interpreting blood pressure</h2>
+  <ul>
+    <li>Relying on a single measurement instead of multiple readings on different days.</li>
+    <li>Measuring immediately after caffeine, smoking or strenuous exercise.</li>
+    <li>Using a cuff that is too small or too large, which distorts readings.</li>
+    <li>Making medical decisions without consulting a qualified healthcare professional.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>Use the interpreter as an educational tool, not as a substitute for medical advice. If your readings repeatedly fall into hypertensive ranges, take several measurements on different days, log them, and share the log with your doctor or healthcare provider.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How many readings do I need for a reliable picture?</button>
+      <div class="faq-ap">
+        <p>At least two or three readings separated by a minute, in a resting state and on several different days, give a much clearer picture than a single measurement.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What if systolic and diastolic fall in different categories?</button>
+      <div class="faq-ap">
+        <p>The higher category prevails. For instance, 135/78 is considered stage 1 hypertension based on systolic, even though the diastolic value is normal.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Does the calculator consider age?</button>
+      <div class="faq-ap">
+        <p>No, it applies standard adult AHA ranges. Age‑specific interpretation and treatment decisions belong to your doctor or healthcare professional.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Can I adjust my medication based on these results?</button>
+      <div class="faq-ap">
+        <p>No. Never change or stop medication on your own. Use the results to inform conversations with your doctor, who will decide if any medication changes are appropriate.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/creatinine-clearance-calculator">Creatinine Clearance Calculator</a></li>
+      <li><a href="/bsa-and-ideal-body-weight-calculator">BSA and Ideal Body Weight Calculator</a></li>
+      <li><a href="/a1c-to-eag-calculator">A1c to eAG Calculator</a></li>
+      <li><a href="/ldl-cholesterol-calculator">LDL Cholesterol Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/creatinine-clearance-calculator">Creatinine Clearance Calculator</a></li>
+      <li><a href="/bsa-and-ideal-body-weight-calculator">BSA and Ideal Body Weight Calculator</a></li>
+      <li><a href="/a1c-to-eag-calculator">A1c to eAG Calculator</a></li>
+      <li><a href="/ldl-cholesterol-calculator">LDL Cholesterol Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "930": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de relación cintura-cadera (WHR): riesgo de obesidad abdominal</h1>
+  <p>La relación cintura-cadera (Waist-to-Hip Ratio, WHR) es un indicador sencillo del reparto de grasa corporal y del riesgo asociado a la obesidad abdominal. Esta calculadora usa tu perímetro de cintura y de cadera para obtener el índice y compararlo con umbrales de riesgo habituales.</p>
+
+  <h2>Fórmula de la relación cintura-cadera</h2>
+  <p>La fórmula es muy simple y se basa en una división:</p>
+  <p><strong>WHR = cintura / cadera</strong></p>
+  <p>Ambas medidas deben tomarse en las mismas unidades (normalmente centímetros). Valores de WHR más altos suelen indicar mayor acumulación de grasa alrededor del abdomen y, por tanto, más riesgo metabólico.</p>
+
+  <h2>Umbrales de riesgo habituales</h2>
+  <p>A modo orientativo, se usan a menudo estos puntos de corte:</p>
+  <ul>
+    <li><strong>Hombres:</strong> WHR &gt; 0.90 se considera de riesgo.</li>
+    <li><strong>Mujeres:</strong> WHR &gt; 0.85 se considera de riesgo.</li>
+  </ul>
+  <p>La calculadora muestra tu WHR con uno o dos decimales y te indica si se sitúa por debajo o por encima de estos umbrales generales.</p>
+
+  <h2>Ejemplo 1: hombre con riesgo moderado</h2>
+  <p><strong>Problema:</strong> Hombre con cintura 95 cm y cadera 100 cm.</p>
+  <ol>
+    <li>Cálculo:
+      <ul>
+        <li>WHR = 95 / 100 = 0.95.</li>
+      </ul>
+    </li>
+    <li>Interpretación:
+      <ul>
+        <li>Para hombres, 0.95 &gt; 0.90 → indica <strong>mayor riesgo</strong> de obesidad abdominal.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> WHR = 0.95, por encima del umbral de riesgo para hombres.</p>
+
+  <h2>Ejemplo 2: mujer sin riesgo según WHR</h2>
+  <p><strong>Problema:</strong> Mujer con cintura 70 cm y cadera 95 cm.</p>
+  <ol>
+    <li>Cálculo:
+      <ul>
+        <li>WHR = 70 / 95 ≈ 0.74.</li>
+      </ul>
+    </li>
+    <li>Interpretación:
+      <ul>
+        <li>Para mujeres, el umbral de riesgo es 0.85; 0.74 está claramente por debajo.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> WHR ≈ 0.74, dentro de un rango considerado bajo riesgo abdominal.</p>
+
+  <h2>Usos comunes de la calculadora WHR</h2>
+  <ul>
+    <li>Evaluar el patrón de distribución de grasa más allá de lo que indica el IMC.</li>
+    <li>Monitorizar la pérdida de grasa abdominal durante un programa de dieta y ejercicio.</li>
+    <li>Complementar otros indicadores como perímetro de cintura o porcentaje de grasa.</li>
+    <li>Educar sobre la diferencia entre obesidad central y obesidad general.</li>
+    <li>Identificar cambios en la forma corporal que afectan al riesgo cardiometabólico.</li>
+    <li>Dar contexto a resultados de analíticas de glucosa, lípidos y presión arterial.</li>
+  </ul>
+
+  <h2>Errores frecuentes al medir cintura y cadera</h2>
+  <ul>
+    <li>Medir la cintura en el lugar equivocado (demasiado arriba o demasiado abajo).</li>
+    <li>Usar ropa gruesa o cinturones que alteran el perímetro real.</li>
+    <li>Tomar cadera a la altura incorrecta, en lugar de la zona más ancha de los glúteos.</li>
+    <li>Olvidar que WHR es solo un indicador más y no un diagnóstico médico completo.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Realiza las mediciones siempre en condiciones similares (misma cinta, sin ropa gruesa, en ayunas o a la misma hora del día) para que las comparaciones entre distintas semanas sean fiables. Un cambio pequeño pero consistente en el WHR puede indicar mejoras reales en la distribución de la grasa corporal.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿WHR es mejor que el IMC?</button>
+      <div class="faq-ap">
+        <p>No es "mejor", es complementario. El IMC mide relación peso‑altura, mientras que WHR se centra en dónde se acumula la grasa, algo muy relevante para el riesgo metabólico y cardiovascular.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Importa la unidad (cm o pulgadas)?</button>
+      <div class="faq-ap">
+        <p>No, siempre que cintura y cadera estén en la misma unidad, ya que la fórmula es una simple división. Puedes usar cm o pulgadas indistintamente.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Un WHR alto significa que estoy enfermo?</button>
+      <div class="faq-ap">
+        <p>No necesariamente, pero indica un mayor riesgo y merece atención. Solo un profesional sanitario, con más información, puede valorar tu estado de salud global y necesidad de pruebas adicionales.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cada cuánto tiempo debería medir mi WHR?</button>
+      <div class="faq-ap">
+        <p>Para seguimiento de progreso, una vez al mes suele ser suficiente. Cambios significativos en menos tiempo son poco probables y pueden deberse a errores de medición.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/lean-body-mass-calculator">Lean Body Mass Calculator</a></li>
+      <li><a href="/body-adiposity-index-calculator">Body Adiposity Index Calculator</a></li>
+      <li><a href="/bmi-prime-calculator">BMI Prime Calculator</a></li>
+      <li><a href="/waist-to-height-ratio-calculator">Waist-to-Height Ratio Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/lean-body-mass-calculator">Lean Body Mass Calculator</a></li>
+      <li><a href="/body-adiposity-index-calculator">Body Adiposity Index Calculator</a></li>
+      <li><a href="/bmi-prime-calculator">BMI Prime Calculator</a></li>
+      <li><a href="/body-fat-us-navy-calculator">Body Fat (US Navy) Calculator</a></li>
+      <li><a href="/waist-to-height-ratio-calculator">Waist-to-Height Ratio Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Waist-to-Hip Ratio (WHR) Calculator: abdominal obesity risk</h1>
+  <p>The waist-to-hip ratio (WHR) is a simple indicator of fat distribution and abdominal obesity risk. This calculator uses your waist and hip circumferences to compute the ratio and compare it to common risk thresholds.</p>
+
+  <h2>Waist-to-hip ratio formula</h2>
+  <p>The WHR formula is straightforward:</p>
+  <p><strong>WHR = waist / hip</strong></p>
+  <p>Both measurements must use the same units (typically centimeters or inches). Higher WHR values typically reflect more central fat around the abdomen, which is associated with increased metabolic and cardiovascular risk.</p>
+
+  <h2>Typical risk thresholds</h2>
+  <p>Commonly used cut‑offs are:</p>
+  <ul>
+    <li><strong>Men:</strong> WHR &gt; 0.90 is considered at risk.</li>
+    <li><strong>Women:</strong> WHR &gt; 0.85 is considered at risk.</li>
+  </ul>
+  <p>The calculator outputs your WHR to one or two decimals and indicates whether it lies below or above these general thresholds.</p>
+
+  <h2>Example 1: male with elevated risk</h2>
+  <p><strong>Problem:</strong> Male with 95 cm waist and 100 cm hip circumference.</p>
+  <ol>
+    <li>Calculation:
+      <ul>
+        <li>WHR = 95 / 100 = 0.95.</li>
+      </ul>
+    </li>
+    <li>Interpretation:
+      <ul>
+        <li>For men, 0.95 &gt; 0.90 → suggests <strong>increased abdominal obesity risk</strong>.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> WHR = 0.95, above the common risk threshold for men.</p>
+
+  <h2>Example 2: female with low WHR</h2>
+  <p><strong>Problem:</strong> Female with 70 cm waist and 95 cm hips.</p>
+  <ol>
+    <li>Calculation:
+      <ul>
+        <li>WHR = 70 / 95 ≈ 0.74.</li>
+      </ul>
+    </li>
+    <li>Interpretation:
+      <ul>
+        <li>For women, 0.85 is a typical risk boundary; 0.74 is clearly below that.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> WHR ≈ 0.74, generally considered a low abdominal risk pattern.</p>
+
+  <h2>Common uses of the WHR calculator</h2>
+  <ul>
+    <li>Assessing fat distribution beyond what BMI alone reveals.</li>
+    <li>Monitoring central fat loss during diet and exercise programs.</li>
+    <li>Complementing other metrics such as waist circumference and body fat percentage.</li>
+    <li>Teaching the difference between central and overall obesity.</li>
+    <li>Identifying shape changes that influence cardiometabolic risk.</li>
+    <li>Providing context for lab results like glucose, lipids and blood pressure.</li>
+  </ul>
+
+  <h2>Common mistakes when measuring waist and hips</h2>
+  <ul>
+    <li>Measuring waist at the wrong level (too high or too low on the torso).</li>
+    <li>Taking measurements over thick clothing or belts that distort circumference.</li>
+    <li>Measuring hips away from the widest part of the buttocks.</li>
+    <li>Treating WHR as a diagnostic tool instead of one risk indicator among many.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>Measure under consistent conditions—same tape, minimal clothing, similar time of day—to make month‑to‑month comparisons meaningful. Small but consistent changes in WHR can signal real improvements in fat distribution, even when scale weight moves slowly.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Is WHR better than BMI?</button>
+      <div class="faq-ap">
+        <p>Neither is universally "better"; they provide different insights. BMI reflects weight relative to height, while WHR focuses on where fat is stored, which is critical for metabolic risk assessment.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Do the units (cm vs inches) matter?</button>
+      <div class="faq-ap">
+        <p>No, as long as waist and hip are measured in the same unit, the ratio is identical. You can use centimeters or inches consistently without affecting WHR.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Does a high WHR mean I am unhealthy?</button>
+      <div class="faq-ap">
+        <p>It does not automatically mean you are ill, but it indicates higher risk and deserves attention. Only a healthcare professional can judge your overall health and the need for further testing.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How often should I check my WHR?</button>
+      <div class="faq-ap">
+        <p>For tracking progress, once per month is typically enough. Large changes in shorter periods are unlikely and may simply reflect measurement error.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/lean-body-mass-calculator">Lean Body Mass Calculator</a></li>
+      <li><a href="/body-adiposity-index-calculator">Body Adiposity Index Calculator</a></li>
+      <li><a href="/bmi-prime-calculator">BMI Prime Calculator</a></li>
+      <li><a href="/waist-to-height-ratio-calculator">Waist-to-Height Ratio Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/lean-body-mass-calculator">Lean Body Mass Calculator</a></li>
+      <li><a href="/body-adiposity-index-calculator">Body Adiposity Index Calculator</a></li>
+      <li><a href="/bmi-prime-calculator">BMI Prime Calculator</a></li>
+      <li><a href="/body-fat-us-navy-calculator">Body Fat (US Navy) Calculator</a></li>
+      <li><a href="/waist-to-height-ratio-calculator">Waist-to-Height Ratio Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "931": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de relación cintura-altura (WHtR): indicador de salud</h1>
+  <p>La relación cintura-altura (Waist-to-Height Ratio, WHtR) es un indicador simple que compara tu perímetro de cintura con tu estatura. Esta calculadora evalúa tu riesgo de salud basado en esta proporción.</p>
+
+  <h2>Fórmula del WHtR</h2>
+  <p>La fórmula es directa:</p>
+  <p><strong>WHtR = cintura / altura</strong></p>
+  <p>Ambas medidas deben estar en las mismas unidades. El umbral saludable universal es <strong>WHtR &lt; 0.5</strong>, lo que significa que tu cintura debe ser menos de la mitad de tu altura.</p>
+
+  <h2>Umbrales de riesgo</h2>
+  <ul>
+    <li><strong>Saludable:</strong> WHtR &lt; 0.50</li>
+    <li><strong>Riesgo aumentado:</strong> WHtR 0.50–0.59</li>
+    <li><strong>Riesgo alto:</strong> WHtR ≥ 0.60</li>
+  </ul>
+
+  <h2>Ejemplo 1: persona con WHtR saludable</h2>
+  <p><strong>Problema:</strong> Persona con cintura 76 cm y altura 170 cm.</p>
+  <ol>
+    <li>Cálculo:
+      <ul>
+        <li>WHtR = 76 / 170 ≈ 0.45.</li>
+      </ul>
+    </li>
+    <li>Interpretación:
+      <ul>
+        <li>0.45 &lt; 0.50 → <strong>saludable</strong>.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> WHtR ≈ 0.45, dentro del rango saludable.</p>
+
+  <h2>Ejemplo 2: persona con riesgo aumentado</h2>
+  <p><strong>Problema:</strong> Persona con cintura 95 cm y altura 175 cm.</p>
+  <ol>
+    <li>Cálculo:
+      <ul>
+        <li>WHtR = 95 / 175 ≈ 0.54.</li>
+      </ul>
+    </li>
+    <li>Interpretación:
+      <ul>
+        <li>0.54 está entre 0.50 y 0.59 → <strong>riesgo aumentado</strong>.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> WHtR ≈ 0.54, riesgo aumentado de problemas de salud.</p>
+
+  <h2>Usos comunes del WHtR</h2>
+  <ul>
+    <li>Evaluar riesgo cardiometabólico de forma rápida y sencilla.</li>
+    <li>Monitorizar progreso en programas de pérdida de peso.</li>
+    <li>Complementar el IMC con información sobre distribución de grasa.</li>
+    <li>Educar sobre la importancia de la grasa abdominal.</li>
+    <li>Screening inicial en consultas médicas y programas de bienestar.</li>
+    <li>Establecer objetivos de salud basados en medidas corporales.</li>
+  </ul>
+
+  <h2>Errores frecuentes con el WHtR</h2>
+  <ul>
+    <li>Medir la cintura en el lugar incorrecto (debe ser a la mitad entre la última costilla y la cresta ilíaca).</li>
+    <li>No usar las mismas unidades para cintura y altura.</li>
+    <li>Interpretar el WHtR como un diagnóstico médico completo.</li>
+    <li>Ignorar otros factores como edad, sexo y composición corporal.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>El WHtR es considerado por muchos expertos como superior al IMC porque distingue entre grasa abdominal (más peligrosa) y grasa periférica. La regla "mantén tu cintura por debajo de la mitad de tu altura" es fácil de recordar y aplicar.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿El WHtR es mejor que el IMC?</button>
+      <div class="faq-ap">
+        <p>Muchos estudios sugieren que el WHtR predice mejor el riesgo cardiovascular que el IMC, porque se enfoca en la grasa abdominal, que es metabólicamente más activa y peligrosa.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿El umbral de 0.5 aplica para todos?</button>
+      <div class="faq-ap">
+        <p>El umbral de 0.5 es una guía general para adultos. Puede variar ligeramente según edad, sexo y grupo étnico, pero es un buen punto de partida universal.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cómo mido mi cintura correctamente?</button>
+      <div class="faq-ap">
+        <p>Mide a la mitad entre la parte inferior de la última costilla y la parte superior de la cadera (cresta ilíaca), con la cinta ajustada pero sin comprimir la piel.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Puedo usar pulgadas en lugar de centímetros?</button>
+      <div class="faq-ap">
+        <p>Sí, siempre que ambas medidas usen la misma unidad. El ratio es adimensional, así que el resultado es idéntico.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/lean-body-mass-calculator">Lean Body Mass Calculator</a></li>
+      <li><a href="/body-adiposity-index-calculator">Body Adiposity Index Calculator</a></li>
+      <li><a href="/bmi-prime-calculator">BMI Prime Calculator</a></li>
+      <li><a href="/waist-to-hip-ratio-calculator">Waist-to-Hip Ratio Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/lean-body-mass-calculator">Lean Body Mass Calculator</a></li>
+      <li><a href="/body-adiposity-index-calculator">Body Adiposity Index Calculator</a></li>
+      <li><a href="/bmi-prime-calculator">BMI Prime Calculator</a></li>
+      <li><a href="/body-fat-us-navy-calculator">Body Fat (US Navy) Calculator</a></li>
+      <li><a href="/waist-to-hip-ratio-calculator">Waist-to-Hip Ratio Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Waist-to-Height Ratio (WHtR) Calculator: health indicator</h1>
+  <p>The waist-to-height ratio (WHtR) is a simple indicator that compares your waist circumference to your height. This calculator evaluates your health risk based on this proportion.</p>
+
+  <h2>WHtR formula</h2>
+  <p>The formula is straightforward:</p>
+  <p><strong>WHtR = waist / height</strong></p>
+  <p>Both measurements must be in the same units. The universal healthy threshold is <strong>WHtR &lt; 0.5</strong>, meaning your waist should be less than half your height.</p>
+
+  <h2>Risk thresholds</h2>
+  <ul>
+    <li><strong>Healthy:</strong> WHtR &lt; 0.50</li>
+    <li><strong>Increased risk:</strong> WHtR 0.50–0.59</li>
+    <li><strong>High risk:</strong> WHtR ≥ 0.60</li>
+  </ul>
+
+  <h2>Example 1: person with healthy WHtR</h2>
+  <p><strong>Problem:</strong> Person with 76 cm waist and 170 cm height.</p>
+  <ol>
+    <li>Calculation:
+      <ul>
+        <li>WHtR = 76 / 170 ≈ 0.45.</li>
+      </ul>
+    </li>
+    <li>Interpretation:
+      <ul>
+        <li>0.45 &lt; 0.50 → <strong>healthy</strong>.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> WHtR ≈ 0.45, within the healthy range.</p>
+
+  <h2>Example 2: person with increased risk</h2>
+  <p><strong>Problem:</strong> Person with 95 cm waist and 175 cm height.</p>
+  <ol>
+    <li>Calculation:
+      <ul>
+        <li>WHtR = 95 / 175 ≈ 0.54.</li>
+      </ul>
+    </li>
+    <li>Interpretation:
+      <ul>
+        <li>0.54 is between 0.50 and 0.59 → <strong>increased risk</strong>.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> WHtR ≈ 0.54, increased health risk.</p>
+
+  <h2>Common uses of WHtR</h2>
+  <ul>
+    <li>Quickly assessing cardiometabolic risk.</li>
+    <li>Monitoring progress in weight loss programs.</li>
+    <li>Complementing BMI with information about fat distribution.</li>
+    <li>Educating about the importance of abdominal fat.</li>
+    <li>Initial screening in medical consultations and wellness programs.</li>
+    <li>Setting health goals based on body measurements.</li>
+  </ul>
+
+  <h2>Common mistakes with WHtR</h2>
+  <ul>
+    <li>Measuring waist at the wrong location (should be midway between the last rib and the iliac crest).</li>
+    <li>Not using the same units for waist and height.</li>
+    <li>Treating WHtR as a complete medical diagnosis.</li>
+    <li>Ignoring other factors like age, sex and body composition.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>WHtR is considered by many experts to be superior to BMI because it distinguishes between abdominal fat (more dangerous) and peripheral fat. The rule "keep your waist below half your height" is easy to remember and apply.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Is WHtR better than BMI?</button>
+      <div class="faq-ap">
+        <p>Many studies suggest WHtR predicts cardiovascular risk better than BMI because it focuses on abdominal fat, which is metabolically more active and dangerous.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Does the 0.5 threshold apply to everyone?</button>
+      <div class="faq-ap">
+        <p>The 0.5 threshold is a general guide for adults. It may vary slightly by age, sex and ethnic group, but it is a good universal starting point.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How do I measure my waist correctly?</button>
+      <div class="faq-ap">
+        <p>Measure midway between the bottom of your last rib and the top of your hip bone (iliac crest), with the tape snug but not compressing the skin.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Can I use inches instead of centimeters?</button>
+      <div class="faq-ap">
+        <p>Yes, as long as both measurements use the same unit. The ratio is dimensionless, so the result is identical.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/lean-body-mass-calculator">Lean Body Mass Calculator</a></li>
+      <li><a href="/body-adiposity-index-calculator">Body Adiposity Index Calculator</a></li>
+      <li><a href="/bmi-prime-calculator">BMI Prime Calculator</a></li>
+      <li><a href="/waist-to-hip-ratio-calculator">Waist-to-Hip Ratio Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/lean-body-mass-calculator">Lean Body Mass Calculator</a></li>
+      <li><a href="/body-adiposity-index-calculator">Body Adiposity Index Calculator</a></li>
+      <li><a href="/bmi-prime-calculator">BMI Prime Calculator</a></li>
+      <li><a href="/body-fat-us-navy-calculator">Body Fat (US Navy) Calculator</a></li>
+      <li><a href="/waist-to-hip-ratio-calculator">Waist-to-Hip Ratio Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "932": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de porcentaje de pérdida de peso</h1>
+  <p>Esta calculadora determina el porcentaje de peso que has perdido desde tu peso inicial, una métrica más significativa que los kilogramos absolutos para evaluar el progreso en programas de pérdida de peso.</p>
+
+  <h2>Fórmula del porcentaje de pérdida de peso</h2>
+  <p>La fórmula es simple:</p>
+  <p><strong>% perdido = (peso_inicial − peso_actual) / peso_inicial × 100</strong></p>
+  <p>Un porcentaje del 5-10% de pérdida de peso ya produce beneficios significativos para la salud, incluyendo mejoras en presión arterial, colesterol y control glucémico.</p>
+
+  <h2>Ejemplo 1: pérdida moderada</h2>
+  <p><strong>Problema:</strong> Peso inicial: 90 kg. Peso actual: 82 kg.</p>
+  <ol>
+    <li>Diferencia:
+      <ul>
+        <li>90 − 82 = 8 kg perdidos.</li>
+      </ul>
+    </li>
+    <li>Porcentaje:
+      <ul>
+        <li>(8 / 90) × 100 ≈ 8.89%.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> Has perdido un 8.89% de tu peso inicial.</p>
+
+  <h2>Ejemplo 2: pérdida significativa</h2>
+  <p><strong>Problema:</strong> Peso inicial: 120 kg. Peso actual: 102 kg.</p>
+  <ol>
+    <li>Diferencia:
+      <ul>
+        <li>120 − 102 = 18 kg perdidos.</li>
+      </ul>
+    </li>
+    <li>Porcentaje:
+      <ul>
+        <li>(18 / 120) × 100 = 15%.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> Has perdido un 15% de tu peso inicial.</p>
+
+  <h2>Usos comunes de la calculadora de pérdida de peso</h2>
+  <ul>
+    <li>Seguir el progreso en programas de pérdida de peso.</li>
+    <li>Establecer objetivos realistas basados en porcentajes.</li>
+    <li>Comparar resultados entre personas con diferentes pesos iniciales.</li>
+    <li>Motivarse viendo el progreso relativo en lugar de absoluto.</li>
+    <li>Documentar resultados para consultas médicas o nutricionistas.</li>
+    <li>Evaluar la efectividad de diferentes dietas y programas de ejercicio.</li>
+  </ul>
+
+  <h2>Errores frecuentes al calcular pérdida de peso</h2>
+  <ul>
+    <li>Usar el peso actual como denominador en lugar del peso inicial.</li>
+    <li>No considerar que la fluctuación diaria de peso es normal (1-2 kg).</li>
+    <li>Obsesionarse con la báscula en lugar de medir tendencias a largo plazo.</li>
+    <li>Ignorar otros indicadores como medidas corporales y composición.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Pésate siempre en las mismas condiciones: por la mañana, en ayunas, después de ir al baño y con la misma báscula. Registra el promedio semanal en lugar de valores diarios para obtener una tendencia más fiable.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cuánto peso es saludable perder por semana?</button>
+      <div class="faq-ap">
+        <p>La recomendación general es 0.5-1 kg por semana. Pérdidas más rápidas pueden ser insostenibles y provocar pérdida de masa muscular.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Un 5% de pérdida es significativo?</button>
+      <div class="faq-ap">
+        <p>Sí. Estudios muestran que perder solo un 5-10% del peso inicial mejora significativamente la presión arterial, el colesterol y el control del azúcar en sangre.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Debo usar esta calculadora para ganar peso?</button>
+      <div class="faq-ap">
+        <p>Sí, la fórmula funciona en ambos sentidos. Si el peso actual es mayor que el inicial, el resultado será negativo, indicando ganancia de peso.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué otros indicadores debo seguir?</button>
+      <div class="faq-ap">
+        <p>Además del peso, mide perímetros (cintura, cadera), composición corporal, energía, calidad del sueño y marcadores de salud en análisis de sangre.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/karvonen-heart-rate-calculator">Karvonen Heart Rate Calculator</a></li>
+      <li><a href="/heart-rate-training-zones-calculator">Heart Rate Training Zones Calculator</a></li>
+      <li><a href="/bmr-harris-benedict-calculator">BMR (Harris-Benedict) Calculator</a></li>
+      <li><a href="/bmr-katch-mcardle-calculator">BMR (Katch-McArdle) Calculator</a></li>
+      <li><a href="/heart-rate-zones-calculator">Heart Rate Zones Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/karvonen-heart-rate-calculator">Karvonen Heart Rate Calculator</a></li>
+      <li><a href="/heart-rate-training-zones-calculator">Heart Rate Training Zones Calculator</a></li>
+      <li><a href="/bmr-harris-benedict-calculator">BMR (Harris-Benedict) Calculator</a></li>
+      <li><a href="/bmr-katch-mcardle-calculator">BMR (Katch-McArdle) Calculator</a></li>
+      <li><a href="/heart-rate-zones-calculator">Heart Rate Zones Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Weight Loss Percentage Calculator</h1>
+  <p>This calculator determines the percentage of weight you have lost from your starting weight, a more meaningful metric than absolute kilograms for evaluating progress in weight loss programs.</p>
+
+  <h2>Weight loss percentage formula</h2>
+  <p>The formula is simple:</p>
+  <p><strong>% lost = (initial_weight − current_weight) / initial_weight × 100</strong></p>
+  <p>A 5-10% weight loss already produces significant health benefits, including improvements in blood pressure, cholesterol and blood sugar control.</p>
+
+  <h2>Example 1: moderate loss</h2>
+  <p><strong>Problem:</strong> Initial weight: 90 kg. Current weight: 82 kg.</p>
+  <ol>
+    <li>Difference:
+      <ul>
+        <li>90 − 82 = 8 kg lost.</li>
+      </ul>
+    </li>
+    <li>Percentage:
+      <ul>
+        <li>(8 / 90) × 100 ≈ 8.89%.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> You have lost 8.89% of your initial weight.</p>
+
+  <h2>Example 2: significant loss</h2>
+  <p><strong>Problem:</strong> Initial weight: 120 kg. Current weight: 102 kg.</p>
+  <ol>
+    <li>Difference:
+      <ul>
+        <li>120 − 102 = 18 kg lost.</li>
+      </ul>
+    </li>
+    <li>Percentage:
+      <ul>
+        <li>(18 / 120) × 100 = 15%.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> You have lost 15% of your initial weight.</p>
+
+  <h2>Common uses of the weight loss calculator</h2>
+  <ul>
+    <li>Tracking progress in weight loss programs.</li>
+    <li>Setting realistic goals based on percentages.</li>
+    <li>Comparing results between people with different starting weights.</li>
+    <li>Staying motivated by seeing relative rather than absolute progress.</li>
+    <li>Documenting results for medical or nutritionist consultations.</li>
+    <li>Evaluating the effectiveness of different diets and exercise programs.</li>
+  </ul>
+
+  <h2>Common mistakes when calculating weight loss</h2>
+  <ul>
+    <li>Using current weight as the denominator instead of initial weight.</li>
+    <li>Not considering that daily weight fluctuation is normal (1-2 kg).</li>
+    <li>Obsessing over the scale instead of measuring long-term trends.</li>
+    <li>Ignoring other indicators like body measurements and composition.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>Weigh yourself under consistent conditions: in the morning, fasting, after using the bathroom and with the same scale. Record the weekly average rather than daily values for a more reliable trend.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How much weight is healthy to lose per week?</button>
+      <div class="faq-ap">
+        <p>The general recommendation is 0.5-1 kg per week. Faster losses may be unsustainable and lead to muscle mass loss.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Is a 5% loss significant?</button>
+      <div class="faq-ap">
+        <p>Yes. Studies show that losing just 5-10% of initial weight significantly improves blood pressure, cholesterol and blood sugar control.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Can I use this calculator for weight gain?</button>
+      <div class="faq-ap">
+        <p>Yes, the formula works both ways. If current weight is higher than initial weight, the result will be negative, indicating weight gain.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What other indicators should I track?</button>
+      <div class="faq-ap">
+        <p>Besides weight, measure circumferences (waist, hip), body composition, energy levels, sleep quality and health markers in blood tests.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/karvonen-heart-rate-calculator">Karvonen Heart Rate Calculator</a></li>
+      <li><a href="/heart-rate-training-zones-calculator">Heart Rate Training Zones Calculator</a></li>
+      <li><a href="/bmr-harris-benedict-calculator">BMR (Harris-Benedict) Calculator</a></li>
+      <li><a href="/bmr-katch-mcardle-calculator">BMR (Katch-McArdle) Calculator</a></li>
+      <li><a href="/heart-rate-zones-calculator">Heart Rate Zones Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/karvonen-heart-rate-calculator">Karvonen Heart Rate Calculator</a></li>
+      <li><a href="/heart-rate-training-zones-calculator">Heart Rate Training Zones Calculator</a></li>
+      <li><a href="/bmr-harris-benedict-calculator">BMR (Harris-Benedict) Calculator</a></li>
+      <li><a href="/bmr-katch-mcardle-calculator">BMR (Katch-McArdle) Calculator</a></li>
+      <li><a href="/heart-rate-zones-calculator">Heart Rate Zones Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "933": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de zonas de frecuencia cardíaca para entrenamiento</h1>
+  <p>Esta calculadora determina tus cinco zonas de frecuencia cardíaca basadas en tu frecuencia cardíaca máxima (FCmax), ayudándote a entrenar con la intensidad adecuada para tus objetivos.</p>
+
+  <h2>Zonas de frecuencia cardíaca</h2>
+  <p>Las zonas se calculan como porcentajes de la FCmax (estimada como 220 − edad):</p>
+  <ul>
+    <li><strong>Zona 1 (50-60%):</strong> Calentamiento y recuperación activa</li>
+    <li><strong>Zona 2 (60-70%):</strong> Quema de grasa y resistencia base</li>
+    <li><strong>Zona 3 (70-80%):</strong> Cardio moderado y mejora aeróbica</li>
+    <li><strong>Zona 4 (80-90%):</strong> Umbral anaeróbico y rendimiento</li>
+    <li><strong>Zona 5 (90-100%):</strong> Esfuerzo máximo y sprints</li>
+  </ul>
+
+  <h2>Ejemplo 1: persona de 30 años</h2>
+  <p><strong>Problema:</strong> Calcular zonas para una persona de 30 años.</p>
+  <ol>
+    <li>FCmax:
+      <ul>
+        <li>FCmax = 220 − 30 = 190 lpm.</li>
+      </ul>
+    </li>
+    <li>Zonas:
+      <ul>
+        <li>Zona 1: 95–114 lpm</li>
+        <li>Zona 2: 114–133 lpm</li>
+        <li>Zona 3: 133–152 lpm</li>
+        <li>Zona 4: 152–171 lpm</li>
+        <li>Zona 5: 171–190 lpm</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> FCmax = 190 lpm, zonas definidas de 95 a 190 lpm.</p>
+
+  <h2>Ejemplo 2: persona de 45 años</h2>
+  <p><strong>Problema:</strong> Calcular zonas para una persona de 45 años.</p>
+  <ol>
+    <li>FCmax:
+      <ul>
+        <li>FCmax = 220 − 45 = 175 lpm.</li>
+      </ul>
+    </li>
+    <li>Zonas:
+      <ul>
+        <li>Zona 1: 88–105 lpm</li>
+        <li>Zona 2: 105–123 lpm</li>
+        <li>Zona 3: 123–140 lpm</li>
+        <li>Zona 4: 140–158 lpm</li>
+        <li>Zona 5: 158–175 lpm</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> FCmax = 175 lpm, zonas definidas de 88 a 175 lpm.</p>
+
+  <h2>Usos comunes de las zonas de frecuencia cardíaca</h2>
+  <ul>
+    <li>Planificar entrenamientos de carrera, ciclismo y natación.</li>
+    <li>Optimizar la quema de grasa entrenando en Zona 2.</li>
+    <li>Mejorar el rendimiento cardiovascular con intervalos en Zona 4.</li>
+    <li>Evitar el sobreentrenamiento monitorizando la intensidad.</li>
+    <li>Programar sesiones de recuperación activa en Zona 1.</li>
+    <li>Preparar pruebas de resistencia con periodización por zonas.</li>
+  </ul>
+
+  <h2>Errores frecuentes con las zonas de FC</h2>
+  <ul>
+    <li>Confiar ciegamente en la fórmula 220 − edad sin considerar variaciones individuales.</li>
+    <li>Entrenar siempre en la misma zona sin periodizar.</li>
+    <li>No usar un monitor de frecuencia cardíaca fiable.</li>
+    <li>Ignorar la frecuencia cardíaca en reposo como indicador de forma física.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>La fórmula 220 − edad es una estimación. Para mayor precisión, considera una prueba de esfuerzo con medición directa de FCmax o la fórmula de Tanaka: FCmax = 208 − 0.7 × edad.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué zona es mejor para perder grasa?</button>
+      <div class="faq-ap">
+        <p>La Zona 2 (60-70%) es óptima para quemar grasa como fuente principal de energía. Sin embargo, el déficit calórico total es lo que determina la pérdida de peso.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cuánto tiempo debo pasar en cada zona?</button>
+      <div class="faq-ap">
+        <p>Depende de tu objetivo. Para resistencia base, 80% en Zona 2 y 20% en zonas altas. Para principiantes, empieza con más tiempo en Zonas 1-2.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿La fórmula 220 − edad es precisa?</button>
+      <div class="faq-ap">
+        <p>Es una estimación con un margen de error de ±10-15 lpm. Para mayor precisión, haz una prueba de esfuerzo supervisada.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué es la frecuencia cardíaca en reposo?</button>
+      <div class="faq-ap">
+        <p>Es tu FC en completo reposo, normalmente 60-100 lpm. Atletas bien entrenados pueden tener 40-60 lpm. Una FC en reposo que baja indica mejora de forma física.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/karvonen-heart-rate-calculator">Karvonen Heart Rate Calculator</a></li>
+      <li><a href="/heart-rate-training-zones-calculator">Heart Rate Training Zones Calculator</a></li>
+      <li><a href="/bmr-harris-benedict-calculator">BMR (Harris-Benedict) Calculator</a></li>
+      <li><a href="/bmr-katch-mcardle-calculator">BMR (Katch-McArdle) Calculator</a></li>
+      <li><a href="/weight-loss-calculator">Weight Loss Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/karvonen-heart-rate-calculator">Karvonen Heart Rate Calculator</a></li>
+      <li><a href="/heart-rate-training-zones-calculator">Heart Rate Training Zones Calculator</a></li>
+      <li><a href="/bmr-harris-benedict-calculator">BMR (Harris-Benedict) Calculator</a></li>
+      <li><a href="/bmr-katch-mcardle-calculator">BMR (Katch-McArdle) Calculator</a></li>
+      <li><a href="/weight-loss-calculator">Weight Loss Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Heart Rate Training Zones Calculator</h1>
+  <p>This calculator determines your five heart rate zones based on your maximum heart rate (HRmax), helping you train at the right intensity for your goals.</p>
+
+  <h2>Heart rate zones</h2>
+  <p>Zones are calculated as percentages of HRmax (estimated as 220 − age):</p>
+  <ul>
+    <li><strong>Zone 1 (50-60%):</strong> Warm-up and active recovery</li>
+    <li><strong>Zone 2 (60-70%):</strong> Fat burning and base endurance</li>
+    <li><strong>Zone 3 (70-80%):</strong> Moderate cardio and aerobic improvement</li>
+    <li><strong>Zone 4 (80-90%):</strong> Anaerobic threshold and performance</li>
+    <li><strong>Zone 5 (90-100%):</strong> Maximum effort and sprints</li>
+  </ul>
+
+  <h2>Example 1: 30-year-old person</h2>
+  <p><strong>Problem:</strong> Calculate zones for a 30-year-old person.</p>
+  <ol>
+    <li>HRmax:
+      <ul>
+        <li>HRmax = 220 − 30 = 190 bpm.</li>
+      </ul>
+    </li>
+    <li>Zones:
+      <ul>
+        <li>Zone 1: 95–114 bpm</li>
+        <li>Zone 2: 114–133 bpm</li>
+        <li>Zone 3: 133–152 bpm</li>
+        <li>Zone 4: 152–171 bpm</li>
+        <li>Zone 5: 171–190 bpm</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> HRmax = 190 bpm, zones defined from 95 to 190 bpm.</p>
+
+  <h2>Example 2: 45-year-old person</h2>
+  <p><strong>Problem:</strong> Calculate zones for a 45-year-old person.</p>
+  <ol>
+    <li>HRmax:
+      <ul>
+        <li>HRmax = 220 − 45 = 175 bpm.</li>
+      </ul>
+    </li>
+    <li>Zones:
+      <ul>
+        <li>Zone 1: 88–105 bpm</li>
+        <li>Zone 2: 105–123 bpm</li>
+        <li>Zone 3: 123–140 bpm</li>
+        <li>Zone 4: 140–158 bpm</li>
+        <li>Zone 5: 158–175 bpm</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> HRmax = 175 bpm, zones defined from 88 to 175 bpm.</p>
+
+  <h2>Common uses of heart rate zones</h2>
+  <ul>
+    <li>Planning running, cycling and swimming workouts.</li>
+    <li>Optimizing fat burning by training in Zone 2.</li>
+    <li>Improving cardiovascular performance with Zone 4 intervals.</li>
+    <li>Preventing overtraining by monitoring intensity.</li>
+    <li>Scheduling active recovery sessions in Zone 1.</li>
+    <li>Preparing endurance events with zone-based periodization.</li>
+  </ul>
+
+  <h2>Common mistakes with HR zones</h2>
+  <ul>
+    <li>Blindly trusting the 220 − age formula without considering individual variation.</li>
+    <li>Always training in the same zone without periodization.</li>
+    <li>Not using a reliable heart rate monitor.</li>
+    <li>Ignoring resting heart rate as a fitness indicator.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>The 220 − age formula is an estimate. For greater accuracy, consider a stress test with direct HRmax measurement or the Tanaka formula: HRmax = 208 − 0.7 × age.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Which zone is best for fat loss?</button>
+      <div class="faq-ap">
+        <p>Zone 2 (60-70%) is optimal for burning fat as the primary energy source. However, total calorie deficit is what determines weight loss.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How long should I spend in each zone?</button>
+      <div class="faq-ap">
+        <p>It depends on your goal. For base endurance, 80% in Zone 2 and 20% in higher zones. For beginners, start with more time in Zones 1-2.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Is the 220 − age formula accurate?</button>
+      <div class="faq-ap">
+        <p>It is an estimate with a margin of error of ±10-15 bpm. For greater accuracy, do a supervised stress test.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What is resting heart rate?</button>
+      <div class="faq-ap">
+        <p>It is your HR at complete rest, normally 60-100 bpm. Well-trained athletes may have 40-60 bpm. A decreasing resting HR indicates improved fitness.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/karvonen-heart-rate-calculator">Karvonen Heart Rate Calculator</a></li>
+      <li><a href="/heart-rate-training-zones-calculator">Heart Rate Training Zones Calculator</a></li>
+      <li><a href="/bmr-harris-benedict-calculator">BMR (Harris-Benedict) Calculator</a></li>
+      <li><a href="/bmr-katch-mcardle-calculator">BMR (Katch-McArdle) Calculator</a></li>
+      <li><a href="/weight-loss-calculator">Weight Loss Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/karvonen-heart-rate-calculator">Karvonen Heart Rate Calculator</a></li>
+      <li><a href="/heart-rate-training-zones-calculator">Heart Rate Training Zones Calculator</a></li>
+      <li><a href="/bmr-harris-benedict-calculator">BMR (Harris-Benedict) Calculator</a></li>
+      <li><a href="/bmr-katch-mcardle-calculator">BMR (Katch-McArdle) Calculator</a></li>
+      <li><a href="/weight-loss-calculator">Weight Loss Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "934": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de salario anual a tarifa por hora</h1>
+  <p>Esta calculadora convierte un salario anual en su equivalente por hora, permitiéndote entender cuánto ganas realmente por hora de trabajo considerando las horas semanales y semanas trabajadas al año.</p>
+
+  <h2>Fórmula de conversión</h2>
+  <p>La fórmula es:</p>
+  <p><strong>Tarifa por hora = salario_anual / (semanas_por_año × horas_por_semana)</strong></p>
+  <p>Por defecto se usan 52 semanas y 40 horas semanales (jornada completa estándar), pero puedes ajustar estos valores según tu situación.</p>
+
+  <h2>Ejemplo 1: salario estándar</h2>
+  <p><strong>Problema:</strong> Salario anual de $52,000 con jornada de 40 horas semanales.</p>
+  <ol>
+    <li>Horas anuales:
+      <ul>
+        <li>52 × 40 = 2,080 horas/año.</li>
+      </ul>
+    </li>
+    <li>Tarifa por hora:
+      <ul>
+        <li>$52,000 / 2,080 = $25.00/hora.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> $25.00 por hora.</p>
+
+  <h2>Ejemplo 2: salario con jornada parcial</h2>
+  <p><strong>Problema:</strong> Salario anual de $36,000 con jornada de 30 horas semanales.</p>
+  <ol>
+    <li>Horas anuales:
+      <ul>
+        <li>52 × 30 = 1,560 horas/año.</li>
+      </ul>
+    </li>
+    <li>Tarifa por hora:
+      <ul>
+        <li>$36,000 / 1,560 ≈ $23.08/hora.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> Aproximadamente $23.08 por hora.</p>
+
+  <h2>Usos comunes de esta calculadora</h2>
+  <ul>
+    <li>Comparar ofertas de trabajo con diferentes estructuras salariales.</li>
+    <li>Entender el valor real de tu tiempo de trabajo.</li>
+    <li>Negociar salarios basándote en tarifas horarias del mercado.</li>
+    <li>Calcular el coste de horas extra o trabajo freelance.</li>
+    <li>Evaluar si un cambio de empleo representa una mejora real.</li>
+    <li>Planificar presupuestos personales basados en ingresos horarios.</li>
+  </ul>
+
+  <h2>Errores frecuentes en la conversión salarial</h2>
+  <ul>
+    <li>No considerar vacaciones no pagadas al calcular semanas trabajadas.</li>
+    <li>Incluir horas extra no remuneradas en el cálculo.</li>
+    <li>Olvidar que el salario bruto no es el neto (después de impuestos).</li>
+    <li>No considerar beneficios adicionales como seguro, bonos o vacaciones pagadas.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Al comparar empleos, calcula la tarifa horaria real considerando todas las horas que dedicas al trabajo (incluyendo desplazamiento). Un salario más alto con más horas puede resultar en una tarifa horaria menor.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Debo usar salario bruto o neto?</button>
+      <div class="faq-ap">
+        <p>Usa el salario bruto para comparaciones de mercado. Para tu presupuesto personal, el neto es más útil porque refleja lo que realmente recibes.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué pasa si tengo horas extra no pagadas?</button>
+      <div class="faq-ap">
+        <p>Incluye las horas extra reales en el denominador para obtener tu tarifa horaria verdadera. Esto puede revelar que ganas menos por hora de lo que parece.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cómo incluyo los beneficios en el cálculo?</button>
+      <div class="faq-ap">
+        <p>Suma el valor monetario de beneficios (seguro, bonos, etc.) al salario anual antes de dividir por las horas.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cuántas horas semanales son estándar?</button>
+      <div class="faq-ap">
+        <p>40 horas semanales es el estándar de jornada completa en muchos países. Algunos usan 35 o 37.5 horas. Ajusta según tu contrato.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+      <li><a href="/net-present-value-calculator">Net Present Value Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+      <li><a href="/net-present-value-calculator">Net Present Value Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Salary to Hourly Rate Calculator</h1>
+  <p>This calculator converts an annual salary into its hourly equivalent, helping you understand how much you actually earn per hour of work considering weekly hours and weeks worked per year.</p>
+
+  <h2>Conversion formula</h2>
+  <p>The formula is:</p>
+  <p><strong>Hourly rate = annual_salary / (weeks_per_year × hours_per_week)</strong></p>
+  <p>By default, 52 weeks and 40 hours per week are used (standard full-time), but you can adjust these values to your situation.</p>
+
+  <h2>Example 1: standard salary</h2>
+  <p><strong>Problem:</strong> Annual salary of $52,000 with a 40-hour workweek.</p>
+  <ol>
+    <li>Annual hours:
+      <ul>
+        <li>52 × 40 = 2,080 hours/year.</li>
+      </ul>
+    </li>
+    <li>Hourly rate:
+      <ul>
+        <li>$52,000 / 2,080 = $25.00/hour.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> $25.00 per hour.</p>
+
+  <h2>Example 2: part-time salary</h2>
+  <p><strong>Problem:</strong> Annual salary of $36,000 with a 30-hour workweek.</p>
+  <ol>
+    <li>Annual hours:
+      <ul>
+        <li>52 × 30 = 1,560 hours/year.</li>
+      </ul>
+    </li>
+    <li>Hourly rate:
+      <ul>
+        <li>$36,000 / 1,560 ≈ $23.08/hour.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> Approximately $23.08 per hour.</p>
+
+  <h2>Common uses of this calculator</h2>
+  <ul>
+    <li>Comparing job offers with different salary structures.</li>
+    <li>Understanding the real value of your work time.</li>
+    <li>Negotiating salaries based on market hourly rates.</li>
+    <li>Computing the cost of overtime or freelance work.</li>
+    <li>Evaluating whether a job change represents a real improvement.</li>
+    <li>Planning personal budgets based on hourly income.</li>
+  </ul>
+
+  <h2>Common mistakes in salary conversion</h2>
+  <ul>
+    <li>Not considering unpaid vacation time when calculating weeks worked.</li>
+    <li>Including unpaid overtime hours in the calculation.</li>
+    <li>Forgetting that gross salary is not net salary (after taxes).</li>
+    <li>Not considering additional benefits like insurance, bonuses or paid vacation.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>When comparing jobs, compute the real hourly rate considering all hours you dedicate to work (including commute). A higher salary with more hours may result in a lower hourly rate.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Should I use gross or net salary?</button>
+      <div class="faq-ap">
+        <p>Use gross salary for market comparisons. For personal budgeting, net is more useful because it reflects what you actually receive.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What if I have unpaid overtime?</button>
+      <div class="faq-ap">
+        <p>Include actual overtime hours in the denominator to get your true hourly rate. This may reveal you earn less per hour than it appears.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How do I include benefits in the calculation?</button>
+      <div class="faq-ap">
+        <p>Add the monetary value of benefits (insurance, bonuses, etc.) to the annual salary before dividing by hours.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How many weekly hours are standard?</button>
+      <div class="faq-ap">
+        <p>40 hours per week is the full-time standard in many countries. Some use 35 or 37.5 hours. Adjust according to your contract.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+      <li><a href="/net-present-value-calculator">Net Present Value Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+      <li><a href="/net-present-value-calculator">Net Present Value Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "935": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de tarifa por hora a salario anual</h1>
+  <p>Esta calculadora convierte una tarifa por hora en su equivalente de salario anual, ayudándote a proyectar tus ingresos anuales basándote en tu tarifa horaria y horas de trabajo semanales.</p>
+
+  <h2>Fórmula de conversión</h2>
+  <p>La fórmula es:</p>
+  <p><strong>Salario anual = tarifa_por_hora × horas_por_semana × 52</strong></p>
+  <p>Se asumen 52 semanas al año. Puedes ajustar las horas semanales según tu jornada laboral.</p>
+
+  <h2>Ejemplo 1: tarifa estándar</h2>
+  <p><strong>Problema:</strong> Tarifa de $30/hora con jornada de 40 horas semanales.</p>
+  <ol>
+    <li>Cálculo:
+      <ul>
+        <li>$30 × 40 × 52 = $62,400/año.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> Salario anual de $62,400.</p>
+
+  <h2>Ejemplo 2: tarifa freelance</h2>
+  <p><strong>Problema:</strong> Tarifa de $50/hora trabajando 30 horas semanales.</p>
+  <ol>
+    <li>Cálculo:
+      <ul>
+        <li>$50 × 30 × 52 = $78,000/año.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> Salario anual de $78,000.</p>
+
+  <h2>Usos comunes de esta calculadora</h2>
+  <ul>
+    <li>Proyectar ingresos anuales desde una tarifa horaria.</li>
+    <li>Comparar trabajo freelance con empleo asalariado.</li>
+    <li>Negociar tarifas horarias basadas en salarios anuales objetivo.</li>
+    <li>Planificar presupuestos anuales para trabajadores independientes.</li>
+    <li>Evaluar el impacto de reducir o aumentar horas de trabajo.</li>
+    <li>Estimar ingresos para solicitudes de crédito o hipotecas.</li>
+  </ul>
+
+  <h2>Errores frecuentes en la conversión</h2>
+  <ul>
+    <li>No considerar semanas no trabajadas (vacaciones, enfermedad).</li>
+    <li>Olvidar que los freelancers pagan sus propios impuestos y seguros.</li>
+    <li>No incluir el valor de beneficios que tendría un empleo asalariado.</li>
+    <li>Asumir que todas las horas semanales son facturables.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Si eres freelance, resta al menos un 25-30% para impuestos y seguridad social, y considera que no todas tus horas son facturables (administración, marketing, formación). Tu tarifa horaria real efectiva será menor.</p>
+
+  <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cómo afecta el tiempo libre no remunerado a mi salario anual?</button>
+        <div class="faq-ap"><p>El tiempo libre no remunerado reduce tus semanas laborales. Si tomas 2 semanas sin pago, multiplica por 50 semanas en lugar de 52. Esto reduce significativamente tu proyección anual.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Debo incluir bonificaciones en mi cálculo de tarifa por hora?</button>
+        <div class="faq-ap"><p>Sí. Agrega las bonificaciones anuales esperadas a tu compensación total antes de convertir. Esto te da una imagen más precisa de tu verdadera tarifa por hora.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cómo afectan las horas extra a mi tarifa por hora efectiva?</button>
+        <div class="faq-ap"><p>Si regularmente trabajas horas extra no remuneradas, incluye esas horas en el denominador. Trabajar 50 horas/semana por $50,000 significa una tarifa mucho menor.</p></div>
+      </div>
+  
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cómo afecta el tiempo libre no remunerado a mi salario anual?</button>
+        <div class="faq-ap"><p>El tiempo libre no remunerado reduce tus semanas laborales. Si tomas 2 semanas sin pago, multiplica por 50 semanas en lugar de 52. Esto reduce significativamente tu proyección anual.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Debo incluir bonificaciones en mi cálculo de tarifa por hora?</button>
+        <div class="faq-ap"><p>Sí. Agrega las bonificaciones anuales esperadas a tu compensación total antes de convertir. Esto te da una imagen más precisa de tu verdadera tarifa por hora.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cómo afectan las horas extra a mi tarifa por hora efectiva?</button>
+        <div class="faq-ap"><p>Si regularmente trabajas horas extra no remuneradas, incluye esas horas en el denominador. Trabajar 50 horas/semana por $50,000 significa una tarifa mucho menor.</p></div>
+      </div>
+  
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cómo afecta el tiempo libre no remunerado a mi salario anual?</button>
+        <div class="faq-ap"><p>El tiempo libre no remunerado reduce tus semanas laborales. Si tomas 2 semanas sin pago, multiplica por 50 semanas en lugar de 52. Esto reduce significativamente tu proyección anual.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Debo incluir bonificaciones en mi cálculo de tarifa por hora?</button>
+        <div class="faq-ap"><p>Sí. Agrega las bonificaciones anuales esperadas a tu compensación total antes de convertir. Esto te da una imagen más precisa de tu verdadera tarifa por hora.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cómo afectan las horas extra a mi tarifa por hora efectiva?</button>
+        <div class="faq-ap"><p>Si regularmente trabajas horas extra no remuneradas, incluye esas horas en el denominador. Trabajar 50 horas/semana por $50,000 significa una tarifa mucho menor.</p></div>
+      </div>
+  
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cómo afecta el tiempo libre no remunerado a mi salario anual?</button>
+        <div class="faq-ap"><p>El tiempo libre no remunerado reduce tus semanas laborales. Si tomas 2 semanas sin pago, multiplica por 50 semanas en lugar de 52. Esto reduce significativamente tu proyección anual.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Debo incluir bonificaciones en mi cálculo de tarifa por hora?</button>
+        <div class="faq-ap"><p>Sí. Agrega las bonificaciones anuales esperadas a tu compensación total antes de convertir. Esto te da una imagen más precisa de tu verdadera tarifa por hora.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cómo afectan las horas extra a mi tarifa por hora efectiva?</button>
+        <div class="faq-ap"><p>Si regularmente trabajas horas extra no remuneradas, incluye esas horas en el denominador. Trabajar 50 horas/semana por $50,000 significa una tarifa mucho menor.</p></div>
+      </div>
+  
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Debo restar semanas de vacaciones?</button>
+      <div class="faq-ap">
+        <p>Si no trabajas ciertas semanas, sí. Por ejemplo, si tomas 2 semanas de vacaciones: tarifa × horas × 50 semanas.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué tarifa horaria equivale a $50,000/año?</button>
+      <div class="faq-ap">
+        <p>$50,000 / (40 × 52) ≈ $24.04/hora. Esta es tu tarifa bruta mínima para alcanzar ese salario.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cómo calculo si soy freelance?</button>
+      <div class="faq-ap">
+        <p>Considera horas facturables reales (no todas las horas trabajadas), semanas no trabajadas y gastos de negocio. Muchos freelancers facturan solo 60-70% de sus horas.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿El resultado es bruto o neto?</button>
+      <div class="faq-ap">
+        <p>Es bruto. Para obtener el neto, resta impuestos, seguridad social y otras deducciones según tu país y situación fiscal.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+      <li><a href="/net-present-value-calculator">Net Present Value Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+      <li><a href="/net-present-value-calculator">Net Present Value Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Hourly Rate to Annual Salary Calculator</h1>
+  <p>This calculator converts an hourly rate into its annual salary equivalent, helping you project your yearly income based on your hourly rate and weekly work hours.</p>
+
+  <h2>Conversion formula</h2>
+  <p>The formula is:</p>
+  <p><strong>Annual salary = hourly_rate × hours_per_week × 52</strong></p>
+  <p>52 weeks per year are assumed. You can adjust weekly hours according to your work schedule.</p>
+
+  <h2>Example 1: standard rate</h2>
+  <p><strong>Problem:</strong> Rate of $30/hour with a 40-hour workweek.</p>
+  <ol>
+    <li>Calculation:
+      <ul>
+        <li>$30 × 40 × 52 = $62,400/year.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> Annual salary of $62,400.</p>
+
+  <h2>Example 2: freelance rate</h2>
+  <p><strong>Problem:</strong> Rate of $50/hour working 30 hours per week.</p>
+  <ol>
+    <li>Calculation:
+      <ul>
+        <li>$50 × 30 × 52 = $78,000/year.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> Annual salary of $78,000.</p>
+
+  <h2>Common uses of this calculator</h2>
+  <ul>
+    <li>Projecting annual income from an hourly rate.</li>
+    <li>Comparing freelance work with salaried employment.</li>
+    <li>Negotiating hourly rates based on target annual salaries.</li>
+    <li>Planning annual budgets for independent workers.</li>
+    <li>Evaluating the impact of reducing or increasing work hours.</li>
+    <li>Estimating income for credit or mortgage applications.</li>
+  </ul>
+
+  <h2>Common mistakes in conversion</h2>
+  <ul>
+    <li>Not considering weeks not worked (vacation, illness).</li>
+    <li>Forgetting that freelancers pay their own taxes and insurance.</li>
+    <li>Not including the value of benefits that salaried employment would provide.</li>
+    <li>Assuming all weekly hours are billable.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>If you are freelance, deduct at least 25-30% for taxes and social security, and consider that not all your hours are billable (administration, marketing, training). Your effective hourly rate will be lower.</p>
+
+  <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How does unpaid time off affect my annual salary?</button>
+        <div class="faq-ap"><p>Unpaid time off reduces your working weeks. If you take 2 weeks unpaid, multiply by 50 weeks instead of 52. This significantly lowers your annual projection and highlights the value of paid vacation.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Should I include bonuses in my hourly rate calculation?</button>
+        <div class="faq-ap"><p>Yes. Add expected annual bonuses to your total compensation before converting. For example, a $5,000 bonus on a $50,000 salary means $55,000 ÷ 2,080 hours = $26.44/hour.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How do overtime hours affect my effective hourly rate?</button>
+        <div class="faq-ap"><p>If you regularly work unpaid overtime, include those hours in the denominator. Working 50 hours/week for a $50,000 salary means $50,000 ÷ (50 × 52) = <div class="faq-list">9.23/hour — much lower than the nominal rate.</p></div>
+      </div>
+  
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How does unpaid time off affect my annual salary?</button>
+        <div class="faq-ap"><p>Unpaid time off reduces your working weeks. If you take 2 weeks unpaid, multiply by 50 weeks instead of 52. This significantly lowers your annual projection and highlights the value of paid vacation.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Should I include bonuses in my hourly rate calculation?</button>
+        <div class="faq-ap"><p>Yes. Add expected annual bonuses to your total compensation before converting. For example, a $5,000 bonus on a $50,000 salary means $55,000 ÷ 2,080 hours = $26.44/hour.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How do overtime hours affect my effective hourly rate?</button>
+        <div class="faq-ap"><p>If you regularly work unpaid overtime, include those hours in the denominator. Working 50 hours/week for a $50,000 salary means $50,000 ÷ (50 × 52) = <div class="faq-list">9.23/hour — much lower than the nominal rate.</p></div>
+      </div>
+  
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How does unpaid time off affect my annual salary?</button>
+        <div class="faq-ap"><p>Unpaid time off reduces your working weeks. If you take 2 weeks unpaid, multiply by 50 weeks instead of 52. This significantly lowers your annual projection and highlights the value of paid vacation.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Should I include bonuses in my hourly rate calculation?</button>
+        <div class="faq-ap"><p>Yes. Add expected annual bonuses to your total compensation before converting. For example, a $5,000 bonus on a $50,000 salary means $55,000 ÷ 2,080 hours = $26.44/hour.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How do overtime hours affect my effective hourly rate?</button>
+        <div class="faq-ap"><p>If you regularly work unpaid overtime, include those hours in the denominator. Working 50 hours/week for a $50,000 salary means $50,000 ÷ (50 × 52) = <div class="faq-list">9.23/hour — much lower than the nominal rate.</p></div>
+      </div>
+  
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Should I subtract vacation weeks?</button>
+      <div class="faq-ap">
+        <p>If you do not work certain weeks, yes. For example, if you take 2 weeks off: rate × hours × 50 weeks.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What hourly rate equals $50,000/year?</button>
+      <div class="faq-ap">
+        <p>$50,000 / (40 × 52) ≈ $24.04/hour. This is your minimum gross rate to reach that salary.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How do I calculate as a freelancer?</button>
+      <div class="faq-ap">
+        <p>Consider actual billable hours (not all hours worked), non-working weeks and business expenses. Many freelancers bill only 60-70% of their hours.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Is the result gross or net?</button>
+      <div class="faq-ap">
+        <p>It is gross. To get net, subtract taxes, social security and other deductions according to your country and tax situation.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+      <li><a href="/net-present-value-calculator">Net Present Value Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+      <li><a href="/net-present-value-calculator">Net Present Value Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "936": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de cuota hipotecaria mensual</h1>
+  <p>Esta calculadora determina tu cuota mensual de hipoteca basándose en el monto del préstamo, la tasa de interés anual y el plazo del préstamo en años.</p>
+
+  <h2>Fórmula de la cuota hipotecaria</h2>
+  <p>La cuota mensual fija se calcula con la fórmula de amortización francesa:</p>
+  <p><strong>M = P × r × (1+r)ⁿ / ((1+r)ⁿ − 1)</strong></p>
+  <p>Donde P es el principal (monto del préstamo), r es la tasa de interés mensual (tasa anual / 12) y n es el número total de pagos (años × 12).</p>
+
+  <h2>Ejemplo 1: hipoteca estándar</h2>
+  <p><strong>Problema:</strong> Préstamo de $250,000 al 4.5% anual a 30 años.</p>
+  <ol>
+    <li>Datos:
+      <ul>
+        <li>P = 250,000; r = 0.045/12 = 0.00375; n = 30 × 12 = 360.</li>
+      </ul>
+    </li>
+    <li>Cuota mensual:
+      <ul>
+        <li>M = 250,000 × 0.00375 × (1.00375)³⁶⁰ / ((1.00375)³⁶⁰ − 1) ≈ $1,266.71.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> Cuota mensual ≈ $1,266.71. Total pagado: $456,015.60.</p>
+
+  <h2>Ejemplo 2: hipoteca a 15 años</h2>
+  <p><strong>Problema:</strong> Préstamo de $200,000 al 3.5% anual a 15 años.</p>
+  <ol>
+    <li>Datos:
+      <ul>
+        <li>P = 200,000; r = 0.035/12 ≈ 0.002917; n = 15 × 12 = 180.</li>
+      </ul>
+    </li>
+    <li>Cuota mensual:
+      <ul>
+        <li>M ≈ $1,429.77.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> Cuota mensual ≈ $1,429.77. Total pagado: $257,358.60.</p>
+
+  <h2>Usos comunes de la calculadora hipotecaria</h2>
+  <ul>
+    <li>Estimar la cuota mensual antes de solicitar una hipoteca.</li>
+    <li>Comparar diferentes plazos y tasas de interés.</li>
+    <li>Evaluar la asequibilidad de una vivienda.</li>
+    <li>Planificar presupuestos mensuales con el gasto hipotecario.</li>
+    <li>Analizar el impacto de pagos adicionales en el total pagado.</li>
+    <li>Decidir entre hipoteca a tasa fija o variable.</li>
+  </ul>
+
+  <h2>Errores frecuentes en cálculos hipotecarios</h2>
+  <ul>
+    <li>No incluir seguros, impuestos y gastos adicionales en la cuota real.</li>
+    <li>Confundir la tasa anual con la tasa mensual en los cálculos.</li>
+    <li>No considerar el coste total del préstamo a lo largo del plazo.</li>
+    <li>Olvidar que las primeras cuotas son mayoritariamente intereses.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Un plazo más corto significa cuotas más altas pero mucho menos interés total. En el ejemplo anterior, la hipoteca a 15 años ahorra casi $200,000 en intereses comparada con una a 30 años.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿La cuota incluye seguros e impuestos?</button>
+      <div class="faq-ap">
+        <p>No. Esta calculadora solo computa principal e intereses. Los seguros, impuestos y PMI se añaden aparte en la cuota real.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué es mejor, 15 o 30 años?</button>
+      <div class="faq-ap">
+        <p>15 años ahorra mucho en intereses pero tiene cuotas más altas. 30 años tiene cuotas más bajas pero pagas mucho más interés total. Depende de tu capacidad de pago.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cómo afectan los pagos extra?</button>
+      <div class="faq-ap">
+        <p>Los pagos extra al principal reducen significativamente el plazo total y el interés pagado. Incluso $100 extra al mes puede ahorrar miles.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué es la amortización francesa?</button>
+      <div class="faq-ap">
+        <p>Es el sistema donde la cuota mensual es fija, pero la proporción entre intereses y principal cambia: al inicio pagas más intereses y al final más principal.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+      <li><a href="/net-present-value-calculator">Net Present Value Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+      <li><a href="/net-present-value-calculator">Net Present Value Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Mortgage Payment Calculator</h1>
+  <p>This calculator determines your monthly mortgage payment based on the loan amount, annual interest rate and loan term in years.</p>
+
+  <h2>Mortgage payment formula</h2>
+  <p>The fixed monthly payment is computed using the French amortization formula:</p>
+  <p><strong>M = P × r × (1+r)ⁿ / ((1+r)ⁿ − 1)</strong></p>
+  <p>Where P is the principal (loan amount), r is the monthly interest rate (annual rate / 12) and n is the total number of payments (years × 12).</p>
+
+  <h2>Example 1: standard mortgage</h2>
+  <p><strong>Problem:</strong> Loan of $250,000 at 4.5% annual rate for 30 years.</p>
+  <ol>
+    <li>Data:
+      <ul>
+        <li>P = 250,000; r = 0.045/12 = 0.00375; n = 30 × 12 = 360.</li>
+      </ul>
+    </li>
+    <li>Monthly payment:
+      <ul>
+        <li>M = 250,000 × 0.00375 × (1.00375)³⁶⁰ / ((1.00375)³⁶⁰ − 1) ≈ $1,266.71.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> Monthly payment ≈ $1,266.71. Total paid: $456,015.60.</p>
+
+  <h2>Example 2: 15-year mortgage</h2>
+  <p><strong>Problem:</strong> Loan of $200,000 at 3.5% annual rate for 15 years.</p>
+  <ol>
+    <li>Data:
+      <ul>
+        <li>P = 200,000; r = 0.035/12 ≈ 0.002917; n = 15 × 12 = 180.</li>
+      </ul>
+    </li>
+    <li>Monthly payment:
+      <ul>
+        <li>M ≈ $1,429.77.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> Monthly payment ≈ $1,429.77. Total paid: $257,358.60.</p>
+
+  <h2>Common uses of the mortgage calculator</h2>
+  <ul>
+    <li>Estimating monthly payments before applying for a mortgage.</li>
+    <li>Comparing different terms and interest rates.</li>
+    <li>Evaluating housing affordability.</li>
+    <li>Planning monthly budgets with mortgage expenses.</li>
+    <li>Analyzing the impact of extra payments on total cost.</li>
+    <li>Deciding between fixed-rate and variable-rate mortgages.</li>
+  </ul>
+
+  <h2>Common mistakes in mortgage calculations</h2>
+  <ul>
+    <li>Not including insurance, taxes and additional costs in the real payment.</li>
+    <li>Confusing the annual rate with the monthly rate in calculations.</li>
+    <li>Not considering the total cost of the loan over the full term.</li>
+    <li>Forgetting that early payments are mostly interest.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>A shorter term means higher payments but much less total interest. In the example above, the 15-year mortgage saves nearly $200,000 in interest compared to a 30-year loan.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Does the payment include insurance and taxes?</button>
+      <div class="faq-ap">
+        <p>No. This calculator only computes principal and interest. Insurance, taxes and PMI are added separately to the real payment.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Which is better, 15 or 30 years?</button>
+      <div class="faq-ap">
+        <p>15 years saves a lot on interest but has higher payments. 30 years has lower payments but you pay much more total interest. It depends on your payment capacity.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How do extra payments help?</button>
+      <div class="faq-ap">
+        <p>Extra payments toward principal significantly reduce the total term and interest paid. Even $100 extra per month can save thousands.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What is French amortization?</button>
+      <div class="faq-ap">
+        <p>It is the system where the monthly payment is fixed, but the proportion between interest and principal changes: early payments are mostly interest, later payments are mostly principal.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+      <li><a href="/net-present-value-calculator">Net Present Value Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+      <li><a href="/net-present-value-calculator">Net Present Value Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "937": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de pago de deudas: tiempo para liquidar</h1>
+  <p>Esta calculadora determina cuánto tiempo tardarás en pagar completamente una deuda (tarjeta de crédito, préstamo personal) basándote en el saldo actual, la tasa de interés y el pago mensual que puedes hacer.</p>
+
+  <h2>Fórmula del tiempo de pago</h2>
+  <p>El número de meses necesarios se calcula como:</p>
+  <p><strong>n = −log(1 − r×P/PMT) / log(1+r)</strong></p>
+  <p>Donde P es el saldo actual, r es la tasa de interés mensual y PMT es el pago mensual. Si PMT ≤ r×P, la deuda nunca se pagará (el pago no cubre los intereses).</p>
+
+  <h2>Ejemplo 1: tarjeta de crédito</h2>
+  <p><strong>Problema:</strong> Saldo de $5,000 con tasa del 18% anual y pago mensual de $200.</p>
+  <ol>
+    <li>Datos:
+      <ul>
+        <li>P = 5,000; r = 0.18/12 = 0.015; PMT = 200.</li>
+      </ul>
+    </li>
+    <li>Meses:
+      <ul>
+        <li>n = −log(1 − 0.015×5000/200) / log(1.015) ≈ 32 meses.</li>
+      </ul>
+    </li>
+    <li>Total pagado:
+      <ul>
+        <li>32 × $200 = $6,400 (intereses: $1,400).</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> 32 meses (2 años y 8 meses), total $6,400.</p>
+
+  <h2>Ejemplo 2: pago acelerado</h2>
+  <p><strong>Problema:</strong> Mismo saldo de $5,000 al 18% pero con pago mensual de $350.</p>
+  <ol>
+    <li>Meses:
+      <ul>
+        <li>n = −log(1 − 0.015×5000/350) / log(1.015) ≈ 16 meses.</li>
+      </ul>
+    </li>
+    <li>Total pagado:
+      <ul>
+        <li>16 × $350 = $5,600 (intereses: $600).</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> 16 meses, total $5,600. Ahorro de $800 en intereses.</p>
+
+  <h2>Usos comunes de la calculadora de deudas</h2>
+  <ul>
+    <li>Planificar la eliminación de deudas de tarjetas de crédito.</li>
+    <li>Comparar el impacto de diferentes montos de pago mensual.</li>
+    <li>Visualizar el coste real de los intereses a lo largo del tiempo.</li>
+    <li>Decidir entre pagar deudas o invertir.</li>
+    <li>Establecer objetivos realistas de eliminación de deudas.</li>
+    <li>Evaluar si consolidar deudas es beneficioso.</li>
+  </ul>
+
+  <h2>Errores frecuentes en el pago de deudas</h2>
+  <ul>
+    <li>Pagar solo el mínimo, lo que extiende la deuda indefinidamente.</li>
+    <li>No considerar que la tasa puede ser variable.</li>
+    <li>Seguir acumulando deuda mientras se paga la existente.</li>
+    <li>No priorizar deudas con tasas de interés más altas.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>El método "avalancha" (pagar primero la deuda con mayor tasa de interés) ahorra más dinero que el método "bola de nieve" (pagar primero la deuda más pequeña). Sin embargo, la motivación psicológica del método bola de nieve no debe subestimarse.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué pasa si solo pago el mínimo?</button>
+      <div class="faq-ap">
+        <p>El pago mínimo suele ser muy bajo y la deuda puede tardar décadas en pagarse, con intereses que superan ampliamente el saldo original.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Es mejor pagar deudas o invertir?</button>
+      <div class="faq-ap">
+        <p>Si la tasa de tu deuda es mayor que el rendimiento esperado de la inversión (como tarjetas al 18-25%), prioriza pagar la deuda.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué es el método avalancha?</button>
+      <div class="faq-ap">
+        <p>Consiste en pagar el mínimo en todas las deudas y dirigir el dinero extra a la deuda con la tasa de interés más alta.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cuándo debo consolidar deudas?</button>
+      <div class="faq-ap">
+        <p>Cuando puedes obtener una tasa de interés menor que el promedio de tus deudas actuales y te comprometes a no acumular más deuda.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+      <li><a href="/net-present-value-calculator">Net Present Value Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+      <li><a href="/net-present-value-calculator">Net Present Value Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Debt Payoff Calculator: time to become debt-free</h1>
+  <p>This calculator determines how long it will take to fully pay off a debt (credit card, personal loan) based on the current balance, interest rate and monthly payment you can make.</p>
+
+  <h2>Payoff time formula</h2>
+  <p>The number of months required is computed as:</p>
+  <p><strong>n = −log(1 − r×P/PMT) / log(1+r)</strong></p>
+  <p>Where P is the current balance, r is the monthly interest rate and PMT is the monthly payment. If PMT ≤ r×P, the debt will never be paid off (payment does not cover interest).</p>
+
+  <h2>Example 1: credit card</h2>
+  <p><strong>Problem:</strong> Balance of $5,000 at 18% annual rate with $200 monthly payment.</p>
+  <ol>
+    <li>Data:
+      <ul>
+        <li>P = 5,000; r = 0.18/12 = 0.015; PMT = 200.</li>
+      </ul>
+    </li>
+    <li>Months:
+      <ul>
+        <li>n = −log(1 − 0.015×5000/200) / log(1.015) ≈ 32 months.</li>
+      </ul>
+    </li>
+    <li>Total paid:
+      <ul>
+        <li>32 × $200 = $6,400 (interest: $1,400).</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> 32 months (2 years and 8 months), total $6,400.</p>
+
+  <h2>Example 2: accelerated payoff</h2>
+  <p><strong>Problem:</strong> Same $5,000 balance at 18% but with $350 monthly payment.</p>
+  <ol>
+    <li>Months:
+      <ul>
+        <li>n = −log(1 − 0.015×5000/350) / log(1.015) ≈ 16 months.</li>
+      </ul>
+    </li>
+    <li>Total paid:
+      <ul>
+        <li>16 × $350 = $5,600 (interest: $600).</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> 16 months, total $5,600. Savings of $800 in interest.</p>
+
+  <h2>Common uses of the debt calculator</h2>
+  <ul>
+    <li>Planning credit card debt elimination.</li>
+    <li>Comparing the impact of different monthly payment amounts.</li>
+    <li>Visualizing the real cost of interest over time.</li>
+    <li>Deciding between paying debt or investing.</li>
+    <li>Setting realistic debt-free goals.</li>
+    <li>Evaluating whether debt consolidation is beneficial.</li>
+  </ul>
+
+  <h2>Common mistakes in debt payoff</h2>
+  <ul>
+    <li>Paying only the minimum, which extends debt indefinitely.</li>
+    <li>Not considering that the rate may be variable.</li>
+    <li>Continuing to accumulate debt while paying existing debt.</li>
+    <li>Not prioritizing debts with higher interest rates.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>The "avalanche" method (paying highest interest rate debt first) saves more money than the "snowball" method (paying smallest debt first). However, the psychological motivation of the snowball method should not be underestimated.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What happens if I only pay the minimum?</button>
+      <div class="faq-ap">
+        <p>The minimum payment is usually very low and the debt can take decades to pay off, with interest far exceeding the original balance.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Is it better to pay debt or invest?</button>
+      <div class="faq-ap">
+        <p>If your debt rate is higher than expected investment returns (like credit cards at 18-25%), prioritize paying off the debt.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What is the avalanche method?</button>
+      <div class="faq-ap">
+        <p>It means paying the minimum on all debts and directing extra money toward the debt with the highest interest rate.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">When should I consolidate debt?</button>
+      <div class="faq-ap">
+        <p>When you can get a lower interest rate than the average of your current debts and commit to not accumulating more debt.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+      <li><a href="/net-present-value-calculator">Net Present Value Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+      <li><a href="/net-present-value-calculator">Net Present Value Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "938": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de meta de ahorro: cuánto ahorrar mensualmente</h1>
+  <p>Esta calculadora determina cuánto debes ahorrar cada mes para alcanzar una meta financiera específica en un plazo determinado, considerando una tasa de rendimiento anual.</p>
+
+  <h2>Fórmula de la meta de ahorro</h2>
+  <p>El pago mensual necesario se calcula como:</p>
+  <p><strong>PMT = FV × r / ((1+r)ⁿ − 1)</strong></p>
+  <p>Donde FV es el valor futuro (meta de ahorro), r es la tasa de rendimiento mensual y n es el número total de meses. Esta fórmula asume depósitos regulares al final de cada período.</p>
+
+  <h2>Ejemplo 1: fondo de emergencia</h2>
+  <p><strong>Problema:</strong> Ahorrar $10,000 en 2 años con rendimiento del 3% anual.</p>
+  <ol>
+    <li>Datos:
+      <ul>
+        <li>FV = 10,000; r = 0.03/12 = 0.0025; n = 24.</li>
+      </ul>
+    </li>
+    <li>Pago mensual:
+      <ul>
+        <li>PMT = 10,000 × 0.0025 / ((1.0025)²⁴ − 1) ≈ $405.34.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> Debes ahorrar aproximadamente $405.34 al mes.</p>
+
+  <h2>Ejemplo 2: ahorro para un coche</h2>
+  <p><strong>Problema:</strong> Ahorrar $25,000 en 4 años con rendimiento del 5% anual.</p>
+  <ol>
+    <li>Datos:
+      <ul>
+        <li>FV = 25,000; r = 0.05/12 ≈ 0.004167; n = 48.</li>
+      </ul>
+    </li>
+    <li>Pago mensual:
+      <ul>
+        <li>PMT ≈ $471.13.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> Debes ahorrar aproximadamente $471.13 al mes.</p>
+
+  <h2>Usos comunes de la calculadora de ahorro</h2>
+  <ul>
+    <li>Planificar ahorros para compras importantes (coche, casa, viajes).</li>
+    <li>Establecer metas de fondo de emergencia realistas.</li>
+    <li>Calcular cuánto ahorrar para la educación de los hijos.</li>
+    <li>Planificar la jubilación complementaria.</li>
+    <li>Evaluar si una meta de ahorro es alcanzable con tu presupuesto.</li>
+    <li>Comparar diferentes plazos y tasas de rendimiento.</li>
+  </ul>
+
+  <h2>Errores frecuentes en la planificación de ahorro</h2>
+  <ul>
+    <li>Sobreestimar la tasa de rendimiento esperada.</li>
+    <li>No considerar la inflación que reduce el poder adquisitivo.</li>
+    <li>No tener un fondo de emergencia antes de ahorrar para otras metas.</li>
+    <li>Interrumpir los ahorros ante gastos imprevistos sin planificar.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Automatiza tus ahorros configurando transferencias automáticas el día de pago. "Págate a ti mismo primero" antes de gastar en cosas no esenciales. Incluso cantidades pequeñas consistentemente generan resultados significativos gracias al interés compuesto.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué tasa de rendimiento debo usar?</button>
+      <div class="faq-ap">
+        <p>Para cuentas de ahorro, 2-4%. Para fondos indexados, 6-8% histórico (no garantizado). Sé conservador en tus estimaciones.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Debo ahorrar primero el fondo de emergencia?</button>
+      <div class="faq-ap">
+        <p>Sí. La mayoría de expertos recomiendan tener 3-6 meses de gastos esenciales antes de ahorrar para otras metas.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué pasa si no puedo ahorrar esa cantidad?</button>
+      <div class="faq-ap">
+        <p>Extiende el plazo o revisa tu presupuesto para encontrar gastos reducibles. Incluso empezar con poco es mejor que no empezar.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Dónde debo guardar mis ahorros?</button>
+      <div class="faq-ap">
+        <p>Para metas a corto plazo, cuentas de ahorro de alto rendimiento. Para metas a largo plazo, considera fondos indexados diversificados.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+      <li><a href="/net-present-value-calculator">Net Present Value Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+      <li><a href="/net-present-value-calculator">Net Present Value Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Savings Goal Calculator: how much to save monthly</h1>
+  <p>This calculator determines how much you need to save each month to reach a specific financial goal within a given timeframe, considering an annual rate of return.</p>
+
+  <h2>Savings goal formula</h2>
+  <p>The required monthly payment is computed as:</p>
+  <p><strong>PMT = FV × r / ((1+r)ⁿ − 1)</strong></p>
+  <p>Where FV is the future value (savings goal), r is the monthly rate of return and n is the total number of months. This formula assumes regular deposits at the end of each period.</p>
+
+  <h2>Example 1: emergency fund</h2>
+  <p><strong>Problem:</strong> Save $10,000 in 2 years with 3% annual return.</p>
+  <ol>
+    <li>Data:
+      <ul>
+        <li>FV = 10,000; r = 0.03/12 = 0.0025; n = 24.</li>
+      </ul>
+    </li>
+    <li>Monthly payment:
+      <ul>
+        <li>PMT = 10,000 × 0.0025 / ((1.0025)²⁴ − 1) ≈ $405.34.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> You need to save approximately $405.34 per month.</p>
+
+  <h2>Example 2: car savings</h2>
+  <p><strong>Problem:</strong> Save $25,000 in 4 years with 5% annual return.</p>
+  <ol>
+    <li>Data:
+      <ul>
+        <li>FV = 25,000; r = 0.05/12 ≈ 0.004167; n = 48.</li>
+      </ul>
+    </li>
+    <li>Monthly payment:
+      <ul>
+        <li>PMT ≈ $471.13.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> You need to save approximately $471.13 per month.</p>
+
+  <h2>Common uses of the savings calculator</h2>
+  <ul>
+    <li>Planning savings for major purchases (car, house, travel).</li>
+    <li>Setting realistic emergency fund goals.</li>
+    <li>Computing how much to save for children's education.</li>
+    <li>Planning supplemental retirement savings.</li>
+    <li>Evaluating whether a savings goal is achievable with your budget.</li>
+    <li>Comparing different timeframes and rates of return.</li>
+  </ul>
+
+  <h2>Common mistakes in savings planning</h2>
+  <ul>
+    <li>Overestimating the expected rate of return.</li>
+    <li>Not considering inflation that reduces purchasing power.</li>
+    <li>Not having an emergency fund before saving for other goals.</li>
+    <li>Interrupting savings for unexpected expenses without planning.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>Automate your savings by setting up automatic transfers on payday. "Pay yourself first" before spending on non-essentials. Even small amounts consistently grow into significant results thanks to compound interest.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What rate of return should I use?</button>
+      <div class="faq-ap">
+        <p>For savings accounts, 2-4%. For index funds, 6-8% historical (not guaranteed). Be conservative in your estimates.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Should I build an emergency fund first?</button>
+      <div class="faq-ap">
+        <p>Yes. Most experts recommend having 3-6 months of essential expenses before saving for other goals.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What if I cannot save that much?</button>
+      <div class="faq-ap">
+        <p>Extend the timeframe or review your budget to find reducible expenses. Even starting small is better than not starting.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Where should I keep my savings?</button>
+      <div class="faq-ap">
+        <p>For short-term goals, high-yield savings accounts. For long-term goals, consider diversified index funds.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+      <li><a href="/net-present-value-calculator">Net Present Value Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+      <li><a href="/net-present-value-calculator">Net Present Value Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "939": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de margen de beneficio: rentabilidad de tu negocio</h1>
+  <p>Esta calculadora determina el margen de beneficio de un producto o servicio, mostrando qué porcentaje del precio de venta se convierte en ganancia después de cubrir los costes.</p>
+
+  <h2>Fórmula del margen de beneficio</h2>
+  <p>El margen de beneficio se calcula como:</p>
+  <p><strong>Margen % = (Ingresos − Coste) / Ingresos × 100</strong></p>
+  <p>El beneficio absoluto es simplemente Ingresos − Coste. Un margen positivo indica rentabilidad; uno negativo indica pérdida.</p>
+
+  <h2>Ejemplo 1: producto con buen margen</h2>
+  <p><strong>Problema:</strong> Producto vendido a $150 con coste de $90.</p>
+  <ol>
+    <li>Beneficio:
+      <ul>
+        <li>$150 − $90 = $60.</li>
+      </ul>
+    </li>
+    <li>Margen:
+      <ul>
+        <li>($60 / $150) × 100 = 40%.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> Beneficio de $60, margen del 40%.</p>
+
+  <h2>Ejemplo 2: margen bajo</h2>
+  <p><strong>Problema:</strong> Producto vendido a $80 con coste de $72.</p>
+  <ol>
+    <li>Beneficio:
+      <ul>
+        <li>$80 − $72 = $8.</li>
+      </ul>
+    </li>
+    <li>Margen:
+      <ul>
+        <li>($8 / $80) × 100 = 10%.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> Beneficio de $8, margen del 10%.</p>
+
+  <h2>Usos comunes del cálculo de margen</h2>
+  <ul>
+    <li>Evaluar la rentabilidad de productos individuales en un negocio.</li>
+    <li>Comparar márgenes entre diferentes líneas de producto.</li>
+    <li>Establecer precios de venta basados en costes y margen deseado.</li>
+    <li>Analizar la eficiencia operativa de una empresa.</li>
+    <li>Tomar decisiones sobre qué productos promover o eliminar.</li>
+    <li>Presentar resultados financieros a inversores o socios.</li>
+  </ul>
+
+  <h2>Errores frecuentes en el cálculo de márgenes</h2>
+  <ul>
+    <li>Confundir margen de beneficio con markup (sobreprecio).</li>
+    <li>No incluir todos los costes (envío, almacenamiento, marketing).</li>
+    <li>Calcular el margen sobre el coste en lugar del precio de venta.</li>
+    <li>Ignorar los costes fijos al evaluar la rentabilidad real.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>El markup y el margen son diferentes: si compras a $100 y vendes a $150, el markup es 50% pero el margen es 33.3%. Siempre usa el margen para análisis financiero porque refleja la proporción real del precio que es ganancia.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cuál es la diferencia entre margen y markup?</button>
+      <div class="faq-ap">
+        <p>El markup se calcula sobre el coste: (precio − coste) / coste. El margen se calcula sobre el precio: (precio − coste) / precio. El margen siempre es menor que el markup.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué margen es considerado bueno?</button>
+      <div class="faq-ap">
+        <p>Depende de la industria. Software puede tener márgenes del 80-90%, mientras que retail ronda el 20-50%. Compara con tu sector específico.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cómo calculo el precio para un margen deseado?</button>
+      <div class="faq-ap">
+        <p>Precio = Coste / (1 − Margen_deseado). Por ejemplo, para un margen del 40% con coste de $60: Precio = 60 / 0.6 = $100.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Debo incluir impuestos en el cálculo?</button>
+      <div class="faq-ap">
+        <p>Para análisis interno, usa precios sin impuestos. Para decisiones de precio al consumidor, considera el precio final con impuestos.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/net-present-value-calculator">Net Present Value Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/net-present-value-calculator">Net Present Value Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Profit Margin Calculator: business profitability</h1>
+  <p>This calculator determines the profit margin of a product or service, showing what percentage of the selling price becomes profit after covering costs.</p>
+
+  <h2>Profit margin formula</h2>
+  <p>Profit margin is computed as:</p>
+  <p><strong>Margin % = (Revenue − Cost) / Revenue × 100</strong></p>
+  <p>The absolute profit is simply Revenue − Cost. A positive margin indicates profitability; a negative one indicates a loss.</p>
+
+  <h2>Example 1: product with good margin</h2>
+  <p><strong>Problem:</strong> Product sold at $150 with cost of $90.</p>
+  <ol>
+    <li>Profit:
+      <ul>
+        <li>$150 − $90 = $60.</li>
+      </ul>
+    </li>
+    <li>Margin:
+      <ul>
+        <li>($60 / $150) × 100 = 40%.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> Profit of $60, margin of 40%.</p>
+
+  <h2>Example 2: low margin</h2>
+  <p><strong>Problem:</strong> Product sold at $80 with cost of $72.</p>
+  <ol>
+    <li>Profit:
+      <ul>
+        <li>$80 − $72 = $8.</li>
+      </ul>
+    </li>
+    <li>Margin:
+      <ul>
+        <li>($8 / $80) × 100 = 10%.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> Profit of $8, margin of 10%.</p>
+
+  <h2>Common uses of margin calculation</h2>
+  <ul>
+    <li>Evaluating profitability of individual products in a business.</li>
+    <li>Comparing margins across different product lines.</li>
+    <li>Setting selling prices based on costs and desired margin.</li>
+    <li>Analyzing the operational efficiency of a company.</li>
+    <li>Making decisions about which products to promote or eliminate.</li>
+    <li>Presenting financial results to investors or partners.</li>
+  </ul>
+
+  <h2>Common mistakes in margin calculations</h2>
+  <ul>
+    <li>Confusing profit margin with markup.</li>
+    <li>Not including all costs (shipping, storage, marketing).</li>
+    <li>Computing margin on cost instead of selling price.</li>
+    <li>Ignoring fixed costs when evaluating real profitability.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>Markup and margin are different: if you buy at $100 and sell at $150, the markup is 50% but the margin is 33.3%. Always use margin for financial analysis because it reflects the true proportion of price that is profit.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What is the difference between margin and markup?</button>
+      <div class="faq-ap">
+        <p>Markup is computed on cost: (price − cost) / cost. Margin is computed on price: (price − cost) / price. Margin is always lower than markup.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What margin is considered good?</button>
+      <div class="faq-ap">
+        <p>It depends on the industry. Software can have 80-90% margins, while retail is around 20-50%. Compare with your specific sector.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How do I compute price for a desired margin?</button>
+      <div class="faq-ap">
+        <p>Price = Cost / (1 − Desired_margin). For example, for a 40% margin with cost of $60: Price = 60 / 0.6 = $100.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Should I include taxes in the calculation?</button>
+      <div class="faq-ap">
+        <p>For internal analysis, use prices without taxes. For consumer pricing decisions, consider the final price with taxes.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/net-present-value-calculator">Net Present Value Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/net-present-value-calculator">Net Present Value Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "940": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de VAN (Valor Actual Neto): evaluación de inversiones</h1>
+  <p>El Valor Actual Neto (VAN o NPV en inglés) es una métrica financiera que determina si una inversión es rentable, trayendo todos los flujos de caja futuros al valor presente usando una tasa de descuento.</p>
+
+  <h2>Fórmula del VAN</h2>
+  <p>El VAN se calcula como:</p>
+  <p><strong>VAN = Σ [FC_t / (1+r)ᵗ] − Inversión_inicial</strong></p>
+  <p>Donde FC_t es el flujo de caja en el período t, r es la tasa de descuento y t es el período. Si VAN > 0, la inversión es rentable; si VAN < 0, no lo es.</p>
+
+  <h2>Ejemplo 1: inversión rentable</h2>
+  <p><strong>Problema:</strong> Inversión inicial de $10,000. Flujos: Año 1: $3,000, Año 2: $4,000, Año 3: $5,000. Tasa de descuento: 8%.</p>
+  <ol>
+    <li>Valor presente de cada flujo:
+      <ul>
+        <li>Año 1: $3,000 / 1.08 = $2,777.78</li>
+        <li>Año 2: $4,000 / 1.08² = $3,429.36</li>
+        <li>Año 3: $5,000 / 1.08³ = $3,969.16</li>
+      </ul>
+    </li>
+    <li>VAN:
+      <ul>
+        <li>VAN = $2,777.78 + $3,429.36 + $3,969.16 − $10,000 = $176.30.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> VAN = $176.30. La inversión es rentable (VAN > 0).</p>
+
+  <h2>Ejemplo 2: inversión no rentable</h2>
+  <p><strong>Problema:</strong> Inversión de $20,000. Flujos: $5,000/año durante 3 años. Tasa: 10%.</p>
+  <ol>
+    <li>Valor presente:
+      <ul>
+        <li>Año 1: $5,000 / 1.10 = $4,545.45</li>
+        <li>Año 2: $5,000 / 1.10² = $4,132.23</li>
+        <li>Año 3: $5,000 / 1.10³ = $3,756.57</li>
+      </ul>
+    </li>
+    <li>VAN:
+      <ul>
+        <li>VAN = $4,545.45 + $4,132.23 + $3,756.57 − $20,000 = −$7,565.75.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> VAN = −$7,565.75. La inversión no es rentable.</p>
+
+  <h2>Usos comunes del VAN</h2>
+  <ul>
+    <li>Evaluar la viabilidad de proyectos de inversión empresarial.</li>
+    <li>Comparar múltiples proyectos para decidir cuál financiar.</li>
+    <li>Analizar la compra de equipos o maquinaria.</li>
+    <li>Valorar empresas y activos financieros.</li>
+    <li>Tomar decisiones de expansión o lanzamiento de productos.</li>
+    <li>Presentar propuestas de inversión a directivos o inversores.</li>
+  </ul>
+
+  <h2>Errores frecuentes en el cálculo del VAN</h2>
+  <ul>
+    <li>Usar una tasa de descuento incorrecta o desactualizada.</li>
+    <li>No incluir todos los flujos de caja relevantes.</li>
+    <li>Confundir el VAN con la TIR (Tasa Interna de Retorno).</li>
+    <li>Ignorar el riesgo específico del proyecto al elegir la tasa.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>El VAN es superior al período de recuperación (payback) porque considera el valor del dinero en el tiempo y todos los flujos de caja del proyecto. Sin embargo, siempre complementa el VAN con otros indicadores como la TIR y el índice de rentabilidad.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué tasa de descuento debo usar?</button>
+      <div class="faq-ap">
+        <p>Usa tu coste de capital (WACC) o la tasa mínima de rendimiento aceptable. Para proyectos más riesgosos, usa una tasa mayor.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué significa un VAN de 0?</button>
+      <div class="faq-ap">
+        <p>Significa que la inversión genera exactamente la tasa de rendimiento requerida. No crea ni destruye valor.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿VAN o TIR: cuál es mejor?</button>
+      <div class="faq-ap">
+        <p>El VAN es generalmente preferible porque asume reinversión a la tasa de descuento (más realista) y no tiene problemas con flujos no convencionales.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Puedo usar el VAN para inversiones personales?</button>
+      <div class="faq-ap">
+        <p>Sí. Puedes evaluar si comprar un inmueble, invertir en educación o cualquier decisión financiera usando el mismo principio.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>NPV (Net Present Value) Calculator: investment evaluation</h1>
+  <p>Net Present Value (NPV) is a financial metric that determines whether an investment is profitable by bringing all future cash flows to present value using a discount rate.</p>
+
+  <h2>NPV formula</h2>
+  <p>NPV is computed as:</p>
+  <p><strong>NPV = Σ [CF_t / (1+r)ᵗ] − Initial_investment</strong></p>
+  <p>Where CF_t is the cash flow in period t, r is the discount rate and t is the period. If NPV > 0, the investment is profitable; if NPV < 0, it is not.</p>
+
+  <h2>Example 1: profitable investment</h2>
+  <p><strong>Problem:</strong> Initial investment of $10,000. Cash flows: Year 1: $3,000, Year 2: $4,000, Year 3: $5,000. Discount rate: 8%.</p>
+  <ol>
+    <li>Present value of each flow:
+      <ul>
+        <li>Year 1: $3,000 / 1.08 = $2,777.78</li>
+        <li>Year 2: $4,000 / 1.08² = $3,429.36</li>
+        <li>Year 3: $5,000 / 1.08³ = $3,969.16</li>
+      </ul>
+    </li>
+    <li>NPV:
+      <ul>
+        <li>NPV = $2,777.78 + $3,429.36 + $3,969.16 − $10,000 = $176.30.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> NPV = $176.30. The investment is profitable (NPV > 0).</p>
+
+  <h2>Example 2: unprofitable investment</h2>
+  <p><strong>Problem:</strong> Investment of $20,000. Cash flows: $5,000/year for 3 years. Rate: 10%.</p>
+  <ol>
+    <li>Present value:
+      <ul>
+        <li>Year 1: $5,000 / 1.10 = $4,545.45</li>
+        <li>Year 2: $5,000 / 1.10² = $4,132.23</li>
+        <li>Year 3: $5,000 / 1.10³ = $3,756.57</li>
+      </ul>
+    </li>
+    <li>NPV:
+      <ul>
+        <li>NPV = $4,545.45 + $4,132.23 + $3,756.57 − $20,000 = −$7,565.75.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> NPV = −$7,565.75. The investment is not profitable.</p>
+
+  <h2>Common uses of NPV</h2>
+  <ul>
+    <li>Evaluating the viability of business investment projects.</li>
+    <li>Comparing multiple projects to decide which to fund.</li>
+    <li>Analyzing equipment or machinery purchases.</li>
+    <li>Valuing companies and financial assets.</li>
+    <li>Making expansion or product launch decisions.</li>
+    <li>Presenting investment proposals to management or investors.</li>
+  </ul>
+
+  <h2>Common mistakes in NPV calculation</h2>
+  <ul>
+    <li>Using an incorrect or outdated discount rate.</li>
+    <li>Not including all relevant cash flows.</li>
+    <li>Confusing NPV with IRR (Internal Rate of Return).</li>
+    <li>Ignoring project-specific risk when choosing the rate.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>NPV is superior to the payback period because it considers the time value of money and all project cash flows. However, always complement NPV with other indicators like IRR and the profitability index.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What discount rate should I use?</button>
+      <div class="faq-ap">
+        <p>Use your cost of capital (WACC) or the minimum acceptable rate of return. For riskier projects, use a higher rate.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What does an NPV of 0 mean?</button>
+      <div class="faq-ap">
+        <p>It means the investment generates exactly the required rate of return. It neither creates nor destroys value.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">NPV or IRR: which is better?</button>
+      <div class="faq-ap">
+        <p>NPV is generally preferred because it assumes reinvestment at the discount rate (more realistic) and does not have issues with unconventional cash flows.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Can I use NPV for personal investments?</button>
+      <div class="faq-ap">
+        <p>Yes. You can evaluate whether to buy real estate, invest in education or any financial decision using the same principle.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "941": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de fondo de emergencia: cuánto necesitas ahorrar</h1>
+  <p>Esta calculadora determina el tamaño ideal de tu fondo de emergencia basándose en tus gastos mensuales esenciales y el número de meses de cobertura que deseas tener.</p>
+
+  <h2>Fórmula del fondo de emergencia</h2>
+  <p>El cálculo es directo:</p>
+  <p><strong>Fondo = gastos_mensuales_esenciales × meses_de_cobertura</strong></p>
+  <p>La recomendación general es tener entre 3 y 6 meses de gastos esenciales. Personas con ingresos variables o dependientes deberían considerar 6-12 meses.</p>
+
+  <h2>Ejemplo 1: fondo básico de 3 meses</h2>
+  <p><strong>Problema:</strong> Gastos esenciales mensuales: $2,500. Cobertura deseada: 3 meses.</p>
+  <ol>
+    <li>Cálculo:
+      <ul>
+        <li>Fondo = $2,500 × 3 = $7,500.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> Tu fondo de emergencia debería ser de $7,500.</p>
+
+  <h2>Ejemplo 2: fondo conservador de 6 meses</h2>
+  <p><strong>Problema:</strong> Gastos esenciales mensuales: $3,200. Cobertura deseada: 6 meses.</p>
+  <ol>
+    <li>Cálculo:
+      <ul>
+        <li>Fondo = $3,200 × 6 = $19,200.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> Tu fondo de emergencia debería ser de $19,200.</p>
+
+  <h2>Usos comunes del fondo de emergencia</h2>
+  <ul>
+    <li>Protegerse contra la pérdida inesperada de empleo.</li>
+    <li>Cubrir gastos médicos imprevistos sin endeudarse.</li>
+    <li>Manejar reparaciones urgentes del hogar o del vehículo.</li>
+    <li>Evitar el uso de tarjetas de crédito para emergencias.</li>
+    <li>Proporcionar tranquilidad financiera y reducir el estrés.</li>
+    <li>Crear una base sólida antes de invertir o ahorrar para otras metas.</li>
+  </ul>
+
+  <h2>Errores frecuentes con el fondo de emergencia</h2>
+  <ul>
+    <li>No incluir todos los gastos esenciales (seguros, suscripciones necesarias).</li>
+    <li>Usar el fondo para gastos no urgentes o deseos.</li>
+    <li>Guardar el fondo en una cuenta de bajo rendimiento sin acceso fácil.</li>
+    <li>No reponer el fondo después de usarlo para una emergencia real.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Guarda tu fondo de emergencia en una cuenta de ahorro de alto rendimiento separada de tu cuenta principal. Debe ser líquida (acceso inmediato) pero lo suficientemente separada para no tentarte a usarla innecesariamente.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué gastos son "esenciales"?</button>
+      <div class="faq-ap">
+        <p>Vivienda, alimentación, servicios básicos, seguros, transporte al trabajo y pagos mínimos de deudas. No incluyen entretenimiento ni restaurantes.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿3 o 6 meses: cuál elijo?</button>
+      <div class="faq-ap">
+        <p>3 meses si tienes empleo estable y pocos dependientes. 6 meses o más si eres freelance, tienes ingresos variables o personas a cargo.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Dónde guardo el fondo de emergencia?</button>
+      <div class="faq-ap">
+        <p>En una cuenta de ahorro de alto rendimiento, separada de tu cuenta de cheques, con acceso fácil pero no inmediato para evitar tentaciones.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Debo invertir el fondo de emergencia?</button>
+      <div class="faq-ap">
+        <p>No. El fondo debe ser seguro y líquido. La prioridad es la accesibilidad, no el rendimiento. Las cuentas de ahorro de alto rendimiento son ideales.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Emergency Fund Calculator: how much you need to save</h1>
+  <p>This calculator determines the ideal size of your emergency fund based on your essential monthly expenses and the number of months of coverage you want.</p>
+
+  <h2>Emergency fund formula</h2>
+  <p>The calculation is straightforward:</p>
+  <p><strong>Fund = monthly_essential_expenses × months_of_coverage</strong></p>
+  <p>The general recommendation is to have 3 to 6 months of essential expenses. People with variable income or dependents should consider 6-12 months.</p>
+
+  <h2>Example 1: basic 3-month fund</h2>
+  <p><strong>Problem:</strong> Monthly essential expenses: $2,500. Desired coverage: 3 months.</p>
+  <ol>
+    <li>Calculation:
+      <ul>
+        <li>Fund = $2,500 × 3 = $7,500.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> Your emergency fund should be $7,500.</p>
+
+  <h2>Example 2: conservative 6-month fund</h2>
+  <p><strong>Problem:</strong> Monthly essential expenses: $3,200. Desired coverage: 6 months.</p>
+  <ol>
+    <li>Calculation:
+      <ul>
+        <li>Fund = $3,200 × 6 = $19,200.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> Your emergency fund should be $19,200.</p>
+
+  <h2>Common uses of the emergency fund</h2>
+  <ul>
+    <li>Protecting against unexpected job loss.</li>
+    <li>Covering unforeseen medical expenses without going into debt.</li>
+    <li>Handling urgent home or vehicle repairs.</li>
+    <li>Avoiding credit card use for emergencies.</li>
+    <li>Providing financial peace of mind and reducing stress.</li>
+    <li>Creating a solid foundation before investing or saving for other goals.</li>
+  </ul>
+
+  <h2>Common mistakes with the emergency fund</h2>
+  <ul>
+    <li>Not including all essential expenses (insurance, necessary subscriptions).</li>
+    <li>Using the fund for non-urgent expenses or wants.</li>
+    <li>Keeping the fund in a low-yield account without easy access.</li>
+    <li>Not replenishing the fund after using it for a real emergency.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>Keep your emergency fund in a high-yield savings account separate from your main account. It should be liquid (immediate access) but separate enough not to tempt you to use it unnecessarily.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What expenses are "essential"?</button>
+      <div class="faq-ap">
+        <p>Housing, food, utilities, insurance, commute to work and minimum debt payments. They do not include entertainment or dining out.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">3 or 6 months: which should I choose?</button>
+      <div class="faq-ap">
+        <p>3 months if you have stable employment and few dependents. 6 months or more if you are freelance, have variable income or people depending on you.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Where should I keep my emergency fund?</button>
+      <div class="faq-ap">
+        <p>In a high-yield savings account, separate from your checking account, with easy but not instant access to avoid temptations.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Should I invest my emergency fund?</button>
+      <div class="faq-ap">
+        <p>No. The fund should be safe and liquid. The priority is accessibility, not returns. High-yield savings accounts are ideal.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "942": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de edad detallada: años, meses y días</h1>
+  <p>Esta calculadora determina tu edad exacta en años, meses, días, horas e incluso minutos a partir de tu fecha de nacimiento, proporcionando un desglose detallado de tu tiempo vivido.</p>
+
+  <h2>Cómo se calcula la edad</h2>
+  <p>El cálculo considera:</p>
+  <ul>
+    <li><strong>Años completos:</strong> desde el último cumpleaños.</li>
+    <li><strong>Meses adicionales:</strong> meses transcurridos desde el último cumpleaños.</li>
+    <li><strong>Días adicionales:</strong> días desde el inicio del mes actual.</li>
+    <li><strong>Total en días:</strong> número total de días vividos.</li>
+  </ul>
+  <p>Se tienen en cuenta los años bisiestos para una precisión exacta.</p>
+
+  <h2>Ejemplo 1: edad detallada</h2>
+  <p><strong>Problema:</strong> Nacimiento: 15 de marzo de 1990. Fecha actual: 28 de julio de 2025.</p>
+  <ol>
+    <li>Años completos:
+      <ul>
+        <li>De 1990 a 2025 = 35 años (cumpleaños de marzo ya pasó).</li>
+      </ul>
+    </li>
+    <li>Meses y días adicionales:
+      <ul>
+        <li>De marzo 15 a julio 28 = 4 meses y 13 días.</li>
+      </ul>
+    </li>
+    <li>Total en días:
+      <ul>
+        <li>Aproximadamente 12,918 días vividos.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> 35 años, 4 meses y 13 días.</p>
+
+  <h2>Usos comunes de la calculadora de edad</h2>
+  <ul>
+    <li>Calcular la edad exacta para formularios oficiales y documentos legales.</li>
+    <li>Determinar la edad para elegibilidad de programas o beneficios.</li>
+    <li>Planificar celebraciones de cumpleaños y aniversarios.</li>
+    <li>Calcular la diferencia de edad entre personas.</li>
+    <li>Verificar la edad para requisitos laborales o educativos.</li>
+    <li>Curiosidad personal sobre el tiempo vivido.</li>
+  </ul>
+
+  <h2>Errores frecuentes al calcular la edad</h2>
+  <ul>
+    <li>No considerar si el cumpleaños ya ocurrió este año.</li>
+    <li>Ignorar los años bisiestos en cálculos de días totales.</li>
+    <li>Calcular solo la diferencia de años sin meses ni días.</li>
+    <li>Confundir la edad cronológica con la edad gestacional.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Para documentos legales, la edad se calcula normalmente en años completos al día de la fecha. Si tu cumpleaños es el 15 de marzo, el 14 de marzo todavía tienes la edad del año anterior.</p>
+
+  <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cuál es la diferencia entre edad cronológica y biológica?</button>
+        <div class="faq-ap"><p>La edad cronológica es el tiempo desde el nacimiento (lo que calcula esta calculadora). La edad biológica refleja la condición real de tu cuerpo según tu estilo de vida, genética y salud.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cómo se calcula la edad exactamente incluyendo meses y días?</button>
+        <div class="faq-ap"><p>La calculadora calcula la diferencia entre la fecha actual y la fecha de nacimiento con precisión, considerando años bisiestos y diferentes duraciones de meses.</p></div>
+      </div>
+  
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cuál es la diferencia entre edad cronológica y biológica?</button>
+        <div class="faq-ap"><p>La edad cronológica es el tiempo desde el nacimiento (lo que calcula esta calculadora). La edad biológica refleja la condición real de tu cuerpo según tu estilo de vida, genética y salud.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cómo se calcula la edad exactamente incluyendo meses y días?</button>
+        <div class="faq-ap"><p>La calculadora calcula la diferencia entre la fecha actual y la fecha de nacimiento con precisión, considerando años bisiestos y diferentes duraciones de meses.</p></div>
+      </div>
+  
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cuál es la diferencia entre edad cronológica y biológica?</button>
+        <div class="faq-ap"><p>La edad cronológica es el tiempo desde el nacimiento (lo que calcula esta calculadora). La edad biológica refleja la condición real de tu cuerpo según tu estilo de vida, genética y salud.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cómo se calcula la edad exactamente incluyendo meses y días?</button>
+        <div class="faq-ap"><p>La calculadora calcula la diferencia entre la fecha actual y la fecha de nacimiento con precisión, considerando años bisiestos y diferentes duraciones de meses.</p></div>
+      </div>
+  
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cuál es la diferencia entre edad cronológica y biológica?</button>
+        <div class="faq-ap"><p>La edad cronológica es el tiempo desde el nacimiento (lo que calcula esta calculadora). La edad biológica refleja la condición real de tu cuerpo según tu estilo de vida, genética y salud.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cómo se calcula la edad exactamente incluyendo meses y días?</button>
+        <div class="faq-ap"><p>La calculadora calcula la diferencia entre la fecha actual y la fecha de nacimiento con precisión, considerando años bisiestos y diferentes duraciones de meses.</p></div>
+      </div>
+  
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿La calculadora considera años bisiestos?</button>
+      <div class="faq-ap">
+        <p>Sí. El cálculo tiene en cuenta los años bisiestos (366 días) para una precisión exacta en el total de días vividos.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Puedo calcular la edad de alguien más?</button>
+      <div class="faq-ap">
+        <p>Sí. Solo necesitas la fecha de nacimiento de la persona y la fecha de referencia para el cálculo.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cómo calculo la diferencia de edad entre dos personas?</button>
+      <div class="faq-ap">
+        <p>Introduce la fecha de nacimiento de cada persona y resta las fechas. La diferencia en días dividida por 365.25 da la diferencia en años.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cuántos días he vivido?</button>
+      <div class="faq-ap">
+        <p>La calculadora muestra el total exacto de días. Como referencia, una persona de 30 años ha vivido aproximadamente 10,957 días.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/date-difference-calculator">Date Difference Calculator</a></li>
+      <li><a href="/tip-calculator">Tip Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/date-difference-calculator">Date Difference Calculator</a></li>
+      <li><a href="/tip-calculator">Tip Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Age Calculator (Detailed): years, months and days</h1>
+  <p>This calculator determines your exact age in years, months, days, hours and even minutes from your birth date, providing a detailed breakdown of your time lived.</p>
+
+  <h2>How age is calculated</h2>
+  <p>The calculation considers:</p>
+  <ul>
+    <li><strong>Full years:</strong> since the last birthday.</li>
+    <li><strong>Additional months:</strong> months elapsed since the last birthday.</li>
+    <li><strong>Additional days:</strong> days since the start of the current month.</li>
+    <li><strong>Total in days:</strong> total number of days lived.</li>
+  </ul>
+  <p>Leap years are taken into account for exact precision.</p>
+
+  <h2>Example 1: detailed age</h2>
+  <p><strong>Problem:</strong> Birth: March 15, 1990. Current date: July 28, 2025.</p>
+  <ol>
+    <li>Full years:
+      <ul>
+        <li>From 1990 to 2025 = 35 years (March birthday already passed).</li>
+      </ul>
+    </li>
+    <li>Additional months and days:
+      <ul>
+        <li>From March 15 to July 28 = 4 months and 13 days.</li>
+      </ul>
+    </li>
+    <li>Total in days:
+      <ul>
+        <li>Approximately 12,918 days lived.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> 35 years, 4 months and 13 days.</p>
+
+  <h2>Common uses of the age calculator</h2>
+  <ul>
+    <li>Computing exact age for official forms and legal documents.</li>
+    <li>Determining age for program or benefit eligibility.</li>
+    <li>Planning birthday and anniversary celebrations.</li>
+    <li>Computing age differences between people.</li>
+    <li>Verifying age for employment or educational requirements.</li>
+    <li>Personal curiosity about time lived.</li>
+  </ul>
+
+  <h2>Common mistakes when calculating age</h2>
+  <ul>
+    <li>Not considering whether the birthday has occurred this year.</li>
+    <li>Ignoring leap years in total day calculations.</li>
+    <li>Computing only the year difference without months or days.</li>
+    <li>Confusing chronological age with gestational age.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>For legal documents, age is normally computed in full years as of the date. If your birthday is March 15, on March 14 you are still the age from the previous year.</p>
+
+  <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What is the difference between chronological and biological age?</button>
+        <div class="faq-ap"><p>Chronological age is the time since birth (what this calculator computes). Biological age reflects your body's actual condition based on lifestyle, genetics, and health factors. You can be 40 chronologically but have a biological age of 35 if you exercise, eat well, and avoid stress.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How is age calculated exactly including months and days?</button>
+        <div class="faq-ap"><p>The calculator computes the difference between the current date and the birth date precisely. It accounts for leap years and varying month lengths. The result shows years, months, and days for maximum accuracy — not just a rounded decimal.</p></div>
+      </div>
+  
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What is the difference between chronological and biological age?</button>
+        <div class="faq-ap"><p>Chronological age is the time since birth (what this calculator computes). Biological age reflects your body's actual condition based on lifestyle, genetics, and health factors. You can be 40 chronologically but have a biological age of 35 if you exercise, eat well, and avoid stress.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How is age calculated exactly including months and days?</button>
+        <div class="faq-ap"><p>The calculator computes the difference between the current date and the birth date precisely. It accounts for leap years and varying month lengths. The result shows years, months, and days for maximum accuracy — not just a rounded decimal.</p></div>
+      </div>
+  
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What is the difference between chronological and biological age?</button>
+        <div class="faq-ap"><p>Chronological age is the time since birth (what this calculator computes). Biological age reflects your body's actual condition based on lifestyle, genetics, and health factors. You can be 40 chronologically but have a biological age of 35 if you exercise, eat well, and avoid stress.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How is age calculated exactly including months and days?</button>
+        <div class="faq-ap"><p>The calculator computes the difference between the current date and the birth date precisely. It accounts for leap years and varying month lengths. The result shows years, months, and days for maximum accuracy — not just a rounded decimal.</p></div>
+      </div>
+  
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Does the calculator consider leap years?</button>
+      <div class="faq-ap">
+        <p>Yes. The calculation accounts for leap years (366 days) for exact precision in total days lived.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Can I calculate someone else's age?</button>
+      <div class="faq-ap">
+        <p>Yes. You just need the person's birth date and the reference date for the calculation.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How do I compute the age difference between two people?</button>
+      <div class="faq-ap">
+        <p>Enter each person's birth date and subtract the dates. The difference in days divided by 365.25 gives the difference in years.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How many days have I lived?</button>
+      <div class="faq-ap">
+        <p>The calculator shows the exact total. As a reference, a 30-year-old has lived approximately 10,957 days.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/date-difference-calculator">Date Difference Calculator</a></li>
+      <li><a href="/tip-calculator">Tip Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/date-difference-calculator">Date Difference Calculator</a></li>
+      <li><a href="/tip-calculator">Tip Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "943": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de diferencia entre fechas: días, semanas y meses</h1>
+  <p>Esta calculadora determina la diferencia exacta entre dos fechas, expresándola en días, semanas, meses y años, útil para planificar proyectos, calcular plazos y medir intervalos de tiempo.</p>
+
+  <h2>Cómo se calcula la diferencia</h2>
+  <p>La calculadora computa:</p>
+  <ul>
+    <li><strong>Días totales:</strong> número exacto de días entre las dos fechas.</li>
+    <li><strong>Semanas:</strong> días totales divididos por 7.</li>
+    <li><strong>Meses y años:</strong> descomposición en años, meses y días restantes.</li>
+    <li><strong>Días laborables:</strong> excluyendo fines de semana (opcional).</li>
+  </ul>
+
+  <h2>Ejemplo 1: diferencia entre dos fechas</h2>
+  <p><strong>Problema:</strong> Fecha inicial: 1 de enero de 2025. Fecha final: 30 de junio de 2025.</p>
+  <ol>
+    <li>Días totales:
+      <ul>
+        <li>31 (ene) + 28 (feb) + 31 (mar) + 30 (abr) + 31 (may) + 30 (jun) − 1 = 180 días.</li>
+      </ul>
+    </li>
+    <li>Semanas:
+      <ul>
+        <li>180 / 7 ≈ 25.7 semanas.</li>
+      </ul>
+    </li>
+    <li>Meses:
+      <ul>
+        <li>Aproximadamente 5 meses y 29 días.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> 180 días, 25 semanas y 5 días, aproximadamente 6 meses.</p>
+
+  <h2>Ejemplo 2: días laborables</h2>
+  <p><strong>Problema:</strong> Proyecto del 1 de marzo al 31 de mayo de 2025. ¿Cuántos días laborables?</p>
+  <ol>
+    <li>Días totales:
+      <ul>
+        <li>92 días (marzo 31 + abril 30 + mayo 31).</li>
+      </ul>
+    </li>
+    <li>Días laborables (aproximado):
+      <ul>
+        <li>92 − fines de semana ≈ 66 días laborables.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> 92 días totales, aproximadamente 66 días laborables.</p>
+
+  <h2>Usos comunes de la calculadora de fechas</h2>
+  <ul>
+    <li>Calcular plazos de entrega para proyectos y tareas.</li>
+    <li>Determinar días restantes para eventos importantes.</li>
+    <li>Calcular la duración de contratos y suscripciones.</li>
+    <li>Planificar vacaciones y contar días de permiso.</li>
+    <li>Calcular intereses por días en productos financieros.</li>
+    <li>Medir la antigüedad laboral o tiempo de servicio.</li>
+  </ul>
+
+  <h2>Errores frecuentes en el cálculo de fechas</h2>
+  <ul>
+    <li>No considerar que febrero tiene 28 o 29 días según el año.</li>
+    <li>Incluir o excluir incorrectamente la fecha de inicio o fin.</li>
+    <li>No distinguir entre días naturales y días laborables.</li>
+    <li>Olvidar que los meses tienen diferente número de días.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Al calcular plazos legales o contractuales, verifica si se cuentan días naturales o días laborables. Muchos contratos especifican "días hábiles" que excluyen fines de semana y festivos.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿La fecha de inicio se cuenta?</button>
+      <div class="faq-ap">
+        <p>Depende del contexto. La calculadora muestra la diferencia neta. Para plazos legales, consulta si se incluye el día inicial.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cómo calculo días laborables exactos?</button>
+      <div class="faq-ap">
+        <p>Resta los fines de semana del total de días. Para mayor precisión, considera también los días festivos específicos de tu país.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Puedo calcular hacia atrás?</button>
+      <div class="faq-ap">
+        <p>Sí. Si necesitas saber qué fecha era hace X días, la calculadora puede restar días de una fecha dada.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué pasa con los años bisiestos?</button>
+      <div class="faq-ap">
+        <p>La calculadora los considera automáticamente. Un año bisiesto tiene 366 días en lugar de 365, con febrero de 29 días.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/age-calculator">Age Calculator</a></li>
+      <li><a href="/tip-calculator">Tip Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/age-calculator">Age Calculator</a></li>
+      <li><a href="/tip-calculator">Tip Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Date Difference Calculator: days, weeks and months</h1>
+  <p>This calculator determines the exact difference between two dates, expressing it in days, weeks, months and years, useful for planning projects, computing deadlines and measuring time intervals.</p>
+
+  <h2>How the difference is calculated</h2>
+  <p>The calculator computes:</p>
+  <ul>
+    <li><strong>Total days:</strong> exact number of days between the two dates.</li>
+    <li><strong>Weeks:</strong> total days divided by 7.</li>
+    <li><strong>Months and years:</strong> breakdown into years, months and remaining days.</li>
+    <li><strong>Business days:</strong> excluding weekends (optional).</li>
+  </ul>
+
+  <h2>Example 1: difference between two dates</h2>
+  <p><strong>Problem:</strong> Start date: January 1, 2025. End date: June 30, 2025.</p>
+  <ol>
+    <li>Total days:
+      <ul>
+        <li>31 (Jan) + 28 (Feb) + 31 (Mar) + 30 (Apr) + 31 (May) + 30 (Jun) − 1 = 180 days.</li>
+      </ul>
+    </li>
+    <li>Weeks:
+      <ul>
+        <li>180 / 7 ≈ 25.7 weeks.</li>
+      </ul>
+    </li>
+    <li>Months:
+      <ul>
+        <li>Approximately 5 months and 29 days.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> 180 days, 25 weeks and 5 days, approximately 6 months.</p>
+
+  <h2>Example 2: business days</h2>
+  <p><strong>Problem:</strong> Project from March 1 to May 31, 2025. How many business days?</p>
+  <ol>
+    <li>Total days:
+      <ul>
+        <li>92 days (March 31 + April 30 + May 31).</li>
+      </ul>
+    </li>
+    <li>Business days (approximate):
+      <ul>
+        <li>92 − weekends ≈ 66 business days.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> 92 total days, approximately 66 business days.</p>
+
+  <h2>Common uses of the date calculator</h2>
+  <ul>
+    <li>Computing delivery deadlines for projects and tasks.</li>
+    <li>Determining days remaining for important events.</li>
+    <li>Calculating contract and subscription durations.</li>
+    <li>Planning vacations and counting leave days.</li>
+    <li>Computing daily interest on financial products.</li>
+    <li>Measuring employment tenure or time of service.</li>
+  </ul>
+
+  <h2>Common mistakes in date calculations</h2>
+  <ul>
+    <li>Not considering that February has 28 or 29 days depending on the year.</li>
+    <li>Incorrectly including or excluding the start or end date.</li>
+    <li>Not distinguishing between calendar days and business days.</li>
+    <li>Forgetting that months have different numbers of days.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>When computing legal or contractual deadlines, verify whether calendar days or business days are counted. Many contracts specify "business days" which exclude weekends and holidays.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Is the start date counted?</button>
+      <div class="faq-ap">
+        <p>It depends on context. The calculator shows the net difference. For legal deadlines, check whether the initial day is included.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How do I compute exact business days?</button>
+      <div class="faq-ap">
+        <p>Subtract weekends from total days. For greater accuracy, also consider specific holidays in your country.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Can I calculate backwards?</button>
+      <div class="faq-ap">
+        <p>Yes. If you need to know what date was X days ago, the calculator can subtract days from a given date.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What about leap years?</button>
+      <div class="faq-ap">
+        <p>The calculator accounts for them automatically. A leap year has 366 days instead of 365, with February having 29 days.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/age-calculator">Age Calculator</a></li>
+      <li><a href="/tip-calculator">Tip Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/age-calculator">Age Calculator</a></li>
+      <li><a href="/tip-calculator">Tip Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "944": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de propina avanzada: dividir la cuenta</h1>
+  <p>Esta calculadora te ayuda a calcular la propina adecuada, dividir la cuenta entre varias personas y obtener el total por persona, incluyendo la propina.</p>
+
+  <h2>Fórmulas de la propina</h2>
+  <p>Los cálculos básicos son:</p>
+  <ul>
+    <li><strong>Propina:</strong> Propina = cuenta × porcentaje_propina</li>
+    <li><strong>Total:</strong> Total = cuenta + propina</li>
+    <li><strong>Por persona:</strong> Por_persona = total / número_de_personas</li>
+  </ul>
+  <p>Los porcentajes típicos de propina varían: 10% (servicio básico), 15% (buen servicio), 18-20% (excelente servicio).</p>
+
+  <h2>Ejemplo 1: cena para 4 personas</h2>
+  <p><strong>Problema:</strong> Cuenta de $120, propina del 18%, dividida entre 4 personas.</p>
+  <ol>
+    <li>Propina:
+      <ul>
+        <li>$120 × 0.18 = $21.60.</li>
+      </ul>
+    </li>
+    <li>Total:
+      <ul>
+        <li>$120 + $21.60 = $141.60.</li>
+      </ul>
+    </li>
+    <li>Por persona:
+      <ul>
+        <li>$141.60 / 4 = $35.40.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> Propina $21.60, total $141.60, $35.40 por persona.</p>
+
+  <h2>Ejemplo 2: almuerzo rápido</h2>
+  <p><strong>Problema:</strong> Cuenta de $45, propina del 15%, dividida entre 2 personas.</p>
+  <ol>
+    <li>Propina:
+      <ul>
+        <li>$45 × 0.15 = $6.75.</li>
+      </ul>
+    </li>
+    <li>Total:
+      <ul>
+        <li>$45 + $6.75 = $51.75.</li>
+      </ul>
+    </li>
+    <li>Por persona:
+      <ul>
+        <li>$51.75 / 2 = $25.88.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> Propina $6.75, total $51.75, $25.88 por persona.</p>
+
+  <h2>Usos comunes de la calculadora de propinas</h2>
+  <ul>
+    <li>Calcular propinas en restaurantes de forma rápida y justa.</li>
+    <li>Dividir cuentas grupales en cenas y eventos.</li>
+    <li>Estimar el coste total antes de pedir la cuenta.</li>
+    <li>Calcular propinas para servicios de delivery y taxis.</li>
+    <li>Ajustar la propina según la calidad del servicio.</li>
+    <li>Planificar presupuestos para comidas fuera de casa.</li>
+  </ul>
+
+  <h2>Errores frecuentes con las propinas</h2>
+  <ul>
+    <li>Calcular la propina sobre el total con impuestos en lugar del subtotal.</li>
+    <li>No considerar si la propina ya está incluida (común en grupos grandes).</li>
+    <li>Redondear demasiado y dar menos propina de la merecida.</li>
+    <li>Olvidar que en algunos países la propina no es esperada.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Si el servicio fue excepcional, considera redondear hacia arriba. Si la cuenta es de $87 con propina del 20% ($17.40), redondear a $20 de propina es un gesto apreciado por el personal de servicio.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Sobre qué monto calculo la propina?</button>
+      <div class="faq-ap">
+        <p>Idealmente sobre el subtotal antes de impuestos. Sin embargo, muchas personas calculan sobre el total por simplicidad.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué porcentaje es apropiado?</button>
+      <div class="faq-ap">
+        <p>En EE.UU.: 15-20% en restaurantes. En Europa: 5-10% o redondear. En Asia: generalmente no se espera propina.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Debo dar propina si el servicio fue malo?</button>
+      <div class="faq-ap">
+        <p>Si el servicio fue realmente deficiente, puedes reducir la propina. Pero considera si el problema fue del restaurante o del camarero.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cómo divido una cuenta desigual?</button>
+      <div class="faq-ap">
+        <p>Esta calculadora divide equitativamente. Para divisiones desiguales, cada persona paga lo que consumió más su parte proporcional de la propina.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/age-calculator">Age Calculator</a></li>
+      <li><a href="/date-difference-calculator">Date Difference Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/age-calculator">Age Calculator</a></li>
+      <li><a href="/date-difference-calculator">Date Difference Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Tip Calculator (Advanced): split the bill</h1>
+  <p>This calculator helps you compute the appropriate tip, split the bill among several people and get the total per person, including the tip.</p>
+
+  <h2>Tip formulas</h2>
+  <p>The basic calculations are:</p>
+  <ul>
+    <li><strong>Tip:</strong> Tip = bill × tip_percentage</li>
+    <li><strong>Total:</strong> Total = bill + tip</li>
+    <li><strong>Per person:</strong> Per_person = total / number_of_people</li>
+  </ul>
+  <p>Typical tip percentages vary: 10% (basic service), 15% (good service), 18-20% (excellent service).</p>
+
+  <h2>Example 1: dinner for 4 people</h2>
+  <p><strong>Problem:</strong> Bill of $120, 18% tip, split among 4 people.</p>
+  <ol>
+    <li>Tip:
+      <ul>
+        <li>$120 × 0.18 = $21.60.</li>
+      </ul>
+    </li>
+    <li>Total:
+      <ul>
+        <li>$120 + $21.60 = $141.60.</li>
+      </ul>
+    </li>
+    <li>Per person:
+      <ul>
+        <li>$141.60 / 4 = $35.40.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> Tip $21.60, total $141.60, $35.40 per person.</p>
+
+  <h2>Example 2: quick lunch</h2>
+  <p><strong>Problem:</strong> Bill of $45, 15% tip, split between 2 people.</p>
+  <ol>
+    <li>Tip:
+      <ul>
+        <li>$45 × 0.15 = $6.75.</li>
+      </ul>
+    </li>
+    <li>Total:
+      <ul>
+        <li>$45 + $6.75 = $51.75.</li>
+      </ul>
+    </li>
+    <li>Per person:
+      <ul>
+        <li>$51.75 / 2 = $25.88.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> Tip $6.75, total $51.75, $25.88 per person.</p>
+
+  <h2>Common uses of the tip calculator</h2>
+  <ul>
+    <li>Computing restaurant tips quickly and fairly.</li>
+    <li>Splitting group bills at dinners and events.</li>
+    <li>Estimating total cost before asking for the bill.</li>
+    <li>Computing tips for delivery and taxi services.</li>
+    <li>Adjusting the tip based on service quality.</li>
+    <li>Planning budgets for dining out.</li>
+  </ul>
+
+  <h2>Common mistakes with tips</h2>
+  <ul>
+    <li>Computing the tip on the total with tax instead of the subtotal.</li>
+    <li>Not considering whether the tip is already included (common for large groups).</li>
+    <li>Rounding too much and giving less tip than deserved.</li>
+    <li>Forgetting that in some countries tipping is not expected.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>If the service was exceptional, consider rounding up. If the bill is $87 with a 20% tip ($17.40), rounding to $20 tip is appreciated by service staff.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">On what amount should I compute the tip?</button>
+      <div class="faq-ap">
+        <p>Ideally on the subtotal before tax. However, many people compute on the total for simplicity.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What percentage is appropriate?</button>
+      <div class="faq-ap">
+        <p>In the US: 15-20% at restaurants. In Europe: 5-10% or round up. In Asia: tipping is generally not expected.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Should I tip if the service was bad?</button>
+      <div class="faq-ap">
+        <p>If the service was truly poor, you can reduce the tip. But consider whether the problem was with the restaurant or the server.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How do I split an uneven bill?</button>
+      <div class="faq-ap">
+        <p>This calculator splits evenly. For uneven splits, each person pays what they consumed plus their proportional share of the tip.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/age-calculator">Age Calculator</a></li>
+      <li><a href="/date-difference-calculator">Date Difference Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/age-calculator">Age Calculator</a></li>
+      <li><a href="/date-difference-calculator">Date Difference Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "945": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de doble descuento: precio final con dos descuentos</h1>
+  <p>Esta calculadora determina el precio final después de aplicar dos descuentos sucesivos, mostrando el ahorro total y el porcentaje equivalente de descuento único.</p>
+
+  <h2>Fórmula del doble descuento</h2>
+  <p>Los descuentos sucesivos no se suman, se multiplican:</p>
+  <p><strong>Precio_final = Precio_original × (1 − d₁) × (1 − d₂)</strong></p>
+  <p>Donde d₁ y d₂ son los descuentos expresados como decimales (por ejemplo, 20% = 0.20). El descuento equivalente único es: 1 − (1 − d₁) × (1 − d₂).</p>
+
+  <h2>Ejemplo 1: dos descuentos en una tienda</h2>
+  <p><strong>Problema:</strong> Producto de $200 con descuento del 30% y luego un 20% adicional.</p>
+  <ol>
+    <li>Primer descuento:
+      <ul>
+        <li>$200 × (1 − 0.30) = $200 × 0.70 = $140.</li>
+      </ul>
+    </li>
+    <li>Segundo descuento:
+      <ul>
+        <li>$140 × (1 − 0.20) = $140 × 0.80 = $112.</li>
+      </ul>
+    </li>
+    <li>Descuento equivalente:
+      <ul>
+        <li>1 − (0.70 × 0.80) = 1 − 0.56 = 0.44 → 44%.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> Precio final $112, ahorro de $88, descuento equivalente del 44%.</p>
+
+  <h2>Ejemplo 2: oferta con cupón adicional</h2>
+  <p><strong>Problema:</strong> Producto de $80 con descuento del 25% y cupón del 10%.</p>
+  <ol>
+    <li>Precio final:
+      <ul>
+        <li>$80 × 0.75 × 0.90 = $54.</li>
+      </ul>
+    </li>
+    <li>Descuento equivalente:
+      <ul>
+        <li>1 − (0.75 × 0.90) = 1 − 0.675 = 0.325 → 32.5%.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> Precio final $54, ahorro de $26, descuento equivalente del 32.5%.</p>
+
+  <h2>Usos comunes del cálculo de doble descuento</h2>
+  <ul>
+    <li>Calcular el precio real en ventas con descuentos adicionales.</li>
+    <li>Comparar ofertas de diferentes tiendas con estructuras de descuento distintas.</li>
+    <li>Verificar si un "doble descuento" es realmente una buena oferta.</li>
+    <li>Entender por qué 30% + 20% no es 50% de descuento.</li>
+    <li>Planificar compras estratégicas durante rebajas.</li>
+    <li>Evaluar promociones con cupones叠加ados.</li>
+  </ul>
+
+  <h2>Errores frecuentes con descuentos sucesivos</h2>
+  <ul>
+    <li>Sumar los porcentajes (30% + 20% ≠ 50%).</li>
+    <li>Aplicar el segundo descuento sobre el precio original en lugar del ya descontado.</li>
+    <li>No verificar si los descuentos son acumulables.</li>
+    <li>Ignorar impuestos que se aplican sobre el precio final.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>El orden de los descuentos no importa matemáticamente: 30% luego 20% da el mismo resultado que 20% luego 30%. Sin embargo, en la práctica, algunos sistemas aplican los descuentos en un orden específico que puede afectar el resultado final debido al redondeo.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Por qué 30% + 20% no es 50%?</button>
+      <div class="faq-ap">
+        <p>Porque el segundo descuento se aplica sobre el precio ya reducido, no sobre el original. 30% + 20% sucesivos equivalen a 44%, no 50%.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿El orden de los descuentos importa?</button>
+      <div class="faq-ap">
+        <p>Matemáticamente no: (1-d₁)×(1-d₂) = (1-d₂)×(1-d₁). Pero el redondeo intermedio puede crear diferencias mínimas.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cómo calculo tres descuentos?</button>
+      <div class="faq-ap">
+        <p>Aplica la misma lógica: Precio × (1-d₁) × (1-d₂) × (1-d₃). Cada descuento se aplica sobre el resultado del anterior.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Los impuestos se calculan antes o después del descuento?</button>
+      <div class="faq-ap">
+        <p>Normalmente los impuestos se aplican sobre el precio final después de todos los descuentos.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Double Discount Calculator: final price with two discounts</h1>
+  <p>This calculator determines the final price after applying two successive discounts, showing the total savings and the equivalent single discount percentage.</p>
+
+  <h2>Double discount formula</h2>
+  <p>Successive discounts do not add, they multiply:</p>
+  <p><strong>Final_price = Original_price × (1 − d₁) × (1 − d₂)</strong></p>
+  <p>Where d₁ and d₂ are the discounts expressed as decimals (e.g., 20% = 0.20). The equivalent single discount is: 1 − (1 − d₁) × (1 − d₂).</p>
+
+  <h2>Example 1: two discounts at a store</h2>
+  <p><strong>Problem:</strong> Product of $200 with 30% discount and then an additional 20%.</p>
+  <ol>
+    <li>First discount:
+      <ul>
+        <li>$200 × (1 − 0.30) = $200 × 0.70 = $140.</li>
+      </ul>
+    </li>
+    <li>Second discount:
+      <ul>
+        <li>$140 × (1 − 0.20) = $140 × 0.80 = $112.</li>
+      </ul>
+    </li>
+    <li>Equivalent discount:
+      <ul>
+        <li>1 − (0.70 × 0.80) = 1 − 0.56 = 0.44 → 44%.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> Final price $112, savings of $88, equivalent discount of 44%.</p>
+
+  <h2>Example 2: sale with additional coupon</h2>
+  <p><strong>Problem:</strong> Product of $80 with 25% discount and 10% coupon.</p>
+  <ol>
+    <li>Final price:
+      <ul>
+        <li>$80 × 0.75 × 0.90 = $54.</li>
+      </ul>
+    </li>
+    <li>Equivalent discount:
+      <ul>
+        <li>1 − (0.75 × 0.90) = 1 − 0.675 = 0.325 → 32.5%.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> Final price $54, savings of $26, equivalent discount of 32.5%.</p>
+
+  <h2>Common uses of double discount calculation</h2>
+  <ul>
+    <li>Computing the real price in sales with additional discounts.</li>
+    <li>Comparing offers from different stores with different discount structures.</li>
+    <li>Verifying whether a "double discount" is truly a good deal.</li>
+    <li>Understanding why 30% + 20% is not 50% off.</li>
+    <li>Planning strategic purchases during sales.</li>
+    <li>Evaluating promotions with stacked coupons.</li>
+  </ul>
+
+  <h2>Common mistakes with successive discounts</h2>
+  <ul>
+    <li>Adding the percentages (30% + 20% ≠ 50%).</li>
+    <li>Applying the second discount to the original price instead of the already discounted price.</li>
+    <li>Not verifying whether discounts are combinable.</li>
+    <li>Ignoring taxes applied on the final price.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>The order of discounts does not matter mathematically: 30% then 20% gives the same result as 20% then 30%. However, in practice, some systems apply discounts in a specific order that may affect the final result due to rounding.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Why is 30% + 20% not 50%?</button>
+      <div class="faq-ap">
+        <p>Because the second discount is applied to the already reduced price, not the original. 30% + 20% successive equals 44%, not 50%.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Does the order of discounts matter?</button>
+      <div class="faq-ap">
+        <p>Mathematically no: (1-d₁)×(1-d₂) = (1-d₂)×(1-d₁). But intermediate rounding can create minimal differences.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How do I compute three discounts?</button>
+      <div class="faq-ap">
+        <p>Apply the same logic: Price × (1-d₁) × (1-d₂) × (1-d₃). Each discount is applied on the result of the previous one.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Are taxes calculated before or after the discount?</button>
+      <div class="faq-ap">
+        <p>Normally taxes are applied to the final price after all discounts.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/salary-to-hourly-calculator">Salary to Hourly Calculator</a></li>
+      <li><a href="/hourly-to-annual-calculator">Hourly to Annual Calculator</a></li>
+      <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+      <li><a href="/debt-payoff-calculator">Debt Payoff Calculator</a></li>
+      <li><a href="/savings-goal-calculator">Savings Goal Calculator</a></li>
+      <li><a href="/profit-margin-calculator">Profit Margin Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "946": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de energía cinética: movimiento y velocidad</h1>
+  <p>La energía cinética es la energía que posee un objeto debido a su movimiento. Esta calculadora determina la energía cinética a partir de la masa y la velocidad del objeto.</p>
+
+  <h2>Fórmula de la energía cinética</h2>
+  <p>La energía cinética se calcula como:</p>
+  <p><strong>KE = 0.5 × m × v²</strong></p>
+  <p>Donde <em>m</em> es la masa en kilogramos y <em>v</em> es la velocidad en metros por segundo. El resultado se expresa en julios (J).</p>
+
+  <h2>Ejemplo 1: coche en movimiento</h2>
+  <p><strong>Problema:</strong> Un coche de 1,500 kg viaja a 25 m/s (90 km/h).</p>
+  <ol>
+    <li>Cálculo:
+      <ul>
+        <li>KE = 0.5 × 1,500 × 25² = 0.5 × 1,500 × 625 = 468,750 J.</li>
+      </ul>
+    </li>
+    <li>En kilojulios:
+      <ul>
+        <li>468,750 J = 468.75 kJ.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> KE = 468,750 J (468.75 kJ).</p>
+
+  <h2>Ejemplo 2: pelota de béisbol</h2>
+  <p><strong>Problema:</strong> Una pelota de 0.145 kg lanzada a 40 m/s (144 km/h).</p>
+  <ol>
+    <li>Cálculo:
+      <ul>
+        <li>KE = 0.5 × 0.145 × 40² = 0.5 × 0.145 × 1,600 = 116 J.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> KE = 116 J.</p>
+
+  <h2>Usos comunes de la energía cinética</h2>
+  <ul>
+    <li>Calcular la energía de vehículos para análisis de seguridad vial.</li>
+    <li>Determinar la energía de proyectiles en balística.</li>
+    <li>Analizar el rendimiento de atletas y objetos deportivos.</li>
+    <li>Estudiar la energía de partículas en física.</li>
+    <li>Diseñar sistemas de frenado y absorción de impacto.</li>
+    <li>Calcular la energía generada por turbinas eólicas.</li>
+  </ul>
+
+  <h2>Errores frecuentes con la energía cinética</h2>
+  <ul>
+    <li>No convertir la velocidad a m/s antes de calcular (km/h → m/s: dividir por 3.6).</li>
+    <li>Olvidar elevar la velocidad al cuadrado.</li>
+    <li>Usar gramos en lugar de kilogramos para la masa.</li>
+    <li>No considerar que la energía cinética depende del cuadrado de la velocidad (doble velocidad = cuádruple energía).</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>La relación cuadrática entre velocidad y energía cinética es crucial para la seguridad: un coche a 120 km/h tiene 4 veces más energía cinética que a 60 km/h, lo que significa que la distancia de frenado y la severidad de un impacto se multiplican enormemente.</p>
+
+  <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cómo afecta la energía cinética a la seguridad del automóvil?</button>
+        <div class="faq-ap"><p>Dado que la EC se cuadruplica cuando la velocidad se duplica, un choque a 100 km/h libera 4× más energía que a 50 km/h. Por eso los límites de velocidad tienen un impacto tan dramático en la gravedad de las colisiones.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cuál es la diferencia entre energía cinética y potencial?</button>
+        <div class="faq-ap"><p>La energía cinética es energía de movimiento, mientras que la energía potencial es energía almacenada. Una montaña rusa convierte energía potencial en cinética al descender.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Qué unidades debo usar para los cálculos de energía cinética?</button>
+        <div class="faq-ap"><p>Siempre usa kilogramos (kg) para la masa y metros por segundo (m/s) para la velocidad. El resultado será en julios (J).</p></div>
+      </div>
+  
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cómo afecta la energía cinética a la seguridad del automóvil?</button>
+        <div class="faq-ap"><p>Dado que la EC se cuadruplica cuando la velocidad se duplica, un choque a 100 km/h libera 4× más energía que a 50 km/h. Por eso los límites de velocidad tienen un impacto tan dramático en la gravedad de las colisiones.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cuál es la diferencia entre energía cinética y potencial?</button>
+        <div class="faq-ap"><p>La energía cinética es energía de movimiento, mientras que la energía potencial es energía almacenada. Una montaña rusa convierte energía potencial en cinética al descender.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Qué unidades debo usar para los cálculos de energía cinética?</button>
+        <div class="faq-ap"><p>Siempre usa kilogramos (kg) para la masa y metros por segundo (m/s) para la velocidad. El resultado será en julios (J).</p></div>
+      </div>
+  
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cómo afecta la energía cinética a la seguridad del automóvil?</button>
+        <div class="faq-ap"><p>Dado que la EC se cuadruplica cuando la velocidad se duplica, un choque a 100 km/h libera 4× más energía que a 50 km/h. Por eso los límites de velocidad tienen un impacto tan dramático en la gravedad de las colisiones.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cuál es la diferencia entre energía cinética y potencial?</button>
+        <div class="faq-ap"><p>La energía cinética es energía de movimiento, mientras que la energía potencial es energía almacenada. Una montaña rusa convierte energía potencial en cinética al descender.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Qué unidades debo usar para los cálculos de energía cinética?</button>
+        <div class="faq-ap"><p>Siempre usa kilogramos (kg) para la masa y metros por segundo (m/s) para la velocidad. El resultado será en julios (J).</p></div>
+      </div>
+  
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cómo afecta la energía cinética a la seguridad del automóvil?</button>
+        <div class="faq-ap"><p>Dado que la EC se cuadruplica cuando la velocidad se duplica, un choque a 100 km/h libera 4× más energía que a 50 km/h. Por eso los límites de velocidad tienen un impacto tan dramático en la gravedad de las colisiones.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cuál es la diferencia entre energía cinética y potencial?</button>
+        <div class="faq-ap"><p>La energía cinética es energía de movimiento, mientras que la energía potencial es energía almacenada. Una montaña rusa convierte energía potencial en cinética al descender.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Qué unidades debo usar para los cálculos de energía cinética?</button>
+        <div class="faq-ap"><p>Siempre usa kilogramos (kg) para la masa y metros por segundo (m/s) para la velocidad. El resultado será en julios (J).</p></div>
+      </div>
+  
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué es un julio?</button>
+      <div class="faq-ap">
+        <p>El julio (J) es la unidad de energía en el Sistema Internacional. 1 J = 1 kg·m²/s². Para referencia, levantar una manzana 1 metro requiere aproximadamente 1 J.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cómo convierto km/h a m/s?</button>
+      <div class="faq-ap">
+        <p>Divide por 3.6. Por ejemplo, 90 km/h = 90/3.6 = 25 m/s.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿La energía cinética puede ser negativa?</button>
+      <div class="faq-ap">
+        <p>No. La masa siempre es positiva y la velocidad al cuadrado también, por lo que la energía cinética siempre es cero o positiva.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué pasa si la velocidad se duplica?</button>
+      <div class="faq-ap">
+        <p>La energía cinética se cuadruplica porque depende de v². Doble velocidad = 4× energía. Triple velocidad = 9× energía.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/potential-energy-calculator">Potential Energy Calculator</a></li>
+      <li><a href="/work-and-power-calculator">Work and Power Calculator</a></li>
+      <li><a href="/ohms-law-calculator">Ohm's Law Calculator</a></li>
+      <li><a href="/newtons-second-law-calculator">Newton's Second Law Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/potential-energy-calculator">Potential Energy Calculator</a></li>
+      <li><a href="/work-and-power-calculator">Work and Power Calculator</a></li>
+      <li><a href="/ohms-law-calculator">Ohm's Law Calculator</a></li>
+      <li><a href="/newtons-second-law-calculator">Newton's Second Law Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Kinetic Energy Calculator: motion and velocity</h1>
+  <p>Kinetic energy is the energy an object possesses due to its motion. This calculator determines kinetic energy from the mass and velocity of the object.</p>
+
+  <h2>Kinetic energy formula</h2>
+  <p>Kinetic energy is computed as:</p>
+  <p><strong>KE = 0.5 × m × v²</strong></p>
+  <p>Where <em>m</em> is mass in kilograms and <em>v</em> is velocity in meters per second. The result is expressed in joules (J).</p>
+
+  <h2>Example 1: moving car</h2>
+  <p><strong>Problem:</strong> A 1,500 kg car travels at 25 m/s (90 km/h).</p>
+  <ol>
+    <li>Calculation:
+      <ul>
+        <li>KE = 0.5 × 1,500 × 25² = 0.5 × 1,500 × 625 = 468,750 J.</li>
+      </ul>
+    </li>
+    <li>In kilojoules:
+      <ul>
+        <li>468,750 J = 468.75 kJ.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> KE = 468,750 J (468.75 kJ).</p>
+
+  <h2>Example 2: baseball</h2>
+  <p><strong>Problem:</strong> A 0.145 kg ball thrown at 40 m/s (144 km/h).</p>
+  <ol>
+    <li>Calculation:
+      <ul>
+        <li>KE = 0.5 × 0.145 × 40² = 0.5 × 0.145 × 1,600 = 116 J.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> KE = 116 J.</p>
+
+  <h2>Common uses of kinetic energy</h2>
+  <ul>
+    <li>Computing vehicle energy for road safety analysis.</li>
+    <li>Determining projectile energy in ballistics.</li>
+    <li>Analyzing athlete and sports equipment performance.</li>
+    <li>Studying particle energy in physics.</li>
+    <li>Designing braking systems and impact absorption.</li>
+    <li>Computing energy generated by wind turbines.</li>
+  </ul>
+
+  <h2>Common mistakes with kinetic energy</h2>
+  <ul>
+    <li>Not converting velocity to m/s before calculating (km/h → m/s: divide by 3.6).</li>
+    <li>Forgetting to square the velocity.</li>
+    <li>Using grams instead of kilograms for mass.</li>
+    <li>Not considering that kinetic energy depends on the square of velocity (double speed = quadruple energy).</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>The quadratic relationship between speed and kinetic energy is crucial for safety: a car at 120 km/h has 4 times more kinetic energy than at 60 km/h, meaning braking distance and impact severity multiply enormously.</p>
+
+  <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How does kinetic energy affect car safety?</button>
+        <div class="faq-ap"><p>Since KE quadruples when speed doubles, a crash at 100 km/h releases 4× more energy than at 50 km/h. This is why highway speed limits have such a dramatic impact on collision severity and why airbags and crumple zones are essential safety features.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What is the difference between kinetic and potential energy?</button>
+        <div class="faq-ap"><p>Kinetic energy is energy of motion, while potential energy is stored energy (like a ball held at height). A roller coaster converts potential energy at the top of a hill into kinetic energy as it speeds down, demonstrating the conservation of mechanical energy.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What units should I use for kinetic energy calculations?</button>
+        <div class="faq-ap"><p>Always use kilograms (kg) for mass and meters per second (m/s) for velocity. The result will be in joules (J). Common conversions: 1 kJ = 1,000 J, 1 calorie = 4.184 J, 1 kWh = 3,600,000 J.</p></div>
+      </div>
+  
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How does kinetic energy affect car safety?</button>
+        <div class="faq-ap"><p>Since KE quadruples when speed doubles, a crash at 100 km/h releases 4× more energy than at 50 km/h. This is why highway speed limits have such a dramatic impact on collision severity and why airbags and crumple zones are essential safety features.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What is the difference between kinetic and potential energy?</button>
+        <div class="faq-ap"><p>Kinetic energy is energy of motion, while potential energy is stored energy (like a ball held at height). A roller coaster converts potential energy at the top of a hill into kinetic energy as it speeds down, demonstrating the conservation of mechanical energy.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What units should I use for kinetic energy calculations?</button>
+        <div class="faq-ap"><p>Always use kilograms (kg) for mass and meters per second (m/s) for velocity. The result will be in joules (J). Common conversions: 1 kJ = 1,000 J, 1 calorie = 4.184 J, 1 kWh = 3,600,000 J.</p></div>
+      </div>
+  
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How does kinetic energy affect car safety?</button>
+        <div class="faq-ap"><p>Since KE quadruples when speed doubles, a crash at 100 km/h releases 4× more energy than at 50 km/h. This is why highway speed limits have such a dramatic impact on collision severity and why airbags and crumple zones are essential safety features.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What is the difference between kinetic and potential energy?</button>
+        <div class="faq-ap"><p>Kinetic energy is energy of motion, while potential energy is stored energy (like a ball held at height). A roller coaster converts potential energy at the top of a hill into kinetic energy as it speeds down, demonstrating the conservation of mechanical energy.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What units should I use for kinetic energy calculations?</button>
+        <div class="faq-ap"><p>Always use kilograms (kg) for mass and meters per second (m/s) for velocity. The result will be in joules (J). Common conversions: 1 kJ = 1,000 J, 1 calorie = 4.184 J, 1 kWh = 3,600,000 J.</p></div>
+      </div>
+  
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What is a joule?</button>
+      <div class="faq-ap">
+        <p>The joule (J) is the SI unit of energy. 1 J = 1 kg·m²/s². For reference, lifting an apple 1 meter requires approximately 1 J.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How do I convert km/h to m/s?</button>
+      <div class="faq-ap">
+        <p>Divide by 3.6. For example, 90 km/h = 90/3.6 = 25 m/s.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Can kinetic energy be negative?</button>
+      <div class="faq-ap">
+        <p>No. Mass is always positive and velocity squared is also positive, so kinetic energy is always zero or positive.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What happens if velocity doubles?</button>
+      <div class="faq-ap">
+        <p>Kinetic energy quadruples because it depends on v². Double speed = 4× energy. Triple speed = 9× energy.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/potential-energy-calculator">Potential Energy Calculator</a></li>
+      <li><a href="/work-and-power-calculator">Work and Power Calculator</a></li>
+      <li><a href="/ohms-law-calculator">Ohm's Law Calculator</a></li>
+      <li><a href="/newtons-second-law-calculator">Newton's Second Law Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/potential-energy-calculator">Potential Energy Calculator</a></li>
+      <li><a href="/work-and-power-calculator">Work and Power Calculator</a></li>
+      <li><a href="/ohms-law-calculator">Ohm's Law Calculator</a></li>
+      <li><a href="/newtons-second-law-calculator">Newton's Second Law Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "947": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de energía potencial gravitatoria</h1>
+  <p>La energía potencial gravitatoria es la energía almacenada en un objeto debido a su posición en un campo gravitatorio. Esta calculadora la determina a partir de la masa, la altura y la aceleración de la gravedad.</p>
+
+  <h2>Fórmula de la energía potencial</h2>
+  <p>La energía potencial gravitatoria se calcula como:</p>
+  <p><strong>PE = m × g × h</strong></p>
+  <p>Donde <em>m</em> es la masa en kg, <em>g</em> es la aceleración de la gravedad (9.81 m/s² en la Tierra) y <em>h</em> es la altura en metros. El resultado se expresa en julios (J).</p>
+
+  <h2>Ejemplo 1: objeto elevado</h2>
+  <p><strong>Problema:</strong> Un objeto de 10 kg a 15 m de altura.</p>
+  <ol>
+    <li>Cálculo:
+      <ul>
+        <li>PE = 10 × 9.81 × 15 = 1,471.5 J.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> PE = 1,471.5 J.</p>
+
+  <h2>Ejemplo 2: presa hidroeléctrica</h2>
+  <p><strong>Problema:</strong> 1,000 kg de agua a 50 m de altura.</p>
+  <ol>
+    <li>Cálculo:
+      <ul>
+        <li>PE = 1,000 × 9.81 × 50 = 490,500 J = 490.5 kJ.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> PE = 490,500 J (490.5 kJ).</p>
+
+  <h2>Usos comunes de la energía potencial</h2>
+  <ul>
+    <li>Calcular la energía almacenada en presas hidroeléctricas.</li>
+    <li>Analizar la energía de objetos en caída libre.</li>
+    <li>Diseñar sistemas de almacenamiento por bombeo.</li>
+    <li>Estudiar la conservación de energía en física.</li>
+    <li>Calcular el trabajo necesario para elevar cargas.</li>
+    <li>Evaluar la energía potencial en montañas rusas y deportes extremos.</li>
+  </ul>
+
+  <h2>Errores frecuentes con la energía potencial</h2>
+  <ul>
+    <li>Usar centímetros en lugar de metros para la altura.</li>
+    <li>No usar el valor correcto de g para la ubicación (varía ligeramente con la latitud).</li>
+    <li>Confundir energía potencial con energía cinética.</li>
+    <li>No considerar que la altura se mide desde un punto de referencia.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>La energía potencial se convierte en energía cinética cuando el objeto cae. En ausencia de fricción, PE_inicial = KE_final. Esta conservación de energía es fundamental para resolver problemas de mecánica.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿El valor de g es siempre 9.81?</button>
+      <div class="faq-ap">
+        <p>En la Tierra varía ligeramente: 9.78 m/s² en el ecuador y 9.83 m/s² en los polos. 9.81 es el valor estándar promedio.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Desde dónde se mide la altura?</button>
+      <div class="faq-ap">
+        <p>Desde un punto de referencia que tú eliges (normalmente el suelo). Lo importante es la diferencia de altura, no la altura absoluta.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué pasa en la Luna?</button>
+      <div class="faq-ap">
+        <p>La gravedad lunar es 1.62 m/s², aproximadamente 1/6 de la terrestre. Un objeto tiene 6 veces menos energía potencial en la Luna.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿La energía potencial puede ser negativa?</button>
+      <div class="faq-ap">
+        <p>Sí, si el objeto está por debajo del punto de referencia elegido. Esto es común en problemas de pozos o minas.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/kinetic-energy-calculator">Kinetic Energy Calculator</a></li>
+      <li><a href="/work-and-power-calculator">Work and Power Calculator</a></li>
+      <li><a href="/ohms-law-calculator">Ohm's Law Calculator</a></li>
+      <li><a href="/newtons-second-law-calculator">Newton's Second Law Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/kinetic-energy-calculator">Kinetic Energy Calculator</a></li>
+      <li><a href="/work-and-power-calculator">Work and Power Calculator</a></li>
+      <li><a href="/ohms-law-calculator">Ohm's Law Calculator</a></li>
+      <li><a href="/newtons-second-law-calculator">Newton's Second Law Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Gravitational Potential Energy Calculator</h1>
+  <p>Gravitational potential energy is the energy stored in an object due to its position in a gravitational field. This calculator determines it from mass, height and gravitational acceleration.</p>
+
+  <h2>Potential energy formula</h2>
+  <p>Gravitational potential energy is computed as:</p>
+  <p><strong>PE = m × g × h</strong></p>
+  <p>Where <em>m</em> is mass in kg, <em>g</em> is gravitational acceleration (9.81 m/s² on Earth) and <em>h</em> is height in meters. The result is expressed in joules (J).</p>
+
+  <h2>Example 1: elevated object</h2>
+  <p><strong>Problem:</strong> A 10 kg object at 15 m height.</p>
+  <ol>
+    <li>Calculation:
+      <ul>
+        <li>PE = 10 × 9.81 × 15 = 1,471.5 J.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> PE = 1,471.5 J.</p>
+
+  <h2>Example 2: hydroelectric dam</h2>
+  <p><strong>Problem:</strong> 1,000 kg of water at 50 m height.</p>
+  <ol>
+    <li>Calculation:
+      <ul>
+        <li>PE = 1,000 × 9.81 × 50 = 490,500 J = 490.5 kJ.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> PE = 490,500 J (490.5 kJ).</p>
+
+  <h2>Common uses of potential energy</h2>
+  <ul>
+    <li>Computing stored energy in hydroelectric dams.</li>
+    <li>Analyzing energy of objects in free fall.</li>
+    <li>Designing pumped storage systems.</li>
+    <li>Studying energy conservation in physics.</li>
+    <li>Computing work required to lift loads.</li>
+    <li>Evaluating potential energy in roller coasters and extreme sports.</li>
+  </ul>
+
+  <h2>Common mistakes with potential energy</h2>
+  <ul>
+    <li>Using centimeters instead of meters for height.</li>
+    <li>Not using the correct value of g for the location (varies slightly with latitude).</li>
+    <li>Confusing potential energy with kinetic energy.</li>
+    <li>Not considering that height is measured from a reference point.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>Potential energy converts to kinetic energy when the object falls. In the absence of friction, PE_initial = KE_final. This energy conservation is fundamental for solving mechanics problems.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Is g always 9.81?</button>
+      <div class="faq-ap">
+        <p>On Earth it varies slightly: 9.78 m/s² at the equator and 9.83 m/s² at the poles. 9.81 is the standard average value.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">From where is height measured?</button>
+      <div class="faq-ap">
+        <p>From a reference point you choose (normally the ground). What matters is the height difference, not the absolute height.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What about on the Moon?</button>
+      <div class="faq-ap">
+        <p>Lunar gravity is 1.62 m/s², approximately 1/6 of Earth's. An object has 6 times less potential energy on the Moon.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Can potential energy be negative?</button>
+      <div class="faq-ap">
+        <p>Yes, if the object is below the chosen reference point. This is common in well or mine problems.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/kinetic-energy-calculator">Kinetic Energy Calculator</a></li>
+      <li><a href="/work-and-power-calculator">Work and Power Calculator</a></li>
+      <li><a href="/ohms-law-calculator">Ohm's Law Calculator</a></li>
+      <li><a href="/newtons-second-law-calculator">Newton's Second Law Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/kinetic-energy-calculator">Kinetic Energy Calculator</a></li>
+      <li><a href="/work-and-power-calculator">Work and Power Calculator</a></li>
+      <li><a href="/ohms-law-calculator">Ohm's Law Calculator</a></li>
+      <li><a href="/newtons-second-law-calculator">Newton's Second Law Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "948": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de trabajo y potencia mecánica</h1>
+  <p>Esta calculadora determina el trabajo mecánico realizado por una fuerza y la potencia necesaria para realizarlo en un tiempo dado, conceptos fundamentales en física e ingeniería.</p>
+
+  <h2>Fórmulas de trabajo y potencia</h2>
+  <p>Las fórmulas básicas son:</p>
+  <ul>
+    <li><strong>Trabajo:</strong> W = F × d (fuerza por distancia)</li>
+    <li><strong>Potencia:</strong> P = W / t (trabajo por unidad de tiempo)</li>
+    <li><strong>Potencia alternativa:</strong> P = F × v (fuerza por velocidad)</li>
+  </ul>
+  <p>El trabajo se mide en julios (J), la potencia en vatios (W) y 1 vatio = 1 julio/segundo.</p>
+
+  <h2>Ejemplo 1: empujar un objeto</h2>
+  <p><strong>Problema:</strong> Se aplica una fuerza de 50 N para mover un objeto 10 m en 5 segundos.</p>
+  <ol>
+    <li>Trabajo:
+      <ul>
+        <li>W = 50 × 10 = 500 J.</li>
+      </ul>
+    </li>
+    <li>Potencia:
+      <ul>
+        <li>P = 500 / 5 = 100 W.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> Trabajo = 500 J, Potencia = 100 W.</p>
+
+  <h2>Ejemplo 2: levantar una carga</h2>
+  <p><strong>Problema:</strong> Levantar 200 kg a 3 m de altura en 10 segundos.</p>
+  <ol>
+    <li>Fuerza (peso):
+      <ul>
+        <li>F = m × g = 200 × 9.81 = 1,962 N.</li>
+      </ul>
+    </li>
+    <li>Trabajo:
+      <ul>
+        <li>W = 1,962 × 3 = 5,886 J.</li>
+      </ul>
+    </li>
+    <li>Potencia:
+      <ul>
+        <li>P = 5,886 / 10 = 588.6 W.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> Trabajo = 5,886 J, Potencia = 588.6 W.</p>
+
+  <h2>Usos comunes del cálculo de trabajo y potencia</h2>
+  <ul>
+    <li>Dimensionar motores y máquinas para tareas específicas.</li>
+    <li>Calcular el consumo energético de procesos industriales.</li>
+    <li>Evaluar el rendimiento de atletas en deportes de fuerza.</li>
+    <li>Diseñar sistemas de elevación y transporte.</li>
+    <li>Analizar la eficiencia de herramientas y equipos.</li>
+    <li>Resolver problemas de física en educación.</li>
+  </ul>
+
+  <h2>Errores frecuentes con trabajo y potencia</h2>
+  <ul>
+    <li>No considerar el ángulo entre la fuerza y la dirección del movimiento.</li>
+    <li>Confundir potencia (W) con trabajo (J).</li>
+    <li>No convertir unidades correctamente (caballos de vapor a vatios: 1 CV ≈ 735.5 W).</li>
+    <li>Olvidar que el trabajo solo se realiza cuando hay desplazamiento.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Si la fuerza no es paralela al desplazamiento, usa W = F × d × cos(θ), donde θ es el ángulo entre la fuerza y la dirección del movimiento. Cuando θ = 90°, el trabajo es cero.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué es un vatio?</button>
+      <div class="faq-ap">
+        <p>Un vatio (W) es la unidad de potencia: 1 W = 1 J/s. Indica cuánta energía se transfiere por segundo.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cuál es la diferencia entre trabajo y energía?</button>
+      <div class="faq-ap">
+        <p>Se miden en las mismas unidades (julios). El trabajo es la transferencia de energía mediante una fuerza. Son conceptualmente equivalentes.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cómo convierto vatios a caballos de vapor?</button>
+      <div class="faq-ap">
+        <p>1 CV (caballo de vapor) ≈ 735.5 W. Divide los vatios por 735.5 para obtener CV.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Puede el trabajo ser negativo?</button>
+      <div class="faq-ap">
+        <p>Sí. Si la fuerza se opone al movimiento (como la fricción), el trabajo es negativo porque la fuerza extrae energía del sistema.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/kinetic-energy-calculator">Kinetic Energy Calculator</a></li>
+      <li><a href="/potential-energy-calculator">Potential Energy Calculator</a></li>
+      <li><a href="/ohms-law-calculator">Ohm's Law Calculator</a></li>
+      <li><a href="/newtons-second-law-calculator">Newton's Second Law Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/kinetic-energy-calculator">Kinetic Energy Calculator</a></li>
+      <li><a href="/potential-energy-calculator">Potential Energy Calculator</a></li>
+      <li><a href="/ohms-law-calculator">Ohm's Law Calculator</a></li>
+      <li><a href="/newtons-second-law-calculator">Newton's Second Law Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Work and Power Calculator</h1>
+  <p>This calculator determines the mechanical work done by a force and the power required to perform it in a given time, fundamental concepts in physics and engineering.</p>
+
+  <h2>Work and power formulas</h2>
+  <p>The basic formulas are:</p>
+  <ul>
+    <li><strong>Work:</strong> W = F × d (force times distance)</li>
+    <li><strong>Power:</strong> P = W / t (work per unit time)</li>
+    <li><strong>Alternative power:</strong> P = F × v (force times velocity)</li>
+  </ul>
+  <p>Work is measured in joules (J), power in watts (W) and 1 watt = 1 joule/second.</p>
+
+  <h2>Example 1: pushing an object</h2>
+  <p><strong>Problem:</strong> A force of 50 N is applied to move an object 10 m in 5 seconds.</p>
+  <ol>
+    <li>Work:
+      <ul>
+        <li>W = 50 × 10 = 500 J.</li>
+      </ul>
+    </li>
+    <li>Power:
+      <ul>
+        <li>P = 500 / 5 = 100 W.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> Work = 500 J, Power = 100 W.</p>
+
+  <h2>Example 2: lifting a load</h2>
+  <p><strong>Problem:</strong> Lift 200 kg to 3 m height in 10 seconds.</p>
+  <ol>
+    <li>Force (weight):
+      <ul>
+        <li>F = m × g = 200 × 9.81 = 1,962 N.</li>
+      </ul>
+    </li>
+    <li>Work:
+      <ul>
+        <li>W = 1,962 × 3 = 5,886 J.</li>
+      </ul>
+    </li>
+    <li>Power:
+      <ul>
+        <li>P = 5,886 / 10 = 588.6 W.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> Work = 5,886 J, Power = 588.6 W.</p>
+
+  <h2>Common uses of work and power calculation</h2>
+  <ul>
+    <li>Sizing motors and machines for specific tasks.</li>
+    <li>Computing energy consumption of industrial processes.</li>
+    <li>Evaluating athlete performance in strength sports.</li>
+    <li>Designing lifting and transport systems.</li>
+    <li>Analyzing efficiency of tools and equipment.</li>
+    <li>Solving physics problems in education.</li>
+  </ul>
+
+  <h2>Common mistakes with work and power</h2>
+  <ul>
+    <li>Not considering the angle between force and direction of motion.</li>
+    <li>Confusing power (W) with work (J).</li>
+    <li>Not converting units correctly (horsepower to watts: 1 hp ≈ 745.7 W).</li>
+    <li>Forgetting that work is only done when there is displacement.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>If the force is not parallel to the displacement, use W = F × d × cos(θ), where θ is the angle between the force and the direction of motion. When θ = 90°, the work is zero.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What is a watt?</button>
+      <div class="faq-ap">
+        <p>A watt (W) is the unit of power: 1 W = 1 J/s. It indicates how much energy is transferred per second.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What is the difference between work and energy?</button>
+      <div class="faq-ap">
+        <p>They are measured in the same units (joules). Work is the transfer of energy through a force. They are conceptually equivalent.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How do I convert watts to horsepower?</button>
+      <div class="faq-ap">
+        <p>1 hp ≈ 745.7 W. Divide watts by 745.7 to get horsepower.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Can work be negative?</button>
+      <div class="faq-ap">
+        <p>Yes. If the force opposes the motion (like friction), the work is negative because the force removes energy from the system.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/kinetic-energy-calculator">Kinetic Energy Calculator</a></li>
+      <li><a href="/potential-energy-calculator">Potential Energy Calculator</a></li>
+      <li><a href="/ohms-law-calculator">Ohm's Law Calculator</a></li>
+      <li><a href="/newtons-second-law-calculator">Newton's Second Law Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/kinetic-energy-calculator">Kinetic Energy Calculator</a></li>
+      <li><a href="/potential-energy-calculator">Potential Energy Calculator</a></li>
+      <li><a href="/ohms-law-calculator">Ohm's Law Calculator</a></li>
+      <li><a href="/newtons-second-law-calculator">Newton's Second Law Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "949": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de Ley de Ohm y potencia eléctrica</h1>
+  <p>La Ley de Ohm es la relación fundamental entre voltaje, corriente y resistencia en un circuito eléctrico. Esta calculadora resuelve cualquier variable desconocida y además calcula la potencia eléctrica disipada.</p>
+
+  <h2>Fórmulas de la Ley de Ohm</h2>
+  <p>Las relaciones básicas son:</p>
+  <ul>
+    <li><strong>Voltaje:</strong> V = I × R</li>
+    <li><strong>Corriente:</strong> I = V / R</li>
+    <li><strong>Resistencia:</strong> R = V / I</li>
+    <li><strong>Potencia:</strong> P = V × I = I² × R = V² / R</li>
+  </ul>
+  <p>Conociendo cualquier par de valores (V, I, R), puedes calcular todos los demás incluyendo la potencia.</p>
+
+  <h2>Ejemplo 1: circuito simple</h2>
+  <p><strong>Problema:</strong> Voltaje V = 12 V, resistencia R = 4 Ω.</p>
+  <ol>
+    <li>Corriente:
+      <ul>
+        <li>I = 12 / 4 = 3 A.</li>
+      </ul>
+    </li>
+    <li>Potencia:
+      <ul>
+        <li>P = 12 × 3 = 36 W.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> I = 3 A, P = 36 W.</p>
+
+  <h2>Ejemplo 2: bombilla eléctrica</h2>
+  <p><strong>Problema:</strong> Bombilla de 60 W conectada a 120 V.</p>
+  <ol>
+    <li>Corriente:
+      <ul>
+        <li>I = P / V = 60 / 120 = 0.5 A.</li>
+      </ul>
+    </li>
+    <li>Resistencia:
+      <ul>
+        <li>R = V / I = 120 / 0.5 = 240 Ω.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> I = 0.5 A, R = 240 Ω.</p>
+
+  <h2>Usos comunes de la Ley de Ohm</h2>
+  <ul>
+    <li>Diseñar circuitos electrónicos y eléctricos.</li>
+    <li>Dimensionar resistencias para LEDs y componentes.</li>
+    <li>Calcular el consumo eléctrico de aparatos.</li>
+    <li>Diagnosticar fallos en circuitos eléctricos.</li>
+    <li>Seleccionar cables según la corriente esperada.</li>
+    <li>Resolver problemas de electricidad en educación.</li>
+  </ul>
+
+  <h2>Errores frecuentes con la Ley de Ohm</h2>
+  <ul>
+    <li>Confundir voltaje (V) con corriente (I).</li>
+    <li>No usar unidades consistentes (voltios, amperios, ohmios).</li>
+    <li>Aplicar la Ley de Ohm a componentes no óhmicos (diodos, transistores).</li>
+    <li>Ignorar que la resistencia puede variar con la temperatura.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>La Ley de Ohm solo se aplica directamente a componentes óhmicos (resistencias). Para diodos, transistores y otros semiconductores, la relación V-I no es lineal y se necesitan modelos más complejos.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué es un ohmio?</button>
+      <div class="faq-ap">
+        <p>El ohmio (Ω) es la unidad de resistencia. 1 Ω = 1 V/A. Representa la oposición al flujo de corriente eléctrica.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿La Ley de Ohm funciona con corriente alterna?</button>
+      <div class="faq-ap">
+        <p>Sí, pero en CA se usa impedancia (Z) en lugar de resistencia (R), que incluye efectos de capacitancia e inductancia.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cómo calculo la resistencia de un LED?</button>
+      <div class="faq-ap">
+        <p>R = (V_fuente − V_LED) / I_LED. Por ejemplo, con fuente de 5V, LED de 2V y 20mA: R = (5−2)/0.02 = 150 Ω.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué potencia máxima soporta una resistencia?</button>
+      <div class="faq-ap">
+        <p>Depende del tipo. Resistencias comunes son de 1/4 W o 1/2 W. Si la potencia calculada excede este valor, necesitas una resistencia de mayor potencia.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/kinetic-energy-calculator">Kinetic Energy Calculator</a></li>
+      <li><a href="/potential-energy-calculator">Potential Energy Calculator</a></li>
+      <li><a href="/work-and-power-calculator">Work and Power Calculator</a></li>
+      <li><a href="/newtons-second-law-calculator">Newton's Second Law Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/kinetic-energy-calculator">Kinetic Energy Calculator</a></li>
+      <li><a href="/potential-energy-calculator">Potential Energy Calculator</a></li>
+      <li><a href="/work-and-power-calculator">Work and Power Calculator</a></li>
+      <li><a href="/newtons-second-law-calculator">Newton's Second Law Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Ohm's Law + Power Calculator</h1>
+  <p>Ohm's Law is the fundamental relationship between voltage, current and resistance in an electrical circuit. This calculator solves for any unknown variable and also computes the electrical power dissipated.</p>
+
+  <h2>Ohm's Law formulas</h2>
+  <p>The basic relationships are:</p>
+  <ul>
+    <li><strong>Voltage:</strong> V = I × R</li>
+    <li><strong>Current:</strong> I = V / R</li>
+    <li><strong>Resistance:</strong> R = V / I</li>
+    <li><strong>Power:</strong> P = V × I = I² × R = V² / R</li>
+  </ul>
+  <p>Knowing any two values (V, I, R), you can compute all others including power.</p>
+
+  <h2>Example 1: simple circuit</h2>
+  <p><strong>Problem:</strong> Voltage V = 12 V, resistance R = 4 Ω.</p>
+  <ol>
+    <li>Current:
+      <ul>
+        <li>I = 12 / 4 = 3 A.</li>
+      </ul>
+    </li>
+    <li>Power:
+      <ul>
+        <li>P = 12 × 3 = 36 W.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> I = 3 A, P = 36 W.</p>
+
+  <h2>Example 2: light bulb</h2>
+  <p><strong>Problem:</strong> A 60 W bulb connected to 120 V.</p>
+  <ol>
+    <li>Current:
+      <ul>
+        <li>I = P / V = 60 / 120 = 0.5 A.</li>
+      </ul>
+    </li>
+    <li>Resistance:
+      <ul>
+        <li>R = V / I = 120 / 0.5 = 240 Ω.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> I = 0.5 A, R = 240 Ω.</p>
+
+  <h2>Common uses of Ohm's Law</h2>
+  <ul>
+    <li>Designing electronic and electrical circuits.</li>
+    <li>Sizing resistors for LEDs and components.</li>
+    <li>Computing electrical consumption of appliances.</li>
+    <li>Diagnosing faults in electrical circuits.</li>
+    <li>Selecting cables based on expected current.</li>
+    <li>Solving electricity problems in education.</li>
+  </ul>
+
+  <h2>Common mistakes with Ohm's Law</h2>
+  <ul>
+    <li>Confusing voltage (V) with current (I).</li>
+    <li>Not using consistent units (volts, amperes, ohms).</li>
+    <li>Applying Ohm's Law to non-ohmic components (diodes, transistors).</li>
+    <li>Ignoring that resistance can vary with temperature.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>Ohm's Law only applies directly to ohmic components (resistors). For diodes, transistors and other semiconductors, the V-I relationship is non-linear and more complex models are needed.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What is an ohm?</button>
+      <div class="faq-ap">
+        <p>The ohm (Ω) is the unit of resistance. 1 Ω = 1 V/A. It represents the opposition to the flow of electric current.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Does Ohm's Law work with AC?</button>
+      <div class="faq-ap">
+        <p>Yes, but in AC you use impedance (Z) instead of resistance (R), which includes capacitance and inductance effects.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How do I compute the resistor for an LED?</button>
+      <div class="faq-ap">
+        <p>R = (V_supply − V_LED) / I_LED. For example, with 5V supply, 2V LED and 20mA: R = (5−2)/0.02 = 150 Ω.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What maximum power can a resistor handle?</button>
+      <div class="faq-ap">
+        <p>It depends on the type. Common resistors are 1/4 W or 1/2 W. If the computed power exceeds this, you need a higher-power resistor.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/kinetic-energy-calculator">Kinetic Energy Calculator</a></li>
+      <li><a href="/potential-energy-calculator">Potential Energy Calculator</a></li>
+      <li><a href="/work-and-power-calculator">Work and Power Calculator</a></li>
+      <li><a href="/newtons-second-law-calculator">Newton's Second Law Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/kinetic-energy-calculator">Kinetic Energy Calculator</a></li>
+      <li><a href="/potential-energy-calculator">Potential Energy Calculator</a></li>
+      <li><a href="/work-and-power-calculator">Work and Power Calculator</a></li>
+      <li><a href="/newtons-second-law-calculator">Newton's Second Law Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "950": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de la Segunda Ley de Newton: F = m × a</h1>
+  <p>La Segunda Ley de Newton establece que la fuerza neta aplicada a un objeto es igual a su masa multiplicada por su aceleración. Esta calculadora resuelve cualquier variable desconocida de esta ecuación fundamental.</p>
+
+  <h2>Fórmula de la Segunda Ley de Newton</h2>
+  <p>La relación fundamental es:</p>
+  <p><strong>F = m × a</strong></p>
+  <p>Donde <em>F</em> es la fuerza neta en newtons (N), <em>m</em> es la masa en kilogramos (kg) y <em>a</em> es la aceleración en metros por segundo al cuadrado (m/s²).</p>
+
+  <h2>Ejemplo 1: acelerar un coche</h2>
+  <p><strong>Problema:</strong> Un coche de 1,200 kg acelera a 3 m/s².</p>
+  <ol>
+    <li>Fuerza:
+      <ul>
+        <li>F = 1,200 × 3 = 3,600 N.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> Se necesita una fuerza de 3,600 N.</p>
+
+  <h2>Ejemplo 2: encontrar la aceleración</h2>
+  <p><strong>Problema:</strong> Se aplica una fuerza de 500 N a un objeto de 25 kg.</p>
+  <ol>
+    <li>Aceleración:
+      <ul>
+        <li>a = F / m = 500 / 25 = 20 m/s².</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> La aceleración es de 20 m/s².</p>
+
+  <h2>Usos comunes de la Segunda Ley de Newton</h2>
+  <ul>
+    <li>Calcular la fuerza necesaria para acelerar vehículos.</li>
+    <li>Diseñar sistemas de propulsión en ingeniería aeroespacial.</li>
+    <li>Analizar el movimiento de objetos en física.</li>
+    <li>Dimensionar motores y actuadores en robótica.</li>
+    <li>Estudiar la dinámica de estructuras bajo cargas.</li>
+    <li>Resolver problemas de mecánica en educación.</li>
+  </ul>
+
+  <h2>Errores frecuentes con F = m × a</h2>
+  <ul>
+    <li>Confundir masa con peso (el peso es m × g).</li>
+    <li>No considerar todas las fuerzas actuantes (fricción, gravedad).</li>
+    <li>Usar gramos en lugar de kilogramos para la masa.</li>
+    <li>Olvidar que F es la fuerza neta (suma vectorial de todas las fuerzas).</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Siempre dibuja un diagrama de cuerpo libre antes de aplicar F = m × a. Identifica todas las fuerzas actuantes y su dirección. La fuerza neta es la suma vectorial, no la suma aritmética.</p>
+
+  <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cómo se aplica la Segunda Ley de Newton a los accidentes automovilísticos?</button>
+        <div class="faq-ap"><p>Durante un choque, un automóvil desacelera rápidamente. Esta desaceleración masiva multiplicada por la masa produce una fuerza enorme. Por eso existen las zonas de deformación: aumentan la distancia de frenado.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cuál es la relación entre fuerza y aceleración?</button>
+        <div class="faq-ap"><p>La fuerza y la aceleración son directamente proporcionales: duplicar la fuerza sobre la misma masa duplica la aceleración. Pero masa y aceleración son inversamente proporcionales.</p></div>
+      </div>
+  
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cómo se aplica la Segunda Ley de Newton a los accidentes automovilísticos?</button>
+        <div class="faq-ap"><p>Durante un choque, un automóvil desacelera rápidamente. Esta desaceleración masiva multiplicada por la masa produce una fuerza enorme. Por eso existen las zonas de deformación: aumentan la distancia de frenado.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cuál es la relación entre fuerza y aceleración?</button>
+        <div class="faq-ap"><p>La fuerza y la aceleración son directamente proporcionales: duplicar la fuerza sobre la misma masa duplica la aceleración. Pero masa y aceleración son inversamente proporcionales.</p></div>
+      </div>
+  
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cómo se aplica la Segunda Ley de Newton a los accidentes automovilísticos?</button>
+        <div class="faq-ap"><p>Durante un choque, un automóvil desacelera rápidamente. Esta desaceleración masiva multiplicada por la masa produce una fuerza enorme. Por eso existen las zonas de deformación: aumentan la distancia de frenado.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cuál es la relación entre fuerza y aceleración?</button>
+        <div class="faq-ap"><p>La fuerza y la aceleración son directamente proporcionales: duplicar la fuerza sobre la misma masa duplica la aceleración. Pero masa y aceleración son inversamente proporcionales.</p></div>
+      </div>
+  
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cómo se aplica la Segunda Ley de Newton a los accidentes automovilísticos?</button>
+        <div class="faq-ap"><p>Durante un choque, un automóvil desacelera rápidamente. Esta desaceleración masiva multiplicada por la masa produce una fuerza enorme. Por eso existen las zonas de deformación: aumentan la distancia de frenado.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">¿Cuál es la relación entre fuerza y aceleración?</button>
+        <div class="faq-ap"><p>La fuerza y la aceleración son directamente proporcionales: duplicar la fuerza sobre la misma masa duplica la aceleración. Pero masa y aceleración son inversamente proporcionales.</p></div>
+      </div>
+  
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cuál es la diferencia entre masa y peso?</button>
+      <div class="faq-ap">
+        <p>La masa es la cantidad de materia (kg) y es constante. El peso es la fuerza gravitatoria (N) y varía según la gravedad del lugar.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué es un newton?</button>
+      <div class="faq-ap">
+        <p>El newton (N) es la unidad de fuerza. 1 N = 1 kg·m/s². Es la fuerza necesaria para acelerar 1 kg a 1 m/s².</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué pasa si hay fricción?</button>
+      <div class="faq-ap">
+        <p>La fuerza neta es la fuerza aplicada menos la fricción: F_neta = F_aplicada − F_fricción. Usa F_neta en la fórmula.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿La ley funciona en el espacio?</button>
+      <div class="faq-ap">
+        <p>Sí. La Segunda Ley de Newton es universal. En el espacio, sin gravedad ni fricción, una pequeña fuerza produce aceleración constante.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/kinetic-energy-calculator">Kinetic Energy Calculator</a></li>
+      <li><a href="/potential-energy-calculator">Potential Energy Calculator</a></li>
+      <li><a href="/work-and-power-calculator">Work and Power Calculator</a></li>
+      <li><a href="/ohms-law-calculator">Ohm's Law Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/kinetic-energy-calculator">Kinetic Energy Calculator</a></li>
+      <li><a href="/potential-energy-calculator">Potential Energy Calculator</a></li>
+      <li><a href="/work-and-power-calculator">Work and Power Calculator</a></li>
+      <li><a href="/ohms-law-calculator">Ohm's Law Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Newton's Second Law Calculator: F = m × a</h1>
+  <p>Newton's Second Law states that the net force applied to an object equals its mass times its acceleration. This calculator solves for any unknown variable in this fundamental equation.</p>
+
+  <h2>Newton's Second Law formula</h2>
+  <p>The fundamental relationship is:</p>
+  <p><strong>F = m × a</strong></p>
+  <p>Where <em>F</em> is the net force in newtons (N), <em>m</em> is mass in kilograms (kg) and <em>a</em> is acceleration in meters per second squared (m/s²).</p>
+
+  <h2>Example 1: accelerating a car</h2>
+  <p><strong>Problem:</strong> A 1,200 kg car accelerates at 3 m/s².</p>
+  <ol>
+    <li>Force:
+      <ul>
+        <li>F = 1,200 × 3 = 3,600 N.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> A force of 3,600 N is required.</p>
+
+  <h2>Example 2: finding acceleration</h2>
+  <p><strong>Problem:</strong> A force of 500 N is applied to a 25 kg object.</p>
+  <ol>
+    <li>Acceleration:
+      <ul>
+        <li>a = F / m = 500 / 25 = 20 m/s².</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> The acceleration is 20 m/s².</p>
+
+  <h2>Common uses of Newton's Second Law</h2>
+  <ul>
+    <li>Computing the force needed to accelerate vehicles.</li>
+    <li>Designing propulsion systems in aerospace engineering.</li>
+    <li>Analyzing object motion in physics.</li>
+    <li>Sizing motors and actuators in robotics.</li>
+    <li>Studying structural dynamics under loads.</li>
+    <li>Solving mechanics problems in education.</li>
+  </ul>
+
+  <h2>Common mistakes with F = m × a</h2>
+  <ul>
+    <li>Confusing mass with weight (weight is m × g).</li>
+    <li>Not considering all acting forces (friction, gravity).</li>
+    <li>Using grams instead of kilograms for mass.</li>
+    <li>Forgetting that F is the net force (vector sum of all forces).</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>Always draw a free-body diagram before applying F = m × a. Identify all acting forces and their direction. The net force is the vector sum, not the arithmetic sum.</p>
+
+  <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How does Newton's Second Law apply to car crashes?</button>
+        <div class="faq-ap"><p>During a crash, a car decelerates rapidly — from high speed to zero in a fraction of a second. This massive deceleration multiplied by mass produces an enormous force. This is why crumple zones exist: they increase stopping distance, reducing deceleration and therefore reducing force.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What is the relationship between force and acceleration?</button>
+        <div class="faq-ap"><p>Force and acceleration are directly proportional: double the force on the same mass = double the acceleration. But mass and acceleration are inversely proportional: double the mass with the same force = half the acceleration. This is why heavy vehicles need more powerful engines.</p></div>
+      </div>
+  
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How does Newton's Second Law apply to car crashes?</button>
+        <div class="faq-ap"><p>During a crash, a car decelerates rapidly — from high speed to zero in a fraction of a second. This massive deceleration multiplied by mass produces an enormous force. This is why crumple zones exist: they increase stopping distance, reducing deceleration and therefore reducing force.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What is the relationship between force and acceleration?</button>
+        <div class="faq-ap"><p>Force and acceleration are directly proportional: double the force on the same mass = double the acceleration. But mass and acceleration are inversely proportional: double the mass with the same force = half the acceleration. This is why heavy vehicles need more powerful engines.</p></div>
+      </div>
+  
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How does Newton's Second Law apply to car crashes?</button>
+        <div class="faq-ap"><p>During a crash, a car decelerates rapidly — from high speed to zero in a fraction of a second. This massive deceleration multiplied by mass produces an enormous force. This is why crumple zones exist: they increase stopping distance, reducing deceleration and therefore reducing force.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What is the relationship between force and acceleration?</button>
+        <div class="faq-ap"><p>Force and acceleration are directly proportional: double the force on the same mass = double the acceleration. But mass and acceleration are inversely proportional: double the mass with the same force = half the acceleration. This is why heavy vehicles need more powerful engines.</p></div>
+      </div>
+  
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What is the difference between mass and weight?</button>
+      <div class="faq-ap">
+        <p>Mass is the amount of matter (kg) and is constant. Weight is the gravitational force (N) and varies depending on the local gravity.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What is a newton?</button>
+      <div class="faq-ap">
+        <p>The newton (N) is the unit of force. 1 N = 1 kg·m/s². It is the force needed to accelerate 1 kg at 1 m/s².</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What if there is friction?</button>
+      <div class="faq-ap">
+        <p>The net force is the applied force minus friction: F_net = F_applied − F_friction. Use F_net in the formula.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Does the law work in space?</button>
+      <div class="faq-ap">
+        <p>Yes. Newton's Second Law is universal. In space, without gravity or friction, a small force produces constant acceleration.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/kinetic-energy-calculator">Kinetic Energy Calculator</a></li>
+      <li><a href="/potential-energy-calculator">Potential Energy Calculator</a></li>
+      <li><a href="/work-and-power-calculator">Work and Power Calculator</a></li>
+      <li><a href="/ohms-law-calculator">Ohm's Law Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/kinetic-energy-calculator">Kinetic Energy Calculator</a></li>
+      <li><a href="/potential-energy-calculator">Potential Energy Calculator</a></li>
+      <li><a href="/work-and-power-calculator">Work and Power Calculator</a></li>
+      <li><a href="/ohms-law-calculator">Ohm's Law Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "951": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de una repetición máxima (1RM): fuerza máxima estimada</h1>
+  <p>Esta calculadora estima tu repetición máxima (1RM), el peso máximo que puedes levantar una sola vez, basándose en el peso que puedes levantar para múltiples repeticiones usando la fórmula de Epley.</p>
+
+  <h2>Fórmula de Epley para el 1RM</h2>
+  <p>La fórmula más utilizada es:</p>
+  <p><strong>1RM = peso × (1 + repeticiones / 30)</strong></p>
+  <p>Esta fórmula es precisa para rangos de 2-12 repeticiones. Para más de 12 repeticiones, la estimación pierde precisión.</p>
+
+  <h2>Ejemplo 1: press de banca</h2>
+  <p><strong>Problema:</strong> Puedes hacer 8 repeticiones con 80 kg en press de banca.</p>
+  <ol>
+    <li>Cálculo:
+      <ul>
+        <li>1RM = 80 × (1 + 8/30) = 80 × 1.267 ≈ 101.3 kg.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> Tu 1RM estimado es aproximadamente 101.3 kg.</p>
+
+  <h2>Ejemplo 2: sentadilla</h2>
+  <p><strong>Problema:</strong> Puedes hacer 5 repeticiones con 120 kg en sentadilla.</p>
+  <ol>
+    <li>Cálculo:
+      <ul>
+        <li>1RM = 120 × (1 + 5/30) = 120 × 1.167 ≈ 140 kg.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> Tu 1RM estimado es aproximadamente 140 kg.</p>
+
+  <h2>Usos comunes del 1RM</h2>
+  <ul>
+    <li>Planificar cargas de entrenamiento basadas en porcentajes del 1RM.</li>
+    <li>Seguir la progresión de fuerza sin necesidad de hacer tests máximos.</li>
+    <li>Comparar niveles de fuerza entre diferentes ejercicios.</li>
+    <li>Establecer objetivos realistas de fuerza.</li>
+    <li>Programar periodización y ciclos de entrenamiento.</li>
+    <li>Evaluar la efectividad de programas de fuerza.</li>
+  </ul>
+
+  <h2>Errores frecuentes con el 1RM</h2>
+  <ul>
+    <li>Usar la fórmula con más de 12 repeticiones (pierde precisión).</li>
+    <li>No considerar que la fórmula es una estimación, no una medida exacta.</li>
+    <li>Intentar el 1RM real sin calentamiento adecuado o supervisión.</li>
+    <li>No tener en cuenta que diferentes ejercicios tienen diferentes curvas de fatiga.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Para entrenamiento, usa porcentajes del 1RM: 60-70% para hipertrofia (8-12 reps), 75-85% para fuerza (4-6 reps), 90%+ para fuerza máxima (1-3 reps). Reestima tu 1RM cada 4-6 semanas.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Es seguro hacer un 1RM real?</button>
+      <div class="faq-ap">
+        <p>Solo con calentamiento adecuado, técnica correcta y preferiblemente con un compañero. Las fórmulas estimadas son más seguras para la mayoría.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué fórmula es más precisa?</button>
+      <div class="faq-ap">
+        <p>Epley es la más popular. Brzycki (peso / (1.0278 - 0.0278 × reps)) es similar. Para pocas repeticiones (1-5), todas dan resultados parecidos.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cada cuánto debo reestimar mi 1RM?</button>
+      <div class="faq-ap">
+        <p>Cada 4-6 semanas si estás en un programa de progresión. Si eres principiante, puedes hacerlo cada 2-3 semanas.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Funciona para todos los ejercicios?</button>
+      <div class="faq-ap">
+        <p>Funciona mejor con ejercicios compuestos (sentadilla, press, peso muerto). Para ejercicios de aislamiento, la estimación puede ser menos precisa.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/race-time-calculator">Race Time Calculator</a></li>
+      <li><a href="/vo2max-calculator">VO2Max Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/race-time-calculator">Race Time Calculator</a></li>
+      <li><a href="/vo2max-calculator">VO2Max Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>One Rep Max (1RM) Calculator: estimated maximum strength</h1>
+  <p>This calculator estimates your one rep max (1RM), the maximum weight you can lift for a single repetition, based on the weight you can lift for multiple repetitions using Epley's formula.</p>
+
+  <h2>Epley's 1RM formula</h2>
+  <p>The most widely used formula is:</p>
+  <p><strong>1RM = weight × (1 + reps / 30)</strong></p>
+  <p>This formula is accurate for 2-12 rep ranges. Beyond 12 reps, the estimate loses precision.</p>
+
+  <h2>Example 1: bench press</h2>
+  <p><strong>Problem:</strong> You can do 8 reps with 80 kg on bench press.</p>
+  <ol>
+    <li>Calculation:
+      <ul>
+        <li>1RM = 80 × (1 + 8/30) = 80 × 1.267 ≈ 101.3 kg.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> Your estimated 1RM is approximately 101.3 kg.</p>
+
+  <h2>Example 2: squat</h2>
+  <p><strong>Problem:</strong> You can do 5 reps with 120 kg on squat.</p>
+  <ol>
+    <li>Calculation:
+      <ul>
+        <li>1RM = 120 × (1 + 5/30) = 120 × 1.167 ≈ 140 kg.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> Your estimated 1RM is approximately 140 kg.</p>
+
+  <h2>Common uses of 1RM</h2>
+  <ul>
+    <li>Planning training loads based on 1RM percentages.</li>
+    <li>Tracking strength progression without max testing.</li>
+    <li>Comparing strength levels across different exercises.</li>
+    <li>Setting realistic strength goals.</li>
+    <li>Programming periodization and training cycles.</li>
+    <li>Evaluating the effectiveness of strength programs.</li>
+  </ul>
+
+  <h2>Common mistakes with 1RM</h2>
+  <ul>
+    <li>Using the formula with more than 12 reps (loses accuracy).</li>
+    <li>Not considering that the formula is an estimate, not an exact measure.</li>
+    <li>Attempting a real 1RM without proper warm-up or supervision.</li>
+    <li>Not accounting that different exercises have different fatigue curves.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>For training, use 1RM percentages: 60-70% for hypertrophy (8-12 reps), 75-85% for strength (4-6 reps), 90%+ for max strength (1-3 reps). Re-estimate your 1RM every 4-6 weeks.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Is it safe to do a real 1RM?</button>
+      <div class="faq-ap">
+        <p>Only with proper warm-up, correct technique and preferably a spotter. Estimated formulas are safer for most people.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Which formula is most accurate?</button>
+      <div class="faq-ap">
+        <p>Epley is the most popular. Brzycki (weight / (1.0278 - 0.0278 × reps)) is similar. For low reps (1-5), all give comparable results.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How often should I re-estimate my 1RM?</button>
+      <div class="faq-ap">
+        <p>Every 4-6 weeks if you are in a progression program. If you are a beginner, every 2-3 weeks.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Does it work for all exercises?</button>
+      <div class="faq-ap">
+        <p>It works best with compound exercises (squat, press, deadlift). For isolation exercises, the estimate may be less accurate.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/race-time-calculator">Race Time Calculator</a></li>
+      <li><a href="/vo2max-calculator">VO2Max Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/race-time-calculator">Race Time Calculator</a></li>
+      <li><a href="/vo2max-calculator">VO2Max Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "952": {
+        "es": """<section class="long-content">
+  <h1>Calculadora predictora de tiempo en carrera: fórmula de Riegel</h1>
+  <p>Esta calculadora predice tu tiempo en una distancia de carrera basándose en un tiempo conocido en otra distancia, usando la fórmula de Riegel que tiene en cuenta la fatiga acumulada.</p>
+
+  <h2>Fórmula de Riegel</h2>
+  <p>La fórmula predictiva es:</p>
+  <p><strong>T2 = T1 × (D2 / D1)^1.06</strong></p>
+  <p>Donde T1 es el tiempo conocido, D1 es la distancia conocida, D2 es la distancia objetivo y 1.06 es el exponente de fatiga. Este exponente refleja que el ritmo disminuye a medida que aumenta la distancia.</p>
+
+  <h2>Ejemplo 1: de 5K a 10K</h2>
+  <p><strong>Problema:</strong> Corres 5 km en 25 minutos. ¿Cuál sería tu tiempo en 10 km?</p>
+  <ol>
+    <li>Cálculo:
+      <ul>
+        <li>T2 = 25 × (10/5)^1.06 = 25 × 2^1.06 ≈ 25 × 2.08 ≈ 52.0 minutos.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> Tiempo estimado en 10K: 52:00.</p>
+
+  <h2>Ejemplo 2: de media maratón a maratón</h2>
+  <p><strong>Problema:</strong> Media maratón (21.1 km) en 1h 50min (110 min). ¿Tiempo en maratón (42.2 km)?</p>
+  <ol>
+    <li>Cálculo:
+      <ul>
+        <li>T2 = 110 × (42.2/21.1)^1.06 = 110 × 2^1.06 ≈ 110 × 2.08 ≈ 228.8 min ≈ 3h 49min.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> Tiempo estimado en maratón: 3:49:00.</p>
+
+  <h2>Usos comunes del predictor de carrera</h2>
+  <ul>
+    <li>Establecer objetivos de tiempo para carreras de diferentes distancias.</li>
+    <li>Planificar el ritmo (pace) objetivo para una competición.</li>
+    <li>Evaluar si un tiempo objetivo es realista.</li>
+    <li>Comparar rendimiento relativo entre diferentes distancias.</li>
+    <li>Planificar la periodización del entrenamiento.</li>
+    <li>Motivarse viendo la progresión potencial.</li>
+  </ul>
+
+  <h2>Errores frecuentes con la predicción de tiempos</h2>
+  <ul>
+    <li>No considerar que la fórmula asume entrenamiento específico para la distancia.</li>
+    <li>Usar tiempos de carrera no representativos (con paradas o condiciones adversas).</li>
+    <li>Predecir saltos muy grandes (de 5K a ultramaratón) donde la fórmula pierde precisión.</li>
+    <li>Ignorar factores como el perfil del recorrido y las condiciones climáticas.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>La fórmula de Riegel es más precisa para distancias similares. Si predices de 5K a maratón, añade un 5-10% adicional al resultado porque la fatiga afecta más en distancias muy diferentes.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué tan precisa es la fórmula?</button>
+      <div class="faq-ap">
+        <p>Generalmente dentro del 5% para distancias cercanas. Para saltos grandes (5K a maratón), el margen de error puede ser del 10-15%.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Puedo usarla para caminar?</button>
+      <div class="faq-ap">
+        <p>Sí, pero el exponente de fatiga puede ser diferente. Para marcha, un exponente de 1.04-1.05 puede ser más apropiado.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué pace necesito para mi objetivo?</button>
+      <div class="faq-ap">
+        <p>Divide el tiempo estimado por la distancia. Por ejemplo, 52 min en 10K = 5:12 min/km.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cómo mejoro mi predicción?</button>
+      <div class="faq-ap">
+        <p>Entrena específicamente para la distancia objetivo, incluye tiradas largas y sesiones de ritmo. La predicción mejora con entrenamiento adecuado.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/one-rep-max-calculator">One Rep Max Calculator</a></li>
+      <li><a href="/vo2max-calculator">VO2Max Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/one-rep-max-calculator">One Rep Max Calculator</a></li>
+      <li><a href="/vo2max-calculator">VO2Max Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Running Race Time Predictor: Riegel formula</h1>
+  <p>This calculator predicts your race time at a target distance based on a known time at another distance, using Riegel's formula which accounts for accumulated fatigue.</p>
+
+  <h2>Riegel's formula</h2>
+  <p>The predictive formula is:</p>
+  <p><strong>T2 = T1 × (D2 / D1)^1.06</strong></p>
+  <p>Where T1 is the known time, D1 is the known distance, D2 is the target distance and 1.06 is the fatigue exponent. This exponent reflects that pace decreases as distance increases.</p>
+
+  <h2>Example 1: from 5K to 10K</h2>
+  <p><strong>Problem:</strong> You run 5 km in 25 minutes. What would be your 10 km time?</p>
+  <ol>
+    <li>Calculation:
+      <ul>
+        <li>T2 = 25 × (10/5)^1.06 = 25 × 2^1.06 ≈ 25 × 2.08 ≈ 52.0 minutes.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> Estimated 10K time: 52:00.</p>
+
+  <h2>Example 2: from half marathon to marathon</h2>
+  <p><strong>Problem:</strong> Half marathon (21.1 km) in 1h 50min (110 min). Marathon time (42.2 km)?</p>
+  <ol>
+    <li>Calculation:
+      <ul>
+        <li>T2 = 110 × (42.2/21.1)^1.06 = 110 × 2^1.06 ≈ 110 × 2.08 ≈ 228.8 min ≈ 3h 49min.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> Estimated marathon time: 3:49:00.</p>
+
+  <h2>Common uses of the race predictor</h2>
+  <ul>
+    <li>Setting time goals for races at different distances.</li>
+    <li>Planning target pace for a competition.</li>
+    <li>Evaluating whether a target time is realistic.</li>
+    <li>Comparing relative performance across different distances.</li>
+    <li>Planning training periodization.</li>
+    <li>Staying motivated by seeing potential progression.</li>
+  </ul>
+
+  <h2>Common mistakes with time prediction</h2>
+  <ul>
+    <li>Not considering that the formula assumes specific training for the distance.</li>
+    <li>Using unrepresentative race times (with stops or adverse conditions).</li>
+    <li>Predicting very large jumps (5K to ultramarathon) where the formula loses accuracy.</li>
+    <li>Ignoring factors like course profile and weather conditions.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>Riegel's formula is more accurate for similar distances. If predicting from 5K to marathon, add 5-10% to the result because fatigue affects longer distances more.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How accurate is the formula?</button>
+      <div class="faq-ap">
+        <p>Generally within 5% for nearby distances. For large jumps (5K to marathon), the error margin can be 10-15%.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Can I use it for walking?</button>
+      <div class="faq-ap">
+        <p>Yes, but the fatigue exponent may differ. For walking, an exponent of 1.04-1.05 may be more appropriate.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What pace do I need for my goal?</button>
+      <div class="faq-ap">
+        <p>Divide the estimated time by the distance. For example, 52 min in 10K = 5:12 min/km.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How do I improve my prediction?</button>
+      <div class="faq-ap">
+        <p>Train specifically for the target distance, include long runs and tempo sessions. Prediction improves with adequate training.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/one-rep-max-calculator">One Rep Max Calculator</a></li>
+      <li><a href="/vo2max-calculator">VO2Max Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/one-rep-max-calculator">One Rep Max Calculator</a></li>
+      <li><a href="/vo2max-calculator">VO2Max Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "953": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de VO2 máx estimado: capacidad aeróbica</h1>
+  <p>El VO2 máx es la cantidad máxima de oxígeno que tu cuerpo puede utilizar durante el ejercicio intenso. Esta calculadora lo estima usando el método de Fox basado en la frecuencia cardíaca máxima y en reposo.</p>
+
+  <h2>Fórmula de Fox para el VO2 máx</h2>
+  <p>La estimación se basa en la relación entre frecuencias cardíacas:</p>
+  <p><strong>VO2max ≈ 15 × (FCmax / FCreposo)</strong></p>
+  <p>Donde FCmax se estima como 220 − edad y FCreposo es tu frecuencia cardíaca en reposo (medida por la mañana al despertar). El resultado se expresa en ml/kg/min.</p>
+
+  <h2>Ejemplo 1: persona activa de 30 años</h2>
+  <p><strong>Problema:</strong> Edad: 30 años. FCreposo: 60 lpm.</p>
+  <ol>
+    <li>FCmax:
+      <ul>
+        <li>FCmax = 220 − 30 = 190 lpm.</li>
+      </ul>
+    </li>
+    <li>VO2max:
+      <ul>
+        <li>VO2max ≈ 15 × (190 / 60) ≈ 15 × 3.17 ≈ 47.5 ml/kg/min.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> VO2max estimado ≈ 47.5 ml/kg/min (buen nivel).</p>
+
+  <h2>Ejemplo 2: persona sedentaria de 50 años</h2>
+  <p><strong>Problema:</strong> Edad: 50 años. FCreposo: 80 lpm.</p>
+  <ol>
+    <li>FCmax:
+      <ul>
+        <li>FCmax = 220 − 50 = 170 lpm.</li>
+      </ul>
+    </li>
+    <li>VO2max:
+      <ul>
+        <li>VO2max ≈ 15 × (170 / 80) ≈ 15 × 2.125 ≈ 31.9 ml/kg/min.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> VO2max estimado ≈ 31.9 ml/kg/min (nivel bajo).</p>
+
+  <h2>Clasificación del VO2 máx</h2>
+  <ul>
+    <li><strong>Excelente:</strong> > 52 ml/kg/min (hombres), > 47 (mujeres)</li>
+    <li><strong>Bueno:</strong> 43-52 (hombres), 36-47 (mujeres)</li>
+    <li><strong>Promedio:</strong> 34-43 (hombres), 27-36 (mujeres)</li>
+    <li><strong>Bajo:</strong> < 34 (hombres), < 27 (mujeres)</li>
+  </ul>
+
+  <h2>Usos comunes del VO2 máx</h2>
+  <ul>
+    <li>Evaluar la capacidad aeróbica y la forma física general.</li>
+    <li>Seguir la mejora cardiovascular con el entrenamiento.</li>
+    <li>Establecer zonas de entrenamiento basadas en VO2.</li>
+    <li>Comparar rendimiento entre atletas de diferentes deportes.</li>
+    <li>Evaluar riesgo cardiovascular (VO2 bajo = mayor riesgo).</li>
+    <li>Planificar programas de entrenamiento personalizado.</li>
+  </ul>
+
+  <h2>Errores frecuentes con el VO2 máx</h2>
+  <ul>
+    <li>Usar una FCreposo medida después de actividad o estrés.</li>
+    <li>Confiar ciegamente en la estimación sin una prueba de laboratorio.</li>
+    <li>No considerar que la fórmula de Fox es una aproximación.</li>
+    <li>Comparar valores sin considerar edad y sexo.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Mide tu FCreposo durante 3 mañanas consecutivas y usa el promedio. El entrenamiento aeróbico regular puede reducir tu FCreposo y aumentar tu VO2max significativamente en 3-6 meses.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cómo mido mi FCreposo?</button>
+      <div class="faq-ap">
+        <p>Mídela por la mañana antes de levantarte, usando un pulsómetro o contando pulsaciones en la muñeca durante 15 segundos y multiplicando por 4.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Puedo mejorar mi VO2max?</button>
+      <div class="faq-ap">
+        <p>Sí. El entrenamiento de intervalos de alta intensidad (HIIT) es el método más efectivo para aumentar el VO2max.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿La estimación es precisa?</button>
+      <div class="faq-ap">
+        <p>Es una aproximación razonable (±10-15%). La prueba de laboratorio con análisis de gases es el gold standard.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿El VO2max disminuye con la edad?</button>
+      <div class="faq-ap">
+        <p>Sí, aproximadamente 1% por año después de los 30. El entrenamiento regular puede ralentizar esta disminución significativamente.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/one-rep-max-calculator">One Rep Max Calculator</a></li>
+      <li><a href="/race-time-calculator">Race Time Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/one-rep-max-calculator">One Rep Max Calculator</a></li>
+      <li><a href="/race-time-calculator">Race Time Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>VO2 Max Estimator: aerobic capacity</h1>
+  <p>VO2 max is the maximum amount of oxygen your body can utilize during intense exercise. This calculator estimates it using the Fox method based on maximum and resting heart rate.</p>
+
+  <h2>Fox formula for VO2 max</h2>
+  <p>The estimation is based on the relationship between heart rates:</p>
+  <p><strong>VO2max ≈ 15 × (HRmax / HRrest)</strong></p>
+  <p>Where HRmax is estimated as 220 − age and HRrest is your resting heart rate (measured in the morning upon waking). The result is expressed in ml/kg/min.</p>
+
+  <h2>Example 1: active 30-year-old</h2>
+  <p><strong>Problem:</strong> Age: 30. HRrest: 60 bpm.</p>
+  <ol>
+    <li>HRmax:
+      <ul>
+        <li>HRmax = 220 − 30 = 190 bpm.</li>
+      </ul>
+    </li>
+    <li>VO2max:
+      <ul>
+        <li>VO2max ≈ 15 × (190 / 60) ≈ 15 × 3.17 ≈ 47.5 ml/kg/min.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> Estimated VO2max ≈ 47.5 ml/kg/min (good level).</p>
+
+  <h2>Example 2: sedentary 50-year-old</h2>
+  <p><strong>Problem:</strong> Age: 50. HRrest: 80 bpm.</p>
+  <ol>
+    <li>HRmax:
+      <ul>
+        <li>HRmax = 220 − 50 = 170 bpm.</li>
+      </ul>
+    </li>
+    <li>VO2max:
+      <ul>
+        <li>VO2max ≈ 15 × (170 / 80) ≈ 15 × 2.125 ≈ 31.9 ml/kg/min.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> Estimated VO2max ≈ 31.9 ml/kg/min (low level).</p>
+
+  <h2>VO2 max classification</h2>
+  <ul>
+    <li><strong>Excellent:</strong> > 52 ml/kg/min (men), > 47 (women)</li>
+    <li><strong>Good:</strong> 43-52 (men), 36-47 (women)</li>
+    <li><strong>Average:</strong> 34-43 (men), 27-36 (women)</li>
+    <li><strong>Low:</strong> < 34 (men), < 27 (women)</li>
+  </ul>
+
+  <h2>Common uses of VO2 max</h2>
+  <ul>
+    <li>Evaluating aerobic capacity and overall fitness.</li>
+    <li>Tracking cardiovascular improvement with training.</li>
+    <li>Setting training zones based on VO2.</li>
+    <li>Comparing performance between athletes of different sports.</li>
+    <li>Evaluating cardiovascular risk (low VO2 = higher risk).</li>
+    <li>Planning personalized training programs.</li>
+  </ul>
+
+  <h2>Common mistakes with VO2 max</h2>
+  <ul>
+    <li>Using a resting HR measured after activity or stress.</li>
+    <li>Blindly trusting the estimate without a lab test.</li>
+    <li>Not considering that the Fox formula is an approximation.</li>
+    <li>Comparing values without considering age and sex.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>Measure your resting HR for 3 consecutive mornings and use the average. Regular aerobic training can reduce your resting HR and significantly increase your VO2max in 3-6 months.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How do I measure my resting HR?</button>
+      <div class="faq-ap">
+        <p>Measure it in the morning before getting up, using a heart rate monitor or counting pulses at the wrist for 15 seconds and multiplying by 4.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Can I improve my VO2max?</button>
+      <div class="faq-ap">
+        <p>Yes. High-intensity interval training (HIIT) is the most effective method for increasing VO2max.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Is the estimate accurate?</button>
+      <div class="faq-ap">
+        <p>It is a reasonable approximation (±10-15%). The lab test with gas analysis is the gold standard.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Does VO2max decrease with age?</button>
+      <div class="faq-ap">
+        <p>Yes, approximately 1% per year after age 30. Regular training can slow this decline significantly.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/one-rep-max-calculator">One Rep Max Calculator</a></li>
+      <li><a href="/race-time-calculator">Race Time Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/one-rep-max-calculator">One Rep Max Calculator</a></li>
+      <li><a href="/race-time-calculator">Race Time Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "954": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de conversión de ángulos: grados, radianes y gradianes</h1>
+  <p>Esta calculadora convierte ángulos entre las tres unidades más utilizadas: grados sexagesimales, radianes y gradianes (grados centesimales), esencial en matemáticas, física e ingeniería.</p>
+
+  <h2>Fórmulas de conversión</h2>
+  <p>Las relaciones entre unidades son:</p>
+  <ul>
+    <li><strong>Grados a radianes:</strong> rad = grados × π / 180</li>
+    <li><strong>Radianes a grados:</strong> grados = rad × 180 / π</li>
+    <li><strong>Grados a gradianes:</strong> grad = grados × 10 / 9</li>
+    <li><strong>Gradianes a grados:</strong> grados = grad × 9 / 10</li>
+  </ul>
+  <p>Una circunferencia completa = 360° = 2π rad ≈ 6.283 rad = 400 grad.</p>
+
+  <h2>Ejemplo 1: grados a radianes</h2>
+  <p><strong>Problema:</strong> Convertir 45° a radianes.</p>
+  <ol>
+    <li>Cálculo:
+      <ul>
+        <li>rad = 45 × π / 180 = π / 4 ≈ 0.7854 rad.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> 45° = π/4 ≈ 0.7854 rad.</p>
+
+  <h2>Ejemplo 2: radianes a grados</h2>
+  <p><strong>Problema:</strong> Convertir 1.5 rad a grados.</p>
+  <ol>
+    <li>Cálculo:
+      <ul>
+        <li>grados = 1.5 × 180 / π ≈ 85.94°.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> 1.5 rad ≈ 85.94°.</p>
+
+  <h2>Usos comunes de la conversión de ángulos</h2>
+  <ul>
+    <li>Trabajar con funciones trigonométricas en calculadoras y software.</li>
+    <li>Resolver problemas de física que requieren radianes.</li>
+    <li>Convertir medidas en topografía y agrimensura.</li>
+    <li>Programar gráficos y animaciones en desarrollo web.</li>
+    <li>Calcular en ingeniería mecánica y robótica.</li>
+    <li>Estudiar matemáticas y trigonometría.</li>
+  </ul>
+
+  <h2>Errores frecuentes con ángulos</h2>
+  <ul>
+    <li>Usar grados cuando la función trigonométrica espera radianes.</li>
+    <li>Confundir radianes con gradianes.</li>
+    <li>No verificar el modo de la calculadora (DEG vs RAD).</li>
+    <li>Redondear π demasiado pronto en los cálculos.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>En cálculo y análisis matemático, los radianes son la unidad natural. Las derivadas de sin(x) y cos(x) solo son correctas cuando x está en radianes. Memoriza los ángulos clave: 0°, 30°, 45°, 60°, 90° y sus equivalentes en radianes.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Por qué existen los radianes?</button>
+      <div class="faq-ap">
+        <p>Los radianes relacionan el ángulo con la longitud del arco en un círculo unitario. Son la unidad natural en matemáticas avanzadas.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué son los gradianes?</button>
+      <div class="faq-ap">
+        <p>Los gradianes (o grados centesimales) dividen la circunferencia en 400 partes. Se usan en topografía en algunos países europeos.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cuántos radianes tiene una vuelta completa?</button>
+      <div class="faq-ap">
+        <p>2π radianes ≈ 6.283 rad. Esto se debe a que la circunferencia de un círculo unitario es 2π.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cómo sé si mi calculadora está en DEG o RAD?</button>
+      <div class="faq-ap">
+        <p>Calcula sin(90). Si el resultado es 1, está en DEG (grados). Si es aproximadamente 0.894, está en RAD (radianes).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/temperature-calculator">Temperature Calculator</a></li>
+      <li><a href="/energy-converter-calculator">Energy Converter Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/temperature-calculator">Temperature Calculator</a></li>
+      <li><a href="/energy-converter-calculator">Energy Converter Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Angle Unit Converter: degrees, radians and gradians</h1>
+  <p>This calculator converts angles between the three most commonly used units: degrees, radians and gradians (centesimal degrees), essential in mathematics, physics and engineering.</p>
+
+  <h2>Conversion formulas</h2>
+  <p>The relationships between units are:</p>
+  <ul>
+    <li><strong>Degrees to radians:</strong> rad = degrees × π / 180</li>
+    <li><strong>Radians to degrees:</strong> degrees = rad × 180 / π</li>
+    <li><strong>Degrees to gradians:</strong> grad = degrees × 10 / 9</li>
+    <li><strong>Gradians to degrees:</strong> degrees = grad × 9 / 10</li>
+  </ul>
+  <p>A full circle = 360° = 2π rad ≈ 6.283 rad = 400 grad.</p>
+
+  <h2>Example 1: degrees to radians</h2>
+  <p><strong>Problem:</strong> Convert 45° to radians.</p>
+  <ol>
+    <li>Calculation:
+      <ul>
+        <li>rad = 45 × π / 180 = π / 4 ≈ 0.7854 rad.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> 45° = π/4 ≈ 0.7854 rad.</p>
+
+  <h2>Example 2: radians to degrees</h2>
+  <p><strong>Problem:</strong> Convert 1.5 rad to degrees.</p>
+  <ol>
+    <li>Calculation:
+      <ul>
+        <li>degrees = 1.5 × 180 / π ≈ 85.94°.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> 1.5 rad ≈ 85.94°.</p>
+
+  <h2>Common uses of angle conversion</h2>
+  <ul>
+    <li>Working with trigonometric functions in calculators and software.</li>
+    <li>Solving physics problems that require radians.</li>
+    <li>Converting measurements in surveying.</li>
+    <li>Programming graphics and animations in web development.</li>
+    <li>Computing in mechanical engineering and robotics.</li>
+    <li>Studying mathematics and trigonometry.</li>
+  </ul>
+
+  <h2>Common mistakes with angles</h2>
+  <ul>
+    <li>Using degrees when the trig function expects radians.</li>
+    <li>Confusing radians with gradians.</li>
+    <li>Not checking calculator mode (DEG vs RAD).</li>
+    <li>Rounding π too early in calculations.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>In calculus and mathematical analysis, radians are the natural unit. The derivatives of sin(x) and cos(x) are only correct when x is in radians. Memorize key angles: 0°, 30°, 45°, 60°, 90° and their radian equivalents.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Why do radians exist?</button>
+      <div class="faq-ap">
+        <p>Radians relate the angle to the arc length on a unit circle. They are the natural unit in advanced mathematics.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What are gradians?</button>
+      <div class="faq-ap">
+        <p>Gradians (or centesimal degrees) divide the circle into 400 parts. They are used in surveying in some European countries.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How many radians in a full circle?</button>
+      <div class="faq-ap">
+        <p>2π radians ≈ 6.283 rad. This is because the circumference of a unit circle is 2π.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How do I know if my calculator is in DEG or RAD?</button>
+      <div class="faq-ap">
+        <p>Compute sin(90). If the result is 1, it is in DEG (degrees). If approximately 0.894, it is in RAD (radians).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/temperature-calculator">Temperature Calculator</a></li>
+      <li><a href="/energy-converter-calculator">Energy Converter Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/temperature-calculator">Temperature Calculator</a></li>
+      <li><a href="/energy-converter-calculator">Energy Converter Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "955": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de conversión de temperatura: Celsius, Fahrenheit y Kelvin</h1>
+  <p>Esta calculadora convierte temperaturas entre las tres escalas más utilizadas: Celsius (°C), Fahrenheit (°F) y Kelvin (K), esencial en ciencia, cocina y vida cotidiana.</p>
+
+  <h2>Fórmulas de conversión</h2>
+  <p>Las relaciones entre escalas son:</p>
+  <ul>
+    <li><strong>Celsius a Fahrenheit:</strong> °F = °C × 9/5 + 32</li>
+    <li><strong>Fahrenheit a Celsius:</strong> °C = (°F − 32) × 5/9</li>
+    <li><strong>Celsius a Kelvin:</strong> K = °C + 273.15</li>
+    <li><strong>Fahrenheit a Kelvin:</strong> K = (°F − 32) × 5/9 + 273.15</li>
+  </ul>
+  <p>El cero absoluto es 0 K = −273.15 °C = −459.67 °F.</p>
+
+  <h2>Ejemplo 1: temperatura corporal</h2>
+  <p><strong>Problema:</strong> Convertir 37 °C a Fahrenheit y Kelvin.</p>
+  <ol>
+    <li>Fahrenheit:
+      <ul>
+        <li>°F = 37 × 9/5 + 32 = 66.6 + 32 = 98.6 °F.</li>
+      </ul>
+    </li>
+    <li>Kelvin:
+      <ul>
+        <li>K = 37 + 273.15 = 310.15 K.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> 37 °C = 98.6 °F = 310.15 K.</p>
+
+  <h2>Ejemplo 2: punto de ebullición del agua</h2>
+  <p><strong>Problema:</strong> Convertir 100 °C a Fahrenheit y Kelvin.</p>
+  <ol>
+    <li>Fahrenheit:
+      <ul>
+        <li>°F = 100 × 9/5 + 32 = 180 + 32 = 212 °F.</li>
+      </ul>
+    </li>
+    <li>Kelvin:
+      <ul>
+        <li>K = 100 + 273.15 = 373.15 K.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> 100 °C = 212 °F = 373.15 K.</p>
+
+  <h2>Usos comunes de la conversión de temperatura</h2>
+  <ul>
+    <li>Convertir recetas de cocina entre países con diferentes escalas.</li>
+    <li>Interpretar datos meteorológicos internacionales.</li>
+    <li>Trabajar con ecuaciones termodinámicas que requieren Kelvin.</li>
+    <li>Calibrar instrumentos de medición de temperatura.</li>
+    <li>Entender especificaciones técnicas de equipos.</li>
+    <li>Viajar y comprender pronósticos del tiempo en otros países.</li>
+  </ul>
+
+  <h2>Errores frecuentes con la temperatura</h2>
+  <ul>
+    <li>Olvidar sumar 32 al convertir de Celsius a Fahrenheit.</li>
+    <li>Usar 273 en lugar de 273.15 para conversiones precisas.</li>
+    <li>Confundir la dirección de la conversión.</li>
+    <li>No considerar que Kelvin no usa el símbolo de grado (K, no °K).</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>Para una estimación rápida de °C a °F: multiplica por 2 y suma 30. Por ejemplo, 20 °C ≈ 20×2+30 = 70 °F (el valor exacto es 68 °F). Es útil para tener una idea rápida.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Por qué existe Kelvin?</button>
+      <div class="faq-ap">
+        <p>Kelvin es la escala absoluta usada en ciencia. Comienza en el cero absoluto (sin energía térmica), lo que simplifica ecuaciones termodinámicas.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿A qué temperatura coinciden °C y °F?</button>
+      <div class="faq-ap">
+        <p>A −40°. −40 °C = −40 °F. Es el único punto donde ambas escalas coinciden.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Puede Kelvin ser negativo?</button>
+      <div class="faq-ap">
+        <p>No. 0 K es el cero absoluto, la temperatura más baja posible teóricamente.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué escala debo usar?</button>
+      <div class="faq-ap">
+        <p>Celsius para uso cotidiano y ciencia general. Fahrenheit en EE.UU. para clima. Kelvin para física y termodinámica.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/angle-converter-calculator">Angle Converter Calculator</a></li>
+      <li><a href="/energy-converter-calculator">Energy Converter Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/angle-converter-calculator">Angle Converter Calculator</a></li>
+      <li><a href="/energy-converter-calculator">Energy Converter Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Temperature Converter (Full): Celsius, Fahrenheit and Kelvin</h1>
+  <p>This calculator converts temperatures between the three most widely used scales: Celsius (°C), Fahrenheit (°F) and Kelvin (K), essential in science, cooking and everyday life.</p>
+
+  <h2>Conversion formulas</h2>
+  <p>The relationships between scales are:</p>
+  <ul>
+    <li><strong>Celsius to Fahrenheit:</strong> °F = °C × 9/5 + 32</li>
+    <li><strong>Fahrenheit to Celsius:</strong> °C = (°F − 32) × 5/9</li>
+    <li><strong>Celsius to Kelvin:</strong> K = °C + 273.15</li>
+    <li><strong>Fahrenheit to Kelvin:</strong> K = (°F − 32) × 5/9 + 273.15</li>
+  </ul>
+  <p>Absolute zero is 0 K = −273.15 °C = −459.67 °F.</p>
+
+  <h2>Example 1: body temperature</h2>
+  <p><strong>Problem:</strong> Convert 37 °C to Fahrenheit and Kelvin.</p>
+  <ol>
+    <li>Fahrenheit:
+      <ul>
+        <li>°F = 37 × 9/5 + 32 = 66.6 + 32 = 98.6 °F.</li>
+      </ul>
+    </li>
+    <li>Kelvin:
+      <ul>
+        <li>K = 37 + 273.15 = 310.15 K.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> 37 °C = 98.6 °F = 310.15 K.</p>
+
+  <h2>Example 2: water boiling point</h2>
+  <p><strong>Problem:</strong> Convert 100 °C to Fahrenheit and Kelvin.</p>
+  <ol>
+    <li>Fahrenheit:
+      <ul>
+        <li>°F = 100 × 9/5 + 32 = 180 + 32 = 212 °F.</li>
+      </ul>
+    </li>
+    <li>Kelvin:
+      <ul>
+        <li>K = 100 + 273.15 = 373.15 K.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> 100 °C = 212 °F = 373.15 K.</p>
+
+  <h2>Common uses of temperature conversion</h2>
+  <ul>
+    <li>Converting cooking recipes between countries with different scales.</li>
+    <li>Interpreting international weather data.</li>
+    <li>Working with thermodynamic equations that require Kelvin.</li>
+    <li>Calibrating temperature measurement instruments.</li>
+    <li>Understanding technical specifications of equipment.</li>
+    <li>Traveling and understanding weather forecasts in other countries.</li>
+  </ul>
+
+  <h2>Common mistakes with temperature</h2>
+  <ul>
+    <li>Forgetting to add 32 when converting from Celsius to Fahrenheit.</li>
+    <li>Using 273 instead of 273.15 for precise conversions.</li>
+    <li>Confusing the direction of conversion.</li>
+    <li>Not considering that Kelvin does not use the degree symbol (K, not °K).</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>For a quick °C to °F estimate: multiply by 2 and add 30. For example, 20 °C ≈ 20×2+30 = 70 °F (exact value is 68 °F). It is useful for a quick mental check.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Why does Kelvin exist?</button>
+      <div class="faq-ap">
+        <p>Kelvin is the absolute scale used in science. It starts at absolute zero (no thermal energy), which simplifies thermodynamic equations.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">At what temperature do °C and °F coincide?</button>
+      <div class="faq-ap">
+        <p>At −40°. −40 °C = −40 °F. It is the only point where both scales agree.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Can Kelvin be negative?</button>
+      <div class="faq-ap">
+        <p>No. 0 K is absolute zero, the lowest theoretically possible temperature.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Which scale should I use?</button>
+      <div class="faq-ap">
+        <p>Celsius for everyday use and general science. Fahrenheit in the US for weather. Kelvin for physics and thermodynamics.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/angle-converter-calculator">Angle Converter Calculator</a></li>
+      <li><a href="/energy-converter-calculator">Energy Converter Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/angle-converter-calculator">Angle Converter Calculator</a></li>
+      <li><a href="/energy-converter-calculator">Energy Converter Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "956": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de conversión de unidades de energía</h1>
+  <p>Esta calculadora convierte entre las unidades de energía más comunes: julios (J), kilojulios (kJ), calorías (cal), kilocalorías (kcal), vatios-hora (Wh), kilovatios-hora (kWh) y electronvoltios (eV).</p>
+
+  <h2>Factores de conversión</h2>
+  <p>Las equivalencias principales son:</p>
+  <ul>
+    <li><strong>1 kcal</strong> = 4,184 J</li>
+    <li><strong>1 kWh</strong> = 3,600,000 J = 3.6 MJ</li>
+    <li><strong>1 cal</strong> = 4.184 J</li>
+    <li><strong>1 Wh</strong> = 3,600 J</li>
+    <li><strong>1 eV</strong> = 1.602 × 10⁻¹⁹ J</li>
+    <li><strong>1 BTU</strong> = 1,055.06 J</li>
+  </ul>
+  <p>Todas las conversiones se realizan pasando primero a julios como unidad intermedia.</p>
+
+  <h2>Ejemplo 1: calorías a julios</h2>
+  <p><strong>Problema:</strong> Convertir 500 kcal a julios.</p>
+  <ol>
+    <li>Cálculo:
+      <ul>
+        <li>500 × 4,184 = 2,092,000 J = 2,092 kJ.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> 500 kcal = 2,092,000 J = 2,092 kJ.</p>
+
+  <h2>Ejemplo 2: kWh a calorías</h2>
+  <p><strong>Problema:</strong> Convertir 1 kWh a kcal.</p>
+  <ol>
+    <li>Cálculo:
+      <ul>
+        <li>1 kWh = 3,600,000 J.</li>
+        <li>3,600,000 / 4,184 ≈ 860.4 kcal.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> 1 kWh ≈ 860.4 kcal.</p>
+
+  <h2>Usos comunes de la conversión de energía</h2>
+  <ul>
+    <li>Convertir calorías alimentarias a julios para cálculos científicos.</li>
+    <li>Comparar consumo eléctrico (kWh) con energía térmica.</li>
+    <li>Calcular la energía de alimentos en diferentes unidades.</li>
+    <li>Trabajar con datos de eficiencia energética.</li>
+    <li>Convertir unidades en problemas de física y termodinámica.</li>
+    <li>Analizar el contenido energético de combustibles.</li>
+  </ul>
+
+  <h2>Errores frecuentes con unidades de energía</h2>
+  <ul>
+    <li>Confundir calorías (cal) con kilocalorías (kcal o "Cal" en nutrición).</li>
+    <li>No distinguir entre vatios (potencia) y vatios-hora (energía).</li>
+    <li>Usar factores de conversión aproximados cuando se necesita precisión.</li>
+    <li>Olvidar que 1 Cal (nutrición) = 1 kcal = 1,000 cal.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>En nutrición, cuando se dice "calorías" en realidad se refiere a kilocalorías. Una manzana de 95 "calorías" en realidad tiene 95 kcal = 397,480 J. Esta confusión es muy común.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cuál es la diferencia entre caloría y kilocaloría?</button>
+      <div class="faq-ap">
+        <p>1 kcal = 1,000 cal. En nutrición, "caloría" significa kilocaloría. Una Cal (con C mayúscula) = 1 kcal.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué es un kWh?</button>
+      <div class="faq-ap">
+        <p>Un kilovatio-hora es la energía consumida por un aparato de 1,000 W funcionando durante 1 hora. Es la unidad de facturación eléctrica.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué es un BTU?</button>
+      <div class="faq-ap">
+        <p>BTU (British Thermal Unit) es la energía necesaria para calentar 1 libra de agua 1 °F. Se usa en climatización y calefacción.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cuántas calorías tiene 1 kWh?</button>
+      <div class="faq-ap">
+        <p>1 kWh ≈ 860.4 kcal. Esto significa que la energía de 1 kWh equivale a unas 860 "calorías" alimentarias.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/angle-converter-calculator">Angle Converter Calculator</a></li>
+      <li><a href="/temperature-calculator">Temperature Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/angle-converter-calculator">Angle Converter Calculator</a></li>
+      <li><a href="/temperature-calculator">Temperature Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Energy Unit Converter</h1>
+  <p>This calculator converts between the most common energy units: joules (J), kilojoules (kJ), calories (cal), kilocalories (kcal), watt-hours (Wh), kilowatt-hours (kWh) and electronvolts (eV).</p>
+
+  <h2>Conversion factors</h2>
+  <p>The main equivalences are:</p>
+  <ul>
+    <li><strong>1 kcal</strong> = 4,184 J</li>
+    <li><strong>1 kWh</strong> = 3,600,000 J = 3.6 MJ</li>
+    <li><strong>1 cal</strong> = 4.184 J</li>
+    <li><strong>1 Wh</strong> = 3,600 J</li>
+    <li><strong>1 eV</strong> = 1.602 × 10⁻¹⁹ J</li>
+    <li><strong>1 BTU</strong> = 1,055.06 J</li>
+  </ul>
+  <p>All conversions are performed by first converting to joules as the intermediate unit.</p>
+
+  <h2>Example 1: calories to joules</h2>
+  <p><strong>Problem:</strong> Convert 500 kcal to joules.</p>
+  <ol>
+    <li>Calculation:
+      <ul>
+        <li>500 × 4,184 = 2,092,000 J = 2,092 kJ.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> 500 kcal = 2,092,000 J = 2,092 kJ.</p>
+
+  <h2>Example 2: kWh to calories</h2>
+  <p><strong>Problem:</strong> Convert 1 kWh to kcal.</p>
+  <ol>
+    <li>Calculation:
+      <ul>
+        <li>1 kWh = 3,600,000 J.</li>
+        <li>3,600,000 / 4,184 ≈ 860.4 kcal.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> 1 kWh ≈ 860.4 kcal.</p>
+
+  <h2>Common uses of energy conversion</h2>
+  <ul>
+    <li>Converting food calories to joules for scientific calculations.</li>
+    <li>Comparing electrical consumption (kWh) with thermal energy.</li>
+    <li>Computing food energy content in different units.</li>
+    <li>Working with energy efficiency data.</li>
+    <li>Converting units in physics and thermodynamics problems.</li>
+    <li>Analyzing the energy content of fuels.</li>
+  </ul>
+
+  <h2>Common mistakes with energy units</h2>
+  <ul>
+    <li>Confusing calories (cal) with kilocalories (kcal or "Cal" in nutrition).</li>
+    <li>Not distinguishing between watts (power) and watt-hours (energy).</li>
+    <li>Using approximate conversion factors when precision is needed.</li>
+    <li>Forgetting that 1 Cal (nutrition) = 1 kcal = 1,000 cal.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>In nutrition, when "calories" are mentioned they actually mean kilocalories. A 95-"calorie" apple actually has 95 kcal = 397,480 J. This confusion is very common.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What is the difference between calorie and kilocalorie?</button>
+      <div class="faq-ap">
+        <p>1 kcal = 1,000 cal. In nutrition, "calorie" means kilocalorie. One Cal (capital C) = 1 kcal.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What is a kWh?</button>
+      <div class="faq-ap">
+        <p>A kilowatt-hour is the energy consumed by a 1,000 W device running for 1 hour. It is the billing unit for electricity.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What is a BTU?</button>
+      <div class="faq-ap">
+        <p>BTU (British Thermal Unit) is the energy needed to heat 1 pound of water by 1 °F. It is used in HVAC and heating.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How many calories are in 1 kWh?</button>
+      <div class="faq-ap">
+        <p>1 kWh ≈ 860.4 kcal. This means the energy of 1 kWh equals about 860 food "calories".</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/angle-converter-calculator">Angle Converter Calculator</a></li>
+      <li><a href="/temperature-calculator">Temperature Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/angle-converter-calculator">Angle Converter Calculator</a></li>
+      <li><a href="/temperature-calculator">Temperature Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "957": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de combinaciones y permutaciones</h1>
+  <p>Esta calculadora determina el número de formas de seleccionar y ordenar elementos de un conjunto, distinguiendo entre permutaciones (el orden importa) y combinaciones (el orden no importa).</p>
+
+  <h2>Fórmulas</h2>
+  <p>Las fórmulas fundamentales son:</p>
+  <ul>
+    <li><strong>Permutaciones P(n,r):</strong> P(n,r) = n! / (n−r)!</li>
+    <li><strong>Combinaciones C(n,r):</strong> C(n,r) = n! / (r! × (n−r)!)</li>
+  </ul>
+  <p>Donde n es el total de elementos y r es el número de elementos seleccionados. El factorial n! = n × (n−1) × ... × 2 × 1.</p>
+
+  <h2>Ejemplo 1: permutaciones</h2>
+  <p><strong>Problema:</strong> ¿De cuántas formas se pueden ordenar 3 libros de un estante de 8?</p>
+  <ol>
+    <li>Cálculo:
+      <ul>
+        <li>P(8,3) = 8! / (8−3)! = 8! / 5! = 8 × 7 × 6 = 336.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> 336 formas diferentes.</p>
+
+  <h2>Ejemplo 2: combinaciones</h2>
+  <p><strong>Problema:</strong> ¿De cuántas formas se pueden elegir 3 personas de un grupo de 8?</p>
+  <ol>
+    <li>Cálculo:
+      <ul>
+        <li>C(8,3) = 8! / (3! × 5!) = (8 × 7 × 6) / (3 × 2 × 1) = 56.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> 56 grupos diferentes.</p>
+
+  <h2>Usos comunes</h2>
+  <ul>
+    <li>Calcular probabilidades en juegos de azar y loterías.</li>
+    <li>Diseñar experimentos y muestreos estadísticos.</li>
+    <li>Analizar posibilidades en problemas de optimización.</li>
+    <li>Resolver problemas de probabilidad en educación.</li>
+    <li>Calcular contraseñas posibles en seguridad informática.</li>
+    <li>Planificar horarios y asignaciones de recursos.</li>
+  </ul>
+
+  <h2>Errores frecuentes</h2>
+  <ul>
+    <li>Usar combinaciones cuando el orden importa (debería ser permutación).</li>
+    <li>Usar permutaciones cuando el orden no importa (debería ser combinación).</li>
+    <li>Calcular factoriales de números muy grandes sin usar simplificación.</li>
+    <li>No verificar que r ≤ n (no se pueden seleccionar más elementos de los disponibles).</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>La pregunta clave es: ¿el orden importa? Si sí, usa permutaciones. Si no, usa combinaciones. Por ejemplo, en una lotería el orden no importa (combinación), pero en una carrera de caballos sí importa (permutación).</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cuándo uso permutaciones y cuándo combinaciones?</button>
+      <div class="faq-ap">
+        <p>Si el orden de selección importa (como en una contraseña), usa permutaciones. Si solo importa qué elementos se seleccionan (como en un equipo), usa combinaciones.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué pasa si r = n?</button>
+      <div class="faq-ap">
+        <p>P(n,n) = n! (todas las ordenaciones posibles). C(n,n) = 1 (solo hay una forma de seleccionar todos los elementos).</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué es el factorial?</button>
+      <div class="faq-ap">
+        <p>n! es el producto de todos los enteros positivos desde 1 hasta n. Por ejemplo, 5! = 5×4×3×2×1 = 120. Por definición, 0! = 1.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Puedo seleccionar con repetición?</button>
+      <div class="faq-ap">
+        <p>Estas fórmulas son sin repetición. Con repetición, las fórmulas cambian: combinaciones con repetición = C(n+r−1, r).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/z-score-and-percentile-calculator">Z-Score and Percentile Calculator</a></li>
+      <li><a href="/sample-size-calculator">Sample Size Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/z-score-and-percentile-calculator">Z-Score and Percentile Calculator</a></li>
+      <li><a href="/sample-size-calculator">Sample Size Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Combinations & Permutations Calculator</h1>
+  <p>This calculator determines the number of ways to select and arrange elements from a set, distinguishing between permutations (order matters) and combinations (order does not matter).</p>
+
+  <h2>Formulas</h2>
+  <p>The fundamental formulas are:</p>
+  <ul>
+    <li><strong>Permutations P(n,r):</strong> P(n,r) = n! / (n−r)!</li>
+    <li><strong>Combinations C(n,r):</strong> C(n,r) = n! / (r! × (n−r)!)</li>
+  </ul>
+  <p>Where n is the total number of elements and r is the number of elements selected. The factorial n! = n × (n−1) × ... × 2 × 1.</p>
+
+  <h2>Example 1: permutations</h2>
+  <p><strong>Problem:</strong> In how many ways can you arrange 3 books from a shelf of 8?</p>
+  <ol>
+    <li>Calculation:
+      <ul>
+        <li>P(8,3) = 8! / (8−3)! = 8! / 5! = 8 × 7 × 6 = 336.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> 336 different arrangements.</p>
+
+  <h2>Example 2: combinations</h2>
+  <p><strong>Problem:</strong> In how many ways can you choose 3 people from a group of 8?</p>
+  <ol>
+    <li>Calculation:
+      <ul>
+        <li>C(8,3) = 8! / (3! × 5!) = (8 × 7 × 6) / (3 × 2 × 1) = 56.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> 56 different groups.</p>
+
+  <h2>Common uses</h2>
+  <ul>
+    <li>Computing probabilities in games of chance and lotteries.</li>
+    <li>Designing experiments and statistical sampling.</li>
+    <li>Analyzing possibilities in optimization problems.</li>
+    <li>Solving probability problems in education.</li>
+    <li>Computing possible passwords in computer security.</li>
+    <li>Planning schedules and resource assignments.</li>
+  </ul>
+
+  <h2>Common mistakes</h2>
+  <ul>
+    <li>Using combinations when order matters (should be permutation).</li>
+    <li>Using permutations when order does not matter (should be combination).</li>
+    <li>Computing factorials of very large numbers without simplification.</li>
+    <li>Not verifying that r ≤ n (you cannot select more elements than available).</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>The key question is: does order matter? If yes, use permutations. If no, use combinations. For example, in a lottery order does not matter (combination), but in a horse race it does (permutation).</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">When do I use permutations vs combinations?</button>
+      <div class="faq-ap">
+        <p>If the order of selection matters (like a password), use permutations. If only which elements are selected matters (like a team), use combinations.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What if r = n?</button>
+      <div class="faq-ap">
+        <p>P(n,n) = n! (all possible arrangements). C(n,n) = 1 (there is only one way to select all elements).</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What is a factorial?</button>
+      <div class="faq-ap">
+        <p>n! is the product of all positive integers from 1 to n. For example, 5! = 5×4×3×2×1 = 120. By definition, 0! = 1.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Can I select with repetition?</button>
+      <div class="faq-ap">
+        <p>These formulas are without repetition. With repetition, the formulas change: combinations with repetition = C(n+r−1, r).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/z-score-and-percentile-calculator">Z-Score and Percentile Calculator</a></li>
+      <li><a href="/sample-size-calculator">Sample Size Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/z-score-and-percentile-calculator">Z-Score and Percentile Calculator</a></li>
+      <li><a href="/sample-size-calculator">Sample Size Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "958": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de puntuación Z a percentil</h1>
+  <p>Esta calculadora convierte una puntuación Z (desviación estándar respecto a la media) en su percentil correspondiente en la distribución normal estándar, indicando qué porcentaje de datos caen por debajo de ese valor.</p>
+
+  <h2>La distribución normal estándar</h2>
+  <p>La puntuación Z indica cuántas desviaciones estándar un valor está de la media:</p>
+  <ul>
+    <li><strong>Z = 0:</strong>正好 en la media (percentil 50)</li>
+    <li><strong>Z = 1:</strong> una desviación estándar arriba (percentil ~84.1)</li>
+    <li><strong>Z = −1:</strong> una desviación estándar abajo (percentil ~15.9)</li>
+    <li><strong>Z = 1.96:</strong> percentil 97.5 (usado en IC del 95%)</li>
+  </ul>
+  <p>El percentil se obtiene evaluando la función de distribución acumulada (CDF) de la normal estándar en el valor Z.</p>
+
+  <h2>Ejemplo 1: Z positivo</h2>
+  <p><strong>Problema:</strong> ¿Qué percentil corresponde a Z = 1.5?</p>
+  <ol>
+    <li>Resultado:
+      <ul>
+        <li>Φ(1.5) ≈ 0.9332 → percentil 93.32.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> Z = 1.5 corresponde al percentil 93.32 (el 93.32% de los datos están por debajo).</p>
+
+  <h2>Ejemplo 2: Z negativo</h2>
+  <p><strong>Problema:</strong> ¿Qué percentil corresponde a Z = −2.0?</p>
+  <ol>
+    <li>Resultado:
+      <ul>
+        <li>Φ(−2.0) ≈ 0.0228 → percentil 2.28.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Respuesta:</strong> Z = −2.0 corresponde al percentil 2.28 (solo el 2.28% de los datos están por debajo).</p>
+
+  <h2>Usos comunes del percentil Z</h2>
+  <ul>
+    <li>Interpretar resultados de tests estandarizados (SAT, GRE, CI).</li>
+    <li>Evaluar percentiles de crecimiento en pediatría.</li>
+    <li>Determinar valores atípicos (outliers) en análisis de datos.</li>
+    <li>Calcular intervalos de confianza en estadística.</li>
+    <li>Realizar pruebas de hipótesis con distribución normal.</li>
+    <li>Analizar resultados de control de calidad en manufactura.</li>
+  </ul>
+
+  <h2>Errores frecuentes con puntuaciones Z</h2>
+  <ul>
+    <li>Interpretar Z como el percentil directamente (Z = 1 no es percentil 1).</li>
+    <li>No verificar que los datos siguen una distribución normal.</li>
+    <li>Confundir percentil con porcentaje de datos por encima.</li>
+    <li>Usar Z para muestras pequeñas donde la distribución t es más apropiada.</li>
+  </ul>
+
+  <h2>Consejo profesional</h2>
+  <p>La regla empírica 68-95-99.7 es útil: aproximadamente el 68% de los datos están dentro de ±1σ, el 95% dentro de ±2σ y el 99.7% dentro de ±3σ de la media.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué es una puntuación Z?</button>
+      <div class="faq-ap">
+        <p>Es el número de desviaciones estándar que un valor está de la media: Z = (valor − media) / desviación_estándar.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Qué Z corresponde al percentil 95?</button>
+      <div class="faq-ap">
+        <p>Z ≈ 1.645 para el percentil 95 (una cola). Para un IC del 95% (dos colas), Z = 1.96.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Cuándo es un valor atípico?</button>
+      <div class="faq-ap">
+        <p>Convencionalmente, un valor con |Z| > 3 se considera atípico (está a más de 3 desviaciones estándar de la media).</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">¿Funciona con cualquier distribución?</button>
+      <div class="faq-ap">
+        <p>No. La conversión Z a percentil asume una distribución normal. Para otras distribuciones, se necesitan métodos diferentes.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/combinations-and-permutations-calculator">Combinations and Permutations Calculator</a></li>
+      <li><a href="/sample-size-calculator">Sample Size Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/combinations-and-permutations-calculator">Combinations and Permutations Calculator</a></li>
+      <li><a href="/sample-size-calculator">Sample Size Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Z-Score to Percentile Calculator</h1>
+  <p>This calculator converts a Z-score (standard deviations from the mean) into its corresponding percentile in the standard normal distribution, indicating what percentage of data falls below that value.</p>
+
+  <h2>The standard normal distribution</h2>
+  <p>The Z-score indicates how many standard deviations a value is from the mean:</p>
+  <ul>
+    <li><strong>Z = 0:</strong> exactly at the mean (50th percentile)</li>
+    <li><strong>Z = 1:</strong> one standard deviation above (~84.1th percentile)</li>
+    <li><strong>Z = −1:</strong> one standard deviation below (~15.9th percentile)</li>
+    <li><strong>Z = 1.96:</strong> 97.5th percentile (used in 95% CI)</li>
+  </ul>
+  <p>The percentile is obtained by evaluating the cumulative distribution function (CDF) of the standard normal at the Z value.</p>
+
+  <h2>Example 1: positive Z</h2>
+  <p><strong>Problem:</strong> What percentile corresponds to Z = 1.5?</p>
+  <ol>
+    <li>Result:
+      <ul>
+        <li>Φ(1.5) ≈ 0.9332 → 93.32nd percentile.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> Z = 1.5 corresponds to the 93.32nd percentile (93.32% of data is below).</p>
+
+  <h2>Example 2: negative Z</h2>
+  <p><strong>Problem:</strong> What percentile corresponds to Z = −2.0?</p>
+  <ol>
+    <li>Result:
+      <ul>
+        <li>Φ(−2.0) ≈ 0.0228 → 2.28th percentile.</li>
+      </ul>
+    </li>
+  </ol>
+  <p><strong>Answer:</strong> Z = −2.0 corresponds to the 2.28th percentile (only 2.28% of data is below).</p>
+
+  <h2>Common uses of Z-score percentiles</h2>
+  <ul>
+    <li>Interpreting standardized test results (SAT, GRE, IQ).</li>
+    <li>Evaluating growth percentiles in pediatrics.</li>
+    <li>Identifying outliers in data analysis.</li>
+    <li>Computing confidence intervals in statistics.</li>
+    <li>Conducting hypothesis tests with normal distribution.</li>
+    <li>Analyzing quality control results in manufacturing.</li>
+  </ul>
+
+  <h2>Common mistakes with Z-scores</h2>
+  <ul>
+    <li>Interpreting Z as the percentile directly (Z = 1 is not the 1st percentile).</li>
+    <li>Not verifying that data follows a normal distribution.</li>
+    <li>Confusing percentile with percentage of data above.</li>
+    <li>Using Z for small samples where the t-distribution is more appropriate.</li>
+  </ul>
+
+  <h2>Pro tip</h2>
+  <p>The 68-95-99.7 empirical rule is useful: approximately 68% of data is within ±1σ, 95% within ±2σ and 99.7% within ±3σ of the mean.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What is a Z-score?</button>
+      <div class="faq-ap">
+        <p>It is the number of standard deviations a value is from the mean: Z = (value − mean) / standard_deviation.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What Z corresponds to the 95th percentile?</button>
+      <div class="faq-ap">
+        <p>Z ≈ 1.645 for the 95th percentile (one-tailed). For a 95% CI (two-tailed), Z = 1.96.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">When is a value an outlier?</button>
+      <div class="faq-ap">
+        <p>Conventionally, a value with |Z| > 3 is considered an outlier (more than 3 standard deviations from the mean).</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Does it work with any distribution?</button>
+      <div class="faq-ap">
+        <p>No. The Z-to-percentile conversion assumes a normal distribution. For other distributions, different methods are needed.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/combinations-and-permutations-calculator">Combinations and Permutations Calculator</a></li>
+      <li><a href="/sample-size-calculator">Sample Size Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/combinations-and-permutations-calculator">Combinations and Permutations Calculator</a></li>
+      <li><a href="/sample-size-calculator">Sample Size Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "959": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de Tamaño de Muestra: Determina el Tamaño de tu Encuesta</h1>
+  <p>La calculadora de tama&ntilde;o de muestra determina cu&aacute;ntos encuestados necesitas en un estudio o encuesta para alcanzar un nivel de precisi&oacute;n estad&iacute;stica deseado. Equilibra el nivel de confianza, el margen de error y la proporci&oacute;n poblacional para que puedas recopilar datos confiables y rentables.</p>
+
+  <div class="formula-section">
+    <h2>F&oacute;rmula del Tama&ntilde;o de Muestra</h2>
+    <p class="formula-display">n = Z&sup2; &times; p(1 &minus; p) / e&sup2;</p>
+    <p>Donde:</p>
+    <ul>
+      <li><strong>n</strong> = tama&ntilde;o de muestra requerido</li>
+      <li><strong>Z</strong> = valor Z correspondiente al nivel de confianza deseado (1.96 para 95%, 2.576 para 99%)</li>
+      <li><strong>p</strong> = proporci&oacute;n estimada de la poblaci&oacute;n (usa 0.5 cuando sea desconocida para el tama&ntilde;o de muestra m&aacute;ximo)</li>
+      <li><strong>e</strong> = margen de error deseado expresado como decimal (por ejemplo, 0.05 para &plusmn;5%)</li>
+    </ul>
+    <p>Esta f&oacute;rmula, conocida como la f&oacute;rmula de Cochran, asume una poblaci&oacute;n infinita o muy grande. Cuando tu poblaci&oacute;n es peque&ntilde;a, aplica la correcci&oacute;n para poblaci&oacute;n finita: n<sub>ajustada</sub> = n / (1 + (n &minus; 1) / N), donde N es el tama&ntilde;o total de la poblaci&oacute;n.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Ejemplos Resueltos</h2>
+    <div class="example">
+      <h3>Ejemplo 1: Encuesta de Satisfacci&oacute;n del Cliente</h3>
+      <p>Una empresa minorista quiere medir la satisfacci&oacute;n del cliente con un nivel de confianza del 95% y un margen de error de &plusmn;5%. No tienen una estimaci&oacute;n previa de la proporci&oacute;n de satisfacci&oacute;n, as&iacute; que usan p = 0.5.</p>
+      <p><strong>C&aacute;lculo:</strong> n = 1.96&sup2; &times; 0.5(1 &minus; 0.5) / 0.05&sup2; = 3.8416 &times; 0.25 / 0.0025 = 0.9604 / 0.0025 = <strong>384.16 &rarr; 385 encuestados</strong></p>
+      <p>La empresa necesita al menos 385 encuestas completadas para alcanzar la precisi&oacute;n deseada.</p>
+    </div>
+    <div class="example">
+      <h3>Ejemplo 2: Encuesta Pol&iacute;tica con Poblaci&oacute;n Peque&ntilde;a</h3>
+      <p>Una universidad con 2,000 estudiantes quiere sondear la opini&oacute;n estudiantil con un 99% de confianza y un margen de error de &plusmn;3%. Usando p = 0.5 para m&aacute;xima variabilidad:</p>
+      <p><strong>Paso 1 &mdash; Tama&ntilde;o inicial:</strong> n = 2.576&sup2; &times; 0.5(1 &minus; 0.5) / 0.03&sup2; = 6.6358 &times; 0.25 / 0.0009 = 1.6589 / 0.0009 = <strong>1,843</strong></p>
+      <p><strong>Paso 2 &mdash; Correcci&oacute;n para poblaci&oacute;n finita:</strong> n<sub>aj</sub> = 1,843 / (1 + (1,843 &minus; 1) / 2,000) = 1,843 / (1 + 0.921) = 1,843 / 1.921 = <strong>959 encuestados</strong></p>
+      <p>Despu&eacute;s de la correcci&oacute;n, solo se necesitan encuestar 959 estudiantes en lugar de 1,843.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Usos Comunes</h2>
+    <ul>
+      <li>Dise&ntilde;o de encuestas de investigaci&oacute;n de mercados con precisi&oacute;n estad&iacute;stica conocida</li>
+      <li>Planificaci&oacute;n de estudios de investigaci&oacute;n acad&eacute;mica y recopilaci&oacute;n de datos para tesis</li>
+      <li>Determinaci&oacute;n de tama&ntilde;os de muestra para inspecciones de control de calidad en manufactura</li>
+      <li>Establecimiento de objetivos de encuestados para sondeos de opini&oacute;n p&uacute;blica y pol&iacute;tica</li>
+      <li>C&aacute;lculo del n&uacute;mero de participantes para ensayos cl&iacute;nicos y estudios m&eacute;dicos</li>
+      <li>Dimensionamiento de encuestas de clima laboral en departamentos de recursos humanos</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Errores Comunes</h2>
+    <ul>
+      <li>Usar p = 0.5 cuando tienes datos previos confiables, lo que infla innecesariamente el tama&ntilde;o de muestra</li>
+      <li>Olvidar la correcci&oacute;n para poblaci&oacute;n finita al encuestar un grupo peque&ntilde;o y definido</li>
+      <li>Confundir el margen de error (e) con el nivel de confianza &mdash; son par&aacute;metros independientes</li>
+      <li>Ignorar las tasas de no respuesta y recopilar exactamente n respuestas en lugar de sobremuestrear para compensar las bajas</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Consejo Profesional</h2>
+    <p>Siempre sobremuestrea entre un 15% y 30% por encima de tu tama&ntilde;o de muestra calculado para tener en cuenta las no respuestas, encuestas incompletas y exclusiones por calidad de datos. Si necesitas 385 respuestas, apunta a invitar a 500&ndash;550 personas. Este margen asegura que cumplas con tus requisitos estad&iacute;sticos despu&eacute;s de la atrici&oacute;n.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Por qu&eacute; se usa p = 0.5 cuando se desconoce la proporci&oacute;n?</button>
+        <div class="faq-ap"><p>El producto p(1 &minus; p) alcanza su valor m&aacute;ximo de 0.25 cuando p = 0.5. Usar este valor da el mayor tama&ntilde;o de muestra posible, asegurando que tu estudio est&eacute; adecuadamente dimensionado independientemente de la proporci&oacute;n real.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Qu&eacute; nivel de confianza debo elegir?</button>
+        <div class="faq-ap"><p>El 95% de confianza (Z = 1.96) es el est&aacute;ndar para la mayor&iacute;a de investigaciones de mercado y ciencias sociales. Usa el 99% (Z = 2.576) para estudios de alto impacto como investigaci&oacute;n m&eacute;dica o cumplimiento regulatorio donde los errores son costosos.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Una muestra m&aacute;s grande siempre significa mejores resultados?</button>
+        <div class="faq-ap"><p>No necesariamente. M&aacute;s all&aacute; de cierto punto, aumentar el tama&ntilde;o de muestra produce rendimientos decrecientes en precisi&oacute;n. Una muestra de 1,000 da un margen de error de &plusmn;3.1%, mientras que 4,000 solo lo mejora a &plusmn;1.5%. Equilibra la precisi&oacute;n con el presupuesto y el tiempo disponible.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Cu&aacute;ndo debo usar la correcci&oacute;n para poblaci&oacute;n finita?</button>
+        <div class="faq-ap"><p>Aplica la correcci&oacute;n cuando tu tama&ntilde;o de muestra inicial exceda el 5% de la poblaci&oacute;n total (n/N &gt; 0.05). Para poblaciones grandes (por ejemplo, encuestas nacionales), la correcci&oacute;n tiene un efecto despreciable y puede omitirse.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/combinations-and-permutations-calculator">Combinations and Permutations Calculator</a></li>
+      <li><a href="/z-score-and-percentile-calculator">Z-Score and Percentile Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/combinations-and-permutations-calculator">Combinations and Permutations Calculator</a></li>
+      <li><a href="/z-score-and-percentile-calculator">Z-Score and Percentile Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>Sample Size Calculator: Determine Your Survey Size</h1>
+  <p>The sample size calculator determines how many respondents you need in a survey or study to achieve a desired level of statistical precision. It balances confidence level, margin of error, and population proportion so you can collect data that is both reliable and cost-effective.</p>
+
+  <div class="formula-section">
+    <h2>Sample Size Formula</h2>
+    <p class="formula-display">n = Z&sup2; &times; p(1 &minus; p) / e&sup2;</p>
+    <p>Where:</p>
+    <ul>
+      <li><strong>n</strong> = required sample size</li>
+      <li><strong>Z</strong> = Z-score corresponding to the desired confidence level (1.96 for 95%, 2.576 for 99%)</li>
+      <li><strong>p</strong> = estimated proportion of the population (use 0.5 when unknown for maximum sample size)</li>
+      <li><strong>e</strong> = desired margin of error expressed as a decimal (e.g., 0.05 for &plusmn;5%)</li>
+    </ul>
+    <p>This formula, known as Cochran's formula, assumes an infinite or very large population. When your population is small, apply the finite population correction: n<sub>adjusted</sub> = n / (1 + (n &minus; 1) / N), where N is the total population size.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Worked Examples</h2>
+    <div class="example">
+      <h3>Example 1: Customer Satisfaction Survey</h3>
+      <p>A retail company wants to measure customer satisfaction with a 95% confidence level and a &plusmn;5% margin of error. They have no prior estimate of the satisfaction proportion, so they use p = 0.5.</p>
+      <p><strong>Calculation:</strong> n = 1.96&sup2; &times; 0.5(1 &minus; 0.5) / 0.05&sup2; = 3.8416 &times; 0.25 / 0.0025 = 0.9604 / 0.0025 = <strong>384.16 &rarr; 385 respondents</strong></p>
+      <p>The company needs at least 385 completed surveys to achieve the desired precision.</p>
+    </div>
+    <div class="example">
+      <h3>Example 2: Political Polling with Small Population</h3>
+      <p>A university with 2,000 students wants to poll student opinion with 99% confidence and a &plusmn;3% margin of error. Using p = 0.5 for maximum variability:</p>
+      <p><strong>Step 1 &mdash; Initial size:</strong> n = 2.576&sup2; &times; 0.5(1 &minus; 0.5) / 0.03&sup2; = 6.6358 &times; 0.25 / 0.0009 = 1.6589 / 0.0009 = <strong>1,843</strong></p>
+      <p><strong>Step 2 &mdash; Finite population correction:</strong> n<sub>adj</sub> = 1,843 / (1 + (1,843 &minus; 1) / 2,000) = 1,843 / (1 + 0.921) = 1,843 / 1.921 = <strong>959 respondents</strong></p>
+      <p>After correction, only 959 students need to be surveyed instead of 1,843.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Common Uses</h2>
+    <ul>
+      <li>Designing market research surveys with known statistical precision</li>
+      <li>Planning academic research studies and thesis data collection</li>
+      <li>Determining sample sizes for quality control inspections in manufacturing</li>
+      <li>Setting respondent targets for political polling and public opinion research</li>
+      <li>Calculating participant numbers for clinical trials and medical studies</li>
+      <li>Sizing employee engagement surveys in human resources departments</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Common Mistakes</h2>
+    <ul>
+      <li>Using p = 0.5 when you have reliable prior data, which inflates the sample size unnecessarily</li>
+      <li>Forgetting the finite population correction when surveying a small, defined group</li>
+      <li>Confusing margin of error (e) with confidence level &mdash; they are independent parameters</li>
+      <li>Ignoring non-response rates and collecting exactly n responses instead of oversampling to account for dropouts</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Pro Tip</h2>
+    <p>Always oversample by 15&ndash;30% above your calculated sample size to account for non-responses, incomplete surveys, and data quality exclusions. If you need 385 responses, aim to invite 500&ndash;550 people. This buffer ensures you still meet your statistical requirements after attrition.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Why is p = 0.5 used when the proportion is unknown?</button>
+        <div class="faq-ap"><p>The product p(1 &minus; p) reaches its maximum value of 0.25 when p = 0.5. Using this value gives the largest possible sample size, ensuring your study is adequately powered regardless of the true proportion.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What confidence level should I choose?</button>
+        <div class="faq-ap"><p>95% confidence (Z = 1.96) is the standard for most social science and market research. Use 99% (Z = 2.576) for high-stakes studies like medical research or regulatory compliance where errors are costly.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Does a larger sample always mean better results?</button>
+        <div class="faq-ap"><p>Not necessarily. Beyond a certain point, increasing sample size yields diminishing returns in precision. A sample of 1,000 gives a &plusmn;3.1% margin of error, while 4,000 only improves it to &plusmn;1.5%. Balance precision with budget and time constraints.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">When should I use the finite population correction?</button>
+        <div class="faq-ap"><p>Apply the correction when your initial sample size exceeds 5% of the total population (n/N &gt; 0.05). For large populations (e.g., national surveys), the correction has negligible effect and can be skipped.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/combinations-and-permutations-calculator">Combinations and Permutations Calculator</a></li>
+      <li><a href="/z-score-and-percentile-calculator">Z-Score and Percentile Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/combinations-and-permutations-calculator">Combinations and Permutations Calculator</a></li>
+      <li><a href="/z-score-and-percentile-calculator">Z-Score and Percentile Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "960": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de BSA y Peso Ideal: Métricas Corporales Clínicas</h1>
+  <p>La calculadora de Superficie Corporal (SC) y Peso Corporal Ideal (PCI) estima dos mediciones cl&iacute;nicas fundamentales: tu superficie corporal usando la f&oacute;rmula de Mosteller y tu peso ideal usando la ecuaci&oacute;n de Devine. Estos valores son esenciales para la dosificaci&oacute;n de medicamentos, la evaluaci&oacute;n nutricional y la toma de decisiones cl&iacute;nicas.</p>
+
+  <div class="formula-section">
+    <h2>F&oacute;rmulas de SC y PCI</h2>
+    <p class="formula-display">SC (m&sup2;) = &radic;(Altura(cm) &times; Peso(kg) / 3600)</p>
+    <p class="formula-display">PCI hombres (kg) = 50 + 2.3 &times; (altura en pulgadas &minus; 60)</p>
+    <p class="formula-display">PCI mujeres (kg) = 45.5 + 2.3 &times; (altura en pulgadas &minus; 60)</p>
+    <p>La Superficie Corporal (SC) usando la f&oacute;rmula de Mosteller proporciona una medida m&aacute;s precisa de la masa metab&oacute;lica que el peso por s&iacute; solo. Se usa ampliamente en oncolog&iacute;a para la dosificaci&oacute;n de quimioterapia y en cuidados intensivos para c&aacute;lculos de reanimaci&oacute;n de fluidos.</p>
+    <p>El Peso Corporal Ideal (PCI) usando la f&oacute;rmula de Devine estima el peso &oacute;ptimo para una altura dada basado en promedios poblacionales. Se usa com&uacute;nmente para evaluar el estado nutricional y ajustar la dosificaci&oacute;n de medicamentos que se distribuyen principalmente en tejido magro.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Ejemplos Resueltos</h2>
+    <div class="example">
+      <h3>Ejemplo 1: Paciente Hombre, 180 cm, 85 kg</h3>
+      <p><strong>C&aacute;lculo de SC:</strong> SC = &radic;(180 &times; 85 / 3600) = &radic;(15,300 / 3600) = &radic;4.25 = <strong>2.06 m&sup2;</strong></p>
+      <p><strong>C&aacute;lculo de PCI:</strong> Altura en pulgadas = 180 / 2.54 = 70.87 pulgadas. PCI = 50 + 2.3 &times; (70.87 &minus; 60) = 50 + 2.3 &times; 10.87 = 50 + 25.0 = <strong>75.0 kg</strong></p>
+      <p>El peso real de este paciente (85 kg) est&aacute; aproximadamente un 13% por encima de su peso ideal de 75 kg, lo cual se encuentra dentro de un rango cl&iacute;nicamente aceptable.</p>
+    </div>
+    <div class="example">
+      <h3>Ejemplo 2: Paciente Mujer, 165 cm, 60 kg</h3>
+      <p><strong>C&aacute;lculo de SC:</strong> SC = &radic;(165 &times; 60 / 3600) = &radic;(9,900 / 3600) = &radic;2.75 = <strong>1.66 m&sup2;</strong></p>
+      <p><strong>C&aacute;lculo de PCI:</strong> Altura en pulgadas = 165 / 2.54 = 64.96 pulgadas. PCI = 45.5 + 2.3 &times; (64.96 &minus; 60) = 45.5 + 2.3 &times; 4.96 = 45.5 + 11.4 = <strong>56.9 kg</strong></p>
+      <p>El peso real de esta paciente (60 kg) est&aacute; muy cerca de su peso ideal de 56.9 kg, lo que indica una relaci&oacute;n peso-altura saludable.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Usos Comunes</h2>
+    <ul>
+      <li>C&aacute;lculo de dosis de quimioterapia basadas en la superficie corporal en oncolog&iacute;a</li>
+      <li>Determinaci&oacute;n de vol&uacute;menes de reanimaci&oacute;n de fluidos para pacientes con quemaduras (f&oacute;rmula de Parkland)</li>
+      <li>Evaluaci&oacute;n del estado nutricional e identificaci&oacute;n de desnutrici&oacute;n en entornos cl&iacute;nicos</li>
+      <li>Ajuste de dosis de medicamentos con &iacute;ndices terap&eacute;uticos estrechos</li>
+      <li>Evaluaci&oacute;n del &iacute;ndice card&iacute;aco y funci&oacute;n renal en medicina de cuidados intensivos</li>
+      <li>Establecimiento de objetivos de control de peso y seguimiento de progreso en diet&eacute;tica</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Errores Comunes</h2>
+    <ul>
+      <li>Usar el PCI como objetivo para todos, ignorando las diferencias naturales de composici&oacute;n corporal y masa muscular</li>
+      <li>Aplicar la f&oacute;rmula de Devine a ni&ntilde;os &mdash; solo est&aacute; validada para adultos mayores de 18 a&ntilde;os</li>
+      <li>Confundir la SC con el IMC &mdash; miden cosas diferentes y sirven para prop&oacute;sitos cl&iacute;nicos distintos</li>
+      <li>Olvidar convertir la altura a pulgadas al usar la f&oacute;rmula de PCI de Devine (requiere pulgadas, no cent&iacute;metros)</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Consejo Profesional</h2>
+    <p>Para la dosificaci&oacute;n de medicamentos, siempre verifica si el protocolo especifica dosificaci&oacute;n basada en SC, en PCI o en peso corporal real. Algunos medicamentos (como los aminogluc&oacute;sidos) usan peso corporal ajustado en pacientes obesos: PCA = PCI + 0.4 &times; (peso real &minus; PCI). Usar la base de peso incorrecta puede provocar subdosificaci&oacute;n o toxicidad.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Cu&aacute;l es un valor normal de SC?</button>
+        <div class="faq-ap"><p>La SC promedio para hombres adultos es aproximadamente 1.9 m&sup2; y para mujeres adultas alrededor de 1.6 m&sup2;. Los valores t&iacute;picamente var&iacute;an de 1.5 a 2.2 m&sup2; dependiendo del tama&ntilde;o corporal. Los ni&ntilde;os tienen valores de SC mucho menores, comenzando alrededor de 0.25 m&sup2; para reci&eacute;n nacidos.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Qu&eacute; tan precisa es la f&oacute;rmula de PCI de Devine?</button>
+        <div class="faq-ap"><p>La f&oacute;rmula de Devine es una de las ecuaciones de PCI m&aacute;s utilizadas pero tiene limitaciones. No considera la edad, la etnia ni la composici&oacute;n corporal. Para poblaciones modernas, puede subestimar el peso ideal. Cons&iexcl;d&eacute;rala como una gu&iacute;a cl&iacute;nica aproximada m&aacute;s que como un objetivo absoluto.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Existen f&oacute;rmulas alternativas para la SC?</button>
+        <div class="faq-ap"><p>S&iacute;. La f&oacute;rmula de DuBois y DuBois (SC = 0.007184 &times; P^0.425 &times; A^0.725) y la f&oacute;rmula de Haycock son alternativas. Mosteller se prefiere en la pr&aacute;ctica cl&iacute;nica porque es m&aacute;s simple y produce resultados casi id&eacute;nticos para la mayor&iacute;a de los pacientes.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Cu&aacute;ndo debo usar el PCI en lugar del peso corporal real?</button>
+        <div class="faq-ap"><p>Usa el PCI para medicamentos que se distribuyen principalmente en tejido magro (no en grasa), como aminogluc&oacute;sidos y ciertos bloqueadores neuromusculares. Para pacientes obesos, el peso corporal real puede sobreestimar significativamente la dosis requerida. Consulta siempre la informaci&oacute;n de prescripci&oacute;n espec&iacute;fica del medicamento.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/creatinine-clearance-calculator">Creatinine Clearance Calculator</a></li>
+      <li><a href="/blood-pressure-calculator">Blood Pressure Calculator</a></li>
+      <li><a href="/a1c-to-eag-calculator">A1c to eAG Calculator</a></li>
+      <li><a href="/ldl-cholesterol-calculator">LDL Cholesterol Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/creatinine-clearance-calculator">Creatinine Clearance Calculator</a></li>
+      <li><a href="/blood-pressure-calculator">Blood Pressure Calculator</a></li>
+      <li><a href="/a1c-to-eag-calculator">A1c to eAG Calculator</a></li>
+      <li><a href="/ldl-cholesterol-calculator">LDL Cholesterol Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>BSA and Ideal Body Weight Calculator: Clinical Body Metrics</h1>
+  <p>The BSA and Ideal Body Weight calculator estimates two key clinical measurements: your body surface area using the Mosteller formula and your ideal body weight using the Devine equation. These values are essential for medication dosing, nutritional assessment, and clinical decision-making.</p>
+
+  <div class="formula-section">
+    <h2>BSA and IBW Formulas</h2>
+    <p class="formula-display">BSA (m&sup2;) = &radic;(Height(cm) &times; Weight(kg) / 3600)</p>
+    <p class="formula-display">IBW men (kg) = 50 + 2.3 &times; (height in inches &minus; 60)</p>
+    <p class="formula-display">IBW women (kg) = 45.5 + 2.3 &times; (height in inches &minus; 60)</p>
+    <p>Body Surface Area (BSA) using the Mosteller formula provides a more accurate measure of metabolic mass than weight alone. It is widely used in oncology for chemotherapy dosing and in critical care for fluid resuscitation calculations.</p>
+    <p>Ideal Body Weight (IBW) using the Devine formula estimates the optimal weight for a given height based on population averages. It is commonly used to assess nutritional status and to adjust drug dosing for medications that distribute primarily in lean tissue.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Worked Examples</h2>
+    <div class="example">
+      <h3>Example 1: Male Patient, 180 cm, 85 kg</h3>
+      <p><strong>BSA calculation:</strong> BSA = &radic;(180 &times; 85 / 3600) = &radic;(15,300 / 3600) = &radic;4.25 = <strong>2.06 m&sup2;</strong></p>
+      <p><strong>IBW calculation:</strong> Height in inches = 180 / 2.54 = 70.87 inches. IBW = 50 + 2.3 &times; (70.87 &minus; 60) = 50 + 2.3 &times; 10.87 = 50 + 25.0 = <strong>75.0 kg</strong></p>
+      <p>This patient's actual weight (85 kg) is about 13% above his ideal body weight of 75 kg, which falls within a clinically acceptable range.</p>
+    </div>
+    <div class="example">
+      <h3>Example 2: Female Patient, 165 cm, 60 kg</h3>
+      <p><strong>BSA calculation:</strong> BSA = &radic;(165 &times; 60 / 3600) = &radic;(9,900 / 3600) = &radic;2.75 = <strong>1.66 m&sup2;</strong></p>
+      <p><strong>IBW calculation:</strong> Height in inches = 165 / 2.54 = 64.96 inches. IBW = 45.5 + 2.3 &times; (64.96 &minus; 60) = 45.5 + 2.3 &times; 4.96 = 45.5 + 11.4 = <strong>56.9 kg</strong></p>
+      <p>This patient's actual weight (60 kg) is very close to her ideal body weight of 56.9 kg, indicating a healthy weight-for-height ratio.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Common Uses</h2>
+    <ul>
+      <li>Calculating chemotherapy drug doses based on body surface area in oncology</li>
+      <li>Determining fluid resuscitation volumes for burn patients (Parkland formula)</li>
+      <li>Assessing nutritional status and identifying malnutrition in clinical settings</li>
+      <li>Adjusting medication dosages for drugs with narrow therapeutic indices</li>
+      <li>Evaluating cardiac index and renal function in critical care medicine</li>
+      <li>Setting weight management goals and tracking progress in dietetics</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Common Mistakes</h2>
+    <ul>
+      <li>Using IBW as a target for everyone, ignoring natural body composition differences and muscle mass</li>
+      <li>Applying the Devine formula to children &mdash; it is validated only for adults over 18 years</li>
+      <li>Confusing BSA with BMI &mdash; they measure different things and serve different clinical purposes</li>
+      <li>Forgetting to convert height to inches when using the Devine IBW formula (it requires inches, not centimeters)</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Pro Tip</h2>
+    <p>For medication dosing, always check whether the drug protocol specifies BSA-based dosing, IBW-based dosing, or actual body weight dosing. Some medications (like aminoglycosides) use adjusted body weight in obese patients: ABW = IBW + 0.4 &times; (actual weight &minus; IBW). Using the wrong weight basis can lead to underdosing or toxicity.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What is a normal BSA value?</button>
+        <div class="faq-ap"><p>The average BSA for adult men is approximately 1.9 m&sup2; and for adult women about 1.6 m&sup2;. Values typically range from 1.5 to 2.2 m&sup2; depending on body size. Children have much lower BSA values, starting around 0.25 m&sup2; for newborns.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How accurate is the Devine IBW formula?</button>
+        <div class="faq-ap"><p>The Devine formula is one of the most widely used IBW equations but has limitations. It does not account for age, ethnicity, or body composition. For modern populations, it may underestimate ideal weight. Consider it a rough clinical guide rather than an absolute target.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Are there alternative BSA formulas?</button>
+        <div class="faq-ap"><p>Yes. The DuBois and DuBois formula (BSA = 0.007184 &times; W^0.425 &times; H^0.725) and the Haycock formula are alternatives. Mosteller is preferred in clinical practice because it is simpler and produces nearly identical results for most patients.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">When should I use IBW instead of actual body weight?</button>
+        <div class="faq-ap"><p>Use IBW for drugs that distribute primarily in lean tissue (not fat), such as aminoglycosides and certain neuromuscular blockers. For obese patients, actual body weight can significantly overestimate the required dose. Always consult the specific drug's prescribing information.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/creatinine-clearance-calculator">Creatinine Clearance Calculator</a></li>
+      <li><a href="/blood-pressure-calculator">Blood Pressure Calculator</a></li>
+      <li><a href="/a1c-to-eag-calculator">A1c to eAG Calculator</a></li>
+      <li><a href="/ldl-cholesterol-calculator">LDL Cholesterol Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/creatinine-clearance-calculator">Creatinine Clearance Calculator</a></li>
+      <li><a href="/blood-pressure-calculator">Blood Pressure Calculator</a></li>
+      <li><a href="/a1c-to-eag-calculator">A1c to eAG Calculator</a></li>
+      <li><a href="/ldl-cholesterol-calculator">LDL Cholesterol Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "961": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de A1c a eAG: Convierte tus Números de Diabetes</h1>
+  <p>La calculadora de A1C a Glucosa Promedio Estimada convierte tu porcentaje de hemoglobina A1c en un nivel estimado de glucosa sangu&iacute;nea promedio (GPE) expresado en mg/dL o mmol/L. Esta traducci&oacute;n ayuda a las personas con diabetes a comprender sus resultados de A1c en las mismas unidades que ven en sus lecturas diarias de glucosa.</p>
+
+  <div class="formula-section">
+    <h2>F&oacute;rmula de A1C a GPE</h2>
+    <p class="formula-display">GPE (mg/dL) = 28.7 &times; A1C &minus; 46.7</p>
+    <p class="formula-display">GPE (mmol/L) = (28.7 &times; A1C &minus; 46.7) / 18</p>
+    <p>Esta ecuaci&oacute;n se deriv&oacute; del estudio ADAG (Glucosa Promedio Derivada de A1C), que analiz&oacute; datos de monitoreo continuo de glucosa de m&aacute;s de 500 adultos con y sin diabetes. La relaci&oacute;n entre A1c y glucosa promedio es lineal, lo que hace que esta conversi&oacute;n sea confiable en el rango cl&iacute;nicamente relevante.</p>
+    <p>La hemoglobina A1c refleja tu glucosa sangu&iacute;nea promedio durante los &uacute;ltimos 2 a 3 meses, que corresponde a la vida &uacute;til de los gl&oacute;bulos rojos. La GPE proporciona un n&uacute;mero familiar de monitoreo diario que conecta los resultados de laboratorio trimestrales con la gesti&oacute;n cotidiana de la glucosa.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Ejemplos Resueltos</h2>
+    <div class="example">
+      <h3>Ejemplo 1: A1C del 7.0%</h3>
+      <p>Un paciente con diabetes tipo 2 tiene un resultado de A1c del 7.0%, que es un objetivo com&uacute;n recomendado por la Asociaci&oacute;n Americana de Diabetes.</p>
+      <p><strong>C&aacute;lculo:</strong> GPE = 28.7 &times; 7.0 &minus; 46.7 = 200.9 &minus; 46.7 = <strong>154 mg/dL</strong></p>
+      <p>En mmol/L: 154 / 18 = <strong>8.6 mmol/L</strong></p>
+      <p>Esto significa que la glucosa sangu&iacute;nea promedio del paciente durante los &uacute;ltimos 2&ndash;3 meses fue aproximadamente 154 mg/dL, lo cual se alinea con un objetivo de diabetes bien controlada.</p>
+    </div>
+    <div class="example">
+      <h3>Ejemplo 2: A1C del 9.5%</h3>
+      <p>Un paciente presenta un A1c del 9.5%, lo que indica un control de glucosa sub&oacute;ptimo que puede requerir ajuste de tratamiento.</p>
+      <p><strong>C&aacute;lculo:</strong> GPE = 28.7 &times; 9.5 &minus; 46.7 = 272.65 &minus; 46.7 = <strong>226 mg/dL</strong></p>
+      <p>En mmol/L: 226 / 18 = <strong>12.6 mmol/L</strong></p>
+      <p>Una glucosa promedio estimada de 226 mg/dL est&aacute; significativamente por encima del rango objetivo, lo que sugiere la necesidad de revisar la medicaci&oacute;n, hacer cambios diet&eacute;ticos o aumentar la actividad f&iacute;sica.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Usos Comunes</h2>
+    <ul>
+      <li>Interpretaci&oacute;n de resultados de laboratorio de A1c trimestrales en t&eacute;rminos familiares para el monitoreo diario de glucosa</li>
+      <li>Establecimiento de objetivos personalizados de glucosa con proveedores de salud durante chequeos de diabetes</li>
+      <li>Educaci&oacute;n de pacientes reci&eacute;n diagnosticados sobre qu&eacute; significa su n&uacute;mero de A1c en t&eacute;rminos pr&aacute;cticos</li>
+      <li>Seguimiento del progreso a lo largo del tiempo comparando valores de GPE en m&uacute;ltiples pruebas de A1c</li>
+      <li>Comunicaci&oacute;n del estado de control de glucosa entre pacientes, endocrin&oacute;logos y educadores en diabetes</li>
+      <li>Evaluaci&oacute;n de la efectividad de cambios en la medicaci&oacute;n o intervenciones de estilo de vida entre visitas de laboratorio</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Errores Comunes</h2>
+    <ul>
+      <li>Tratar la GPE como un objetivo diario &mdash; es un promedio de 2&ndash;3 meses, no una meta para lecturas diarias individuales</li>
+      <li>Asumir que la conversi&oacute;n es igualmente precisa para todos &mdash; condiciones como anemia, variantes de hemoglobina y enfermedad renal pueden afectar la A1c independientemente de los niveles de glucosa</li>
+      <li>Confundir mg/dL con mmol/L &mdash; el factor de conversi&oacute;n es 18, y mezclarlos lleva a interpretaciones incorrectas peligrosas</li>
+      <li>Usar la GPE para diagnosticar diabetes &mdash; el diagn&oacute;stico debe basarse en el porcentaje de A1c mismo (6.5% o superior), no en el valor de GPE convertido</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Consejo Profesional</h2>
+    <p>Usa el valor de GPE para calibrar tus expectativas para las lecturas diarias de glucosa. Si tu GPE es 154 mg/dL, tus lecturas diarias deber&iacute;an fluctuar alrededor de este n&uacute;mero &mdash; algunas m&aacute;s altas despu&eacute;s de las comidas, algunas m&aacute;s bajas en ayunas. Si la mayor&iacute;a de tus lecturas diarias est&aacute;n consistentemente lejos de tu GPE, discute esta discrepancia con tu m&eacute;dico, ya que puede indicar la necesidad de pruebas m&aacute;s frecuentes o un monitor continuo de glucosa (MCG).</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Qu&eacute; nivel de A1c se considera normal?</button>
+        <div class="faq-ap"><p>Una A1c normal es inferior al 5.7%, lo que corresponde a una GPE inferior a 117 mg/dL (6.5 mmol/L). La prediabetes var&iacute;a del 5.7% al 6.4% (GPE 117&ndash;137 mg/dL). La diabetes se diagnostica al 6.5% o m&aacute;s (GPE 140 mg/dL o superior).</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Con qu&eacute; frecuencia debo revisar mi A1c?</button>
+        <div class="faq-ap"><p>La Asociaci&oacute;n Americana de Diabetes recomienda revisar la A1c al menos dos veces al a&ntilde;o si tu diabetes est&aacute; bien controlada y cumples con los objetivos de tratamiento. Si tu tratamiento ha cambiado o no cumples con los objetivos, rev&iacute;sala cada 3 meses.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Puede ser imprecisa la A1c?</button>
+        <div class="faq-ap"><p>S&iacute;. Las condiciones que afectan el recambio de gl&oacute;bulos rojos (anemia hemol&iacute;tica, p&eacute;rdida de sangre reciente, rasgo de c&eacute;lulas falciformes, embarazo) pueden hacer que la A1c no sea confiable. En estos casos, la prueba de fructosamina o el monitoreo continuo de glucosa pueden proporcionar mejores estimaciones de la glucosa promedio.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Cu&aacute;l es el objetivo de A1c para alguien con diabetes?</button>
+        <div class="faq-ap"><p>Para la mayor&iacute;a de los adultos no embarazadas con diabetes, la ADA recomienda un objetivo de A1c inferior al 7% (GPE inferior a 154 mg/dL). Objetivos m&aacute;s estrictos (inferiores al 6.5%) pueden ser apropiados para algunos, mientras que objetivos menos estrictos (inferiores al 8%) pueden ser mejores para aquellos con historial de hipoglucemia severa o esperanza de vida limitada.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/creatinine-clearance-calculator">Creatinine Clearance Calculator</a></li>
+      <li><a href="/blood-pressure-calculator">Blood Pressure Calculator</a></li>
+      <li><a href="/bsa-and-ideal-body-weight-calculator">BSA and Ideal Body Weight Calculator</a></li>
+      <li><a href="/ldl-cholesterol-calculator">LDL Cholesterol Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/creatinine-clearance-calculator">Creatinine Clearance Calculator</a></li>
+      <li><a href="/blood-pressure-calculator">Blood Pressure Calculator</a></li>
+      <li><a href="/bsa-and-ideal-body-weight-calculator">BSA and Ideal Body Weight Calculator</a></li>
+      <li><a href="/ldl-cholesterol-calculator">LDL Cholesterol Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>A1c to eAG Calculator: Convert Your Diabetes Numbers</h1>
+  <p>The A1C to Estimated Average Glucose calculator converts your hemoglobin A1c percentage into an estimated average blood glucose level (eAG) expressed in mg/dL or mmol/L. This translation helps people with diabetes understand their A1c results in the same units they see on their daily glucose meter readings.</p>
+
+  <div class="formula-section">
+    <h2>A1C to eAG Formula</h2>
+    <p class="formula-display">eAG (mg/dL) = 28.7 &times; A1C &minus; 46.7</p>
+    <p class="formula-display">eAG (mmol/L) = (28.7 &times; A1C &minus; 46.7) / 18</p>
+    <p>This equation was derived from the ADAG (A1C-Derived Average Glucose) study, which analyzed continuous glucose monitoring data from over 500 adults with and without diabetes. The relationship between A1c and average glucose is linear, making this conversion reliable across the clinically relevant range.</p>
+    <p>Hemoglobin A1c reflects your average blood glucose over the past 2 to 3 months, which corresponds to the lifespan of red blood cells. The eAG provides a familiar daily monitoring number that bridges the gap between quarterly lab results and everyday glucose management.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Worked Examples</h2>
+    <div class="example">
+      <h3>Example 1: A1C of 7.0%</h3>
+      <p>A patient with type 2 diabetes has an A1c result of 7.0%, which is a common target recommended by the American Diabetes Association.</p>
+      <p><strong>Calculation:</strong> eAG = 28.7 &times; 7.0 &minus; 46.7 = 200.9 &minus; 46.7 = <strong>154 mg/dL</strong></p>
+      <p>In mmol/L: 154 / 18 = <strong>8.6 mmol/L</strong></p>
+      <p>This means the patient's average blood glucose over the past 2&ndash;3 months was approximately 154 mg/dL, which aligns with a well-managed diabetes target.</p>
+    </div>
+    <div class="example">
+      <h3>Example 2: A1C of 9.5%</h3>
+      <p>A patient presents with an A1c of 9.5%, indicating suboptimal glucose control that may require treatment adjustment.</p>
+      <p><strong>Calculation:</strong> eAG = 28.7 &times; 9.5 &minus; 46.7 = 272.65 &minus; 46.7 = <strong>226 mg/dL</strong></p>
+      <p>In mmol/L: 226 / 18 = <strong>12.6 mmol/L</strong></p>
+      <p>An estimated average glucose of 226 mg/dL is significantly above the target range, suggesting the need for medication review, dietary changes, or increased physical activity.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Common Uses</h2>
+    <ul>
+      <li>Interpreting quarterly A1c lab results in terms familiar to daily glucose monitoring</li>
+      <li>Setting personalized glucose targets with healthcare providers during diabetes check-ups</li>
+      <li>Educating newly diagnosed patients about what their A1c number means in practical terms</li>
+      <li>Tracking progress over time by comparing eAG values across multiple A1c tests</li>
+      <li>Communicating glucose control status between patients, endocrinologists, and diabetes educators</li>
+      <li>Evaluating the effectiveness of medication changes or lifestyle interventions between lab visits</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Common Mistakes</h2>
+    <ul>
+      <li>Treating eAG as a daily target &mdash; it is an average over 2&ndash;3 months, not a goal for individual daily readings</li>
+      <li>Assuming the conversion is equally accurate for everyone &mdash; conditions like anemia, hemoglobin variants, and kidney disease can affect A1c independently of glucose levels</li>
+      <li>Confusing mg/dL with mmol/L &mdash; the conversion factor is 18, and mixing them up leads to dangerously incorrect interpretations</li>
+      <li>Using eAG to diagnose diabetes &mdash; diagnosis should be based on the A1c percentage itself (6.5% or higher), not the converted eAG value</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Pro Tip</h2>
+    <p>Use the eAG value to calibrate your expectations for daily glucose readings. If your eAG is 154 mg/dL, your daily readings should fluctuate around this number &mdash; some higher after meals, some lower when fasting. If most of your daily readings are consistently far from your eAG, discuss this discrepancy with your doctor, as it may indicate the need for more frequent testing or a continuous glucose monitor (CGM).</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What A1c level is considered normal?</button>
+        <div class="faq-ap"><p>A normal A1c is below 5.7%, corresponding to an eAG below 117 mg/dL (6.5 mmol/L). Prediabetes ranges from 5.7% to 6.4% (eAG 117&ndash;137 mg/dL). Diabetes is diagnosed at 6.5% or higher (eAG 140 mg/dL or above).</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How often should I check my A1c?</button>
+        <div class="faq-ap"><p>The American Diabetes Association recommends checking A1c at least twice a year if your diabetes is well controlled and you are meeting treatment goals. If your treatment has changed or you are not meeting goals, check every 3 months.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Can A1c be inaccurate?</button>
+        <div class="faq-ap"><p>Yes. Conditions that affect red blood cell turnover (hemolytic anemia, recent blood loss, sickle cell trait, pregnancy) can make A1c unreliable. In these cases, fructosamine testing or continuous glucose monitoring may provide better estimates of average glucose.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What is the target A1c for someone with diabetes?</button>
+        <div class="faq-ap"><p>For most non-pregnant adults with diabetes, the ADA recommends an A1c target of less than 7% (eAG below 154 mg/dL). More stringent targets (below 6.5%) may be appropriate for some, while less stringent targets (below 8%) may be better for those with a history of severe hypoglycemia or limited life expectancy.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/creatinine-clearance-calculator">Creatinine Clearance Calculator</a></li>
+      <li><a href="/blood-pressure-calculator">Blood Pressure Calculator</a></li>
+      <li><a href="/bsa-and-ideal-body-weight-calculator">BSA and Ideal Body Weight Calculator</a></li>
+      <li><a href="/ldl-cholesterol-calculator">LDL Cholesterol Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/creatinine-clearance-calculator">Creatinine Clearance Calculator</a></li>
+      <li><a href="/blood-pressure-calculator">Blood Pressure Calculator</a></li>
+      <li><a href="/bsa-and-ideal-body-weight-calculator">BSA and Ideal Body Weight Calculator</a></li>
+      <li><a href="/ldl-cholesterol-calculator">LDL Cholesterol Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
+
+    "962": {
+        "es": """<section class="long-content">
+  <h1>Calculadora de Colesterol LDL: Evalúa tu Perfil Lipídico</h1>
+  <p>La calculadora de Colesterol LDL estima tu nivel de colesterol de lipoprote&iacute;nas de baja densidad usando la ecuaci&oacute;n de Friedewald, que deriva el LDL de un panel lip&iacute;dico est&aacute;ndar sin requerir medici&oacute;n directa. Esta f&oacute;rmula ampliamente utilizada proporciona una evaluaci&oacute;n r&aacute;pida del riesgo cardiovascular a partir de resultados de an&aacute;lisis de sangre de rutina.</p>
+
+  <div class="formula-section">
+    <h2>Ecuaci&oacute;n de Friedewald</h2>
+    <p class="formula-display">LDL = Colesterol Total &minus; HDL &minus; (Triglic&eacute;ridos / 5)</p>
+    <p>Todos los valores se expresan en mg/dL. El t&eacute;rmino Triglic&eacute;ridos / 5 estima el colesterol de lipoprote&iacute;nas de muy baja densidad (VLDL), basado en la observaci&oacute;n de que el colesterol VLDL es aproximadamente una quinta parte del nivel de triglic&eacute;ridos en muestras de sangre en ayunas.</p>
+    <p>La ecuaci&oacute;n de Friedewald se public&oacute; en 1972 y ha sido el m&eacute;todo est&aacute;ndar para estimar el colesterol LDL durante m&aacute;s de cinco d&eacute;cadas. Solo es v&aacute;lida para muestras en ayunas (8&ndash;12 horas sin comida) y cuando los niveles de triglic&eacute;ridos est&aacute;n por debajo de 400 mg/dL. Por encima de este umbral, la estimaci&oacute;n de VLDL se vuelve imprecisa y se requiere medici&oacute;n directa de LDL.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Ejemplos Resueltos</h2>
+    <div class="example">
+      <h3>Ejemplo 1: Panel Lip&iacute;dico Est&aacute;ndar</h3>
+      <p>El panel lip&iacute;dico en ayunas de un paciente muestra: Colesterol Total = 220 mg/dL, HDL = 50 mg/dL, Triglic&eacute;ridos = 150 mg/dL.</p>
+      <p><strong>C&aacute;lculo:</strong> LDL = 220 &minus; 50 &minus; (150 / 5) = 220 &minus; 50 &minus; 30 = <strong>140 mg/dL</strong></p>
+      <p>Un LDL de 140 mg/dL se encuentra en el rango "cercano al &oacute;ptimo o por encima del &oacute;ptimo" (130&ndash;159 mg/dL). T&iacute;picamente se recomendar&iacute;an modificaciones en el estilo de vida como cambios diet&eacute;ticos y aumento del ejercicio.</p>
+    </div>
+    <div class="example">
+      <h3>Ejemplo 2: Triglic&eacute;ridos Elevados</h3>
+      <p>Un paciente presenta: Colesterol Total = 260 mg/dL, HDL = 35 mg/dL, Triglic&eacute;ridos = 280 mg/dL.</p>
+      <p><strong>C&aacute;lculo:</strong> LDL = 260 &minus; 35 &minus; (280 / 5) = 260 &minus; 35 &minus; 56 = <strong>169 mg/dL</strong></p>
+      <p>Un LDL de 169 mg/dL se clasifica como "alto" (160&ndash;189 mg/dL). Combinado con HDL bajo (por debajo de 40 mg/dL) y triglic&eacute;ridos elevados, este perfil sugiere un riesgo cardiovascular aumentado que puede justificar una discusi&oacute;n sobre terapia con estatinas con un m&eacute;dico.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Usos Comunes</h2>
+    <ul>
+      <li>Estimaci&oacute;n del colesterol LDL a partir de resultados de panel lip&iacute;dico en ayunas de rutina en atenci&oacute;n primaria</li>
+      <li>Evaluaci&oacute;n del riesgo de enfermedad cardiovascular durante chequeos anuales de salud</li>
+      <li>Monitoreo de la efectividad de medicamentos para reducir el colesterol como las estatinas</li>
+      <li>Detecci&oacute;n de dislipidemia en pacientes con diabetes, hipertensi&oacute;n o antecedentes familiares de enfermedad card&iacute;aca</li>
+      <li>C&aacute;lculo de la relaci&oacute;n colesterol total/HDL para estratificaci&oacute;n adicional del riesgo</li>
+      <li>Seguimiento de cambios en el perfil lip&iacute;dico despu&eacute;s de intervenciones diet&eacute;ticas o modificaciones del estilo de vida</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Errores Comunes</h2>
+    <ul>
+      <li>Usar la ecuaci&oacute;n de Friedewald con muestras no ayunas &mdash; los niveles de triglic&eacute;ridos aumentan significativamente despu&eacute;s de comer, invalidando la estimaci&oacute;n de VLDL</li>
+      <li>Aplicar la f&oacute;rmula cuando los triglic&eacute;ridos exceden 400 mg/dL &mdash; la ecuaci&oacute;n subestima sistem&aacute;ticamente el LDL en este rango</li>
+      <li>Confundir mg/dL con mmol/L &mdash; la f&oacute;rmula requiere mg/dL; si tus resultados est&aacute;n en mmol/L, multiplica por 38.67 para colesterol o 88.57 para triglic&eacute;ridos primero</li>
+      <li>Tratar el LDL calculado como equivalente al LDL medido directamente &mdash; la estimaci&oacute;n de Friedewald puede diferir de la medici&oacute;n directa en 5&ndash;10 mg/dL</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Consejo Profesional</h2>
+    <p>No te enfoques solo en el LDL &mdash; observa tu perfil lip&iacute;dico completo. El colesterol no-HDL (Colesterol Total &minus; HDL) es cada vez m&aacute;s reconocido como un mejor predictor del riesgo cardiovascular que el LDL solo, porque captura todas las part&iacute;culas aterog&eacute;nicas incluyendo LDL, VLDL e IDL. Tu objetivo de no-HDL deber&iacute;a ser aproximadamente 30 mg/dL m&aacute;s alto que tu objetivo de LDL. Por ejemplo, si tu meta de LDL es inferior a 100 mg/dL, tu meta de no-HDL es inferior a 130 mg/dL.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Cu&aacute;l es un nivel saludable de colesterol LDL?</button>
+        <div class="faq-ap"><p>El LDL &oacute;ptimo es inferior a 100 mg/dL. Cercano al &oacute;ptimo es 100&ndash;129 mg/dL. Lim&iacute;trofe alto es 130&ndash;159 mg/dL. Alto es 160&ndash;189 mg/dL. Muy alto es 190 mg/dL y superior. Los niveles objetivo pueden ser m&aacute;s bajos para personas con enfermedad cardiovascular existente o diabetes.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Cu&aacute;nto tiempo debo ayunar antes de un panel lip&iacute;dico?</button>
+        <div class="faq-ap"><p>Ayuna durante 9&ndash;12 horas antes de tu extracci&oacute;n de sangre. Puedes beber agua durante este tiempo. Evita el alcohol durante 24 horas antes de la prueba, ya que puede elevar significativamente los niveles de triglic&eacute;ridos y afectar el c&aacute;lculo del LDL.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Qu&eacute; pasa si mis triglic&eacute;ridos superan 400 mg/dL?</button>
+        <div class="faq-ap"><p>Cuando los triglic&eacute;ridos exceden 400 mg/dL, la ecuaci&oacute;n de Friedewald no es confiable. Tu laboratorio deber&iacute;a realizar una medici&oacute;n directa de LDL en su lugar. Algunos laboratorios ahora usan la ecuaci&oacute;n de Martin-Hopkins o la ecuaci&oacute;n de Sampson, que son m&aacute;s precisas con niveles m&aacute;s altos de triglic&eacute;ridos.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">&iquest;Con qu&eacute; frecuencia debo hacerme un panel lip&iacute;dico?</button>
+        <div class="faq-ap"><p>Los adultos de 20 a&ntilde;os o m&aacute;s deben hacerse un panel lip&iacute;dico cada 4&ndash;6 a&ntilde;os si el riesgo es bajo. Si tienes factores de riesgo cardiovascular, diabetes o est&aacute;s en medicaci&oacute;n para reducir el colesterol, se puede recomendar pruebas cada 3&ndash;12 meses seg&uacute;n tu situaci&oacute;n individual.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/creatinine-clearance-calculator">Creatinine Clearance Calculator</a></li>
+      <li><a href="/blood-pressure-calculator">Blood Pressure Calculator</a></li>
+      <li><a href="/bsa-and-ideal-body-weight-calculator">BSA and Ideal Body Weight Calculator</a></li>
+      <li><a href="/a1c-to-eag-calculator">A1c to eAG Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Calculadoras Relacionadas</h2>
+    <ul>      <li><a href="/creatinine-clearance-calculator">Creatinine Clearance Calculator</a></li>
+      <li><a href="/blood-pressure-calculator">Blood Pressure Calculator</a></li>
+      <li><a href="/bsa-and-ideal-body-weight-calculator">BSA and Ideal Body Weight Calculator</a></li>
+      <li><a href="/a1c-to-eag-calculator">A1c to eAG Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+        "en": """<section class="long-content">
+  <h1>LDL Cholesterol Calculator: Assess Your Lipid Profile</h1>
+  <p>The LDL Cholesterol calculator estimates your low-density lipoprotein cholesterol level using the Friedewald equation, which derives LDL from a standard lipid panel without requiring direct measurement. This widely used formula provides a quick assessment of cardiovascular risk from routine blood test results.</p>
+
+  <div class="formula-section">
+    <h2>Friedewald Equation</h2>
+    <p class="formula-display">LDL = Total Cholesterol &minus; HDL &minus; (Triglycerides / 5)</p>
+    <p>All values are expressed in mg/dL. The term Triglycerides / 5 estimates very-low-density lipoprotein (VLDL) cholesterol, based on the observation that VLDL cholesterol is approximately one-fifth of the triglyceride level in fasting blood samples.</p>
+    <p>The Friedewald equation was published in 1972 and has been the standard method for estimating LDL cholesterol for over five decades. It is valid only for fasting samples (8&ndash;12 hours without food) and when triglyceride levels are below 400 mg/dL. Above this threshold, the VLDL estimation becomes inaccurate and direct LDL measurement is required.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Worked Examples</h2>
+    <div class="example">
+      <h3>Example 1: Standard Lipid Panel</h3>
+      <p>A patient's fasting lipid panel shows: Total Cholesterol = 220 mg/dL, HDL = 50 mg/dL, Triglycerides = 150 mg/dL.</p>
+      <p><strong>Calculation:</strong> LDL = 220 &minus; 50 &minus; (150 / 5) = 220 &minus; 50 &minus; 30 = <strong>140 mg/dL</strong></p>
+      <p>An LDL of 140 mg/dL falls in the "near optimal or above optimal" range (130&ndash;159 mg/dL). Lifestyle modifications such as dietary changes and increased exercise would typically be recommended.</p>
+    </div>
+    <div class="example">
+      <h3>Example 2: Elevated Triglycerides</h3>
+      <p>A patient presents with: Total Cholesterol = 260 mg/dL, HDL = 35 mg/dL, Triglycerides = 280 mg/dL.</p>
+      <p><strong>Calculation:</strong> LDL = 260 &minus; 35 &minus; (280 / 5) = 260 &minus; 35 &minus; 56 = <strong>169 mg/dL</strong></p>
+      <p>An LDL of 169 mg/dL is classified as "high" (160&ndash;189 mg/dL). Combined with low HDL (below 40 mg/dL) and elevated triglycerides, this profile suggests increased cardiovascular risk that may warrant statin therapy discussion with a physician.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Common Uses</h2>
+    <ul>
+      <li>Estimating LDL cholesterol from routine fasting lipid panel results in primary care</li>
+      <li>Assessing cardiovascular disease risk during annual health check-ups</li>
+      <li>Monitoring the effectiveness of cholesterol-lowering medications such as statins</li>
+      <li>Screening for dyslipidemia in patients with diabetes, hypertension, or family history of heart disease</li>
+      <li>Calculating the total cholesterol to HDL ratio (TC/HDL) for additional risk stratification</li>
+      <li>Tracking lipid profile changes after dietary interventions or lifestyle modifications</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Common Mistakes</h2>
+    <ul>
+      <li>Using the Friedewald equation with non-fasting samples &mdash; triglyceride levels rise significantly after eating, invalidating the VLDL estimate</li>
+      <li>Applying the formula when triglycerides exceed 400 mg/dL &mdash; the equation systematically underestimates LDL in this range</li>
+      <li>Confusing mg/dL with mmol/L &mdash; the formula requires mg/dL; if your results are in mmol/L, multiply by 38.67 for cholesterol or 88.57 for triglycerides first</li>
+      <li>Treating calculated LDL as equivalent to directly measured LDL &mdash; the Friedewald estimate can differ from direct measurement by 5&ndash;10 mg/dL</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Pro Tip</h2>
+    <p>Don't focus on LDL alone &mdash; look at your full lipid picture. The non-HDL cholesterol (Total Cholesterol &minus; HDL) is increasingly recognized as a better predictor of cardiovascular risk than LDL alone, because it captures all atherogenic particles including LDL, VLDL, and IDL. Your non-HDL target should be about 30 mg/dL higher than your LDL target. For example, if your LDL goal is below 100 mg/dL, your non-HDL goal is below 130 mg/dL.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What is a healthy LDL cholesterol level?</button>
+        <div class="faq-ap"><p>Optimal LDL is below 100 mg/dL. Near optimal is 100&ndash;129 mg/dL. Borderline high is 130&ndash;159 mg/dL. High is 160&ndash;189 mg/dL. Very high is 190 mg/dL and above. Target levels may be lower for people with existing cardiovascular disease or diabetes.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How long should I fast before a lipid panel?</button>
+        <div class="faq-ap"><p>Fast for 9&ndash;12 hours before your blood draw. You can drink water during this time. Avoid alcohol for 24 hours before the test, as it can significantly elevate triglyceride levels and affect the LDL calculation.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What if my triglycerides are over 400 mg/dL?</button>
+        <div class="faq-ap"><p>When triglycerides exceed 400 mg/dL, the Friedewald equation is not reliable. Your lab should perform a direct LDL measurement instead. Some laboratories now use the Martin-Hopkins equation or the Sampson equation, which are more accurate at higher triglyceride levels.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How often should I get a lipid panel?</button>
+        <div class="faq-ap"><p>Adults aged 20 and older should have a lipid panel every 4&ndash;6 years if risk is low. If you have cardiovascular risk factors, diabetes, or are on cholesterol-lowering medication, testing every 3&ndash;12 months may be recommended based on your individual situation.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/creatinine-clearance-calculator">Creatinine Clearance Calculator</a></li>
+      <li><a href="/blood-pressure-calculator">Blood Pressure Calculator</a></li>
+      <li><a href="/bsa-and-ideal-body-weight-calculator">BSA and Ideal Body Weight Calculator</a></li>
+      <li><a href="/a1c-to-eag-calculator">A1c to eAG Calculator</a></li>
+    </ul>
+  </div>
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/creatinine-clearance-calculator">Creatinine Clearance Calculator</a></li>
+      <li><a href="/blood-pressure-calculator">Blood Pressure Calculator</a></li>
+      <li><a href="/bsa-and-ideal-body-weight-calculator">BSA and Ideal Body Weight Calculator</a></li>
+      <li><a href="/a1c-to-eag-calculator">A1c to eAG Calculator</a></li>
+    </ul>
+  </div>
+</section>""",
+    },
 }
 
 

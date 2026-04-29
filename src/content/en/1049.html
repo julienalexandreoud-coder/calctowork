@@ -1,0 +1,96 @@
+<section class="long-content">
+  <h1>Great Circle Distance Calculator: Find the Shortest Route on Earth</h1>
+  <p>The Great Circle Distance calculator computes the shortest distance between any two points on Earth using the haversine formula. Whether you are a pilot planning transatlantic routes, a sailor navigating ocean passages, or a traveler curious about the exact distance between cities, the great circle distance represents the true geodesic path. This calculator eliminates the distortions of flat maps and gives you the real distance across our spherical planet.</p>
+
+  <div class="formula-section">
+    <h2>Haversine Formula</h2>
+    <p class="formula-display">a = sin&sup2;(&Delta;&phi;/2) + cos(&phi;<sub>1</sub>) &times; cos(&phi;<sub>2</sub>) &times; sin&sup2;(&Delta;&lambda;/2)</p>
+    <p class="formula-display">c = 2 &times; atan2(&radic;a, &radic;(1&minus;a))</p>
+    <p class="formula-display">d = R &times; c</p>
+    <p>Where &phi; represents latitude, &lambda; represents longitude, and R is the Earth's radius (3,959 miles or 6,371 kilometers). The central angle c is expressed in radians. The haversine function, hav(&theta;) = sin&sup2;(&theta;/2), gives the formula its name and provides numerical stability even for small distances.</p>
+    <p>The haversine formula is preferred over the spherical law of cosines for distance calculations because it remains accurate for small distances and is robust against rounding errors. The formula assumes a spherical Earth, which introduces approximately 0.5% error compared to the true ellipsoidal distance. For most aviation, maritime, and mapping applications, this accuracy is more than sufficient. For scientific applications requiring millimeter precision, the Vincenty ellipsoidal formula should be used instead.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Worked Examples</h2>
+    <div class="example">
+      <h3>Example 1: New York to London</h3>
+      <p>Calculate the great circle distance from John F. Kennedy International Airport (JFK) in New York (40.6413&deg; N, 73.7781&deg; W) to London Heathrow Airport (LHR) (51.4700&deg; N, 0.4543&deg; W).</p>
+      <p><strong>Latitude difference (&Delta;&phi;):</strong> 51.47&deg; &minus; 40.64&deg; = 10.83&deg; = 0.189 radians</p>
+      <p><strong>Longitude difference (&Delta;&lambda;):</strong> 0.45&deg; &minus; (&minus;73.78&deg;) = 74.23&deg; = 1.296 radians</p>
+      <p><strong>Central angle (c):</strong> arccos(sin(40.64) &times; sin(51.47) + cos(40.64) &times; cos(51.47) &times; cos(74.23)) = <strong>1.049 radians</strong></p>
+      <p><strong>Great circle distance:</strong> 3,959 &times; 1.049 = <strong>4,152 miles (6,682 km)</strong></p>
+      <p>This matches the published great circle distance between JFK and LHR. A typical flight covers approximately 4,152 miles great circle distance, though actual flight paths may be slightly longer due to air traffic control routing, wind optimization, and airspace restrictions.</p>
+    </div>
+    <div class="example">
+      <h3>Example 2: Los Angeles to Tokyo</h3>
+      <p>Calculate the distance from Los Angeles International Airport (LAX) (33.9416&deg; N, 118.4085&deg; W) to Narita International Airport (NRT) in Tokyo (35.7651&deg; N, 140.3855&deg; E).</p>
+      <p><strong>Latitude difference:</strong> 35.77&deg; &minus; 33.94&deg; = 1.83&deg; = 0.032 radians</p>
+      <p><strong>Longitude difference:</strong> 140.39&deg; &minus; (&minus;118.41&deg;) = 258.80&deg; = 4.517 radians (or equivalently 101.20&deg; the other direction)</p>
+      <p><strong>Central angle:</strong> <strong>1.207 radians</strong></p>
+      <p><strong>Great circle distance:</strong> 3,959 &times; 1.207 = <strong>4,778 miles (7,690 km)</strong></p>
+      <p>The great circle route from LAX to NRT passes close to the Aleutian Islands and Alaska, which is why flights on this route often appear to curve northward. The rhumb line distance on a constant heading would be about 5,110 miles, making the great circle route approximately 332 miles shorter.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Common Uses</h2>
+    <ul>
+      <li>Flight planning and route optimization for commercial and general aviation pilots to minimize fuel consumption</li>
+      <li>Ocean navigation for sailors and shipping companies to determine the shortest transoceanic passages</li>
+      <li>Building travel booking systems and airline ticket pricing engines that need accurate city-pair distances</li>
+      <li>Geographic information systems (GIS) for spatial analysis and distance calculations between map features</li>
+      <li>Educational demonstrations showing the difference between map projections and true spherical geometry</li>
+      <li>Amateur radio and satellite communications for calculating optimal antenna pointing directions and signal path lengths</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Common Mistakes</h2>
+    <ul>
+      <li>Using degrees instead of radians in trigonometric functions &mdash; the haversine formula requires all angles in radians; forgetting to convert from degrees introduces large errors</li>
+      <li>Applying the wrong Earth radius &mdash; Earth's radius is about 3,959 miles or 6,371 km; using the equatorial radius (3,963 miles) or polar radius (3,950 miles) introduces subtle but measurable errors</li>
+      <li>Confusing longitude sign conventions &mdash; west longitudes are negative and east longitudes are positive; mixing them up reverses the direction and yields wrong distances</li>
+      <li>Treating the result as driving or walking distance &mdash; great circle distance is the straight-line path through the Earth's curvature, not a road or trail distance which is always longer due to terrain and infrastructure constraints</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Pro Tip</h2>
+    <p>For long-haul flights, the great circle distance alone does not tell the full story. Airlines regularly fly slightly longer routes to take advantage of jet streams, which can save 30-60 minutes on transatlantic crossings. A westbound flight from London to New York might fly a more southerly route to avoid strong headwinds, while the eastbound return takes a more northerly great circle path to ride the jet stream. This "minimum time track" or "optimal route" balances the shorter great circle distance against wind patterns, and modern flight planning systems compute this dynamically. When calculating flight times, always add 10-15% to the great circle distance for realistic routing plus appropriate wind adjustments.</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What is a great circle and why do aircraft follow them?</button>
+        <div class="faq-ap"><p>A great circle is the intersection of a sphere with a plane passing through the sphere's center. Great circle routes represent the shortest distance between two points on Earth. Aircraft follow them because they minimize flight distance, saving time and fuel. Exceptions occur due to winds, airspace restrictions, or weather.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What is the difference between great circle distance and rhumb line distance?</button>
+        <div class="faq-ap"><p>A rhumb line maintains constant bearing and appears straight on Mercator maps, while a great circle is the true shortest path. Great circle routes are shorter but require constant heading changes. For New York to Tokyo, the great circle is about 300-400 nautical miles shorter than the rhumb line.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How accurate is the haversine formula for calculating distances?</button>
+        <div class="faq-ap"><p>The haversine formula assumes a perfect sphere and is accurate to about 0.5% for most distances. For higher precision, the Vincenty formula accounts for Earth's oblate spheroid shape. The haversine formula is preferred for quick calculations where sub-kilometer precision is unnecessary.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Why do flight paths on maps look curved?</button>
+        <div class="faq-ap"><p>Flight paths appear curved on flat Mercator maps because the map distorts distances and angles at high latitudes. The shortest route on a sphere appears curved when projected onto a flat surface. This is why LA to Tokyo flights appear to curve north through Alaska along the great circle route.</p></div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="related-calculators">
+    <h2>Related Calculators</h2>
+    <ul>      <li><a href="/crosswind-calculator">Crosswind Calculator</a></li>
+      <li><a href="/fuel-consumption-calculator">Fuel Consumption Calculator</a></li>
+      <li><a href="/true-air-speed-calculator">True Air Speed Calculator</a></li>
+      <li><a href="/hull-speed-calculator">Hull Speed Calculator</a></li>
+      <li><a href="/braking-distance-calculator">Braking Distance Calculator</a></li>
+      <li><a href="/engine-displacement-calculator">Engine Displacement Calculator</a></li>
+    </ul>
+  </div>
+</section>

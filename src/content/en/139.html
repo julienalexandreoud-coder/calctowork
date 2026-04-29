@@ -1,0 +1,111 @@
+<section class="long-content">
+<h2>What is a Quartile?</h2>
+<p>Quartiles divide a sorted dataset into four equal parts, each containing 25% of the data. Q1 (first quartile) marks the 25th percentile, Q2 (second quartile) is the 50th percentile (median), and Q3 (third quartile) is the 75th percentile. Quartiles reveal the spread and skew of data without being distorted by outliers.</p>
+<p>The interquartile range (IQR = Q3 - Q1) contains the middle 50% of data and is a robust measure of spread. Box plots visualize quartiles, showing the median as a line inside a box from Q1 to Q3, with "whiskers" extending to show the range of typical values.</p>
+<p><strong>Key insight:</strong> Quartiles split data into quarters. If you score in the 3rd quartile on a test, you performed better than 50-75% of test-takers. Quartiles are essential for identifying outliers, comparing distributions, and understanding data shape without assuming normality.</p>
+
+<h2>Formulas Explained</h2>
+<p><strong>Quartile positions (for n sorted values):</strong></p>
+<p>Q1 (25th percentile): Position = (n + 1) × 0.25<br>
+Q2 (50th percentile, median): Position = (n + 1) × 0.50<br>
+Q3 (75th percentile): Position = (n + 1) × 0.75</p>
+
+<p><strong>When position is a whole number:</strong><br>
+Quartile = value at that position</p>
+
+<p><strong>When position is fractional:</strong><br>
+Interpolate between adjacent values:<br>
+Q = value_below + fraction × (value_above - value_below)</p>
+
+<p><strong>Interquartile Range (IQR):</strong><br>
+IQR = Q3 - Q1</p>
+
+<p><strong>Outlier boundaries (Tukey's method):</strong><br>
+Lower fence = Q1 - 1.5 × IQR<br>
+Upper fence = Q3 + 1.5 × IQR<br>
+Values outside fences are outliers.</p>
+
+<p><strong>Example calculation:</strong><br>
+Data: 3, 7, 8, 12, 14, 18, 21, 25, 30 (n = 9)<br>
+Q1 position: 10 × 0.25 = 2.5 → interpolate between positions 2 and 3<br>
+Q1 = 7 + 0.5 × (8 - 7) = 7.5<br>
+Q2 position: 10 × 0.50 = 5 → value at position 5 = 14<br>
+Q3 position: 10 × 0.75 = 7.5 → interpolate between positions 7 and 8<br>
+Q3 = 21 + 0.5 × (25 - 21) = 23<br>
+IQR = 23 - 7.5 = 15.5</p>
+
+<h2>Step-by-Step Guide</h2>
+<ol>
+<li><strong>Enter your data:</strong> Input comma-separated numbers. Example: 12, 15, 18, 22, 25, 28, 32, 35, 40, 45</li>
+<li><strong>Click calculate:</strong> The calculator sorts data and computes quartiles</li>
+<li><strong>Read your results:</strong> Q1 = 17.25, Q2 (Median) = 26.5, Q3 = 34.25</li>
+<li><strong>Calculate IQR:</strong> IQR = Q3 - Q1 = 34.25 - 17.25 = 17</li>
+<li><strong>Check outliers:</strong> Lower fence = 17.25 - 25.5 = -8.25; Upper fence = 34.25 + 25.5 = 59.75</li>
+</ol>
+
+<h2>Real Examples with Calculations</h2>
+<p><strong>Example 1: Employee salary analysis</strong><br>
+Salaries (thousands): 42, 45, 48, 52, 55, 58, 62, 65, 70, 75, 85, 120<br>
+Sorted: same (already ascending), n = 12<br>
+Q1 position: 13 × 0.25 = 3.25 → 48 + 0.25×(52-48) = 49<br>
+Q2 position: 13 × 0.50 = 6.5 → (58+62)/2 = 60<br>
+Q3 position: 13 × 0.75 = 9.75 → 70 + 0.75×(75-70) = 73.75<br>
+IQR = 73.75 - 49 = 24.75<br>
+Outlier fences: 49 - 37.1 = 11.9 to 73.75 + 37.1 = 110.85<br>
+$120k exceeds upper fence — it's an outlier (likely executive).<br>
+Application: HR uses quartiles for compensation benchmarking. "Your salary is at Q3" means you earn more than 75% of peers.</p>
+
+<p><strong>Example 2: Student test score distribution</strong><br>
+Exam scores: 52, 58, 61, 64, 67, 70, 72, 74, 76, 78, 80, 82, 85, 88, 92<br>
+n = 15<br>
+Q1 position: 16 × 0.25 = 4 → value = 64<br>
+Q2 position: 16 × 0.50 = 8 → value = 74<br>
+Q3 position: 16 × 0.75 = 12 → value = 82<br>
+IQR = 82 - 64 = 18<br>
+Application: Teacher sees middle 50% scored between 64-82. Students below Q1 (64) need intervention; students above Q3 (82) may need enrichment. More actionable than mean alone.</p>
+
+<p><strong>Example 3: E-commerce order value segmentation</strong><br>
+Order values ($): 15, 22, 28, 35, 42, 48, 55, 62, 70, 85, 95, 120, 150, 200, 350<br>
+Q1 = 35, Q2 = 62, Q3 = 120, IQR = 85<br>
+Outlier fence: 120 + 127.5 = 247.5 → $350 is an outlier<br>
+Application: Marketing segments customers: below Q1 = budget shoppers, Q1-Q2 = value seekers, Q2-Q3 = regular customers, above Q3 = VIPs. Tailor promotions to each quartile.</p>
+
+<p><strong>Example 4: Website performance monitoring</strong><br>
+Page load times (ms): 245, 268, 289, 312, 334, 356, 378, 401, 425, 458, 512, 680<br>
+Q1 = 300.5, Q2 = 367, Q3 = 447.25, IQR = 146.75<br>
+Upper fence: 447.25 + 220 = 667 → 680ms is an outlier<br>
+Application: Performance team focuses on P75 (Q3 = 447ms) as target. Fixing outliers (680ms) improves worst-case user experience. Google uses P75 for Core Web Vitals thresholds.</p>
+
+<p><strong>Example 5: Clinical laboratory reference ranges</strong><br>
+Cholesterol levels (mg/dL) from 100 healthy adults:<br>
+Q1 = 165, Q2 = 185, Q3 = 210<br>
+"Normal range" often defined as Q1 to Q3 (middle 50%)<br>
+Application: Lab results report "your value: 195, population median: 185, your percentile: 62%". Patients above Q3 may need lifestyle changes; values far outside IQR warrant medical investigation.</p>
+
+<h2>4 Common Mistakes</h2>
+<ul>
+<li><strong>Using different quartile methods inconsistently:</strong> Excel, R, Python, and TI calculators use slightly different interpolation methods. Results may vary by 0.5-1 position. Always document which method you use (this calculator uses the (n+1) method with linear interpolation).</li>
+<li><strong>Confusing quartiles with quarters:</strong> Q1 is the value below which 25% of data falls — it's a boundary, not a group. "First quartile" sometimes refers to the lowest 25% of data (values below Q1). Clarify whether you mean the boundary or the group.</li>
+<li><strong>Assuming quartiles are equally spaced:</strong> In symmetric data, Q2-Q1 ≈ Q3-Q2. But in skewed data, gaps differ. Income data: Q1=$35k, Q2=$55k, Q3=$95k. Gap Q2-Q1=$20k; gap Q3-Q2=$40k — reveals right skew.</li>
+<li><strong>Using quartiles for tiny datasets:</strong> With n < 10, quartiles are unstable and highly sensitive to individual values. A dataset of 5 numbers can't meaningfully split into quarters. Use quartiles for n ≥ 20; for smaller data, report min, median, max.</li>
+</ul>
+
+<h2>4 Pro Tips</h2>
+<ul>
+<li><strong>Use quartiles for box plots:</strong> Box plots visualize five-number summaries: min, Q1, Q2, Q3, max. The box shows IQR (middle 50%), the line shows median, whiskers show typical range. Side-by-side box plots compare groups effectively.</li>
+<li><strong>Apply quartile-based outlier detection:</strong> Values below Q1-1.5×IQR or above Q3+1.5×IQR are "mild outliers"; beyond Q1-3×IQR or Q3+3×IQR are "extreme outliers." More robust than ±3 SD for non-normal data.</li>
+<li><strong>Use deciles or percentiles for finer granularity:</strong> Quartiles split data into 4 parts; deciles into 10; percentiles into 100. For large datasets (n > 1000), percentiles reveal more detail about distribution shape.</li>
+<li><strong>Compare quartiles across groups:</strong> "Median income increased from Q2=$52k to Q2=$58k, but Q1 stayed flat at $35k" reveals growth concentrated in upper half. Quartile comparisons expose inequality that means hide.</li>
+</ul>
+
+<h2>FAQs</h2>
+<div class="faq-list">
+<div class="faq-item"><button class="faq-q" aria-expanded="false">What's the difference between quartiles and percentiles?</button><div class="faq-a"><p>Quartiles are specific percentiles: Q1 = P25, Q2 = P50 (median), Q3 = P75. Percentiles divide data into 100 parts; quartiles into 4. Saying "you scored in the 85th percentile" is more precise than "you scored above Q3."</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">Why do different tools give different quartile values?</button><div class="faq-a"><p>Multiple valid methods exist: Excel QUARTILE.EXC vs QUARTILE.INC, R's 9 types, Python's linear vs nearest. Differences arise from how positions are calculated and whether interpolation is used. All methods converge for large datasets.</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">Can quartiles handle negative numbers?</button><div class="faq-a"><p>Yes. Quartiles work with any ordered numeric data, including negatives. Dataset: -20, -15, -10, -5, 0, 5, 10 has Q1=-12.5, Q2=-5, Q3=7.5. The method is identical; negative values don't require special handling.</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">When should I use IQR instead of standard deviation?</button><div class="faq-a"><p>Use IQR for: skewed data, data with outliers, ordinal data, or when you don't assume normality. Use SD for: symmetric data, parametric tests, combining independent variables, or when mathematical properties matter. IQR is robust; SD is mathematically convenient.</p></div></div>
+</div>
+
+<h2>Related Calculators</h2>
+<p>Explore our statistics calculators: <a href="/en/138.html">Median Calculator</a>, <a href="/en/136.html">Standard Deviation Calculator</a>, <a href="/en/137.html">Variance Calculator</a>, <a href="/en/133.html">Factorial Calculator</a>, <a href="/en/200.html">Percentage Calculator</a>.</p>
+</section>

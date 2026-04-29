@@ -1,0 +1,109 @@
+<section class="long-content">
+<h2>What is the Median?</h2>
+<p>The median is the middle value in a sorted dataset — half the values are above it, half are below it. Unlike the mean (average), the median is resistant to outliers. For example, in incomes [30k, 35k, 40k, 45k, 500k], the mean is $130k (misleading), but the median is $40k (representative of typical values).</p>
+<p>The median is the 50th percentile (P50) and the second quartile (Q2). It's the preferred measure of central tendency for skewed distributions like incomes, home prices, reaction times, and survival data where extreme values distort the mean.</p>
+<p><strong>Key insight:</strong> The median splits data into two equal halves. For odd-sized datasets, it's the exact middle value. For even-sized datasets, it's the average of the two middle values. This makes the median robust — changing extreme values doesn't affect it unless they cross the middle.</p>
+
+<h2>Formulas Explained</h2>
+<p><strong>Finding the median position:</strong><br>
+For n values sorted in ascending order:</p>
+<p>If n is odd:<br>
+Median position = (n + 1) / 2<br>
+Median = value at that position</p>
+
+<p>If n is even:<br>
+Median = (value at position n/2 + value at position n/2 + 1) / 2<br>
+Median = average of two middle values</p>
+
+<p><strong>Examples:</strong></p>
+<ul>
+<li>Dataset [3, 5, 7, 9, 11]: n = 5 (odd), position = 3, median = 7</li>
+<li>Dataset [2, 4, 6, 8, 10, 12]: n = 6 (even), median = (6 + 8) / 2 = 7</li>
+</ul>
+
+<p><strong>Median vs Mean:</strong></p>
+<ul>
+<li>Symmetric data: median ≈ mean</li>
+<li>Right-skewed (positive skew): median < mean (incomes, house prices)</li>
+<li>Left-skewed (negative skew): median > mean (test scores with ceiling effect)</li>
+</ul>
+
+<p><strong>Median in grouped data:</strong><br>
+For frequency distributions, interpolate within the median class:<br>
+Median = L + [(n/2 - CF) / f] × w<br>
+Where L = lower boundary of median class, CF = cumulative frequency before median class, f = frequency of median class, w = class width.</p>
+
+<h2>Step-by-Step Guide</h2>
+<ol>
+<li><strong>Enter your data:</strong> Input comma-separated numbers. Example: 15, 23, 18, 31, 27, 19, 25</li>
+<li><strong>Click calculate:</strong> The calculator sorts data and finds the median</li>
+<li><strong>Read your results:</strong> Sorted: 15, 18, 19, 23, 25, 27, 31 | Median = 23</li>
+<li><strong>Interpret:</strong> Half of values are below 23, half are above 23</li>
+<li><strong>Compare to mean:</strong> Mean = 22.6, close to median — data is roughly symmetric</li>
+</ol>
+
+<h2>Real Examples with Calculations</h2>
+<p><strong>Example 1: Household income analysis</strong><br>
+Neighborhood incomes (thousands): 45, 52, 48, 65, 58, 72, 180, 55, 61, 49<br>
+Sorted: 45, 48, 49, 52, 55, 58, 61, 65, 72, 180<br>
+n = 10 (even), median = (55 + 58) / 2 = 56.5<br>
+Mean = 685 / 10 = 68.5<br>
+Application: Median ($56.5k) better represents "typical" income. The $180k outlier inflates mean by $12k. Real estate listings and government reports use median for this reason.</p>
+
+<p><strong>Example 2: Real estate pricing</strong><br>
+Home sale prices: $320k, $345k, $310k, $380k, $355k, $1,200k, $335k, $365k<br>
+Sorted: 310, 320, 335, 345, 355, 365, 380, 1200<br>
+n = 8 (even), median = (345 + 355) / 2 = $350k<br>
+Mean = 3610 / 8 = $451k<br>
+Application: The mansion sale ($1.2M) pulls mean up by $101k. Median ($350k) reflects typical home value. Zillow, Redfin, and Census Bureau report median home prices.</p>
+
+<p><strong>Example 3: Customer service response times</strong><br>
+Response times (minutes): 5, 8, 12, 6, 9, 45, 7, 11, 8, 6<br>
+Sorted: 5, 6, 6, 7, 8, 8, 9, 11, 12, 45<br>
+Median = (8 + 8) / 2 = 8 minutes<br>
+Mean = 117 / 10 = 11.7 minutes<br>
+Application: One escalated ticket (45 min) distorts the mean. Median (8 min) shows typical customer experience. Service level agreements should use median, not mean.</p>
+
+<p><strong>Example 4: Clinical trial survival analysis</strong><br>
+Patient survival months (some still alive at study end):<br>
+12, 18, 24, 36+, 15, 22, 28+, 19, 31, 25<br>
+(+ indicates censored — patient still alive)<br>
+Sorted: 12, 15, 18, 19, 22, 25, 28+, 31, 36+<br>
+Median = 22 months (50% survived at least this long)<br>
+Application: Median survival time is standard in oncology trials. Mean is inappropriate with censored data — requires Kaplan-Meier estimation.</p>
+
+<p><strong>Example 5: Website load time monitoring</strong><br>
+Page load times (seconds) over 15 days:<br>
+2.1, 1.8, 2.5, 3.2, 1.9, 2.3, 8.5, 2.0, 2.4, 1.7, 2.2, 2.6, 2.1, 1.9, 2.3<br>
+Sorted: 1.7, 1.8, 1.9, 1.9, 2.0, 2.1, 2.1, 2.2, 2.3, 2.3, 2.4, 2.5, 2.6, 3.2, 8.5<br>
+n = 15 (odd), position = 8, median = 2.2 seconds<br>
+Mean = 35.5 / 15 = 2.37 seconds<br>
+Application: One server outage (8.5s) skews mean. Median (2.2s) reflects normal performance. Google Core Web Vitals uses median (p50) for field data.</p>
+
+<h2>4 Common Mistakes</h2>
+<ul>
+<li><strong>Not sorting data first:</strong> Median requires sorted data. Finding the "middle" of unsorted [10, 3, 8, 15, 6] gives wrong answer. Sorted: [3, 6, 8, 10, 15], median = 8, not 8 (coincidentally same here, but often wrong).</li>
+<li><strong>Averaging all values for even-sized datasets:</strong> For [2, 4, 6, 8], median = (4 + 6) / 2 = 5, not (2+4+6+8)/4 = 5 (same here by coincidence). For [2, 4, 6, 100], median = 5, mean = 28 — very different!</li>
+<li><strong>Using median for categorical data:</strong> Median requires ordered data. You can't find median of colors (red, blue, green) or categories (yes, no, maybe) — these have no natural ordering. Use mode (most frequent) instead.</li>
+<li><strong>Assuming median equals mean:</strong> In symmetric distributions, median ≈ mean. But in skewed data (incomes, prices, reaction times), they differ substantially. Always check skewness before choosing which measure to report.</li>
+</ul>
+
+<h2>4 Pro Tips</h2>
+<ul>
+<li><strong>Use median for skewed data:</strong> Rule of thumb: if mean and median differ by more than 10%, report median. This applies to incomes, wealth, home prices, insurance claims, and city populations — all right-skewed.</li>
+<li><strong>Combine median with IQR:</strong> Median ± IQR (interquartile range) describes spread robustly. Report: "Median = 45, IQR = 32 to 58" instead of "Mean = 47 ± SD = 15" for skewed data.</li>
+<li><strong>Use weighted median for survey data:</strong> When responses have different weights (demographic adjustments), find the value where cumulative weight reaches 50%. This gives population-representative median.</li>
+<li><strong>Apply median in running systems:</strong> For real-time monitoring, maintain a rolling median (last 100 observations) instead of rolling mean. This filters out spikes from outliers while tracking genuine shifts in typical values.</li>
+</ul>
+
+<h2>FAQs</h2>
+<div class="faq-list">
+<div class="faq-item"><button class="faq-q" aria-expanded="false">When should I use median instead of mean?</button><div class="faq-a"><p>Use median when: (1) data is skewed (incomes, prices), (2) outliers are present, (3) you want "typical" value, (4) data has open-ended categories (">100"). Use mean when: data is symmetric, you need to combine groups, or calculating further statistics.</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">Can the median be a value not in the dataset?</button><div class="faq-a"><p>Yes. For even-sized datasets, median is the average of two middle values. Dataset [1, 3, 5, 9] has median = (3+5)/2 = 4, which doesn't appear in the data. This is normal and correct.</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">What if there are duplicate middle values?</button><div class="faq-a"><p>Duplicates don't change the method. Dataset [2, 5, 5, 5, 8] has median = 5 (the middle value). Dataset [2, 5, 5, 8] has median = (5+5)/2 = 5. The median can equal a value that appears multiple times.</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">How does the median handle missing data?</button><div class="faq-a"><p>Exclude missing values (NA, null) from the count. Calculate median from observed values only. However, if missingness is systematic (e.g., high incomes less likely to be reported), the median may be biased — consider imputation or sensitivity analysis.</p></div></div>
+</div>
+
+<h2>Related Calculators</h2>
+<p>Explore our statistics calculators: <a href="/en/139.html">Quartile Calculator</a>, <a href="/en/136.html">Standard Deviation Calculator</a>, <a href="/en/137.html">Variance Calculator</a>, <a href="/en/133.html">Factorial Calculator</a>, <a href="/en/200.html">Percentage Calculator</a>.</p>
+</section>

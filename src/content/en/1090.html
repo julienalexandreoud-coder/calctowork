@@ -1,0 +1,78 @@
+<section class="long-content">
+  <h1>Password Entropy Calculator: Measure Your Password Strength</h1>
+  <p>The Password Entropy Calculator quantifies the strength of any password by computing its entropy in bits using the Shannon entropy formula. Entropy measures how many guesses an attacker would need to brute force your password on average, making it the gold standard for evaluating password security. Security professionals, system administrators, and everyday users can use this tool to understand why some passwords are far stronger than others and to design authentication systems that resist attack.</p>
+
+  <div class="formula-section">
+    <h2>Password Entropy Formula</h2>
+    <p class="formula-display">E = L &times; log&#8322;(N)</p>
+    <p>Where <strong>E</strong> is entropy in bits, <strong>L</strong> is the password length, and <strong>N</strong> is the size of the character set from which each character is drawn. The base-2 logarithm reflects the binary nature of computing: each bit of entropy doubles the number of possible passwords. For example, a password with 40 bits of entropy requires approximately 2&#8309;&#8304; guesses to crack.</p>
+    <p>Typical character set sizes are: 10 for digits only (0&ndash;9), 26 for lowercase letters, 52 for case-sensitive letters, and 95 for all printable ASCII characters including punctuation and symbols. If you use a passphrase made of dictionary words, the entropy depends on the size of your word list and the number of words you combine.</p>
+  </div>
+
+  <div class="examples-section">
+    <h2>Worked Examples</h2>
+    <div class="example">
+      <h3>Example 1: Short Numeric PIN</h3>
+      <p>A 4-digit ATM PIN uses only digits (N = 10). L = 4.</p>
+      <p><strong>Calculation:</strong> E = 4 &times; log&#8322;(10) = 4 &times; 3.32 = <strong>13.3 bits</strong></p>
+      <p>With only 13.3 bits of entropy, a 4-digit PIN can be cracked in at most 10,000 attempts (10&#8308;). An attacker with automated tools could exhaust all possibilities nearly instantly. This is why banking systems limit PIN entry attempts and why longer PINs or alphanumeric passwords are recommended for any system without rate limiting.</p>
+    </div>
+    <div class="example">
+      <h3>Example 2: Strong Full-Character Password</h3>
+      <p>A 12-character password using all 95 printable ASCII characters includes uppercase letters, lowercase letters, digits, and symbols. N = 95, L = 12.</p>
+      <p><strong>Calculation:</strong> E = 12 &times; log&#8322;(95) = 12 &times; 6.57 = <strong>78.8 bits</strong></p>
+      <p>With 78.8 bits of entropy, an offline brute force attack at 10 billion guesses per second would take approximately 2&#8312;&#8312;&sup1; seconds, which exceeds the age of the universe. In practice, 78 bits is considered very strong for current threats, though security experts recommend aiming for 80+ bits for sensitive accounts.</p>
+    </div>
+  </div>
+
+  <div class="uses-section">
+    <h2>Common Uses</h2>
+    <ul>
+      <li>Evaluating password strength during account creation to enforce minimum entropy requirements in enterprise security policies</li>
+      <li>Comparing the relative strength of different password generation methods, such as random character strings versus passphrases versus mnemonic patterns</li>
+      <li>Estimating brute force resistance for encryption keys derived from passwords in cryptography and data protection applications</li>
+      <li>Designing authentication systems that balance security requirements with usability, determining appropriate minimum length and complexity rules</li>
+      <li>Auditing existing password policies to ensure they provide adequate protection against modern cracking hardware and distributed attack networks</li>
+      <li>Educating users about password security by demonstrating why longer, diverse-character passwords dramatically outperform simple passwords</li>
+    </ul>
+  </div>
+
+  <div class="mistakes-section">
+    <h2>Common Mistakes</h2>
+    <ul>
+      <li>Relying solely on character variety while ignoring length &mdash; a 6-character password with symbols has only about 39 bits of entropy, while a 16-character lowercase password has about 75 bits, making length significantly more impactful</li>
+      <li>Using dictionary words in predictable combinations &mdash; a passphrase like "correct horse battery staple" has high entropy only if words are chosen randomly from a large dictionary, not from common phrases or song lyrics</li>
+      <li>Assuming entropy is the only measure of strength &mdash; entropy does not account for passwords that appear in known breach databases or follow common patterns like "Password1!"</li>
+      <li>Overestimating entropy for user-chosen passwords &mdash; humans are terrible random generators; a password you invent yourself typically has far less entropy than a randomly generated one of the same length</li>
+      <li>Ignoring that character set size matters &mdash; using only lowercase letters (26 characters) versus mixed case (52) doubles the search space per character, adding 1 bit of entropy per position</li>
+    </ul>
+  </div>
+
+  <div class="pro-tip">
+    <h2>Pro Tip</h2>
+    <p>Use passphrases instead of complex passwords for maximum entropy and memorability. A 5-word passphrase generated from a standard Diceware list of 7,776 words provides approximately 65 bits of entropy (5 &times; log&#8322;(7776) = 5 &times; 12.9). That is comparable to a 10-character mixed-case password with symbols, yet the passphrase is far easier to type and remember. For critical accounts like your password manager master password or email account, aim for a 6-word passphrase (77 bits of entropy) or a 20-character randomly generated password with all character types (131 bits).</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How many bits of entropy make a strong password?</button>
+        <div class="faq-ap"><p>Generally, 50 to 60 bits of entropy is considered moderately secure against online attacks, while 80 bits or more offers strong protection against offline brute force attacks. A truly strong password should have at least 100 bits of entropy, which typically means a 14-character password using all character types or a 6-word passphrase from a large dictionary.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What is the difference between entropy and password strength meters?</button>
+        <div class="faq-ap"><p>Entropy calculates the theoretical maximum number of guesses needed based on character set and length. Password strength meters often check against common patterns, dictionary words, and known breaches. Entropy can overestimate strength if the password follows predictable patterns, which is why combining both approaches is recommended.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Does a longer password always mean higher entropy?</button>
+        <div class="faq-ap"><p>Yes, all else being equal, length directly increases entropy. However, if a password uses a small character set, a longer password may still have less entropy than a shorter password with a larger character set. For example, a 10-digit numeric password has about 33 bits of entropy, while a 7-character password with all character types has about 44 bits.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How do hackers crack passwords in practice?</button>
+        <div class="faq-ap"><p>Hackers use dictionary attacks (trying common words and phrases), brute force attacks (trying every possible combination), and rainbow table attacks (precomputed hash lookups). They also exploit leaked password databases to try credentials across multiple services. Using unique, high-entropy passwords with a password manager is the most effective defense.</p></div>
+      </div>
+    </div>
+  </div>
+
+</section>

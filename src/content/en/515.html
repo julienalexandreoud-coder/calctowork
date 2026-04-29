@@ -1,0 +1,156 @@
+<section class="long-content">
+<h2>What Is a RAID Capacity Calculator?</h2>
+<p>A RAID capacity calculator determines usable storage space and redundancy overhead for RAID arrays based on number of drives, drive capacity, and RAID level. Four 4 TB drives in RAID 5 provide 12 TB usable space with one-drive fault tolerance. The same drives in RAID 10 provide only 8 TB usable but survive two drive failures. Understanding these tradeoffs informs storage architecture decisions for servers, NAS devices, and workstations.</p>
+<p>For 4 drives at 2000 GB each in RAID 5, the calculator determines 6000 GB usable capacity with 2000 GB parity overhead (25% loss). RAID 10 with the same drives yields 4000 GB usable (50% loss) but better performance and redundancy. RAID 0 provides all 8000 GB but zero redundancy — any single drive failure destroys all data. The calculator quantifies these capacity vs. protection tradeoffs.</p>
+<p>IT administrators size storage arrays for servers. Home lab builders plan NAS configurations. Video editors calculate shared storage capacity. Database architects design redundant storage. Backup administrators determine archive capacity. The calculator translates drive specifications into actionable capacity and redundancy metrics for infrastructure planning.</p>
+
+<h2>The Formula Behind RAID Capacity Calculations</h2>
+<p>Capacity formulas vary by RAID level:</p>
+<p><strong>RAID 0 (Striping): Usable = N × Drive Size</strong><br>
+No redundancy. All capacity usable. Minimum 2 drives.</p>
+<p><strong>RAID 1 (Mirroring): Usable = Drive Size</strong><br>
+Full redundancy. 50% capacity loss (2 drives). Minimum 2 drives.</p>
+<p><strong>RAID 5 (Striping + Distributed Parity): Usable = (N - 1) × Drive Size</strong><br>
+Single-drive fault tolerance. Capacity loss = 1 drive equivalent. Minimum 3 drives.</p>
+<p><strong>RAID 6 (Striping + Dual Parity): Usable = (N - 2) × Drive Size</strong><br>
+Dual-drive fault tolerance. Capacity loss = 2 drives equivalent. Minimum 4 drives.</p>
+<p><strong>RAID 10 (Mirror + Stripe): Usable = (N / 2) × Drive Size</strong><br>
+Single-drive fault tolerance per mirror. 50% capacity loss. Minimum 4 drives (even number).</p>
+<p><strong>RAID 50 (RAID 5 + Stripe): Usable = (N - S) × Drive Size</strong><br>
+Where S = number of RAID 5 sets. Combines RAID 5 capacity efficiency with RAID 0 performance. Minimum 6 drives.</p>
+<p><strong>RAID 60 (RAID 6 + Stripe): Usable = (N - 2S) × Drive Size</strong><br>
+Where S = number of RAID 6 sets. Dual parity with striping performance. Minimum 8 drives.</p>
+<p>Redundancy characteristics:</p>
+<ul>
+<li>RAID 0: No redundancy — any drive failure = total data loss</li>
+<li>RAID 1: Survives 1 drive failure (of 2)</li>
+<li>RAID 5: Survives 1 drive failure (of 3+)</li>
+<li>RAID 6: Survives 2 simultaneous drive failures (of 4+)</li>
+<li>RAID 10: Survives 1 drive per mirror (up to N/2 drives if different mirrors)</li>
+<li>RAID 50: Survives 1 drive per RAID 5 set</li>
+<li>RAID 60: Survives 2 drives per RAID 6 set</li>
+</ul>
+<p>Drive size note: Use identical drive capacities for optimal RAID. Mixed sizes waste capacity — array operates at smallest drive capacity.</p>
+
+<h2>6 Steps to Calculate RAID Capacity Accurately</h2>
+<p><strong>Step 1: Count Total Number of Drives</strong><br>
+Determine how many physical drives will populate the array. Common configurations: 2 drives (RAID 0/1), 3-4 drives (RAID 5), 4-8 drives (RAID 6/10), 6-16+ drives (RAID 50/60). Some RAID levels require specific counts: RAID 10 needs even numbers, RAID 5 minimum 3, RAID 6 minimum 4. Plan for expansion slots if future growth is anticipated.</p>
+<p><strong>Step 2: Identify Individual Drive Capacity</strong><br>
+Find drive capacity in GB or TB. Common sizes: 1 TB, 2 TB, 4 TB, 8 TB, 10 TB, 12 TB, 14 TB, 16 TB, 18 TB, 20 TB. Use identical capacities for all drives in the array. If mixing sizes (not recommended), the array uses the smallest drive's capacity for all drives — a 4 TB + 4 TB + 8 TB RAID 5 array uses only 4 TB per drive, wasting 4 TB on the larger drive.</p>
+<p><strong>Step 3: Select RAID Level Based on Requirements</strong><br>
+Choose RAID level balancing capacity, performance, and redundancy needs:<br>
+- Maximum capacity, no redundancy needed: RAID 0<br>
+- Simple redundancy, 2 drives: RAID 1<br>
+- Good capacity efficiency, single-drive protection: RAID 5<br>
+- Maximum redundancy, large arrays: RAID 6<br>
+- Best performance + redundancy: RAID 10<br>
+- Large arrays needing performance: RAID 50/60<br>
+Consider rebuild times: RAID 5/6 rebuilds take hours for multi-TB drives, increasing failure risk during rebuild.</p>
+<p><strong>Step 4: Apply the Capacity Formula</strong><br>
+Calculate usable capacity based on RAID level. For 6 × 4 TB drives:<br>
+- RAID 0: 6 × 4 = 24 TB usable<br>
+- RAID 1: 4 TB usable (only 2 drives used)<br>
+- RAID 5: (6 - 1) × 4 = 20 TB usable<br>
+- RAID 6: (6 - 2) × 4 = 16 TB usable<br>
+- RAID 10: (6 / 2) × 4 = 12 TB usable<br>
+RAID 5 offers best capacity efficiency (83%), RAID 10 worst (50%) but best performance.</p>
+<p><strong>Step 5: Calculate Redundancy Overhead Percentage</strong><br>
+Overhead = (Total Raw - Usable) / Total Raw × 100%. For 6 × 4 TB (24 TB raw):<br>
+- RAID 0: (24 - 24) / 24 = 0% overhead<br>
+- RAID 5: (24 - 20) / 24 = 16.7% overhead<br>
+- RAID 6: (24 - 16) / 24 = 33.3% overhead<br>
+- RAID 10: (24 - 12) / 24 = 50% overhead<br>
+Higher overhead buys better redundancy. RAID 6's 33% overhead protects against 2 failures; RAID 10's 50% protects against 1 per mirror.</p>
+<p><strong>Step 6: Account for Real-World Capacity Loss</strong><br>
+Formatted capacity is 7-10% less than advertised due to: (1) Binary vs. decimal — manufacturers use 1 TB = 1,000,000,000,000 bytes, OS uses 1 TiB = 1,099,511,627,776 bytes. A "4 TB" drive shows 3.64 TiB. (2) File system overhead — NTFS, ZFS, ext4 consume 1-3% for metadata. (3) RAID controller overhead — some controllers reserve space. Plan for 90-93% of calculated usable capacity as actual available space.</p>
+
+<h2>5 Worked Examples With Complete Calculations</h2>
+<p><strong>Example 1: Home NAS Build</strong><br>
+Drives: 4 × 8 TB. RAID level: RAID 5 (balance of capacity and redundancy).<br>
+Raw capacity: 4 × 8 = 32 TB<br>
+Usable (RAID 5): (4 - 1) × 8 = 24 TB<br>
+Redundancy: Survives 1 drive failure<br>
+Overhead: (32 - 24) / 32 = 25%<br>
+Real-world available: 24 × 0.93 = 22.32 TB (after formatting)<br>
+Alternative RAID 10: (4 / 2) × 8 = 16 TB usable<br>
+RAID 6: (4 - 2) × 8 = 16 TB usable, survives 2 failures<br>
+Verdict: RAID 5 maximizes capacity for home media storage. RAID 6 preferred for critical data.</p>
+<p><strong>Example 2: Enterprise Database Server</strong><br>
+Drives: 8 × 2 TB SSD. RAID level: RAID 10 (performance critical).<br>
+Raw capacity: 8 × 2 = 16 TB<br>
+Usable (RAID 10): (8 / 2) × 2 = 8 TB<br>
+Redundancy: Survives 1 drive per mirror (up to 4 drives if different mirrors)<br>
+Overhead: (16 - 8) / 16 = 50%<br>
+Real-world available: 8 × 0.95 = 7.6 TB (SSDs have less overhead)<br>
+Alternative RAID 5: (8 - 1) × 2 = 14 TB, but slower writes<br>
+Alternative RAID 6: (8 - 2) × 2 = 12 TB, better redundancy, slower than RAID 10<br>
+Verdict: RAID 10 chosen for database IOPS, not capacity. 8 TB sufficient for active dataset.</p>
+<p><strong>Example 3: Video Editing Shared Storage</strong><br>
+Drives: 12 × 16 TB. RAID level: RAID 60 (large capacity + performance + redundancy).<br>
+Configuration: 2 RAID 6 sets of 6 drives each, striped.<br>
+Raw capacity: 12 × 16 = 192 TB<br>
+Usable (RAID 60): (12 - 4) × 16 = 128 TB (2 drives parity per 6-drive set)<br>
+Redundancy: Survives 2 drives per RAID 6 set (up to 4 total)<br>
+Overhead: (192 - 128) / 192 = 33.3%<br>
+Real-world available: 128 × 0.93 = 119 TB<br>
+Alternative RAID 50: (12 - 2) × 16 = 160 TB, less redundancy<br>
+Alternative RAID 6: (12 - 2) × 16 = 160 TB, single set, slower rebuild<br>
+Verdict: RAID 60 balances capacity, performance for multiple editors, and redundancy.</p>
+<p><strong>Example 4: Budget Home Server</strong><br>
+Drives: 3 × 4 TB. RAID level: RAID 5 (minimum drives for RAID 5).<br>
+Raw capacity: 3 × 4 = 12 TB<br>
+Usable (RAID 5): (3 - 1) × 4 = 8 TB<br>
+Redundancy: Survives 1 drive failure<br>
+Overhead: (12 - 8) / 12 = 33.3%<br>
+Real-world available: 8 × 0.93 = 7.44 TB<br>
+Alternative RAID 1: Only 2 drives used = 4 TB usable, wastes 1 drive<br>
+Alternative RAID 0: 12 TB usable, zero redundancy (not recommended)<br>
+Verdict: RAID 5 is only sensible choice for 3-drive array with redundancy. Add 4th drive later for more capacity.</p>
+<p><strong>Example 5: Cloud Backup Archive</strong><br>
+Drives: 6 × 18 TB. RAID level: RAID 6 (maximum redundancy for archival).<br>
+Raw capacity: 6 × 18 = 108 TB<br>
+Usable (RAID 6): (6 - 2) × 18 = 72 TB<br>
+Redundancy: Survives 2 simultaneous drive failures<br>
+Overhead: (108 - 72) / 108 = 33.3%<br>
+Real-world available: 72 × 0.93 = 66.96 TB<br>
+Alternative RAID 5: (6 - 1) × 18 = 90 TB, but risky during rebuild<br>
+RAID 6 rebuild time for 18 TB drive: 8-12 hours — high risk of second failure<br>
+Verdict: RAID 6 essential for large drives. 90 TB RAID 5 not worth 25% extra capacity risk.</p>
+
+<h2>4 Critical Mistakes That Skew RAID Capacity Planning</h2>
+<p><strong>Mistake 1: Mixing Drive Capacities Without Understanding Waste</strong><br>
+RAID arrays operate at the capacity of the smallest drive. A RAID 5 with 4 TB + 4 TB + 8 TB drives uses only 4 TB per drive — the 8 TB drive wastes 4 TB. Total usable: (3 - 1) × 4 = 8 TB, not (4 + 4 + 8 - 4) = 12 TB. Some modern RAID controllers (ZFS, Unraid, Synology SHR) handle mixed sizes more efficiently, but traditional hardware RAID wastes the excess. Always use identical drive capacities for predictable results.</p>
+<p><strong>Mistake 2: Not Accounting for Binary vs. Decimal Capacity</strong><br>
+Drive manufacturers use decimal TB (1 TB = 10¹² bytes). Operating systems use binary TiB (1 TiB = 2⁴⁰ bytes). A "4 TB" drive shows as 3.64 TiB in Windows — a 9% difference. Planning for 24 TB raw RAID 5 (20 TB usable) but expecting 20 TiB available results in 18.2 TiB actual — 10% shortfall. Always calculate using binary: 4 TB drive = 3.64 TiB, then apply RAID formula. Or plan for 90-93% of calculated capacity.</p>
+<p><strong>Mistake 3: Choosing RAID 5 for Large Drives Without Considering Rebuild Risk</strong><br>
+RAID 5 survives one drive failure, but rebuild times for multi-TB drives are 4-12 hours. During rebuild, remaining drives operate under stress — a second failure destroys the array. For drives >4 TB, RAID 6 or RAID 10 is safer despite capacity cost. A 12 TB RAID 5 rebuild at 150 MB/s takes 22+ hours. RAID 6's extra parity drive prevents data loss from second failures during this vulnerable window.</p>
+<p><strong>Mistake 4: Assuming All Drives Are Available for Data</strong><br>
+Some RAID configurations reserve drives for specific purposes. RAID 1 uses 2 drives for 1 drive's capacity. RAID 10 uses half the drives for mirrors. Hot spare drives sit idle until failures occur — a 4-drive RAID 5 + 1 hot spare array has only 3 drives active, not 4. Plan for actual usable capacity, not raw drive count × size. Document hot spare allocations separately from active array capacity.</p>
+
+<h2>4 Professional Tips for RAID Planning</h2>
+<p><strong>Tip 1: Use RAID 6 or RAID 10 for Drives Larger Than 4 TB</strong><br>
+Large drives take longer to rebuild, increasing failure probability during rebuild. RAID 5 was acceptable for 500 GB drives (2-3 hour rebuild) but risky for 12 TB drives (10+ hour rebuild). RAID 6 adds one parity drive (33% overhead vs. 25% for RAID 5) but survives 2 failures. RAID 10 offers faster rebuilds (copy mirror, not parity recalculation) at 50% overhead. For critical data with large drives, capacity efficiency isn't worth the risk.</p>
+<p><strong>Tip 2: Include Hot Spares for Large Arrays</strong><br>
+Hot spare drives sit idle in the array, automatically replacing failed drives and triggering immediate rebuild. A 6-drive RAID 6 + 1 hot spare array has 5 active drives (64 TB usable for 16 TB drives) but rebuilds automatically on failure. Without hot spare, failed drives sit unreplaced for days/weeks until manual intervention — during which a second failure causes data loss. Hot spares cost 16-20% of array capacity but dramatically reduce risk.</p>
+<p><strong>Tip 3: Plan for Expansion from the Start</strong><br>
+RAID expansion options vary by level. RAID 5/6 can often add drives online (controller-dependent). RAID 10 typically requires rebuilding the entire array to add drives. Plan chassis with extra bays and power supply headroom. A 4-bay NAS filled completely has no expansion path — you must replace all drives with larger ones to grow. Leave 1-2 bays empty or use RAID 5/6 for future expansion flexibility.</p>
+<p><strong>Tip 4: Monitor Drive Health and Replace Proactively</strong><br>
+SMART data predicts drive failures weeks in advance. Monitor attributes like Reallocated Sector Count, Current Pending Sector, and Uncorrectable Error Count. Replace drives showing warning signs before failure. For arrays with 20+ drives, expect 1-2 failures per year statistically. Keep compatible spare drives on hand. RAID protects against failures but isn't a backup — maintain offsite copies of critical data regardless of RAID level.</p>
+
+<h2>4 FAQs About RAID Capacity</h2>
+<div class="faq-list">
+<div class="faq-item"><button class="faq-q" aria-expanded="false">Can I add drives to an existing RAID array later?</button><div class="faq-a"><p>Depends on RAID level and controller. RAID 5/6: Many hardware controllers support online capacity expansion (OCE) — add drives and expand without data loss. Software RAID (mdadm, ZFS) handles expansion well. RAID 10: Usually requires backing up, rebuilding array with more drives, restoring data — destructive operation. RAID 0: Cannot expand — must backup, recreate, restore. Plan initial capacity for 3-5 year needs, or choose RAID 5/6 for expansion flexibility.</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">What happens if I lose power during a RAID rebuild?</button><div class="faq-a"><p>Modern RAID controllers and software RAID resume rebuilds after power restoration without data loss. The rebuild progress is tracked on disk. However, power loss during rebuild extends the vulnerable window — drives remain stressed longer. Use a UPS (uninterruptible power supply) for RAID arrays, especially during rebuilds. A $100-200 UPS protecting a $2000+ storage array is cheap insurance against rebuild corruption from power events.</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">Should I use hardware RAID or software RAID?</button><div class="faq-a"><p>Hardware RAID: Dedicated controller with cache, battery backup, offloads CPU. Better for write-heavy workloads (databases). Vendor lock-in — migrating to different controller can be difficult. Software RAID (mdadm, ZFS, Windows Storage Spaces): Free, flexible, no vendor lock-in. Uses CPU but modern CPUs handle RAID easily. ZFS offers superior data integrity (checksums, self-healing). For home/SMB: software RAID. For enterprise databases: hardware RAID with BBU.</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">How often should I test my RAID array's redundancy?</button><div class="faq-a"><p>Test quarterly by pulling one drive (for RAID 5/6/10) and verifying array rebuilds successfully. This validates backups work, drives are functional, and you understand the rebuild process before a real emergency. For RAID 6, test twice yearly pulling one drive at a time. Also run regular scrub/patrol read operations (weekly for ZFS, monthly for traditional RAID) to detect and correct silent data corruption before it becomes unrecoverable.</p></div></div>
+</div>
+
+<h2>Related Calculators</h2>
+<ul>
+<li><strong>Storage Capacity Calculator:</strong> Determines how many files fit on storage devices of various capacities.</li>
+<li><strong>Backup Size Calculator:</strong> Estimates backup storage requirements based on source data and retention policies.</li>
+<li><strong>Hard Drive Lifespan Calculator:</strong> Estimates drive failure probability based on age, workload, and SMART data.</li>
+<li><strong>Network Attached Storage (NAS) Calculator:</strong> Sizes NAS systems for multi-user file sharing requirements.</li>
+<li><strong>Data Transfer Time Calculator:</strong> Estimates time to transfer data to/from RAID arrays over networks.</li>
+</ul>
+</section>

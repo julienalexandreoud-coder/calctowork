@@ -1,0 +1,78 @@
+<section class="long-content">
+<h2>What is Contrast Ratio?</h2>
+<p>Contrast ratio measures the luminance difference between the lightest and darkest parts of an image or interface. A contrast ratio of 21:1 represents maximum contrast (pure white on pure black), while 1:1 represents no contrast (identical colors). The Web Content Accessibility Guidelines (WCAG) require minimum contrast ratios for readable text.</p>
+<p>Web designers use contrast ratios to ensure text is legible for users with visual impairments. Black text (#000000) on white background (#FFFFFF) achieves 21:1 contrast — far exceeding the WCAG AA requirement of 4.5:1 for normal text. Light gray text (#999999) on white achieves only 2.8:1 — failing accessibility standards and difficult for many users to read.</p>
+<p>UI developers check contrast ratios for interactive elements like buttons and links. A blue button (#4A90D9) with white text achieves 4.6:1 contrast — passing WCAG AA. The same blue with light gray text (#CCCCCC) drops to 1.8:1 — failing and potentially unusable for users with low vision or color blindness.</p>
+
+<h2>Contrast Ratio Formulas with Worked Calculations</h2>
+<p>WCAG 2.1 defines contrast ratio using relative luminance:</p>
+<p><strong>CR = (L₁ + 0.05) / (L₂ + 0.05)</strong></p>
+<p>Where L₁ is the relative luminance of the lighter color (0 to 1) and L₂ is the relative luminance of the darker color (0 to 1).</p>
+<p>Relative luminance is calculated from sRGB values:</p>
+<p><strong>L = 0.2126 × R + 0.7152 × G + 0.0722 × B</strong></p>
+<p>Where R, G, and B are the linearized (gamma-corrected) color values.</p>
+<p><strong>Worked example:</strong> Calculate contrast between #3366CC (blue) and #FFFFFF (white).</p>
+<p>First, convert hex to sRGB (0-255 scale): #3366CC = rgb(51, 102, 204), #FFFFFF = rgb(255, 255, 255).</p>
+<p>Normalize to 0-1 scale: R = 51/255 = 0.2, G = 102/255 = 0.4, B = 204/255 = 0.8 for blue. White is R = G = B = 1.</p>
+<p>Linearize each channel (inverse gamma correction):</p>
+<p>If value ≤ 0.03928: linear = value / 12.92</p>
+<p>If value > 0.03928: linear = ((value + 0.055) / 1.055)^2.4</p>
+<p>For blue: R = ((0.2 + 0.055) / 1.055)^2.4 = 0.0337, G = ((0.4 + 0.055) / 1.055)^2.4 = 0.1369, B = ((0.8 + 0.055) / 1.055)^2.4 = 0.6072</p>
+<p>For white: R = G = B = ((1 + 0.055) / 1.055)^2.4 = 1.0</p>
+<p>Calculate relative luminance:</p>
+<p>L_blue = 0.2126 × 0.0337 + 0.7152 × 0.1369 + 0.0722 × 0.6072 = 0.0072 + 0.0979 + 0.0438 = 0.1489</p>
+<p>L_white = 0.2126 × 1 + 0.7152 × 1 + 0.0722 × 1 = 1.0</p>
+<p>Calculate contrast ratio:</p>
+<p>CR = (1.0 + 0.05) / (0.1489 + 0.05) = 1.05 / 0.1989 = 5.28:1</p>
+<p>Result: Blue #3366CC on white #FFFFFF achieves 5.28:1 contrast — passes WCAG AA (4.5:1) and AAA (3:1) for normal text.</p>
+
+<h2>How to Calculate Contrast Ratio: 6 Steps</h2>
+<ol>
+<li><strong>Convert colors to RGB:</strong> Your foreground color is #7B2D8E (purple) and background is #F5F5F5 (light gray). Convert: #7B2D8E = rgb(123, 45, 142), #F5F5F5 = rgb(245, 245, 245).</li>
+<li><strong>Normalize to 0-1 scale:</strong> Purple: R = 123/255 = 0.482, G = 45/255 = 0.176, B = 142/255 = 0.557. Gray: R = G = B = 245/255 = 0.961.</li>
+<li><strong>Apply gamma correction:</strong> For purple: R = ((0.482 + 0.055) / 1.055)^2.4 = 0.203, G = ((0.176 + 0.055) / 1.055)^2.4 = 0.026, B = ((0.557 + 0.055) / 1.055)^2.4 = 0.272. For gray: R = G = B = ((0.961 + 0.055) / 1.055)^2.4 = 0.919.</li>
+<li><strong>Calculate relative luminance:</strong> L_purple = 0.2126 × 0.203 + 0.7152 × 0.026 + 0.0722 × 0.272 = 0.043 + 0.019 + 0.020 = 0.082. L_gray = 0.2126 × 0.919 + 0.7152 × 0.919 + 0.0722 × 0.919 = 0.919.</li>
+<li><strong>Identify lighter and darker:</strong> L_gray (0.919) > L_purple (0.082), so L₁ = 0.919 and L₂ = 0.082.</li>
+<li><strong>Apply contrast formula:</strong> CR = (0.919 + 0.05) / (0.082 + 0.05) = 0.969 / 0.132 = 7.34:1. This purple on light gray achieves 7.34:1 — passes WCAG AAA (7:1) for normal text.</li>
+</ol>
+
+<h2>5 Contrast Ratio Examples</h2>
+<p><strong>Example 1 — Black on white (maximum contrast):</strong> #000000 on #FFFFFF. L_black = 0 (all channels linearize to 0). L_white = 1. CR = (1 + 0.05) / (0 + 0.05) = 1.05 / 0.05 = 21:1. This is the maximum possible contrast in sRGB color space — the gold standard for readability.</p>
+<p><strong>Example 2 — Gray on gray (failing contrast):</strong> #999999 on #CCCCCC. L_light = 0.2126 × 0.502 + 0.7152 × 0.502 + 0.0722 × 0.502 = 0.502. L_dark = 0.2126 × 0.282 + 0.7152 × 0.282 + 0.0722 × 0.282 = 0.282. CR = (0.502 + 0.05) / (0.282 + 0.05) = 0.552 / 0.332 = 1.66:1. This fails all WCAG levels — common in poorly designed interfaces where "subtle" gray-on-gray text becomes unreadable.</p>
+<p><strong>Example 3 — Green on white (borderline AA):</strong> #00AA00 (bright green) on #FFFFFF. L_green = 0.2126 × 0 + 0.7152 × 0.331 + 0.0722 × 0 = 0.237. L_white = 1. CR = (1 + 0.05) / (0.237 + 0.05) = 1.05 / 0.287 = 3.66:1. This fails WCAG AA (4.5:1) for normal text but passes for large text (18pt or 14pt bold, requiring 3:1). Green text is particularly problematic for red-green color blind users.</p>
+<p><strong>Example 4 — Yellow on black (high contrast):</strong> #FFFF00 (pure yellow) on #000000. L_yellow = 0.2126 × 1 + 0.7152 × 1 + 0.0722 × 0 = 0.928. L_black = 0. CR = (0.928 + 0.05) / (0 + 0.05) = 0.978 / 0.05 = 19.56:1. Yellow on black achieves near-maximum contrast — why warning signs and hazard labels use this combination for maximum visibility.</p>
+<p><strong>Example 5 — Blue link on white (common web pattern):</strong> #0000EE (standard link blue) on #FFFFFF. L_blue = 0.2126 × 0 + 0.7152 × 0.033 + 0.0722 × 0.549 = 0.024 + 0.040 = 0.064. L_white = 1. CR = (1 + 0.05) / (0.064 + 0.05) = 1.05 / 0.114 = 9.21:1. Traditional link blue easily passes all WCAG levels — one reason it became the web standard in the 1990s and remains accessible today.</p>
+
+<h2>4 Common Contrast Ratio Mistakes</h2>
+<ul>
+<li><strong>Using simple luminance formulas:</strong> Calculating luminance as (R + G + B) / 3 ignores human vision's different sensitivity to each color. Green contributes 71.52% of perceived brightness, red 21.26%, blue only 7.22%. A color like #00FF00 (pure green) appears much brighter than #0000FF (pure blue) despite equal RGB sums.</li>
+<li><strong>Skipping gamma correction:</strong> Using sRGB values directly without linearizing produces incorrect luminance. The sRGB color space uses a gamma curve to match human perception. #808080 (middle gray) has linear luminance 0.216, not 0.5 — a 57% difference that significantly affects contrast calculations.</li>
+<li><strong>Testing only normal text sizes:</strong> WCAG has different requirements for normal text (4.5:1 AA, 7:1 AAA) versus large text (3:1 AA, 4.5:1 AAA). Large text is 18pt or 14pt bold. A 3.5:1 contrast fails AA for 12pt body text but passes for 20pt headings.</li>
+<li><strong>Ignoring non-text elements:</strong> WCAG also requires 3:1 contrast for UI components (buttons, input borders) and graphical objects (icons, charts). A gray button border (#CCCCCC) on white background (#FFFFFF) achieves only 1.3:1 — failing the 3:1 requirement and making the button invisible to many users.</li>
+</ul>
+
+<h2>5 Tips for Contrast Ratio Compliance</h2>
+<ul>
+<li><strong>Start with high-contrast defaults:</strong> Use #000000 on #FFFFFF (21:1) or #1A1A1A on #FAFAFA (18:1) as your base. These exceed all requirements and provide headroom for design variations. Only reduce contrast intentionally for specific design elements, never for body text.</li>
+<li><strong>Use browser DevTools:</strong> Chrome and Firefox DevTools show contrast ratios in the color picker. Click any color in the Styles panel, and the picker displays the contrast ratio against the background. It also shows pass/fail for WCAG AA and AAA at a glance.</li>
+<li><strong>Test with color blindness simulators:</strong> Tools like Stark, Color Oracle, or Chrome's rendering settings simulate various types of color vision deficiency. A red-green contrast that passes mathematically (4.5:1) may still be unreadable to deuteranopic users if hue is the only distinguishing factor.</li>
+<li><strong>Check hover and focus states:</strong> A button with 5:1 contrast in its default state might drop to 2:1 on hover if the background lightens. Test all interactive states: default, hover, focus, active, and disabled. Each state must meet minimum contrast requirements.</li>
+<li><strong>Use automated audit tools:</strong> Lighthouse (built into Chrome), axe DevTools, or WAVE can scan entire pages for contrast violations. These tools catch issues manual testing misses, like dynamically generated content or CSS variables that change contrast based on theme.</li>
+</ul>
+
+<h2>4 Contrast Ratio FAQs</h2>
+<div class="faq-list">
+<div class="faq-item"><button class="faq-q" aria-expanded="false">What are the WCAG contrast requirements?</button><div class="faq-a"><p>WCAG 2.1 Level AA requires 4.5:1 for normal text, 3:1 for large text (18pt or 14pt bold), and 3:1 for UI components and graphics. Level AAA requires 7:1 for normal text, 4.5:1 for large text, and 4.5:1 for UI components. Most organizations target AA as the legal compliance standard.</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">Does contrast ratio apply to images?</button><div class="faq-a"><p>Not directly. WCAG doesn't require specific contrast ratios within photographs or illustrations. However, text overlaid on images must meet contrast requirements — either by adding a semi-transparent overlay behind the text or using text shadows. Decorative images need alt="" and informative images need descriptive alt text.</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">How do I calculate contrast for transparent colors?</button><div class="faq-a"><p>First, composite the transparent color over its background using alpha blending. For rgba(0, 0, 0, 0.5) over #FFFFFF: resulting RGB = (0 × 0.5 + 255 × 0.5) = 127.5 → #808080. Then calculate contrast between the composited color (#808080) and the final background. Transparency itself doesn't affect contrast — only the final visible color matters.</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">Why does the formula add 0.05 to luminance?</button><div class="faq-a"><p>The 0.05 constant accounts for screen glare and ambient light reflections. In real-world viewing conditions, even "pure black" on a screen reflects some light, and "pure white" doesn't appear infinitely bright. The offset prevents infinite contrast ratios (dividing by zero) and models typical viewing environments with moderate ambient light.</p></div></div>
+</div>
+
+<h2>Related Calculators</h2>
+<ul>
+<li><a href="/1038">Hex to RGB Converter</a> — Convert hex color codes to RGB values</li>
+<li><a href="/1060">Color Blindness Simulator</a> — Preview designs with various types of color vision deficiency</li>
+<li><a href="/1061">WCAG Compliance Checker</a> — Audit entire pages for accessibility compliance</li>
+<li><a href="/1062">Luminance Calculator</a> — Calculate relative luminance for any sRGB color</li>
+</ul>
+</section>

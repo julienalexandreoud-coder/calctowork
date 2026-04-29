@@ -1,0 +1,117 @@
+<section class="long-content">
+<h2>What Is a Server Uptime Calculator?</h2>
+<p>A server uptime calculator converts downtime minutes into percentage availability and SLA (Service Level Agreement) tiers. Five nines (99.999%) availability allows only 5.26 minutes of downtime per year. Four nines (99.99%) permits 52.56 minutes monthly. Understanding these thresholds helps IT teams set realistic SLAs, plan maintenance windows, and communicate reliability expectations to stakeholders.</p>
+<p>For 60 minutes of downtime over a 30-day period, the calculator determines 99.86% uptime — meeting 99.5% SLA but failing 99.9% SLA commitments. A single 4-hour outage in a month drops availability to 99.45%, potentially triggering SLA penalties. The calculator translates incident duration into business metrics that drive infrastructure investment decisions.</p>
+<p>DevOps teams track availability against SLA targets. SaaS companies calculate service credits for customers. IT managers justify redundancy investments with downtime cost analysis. Compliance auditors verify uptime meets regulatory requirements. The calculator transforms raw downtime data into actionable availability metrics and financial implications.</p>
+
+<h2>The Formula Behind Uptime Calculations</h2>
+<p>The fundamental formula expresses as: <strong>Uptime % = ((Total Minutes - Downtime Minutes) / Total Minutes) × 100</strong></p>
+<p>Or equivalently: <strong>Uptime % = (1 - (Downtime / Total)) × 100</strong></p>
+<p>For 60 minutes downtime in 30 days:</p>
+<p>Total minutes = 30 days × 24 hours × 60 minutes = 43,200 minutes</p>
+<p>Uptime % = ((43,200 - 60) / 43,200) × 100 = (43,140 / 43,200) × 100 = 99.86%</p>
+<p>SLA tiers and allowed downtime:</p>
+<ul>
+<li>99% (two nines): 7.31 hours/month, 3.65 days/year</li>
+<li>99.5%: 3.65 hours/month, 1.83 days/year</li>
+<li>99.9% (three nines): 43.83 minutes/month, 8.77 hours/year</li>
+<li>99.95%: 21.92 minutes/month, 4.38 hours/year</li>
+<li>99.99% (four nines): 4.38 minutes/month, 52.56 minutes/year</li>
+<li>99.995%: 2.19 minutes/month, 26.28 minutes/year</li>
+<li>99.999% (five nines): 26.28 seconds/month, 5.26 minutes/year</li>
+<li>99.9999% (six nines): 2.63 seconds/month, 31.5 seconds/year</li>
+</ul>
+<p>Downtime calculation for multiple incidents: <strong>Total Downtime = Σ(Incident Duration)</strong></p>
+<p>Three outages of 15, 30, and 45 minutes: 15 + 30 + 45 = 90 minutes total downtime.</p>
+<p>For SLA compliance, distinguish planned vs. unplanned downtime. Some SLAs exclude scheduled maintenance from downtime calculations. Others count all downtime regardless of cause. Read SLA terms carefully — "99.9% uptime excluding scheduled maintenance" is easier to achieve than "99.9% uptime including all downtime."</p>
+
+<h2>6 Steps to Calculate Server Uptime Accurately</h2>
+<p><strong>Step 1: Define the Measurement Period</strong><br>
+Specify the time window: month (30 days), quarter (90 days), year (365 days), or rolling period. SLA calculations typically use calendar months or rolling 30-day windows. Annual SLAs may use calendar year or 12-month rolling periods. Consistency matters — don't switch between 30-day and 31-day months arbitrarily. Use 30.44 days (365/12) for average month calculations.</p>
+<p><strong>Step 2: Count Total Minutes in Period</strong><br>
+Calculate: Total Minutes = Days × 24 × 60. For 30 days: 30 × 24 × 60 = 43,200 minutes. For 365 days: 365 × 24 × 60 = 525,600 minutes. For 90 days (quarter): 90 × 24 × 60 = 129,600 minutes. Use exact day counts for calendar months (28-31 days) if SLA specifies calendar months, not 30-day periods.</p>
+<p><strong>Step 3: Sum All Downtime Incidents</strong><br>
+Add duration of all downtime events during the period. Include partial minutes — 2 minutes 30 seconds = 2.5 minutes. Distinguish between: (1) Complete outages (service unavailable), (2) Degraded performance (SLA may define thresholds), (3) Planned maintenance (may be excluded). Example: Outage 1 (15 min) + Outage 2 (2.5 min) + Maintenance (60 min, excluded) = 17.5 minutes counted downtime.</p>
+<p><strong>Step 4: Apply the Uptime Formula</strong><br>
+Calculate: Uptime % = ((Total - Downtime) / Total) × 100. For 17.5 minutes downtime in 43,200 minutes: ((43,200 - 17.5) / 43,200) × 100 = (43,182.5 / 43,200) × 100 = 99.96%. This meets 99.95% SLA but not 99.99% SLA. Round to 2-4 decimal places depending on SLA precision requirements.</p>
+<p><strong>Step 5: Compare Against SLA Tiers</strong><br>
+Determine which SLA tier was achieved. 99.96% exceeds 99.95% but falls short of 99.99%. For 99.99% SLA in 30 days, maximum allowed downtime is 4.32 minutes. Actual 17.5 minutes exceeds this by 4×. Calculate service credits if applicable: 99.96% vs. 99.99% target might trigger 10-25% monthly service credit depending on contract terms.</p>
+<p><strong>Step 6: Project Annual Availability</strong><br>
+Extrapolate monthly performance to annual: If monthly uptime is 99.96%, annual = 99.96%^12 = 99.52% (compounded). Alternatively, sum annual downtime: 17.5 minutes/month × 12 = 210 minutes/year. Annual uptime = ((525,600 - 210) / 525,600) × 100 = 99.96% (same as monthly if consistent). Track rolling 12-month availability for annual SLA compliance.</p>
+
+<h2>5 Worked Examples With Complete Calculations</h2>
+<p><strong>Example 1: Monthly SLA Compliance Check</strong><br>
+Period: 30 days (43,200 minutes). SLA target: 99.9%. Incidents: 3 outages totaling 55 minutes.<br>
+Total minutes: 30 × 24 × 60 = 43,200 minutes<br>
+Downtime: 55 minutes<br>
+Uptime %: ((43,200 - 55) / 43,200) × 100 = (43,145 / 43,200) × 100 = 99.87%<br>
+SLA target: 99.9% allows 43.83 minutes/month<br>
+Actual downtime: 55 minutes exceeds allowance by 11.17 minutes<br>
+Verdict: SLA breach. Service credit typically 10-25% of monthly fee.</p>
+<p><strong>Example 2: Annual Five Nines Achievement</strong><br>
+Period: 365 days (525,600 minutes). SLA target: 99.999% (five nines). Incidents: 4 outages totaling 4 minutes.<br>
+Total minutes: 365 × 24 × 60 = 525,600 minutes<br>
+Downtime: 4 minutes<br>
+Uptime %: ((525,600 - 4) / 525,600) × 100 = (525,596 / 525,600) × 100 = 99.99924%<br>
+SLA target: 99.999% allows 5.26 minutes/year<br>
+Actual downtime: 4 minutes — within allowance<br>
+Verdict: SLA achieved. Five nines certification maintained.</p>
+<p><strong>Example 3: Cloud Service Credit Calculation</strong><br>
+Period: 31 days (44,640 minutes). SLA: 99.95%. Actual downtime: 45 minutes. Service credit: 10% for 99.0-99.95%, 25% for <99.0%.<br>
+Total minutes: 31 × 24 × 60 = 44,640 minutes<br>
+Uptime %: ((44,640 - 45) / 44,640) × 100 = 99.90%<br>
+SLA target: 99.95% allows 22.32 minutes/month<br>
+Actual: 99.90% falls in 99.0-99.95% credit tier<br>
+Service credit: 10% of monthly bill<br>
+Monthly bill: $10,000. Credit: $1,000.</p>
+<p><strong>Example 4: Planned Maintenance Impact</strong><br>
+Period: 30 days. SLA: 99.9% excluding planned maintenance. Unplanned outages: 25 minutes. Planned maintenance: 120 minutes (excluded).<br>
+Total minutes: 43,200 minutes<br>
+Counted downtime: 25 minutes (planned excluded per SLA terms)<br>
+Uptime %: ((43,200 - 25) / 43,200) × 100 = 99.94%<br>
+SLA target: 99.9% allows 43.83 minutes<br>
+Verdict: SLA met due to planned maintenance exclusion. If maintenance counted: 99.72% — SLA breach.</p>
+<p><strong>Example 5: Multi-Service Dependency Calculation</strong><br>
+Service A: 99.95% uptime. Service B: 99.9% uptime. Service C: 99.99% uptime. All required for end-user functionality.<br>
+Composite uptime: 0.9995 × 0.999 × 0.9999 = 0.9984 = 99.84%<br>
+Individual services meet their SLAs, but combined availability is only 99.84%.<br>
+Annual downtime: 0.16% × 525,600 = 841 minutes = 14 hours<br>
+Verdict: Weakest link (Service B at 99.9%) dominates composite availability. Improve Service B to 99.99% for 99.94% composite.</p>
+
+<h2>4 Critical Mistakes That Skew Uptime Calculations</h2>
+<p><strong>Mistake 1: Using Calendar Days Instead of Exact Minutes</strong><br>
+Calculating uptime as "29.9 days / 30 days = 99.67%" introduces errors. Convert everything to minutes for precision. A 1-hour outage is 60 minutes, not 0.04 days (rounding errors compound). SLA disputes hinge on seconds — use exact minute counts. For 30-day periods: 43,200 minutes. For 31-day months: 44,640 minutes. For February: 40,320 minutes (28 days) or 40,480 (29 days).</p>
+<p><strong>Mistake 2: Not Defining What Constitutes Downtime</strong><br>
+Is 50% degraded performance "downtime"? What about 10% error rates? SLAs should define thresholds: "Service unavailable" vs. "Error rate >5%" vs. "Latency >5 seconds." Without clear definitions, providers claim "service was up, just slow" while customers claim "service was unusable." Monitor multiple metrics: availability, error rate, latency. Count as downtime when any threshold is breached for >5 consecutive minutes.</p>
+<p><strong>Mistake 3: Ignoring Time Zone and Month Length Variations</strong><br>
+SLA periods may be calendar months (28-31 days) or fixed 30-day periods. February has 7% fewer minutes than March — same downtime produces different percentages. A 60-minute outage in February: 60/40,320 = 99.85% uptime. In March: 60/44,640 = 99.87%. Use consistent period definitions. For rolling SLAs, calculate trailing 30/90/365 days from current date, not calendar boundaries.</p>
+<p><strong>Mistake 4: Double-Counting Overlapping Outages</strong><br>
+If Service A fails for 30 minutes and Service B fails for overlapping 20 minutes, total downtime isn't 50 minutes — it's 30 minutes (the union, not sum). Users experienced 30 minutes of service disruption, not 50. Track outages by time windows, not just durations. Use monitoring systems that correlate incidents. For composite services, count downtime once per affected time window regardless of how many components failed.</p>
+
+<h2>4 Professional Tips for Uptime Management</h2>
+<p><strong>Tip 1: Implement Multi-Level Monitoring</strong><br>
+Monitor at three levels: (1) Server/ping level — is the machine reachable? (2) Service level — is the application responding? (3) Transaction level — can users complete actions? A server may ping (level 1) while the database is locked (level 2 fails) or checkout is broken (level 3 fails). Level 3 monitoring catches "technically up but functionally down" states that level 1 misses. Set alerts for all three levels with escalating severity.</p>
+<p><strong>Tip 2: Schedule Maintenance During Low-Traffic Windows</strong><br>
+Even if SLA excludes planned maintenance, outages during peak hours damage reputation more than 3 AM maintenance. Analyze traffic patterns — most services have 70-90% lower traffic 2-5 AM local time. Schedule maintenance in these windows. Communicate schedules 48-72 hours in advance. For global services, rotate maintenance windows across time zones to share inconvenience. Document all maintenance for internal tracking even if SLA-excluded.</p>
+<p><strong>Tip 3: Build Redundancy to Exceed SLA Targets</strong><br>
+If SLA承诺 99.9% (43 minutes/month allowed), design for 99.99% capability (4 minutes/month). This buffer absorbs unexpected issues without breaching SLA. A single-server deployment achieving 99.9% requires perfect operation. A multi-AZ deployment naturally achieves 99.95%+ with routine maintenance. The infrastructure cost difference (20-50% more) is often less than SLA penalty costs and reputation damage from breaches.</p>
+<p><strong>Tip 4: Track Mean Time Between Failures (MTBF) and Mean Time To Recovery (MTTR)</strong><br>
+Uptime % alone doesn't reveal failure patterns. MTBF = Total Uptime / Number of Failures. MTTR = Total Downtime / Number of Failures. A service with 99.9% uptime could have: (1) One 43-minute outage (MTBF: 30 days, MTTR: 43 min), or (2) Forty-three 1-minute outages (MTBF: 17 hours, MTTR: 1 min). Scenario 2 frustrates users more despite identical uptime. Track both metrics — reduce failure frequency (MTBF) and improve recovery speed (MTTR).</p>
+
+<h2>4 FAQs About Server Uptime</h2>
+<div class="faq-list">
+<div class="faq-item"><button class="faq-q" aria-expanded="false">What's a realistic SLA for a web application?</button><div class="faq-a"><p>For most SaaS applications: 99.9% (three nines) is standard — allows 43 minutes/month downtime. Customer-facing e-commerce: 99.95-99.99% expected. Enterprise/internal tools: 99.5-99.9% acceptable. Mission-critical (payment processing, healthcare): 99.99-99.999% required. Five nines (99.999%) requires redundant infrastructure across multiple data centers — cost increases 3-5× vs. single-server. Match SLA to business impact: $10,000/hour downtime justifies $50,000/month redundancy; $100/hour doesn't.</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">How do cloud providers calculate uptime for SLAs?</button><div class="faq-a"><p>Major providers (AWS, Azure, GCP) calculate uptime per service per region per month. Downtime is when the service is "unavailable" — defined specifically per service. Scheduled maintenance is excluded. Downtime during force majeure (natural disasters) may be excluded. SLA credits are typically 10-100% of monthly service fee, capped at one month's fee. Credits require customer request — they're not automatic. Read each provider's SLA document — terms vary significantly.</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">Does deploying to multiple regions improve uptime?</button><div class="faq-a"><p>Yes, dramatically. Single region at 99.95% uptime has ~4 hours/year downtime. Two independent regions: 0.05% × 0.05% = 0.0025% failure rate = 99.9975% composite uptime (~13 minutes/year). Three regions: 99.9999%+ uptime. However, multi-region adds complexity: data replication latency, failover automation, increased costs (2-3×). For critical services, multi-region is essential. For development/staging, single region suffices. Use active-active (load balanced) or active-passive (failover) architectures.</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">What's the difference between uptime and availability?</button><div class="faq-a"><p>Technically: Uptime measures whether the server is running. Availability measures whether users can successfully complete tasks. A server can be "up" (pinging, processes running) but unavailable (database locked, disk full, network misconfigured). Modern SLAs use availability — can users access the service? — not just uptime. Monitor from user perspective: synthetic transactions, real user monitoring (RUM), and endpoint checks. "Up but unusable" should count as downtime.</p></div></div>
+</div>
+
+<h2>Related Calculators</h2>
+<ul>
+<li><strong>MTBF/MTTR Calculator:</strong> Calculates mean time between failures and mean time to recovery from incident logs.</li>
+<li><strong>SLA Service Credit Calculator:</strong> Determines service credit amounts based on uptime percentage and contract terms.</li>
+<li><strong>Downtime Cost Calculator:</strong> Estimates financial impact of outages based on revenue per hour and incident duration.</li>
+<li><strong>Redundancy ROI Calculator:</strong> Compares infrastructure costs vs. downtime risk reduction for redundancy investments.</li>
+<li><strong>Incident Response Time Calculator:</strong> Tracks response and resolution times for SLA compliance reporting.</li>
+</ul>
+</section>

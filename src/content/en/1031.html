@@ -1,0 +1,137 @@
+<section class="long-content">
+<h2>What Is a Week Number Calculator?</h2>
+<p>A week number calculator determines which week of the year (1-53) a specific date falls into according to the ISO 8601 international standard. Unlike casual references to "week 3" or "the third week of January," ISO week numbers provide an unambiguous, globally consistent system used in business, manufacturing, logistics, and software development across 160+ countries.</p>
+<p>The ISO 8601 week dating system solves a critical problem: months have irregular lengths (28-31 days), making month-based planning inconsistent. A "4-week project" starting January 25 ends in different calendar months depending on how you count. ISO weeks always contain exactly 7 days, with week 1 defined as the week containing the first Thursday of the year. This ensures every week belongs entirely to one year — no week straddles December and January.</p>
+<p>Businesses rely on week numbers for financial reporting, production schedules, and delivery timelines. SAP, Oracle, and Microsoft systems use ISO weeks for fiscal periods. Shipping companies like FedEx and DHL reference week numbers for international tracking. Software versioning often follows patterns like "2024-W27" (week 27 of 2024). Understanding week number calculations prevents costly scheduling errors in global operations.</p>
+
+<h2>ISO Week Number Formula Explained with Examples</h2>
+<p>The ISO 8601 standard defines week numbers using specific rules:</p>
+<p><strong>ISO Week Rules:</strong></p>
+<ul>
+<li>Weeks start on Monday (not Sunday as in US calendars)</li>
+<li>Week 1 is the week containing the first Thursday of the year</li>
+<li>Week 1 always contains January 4 (since Jan 4 is always in the same week as the first Thursday)</li>
+<li>Each week has exactly 7 days</li>
+<li>A year has 52 or 53 weeks (never 54)</li>
+<li>Week numbers range from W01 to W53</li>
+</ul>
+<p><strong>Formula to determine ISO week number:</strong></p>
+<p><strong>Week Number = floor((Ordinal(Date) - Weekday(Date) + 10) / 7)</strong></p>
+<p>Where:</p>
+<ul>
+<li>Ordinal(Date) = Day of year (1-365/366)</li>
+<li>Weekday(Date) = ISO weekday number (Monday=1, Sunday=7)</li>
+<li>If result = 0, the date belongs to the last week of the previous year (W52 or W53)</li>
+<li>If result ≥ 53, check if it's actually W01 of the next year</li>
+</ul>
+<p><strong>Year has 53 weeks if:</strong></p>
+<ul>
+<li>January 1 falls on Thursday (any year), OR</li>
+<li>January 1 falls on Wednesday AND it's a leap year</li>
+<li>Otherwise, the year has 52 weeks</li>
+</ul>
+<p><strong>Worked Example 1 — July 20, 2024:</strong></p>
+<p>Step 1: Find day of year for July 20, 2024. 2024 is a leap year (divisible by 4). January through June = 182 days, plus 20 = day 202.</p>
+<p>Step 2: Determine weekday. July 20, 2024 is a Saturday. ISO weekday = 6 (Monday=1, Saturday=6).</p>
+<p>Step 3: Apply formula: Week = floor((202 - 6 + 10) / 7) = floor(206 / 7) = floor(29.43) = 29</p>
+<p>Step 4: Verify: 29 is between 1 and 52, so it's valid.</p>
+<p><strong>ISO Week: 2024-W29-6</strong> (Year 2024, Week 29, Saturday)</p>
+<p><strong>Worked Example 2 — January 1, 2024:</strong></p>
+<p>Step 1: Day of year = 1 (first day of the year)</p>
+<p>Step 2: January 1, 2024 is a Monday. ISO weekday = 1.</p>
+<p>Step 3: Apply formula: Week = floor((1 - 1 + 10) / 7) = floor(10 / 7) = floor(1.43) = 1</p>
+<p>Step 4: Verify: Week 1 is valid. Check: does this week contain the first Thursday? January 1 (Mon) through January 7 (Sun) contains January 4 (Thursday). Yes.</p>
+<p><strong>ISO Week: 2024-W01-1</strong> (Year 2024, Week 1, Monday)</p>
+<p><strong>Worked Example 3 — December 31, 2024:</strong></p>
+<p>Step 1: 2024 is a leap year, so December 31 = day 366</p>
+<p>Step 2: December 31, 2024 is a Tuesday. ISO weekday = 2.</p>
+<p>Step 3: Apply formula: Week = floor((366 - 2 + 10) / 7) = floor(374 / 7) = floor(53.43) = 53</p>
+<p>Step 4: Verify: Does 2024 have 53 weeks? January 1, 2024 is Monday, not Thursday or Wednesday, so 2024 has 52 weeks. Week 53 doesn't exist — December 31 belongs to W01 of 2025.</p>
+<p><strong>ISO Week: 2025-W01-2</strong> (Year 2025, Week 1, Tuesday)</p>
+
+<h2>6 Steps to Calculate ISO Week Number</h2>
+<ol>
+<li><strong>Determine the day of year (ordinal date):</strong> Count days from January 1 to your target date. January 1 = day 1, December 31 = day 365 (or 366 in leap years). For March 15 in a non-leap year: 31 (Jan) + 28 (Feb) + 15 = day 74. Use a day-of-year calculator or memorize cumulative month totals for speed.</li>
+<li><strong>Find the ISO weekday number:</strong> ISO 8601 numbers weekdays Monday=1 through Sunday=7. If your date is Wednesday, ISO weekday = 3. Most programming languages have built-in functions: Python's <code>date.isoweekday()</code>, JavaScript requires adjustment (<code>day.getDay() || 7</code>), Excel uses <code>WEEKDAY(date, 2)</code>. Remember: ISO Monday ≠ US Sunday as week start.</li>
+<li><strong>Apply the week number formula:</strong> Calculate (ordinal - weekday + 10) / 7, then round down to the nearest integer. For day 202, weekday 6: (202 - 6 + 10) / 7 = 206 / 7 = 29.43 → 29. This gives a preliminary week number that may need adjustment for year boundaries.</li>
+<li><strong>Check for year-boundary edge cases:</strong> If the formula yields 0, the date belongs to the last week of the previous year. If it yields 53 or higher, verify whether the year actually has 53 weeks. January 1-3 often belong to the previous year's final week, while December 29-31 often belong to the next year's week 1.</li>
+<li><strong>Determine if the year has 53 weeks:</strong> Check January 1's weekday. If January 1 is Thursday, the year has 53 weeks. If January 1 is Wednesday AND it's a leap year, the year has 53 weeks. All other combinations produce 52-week years. For 2024 (leap year, Jan 1 = Monday), there are 52 weeks. For 2026 (non-leap, Jan 1 = Thursday), there are 53 weeks.</li>
+<li><strong>Assign the final week number with year:</strong> Express the result as YYYY-Www-D format. July 20, 2024 = 2024-W29-6. December 31, 2024 = 2025-W01-2 (belongs to next year's week 1). Always include the ISO year, which may differ from the calendar year for dates near January 1 or December 31.</li>
+</ol>
+
+<h2>5 Practical Week Number Calculation Examples</h2>
+<p><strong>Example 1 — Project Deadline (April 15, 2024):</strong></p>
+<ul>
+<li>Day of year: 31 + 29 + 31 + 15 = 106 (2024 is leap year)</li>
+<li>Weekday: April 15, 2024 is Monday → ISO weekday = 1</li>
+<li>Week calculation: (106 - 1 + 10) / 7 = 115 / 7 = 16.43 → 16</li>
+<li>Boundary check: 16 is valid for 2024 (52-week year)</li>
+<li><strong>ISO Week: 2024-W16-1</strong> — Deliverable due Monday of week 16</li>
+</ul>
+<p><strong>Example 2 — Manufacturing Batch (September 2, 2024):</strong></p>
+<ul>
+<li>Day of year: 31 + 29 + 31 + 30 + 31 + 30 + 31 + 31 + 2 = 246</li>
+<li>Weekday: September 2, 2024 is Monday → ISO weekday = 1</li>
+<li>Week calculation: (246 - 1 + 10) / 7 = 255 / 7 = 36.43 → 36</li>
+<li><strong>ISO Week: 2024-W36-1</strong> — Production batch scheduled for week 36</li>
+</ul>
+<p><strong>Example 3 — New Year's Eve (December 31, 2025):</strong></p>
+<ul>
+<li>Day of year: 365 (2025 is not a leap year)</li>
+<li>Weekday: December 31, 2025 is Wednesday → ISO weekday = 3</li>
+<li>Week calculation: (365 - 3 + 10) / 7 = 372 / 7 = 53.14 → 53</li>
+<li>Boundary check: 2025 has 52 weeks (Jan 1, 2025 is Wednesday, not leap year)</li>
+<li>Result: Week 53 doesn't exist for 2025, so this is W01 of 2026</li>
+<li><strong>ISO Week: 2026-W01-3</strong> — New Year's Eve belongs to 2026's first week</li>
+</ul>
+<p><strong>Example 4 — Early January Date (January 2, 2023):</strong></p>
+<ul>
+<li>Day of year: 2</li>
+<li>Weekday: January 2, 2023 is Monday → ISO weekday = 1</li>
+<li>Week calculation: (2 - 1 + 10) / 7 = 11 / 7 = 1.57 → 1</li>
+<li>Boundary check: January 1, 2023 is Sunday. Week 1 contains the first Thursday (Jan 5). January 2 is in the previous week.</li>
+<li>Recalculate: This is actually the last week of 2022</li>
+<li><strong>ISO Week: 2022-W52-1</strong> — January 2, 2023 belongs to 2022's final full week</li>
+</ul>
+<p><strong>Example 5 — Mid-Year Audit (June 30, 2024):</strong></p>
+<ul>
+<li>Day of year: 31 + 29 + 31 + 30 + 31 + 30 = 182 (leap year)</li>
+<li>Weekday: June 30, 2024 is Sunday → ISO weekday = 7</li>
+<li>Week calculation: (182 - 7 + 10) / 7 = 185 / 7 = 26.43 → 26</li>
+<li><strong>ISO Week: 2024-W26-7</strong> — End of week 26, exactly mid-year (52 weeks / 2 = 26)</li>
+</ul>
+
+<h2>4 Common Week Number Calculation Mistakes</h2>
+<ul>
+<li><strong>Assuming week 1 always starts on January 1:</strong> ISO week 1 contains the first Thursday, meaning it can start as early as December 29 (if January 1 is Friday) or as late as January 4 (if January 1 is Thursday). In 2021, week 1 started on January 4. In 2022, week 1 started on January 3. In 2024, week 1 started on January 1. This variability confuses people who expect weeks to align with calendar years.</li>
+<li><strong>Using US week numbering (Sunday start) for international business:</strong> The US traditionally starts weeks on Sunday and defines week 1 as the week containing January 1. This produces different week numbers than ISO 8601 for 15-20% of dates, especially near year boundaries. January 2, 2023 is ISO week 52 of 2022 but US week 1 of 2023. Always specify "ISO week" in contracts and schedules.</li>
+<li><strong>Forgetting that some years have 53 weeks:</strong> Years starting on Thursday always have 53 weeks (2009, 2015, 2020, 2026, 2037). Leap years starting on Wednesday also have 53 weeks (2004, 2032, 2060). If you assume 52 weeks always, your December 30-31 calculations will be off by one week in 53-week years. This affects financial closing, inventory counts, and annual reporting.</li>
+<li><strong>Mixing ISO year with calendar year for boundary dates:</strong> December 31, 2024 belongs to ISO week 2025-W01, not 2024-W52. January 1, 2023 belongs to 2022-W52, not 2023-W01. Using the wrong ISO year causes data sorting errors in databases and misaligned fiscal periods. Always use the ISO year that corresponds to the week, not the calendar year of the date.</li>
+</ul>
+
+<h2>5 Pro Tips for Week Number Calculations</h2>
+<ul>
+<li><strong>Use the "January 4 rule" for quick mental calculation:</strong> Week 1 always contains January 4. Count weeks from there: January 4 is in W01, January 11 is W02, January 18 is W03, etc. For any date, find the nearest multiple-of-7 days from January 4. July 20 is 197 days after January 4: 197 / 7 = 28.1, so it's in week 1 + 28 = W29. This works because January 4 is always in week 1 by ISO definition.</li>
+<li><strong>Implement ISO week in Excel with a single formula:</strong> Use <code>=INT((A1-DATE(YEAR(A1),1,1)+(WEEKDAY(DATE(YEAR(A1),1,1),2)-1))/7)+1</code> for week number. For full ISO week date: <code>=YEAR(A1)&"-W"&TEXT(WEEKNUM(A1,21),"00")&"-"&WEEKDAY(A1,2)</code>. The "21" parameter tells Excel to use ISO week numbering. For dates near year boundaries, add logic to adjust the ISO year.</li>
+<li><strong>Leverage programming language built-ins:</strong> Python: <code>date.isocalendar()</code> returns (ISO_year, ISO_week, ISO_weekday). JavaScript: use a library like date-fns <code>getISOWeek(date)</code>. PHP: <code>date("W", $timestamp)</code>. C#: <code>CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(date, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday)</code>. These handle edge cases automatically and reduce bugs in production code.</li>
+<li><strong>Plan for 53-week years in financial systems:</strong> Companies using 4-4-5 retail calendars or weekly fiscal periods must account for 53-week years occurring every 5-6 years. In 53-week years, Q4 has 14 weeks instead of 13. Budget accordingly: annual targets divided by 53 instead of 52, or add the extra week to a specific quarter. Document this in accounting policies to avoid audit findings.</li>
+<li><strong>Convert between ISO week and ordinal date for databases:</strong> Store dates as ISO 8601 week strings (2024-W29-6) for user-facing reports, but use ordinal dates (day-of-year) for calculations. Conversion: ordinal = (week - 1) × 7 + weekday - weekday_of_Jan1 + 1. This hybrid approach combines human readability with computational efficiency in SQL queries and data pipelines.</li>
+</ul>
+
+<h2>4 Week Number FAQs</h2>
+<div class="faq-list">
+<div class="faq-item"><button class="faq-q" aria-expanded="false">Why does ISO week 1 sometimes start in the previous year?</button><div class="faq-a"><p>ISO 8601 requires week 1 to contain the first Thursday. If January 1 is Friday, Saturday, or Sunday, the first Thursday falls in the next calendar week, making those early January dates belong to the previous year's final week. For example, January 1, 2022 was Saturday, so it belonged to 2021-W52. This ensures no week is split between years — every Monday-through-Sunday week belongs entirely to one ISO year.</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">How often does a year have 53 weeks?</button><div class="faq-a"><p>53-week years occur in 71.4% of years (5 out of every 7 years on average). Specifically: any year starting on Thursday has 53 weeks, plus leap years starting on Wednesday. Recent 53-week years: 2004, 2009, 2015, 2020. Upcoming: 2026, 2032, 2037, 2043. The pattern repeats every 28 years in the Julian calendar, but the Gregorian calendar's century rules create slight variations over longer periods.</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">What's the difference between ISO week and US week numbering?</button><div class="faq-a"><p>Three key differences: (1) ISO weeks start Monday; US weeks traditionally start Sunday. (2) ISO week 1 contains the first Thursday; US week 1 contains January 1. (3) ISO uses 52-53 weeks with strict rules; US systems vary (some use 52-54 weeks). January 1, 2024 illustrates: ISO = 2024-W01-1 (Monday), US = 2024-W01-1 (but started on Sunday December 31, 2023). For 15-20% of dates, the week numbers differ by 1.</p></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">Can I use week numbers for project management?</button><div class="faq-a"><p>Absolutely — week numbers are ideal for project timelines. Unlike months (varying 28-31 days), every ISO week is exactly 7 days. A "12-week sprint" always equals 84 days regardless of start date. Agile teams use week numbers for sprint planning (Sprint 2024-W25 through W26). Manufacturing uses them for production schedules (Week 32: assemble; Week 33: test; Week 34: ship). Include the ISO year to avoid ambiguity: "Deliver by 2025-W03" is clearer than "Deliver by week 3."</p></div></div>
+</div>
+
+<h2>Related Calculators</h2>
+<ul>
+<li><a href="/day-of-year-calculator">Day of Year Calculator</a> — Calculates ordinal day number (1-365/366) for any date</li>
+<li><a href="/days-between-dates-calculator">Days Between Dates Calculator</a> — Counts exact days between two calendar dates</li>
+<li><a href="/business-days-calculator">Business Days Calculator</a> — Calculates weekdays excluding weekends and holidays</li>
+<li><a href="/date-duration-calculator">Date Duration Calculator</a> — Adds or subtracts time periods from dates</li>
+<li><a href="/iso-week-date-converter">ISO Week Date Converter</a> — Converts between ISO week format and standard calendar dates</li>
+</ul>
+</section>
