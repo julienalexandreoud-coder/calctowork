@@ -1214,7 +1214,7 @@ def copy_assets() -> None:
             minified = _minify_js(src_path)
             (PUBLIC / "js" / name).write_text(minified, encoding="utf-8")
 
-    for name in ("robots.txt", "favicon.svg"):
+    for name in ("robots.txt", "favicon.svg", "ads.txt"):
         shutil.copy2(SRC / name, PUBLIC / name)
 
     og_dir = PUBLIC / "og"
@@ -1754,6 +1754,7 @@ date_published=DATE_PUBLISHED.get(calc.get("block", 0), "2025-01-01"),
                     BUILD_DATE=BUILD_DATE,
                     author_line=AUTHOR_LINE.get(lang, AUTHOR_LINE["en"]).format(date=BUILD_DATE),
                     toc_items=[],
+                    is_parametric_variant=True,
                     # Parametric overrides
                     seo_title_override=title,
                     seo_desc_override=desc,

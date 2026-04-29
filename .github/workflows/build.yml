@@ -1,0 +1,35 @@
+name: Build and Verify
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Verify i18n encoding
+        run: python scripts/tests/test_encoding.py
+
+      - name: Build site
+        run: python scripts/generate_calctowork.py
+
+      - name: Verify build output
+        run: python scripts/tests/test_build.py
+
+      - name: Check content coverage
+        run: python scripts/check_en_quality.py
