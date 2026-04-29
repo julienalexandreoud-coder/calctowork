@@ -384,7 +384,7 @@ STATIC_PAGES = {
 <li>Oponerse al procesamiento de sus datos personales.</li>
 <li>Solicitar la portabilidad de sus datos.</li>
 </ul>
-<p>Para ejercer cualquiera de estos derechos, contáctenos en: <strong>info@socialcompass.social</strong></p>
+<p>Para ejercer cualquiera de estos derechos, contáctenos en: <strong>hello@calcto.work</strong></p>
 
 <h2>Cambios en esta política</h2>
 <p>Nos reservamos el derecho de actualizar esta Política de Privacidad en cualquier momento. Los cambios entrarán en vigor inmediatamente tras su publicación en esta página.</p>
@@ -424,7 +424,7 @@ STATIC_PAGES = {
 <li>Object to the processing of your personal data.</li>
 <li>Request data portability.</li>
 </ul>
-<p>To exercise any of these rights, please contact us at: <strong>info@socialcompass.social</strong></p>
+<p>To exercise any of these rights, please contact us at: <strong>hello@calcto.work</strong></p>
 
 <h2>Changes to This Policy</h2>
 <p>We reserve the right to update this Privacy Policy at any time. Changes will take effect immediately upon publication on this page.</p>
@@ -464,7 +464,7 @@ STATIC_PAGES = {
 <li>Vous opposer au traitement de vos données personnelles.</li>
 <li>Demander la portabilité de vos données.</li>
 </ul>
-<p>Pour exercer ces droits, contactez-nous à : <strong>info@socialcompass.social</strong></p>
+<p>Pour exercer ces droits, contactez-nous à : <strong>hello@calcto.work</strong></p>
 
 <h2>Modifications de cette politique</h2>
 <p>Nous nous réservons le droit de mettre à jour cette politique de confidentialité à tout moment. Les modifications prennent effet immédiatement après leur publication sur cette page.</p>
@@ -504,7 +504,7 @@ STATIC_PAGES = {
 <li>Opor-se ao processamento dos seus dados pessoais.</li>
 <li>Solicitar a portabilidade dos seus dados.</li>
 </ul>
-<p>Para exercer qualquer um desses direitos, entre em contato: <strong>info@socialcompass.social</strong></p>
+<p>Para exercer qualquer um desses direitos, entre em contato: <strong>hello@calcto.work</strong></p>
 
 <h2>Alterações nesta política</h2>
 <p>Nos reservamos o direito de atualizar esta Política de Privacidade a qualquer momento. As alterações entrarão em vigor imediatamente após sua publicação nesta página.</p>
@@ -544,7 +544,7 @@ STATIC_PAGES = {
 <li>Widerspruch gegen die Verarbeitung Ihrer personenbezogenen Daten.</li>
 <li>Datenübertragbarkeit.</li>
 </ul>
-<p>Um diese Rechte auszuüben, kontaktieren Sie uns unter: <strong>info@socialcompass.social</strong></p>
+<p>Um diese Rechte auszuüben, kontaktieren Sie uns unter: <strong>hello@calcto.work</strong></p>
 
 <h2>Änderungen dieser Richtlinie</h2>
 <p>Wir behalten uns das Recht vor, diese Datenschutzerklärung jederzeit zu aktualisieren. Änderungen werden sofort nach Veröffentlichung auf dieser Seite wirksam.</p>
@@ -584,7 +584,7 @@ STATIC_PAGES = {
 <li>Opporsi al trattamento dei propri dati personali.</li>
 <li>Richiedere la portabilità dei dati.</li>
 </ul>
-<p>Per esercitare uno di questi diritti, contattare: <strong>info@socialcompass.social</strong></p>
+<p>Per esercitare uno di questi diritti, contattare: <strong>hello@calcto.work</strong></p>
 
 <h2>Modifiche a questa informativa</h2>
 <p>Ci riserviamo il diritto di aggiornare questa Informativa sulla Privacy in qualsiasi momento. Le modifiche entreranno in vigore immediatamente dopo la pubblicazione su questa pagina.</p>
@@ -619,7 +619,7 @@ STATIC_PAGES = {
 <p>Todo el contenido de CalcToWork, incluyendo texto, diseño, código y gráficos, está protegido por derechos de autor y es propiedad de CalcToWork.</p>
 
 <h2>Contacto</h2>
-<p>Para cualquier pregunta sobre estos Términos de Servicio, contáctenos en: <strong>info@socialcompass.social</strong></p>
+<p>Para cualquier pregunta sobre estos Términos de Servicio, contáctenos en: <strong>hello@calcto.work</strong></p>
 
 <p><em>Última actualización: 27 de abril de 2026</em></p>
 """,
@@ -649,7 +649,7 @@ STATIC_PAGES = {
 <p>All content on CalcToWork, including text, design, code, and graphics, is copyrighted and is the property of CalcToWork.</p>
 
 <h2>Contact</h2>
-<p>For any questions about these Terms of Service, please contact us at: <strong>info@socialcompass.social</strong></p>
+<p>For any questions about these Terms of Service, please contact us at: <strong>hello@calcto.work</strong></p>
 
 <p><em>Last updated: April 27, 2026</em></p>
 """,
@@ -679,7 +679,7 @@ STATIC_PAGES = {
 <p> Tout le contenu de CalcToWork, y compris les textes, la conception, le code et les graphiques, est protégé par le droit d'auteur et est la propriété de CalcToWork.</p>
 
 <h2>Contact</h2>
-<p>Pour toute question concernant ces Conditions d'utilisation, contactez-nous à : <strong>info@socialcompass.social</strong></p>
+<p>Pour toute question concernant ces Conditions d'utilisation, contactez-nous à : <strong>hello@calcto.work</strong></p>
 
 <p><em>Dernière mise à jour : 27 avril 2026</em></p>
 """,
@@ -709,7 +709,7 @@ STATIC_PAGES = {
 <p>Todo o conteúdo do CalcToWork, incluindo texto, design, código e gráficos, é protegido por direitos autorais e é propriedade do CalcToWork.</p>
 
 <h2>Contato</h2>
-<p>Para qualquer dúvida sobre estes Termos de Serviço, entre em contato: <strong>info@socialcompass.social</strong></p>
+<p>Para qualquer dúvida sobre estes Termos de Serviço, entre em contato: <strong>hello@calcto.work</strong></p>
 
 <p><em>Última atualização: 27 de abril de 2026</em></p>
 """,
@@ -739,7 +739,7 @@ STATIC_PAGES = {
 <p>Alle Inhalte auf CalcToWork, einschließlich Texte, Design, Code und Grafiken, sind urheberrechtlich geschützt und Eigentum von CalcToWork.</p>
 
 <h2>Kontakt</h2>
-<p>Bei Fragen zu diesen Nutzungsbedingungen kontaktieren Sie uns unter: <strong>info@socialcompass.social</strong></p>
+<p>Bei Fragen zu diesen Nutzungsbedingungen kontaktieren Sie uns unter: <strong>hello@calcto.work</strong></p>
 
 <p><em>Letzte Aktualisierung: 27. April 2026</em></p>
 """,
@@ -769,7 +769,7 @@ STATIC_PAGES = {
 <p>Tutto il contenuto di CalcToWork, inclusi testi, design, codice e grafica, è protetto da diritto d'autore ed è di proprietà di CalcToWork.</p>
 
 <h2>Contatti</h2>
-<p>Per qualsiasi domanda su questi Termini di Servizio, contattare: <strong>info@socialcompass.social</strong></p>
+<p>Per qualsiasi domanda su questi Termini di Servizio, contattare: <strong>hello@calcto.work</strong></p>
 
 <p><em>Ultimo aggiornamento: 27 aprile 2026</em></p>
 """,
@@ -785,7 +785,7 @@ STATIC_PAGES = {
 
 <div class="contact-info">
 <h3>Correo electrónico</h3>
-<p><strong>info@socialcompass.social</strong></p>
+<p><strong>hello@calcto.work</strong></p>
 <p>Le responderemos lo antes posible, normalmente en un plazo de 48 horas.</p>
 
 <h3>Sitio web</h3>
@@ -805,7 +805,7 @@ STATIC_PAGES = {
 
 <div class="contact-info">
 <h3>Email</h3>
-<p><strong>info@socialcompass.social</strong></p>
+<p><strong>hello@calcto.work</strong></p>
 <p>We will respond as soon as possible, usually within 48 hours.</p>
 
 <h3>Website</h3>
@@ -825,7 +825,7 @@ STATIC_PAGES = {
 
 <div class="contact-info">
 <h3>E-mail</h3>
-<p><strong>info@socialcompass.social</strong></p>
+<p><strong>hello@calcto.work</strong></p>
 <p>Nous vous répondrons dans les meilleurs délais, généralement sous 48 heures.</p>
 
 <h3>Site web</h3>
@@ -845,7 +845,7 @@ STATIC_PAGES = {
 
 <div class="contact-info">
 <h3>E-mail</h3>
-<p><strong>info@socialcompass.social</strong></p>
+<p><strong>hello@calcto.work</strong></p>
 <p>Responderemos o mais breve possível, geralmente em até 48 horas.</p>
 
 <h3>Site</h3>
@@ -865,7 +865,7 @@ STATIC_PAGES = {
 
 <div class="contact-info">
 <h3>E-Mail</h3>
-<p><strong>info@socialcompass.social</strong></p>
+<p><strong>hello@calcto.work</strong></p>
 <p>Wir antworten so schnell wie möglich, in der Regel innerhalb von 48 Stunden.</p>
 
 <h3>Website</h3>
@@ -885,7 +885,7 @@ STATIC_PAGES = {
 
 <div class="contact-info">
 <h3>Email</h3>
-<p><strong>info@socialcompass.social</strong></p>
+<p><strong>hello@calcto.work</strong></p>
 <p>Risponderemo il prima possibile, generalmente entro 48 ore.</p>
 
 <h3>Sito web</h3>
@@ -900,10 +900,10 @@ STATIC_PAGES = {
     "about": {
         "es": {
             "title": "Sobre Nosotros",
-            "description": "Conozca CalcToWork, la plataforma de calculadoras online gratuitas con más de 180 herramientas en 6 idiomas.",
+            "description": "Conozca CalcToWork, la plataforma de calculadoras online gratuitas con más de 440 herramientas en 6 idiomas.",
             "body": """
 <h2>¿Qué es CalcToWork?</h2>
-<p>CalcToWork es una plataforma de calculadoras online gratuitas diseñada para hacer los cálculos accesibles a todos. Ofrecemos más de <strong>180 calculadoras</strong> que cubren una amplia gama de categorías:</p>
+<p>CalcToWork es una plataforma de calculadoras online gratuitas diseñada para hacer los cálculos accesibles a todos. Ofrecemos más de <strong>440 calculadoras</strong> que cubren una amplia gama de categorías:</p>
 <ul>
 <li><strong>Matemáticas:</strong> porcentajes, geometría, álgebra, estadísticas y más.</li>
 <li><strong>Finanzas:</strong> hipotecas, préstamos, interés compuesto, IVA, salarios y más.</li>
@@ -923,7 +923,7 @@ STATIC_PAGES = {
 <p>CalcToWork fue fundado en 2025 por un pequeño equipo apasionado por hacer que los cálculos sean accesibles para todos. Cada calculadora es cuidadosamente diseñada y revisada para garantizar la mejor experiencia de usuario posible.</p>
 
 <h2>Contacto</h2>
-<p>¿Tiene alguna sugerencia o desea una nueva calculadora? Nos encantaría saber de usted: <strong>info@socialcompass.social</strong></p>
+<p>¿Tiene alguna sugerencia o desea una nueva calculadora? Nos encantaría saber de usted: <strong>hello@calcto.work</strong></p>
 """,
         },
         "en": {
@@ -931,7 +931,7 @@ STATIC_PAGES = {
             "description": "Learn about CalcToWork, the free online calculator platform with over 180 tools in 6 languages.",
             "body": """
 <h2>What is CalcToWork?</h2>
-<p>CalcToWork is a free online calculator platform designed to make calculations accessible to everyone. We offer over <strong>180 calculators</strong> covering a wide range of categories:</p>
+<p>CalcToWork is a free online calculator platform designed to make calculations accessible to everyone. We offer over <strong>440 calculators</strong> covering a wide range of categories:</p>
 <ul>
 <li><strong>Math:</strong> percentages, geometry, algebra, statistics, and more.</li>
 <li><strong>Finance:</strong> mortgages, loans, compound interest, VAT, salaries, and more.</li>
@@ -951,15 +951,15 @@ STATIC_PAGES = {
 <p>CalcToWork was founded in 2025 by a small team passionate about making calculations accessible to everyone. Each calculator is carefully designed and reviewed to ensure the best possible user experience.</p>
 
 <h2>Contact</h2>
-<p>Have a suggestion or want a new calculator? We'd love to hear from you: <strong>info@socialcompass.social</strong></p>
+<p>Have a suggestion or want a new calculator? We'd love to hear from you: <strong>hello@calcto.work</strong></p>
 """,
         },
         "fr": {
             "title": "À propos",
-            "description": "Découvrez CalcToWork, la plateforme de calculateurs en ligne gratuits avec plus de 180 outils en 6 langues.",
+            "description": "Découvrez CalcToWork, la plateforme de calculateurs en ligne gratuits avec plus de 440 outils en 6 langues.",
             "body": """
 <h2>Qu'est-ce que CalcToWork ?</h2>
-<p>CalcToWork est une plateforme de calculateurs en ligne gratuits conçue pour rendre les calculs accessibles à tous. Nous proposons plus de <strong>180 calculateurs</strong> couvrant un large éventail de catégories :</p>
+<p>CalcToWork est une plateforme de calculateurs en ligne gratuits conçue pour rendre les calculs accessibles à tous. Nous proposons plus de <strong>440 calculateurs</strong> couvrant un large éventail de catégories :</p>
 <ul>
 <li><strong>Mathématiques :</strong> pourcentages, géométrie, algèbre, statistiques et plus.</li>
 <li><strong>Finances :</strong> hypothèques, prêts, intérêt composé, TVA, salaires et plus.</li>
@@ -979,7 +979,7 @@ STATIC_PAGES = {
 <p>CalcToWork a été fondé en 2025 par une petite équipe passionnée par rendre les calculs accessibles à tous. Chaque calculateur est soigneusement conçu et révisé pour garantir la meilleure expérience utilisateur possible.</p>
 
 <h2>Contact</h2>
-<p>Vous avez une suggestion ou souhaitez un nouveau calculateur ? Nous serions ravis de vous entendre : <strong>info@socialcompass.social</strong></p>
+<p>Vous avez une suggestion ou souhaitez un nouveau calculateur ? Nous serions ravis de vous entendre : <strong>hello@calcto.work</strong></p>
 """,
         },
         "pt": {
@@ -987,7 +987,7 @@ STATIC_PAGES = {
             "description": "Conheça o CalcToWork, a plataforma de calculadoras online gratuitas com mais de 180 ferramentas em 6 idiomas.",
             "body": """
 <h2>O que é o CalcToWork?</h2>
-<p>O CalcToWork é uma plataforma de calculadoras online gratuitas projetada para tornar os cálculos acessíveis a todos. Oferecemos mais de <strong>180 calculadoras</strong> abrangendo diversas categorias:</p>
+<p>O CalcToWork é uma plataforma de calculadoras online gratuitas projetada para tornar os cálculos acessíveis a todos. Oferecemos mais de <strong>440 calculadoras</strong> abrangendo diversas categorias:</p>
 <ul>
 <li><strong>Matemática:</strong> porcentagens, geometria, álgebra, estatísticas e mais.</li>
 <li><strong>Finanças:</strong> hipotecas, empréstimos, juros compostos, IVA, salários e mais.</li>
@@ -1007,7 +1007,7 @@ STATIC_PAGES = {
 <p>O CalcToWork foi fundado em 2025 por uma pequena equipe apaixonada por tornar os cálculos acessíveis a todos. Cada calculadora é cuidadosamente projetada e revisada para garantir a melhor experiência possível.</p>
 
 <h2>Contato</h2>
-<p>Tem alguma sugestão ou deseja uma nova calculadora? Adoraríamos ouvir você: <strong>info@socialcompass.social</strong></p>
+<p>Tem alguma sugestão ou deseja uma nova calculadora? Adoraríamos ouvir você: <strong>hello@calcto.work</strong></p>
 """,
         },
         "de": {
@@ -1015,7 +1015,7 @@ STATIC_PAGES = {
             "description": "Erfahren Sie mehr über CalcToWork, die kostenlose Online-Rechner-Plattform mit über 180 Werkzeugen in 6 Sprachen.",
             "body": """
 <h2>Was ist CalcToWork?</h2>
-<p>CalcToWork ist eine Plattform für kostenlose Online-Rechner, die darauf ausgelegt ist, Berechnungen für jeden zugänglich zu machen. Wir bieten über <strong>180 Rechner</strong> in einer Vielzahl von Kategorien:</p>
+<p>CalcToWork ist eine Plattform für kostenlose Online-Rechner, die darauf ausgelegt ist, Berechnungen für jeden zugänglich zu machen. Wir bieten über <strong>440 Rechner</strong> in einer Vielzahl von Kategorien:</p>
 <ul>
 <li><strong>Mathematik:</strong> Prozent, Geometrie, Algebra, Statistik und mehr.</li>
 <li><strong>Finanzen:</strong> Hypotheken, Kredite, Zinseszins, Mehrwertsteuer, Gehälter und mehr.</li>
@@ -1035,15 +1035,15 @@ STATIC_PAGES = {
 <p>CalcToWork wurde 2025 von einem kleinen Team gegründet, das leidenschaftlich daran arbeitet, Berechnungen für alle zugänglich zu machen. Jeder Rechner wird sorgfältig entworfen und überprüft, um die bestmögliche Benutzererfahrung zu gewährleisten.</p>
 
 <h2>Kontakt</h2>
-<p>Haben Sie einen Vorschlag oder möchten einen neuen Rechner? Wir freuen uns auf Ihre Nachricht: <strong>info@socialcompass.social</strong></p>
+<p>Haben Sie einen Vorschlag oder möchten einen neuen Rechner? Wir freuen uns auf Ihre Nachricht: <strong>hello@calcto.work</strong></p>
 """,
         },
         "it": {
             "title": "Chi siamo",
-            "description": "Scopri CalcToWork, la piattaforma di calcolatori online gratuiti con oltre 180 strumenti in 6 lingue.",
+            "description": "Scopri CalcToWork, la piattaforma di calcolatori online gratuiti con oltre 440 strumenti in 6 lingue.",
             "body": """
 <h2>Cos'è CalcToWork?</h2>
-<p>CalcToWork è una piattaforma di calcolatori online gratuiti progettata per rendere i calcoli accessibili a tutti. Offriamo oltre <strong>180 calcolatori</strong> che coprono un'ampia gamma di categorie:</p>
+<p>CalcToWork è una piattaforma di calcolatori online gratuiti progettata per rendere i calcoli accessibili a tutti. Offriamo oltre <strong>440 calcolatori</strong> che coprono un'ampia gamma di categorie:</p>
 <ul>
 <li><strong>Matematica:</strong> percentuali, geometria, algebra, statistica e altro.</li>
 <li><strong>Finanze:</strong> mutui, prestiti, interesse composto, IVA, stipendi e altro.</li>
@@ -1063,7 +1063,7 @@ STATIC_PAGES = {
 <p>CalcToWork è stato fondato nel 2025 da un piccolo team appassionato di rendere i calcoli accessibili a tutti. Ogni calcolatore è accuratamente progettato e revisionato per garantire la migliore esperienza utente possibile.</p>
 
 <h2>Contatti</h2>
-<p>Hai un suggerimento o desideri un nuovo calcolatore? Ci piacerebbe sentirti: <strong>info@socialcompass.social</strong></p>
+<p>Hai un suggerimento o desideri un nuovo calcolatore? Ci piacerebbe sentirti: <strong>hello@calcto.work</strong></p>
 """,
         },
     },

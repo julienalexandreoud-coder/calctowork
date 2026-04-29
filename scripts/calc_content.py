@@ -47569,6 +47569,21 @@ def build_article_v2(calc_id: str, facts: dict, lang: str, calc_name: str = "") 
     # ── Build article ─────────────────────────────────────────────────────────
     article = '<section class="long-content">\n'
 
+    # Unique calculator-name opener (prevents identical openings across same category)
+    _opener_tmpl = {
+        "en": "Use the <strong>{name}</strong> to calculate {outputs} quickly and accurately.",
+        "es": "Usa la <strong>{name}</strong> para calcular {outputs} de forma rápida y precisa.",
+        "fr": "Utilisez le <strong>{name}</strong> pour calculer {outputs} rapidement et avec précision.",
+        "pt": "Use a <strong>{name}</strong> para calcular {outputs} de forma rápida e precisa.",
+        "de": "Verwenden Sie den <strong>{name}</strong>, um {outputs} schnell und präzise zu berechnen.",
+        "it": "Utilizza il <strong>{name}</strong> per calcolare {outputs} in modo rapido e preciso.",
+    }
+    if name and example_outputs:
+        _opener = _opener_tmpl.get(lang, _opener_tmpl["en"]).format(
+            name=name, outputs=example_outputs.lower()
+        )
+        article += f"<p>{_opener}</p>\n"
+
     # Section 1 – Overview (~180 words)
     article += f"<h2>{headings[0]}</h2>\n"
     article += f"{intro_text}\n"
