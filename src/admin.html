@@ -87,7 +87,7 @@ tr:hover{background:rgba(255,255,255,0.02)}
     <p>Enter access code to view analytics dashboard</p>
     <input type="password" id="accessCode" placeholder="Access code" onkeypress="if(event.key==='Enter')checkLogin()">
     <button onclick="checkLogin()">Access Dashboard</button>
-    <p style="margin-top:1rem;font-size:0.75rem;color:var(--muted)">Default: admin123</p>
+    <p style="margin-top:1rem;font-size:0.75rem;color:var(--muted)">Enter your access code</p>
   </div>
 </div>
 
@@ -227,7 +227,7 @@ tr:hover{background:rgba(255,255,255,0.02)}
 // ========================
 function checkLogin() {
   const code = document.getElementById('accessCode').value;
-  if (code === 'admin123') {
+  if (code === 'maxelperro') {
     document.getElementById('loginScreen').classList.add('hidden');
     document.getElementById('dashboard').classList.remove('hidden');
     loadData();
@@ -265,35 +265,60 @@ function getDateRange() {
 
 async function loadData() {
   try {
-    // Try to load from Firebase
-    if (typeof firebase !== 'undefined' && firebase.apps.length > 0) {
-      const db = firebase.firestore();
-      const { start, end } = getDateRange();
-      
-      const eventsSnapshot = await db.collection('analytics_events')
-        .where('event_time', '>=', start)
-        .where('event_time', '<=', end)
-        .orderBy('event_time', 'desc')
-        .limit(5000)
-        .get();
-      
-      const events = [];
-      eventsSnapshot.forEach(doc => events.push(doc.data()));
-      
-      if (events.length > 0) {
-        processAndDisplay(events);
-        document.getElementById('demoNotice').classList.add('hidden');
-        document.getElementById('connectionStatus').textContent = 'Live Mode';
-        isDemoMode = false;
-        return;
-      }
+    // Check if Firebase is loaded and initialized
+    if (typeof firebase === 'undefined') {
+      throw new Error('Firebase SDK not loaded');
+    }
+    
+    if (!firebase.apps || firebase.apps.length === 0) {
+      throw new Error('Firebase not initialized');
+    }
+    
+    const db = firebase.firestore();
+    const { start, end } = getDateRange();
+    
+    console.log('Fetching data from Firestore...');
+    
+    const eventsSnapshot = await db.collection('analytics_events')
+      .where('event_time', '>=', start)
+      .where('event_time', '<=', end)
+      .orderBy('event_time', 'desc')
+      .limit(5000)
+      .get();
+    
+    const events = [];
+    eventsSnapshot.forEach(doc => events.push(doc.data()));
+    
+    console.log(`Found ${events.length} events`);
+    
+    if (events.length > 0) {
+      processAndDisplay(events);
+      document.getElementById('demoNotice').classList.add('hidden');
+      document.getElementById('connectionStatus').textContent = 'Live Mode';
+      document.getElementById('connectionStatus').style.color = 'var(--success)';
+      isDemoMode = false;
+    } else {
+      // Firebase connected but no data yet
+      document.getElementById('demoNotice').innerHTML = `
+        <strong>✅ Firebase Connected</strong><br>
+        No data yet. Visit any calculator page to start tracking. 
+        Data will appear here automatically.
+      `;
+      document.getElementById('demoNotice').style.background = 'rgba(34, 197, 94, 0.1)';
+      document.getElementById('demoNotice').style.borderColor = 'var(--success)';
+      document.getElementById('demoNotice').style.color = 'var(--success)';
+      document.getElementById('connectionStatus').textContent = 'Connected - Waiting for data';
+      showDemoData();
     }
   } catch (error) {
-    console.log('Firebase not available, showing demo data');
+    console.error('Firebase error:', error);
+    document.getElementById('demoNotice').innerHTML = `
+      <strong>⚠️ ${error.message}</strong><br>
+      Make sure Firestore is enabled at: 
+      <a href="https://console.firebase.google.com/project/calctowork/firestore" target="_blank" style="color:var(--primary)">Firebase Console</a>
+    `;
+    showDemoData();
   }
-  
-  // Show demo data
-  showDemoData();
 }
 
 // ========================
