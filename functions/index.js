@@ -77,10 +77,6 @@ exports.analytics = functions.https.onRequest((req, res) => {
       }
 
       await batch.commit();
-
-      // Also update daily aggregates
-      await updateDailyAggregates(events);
-
       res.status(200).send("OK");
     } catch (error) {
       console.error("Analytics error:", error);
@@ -89,64 +85,7 @@ exports.analytics = functions.https.onRequest((req, res) => {
   });
 });
 
-// Update daily aggregate statistics
-async function updateDailyAggregates(events) {
-  const today = new Date();
-  const dateStr = today.toISOString().split('T')[0]; // YYYY-MM-DD
-  
-  const aggregates = {
-    page_views: 0,
-    calculations: 0,
-    unique_sessions: new Set(),
-    unique_users: new Set(),
-    calculators_used: new Set(),
-  };
-
-  for (const event of events) {
-    if (event.session_id) aggregates.unique_sessions.add(event.session_id);
-    if (event.user_id) aggregates.unique_users.add(event.user_id);
-    if (event.calc_slug) aggregates.calculators_used.add(event.calc_slug);
-    
-    if (event.event_name === 'page_view') aggregates.page_views++;
-    if (event.event_name === 'calculation_completed') aggregates.calculations++;
-  }
-
-  const aggRef = db.collection("analytics_daily").doc(dateStr);
-  
-  await db.runTransaction(async (transaction) => {
-    const aggDoc = await transaction.get(aggRef);
-    const current = aggDoc.exists ? aggDoc.data() : {};
-
-    transaction.set(aggRef, {
-      date: dateStr,
-      page_views: admin.firestore.FieldValue.increment(aggregates.page_views),
-      calculations: admin.firestore.FieldValue.increment(aggregates.calculations),
-      unique_sessions: admin.firestore.FieldValue.increment(aggregates.unique_sessions.size),
-      unique_users: admin.firestore.FieldValue.increment(aggregates.unique_users.size),
-      calculators_used: admin.firestore.FieldValue.arrayUnion(...Array.from(aggregates.calculators_used)),
-      updated_at: admin.firestore.FieldValue.serverTimestamp(),
-    }, { merge: true });
-  });
-}
-
-// Scheduled function to cleanup old events (keep 90 days)
-exports.cleanupOldEvents = functions.pubsub
-  .schedule('0 2 * * *') // Daily at 2 AM
-  .timeZone('UTC')
-  .onRun(async (context) => {
-    const cutoff = new Date();
-    cutoff.setDate(cutoff.getDate() - 90);
-
-    const snapshot = await db.collection("analytics_events")
-      .where("created_at", "<", cutoff)
-      .limit(1000)
-      .get();
-
-    const batch = db.batch();
-    snapshot.docs.forEach(doc => batch.delete(doc.ref));
-    
-    await batch.commit();
-    
-    console.log(`Deleted ${snapshot.size} old analytics events`);
-    return null;
-  });
+// Simple health check endpoint
+exports.health = functions.https.onRequest((req, res) => {
+  res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
+});
