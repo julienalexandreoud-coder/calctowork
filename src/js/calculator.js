@@ -9,6 +9,8 @@
   var resetBtn   = document.getElementById('btn-reset');
   var copyBtn    = document.getElementById('btn-copy');
   var shareBtn   = document.getElementById('btn-share');
+  var pdfBtn     = document.getElementById('btn-pdf');
+  var addProjectBtn = document.getElementById('btn-add-project');
   var gaugeEl    = document.getElementById('result-gauge');
   var tocLinks   = document.querySelectorAll('.toc-link');
   var feedbackBtns = document.querySelectorAll('.feedback-btn');
@@ -325,6 +327,17 @@
       }
     }
 
+    /* Buying units sub-rows */
+    if (cfg.buying_units) {
+      html += renderBuyingUnits(results, cfg.buying_units, i18n.buying_unit_prefix);
+    }
+
+    /* Cost estimation row */
+    var prices = collectPriceInputs();
+    if (Object.keys(prices).length) {
+      html += renderCostRow(results, prices, i18n.cost_estimate_label);
+    }
+
     html += '</div>';
     resultsBox.innerHTML = html;
     if (copyBtn) copyBtn.style.display = '';
@@ -365,6 +378,153 @@
     } catch (e) {}
   }
 
+  function trackAdView(slotName) {
+    try {
+      if (typeof gtag === 'function') {
+        gtag('event', 'ad_viewed', { event_category: 'ads', event_label: slotName });
+      }
+    } catch (e) {}
+  }
+
+  function trackAffiliateClick(program) {
+    try {
+      if (typeof gtag === 'function') {
+        gtag('event', 'aff_click', { event_category: 'affiliate', event_label: program });
+      }
+    } catch (e) {}
+  }
+
+  /* ── Scroll depth tracking (25%, 50%, 75%, 100%) ── */
+  (function initScrollTracking() {
+    var depths = [25, 50, 75, 100];
+    var tracked = {};
+    var ticking = false;
+
+    function getScrollDepth() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      if (docHeight <= 0) return 0;
+      return Math.round((scrollTop / docHeight) * 100);
+    }
+
+    function check() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        var d = getScrollDepth();
+        depths.forEach(function (threshold) {
+          if (d >= threshold && !tracked[threshold]) {
+            tracked[threshold] = true;
+            try {
+              if (typeof gtag === 'function') gtag('event', 'scroll_depth', { event_category: 'engagement', event_label: threshold + '%' });
+            } catch (e) {}
+          }
+        });
+        ticking = false;
+      });
+    }
+
+    window.addEventListener('scroll', check, { passive: true });
+    check();
+  })();
+
+  /* ── Ad viewability tracking (IntersectionObserver on ad slots) ── */
+  (function initAdTracking() {
+    var adSlots = document.querySelectorAll('.ad-slot');
+    if (!adSlots.length) return;
+    var observed = {};
+    if ('IntersectionObserver' in window) {
+      var adObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+            var el = entry.target;
+            var slotName = el.classList.contains('ad-slot-banner') ? 'banner' :
+                           el.classList.contains('ad-slot-inarticle') ? 'inarticle' :
+                           el.classList.contains('ad-slot-responsive') ? 'responsive' : 'unknown';
+            var key = el.className + (el.getAttribute('data-ad-slot') || '');
+            if (!observed[key]) {
+              observed[key] = true;
+              trackAdView(slotName);
+            }
+          }
+        });
+      }, { threshold: 0.5 });
+
+      adSlots.forEach(function (slot) { adObserver.observe(slot); });
+    }
+  })();
+
+  /* ── Affiliate click tracking ── */
+  (function initAffiliateTracking() {
+    document.addEventListener('click', function (e) {
+      var target = e.target.closest('[data-affiliate]');
+      if (target) {
+        trackAffiliateClick(target.getAttribute('data-affiliate'));
+      }
+    });
+  })();
+
+  /* ── Ad refresh on calculation (with 30s cooldown) ── */
+  var lastAdRefresh = 0;
+  function refreshAds() {
+    var now = Date.now();
+    if (now - lastAdRefresh < 30000) return;
+    lastAdRefresh = now;
+    try {
+      if (window.adsbygoogle && window.__adsense_allowed !== false) {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      }
+    } catch (e) {}
+  }
+
+  /* ── Price estimation (cost rows) ── */
+  function collectPriceInputs() {
+    var prices = {};
+    var fields = document.querySelectorAll('[data-price-for]');
+    fields.forEach(function (el) {
+      var key = el.getAttribute('data-price-for');
+      var v = parseFloat(el.value);
+      if (!isNaN(v) && v > 0) prices[key] = v;
+    });
+    return prices;
+  }
+
+  function renderCostRow(results, prices, label) {
+    var total = 0;
+    var hasAny = false;
+    Object.keys(prices).forEach(function (key) {
+      var qty = parseFloat(results[key]);
+      if (!isNaN(qty)) {
+        total += qty * prices[key];
+        hasAny = true;
+      }
+    });
+    if (!hasAny) return '';
+    return '<div class="result-item result-cost">' +
+      '<span class="result-label">' + esc(label || 'Estimated Cost') + '</span>' +
+      '<span class="result-value result-cost-value">' + total.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '</span>' +
+    '</div>';
+  }
+
+  /* ── Buying units sub-rows ── */
+  function renderBuyingUnits(results, buyingUnits, prefix) {
+    if (!buyingUnits || !Object.keys(buyingUnits).length) return '';
+    var html = '';
+    Object.keys(buyingUnits).forEach(function (outputKey) {
+      var val = parseFloat(results[outputKey]);
+      if (isNaN(val)) return;
+      var units = buyingUnits[outputKey];
+      units.forEach(function (bu) {
+        var qty = bu.round === 'ceil' ? Math.ceil(val * bu.factor) : +(val * bu.factor).toFixed(1);
+        html += '<div class="result-item result-buying-unit">' +
+          '<span class="result-label">' + esc((prefix || '→') + ' ' + bu.label) + '</span>' +
+          '<span class="result-value">~' + qty + ' ' + esc(bu.unit_suffix || '') + '</span>' +
+        '</div>';
+      });
+    });
+    return html;
+  }
+
   function calculate() {
     var inputs  = collectInputs();
     var wastePct = parseFloat(inputs.desperdicio_merma) || 0;
@@ -375,9 +535,13 @@
       console.error('[CalcToWork] Runtime error:', e);
       results = { error: true };
     }
+    window._lastResults = results;
     renderResults(results, wastePct);
     encodeToHash(inputs);
     trackEvent('calculate', 'calculator', cfg.slug || window.location.pathname);
+    refreshAds();
+    if (pdfBtn) pdfBtn.style.display = '';
+    if (addProjectBtn) addProjectBtn.style.display = '';
   }
 
   var debounceTimer = null;
@@ -579,6 +743,297 @@
     if (restored || allFilled()) calculate();
   })();
 
+}());
+
+/* ── Comparison Table: click row to prefill calculator ── */
+(function initComparisonTable() {
+  var table = document.getElementById('comparison-table');
+  if (!table) return;
+  var form2 = document.getElementById('calc-form');
+  if (!form2) return;
+  table.querySelectorAll('tbody tr[data-prefill]').forEach(function (row) {
+    row.style.cursor = 'pointer';
+    row.addEventListener('click', function () {
+      try {
+        var vals = JSON.parse(this.getAttribute('data-prefill'));
+        Object.keys(vals).forEach(function (k) {
+          var el = form2.querySelector('[name="' + k + '"]');
+          if (el) el.value = vals[k];
+        });
+        table.querySelectorAll('tbody tr').forEach(function (r) { r.classList.remove('comparison-active'); });
+        row.classList.add('comparison-active');
+        window.scrollTo({ top: form2.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+        form2.dispatchEvent(new Event('input', { bubbles: true }));
+      } catch (e) {}
+    });
+  });
+}());
+
+/* ── PDF Export ── */
+(function initPDF() {
+  var btn = document.getElementById('btn-pdf');
+  if (!btn) return;
+  btn.addEventListener('click', function () {
+    var cfg2 = window.CALC_CONFIG || {};
+    var i18n2 = cfg2.i18n || {};
+    function buildAndSave(jsPDF) {
+      var doc = new jsPDF({ unit: 'mm', format: 'a4' });
+      var pageW = doc.internal.pageSize.getWidth();
+      var margin = 15;
+      var y = 20;
+
+      /* Header */
+      doc.setFontSize(18);
+      doc.setFont(undefined, 'bold');
+      doc.text(i18n2.calc_name || i18n2.seo_title || 'CalcToWork', margin, y);
+      y += 8;
+      doc.setFontSize(10);
+      doc.setFont(undefined, 'normal');
+      doc.setTextColor(120);
+      doc.text('calcto.work  –  ' + new Date().toLocaleDateString(), margin, y);
+      y += 8;
+      doc.setDrawColor(200);
+      doc.line(margin, y, pageW - margin, y);
+      y += 8;
+
+      /* Inputs */
+      doc.setTextColor(0);
+      doc.setFontSize(13);
+      doc.setFont(undefined, 'bold');
+      doc.text('Inputs', margin, y);
+      y += 6;
+      doc.setFontSize(10);
+      doc.setFont(undefined, 'normal');
+      var form2 = document.getElementById('calc-form');
+      if (form2) {
+        var fields = form2.querySelectorAll('input[name]');
+        fields.forEach(function (f) {
+          if (!f.value) return;
+          var label = form2.querySelector('label[for="input-' + f.name + '"]');
+          var labelText = label ? label.textContent.trim() : f.name;
+          var unitSel = form2.querySelector('.unit-select[data-input="' + f.name + '"]');
+          var unitText = unitSel ? ' ' + unitSel.options[unitSel.selectedIndex].value : '';
+          doc.text(labelText + ': ' + f.value + unitText, margin + 4, y);
+          y += 6;
+          if (y > 270) { doc.addPage(); y = 20; }
+        });
+      }
+      y += 4;
+      doc.line(margin, y, pageW - margin, y);
+      y += 8;
+
+      /* Results */
+      doc.setFontSize(13);
+      doc.setFont(undefined, 'bold');
+      doc.text('Results', margin, y);
+      y += 6;
+      doc.setFontSize(10);
+      doc.setFont(undefined, 'normal');
+      var resultsBox2 = document.getElementById('calc-results');
+      if (resultsBox2) {
+        var items = resultsBox2.querySelectorAll('.result-item');
+        items.forEach(function (item) {
+          var lEl = item.querySelector('.result-label');
+          var vEl = item.querySelector('.result-value');
+          if (lEl && vEl) {
+            var line = lEl.textContent.trim() + ': ' + vEl.textContent.trim();
+            doc.text(line, margin + 4, y);
+            y += 6;
+            if (y > 270) { doc.addPage(); y = 20; }
+          }
+        });
+      }
+
+      /* Footer */
+      y += 6;
+      doc.setFontSize(8);
+      doc.setTextColor(150);
+      doc.text('Generated by CalcToWork (calcto.work) – results are estimates only.', margin, y);
+
+      var slug = cfg2.slug || 'result';
+      doc.save(slug.replace(/\//g, '-') + '.pdf');
+    }
+
+    if (window.jspdf && window.jspdf.jsPDF) {
+      buildAndSave(window.jspdf.jsPDF);
+    } else {
+      var s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+      s.onload = function () { buildAndSave(window.jspdf.jsPDF); };
+      document.head.appendChild(s);
+    }
+  });
+}());
+
+/* ── Project Tally ── */
+(function initProjectTally() {
+  var STORAGE_KEY = 'ctw_project_v1';
+  var fab = document.getElementById('btn-project-fab');
+  var panel = document.getElementById('project-tally');
+  var itemsEl = document.getElementById('project-tally-items');
+  var addBtn = document.getElementById('btn-add-project');
+  var closeBtn = document.getElementById('btn-tally-close');
+  var exportBtn = document.getElementById('btn-tally-pdf');
+  var clearBtn = document.getElementById('btn-tally-clear');
+  var fabCount = document.getElementById('project-fab-count');
+  if (!fab || !panel) return;
+
+  var cfg2 = window.CALC_CONFIG || {};
+  var i18n2 = cfg2.i18n || {};
+
+  function loadItems() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch (e) { return []; }
+  }
+  function saveItems(items) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(items)); } catch (e) {}
+  }
+
+  function updateFab() {
+    var items = loadItems();
+    var count = items.length;
+    if (fabCount) fabCount.textContent = count;
+    if (count > 0) {
+      fab.style.display = '';
+    }
+  }
+
+  function renderItems() {
+    var items = loadItems();
+    if (!itemsEl) return;
+    if (!items.length) {
+      itemsEl.innerHTML = '<div class="tally-empty">No items yet. Calculate something and click "+ Project".</div>';
+      return;
+    }
+    var html = '';
+    items.forEach(function (item, idx) {
+      html += '<div class="tally-item">';
+      html += '<div class="tally-item-name">' + item.name + '</div>';
+      html += '<div class="tally-item-results">' + item.resultsText + '</div>';
+      html += '<button class="tally-remove" data-idx="' + idx + '" aria-label="Remove">&#10005;</button>';
+      html += '</div>';
+    });
+    itemsEl.innerHTML = html;
+    itemsEl.querySelectorAll('.tally-remove').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var items2 = loadItems();
+        items2.splice(parseInt(this.getAttribute('data-idx'), 10), 1);
+        saveItems(items2);
+        renderItems();
+        updateFab();
+      });
+    });
+  }
+
+  if (addBtn) {
+    addBtn.addEventListener('click', function () {
+      var resultsBox2 = document.getElementById('calc-results');
+      if (!resultsBox2) return;
+      var items2 = resultsBox2.querySelectorAll('.result-item');
+      var lines = [];
+      items2.forEach(function (item) {
+        var lEl = item.querySelector('.result-label');
+        var vEl = item.querySelector('.result-value');
+        if (lEl && vEl) lines.push(lEl.textContent.trim() + ': ' + vEl.textContent.trim());
+      });
+      if (!lines.length) return;
+      var entry = {
+        name: i18n2.calc_name || document.title,
+        resultsText: lines.join(' | '),
+        url: window.location.pathname,
+        ts: Date.now()
+      };
+      var items3 = loadItems();
+      items3.push(entry);
+      saveItems(items3);
+      updateFab();
+      addBtn.textContent = '✓';
+      setTimeout(function () { addBtn.textContent = '+ ' + (i18n2.btn_add_project || 'Project'); }, 1500);
+    });
+  }
+
+  if (fab) {
+    fab.addEventListener('click', function () {
+      panel.style.display = '';
+      renderItems();
+    });
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', function () {
+      panel.style.display = 'none';
+    });
+  }
+
+  if (clearBtn) {
+    clearBtn.addEventListener('click', function () {
+      saveItems([]);
+      renderItems();
+      updateFab();
+      fab.style.display = 'none';
+    });
+  }
+
+  if (exportBtn) {
+    exportBtn.addEventListener('click', function () {
+      function buildTallyPDF(jsPDF) {
+        var doc = new jsPDF({ unit: 'mm', format: 'a4' });
+        var margin = 15;
+        var y = 20;
+        doc.setFontSize(16);
+        doc.setFont(undefined, 'bold');
+        doc.text(i18n2.project_tally_title || 'My Project', margin, y);
+        y += 8;
+        doc.setFontSize(9);
+        doc.setFont(undefined, 'normal');
+        doc.setTextColor(120);
+        doc.text('calcto.work  –  ' + new Date().toLocaleDateString(), margin, y);
+        y += 8;
+        doc.setDrawColor(200);
+        doc.line(margin, y, doc.internal.pageSize.getWidth() - margin, y);
+        y += 8;
+        doc.setTextColor(0);
+        var items = loadItems();
+        items.forEach(function (item) {
+          doc.setFontSize(11);
+          doc.setFont(undefined, 'bold');
+          doc.text(item.name, margin, y);
+          y += 6;
+          doc.setFontSize(9);
+          doc.setFont(undefined, 'normal');
+          item.resultsText.split(' | ').forEach(function (line) {
+            doc.text(line, margin + 4, y);
+            y += 5;
+            if (y > 270) { doc.addPage(); y = 20; }
+          });
+          y += 4;
+        });
+        doc.save('my-project.pdf');
+      }
+      if (window.jspdf && window.jspdf.jsPDF) {
+        buildTallyPDF(window.jspdf.jsPDF);
+      } else {
+        var s = document.createElement('script');
+        s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+        s.onload = function () { buildTallyPDF(window.jspdf.jsPDF); };
+        document.head.appendChild(s);
+      }
+    });
+  }
+
+  /* Price inputs trigger recalculation */
+  document.querySelectorAll('[data-price-for]').forEach(function (el) {
+    el.addEventListener('input', function () {
+      if (window._lastResults) {
+        var cfg3 = window.CALC_CONFIG || {};
+        var wastePct = parseFloat((document.getElementById('input-desperdicio_merma') || {}).value) || 0;
+        /* Re-trigger renderResults via the main IIFE's calculate wrapper */
+        var form3 = document.getElementById('calc-form');
+        if (form3) form3.dispatchEvent(new Event('submit'));
+      }
+    });
+  });
+
+  updateFab();
 }());
 
 /* ── FAQ accordion (accessible) ── */

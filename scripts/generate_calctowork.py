@@ -188,19 +188,32 @@ GA4_HEAD = f"""<script async src="https://www.googletagmanager.com/gtag/js?id={G
 
 ADSENSE_HEAD = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3048983871829953" crossorigin="anonymous"></script>'
 
-ADSENSE_BANNER = """<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-3048983871829953"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>"""
+ADSENSE_PUB = "ca-pub-3048983871829953"
 
-ADSENSE_RESPONSIVE = """<ins class="adsbygoogle"
+# ── Ad slot IDs: create matching ad units in AdSense dashboard ──
+# Banner: top-of-page horizontal (728x90 or responsive)
+ADSENSE_SLOT_BANNER = os.environ.get("ADSENSE_SLOT_BANNER", "")
+# In-article: inside long-form content (fluid/in-article format preferred)
+ADSENSE_SLOT_INARTICLE = os.environ.get("ADSENSE_SLOT_INARTICLE", "")
+# Responsive: mid-page after calculator results
+ADSENSE_SLOT_RESPONSIVE = os.environ.get("ADSENSE_SLOT_RESPONSIVE", "")
+
+def _ad_ins(slot_id, fmt="auto"):
+    """Build an AdSense <ins> block. Uses slot_id when configured."""
+    slot_attr = f'\n     data-ad-slot="{slot_id}"' if slot_id else ""
+    fmt_attr = f'\n     data-ad-format="{fmt}"' if fmt else ""
+    return f"""<ins class="adsbygoogle"
      style="display:block"
-     data-ad-client="ca-pub-3048983871829953"
-     data-ad-format="auto"
+     data-ad-client="{ADSENSE_PUB}"{fmt_attr}{slot_attr}
      data-full-width-responsive="true"></ins>
-<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>"""
+<script>(adsbygoogle = window.adsbygoogle || []).push({{}});</script>"""
+
+ADSENSE_BANNER = _ad_ins(ADSENSE_SLOT_BANNER)
+ADSENSE_INARTICLE = _ad_ins(ADSENSE_SLOT_INARTICLE, "fluid")
+ADSENSE_RESPONSIVE = _ad_ins(ADSENSE_SLOT_RESPONSIVE)
+
+# ── Cookie consent script (GDPR/CCPA) ──
+COOKIE_CONSENT_SCRIPT = '<script src="/js/cookie-consent.js" defer></script>'
 
 PLACEHOLDER_HINTS = {
     "largo": "e.g. 5.0",    "ancho": "e.g. 3.0",     "alto": "e.g. 2.5",
@@ -1208,7 +1221,7 @@ def copy_assets() -> None:
     min_js = _minify_js(JS_SRC)
     (PUBLIC / "js" / "calculator.js").write_text(min_js, encoding="utf-8")
 
-    for name in ("dark-mode.js", "favorites.js"):
+    for name in ("dark-mode.js", "favorites.js", "cookie-consent.js", "email-capture.js"):
         src_path = SRC / "js" / name
         if src_path.exists():
             minified = _minify_js(src_path)
@@ -1352,6 +1365,36 @@ def build_input_groups(input_items: list, lang: str, input_meta: dict = None) ->
     ]
 
 
+def build_comparison_table(calc: dict, ci18n: dict, lang: str) -> dict | None:
+    """Pre-compute comparison table from comparison_presets field."""
+    presets = calc.get("comparison_presets", [])
+    if not presets:
+        return None
+
+    inputs_i18n = ci18n.get("inputs", {})
+    input_meta = {inp["id"]: inp for inp in calc.get("inputs", []) if "id" in inp}
+    preset_keys = list(presets[0].keys())
+
+    headers = []
+    for key in preset_keys:
+        label = inputs_i18n.get(key, key)
+        meta = input_meta.get(key, {})
+        unit = meta.get("unit", "")
+        headers.append(f"{label} ({unit})" if unit else label)
+
+    rows = []
+    for preset in presets:
+        display = []
+        for key in preset_keys:
+            val = preset.get(key, "")
+            meta = input_meta.get(key, {})
+            unit = meta.get("unit", "")
+            display.append(f"{val} {unit}".strip() if unit else str(val))
+        rows.append({"inputs": {k: preset[k] for k in preset_keys}, "display": display})
+
+    return {"headers": headers, "rows": rows}
+
+
 # ── Redirect helpers ──────────────────────────────────────────────────────────
 
 def make_redirect_html(target_url: str) -> str:
@@ -1402,6 +1445,18 @@ def generate() -> None:
     calculators  = load_calculators()
     translations = load_translations()
     env          = make_env()
+
+    # ── Load affiliate configuration ──
+    affiliates_file = SRC / "affiliates.json"
+    affiliate_map = {}
+    if affiliates_file.exists():
+        try:
+            with open(affiliates_file, "r", encoding="utf-8") as f:
+                aff_data = json.load(f)
+            affiliate_map = aff_data.get("affiliates", {})
+            print(f"  Affiliates  : {len(affiliate_map)} calculator(s) configured")
+        except Exception as e:
+            print(f"  [WARN] Failed to load affiliates: {e}")
 
     calc_by_id     = {c["id"]: c for c in calculators}
     blocks_by_slug: dict = {}
@@ -1460,10 +1515,12 @@ def generate() -> None:
             calc_url_by_id=calc_url_by_id,
             calc_index_json=json.dumps(calc_index, ensure_ascii=False),
             calc_count=len(calculators),
-            ga4_head=GA4_HEAD,
-            adsense_head=ADSENSE_HEAD,
-            adsense_banner=ADSENSE_BANNER,
-            adsense_responsive=ADSENSE_RESPONSIVE,
+                ga4_head=GA4_HEAD,
+                adsense_head=ADSENSE_HEAD,
+                adsense_banner=ADSENSE_BANNER,
+                adsense_responsive=ADSENSE_RESPONSIVE,
+                adsense_inarticle=ADSENSE_INARTICLE,
+                cookie_consent_script=COOKIE_CONSENT_SCRIPT,
             author_line=AUTHOR_LINE.get(lang, AUTHOR_LINE["en"]).format(date=BUILD_DATE),
         )
         write_file(PUBLIC / lang / "index.html", index_html)
@@ -1478,7 +1535,7 @@ def generate() -> None:
         # ── Block pages ───────────────────────────────────────────────────────
         for block_slug, block_calcs in blocks_by_slug.items():
             block_name = t["blocks"].get(block_slug, block_slug)
-            block_desc = t.get("block_descriptions", {}).get(block_slug, f"{block_name} – free construction calculators.")
+            block_desc = t.get("block_descriptions", {}).get(block_slug, f"{block_name} – free online calculators.")
             block_html = block_tpl.render(
                 lang=lang, t=t, all_langs=LANGS,
                 block_slug=block_slug, block_name=block_name,
@@ -1488,9 +1545,11 @@ def generate() -> None:
                 site_base_url=BASE_URL,
                 calc_url_by_id=calc_url_by_id,
                 ga4_head=GA4_HEAD,
-            adsense_head=ADSENSE_HEAD,
+                adsense_head=ADSENSE_HEAD,
                 adsense_banner=ADSENSE_BANNER,
                 adsense_responsive=ADSENSE_RESPONSIVE,
+                adsense_inarticle=ADSENSE_INARTICLE,
+                cookie_consent_script=COOKIE_CONSENT_SCRIPT,
             )
             write_file(PUBLIC / lang / block_slug / "index.html", block_html)
             page_count += 1
@@ -1585,6 +1644,12 @@ def generate() -> None:
             show_wastage   = is_construction and SHOW_WASTAGE.get(cat, False)
             wastage_default = WASTAGE_DEFAULTS.get(cat, 0) if is_construction else 0
 
+            # ── New feature context ──────────────────────────────────────────
+            comparison_table = build_comparison_table(calc, ci18n, lang)
+            trust_standard = calc.get("standard", "")
+            trust_note = calc.get("trust_note", "")
+            calc_diagram = calc.get("diagram", "")
+
             calc_html = calc_tpl.render(
                 lang=lang, t=t, all_langs=LANGS,
                 calc=calc, calc_i18n=ci18n,
@@ -1635,9 +1700,18 @@ def generate() -> None:
                 author_line=AUTHOR_LINE.get(lang, AUTHOR_LINE["en"]).format(date=BUILD_DATE),
                 # AdSense
                 ga4_head=GA4_HEAD,
-            adsense_head=ADSENSE_HEAD,
+                adsense_head=ADSENSE_HEAD,
                 adsense_banner=ADSENSE_BANNER,
                 adsense_responsive=ADSENSE_RESPONSIVE,
+                adsense_inarticle=ADSENSE_INARTICLE,
+                cookie_consent_script=COOKIE_CONSENT_SCRIPT,
+                # Affiliate
+                affiliate_config=affiliate_map.get(cid, None),
+                # New features
+                comparison_table=comparison_table,
+                trust_standard=trust_standard,
+                trust_note=trust_note,
+                calc_diagram=calc_diagram,
             )
 
             out_path = PUBLIC / lang / loc_slug / "index.html"
@@ -1761,9 +1835,12 @@ date_published=DATE_PUBLISHED.get(calc.get("block", 0), "2025-01-01"),
                     prefill_json=json.dumps(params),
                     # AdSense
                     ga4_head=GA4_HEAD,
-            adsense_head=ADSENSE_HEAD,
+                    adsense_head=ADSENSE_HEAD,
                     adsense_banner=ADSENSE_BANNER,
                     adsense_responsive=ADSENSE_RESPONSIVE,
+                    adsense_inarticle=ADSENSE_INARTICLE,
+                    cookie_consent_script=COOKIE_CONSENT_SCRIPT,
+                    affiliate_config=affiliate_map.get(cid, None),
                 )
 
                 out_path = PUBLIC / lang / loc_slug / param_slug / "index.html"
@@ -1823,13 +1900,26 @@ date_published=DATE_PUBLISHED.get(calc.get("block", 0), "2025-01-01"),
     idx_xml = sitemap_idx_tpl.render(langs=LANGS, base_url=BASE_URL, build_date=BUILD_DATE)
     write_file(PUBLIC / "sitemap.xml", idx_xml)
 
-    # ── Root redirect ─────────────────────────────────────────────────────────
+    # ── Root redirect — language-aware, default to /en/ ──────────────────────
     write_file(PUBLIC / "index.html", (
         '<!DOCTYPE html><html><head>'
         '<meta charset="UTF-8">'
-        f'<meta http-equiv="refresh" content="0;url=/es/">'
-        f'<link rel="canonical" href="{BASE_URL}/es/">'
-        f'</head><body><a href="/es/">{BRAND}</a></body></html>'
+        f'<link rel="canonical" href="{BASE_URL}/en/">'
+        '<link rel="alternate" hreflang="en" href="/en/">'
+        '<link rel="alternate" hreflang="es" href="/es/">'
+        '<link rel="alternate" hreflang="fr" href="/fr/">'
+        '<link rel="alternate" hreflang="de" href="/de/">'
+        '<link rel="alternate" hreflang="it" href="/it/">'
+        '<link rel="alternate" hreflang="pt" href="/pt/">'
+        '<link rel="alternate" hreflang="x-default" href="/en/">'
+        '</head><body>'
+        f'<a href="/en/">{BRAND}</a>'
+        '<script>'
+        'var l=(navigator.language||navigator.userLanguage||"en").slice(0,2).toLowerCase();'
+        'var s=["es","en","fr","pt","de","it"];'
+        'window.location.replace("/"+(s.indexOf(l)>=0?l:"en")+"/");'
+        '</script>'
+        '</body></html>'
     ))
 
     # ── 404 page ──────────────────────────────────────────────────────────────
@@ -1845,6 +1935,7 @@ date_published=DATE_PUBLISHED.get(calc.get("block", 0), "2025-01-01"),
         '<link rel="stylesheet" href="/css/styles.css">'
         f'{GA4_HEAD}'
         f'{ADSENSE_HEAD}'
+        '<script src="/js/cookie-consent.js" defer></script>'
         '<style>.not-found{{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;text-align:center;padding:2rem}}'
         '.not-found h1{{font-size:6rem;font-weight:800;color:var(--primary);margin:0;line-height:1}}'
         '.not-found h2{{font-size:1.5rem;color:var(--text);margin:1rem 0}}'

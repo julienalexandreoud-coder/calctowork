@@ -145,6 +145,9 @@
   {% endif %}
   <script>if(localStorage.getItem('ctw-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
   {{ adsense_head | safe }}
+  {% if cookie_consent_script is defined and cookie_consent_script %}
+  {{ cookie_consent_script | safe }}
+  {% endif %}
 </head>
 <body>
 
@@ -260,7 +263,7 @@
               {% if field.unit_options %}
               <select class="unit-select" data-input="{{ field.key }}" data-category="{{ field.unit_category }}">
                 {% for u in field.unit_options %}
-                <option value="{{ u }}" {% if u == field.unit_default %}selected{% endif %}>{{ u }}</option>
+                <option value="{{ u }}" {% if u == field.unit_default %}selected{% endif %}>{{ t.unit_labels.get(u, u) if t.unit_labels is defined else u }}</option>
                 {% endfor %}
               </select>
               {% endif %}
@@ -291,13 +294,31 @@
               {% if unit_opts %}
               <select class="unit-select" data-input="{{ input_key }}" data-category="{{ meta.get('unit_category', '') }}">
                 {% for u in unit_opts %}
-                <option value="{{ u }}" {% if u == meta.get('unit', '') %}selected{% endif %}>{{ u }}</option>
+                <option value="{{ u }}" {% if u == meta.get('unit', '') %}selected{% endif %}>{{ t.unit_labels.get(u, u) if t.unit_labels is defined else u }}</option>
                 {% endfor %}
               </select>
               {% endif %}
             </div>
           </div>
           {% endfor %}
+        {% endif %}
+
+        <!-- Price estimation (optional, construction calculators) -->
+        {% if price_inputs is defined and price_inputs %}
+        <details class="price-inputs-wrap">
+          <summary class="price-inputs-toggle">&#128176; {{ t.price_section_label | default('Add prices for cost estimate (optional)') }}</summary>
+          <div class="price-inputs-body">
+            {% for pi in price_inputs %}
+            <div class="form-group">
+              <label for="price-{{ pi.id }}">{{ pi.label }}</label>
+              <div class="input-with-unit">
+                <input type="number" id="price-{{ pi.id }}" name="price-{{ pi.id }}" inputmode="decimal" step="any" min="0" placeholder="0.00" autocomplete="off" data-price-for="{{ pi.ties_to }}">
+                <span class="unit-label">{{ pi.currency | default('$') }}/{{ pi.unit_label | default('unit') }}</span>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </details>
         {% endif %}
 
         <!-- Wastage input -->
@@ -340,6 +361,12 @@
         <button class="btn btn-secondary share-btn" id="btn-share" style="display:none;">
           {{ btn_share_label | default('🔗 Share') }}
         </button>
+        <button class="btn btn-secondary" id="btn-pdf" style="display:none;" title="{{ t.btn_pdf | default('Download PDF') }}">
+          &#8595; PDF
+        </button>
+        <button class="btn btn-secondary" id="btn-add-project" style="display:none;" title="{{ t.btn_add_project | default('Add to Project') }}">
+          + {{ t.btn_add_project | default('Project') }}
+        </button>
       </div>
       <div class="social-share" id="social-share" style="display:none;">
         <a class="social-btn whatsapp" id="btn-whatsapp" target="_blank" rel="noopener" aria-label="Share on WhatsApp" title="WhatsApp">&#160;</a>
@@ -355,8 +382,58 @@
 
   </div><!-- /.calc-layout -->
 
+  <!-- Comparison table (preset sizes) -->
+  {% if comparison_table is defined and comparison_table %}
+  <div class="comparison-table-wrap">
+    <div class="comparison-table-title">{{ t.comparison_table_title | default('Common Sizes — Click to Fill') }}</div>
+    <div style="overflow-x:auto;">
+    <table class="comparison-table" id="comparison-table">
+      <thead>
+        <tr>
+          {% for col in comparison_table.headers %}
+          <th>{{ col }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in comparison_table.rows %}
+        <tr data-prefill="{{ row.inputs | tojson | e }}">
+          {% for val in row.display %}
+          <td>{{ val }}</td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  </div>
+  {% endif %}
+
   <!-- Ad responsive -->
   <div class="ad-slot ad-slot-responsive">{{ adsense_responsive | safe }}</div>
+
+  <!-- Affiliate CTA (for calculators with affiliate offers) -->
+  {% if affiliate_config is defined and affiliate_config %}
+  <div class="affiliate-box">
+    <div class="affiliate-inner">
+      <div class="affiliate-text">{{ affiliate_config.text[lang] if lang in affiliate_config.text else affiliate_config.text['en'] }}</div>
+      <a class="affiliate-cta" href="{{ affiliate_config.url }}" target="_blank" rel="sponsored noopener" data-affiliate="{{ affiliate_config.program }}">{{ affiliate_config.cta[lang] if lang in affiliate_config.cta else affiliate_config.cta['en'] }}</a>
+    </div>
+    <div class="affiliate-disclosure">Ad</div>
+  </div>
+  {% endif %}
+
+  <!-- Email capture (PDF report) -->
+  {% if email_capture_enabled is not defined or email_capture_enabled %}
+  <div class="email-capture-box" id="email-capture-box" data-webhook="{{ email_webhook_url | default('') }}">
+    <div class="email-capture-title">&#128196; {{ t.email_title | default('Save your calculation as PDF') }}</div>
+    <p class="email-capture-desc">{{ t.email_desc | default('Enter your email and we\'ll send you a downloadable PDF report with your results.') }}</p>
+    <form id="email-capture-form" class="email-capture-form">
+      <input type="email" name="email" placeholder="{{ t.email_placeholder | default('your@email.com') }}" required>
+      <button type="submit" class="btn btn-primary">{{ t.email_btn | default('Send Me the PDF') }}</button>
+    </form>
+  </div>
+  {% endif %}
 
   <!-- How to Use (suppressed when long-form article already covers steps) -->
   {% if how_to_steps and not has_long_content %}
@@ -378,9 +455,25 @@
   </details>
   {% endif %}
 
+  <!-- Trust / E-E-A-T badge -->
+  {% if trust_standard is defined and trust_standard %}
+  <aside class="trust-badge">
+    <span>&#128218;</span>
+    <span>{{ t.trust_calculated_per | default('Calculated using') }} <strong>{{ trust_standard }}</strong>{% if trust_note %} &mdash; {{ trust_note }}{% endif %}</span>
+  </aside>
+  {% endif %}
+
+  <!-- Diagram -->
+  {% if calc_diagram is defined and calc_diagram %}
+  <img src="/img/diagrams/{{ calc_diagram }}.svg" class="calc-diagram" alt="{{ calc_i18n.name }} diagram" width="320" height="200" loading="lazy">
+  {% endif %}
+
   <!-- Long-form article content -->
   {% if long_content %}
   <div class="long-content-wrap">{{ long_content | safe }}</div>
+  {% if adsense_inarticle is defined and adsense_inarticle %}
+  <div class="ad-slot ad-slot-inarticle">{{ adsense_inarticle | safe }}</div>
+  {% endif %}
   {% endif %}
 
   {% if author_line %}
@@ -454,16 +547,38 @@
   </div>
 </footer>
 
+<!-- Project Tally floating panel -->
+<div id="project-tally" class="project-tally" style="display:none;">
+  <div class="project-tally-header">
+    <span>&#128196; <strong id="project-tally-title">{{ t.project_tally_title | default('My Project') }}</strong></span>
+    <button class="project-tally-close" id="btn-tally-close" aria-label="Close">&#10005;</button>
+  </div>
+  <div id="project-tally-items" class="project-tally-items"></div>
+  <div class="project-tally-footer">
+    <button class="btn btn-secondary btn-sm" id="btn-tally-pdf">&#8595; {{ t.btn_export_pdf | default('Export PDF') }}</button>
+    <button class="btn btn-secondary btn-sm" id="btn-tally-clear">{{ t.btn_clear_all | default('Clear All') }}</button>
+  </div>
+</div>
+<button id="btn-project-fab" class="project-fab" style="display:none;" title="{{ t.project_tally_title | default('My Project') }}">
+  &#128196; <span id="project-fab-count" class="project-fab-count">0</span>
+</button>
+
 <script>
 window.CALC_CONFIG = {
   formula: {{ calc.formula | tojson }},
   outputs: {{ calc_i18n.outputs | tojson }},
   showWastage: {{ 'true' if (show_wastage is not defined or show_wastage) else 'false' }},
+  slug: "{{ calc_url_path | default(calc.block_slug + '/' + calc.slug) }}",
+  calcId: "{{ calc.id }}",
   {% if gauge_config %}
   gauge: {{ gauge_config | tojson }},
   {% endif %}
+  {% if calc.buying_units %}
+  buying_units: {{ calc.buying_units | tojson }},
+  {% endif %}
   i18n: {
     seo_title: {{ calc_i18n.seo_title | tojson }},
+    calc_name: {{ calc_i18n.name | tojson }},
     error_invalid: {{ t.error_invalid | tojson }},
     label_results: {{ t.label_results | tojson }},
     btn_copy: {{ t.btn_copy | tojson }},
@@ -472,7 +587,14 @@ window.CALC_CONFIG = {
     copied: {{ copied_label | tojson }},
     link_copied: {{ link_copied_label | tojson }},
     result_placeholder: {{ t.result_placeholder | default('Enter values and press Calculate') | tojson }},
-    feedback_thanks: {{ feedback_thanks | tojson }}
+    feedback_thanks: {{ feedback_thanks | tojson }},
+    btn_pdf: {{ t.btn_pdf | default('Download PDF') | tojson }},
+    cost_estimate_label: {{ t.cost_estimate_label | default('Estimated Cost') | tojson }},
+    buying_unit_prefix: {{ t.buying_unit_prefix | default('→') | tojson }},
+    project_tally_title: {{ t.project_tally_title | default('My Project') | tojson }},
+    btn_add_project: {{ t.btn_add_project | default('Add to Project') | tojson }},
+    btn_export_pdf: {{ t.btn_export_pdf | default('Export PDF') | tojson }},
+    btn_clear_all: {{ t.btn_clear_all | default('Clear All') | tojson }}
   }
 };
 </script>
@@ -480,6 +602,9 @@ window.CALC_CONFIG = {
 <script>window.CALC_PREFILL = {{ prefill_json | safe }};</script>
 {% endif %}
 <script src="/js/calculator.js?v=6"></script>
+{% if email_capture_enabled is not defined or email_capture_enabled %}
+<script src="/js/email-capture.js" defer></script>
+{% endif %}
 <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
 <script>
   document.addEventListener("DOMContentLoaded", function() {
