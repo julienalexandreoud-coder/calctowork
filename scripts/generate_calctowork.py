@@ -1221,7 +1221,7 @@ def copy_assets() -> None:
     min_js = _minify_js(JS_SRC)
     (PUBLIC / "js" / "calculator.js").write_text(min_js, encoding="utf-8")
 
-    for name in ("dark-mode.js", "favorites.js", "cookie-consent.js", "email-capture.js"):
+    for name in ("dark-mode.js", "favorites.js", "cookie-consent.js", "email-capture.js", "analytics-tracker.js"):
         src_path = SRC / "js" / name
         if src_path.exists():
             minified = _minify_js(src_path)
@@ -1229,6 +1229,11 @@ def copy_assets() -> None:
 
     for name in ("robots.txt", "favicon.svg", "ads.txt"):
         shutil.copy2(SRC / name, PUBLIC / name)
+
+    # Copy admin dashboard
+    admin_src = SRC / "admin.html"
+    if admin_src.exists():
+        shutil.copy2(admin_src, PUBLIC / "admin.html")
 
     og_dir = PUBLIC / "og"
     og_dir.mkdir(parents=True, exist_ok=True)

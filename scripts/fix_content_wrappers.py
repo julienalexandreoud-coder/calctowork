@@ -22,32 +22,33 @@ def extract_fragment(text: str) -> str | None:
     if not m:
         return None
     start = m.start()
-    # Find the matching closing </section> by counting open/close tags
-    depth = 0
-    pos = start
-    while pos < len(text):
-        open_m = re.search(r'<section\b', text[pos:], re.IGNORECASE)
-        close_m = re.search(r'</section\s*>', text[pos:], re.IGNORECASE)
-        if not close_m:
+    # Find end of opening tag
+    tag_end = text.find('>', start) + 1
+    # Walk forward tracking open/close <section> depth, starting at depth=1
+    depth = 1
+    pos = tag_end
+    while pos < len(text) and depth > 0:
+        next_open = text.lower().find('<section', pos)
+        next_close = text.lower().find('</section', pos)
+        if next_close == -1:
             break
-        close_abs = pos + close_m.start()
-        open_abs = pos + open_m.start() if open_m else len(text)
-        if open_abs < close_abs:
+        if next_open != -1 and next_open < next_close:
             depth += 1
-            pos = open_abs + 1
+            pos = next_open + 8
         else:
-            if depth == 0:
-                end = close_abs + len(close_m.group())
-                return text[start:end].strip()
             depth -= 1
-            pos = close_abs + 1
-    # Fallback: return everything from the section start
-    return text[start:].strip()
+            if depth == 0:
+                end = text.find('>', next_close) + 1
+                return text[start:end].strip()
+            pos = next_close + 9
+    return None
 
 
 def is_full_document(text: str) -> bool:
     head = text[:500].lower()
-    return "<!doctype" in head or "<html" in head
+    tail = text[-500:].lower()
+    return ("<!doctype" in head or "<html" in head
+            or "</body>" in tail or "</html>" in tail or "</footer>" in tail)
 
 
 fixed = 0
