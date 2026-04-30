@@ -3281,4 +3281,174 @@ PARAMETRIC_VARIANTS = {
         "result_fn": lambda p, lang: _fence_result(p["longitud_m"], p["separacion_m"], lang),
         "wastage_default": 0,
     },
+
+    # ── NEW CALCULATORS 1100-1119 ────────────────────────────────────────
+    
+    # 1100: Decking Calculator
+    "1100": {
+        "inputs": {
+            "deck_length": [3, 4, 5, 6, 8, 10],
+            "deck_width": [2, 3, 4, 5, 6],
+            "board_width": [9, 14, 18, 20],
+            "board_length": [2.4, 3.6, 4.8, 5.4],
+            "gap_size": [0.3, 0.5, 0.6, 0.8],
+        },
+        "url_fn": lambda p: f"{_fmt(p['deck_length'])}x{_fmt(p['deck_width'])}m-{int(p['board_width'])}cm",
+        "title_template": {
+            "en": "Decking for {l}×{w}m – {b}cm Boards",
+            "es": "Decking para {l}×{w}m – Tablas {b}cm",
+            "fr": "Terrasse {l}×{w}m – Lames {b}cm",
+            "pt": "Deck para {l}×{w}m – Tábuas {b}cm",
+            "de": "Terrasse {l}×{w}m – {b}cm Dielen",
+            "it": "Decking {l}×{w}m – Tavole {b}cm",
+        },
+        "title_fn": lambda p, tpl: tpl.format(l=p["deck_length"], w=p["deck_width"], b=int(p["board_width"])),
+        "desc_template": {
+            "en": "Calculate deck boards needed for a {l}×{w}m deck with {b}cm boards.",
+            "es": "Calcula las tablas necesarias para un deck de {l}×{w}m con tablas de {b}cm.",
+            "fr": "Calculez les lames pour une terrasse {l}×{w}m avec lames {b}cm.",
+            "pt": "Calcule tábuas necessárias para deck {l}×{w}m com tábuas {b}cm.",
+            "de": "Berechnen Sie Dielen für {l}×{w}m Terrasse mit {b}cm Dielen.",
+            "it": "Calcola tavole per deck {l}×{w}m con tavole {b}cm.",
+        },
+        "desc_fn": lambda p, tpl: tpl.format(l=p["deck_length"], w=p["deck_width"], b=int(p["board_width"])),
+        "wastage_default": 10,
+    },
+
+    # 1101: Sod & Turf Calculator
+    "1101": {
+        "inputs": {
+            "lawn_length": [5, 8, 10, 15, 20],
+            "lawn_width": [3, 4, 5, 8, 10],
+            "roll_width": [0.4, 0.5, 0.6, 0.75],
+            "roll_length": [1.0, 1.5, 2.0],
+        },
+        "url_fn": lambda p: f"{_fmt(p['lawn_length'])}x{_fmt(p['lawn_width'])}m-sod",
+        "title_template": {
+            "en": "Sod for {l}×{w}m Lawn – Rolls Needed",
+            "es": "Césped para {l}×{w}m – Rollos Necesarios",
+            "fr": "Gazon pour {l}×{w}m – Rouleaux",
+            "pt": "Grama para {l}×{w}m – Rolos",
+            "de": "Rasen für {l}×{w}m – Rollen",
+            "it": "Prato per {l}×{w}m – Rotoli",
+        },
+        "title_fn": lambda p, tpl: tpl.format(l=p["lawn_length"], w=p["lawn_width"]),
+        "desc_template": {
+            "en": "Calculate sod rolls needed for a {l}×{w}m lawn area.",
+            "es": "Calcula rollos de césped necesarios para un área de {l}×{w}m.",
+            "fr": "Calculez rouleaux de gazon pour {l}×{w}m.",
+            "pt": "Calcule rolos de grama para área {l}×{w}m.",
+            "de": "Berechnen Sie Rasenrollen für {l}×{w}m.",
+            "it": "Calcola rotoli di prato per {l}×{w}m.",
+        },
+        "desc_fn": lambda p, tpl: tpl.format(l=p["lawn_length"], w=p["lawn_width"]),
+        "wastage_default": 5,
+    },
+
+    # 1102: Mulch Calculator
+    "1102": {
+        "inputs": {
+            "area_length": [3, 5, 8, 10, 15],
+            "area_width": [2, 3, 4, 5, 8],
+            "depth_cm": [3, 5, 7, 10],
+            "bag_size": [40, 50, 60, 70],
+        },
+        "url_fn": lambda p: f"{_fmt(p['area_length'])}x{_fmt(p['area_width'])}m-{int(p['depth_cm'])}cm",
+        "title_template": {
+            "en": "Mulch for {l}×{w}m at {d}cm Depth",
+            "es": "Mantillo para {l}×{w}m a {d}cm",
+            "fr": "Paillis pour {l}×{w}m à {d}cm",
+            "pt": "Cobertura para {l}×{w}m a {d}cm",
+            "de": "Mulch für {l}×{w}m bei {d}cm",
+            "it": "Pacciame per {l}×{w}m a {d}cm",
+        },
+        "title_fn": lambda p, tpl: tpl.format(l=p["area_length"], w=p["area_width"], d=int(p["depth_cm"])),
+        "desc_template": {
+            "en": "Calculate mulch bags needed for {l}×{w}m area at {d}cm depth.",
+            "es": "Calcula bolsas de mantillo para {l}×{w}m a {d}cm de profundidad.",
+            "fr": "Calculez sacs de paillis pour {l}×{w}m à {d}cm.",
+            "pt": "Calcule sacos de cobertura para {l}×{w}m a {d}cm.",
+            "de": "Berechnen Sie Mulchsäcke für {l}×{w}m bei {d}cm.",
+            "it": "Calcola sacchi di pacciame per {l}×{w}m a {d}cm.",
+        },
+        "desc_fn": lambda p, tpl: tpl.format(l=p["area_length"], w=p["area_width"], d=int(p["depth_cm"])),
+        "wastage_default": 5,
+    },
+
+    # 1103: Fence Picket Calculator
+    "1103": {
+        "inputs": {
+            "fence_length": [10, 15, 20, 30, 50],
+            "picket_width": [7, 10, 12, 15],
+            "gap_between": [2, 5, 7, 10],
+            "post_spacing": [1.8, 2.0, 2.4, 3.0],
+        },
+        "url_fn": lambda p: f"{int(p['fence_length'])}m-{int(p['picket_width'])}cm-{_fmt(p['gap_between'])}gap",
+        "title_template": {
+            "en": "Fence {l}m – {w}cm Pickets, {g}cm Gap",
+            "es": "Valla {l}m – Estacas {w}cm, {g}cm Gap",
+            "fr": "Clôture {l}m – Piquets {w}cm, {g}cm",
+            "pt": "Cerca {l}m – Estacas {w}cm, {g}cm",
+            "de": "Zaun {l}m – {w}cm Latten, {g}cm",
+            "it": "Recinzione {l}m – Paletti {w}cm, {g}cm",
+        },
+        "title_fn": lambda p, tpl: tpl.format(l=int(p["fence_length"]), w=int(p["picket_width"]), g=int(p["gap_between"])),
+        "desc_template": {
+            "en": "Calculate pickets and posts for a {l}m fence with {w}cm pickets.",
+            "es": "Calcula estacas y postes para una valla de {l}m con estacas de {w}cm.",
+            "fr": "Calculez piquets et poteaux pour clôture {l}m avec piquets {w}cm.",
+            "pt": "Calcule estacas e postes para cerca {l}m com estacas {w}cm.",
+            "de": "Berechnen Sie Latten und Pfosten für {l}m Zaun mit {w}cm Latten.",
+            "it": "Calcola paletti e pali per recinzione {l}m con paletti {w}cm.",
+        },
+        "desc_fn": lambda p, tpl: tpl.format(l=int(p["fence_length"]), w=int(p["picket_width"])),
+        "wastage_default": 10,
+    },
+
+    # 1104: Roofing Shingle Calculator
+    "1104": {
+        "inputs": {
+            "roof_length": [8, 10, 12, 15, 20],
+            "roof_width": [6, 8, 10, 12],
+            "roof_pitch": ["3/12", "6/12", "9/12", "12/12"],
+            "shingles_per_bundle": [27, 29, 33],
+        },
+        "url_fn": lambda p: f"{_fmt(p['roof_length'])}x{_fmt(p['roof_width'])}m-{p['roof_pitch']}",
+        "title_template": {
+            "en": "Roofing for {l}×{w}m, {p} Pitch",
+            "es": "Tejado para {l}×{w}m, {p} Inclinación",
+            "fr": "Toiture {l}×{w}m, Pente {p}",
+            "pt": "Telhado {l}×{w}m, {p} Inclinação",
+            "de": "Dach {l}×{w}m, {p} Neigung",
+            "it": "Tetto {l}×{w}m, {p} Pendenza",
+        },
+        "title_fn": lambda p, tpl: tpl.format(l=p["roof_length"], w=p["roof_width"], p=p["roof_pitch"]),
+        "desc_template": {
+            "en": "Calculate shingle bundles for a {l}×{w}m roof with {p} pitch.",
+            "es": "Calcula paquetes de tejas para un techo de {l}×{w}m con {p} inclinación.",
+            "fr": "Calculez paquets de bardeaux pour toit {l}×{w}m avec pente {p}.",
+            "pt": "Calcule pacotes de telhas para telhado {l}×{w}m com {p} inclinação.",
+            "de": "Berechnen Sie Schindelpakete für {l}×{w}m Dach mit {p} Neigung.",
+            "it": "Calcola pacchetti di tegole per tetto {l}×{w}m con pendenza {p}.",
+        },
+        "desc_fn": lambda p, tpl: tpl.format(l=p["roof_length"], w=p["roof_width"], p=p["roof_pitch"]),
+        "wastage_default": 15,
+    },
+
+    # 1105-1119: Simplified configs (can be expanded later)
+    "1105": {"inputs": {"wall_length": [5, 8, 10], "wall_height": [2.4, 2.7, 3.0]}, "wastage_default": 10},
+    "1106": {"inputs": {"room_length": [4, 5, 6], "room_width": [3, 4, 5]}, "wastage_default": 10},
+    "1107": {"inputs": {"room_length": [4, 5, 6], "room_width": [3, 4, 5], "plank_length": [1.0, 1.2]}, "wastage_default": 10},
+    "1108": {"inputs": {"counter_length": [2, 3, 4], "counter_depth": [60, 63, 70]}, "wastage_default": 5},
+    "1109": {"inputs": {"wall_length": [2, 3, 4], "wall_height": [0.45, 0.6, 0.9]}, "wastage_default": 10},
+    "1110": {"inputs": {"tile_length": [10, 15, 20, 30], "tile_width": [10, 15, 20, 30], "tile_area": [5, 10, 15]}, "wastage_default": 5},
+    "1111": {"inputs": {"wall_length": [4, 5, 6], "wall_height": [2.4, 2.7], "coats": [1, 2, 3]}, "wastage_default": 10},
+    "1112": {"inputs": {"room_perimeter": [12, 15, 18], "wall_height": [2.4, 2.7, 3.0]}, "wastage_default": 10},
+    "1113": {"inputs": {"room_length": [4, 5, 6], "room_width": [3, 4, 5]}, "wastage_default": 10},
+    "1114": {"inputs": {"room_perimeter": [15, 18, 20], "doors_count": [1, 2, 3]}, "wastage_default": 5},
+    "1115": {"inputs": {"wall_length": [4, 5, 6], "wall_height": [2.4, 2.7]}, "wastage_default": 10},
+    "1116": {"inputs": {"total_rise": [0.8, 1.0, 1.2], "total_run": [2.0, 2.5, 3.0]}, "wastage_default": 10},
+    "1117": {"inputs": {"wall_length": [5, 8, 10], "wall_height": [0.6, 0.9, 1.2]}, "wastage_default": 10},
+    "1118": {"inputs": {"area_length": [4, 5, 6], "area_width": [3, 4, 5]}, "wastage_default": 10},
+    "1119": {"inputs": {"area_length": [4, 5, 6], "area_width": [3, 4, 5], "depth_cm": [5, 7, 10]}, "wastage_default": 5},
 }
