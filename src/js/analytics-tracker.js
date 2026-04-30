@@ -6,7 +6,7 @@
 (function() {
   // Configuration
   const CONFIG = {
-    endpoint: '/api/analytics',  // Firebase Function endpoint
+    endpoint: 'https://us-central1-calctowork.cloudfunctions.net/analytics',  // Firebase Function URL
     sendBeacon: true,            // Use sendBeacon for reliability
     batchEvents: true,           // Batch events before sending
     batchSize: 5,                // Send after N events
