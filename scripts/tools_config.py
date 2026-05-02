@@ -1923,6 +1923,166 @@ TOOLS = [
         "de": "quemar-calorias-met",
         "it": "quemar-calorias-met",
     }},
+    {"id": "1100", "cat": "C", "block": "carpinteria", "slugs": {
+        "es": "decking-calculator",
+        "en": "decking-calculator",
+        "fr": "decking-calculator",
+        "pt": "decking-calculator",
+        "de": "decking-calculator",
+        "it": "decking-calculator"
+    }},
+    {"id": "1101", "cat": "C", "block": "estructuras", "slugs": {
+        "es": "sod-turf-calculator",
+        "en": "sod-turf-calculator",
+        "fr": "sod-turf-calculator",
+        "pt": "sod-turf-calculator",
+        "de": "sod-turf-calculator",
+        "it": "sod-turf-calculator"
+    }},
+    {"id": "1102", "cat": "C", "block": "estructuras", "slugs": {
+        "es": "mulch-calculator",
+        "en": "mulch-calculator",
+        "fr": "mulch-calculator",
+        "pt": "mulch-calculator",
+        "de": "mulch-calculator",
+        "it": "mulch-calculator"
+    }},
+    {"id": "1103", "cat": "C", "block": "carpinteria", "slugs": {
+        "es": "fence-picket-calculator",
+        "en": "fence-picket-calculator",
+        "fr": "fence-picket-calculator",
+        "pt": "fence-picket-calculator",
+        "de": "fence-picket-calculator",
+        "it": "fence-picket-calculator"
+    }},
+    {"id": "1104", "cat": "C", "block": "estructuras", "slugs": {
+        "es": "roofing-shingle-calculator",
+        "en": "roofing-shingle-calculator",
+        "fr": "roofing-shingle-calculator",
+        "pt": "roofing-shingle-calculator",
+        "de": "roofing-shingle-calculator",
+        "it": "roofing-shingle-calculator"
+    }},
+    {"id": "1105", "cat": "D", "block": "climatizacion", "slugs": {
+        "es": "insulation-batt-calculator",
+        "en": "insulation-batt-calculator",
+        "fr": "insulation-batt-calculator",
+        "pt": "insulation-batt-calculator",
+        "de": "insulation-batt-calculator",
+        "it": "insulation-batt-calculator"
+    }},
+    {"id": "1106", "cat": "A", "block": "pavimentos", "slugs": {
+        "es": "carpet-calculator",
+        "en": "carpet-calculator",
+        "fr": "carpet-calculator",
+        "pt": "carpet-calculator",
+        "de": "carpet-calculator",
+        "it": "carpet-calculator"
+    }},
+    {"id": "1107", "cat": "A", "block": "pavimentos", "slugs": {
+        "es": "laminate-flooring-calculator-pavimentos",
+        "en": "laminate-flooring-calculator-pavimentos",
+        "fr": "laminate-flooring-calculator-pavimentos",
+        "pt": "laminate-flooring-calculator-pavimentos",
+        "de": "laminate-flooring-calculator-pavimentos",
+        "it": "laminate-flooring-calculator-pavimentos"
+    }},
+    {"id": "1108", "cat": "E", "block": "gestion", "slugs": {
+        "es": "countertop-calculator",
+        "en": "countertop-calculator",
+        "fr": "countertop-calculator",
+        "pt": "countertop-calculator",
+        "de": "countertop-calculator",
+        "it": "countertop-calculator"
+    }},
+    {"id": "1109", "cat": "B", "block": "pintura", "slugs": {
+        "es": "backsplash-tile-calculator",
+        "en": "backsplash-tile-calculator",
+        "fr": "backsplash-tile-calculator",
+        "pt": "backsplash-tile-calculator",
+        "de": "backsplash-tile-calculator",
+        "it": "backsplash-tile-calculator"
+    }},
+    {"id": "1110", "cat": "A", "block": "pavimentos", "slugs": {
+        "es": "grout-calculator",
+        "en": "grout-calculator",
+        "fr": "grout-calculator",
+        "pt": "grout-calculator",
+        "de": "grout-calculator",
+        "it": "grout-calculator"
+    }},
+    {"id": "1111", "cat": "B", "block": "pintura", "slugs": {
+        "es": "paint-coverage-calculator",
+        "en": "paint-coverage-calculator",
+        "fr": "paint-coverage-calculator",
+        "pt": "paint-coverage-calculator",
+        "de": "paint-coverage-calculator",
+        "it": "paint-coverage-calculator"
+    }},
+    {"id": "1112", "cat": "B", "block": "pintura", "slugs": {
+        "es": "wallpaper-calculator-pintura",
+        "en": "wallpaper-calculator-pintura",
+        "fr": "wallpaper-calculator-pintura",
+        "pt": "wallpaper-calculator-pintura",
+        "de": "wallpaper-calculator-pintura",
+        "it": "wallpaper-calculator-pintura"
+    }},
+    {"id": "1113", "cat": "C", "block": "carpinteria", "slugs": {
+        "es": "crown-molding-calculator",
+        "en": "crown-molding-calculator",
+        "fr": "crown-molding-calculator",
+        "pt": "crown-molding-calculator",
+        "de": "crown-molding-calculator",
+        "it": "crown-molding-calculator"
+    }},
+    {"id": "1114", "cat": "C", "block": "carpinteria", "slugs": {
+        "es": "baseboard-calculator",
+        "en": "baseboard-calculator",
+        "fr": "baseboard-calculator",
+        "pt": "baseboard-calculator",
+        "de": "baseboard-calculator",
+        "it": "baseboard-calculator"
+    }},
+    {"id": "1115", "cat": "C", "block": "mamposteria", "slugs": {
+        "es": "drywall-calculator",
+        "en": "drywall-calculator",
+        "fr": "drywall-calculator",
+        "pt": "drywall-calculator",
+        "de": "drywall-calculator",
+        "it": "drywall-calculator"
+    }},
+    {"id": "1116", "cat": "C", "block": "estructuras", "slugs": {
+        "es": "concrete-steps-calculator",
+        "en": "concrete-steps-calculator",
+        "fr": "concrete-steps-calculator",
+        "pt": "concrete-steps-calculator",
+        "de": "concrete-steps-calculator",
+        "it": "concrete-steps-calculator"
+    }},
+    {"id": "1117", "cat": "C", "block": "mamposteria", "slugs": {
+        "es": "retaining-wall-calculator-mamposteria",
+        "en": "retaining-wall-calculator-mamposteria",
+        "fr": "retaining-wall-calculator-mamposteria",
+        "pt": "retaining-wall-calculator-mamposteria",
+        "de": "retaining-wall-calculator-mamposteria",
+        "it": "retaining-wall-calculator-mamposteria"
+    }},
+    {"id": "1118", "cat": "A", "block": "pavimentos", "slugs": {
+        "es": "paver-calculator",
+        "en": "paver-calculator",
+        "fr": "paver-calculator",
+        "pt": "paver-calculator",
+        "de": "paver-calculator",
+        "it": "paver-calculator"
+    }},
+    {"id": "1119", "cat": "C", "block": "estructuras", "slugs": {
+        "es": "landscape-rock-calculator",
+        "en": "landscape-rock-calculator",
+        "fr": "landscape-rock-calculator",
+        "pt": "landscape-rock-calculator",
+        "de": "landscape-rock-calculator",
+        "it": "landscape-rock-calculator"
+    }},
 ]
 
 # Quick lookup

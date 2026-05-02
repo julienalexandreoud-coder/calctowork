@@ -130,6 +130,7 @@
   </script>
   {% endif %}
 
+  <link rel="manifest" href="/manifest.json">
   <meta name="google-site-verification" content="IODnwsJUNWyjMxqiXR1jY6lM-4IR7r-n0rgZ6OGMdLg">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/x-icon" sizes="32x32" href="/favicon.ico">
@@ -145,6 +146,9 @@
   {% endif %}
   <script>if(localStorage.getItem('ctw-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
   {{ adsense_head | safe }}
+  {% if cookie_consent_i18n is defined and cookie_consent_i18n %}
+  <script>window.COOKIE_CONSENT_I18N = {{ cookie_consent_i18n | tojson }};</script>
+  {% endif %}
   {% if cookie_consent_script is defined and cookie_consent_script %}
   {{ cookie_consent_script | safe }}
   {% endif %}
@@ -160,19 +164,44 @@
       <img src="/favicon.svg" alt="" class="logo-icon" width="32" height="32">
       Calc<span>To</span>Work
     </a>
-    <nav>
-      <a href="/{{ lang }}/">{{ t.nav_home }}</a>
-      <a href="/{{ lang }}/{{ calc.block_slug }}/">{{ block_name }}</a>
-    </nav>
-    <div class="lang-switcher" aria-label="Language">
-      {% for alt_lang in all_langs %}
-      {% set _ap2 = _alt[alt_lang] if (alt_lang in _alt) else _path %}
-      <a href="/{{ alt_lang }}/{{ _ap2 }}/"{% if alt_lang == lang %} class="active"{% endif %}>{{ alt_lang | upper }}</a>
-      {% endfor %}
-      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">&#9790;</button>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-wrapper">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <div class="nav-wrapper" id="nav-wrapper">
+      <nav>
+        <a href="/{{ lang }}/">{{ t.nav_home }}</a>
+        <a href="/{{ lang }}/{{ calc.block_slug }}/">{{ block_name }}</a>
+      </nav>
+      <div class="lang-switcher" aria-label="Language">
+        {% for alt_lang in all_langs %}
+        {% set _ap2 = _alt[alt_lang] if (alt_lang in _alt) else _path %}
+        <a href="/{{ alt_lang }}/{{ _ap2 }}/"{% if alt_lang == lang %} class="active"{% endif %}>{{ alt_lang | upper }}</a>
+        {% endfor %}
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">&#9790;</button>
+      </div>
     </div>
   </div>
 </header>
+<script>
+(function(){
+  var btn=document.getElementById('menu-toggle'),nav=document.getElementById('nav-wrapper');
+  if(!btn||!nav)return;
+  btn.addEventListener('click',function(){
+    var open=nav.classList.toggle('open');
+    btn.setAttribute('aria-expanded',open);
+    btn.innerHTML=open
+      ? '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg>'
+      : '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+  });
+  document.addEventListener('click',function(e){
+    if(!nav.contains(e.target)&&!btn.contains(e.target)&&nav.classList.contains('open')){
+      nav.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+      btn.innerHTML='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+    }
+  });
+})();
+</script>
 
 <!-- Ad banner top -->
 <div class="container">
@@ -354,12 +383,16 @@
       <div id="calc-results" aria-live="polite">
         <div class="result-placeholder">{{ t.result_placeholder | default('Enter values and press Calculate') }}</div>
       </div>
+      <div id="calc-history" class="calc-history" style="display:none;"></div>
       <div class="results-actions">
         <button class="btn btn-secondary copy-btn" id="btn-copy" style="display:none;">
           {{ t.btn_copy }}
         </button>
         <button class="btn btn-secondary share-btn" id="btn-share" style="display:none;">
           {{ btn_share_label | default('🔗 Share') }}
+        </button>
+        <button class="btn btn-secondary embed-btn" id="btn-embed" style="display:none;" title="{{ t.btn_embed | default('Embed this calculator') }}">
+          &lt;/&gt; {{ t.btn_embed | default('Embed') }}
         </button>
         <button class="btn btn-secondary" id="btn-pdf" style="display:none;" title="{{ t.btn_pdf | default('Download PDF') }}">
           &#8595; PDF
@@ -373,6 +406,16 @@
         <a class="social-btn twitter" id="btn-twitter" target="_blank" rel="noopener" aria-label="Share on X" title="X / Twitter">&#160;</a>
         <a class="social-btn facebook" id="btn-facebook" target="_blank" rel="noopener" aria-label="Share on Facebook" title="Facebook">&#160;</a>
       </div>
+      <!-- Sensitivity chart -->
+      <div class="sensitivity-section" id="sensitivity-section" style="display:none;">
+        <button class="sensitivity-toggle" id="sensitivity-toggle" type="button">
+          📈 {{ t.sensitivity_toggle | default('Show how result changes') }}
+        </button>
+        <div class="sensitivity-chart-wrap" id="sensitivity-chart-wrap" style="display:none;">
+          <canvas id="sensitivity-chart" width="600" height="280"></canvas>
+        </div>
+      </div>
+
       <div class="feedback-wrap">
         <span class="feedback-label">{{ feedback_label | default('Was this helpful?') }}</span>
         <button class="feedback-btn" data-val="yes" aria-label="Yes">&#128077;</button>
@@ -427,10 +470,10 @@
   {% if email_capture_enabled is not defined or email_capture_enabled %}
   <div class="email-capture-box" id="email-capture-box" data-webhook="{{ email_webhook_url | default('') }}">
     <div class="email-capture-title">&#128196; {{ t.email_title | default('Save your calculation as PDF') }}</div>
-    <p class="email-capture-desc">{{ t.email_desc | default('Enter your email and we\'ll send you a downloadable PDF report with your results.') }}</p>
+    <p class="email-capture-desc">{{ t.email_desc | default('Enter your email and download a PDF report with your results.') }}</p>
     <form id="email-capture-form" class="email-capture-form">
       <input type="email" name="email" placeholder="{{ t.email_placeholder | default('your@email.com') }}" required>
-      <button type="submit" class="btn btn-primary">{{ t.email_btn | default('Send Me the PDF') }}</button>
+      <button type="submit" class="btn btn-primary">{{ t.email_btn | default('Download PDF') }}</button>
     </form>
   </div>
   {% endif %}
@@ -594,15 +637,31 @@ window.CALC_CONFIG = {
     project_tally_title: {{ t.project_tally_title | default('My Project') | tojson }},
     btn_add_project: {{ t.btn_add_project | default('Add to Project') | tojson }},
     btn_export_pdf: {{ t.btn_export_pdf | default('Export PDF') | tojson }},
-    btn_clear_all: {{ t.btn_clear_all | default('Clear All') | tojson }}
+    btn_clear_all: {{ t.btn_clear_all | default('Clear All') | tojson }},
+    tally_empty: {{ t.tally_empty | default('No items yet. Calculate something and click "+ Project".') | tojson }}
   }
 };
 </script>
 {% if prefill_json is defined and prefill_json %}
 <script>window.CALC_PREFILL = {{ prefill_json | safe }};</script>
 {% endif %}
+<!-- Firebase SDK for analytics (writes directly to Firestore) -->
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+<script>
+window.firebaseConfig = {
+  apiKey: "AIzaSyBmjGOakF8HneBc2cnmt6WeEfU4JWgJFw8",
+  authDomain: "calctowork.firebaseapp.com",
+  projectId: "calctowork",
+  storageBucket: "calctowork.firebasestorage.app",
+  messagingSenderId: "538330151764",
+  appId: "1:538330151764:web:175e3ff0f7d87f706b66c1",
+  measurementId: "G-FBFV87HD35"
+};
+try { firebase.initializeApp(window.firebaseConfig); } catch(e) {}
+</script>
+<script src="/js/analytics-tracker.js"></script>
 <script src="/js/calculator.js?v=6"></script>
-<script src="/js/analytics-tracker.js" defer></script>
 {% if email_capture_enabled is not defined or email_capture_enabled %}
 <script src="/js/email-capture.js" defer></script>
 {% endif %}
@@ -620,6 +679,28 @@ window.CALC_CONFIG = {
     }
   });
 </script>
+<!-- Embed modal -->
+<div class="embed-modal" id="embed-modal" style="display:none;" aria-modal="true" role="dialog" aria-label="Embed calculator">
+  <div class="embed-modal-backdrop" id="embed-modal-backdrop"></div>
+  <div class="embed-modal-content">
+    <div class="embed-modal-header">
+      <strong>{{ t.embed_title | default('Embed this calculator') }}</strong>
+      <button class="embed-modal-close" id="embed-modal-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="embed-modal-body">
+      <p class="embed-modal-desc">{{ t.embed_desc | default('Copy the code below to embed this calculator on your website.') }}</p>
+      <textarea class="embed-modal-code" id="embed-modal-code" readonly></textarea>
+      <button class="btn btn-primary embed-modal-copy" id="embed-modal-copy">{{ t.btn_copy_embed | default('Copy embed code') }}</button>
+    </div>
+  </div>
+</div>
+
 <script src="/js/dark-mode.js"></script>
+<script src="/js/history.js" defer></script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').catch(function(){});
+}
+</script>
 </body>
 </html>

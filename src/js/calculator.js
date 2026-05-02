@@ -9,6 +9,7 @@
   var resetBtn   = document.getElementById('btn-reset');
   var copyBtn    = document.getElementById('btn-copy');
   var shareBtn   = document.getElementById('btn-share');
+  var embedBtn   = document.getElementById('btn-embed');
   var pdfBtn     = document.getElementById('btn-pdf');
   var addProjectBtn = document.getElementById('btn-add-project');
   var gaugeEl    = document.getElementById('result-gauge');
@@ -274,6 +275,14 @@
       if (copyBtn) copyBtn.style.display = 'none';
       if (shareBtn) shareBtn.style.display = 'none';
       if (gaugeEl) gaugeEl.innerHTML = '';
+      // Highlight empty / invalid fields
+      var allFields = form.querySelectorAll('input[name]:not([name="desperdicio_merma"])');
+      allFields.forEach(function (f) {
+        if (!f.value.trim() || isNaN(parseFloat(f.value))) {
+          f.classList.add('input-error');
+          f.addEventListener('input', function () { f.classList.remove('input-error'); }, { once: true });
+        }
+      });
       return;
     }
 
@@ -345,6 +354,9 @@
     if (socialShare) showSocialShare();
 
     resultsBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    /* Sensitivity chart */
+    renderSensitivityChart(keys[0], outputKeys[keys[0]] || keys[0]);
   }
 
   function encodeToHash(inputs) {
@@ -374,6 +386,14 @@
     try {
       if (typeof gtag === 'function') {
         gtag('event', action, { event_category: category, event_label: label, value: value || undefined });
+      }
+    } catch (e) {}
+  }
+
+  function trackFirestore(eventName, extraData) {
+    try {
+      if (window.CTWAnalytics && typeof window.CTWAnalytics.track === 'function') {
+        window.CTWAnalytics.track(eventName, extraData || {});
       }
     } catch (e) {}
   }
@@ -525,6 +545,63 @@
     return html;
   }
 
+  /* ── Persist & restore inputs across visits ── */
+  var INPUTS_KEY = 'ctw_inp_' + (cfg.calcId || cfg.slug || '');
+  var SESSION_KEY = 'ctw_sess_' + (cfg.calcId || cfg.slug || '');
+
+  function saveInputsToStorage(inputs) {
+    try {
+      var toSave = {};
+      Object.keys(inputs).forEach(function (k) { if (k !== 'desperdicio_merma') toSave[k] = inputs[k]; });
+      localStorage.setItem(INPUTS_KEY, JSON.stringify(toSave));
+    } catch (e) {}
+  }
+
+  function loadInputsFromStorage() {
+    try {
+      var d = localStorage.getItem(INPUTS_KEY);
+      return d ? JSON.parse(d) : null;
+    } catch (e) { return null; }
+  }
+
+  /* ── Session calc history ── */
+  function saveToSessionHistory(results) {
+    if (!results || results.error) return;
+    try {
+      var hist = JSON.parse(sessionStorage.getItem(SESSION_KEY) || '[]');
+      hist.unshift({ results: results, ts: Date.now() });
+      if (hist.length > 4) hist = hist.slice(0, 4);
+      sessionStorage.setItem(SESSION_KEY, JSON.stringify(hist));
+      renderSessionHistory();
+    } catch (e) {}
+  }
+
+  function renderSessionHistory() {
+    var container = document.getElementById('calc-history');
+    if (!container) return;
+    try {
+      var hist = JSON.parse(sessionStorage.getItem(SESSION_KEY) || '[]');
+      if (hist.length < 2) { container.style.display = 'none'; return; }
+      var outputs = cfg.outputs || {};
+      var keys = Object.keys(outputs);
+      var html = '<div class="calc-history-title">&#128337; Previous results</div><div class="calc-history-list">';
+      hist.slice(1, 4).forEach(function (entry) {
+        html += '<div class="calc-history-item">';
+        var parts = [];
+        keys.slice(0, 3).forEach(function (k) {
+          if (entry.results[k] !== undefined && !isNaN(parseFloat(entry.results[k]))) {
+            parts.push(esc(fmt(entry.results[k])) + ' <span class="hist-unit">' + esc(String(outputs[k] || '')) + '</span>');
+          }
+        });
+        html += parts.join(' &middot; ') || '—';
+        html += '</div>';
+      });
+      html += '</div>';
+      container.innerHTML = html;
+      container.style.display = '';
+    } catch (e) {}
+  }
+
   function calculate() {
     var inputs  = collectInputs();
     var wastePct = parseFloat(inputs.desperdicio_merma) || 0;
@@ -536,9 +613,22 @@
       results = { error: true };
     }
     window._lastResults = results;
+    window._lastInputs = inputs;
     renderResults(results, wastePct);
     encodeToHash(inputs);
+    saveInputsToStorage(inputs);
+    saveToSessionHistory(results);
     trackEvent('calculate', 'calculator', cfg.slug || window.location.pathname);
+    var inputEls = form.querySelectorAll('input, select');
+    var filled = 0;
+    for (var i = 0; i < inputEls.length; i++) { if (inputEls[i].value) filled++; }
+    trackFirestore('calculation_completed', {
+      calc_slug: cfg.slug || window.location.pathname,
+      inputs_filled: filled,
+      inputs_total: inputEls.length,
+      results_count: Object.keys(results || {}).length,
+      time_to_calculate: 0
+    });
     refreshAds();
     if (pdfBtn) pdfBtn.style.display = '';
     if (addProjectBtn) addProjectBtn.style.display = '';
@@ -586,9 +676,10 @@
         if (lEl && vEl) lines.push(lEl.textContent.trim() + ': ' + vEl.textContent.trim());
       }
       if (!lines.length) return;
-      var text = lines.join('\n');
+      var calcName = (i18n.calc_name) || document.title;
+      var text = calcName + '\n' + window.location.href + '\n\n' + lines.join('\n');
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(function() { flashCopied(); trackEvent('copy_results', 'calculator', cfg.slug || window.location.pathname); });
+        navigator.clipboard.writeText(text).then(function() { flashCopied(); trackEvent('copy_results', 'calculator', cfg.slug || window.location.pathname); trackFirestore('copy_results', { calc_slug: cfg.slug || window.location.pathname }); });
       } else {
         var ta = document.createElement('textarea');
         ta.value = text; ta.style.cssText = 'position:fixed;opacity:0';
@@ -607,7 +698,7 @@
       encodeToHash(inputs);
       var url = window.location.href;
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(url).then(function() { flashShared(); trackEvent('share_link', 'calculator', cfg.slug || window.location.pathname); });
+        navigator.clipboard.writeText(url).then(function() { flashShared(); trackEvent('share_link', 'calculator', cfg.slug || window.location.pathname); trackFirestore('share_clicked', { calc_slug: cfg.slug || window.location.pathname, share_platform: 'link_copy' }); });
       } else {
         var ta = document.createElement('textarea');
         ta.value = url; ta.style.cssText = 'position:fixed;opacity:0';
@@ -650,6 +741,7 @@
       var text = encodeURIComponent(getShareText());
       window.open('https://wa.me/?text=' + text + '%20' + url, '_blank');
       trackEvent('share_whatsapp', 'calculator', cfg.slug || window.location.pathname);
+      trackFirestore('share_clicked', { calc_slug: cfg.slug || window.location.pathname, share_platform: 'whatsapp' });
     });
   }
   if (btnTwitter) {
@@ -659,6 +751,7 @@
       var text = encodeURIComponent(getShareText());
       window.open('https://twitter.com/intent/tweet?text=' + text + '&url=' + url, '_blank');
       trackEvent('share_twitter', 'calculator', cfg.slug || window.location.pathname);
+      trackFirestore('share_clicked', { calc_slug: cfg.slug || window.location.pathname, share_platform: 'twitter' });
     });
   }
   if (btnFacebook) {
@@ -667,6 +760,7 @@
       var url = encodeURIComponent(getShareUrl());
       window.open('https://www.facebook.com/sharer/sharer.php?u=' + url, '_blank');
       trackEvent('share_facebook', 'calculator', cfg.slug || window.location.pathname);
+      trackFirestore('share_clicked', { calc_slug: cfg.slug || window.location.pathname, share_platform: 'facebook' });
     });
   }
 
@@ -729,6 +823,293 @@
     });
   }
 
+  /* ── Sensitivity Chart ── */
+  function renderSensitivityChart(primaryOutputKey, primaryOutputLabel) {
+    var section = document.getElementById('sensitivity-section');
+    var canvas = document.getElementById('sensitivity-chart');
+    var toggle = document.getElementById('sensitivity-toggle');
+    var wrap = document.getElementById('sensitivity-chart-wrap');
+    if (!section || !canvas || !toggle || !wrap) return;
+
+    var currentInputs = window._lastInputs;
+    if (!currentInputs) return;
+
+    var allFields = form.querySelectorAll('input[name]:not([name="desperdicio_merma"])');
+    var numericFields = [];
+    var fieldMeta = {};
+    for (var i = 0; i < allFields.length; i++) {
+      var name = allFields[i].name;
+      var unitSel = form.querySelector('.unit-select[data-input="' + name + '"]');
+      var meta = {};
+      if (unitSel) {
+        meta.category = unitSel.getAttribute('data-category');
+        meta.unit = unitSel.value;
+      }
+      fieldMeta[name] = meta;
+      numericFields.push(name);
+    }
+    if (numericFields.length < 2) {
+      section.style.display = 'none';
+      return;
+    }
+
+    var bestKey = numericFields[0];
+    var bestRange = 0;
+    for (var i = 0; i < numericFields.length; i++) {
+      var key = numericFields[i];
+      var val = parseFloat(currentInputs[key]);
+      if (isNaN(val) || val === 0) continue;
+      var el = form.querySelector('input[name="' + key + '"]');
+      var min = parseFloat(el && el.min !== '' ? el.min : 0);
+      var max = parseFloat(el && el.max !== '' ? el.max : (val * 10));
+      var range = max - min;
+      if (range > bestRange) {
+        bestRange = range;
+        bestKey = key;
+      }
+    }
+
+    var baseVal = parseFloat(currentInputs[bestKey]);
+    if (isNaN(baseVal) || baseVal === 0) {
+      section.style.display = 'none';
+      return;
+    }
+
+    var meta = fieldMeta[bestKey];
+    var currentOutput = parseFloat(window._lastResults[primaryOutputKey]);
+    if (isNaN(currentOutput)) {
+      section.style.display = 'none';
+      return;
+    }
+
+    var points = [];
+    for (var p = 0; p < 20; p++) {
+      var pct = 0.5 + (p / 19) * 1.0;
+      var testVal = baseVal * pct;
+      var cloned = {};
+      for (var key2 in currentInputs) cloned[key2] = currentInputs[key2];
+      cloned[bestKey] = testVal;
+      var res;
+      try {
+        res = calcFn(cloned);
+      } catch (e) {
+        res = { error: true };
+      }
+      if (!res || res.error) continue;
+      var outVal = parseFloat(res[primaryOutputKey]);
+      if (isNaN(outVal)) continue;
+      points.push({ x: testVal, y: outVal, pct: pct });
+    }
+
+    if (points.length < 5) {
+      section.style.display = 'none';
+      return;
+    }
+
+    var bestLabelEl = form.querySelector('label[for="input-' + bestKey + '"]');
+    var bestLabel = bestLabelEl ? bestLabelEl.textContent.trim() : bestKey;
+
+    toggle.textContent = '\ud83d\udcc8 ' + (i18n.sensitivity_toggle || 'Show how {output} changes with {input}')
+      .replace('{output}', primaryOutputLabel)
+      .replace('{input}', bestLabel);
+
+    toggle.onclick = function () {
+      var open = wrap.style.display !== 'none';
+      wrap.style.display = open ? 'none' : '';
+      toggle.setAttribute('aria-expanded', String(!open));
+    };
+
+    var ctx = canvas.getContext('2d');
+    var dpr = window.devicePixelRatio || 1;
+    canvas.width = 600 * dpr;
+    canvas.height = 280 * dpr;
+    ctx.scale(dpr, dpr);
+
+    var w = 600;
+    var h = 280;
+    var pad = { top: 30, right: 20, bottom: 50, left: 70 };
+    var chartW = w - pad.left - pad.right;
+    var chartH = h - pad.top - pad.bottom;
+
+    var minX = points[0].x;
+    var maxX = points[points.length - 1].x;
+    var minY = Infinity, maxY = -Infinity;
+    for (var i = 0; i < points.length; i++) {
+      if (points[i].y < minY) minY = points[i].y;
+      if (points[i].y > maxY) maxY = points[i].y;
+    }
+    if (minY === maxY) { minY -= 1; maxY += 1; }
+    var yPad = (maxY - minY) * 0.1;
+    minY -= yPad; maxY += yPad;
+
+    function tx(x) { return pad.left + (x - minX) / (maxX - minX) * chartW; }
+    function ty(y) { return pad.top + chartH - (y - minY) / (maxY - minY) * chartH; }
+
+    ctx.clearRect(0, 0, w, h);
+
+    ctx.font = 'bold 13px sans-serif';
+    ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--text') || '#1e293b';
+    ctx.textAlign = 'center';
+    ctx.fillText('How ' + primaryOutputLabel + ' changes with ' + bestLabel, w / 2, 18);
+
+    ctx.strokeStyle = getComputedStyle(document.body).getPropertyValue('--border') || '#e2e8f0';
+    ctx.lineWidth = 1;
+    ctx.globalAlpha = 0.5;
+    ctx.beginPath();
+    for (var g = 1; g <= 4; g++) {
+      var gx = pad.left + (g / 5) * chartW;
+      ctx.moveTo(gx, pad.top);
+      ctx.lineTo(gx, pad.top + chartH);
+      var gy = pad.top + (g / 5) * chartH;
+      ctx.moveTo(pad.left, gy);
+      ctx.lineTo(pad.left + chartW, gy);
+    }
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+
+    ctx.strokeStyle = getComputedStyle(document.body).getPropertyValue('--text-muted') || '#5a6478';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(pad.left, pad.top);
+    ctx.lineTo(pad.left, pad.top + chartH);
+    ctx.lineTo(pad.left + chartW, pad.top + chartH);
+    ctx.stroke();
+
+    ctx.strokeStyle = '#f97316';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    for (var i = 0; i < points.length; i++) {
+      var px = tx(points[i].x);
+      var py = ty(points[i].y);
+      if (i === 0) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+
+    var curX = tx(baseVal);
+    var curY = ty(currentOutput);
+    ctx.fillStyle = '#ef4444';
+    ctx.beginPath();
+    ctx.arc(curX, curY, 5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = '#fff';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    ctx.font = '11px sans-serif';
+    ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--text-muted') || '#5a6478';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    for (var g = 0; g <= 4; g++) {
+      var xVal = minX + (g / 4) * (maxX - minX);
+      var displayX = xVal;
+      if (meta.category && meta.unit) {
+        displayX = fromBaseUnit(xVal, meta.unit, meta.category);
+      }
+      ctx.fillText(fmt(displayX), pad.left + (g / 4) * chartW, pad.top + chartH + 6);
+    }
+    ctx.fillText(bestLabel, pad.left + chartW / 2, h - 10);
+
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'middle';
+    for (var g = 0; g <= 4; g++) {
+      var yVal = minY + (g / 4) * (maxY - minY);
+      ctx.fillText(fmt(yVal), pad.left - 10, pad.top + chartH - (g / 4) * chartH);
+    }
+    ctx.save();
+    ctx.translate(16, pad.top + chartH / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(primaryOutputLabel, 0, 0);
+    ctx.restore();
+
+    section.style.display = '';
+
+    canvas.onclick = function (e) {
+      var rect2 = canvas.getBoundingClientRect();
+      var clickX = (e.clientX - rect2.left) * (w / rect2.width);
+      var bestDist = Infinity;
+      var bestPt = null;
+      for (var i = 0; i < points.length; i++) {
+        var px = tx(points[i].x);
+        var dist = Math.abs(px - clickX);
+        if (dist < bestDist) {
+          bestDist = dist;
+          bestPt = points[i];
+        }
+      }
+      if (bestPt) {
+        var el = form.querySelector('input[name="' + bestKey + '"]');
+        if (el) {
+          var displayVal = bestPt.x;
+          if (meta.category && meta.unit) {
+            displayVal = fromBaseUnit(bestPt.x, meta.unit, meta.category);
+          }
+          var step = parseFloat(el.step) || 1;
+          var decimals = 0;
+          if (step < 1) {
+            var stepStr = String(step);
+            if (stepStr.indexOf('.') !== -1) {
+              decimals = stepStr.split('.')[1].length;
+            }
+          }
+          el.value = +displayVal.toFixed(decimals);
+          form.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+      }
+    };
+  }
+
+  /* ── Embed modal ── */
+  function showEmbedModal() {
+    var modal = document.getElementById('embed-modal');
+    var codeArea = document.getElementById('embed-modal-code');
+    var copyBtn2 = document.getElementById('embed-modal-copy');
+    var closeBtn = document.getElementById('embed-modal-close');
+    var backdrop = document.getElementById('embed-modal-backdrop');
+    if (!modal || !codeArea) return;
+
+    var url = window.location.origin + window.location.pathname;
+    var code = '<iframe src="' + url + '?embed=1" width="100%" height="520" frameborder="0" loading="lazy" title="' + esc(i18n.calc_name || document.title) + '"></iframe>';
+    codeArea.value = code;
+    modal.style.display = '';
+
+    function closeModal() { modal.style.display = 'none'; }
+    if (closeBtn) closeBtn.onclick = closeModal;
+    if (backdrop) backdrop.onclick = closeModal;
+
+    if (copyBtn2) {
+      copyBtn2.onclick = function () {
+        codeArea.select();
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(codeArea.value).then(function () {
+            copyBtn2.textContent = '\u2713 ' + (i18n.copied || 'Copied!');
+            setTimeout(function () { copyBtn2.textContent = i18n.btn_copy_embed || 'Copy embed code'; }, 1800);
+            trackEvent('copy_embed', 'calculator', cfg.slug || window.location.pathname);
+          });
+        } else {
+          try { document.execCommand('copy'); } catch (e) {}
+          copyBtn2.textContent = '\u2713 ' + (i18n.copied || 'Copied!');
+          setTimeout(function () { copyBtn2.textContent = i18n.btn_copy_embed || 'Copy embed code'; }, 1800);
+          trackEvent('copy_embed', 'calculator', cfg.slug || window.location.pathname);
+        }
+      };
+    }
+  }
+
+  if (embedBtn) {
+    embedBtn.addEventListener('click', function () {
+      showEmbedModal();
+      trackEvent('embed_open', 'calculator', cfg.slug || window.location.pathname);
+    });
+  }
+
+  /* ── Embed mode ── */
+  if (window.location.search.indexOf('embed=1') !== -1) {
+    document.body.classList.add('embed-mode');
+  }
+
   /* ── Init ── */
   (function init() {
     if (window.CALC_PREFILL) {
@@ -740,7 +1121,17 @@
       return;
     }
     var restored = decodeFromHash();
-    if (restored || allFilled()) calculate();
+    if (restored) { calculate(); return; }
+    // Restore last saved inputs for returning users
+    var saved = loadInputsFromStorage();
+    if (saved) {
+      Object.keys(saved).forEach(function (k) {
+        var el = form.querySelector('[name="' + k + '"]');
+        if (el) el.value = saved[k];
+      });
+      if (allFilled()) { calculate(); return; }
+    }
+    if (allFilled()) calculate();
   })();
 
 }());
@@ -901,7 +1292,7 @@
     var items = loadItems();
     if (!itemsEl) return;
     if (!items.length) {
-      itemsEl.innerHTML = '<div class="tally-empty">No items yet. Calculate something and click "+ Project".</div>';
+      itemsEl.innerHTML = '<div class="tally-empty">' + (i18n2.tally_empty || 'No items yet. Calculate something and click "+ Project".') + '</div>';
       return;
     }
     var html = '';

@@ -170,7 +170,43 @@ GAUGE_CONFIGS = {
     "302":                 {"min": 0,  "max": 1000000, "label": "Value", "unit": "\u20ac"},
     "301":                 {"min": 0,  "max": 5000, "label": "Monthly", "unit": "\u20ac/mo"},
     "304":                 {"min": 0,  "max": 30,  "label": "IVA",  "unit": "%"},
-    "801":                 {"min": 0,  "max": 200, "label": "Value", "unit": "kg"},
+    "801":                 {"min": 0,  "max": 200, "label": "Value", "unit": "kg"},    "057":                  {"min": 0, "max": 15, "label": "COP", "unit": "COP"},
+    "201":                  {"min": 0, "max": 100, "label": "Cambio Pct", "unit": "%"},
+    "310":                  {"min": 0, "max": 100, "label": "Roi Pct", "unit": "%"},
+    "317":                  {"min": 0, "max": 100, "label": "Retorno Pct", "unit": "%"},
+    "318":                  {"min": 0, "max": 100, "label": "Ratio", "unit": "%"},
+    "411":                  {"min": 40, "max": 220, "label": "HR", "unit": "bpm"},
+    "607":                  {"min": 0, "max": 100, "label": "Cv Porcentaje", "unit": "%"},
+    "933":                  {"min": 40, "max": 220, "label": "HR", "unit": "bpm"},
+    "939":                  {"min": 0, "max": 100, "label": "Margin Pct", "unit": "%"},
+    "951":                  {"min": 0, "max": 300, "label": "kg", "unit": "kg"},
+    "961":                  {"min": 0, "max": 100, "label": "A1C Estimated", "unit": "%"},
+    "320":                  {"min": -50, "max": 200, "label": "Cagr", "unit": "%"},
+    "321":                  {"min": 0, "max": 100, "label": "Apr", "unit": "%"},
+    "323":                  {"min": 0, "max": 100, "label": "Yield Pct", "unit": "%"},
+    "324":                  {"min": 0, "max": 100, "label": "Cap Rate", "unit": "%"},
+    "325":                  {"min": 0, "max": 100, "label": "Yield Pct", "unit": "%"},
+    "329":                  {"min": 0, "max": 100, "label": "Wacc", "unit": "%"},
+    "416":                  {"min": 0, "max": 100, "label": "Bai", "unit": "%"},
+    "419":                  {"min": 40, "max": 220, "label": "HR", "unit": "bpm"},
+    "420":                  {"min": 40, "max": 220, "label": "HR", "unit": "bpm"},
+    "332":                  {"min": 0, "max": 100, "label": "Tax Equiv", "unit": "%"},
+    "333":                  {"min": 0, "max": 100, "label": "Real", "unit": "%"},
+    "339":                  {"min": -50, "max": 200, "label": "Cagr", "unit": "%"},
+    "425":                  {"min": 0, "max": 100, "label": "Bfp", "unit": "%"},
+    "426":                  {"min": 0, "max": 5000, "label": "kcal", "unit": "kcal"},
+    "427":                  {"min": 0, "max": 5000, "label": "kcal", "unit": "kcal"},
+    "428":                  {"min": 0, "max": 5000, "label": "kcal", "unit": "kcal"},
+    "429":                  {"min": 0, "max": 5000, "label": "kcal", "unit": "kcal"},
+    "432":                  {"min": 0, "max": 5000, "label": "kcal", "unit": "kcal"},
+    "433":                  {"min": 0, "max": 100, "label": "Percentile", "unit": "%"},
+    "434":                  {"min": 0, "max": 6, "label": "L/day", "unit": "L"},
+    "516":                  {"min": 0, "max": 100, "label": "Uptime Pct", "unit": "%"},
+    "1023":                 {"min": 0, "max": 100, "label": "Rh", "unit": "%"},
+    "1060":                 {"min": 3, "max": 60, "label": "Fat %", "unit": "%"},
+    "1065":                 {"min": 0, "max": 100, "label": "Dividend Yield", "unit": "%"},
+    "1089":                 {"min": 0, "max": 100, "label": "Humedad Relativa", "unit": "%"},
+
 }
 
 GA4_ID = os.environ.get("GA4_MEASUREMENT_ID", "G-FBFV87HD35")
@@ -1112,6 +1148,8 @@ def build_popular_combos(cid: str, lang: str, loc_slug: str, max_combos: int = 8
     vcfg = PARAMETRIC_VARIANTS.get(cid)
     if not vcfg:
         return []
+    if "title_template" not in vcfg or "url_fn" not in vcfg or "title_fn" not in vcfg:
+        return []
     vkeys = list(vcfg["inputs"].keys())
     vlists = [vcfg["inputs"][k] for k in vkeys]
     lang_tpl = vcfg["title_template"].get(lang, vcfg["title_template"]["en"])
@@ -1777,6 +1815,10 @@ def generate() -> None:
 
             # Build alt slugs for hreflang
             alt_slugs = {al: TOOL_BY_ID[cid]["slugs"].get(al, calc["slug"]) for al in LANGS}
+
+            # Skip incomplete parametric variant configs
+            if "url_fn" not in vcfg or "title_template" not in vcfg or "title_fn" not in vcfg or "desc_template" not in vcfg or "desc_fn" not in vcfg:
+                continue
 
             # Cartesian product of all variant dimensions
             vkeys  = list(vcfg["inputs"].keys())
