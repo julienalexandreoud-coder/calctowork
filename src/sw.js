@@ -30,7 +30,7 @@ self.addEventListener('activate', function (e) {
 self.addEventListener('fetch', function (e) {
   if (e.request.method !== 'GET') return;
   var url = e.request.url;
-  // Cache-first for static assets, network-first for HTML pages
+  // Cache-first for static assets
   if (/\.(css|js|svg|png|ico|woff2?)(\?|$)/.test(url)) {
     e.respondWith(
       caches.match(e.request).then(function (cached) {
@@ -40,6 +40,23 @@ self.addEventListener('fetch', function (e) {
             caches.open(CACHE).then(function (c) { c.put(e.request, clone); });
           }
           return res;
+        });
+      })
+    );
+    return;
+  }
+  // Network-first for HTML pages
+  if (e.request.mode === 'navigate' || /\.html(\?|$)/.test(url)) {
+    e.respondWith(
+      fetch(e.request).then(function (res) {
+        if (res && res.status === 200) {
+          var clone = res.clone();
+          caches.open(CACHE).then(function (c) { c.put(e.request, clone); });
+        }
+        return res;
+      }).catch(function () {
+        return caches.match(e.request).then(function (cached) {
+          return cached || caches.match('/offline.html');
         });
       })
     );

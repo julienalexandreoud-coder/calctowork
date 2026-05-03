@@ -2041,34 +2041,16 @@ date_published=DATE_PUBLISHED.get(calc.get("block", 0), "2025-01-01"),
     ))
 
     # ── 404 page ──────────────────────────────────────────────────────────────
-    page_404 = (
-        '<!DOCTYPE html><html lang="en"><head>'
-        '<meta charset="UTF-8">'
-        '<meta name="viewport" content="width=device-width, initial-scale=1.0">'
-        '<title>Page Not Found | CalcToWork</title>'
-        '<meta name="description" content="The page you are looking for does not exist. Browse our free online calculators.">'
-        '<meta name="robots" content="noindex, follow">'
-        '<meta name="theme-color" content="#f97316">'
-        '<link rel="icon" type="image/svg+xml" href="/favicon.svg">'
-        '<link rel="stylesheet" href="/css/styles.css">'
-        f'{GA4_HEAD}'
-        f'{ADSENSE_HEAD}'
-        '<script src="/js/cookie-consent.js" defer></script>'
-        '<style>.not-found{{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;text-align:center;padding:2rem}}'
-        '.not-found h1{{font-size:6rem;font-weight:800;color:var(--primary);margin:0;line-height:1}}'
-        '.not-found h2{{font-size:1.5rem;color:var(--text);margin:1rem 0}}'
-        '.not-found p{{color:var(--text-muted);max-width:480px;margin:0 auto 2rem}}'
-        '</style></head><body>'
-        '<header><div class="header-inner"><a class="logo" href="/en/">'
-        '<img src="/favicon.svg" alt="" class="logo-icon" width="32" height="32">'
-        'Calc<span>To</span>Work</a></div></header>'
-        '<main class="container not-found">'
-        '<h1>404</h1><h2>Page Not Found</h2>'
-        '<p>The calculator or page you are looking for does not exist or has been moved.</p>'
-        '<a class="btn btn-primary" href="/en/">Browse All Calculators</a>'
-        '</main></body></html>'
-    )
-    write_file(PUBLIC / "404.html", page_404)
+    tmpl_404 = (TEMPLATES_DIR / "404.html.j2").read_text(encoding="utf-8") if (TEMPLATES_DIR / "404.html.j2").exists() else None
+    if tmpl_404:
+        write_file(PUBLIC / "404.html", tmpl_404)
+    else:
+        write_file(PUBLIC / "404.html", '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>404</title></head><body><h1>404</h1></body></html>')
+
+    # ── Offline page ──────────────────────────────────────────────────────────
+    tmpl_offline = (TEMPLATES_DIR / "offline.html.j2").read_text(encoding="utf-8") if (TEMPLATES_DIR / "offline.html.j2").exists() else None
+    if tmpl_offline:
+        write_file(PUBLIC / "offline.html", tmpl_offline)
 
     # ── Legacy redirects (/lang/block_slug/slug/ → /lang/loc_slug/) ──────────
     redirect_count = generate_legacy_redirects(calculators, PUBLIC)

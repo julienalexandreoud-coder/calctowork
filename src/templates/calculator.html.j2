@@ -518,6 +518,30 @@
   <img src="/img/diagrams/{{ calc_diagram }}.svg" class="calc-diagram" alt="{{ calc_i18n.name }} diagram" width="320" height="200" loading="lazy">
   {% endif %}
 
+  <!-- Related calculators -->
+  {% if related_calcs %}
+  <div class="related-section">
+    <div class="related-title">{{ t.label_related }}</div>
+    <div class="related-grid">
+      {% for rel in related_calcs %}
+      <a class="related-card" href="/{{ lang }}/{{ rel.url_path | default(rel.block_slug + '/' + rel.slug) }}/">{{ rel.name }}</a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Popular combinations (on base calculator pages with parametric variants) -->
+  {% if popular_combos is defined and popular_combos %}
+  <div class="popular-section">
+    <div class="popular-title">{{ popular_combos_title }}</div>
+    <div class="popular-grid">
+      {% for combo in popular_combos %}
+      <a class="popular-card" href="/{{ lang }}/{{ combo.path }}/">{{ combo.label }}</a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
   <!-- Long-form article content -->
   {% if long_content %}
   <div class="long-content-wrap">{{ long_content | safe }}</div>
@@ -533,30 +557,6 @@
   {% if toc_items %}
     </div><!-- /.content-main -->
   </div><!-- /.content-with-toc -->
-  {% endif %}
-
-  <!-- Popular combinations (on base calculator pages with parametric variants) -->
-  {% if popular_combos is defined and popular_combos %}
-  <div class="popular-section">
-    <div class="popular-title">{{ popular_combos_title }}</div>
-    <div class="popular-grid">
-      {% for combo in popular_combos %}
-      <a class="popular-card" href="/{{ lang }}/{{ combo.path }}/">{{ combo.label }}</a>
-      {% endfor %}
-    </div>
-  </div>
-  {% endif %}
-
-  <!-- Related calculators -->
-  {% if related_calcs %}
-  <div class="related-section">
-    <div class="related-title">{{ t.label_related }}</div>
-    <div class="related-grid">
-      {% for rel in related_calcs %}
-      <a class="related-card" href="/{{ lang }}/{{ rel.url_path | default(rel.block_slug + '/' + rel.slug) }}/">{{ rel.name }}</a>
-      {% endfor %}
-    </div>
-  </div>
   {% endif %}
 
   <!-- FAQ (suppressed when long-form article already contains its own FAQ section) -->
