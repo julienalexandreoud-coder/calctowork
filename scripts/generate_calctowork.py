@@ -1777,9 +1777,14 @@ def generate() -> None:
             trust_note = calc.get("trust_note", "")
             calc_diagram = calc.get("diagram", "")
 
+            cookie_consent_i18n = {
+                "privacy_path": f"/{lang}/privacy/",
+            }
+
             calc_html = calc_tpl.render(
                 lang=lang, t=t, all_langs=LANGS,
                 calc=calc, calc_i18n=ci18n,
+                cookie_consent_i18n=cookie_consent_i18n,
                 block_name=block_name,
                 related_calcs=related_calcs,
                 brand_name=BRAND,
@@ -1931,6 +1936,7 @@ def generate() -> None:
                 html = calc_tpl.render(
                     lang=lang, t=t, all_langs=LANGS,
                     calc=calc, calc_i18n=ci18n,
+                    cookie_consent_i18n={"privacy_path": f"/{lang}/privacy/"},
                     block_name=block_name,
                     related_calcs=[],
                     brand_name=BRAND,
