@@ -29,9 +29,18 @@
 
   document.body.prepend(banner);
 
+  var DECIDED_UNTIL_KEY = 'ctw_consent_decided_until';
+  var nowTs = Date.now();
+  var decidedUntil = localStorage.getItem(DECIDED_UNTIL_KEY);
+  if (decidedUntil && parseInt(decidedUntil, 10) > nowTs) {
+    if (banner.parentNode) banner.parentNode.removeChild(banner);
+    return;
+  }
+
   function hideBanner() {
     banner.classList.add('cc-hidden');
     localStorage.setItem(HIDDEN_KEY, '1');
+    localStorage.setItem(DECIDED_UNTIL_KEY, String(nowTs + 30 * 24 * 60 * 60 * 1000));
     setTimeout(function () { if (banner.parentNode) banner.parentNode.removeChild(banner); }, 400);
   }
 

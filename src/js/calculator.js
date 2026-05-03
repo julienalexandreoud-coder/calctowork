@@ -18,9 +18,18 @@
 
   if (!form || !resultsBox) return;
 
+  /* ── Safe formula evaluation ── */
+  function validateFormula(src) {
+    var allowed = /^[\s\w\+\-\*\/\%\(\)\.\,\<\>\=\!\?:\&\|\[\]\'\"\d\$\_]+$/;
+    return allowed.test(src) && src.indexOf('eval') === -1 && src.indexOf('Function') === -1;
+  }
   var calcFn;
   try {
-    calcFn = new Function('inputs', cfg.formula || 'return{error:true};');
+    var formulaSrc = cfg.formula || 'return{error:true};';
+    if (!validateFormula(formulaSrc)) {
+      throw new Error('Formula contains disallowed characters');
+    }
+    calcFn = new Function('inputs', formulaSrc);
   } catch (e) {
     console.error('[CalcToWork] Formula compile error:', e);
     calcFn = function () { return { error: true }; };
@@ -142,11 +151,14 @@
     return false;
   }
 
+  var CALC_LANG = (typeof window !== 'undefined' && window.CALC_LANG) || 'en';
+
   function fmt(val) {
     if (val === null || val === undefined || val === '') return '\u2014';
     var n = parseFloat(val);
     if (isNaN(n)) return String(val);
-    return n.toLocaleString(undefined, { maximumFractionDigits: 3 });
+    if (!isFinite(n)) return '\u2014';
+    return n.toLocaleString(CALC_LANG, { maximumFractionDigits: 3 });
   }
 
   function esc(s) {
@@ -289,7 +301,24 @@
     var outputKeys = cfg.outputs || {};
     var keys = Object.keys(outputKeys);
     if (!keys.length) {
-      resultsBox.innerHTML = '<div class="result-error">No output configuration found.</div>';
+      resultsBox.innerHTML = '<div class="result-error">' + (i18n.error_no_output || 'No output configuration found.') + '</div>';
+      return;
+    }
+
+    // Check for NaN / Infinity in results
+    var hasInvalid = false;
+    for (var ri = 0; ri < keys.length; ri++) {
+      var rv = results[keys[ri]];
+      if (typeof rv === 'number' && (!isFinite(rv) || isNaN(rv))) {
+        hasInvalid = true;
+        break;
+      }
+    }
+    if (hasInvalid) {
+      resultsBox.innerHTML = '<div class="result-error">' + (i18n.error_invalid_math || 'Cannot calculate — check your inputs (division by zero or out-of-range value).') + '</div>';
+      if (copyBtn) copyBtn.style.display = 'none';
+      if (shareBtn) shareBtn.style.display = 'none';
+      if (gaugeEl) gaugeEl.innerHTML = '';
       return;
     }
 
@@ -353,7 +382,7 @@
     if (shareBtn) shareBtn.style.display = '';
     if (socialShare) showSocialShare();
 
-    resultsBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    resultsBox.scrollIntoView({ behavior: 'smooth', block: window.innerWidth < 768 ? 'start' : 'nearest' });
 
     /* Sensitivity chart */
     renderSensitivityChart(keys[0], outputKeys[keys[0]] || keys[0]);
@@ -549,7 +578,26 @@
   var INPUTS_KEY = 'ctw_inp_' + (cfg.calcId || cfg.slug || '');
   var SESSION_KEY = 'ctw_sess_' + (cfg.calcId || cfg.slug || '');
 
+  var LS_AVAILABLE = false;
+  try {
+    localStorage.setItem('__ctw_test', '1');
+    localStorage.removeItem('__ctw_test');
+    LS_AVAILABLE = true;
+  } catch (e) {
+    if (window.CALC_CONFIG && window.CALC_CONFIG.i18n && window.CALC_CONFIG.i18n.private_mode_warning) {
+      setTimeout(function () {
+        var toast = document.createElement('div');
+        toast.className = 'toast-warning';
+        toast.textContent = window.CALC_CONFIG.i18n.private_mode_warning;
+        toast.setAttribute('role', 'status');
+        document.body.appendChild(toast);
+        setTimeout(function () { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 5000);
+      }, 1000);
+    }
+  }
+
   function saveInputsToStorage(inputs) {
+    if (!LS_AVAILABLE) return;
     try {
       var toSave = {};
       Object.keys(inputs).forEach(function (k) { if (k !== 'desperdicio_merma') toSave[k] = inputs[k]; });
@@ -605,6 +653,12 @@
   function calculate() {
     var inputs  = collectInputs();
     var wastePct = parseFloat(inputs.desperdicio_merma) || 0;
+    var submitBtn = form.querySelector('button[type="submit"]');
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.setAttribute('aria-busy', 'true');
+      submitBtn.classList.add('btn-loading');
+    }
     var results;
     try {
       results = calcFn(inputs);
@@ -615,6 +669,11 @@
     window._lastResults = results;
     window._lastInputs = inputs;
     renderResults(results, wastePct);
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.removeAttribute('aria-busy');
+      submitBtn.classList.remove('btn-loading');
+    }
     encodeToHash(inputs);
     saveInputsToStorage(inputs);
     saveToSessionHistory(results);
@@ -644,6 +703,46 @@
 
   form.addEventListener('submit', function (e) { e.preventDefault(); calculate(); });
   form.addEventListener('input', onInputChange);
+
+  /* ── Input validation on blur ── */
+  form.querySelectorAll('input[type="number"]').forEach(function (inp) {
+    function validate() {
+      var val = parseFloat(inp.value);
+      var min = parseFloat(inp.min);
+      var max = parseFloat(inp.max);
+      var errId = inp.id + '-err';
+      var errEl = document.getElementById(errId);
+      if (errEl) { errEl.parentNode.removeChild(errEl); inp.removeAttribute('aria-describedby'); inp.removeAttribute('aria-invalid'); }
+      if (inp.value !== '' && (isNaN(val) || (!isNaN(min) && val < min) || (!isNaN(max) && val > max))) {
+        var msg = i18n.error_input_range || 'Value must be between {min} and {max}.';
+        if (!isNaN(min) && !isNaN(max)) msg = msg.replace('{min}', min).replace('{max}', max);
+        else if (!isNaN(min)) msg = 'Value must be at least ' + min + '.';
+        else if (!isNaN(max)) msg = 'Value must be at most ' + max + '.';
+        else msg = i18n.error_invalid || 'Please enter a valid number.';
+        errEl = document.createElement('span');
+        errEl.id = errId;
+        errEl.className = 'input-error-msg';
+        errEl.textContent = msg;
+        errEl.style.color = '#ef4444';
+        errEl.style.fontSize = '0.8rem';
+        errEl.style.display = 'block';
+        errEl.style.marginTop = '4px';
+        inp.parentNode.appendChild(errEl);
+        inp.setAttribute('aria-invalid', 'true');
+        inp.setAttribute('aria-describedby', errId);
+        inp.classList.add('input-error');
+      } else {
+        inp.classList.remove('input-error');
+      }
+    }
+    inp.addEventListener('blur', validate);
+    inp.addEventListener('input', function () {
+      var errId = inp.id + '-err';
+      var errEl = document.getElementById(errId);
+      if (errEl) { errEl.parentNode.removeChild(errEl); inp.removeAttribute('aria-describedby'); inp.removeAttribute('aria-invalid'); }
+      inp.classList.remove('input-error');
+    });
+  });
 
   /* ── Unit select changes trigger recalculation ── */
   form.querySelectorAll('.unit-select').forEach(function (sel) {
@@ -849,6 +948,7 @@
       numericFields.push(name);
     }
     if (numericFields.length < 2) {
+      if (toggle) toggle.style.display = 'none';
       section.style.display = 'none';
       return;
     }
@@ -858,10 +958,10 @@
     for (var i = 0; i < numericFields.length; i++) {
       var key = numericFields[i];
       var val = parseFloat(currentInputs[key]);
-      if (isNaN(val) || val === 0) continue;
+      if (isNaN(val)) continue;
       var el = form.querySelector('input[name="' + key + '"]');
       var min = parseFloat(el && el.min !== '' ? el.min : 0);
-      var max = parseFloat(el && el.max !== '' ? el.max : (val * 10));
+      var max = parseFloat(el && el.max !== '' ? el.max : (val === 0 ? 10 : val * 10));
       var range = max - min;
       if (range > bestRange) {
         bestRange = range;
@@ -870,7 +970,8 @@
     }
 
     var baseVal = parseFloat(currentInputs[bestKey]);
-    if (isNaN(baseVal) || baseVal === 0) {
+    if (isNaN(baseVal)) {
+      if (toggle) toggle.style.display = 'none';
       section.style.display = 'none';
       return;
     }
@@ -883,9 +984,22 @@
     }
 
     var points = [];
+    var sweepMin, sweepMax;
+    var elBest = form.querySelector('input[name="' + bestKey + '"]');
+    var elMin = parseFloat(elBest && elBest.min !== '' ? elBest.min : NaN);
+    var elMax = parseFloat(elBest && elBest.max !== '' ? elBest.max : NaN);
+    if (!isNaN(elMin) && !isNaN(elMax) && elMax > elMin) {
+      sweepMin = elMin;
+      sweepMax = elMax;
+    } else if (baseVal === 0) {
+      sweepMin = -10;
+      sweepMax = 10;
+    } else {
+      sweepMin = baseVal * 0.5;
+      sweepMax = baseVal * 1.5;
+    }
     for (var p = 0; p < 20; p++) {
-      var pct = 0.5 + (p / 19) * 1.0;
-      var testVal = baseVal * pct;
+      var testVal = sweepMin + (p / 19) * (sweepMax - sweepMin);
       var cloned = {};
       for (var key2 in currentInputs) cloned[key2] = currentInputs[key2];
       cloned[bestKey] = testVal;
@@ -897,8 +1011,8 @@
       }
       if (!res || res.error) continue;
       var outVal = parseFloat(res[primaryOutputKey]);
-      if (isNaN(outVal)) continue;
-      points.push({ x: testVal, y: outVal, pct: pct });
+      if (!isFinite(outVal) || isNaN(outVal)) continue;
+      points.push({ x: testVal, y: outVal });
     }
 
     if (points.length < 5) {
@@ -1075,7 +1189,31 @@
     codeArea.value = code;
     modal.style.display = '';
 
-    function closeModal() { modal.style.display = 'none'; }
+    var lastFocus = document.activeElement;
+    var focusable = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    var first = focusable[0];
+    var last = focusable[focusable.length - 1];
+    if (first) first.focus();
+
+    function closeModal() {
+      modal.style.display = 'none';
+      if (lastFocus) lastFocus.focus();
+      document.removeEventListener('keydown', onKey);
+    }
+    function onKey(e) {
+      if (e.key === 'Escape') { e.preventDefault(); closeModal(); return; }
+      if (e.key === 'Tab') {
+        if (focusable.length === 0) return;
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }
+    document.addEventListener('keydown', onKey);
     if (closeBtn) closeBtn.onclick = closeModal;
     if (backdrop) backdrop.onclick = closeModal;
 
@@ -1144,12 +1282,21 @@
   if (!form2) return;
   table.querySelectorAll('tbody tr[data-prefill]').forEach(function (row) {
     row.style.cursor = 'pointer';
-    row.addEventListener('click', function () {
+    row.setAttribute('role', 'button');
+    row.setAttribute('tabindex', '0');
+    function activateRow() {
       try {
-        var vals = JSON.parse(this.getAttribute('data-prefill'));
+        var vals = JSON.parse(row.getAttribute('data-prefill'));
         Object.keys(vals).forEach(function (k) {
           var el = form2.querySelector('[name="' + k + '"]');
-          if (el) el.value = vals[k];
+          if (!el) return;
+          if (el.tagName === 'SELECT') {
+            var opt = Array.from(el.options).find(function (o) { return o.value === String(vals[k]) || o.text === String(vals[k]); });
+            if (opt) el.value = opt.value;
+          } else {
+            el.value = vals[k];
+          }
+          el.dispatchEvent(new Event('change', { bubbles: true }));
         });
         table.querySelectorAll('tbody tr').forEach(function (r) { r.classList.remove('comparison-active'); });
         row.classList.add('comparison-active');
@@ -1157,6 +1304,13 @@
         var submitBtn = form2.querySelector('button[type="submit"]');
         if (submitBtn) { submitBtn.click(); } else { form2.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true })); }
       } catch (e) {}
+    }
+    row.addEventListener('click', activateRow);
+    row.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        activateRow();
+      }
     });
   });
 }());

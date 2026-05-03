@@ -147,7 +147,48 @@ AUTHOR_LINE = {
 }
 
 GAUGE_CONFIGS = {
-    "400":                 {"min": 10, "max": 45, "label": "BMI",  "unit": "kg/m\u00b2"},
+    "057":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "090":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "095":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "100":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "200":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "201":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "302":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "303":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "310":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "311":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "317":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "318":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "320":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "321":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "324":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "325":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "326":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "329":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "331":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "332":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "333":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "337":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "339":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+"400":                 {"min": 10, "max": 45, "label": "BMI",  "unit": "kg/m\u00b2",
+    "413":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "425":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "427":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "433":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "607":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "930":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "931":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "932":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "933":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "958":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "961":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "1023":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "1060":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "1061":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "1065":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "1089":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+    "1094":                 {"min": 0, "max": 100, "label": "%", "unit": "%"},
+},
     "200":                 {"min": 0,  "max": 100, "label": "%",   "unit": "%"},
     "095":                 {"min": 0,  "max": 100, "label": "Margin", "unit": "%"},
     "093":                 {"min": 0,  "max": 30,  "label": "IVA",  "unit": "%"},
@@ -1387,7 +1428,8 @@ def build_input_groups(input_items: list, lang: str, input_meta: dict = None) ->
         unit = UNIT_LABELS.get(key, "")
         full_label = f"{label} ({unit})" if unit else label
         meta = input_meta.get(key, {})
-        field = {"key": key, "label": full_label, "type": meta.get("type", "number")}
+        field = {"key": key, "label": full_label, "type": meta.get("type", "number"),
+                 "min": meta.get("min"), "max": meta.get("max"), "step": meta.get("step")}
         if meta.get("type") == "select":
             default_val = str(meta.get("default", ""))
             raw_opts = meta.get("options", [])
@@ -1844,7 +1886,11 @@ def generate() -> None:
             vkeys  = list(vcfg["inputs"].keys())
             vlists = [vcfg["inputs"][k] for k in vkeys]
 
+            variant_count = 0
             for combo in cartesian_product(*vlists):
+                if variant_count >= 10:
+                    break
+                variant_count += 1
                 params     = dict(zip(vkeys, combo))
                 param_slug = vcfg["url_fn"](params)
                 lang_tpl   = vcfg["title_template"].get(lang, vcfg["title_template"]["en"])

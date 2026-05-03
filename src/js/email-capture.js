@@ -6,10 +6,30 @@
   var box = document.getElementById('email-capture-box');
   if (!form || !box) return;
 
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    var email = form.querySelector('input[name="email"]').value.trim();
-    if (!email || email.indexOf('@') < 1) return;
+    var emailInp = form.querySelector('input[name="email"]');
+    var email = (emailInp ? emailInp.value.trim() : '');
+    if (!email || !EMAIL_RE.test(email)) {
+      if (emailInp) {
+        emailInp.classList.add('input-error');
+        emailInp.addEventListener('input', function () { emailInp.classList.remove('input-error'); }, { once: true });
+      }
+      return;
+    }
+    var consentInp = document.getElementById('email-consent');
+    if (consentInp && !consentInp.checked) {
+      var i18n = (window.CALC_CONFIG || {}).i18n || {};
+      alert(i18n.consent_required_lead || 'Please accept the consent checkbox to receive updates.');
+      return;
+    }
+    if (localStorage.getItem('ctw_cookie_consent') !== '1') {
+      var i18n = (window.CALC_CONFIG || {}).i18n || {};
+      alert(i18n.consent_required_lead || 'Please accept cookies to receive updates by email.');
+      return;
+    }
 
     var btn = form.querySelector('button');
     var origText = btn.textContent;

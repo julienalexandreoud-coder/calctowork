@@ -9,11 +9,32 @@ const admin = require("firebase-admin");
 admin.initializeApp();
 const db = admin.firestore();
 
-const cors = require("cors")({ origin: true });
+const cors = require("cors")({ origin: ['https://calcto.work', 'https://calctowork.web.app'] });
+
+// Simple in-memory rate limiter (per IP, 60s window)
+const rateLimit = new Map();
+function checkRateLimit(ip) {
+  const now = Date.now();
+  const windowMs = 60000;
+  const maxReq = 10;
+  const entry = rateLimit.get(ip);
+  if (!entry || entry.reset < now) {
+    rateLimit.set(ip, { count: 1, reset: now + windowMs });
+    return true;
+  }
+  if (entry.count >= maxReq) return false;
+  entry.count++;
+  return true;
+}
 
 // Analytics endpoint - receives batched events
 exports.analytics = functions.https.onRequest((req, res) => {
   return cors(req, res, async () => {
+    // Rate limit
+    const clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress || 'unknown';
+    if (!checkRateLimit(clientIp)) {
+      return res.status(429).send("Too Many Requests");
+    }
     // Only accept POST
     if (req.method !== "POST") {
       return res.status(405).send("Method Not Allowed");

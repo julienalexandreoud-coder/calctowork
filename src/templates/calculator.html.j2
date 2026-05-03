@@ -6,11 +6,7 @@
   {{ ga4_head | safe }}
   <title>{% if seo_title_override is defined and seo_title_override %}{{ seo_title_override }}{% else %}{{ calc_i18n.seo_title }}{% endif %} | CalcToWork</title>
   <meta name="description" content="{% if seo_desc_override is defined and seo_desc_override %}{{ seo_desc_override }}{% else %}{{ calc_i18n.seo_description }}{% endif %}">
-  {% if is_parametric_variant is defined and is_parametric_variant %}
-  <meta name="robots" content="noindex, follow">
-  {% else %}
   <meta name="robots" content="index, follow">
-  {% endif %}
   <meta name="theme-color" content="#f97316">
 
   {# ── Resolve URL paths (supports both flat and block/slug structures) ── #}
@@ -284,7 +280,9 @@
                 id="input-{{ field.key }}"
                 name="{{ field.key }}"
                 inputmode="decimal"
-                step="any"
+                {% if field.min is not none %}min="{{ field.min }}"{% endif %}
+                {% if field.max is not none %}max="{{ field.max }}"{% endif %}
+                {% if field.step is not none %}step="{{ field.step }}"{% else %}step="any"{% endif %}
                 placeholder="{{ input_placeholders.get(field.key, '') }}"
                 autocomplete="off"
                 required
@@ -315,7 +313,9 @@
                 id="input-{{ input_key }}"
                 name="{{ input_key }}"
                 inputmode="decimal"
-                step="any"
+                {% if meta.get('min') is not none %}min="{{ meta.min }}"{% endif %}
+                {% if meta.get('max') is not none %}max="{{ meta.max }}"{% endif %}
+                {% if meta.get('step') is not none %}step="{{ meta.step }}"{% else %}step="any"{% endif %}
                 placeholder="{{ input_placeholders.get(input_key, '') }}"
                 autocomplete="off"
                 required
@@ -427,9 +427,8 @@
 
   <!-- Comparison table (preset sizes) -->
   {% if comparison_table is defined and comparison_table %}
-  <div class="comparison-table-wrap">
+  <div class="comparison-table-wrap" tabindex="0" role="region" aria-label="{{ t.comparison_region_label | default('Comparison presets') }}">
     <div class="comparison-table-title">{{ t.comparison_table_title | default('Common Sizes — Click to Fill') }}</div>
-    <div style="overflow-x:auto;">
     <table class="comparison-table" id="comparison-table">
       <thead>
         <tr>
@@ -472,7 +471,11 @@
     <div class="email-capture-title">&#128196; {{ t.email_title | default('Save your calculation as PDF') }}</div>
     <p class="email-capture-desc">{{ t.email_desc | default('Enter your email and download a PDF report with your results.') }}</p>
     <form id="email-capture-form" class="email-capture-form">
-      <input type="email" name="email" placeholder="{{ t.email_placeholder | default('your@email.com') }}" required>
+      <input type="email" name="email" maxlength="120" placeholder="{{ t.email_placeholder | default('your@email.com') }}" required>
+      <label class="email-consent-label">
+        <input type="checkbox" id="email-consent" required>
+        {{ t.email_consent | default('I agree to receive product updates by email.') }}
+      </label>
       <button type="submit" class="btn btn-primary">{{ t.email_btn | default('Download PDF') }}</button>
     </form>
   </div>
@@ -607,6 +610,7 @@
 </button>
 
 <script>
+window.CALC_LANG = '{{ lang }}';
 window.CALC_CONFIG = {
   formula: {{ calc.formula | tojson }},
   outputs: {{ calc_i18n.outputs | tojson }},
@@ -685,11 +689,11 @@ try { firebase.initializeApp(window.firebaseConfig); } catch(e) {}
   });
 </script>
 <!-- Embed modal -->
-<div class="embed-modal" id="embed-modal" style="display:none;" aria-modal="true" role="dialog" aria-label="Embed calculator">
+<div class="embed-modal" id="embed-modal" style="display:none;" aria-modal="true" role="dialog" aria-labelledby="embed-modal-title">
   <div class="embed-modal-backdrop" id="embed-modal-backdrop"></div>
   <div class="embed-modal-content">
     <div class="embed-modal-header">
-      <strong>{{ t.embed_title | default('Embed this calculator') }}</strong>
+      <strong id="embed-modal-title">{{ t.embed_title | default('Embed this calculator') }}</strong>
       <button class="embed-modal-close" id="embed-modal-close" aria-label="Close">&times;</button>
     </div>
     <div class="embed-modal-body">
