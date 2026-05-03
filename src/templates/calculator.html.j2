@@ -8,6 +8,9 @@
   <meta name="description" content="{% if seo_desc_override is defined and seo_desc_override %}{{ seo_desc_override }}{% else %}{{ calc_i18n.seo_description }}{% endif %}">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#f97316">
+  <link rel="preload" as="style" href="/css/styles.css">
+  <link rel="preload" as="script" href="/js/calculator.js">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
   {# ── Resolve URL paths (supports both flat and block/slug structures) ── #}
   {% set _base = site_base_url | default("https://calcto.work") %}
@@ -219,6 +222,7 @@
   <div class="calc-header">
     <h1>{% if seo_title_override is defined and seo_title_override %}{{ seo_title_override }}{% else %}{{ calc_i18n.name }}{% endif %}</h1>
     <p>{{ calc_i18n.description }}</p>
+    <p class="last-updated">{{ t.last_updated | default('Last updated') }}: {{ date_modified | default(BUILD_DATE) }}</p>
   </div>
 
   <!-- Favorite button -->

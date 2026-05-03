@@ -37,7 +37,7 @@ INJECTION_MARKER = "<!-- internal-links-added -->"
 total_links = 0
 files_changed = 0
 
-for content_file in content_files[:100]:
+for content_file in content_files:
     cid = content_file.stem
     calc = calcs_by_id.get(cid)
     if not calc:

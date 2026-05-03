@@ -796,6 +796,14 @@
       var inputs = collectInputs();
       encodeToHash(inputs);
       var url = window.location.href;
+      var title = document.title;
+      if (navigator.share) {
+        navigator.share({ title: title, url: url }).then(function () {
+          trackEvent('share_native', 'calculator', cfg.slug || window.location.pathname);
+          trackFirestore('share_clicked', { calc_slug: cfg.slug || window.location.pathname, share_platform: 'native' });
+        }).catch(function () {});
+        return;
+      }
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(url).then(function() { flashShared(); trackEvent('share_link', 'calculator', cfg.slug || window.location.pathname); trackFirestore('share_clicked', { calc_slug: cfg.slug || window.location.pathname, share_platform: 'link_copy' }); });
       } else {
@@ -1268,6 +1276,13 @@
         if (el) el.value = saved[k];
       });
       if (allFilled()) { calculate(); return; }
+    }
+    // Pre-fill first input with example value for first-time users
+    var examples = cfg.example_inputs || {};
+    var firstInp = form.querySelector('input[name]:not([name="desperdicio_merma"])');
+    if (firstInp && !firstInp.value && examples[firstInp.name] !== undefined) {
+      firstInp.value = examples[firstInp.name];
+      firstInp.dispatchEvent(new Event('input', { bubbles: true }));
     }
     if (allFilled()) calculate();
   })();

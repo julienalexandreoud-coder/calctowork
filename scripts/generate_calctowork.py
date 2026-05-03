@@ -1306,10 +1306,15 @@ def copy_assets() -> None:
             minified = _minify_js(src_path)
             (PUBLIC / "js" / name).write_text(minified, encoding="utf-8")
 
-    for name in ("robots.txt", "favicon.svg", "ads.txt", "manifest.json", "sw.js"):
+    for name in ("robots.txt", "favicon.svg", "ads.txt", "manifest.json"):
         src_path = SRC / name
         if src_path.exists():
             shutil.copy2(src_path, PUBLIC / name)
+
+    # Generate sw.js with cache-busting version
+    sw_template = (SRC / "sw.js").read_text(encoding="utf-8")
+    sw_out = sw_template.replace("var CACHE = 'ctw-v2';", f"var CACHE = 'ctw-{BUILD_DATE}';")
+    (PUBLIC / "sw.js").write_text(sw_out, encoding="utf-8")
 
     # Copy admin dashboard
     admin_src = SRC / "admin.html"
