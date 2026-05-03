@@ -262,11 +262,12 @@
           {% set show_headings = (input_groups|length > 1) or (input_groups|length == 1 and input_groups[0].id != 'other') %}
           {% for group in input_groups %}
           {% if group.fields %}
+          <fieldset class="input-group-fieldset">
           {% if show_headings %}
-          <div class="input-group-heading">
+          <legend class="input-group-heading">
             <span aria-hidden="true">{{ group.icon }}</span>
             {{ group.label }}
-          </div>
+          </legend>
           {% endif %}
           {% for field in group.fields %}
           <div class="form-group">
@@ -303,6 +304,7 @@
           </div>
           {% endfor %}
           {% endif %}
+          </fieldset>
           {% endfor %}
         {% else %}
           {# ── Flat inputs (legacy mode) ── #}
@@ -416,7 +418,8 @@
           📈 {{ t.sensitivity_toggle | default('Show how result changes') }}
         </button>
         <div class="sensitivity-chart-wrap" id="sensitivity-chart-wrap" style="display:none;">
-          <canvas id="sensitivity-chart" width="600" height="280"></canvas>
+          <canvas id="sensitivity-chart" width="600" height="280" tabindex="0" aria-label="Sensitivity chart. Use arrow keys to navigate points. Press Enter to apply."></canvas>
+          <span id="sensitivity-live" class="sr-only" aria-live="polite" aria-atomic="true"></span>
         </div>
       </div>
 

@@ -1148,6 +1148,41 @@
 
     section.style.display = '';
 
+    function applyPoint(pt) {
+      var el = form.querySelector('input[name="' + bestKey + '"]');
+      if (!el) return;
+      var displayVal = pt.x;
+      if (meta.category && meta.unit) {
+        displayVal = fromBaseUnit(pt.x, meta.unit, meta.category);
+      }
+      var step = parseFloat(el.step) || 1;
+      var decimals = 0;
+      if (step < 1) {
+        var stepStr = String(step);
+        if (stepStr.indexOf('.') !== -1) {
+          decimals = stepStr.split('.')[1].length;
+        }
+      }
+      el.value = +displayVal.toFixed(decimals);
+      form.dispatchEvent(new Event('input', { bubbles: true }));
+      var live = document.getElementById('sensitivity-live');
+      if (live) live.textContent = bestLabel + ' ' + fmt(displayVal) + ', ' + primaryOutputLabel + ' ' + fmt(pt.y);
+    }
+
+    var focusedIdx = -1;
+    function drawFocus() {
+      if (focusedIdx >= 0 && focusedIdx < points.length) {
+        var fpt = points[focusedIdx];
+        var fx = tx(fpt.x);
+        var fy = ty(fpt.y);
+        ctx.strokeStyle = '#ef4444';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(fx, fy, 8, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+    }
+
     canvas.onclick = function (e) {
       var rect2 = canvas.getBoundingClientRect();
       var clickX = (e.clientX - rect2.left) * (w / rect2.width);
@@ -1159,28 +1194,31 @@
         if (dist < bestDist) {
           bestDist = dist;
           bestPt = points[i];
+          focusedIdx = i;
         }
       }
       if (bestPt) {
-        var el = form.querySelector('input[name="' + bestKey + '"]');
-        if (el) {
-          var displayVal = bestPt.x;
-          if (meta.category && meta.unit) {
-            displayVal = fromBaseUnit(bestPt.x, meta.unit, meta.category);
-          }
-          var step = parseFloat(el.step) || 1;
-          var decimals = 0;
-          if (step < 1) {
-            var stepStr = String(step);
-            if (stepStr.indexOf('.') !== -1) {
-              decimals = stepStr.split('.')[1].length;
-            }
-          }
-          el.value = +displayVal.toFixed(decimals);
-          form.dispatchEvent(new Event('input', { bubbles: true }));
-        }
+        applyPoint(bestPt);
+        drawFocus();
       }
     };
+
+    canvas.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        focusedIdx = Math.min((focusedIdx === -1 ? 9 : focusedIdx) + 1, points.length - 1);
+        drawFocus();
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        focusedIdx = Math.max((focusedIdx === -1 ? 9 : focusedIdx) - 1, 0);
+        drawFocus();
+      } else if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        if (focusedIdx >= 0 && focusedIdx < points.length) {
+          applyPoint(points[focusedIdx]);
+        }
+      }
+    });
   }
 
   /* ── Embed modal ── */
