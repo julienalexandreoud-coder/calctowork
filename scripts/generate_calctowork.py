@@ -476,6 +476,9 @@ STATIC_PAGES = {
 </ul>
 <p>Para ejercer cualquiera de estos derechos, contáctenos en: <strong>hello@calcto.work</strong></p>
 
+<h2>Captura de leads por email</h2>
+<p>Si elige descargar un informe en PDF, le pedimos su dirección de email. Esto es completamente opcional. Su email se envía a nuestro webhook seguro y se almacena únicamente para entregarle el PDF. No compartimos su email con terceros. Puede solicitar la eliminación de sus datos de email en cualquier momento contactándonos.</p>
+
 <h2>Cambios en esta política</h2>
 <p>Nos reservamos el derecho de actualizar esta Política de Privacidad en cualquier momento. Los cambios entrarán en vigor inmediatamente tras su publicación en esta página.</p>
 
@@ -515,6 +518,9 @@ STATIC_PAGES = {
 <li>Request data portability.</li>
 </ul>
 <p>To exercise any of these rights, please contact us at: <strong>hello@calcto.work</strong></p>
+
+<h2>Email Lead Capture</h2>
+<p>If you choose to download a PDF report, we ask for your email address. This is entirely optional. Your email is sent to our secure webhook and stored only for the purpose of delivering the PDF. We do not share your email with third parties. You can request deletion of your email data at any time by contacting us.</p>
 
 <h2>Changes to This Policy</h2>
 <p>We reserve the right to update this Privacy Policy at any time. Changes will take effect immediately upon publication on this page.</p>
