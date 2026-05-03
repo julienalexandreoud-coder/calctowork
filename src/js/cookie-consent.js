@@ -7,16 +7,23 @@
 
   if (localStorage.getItem(CONSENT_KEY) === '1') { window.__adsense_allowed = true; return; }
 
+  var i18n = (window.COOKIE_CONSENT_I18N || {});
+  var text = i18n.text || 'We use cookies to personalise ads and analyse traffic. By clicking "Accept" you consent to our use of cookies.';
+  var learnMore = i18n.learn_more || 'Learn more';
+  var acceptLabel = i18n.accept || 'Accept';
+  var rejectLabel = i18n.reject || 'Reject';
+  var privacyPath = i18n.privacy_path || '/en/privacy/';
+
   var banner = document.createElement('div');
   banner.id = 'cookie-consent';
   banner.setAttribute('role', 'dialog');
   banner.setAttribute('aria-label', 'Cookie consent');
   banner.innerHTML =
     '<div class="cc-inner">' +
-      '<p class="cc-text">We use cookies to personalise ads and analyse traffic. By clicking "Accept" you consent to our use of cookies. <a href="/en/privacy/">Learn more</a></p>' +
+      '<p class="cc-text">' + text + ' <a href="' + privacyPath + '">' + learnMore + '</a></p>' +
       '<div class="cc-actions">' +
-        '<button id="cc-reject" class="cc-btn cc-btn-secondary">Reject</button>' +
-        '<button id="cc-accept" class="cc-btn cc-btn-primary">Accept</button>' +
+        '<button id="cc-reject" class="cc-btn cc-btn-secondary">' + rejectLabel + '</button>' +
+        '<button id="cc-accept" class="cc-btn cc-btn-primary">' + acceptLabel + '</button>' +
       '</div>' +
     '</div>';
 
@@ -32,6 +39,7 @@
     localStorage.setItem(CONSENT_KEY, '1');
     window.__adsense_allowed = true;
     hideBanner();
+    if (typeof window.__loadAdsense === 'function') window.__loadAdsense();
     if (typeof loadDeferredAds === 'function') loadDeferredAds();
     try {
       if (typeof gtag === 'function') gtag('consent', 'update', { ad_storage: 'granted', analytics_storage: 'granted' });
@@ -47,8 +55,10 @@
     } catch (e) {}
   }
 
-  document.getElementById('cc-accept').addEventListener('click', accept);
-  document.getElementById('cc-reject').addEventListener('click', reject);
+  var ccAccept = document.getElementById('cc-accept');
+  var ccReject = document.getElementById('cc-reject');
+  if (ccAccept) ccAccept.addEventListener('click', accept);
+  if (ccReject) ccReject.addEventListener('click', reject);
 
   window.__adsense_allowed = false;
 })();

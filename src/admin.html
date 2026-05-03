@@ -9,7 +9,6 @@
 <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
 <script>
-// Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBmjGOakF8HneBc2cnmt6WeEfU4JWgJFw8",
   authDomain: "calctowork.firebaseapp.com",
@@ -19,14 +18,7 @@ const firebaseConfig = {
   appId: "1:538330151764:web:175e3ff0f7d87f706b66c1",
   measurementId: "G-FBFV87HD35"
 };
-
-// Initialize Firebase
-try {
-  firebase.initializeApp(firebaseConfig);
-  console.log("Firebase initialized successfully");
-} catch(e) {
-  console.error("Firebase init error:", e);
-}
+try { firebase.initializeApp(firebaseConfig); } catch(e) {}
 </script>
 <style>
 :root{--primary:#f97316;--success:#22c55e;--warning:#f59e0b;--danger:#ef4444;--bg:#0f172a;--card:#1e293b;--text:#e2e8f0;--muted:#94a3b8;--border:#334155}
@@ -76,25 +68,25 @@ tr:hover{background:rgba(255,255,255,0.02)}
 .time-filters{display:flex;gap:0.5rem;margin-bottom:1rem}
 .time-filters button{background:var(--bg);border:1px solid var(--border);color:var(--text);padding:0.5rem 1rem;border-radius:6px;cursor:pointer;font-size:0.875rem}
 .time-filters button.active{background:var(--primary);border-color:var(--primary);color:white}
-.demo-notice{background:rgba(245,158,11,0.1);border:1px solid var(--warning);color:var(--warning);padding:1rem;border-radius:8px;margin-bottom:1rem;font-size:0.875rem}
+.notice{background:rgba(245,158,11,0.1);border:1px solid var(--warning);color:var(--warning);padding:1rem;border-radius:8px;margin-bottom:1rem;font-size:0.875rem}
+.empty-msg{color:var(--muted);padding:2rem;text-align:center;font-size:0.875rem}
 </style>
 </head>
 <body>
 
 <div id="loginScreen" class="login-screen">
   <div class="login-box">
-    <h2>🔒 CalcToWork Admin</h2>
+    <h2>CalcToWork Admin</h2>
     <p>Enter access code to view analytics dashboard</p>
     <input type="password" id="accessCode" placeholder="Access code" onkeypress="if(event.key==='Enter')checkLogin()">
     <button onclick="checkLogin()">Access Dashboard</button>
-    <p style="margin-top:1rem;font-size:0.75rem;color:var(--muted)">Enter your access code</p>
   </div>
 </div>
 
 <div id="dashboard" class="hidden">
   <div class="header">
     <div>
-      <h1>📊 CalcToWork Analytics</h1>
+      <h1>CalcToWork Analytics</h1>
       <div style="font-size:0.875rem;color:var(--muted);margin-top:0.25rem">Real-time user behavior tracking</div>
     </div>
     <div style="display:flex;align-items:center;gap:1rem">
@@ -103,7 +95,7 @@ tr:hover{background:rgba(255,255,255,0.02)}
         <button onclick="setTimeRange('7d')">7 Days</button>
         <button onclick="setTimeRange('30d')">30 Days</button>
       </div>
-      <button class="refresh-btn" onclick="loadData()">🔄 Refresh</button>
+      <button class="refresh-btn" onclick="loadData()">Refresh</button>
       <div class="status">
         <div class="status-dot"></div>
         <span id="connectionStatus">Live Mode</span>
@@ -112,46 +104,46 @@ tr:hover{background:rgba(255,255,255,0.02)}
   </div>
 
   <div class="container">
-    <div id="demoNotice" class="demo-notice hidden">
-      <strong>⚠️ Demo Mode Active</strong><br>
-      Firebase is not connected. Showing sample data. To see real analytics, configure Firebase in the dashboard settings.
-    </div>
+    <div id="statusNotice" class="notice hidden"></div>
 
-    <!-- KPI Cards -->
     <div class="kpi-grid">
       <div class="kpi">
-        <h3>👥 Active Users</h3>
-        <div class="value" id="activeUsers">-</div>
+        <h3>Active Users</h3>
+        <div class="value" id="activeUsers">0</div>
         <div class="change">Currently online</div>
       </div>
       <div class="kpi">
-        <h3>📄 Page Views</h3>
-        <div class="value" id="pageViews">-</div>
-        <div class="change up" id="pageViewsChange">Loading...</div>
+        <h3>Page Views</h3>
+        <div class="value" id="pageViews">0</div>
+        <div class="change up" id="pageViewsChange">0 unique users</div>
       </div>
       <div class="kpi">
-        <h3>🧮 Calculations</h3>
-        <div class="value" id="calculations">-</div>
-        <div class="change up" id="calculationsChange">Loading...</div>
+        <h3>Calculations</h3>
+        <div class="value" id="calculations">0</div>
+        <div class="change up" id="calculationsChange">No data</div>
       </div>
       <div class="kpi">
-        <h3>📋 Avg Time on Page</h3>
-        <div class="value" id="avgTime">-</div>
+        <h3>Avg Time on Page</h3>
+        <div class="value" id="avgTime">0:00</div>
         <div class="change">Minutes</div>
       </div>
       <div class="kpi">
-        <h3>📤 Copy Results</h3>
-        <div class="value" id="copies">-</div>
+        <h3>Favorites</h3>
+        <div class="value" id="favorites">0</div>
+        <div class="change">Total likes</div>
+      </div>
+      <div class="kpi">
+        <h3>Shares</h3>
+        <div class="value" id="shares">0</div>
         <div class="change">Total shares</div>
       </div>
       <div class="kpi">
-        <h3>📉 Bounce Rate</h3>
-        <div class="value" id="bounceRate">-</div>
+        <h3>Bounce Rate</h3>
+        <div class="value" id="bounceRate">0%</div>
         <div class="change down">No calc + exit</div>
       </div>
     </div>
 
-    <!-- Charts Row -->
     <div class="grid">
       <div class="card">
         <h2><span class="icon">📈</span> Page Views Over Time</h2>
@@ -167,15 +159,12 @@ tr:hover{background:rgba(255,255,255,0.02)}
       </div>
     </div>
 
-    <!-- Top Content Row -->
     <div class="grid">
       <div class="card">
         <h2><span class="icon">🏆</span> Top Calculators</h2>
         <div id="topCalculatorsLoading" class="loading"><div class="spinner"></div></div>
         <table id="topCalculatorsTable" class="hidden">
-          <thead>
-            <tr><th>Calculator</th><th>Views</th><th>Calculations</th><th>CTR</th></tr>
-          </thead>
+          <thead><tr><th>Calculator</th><th>Views</th><th>Calculations</th><th>CTR</th></tr></thead>
           <tbody id="topCalculatorsBody"></tbody>
         </table>
       </div>
@@ -183,15 +172,12 @@ tr:hover{background:rgba(255,255,255,0.02)}
         <h2><span class="icon">🌍</span> Top Countries</h2>
         <div id="countriesLoading" class="loading"><div class="spinner"></div></div>
         <table id="countriesTable" class="hidden">
-          <thead>
-            <tr><th>Country</th><th>Users</th><th>Views</th><th>Avg Time</th></tr>
-          </thead>
+          <thead><tr><th>Country</th><th>Users</th><th>Views</th><th>Avg Time</th></tr></thead>
           <tbody id="countriesBody"></tbody>
         </table>
       </div>
     </div>
 
-    <!-- User Behavior Row -->
     <div class="grid">
       <div class="card">
         <h2><span class="icon">🎯</span> User Actions</h2>
@@ -200,21 +186,37 @@ tr:hover{background:rgba(255,255,255,0.02)}
         </div>
       </div>
       <div class="card">
+        <h2><span class="icon">📤</span> Shares by Platform</h2>
+        <div id="sharesLoading" class="loading"><div class="spinner"></div></div>
+        <table id="sharesTable" class="hidden">
+          <thead><tr><th>Platform</th><th>Shares</th></tr></thead>
+          <tbody id="sharesBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
         <h2><span class="icon">📱</span> Device Breakdown</h2>
         <div class="chart-container">
           <canvas id="deviceChart"></canvas>
         </div>
       </div>
+      <div class="card">
+        <h2><span class="icon">❤️</span> Top Liked Calculators</h2>
+        <div id="favoritesLoading" class="loading"><div class="spinner"></div></div>
+        <table id="favoritesTable" class="hidden">
+          <thead><tr><th>Calculator</th><th>Likes</th></tr></thead>
+          <tbody id="favoritesBody"></tbody>
+        </table>
+      </div>
     </div>
 
-    <!-- Recent Activity -->
     <div class="card" style="margin-bottom:2rem">
       <h2><span class="icon">🕐</span> Recent Activity</h2>
       <div id="activityLoading" class="loading"><div class="spinner"></div></div>
       <table id="activityTable" class="hidden">
-        <thead>
-          <tr><th>Time</th><th>Event</th><th>Calculator</th><th>User</th><th>Details</th></tr>
-        </thead>
+        <thead><tr><th>Time</th><th>Event</th><th>Calculator</th><th>User</th><th>Details</th></tr></thead>
         <tbody id="activityBody"></tbody>
       </table>
     </div>
@@ -222,9 +224,6 @@ tr:hover{background:rgba(255,255,255,0.02)}
 </div>
 
 <script>
-// ========================
-// LOGIN SYSTEM
-// ========================
 function checkLogin() {
   const code = document.getElementById('accessCode').value;
   if (code === 'maxelperro') {
@@ -236,12 +235,8 @@ function checkLogin() {
   }
 }
 
-// ========================
-// DATA LOADING
-// ========================
 let currentRange = 'today';
 let charts = {};
-let isDemoMode = false;
 
 function setTimeRange(range) {
   currentRange = range;
@@ -264,104 +259,92 @@ function getDateRange() {
 }
 
 async function loadData() {
+  const notice = document.getElementById('statusNotice');
   try {
-    // Check if Firebase is loaded and initialized
-    if (typeof firebase === 'undefined') {
-      throw new Error('Firebase SDK not loaded');
-    }
-    
-    if (!firebase.apps || firebase.apps.length === 0) {
-      throw new Error('Firebase not initialized');
-    }
-    
+    if (typeof firebase === 'undefined') throw new Error('Firebase SDK not loaded');
+    if (!firebase.apps || firebase.apps.length === 0) throw new Error('Firebase not initialized');
+
     const db = firebase.firestore();
     const { start, end } = getDateRange();
-    
-    console.log('Fetching data from Firestore...');
-    
+
     const eventsSnapshot = await db.collection('analytics_events')
       .where('event_time', '>=', start)
       .where('event_time', '<=', end)
       .orderBy('event_time', 'desc')
       .limit(5000)
       .get();
-    
+
     const events = [];
     eventsSnapshot.forEach(doc => events.push(doc.data()));
-    
-    console.log(`Found ${events.length} events`);
-    
+
     if (events.length > 0) {
-      processAndDisplay(events);
-      document.getElementById('demoNotice').classList.add('hidden');
+      notice.classList.add('hidden');
       document.getElementById('connectionStatus').textContent = 'Live Mode';
       document.getElementById('connectionStatus').style.color = 'var(--success)';
-      isDemoMode = false;
+      processAndDisplay(events);
     } else {
-      // Firebase connected but no data yet
-      document.getElementById('demoNotice').innerHTML = `
-        <strong>✅ Firebase Connected</strong><br>
-        No data yet. Visit any calculator page to start tracking. 
-        Data will appear here automatically.
-      `;
-      document.getElementById('demoNotice').style.background = 'rgba(34, 197, 94, 0.1)';
-      document.getElementById('demoNotice').style.borderColor = 'var(--success)';
-      document.getElementById('demoNotice').style.color = 'var(--success)';
+      notice.innerHTML = '<strong>Firebase Connected</strong><br>No data yet for this period. Visit any calculator page to start tracking.';
+      notice.style.background = 'rgba(34, 197, 94, 0.1)';
+      notice.style.borderColor = 'var(--success)';
+      notice.style.color = 'var(--success)';
+      notice.classList.remove('hidden');
       document.getElementById('connectionStatus').textContent = 'Connected - Waiting for data';
-      showDemoData();
+      processAndDisplay([]);
     }
   } catch (error) {
     console.error('Firebase error:', error);
-    document.getElementById('demoNotice').innerHTML = `
-      <strong>⚠️ ${error.message}</strong><br>
-      Make sure Firestore is enabled at: 
-      <a href="https://console.firebase.google.com/project/calctowork/firestore" target="_blank" style="color:var(--primary)">Firebase Console</a>
-    `;
-    showDemoData();
+    notice.innerHTML = '<strong>Error:</strong> ' + error.message;
+    notice.style.background = 'rgba(239, 68, 68, 0.1)';
+    notice.style.borderColor = 'var(--danger)';
+    notice.style.color = 'var(--danger)';
+    notice.classList.remove('hidden');
+    document.getElementById('connectionStatus').textContent = 'Connection Error';
+    document.getElementById('connectionStatus').style.color = 'var(--danger)';
+    processAndDisplay([]);
   }
 }
 
-// ========================
-// PROCESS & DISPLAY
-// ========================
 function processAndDisplay(events) {
   const pageViews = events.filter(e => e.event_name === 'page_view');
   const calculations = events.filter(e => e.event_name === 'calculation_completed');
   const copies = events.filter(e => e.event_name === 'copy_results');
-  
+  const favorites = events.filter(e => e.event_name === 'favorite_added');
+  const shares = events.filter(e => e.event_name === 'share_clicked');
+
   const uniqueUsers = new Set(events.map(e => e.user_id).filter(Boolean));
-  
+
   const fiveMinAgo = new Date(Date.now() - 5 * 60 * 1000);
   const activeUsers = new Set(
     events
-      .filter(e => e.event_time && new Date(e.event_time) > fiveMinAgo)
+      .filter(e => e.event_time && e.event_time.toDate && e.event_time.toDate() > fiveMinAgo)
       .map(e => e.user_id)
       .filter(Boolean)
   );
-  
+
   const timeEvents = events.filter(e => e.event_name === 'time_on_page');
-  const avgTime = timeEvents.length > 0 
+  const avgTime = timeEvents.length > 0
     ? Math.round(timeEvents.reduce((a, e) => a + (e.seconds || 0), 0) / timeEvents.length)
     : 0;
-  
+
   const pageViewSessions = new Set(pageViews.map(e => e.session_id));
   const calcSessions = new Set(calculations.map(e => e.session_id));
   const bouncedSessions = [...pageViewSessions].filter(s => !calcSessions.has(s));
-  const bounceRate = pageViewSessions.size > 0 
+  const bounceRate = pageViewSessions.size > 0
     ? Math.round((bouncedSessions.length / pageViewSessions.size) * 100)
     : 0;
-  
+
   document.getElementById('activeUsers').textContent = activeUsers.size;
   document.getElementById('pageViews').textContent = pageViews.length.toLocaleString();
-  document.getElementById('pageViewsChange').textContent = `${uniqueUsers.size} unique users`;
+  document.getElementById('pageViewsChange').textContent = uniqueUsers.size + ' unique users';
   document.getElementById('calculations').textContent = calculations.length.toLocaleString();
-  document.getElementById('calculationsChange').textContent = calculations.length > 0 
-    ? `${Math.round((calculations.length / pageViews.length) * 100)}% conversion`
+  document.getElementById('calculationsChange').textContent = calculations.length > 0
+    ? Math.round((calculations.length / pageViews.length) * 100) + '% conversion'
     : 'No data';
-  document.getElementById('avgTime').textContent = `${Math.floor(avgTime / 60)}:${(avgTime % 60).toString().padStart(2, '0')}`;
-  document.getElementById('copies').textContent = copies.length.toLocaleString();
-  document.getElementById('bounceRate').textContent = `${bounceRate}%`;
-  
+  document.getElementById('avgTime').textContent = Math.floor(avgTime / 60) + ':' + (avgTime % 60).toString().padStart(2, '0');
+  document.getElementById('favorites').textContent = favorites.length.toLocaleString();
+  document.getElementById('shares').textContent = shares.length.toLocaleString();
+  document.getElementById('bounceRate').textContent = bounceRate + '%';
+
   // Top Calculators
   const calcStats = {};
   events.forEach(e => {
@@ -370,20 +353,14 @@ function processAndDisplay(events) {
     if (e.event_name === 'page_view') calcStats[slug].views++;
     if (e.event_name === 'calculation_completed') calcStats[slug].calculations++;
   });
-  
   const topCalcs = Object.values(calcStats).sort((a, b) => b.views - a.views).slice(0, 10);
-  
+
   document.getElementById('topCalculatorsLoading').classList.add('hidden');
   document.getElementById('topCalculatorsTable').classList.remove('hidden');
-  document.getElementById('topCalculatorsBody').innerHTML = topCalcs.map(c => `
-    <tr>
-      <td><strong>${c.slug}</strong></td>
-      <td>${c.views}</td>
-      <td>${c.calculations}</td>
-      <td><span class="badge ${c.calculations > 0 ? 'badge-success' : 'badge-warning'}">${c.views > 0 ? Math.round((c.calculations / c.views) * 100) : 0}%</span></td>
-    </tr>
-  `).join('');
-  
+  document.getElementById('topCalculatorsBody').innerHTML = topCalcs.length
+    ? topCalcs.map(c => '<tr><td><strong>' + c.slug + '</strong></td><td>' + c.views + '</td><td>' + c.calculations + '</td><td><span class="badge ' + (c.calculations > 0 ? 'badge-success' : 'badge-warning') + '">' + (c.views > 0 ? Math.round((c.calculations / c.views) * 100) : 0) + '%</span></td></tr>').join('')
+    : '<tr><td colspan="4" class="empty-msg">No calculator data yet</td></tr>';
+
   // Countries
   const countryStats = {};
   events.forEach(e => {
@@ -394,7 +371,6 @@ function processAndDisplay(events) {
     if (e.event_name === 'page_view') countryStats[country].views++;
     if (e.time_on_page) countryStats[country].times.push(e.time_on_page);
   });
-  
   const topCountries = Object.entries(countryStats)
     .map(([country, stats]) => ({
       country,
@@ -404,34 +380,52 @@ function processAndDisplay(events) {
     }))
     .sort((a, b) => b.views - a.views)
     .slice(0, 10);
-  
+
   document.getElementById('countriesLoading').classList.add('hidden');
   document.getElementById('countriesTable').classList.remove('hidden');
-  document.getElementById('countriesBody').innerHTML = topCountries.map(c => `
-    <tr>
-      <td>${getFlag(c.country)} ${c.country}</td>
-      <td>${c.users}</td>
-      <td>${c.views}</td>
-      <td>${Math.floor(c.avgTime / 60)}m ${c.avgTime % 60}s</td>
-    </tr>
-  `).join('');
-  
+  document.getElementById('countriesBody').innerHTML = topCountries.length
+    ? topCountries.map(c => '<tr><td>' + getFlag(c.country) + ' ' + c.country + '</td><td>' + c.users + '</td><td>' + c.views + '</td><td>' + Math.floor(c.avgTime / 60) + 'm ' + (c.avgTime % 60) + 's</td></tr>').join('')
+    : '<tr><td colspan="4" class="empty-msg">No country data yet</td></tr>';
+
+  // Shares by Platform
+  const shareStats = {};
+  shares.forEach(e => {
+    const platform = e.share_platform || 'unknown';
+    shareStats[platform] = (shareStats[platform] || 0) + 1;
+  });
+  const topShares = Object.entries(shareStats).sort((a, b) => b[1] - a[1]);
+  document.getElementById('sharesLoading').classList.add('hidden');
+  document.getElementById('sharesTable').classList.remove('hidden');
+  document.getElementById('sharesBody').innerHTML = topShares.length
+    ? topShares.map(([platform, count]) => '<tr><td>' + platform + '</td><td>' + count + '</td></tr>').join('')
+    : '<tr><td colspan="2" class="empty-msg">No shares yet</td></tr>';
+
+  // Top Liked Calculators
+  const favStats = {};
+  favorites.forEach(e => {
+    const name = e.calc_name || e.calc_id || 'unknown';
+    favStats[name] = (favStats[name] || 0) + 1;
+  });
+  const topFavs = Object.entries(favStats).sort((a, b) => b[1] - a[1]).slice(0, 10);
+  document.getElementById('favoritesLoading').classList.add('hidden');
+  document.getElementById('favoritesTable').classList.remove('hidden');
+  document.getElementById('favoritesBody').innerHTML = topFavs.length
+    ? topFavs.map(([name, count]) => '<tr><td><strong>' + name + '</strong></td><td>' + count + '</td></tr>').join('')
+    : '<tr><td colspan="2" class="empty-msg">No favorites yet</td></tr>';
+
   // Recent Activity
   document.getElementById('activityLoading').classList.add('hidden');
   document.getElementById('activityTable').classList.remove('hidden');
-  document.getElementById('activityBody').innerHTML = events.slice(0, 50).map(e => {
-    const time = e.event_time ? new Date(e.event_time).toLocaleTimeString() : 'Unknown';
-    return `
-      <tr>
-        <td>${time}</td>
-        <td><span class="badge ${getEventBadge(e.event_name)}">${e.event_name}</span></td>
-        <td>${e.calc_slug || '-'}</td>
-        <td>${e.user_id ? e.user_id.slice(0, 8) + '...' : 'Anonymous'}</td>
-        <td>${getEventDetails(e)}</td>
-      </tr>
-    `;
-  }).join('');
-  
+  document.getElementById('activityBody').innerHTML = events.length
+    ? events.slice(0, 50).map(e => {
+        let time = 'Unknown';
+        try {
+          time = e.event_time && e.event_time.toDate ? e.event_time.toDate().toLocaleTimeString() : new Date(e.event_time).toLocaleTimeString();
+        } catch(err) {}
+        return '<tr><td>' + time + '</td><td><span class="badge ' + getEventBadge(e.event_name) + '">' + e.event_name + '</span></td><td>' + (e.calc_slug || '-') + '</td><td>' + (e.user_id ? e.user_id.slice(0, 8) + '...' : 'Anonymous') + '</td><td>' + getEventDetails(e) + '</td></tr>';
+      }).join('')
+    : '<tr><td colspan="5" class="empty-msg">No activity yet</td></tr>';
+
   updateCharts(events);
 }
 
@@ -440,13 +434,17 @@ function getEventBadge(eventName) {
   if (eventName === 'calculation_completed') return 'badge-success';
   if (eventName === 'copy_results') return 'badge-warning';
   if (eventName === 'share_clicked') return 'badge-warning';
+  if (eventName === 'favorite_added') return 'badge-danger';
+  if (eventName === 'favorite_removed') return 'badge-danger';
   return 'badge-danger';
 }
 
 function getEventDetails(e) {
-  if (e.inputs_filled) return `${e.inputs_filled}/${e.inputs_total} inputs`;
-  if (e.seconds) return `${e.seconds}s on page`;
-  if (e.percent) return `Scrolled ${e.percent}%`;
+  if (e.inputs_filled) return e.inputs_filled + '/' + e.inputs_total + ' inputs';
+  if (e.seconds) return e.seconds + 's on page';
+  if (e.percent) return 'Scrolled ' + e.percent + '%';
+  if (e.share_platform) return 'Platform: ' + e.share_platform;
+  if (e.calc_name) return e.calc_name;
   return '';
 }
 
@@ -458,40 +456,43 @@ function getFlag(country) {
 function updateCharts(events) {
   const hourlyData = {};
   events.forEach(e => {
-    const hour = e.event_time ? new Date(e.event_time).getHours() : 0;
+    let hour = 0;
+    try {
+      hour = e.event_time && e.event_time.toDate ? e.event_time.toDate().getHours() : new Date(e.event_time).getHours();
+    } catch(err) {}
     if (!hourlyData[hour]) hourlyData[hour] = { views: 0, calcs: 0 };
     if (e.event_name === 'page_view') hourlyData[hour].views++;
     if (e.event_name === 'calculation_completed') hourlyData[hour].calcs++;
   });
-  
+
   const hours = Array.from({length: 24}, (_, i) => i);
   const viewData = hours.map(h => hourlyData[h]?.views || 0);
   const calcData = hours.map(h => hourlyData[h]?.calcs || 0);
-  
+
   if (charts.pageViews) charts.pageViews.destroy();
   charts.pageViews = new Chart(document.getElementById('pageViewsChart'), {
     type: 'line',
-    data: { labels: hours.map(h => `${h}:00`), datasets: [{ label: 'Page Views', data: viewData, borderColor: '#f97316', backgroundColor: 'rgba(249, 115, 22, 0.1)', fill: true, tension: 0.4 }] },
+    data: { labels: hours.map(h => h + ':00'), datasets: [{ label: 'Page Views', data: viewData, borderColor: '#f97316', backgroundColor: 'rgba(249, 115, 22, 0.1)', fill: true, tension: 0.4 }] },
     options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: '#334155' } }, x: { grid: { display: false } } } }
   });
-  
+
   if (charts.calculations) charts.calculations.destroy();
   charts.calculations = new Chart(document.getElementById('calculationsChart'), {
     type: 'line',
-    data: { labels: hours.map(h => `${h}:00`), datasets: [{ label: 'Calculations', data: calcData, borderColor: '#22c55e', backgroundColor: 'rgba(34, 197, 94, 0.1)', fill: true, tension: 0.4 }] },
+    data: { labels: hours.map(h => h + ':00'), datasets: [{ label: 'Calculations', data: calcData, borderColor: '#22c55e', backgroundColor: 'rgba(34, 197, 94, 0.1)', fill: true, tension: 0.4 }] },
     options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: '#334155' } }, x: { grid: { display: false } } } }
   });
-  
+
   const actionCounts = {};
   events.forEach(e => { actionCounts[e.event_name] = (actionCounts[e.event_name] || 0) + 1; });
-  
+
   if (charts.actions) charts.actions.destroy();
   charts.actions = new Chart(document.getElementById('actionsChart'), {
     type: 'doughnut',
-    data: { labels: Object.keys(actionCounts), datasets: [{ data: Object.values(actionCounts), backgroundColor: ['#f97316', '#22c55e', '#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6'] }] },
+    data: { labels: Object.keys(actionCounts).length ? Object.keys(actionCounts) : ['No data'], datasets: [{ data: Object.values(actionCounts).length ? Object.values(actionCounts) : [1], backgroundColor: ['#f97316', '#22c55e', '#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6'] }] },
     options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: '#e2e8f0' } } } }
   });
-  
+
   const deviceTypes = { desktop: 0, mobile: 0, tablet: 0 };
   events.forEach(e => {
     const ua = e.user_agent || '';
@@ -499,7 +500,7 @@ function updateCharts(events) {
     else if (ua.includes('Tablet')) deviceTypes.tablet++;
     else deviceTypes.desktop++;
   });
-  
+
   if (charts.devices) charts.devices.destroy();
   charts.devices = new Chart(document.getElementById('deviceChart'), {
     type: 'pie',
@@ -508,45 +509,6 @@ function updateCharts(events) {
   });
 }
 
-// ========================
-// DEMO DATA
-// ========================
-function showDemoData() {
-  isDemoMode = true;
-  document.getElementById('demoNotice').classList.remove('hidden');
-  document.getElementById('connectionStatus').textContent = 'Demo Mode';
-  document.getElementById('connectionStatus').style.color = 'var(--warning)';
-  
-  const demoEvents = generateDemoData();
-  processAndDisplay(demoEvents);
-}
-
-function generateDemoData() {
-  const events = [];
-  const now = new Date();
-  const calculators = ['tile-calculator', 'concrete-calculator', 'bmr-calculator', 'cop-eer-hvac-calculator', 'wall-tile-calculator', 'decking-calculator'];
-  const eventTypes = ['page_view', 'calculation_completed', 'copy_results', 'share_clicked', 'input_changed', 'scroll_depth'];
-  
-  for (let i = 0; i < 150; i++) {
-    const time = new Date(now.getTime() - Math.random() * 24 * 60 * 60 * 1000);
-    events.push({
-      event_name: eventTypes[Math.floor(Math.random() * eventTypes.length)],
-      event_time: time,
-      session_id: 'sess_' + Math.floor(Math.random() * 20),
-      user_id: 'user_' + Math.floor(Math.random() * 50),
-      calc_slug: calculators[Math.floor(Math.random() * calculators.length)],
-      language: ['en-US', 'es-ES', 'de-DE', 'fr-FR', 'pt-BR'][Math.floor(Math.random() * 5)],
-      time_on_page: Math.floor(Math.random() * 300),
-      inputs_filled: Math.floor(Math.random() * 4) + 1,
-      inputs_total: 4,
-      percent: [25, 50, 75, 100][Math.floor(Math.random() * 4)],
-      user_agent: Math.random() > 0.5 ? 'Mozilla/5.0 (Desktop)' : 'Mozilla/5.0 (Mobile)'
-    });
-  }
-  return events;
-}
-
-// Auto-refresh every 30 seconds
 setInterval(() => {
   if (!document.getElementById('dashboard').classList.contains('hidden')) {
     loadData();

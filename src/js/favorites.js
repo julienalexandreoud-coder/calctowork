@@ -27,6 +27,14 @@
     return favs.some(function(f) { return f.id === calcId; });
   }
 
+  function trackFavorite(eventName, calcId, calcName) {
+    try {
+      if (window.CTWAnalytics && typeof window.CTWAnalytics.track === 'function') {
+        window.CTWAnalytics.track(eventName, { calc_id: calcId, calc_name: calcName || '' });
+      }
+    } catch(e) {}
+  }
+
   function addFavorite(calcId, calcName, calcUrl) {
     var favs = getFavorites();
     if (favs.some(function(f) { return f.id === calcId; })) return;
@@ -35,14 +43,18 @@
     saveFavorites(favs);
     updateHeartIcon(calcId);
     renderFavoritesSection();
+    trackFavorite('favorite_added', calcId, calcName);
   }
 
   function removeFavorite(calcId) {
     var favs = getFavorites();
+    var removed = favs.filter(function(f) { return f.id === calcId; });
+    var calcName = removed.length ? removed[0].name : '';
     favs = favs.filter(function(f) { return f.id !== calcId; });
     saveFavorites(favs);
     updateHeartIcon(calcId);
     renderFavoritesSection();
+    trackFavorite('favorite_removed', calcId, calcName);
   }
 
   function toggleFavorite(calcId, calcName, calcUrl) {

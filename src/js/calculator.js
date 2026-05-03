@@ -1154,7 +1154,8 @@
         table.querySelectorAll('tbody tr').forEach(function (r) { r.classList.remove('comparison-active'); });
         row.classList.add('comparison-active');
         window.scrollTo({ top: form2.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
-        form2.dispatchEvent(new Event('input', { bubbles: true }));
+        var submitBtn = form2.querySelector('button[type="submit"]');
+        if (submitBtn) { submitBtn.click(); } else { form2.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true })); }
       } catch (e) {}
     });
   });

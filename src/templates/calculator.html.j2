@@ -442,7 +442,7 @@
         {% for row in comparison_table.rows %}
         <tr data-prefill="{{ row.inputs | tojson | e }}">
           {% for val in row.display %}
-          <td>{{ val }}</td>
+          <td{% if loop.first and comparison_table.headers[0] == '' %} class="preset-label-cell"{% endif %}>{{ val }}</td>
           {% endfor %}
         </tr>
         {% endfor %}
@@ -638,7 +638,12 @@ window.CALC_CONFIG = {
     btn_add_project: {{ t.btn_add_project | default('Add to Project') | tojson }},
     btn_export_pdf: {{ t.btn_export_pdf | default('Export PDF') | tojson }},
     btn_clear_all: {{ t.btn_clear_all | default('Clear All') | tojson }},
-    tally_empty: {{ t.tally_empty | default('No items yet. Calculate something and click "+ Project".') | tojson }}
+    tally_empty: {{ t.tally_empty | default('No items yet. Calculate something and click "+ Project".') | tojson }},
+    sensitivity_toggle: {{ t.sensitivity_toggle | default('Show how {output} changes with {input}') | tojson }},
+    btn_embed: {{ t.btn_embed | default('Embed') | tojson }},
+    embed_title: {{ t.embed_title | default('Embed this calculator') | tojson }},
+    embed_desc: {{ t.embed_desc | default('Copy the code below to embed this calculator on your website:') | tojson }},
+    btn_copy_embed: {{ t.btn_copy_embed | default('Copy embed code') | tojson }}
   }
 };
 </script>

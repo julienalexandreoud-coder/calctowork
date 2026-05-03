@@ -1265,20 +1265,28 @@ def copy_assets() -> None:
             minified = _minify_js(src_path)
             (PUBLIC / "js" / name).write_text(minified, encoding="utf-8")
 
-    for name in ("robots.txt", "favicon.svg", "ads.txt"):
-        shutil.copy2(SRC / name, PUBLIC / name)
+    for name in ("robots.txt", "favicon.svg", "ads.txt", "manifest.json", "sw.js"):
+        src_path = SRC / name
+        if src_path.exists():
+            shutil.copy2(src_path, PUBLIC / name)
 
     # Copy admin dashboard
     admin_src = SRC / "admin.html"
     if admin_src.exists():
         shutil.copy2(admin_src, PUBLIC / "admin.html")
 
+    # Copy OG images from src/og/ (not public/og/ which is wiped on build)
     og_dir = PUBLIC / "og"
     og_dir.mkdir(parents=True, exist_ok=True)
-    src_og = Path(__file__).resolve().parent.parent / "public" / "og"
+    src_og = SRC / "og"
     if src_og.exists():
         for f in src_og.glob("*.png"):
             shutil.copy2(f, og_dir / f.name)
+
+    # Copy diagram images from src/img/
+    src_img = SRC / "img"
+    if src_img.exists():
+        shutil.copytree(src_img, PUBLIC / "img", dirs_exist_ok=True)
 
     favicon_ico = Path(__file__).resolve().parent.parent / "public" / "favicon.ico"
     if favicon_ico.exists():
@@ -1288,7 +1296,7 @@ def copy_assets() -> None:
     if touch_icon.exists():
         shutil.copy2(touch_icon, PUBLIC / "apple-touch-icon.png")
 
-    print("  [assets] Minified CSS/JS, copied favicon, OG images")
+    print("  [assets] Minified CSS/JS, copied favicon, OG images, diagrams")
 
 
 def make_env() -> "Environment":
@@ -1416,11 +1424,20 @@ def build_comparison_table(calc: dict, ci18n: dict, lang: str) -> dict | None:
 
     inputs_i18n = ci18n.get("inputs", {})
     input_meta = {inp["id"]: inp for inp in calc.get("inputs", []) if "id" in inp}
-    preset_keys = list(presets[0].keys())
+
+    # Separate _label (row label) from actual input keys
+    has_label = "_label" in presets[0]
+    input_keys = [k for k in presets[0].keys() if k != "_label"]
+
+    if not input_keys:
+        return None
 
     headers = []
-    for key in preset_keys:
-        label = inputs_i18n.get(key, key)
+    if has_label:
+        headers.append("")  # empty header for label column
+    for key in input_keys:
+        # Use i18n label, then calc's own input label, then key as last resort
+        label = inputs_i18n.get(key) or input_meta.get(key, {}).get("label", key)
         meta = input_meta.get(key, {})
         unit = meta.get("unit", "")
         headers.append(f"{label} ({unit})" if unit else label)
@@ -1428,12 +1445,15 @@ def build_comparison_table(calc: dict, ci18n: dict, lang: str) -> dict | None:
     rows = []
     for preset in presets:
         display = []
-        for key in preset_keys:
+        if has_label:
+            display.append(str(preset.get("_label", "")))
+        for key in input_keys:
             val = preset.get(key, "")
             meta = input_meta.get(key, {})
             unit = meta.get("unit", "")
             display.append(f"{val} {unit}".strip() if unit else str(val))
-        rows.append({"inputs": {k: preset[k] for k in preset_keys}, "display": display})
+        # Only pass actual input keys as prefill data (not _label)
+        rows.append({"inputs": {k: preset[k] for k in input_keys if k in preset}, "display": display})
 
     return {"headers": headers, "rows": rows}
 

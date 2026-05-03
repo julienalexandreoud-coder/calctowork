@@ -1,46 +1,55 @@
 /**
  * CalcToWork Analytics Event Tracker
- * Tracks user interactions with calculators for behavioral analytics
+ * Writes user interaction events directly to Firestore
  */
 
 (function() {
   // Configuration
   const CONFIG = {
-    endpoint: 'https://us-central1-calctowork.cloudfunctions.net/analytics',
-    sendBeacon: true,            // Use sendBeacon for reliability
-    batchEvents: true,           // Batch events before sending
-    batchSize: 5,                // Send after N events
-    flushInterval: 30000,        // Or every 30 seconds
-    sampleRate: 1.0,             // Track 100% of users (adjust for scale)
+    collection: 'analytics_events',
+    batchSize: 5,
+    flushInterval: 30000,
+    sampleRate: 1.0,
   };
 
   // State
   let eventQueue = [];
   let sessionId = getSessionId();
   let pageLoadTime = Date.now();
-  let lastInteractionTime = Date.now();
   let calculationCount = 0;
   let flushTimer = null;
+  let db = null;
 
   // Initialize
   function init() {
+    // Only run on allowed domains (prevents abuse on staging/localhost/forks)
+    var host = window.location.hostname;
+    if (!/^(www\.)?calcto\.work$/.test(host)) {
+      console.log('[CTWAnalytics] Skipped: unsupported domain', host);
+      return;
+    }
+
     if (Math.random() > CONFIG.sampleRate) return;
-    
-    // Track page view
+
+    // Wait for Firebase to be ready
+    if (typeof firebase === 'undefined' || !firebase.apps || firebase.apps.length === 0) {
+      setTimeout(init, 500);
+      return;
+    }
+    try {
+      db = firebase.firestore();
+    } catch (e) {
+      console.error('Analytics: Firestore init failed', e);
+      return;
+    }
+
     trackPageView();
-    
-    // Track before unload
     window.addEventListener('beforeunload', flushEvents);
     window.addEventListener('visibilitychange', handleVisibilityChange);
-    
-    // Track interactions
     setupInteractionTracking();
-    
-    // Start flush timer
     startFlushTimer();
   }
 
-  // Generate/get session ID
   function getSessionId() {
     let id = sessionStorage.getItem('ctw_session_id');
     if (!id) {
@@ -50,7 +59,6 @@
     return id;
   }
 
-  // Get user ID (anonymous, localStorage based)
   function getUserId() {
     let id = localStorage.getItem('ctw_user_id');
     if (!id) {
@@ -60,14 +68,10 @@
     return id;
   }
 
-  // Track page view
   function trackPageView() {
-    const calcId = getCalcId();
-    const calcSlug = getCalcSlug();
-    
     track('page_view', {
-      calc_id: calcId,
-      calc_slug: calcSlug,
+      calc_id: getCalcId(),
+      calc_slug: getCalcSlug(),
       referrer: document.referrer || 'direct',
       landing_page: window.location.href,
       screen_width: window.screen.width,
@@ -79,91 +83,47 @@
     });
   }
 
-  // Get calculator ID from page
   function getCalcId() {
     const favBtn = document.getElementById('fav-btn');
     if (favBtn) return favBtn.getAttribute('data-calc-id');
-    
-    // Try from meta
     const meta = document.querySelector('meta[name="calculator-id"]');
     if (meta) return meta.getAttribute('content');
-    
     return null;
   }
 
-  // Get calculator slug from URL
   function getCalcSlug() {
     const path = window.location.pathname;
     const parts = path.split('/').filter(p => p);
-    // URL structure: /{lang}/{slug}/ or /{lang}/{block}/{slug}/
-    if (parts.length >= 2) {
-      return parts[parts.length - 2]; // Second to last
-    }
+    if (parts.length >= 2) return parts[parts.length - 2];
     return null;
   }
 
-  // Setup interaction tracking
   function setupInteractionTracking() {
-    // Track calculate button clicks
     const calcBtn = document.getElementById('calc-btn');
-    if (calcBtn) {
-      calcBtn.addEventListener('click', handleCalculate);
-    }
+    if (calcBtn) calcBtn.addEventListener('click', handleCalculate);
 
-    // Track reset button clicks
     const resetBtn = document.getElementById('reset-btn');
-    if (resetBtn) {
-      resetBtn.addEventListener('click', () => {
-        track('reset_clicked', getCalcContext());
-      });
-    }
+    if (resetBtn) resetBtn.addEventListener('click', () => track('reset_clicked', getCalcContext()));
 
-    // Track copy result clicks
     const copyBtn = document.getElementById('btn-copy');
-    if (copyBtn) {
-      copyBtn.addEventListener('click', () => {
-        track('copy_results', getCalcContext());
-      });
-    }
+    if (copyBtn) copyBtn.addEventListener('click', () => track('copy_results', getCalcContext()));
 
-    // Track share clicks
     const shareBtn = document.getElementById('btn-share');
-    if (shareBtn) {
-      shareBtn.addEventListener('click', () => {
-        track('share_clicked', getCalcContext());
-      });
-    }
+    if (shareBtn) shareBtn.addEventListener('click', () => track('share_clicked', getCalcContext()));
 
-    // Track PDF export
     const pdfBtn = document.getElementById('btn-pdf');
-    if (pdfBtn) {
-      pdfBtn.addEventListener('click', () => {
-        track('pdf_export', getCalcContext());
-      });
-    }
+    if (pdfBtn) pdfBtn.addEventListener('click', () => track('pdf_export', getCalcContext()));
 
-    // Track input interactions
     const inputs = document.querySelectorAll('#calc-form input, #calc-form select');
     inputs.forEach(input => {
       input.addEventListener('focus', () => {
-        track('input_focus', {
-          ...getCalcContext(),
-          field_id: input.id,
-          field_name: input.name,
-        });
+        track('input_focus', { ...getCalcContext(), field_id: input.id, field_name: input.name });
       });
-      
       input.addEventListener('change', () => {
-        track('input_changed', {
-          ...getCalcContext(),
-          field_id: input.id,
-          field_name: input.name,
-          has_value: !!input.value,
-        });
+        track('input_changed', { ...getCalcContext(), field_id: input.id, field_name: input.name, has_value: !!input.value });
       });
     });
 
-    // Track scroll depth
     let maxScroll = 0;
     window.addEventListener('scroll', () => {
       const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
@@ -176,50 +136,29 @@
       }
     });
 
-    // Track time on page (every 10 seconds)
     setInterval(() => {
       const timeOnPage = Math.round((Date.now() - pageLoadTime) / 1000);
       if (timeOnPage % 10 === 0) {
-        track('time_on_page', {
-          ...getCalcContext(),
-          seconds: timeOnPage,
-        });
+        track('time_on_page', { ...getCalcContext(), seconds: timeOnPage });
       }
     }, 10000);
 
-    // Track exit intent
     document.addEventListener('mouseleave', (e) => {
       if (e.clientY <= 0) {
-        track('exit_intent', {
-          ...getCalcContext(),
-          time_on_page: Math.round((Date.now() - pageLoadTime) / 1000),
-          calculations_done: calculationCount,
-        });
+        track('exit_intent', { ...getCalcContext(), time_on_page: Math.round((Date.now() - pageLoadTime) / 1000), calculations_done: calculationCount });
       }
     });
   }
 
-  // Handle calculate button
   function handleCalculate(e) {
-    const calcId = getCalcId();
-    const calcSlug = getCalcSlug();
-    
-    // Get input values (anonymized - just check if filled)
     const inputs = {};
     const formInputs = document.querySelectorAll('#calc-form input, #calc-form select');
-    formInputs.forEach(input => {
-      inputs[input.id || input.name] = !!input.value;
-    });
-
-    // Get results (count how many results shown)
+    formInputs.forEach(input => { inputs[input.id || input.name] = !!input.value; });
     const results = document.querySelectorAll('#calc-results .result-value, #calc-results .result');
-    
     calculationCount++;
-    lastInteractionTime = Date.now();
-
     track('calculation_completed', {
-      calc_id: calcId,
-      calc_slug: calcSlug,
+      calc_id: getCalcId(),
+      calc_slug: getCalcSlug(),
       inputs_filled: Object.keys(inputs).filter(k => inputs[k]).length,
       inputs_total: Object.keys(inputs).length,
       results_count: results.length,
@@ -228,19 +167,14 @@
     });
   }
 
-  // Track scroll depth (only once per threshold)
   const scrollTracked = {};
   function trackScrollDepth(percent) {
     if (!scrollTracked[percent]) {
       scrollTracked[percent] = true;
-      track('scroll_depth', {
-        ...getCalcContext(),
-        percent: percent,
-      });
+      track('scroll_depth', { ...getCalcContext(), percent: percent });
     }
   }
 
-  // Get calculator context
   function getCalcContext() {
     return {
       calc_id: getCalcId(),
@@ -249,10 +183,8 @@
     };
   }
 
-  // Track event
-  function track(eventName, eventData = {}) {
+  function track(eventName, eventData) {
     const event = {
-      event_id: 'evt_' + Math.random().toString(36).substr(2, 9),
       event_name: eventName,
       event_time: new Date().toISOString(),
       session_id: sessionId,
@@ -264,66 +196,77 @@
       language: navigator.language,
       ...eventData,
     };
-
     eventQueue.push(event);
-
-    // Flush if batch is full
-    if (CONFIG.batchEvents && eventQueue.length >= CONFIG.batchSize) {
-      flushEvents();
-    }
+    if (eventQueue.length >= CONFIG.batchSize) flushEvents();
   }
 
-  // Flush events to server
   function flushEvents() {
-    if (eventQueue.length === 0) return;
-
+    if (!db || eventQueue.length === 0) return;
     const eventsToSend = [...eventQueue];
     eventQueue = [];
 
-    if (CONFIG.sendBeacon && navigator.sendBeacon) {
-      // Use sendBeacon for reliability (works even when page closes)
-      const blob = new Blob([JSON.stringify(eventsToSend)], { type: 'application/json' });
-      navigator.sendBeacon(CONFIG.endpoint, blob);
-    } else {
-      // Fallback to fetch
-      fetch(CONFIG.endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(eventsToSend),
-        keepalive: true,
-      }).catch(err => console.error('Analytics send failed:', err));
-    }
+    // Write each event as a separate Firestore document
+    eventsToSend.forEach(evt => {
+      try {
+        const docData = {
+          event_name: evt.event_name,
+          event_time: firebase.firestore.Timestamp.fromDate(new Date(evt.event_time)),
+          session_id: evt.session_id,
+          user_id: evt.user_id,
+          page_url: evt.page_url || null,
+          page_title: evt.page_title || null,
+          calc_id: evt.calc_id || null,
+          calc_slug: evt.calc_slug || null,
+          referrer: evt.referrer || null,
+          user_agent: evt.user_agent || null,
+          language: evt.language || null,
+          screen_width: evt.screen_width || null,
+          screen_height: evt.screen_height || null,
+          viewport_width: evt.viewport_width || null,
+          viewport_height: evt.viewport_height || null,
+          device_memory: evt.device_memory || null,
+          connection: evt.connection || null,
+          inputs_filled: evt.inputs_filled || null,
+          inputs_total: evt.inputs_total || null,
+          results_count: evt.results_count || null,
+          calculation_number: evt.calculation_number || null,
+          time_to_calculate: evt.time_to_calculate || null,
+          time_on_page: evt.time_on_page || null,
+          calculations_done: evt.calculations_done || null,
+          field_id: evt.field_id || null,
+          field_name: evt.field_name || null,
+          has_value: evt.has_value || null,
+          percent: evt.percent || null,
+          created_at: firebase.firestore.FieldValue.serverTimestamp(),
+        };
+        db.collection(CONFIG.collection).add(docData).catch(err => {
+          // Silently fail to avoid breaking user experience
+        });
+      } catch (e) {
+        // Silently fail
+      }
+    });
   }
 
-  // Handle visibility change (tab switch)
   function handleVisibilityChange() {
     if (document.visibilityState === 'hidden') {
-      track('page_hidden', {
-        ...getCalcContext(),
-        time_on_page: Math.round((Date.now() - pageLoadTime) / 1000),
-        calculations_done: calculationCount,
-      });
+      track('page_hidden', { ...getCalcContext(), time_on_page: Math.round((Date.now() - pageLoadTime) / 1000), calculations_done: calculationCount });
       flushEvents();
     } else {
-      track('page_visible', {
-        ...getCalcContext(),
-      });
+      track('page_visible', { ...getCalcContext() });
     }
   }
 
-  // Start flush timer
   function startFlushTimer() {
     if (flushTimer) clearInterval(flushTimer);
     flushTimer = setInterval(flushEvents, CONFIG.flushInterval);
   }
 
-  // Initialize when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
   }
 
-  // Expose track function globally for custom tracking
   window.CTWAnalytics = { track, flush: flushEvents };
 })();

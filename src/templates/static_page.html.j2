@@ -35,6 +35,9 @@
   <link rel="stylesheet" href="/css/styles.css">
   <script>if(localStorage.getItem('ctw-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
   {{ adsense_head | safe }}
+  {% if cookie_consent_i18n is defined and cookie_consent_i18n %}
+  <script>window.COOKIE_CONSENT_I18N = {{ cookie_consent_i18n | tojson }};</script>
+  {% endif %}
   {% if cookie_consent_script is defined and cookie_consent_script %}
   {{ cookie_consent_script | safe }}
   {% endif %}
@@ -49,17 +52,41 @@
       <img src="/favicon.svg" alt="" class="logo-icon" width="32" height="32">
       Calc<span>To</span>Work
     </a>
-    <nav>
-      <a href="/{{ lang }}/">{{ t.nav_home }}</a>
-    </nav>
-    <div class="lang-switcher" aria-label="Language">
-      {% for alt_lang in all_langs %}
-      <a href="/{{ alt_lang }}/{{ page_slug }}/"{% if alt_lang == lang %} class="active"{% endif %}>{{ alt_lang | upper }}</a>
-      {% endfor %}
-      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">&#9790;</button>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-wrapper">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <div class="nav-wrapper" id="nav-wrapper">
+      <nav>
+        <a href="/{{ lang }}/">{{ t.nav_home }}</a>
+      </nav>
+      <div class="lang-switcher" aria-label="Language">
+        {% for alt_lang in all_langs %}
+        <a href="/{{ alt_lang }}/{{ page_slug }}/"{% if alt_lang == lang %} class="active"{% endif %}>{{ alt_lang | upper }}</a>
+        {% endfor %}
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">&#9790;</button>
+      </div>
     </div>
   </div>
 </header>
+<script>
+(function(){
+  var btn=document.getElementById('menu-toggle'),nav=document.getElementById('nav-wrapper');
+  if(!btn||!nav)return;
+  btn.addEventListener('click',function(){
+    var open=nav.classList.toggle('open');
+    btn.setAttribute('aria-expanded',open);
+    btn.innerHTML=open
+      ? '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg>'
+      : '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+  });
+  document.addEventListener('click',function(e){
+    if(!nav.contains(e.target)&&!btn.contains(e.target)&&nav.classList.contains('open')){
+      nav.classList.remove('open');btn.setAttribute('aria-expanded','false');
+      btn.innerHTML='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+    }
+  });
+})();
+</script>
 
 <main class="container" id="main-content">
   <nav class="breadcrumb" aria-label="breadcrumb">
