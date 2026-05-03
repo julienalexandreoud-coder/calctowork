@@ -1217,17 +1217,28 @@ def load_json(path: Path) -> dict:
 def normalize_trans(raw: dict) -> dict:
     """Map i18n file keys → template-expected keys."""
     raw_calcs = raw.get("calculators", {})
-    calcs_i18n = {
-        cid: {
+    long_titles = []
+    long_descs = []
+    calcs_i18n = {}
+    for cid, c in raw_calcs.items():
+        seo_title = c.get("seo_title", c.get("name", ""))
+        seo_desc = c.get("seo_desc", c.get("seo_description", c.get("description", "")))
+        if len(seo_title) > 60:
+            long_titles.append((cid, seo_title))
+        if len(seo_desc) > 160:
+            long_descs.append((cid, seo_desc))
+        calcs_i18n[cid] = {
             "name":            c.get("name", ""),
             "description":     c.get("desc", c.get("description", "")),
-            "seo_title":       c.get("seo_title", c.get("name", "")),
-            "seo_description": c.get("seo_desc", c.get("seo_description", c.get("description", ""))),
+            "seo_title":       seo_title,
+            "seo_description": seo_desc,
             "inputs":          c.get("inputs", {}),
             "outputs":         c.get("outputs", {}),
         }
-        for cid, c in raw_calcs.items()
-    }
+    if long_titles:
+        print(f"  [WARN] {len(long_titles)} seo_title > 60 chars")
+    if long_descs:
+        print(f"  [WARN] {len(long_descs)} seo_description > 160 chars")
     return {
         "lang":            raw.get("lang", ""),
         "lang_name":       raw.get("lang_name", ""),
