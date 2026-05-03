@@ -6,7 +6,7 @@
   {{ ga4_head | safe }}
   <title>{% if seo_title_override is defined and seo_title_override %}{{ seo_title_override }}{% else %}{{ calc_i18n.seo_title }}{% endif %} | CalcToWork</title>
   <meta name="description" content="{% if seo_desc_override is defined and seo_desc_override %}{{ seo_desc_override }}{% else %}{{ calc_i18n.seo_description }}{% endif %}">
-  <meta name="robots" content="index, follow">
+  <meta name="robots" content="{% if is_parametric_variant %}noindex, follow{% else %}index, follow{% endif %}">
   <meta name="theme-color" content="#f97316">
   <link rel="preload" as="style" href="/css/styles.css">
   <link rel="preload" as="script" href="/js/calculator.js">
@@ -428,6 +428,22 @@
         <button class="feedback-btn" data-val="yes" aria-label="Yes">&#128077;</button>
         <button class="feedback-btn" data-val="no" aria-label="No">&#128078;</button>
       </div>
+
+      <!-- Email capture (PDF report) - moved inside results -->
+      {% if email_capture_enabled is not defined or email_capture_enabled %}
+      <div class="email-capture-box" id="email-capture-box" data-webhook="{{ email_webhook_url | default('') }}">
+        <div class="email-capture-title">&#128196; {{ t.email_title | default('Save your calculation as PDF') }}</div>
+        <p class="email-capture-desc">{{ t.email_desc | default('Enter your email and download a PDF report with your results.') }}</p>
+        <form id="email-capture-form" class="email-capture-form">
+          <input type="email" name="email" maxlength="120" placeholder="{{ t.email_placeholder | default('your@email.com') }}" required>
+          <label class="email-consent-label">
+            <input type="checkbox" id="email-consent" required>
+            {{ t.email_consent | default('I agree to receive product updates by email.') }}
+          </label>
+          <button type="submit" class="btn btn-primary">{{ t.email_btn | default('Download PDF') }}</button>
+        </form>
+      </div>
+      {% endif %}
     </div>
 
   </div><!-- /.calc-layout -->
@@ -469,22 +485,6 @@
       <a class="affiliate-cta" href="{{ affiliate_config.url }}" target="_blank" rel="sponsored noopener" data-affiliate="{{ affiliate_config.program }}">{{ affiliate_config.cta[lang] if lang in affiliate_config.cta else affiliate_config.cta['en'] }}</a>
     </div>
     <div class="affiliate-disclosure">Ad</div>
-  </div>
-  {% endif %}
-
-  <!-- Email capture (PDF report) -->
-  {% if email_capture_enabled is not defined or email_capture_enabled %}
-  <div class="email-capture-box" id="email-capture-box" data-webhook="{{ email_webhook_url | default('') }}">
-    <div class="email-capture-title">&#128196; {{ t.email_title | default('Save your calculation as PDF') }}</div>
-    <p class="email-capture-desc">{{ t.email_desc | default('Enter your email and download a PDF report with your results.') }}</p>
-    <form id="email-capture-form" class="email-capture-form">
-      <input type="email" name="email" maxlength="120" placeholder="{{ t.email_placeholder | default('your@email.com') }}" required>
-      <label class="email-consent-label">
-        <input type="checkbox" id="email-consent" required>
-        {{ t.email_consent | default('I agree to receive product updates by email.') }}
-      </label>
-      <button type="submit" class="btn btn-primary">{{ t.email_btn | default('Download PDF') }}</button>
-    </form>
   </div>
   {% endif %}
 
@@ -625,6 +625,7 @@ window.CALC_CONFIG = {
   showWastage: {{ 'true' if (show_wastage is not defined or show_wastage) else 'false' }},
   slug: "{{ calc_url_path | default(calc.block_slug + '/' + calc.slug) }}",
   calcId: "{{ calc.id }}",
+  example_inputs: {{ calc.example_inputs | tojson }},
   {% if gauge_config %}
   gauge: {{ gauge_config | tojson }},
   {% endif %}
@@ -678,7 +679,7 @@ window.firebaseConfig = {
 try { firebase.initializeApp(window.firebaseConfig); } catch(e) {}
 </script>
 <script src="/js/analytics-tracker.js"></script>
-<script src="/js/calculator.js?v=6"></script>
+<script src="/js/calculator.js?v=7"></script>
 {% if email_capture_enabled is not defined or email_capture_enabled %}
 <script src="/js/email-capture.js" defer></script>
 {% endif %}
