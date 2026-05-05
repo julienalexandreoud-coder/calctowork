@@ -1,33 +1,53 @@
-"""Fix mojibake (UTF-8 bytes interpreted as Latin-1) in JSON and i18n files."""
+"""Fix mojibake (UTF-8 bytes read as cp1252/latin-1, re-saved) in JSON files.
+
+Handles double AND triple encoding by running the sliding-window fix repeatedly
+until stable (up to 4 passes).
+"""
 import json
-import sys
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
 
 
-def fix_mojibake(text: str) -> str:
-    """Reverse double-encoding: take UTF-8 text read as Latin-1, re-encode correctly."""
-    try:
-        return text.encode("latin-1").decode("utf-8")
-    except (UnicodeEncodeError, UnicodeDecodeError):
-        # Fall back to character-by-character fix for mixed content
-        result = []
-        i = 0
-        while i < len(text):
-            # Try to fix a 2-char mojibake window
-            if i + 1 < len(text):
-                chunk = text[i:i+2]
+def _encode_char(c: str) -> bytes | None:
+    for enc in ("cp1252", "latin-1"):
+        try:
+            return c.encode(enc)
+        except (UnicodeEncodeError, UnicodeDecodeError):
+            continue
+    return None
+
+
+def _fix_pass(s: str) -> tuple[str, bool]:
+    """One sliding-window pass: pairs of chars encoded as cp1252 → decoded as UTF-8."""
+    result: list[str] = []
+    i = 0
+    changed = False
+    while i < len(s):
+        if i + 1 < len(s):
+            ba = _encode_char(s[i])
+            bb = _encode_char(s[i + 1])
+            if ba and bb:
                 try:
-                    fixed = chunk.encode("latin-1").decode("utf-8")
-                    result.append(fixed)
-                    i += 2
-                    continue
-                except (UnicodeEncodeError, UnicodeDecodeError):
+                    fixed = (ba + bb).decode("utf-8")
+                    if fixed != s[i : i + 2]:
+                        result.append(fixed)
+                        i += 2
+                        changed = True
+                        continue
+                except (UnicodeDecodeError, ValueError):
                     pass
-            result.append(text[i])
-            i += 1
-        return "".join(result)
+        result.append(s[i])
+        i += 1
+    return "".join(result), changed
+
+
+def fix_mojibake(s: str) -> str:
+    for _ in range(4):
+        s, changed = _fix_pass(s)
+        if not changed:
+            break
+    return s
 
 
 def fix_value(v):
@@ -44,25 +64,22 @@ def fix_file(path: Path) -> int:
     original = path.read_text(encoding="utf-8")
     data = json.loads(original)
     fixed_data = fix_value(data)
-    fixed_text = json.dumps(fixed_data, ensure_ascii=False, indent=2)
-    if fixed_text != json.dumps(json.loads(original), ensure_ascii=False, indent=2):
-        path.write_text(fixed_text + "\n", encoding="utf-8")
-        # Count changed characters
-        orig_str = json.dumps(data, ensure_ascii=False)
-        new_str = json.dumps(fixed_data, ensure_ascii=False)
-        changes = sum(1 for a, b in zip(orig_str, new_str) if a != b)
-        return changes
+    orig_str = json.dumps(data, ensure_ascii=False)
+    new_str = json.dumps(fixed_data, ensure_ascii=False)
+    if orig_str != new_str:
+        path.write_text(json.dumps(fixed_data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        return sum(1 for a, b in zip(orig_str, new_str) if a != b) + abs(len(new_str) - len(orig_str))
     return 0
 
 
 files_to_fix = [
     ROOT / "src" / "calculators" / "calculators.json",
+    ROOT / "src" / "i18n" / "es.json",
+    ROOT / "src" / "i18n" / "it.json",
     ROOT / "src" / "i18n" / "fr.json",
     ROOT / "src" / "i18n" / "de.json",
-    ROOT / "src" / "i18n" / "it.json",
     ROOT / "src" / "i18n" / "pt.json",
     ROOT / "src" / "i18n" / "en.json",
-    ROOT / "src" / "i18n" / "es.json",
 ]
 
 total = 0

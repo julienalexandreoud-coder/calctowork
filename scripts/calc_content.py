@@ -1917,30 +1917,12 @@ FAQ_TITLE = {
 }
 
 INTRO_TEMPLATES = {
-    "es": (
-        "La <strong>{name}</strong> es una calculadora gratuita y precisa. {desc} "
-        "Introduce los valores, obtén el resultado al instante y consulta la fórmula con ejemplos detallados."
-    ),
-    "en": (
-        "The <strong>{name}</strong> is a free and accurate calculator. {desc} "
-        "Enter your values, get instant results, and explore the formula with detailed examples."
-    ),
-    "fr": (
-        "Le <strong>{name}</strong> est une calculatrice gratuite et précise. {desc} "
-        "Saisissez vos valeurs, obtenez un résultat instantané et consultez la formule avec des exemples."
-    ),
-    "pt": (
-        "A <strong>{name}</strong> é uma calculadora gratuita e precisa. {desc} "
-        "Insira os valores, obtenha o resultado instantaneamente e explore a fórmula com exemplos."
-    ),
-    "de": (
-        "Der <strong>{name}</strong> ist ein kostenloser und genauer Rechner. {desc} "
-        "Geben Sie die Werte ein, erhalten Sie sofortige Ergebnisse und erkunden Sie die Formel mit Beispielen."
-    ),
-    "it": (
-        "Il <strong>{name}</strong> è una calcolatrice gratuita e precisa. {desc} "
-        "Inserisci i valori, ottieni il risultato immediatamente e consulta la formula con esempi dettagliati."
-    ),
+    "es": "La <strong>{name}</strong> es una calculadora gratuita. Introduce los valores y obtén el resultado al instante.",
+    "en": "Use the <strong>{name}</strong> to get instant, accurate results. Enter your values below.",
+    "fr": "Utilisez le <strong>{name}</strong> pour obtenir des résultats précis. Saisissez vos valeurs ci-dessous.",
+    "pt": "Use a <strong>{name}</strong> para obter resultados precisos. Insira os valores abaixo.",
+    "de": "Verwenden Sie den <strong>{name}</strong> für genaue Ergebnisse. Geben Sie Ihre Werte ein.",
+    "it": "Usa il <strong>{name}</strong> per ottenere risultati precisi. Inserisci i valori qui sotto.",
 }
 
 

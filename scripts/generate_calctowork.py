@@ -1270,6 +1270,20 @@ def normalize_trans(raw: dict) -> dict:
         "meta_suffix":     f"| {BRAND}",
         "blocks":          raw.get("block_slugs", raw.get("blocks", {})),
         "calculators":     calcs_i18n,
+        # Email capture / lead gen
+        "email_title":     raw.get("email_title", "Save your calculation as PDF"),
+        "email_desc":      raw.get("email_desc", "Enter your email and download a PDF report with your results."),
+        "email_placeholder": raw.get("email_placeholder", "your@email.com"),
+        "email_btn":       raw.get("email_btn", "Download PDF"),
+        "email_consent":   raw.get("email_consent", "I agree to receive product updates by email."),
+        "consent_required_lead": raw.get("consent_required_lead", "Accept cookies to receive updates by email."),
+        # Additional UI strings
+        "btn_pdf":         raw.get("btn_pdf", raw.get("email_btn", "Download PDF")),
+        "sensitivity_no_var": raw.get("sensitivity_no_var", "Add a second input to see how the result changes."),
+        "private_mode_warning": raw.get("private_mode_warning", "Private browsing — your inputs won't be saved."),
+        "last_updated":    raw.get("last_updated", "Last updated"),
+        "share_native":    raw.get("share_native", "Share"),
+        "comparison_region_label": raw.get("comparison_region_label", "Comparison presets"),
     }
 
 
@@ -1913,11 +1927,7 @@ def generate() -> None:
             vkeys  = list(vcfg["inputs"].keys())
             vlists = [vcfg["inputs"][k] for k in vkeys]
 
-            variant_count = 0
             for combo in cartesian_product(*vlists):
-                if variant_count >= 10:
-                    break
-                variant_count += 1
                 params     = dict(zip(vkeys, combo))
                 param_slug = vcfg["url_fn"](params)
                 lang_tpl   = vcfg["title_template"].get(lang, vcfg["title_template"]["en"])

@@ -218,10 +218,9 @@
     <span aria-current="page">{{ calc_i18n.name }}</span>
   </nav>
 
-  <!-- H1 + description -->
+  <!-- H1 + meta -->
   <div class="calc-header">
     <h1>{% if seo_title_override is defined and seo_title_override %}{{ seo_title_override }}{% else %}{{ calc_i18n.name }}{% endif %}</h1>
-    <p>{{ calc_i18n.description }}</p>
     <p class="last-updated">{{ t.last_updated | default('Last updated') }}: {{ date_modified | default(BUILD_DATE) }}</p>
   </div>
 
@@ -622,9 +621,16 @@ window.CALC_LANG = '{{ lang }}';
 window.CALC_CONFIG = {
   formula: {{ calc.formula | tojson }},
   outputs: {{ calc_i18n.outputs | tojson }},
+  output_units: {
+    {% for o in calc.outputs %}
+    "{{ o.id }}": "{{ o.unit | default('') }}"{% if not loop.last %},{% endif %}
+    {% endfor %}
+  },
   showWastage: {{ 'true' if (show_wastage is not defined or show_wastage) else 'false' }},
   slug: "{{ calc_url_path | default(calc.block_slug + '/' + calc.slug) }}",
   calcId: "{{ calc.id }}",
+  block_slug: "{{ calc.block_slug }}",
+  result_context: {% if lang == 'en' and calc.result_context_en %}{{ calc.result_context_en | tojson }}{% elif lang == 'fr' and calc.result_context_fr %}{{ calc.result_context_fr | tojson }}{% elif lang == 'pt' and calc.result_context_pt %}{{ calc.result_context_pt | tojson }}{% elif lang == 'de' and calc.result_context_de %}{{ calc.result_context_de | tojson }}{% elif lang == 'it' and calc.result_context_it %}{{ calc.result_context_it | tojson }}{% elif calc.result_context %}{{ calc.result_context | tojson }}{% else %}""{% endif %},
   example_inputs: {{ calc.example_inputs | tojson }},
   {% if gauge_config %}
   gauge: {{ gauge_config | tojson }},

@@ -6,6 +6,7 @@
   var i18n   = cfg.i18n || {};
   var form   = document.getElementById('calc-form');
   var resultsBox = document.getElementById('calc-results');
+  var isInitialLoad = true;
   var resetBtn   = document.getElementById('btn-reset');
   var copyBtn    = document.getElementById('btn-copy');
   var shareBtn   = document.getElementById('btn-share');
@@ -20,7 +21,7 @@
 
   /* ── Safe formula evaluation ── */
   function validateFormula(src) {
-    var allowed = /^[\s\w\+\-\*\/\%\(\)\.\,\<\>\=\!\?:\&\|\[\]\'\"\d\$\_]+$/;
+    var allowed = /^[\s\w\+\-\*\/\%\(\)\.\,\<\>\=\!\?\:\&\|\[\]\'\"\d\$\_\{\}\;\#\@\^]+$/;
     return allowed.test(src) && src.indexOf('eval') === -1 && src.indexOf('Function') === -1;
   }
   var calcFn;
@@ -116,16 +117,23 @@
 
   function collectInputs() {
     var inputs = {};
-    var fields = form.querySelectorAll('input[name]');
+    var examples = cfg.example_inputs || {};
+    var fields = form.querySelectorAll('input[name], select[name]');
     for (var i = 0; i < fields.length; i++) {
       var name = fields[i].name;
-      var rawVal = fields[i].value;
+      var rawVal = fields[i].value.replace(',', '.');
+      // If empty, fall back to example value so formulas never crash
+      if (rawVal === '' && examples[name] !== undefined) {
+        rawVal = String(examples[name]);
+      }
       var numVal = parseFloat(rawVal);
       var unitSel = form.querySelector('.unit-select[data-input="' + name + '"]');
       if (unitSel && !isNaN(numVal)) {
         var category = unitSel.getAttribute('data-category');
         var unit = unitSel.value;
         inputs[name] = toBaseUnit(numVal, unit, category);
+      } else if (fields[i].type === 'number') {
+        inputs[name] = isNaN(numVal) ? (parseFloat(examples[name]) || 0) : numVal;
       } else {
         inputs[name] = rawVal;
       }
@@ -167,10 +175,125 @@
       .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
+  /* ── Icon mapping for result keys ── */
+  var RESULT_ICONS = {
+    'vol_total': '📦', 'volumen': '📦', 'volume': '📦', 'vol_unitario': '📦',
+    'cemento_sacos': '🧱', 'cement_bags': '🧱', 'bolsas_cemento': '🧱', 'sacos': '🧱',
+    'acero_kg': '🔩', 'steel_kg': '🔩', 'rebar_kg': '🔩', 'armadura': '🔩',
+    'arena': '🏖️', 'grava': '🪨', 'sand': '🏖️', 'gravel': '🪨', 'aggregates': '🪨',
+    'area': '📐', 'área': '📐', 'surface': '📐', 'superficie': '📐', 'encofrado': '📐',
+    'longitud': '📏', 'length': '📏', 'largo': '📏',
+    'peso': '⚖️', 'weight': '⚖️', 'mass': '⚖️', 'masa': '⚖️',
+    'costo': '💰', 'cost': '💰', 'precio': '💰', 'price': '💰',
+    'cantidad': '🔢', 'quantity': '🔢', 'count': '🔢', 'numero': '🔢',
+    'densidad': '📊', 'density': '📊',
+    'ratio': '📈', 'relacion': '📈', 'proporcion': '📈',
+    'potencia': '⚡', 'power': '⚡', 'energia': '⚡', 'energy': '⚡', 'consumo': '⚡',
+    'btu': '🔥', 'temperatura': '🌡️', 'temperature': '🌡️', 'temp': '🌡️',
+    'caudal': '💧', 'flow': '💧', 'agua': '💧', 'water': '💧',
+    'tiempo': '⏱️', 'time': '⏱️', 'hora': '⏱️', 'horas': '⏱️',
+    'velocidad': '🏃', 'speed': '🏃', 'pace': '🏃',
+    'interes': '💹', 'interest': '💹', 'cuota': '💳', 'payment': '💳',
+    'ahorro': '💵', 'saving': '💵', 'roi': '📈', 'payback': '🔄',
+    'porcentaje': '📊', 'percentage': '📊', 'pct': '📊',
+    'presion': '🔽', 'pressure': '🔽',
+    'frecuencia': '〰️', 'frequency': '〰️',
+    'fuerza': '💪', 'force': '💪',
+    'default': '📋'
+  };
+
+  /* ── Detect calculator type for smart result layout ── */
+  function detectCalcType(results, cfg) {
+    var keys = Object.keys(results);
+    var block = (cfg.block_slug || '').toLowerCase();
+    if (results.table && Array.isArray(results.table)) return 'table';
+    if (keys.some(function(k) { return /^zona\d?$|^zone\d?$|^z\d$/.test(k); })) return 'fitness';
+    if (results.categoria || results.category || results.categoria_imc || results.categorie) return 'health';
+    if (keys.some(function(k) { return /cumple|pass|fail|aprobado|norma|valido/.test(k.toLowerCase()); })) return 'compliance';
+    var typeMap = {
+      'finanzas': 'financial', 'salud': 'health', 'electricidad': 'electrical',
+      'climatizacion': 'energy', 'deportes': 'fitness', 'conversion': 'conversion',
+      'matematicas': 'math', 'ciencia': 'science', 'estadistica': 'statistics',
+      'quimica': 'science', 'electronica': 'electrical',
+      'estructuras': 'construction', 'mamposteria': 'construction',
+      'pavimentos': 'construction', 'fontaneria': 'construction',
+      'carpinteria': 'construction', 'pintura': 'construction',
+      'gestion': 'financial'
+    };
+    return typeMap[block] || 'standard';
+  }
+
+  /* ── Build a natural-language result summary from template ── */
+  function buildResultSummary(results, cfg) {
+    var template = cfg.result_context || '';
+    if (!template) return '';
+    // Skip template-only ones like "Resultados: {x}, {y}, {z}." — cards show units already
+    if (/^Resultados?: \{/.test(template.trim())) {
+      // Check for unit text OUTSIDE of {placeholders}
+      var text = template.replace(/\{[^}]+\}/g, ' ');
+      var hasUnits = /m³|m²|\bkg\b|sacos|\buds\b|\bmm\b|\bcm\b|\bL\b|[€$]|EUR|\bkW\b|kWh|BTU|\bmin\b|\bh\b|\bm\b|bar\b|PSI|kPa|W\b|lm\b|LED/.test(text);
+      if (!hasUnits) return '';
+    }
+    var html = esc(template);
+    Object.keys(results).forEach(function(k) {
+      if (k === 'table' || k === 'error') return;
+      html = html.replace(new RegExp('\\{' + k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\}', 'g'),
+        '<strong>' + esc(String(fmt(results[k]))) + '</strong>');
+    });
+    if (html === esc(template)) return '';
+    return '<div class="result-context">' + html + '</div>';
+  }
+
+  /* ── Render a hero card for the primary result ── */
+  function makeHeroCard(label, value, key) {
+    var unit = (cfg.output_units && cfg.output_units[key]) || '';
+    return (
+      '<div class="result-hero">' +
+        '<div class="result-hero-label">' + esc(label) + '</div>' +
+        '<div class="result-hero-value">' + esc(String(fmt(value))) +
+          (unit ? '<span class="result-hero-unit">' + esc(unit) + '</span>' : '') +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  /* ── Render a material/ingredient card ── */
+  function makeMaterialCard(label, value, key, extraClass) {
+    var unit = (cfg.output_units && cfg.output_units[key]) || '';
+    return (
+      '<div class="result-card' + (extraClass ? ' ' + extraClass : '') + '">' +
+        '<span class="result-card-icon">' + (getIconForKey(key) || '📋') + '</span>' +
+        '<span class="result-card-label">' + esc(label) + '</span>' +
+        '<span class="result-card-value">' + esc(String(fmt(value))) +
+          (unit ? '<span class="result-card-unit">' + esc(unit) + '</span>' : '') +
+        '</span>' +
+      '</div>'
+    );
+  }
+
+  function getIconForKey(key) {
+    var lowerKey = key.toLowerCase();
+    for (var k in RESULT_ICONS) {
+      if (lowerKey.indexOf(k.toLowerCase()) !== -1) {
+        return RESULT_ICONS[k];
+      }
+    }
+    return RESULT_ICONS['default'];
+  }
+
   function makeRow(label, value, extraClass) {
     return (
       '<div class="result-item' + (extraClass ? ' ' + extraClass : '') + '">' +
         '<span class="result-label">' + esc(label) + '</span>' +
+        '<span class="result-value">' + esc(String(fmt(value))) + '</span>' +
+      '</div>'
+    );
+  }
+
+  function makePrimaryRow(label, value, icon) {
+    return (
+      '<div class="result-item result-item--primary">' +
+        '<span class="result-label">' + (icon ? esc(icon) + ' ' : '') + esc(label) + '</span>' +
         '<span class="result-value">' + esc(String(fmt(value))) + '</span>' +
       '</div>'
     );
@@ -282,19 +405,9 @@
 
   function renderResults(results, wastePct) {
     if (!results || results.error) {
-      resultsBox.innerHTML =
-        '<div class="result-error">' + (i18n.error_invalid || 'Please enter valid values.') + '</div>';
-      if (copyBtn) copyBtn.style.display = 'none';
-      if (shareBtn) shareBtn.style.display = 'none';
-      if (gaugeEl) gaugeEl.innerHTML = '';
-      // Highlight empty / invalid fields
-      var allFields = form.querySelectorAll('input[name]:not([name="desperdicio_merma"])');
-      allFields.forEach(function (f) {
-        if (!f.value.trim() || isNaN(parseFloat(f.value))) {
-          f.classList.add('input-error');
-          f.addEventListener('input', function () { f.classList.remove('input-error'); }, { once: true });
-        }
-      });
+      resultsBox.innerHTML = '<div class="result-placeholder">' + esc(i18n.result_placeholder || 'Enter values and press Calculate') + '</div>';
+      if (copyBtn) copyBtn.style.display = 'none'; if (shareBtn) shareBtn.style.display = 'none';
+      if (gaugeEl) { gaugeEl.innerHTML = ''; gaugeEl.style.display = 'none'; }
       return;
     }
 
@@ -305,74 +418,94 @@
       return;
     }
 
-    // Check for NaN / Infinity in results
     var hasInvalid = false;
     for (var ri = 0; ri < keys.length; ri++) {
       var rv = results[keys[ri]];
-      if (typeof rv === 'number' && (!isFinite(rv) || isNaN(rv))) {
-        hasInvalid = true;
-        break;
-      }
+      if (typeof rv === 'number' && (!isFinite(rv) || isNaN(rv))) { hasInvalid = true; break; }
     }
     if (hasInvalid) {
-      resultsBox.innerHTML = '<div class="result-error">' + (i18n.error_invalid_math || 'Cannot calculate — check your inputs (division by zero or out-of-range value).') + '</div>';
-      if (copyBtn) copyBtn.style.display = 'none';
-      if (shareBtn) shareBtn.style.display = 'none';
-      if (gaugeEl) gaugeEl.innerHTML = '';
+      resultsBox.innerHTML = '<div class="result-error">' + (i18n.error_invalid_math || 'Cannot calculate — check your inputs.') + '</div>';
+      if (copyBtn) copyBtn.style.display = 'none'; if (shareBtn) shareBtn.style.display = 'none';
+      if (gaugeEl) { gaugeEl.innerHTML = ''; gaugeEl.style.display = 'none'; }
       return;
     }
 
-    var firstVal = results[keys[0]];
+    var calcType = detectCalcType(results, cfg);
     var gaugeConfig = cfg.gauge;
-    if (gaugeConfig && firstVal !== undefined) {
-      renderGauge(firstVal, gaugeConfig.min, gaugeConfig.max, gaugeConfig.label || '', gaugeConfig.unit || '');
-    }
-
-    var hasWaste = wastePct > 0;
     var html = '<div class="results-animate">';
 
-    if (hasWaste) {
-      html += '<div class="result-section-title">' + esc(i18n.net_label || 'Net') + '</div>';
+    /* ── STEP 1: Gauge — only for construction + health, not financial/math ── */
+    var firstVal = results[keys[0]];
+    var gaugeBlocks = ['estructuras','mamposteria','pavimentos','fontaneria','carpinteria','pintura','salud'];
+    var showGauge = gaugeConfig && firstVal !== undefined && gaugeBlocks.indexOf(cfg.block_slug) !== -1;
+    if (showGauge) {
+      renderGauge(firstVal, gaugeConfig.min, gaugeConfig.max, gaugeConfig.label || '', gaugeConfig.unit || '');
+    } else if (gaugeEl) {
+      gaugeEl.innerHTML = ''; gaugeEl.style.display = 'none';
     }
 
-    for (var i = 0; i < keys.length; i++) {
-      var key = keys[i];
-      if (!(key in results)) continue;
-      var label = outputKeys[key] || key;
-      var val = results[key];
-      if (key === 'table' && Array.isArray(val)) {
-        html += makeTable(val, cfg.tableHeaders || null);
-      } else if (key === 'categoria' || key === 'category' || key === 'categoria_imc' || key === 'categorie') {
-        html += makeCategoryRow(label, val);
-      } else if (/^zona\d?$/.test(key) || /^zone\d?$/.test(key) || /^z\d$/.test(key)) {
-        html += makeZoneBar(label, val);
-      } else {
-        html += makeRow(label, val, hasWaste ? 'result-item--net' : '');
-      }
+    /* ── STEP 2: Result summary (natural language) ── */
+    html += buildResultSummary(results, cfg);
+
+    /* ── STEP 3: Layout-specific rendering ── */
+    switch (calcType) {
+      case 'table':
+        html += renderTableLayout(results, outputKeys);
+        break;
+      case 'fitness':
+        html += renderFitnessLayout(results, outputKeys);
+        break;
+      case 'health':
+        html += renderHealthLayout(results, outputKeys);
+        break;
+      case 'compliance':
+        html += renderComplianceLayout(results, outputKeys);
+        break;
+      case 'financial':
+        html += renderFinancialLayout(results, outputKeys);
+        break;
+      case 'energy':
+      case 'electrical':
+        html += renderEnergyLayout(results, outputKeys);
+        break;
+      case 'conversion':
+        html += renderConversionLayout(results, outputKeys);
+        break;
+      case 'math':
+      case 'science':
+      case 'statistics':
+        html += renderMathLayout(results, outputKeys);
+        break;
+      default:
+        html += renderStandardLayout(results, outputKeys);
     }
 
+    /* ── STEP 4: Wastage section (for construction calculators) ── */
+    var hasWaste = wastePct > 0;
     if (hasWaste) {
-      html += '<div class="result-section-title" style="margin-top:.75rem;">' +
-        esc((i18n.total_label || 'Total to buy (+{pct}%)').replace('{pct}', wastePct)) +
-      '</div>';
+      html += '<div class="result-section-title">📦 ' + esc((i18n.total_with_waste || 'Total with {pct}% waste').replace('{pct}', wastePct)) + '</div>';
       for (var j = 0; j < keys.length; j++) {
         var k = keys[j];
         if (!(k in results)) continue;
-        if (k === 'table' || k === 'categoria' || k === 'category') continue;
+        if (k === 'table' || k === 'categoria' || k === 'category' || /^zona/.test(k)) continue;
         var num = parseFloat(results[k]);
-        var totalVal = !isNaN(num) ? +(num * (1 + wastePct / 100)).toFixed(3) : results[k];
-        html += makeRow(outputKeys[k] || k, totalVal, 'result-item--total');
+        var totalVal = !isNaN(num) ? +(num * (1 + wastePct / 100)).toFixed(2) : results[k];
+        html += '<div class="result-item result-item--total">' +
+          '<span class="result-label">' + esc(outputKeys[k] || k) + '</span>' +
+          '<span class="result-value">' + esc(String(fmt(totalVal))) + '</span>' +
+        '</div>';
       }
     }
 
-    /* Buying units sub-rows */
+    /* ── STEP 5: Buying units ── */
     if (cfg.buying_units) {
       html += renderBuyingUnits(results, cfg.buying_units, i18n.buying_unit_prefix);
     }
 
-    /* Cost estimation row */
+    /* ── STEP 6: Cost estimation ── */
     var prices = collectPriceInputs();
     if (Object.keys(prices).length) {
+      html += '<div class="result-section-title">💰 ' + esc(i18n.cost_estimate_label || 'Estimated Cost') + '</div>';
       html += renderCostRow(results, prices, i18n.cost_estimate_label);
     }
 
@@ -382,10 +515,159 @@
     if (shareBtn) shareBtn.style.display = '';
     if (socialShare) showSocialShare();
 
-    resultsBox.scrollIntoView({ behavior: 'smooth', block: window.innerWidth < 768 ? 'start' : 'nearest' });
+    if (!isInitialLoad) {
+      resultsBox.scrollIntoView({ behavior: 'smooth', block: window.innerWidth < 768 ? 'start' : 'nearest' });
+    }
 
-    /* Sensitivity chart */
     renderSensitivityChart(keys[0], outputKeys[keys[0]] || keys[0]);
+  }
+
+  /* ── Layout renderers ── */
+  function renderTableLayout(results, outputKeys) {
+    var html = '';
+    Object.keys(outputKeys).forEach(function(k) {
+      if (!(k in results)) return;
+      if (k === 'table' && Array.isArray(results[k])) {
+        html += makeTable(results[k], cfg.tableHeaders || null);
+      }
+    });
+    return html;
+  }
+
+  function renderFitnessLayout(results, outputKeys) {
+    var html = '<div class="result-hero-grid">';
+    Object.keys(outputKeys).forEach(function(k) {
+      if (!(k in results)) return;
+      if (/^zona\d?$|^zone\d?$|^z\d$/.test(k)) return;
+      var label = outputKeys[k] || k;
+      var val = results[k];
+      if (/categoria|category/.test(k)) {
+        html += makeCategoryRow(label, val);
+        return;
+      }
+      if (typeof val === 'number') {
+        html += makeHeroCard(label, val, k);
+      }
+    });
+    html += '</div>';
+    html += '<div class="result-zones">';
+    Object.keys(outputKeys).forEach(function(k) {
+      if (!(k in results)) return;
+      if (/^zona\d?$|^zone\d?$|^z\d$/.test(k)) {
+        html += makeZoneBar(outputKeys[k] || k, results[k]);
+      }
+    });
+    html += '</div>';
+    return html;
+  }
+
+  function renderHealthLayout(results, outputKeys) {
+    var html = '';
+    Object.keys(outputKeys).forEach(function(k) {
+      if (!(k in results)) return;
+      var label = outputKeys[k] || k;
+      var val = results[k];
+      if (/categoria|category|categorie/.test(k)) {
+        html += makeCategoryRow(label, val);
+      } else if (typeof val === 'number') {
+        html += makeHeroCard(label, val, k);
+      }
+    });
+    return html;
+  }
+
+  function renderComplianceLayout(results, outputKeys) {
+    var html = '';
+    Object.keys(outputKeys).forEach(function(k) {
+      if (!(k in results)) return;
+      var label = outputKeys[k] || k;
+      var val = results[k];
+      if (/cumple|pass|fail|aprobado|norma|valido/.test(k.toLowerCase())) {
+        var isPass = /si|yes|pass|ok|cumple|válido|valido|aprobado/.test(String(val).toLowerCase());
+        html += '<div class="result-compliance ' + (isPass ? 'result-compliance-pass' : 'result-compliance-fail') + '">' +
+          '<span class="result-compliance-icon">' + (isPass ? '✓' : '✗') + '</span>' +
+          '<span class="result-compliance-text">' + esc(label) + ': <strong>' + esc(String(val)) + '</strong></span>' +
+        '</div>';
+      } else if (typeof val === 'number') {
+        html += makeHeroCard(label, val, k);
+      }
+    });
+    return html;
+  }
+
+  function renderFinancialLayout(results, outputKeys) {
+    var heroDone = false;
+    var html = '<div class="result-hero-grid">';
+    var secondaryHtml = '';
+    Object.keys(outputKeys).forEach(function(k) {
+      if (!(k in results)) return;
+      var label = outputKeys[k] || k;
+      var val = results[k];
+      if (typeof val !== 'number') { secondaryHtml += makeRow(label, val); return; }
+      var lowerLabel = label.toLowerCase();
+      var isPayment = /cuota|payment|mensual|monthly|precio|price/.test(k.toLowerCase()) ||
+                      /cuota|payment|mensual|monthly|precio/.test(lowerLabel);
+      var isRoi = /roi|retorno|return|beneficio|profit|ahorro|saving/.test(k.toLowerCase()) ||
+                  /roi|retorno|return|beneficio|profit/.test(lowerLabel);
+      if (!heroDone && (isPayment || !isRoi)) {
+        html += makeHeroCard(label, val, k);
+        heroDone = true;
+      } else if (/roi_pct|payback|liquido/.test(k.toLowerCase()) || isRoi) {
+        html += makeMaterialCard(label, val, k, 'result-card--accent');
+      } else {
+        html += makeMaterialCard(label, val, k);
+      }
+    });
+    html += '</div>' + secondaryHtml;
+    return html;
+  }
+
+  function renderEnergyLayout(results, outputKeys) {
+    var html = '<div class="result-hero-grid">';
+    Object.keys(outputKeys).forEach(function(k) {
+      if (!(k in results)) return;
+      var label = outputKeys[k] || k;
+      var val = results[k];
+      if (/potencia|power|btu|kwp|consumo|consumption/.test(k.toLowerCase()) && !isNaN(parseFloat(val))) {
+        html += makeHeroCard(label, val, k);
+      } else if (typeof val === 'number') {
+        html += makeMaterialCard(label, val, k);
+      } else {
+        html += '<div class="result-item"><span class="result-label">' + esc(label) + '</span><span class="result-value">' + esc(String(fmt(val))) + '</span></div>';
+      }
+    });
+    html += '</div>';
+    return html;
+  }
+
+  function renderMathLayout(results, outputKeys) {
+    var html = '<div class="result-hero-grid">';
+    Object.keys(outputKeys).forEach(function(k) {
+      if (!(k in results)) return;
+      var label = outputKeys[k] || k;
+      var val = results[k];
+      if (typeof val === 'number') {
+        html += makeHeroCard(label, val, k);
+      }
+    });
+    html += '</div>';
+    return html;
+  }
+
+  function renderStandardLayout(results, outputKeys) {
+    var html = '<div class="result-cards-grid">';
+    Object.keys(outputKeys).forEach(function(k) {
+      if (!(k in results)) return;
+      var label = outputKeys[k] || k;
+      var val = results[k];
+      if (typeof val === 'number') {
+        html += makeMaterialCard(label, val, k);
+      } else {
+        html += '<div class="result-item"><span class="result-label">' + esc(label) + '</span><span class="result-value">' + esc(String(fmt(val))) + '</span></div>';
+      }
+    });
+    html += '</div>';
+    return html;
   }
 
   function encodeToHash(inputs) {
@@ -558,16 +840,20 @@
   /* ── Buying units sub-rows ── */
   function renderBuyingUnits(results, buyingUnits, prefix) {
     if (!buyingUnits || !Object.keys(buyingUnits).length) return '';
-    var html = '';
+    var html = '<div class="result-section-title">' + esc(i18n.buying_units_title || 'Materials to Order') + '</div>';
     Object.keys(buyingUnits).forEach(function (outputKey) {
       var val = parseFloat(results[outputKey]);
       if (isNaN(val)) return;
       var units = buyingUnits[outputKey];
+      var outputLabels = cfg.outputs || {};
+      var parentLabel = outputLabels[outputKey] || outputKey;
+      var icon = getIconForKey(outputKey);
+      
       units.forEach(function (bu) {
         var qty = bu.round === 'ceil' ? Math.ceil(val * bu.factor) : +(val * bu.factor).toFixed(1);
-        html += '<div class="result-item result-buying-unit">' +
-          '<span class="result-label">' + esc((prefix || '→') + ' ' + bu.label) + '</span>' +
-          '<span class="result-value">~' + qty + ' ' + esc(bu.unit_suffix || '') + '</span>' +
+        html += '<div class="result-buying-unit">' +
+          '<span class="result-label">' + esc(bu.label) + ' <span style="color:var(--text-muted);font-size:0.75rem">(' + esc(parentLabel) + ')</span></span>' +
+          '<span class="result-value">' + esc(String(qty)) + ' ' + esc(bu.unit_suffix || '') + '</span>' +
         '</div>';
       });
     });
@@ -697,12 +983,20 @@
   function onInputChange() {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(function () {
-      if (allFilled()) calculate();
+      calculate();
     }, 300);
   }
 
   form.addEventListener('submit', function (e) { e.preventDefault(); calculate(); });
   form.addEventListener('input', onInputChange);
+  var submitBtn = form.querySelector('button[type="submit"]');
+  if (submitBtn) {
+    submitBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+      calculate();
+    });
+  }
 
   /* ── Input validation on blur ── */
   form.querySelectorAll('input[type="number"]').forEach(function (inp) {
@@ -747,7 +1041,7 @@
   /* ── Unit select changes trigger recalculation ── */
   form.querySelectorAll('.unit-select').forEach(function (sel) {
     sel.addEventListener('change', function () {
-      if (allFilled()) calculate();
+      if (hasAnyInput()) calculate();
     });
   });
 
@@ -918,13 +1212,36 @@
 
   /* ── Feedback widget ── */
   if (feedbackBtns.length) {
+    // Check if user already voted on this page
+    try {
+      var fbKey = 'ctw_fb_' + window.location.pathname;
+      var existingVote = localStorage.getItem(fbKey);
+      if (existingVote) {
+        var wrap = feedbackBtns[0].closest('.feedback-wrap');
+        if (wrap) wrap.innerHTML = '<span class="feedback-thanks">' + (i18n.feedback_thanks || 'Thanks!') + '</span>';
+      }
+    } catch (e) {}
+
     feedbackBtns.forEach(function (btn) {
       btn.addEventListener('click', function () {
         var wrap = this.closest('.feedback-wrap');
+        var vote = this.dataset.val;
+
+        // Track to analytics
+        try {
+          if (window.CTWAnalytics && typeof window.CTWAnalytics.track === 'function') {
+            window.CTWAnalytics.track('feedback_submitted', {
+              vote: vote,
+              calc_id: window.CALC_CONFIG ? window.CALC_CONFIG.calcId : null,
+              calc_slug: window.CALC_CONFIG ? window.CALC_CONFIG.slug : null
+            });
+            if (typeof window.CTWAnalytics.flush === 'function') window.CTWAnalytics.flush();
+          }
+        } catch (e) {}
+
         if (wrap) wrap.innerHTML = '<span class="feedback-thanks">' + (i18n.feedback_thanks || 'Thanks!') + '</span>';
         try {
-          var key = 'ctw_fb_' + window.location.pathname;
-          localStorage.setItem(key, this.dataset.val);
+          localStorage.setItem(fbKey, vote);
         } catch (e) {}
       });
     });
@@ -1302,10 +1619,11 @@
         if (el) el.value = window.CALC_PREFILL[k];
       });
       calculate();
+      isInitialLoad = false;
       return;
     }
     var restored = decodeFromHash();
-    if (restored) { calculate(); return; }
+    if (restored) { calculate(); isInitialLoad = false; return; }
     // Restore last saved inputs for returning users
     var saved = loadInputsFromStorage();
     if (saved) {
@@ -1313,16 +1631,19 @@
         var el = form.querySelector('[name="' + k + '"]');
         if (el) el.value = saved[k];
       });
-      if (allFilled()) { calculate(); return; }
+      if (hasAnyInput()) { calculate(); isInitialLoad = false; return; }
     }
-    // Pre-fill first input with example value for first-time users
+    // Pre-fill all empty inputs with example values for first-time users
     var examples = cfg.example_inputs || {};
-    var firstInp = form.querySelector('input[name]:not([name="desperdicio_merma"])');
-    if (firstInp && !firstInp.value && examples[firstInp.name] !== undefined) {
-      firstInp.value = examples[firstInp.name];
-      firstInp.dispatchEvent(new Event('input', { bubbles: true }));
-    }
-    if (allFilled()) calculate();
+    Object.keys(examples).forEach(function (k) {
+      var el = form.querySelector('[name="' + k + '"]');
+      if (el && !el.value) {
+        el.value = examples[k];
+        el.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+    });
+    calculate();
+    isInitialLoad = false;
   })();
 
 }());

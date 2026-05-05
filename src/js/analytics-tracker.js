@@ -217,6 +217,7 @@
           page_title: evt.page_title || null,
           calc_id: evt.calc_id || null,
           calc_slug: evt.calc_slug || null,
+          calc_name: evt.calc_name || null,
           referrer: evt.referrer || null,
           user_agent: evt.user_agent || null,
           language: evt.language || null,
@@ -237,6 +238,9 @@
           field_name: evt.field_name || null,
           has_value: evt.has_value || null,
           percent: evt.percent || null,
+          seconds: evt.seconds || null,
+          vote: evt.vote || null,
+          share_platform: evt.share_platform || null,
           created_at: firebase.firestore.FieldValue.serverTimestamp(),
         };
         db.collection(CONFIG.collection).add(docData).catch(err => {
