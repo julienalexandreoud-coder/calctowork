@@ -132,7 +132,6 @@
   <link rel="manifest" href="/manifest.json">
   <meta name="google-site-verification" content="IODnwsJUNWyjMxqiXR1jY6lM-4IR7r-n0rgZ6OGMdLg">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="icon" type="image/x-icon" sizes="32x32" href="/favicon.ico">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="preconnect" href="https://pagead2.googlesyndication.com">
   <link rel="preconnect" href="https://www.googletagmanager.com">
@@ -277,6 +276,15 @@
               <option value="{{ opt.value }}" {% if opt.selected %}selected{% endif %}>{{ opt.label }}</option>
               {% endfor %}
             </select>
+            {% elif field.type == 'date' %}
+            <input
+              type="date"
+              id="input-{{ field.key }}"
+              name="{{ field.key }}"
+              {% if field.min is not none %}min="{{ field.min }}"{% endif %}
+              {% if field.max is not none %}max="{{ field.max }}"{% endif %}
+              required
+            >
             {% else %}
             <div class="input-with-unit">
               <input

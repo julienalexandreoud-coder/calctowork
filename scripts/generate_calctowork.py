@@ -1303,13 +1303,24 @@ def copy_assets() -> None:
     if src_img.exists():
         shutil.copytree(src_img, PUBLIC / "img", dirs_exist_ok=True)
 
-    favicon_ico = Path(__file__).resolve().parent.parent / "public" / "favicon.ico"
-    if favicon_ico.exists():
-        shutil.copy2(favicon_ico, PUBLIC / "favicon.ico")
-
-    touch_icon = Path(__file__).resolve().parent.parent / "public" / "apple-touch-icon.png"
-    if touch_icon.exists():
-        shutil.copy2(touch_icon, PUBLIC / "apple-touch-icon.png")
+    # Copy PWA icons  
+    src_pwa = SRC / "img" / "pwa"
+    if src_pwa.exists():
+        for fname in os.listdir(str(src_pwa)):
+            src_file = src_pwa / fname
+            if src_file.is_file():
+                shutil.copy2(src_file, PUBLIC / fname)
+    
+    # Use favicon.svg as favicon (modern browsers support SVG favicons)
+    favicon_svg = SRC / "favicon.svg"
+    if favicon_svg.exists():
+        shutil.copy2(favicon_svg, PUBLIC / "favicon.svg")
+    
+    # Generate apple-touch-icon from PWA icon-192 (if it exists)
+    apple_icon = PUBLIC / "apple-touch-icon.png"
+    pwa_icon = PUBLIC / "icon-192.png"
+    if pwa_icon.exists() and not apple_icon.exists():
+        shutil.copy2(pwa_icon, apple_icon)
 
     print("  [assets] Minified CSS/JS, copied favicon, OG images, diagrams")
 
