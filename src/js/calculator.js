@@ -963,17 +963,19 @@
     encodeToHash(inputs);
     saveInputsToStorage(inputs);
     saveToSessionHistory(results);
-    trackEvent('calculate', 'calculator', cfg.slug || window.location.pathname);
-    var inputEls = form.querySelectorAll('input, select');
-    var filled = 0;
-    for (var i = 0; i < inputEls.length; i++) { if (inputEls[i].value) filled++; }
-    trackFirestore('calculation_completed', {
-      calc_slug: cfg.slug || window.location.pathname,
-      inputs_filled: filled,
-      inputs_total: inputEls.length,
-      results_count: Object.keys(results || {}).length,
-      time_to_calculate: 0
-    });
+    if (window._userModified) {
+      trackEvent('calculate', 'calculator', cfg.slug || window.location.pathname);
+      var inputEls = form.querySelectorAll('input, select');
+      var filled = 0;
+      for (var i = 0; i < inputEls.length; i++) { if (inputEls[i].value) filled++; }
+      trackFirestore('calculation_completed', {
+        calc_slug: cfg.slug || window.location.pathname,
+        inputs_filled: filled,
+        inputs_total: inputEls.length,
+        results_count: Object.keys(results || {}).length,
+        time_to_calculate: 0
+      });
+    }
     refreshAds();
     if (pdfBtn) pdfBtn.style.display = '';
     if (addProjectBtn) addProjectBtn.style.display = '';
@@ -987,8 +989,8 @@
     }, 300);
   }
 
-  form.addEventListener('submit', function (e) { e.preventDefault(); calculate(); });
-  form.addEventListener('input', onInputChange);
+  form.addEventListener('submit', function (e) { e.preventDefault(); window._userModified = true; calculate(); });
+  form.addEventListener('input', function() { window._userModified = true; onInputChange(); });
   var submitBtn = form.querySelector('button[type="submit"]');
   if (submitBtn) {
     submitBtn.addEventListener('click', function (e) {
@@ -1633,16 +1635,7 @@
       });
       if (hasAnyInput()) { calculate(); isInitialLoad = false; return; }
     }
-    // Pre-fill all empty inputs with example values for first-time users
-    var examples = cfg.example_inputs || {};
-    Object.keys(examples).forEach(function (k) {
-      var el = form.querySelector('[name="' + k + '"]');
-      if (el && !el.value) {
-        el.value = examples[k];
-        el.dispatchEvent(new Event('input', { bubbles: true }));
-      }
-    });
-    calculate();
+    // Do NOT pre-fill — users start with empty inputs
     isInitialLoad = false;
   })();
 
