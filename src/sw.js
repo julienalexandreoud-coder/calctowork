@@ -1,5 +1,5 @@
 /* CalcToWork Service Worker – shell cache for offline/fast repeat visits */
-var CACHE = 'ctw-v2';
+var CACHE = 'ctw-v3';
 var SHELL = [
   '/css/styles.css',
   '/js/calculator.js',

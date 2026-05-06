@@ -46,7 +46,7 @@
   <link rel="preconnect" href="https://pagead2.googlesyndication.com">
   <link rel="preconnect" href="https://www.googletagmanager.com">
   <link rel="stylesheet" href="/css/styles.css">
-  <script>if(localStorage.getItem('ctw-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+  <script>if(localStorage.getItem('ctw-theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');}</script>
   {{ adsense_head | safe }}
   {% if cookie_consent_i18n is defined and cookie_consent_i18n %}
   <script>window.COOKIE_CONSENT_I18N = {{ cookie_consent_i18n | tojson }};</script>
@@ -237,6 +237,28 @@ document.getElementById('yr').textContent = new Date().getFullYear();
 <script src="/js/dark-mode.js"></script>
   <script src="/js/favorites.js" defer></script>
   <script src="/js/history.js" defer></script>
+  <script>
+  document.addEventListener('keydown', function(e) {
+    if (e.key === '/' && document.activeElement === document.body) {
+      e.preventDefault();
+      var s = document.getElementById('calc-search');
+      if (s) s.focus();
+    }
+  });
+  </script>
   <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){});}</script>
+<button class="back-to-top" id="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
+<script>
+(function(){
+  var btn = document.getElementById('back-to-top');
+  if (!btn) return;
+  window.addEventListener('scroll', function(){
+    btn.classList.toggle('visible', window.scrollY > 500);
+  });
+  btn.addEventListener('click', function(){
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  });
+})();
+</script>
 </body>
 </html>
