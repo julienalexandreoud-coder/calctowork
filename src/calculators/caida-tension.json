@@ -409,9 +409,9 @@
         "caida_pct": "Caida Pct",
         "cumple_rebt": "Cumple Rebt"
       },
-      "example_label": "Verificar caída para cable de 2.5 mm², 30 m, 16 A a 230 V monofásico.",
+      "example_label": "Spannungsfall für 2,5 mm² Kupferleitung, 30 m, 16 A bei 230 V prüfen.",
       "range_hints": {
-        "seccion_mm2": "Sección del conductor instalado: 1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120 mm² según UNE 60228. La sección real va marcada en la cubierta",
+        "seccion_mm2": "Sección del conductor instalado: 1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120 mm² gemäß UNE 60228. La sección real va marcada en la cubierta",
         "longitud_m": "Longitud real del trazado del cable desde el origen de la instalación hasta el punto de consumo más alejado, no la distancia en línea recta",
         "corriente_a": "Corriente de funcionamiento en régimen permanente. No confundir con la corriente de cortocircuito ni con la de arranque de motores",
         "tension_v": "230 V monofásico (fase-neutro) o 400 V trifásico (fase-fase). Para trifásica la fórmula usa √3 en lugar de 2"
@@ -419,17 +419,16 @@
       "result_context": "Con cable de {seccion_mm2} mm², {longitud_m} m de longitud y {corriente_a} A a {tension_v} V, la caída es de {caida_v} V ({caida_pct} %). Cumplimiento REBT: {cumple_rebt}. Límite: 3 % alumbrado, 5 % fuerza.",
       "formula_display": "ΔU = (2 × L × I) / (σ × S) para monofásico.  ΔU% = (ΔU / V) × 100.  σ(Cu)=56 m/(Ω×mm²) a 20 °C. Límite REBT: 3 % alumbrado, 5 % fuerza.",
       "steps": [
-        "Identificar la sección real del conductor en mm² (marcada en cubierta o placa del cuadro eléctrico)",
-        "Medir la longitud real del cable desde la protección en origen hasta el receptor más alejado, incluyendo curvas y recorrido de la canalización",
-        "Calcular la caída monofásica: ΔU = (2 × L × I) / (56 × S). Ejemplo con 2.5 mm², 30 m, 16 A: ΔU = (2×30×16)/(56×2.5) = 960/140 = 6.86 V",
-        "Obtener el porcentaje: ΔU% = (ΔU / V) × 100 = (6.86/230) × 100 = 2.98 %",
-        "Verificar según ITC-BT-19: alumbrado máx 3 % (cumple 2.98 %), fuerza máx 5 %. Si no cumple, aumentar sección o reducir longitud"
+        "Tatsächlichen Leitungsquerschnitt an der Kabelmantel-Bedruckung ablesen",
+        "Leitungslänge vom Verteiler bis zum entferntesten Verbraucher messen — nicht die Luftlinie, sondern die verlegte Trasse",
+        "Spannungsfall bei einphasigem Wechselstrom: ΔU = (2 × L × I) / (κ × S); mit κ_Cu = 56 m/(Ω·mm²)",
+        "Prozentualen Spannungsfall: ΔU% = (ΔU / Nennspannung) × 100",
+        "Grenzwerte nach DIN VDE 0100-520 prüfen: 3 % für Beleuchtung, 5 % für Kraftstromkreise"
       ],
       "mistakes": [
-        "Usar distancia en línea recta en vez de la longitud real: las curvas y desvíos añaden un 15-30 % de cable extra, invalidando el cálculo de caída",
-        "Aplicar fórmula monofásica a circuito trifásico: para trifásica ΔU = (√3 × L × I)/(σ × S), que da una caída un 13 % menor",
-        "Olvidar que la conductividad del cobre disminuye con la temperatura: a 20 °C σ=56, pero a 70 °C (funcionamiento normal) baja a 47 m/(Ω×mm²), un 16 % menos",
-        "No comprobar la caída acumulada desde el contador: el REBT limita la caída total desde el origen, no por tramos individuales"
+        "Luftlinie statt Leitungslänge gemessen — Bögen und Umwege verlängern die Kabelstrecke um 15–30 %, der tatsächliche Spannungsfall liegt entsprechend höher",
+        "Einphasen-Formel für Drehstrom verwendet — bei Drehstrom gilt ΔU = (√3 × L × I) / (κ × S), der Spannungsfall ist etwa 13 % geringer",
+        "Leitfähigkeit bei Betriebstemperatur unterschätzt — Kupfer hat bei 70 °C nur noch κ = 47 m/(Ω·mm²) statt 56 bei 20 °C"
       ],
       "input_type_review": [
         {

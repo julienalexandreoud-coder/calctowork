@@ -368,7 +368,7 @@
         "conductor_mm2": "Conductor Mm2",
         "longitud_pica_m": "Longitud Pica M"
       },
-      "example_label": "Calcular puesta a tierra para suelo con resistividad 100 Ω·m, resistencia objetivo <10 Ω, usando picas de cobre de 2 m.",
+      "example_label": "Erdungsanlage für Boden mit 100 Ω·m spezifischem Widerstand und max. 10 Ω Erdungswiderstand planen.",
       "range_hints": {
         "resistividad_ohm_m": "Resistividad del terreno (medir con telurómetro método Wenner): húmedo/arcilloso 10-100 Ω·m, normal 100-500, seco/pedregoso 500-5000, roca >5000 Ω·m",
         "resistencia_max_ohm": "Valor máx admisible ITC-BT-18: viviendas con diferencial 30 mA <50 Ω (30 mA × 50 Ω = 1.5 V seguro). Locales húmedos <20 Ω. Pararrayos <10 Ω. Hospital <5 Ω",
@@ -377,17 +377,16 @@
       "result_context": "Con resistividad {resistividad_ohm_m} Ω·m, una pica de 2 m ofrece {r_pica_ohm} Ω. Se necesitan {picas_necesarias} picas para <{resistencia_max_ohm} Ω. Conductor de tierra: {conductor_mm2} mm². Longitud pica: {longitud_pica_m} m.",
       "formula_display": "R_pica = (ρ / (2πL)) × ln(4L/d).  ρ = resistividad terreno (Ω·m).  L = longitud pica (m).  d = diámetro pica (m).  R_total = R_pica / (n × factor_agrupamiento).  Conductor CPT ≥16 mm² Cu o 25 mm² Fe galvanizado.",
       "steps": [
-        "Medir la resistividad del terreno con telurómetro en configuración Wenner (4 picas a igual distancia). Realizar al menos 3 mediciones en diferentes orientaciones",
-        "Establecer la resistencia de tierra máxima admisible: vivienda <10 Ω, equipos sensibles <5 Ω, centros de transformación <1 Ω según ITC-RAT-13",
-        "Calcular resistencia de una pica (2 m, 16 mm Ø): R = ρ/(2π×2) × ln(4×2/0.016). Para ρ=100: R = 100/12.57 × ln(500) = 7.96 × 6.21 = 49.4 Ω",
-        "Determinar nº de picas: n = ceil(R_pica / R_max). Para R_pica=49.4 y R_max=10: n = ceil(4.94) = 5 picas (factor agrupamiento 1.2 si separación <4 m)",
-        "Especificar conductor de tierra: 16 mm² Cu desnudo enterrado a >0.5 m. Conectar a borne principal mediante soldadura aluminotérmica o grapa certificada"
+        "Spezifischen Bodenwiderstand mit einem Erdungsmessgerät nach der Wenner-Methode messen — mindestens 3 Messungen in verschiedenen Richtungen",
+        "Maximal zulässigen Erdungswiderstand festlegen: Wohngebäude < 10 Ω, empfindliche Technik < 5 Ω, Trafostation < 1 Ω",
+        "Ausbreitungswiderstand eines 2-m-Tiefenerders berechnen: R = ρ/(2π × 2) × ln(4 × 2/0,016)",
+        "Anzahl Tiefenerder = R_Einzel ÷ R_max; bei Abständen unter 4 m einen Gruppierungsfaktor von 1,2 ansetzen",
+        "Erdungsleitung mindestens 16 mm² Cu blank, frostfrei in > 0,5 m Tiefe verlegen und mit Kreuzerder verbinden"
       ],
       "mistakes": [
-        "No medir la resistividad real antes de diseñar: estimar sin medición lleva a infradimensionar (riesgo de electrocución) o sobredimensionar (coste innecesario)",
-        "Clavar picas muy juntas: si la separación es menor que la longitud de la pica (2 m), las esferas de influencia se solapan y la resistencia no se divide proporcionalmente. Separación ≥4 m",
-        "Olvidar la equipotencialidad: no conectar todas las masas metálicas (tuberías, estructuras, armaduras) al mismo electrodo crea diferencias de potencial peligrosas en caso de defecto",
-        "Usar conductor de tierra de sección insuficiente: ITC-BT-18 exige mínimo 16 mm² Cu para el conductor de protección principal. Un cable de 6 mm² se funde antes de que salte la protección"
+        "Erdwiderstand ohne Messung nur geschätzt — eine Fehleinschätzung um Faktor 5 führt zu fünffach zu geringer oder unnötig teurer Erdung",
+        "Tiefenerder zu dicht gesetzt — bei Abständen unter 2 m (Länge des Erders) überlappen die Spannungstrichter und die Gesamtwirkung ist nicht die Summe der Einzelwiderstände",
+        "Kein Potentialausgleich an metallene Rohrleitungen und Gebäudeteile angeschlossen — bei einem Erdschluss entstehen gefährliche Spannungsdifferenzen zwischen berührbaren Teilen"
       ],
       "input_type_review": [
         {

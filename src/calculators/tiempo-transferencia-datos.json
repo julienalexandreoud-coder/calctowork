@@ -1,329 +1,335 @@
-{
-  "id": "504",
-  "slug": "tiempo-transferencia-datos",
-  "block": 13,
-  "block_slug": "cotidiano",
-  "inputs": [
-    {
-      "id": "size",
-      "type": "number",
-      "step": "any",
-      "default": 1,
-      "unit": "GB",
-      "unit_options": [
-        "GB",
-        "MB",
-        "TB"
-      ],
-      "unit_category": "digital_storage"
-    },
-    {
-      "id": "speed",
-      "type": "number",
-      "step": "any",
-      "default": 100,
-      "unit": "Mbps",
-      "unit_options": [
-        "Mbps",
-        "Gbps",
-        "MB/s"
-      ],
-      "unit_category": "data_rate"
-    }
-  ],
-  "formula": "var size_gb=parseFloat(inputs.size)||0;var speed_mbps=parseFloat(inputs.speed)||1;var size_mb=size_gb*1024;var time_sec=(size_mb*8)/speed_mbps;var time_min=time_sec/60;return{time_sec:Math.round(time_sec),time_min:time_min.toFixed(2)};",
-  "outputs": [
-    {
-      "id": "time_sec",
-      "unit": "s"
-    },
-    {
-      "id": "time_min",
-      "unit": "min"
-    }
-  ],
-  "related": [
-    "506",
-    "510",
-    "500",
-    "501"
-  ],
-  "example_inputs": {
-    "size": 1,
-    "speed": 100
-  },
-  "example_label": "Ejemplo para tiempo transferencia datos: valores 1GB, 100Mbps",
-  "range_hints": {
-    "size": "Valor típico entre 0 y 500. Valor por defecto: 1 GB.",
-    "speed": "Valor típico entre 0 y 500. Valor por defecto: 100 Mbps."
-  },
-  "result_context": "La transferencia de archivo tardará {time_sec} segundos ({time_min} minutos).",
-  "result_context_en": "The file transfer will take {time_sec} seconds ({time_min} minutes).",
-  "result_context_fr": "Le transfert de fichier prendra {time_sec} secondes ({time_min} minutes).",
-  "result_context_pt": "A transferência de arquivo levará {time_sec} segundos ({time_min} minutos).",
-  "result_context_de": "Die Dateiübertragung dauert {time_sec} Sekunden ({time_min} Minuten).",
-  "result_context_it": "Il trasferimento del file richiederà {time_sec} secondi ({time_min} minuti).",
-  "formula_display": "time_sec ÷ 60 → time_sec, time_min",
-  "steps": [
-    "Introducir los valores de size y speed",
-    "Verificar que las unidades sean correctas y convertir si es necesario (GB, MB, TB)",
-    "Calcular los valores de time sec y time min",
-    "El resultado se expresa en s. Verificar que la magnitud es coherente",
-    "Utilizar el resultado para la aplicación práctica correspondiente"
-  ],
-  "mistakes": [
-    "No considerar si la propina se calcula antes o después de impuestos",
-    "Olvidar que los meses tienen diferente número de días",
-    "Usar el formato de fecha incorrecto (MM/DD vs DD/MM) al introducir datos"
-  ],
-  "input_type_review": [
-    {
-      "field_id": "size",
-      "current_type": "number",
-      "recommended_type": "number",
-      "reason": "Considerar tipo \"select\" para unidades predefinidas"
-    },
-    {
-      "field_id": "speed",
-      "current_type": "number",
-      "recommended_type": "number",
-      "reason": "Considerar tipo \"select\" para unidades predefinidas"
-    }
-  ],
-  "comparison_presets": [
-    {
-      "_label": "Escenario minimo",
-      "size": 0.4,
-      "speed": 40.0
-    },
-    {
-      "_label": "Uso habitual",
-      "size": 0.7,
-      "speed": 70.0
-    },
-    {
-      "_label": "Uso frecuente",
-      "size": 1.0,
-      "speed": 100.0
-    },
-    {
-      "_label": "Uso intensivo",
-      "size": 1.5,
-      "speed": 150.0
-    },
-    {
-      "_label": "Caso maximo",
-      "size": 2.5,
-      "speed": 250.0
-    }
-  ],
-  "units": {
-    "size": "MB",
-    "speed": "Mbps"
-  },
-  "i18n": {
-    "es": {
-      "name": "Tiempo de Transferencia de Datos",
-      "description": "Calcula cuánto tarda transferir un archivo dado el ancho de banda.",
-      "inputs": {
-        "size": "Tamaño",
-        "speed": "Velocidad"
-      },
-      "outputs": {
-        "time_sec": "Segundos",
-        "time_min": "Minutos"
-      },
-      "seo_title": "Tiempo de Transferencia de Datos Gratuita",
-      "seo_description": "Calcula cuánto tarda transferir un archivo dado el ancho de banda. Calculadora gratuita, precisa e instantánea. Calculadora facil de usar con desglose de.",
-      "example_label": "1 GB a 100 Mbps",
-      "range_hints": {
-        "size": "0.001 GB - 10 TB",
-        "speed": "1 Mbps - 10 Gbps"
-      },
-      "result_context": "Tiempo estimado para transferir archivos",
-      "formula_display": "Tiempo = (Tamaño × 8) / Velocidad",
-      "steps": [
-        "Convertir tamaño a megabytes",
-        "Convertir a megabits (×8)",
-        "Dividir por velocidad en Mbps"
-      ],
-      "mistakes": [
-        "Confundir bytes con bits (factor 8)",
-        "No convertir unidades (GB vs MB)"
-      ],
-      "input_type_review": []
-    },
-    "en": {
-      "name": "Data Transfer Time Calculator",
-      "description": "Calculate how long it takes to transfer a file given the bandwidth.",
-      "inputs": {
-        "size": "File size",
-        "speed": "Transfer speed"
-      },
-      "outputs": {
-        "time_sec": "Seconds",
-        "time_min": "Minutes"
-      },
-      "seo_title": "Data Transfer Time Calculator – Easy Calculator",
-      "seo_description": "Calculate how long it takes to transfer a file given the bandwidth. Free, accurate and instant calculator. Easy-to-use calculator with formula breakdown.",
-      "example_label": "1 GB a 100 Mbps",
-      "range_hints": {
-        "size": "0.001 GB - 10 TB",
-        "speed": "1 Mbps - 10 Gbps"
-      },
-      "result_context": "Tiempo estimado para transferir archivos",
-      "formula_display": "Tiempo = (Tamaño × 8) / Velocidad",
-      "steps": [
-        "Convertir tamaño a megabytes",
-        "Convertir a megabits (×8)",
-        "Dividir por velocidad en Mbps"
-      ],
-      "mistakes": [
-        "Confundir bytes con bits (factor 8)",
-        "No convertir unidades (GB vs MB)"
-      ],
-      "input_type_review": "size es almacenamiento digital, speed es tasa de datos"
-    },
-    "fr": {
-      "name": "Temps de Transfert de Données",
-      "description": "Calculez le temps nécessaire pour transférer un fichier avec une bande passante donnée.",
-      "inputs": {
-        "size": "Taille",
-        "speed": "Vitesse"
-      },
-      "outputs": {
-        "time_sec": "Secondes",
-        "time_min": "Minutes"
-      },
-      "seo_title": "Temps de Transfert de Données – Outil Gratuit",
-      "seo_description": "Calculez le temps nécessaire pour transférer un fichier avec une bande passante donnée. Calculateur gratuit, précis et instantané.",
-      "example_label": "1 GB a 100 Mbps",
-      "range_hints": {
-        "size": "0.001 GB - 10 TB",
-        "speed": "1 Mbps - 10 Gbps"
-      },
-      "result_context": "Tiempo estimado pour transferir archivos",
-      "formula_display": "Tiempo = (Tamaño × 8) / Velocidad",
-      "steps": [
-        "Convertir tamaño a megabytes",
-        "Convertir a megabits (×8)",
-        "diviser par velocidad dans Mbps"
-      ],
-      "mistakes": [
-        "Confondre bytes avec bits (factor 8)",
-        "No convertir unités (GB vs MB)"
-      ],
-      "input_type_review": []
-    },
-    "pt": {
-      "name": "Tempo de Transferência de Dados",
-      "description": "Calcule quanto tempo leva para transferir um arquivo com a largura de banda dada.",
-      "inputs": {
-        "size": "Tamanho",
-        "speed": "Velocidade"
-      },
-      "outputs": {
-        "time_sec": "Segundos",
-        "time_min": "Minutos"
-      },
-      "seo_title": "Tempo de Transferência de Dados",
-      "seo_description": "Calcule quanto tempo leva para transferir um arquivo com a largura de banda dada. Calculadora gratuita, precisa e instantânea.",
-      "example_label": "1 GB a 100 Mbps",
-      "range_hints": {
-        "size": "0.001 GB - 10 TB",
-        "speed": "1 Mbps - 10 Gbps"
-      },
-      "result_context": "Tiempo estimado para transferir archivos",
-      "formula_display": "Tiempo = (Tamaño × 8) / Velocidad",
-      "steps": [
-        "Convertir tamaño a megabytes",
-        "Convertir a megabits (×8)",
-        "Dividir por velocidad em Mbps"
-      ],
-      "mistakes": [
-        "Confundir bytes com bits (factor 8)",
-        "Não convertir unidades (GB vs MB)"
-      ],
-      "input_type_review": []
-    },
-    "de": {
-      "name": "Datenübertragungszeit",
-      "desc": "Berechnen Sie die Übertragungsdauer für Datenmengen bei verschiedenen Bandbreiten.",
-      "seo_title": "Datenübertragungszeit | CalcToWork",
-      "seo_desc": "Berechnen Sie die Übertragungsdauer für Datenmengen bei verschiedenen Bandbreiten.",
-      "seo_description": "Berechnen Sie die Übertragungsdauer für Datenmengen bei verschiedenen Bandbreiten.",
-      "inputs": {
-        "size": "Size",
-        "speed": "Speed"
-      },
-      "outputs": {
-        "time_sec": "Time Sec",
-        "time_min": "Time Min"
-      },
-      "example_label": "Ejemplo para tiempo transferencia datos: valores 1GB, 100Mbps",
-      "range_hints": {
-        "size": "Valor típico entre 0 y 500. Valor por defecto: 1 GB.",
-        "speed": "Valor típico entre 0 y 500. Valor por defecto: 100 Mbps."
-      },
-      "result_context": "Die Dateiübertragung dauert {time_sec} Sekunden ({time_min} Minuten).",
-      "formula_display": "time_sec ÷ 60 → time_sec, time_min",
-      "steps": [
-        "Introducir los valores de size y speed",
-        "Verificar que las unidades sean correctas y convertir si es necesario (GB, MB, TB)",
-        "Calcular los valores de time sec y time min",
-        "El resultado se expresa en s. Verificar que la magnitud es coherente",
-        "Utilizar el resultado para la aplicación práctica correspondiente"
-      ],
-      "mistakes": [
-        "No considerar si la propina se calcula antes o después de impuestos",
-        "Olvidar que los meses tienen diferente número de días",
-        "Usar el formato de fecha incorrecto (MM/DD vs DD/MM) al introducir datos"
-      ],
-      "input_type_review": [
-        {
-          "field_id": "size",
-          "current_type": "number",
-          "recommended_type": "number",
-          "reason": "Considerar tipo \"select\" para unidades predefinidas"
-        },
-        {
-          "field_id": "speed",
-          "current_type": "number",
-          "recommended_type": "number",
-          "reason": "Considerar tipo \"select\" para unidades predefinidas"
-        }
-      ]
-    },
-    "it": {
-      "name": "Tempo Trasferimento Dati",
-      "description": "Calcola quanto tempo ci vuole per trasferire un file data la larghezza di banda.",
-      "inputs": {
-        "size": "Dimensione",
-        "speed": "Velocità"
-      },
-      "outputs": {
-        "time_sec": "Secondi",
-        "time_min": "Minuti"
-      },
-      "seo_title": "Tempo Trasferimento Dati – Strumento Gratuito",
-      "seo_description": "Calcola quanto tempo ci vuole per trasferire un file data la larghezza di banda. Calcolatore gratuito, preciso e istantaneo.",
-      "example_label": "1 GB a 100 Mbps",
-      "range_hints": {
-        "size": "0.001 GB - 10 TB",
-        "speed": "1 Mbps - 10 Gbps"
-      },
-      "result_context": "Tiempo estimado per transferir archivos",
-      "formula_display": "Tiempo = (Tamaño × 8) / Velocidad",
-      "steps": [
-        "Convertire tamaño a megabetes",
-        "Convertire a megabits (×8)",
-        "Dividire per velocità in Mbps"
-      ],
-      "mistakes": [
-        "Confondire betes con bits (factor 8)",
-        "No convertir unità (GB vs MB)"
-      ],
-      "input_type_review": null
-    }
-  }
+﻿{
+    "id":  "504",
+    "slug":  "tiempo-transferencia-datos",
+    "block":  13,
+    "block_slug":  "cotidiano",
+    "inputs":  [
+                   {
+                       "id":  "size",
+                       "type":  "number",
+                       "step":  "any",
+                       "default":  1,
+                       "unit":  "GB",
+                       "unit_options":  [
+                                            "GB",
+                                            "MB",
+                                            "TB"
+                                        ],
+                       "unit_category":  "digital_storage"
+                   },
+                   {
+                       "id":  "speed",
+                       "type":  "number",
+                       "step":  "any",
+                       "default":  100,
+                       "unit":  "Mbps",
+                       "unit_options":  [
+                                            "Mbps",
+                                            "Gbps",
+                                            "MB/s"
+                                        ],
+                       "unit_category":  "data_rate"
+                   }
+               ],
+    "formula":  "var size_gb=parseFloat(inputs.size)||0;var speed_mbps=parseFloat(inputs.speed)||1;var size_mb=size_gb*1024;var time_sec=(size_mb*8)/speed_mbps;var time_min=time_sec/60;return{time_sec:Math.round(time_sec),time_min:time_min.toFixed(2)};",
+    "outputs":  [
+                    {
+                        "id":  "time_sec",
+                        "unit":  "s"
+                    },
+                    {
+                        "id":  "time_min",
+                        "unit":  "min"
+                    }
+                ],
+    "related":  [
+                    "506",
+                    "510",
+                    "500",
+                    "501"
+                ],
+    "example_inputs":  {
+                           "size":  1,
+                           "speed":  100
+                       },
+    "example_label":  "Ejemplo para tiempo transferencia datos: valores 1GB, 100Mbps",
+    "range_hints":  {
+                        "size":  "Valor típico entre 0 y 500. Valor por defecto: 1 GB.",
+                        "speed":  "Valor típico entre 0 y 500. Valor por defecto: 100 Mbps."
+                    },
+    "result_context":  "La transferencia de archivo tardará {time_sec} segundos ({time_min} minutos).",
+    "result_context_en":  "The file transfer will take {time_sec} seconds ({time_min} minutes).",
+    "result_context_fr":  "Le transfert de fichier prendra {time_sec} secondes ({time_min} minutes).",
+    "result_context_pt":  "A transferência de arquivo levará {time_sec} segundos ({time_min} minutos).",
+    "result_context_de":  "Die Dateiübertragung dauert {time_sec} Sekunden ({time_min} Minuten).",
+    "result_context_it":  "Il trasferimento del file richiederà {time_sec} secondi ({time_min} minuti).",
+    "formula_display":  "time_sec ÷ 60 → time_sec, time_min",
+    "steps":  [
+                  "Introducir los valores de size y speed",
+                  "Verificar que las unidades sean correctas y convertir si es necesario (GB, MB, TB)",
+                  "Calcular los valores de time sec y time min",
+                  "El resultado se expresa en s. Verificar que la magnitud es coherente",
+                  "Utilizar el resultado para la aplicación práctica correspondiente"
+              ],
+    "mistakes":  [
+                     "No considerar si la propina se calcula antes o después de impuestos",
+                     "Olvidar que los meses tienen diferente número de días",
+                     "Usar el formato de fecha incorrecto (MM/DD vs DD/MM) al introducir datos"
+                 ],
+    "input_type_review":  [
+                              {
+                                  "field_id":  "size",
+                                  "current_type":  "number",
+                                  "recommended_type":  "number",
+                                  "reason":  "Considerar tipo \"select\" para unidades predefinidas"
+                              },
+                              {
+                                  "field_id":  "speed",
+                                  "current_type":  "number",
+                                  "recommended_type":  "number",
+                                  "reason":  "Considerar tipo \"select\" para unidades predefinidas"
+                              }
+                          ],
+    "comparison_presets":  [
+                               {
+                                   "_label":  "Escenario minimo",
+                                   "size":  0.4,
+                                   "speed":  40.0
+                               },
+                               {
+                                   "_label":  "Uso habitual",
+                                   "size":  0.7,
+                                   "speed":  70.0
+                               },
+                               {
+                                   "_label":  "Uso frecuente",
+                                   "size":  1.0,
+                                   "speed":  100.0
+                               },
+                               {
+                                   "_label":  "Uso intensivo",
+                                   "size":  1.5,
+                                   "speed":  150.0
+                               },
+                               {
+                                   "_label":  "Caso maximo",
+                                   "size":  2.5,
+                                   "speed":  250.0
+                               }
+                           ],
+    "units":  {
+                  "size":  "MB",
+                  "speed":  "Mbps"
+              },
+    "i18n":  {
+                 "es":  {
+                            "name":  "Tiempo de Transferencia de Datos",
+                            "description":  "Calcula cuánto tarda transferir un archivo dado el ancho de banda.",
+                            "inputs":  {
+                                           "size":  "Tamaño",
+                                           "speed":  "Velocidad"
+                                       },
+                            "outputs":  {
+                                            "time_sec":  "Segundos",
+                                            "time_min":  "Minutos"
+                                        },
+                            "seo_title":  "Tiempo de Transferencia de Datos Gratuita",
+                            "seo_description":  "Calcula cuánto tarda transferir un archivo dado el ancho de banda. Calculadora gratuita, precisa e instantánea. Calculadora facil de usar con desglose de.",
+                            "example_label":  "1 GB a 100 Mbps",
+                            "range_hints":  {
+                                                "size":  "0.001 GB - 10 TB",
+                                                "speed":  "1 Mbps - 10 Gbps"
+                                            },
+                            "result_context":  "Tiempo estimado para transferir archivos",
+                            "formula_display":  "Tiempo = (Tamaño × 8) / Velocidad",
+                            "steps":  [
+                                          "Convertir tamaño a megabytes",
+                                          "Convertir a megabits (×8)",
+                                          "Dividir por velocidad en Mbps"
+                                      ],
+                            "mistakes":  [
+                                             "Confundir bytes con bits (factor 8)",
+                                             "No convertir unidades (GB vs MB)"
+                                         ],
+                            "input_type_review":  [
+
+                                                  ]
+                        },
+                 "en":  {
+                            "name":  "Data Transfer Time Calculator",
+                            "description":  "Calculate how long it takes to transfer a file given the bandwidth.",
+                            "inputs":  {
+                                           "size":  "File size",
+                                           "speed":  "Transfer speed"
+                                       },
+                            "outputs":  {
+                                            "time_sec":  "Seconds",
+                                            "time_min":  "Minutes"
+                                        },
+                            "seo_title":  "Data Transfer Time Calculator – Easy Calculator",
+                            "seo_description":  "Calculate how long it takes to transfer a file given the bandwidth. Free, accurate and instant calculator. Easy-to-use calculator with formula breakdown.",
+                            "example_label":  "1 GB a 100 Mbps",
+                            "range_hints":  {
+                                                "size":  "0.001 GB - 10 TB",
+                                                "speed":  "1 Mbps - 10 Gbps"
+                                            },
+                            "result_context":  "Tiempo estimado para transferir archivos",
+                            "formula_display":  "Tiempo = (Tamaño × 8) / Velocidad",
+                            "steps":  [
+                                          "Convertir tamaño a megabytes",
+                                          "Convertir a megabits (×8)",
+                                          "Dividir por velocidad en Mbps"
+                                      ],
+                            "mistakes":  [
+                                             "Confundir bytes con bits (factor 8)",
+                                             "No convertir unidades (GB vs MB)"
+                                         ],
+                            "input_type_review":  "size es almacenamiento digital, speed es tasa de datos"
+                        },
+                 "fr":  {
+                            "name":  "Temps de Transfert de Données",
+                            "description":  "Calculez le temps nécessaire pour transférer un fichier avec une bande passante donnée.",
+                            "inputs":  {
+                                           "size":  "Taille",
+                                           "speed":  "Vitesse"
+                                       },
+                            "outputs":  {
+                                            "time_sec":  "Secondes",
+                                            "time_min":  "Minutes"
+                                        },
+                            "seo_title":  "Temps de Transfert de Données – Outil Gratuit",
+                            "seo_description":  "Calculez le temps nécessaire pour transférer un fichier avec une bande passante donnée. Calculateur gratuit, précis et instantané.",
+                            "example_label":  "1 GB a 100 Mbps",
+                            "range_hints":  {
+                                                "size":  "0.001 GB - 10 TB",
+                                                "speed":  "1 Mbps - 10 Gbps"
+                                            },
+                            "result_context":  "Tiempo estimado pour transferir archivos",
+                            "formula_display":  "Tiempo = (Tamaño × 8) / Velocidad",
+                            "steps":  [
+                                          "Convertir tamaño a megabytes",
+                                          "Convertir a megabits (×8)",
+                                          "diviser par velocidad dans Mbps"
+                                      ],
+                            "mistakes":  [
+                                             "Confondre bytes avec bits (factor 8)",
+                                             "No convertir unités (GB vs MB)"
+                                         ],
+                            "input_type_review":  [
+
+                                                  ]
+                        },
+                 "pt":  {
+                            "name":  "Tempo de Transferência de Dados",
+                            "description":  "Calcule quanto tempo leva para transferir um arquivo com a largura de banda dada.",
+                            "inputs":  {
+                                           "size":  "Tamanho",
+                                           "speed":  "Velocidade"
+                                       },
+                            "outputs":  {
+                                            "time_sec":  "Segundos",
+                                            "time_min":  "Minutos"
+                                        },
+                            "seo_title":  "Tempo de Transferência de Dados",
+                            "seo_description":  "Calcule quanto tempo leva para transferir um arquivo com a largura de banda dada. Calculadora gratuita, precisa e instantânea.",
+                            "example_label":  "1 GB a 100 Mbps",
+                            "range_hints":  {
+                                                "size":  "0.001 GB - 10 TB",
+                                                "speed":  "1 Mbps - 10 Gbps"
+                                            },
+                            "result_context":  "Tiempo estimado para transferir archivos",
+                            "formula_display":  "Tiempo = (Tamaño × 8) / Velocidad",
+                            "steps":  [
+                                          "Convertir tamaño a megabytes",
+                                          "Convertir a megabits (×8)",
+                                          "Dividir por velocidad em Mbps"
+                                      ],
+                            "mistakes":  [
+                                             "Confundir bytes com bits (factor 8)",
+                                             "Não convertir unidades (GB vs MB)"
+                                         ],
+                            "input_type_review":  [
+
+                                                  ]
+                        },
+                 "de":  {
+                            "name":  "Datenübertragungszeit",
+                            "desc":  "Berechnen Sie die Übertragungsdauer für Datenmengen bei verschiedenen Bandbreiten.",
+                            "seo_title":  "Datenübertragungszeit | CalcToWork",
+                            "seo_desc":  "Berechnen Sie die Übertragungsdauer für Datenmengen bei verschiedenen Bandbreiten.",
+                            "seo_description":  "Berechnen Sie die Übertragungsdauer für Datenmengen bei verschiedenen Bandbreiten.",
+                            "inputs":  {
+                                           "size":  "Size",
+                                           "speed":  "Speed"
+                                       },
+                            "outputs":  {
+                                            "time_sec":  "Time Sec",
+                                            "time_min":  "Time Min"
+                                        },
+                            "range_hints":  {
+                                                "size":  "Typischer Wert entre 0 y 500. Valor por defecto: 1 GB.",
+                                                "speed":  "Typischer Wert entre 0 y 500. Valor por defecto: 100 Mbps."
+                                            },
+                            "result_context":  "Die Dateiübertragung dauert {time_sec} Sekunden ({time_min} Minuten).",
+                            "formula_display":  "time_sec ÷ 60 → time_sec, time_min",
+                            "input_type_review":  [
+                                                      {
+                                                          "field_id":  "size",
+                                                          "current_type":  "number",
+                                                          "recommended_type":  "number",
+                                                          "reason":  "Considerar tipo \"select\" para unidades predefinidas"
+                                                      },
+                                                      {
+                                                          "field_id":  "speed",
+                                                          "current_type":  "number",
+                                                          "recommended_type":  "number",
+                                                          "reason":  "Considerar tipo \"select\" para unidades predefinidas"
+                                                      }
+                                                  ],
+                            "steps":  [
+                                          "Gib die zu uebertragende Datenmenge und die UEbertragungsrate ein",
+                                          "Konvertiere beide Werte in dieselbe Einheit (z. B. Megabit oder Megabyte)",
+                                          "Dividiere die Datenmenge durch die UEbertragungsrate",
+                                          "Addiere einen Overhead-Aufschlag von ca. 10 pct",
+                                          "Gib die geschaetzte UEbertragungszeit in einem praktischen Format aus"
+                                      ],
+                            "mistakes":  [
+                                             "Gigabyte mit Gibibyte verwechseln (Dezimal- vs. Binaerpraefix)",
+                                             "Die Bandbreite symmetrischer Verbindungen auch fuer Uploads so hoch ansetzen",
+                                             "Latenz und Paketverluste unberuecksichtigt lassen"
+                                         ],
+                            "example_label":  "Transferzeit fuer 20 GB bei 1 Gbit/s"
+                        },
+                 "it":  {
+                            "name":  "Tempo Trasferimento Dati",
+                            "description":  "Calcola quanto tempo ci vuole per trasferire un file data la larghezza di banda.",
+                            "inputs":  {
+                                           "size":  "Dimensione",
+                                           "speed":  "Velocità"
+                                       },
+                            "outputs":  {
+                                            "time_sec":  "Secondi",
+                                            "time_min":  "Minuti"
+                                        },
+                            "seo_title":  "Tempo Trasferimento Dati – Strumento Gratuito",
+                            "seo_description":  "Calcola quanto tempo ci vuole per trasferire un file data la larghezza di banda. Calcolatore gratuito, preciso e istantaneo.",
+                            "example_label":  "1 GB a 100 Mbps",
+                            "range_hints":  {
+                                                "size":  "0.001 GB - 10 TB",
+                                                "speed":  "1 Mbps - 10 Gbps"
+                                            },
+                            "result_context":  "Tiempo estimado per transferir archivos",
+                            "formula_display":  "Tiempo = (Tamaño × 8) / Velocidad",
+                            "steps":  [
+                                          "Convertire tamaño a megabetes",
+                                          "Convertire a megabits (×8)",
+                                          "Dividire per velocità in Mbps"
+                                      ],
+                            "mistakes":  [
+                                             "Confondire betes con bits (factor 8)",
+                                             "No convertir unità (GB vs MB)"
+                                         ],
+                            "input_type_review":  null
+                        }
+             }
 }

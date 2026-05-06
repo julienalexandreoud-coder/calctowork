@@ -1,322 +1,330 @@
-{
-  "id": "517",
-  "slug": "latencia-ping",
-  "block": 13,
-  "block_slug": "cotidiano",
-  "inputs": [
-    {
-      "id": "distance",
-      "type": "number",
-      "step": "any",
-      "default": 1000,
-      "unit": "km",
-      "unit_options": [
-        "km",
-        "mi"
-      ],
-      "unit_category": "length"
-    },
-    {
-      "id": "medium",
-      "type": "select",
-      "options": [
-        "fiber",
-        "copper",
-        "wireless"
-      ],
-      "default": "fiber",
-      "unit": "",
-      "unit_options": [],
-      "unit_category": ""
-    }
-  ],
-  "formula": "var d=parseFloat(inputs.distance)||0;var m=inputs.medium||'fiber';var speed=m==='fiber'?2e8:m==='copper'?2.3e8:3e8;var lt=(d*1000/speed)*1000;var theo=lt*2;return{latency:lt.toFixed(2),theoretical:theo.toFixed(2)};",
-  "outputs": [
-    {
-      "id": "latency",
-      "unit": "ms"
-    },
-    {
-      "id": "theoretical",
-      "unit": "ms"
-    }
-  ],
-  "related": [
-    "516",
-    "504",
-    "503",
-    "500"
-  ],
-  "example_inputs": {
-    "distance": 1000,
-    "medium": "fiber"
-  },
-  "example_label": "Ejemplo para latencia ping: valores 1000km",
-  "range_hints": {
-    "distance": "Valor típico entre 0 y 500. Valor por defecto: 1000 km.",
-    "medium": "Seleccionar entre las opciones: fiber, copper, wireless"
-  },
-  "result_context": "La latencia de ida es {latency} ms y la latencia teórica (ida y vuelta) es {theoretical} ms.",
-  "result_context_en": "The one-way latency is {latency} ms and the theoretical latency (round trip) is {theoretical} ms.",
-  "result_context_fr": "La latence aller est de {latency} ms et la latence théorique (aller-retour) est de {theoretical} ms.",
-  "result_context_pt": "A latência de ida é {latency} ms e a latência teórica (ida e volta) é {theoretical} ms.",
-  "result_context_de": "Die einfache Latenz beträgt {latency} ms und die theoretische Latenz (Hin- und Rückweg) beträgt {theoretical} ms.",
-  "result_context_it": "La latenza di andata è {latency} ms e la latenza teorica (andata e ritorno) è {theoretical} ms.",
-  "formula_display": "1000 ÷ speed → latency, theoretical",
-  "steps": [
-    "Introducir los valores de distance y medium",
-    "Verificar que las unidades sean correctas y convertir si es necesario (km, mi)",
-    "Calcular los valores de latency y theoretical",
-    "El resultado se expresa en ms. Verificar que la magnitud es coherente",
-    "Utilizar el resultado para la aplicación práctica correspondiente"
-  ],
-  "mistakes": [
-    "No considerar si la propina se calcula antes o después de impuestos",
-    "Olvidar que los meses tienen diferente número de días",
-    "Usar el formato de fecha incorrecto (MM/DD vs DD/MM) al introducir datos"
-  ],
-  "input_type_review": [
-    {
-      "field_id": "distance",
-      "current_type": "number",
-      "recommended_type": "number",
-      "reason": "Considerar tipo \"select\" para unidades predefinidas"
-    },
-    {
-      "field_id": "medium",
-      "current_type": "select",
-      "recommended_type": "select",
-      "reason": "Correcto: valor continuo con decimales"
-    }
-  ],
-  "comparison_presets": [
-    {
-      "_label": "Escenario minimo",
-      "distance": 400.0
-    },
-    {
-      "_label": "Uso habitual",
-      "distance": 700.0
-    },
-    {
-      "_label": "Uso frecuente",
-      "distance": 1000.0
-    },
-    {
-      "_label": "Uso intensivo",
-      "distance": 1000.0
-    },
-    {
-      "_label": "Caso maximo",
-      "distance": 1000.0
-    }
-  ],
-  "units": {
-    "distance": "m"
-  },
-  "i18n": {
-    "es": {
-      "name": "Latencia de Ping",
-      "description": "Calcula la latencia mínima teórica de red.",
-      "inputs": {
-        "distance": "Distancia",
-        "medium": "Medio"
-      },
-      "outputs": {
-        "latency": "Latencia ms",
-        "theoretical": "RTT teórico ms"
-      },
-      "seo_title": "Latencia de Ping Gratuita – Fácil y Gratis",
-      "seo_description": "Calcula la latencia mínima teórica de red. Calculadora gratuita, precisa e instantánea. Con manejo de fechas y zonas horarias.",
-      "example_label": "1000 km por fibra óptica",
-      "range_hints": {
-        "distance": "1 - 20000 km",
-        "medium": "fiber, copper, wireless"
-      },
-      "result_context": "Latencia teórica mínima de ida y vuelta",
-      "formula_display": "Latencia = (Distancia / Velocidad señal) × 2",
-      "steps": [
-        "Obtener velocidad de propagación del medio",
-        "Calcular tiempo de ida",
-        "Multiplicar por 2 para RTT"
-      ],
-      "mistakes": [
-        "No considerar latencia de procesamiento",
-        "Confundir velocidad de luz con velocidad en medio"
-      ],
-      "input_type_review": []
-    },
-    "en": {
-      "name": "Ping Latency Calculator",
-      "description": "Calculate theoretical minimum network latency.",
-      "inputs": {
-        "distance": "Distance",
-        "medium": "Medium"
-      },
-      "outputs": {
-        "latency": "Latency ms",
-        "theoretical": "Theoretical RTT ms"
-      },
-      "seo_title": "Ping Latency Calculator – Step-by-Step",
-      "seo_description": "Ping Latency Calculator. Distance, Medium to get Latency ms, Theoretical RTT ms — everyday practical calculator that handles edge cases like leap years,.",
-      "example_label": "1000 km por fibra óptica",
-      "range_hints": {
-        "distance": "1 - 20000 km",
-        "medium": "fiber, copper, wireless"
-      },
-      "result_context": "Latencia teórica mínima de ida y vuelta",
-      "formula_display": "Latencia = (Distancia / Velocidad señal) × 2",
-      "steps": [
-        "Obtener velocidad de propagación del medio",
-        "Calcular tiempo de ida",
-        "Multiplicar por 2 para RTT"
-      ],
-      "mistakes": [
-        "No considerar latencia de procesamiento",
-        "Confundir velocidad de luz con velocidad en medio"
-      ],
-      "input_type_review": "distance es longitud, medium es selección de tipo"
-    },
-    "fr": {
-      "name": "Latence Ping",
-      "description": "Calculez la latence réseau théorique minimale.",
-      "inputs": {
-        "distance": "Distance",
-        "medium": "Médium"
-      },
-      "outputs": {
-        "latency": "Latence ms",
-        "theoretical": "RTT théorique ms"
-      },
-      "seo_title": "Latence Ping – Test Vitesse Réseau",
-      "seo_description": "Calculez la latence réseau théorique minimale. Calculateur gratuit, précis et instantané. Avec gestion des dates et fuseaux horaires.",
-      "example_label": "1000 km par fibra óptica",
-      "range_hints": {
-        "distance": "1 - 20000 km",
-        "medium": "fiber, copper, wireless"
-      },
-      "result_context": "Latencia teórica mínima de ida et vuelta",
-      "formula_display": "Latencia = (Distancia / Velocidad señal) × 2",
-      "steps": [
-        "Obtener velocidad de propagación du medio",
-        "Calculer tiempo de ida",
-        "Multiplier par 2 pour RTT"
-      ],
-      "mistakes": [
-        "Ne pas considérer latencia de procesamiento",
-        "Confondre velocidad de luz avec velocidad dans medio"
-      ],
-      "input_type_review": []
-    },
-    "pt": {
-      "name": "Latência do Ping",
-      "description": "Calcule a latência de rede teórica mínima.",
-      "inputs": {
-        "distance": "Distância",
-        "medium": "Meio"
-      },
-      "outputs": {
-        "latency": "Latência ms",
-        "theoretical": "RTT teórico ms"
-      },
-      "seo_title": "Latência do Ping – Fácil e Grátis",
-      "seo_description": "Calcule a latência de rede teórica mínima. Calculadora gratuita, precisa e instantânea. Com manejo de datas e fusos horarios.",
-      "example_label": "1000 km por fibra óptica",
-      "range_hints": {
-        "distance": "1 - 20000 km",
-        "medium": "fiber, copper, wireless"
-      },
-      "result_context": "Latencia teórica mínima de ida e vuelta",
-      "formula_display": "Latencia = (Distancia / Velocidad señal) × 2",
-      "steps": [
-        "Obtener velocidad de propagación do médio",
-        "Calcular tiempo de ida",
-        "Multiplicar por 2 para RTT"
-      ],
-      "mistakes": [
-        "Não considerar latencia de procesamiento",
-        "Confundir velocidad de vão com velocidad em médio"
-      ],
-      "input_type_review": []
-    },
-    "de": {
-      "name": "Ping-Latenz-Rechner",
-      "desc": "Berechnen Sie die Signallaufzeit aus der Entfernung und der Lichtgeschwindigkeit.",
-      "seo_title": "Ping-Latenz-Rechner | CalcToWork",
-      "seo_desc": "Berechnen Sie die Signallaufzeit aus der Entfernung und der Lichtgeschwindigkeit.",
-      "seo_description": "Berechnen Sie die Signallaufzeit aus der Entfernung und der Lichtgeschwindigkeit.",
-      "inputs": {
-        "distance": "Distance",
-        "medium": "Medium"
-      },
-      "outputs": {
-        "latency": "Latency",
-        "theoretical": "Theoretical"
-      },
-      "example_label": "Ejemplo para latencia ping: valores 1000km",
-      "range_hints": {
-        "distance": "Valor típico entre 0 y 500. Valor por defecto: 1000 km.",
-        "medium": "Seleccionar entre las opciones: fiber, copper, wireless"
-      },
-      "result_context": "Die einfache Latenz beträgt {latency} ms und die theoretische Latenz (Hin- und Rückweg) beträgt {theoretical} ms.",
-      "formula_display": "1000 ÷ speed → latency, theoretical",
-      "steps": [
-        "Introducir los valores de distance y medium",
-        "Verificar que las unidades sean correctas y convertir si es necesario (km, mi)",
-        "Calcular los valores de latency y theoretical",
-        "El resultado se expresa en ms. Verificar que la magnitud es coherente",
-        "Utilizar el resultado para la aplicación práctica correspondiente"
-      ],
-      "mistakes": [
-        "No considerar si la propina se calcula antes o después de impuestos",
-        "Olvidar que los meses tienen diferente número de días",
-        "Usar el formato de fecha incorrecto (MM/DD vs DD/MM) al introducir datos"
-      ],
-      "input_type_review": [
-        {
-          "field_id": "distance",
-          "current_type": "number",
-          "recommended_type": "number",
-          "reason": "Considerar tipo \"select\" para unidades predefinidas"
-        },
-        {
-          "field_id": "medium",
-          "current_type": "select",
-          "recommended_type": "select",
-          "reason": "Correcto: valor continuo con decimales"
-        }
-      ]
-    },
-    "it": {
-      "name": "Latenza Ping",
-      "description": "Calcola la latenza di rete teorica minima.",
-      "inputs": {
-        "distance": "Distanza",
-        "medium": "Medium"
-      },
-      "outputs": {
-        "latency": "Latenza ms",
-        "theoretical": "RTT teorico ms"
-      },
-      "seo_title": "Latenza Ping – Test Velocità Rete",
-      "seo_description": "Calcola la latenza di rete teorica minima. Calcolatore gratuito, preciso e istantaneo. Con gestione date e fusi orari. Usato da professionisti e.",
-      "example_label": "1000 km per fibra óptica",
-      "range_hints": {
-        "distance": "1 - 20000 km",
-        "medium": "fiber, copper, wireless"
-      },
-      "result_context": "Latincia teórica mínima di ida e vuelta",
-      "formula_display": "Latincia = (Discosìcia / Velocidad señal) × 2",
-      "steps": [
-        "Obtiner velocità di propagación dil medio",
-        "Calcolare tempo di ida",
-        "Moltiplicare per 2 per RTT"
-      ],
-      "mistakes": [
-        "Non consedirare latincia di procesamiinto",
-        "Confondire velocità di luz con velocità in medio"
-      ],
-      "input_type_review": null
-    }
-  }
+﻿{
+    "id":  "517",
+    "slug":  "latencia-ping",
+    "block":  13,
+    "block_slug":  "cotidiano",
+    "inputs":  [
+                   {
+                       "id":  "distance",
+                       "type":  "number",
+                       "step":  "any",
+                       "default":  1000,
+                       "unit":  "km",
+                       "unit_options":  [
+                                            "km",
+                                            "mi"
+                                        ],
+                       "unit_category":  "length"
+                   },
+                   {
+                       "id":  "medium",
+                       "type":  "select",
+                       "options":  [
+                                       "fiber",
+                                       "copper",
+                                       "wireless"
+                                   ],
+                       "default":  "fiber",
+                       "unit":  "",
+                       "unit_options":  [
+
+                                        ],
+                       "unit_category":  ""
+                   }
+               ],
+    "formula":  "var d=parseFloat(inputs.distance)||0;var m=inputs.medium||\u0027fiber\u0027;var speed=m===\u0027fiber\u0027?2e8:m===\u0027copper\u0027?2.3e8:3e8;var lt=(d*1000/speed)*1000;var theo=lt*2;return{latency:lt.toFixed(2),theoretical:theo.toFixed(2)};",
+    "outputs":  [
+                    {
+                        "id":  "latency",
+                        "unit":  "ms"
+                    },
+                    {
+                        "id":  "theoretical",
+                        "unit":  "ms"
+                    }
+                ],
+    "related":  [
+                    "516",
+                    "504",
+                    "503",
+                    "500"
+                ],
+    "example_inputs":  {
+                           "distance":  1000,
+                           "medium":  "fiber"
+                       },
+    "example_label":  "Ejemplo para latencia ping: valores 1000km",
+    "range_hints":  {
+                        "distance":  "Valor típico entre 0 y 500. Valor por defecto: 1000 km.",
+                        "medium":  "Seleccionar entre las opciones: fiber, copper, wireless"
+                    },
+    "result_context":  "La latencia de ida es {latency} ms y la latencia teórica (ida y vuelta) es {theoretical} ms.",
+    "result_context_en":  "The one-way latency is {latency} ms and the theoretical latency (round trip) is {theoretical} ms.",
+    "result_context_fr":  "La latence aller est de {latency} ms et la latence théorique (aller-retour) est de {theoretical} ms.",
+    "result_context_pt":  "A latência de ida é {latency} ms e a latência teórica (ida e volta) é {theoretical} ms.",
+    "result_context_de":  "Die einfache Latenz beträgt {latency} ms und die theoretische Latenz (Hin- und Rückweg) beträgt {theoretical} ms.",
+    "result_context_it":  "La latenza di andata è {latency} ms e la latenza teorica (andata e ritorno) è {theoretical} ms.",
+    "formula_display":  "1000 ÷ speed → latency, theoretical",
+    "steps":  [
+                  "Introducir los valores de distance y medium",
+                  "Verificar que las unidades sean correctas y convertir si es necesario (km, mi)",
+                  "Calcular los valores de latency y theoretical",
+                  "El resultado se expresa en ms. Verificar que la magnitud es coherente",
+                  "Utilizar el resultado para la aplicación práctica correspondiente"
+              ],
+    "mistakes":  [
+                     "No considerar si la propina se calcula antes o después de impuestos",
+                     "Olvidar que los meses tienen diferente número de días",
+                     "Usar el formato de fecha incorrecto (MM/DD vs DD/MM) al introducir datos"
+                 ],
+    "input_type_review":  [
+                              {
+                                  "field_id":  "distance",
+                                  "current_type":  "number",
+                                  "recommended_type":  "number",
+                                  "reason":  "Considerar tipo \"select\" para unidades predefinidas"
+                              },
+                              {
+                                  "field_id":  "medium",
+                                  "current_type":  "select",
+                                  "recommended_type":  "select",
+                                  "reason":  "Correcto: valor continuo con decimales"
+                              }
+                          ],
+    "comparison_presets":  [
+                               {
+                                   "_label":  "Escenario minimo",
+                                   "distance":  400.0
+                               },
+                               {
+                                   "_label":  "Uso habitual",
+                                   "distance":  700.0
+                               },
+                               {
+                                   "_label":  "Uso frecuente",
+                                   "distance":  1000.0
+                               },
+                               {
+                                   "_label":  "Uso intensivo",
+                                   "distance":  1000.0
+                               },
+                               {
+                                   "_label":  "Caso maximo",
+                                   "distance":  1000.0
+                               }
+                           ],
+    "units":  {
+                  "distance":  "m"
+              },
+    "i18n":  {
+                 "es":  {
+                            "name":  "Latencia de Ping",
+                            "description":  "Calcula la latencia mínima teórica de red.",
+                            "inputs":  {
+                                           "distance":  "Distancia",
+                                           "medium":  "Medio"
+                                       },
+                            "outputs":  {
+                                            "latency":  "Latencia ms",
+                                            "theoretical":  "RTT teórico ms"
+                                        },
+                            "seo_title":  "Latencia de Ping Gratuita – Fácil y Gratis",
+                            "seo_description":  "Calcula la latencia mínima teórica de red. Calculadora gratuita, precisa e instantánea. Con manejo de fechas y zonas horarias.",
+                            "example_label":  "1000 km por fibra óptica",
+                            "range_hints":  {
+                                                "distance":  "1 - 20000 km",
+                                                "medium":  "fiber, copper, wireless"
+                                            },
+                            "result_context":  "Latencia teórica mínima de ida y vuelta",
+                            "formula_display":  "Latencia = (Distancia / Velocidad señal) × 2",
+                            "steps":  [
+                                          "Obtener velocidad de propagación del medio",
+                                          "Calcular tiempo de ida",
+                                          "Multiplicar por 2 para RTT"
+                                      ],
+                            "mistakes":  [
+                                             "No considerar latencia de procesamiento",
+                                             "Confundir velocidad de luz con velocidad en medio"
+                                         ],
+                            "input_type_review":  [
+
+                                                  ]
+                        },
+                 "en":  {
+                            "name":  "Ping Latency Calculator",
+                            "description":  "Calculate theoretical minimum network latency.",
+                            "inputs":  {
+                                           "distance":  "Distance",
+                                           "medium":  "Medium"
+                                       },
+                            "outputs":  {
+                                            "latency":  "Latency ms",
+                                            "theoretical":  "Theoretical RTT ms"
+                                        },
+                            "seo_title":  "Ping Latency Calculator – Step-by-Step",
+                            "seo_description":  "Ping Latency Calculator. Distance, Medium to get Latency ms, Theoretical RTT ms — everyday practical calculator that handles edge cases like leap years,.",
+                            "example_label":  "1000 km por fibra óptica",
+                            "range_hints":  {
+                                                "distance":  "1 - 20000 km",
+                                                "medium":  "fiber, copper, wireless"
+                                            },
+                            "result_context":  "Latencia teórica mínima de ida y vuelta",
+                            "formula_display":  "Latencia = (Distancia / Velocidad señal) × 2",
+                            "steps":  [
+                                          "Obtener velocidad de propagación del medio",
+                                          "Calcular tiempo de ida",
+                                          "Multiplicar por 2 para RTT"
+                                      ],
+                            "mistakes":  [
+                                             "No considerar latencia de procesamiento",
+                                             "Confundir velocidad de luz con velocidad en medio"
+                                         ],
+                            "input_type_review":  "distance es longitud, medium es selección de tipo"
+                        },
+                 "fr":  {
+                            "name":  "Latence Ping",
+                            "description":  "Calculez la latence réseau théorique minimale.",
+                            "inputs":  {
+                                           "distance":  "Distance",
+                                           "medium":  "Médium"
+                                       },
+                            "outputs":  {
+                                            "latency":  "Latence ms",
+                                            "theoretical":  "RTT théorique ms"
+                                        },
+                            "seo_title":  "Latence Ping – Test Vitesse Réseau",
+                            "seo_description":  "Calculez la latence réseau théorique minimale. Calculateur gratuit, précis et instantané. Avec gestion des dates et fuseaux horaires.",
+                            "example_label":  "1000 km par fibra óptica",
+                            "range_hints":  {
+                                                "distance":  "1 - 20000 km",
+                                                "medium":  "fiber, copper, wireless"
+                                            },
+                            "result_context":  "Latencia teórica mínima de ida et vuelta",
+                            "formula_display":  "Latencia = (Distancia / Velocidad señal) × 2",
+                            "steps":  [
+                                          "Obtener velocidad de propagación du medio",
+                                          "Calculer tiempo de ida",
+                                          "Multiplier par 2 pour RTT"
+                                      ],
+                            "mistakes":  [
+                                             "Ne pas considérer latencia de procesamiento",
+                                             "Confondre velocidad de luz avec velocidad dans medio"
+                                         ],
+                            "input_type_review":  [
+
+                                                  ]
+                        },
+                 "pt":  {
+                            "name":  "Latência do Ping",
+                            "description":  "Calcule a latência de rede teórica mínima.",
+                            "inputs":  {
+                                           "distance":  "Distância",
+                                           "medium":  "Meio"
+                                       },
+                            "outputs":  {
+                                            "latency":  "Latência ms",
+                                            "theoretical":  "RTT teórico ms"
+                                        },
+                            "seo_title":  "Latência do Ping – Fácil e Grátis",
+                            "seo_description":  "Calcule a latência de rede teórica mínima. Calculadora gratuita, precisa e instantânea. Com manejo de datas e fusos horarios.",
+                            "example_label":  "1000 km por fibra óptica",
+                            "range_hints":  {
+                                                "distance":  "1 - 20000 km",
+                                                "medium":  "fiber, copper, wireless"
+                                            },
+                            "result_context":  "Latencia teórica mínima de ida e vuelta",
+                            "formula_display":  "Latencia = (Distancia / Velocidad señal) × 2",
+                            "steps":  [
+                                          "Obtener velocidad de propagación do médio",
+                                          "Calcular tiempo de ida",
+                                          "Multiplicar por 2 para RTT"
+                                      ],
+                            "mistakes":  [
+                                             "Não considerar latencia de procesamiento",
+                                             "Confundir velocidad de vão com velocidad em médio"
+                                         ],
+                            "input_type_review":  [
+
+                                                  ]
+                        },
+                 "de":  {
+                            "name":  "Ping-Latenz-Rechner",
+                            "desc":  "Berechnen Sie die Signallaufzeit aus der Entfernung und der Lichtgeschwindigkeit.",
+                            "seo_title":  "Ping-Latenz-Rechner | CalcToWork",
+                            "seo_desc":  "Berechnen Sie die Signallaufzeit aus der Entfernung und der Lichtgeschwindigkeit.",
+                            "seo_description":  "Berechnen Sie die Signallaufzeit aus der Entfernung und der Lichtgeschwindigkeit.",
+                            "inputs":  {
+                                           "distance":  "Distance",
+                                           "medium":  "Medium"
+                                       },
+                            "outputs":  {
+                                            "latency":  "Latency",
+                                            "theoretical":  "Theoretical"
+                                        },
+                            "range_hints":  {
+                                                "distance":  "Typischer Wert entre 0 y 500. Valor por defecto: 1000 km.",
+                                                "medium":  "Auswählen aus den Optionen: fiber, copper, wireless"
+                                            },
+                            "result_context":  "Die einfache Latenz beträgt {latency} ms und die theoretische Latenz (Hin- und Rückweg) beträgt {theoretical} ms.",
+                            "formula_display":  "1000 ÷ speed → latency, theoretical",
+                            "input_type_review":  [
+                                                      {
+                                                          "field_id":  "distance",
+                                                          "current_type":  "number",
+                                                          "recommended_type":  "number",
+                                                          "reason":  "Considerar tipo \"select\" para unidades predefinidas"
+                                                      },
+                                                      {
+                                                          "field_id":  "medium",
+                                                          "current_type":  "select",
+                                                          "recommended_type":  "select",
+                                                          "reason":  "Correcto: valor continuo con decimales"
+                                                      }
+                                                  ],
+                            "steps":  [
+                                          "Gib die physische Entfernung und das UEbertragungsmedium (Kupfer, Glasfaser, Funk) ein",
+                                          "Berechne die Signallaufzeit: Entfernung / Lichtgeschwindigkeit x Brechungsindex",
+                                          "Addiere die Verarbeitungsverzoegerungen von Routern und Switches",
+                                          "Summiere Sende- und Warteschlangenverzoegerungen hinzu",
+                                          "Gib die Round-Trip Time (RTT) in Millisekunden aus"
+                                      ],
+                            "mistakes":  [
+                                             "Die Lichtgeschwindigkeit im Vakuum statt der im Medium verwenden",
+                                             "Die Anzahl der Hops unterschaetzen - jeder Router fuegt Verzoegerung hinzu",
+                                             "Latenz mit Bandbreite verwechseln - beides sind unterschiedliche Konzepte"
+                                         ],
+                            "example_label":  "Ping-Latenz: 2000 km Glasfaser-Strecke"
+                        },
+                 "it":  {
+                            "name":  "Latenza Ping",
+                            "description":  "Calcola la latenza di rete teorica minima.",
+                            "inputs":  {
+                                           "distance":  "Distanza",
+                                           "medium":  "Medium"
+                                       },
+                            "outputs":  {
+                                            "latency":  "Latenza ms",
+                                            "theoretical":  "RTT teorico ms"
+                                        },
+                            "seo_title":  "Latenza Ping – Test Velocità Rete",
+                            "seo_description":  "Calcola la latenza di rete teorica minima. Calcolatore gratuito, preciso e istantaneo. Con gestione date e fusi orari. Usato da professionisti e.",
+                            "example_label":  "1000 km per fibra óptica",
+                            "range_hints":  {
+                                                "distance":  "1 - 20000 km",
+                                                "medium":  "fiber, copper, wireless"
+                                            },
+                            "result_context":  "Latincia teórica mínima di ida e vuelta",
+                            "formula_display":  "Latincia = (Discosìcia / Velocidad señal) × 2",
+                            "steps":  [
+                                          "Obtiner velocità di propagación dil medio",
+                                          "Calcolare tempo di ida",
+                                          "Moltiplicare per 2 per RTT"
+                                      ],
+                            "mistakes":  [
+                                             "Non consedirare latincia di procesamiinto",
+                                             "Confondire velocità di luz con velocità in medio"
+                                         ],
+                            "input_type_review":  null
+                        }
+             }
 }

@@ -421,7 +421,7 @@
         "seccion_normalizada_mm2": "Seccion Normalizada Mm2",
         "caida_real_pct": "Caida Real Pct"
       },
-      "example_label": "Calcular sección para 16 A × 20 m en 230 V monofásico con caída máxima del 3 %.",
+      "example_label": "Leitungsquerschnitt für 16 A, 20 m Länge, 230 V und max. 3 % Spannungsfall nach VDE 0298-4.",
       "range_hints": {
         "corriente_a": "Corriente de diseño Ib: cargas residenciales 10-32 A, industriales hasta 200 A. Calcular como Ib = P/(V × cos φ)",
         "longitud_m": "Longitud real del cable desde cuadro hasta la carga más lejana (no distancia en línea recta). Añadir 10-15 % por recorrido real",
@@ -431,18 +431,16 @@
       "result_context": "Se requiere cable de {seccion_normalizada_mm2} mm² (sección calculada {seccion_calc_mm2} mm²). Caída de tensión real: {caida_real_pct} %. Si supera el 5 % aumentar a la sección normalizada siguiente. Verificar criterio térmico según ITC-BT-19.",
       "formula_display": "S = (2 × ρ × L × I) / ΔV  con ρ(Cu)=0.0178 Ω×mm²/m.  ΔV = V × caída%/100.  I = P/(V × cos φ). Sección normalizada: 1.5, 2.5, 4, 6, 10, 16, 25, 35 mm².",
       "steps": [
-        "Calcular corriente de diseño: Ib = Potencia(W) / (Tensión(V) × cos φ). Ejemplo: 3680 W a 230 V, cos φ=1 → Ib = 3680/230 = 16 A",
-        "Calcular caída de tensión admisible: ΔV = V × caída%/100. Para 230 V al 3 %: 230 × 0.03 = 6.9 V",
-        "Aplicar fórmula monofásica para cobre: S = (2 × L × I) / (σ × ΔV) con σ=56 m/(Ω×mm²). Con 20 m y 16 A: S = (2×20×16)/(56×6.9) = 1.66 mm²",
-        "Redondear a sección normalizada superior según ITC-BT-19: 1.5 → 2.5 → 4 → 6 → 10 → 16 → 25 → 35 mm². Para 1.66 mm² → 2.5 mm²",
-        "Verificar caída real con la sección elegida: caída real % = (2 × L × I)/(σ × S_norm × V) × 100. Si supera el límite, subir una sección"
+        "Betriebsstrom Ib aus der Anschlussleistung ermitteln: Ib = P / (U × cos φ); für 3,68 kW an 230 V mit cos φ = 1 ergibt sich 16 A",
+        "Zulässigen Spannungsfall berechnen: ΔU = U × Spannungsfall%/100; für 230 V und 3 % = 6,9 V",
+        "Leitungsquerschnitt für Kupfer (κ = 56 m/(Ω·mm²)): S = (2 × L × I) / (κ × ΔU); mit 20 m und 16 A: 1,66 mm²",
+        "Auf den nächsthöheren Normquerschnitt nach DIN VDE 0298-4 aufrunden: 1,5 → 2,5 → 4 → 6 → 10 → 16 → 25 → 35 mm²",
+        "Tatsächlichen Spannungsfall mit dem gewählten Querschnitt rückrechnen und gegen Grenzwerte prüfen"
       ],
       "mistakes": [
-        "Usar 1.5 mm² para circuitos de potencia: la sección mínima para tomas de corriente es 2.5 mm² según ITC-BT-25. El 1.5 mm² solo es válido para alumbrado con protección de 10 A",
-        "Ignorar la caída de tensión en tiradas largas: un cable de 6 mm² con 40 A a 100 m pierde 23.8 V (10.4 %), dejando solo 206 V en el receptor, dañando motores y provocando disparos",
-        "No sobredimensionar para tramos extensos: en viviendas unifamiliares con jardín, la derivación al garaje a 50 m requiere pasar de 2.5 mm² a 6 mm² para cumplir caída máxima del 5 %",
-        "Mezclar cobre y aluminio sin conectores bimetálicos: la corrosión galvánica entre Al y Cu aumenta la resistencia del contacto de <0.001 Ω a >0.5 Ω en 12-18 meses",
-        "No aplicar factores de corrección por agrupamiento: 4 cables de 2.5 mm² en un tubo de 20 mm reducen la intensidad admisible un 20-30 % según ITC-BT-19, recalentando la canalización"
+        "1,5 mm² für Steckdosenstromkreise verwendet — nach DIN VDE 0100-520 ist für Steckdosen mindestens 2,5 mm² vorgeschrieben, 1,5 mm² nur für Beleuchtung mit B10-Automat",
+        "Spannungsfall bei langen Leitungen ignoriert — ein 6 mm²-Kabel mit 40 A auf 100 m verliert 23,8 V (10,4 %), am Betriebsmittel kommen nur noch 206 V an",
+        "Kabel in Rohr ohne Häufungsfaktoren verlegt — 4 belastete Adern im Rohr reduzieren die zulässige Strombelastbarkeit um 20–30 %"
       ],
       "input_type_review": [
         {

@@ -362,26 +362,25 @@
         "icp_recomendado_a": "Icp Recomendado A",
         "circuitos_estimados": "Circuitos Estimados"
       },
-      "example_label": "Dimensionar cuadro eléctrico para vivienda de 9.2 kW contratados a 230 V monofásico con factor de simultaneidad 0.7.",
+      "example_label": "Hauptverteiler für 9,2 kW Anschlussleistung, 230 V und Gleichzeitigkeitsfaktor 0,7 auslegen.",
       "range_hints": {
-        "potencia_kw": "Potencia contratada según factura o potencia instalada total. Viviendas: 3.45-9.2 kW. Comercios: 10-50 kW. Industria: 50-200 kW",
+        "potencia_kw": "Potencia contratada gemäß factura o potencia instalada total. Viviendas: 3.45-9.2 kW. Comercios: 10-50 kW. Industria: 50-200 kW",
         "tension_v": "230 V monofásico para viviendas hasta 14.5 kW. 400 V trifásico obligatorio por encima de 14.5 kW o si hay equipos trifásicos",
-        "factor_simultaneidad": "ITC-BT-10: unifamiliares 0.5-0.7, edificios colectivos 0.4-0.6 por circuito, comercios 0.7-0.9, industria 0.8-1.0 según proceso"
+        "factor_simultaneidad": "ITC-BT-10: unifamiliares 0.5-0.7, edificios colectivos 0.4-0.6 por circuito, comercios 0.7-0.9, industria 0.8-1.0 gemäß proceso"
       },
       "result_context": "Para {potencia_kw} kW a {tension_v} V con factor {factor_simultaneidad}: corriente máxima {corriente_max_a} A, ICP/IGA recomendado {icp_recomendado_a} A y {circuitos_estimados} circuitos estimados. Verificar sección de acometida según ITC-BT-11.",
       "formula_display": "I_máx = (P_kW × 1000 × Fs) / (V × k)  con k=1 monofásico, k=√3 trifásico.  ICP según escalones normalizados: 16-20-25-32-40-50-63 A.  Circuitos = ceil(I_máx / 16).",
       "steps": [
-        "Identificar la potencia contratada en la factura eléctrica (kW) o sumar todas las cargas previstas en la instalación",
-        "Seleccionar la tensión de suministro: 230 V monofásico para viviendas (<14.5 kW), 400 V trifásico para potencias superiores o equipos trifásicos",
-        "Aplicar factor de simultaneidad según ITC-BT-10: en una vivienda no todos los electrodomésticos funcionan a la vez. Factor típico 0.5-0.7",
-        "Calcular corriente máxima: I = (P × 1000 × Fs) / V (monofásico) o I = (P × 1000 × Fs) / (√3 × V) (trifásico)",
-        "Seleccionar ICP/IGA normalizado: redondear al escalón superior entre 16, 20, 25, 32, 40, 50, 63 A. Estimar circuitos: I_máx / 16 A redondeando al alza"
+        "Anschlussleistung aus dem Stromliefervertrag (kW) entnehmen oder die Summe aller Geräte-Nennleistungen bilden",
+        "Spannungsart bestimmen: 230 V Wechselstrom bis 14,5 kW, darüber 400 V Drehstrom erforderlich",
+        "Gleichzeitigkeitsfaktor nach Gebäudetyp ansetzen: Einfamilienhaus 0,5–0,7, Gewerbe 0,8–0,9",
+        "Maximalstrom berechnen: I = (P × 1000 × Gleichzeitigkeitsfaktor) / (Spannung × k); bei Drehstrom mit k = √3",
+        "Sicherungs-Hauptschalter auf nächste Normgröße aufrunden (16, 25, 32, 40, 50, 63 A) und Stromkreise mit je 16 A abschätzen"
       ],
       "mistakes": [
-        "No aplicar factor de simultaneidad: una vivienda de 9.2 kW sin factor daría 40 A de IGA, pero con Fs=0.7 solo necesita 28 A, ahorrando en el término fijo de factura",
-        "Confundir potencia contratada con potencia instalada: la contratada es la máxima que permite el ICP, la instalada es la suma de todas las cargas. No contratar más potencia de la necesaria",
-        "Usar sección insuficiente para la derivación individual: 40 m desde contador al cuadro con 40 A requiere 16 mm² Cu para cumplir caída de tensión, no 10 mm²",
-        "No prever espacio de reserva: instalar un cuadro sin carriles libres obliga a cambiarlo al añadir un circuito. Reservar mínimo 20 % de espacio"
+        "Gleichzeitigkeitsfaktor nicht angesetzt — ohne Faktor wird der Hauptschalter überdimensioniert und der Grundpreis steigt unnötig",
+        "Anschlussleistung mit installierter Leistung verwechselt — eine 9,2-kW-Anlage mit Gleichzeitigkeitsfaktor 0,7 braucht nur einen 28-A-Hauptschalter, nicht 40 A",
+        "Keine Reserveplätze im Verteiler eingeplant — bei einer späteren Erweiterung (Wallbox, Klimaanlage) muss der gesamte Verteiler getauscht werden"
       ],
       "input_type_review": [
         {

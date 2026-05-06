@@ -1,380 +1,386 @@
-{
-  "id": "500",
-  "slug": "propina",
-  "block": 13,
-  "block_slug": "cotidiano",
-  "inputs": [
-    {
-      "id": "total_cuenta",
-      "type": "number",
-      "min": 0.01,
-      "max": 1000000000,
-      "step": "any",
-      "default": 65,
-      "unit": "â‚¬"
-    },
-    {
-      "id": "propina_pct",
-      "type": "number",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "default": 15,
-      "unit": "%",
-      "unit_options": [
-        "%"
-      ],
-      "unit_category": "ratio"
-    },
-    {
-      "id": "num_personas",
-      "type": "number",
-      "min": 1,
-      "max": 1000,
-      "step": 1,
-      "default": 4,
-      "unit": "pers."
-    }
-  ],
-  "formula": "var C=parseFloat(inputs.total_cuenta)||0,P=parseFloat(inputs.propina_pct)||0,N=Math.max(1,parseFloat(inputs.num_personas)||1);if(!C)return{error:true};var prop=+(C*P/100).toFixed(2),total=+(C+prop).toFixed(2),pp=+(total/N).toFixed(2);return{propina_total:prop,total_con_propina:total,por_persona:pp};",
-  "outputs": [
-    {
-      "id": "propina_total",
-      "unit": "â‚¬",
-      "highlight": true
-    },
-    {
-      "id": "total_con_propina",
-      "unit": "â‚¬"
-    },
-    {
-      "id": "por_persona",
-      "unit": "â‚¬/pers."
-    }
-  ],
-  "related": [
-    "501",
-    "306",
-    "200",
-    "502"
-  ],
-  "example_inputs": {
-    "total_cuenta": 65,
-    "propina_pct": 15,
-    "num_personas": 4
-  },
-  "example_label": "Calcular propina de 65 â‚¬ × 15 % × 4 pers..",
-  "range_hints": {
-    "total_cuenta": "Valor típico entre 0.01 y 1000000000. Valor por defecto: 65 â‚¬.",
-    "propina_pct": "Valor típico entre 0 y 100. Valor por defecto: 15 %.",
-    "num_personas": "Valor típico entre 1 y 1000. Valor por defecto: 4 pers.."
-  },
-  "result_context": "La propina sugerida es de {propina_total} €, para un total de {total_con_propina} € ({por_persona} € por persona).",
-  "result_context_en": "The suggested tip is {propina_total} €, for a total of {total_con_propina} € ({por_persona} € per person).",
-  "result_context_fr": "Le pourboire suggéré est de {propina_total} €, pour un total de {total_con_propina} € ({por_persona} € par personne).",
-  "result_context_pt": "A gorjeta sugerida é de {propina_total} €, para um total de {total_con_propina} € ({por_persona} € por pessoa).",
-  "result_context_de": "Das vorgeschlagene Trinkgeld beträgt {propina_total} €, für insgesamt {total_con_propina} € ({por_persona} € pro Person).",
-  "result_context_it": "La mancia suggerita è di {propina_total} €, per un totale di {total_con_propina} € ({por_persona} € a persona).",
-  "formula_display": "P ÷ 100 → propina_total, total_con_propina",
-  "steps": [
-    "Introducir los valores de total_cuenta, propina_pct y num_personas",
-    "Verificar que las unidades sean correctas y convertir si es necesario (%)",
-    "Calcular los valores de propina total y total con propina",
-    "El resultado se expresa en â‚¬. Verificar que la magnitud es coherente",
-    "Utilizar el resultado para la aplicación práctica correspondiente"
-  ],
-  "mistakes": [
-    "No considerar si la propina se calcula antes o después de impuestos",
-    "Olvidar que los meses tienen diferente número de días",
-    "Usar el formato de fecha incorrecto (MM/DD vs DD/MM) al introducir datos"
-  ],
-  "input_type_review": [
-    {
-      "field_id": "total_cuenta",
-      "current_type": "number",
-      "recommended_type": "number",
-      "reason": "Correcto: valor continuo con decimales"
-    },
-    {
-      "field_id": "propina_pct",
-      "current_type": "number",
-      "recommended_type": "number",
-      "reason": "Considerar tipo \"select\" para unidades predefinidas"
-    },
-    {
-      "field_id": "num_personas",
-      "current_type": "number",
-      "recommended_type": "number",
-      "reason": "Correcto: valor entero para conteo"
-    }
-  ],
-  "comparison_presets": [
-    {
-      "_label": "Escenario minimo",
-      "total_cuenta": 26.0,
-      "propina_pct": 6.0,
-      "num_personas": 1.6
-    },
-    {
-      "_label": "Uso habitual",
-      "total_cuenta": 45.5,
-      "propina_pct": 10.5,
-      "num_personas": 2.8
-    },
-    {
-      "_label": "Uso frecuente",
-      "total_cuenta": 65.0,
-      "propina_pct": 15.0,
-      "num_personas": 4.0
-    },
-    {
-      "_label": "Uso intensivo",
-      "total_cuenta": 97.5,
-      "propina_pct": 22.5,
-      "num_personas": 6.0
-    },
-    {
-      "_label": "Caso maximo",
-      "total_cuenta": 162.5,
-      "propina_pct": 37.5,
-      "num_personas": 10.0
-    }
-  ],
-  "units": {
-    "propina_pct": "%"
-  },
-  "i18n": {
-    "es": {
-      "name": "Calculadora de Propina",
-      "desc": "Calcula la propina, el total y el importe por persona.",
-      "description": "Calcula la propina, el total y el importe por persona.",
-      "seo_title": "Calculadora de Propina Gratuita",
-      "seo_description": "Calcula cuánto dejar de propina y divide la cuenta entre varios comensales. Introduce el total, el % de propina y el número de personas.",
-      "inputs": {
-        "total_cuenta": "Total de la cuenta (€)",
-        "propina_pct": "Propina (%)",
-        "num_personas": "Número de personas"
-      },
-      "outputs": {
-        "propina_total": "Propina total",
-        "total_con_propina": "Total con propina",
-        "por_persona": "Por persona"
-      },
-      "example_label": "Cuenta €65, propina 15%, 4 personas",
-      "range_hints": {
-        "total_cuenta": "Varía según restaurante",
-        "propina_pct": "Típicamente 10-20% según país",
-        "num_personas": "1-20 personas"
-      },
-      "result_context": "Monto de propina, total con propina, y por persona",
-      "formula_display": "Propina = Cuenta × %propina; Total = Cuenta + Propina",
-      "steps": [
-        "Multiplicar cuenta por porcentaje de propina",
-        "Sumar propina al total de cuenta",
-        "Dividir entre número de personas"
-      ],
-      "mistakes": [
-        "Aplicar propina antes de impuestos (depende del país)",
-        "No verificar si servicio está incluido"
-      ],
-      "input_type_review": []
-    },
-    "en": {
-      "name": "Tip Calculator",
-      "desc": "Calculate the tip, total bill and amount per person.",
-      "description": "Calculate the tip, total bill and amount per person.",
-      "seo_title": "Tip Calculator – Split Bill Online Free",
-      "seo_description": "Calculate how much to tip and split the bill between diners. Enter total, tip percentage and number of people. Get instant results with step-by-step.",
-      "inputs": {
-        "total_cuenta": "Bill total (â‚¬)",
-        "propina_pct": "Tip (%)",
-        "num_personas": "Number of people"
-      },
-      "outputs": {
-        "propina_total": "Total tip",
-        "total_con_propina": "Total with tip",
-        "por_persona": "Per person"
-      },
-      "example_label": "Cuenta â‚¬65, propina 15%, 4 personas",
-      "range_hints": {
-        "total_cuenta": "Varía según restaurante",
-        "propina_pct": "Típicamente 10-20% según país",
-        "num_personas": "1-20 personas"
-      },
-      "result_context": "Monto de propina, total con propina, y por persona",
-      "formula_display": "Propina = Cuenta × %propina; Total = Cuenta + Propina",
-      "steps": [
-        "Multiplicar cuenta por porcentaje de propina",
-        "Sumar propina al total de cuenta",
-        "Dividir entre número de personas"
-      ],
-      "mistakes": [
-        "Aplicar propina antes de impuestos (depende del país)",
-        "No verificar si servicio está incluido"
-      ],
-      "input_type_review": "total_cuenta es moneda, propina_pct es porcentaje, num_personas es cantidad"
-    },
-    "fr": {
-      "name": "Calculateur de Pourboire",
-      "desc": "Calculez le pourboire, le total et le montant par personne.",
-      "description": "Calculez le pourboire, le total et le montant par personne.",
-      "seo_title": "Calculateur Pourboire – Partager l'Addition en Ligne",
-      "seo_description": "Calculez le pourboire et divisez l'addition entre convives. Entrez le total, le % de pourboire et le nombre de personnes.",
-      "inputs": {
-        "total_cuenta": "Total de l'addition (€)",
-        "propina_pct": "Pourboire (%)",
-        "num_personas": "Nombre de personnes"
-      },
-      "outputs": {
-        "propina_total": "Pourboire total",
-        "total_con_propina": "Total avec pourboire",
-        "por_persona": "Par personne"
-      },
-      "example_label": "Cuenta €65, propina 15%, 4 personas",
-      "range_hints": {
-        "total_cuenta": "Varía selon restaurante",
-        "propina_pct": "typiquement 10-20% selon país",
-        "num_personas": "1-20 personas"
-      },
-      "result_context": "Monto de propina, total avec propina, et par persona",
-      "formula_display": "Propina = Cuenta × %propina; total = Cuenta + Propina",
-      "steps": [
-        "Multiplier cuenta par porcentaje de propina",
-        "Sumar propina al total de cuenta",
-        "diviser entre número de personas"
-      ],
-      "mistakes": [
-        "Aplicar propina antes de impuestos (depende du país)",
-        "Ne pas vérifier si servicio está incluido"
-      ],
-      "input_type_review": []
-    },
-    "pt": {
-      "name": "Calculadora de Gorjeta",
-      "desc": "Calcule quanto deixar de gorjeta e divida a conta. Insira o total, a % de gorjeta e o número de pessoas. Obtenha resultados instantaneos com explicacao.",
-      "description": "Calcule a gorjeta, o total e o valor por pessoa.",
-      "seo_title": "Calculadora de Gorjeta Online Grátis",
-      "seo_description": "Calcule quanto deixar de gorjeta e divida a conta. Insira o total, a % de gorjeta e o número de pessoas. Obtenha resultados instantaneos com explicacao.",
-      "inputs": {
-        "total_cuenta": "Total da conta (€)",
-        "propina_pct": "Gorjeta (%)",
-        "num_personas": "Número de pessoas"
-      },
-      "outputs": {
-        "propina_total": "Gorjeta total",
-        "total_con_propina": "Total com gorjeta",
-        "por_persona": "Por pessoa"
-      },
-      "example_label": "Cuenta €65, propina 15%, 4 personas",
-      "range_hints": {
-        "total_cuenta": "Varía segundo restaurante",
-        "propina_pct": "Típicamente 10-20% segundo país",
-        "num_personas": "1-20 personas"
-      },
-      "result_context": "Monto de propina, total com propina, e por persona",
-      "formula_display": "Propina = Cuenta × %propina; Total = Cuenta + Propina",
-      "steps": [
-        "Multiplicar cuenta por porcentaje de propina",
-        "Sumar propina ao total de cuenta",
-        "Dividir entre número de personas"
-      ],
-      "mistakes": [
-        "Aplicar propina antes de impuestos (depende do país)",
-        "Não verificar si servicio está incluido"
-      ],
-      "input_type_review": []
-    },
-    "de": {
-      "name": "Trinkgeld-Rechner",
-      "desc": "Berechnen Sie das Trinkgeld und den Gesamtbetrag Ihrer Restaurantrechnung — aufteilbar auf Personen.",
-      "seo_title": "Trinkgeld-Rechner | CalcToWork",
-      "seo_desc": "Berechnen Sie das Trinkgeld und den Gesamtbetrag Ihrer Restaurantrechnung — aufteilbar auf Personen.",
-      "seo_description": "Berechnen Sie das Trinkgeld und den Gesamtbetrag Ihrer Restaurantrechnung — aufteilbar auf Personen.",
-      "inputs": {
-        "total_cuenta": "Total Cuenta",
-        "propina_pct": "Propina Pct",
-        "num_personas": "Num Personas"
-      },
-      "outputs": {
-        "propina_total": "Propina Total",
-        "total_con_propina": "Total Con Propina",
-        "por_persona": "Por Persona"
-      },
-      "example_label": "Calcular propina de 65 â‚¬ × 15 % × 4 pers..",
-      "range_hints": {
-        "total_cuenta": "Valor típico entre 0.01 y 1000000000. Valor por defecto: 65 â‚¬.",
-        "propina_pct": "Valor típico entre 0 y 100. Valor por defecto: 15 %.",
-        "num_personas": "Valor típico entre 1 y 1000. Valor por defecto: 4 pers.."
-      },
-      "result_context": "Das vorgeschlagene Trinkgeld beträgt {propina_total} €, für insgesamt {total_con_propina} € ({por_persona} € pro Person).",
-      "formula_display": "P ÷ 100 → propina_total, total_con_propina",
-      "steps": [
-        "Introducir los valores de total_cuenta, propina_pct y num_personas",
-        "Verificar que las unidades sean correctas y convertir si es necesario (%)",
-        "Calcular los valores de propina total y total con propina",
-        "El resultado se expresa en â‚¬. Verificar que la magnitud es coherente",
-        "Utilizar el resultado para la aplicación práctica correspondiente"
-      ],
-      "mistakes": [
-        "No considerar si la propina se calcula antes o después de impuestos",
-        "Olvidar que los meses tienen diferente número de días",
-        "Usar el formato de fecha incorrecto (MM/DD vs DD/MM) al introducir datos"
-      ],
-      "input_type_review": [
-        {
-          "field_id": "total_cuenta",
-          "current_type": "number",
-          "recommended_type": "number",
-          "reason": "Correcto: valor continuo con decimales"
-        },
-        {
-          "field_id": "propina_pct",
-          "current_type": "number",
-          "recommended_type": "number",
-          "reason": "Considerar tipo \"select\" para unidades predefinidas"
-        },
-        {
-          "field_id": "num_personas",
-          "current_type": "number",
-          "recommended_type": "number",
-          "reason": "Correcto: valor entero para conteo"
-        }
-      ]
-    },
-    "it": {
-      "name": "Calcolatore Mancia",
-      "desc": "Calcola la mancia, il totale e l'importo per persona.",
-      "description": "Calcola la mancia, il totale e l'importo per persona.",
-      "seo_title": "Calcolatore Mancia – Passo dopo Passo",
-      "seo_description": "Calcola quanto lasciare di mancia e dividi il conto. Inserisci il totale, la % di mancia e il numero di persone. Ottieni risultati istantanei con.",
-      "inputs": {
-        "total_cuenta": "Totale conto (€)",
-        "propina_pct": "Mancia (%)",
-        "num_personas": "Numero di persone"
-      },
-      "outputs": {
-        "propina_total": "Mancia totale",
-        "total_con_propina": "Totale con mancia",
-        "por_persona": "Per persona"
-      },
-      "example_label": "Cuinta €65, propina 15%, 4 personas",
-      "range_hints": {
-        "total_cuenta": "Varía según restaurante",
-        "propina_pct": "Típicaminte 10-20% según país",
-        "num_personas": "1-20 personas"
-      },
-      "result_context": "Monto di propina, totale con propina, e per persona",
-      "formula_display": "Propina = Cuinta × %propina; Total = Cuinta + Propina",
-      "steps": [
-        "Moltiplicare cuinta per percintaje di propina",
-        "Sommmare propina al totale di cuinta",
-        "Dividire intre número di personas"
-      ],
-      "mistakes": [
-        "Applicare propina prima di impuestos (dipindi dil país)",
-        "Non verificare se servicio está incluido"
-      ],
-      "input_type_review": null
-    }
-  }
+﻿{
+    "id":  "500",
+    "slug":  "propina",
+    "block":  13,
+    "block_slug":  "cotidiano",
+    "inputs":  [
+                   {
+                       "id":  "total_cuenta",
+                       "type":  "number",
+                       "min":  0.01,
+                       "max":  1000000000,
+                       "step":  "any",
+                       "default":  65,
+                       "unit":  "â‚¬"
+                   },
+                   {
+                       "id":  "propina_pct",
+                       "type":  "number",
+                       "min":  0,
+                       "max":  100,
+                       "step":  1,
+                       "default":  15,
+                       "unit":  "%",
+                       "unit_options":  [
+                                            "%"
+                                        ],
+                       "unit_category":  "ratio"
+                   },
+                   {
+                       "id":  "num_personas",
+                       "type":  "number",
+                       "min":  1,
+                       "max":  1000,
+                       "step":  1,
+                       "default":  4,
+                       "unit":  "pers."
+                   }
+               ],
+    "formula":  "var C=parseFloat(inputs.total_cuenta)||0,P=parseFloat(inputs.propina_pct)||0,N=Math.max(1,parseFloat(inputs.num_personas)||1);if(!C)return{error:true};var prop=+(C*P/100).toFixed(2),total=+(C+prop).toFixed(2),pp=+(total/N).toFixed(2);return{propina_total:prop,total_con_propina:total,por_persona:pp};",
+    "outputs":  [
+                    {
+                        "id":  "propina_total",
+                        "unit":  "â‚¬",
+                        "highlight":  true
+                    },
+                    {
+                        "id":  "total_con_propina",
+                        "unit":  "â‚¬"
+                    },
+                    {
+                        "id":  "por_persona",
+                        "unit":  "â‚¬/pers."
+                    }
+                ],
+    "related":  [
+                    "501",
+                    "306",
+                    "200",
+                    "502"
+                ],
+    "example_inputs":  {
+                           "total_cuenta":  65,
+                           "propina_pct":  15,
+                           "num_personas":  4
+                       },
+    "example_label":  "Calcular propina de 65 â‚¬ × 15 % × 4 pers..",
+    "range_hints":  {
+                        "total_cuenta":  "Valor típico entre 0.01 y 1000000000. Valor por defecto: 65 â‚¬.",
+                        "propina_pct":  "Valor típico entre 0 y 100. Valor por defecto: 15 %.",
+                        "num_personas":  "Valor típico entre 1 y 1000. Valor por defecto: 4 pers.."
+                    },
+    "result_context":  "La propina sugerida es de {propina_total} €, para un total de {total_con_propina} € ({por_persona} € por persona).",
+    "result_context_en":  "The suggested tip is {propina_total} €, for a total of {total_con_propina} € ({por_persona} € per person).",
+    "result_context_fr":  "Le pourboire suggéré est de {propina_total} €, pour un total de {total_con_propina} € ({por_persona} € par personne).",
+    "result_context_pt":  "A gorjeta sugerida é de {propina_total} €, para um total de {total_con_propina} € ({por_persona} € por pessoa).",
+    "result_context_de":  "Das vorgeschlagene Trinkgeld beträgt {propina_total} €, für insgesamt {total_con_propina} € ({por_persona} € pro Person).",
+    "result_context_it":  "La mancia suggerita è di {propina_total} €, per un totale di {total_con_propina} € ({por_persona} € a persona).",
+    "formula_display":  "P ÷ 100 → propina_total, total_con_propina",
+    "steps":  [
+                  "Introducir los valores de total_cuenta, propina_pct y num_personas",
+                  "Verificar que las unidades sean correctas y convertir si es necesario (%)",
+                  "Calcular los valores de propina total y total con propina",
+                  "El resultado se expresa en â‚¬. Verificar que la magnitud es coherente",
+                  "Utilizar el resultado para la aplicación práctica correspondiente"
+              ],
+    "mistakes":  [
+                     "No considerar si la propina se calcula antes o después de impuestos",
+                     "Olvidar que los meses tienen diferente número de días",
+                     "Usar el formato de fecha incorrecto (MM/DD vs DD/MM) al introducir datos"
+                 ],
+    "input_type_review":  [
+                              {
+                                  "field_id":  "total_cuenta",
+                                  "current_type":  "number",
+                                  "recommended_type":  "number",
+                                  "reason":  "Correcto: valor continuo con decimales"
+                              },
+                              {
+                                  "field_id":  "propina_pct",
+                                  "current_type":  "number",
+                                  "recommended_type":  "number",
+                                  "reason":  "Considerar tipo \"select\" para unidades predefinidas"
+                              },
+                              {
+                                  "field_id":  "num_personas",
+                                  "current_type":  "number",
+                                  "recommended_type":  "number",
+                                  "reason":  "Correcto: valor entero para conteo"
+                              }
+                          ],
+    "comparison_presets":  [
+                               {
+                                   "_label":  "Escenario minimo",
+                                   "total_cuenta":  26.0,
+                                   "propina_pct":  6.0,
+                                   "num_personas":  1.6
+                               },
+                               {
+                                   "_label":  "Uso habitual",
+                                   "total_cuenta":  45.5,
+                                   "propina_pct":  10.5,
+                                   "num_personas":  2.8
+                               },
+                               {
+                                   "_label":  "Uso frecuente",
+                                   "total_cuenta":  65.0,
+                                   "propina_pct":  15.0,
+                                   "num_personas":  4.0
+                               },
+                               {
+                                   "_label":  "Uso intensivo",
+                                   "total_cuenta":  97.5,
+                                   "propina_pct":  22.5,
+                                   "num_personas":  6.0
+                               },
+                               {
+                                   "_label":  "Caso maximo",
+                                   "total_cuenta":  162.5,
+                                   "propina_pct":  37.5,
+                                   "num_personas":  10.0
+                               }
+                           ],
+    "units":  {
+                  "propina_pct":  "%"
+              },
+    "i18n":  {
+                 "es":  {
+                            "name":  "Calculadora de Propina",
+                            "desc":  "Calcula la propina, el total y el importe por persona.",
+                            "description":  "Calcula la propina, el total y el importe por persona.",
+                            "seo_title":  "Calculadora de Propina Gratuita",
+                            "seo_description":  "Calcula cuánto dejar de propina y divide la cuenta entre varios comensales. Introduce el total, el % de propina y el número de personas.",
+                            "inputs":  {
+                                           "total_cuenta":  "Total de la cuenta (€)",
+                                           "propina_pct":  "Propina (%)",
+                                           "num_personas":  "Número de personas"
+                                       },
+                            "outputs":  {
+                                            "propina_total":  "Propina total",
+                                            "total_con_propina":  "Total con propina",
+                                            "por_persona":  "Por persona"
+                                        },
+                            "example_label":  "Cuenta €65, propina 15%, 4 personas",
+                            "range_hints":  {
+                                                "total_cuenta":  "Varía según restaurante",
+                                                "propina_pct":  "Típicamente 10-20% según país",
+                                                "num_personas":  "1-20 personas"
+                                            },
+                            "result_context":  "Monto de propina, total con propina, y por persona",
+                            "formula_display":  "Propina = Cuenta × %propina; Total = Cuenta + Propina",
+                            "steps":  [
+                                          "Multiplicar cuenta por porcentaje de propina",
+                                          "Sumar propina al total de cuenta",
+                                          "Dividir entre número de personas"
+                                      ],
+                            "mistakes":  [
+                                             "Aplicar propina antes de impuestos (depende del país)",
+                                             "No verificar si servicio está incluido"
+                                         ],
+                            "input_type_review":  [
+
+                                                  ]
+                        },
+                 "en":  {
+                            "name":  "Tip Calculator",
+                            "desc":  "Calculate the tip, total bill and amount per person.",
+                            "description":  "Calculate the tip, total bill and amount per person.",
+                            "seo_title":  "Tip Calculator – Split Bill Online Free",
+                            "seo_description":  "Calculate how much to tip and split the bill between diners. Enter total, tip percentage and number of people. Get instant results with step-by-step.",
+                            "inputs":  {
+                                           "total_cuenta":  "Bill total (â‚¬)",
+                                           "propina_pct":  "Tip (%)",
+                                           "num_personas":  "Number of people"
+                                       },
+                            "outputs":  {
+                                            "propina_total":  "Total tip",
+                                            "total_con_propina":  "Total with tip",
+                                            "por_persona":  "Per person"
+                                        },
+                            "example_label":  "Cuenta â‚¬65, propina 15%, 4 personas",
+                            "range_hints":  {
+                                                "total_cuenta":  "Varía según restaurante",
+                                                "propina_pct":  "Típicamente 10-20% según país",
+                                                "num_personas":  "1-20 personas"
+                                            },
+                            "result_context":  "Monto de propina, total con propina, y por persona",
+                            "formula_display":  "Propina = Cuenta × %propina; Total = Cuenta + Propina",
+                            "steps":  [
+                                          "Multiplicar cuenta por porcentaje de propina",
+                                          "Sumar propina al total de cuenta",
+                                          "Dividir entre número de personas"
+                                      ],
+                            "mistakes":  [
+                                             "Aplicar propina antes de impuestos (depende del país)",
+                                             "No verificar si servicio está incluido"
+                                         ],
+                            "input_type_review":  "total_cuenta es moneda, propina_pct es porcentaje, num_personas es cantidad"
+                        },
+                 "fr":  {
+                            "name":  "Calculateur de Pourboire",
+                            "desc":  "Calculez le pourboire, le total et le montant par personne.",
+                            "description":  "Calculez le pourboire, le total et le montant par personne.",
+                            "seo_title":  "Calculateur Pourboire – Partager l\u0027Addition en Ligne",
+                            "seo_description":  "Calculez le pourboire et divisez l\u0027addition entre convives. Entrez le total, le % de pourboire et le nombre de personnes.",
+                            "inputs":  {
+                                           "total_cuenta":  "Total de l\u0027addition (€)",
+                                           "propina_pct":  "Pourboire (%)",
+                                           "num_personas":  "Nombre de personnes"
+                                       },
+                            "outputs":  {
+                                            "propina_total":  "Pourboire total",
+                                            "total_con_propina":  "Total avec pourboire",
+                                            "por_persona":  "Par personne"
+                                        },
+                            "example_label":  "Cuenta €65, propina 15%, 4 personas",
+                            "range_hints":  {
+                                                "total_cuenta":  "Varía selon restaurante",
+                                                "propina_pct":  "typiquement 10-20% selon país",
+                                                "num_personas":  "1-20 personas"
+                                            },
+                            "result_context":  "Monto de propina, total avec propina, et par persona",
+                            "formula_display":  "Propina = Cuenta × %propina; total = Cuenta + Propina",
+                            "steps":  [
+                                          "Multiplier cuenta par porcentaje de propina",
+                                          "Sumar propina al total de cuenta",
+                                          "diviser entre número de personas"
+                                      ],
+                            "mistakes":  [
+                                             "Aplicar propina antes de impuestos (depende du país)",
+                                             "Ne pas vérifier si servicio está incluido"
+                                         ],
+                            "input_type_review":  [
+
+                                                  ]
+                        },
+                 "pt":  {
+                            "name":  "Calculadora de Gorjeta",
+                            "desc":  "Calcule quanto deixar de gorjeta e divida a conta. Insira o total, a % de gorjeta e o número de pessoas. Obtenha resultados instantaneos com explicacao.",
+                            "description":  "Calcule a gorjeta, o total e o valor por pessoa.",
+                            "seo_title":  "Calculadora de Gorjeta Online Grátis",
+                            "seo_description":  "Calcule quanto deixar de gorjeta e divida a conta. Insira o total, a % de gorjeta e o número de pessoas. Obtenha resultados instantaneos com explicacao.",
+                            "inputs":  {
+                                           "total_cuenta":  "Total da conta (€)",
+                                           "propina_pct":  "Gorjeta (%)",
+                                           "num_personas":  "Número de pessoas"
+                                       },
+                            "outputs":  {
+                                            "propina_total":  "Gorjeta total",
+                                            "total_con_propina":  "Total com gorjeta",
+                                            "por_persona":  "Por pessoa"
+                                        },
+                            "example_label":  "Cuenta €65, propina 15%, 4 personas",
+                            "range_hints":  {
+                                                "total_cuenta":  "Varía segundo restaurante",
+                                                "propina_pct":  "Típicamente 10-20% segundo país",
+                                                "num_personas":  "1-20 personas"
+                                            },
+                            "result_context":  "Monto de propina, total com propina, e por persona",
+                            "formula_display":  "Propina = Cuenta × %propina; Total = Cuenta + Propina",
+                            "steps":  [
+                                          "Multiplicar cuenta por porcentaje de propina",
+                                          "Sumar propina ao total de cuenta",
+                                          "Dividir entre número de personas"
+                                      ],
+                            "mistakes":  [
+                                             "Aplicar propina antes de impuestos (depende do país)",
+                                             "Não verificar si servicio está incluido"
+                                         ],
+                            "input_type_review":  [
+
+                                                  ]
+                        },
+                 "de":  {
+                            "name":  "Trinkgeld-Rechner",
+                            "desc":  "Berechnen Sie das Trinkgeld und den Gesamtbetrag Ihrer Restaurantrechnung — aufteilbar auf Personen.",
+                            "seo_title":  "Trinkgeld-Rechner | CalcToWork",
+                            "seo_desc":  "Berechnen Sie das Trinkgeld und den Gesamtbetrag Ihrer Restaurantrechnung — aufteilbar auf Personen.",
+                            "seo_description":  "Berechnen Sie das Trinkgeld und den Gesamtbetrag Ihrer Restaurantrechnung — aufteilbar auf Personen.",
+                            "inputs":  {
+                                           "total_cuenta":  "Total Cuenta",
+                                           "propina_pct":  "Propina Pct",
+                                           "num_personas":  "Num Personas"
+                                       },
+                            "outputs":  {
+                                            "propina_total":  "Propina Total",
+                                            "total_con_propina":  "Total Con Propina",
+                                            "por_persona":  "Por Persona"
+                                        },
+                            "range_hints":  {
+                                                "total_cuenta":  "Typischer Wert entre 0.01 y 1000000000. Valor por defecto: 65 â‚¬.",
+                                                "propina_pct":  "Typischer Wert entre 0 y 100. Valor por defecto: 15 %.",
+                                                "num_personas":  "Typischer Wert entre 1 y 1000. Valor por defecto: 4 pers.."
+                                            },
+                            "result_context":  "Das vorgeschlagene Trinkgeld beträgt {propina_total} €, für insgesamt {total_con_propina} € ({por_persona} € pro Person).",
+                            "formula_display":  "P ÷ 100 → propina_total, total_con_propina",
+                            "input_type_review":  [
+                                                      {
+                                                          "field_id":  "total_cuenta",
+                                                          "current_type":  "number",
+                                                          "recommended_type":  "number",
+                                                          "reason":  "Correcto: valor continuo con decimales"
+                                                      },
+                                                      {
+                                                          "field_id":  "propina_pct",
+                                                          "current_type":  "number",
+                                                          "recommended_type":  "number",
+                                                          "reason":  "Considerar tipo \"select\" para unidades predefinidas"
+                                                      },
+                                                      {
+                                                          "field_id":  "num_personas",
+                                                          "current_type":  "number",
+                                                          "recommended_type":  "number",
+                                                          "reason":  "Correcto: valor entero para conteo"
+                                                      }
+                                                  ],
+                            "steps":  [
+                                          "Gib den Rechnungsbetrag, den Trinkgeld-Prozentsatz und die Anzahl der Personen ein",
+                                          "Waehle den passenden Trinkgeld-Satz (in Deutschland ueblich 5-10 pct)",
+                                          "Berechne das Trinkgeld: Rechnungsbetrag x Prozentsatz / 100",
+                                          "Addiere das Trinkgeld zum Rechnungsbetrag fuer die Endsumme",
+                                          "Teile das Ergebnis durch die Personenanzahl fuer den Betrag pro Person"
+                                      ],
+                            "mistakes":  [
+                                             "Trinkgeld auf den Bruttobetrag inkl. Steuern berechnen, obwohl es lokal anders gehandhabt wird",
+                                             "Nicht pruefen, ob ein Bedienungsgeld bereits in der Rechnung enthalten ist",
+                                             "Den Prozentsatz willkuerlich waehlen, ohne die lokalen Gepflogenheiten zu kennen"
+                                         ],
+                            "example_label":  "Rechnung 65 EUR, 15 pct Trinkgeld, 4 Personen"
+                        },
+                 "it":  {
+                            "name":  "Calcolatore Mancia",
+                            "desc":  "Calcola la mancia, il totale e l\u0027importo per persona.",
+                            "description":  "Calcola la mancia, il totale e l\u0027importo per persona.",
+                            "seo_title":  "Calcolatore Mancia – Passo dopo Passo",
+                            "seo_description":  "Calcola quanto lasciare di mancia e dividi il conto. Inserisci il totale, la % di mancia e il numero di persone. Ottieni risultati istantanei con.",
+                            "inputs":  {
+                                           "total_cuenta":  "Totale conto (€)",
+                                           "propina_pct":  "Mancia (%)",
+                                           "num_personas":  "Numero di persone"
+                                       },
+                            "outputs":  {
+                                            "propina_total":  "Mancia totale",
+                                            "total_con_propina":  "Totale con mancia",
+                                            "por_persona":  "Per persona"
+                                        },
+                            "example_label":  "Cuinta €65, propina 15%, 4 personas",
+                            "range_hints":  {
+                                                "total_cuenta":  "Varía según restaurante",
+                                                "propina_pct":  "Típicaminte 10-20% según país",
+                                                "num_personas":  "1-20 personas"
+                                            },
+                            "result_context":  "Monto di propina, totale con propina, e per persona",
+                            "formula_display":  "Propina = Cuinta × %propina; Total = Cuinta + Propina",
+                            "steps":  [
+                                          "Moltiplicare cuinta per percintaje di propina",
+                                          "Sommmare propina al totale di cuinta",
+                                          "Dividire intre número di personas"
+                                      ],
+                            "mistakes":  [
+                                             "Applicare propina prima di impuestos (dipindi dil país)",
+                                             "Non verificare se servicio está incluido"
+                                         ],
+                            "input_type_review":  null
+                        }
+             }
 }

@@ -377,7 +377,7 @@
         "potencia_kw": "Potencia Kw",
         "potencia_reactiva_kvar": "Potencia Reactiva Kvar"
       },
-      "example_label": "Calcular potencia activa y aparente para motor trifásico de 63 A a 400 V con cos φ = 0.9.",
+      "example_label": "Drehstrom: Wirk- und Blindleistung für 63 A bei 400 V mit cos φ = 0,9 berechnen.",
       "range_hints": {
         "corriente_a": "Corriente de línea por fase: pequeños talleres 16-63 A, industria media 63-200 A, gran industria 200-400 A. Medir con pinza amperimétrica en carga",
         "tension_v": "Tensión compuesta (fase-fase): 400 V estándar Europa, 380 V instalaciones antiguas, 415 V Reino Unido. No confundir con tensión simple fase-neutro (230 V)",
@@ -386,17 +386,16 @@
       "result_context": "Sistema trifásico de {corriente_a} A a {tension_v} V con cos φ = {fp}: potencia activa {potencia_kw} kW, potencia aparente {potencia_kva} kVA, potencia reactiva {potencia_reactiva_kvar} kVAr. Si Q > 30 % de P, considerar batería de condensadores.",
       "formula_display": "P(kW) = √3 × V_línea × I_línea × cos φ / 1000.  S(kVA) = √3 × V_línea × I_línea / 1000.  Q(kVAr) = √(S² - P²).  cos φ típico: motores 0.80-0.90, resistencias 1.0, LED 0.95.",
       "steps": [
-        "Identificar la corriente de línea: medir con pinza amperimétrica en cada fase en condiciones normales de funcionamiento, o tomar de la placa del equipo",
-        "Calcular potencia aparente trifásica: S(kVA) = √3 × V_línea × I_línea / 1000. Con 400 V y 63 A: S = 1.732 × 400 × 63 / 1000 = 43.65 kVA",
-        "Calcular potencia activa: P(kW) = S × cos φ = 43.65 × 0.9 = 39.29 kW. Es la potencia que realmente se convierte en trabajo útil",
-        "Calcular potencia reactiva: Q(kVAr) = √(S² - P²) = √(1905.3 - 1543.7) = √361.6 = 19.0 kVAr. Esta energía circula sin producir trabajo",
-        "Verificar si conviene instalar condensadores: si Q > 0.3 × P, la penalización en factura puede justificar la inversión en batería de condensadores automática"
+        "Leiterstrom mit einer Strommesszange an jeder Phase unter Betriebslast messen oder vom Typenschild ablesen",
+        "Scheinleistung aus Außenleiterspannung und Leiterstrom: S = √3 × U × I ÷ 1000; mit 400 V und 63 A: S = 43,65 kVA",
+        "Wirkleistung aus Scheinleistung und Leistungsfaktor: P = S × cos φ; mit cos φ = 0,9: P = 39,29 kW",
+        "Blindleistung aus dem Leistungsdreieck: Q = √(S² − P²); mit obigen Werten: Q = 19,0 kVAr",
+        "Blindstromkompensation prüfen: wenn Q > 30 % von P, lohnt sich eine Kompensationsanlage zur Vermeidung von Blindarbeitszuschlägen"
       ],
       "mistakes": [
-        "Olvidar el factor √3 en la fórmula trifásica: usar P = V × I como monofásico infravalora la potencia un 42 %. La corriente en trifásica es menor para la misma potencia",
-        "Confundir tensión de línea (fase-fase = 400 V) con tensión de fase (fase-neutro = 230 V): la relación es V_línea = √3 × V_fase. Usar 230 V infravalora la potencia un 42 %",
-        "No considerar el factor de potencia en la facturación: las compañías penalizan exceso de reactiva (cos φ < 0.95). Una planta con cos φ = 0.7 paga hasta un 20 % más",
-        "Dimensionar el transformador solo con potencia activa: el trafo se dimensiona por kVA (aparentes), no por kW. Un motor de 50 kW con cos φ = 0.8 consume 62.5 kVA"
+        "Wurzel-3-Faktor vergessen und einphasige Formel verwendet — die einphasige Rechnung P = U × I unterschlägt 42 % der tatsächlichen Leistung",
+        "Außenleiterspannung (400 V) mit Strangspannung (230 V) verwechselt — mit 230 V gerechnet liegt man um 42 % daneben; U_Außenleiter = √3 × U_Strang",
+        "Transformator nur nach Wirkleistung dimensioniert — ein Trafo muss nach Scheinleistung (kVA) bemessen werden: ein 50-kW-Motor mit cos φ = 0,8 zieht 62,5 kVA"
       ],
       "input_type_review": [
         {
