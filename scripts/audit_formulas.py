@@ -1,45 +1,66 @@
-import json, re
+#!/usr/bin/env python3
+"""Real JS formula audit - check braces, parens, field validation."""
 
-calcs = json.load(open('src/calculators/calculators.json', encoding='utf-8'))['calculators']
-i18n = json.load(open('src/i18n/en.json', encoding='utf-8'))['calculators']
+import json, os, glob
 
-broken = []
-for c in calcs:
-    cid = c['id']
-    ci18n = i18n.get(cid, {})
-    inputs = c.get('inputs', [])
-    formula = c.get('formula', '')
-    
-    issues = []
-    
-    calc_input_ids = {inp['id'] for inp in inputs if 'id' in inp}
-    
-    # Check formula references inputs that exist
+CALC_DIR = r"C:\Microsaas\obra\src\calculators"
+
+errors = []
+warnings = []
+
+for fp in sorted(glob.glob(os.path.join(CALC_DIR, "*.json"))):
+    name = os.path.basename(fp)
+    if "bak" in fp or "monolithic" in fp or name == "calculators.json":
+        continue
+
+    with open(fp, "r", encoding="utf-8-sig") as f:
+        calc = json.load(f)
+
+    cid = calc.get("id", "?")
+    formula = calc.get("formula", "")
+    inputs = calc.get("inputs", [])
+    outputs = calc.get("outputs", [])
+    input_ids = {i.get("id", "") for i in inputs}
+    output_ids = {o.get("id", "") for o in outputs}
+
+    # 1. Mismatched braces/parens
     if formula:
-        # Find all inputs.XXX or inputs['XXX'] or inputs["XXX"] patterns
-        refs = set()
-        for m in re.finditer(r'inputs\.(\w+)', formula):
-            refs.add(m.group(1))
-        for m in re.finditer(r"inputs\['([^']+)'\]", formula):
-            refs.add(m.group(1))
-        for m in re.finditer(r'inputs\["([^"]+)"\]', formula):
-            refs.add(m.group(1))
-        
-        missing_refs = refs - calc_input_ids
-        if missing_refs:
-            issues.append(f'formula refs missing inputs: {missing_refs}')
-    
-    # Check for empty formula
-    if not formula or not formula.strip():
-        issues.append('empty formula')
-    
-    if issues:
-        broken.append((cid, c['slug'], issues))
+        opens = formula.count("{") - formula.count("}")
+        if opens != 0:
+            errors.append((f"{cid} {name}", f"Mismatched braces: {'+' if opens>0 else ''}{opens}"))
+        parens = formula.count("(") - formula.count(")")
+        if parens != 0:
+            errors.append((f"{cid} {name}", f"Mismatched parens: {'+' if parens>0 else ''}{parens}"))
 
-print(f'Calculators with formula issues: {len(broken)}')
-for cid, slug, issues in broken[:30]:
-    print(f'  {cid} {slug}: {issues}')
-if len(broken) > 30:
-    print('...')
-    for cid, slug, issues in broken[-10:]:
-        print(f'  {cid} {slug}: {issues}')
+    # 2. Missing formula
+    if not formula:
+        errors.append((f"{cid} {name}", "MISSING formula"))
+
+    # 3. Missing inputs/outputs
+    if not inputs:
+        errors.append((f"{cid} {name}", "MISSING inputs"))
+    if not outputs:
+        errors.append((f"{cid} {name}", "MISSING outputs"))
+
+    # 4. Input min > max
+    for i in inputs:
+        mn = i.get("min")
+        mx = i.get("max")
+        if mn is not None and mx is not None and mn > mx:
+            errors.append((f"{cid} {name}", f"Input '{i['id']}' min={mn} > max={mx}"))
+
+    # 5. Formula uses undefined inputs
+    if formula:
+        import re
+        used = set(re.findall(r'inputs\.(\w+)', formula))
+        missing_inputs = used - input_ids
+        if missing_inputs:
+            errors.append((f"{cid} {name}", f"Formula uses undeclared inputs: {missing_inputs}"))
+
+print(f"ERRORS: {len(errors)}")
+for e in errors:
+    print(f"  {e[0]}: {e[1]}")
+
+print(f"\nWARNINGS: {len(warnings)}")
+for w in warnings[:20]:
+    print(f"  {w[0]}: {w[1]}")

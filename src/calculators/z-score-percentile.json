@@ -32,7 +32,7 @@
       "unit": ""
     }
   ],
-  "formula": "var x=parseFloat(inputs.valor)||0,m=parseFloat(inputs.media)||0,s=parseFloat(inputs.desviacion)||1;if(!s)return{error:true};var z=+((x-m)/s).toFixed(4);var percentile=+(0.5*(1+Math.erf(z/Math.sqrt(2)))*100).toFixed(2);return{z_score:z,percentile:percentile,classification:z>2?'Far above average':z>1?'Above average':z>-1?'Average':z>-2?'Below average':'Far below average'};",
+  "formula": "var erf=function(x){var sign=x>=0?1:-1;x=Math.abs(x);var a1=0.254829592,a2=-0.284496736,a3=1.421413741,a4=-1.453152027,a5=1.061405429,p=0.3275911;var t=1/(1+p*x);var y=1-(((((a5*t+a4)*t)+a3)*t+a2)*t+a1)*t*Math.exp(-x*x);return sign*y;};var x=parseFloat(inputs.valor)||0,m=parseFloat(inputs.media)||0,s=parseFloat(inputs.desviacion)||1;if(!s)return{error:true};var z=+((x-m)/s).toFixed(4);var percentile=+(0.5*(1+erf(z/Math.sqrt(2)))*100).toFixed(2);return{z_score:z,percentile:percentile,classification:z>2?'Far above average':z>1?'Above average':z>-1?'Average':z>-2?'Below average':'Far below average'};",
   "outputs": [
     {
       "id": "z_score",
