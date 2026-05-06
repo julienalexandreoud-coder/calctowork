@@ -150,7 +150,7 @@
       "description": "Calcula el caudal necesario para ventilar un espacio."
     },
     "en": {
-      "name": "Electrical Panel Load Calculator",
+      "name": "Electrical Panel Calculator",
       "seo_title": "Electrical Panel Calculator — Load Balance | CalcToWork",
       "inputs": {
         "area_m2": "Room area",
@@ -173,17 +173,21 @@
       "result_context": "Vivienda de {area_m2}mÂ² con {altura_m}m de altura requiere ventilador de {caudal_m3h} mÂ³/h ({caudal_ls} L/s) para {renovaciones_hora} renovaciones/hora.",
       "formula_display": "Volumen = Ã¡rea Ã— altura; Caudal = volumen Ã— renovaciones_hora",
       "steps": [
-        "Calcular volumen: 90mÂ² Ã— 2.5m = 225mÂ³",
-        "Calcular caudal: 225mÂ³ Ã— 0.5 ren/h = 112.5 mÂ³/h",
-        "Convertir a L/s: 112.5 Ã· 3.6 = 31.25 L/s",
-        "Seleccionar ventilador: 120-150 mÂ³/h (con margen)"
+        "List all circuits with their breaker ratings in amps",
+        "Calculate total connected load: sum of all breaker ratings",
+        "Apply diversity factor: total connected × 0.6 for residential",
+        "Single phase: total VA = total A × 230 V",
+        "Verify panel rating exceeds calculated demand by at least 20%"
       ],
       "mistakes": [
-        "No considerar renovaciÃ³n mÃ­nima segÃºn normativa (CTE DB-HS3)",
-        "Instalar ventilador sin recuperaciÃ³n de calor (pÃ©rdida energÃ©tica)",
-        "No prever entrada de aire desde exteriores (ventanas, rejillas)"
+        "Summing breaker ratings directly — they don't all draw full load simultaneously",
+        "Not leaving spare capacity for future circuits and EV chargers",
+        "Forgetting that RCD/GFCI requirements add to the panel space needed"
       ],
-      "description": "Calculate the total electrical load on a distribution panel. Enter circuit loads to verify panel capacity and prevent overloads."
+      "description": "Calculate the total electrical load on a distribution panel. Enter circuit loads to verify panel capacity and prevent overloads.",
+      "rc": "With a calculated demand of {carga_total} A on a {tamano_panel} A panel, you have {margen}% spare capacity.",
+      "fd": "Demand = sum of breakers × diversity factor; Spare = (panel − demand) ÷ panel × 100",
+      "el": "Panel load check for a house with 10 circuits on a 100 A panel"
     },
     "fr": {
       "name": "Calculateur Ventilation Mécanique",
