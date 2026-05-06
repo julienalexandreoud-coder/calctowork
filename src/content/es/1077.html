@@ -3,84 +3,39 @@
   <p>La calculadora de divisor de voltaje calcula el voltaje de salida de un circuito divisor de voltaje de dos resistencias. Esta topología de circuito fundamental se usa en casi todos los dispositivos electrónicos para interfaz de sensores, desplazamiento de nivel, generación de referencia y atenuación de señales. Ya sea que diseñes un circuito de sensor para Arduino, un amplificador de audio o un monitor de fuente de alimentación, el divisor de voltaje es un bloque constructivo esencial.</p>
 
   <div class="formula-section">
-    <h2>Fórmula del Divisor de Voltaje</h2>
-    <p class="formula-display">V<sub>sal</sub> = V<sub>ent</sub> &times; R<sub>2</sub> &divide; (R<sub>1</sub> + R<sub>2</sub>)</p>
-    <p>La fórmula se deriva de la ley de Ohm y del hecho de que la misma corriente fluye a través de ambas resistencias en serie. El voltaje de entrada Vin se aplica a través de la combinación en serie de R1 y R2. El voltaje de salida Vout se mide a través de R2, la resistencia inferior. La relación de división depende solo de los valores de las resistencias, no del nivel absoluto de voltaje.</p>
-    <p>La corriente que fluye a través del divisor es I = Vin / (R1 + R2). Esta corriente determina la potencia disipada en cada resistencia: P1 = I² × R1 y P2 = I² × R2. Para circuitos alimentados por batería, se usan valores de resistencia grandes (100 kΩ o más) para minimizar el consumo de corriente, mientras que para aplicaciones de precisión se prefieren valores pequeños (1 kΩ a 10 kΩ) para reducir el ruido y los efectos de carga.</p>
-  </div>
+    <h2><h2>¿Qué es la Divisor Voltaje?</h2>
+<p>Calculadora de Divisor Voltaje</p>
 
-  <div class="examples-section">
-    <h2>Ejemplos Prácticos</h2>
-    <div class="example">
-      <h3>Ejemplo 1: Desplazador de Nivel de 5 V a 3.3 V</h3>
-      <p>Una salida de microcontrolador de 5 V debe reducirse a 3.3 V para la entrada de un módulo sensor. Elige R1 = 10 kΩ y R2 = 6.8 kΩ (valores E12 estándar).</p>
-      <p><strong>Cálculo:</strong> Vout = 5 V &times; 6,800 &divide; (10,000 + 6,800) = 5 &times; 6,800 &divide; 16,800 = <strong>2.02 V</strong></p>
-      <p>Esto produce solo 2.02 V, no los 3.3 V deseados. Para obtener 3.3 V de una fuente de 5 V, resuelve para R2: 3.3 = 5 × R2 / (R1 + R2). Con R1 = 10 kΩ: 3.3 × (10,000 + R2) = 5 × R2, dando 33,000 + 3.3 R2 = 5 R2, así que 33,000 = 1.7 R2, y R2 = 19.4 kΩ. Usa R1 = 10 kΩ y R2 = 20 kΩ (valor estándar) para obtener aproximadamente 3.33 V.</p>
-    </div>
-    <div class="example">
-      <h3>Ejemplo 2: Monitor de Voltaje de Batería</h3>
-      <p>Una batería de plomo-ácido de 12 V (12.6 V completamente cargada) debe medirse con un ADC que acepta un máximo de 5 V. Diseña un divisor que mapee 12.6 V a 5 V.</p>
-      <p><strong>Cálculo:</strong> Usando Vout / Vin = R2 / (R1 + R2) = 5 / 12.6 = 0.397. Si R2 = 10 kΩ, entonces 0.397 = 10,000 / (R1 + 10,000). R1 + 10,000 = 10,000 / 0.397 = 25,189 Ω. R1 = 15,189 Ω ≈ 15 kΩ (valor estándar).</p>
-      <p>Con R1 = 15 kΩ y R2 = 10 kΩ, Vout a 12.6 V = 12.6 × 10,000 / (15,000 + 10,000) = 12.6 × 0.4 = <strong>5.04 V</strong>. Esto está cerca del límite del ADC de 5 V. A 11.5 V (descargada), Vout = 11.5 × 0.4 = 4.6 V. El divisor consume 12.6 / 25,000 = 0.5 mA de la batería, aceptable para monitoreo continuo.</p>
-    </div>
-  </div>
+<h2>Cómo usar esta calculadora</h2>
+<p>Introduce los datos:</p>
+<ul><li><strong>Voltaje Entrada</strong></li>
+<li><strong>R1</strong></li>
+<li><strong>R2</strong></li>
+</ul>
+<p>Resultados:</p>
+<ul><li><strong>Voltaje Salida</strong></li>
+<li><strong>Corriente</strong></li>
+</ul>
 
-  <div class="uses-section">
-    <h2>Usos Comunes</h2>
-    <ul>
-      <li>Reducir voltajes de salida de sensores (ej. 0-10 V a 0-3.3 V) para que coincidan con el rango de entrada de microcontroladores y ADC</li>
-      <li>Crear voltajes de referencia para circuitos de amplificadores operacionales y umbrales de comparadores</li>
-      <li>Polarizar etapas de amplificadores de transistores estableciendo el voltaje de base en el punto de operación correcto</li>
-      <li>Atenuar señales de audio para evitar recorte en interfaces de grabación y cadenas de procesamiento de audio</li>
-      <li>Monitorear voltajes de batería en electrónica portátil sin exceder los límites de entrada del ADC</li>
-      <li>Establecer el voltaje de retroalimentación en reguladores de voltaje ajustables y fuentes de alimentación conmutadas</li>
-    </ul>
-  </div>
+<h2>Cómo funciona el cálculo</h2>
+<p>Fórmula: <code></code></p>
 
-  <div class="mistakes-section">
-    <h2>Errores Comunes</h2>
-    <ul>
-      <li>Olvidar que el voltaje de salida del divisor cambia cuando se conecta una carga &mdash; considera siempre la impedancia de carga como una resistencia en paralelo con R2</li>
-      <li>Usar valores de resistencia demasiado altos, haciendo el divisor susceptible a acoplamiento de ruido de señales cercanas</li>
-      <li>Usar valores de resistencia demasiado bajos, desperdiciando potencia y potencialmente superando las clasificaciones de potencia de las resistencias &mdash; un divisor de 100 Ω a 12 V disipa 1.44 W</li>
-      <li>Asumir que el divisor proporciona un voltaje regulado &mdash; un divisor no es un regulador de voltaje; si el voltaje de entrada fluctúa, la salida fluctúa proporcionalmente</li>
-    </ul>
-  </div>
+<h2>Ejemplo paso a paso</h2>
+<ol></ol>
 
-  <div class="pro-tip">
-    <h2>Consejo Experto</h2>
-    <p>Al diseñar un divisor de voltaje para una entrada ADC, añade un pequeño capacitor (0.1 &micro;F) en paralelo con R2 para crear un filtro pasabajos. Esto filtra el ruido de alta frecuencia y proporciona un depósito de carga para el circuito de muestreo y retención del ADC, mejorando la precisión de la medición. La frecuencia de corte es fc = 1 / (2&pi; × R_equivalente × C), donde R_equivalente es la combinación en paralelo de R1 y R2. Para R1 = 10 k&Omega; y R2 = 10 k&Omega;, la resistencia equivalente es 5 k&Omega;, así que con C = 0.1 &micro;F, fc = 1 / (6.28 × 5000 × 1e-7) = 318 Hz, lo que elimina el ruido de alta frecuencia mientras preserva la señal de CC.</p>
-  </div>
+<h2>Errores comunes a evitar</h2>
+<ul></ul>
 
-  <div class="faq-section">
-    <h2>Preguntas Frecuentes</h2>
-    <div class="faq-list">
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">¿Cuándo debo usar un divisor de voltaje vs. un regulador de voltaje?</button>
-        <div class="faq-ap"><p>Usa un divisor de voltaje solo para voltajes de referencia o polarización donde la carga consume corriente despreciable (menos del 1% de la corriente del divisor). Para alimentar cargas que consumen corriente significativa, usa un regulador de voltaje. El voltaje de salida de un divisor cae cuando se conecta una carga.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">¿Cómo elijo los valores de resistencia para un divisor de voltaje?</button>
-        <div class="faq-ap"><p>Elige valores de resistencia suficientemente grandes para minimizar la pérdida de potencia pero suficientemente pequeños para que la corriente de carga sea despreciable frente a la corriente del divisor. Una buena regla es hacer que la corriente del divisor sea 100 veces mayor que la corriente de carga esperada.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">¿Qué es el problema del divisor de voltaje con carga?</button>
-        <div class="faq-ap"><p>Cuando conectas una resistencia de carga (RL) a la salida del divisor, RL aparece en paralelo con R2, reduciendo la resistencia efectiva de la mitad inferior. Esto reduce el voltaje de salida. El Vout real se convierte en Vin × R2∥RL / (R1 + R2∥RL). Para minimizar este efecto, asegúrate de que RL sea al menos 100 veces mayor que R2.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">¿Puedo usar un divisor de voltaje con señales de CA?</button>
-        <div class="faq-ap"><p>Sí, la fórmula funciona tanto para CC como para CA siempre que la frecuencia sea suficientemente baja para que la capacitancia parásita sea despreciable. A altas frecuencias, el condensador formado por los terminales de la resistencia y las trazas de la PCB crea un divisor de voltaje dependiente de la frecuencia.</p></div>
-      </div>
-    </div>
-  </div>
+<h2>Consejos útiles</h2>
+<ul>
+<li>Verifica siempre las unidades antes de calcular</li>
+<li>Compara resultados con otras fuentes cuando sea posible</li>
+<li>Guarda tus cálculos para referencia futura</li>
+<li>Esta herramienta es gratuita, sin registro</li>
+</ul>
 
-
-  <div class="related-calculators">
-    <h2>Calculadoras Relacionadas</h2>
-    <ul>      <li><a href="/resistor-color-code-calculator">Resistor Color Code Calculator</a></li>
-      <li><a href="/capacitor-energy-calculator">Capacitor Energy Calculator</a></li>
-      <li><a href="/rc-time-constant-calculator">RC Time Constant Calculator</a></li>
-      <li><a href="/wheatstone-bridge-calculator">Wheatstone Bridge Calculator</a></li>
-    </ul>
-  </div>
-</section>
+<h2>Preguntas frecuentes</h2>
+<h3>¿Es precisa esta calculadora?</h3>
+<p>Sí, utiliza fórmulas estándar del sector y precisión completa.</p>
+<h3>¿Puedo usarla en el móvil?</h3>
+<p>Sí, funciona en todos los dispositivos.</p>
