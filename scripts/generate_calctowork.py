@@ -82,6 +82,12 @@ DATE_PUBLISHED = {
 # BLOCK_ICONS imported from config.blocks
 # GAUGE_CONFIGS imported from config.gauges
 
+SKIP_TO_CONTENT = {
+    "es": "Saltar al contenido", "en": "Skip to content",
+    "fr": "Aller au contenu",    "pt": "Pular para o conteúdo",
+    "de": "Zum Inhalt springen", "it": "Vai al contenuto",
+}
+
 COPIED_LABEL = {
     "es": "¡Copiado!", "en": "Copied!",
     "fr": "Copié !",   "pt": "Copiado!",
@@ -698,7 +704,7 @@ STATIC_PAGES = {
 <p>Durch den Zugriff auf und die Nutzung von CalcToWork (calcto.work) stimmen Sie diesen Nutzungsbedingungen zu. Wenn Sie mit einem dieser Bedingungen nicht einverstanden sind, nutzen Sie unsere Website bitte nicht.</p>
 
 <h2>Nutzung des Dienstes</h2>
-<p>CalcToWork ist eine Plattform für kostenlose Online-Rechner. Sie können unsere Rechner für persönliche und kommerlle Zwecke kostenlos nutzen.</p>
+<p>CalcToWork ist eine Plattform für kostenlose Online-Rechner. Sie können unsere Rechner für persönliche und kommerzielle Zwecke kostenlos nutzen.</p>
 <p>Alle Rechner laufen in Ihrem Browser und die Berechnungen werden clientseitig mit JavaScript durchgeführt.</p>
 
 <h2>Haftungsausschluss</h2>
@@ -706,7 +712,7 @@ STATIC_PAGES = {
 <p><strong>Konsultieren Sie immer einen qualifizierten Fachmann</strong> für Bau-, Medizin-, Finanz-, Ingenieur- oder andere professionelle Angelegenheiten. Rechnerergebnisse ersetzen keine professionelle Beratung.</p>
 
 <h2>Gewährleistung</h2>
-<p>CalcToWork übernimmt keine Gewährleistung für die Richtigkeit, Vollständigkeit oder Zuverlässigkeit der Rechnerergebnisse. Der Dienst wird „wie besehen" und „nach Verfügbarkeit" bereitgestellt.</p>
+<p>CalcToWork übernimmt keine Gewährleistung für die Richtigkeit, Vollständigkeit oder Zuverlässigkeit der Rechnerergebnisse. Der Dienst wird „wie gesehen" und „nach Verfügbarkeit" bereitgestellt.</p>
 
 <h2>Haftungsbeschränkung</h2>
 <p>CalcToWork haftet nicht für direkte, indirekte, zufällige oder Folgeschäden, die aus der Nutzung unserer Rechnerergebnisse entstehen.</p>
@@ -1580,6 +1586,7 @@ def generate() -> None:
         # ── Index page ────────────────────────────────────────────────────────
         index_html = index_tpl.render(
             lang=lang, t=t, all_langs=LANGS,
+            skip_link=SKIP_TO_CONTENT.get(lang, SKIP_TO_CONTENT["en"]),
             blocks_by_slug=blocks_by_slug,
             calcs_i18n=calcs_i18n,
             block_icons=BLOCK_ICONS,
@@ -1611,6 +1618,7 @@ def generate() -> None:
             block_desc = t.get("block_descriptions", {}).get(block_slug, f"{block_name} – free online calculators.")
             block_html = block_tpl.render(
                 lang=lang, t=t, all_langs=LANGS,
+                skip_link=SKIP_TO_CONTENT.get(lang, SKIP_TO_CONTENT["en"]),
                 block_slug=block_slug, block_name=block_name,
                 block_description=block_desc,
                 block_calcs=block_calcs, calcs_i18n=calcs_i18n,
@@ -1729,6 +1737,7 @@ def generate() -> None:
 
             calc_html = calc_tpl.render(
                 lang=lang, t=t, all_langs=LANGS,
+                skip_link=SKIP_TO_CONTENT.get(lang, SKIP_TO_CONTENT["en"]),
                 calc=calc, calc_i18n=ci18n,
                 cookie_consent_i18n=cookie_consent_i18n,
                 block_name=block_name,
@@ -1877,6 +1886,7 @@ def generate() -> None:
 
                 html = calc_tpl.render(
                     lang=lang, t=t, all_langs=LANGS,
+                    skip_link=SKIP_TO_CONTENT.get(lang, SKIP_TO_CONTENT["en"]),
                     calc=calc, calc_i18n=ci18n,
                     cookie_consent_i18n={"privacy_path": f"/{lang}/privacy/"},
                     block_name=block_name,
@@ -1948,6 +1958,7 @@ date_published=DATE_PUBLISHED.get(calc.get("block", 0), "2025-01-01"),
                 continue
             html = static_tpl.render(
                 lang=lang, t=t, all_langs=LANGS,
+                skip_link=SKIP_TO_CONTENT.get(lang, SKIP_TO_CONTENT["en"]),
                 page_slug=page_slug,
                 page_title=pc["title"],
                 page_description=pc["description"],
