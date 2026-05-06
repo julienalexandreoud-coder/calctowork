@@ -86,55 +86,6 @@
     "tension_v": "230",
     "caida_max_pct": 3
   },
-  "example_label": "Calcular sección para 16 A × 20 m en 230 V monofásico con caída máxima del 3 %.",
-  "range_hints": {
-    "corriente_a": "Corriente de diseño Ib: cargas residenciales 10-32 A, industriales hasta 200 A. Calcular como Ib = P/(V × cos φ)",
-    "longitud_m": "Longitud real del cable desde cuadro hasta la carga más lejana (no distancia en línea recta). Añadir 10-15 % por recorrido real",
-    "tension_v": "230 V monofásico residencial, 400 V trifásico industrial. La tensión influye en la corriente y la caída admisible",
-    "caida_max_pct": "ITC-BT-19: máx 3 % para alumbrado, 5 % para fuerza. En zonas rurales o largas distancias considerar 2 % para proteger equipos sensibles"
-  },
-  "result_context": "Se requiere cable de {seccion_normalizada_mm2} mm² (sección calculada {seccion_calc_mm2} mm²). Caída de tensión real: {caida_real_pct} %. Si supera el 5 % aumentar a la sección normalizada siguiente. Verificar criterio térmico según ITC-BT-19.",
-  "formula_display": "S = (2 × ρ × L × I) / ΔV  con ρ(Cu)=0.0178 Ω×mm²/m.  ΔV = V × caída%/100.  I = P/(V × cos φ). Sección normalizada: 1.5, 2.5, 4, 6, 10, 16, 25, 35 mm².",
-  "steps": [
-    "Calcular corriente de diseño: Ib = Potencia(W) / (Tensión(V) × cos φ). Ejemplo: 3680 W a 230 V, cos φ=1 → Ib = 3680/230 = 16 A",
-    "Calcular caída de tensión admisible: ΔV = V × caída%/100. Para 230 V al 3 %: 230 × 0.03 = 6.9 V",
-    "Aplicar fórmula monofásica para cobre: S = (2 × L × I) / (σ × ΔV) con σ=56 m/(Ω×mm²). Con 20 m y 16 A: S = (2×20×16)/(56×6.9) = 1.66 mm²",
-    "Redondear a sección normalizada superior según ITC-BT-19: 1.5 → 2.5 → 4 → 6 → 10 → 16 → 25 → 35 mm². Para 1.66 mm² → 2.5 mm²",
-    "Verificar caída real con la sección elegida: caída real % = (2 × L × I)/(σ × S_norm × V) × 100. Si supera el límite, subir una sección"
-  ],
-  "mistakes": [
-    "Usar 1.5 mm² para circuitos de potencia: la sección mínima para tomas de corriente es 2.5 mm² según ITC-BT-25. El 1.5 mm² solo es válido para alumbrado con protección de 10 A",
-    "Ignorar la caída de tensión en tiradas largas: un cable de 6 mm² con 40 A a 100 m pierde 23.8 V (10.4 %), dejando solo 206 V en el receptor, dañando motores y provocando disparos",
-    "No sobredimensionar para tramos extensos: en viviendas unifamiliares con jardín, la derivación al garaje a 50 m requiere pasar de 2.5 mm² a 6 mm² para cumplir caída máxima del 5 %",
-    "Mezclar cobre y aluminio sin conectores bimetálicos: la corrosión galvánica entre Al y Cu aumenta la resistencia del contacto de <0.001 Ω a >0.5 Ω en 12-18 meses",
-    "No aplicar factores de corrección por agrupamiento: 4 cables de 2.5 mm² en un tubo de 20 mm reducen la intensidad admisible un 20-30 % según ITC-BT-19, recalentando la canalización"
-  ],
-  "input_type_review": [
-    {
-      "field_id": "corriente_a",
-      "current_type": "number",
-      "recommended_type": "number",
-      "reason": "Considerar tipo \"select\" para unidades predefinidas"
-    },
-    {
-      "field_id": "longitud_m",
-      "current_type": "number",
-      "recommended_type": "number",
-      "reason": "Considerar tipo \"select\" para unidades predefinidas"
-    },
-    {
-      "field_id": "tension_v",
-      "current_type": "select",
-      "recommended_type": "select",
-      "reason": "Correcto: valor continuo con decimales"
-    },
-    {
-      "field_id": "caida_max_pct",
-      "current_type": "number",
-      "recommended_type": "number",
-      "reason": "Considerar tipo \"select\" para unidades predefinidas"
-    }
-  ],
   "comparison_presets": [
     {
       "_label": "Alumbrado (1.5 mm²)",
@@ -175,7 +126,6 @@
   "i18n": {
     "es": {
       "name": "Calculadora de Sección de Cable Eléctrico",
-      "desc": "Calcula la sección en mm² del cable eléctrico según la intensidad, longitud y tensión, siguiendo el REBT Usado por profesionales y estudiantes en todo.",
       "seo_title": "Calculadora Sección Cable – mm²",
       "inputs": {
         "corriente_a": "Intensidad (A)",
@@ -208,28 +158,10 @@
         "No usar sección mínima reglamentaria (2.5mm² para enchufes)",
         "No considerar agrupamiento de cables (reduce capacidad)"
       ],
-      "input_type_review": [
-        {
-          "field_id": "corriente_a",
-          "reason": "Correcto: valor continuo con decimales"
-        },
-        {
-          "field_id": "longitud_m",
-          "reason": "Correcto: valor continuo con decimales"
-        },
-        {
-          "field_id": "tension_v",
-          "reason": "Correcto: opción discreta"
-        },
-        {
-          "field_id": "caida_max_pct",
-          "reason": "Correcto: valor continuo con decimales"
-        }
-      ]
+      "description": "Calcula la sección en mm² del cable eléctrico según la intensidad, longitud y tensión, siguiendo el REBT Usado por profesionales y estudiantes en todo."
     },
     "en": {
       "name": "Cable Cross-Section Calculator",
-      "desc": "Calculate copper cable cross-section in mm² based on current, length, and voltage drop limits per IEC 60364. Free, no sign-up, instant results.",
       "seo_title": "Cable Size Calculator – mm² Cross-Section – IEC 60364",
       "inputs": {
         "corriente_a": "Current (A)",
@@ -267,28 +199,10 @@
       ],
       "trust_note": "Copper conductivity at 20 °C is taken as σ = 56 m/(Ω·mm²). For aluminum reduce to 61 %. Standard cross-sections follow the series 1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120 mm² per IEC 60228. For ambient temperatures above 40 °C apply derating factors per IEC 60364-5-52.",
       "standard": "IEC 60364-5-52 for low-voltage electrical installations. Maximum voltage drop is 3 % for lighting and 5 % for power circuits relative to nominal voltage. For North America, refer to NEC Article 210.19(A) with a combined 5 % limit for feeders and branch circuits.",
-      "input_type_review": [
-        {
-          "field_id": "corriente_a",
-          "reason": "Correct: continuous numeric value"
-        },
-        {
-          "field_id": "longitud_m",
-          "reason": "Correct: continuous numeric value"
-        },
-        {
-          "field_id": "tension_v",
-          "reason": "Correct: discrete option"
-        },
-        {
-          "field_id": "caida_max_pct",
-          "reason": "Correct: continuous numeric value"
-        }
-      ]
+      "description": "Calculate copper cable cross-section in mm² based on current, length, and voltage drop limits per IEC 60364. Free, no sign-up, instant results."
     },
     "fr": {
       "name": "Calculateur Section de Câble Électrique",
-      "desc": "Calculez la section de câble en cuivre en mm² selon le courant, la longueur et la chute de tension admissible. Gratuit, sans inscription, résultat immédiat.",
       "seo_title": "Calculateur Section Câble – mm² – Norme NF C 15-100",
       "inputs": {
         "corriente_a": "Intensité (A)",
@@ -326,28 +240,10 @@
       ],
       "trust_note": "La conductivité du cuivre à 20 °C est prise à σ = 56 m/(Ω·mm²). Pour l'aluminium, réduire à 61 %. Les sections normalisées suivent la série 1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120 mm² selon la NF EN 60228. Pour les températures ambiantes >40 °C, appliquer les facteurs de correction selon la NF C 15-100.",
       "standard": "NF C 15-100 (France) ; IEC 60364-5-52 pour les installations internationales. La chute de tension maximale est de 3 % pour l'éclairage et 5 % pour les circuits de force par rapport à la tension nominale.",
-      "input_type_review": [
-        {
-          "field_id": "corriente_a",
-          "reason": "Correct : valeur numérique continue"
-        },
-        {
-          "field_id": "longitud_m",
-          "reason": "Correct : valeur numérique continue"
-        },
-        {
-          "field_id": "tension_v",
-          "reason": "Correct : option discrète"
-        },
-        {
-          "field_id": "caida_max_pct",
-          "reason": "Correct : valeur numérique continue"
-        }
-      ]
+      "description": "Calculez la section de câble en cuivre en mm² selon le courant, la longueur et la chute de tension admissible. Gratuit, sans inscription, résultat immédiat."
     },
     "pt": {
       "name": "Calculadora de Seção de Cabo Elétrico",
-      "desc": "Calcule a seção do cabo de cobre em mm² com base na corrente, comprimento e queda de tensão admissível conforme a NBR 5410. Grátis, sem cadastro, resultado imediato.",
       "seo_title": "Calculadora Seção Cabo – mm² – NBR 5410",
       "inputs": {
         "corriente_a": "Corrente (A)",
@@ -385,30 +281,11 @@
       ],
       "trust_note": "A condutividade do cobre a 20 °C é considerada σ = 56 m/(Ω·mm²). Para alumínio, reduzir para 61 %. As seções normalizadas seguem a série 1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120 mm² conforme NBR NM 280. Para temperaturas ambiente >40 °C, aplicar fatores de correção conforme NBR 5410.",
       "standard": "NBR 5410 (Brasil); IEC 60364-5-52 para instalações internacionais. A queda de tensão máxima é de 3 % para iluminação e 5 % para circuitos de força em relação à tensão nominal.",
-      "input_type_review": [
-        {
-          "field_id": "corriente_a",
-          "reason": "Correto: valor numérico contínuo"
-        },
-        {
-          "field_id": "longitud_m",
-          "reason": "Correto: valor numérico contínuo"
-        },
-        {
-          "field_id": "tension_v",
-          "reason": "Correto: opção discreta"
-        },
-        {
-          "field_id": "caida_max_pct",
-          "reason": "Correto: valor numérico contínuo"
-        }
-      ]
+      "description": "Calcule a seção do cabo de cobre em mm² com base na corrente, comprimento e queda de tensão admissível conforme a NBR 5410. Grátis, sem cadastro, resultado imediato."
     },
     "de": {
       "name": "Kabelquerschnitt-Rechner",
-      "desc": "Berechnen Sie den Leitungsquerschnitt nach VDE 0298 — Strombelastbarkeit, Spannungsfall und Kurzschlussschutz.",
       "seo_title": "Kabelquerschnitt-Rechner | CalcToWork",
-      "seo_desc": "Berechnen Sie den Leitungsquerschnitt nach VDE 0298 — Strombelastbarkeit, Spannungsfall und Kurzschlussschutz.",
       "seo_description": "Berechnen Sie den Leitungsquerschnitt nach VDE 0298 — Strombelastbarkeit, Spannungsfall und Kurzschlussschutz.",
       "inputs": {
         "corriente_a": "Corriente A",
@@ -442,36 +319,10 @@
         "Spannungsfall bei langen Leitungen ignoriert — ein 6 mm²-Kabel mit 40 A auf 100 m verliert 23,8 V (10,4 %), am Betriebsmittel kommen nur noch 206 V an",
         "Kabel in Rohr ohne Häufungsfaktoren verlegt — 4 belastete Adern im Rohr reduzieren die zulässige Strombelastbarkeit um 20–30 %"
       ],
-      "input_type_review": [
-        {
-          "field_id": "corriente_a",
-          "current_type": "number",
-          "recommended_type": "number",
-          "reason": "Considerar tipo \"select\" para unidades predefinidas"
-        },
-        {
-          "field_id": "longitud_m",
-          "current_type": "number",
-          "recommended_type": "number",
-          "reason": "Considerar tipo \"select\" para unidades predefinidas"
-        },
-        {
-          "field_id": "tension_v",
-          "current_type": "select",
-          "recommended_type": "select",
-          "reason": "Correcto: valor continuo con decimales"
-        },
-        {
-          "field_id": "caida_max_pct",
-          "current_type": "number",
-          "recommended_type": "number",
-          "reason": "Considerar tipo \"select\" para unidades predefinidas"
-        }
-      ]
+      "description": "Berechnen Sie den Leitungsquerschnitt nach VDE 0298 — Strombelastbarkeit, Spannungsfall und Kurzschlussschutz."
     },
     "it": {
       "name": "Calcolatore Sezione Cavo Elettrico",
-      "desc": "Calcola la sezione del cavo in rame in mm² in base a corrente, lunghezza e caduta di tensione ammissibile secondo norma CEI 64-8. Gratuito, senza registrazione, risultati immediati.",
       "seo_title": "Calcolatore Sezione Cavo – mm² – CEI 64-8",
       "inputs": {
         "corriente_a": "Corrente (A)",
@@ -509,24 +360,7 @@
       ],
       "trust_note": "La conduttività del rame a 20 °C è assunta come σ = 56 m/(Ω·mm²). Per l'alluminio ridurre al 61 %. Le sezioni normalizzate seguono la serie 1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120 mm² secondo CEI EN 60228. Per temperature ambiente >40 °C applicare i fattori di correzione secondo CEI 64-8.",
       "standard": "CEI 64-8 (Italia); IEC 60364-5-52 per installazioni internazionali. La caduta di tensione massima è del 3 % per illuminazione e 5 % per circuiti di potenza rispetto alla tensione nominale.",
-      "input_type_review": [
-        {
-          "field_id": "corriente_a",
-          "reason": "Corretto: valore numerico continuo"
-        },
-        {
-          "field_id": "longitud_m",
-          "reason": "Corretto: valore numerico continuo"
-        },
-        {
-          "field_id": "tension_v",
-          "reason": "Corretto: opzione discreta"
-        },
-        {
-          "field_id": "caida_max_pct",
-          "reason": "Corretto: valore numerico continuo"
-        }
-      ]
+      "description": "Calcola la sezione del cavo in rame in mm² in base a corrente, lunghezza e caduta di tensione ammissibile secondo norma CEI 64-8. Gratuito, senza registrazione, risultati immediati."
     }
   }
 }

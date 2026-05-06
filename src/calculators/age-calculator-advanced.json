@@ -1,501 +1,341 @@
-﻿{
-    "id":  "942",
-    "slug":  "age-calculator-advanced",
-    "block":  14,
-    "block_slug":  "cotidiano",
-    "inputs":  [
-                   {
-                       "id":  "anio",
-                       "type":  "number",
-                       "min":  1900,
-                       "max":  2026,
-                       "step":  1,
-                       "default":  1995,
-                       "unit":  ""
-                   },
-                   {
-                       "id":  "mes",
-                       "type":  "number",
-                       "min":  1,
-                       "max":  12,
-                       "step":  1,
-                       "default":  6,
-                       "unit":  ""
-                   },
-                   {
-                       "id":  "dia",
-                       "type":  "number",
-                       "min":  1,
-                       "max":  31,
-                       "step":  1,
-                       "default":  15,
-                       "unit":  ""
-                   }
-               ],
-    "formula":  "var y=parseInt(inputs.anio)||2000,m=parseInt(inputs.mes)||1,d=parseInt(inputs.dia)||1;var birth=new Date(y,m-1,d);var now=new Date();var diff=now-birth;var dias=Math.floor(diff/86400000);var anos=Math.floor(dias/365.25);var meses=Math.floor((dias%365.25)/30.44);var dias_r=Math.floor(dias%30.44);var horas=Math.floor(diff/3600000);return{age_years:anos,age_months:Math.floor(dias/30.44),age_days:dias,age_hours:horas,days_until_birthday:(365-Math.floor(dias%365.25))};",
-    "outputs":  [
-                    {
-                        "id":  "age_years",
-                        "unit":  "",
-                        "highlight":  true
-                    },
-                    {
-                        "id":  "age_months",
-                        "unit":  "",
-                        "highlight":  false
-                    },
-                    {
-                        "id":  "age_days",
-                        "unit":  "",
-                        "highlight":  false
-                    },
-                    {
-                        "id":  "age_hours",
-                        "unit":  "",
-                        "highlight":  false
-                    },
-                    {
-                        "id":  "days_until_birthday",
-                        "unit":  "",
-                        "highlight":  false
-                    }
-                ],
-    "related":  [
-                    "943",
-                    "944",
-                    "935",
-                    "500"
-                ],
-    "example_inputs":  {
-                           "mes":  6,
-                           "dia":  15,
-                           "anio":  1995
-                       },
-    "example_label":  "Calcular cal para 6 × 15 × 1995.",
-    "range_hints":  {
-                        "anio":  "Valor típico entre 1900 y 2026. Valor por defecto: 1995.",
-                        "mes":  "Valor típico entre 1 y 12. Valor por defecto: 6.",
-                        "dia":  "Valor típico entre 1 y 31. Valor por defecto: 15."
-                    },
-    "result_context":  "Tu edad exacta es {age_years} años, {age_months} meses, {age_days} días y {age_hours} horas. Faltan {days_until_birthday} días para tu cumpleaños.",
-    "result_context_en":  "Your exact age is {age_years} years, {age_months} months, {age_days} days and {age_hours} hours. {days_until_birthday} days until your birthday.",
-    "result_context_fr":  "Votre âge exact est de {age_years} ans, {age_months} mois, {age_days} jours et {age_hours} heures. {days_until_birthday} jours avant votre anniversaire.",
-    "result_context_pt":  "Sua idade exata é {age_years} anos, {age_months} meses, {age_days} dias e {age_hours} horas. Faltam {days_until_birthday} dias para o seu aniversário.",
-    "result_context_de":  "Ihr genaues Alter beträgt {age_years} Jahre, {age_months} Monate, {age_days} Tage und {age_hours} Stunden. Noch {days_until_birthday} Tage bis zu Ihrem Geburtstag.",
-    "result_context_it":  "La tua età esatta è {age_years} anni, {age_months} mesi, {age_days} giorni e {age_hours} ore. Mancano {days_until_birthday} giorni al tuo compleanno.",
-    "formula_display":  "diff ÷ 86400000 → age_years, age_months",
-    "steps":  [
-                  "Introducir los valores de anio, mes y dia",
-                  "Verificar que los valores introducidos están en el rango y formato correctos",
-                  "Calcular los valores de age years y age months",
-                  "Verificar que el resultado es coherente con los valores de entrada",
-                  "Utilizar el resultado para la aplicación práctica correspondiente"
-              ],
-    "mistakes":  [
-                     "No considerar si la propina se calcula antes o después de impuestos",
-                     "Olvidar que los meses tienen diferente número de días",
-                     "Usar el formato de fecha incorrecto (MM/DD vs DD/MM) al introducir datos"
-                 ],
-    "input_type_review":  [
-                              {
-                                  "field_id":  "anio",
-                                  "current_type":  "number",
-                                  "recommended_type":  "number",
-                                  "reason":  "Correcto: valor entero para conteo"
-                              },
-                              {
-                                  "field_id":  "mes",
-                                  "current_type":  "number",
-                                  "recommended_type":  "number",
-                                  "reason":  "Correcto: valor entero para conteo"
-                              },
-                              {
-                                  "field_id":  "dia",
-                                  "current_type":  "number",
-                                  "recommended_type":  "number",
-                                  "reason":  "Correcto: valor entero para conteo"
-                              }
-                          ],
-    "comparison_presets":  [
-                               {
-                                   "_label":  "Escenario minimo",
-                                   "anio":  1900.0,
-                                   "mes":  2.4,
-                                   "dia":  6.0
-                               },
-                               {
-                                   "_label":  "Uso habitual",
-                                   "anio":  1900.0,
-                                   "mes":  4.2,
-                                   "dia":  10.5
-                               },
-                               {
-                                   "_label":  "Uso frecuente",
-                                   "anio":  1995.0,
-                                   "mes":  6.0,
-                                   "dia":  15.0
-                               },
-                               {
-                                   "_label":  "Uso intensivo",
-                                   "anio":  2026.0,
-                                   "mes":  9.0,
-                                   "dia":  22.5
-                               },
-                               {
-                                   "_label":  "Caso maximo",
-                                   "anio":  2026.0,
-                                   "mes":  12.0,
-                                   "dia":  31.0
-                               }
-                           ],
-    "i18n":  {
-                 "es":  {
-                            "name":  "Calculadora de Edad",
-                            "desc":  "Calcula tu edad exacta en anos, meses y dias. Incluye cuenta regresiva del proximo cumpleanos. Con explicacion de estadisticas.",
-                            "description":  "Calculadora de Edad.",
-                            "seo_title":  "Calculadora de Edad Gratuita – Paso a Paso",
-                            "seo_description":  "Calcula tu edad exacta en anos, meses y dias. Incluye cuenta regresiva del proximo cumpleanos. Con explicacion de estadisticas.",
-                            "inputs":  {
-                                           "anio":  "anio",
-                                           "mes":  "mes",
-                                           "dia":  "dia"
-                                       },
-                            "outputs":  {
-                                            "age_years":  "Anos",
-                                            "age_months":  "Meses",
-                                            "age_days":  "Dias",
-                                            "age_hours":  "Horas",
-                                            "days_until_birthday":  "Dias hasta cumple"
-                                        },
-                            "example_label":  "Calculate age calculator advanced with anio 1995, mes 6, dia 15.",
-                            "range_hints":  {
-                                                "mes":  "Typical range: 1-12.",
-                                                "dia":  "Typical range: 1-31.",
-                                                "anio":  "Typical range: 1900-2026."
-                                            },
-                            "result_context":  "Your calculated age years is {age_years}.",
-                            "formula_display":  "Calculate age calculator advanced based on input values.",
-                            "steps":  [
-                                          "Enter input values: anio: 1995, mes: 6, dia: 15",
-                                          "Calculate and display the age_years result",
-                                          "Calculate and display the age_months result",
-                                          "Calculate and display the age_days result",
-                                          "Calculate and display the age_hours result",
-                                          "Calculate and display the days_until_birthday result"
-                                      ],
-                            "mistakes":  [
-                                             "Entering zero or negative values where positive required",
-                                             "Using incorrect input values outside recommended range"
-                                         ],
-                            "input_type_review":  [
-                                                      {
-                                                          "field_id":  "anio",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "mes",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "dia",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      }
-                                                  ]
-                        },
-                 "en":  {
-                            "name":  "Age Calculator",
-                            "desc":  "Age Calculator. Free online calculator with formula, examples and step-by-step guide.",
-                            "description":  "Age Calculator.",
-                            "seo_title":  "Age Calculator – Exact Age \u0026 Days",
-                            "seo_description":  "Calculate your exact age in years, months, and days from your date of birth. Includes next birthday countdown. Enter your values and get precise results.",
-                            "inputs":  {
-                                           "anio":  "anio",
-                                           "mes":  "mes",
-                                           "dia":  "dia"
-                                       },
-                            "outputs":  {
-                                            "age_years":  "Years",
-                                            "age_months":  "Months",
-                                            "age_days":  "Days",
-                                            "age_hours":  "Hours",
-                                            "days_until_birthday":  "Days to birthday"
-                                        },
-                            "example_label":  "Calculate age calculator advanced with anio 1995, mes 6, dia 15.",
-                            "range_hints":  {
-                                                "mes":  "Typical range: 1-12.",
-                                                "dia":  "Typical range: 1-31.",
-                                                "anio":  "Typical range: 1900-2026."
-                                            },
-                            "result_context":  "Your calculated age years is {age_years}.",
-                            "formula_display":  "Calculate age calculator advanced based on input values.",
-                            "steps":  [
-                                          "Enter input values: anio: 1995, mes: 6, dia: 15",
-                                          "Calculate and display the age_years result",
-                                          "Calculate and display the age_months result",
-                                          "Calculate and display the age_days result",
-                                          "Calculate and display the age_hours result",
-                                          "Calculate and display the days_until_birthday result"
-                                      ],
-                            "mistakes":  [
-                                             "Entering zero or negative values where positive required",
-                                             "Using incorrect input values outside recommended range"
-                                         ],
-                            "input_type_review":  [
-                                                      {
-                                                          "field_id":  "anio",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "mes",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "dia",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      }
-                                                  ]
-                        },
-                 "fr":  {
-                            "name":  "Calculatrice d\u0027Âge",
-                            "desc":  "Calculez votre age exact en annees, mois et jours. Avec explication des statistiques. Utilise par des professionnels et etudiants dans le monde entier.",
-                            "description":  "Calculatrice d\u0027Âge.",
-                            "seo_title":  "Calculatrice d\u0027Âge en Ligne – Étape par Étape",
-                            "seo_description":  "Calculez votre age exact en annees, mois et jours. Avec explication des statistiques. Utilise par des professionnels et etudiants dans le monde entier.",
-                            "inputs":  {
-                                           "anio":  "anio",
-                                           "mes":  "mes",
-                                           "dia":  "dia"
-                                       },
-                            "outputs":  {
-                                            "age_years":  "Years",
-                                            "age_months":  "Months",
-                                            "age_days":  "Days",
-                                            "age_hours":  "Hours",
-                                            "days_until_birthday":  "Days to birthday"
-                                        },
-                            "example_label":  "Calculate age calculator advanced with anio 1995, mes 6, dia 15.",
-                            "range_hints":  {
-                                                "mes":  "Typical range: 1-12.",
-                                                "dia":  "Typical range: 1-31.",
-                                                "anio":  "Typical range: 1900-2026."
-                                            },
-                            "result_context":  "Your calculated age years is {age_years}.",
-                            "formula_display":  "Calculate age calculator advanced based on input values.",
-                            "steps":  [
-                                          "Enter input values: anio: 1995, mes: 6, dia: 15",
-                                          "Calculate and display the age_years result",
-                                          "Calculate and display the age_months result",
-                                          "Calculate and display the age_days result",
-                                          "Calculate and display the age_hours result",
-                                          "Calculate and display the days_until_birthday result"
-                                      ],
-                            "mistakes":  [
-                                             "Entering zero or negative values where positive required",
-                                             "Using incorrect input values outside recommended range"
-                                         ],
-                            "input_type_review":  [
-                                                      {
-                                                          "field_id":  "anio",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "mes",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "dia",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      }
-                                                  ]
-                        },
-                 "pt":  {
-                            "name":  "Calculadora de Idade",
-                            "desc":  "Calculadora de Idade. Calculadora de Idade = f(anio, mes, dia) ââ‚¬” anio, mes, dia para encontrar Years, Months, Days. Solucao passo a passo com exemplo para.",
-                            "description":  "Calculadora de Idade.",
-                            "seo_title":  "Calculadora de Idade – Passo a Passo",
-                            "seo_description":  "Calculadora de Idade. Calculadora de Idade = f(anio, mes, dia) ââ‚¬” anio, mes, dia para encontrar Years, Months, Days. Solucao passo a passo com exemplo para.",
-                            "inputs":  {
-                                           "anio":  "anio",
-                                           "mes":  "mes",
-                                           "dia":  "dia"
-                                       },
-                            "outputs":  {
-                                            "age_years":  "Years",
-                                            "age_months":  "Months",
-                                            "age_days":  "Days",
-                                            "age_hours":  "Hours",
-                                            "days_until_birthday":  "Days to birthday"
-                                        },
-                            "example_label":  "Calculate age calculator advanced with anio 1995, mes 6, dia 15.",
-                            "range_hints":  {
-                                                "mes":  "Typical range: 1-12.",
-                                                "dia":  "Typical range: 1-31.",
-                                                "anio":  "Typical range: 1900-2026."
-                                            },
-                            "result_context":  "Your calculated age years is {age_years}.",
-                            "formula_display":  "Calculate age calculator advanced based on input values.",
-                            "steps":  [
-                                          "Enter input values: anio: 1995, mes: 6, dia: 15",
-                                          "Calculate and display the age_years result",
-                                          "Calculate and display the age_months result",
-                                          "Calculate and display the age_days result",
-                                          "Calculate and display the age_hours result",
-                                          "Calculate and display the days_until_birthday result"
-                                      ],
-                            "mistakes":  [
-                                             "Entering zero or negative values where positive required",
-                                             "Using incorrect input values outside recommended range"
-                                         ],
-                            "input_type_review":  [
-                                                      {
-                                                          "field_id":  "anio",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "mes",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "dia",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      }
-                                                  ]
-                        },
-                 "de":  {
-                            "name":  "Altersrechner (erweitert)",
-                            "desc":  "Berechnen Sie Ihr exaktes Alter in Jahren, Monaten, Wochen, Tagen und Minuten zwischen zwei Daten.",
-                            "seo_title":  "Altersrechner (erweitert) | CalcToWork",
-                            "seo_desc":  "Berechnen Sie Ihr exaktes Alter in Jahren, Monaten, Wochen, Tagen und Minuten zwischen zwei Daten.",
-                            "seo_description":  "Berechnen Sie Ihr exaktes Alter in Jahren, Monaten, Wochen, Tagen und Minuten zwischen zwei Daten.",
-                            "inputs":  {
-                                           "anio":  "Anio",
-                                           "mes":  "Mes",
-                                           "dia":  "Dia"
-                                       },
-                            "outputs":  {
-                                            "age_years":  "Age Years",
-                                            "age_months":  "Age Months",
-                                            "age_days":  "Age Days",
-                                            "age_hours":  "Age Hours",
-                                            "days_until_birthday":  "Days Until Birthday"
-                                        },
-                            "range_hints":  {
-                                                "anio":  "Typischer Wert entre 1900 y 2026. Valor por defecto: 1995.",
-                                                "mes":  "Typischer Wert entre 1 y 12. Valor por defecto: 6.",
-                                                "dia":  "Typischer Wert entre 1 y 31. Valor por defecto: 15."
-                                            },
-                            "result_context":  "Ihr genaues Alter beträgt {age_years} Jahre, {age_months} Monate, {age_days} Tage und {age_hours} Stunden. Noch {days_until_birthday} Tage bis zu Ihrem Geburtstag.",
-                            "formula_display":  "diff ÷ 86400000 → age_years, age_months",
-                            "input_type_review":  [
-                                                      {
-                                                          "field_id":  "anio",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Correcto: valor entero para conteo"
-                                                      },
-                                                      {
-                                                          "field_id":  "mes",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Correcto: valor entero para conteo"
-                                                      },
-                                                      {
-                                                          "field_id":  "dia",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Correcto: valor entero para conteo"
-                                                      }
-                                                  ],
-                            "steps":  [
-                                          "Gib das Geburtsdatum und das Zieldatum ein (z. B. heute)",
-                                          "Ermittle die Differenz in Jahren, Monaten und Tagen zwischen beiden Daten",
-                                          "Berechne die Gesamtzahl der Tage und Wochen fuer die Altersspanne",
-                                          "Bestimme den naechsten Geburtstag und die verbleibenden Tage",
-                                          "Lies das exakte Alter in mehreren Einheiten ab (Jahre, Monate, Tage, Stunden)"
-                                      ],
-                            "mistakes":  [
-                                             "Das Enddatum vor dem Geburtsdatum waehlen - es entstehen negative Werte",
-                                             "Schaltjahre nicht beruecksichtigen, was zu Abweichungen von einem Tag fuehren kann",
-                                             "Das Alter nur in vollen Jahren angeben, obwohl genauere Einheiten erforderlich sind"
-                                         ],
-                            "example_label":  "Alter vom 15.03.1990 bis heute berechnen"
-                        },
-                 "it":  {
-                            "name":  "Calcolatrice di Età",
-                            "desc":  "Calcolatrice di Età. Calcolatrice di Età = f(anio, mes, dia) ââ‚¬” anio, mes, dia per trovare Years, Months, Days. Soluzione passo dopo passo con esempio per.",
-                            "description":  "Calcolatrice di Età.",
-                            "seo_title":  "Calcolatrice di Età – Passo dopo Passo",
-                            "seo_description":  "Calcolatrice di Età. Calcolatrice di Età = f(anio, mes, dia) ââ‚¬” anio, mes, dia per trovare Years, Months, Days. Soluzione passo dopo passo con esempio per.",
-                            "inputs":  {
-                                           "anio":  "anio",
-                                           "mes":  "mes",
-                                           "dia":  "dia"
-                                       },
-                            "outputs":  {
-                                            "age_years":  "Years",
-                                            "age_months":  "Months",
-                                            "age_days":  "Days",
-                                            "age_hours":  "Hours",
-                                            "days_until_birthday":  "Days to birthday"
-                                        },
-                            "example_label":  "Calculate age calculator advanced with anio 1995, mese 6, dia 15.",
-                            "range_hints":  {
-                                                "mes":  "Tepical range: 1-12.",
-                                                "dia":  "Tepical range: 1-31.",
-                                                "anio":  "Tepical range: 1900-2026."
-                                            },
-                            "result_context":  "Your calculated age eears is {age_eears}.",
-                            "formula_display":  "Calculate age calculator advanced based on input values.",
-                            "steps":  [
-                                          "Enter input values: anio: 1995, mese: 6, dia: 15",
-                                          "Calculate and displae the age_eears result",
-                                          "Calculate and displae the age_months result",
-                                          "Calculate and displae the age_daes result",
-                                          "Calculate and displae the age_hours result",
-                                          "Calculate and displae the daes_until_birthdae result"
-                                      ],
-                            "mistakes":  [
-                                             "Entering zero or negative values where posetive required",
-                                             "Usenzag incorrect input values outsedi recommindid range"
-                                         ],
-                            "input_type_review":  [
-                                                      {
-                                                          "field_id":  "anio",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Currint tepe is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "mes",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Currint tepe is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "dia",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Currint tepe is appropriate for this input."
-                                                      }
-                                                  ]
-                        }
-             }
+{
+  "id": "942",
+  "slug": "age-calculator-advanced",
+  "block": 14,
+  "block_slug": "cotidiano",
+  "inputs": [
+    {
+      "id": "anio",
+      "type": "number",
+      "min": 1900,
+      "max": 2026,
+      "step": 1,
+      "default": 1995,
+      "unit": ""
+    },
+    {
+      "id": "mes",
+      "type": "number",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "default": 6,
+      "unit": ""
+    },
+    {
+      "id": "dia",
+      "type": "number",
+      "min": 1,
+      "max": 31,
+      "step": 1,
+      "default": 15,
+      "unit": ""
+    }
+  ],
+  "formula": "var y=parseInt(inputs.anio)||2000,m=parseInt(inputs.mes)||1,d=parseInt(inputs.dia)||1;var birth=new Date(y,m-1,d);var now=new Date();var diff=now-birth;var dias=Math.floor(diff/86400000);var anos=Math.floor(dias/365.25);var meses=Math.floor((dias%365.25)/30.44);var dias_r=Math.floor(dias%30.44);var horas=Math.floor(diff/3600000);return{age_years:anos,age_months:Math.floor(dias/30.44),age_days:dias,age_hours:horas,days_until_birthday:(365-Math.floor(dias%365.25))};",
+  "outputs": [
+    {
+      "id": "age_years",
+      "unit": "",
+      "highlight": true
+    },
+    {
+      "id": "age_months",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "age_days",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "age_hours",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "days_until_birthday",
+      "unit": "",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "943",
+    "944",
+    "935",
+    "500"
+  ],
+  "example_inputs": {
+    "mes": 6,
+    "dia": 15,
+    "anio": 1995
+  },
+  "comparison_presets": [
+    {
+      "_label": "Escenario minimo",
+      "anio": 1900.0,
+      "mes": 2.4,
+      "dia": 6.0
+    },
+    {
+      "_label": "Uso habitual",
+      "anio": 1900.0,
+      "mes": 4.2,
+      "dia": 10.5
+    },
+    {
+      "_label": "Uso frecuente",
+      "anio": 1995.0,
+      "mes": 6.0,
+      "dia": 15.0
+    },
+    {
+      "_label": "Uso intensivo",
+      "anio": 2026.0,
+      "mes": 9.0,
+      "dia": 22.5
+    },
+    {
+      "_label": "Caso maximo",
+      "anio": 2026.0,
+      "mes": 12.0,
+      "dia": 31.0
+    }
+  ],
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Edad",
+      "desc": "Calcula tu edad exacta en anos, meses y dias. Incluye cuenta regresiva del proximo cumpleanos. Con explicacion de estadisticas.",
+      "description": "Calculadora de Edad.",
+      "seo_title": "Calculadora de Edad Gratuita – Paso a Paso",
+      "seo_description": "Calcula tu edad exacta en anos, meses y dias. Incluye cuenta regresiva del proximo cumpleanos. Con explicacion de estadisticas.",
+      "inputs": {
+        "anio": "anio",
+        "mes": "mes",
+        "dia": "dia"
+      },
+      "outputs": {
+        "age_years": "Anos",
+        "age_months": "Meses",
+        "age_days": "Dias",
+        "age_hours": "Horas",
+        "days_until_birthday": "Dias hasta cumple"
+      },
+      "example_label": "Calculate age calculator advanced with anio 1995, mes 6, dia 15.",
+      "range_hints": {
+        "mes": "Typical range: 1-12.",
+        "dia": "Typical range: 1-31.",
+        "anio": "Typical range: 1900-2026."
+      },
+      "result_context": "Your calculated age years is {age_years}.",
+      "formula_display": "Calculate age calculator advanced based on input values.",
+      "steps": [
+        "Enter input values: anio: 1995, mes: 6, dia: 15",
+        "Calculate and display the age_years result",
+        "Calculate and display the age_months result",
+        "Calculate and display the age_days result",
+        "Calculate and display the age_hours result",
+        "Calculate and display the days_until_birthday result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ]
+    },
+    "en": {
+      "name": "Age Calculator",
+      "desc": "Age Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Age Calculator.",
+      "seo_title": "Age Calculator – Exact Age & Days",
+      "seo_description": "Calculate your exact age in years, months, and days from your date of birth. Includes next birthday countdown. Enter your values and get precise results.",
+      "inputs": {
+        "anio": "anio",
+        "mes": "mes",
+        "dia": "dia"
+      },
+      "outputs": {
+        "age_years": "Years",
+        "age_months": "Months",
+        "age_days": "Days",
+        "age_hours": "Hours",
+        "days_until_birthday": "Days to birthday"
+      },
+      "example_label": "Calculate age calculator advanced with anio 1995, mes 6, dia 15.",
+      "range_hints": {
+        "mes": "Typical range: 1-12.",
+        "dia": "Typical range: 1-31.",
+        "anio": "Typical range: 1900-2026."
+      },
+      "result_context": "Your calculated age years is {age_years}.",
+      "formula_display": "Calculate age calculator advanced based on input values.",
+      "steps": [
+        "Enter input values: anio: 1995, mes: 6, dia: 15",
+        "Calculate and display the age_years result",
+        "Calculate and display the age_months result",
+        "Calculate and display the age_days result",
+        "Calculate and display the age_hours result",
+        "Calculate and display the days_until_birthday result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ]
+    },
+    "fr": {
+      "name": "Calculatrice d'Âge",
+      "desc": "Calculez votre age exact en annees, mois et jours. Avec explication des statistiques. Utilise par des professionnels et etudiants dans le monde entier.",
+      "description": "Calculatrice d'Âge.",
+      "seo_title": "Calculatrice d'Âge en Ligne – Étape par Étape",
+      "seo_description": "Calculez votre age exact en annees, mois et jours. Avec explication des statistiques. Utilise par des professionnels et etudiants dans le monde entier.",
+      "inputs": {
+        "anio": "anio",
+        "mes": "mes",
+        "dia": "dia"
+      },
+      "outputs": {
+        "age_years": "Years",
+        "age_months": "Months",
+        "age_days": "Days",
+        "age_hours": "Hours",
+        "days_until_birthday": "Days to birthday"
+      },
+      "example_label": "Calculate age calculator advanced with anio 1995, mes 6, dia 15.",
+      "range_hints": {
+        "mes": "Typical range: 1-12.",
+        "dia": "Typical range: 1-31.",
+        "anio": "Typical range: 1900-2026."
+      },
+      "result_context": "Your calculated age years is {age_years}.",
+      "formula_display": "Calculate age calculator advanced based on input values.",
+      "steps": [
+        "Enter input values: anio: 1995, mes: 6, dia: 15",
+        "Calculate and display the age_years result",
+        "Calculate and display the age_months result",
+        "Calculate and display the age_days result",
+        "Calculate and display the age_hours result",
+        "Calculate and display the days_until_birthday result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Idade",
+      "desc": "Calculadora de Idade. Calculadora de Idade = f(anio, mes, dia) ââ‚¬” anio, mes, dia para encontrar Years, Months, Days. Solucao passo a passo com exemplo para.",
+      "description": "Calculadora de Idade.",
+      "seo_title": "Calculadora de Idade – Passo a Passo",
+      "seo_description": "Calculadora de Idade. Calculadora de Idade = f(anio, mes, dia) ââ‚¬” anio, mes, dia para encontrar Years, Months, Days. Solucao passo a passo com exemplo para.",
+      "inputs": {
+        "anio": "anio",
+        "mes": "mes",
+        "dia": "dia"
+      },
+      "outputs": {
+        "age_years": "Years",
+        "age_months": "Months",
+        "age_days": "Days",
+        "age_hours": "Hours",
+        "days_until_birthday": "Days to birthday"
+      },
+      "example_label": "Calculate age calculator advanced with anio 1995, mes 6, dia 15.",
+      "range_hints": {
+        "mes": "Typical range: 1-12.",
+        "dia": "Typical range: 1-31.",
+        "anio": "Typical range: 1900-2026."
+      },
+      "result_context": "Your calculated age years is {age_years}.",
+      "formula_display": "Calculate age calculator advanced based on input values.",
+      "steps": [
+        "Enter input values: anio: 1995, mes: 6, dia: 15",
+        "Calculate and display the age_years result",
+        "Calculate and display the age_months result",
+        "Calculate and display the age_days result",
+        "Calculate and display the age_hours result",
+        "Calculate and display the days_until_birthday result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ]
+    },
+    "de": {
+      "name": "Altersrechner (erweitert)",
+      "seo_title": "Altersrechner (erweitert) | CalcToWork",
+      "seo_description": "Berechnen Sie Ihr exaktes Alter in Jahren, Monaten, Wochen, Tagen und Minuten zwischen zwei Daten.",
+      "inputs": {
+        "anio": "Anio",
+        "mes": "Mes",
+        "dia": "Dia"
+      },
+      "outputs": {
+        "age_years": "Age Years",
+        "age_months": "Age Months",
+        "age_days": "Age Days",
+        "age_hours": "Age Hours",
+        "days_until_birthday": "Days Until Birthday"
+      },
+      "range_hints": {
+        "anio": "Typischer Wert entre 1900 y 2026. Valor por defecto: 1995.",
+        "mes": "Typischer Wert entre 1 y 12. Valor por defecto: 6.",
+        "dia": "Typischer Wert entre 1 y 31. Valor por defecto: 15."
+      },
+      "result_context": "Ihr genaues Alter beträgt {age_years} Jahre, {age_months} Monate, {age_days} Tage und {age_hours} Stunden. Noch {days_until_birthday} Tage bis zu Ihrem Geburtstag.",
+      "formula_display": "diff ÷ 86400000 → age_years, age_months",
+      "steps": [
+        "Gib das Geburtsdatum und das Zieldatum ein (z. B. heute)",
+        "Ermittle die Differenz in Jahren, Monaten und Tagen zwischen beiden Daten",
+        "Berechne die Gesamtzahl der Tage und Wochen fuer die Altersspanne",
+        "Bestimme den naechsten Geburtstag und die verbleibenden Tage",
+        "Lies das exakte Alter in mehreren Einheiten ab (Jahre, Monate, Tage, Stunden)"
+      ],
+      "mistakes": [
+        "Das Enddatum vor dem Geburtsdatum waehlen - es entstehen negative Werte",
+        "Schaltjahre nicht beruecksichtigen, was zu Abweichungen von einem Tag fuehren kann",
+        "Das Alter nur in vollen Jahren angeben, obwohl genauere Einheiten erforderlich sind"
+      ],
+      "example_label": "Alter vom 15.03.1990 bis heute berechnen",
+      "description": "Berechnen Sie Ihr exaktes Alter in Jahren, Monaten, Wochen, Tagen und Minuten zwischen zwei Daten."
+    },
+    "it": {
+      "name": "Calcolatrice di Età",
+      "desc": "Calcolatrice di Età. Calcolatrice di Età = f(anio, mes, dia) ââ‚¬” anio, mes, dia per trovare Years, Months, Days. Soluzione passo dopo passo con esempio per.",
+      "description": "Calcolatrice di Età.",
+      "seo_title": "Calcolatrice di Età – Passo dopo Passo",
+      "seo_description": "Calcolatrice di Età. Calcolatrice di Età = f(anio, mes, dia) ââ‚¬” anio, mes, dia per trovare Years, Months, Days. Soluzione passo dopo passo con esempio per.",
+      "inputs": {
+        "anio": "anio",
+        "mes": "mes",
+        "dia": "dia"
+      },
+      "outputs": {
+        "age_years": "Years",
+        "age_months": "Months",
+        "age_days": "Days",
+        "age_hours": "Hours",
+        "days_until_birthday": "Days to birthday"
+      },
+      "example_label": "Calculate age calculator advanced with anio 1995, mese 6, dia 15.",
+      "range_hints": {
+        "mes": "Tepical range: 1-12.",
+        "dia": "Tepical range: 1-31.",
+        "anio": "Tepical range: 1900-2026."
+      },
+      "result_context": "Your calculated age eears is {age_eears}.",
+      "formula_display": "Calculate age calculator advanced based on input values.",
+      "steps": [
+        "Enter input values: anio: 1995, mese: 6, dia: 15",
+        "Calculate and displae the age_eears result",
+        "Calculate and displae the age_months result",
+        "Calculate and displae the age_daes result",
+        "Calculate and displae the age_hours result",
+        "Calculate and displae the daes_until_birthdae result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where posetive required",
+        "Usenzag incorrect input values outsedi recommindid range"
+      ]
+    }
+  }
 }

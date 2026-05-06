@@ -1,415 +1,330 @@
-﻿{
-    "id":  "334",
-    "slug":  "prestamo-afordable",
-    "block":  17,
-    "block_slug":  "finanzas",
-    "inputs":  [
-                   {
-                       "id":  "income",
-                       "type":  "number",
-                       "step":  "any",
-                       "default":  5000,
-                       "unit":  "USD",
-                       "unit_options":  [
-                                            "USD",
-                                            "EUR",
-                                            "GBP"
-                                        ],
-                       "unit_category":  "currency"
-                   },
-                   {
-                       "id":  "debt_ratio",
-                       "type":  "number",
-                       "step":  "any",
-                       "default":  36,
-                       "unit":  "%",
-                       "unit_options":  [
-                                            "%"
-                                        ],
-                       "unit_category":  "percentage"
-                   },
-                   {
-                       "id":  "rate",
-                       "type":  "number",
-                       "step":  "any",
-                       "default":  5,
-                       "unit":  "%",
-                       "unit_options":  [
-                                            "%"
-                                        ],
-                       "unit_category":  "percentage"
-                   },
-                   {
-                       "id":  "years",
-                       "type":  "number",
-                       "step":  1,
-                       "default":  30,
-                       "unit":  "yr",
-                       "unit_options":  [
-                                            "yr",
-                                            "mo"
-                                        ],
-                       "unit_category":  "time"
-                   }
-               ],
-    "formula":  "var inc=parseFloat(inputs.income)||0;var dr=(parseFloat(inputs.debt_ratio)||0)/100;var r=(parseFloat(inputs.rate)||0)/1200;var n=(parseFloat(inputs.years)||0)*12;var max_payment=inc*dr;var max_loan=r\u003e0?max_payment*(1-Math.pow(1+r,-n))/r:max_payment*n;return{max_loan:max_loan.toFixed(2)};",
-    "outputs":  [
-                    {
-                        "id":  "max_loan",
-                        "unit":  "USD"
-                    }
-                ],
-    "related":  [
-                    "322",
-                    "300",
-                    "337",
-                    "338"
-                ],
-    "example_inputs":  {
-                           "income":  5000,
-                           "debt_ratio":  36,
-                           "rate":  5,
-                           "years":  30
-                       },
-    "example_label":  "Calcular préstamo para 5000 USD × 36 % × 5 % × 30 yr.",
-    "range_hints":  {
-                        "income":  "Valor típico entre 0 y 500. Valor por defecto: 5000 USD.",
-                        "debt_ratio":  "Valor típico entre 0 y 500. Valor por defecto: 36 %.",
-                        "rate":  "Valor típico entre 0 y 500. Valor por defecto: 5 %.",
-                        "years":  "Valor típico entre 0 y 500. Valor por defecto: 30 yr."
-                    },
-    "result_context":  "Resultados: {max_loan} USD de préstamo máximo.",
-    "formula_display":  "Max Loan (USD) = f(income, debt_ratio, rate, years)",
-    "steps":  [
-                  "Introducir los valores de income, debt_ratio, rate y years",
-                  "Verificar que las unidades sean correctas y convertir si es necesario (USD, EUR, GBP)",
-                  "Realizar el cálculo para obtener max loan",
-                  "El resultado se expresa en USD. Verificar que la magnitud es coherente",
-                  "Utilizar el resultado para tomar decisiones informadas sobre tu planificación financiera"
-              ],
-    "mistakes":  [
-                     "No comparar la TAE entre distintas ofertas antes de contratar",
-                     "Confundir interés simple con interés compuesto en inversiones a largo plazo",
-                     "Olvidar incluir comisiones y gastos en el cálculo del coste total"
-                 ],
-    "input_type_review":  [
-                              {
-                                  "field_id":  "income",
-                                  "current_type":  "number",
-                                  "recommended_type":  "number",
-                                  "reason":  "Considerar tipo \"select\" para unidades predefinidas"
-                              },
-                              {
-                                  "field_id":  "debt_ratio",
-                                  "current_type":  "number",
-                                  "recommended_type":  "number",
-                                  "reason":  "Considerar tipo \"select\" para unidades predefinidas"
-                              },
-                              {
-                                  "field_id":  "rate",
-                                  "current_type":  "number",
-                                  "recommended_type":  "number",
-                                  "reason":  "Considerar tipo \"select\" para unidades predefinidas"
-                              },
-                              {
-                                  "field_id":  "years",
-                                  "current_type":  "number",
-                                  "recommended_type":  "number",
-                                  "reason":  "Considerar tipo \"select\" para unidades predefinidas"
-                              }
-                          ],
-    "comparison_presets":  [
-                               {
-                                   "_label":  "Starter",
-                                   "income":  2500,
-                                   "debt_ratio":  18,
-                                   "rate":  5,
-                                   "years":  30
-                               },
-                               {
-                                   "_label":  "Average",
-                                   "income":  3750,
-                                   "debt_ratio":  27,
-                                   "rate":  5,
-                                   "years":  30
-                               },
-                               {
-                                   "_label":  "High",
-                                   "income":  5000,
-                                   "debt_ratio":  36,
-                                   "rate":  5,
-                                   "years":  30
-                               },
-                               {
-                                   "_label":  "Premium",
-                                   "income":  7500,
-                                   "debt_ratio":  54,
-                                   "rate":  5,
-                                   "years":  30
-                               },
-                               {
-                                   "_label":  "Enterprise",
-                                   "income":  10000,
-                                   "debt_ratio":  72,
-                                   "rate":  5,
-                                   "years":  30
-                               }
-                           ],
-    "units":  {
-                  "income":  "USD",
-                  "debt_ratio":  "%",
-                  "rate":  "%",
-                  "years":  "s"
-              },
-    "i18n":  {
-                 "es":  {
-                            "name":  "Capacidad de Préstamo",
-                            "description":  "Calcula el préstamo máximo que puedes asumir.",
-                            "inputs":  {
-                                           "income":  "Ingreso mensual",
-                                           "debt_ratio":  "Ratio deuda %",
-                                           "rate":  "Tasa %",
-                                           "years":  "Años"
-                                       },
-                            "outputs":  {
-                                            "max_loan":  "Préstamo máximo"
-                                        },
-                            "seo_title":  "Capacidad de Préstamo Gratuita",
-                            "seo_description":  "Calcula el préstamo máximo que puedes asumir. Calculadora gratuita, precisa e instantánea. Con desglose de zonas de entrenamiento.",
-                            "example_label":  "Ingreso $5000, ratio deuda 36%, tasa 5%, 30 años",
-                            "range_hints":  {
-                                                "income":  "Varía según país y situación",
-                                                "debt_ratio":  "Típicamente 28-43% para aprobación hipotecaria",
-                                                "rate":  "Generalmente entre 2% y 15%",
-                                                "years":  "Común 15, 20, 25 o 30 años"
-                                            },
-                            "result_context":  "Monto máximo de préstamo que puedes permitirte según tu ingreso y deudas",
-                            "formula_display":  "Préstamo = Pago máximo × [(1 - (1+r)^-n) / r]",
-                            "steps":  [
-                                          "Calcular pago máximo permitido (ingreso × ratio deuda)",
-                                          "Convertir tasa anual a mensual",
-                                          "Calcular número total de pagos mensuales",
-                                          "Aplicar fórmula de valor presente de anualidad"
-                                      ],
-                            "mistakes":  [
-                                             "Usar ratio de deuda incorrecto",
-                                             "No considerar otras deudas existentes",
-                                             "Olvidar convertir tasa anual a mensual"
-                                         ],
-                            "input_type_review":  [
-
-                                                  ]
-                        },
-                 "en":  {
-                            "name":  "Loan Affordability Calculator",
-                            "description":  "Calculate the maximum loan you can afford.",
-                            "inputs":  {
-                                           "income":  "Monthly income",
-                                           "debt_ratio":  "Debt ratio %",
-                                           "rate":  "Rate %",
-                                           "years":  "Years"
-                                       },
-                            "outputs":  {
-                                            "max_loan":  "Max loan"
-                                        },
-                            "seo_title":  "Loan Affordability Calculator – Easy Calculator",
-                            "seo_description":  "Loan Affordability Calculator. Monthly income, Debt ratio %, Rate % to determine Max loan. sports and fitness-validated formula used by athletes and.",
-                            "example_label":  "Ingreso $5000, ratio deuda 36%, tasa 5%, 30 años",
-                            "range_hints":  {
-                                                "income":  "Varía según país y situación",
-                                                "debt_ratio":  "Típicamente 28-43% para aprobación hipotecaria",
-                                                "rate":  "Generalmente entre 2% y 15%",
-                                                "years":  "Común 15, 20, 25 o 30 años"
-                                            },
-                            "result_context":  "Monto máximo de préstamo que puedes permitirte según tu ingreso y deudas",
-                            "formula_display":  "Préstamo = Pago máximo × [(1 - (1+r)^-n) / r]",
-                            "steps":  [
-                                          "Calcular pago máximo permitido (ingreso × ratio deuda)",
-                                          "Convertir tasa anual a mensual",
-                                          "Calcular número total de pagos mensuales",
-                                          "Aplicar fórmula de valor presente de anualidad"
-                                      ],
-                            "mistakes":  [
-                                             "Usar ratio de deuda incorrecto",
-                                             "No considerar otras deudas existentes",
-                                             "Olvidar convertir tasa anual a mensual"
-                                         ],
-                            "input_type_review":  "Income es moneda, debt_ratio y rate son porcentajes, years es tiempo"
-                        },
-                 "fr":  {
-                            "name":  "Capacité d\u0027Emprunt",
-                            "description":  "Calculez le prêt maximum que vous pouvez assumer.",
-                            "inputs":  {
-                                           "income":  "Revenu mensuel",
-                                           "debt_ratio":  "Ratio dette %",
-                                           "rate":  "Taux %",
-                                           "years":  "Années"
-                                       },
-                            "outputs":  {
-                                            "max_loan":  "Prêt maximum"
-                                        },
-                            "seo_title":  "Capacité d\u0027Emprunt – Rapide et Précis",
-                            "seo_description":  "Calculez le prêt maximum que vous pouvez assumer. Calculateur gratuit, précis et instantané. Avec decomposition des zones d\u0027entrainement.",
-                            "example_label":  "Ingreso $5000, ratio deuda 36%, tasa 5%, 30 años",
-                            "range_hints":  {
-                                                "income":  "Varía selon país et situación",
-                                                "debt_ratio":  "typiquement 28-43% pour aprobación hipotecaria",
-                                                "rate":  "Generalmente entre 2% et 15%",
-                                                "years":  "Común 15, 20, 25 o 30 años"
-                                            },
-                            "result_context":  "Monto maximum de préstamo que puedes permitirte selon tu ingreso et deudas",
-                            "formula_display":  "Préstamo = Pago maximum × [(1 - (1+r)^-n) / r]",
-                            "steps":  [
-                                          "Calculer pago maximum permitido (ingreso × ratio deuda)",
-                                          "Convertir tasa anual a mensual",
-                                          "Calculer Nombre total de pagos mensuales",
-                                          "Aplicar fórmula de valor presente de anualidad"
-                                      ],
-                            "mistakes":  [
-                                             "Utiliser ratio de deuda incorrecto",
-                                             "Ne pas considérer otras deudas existentes",
-                                             "Oublier convertir tasa anual a mensual"
-                                         ],
-                            "input_type_review":  [
-
-                                                  ]
-                        },
-                 "pt":  {
-                            "name":  "Capacidade de Empréstimo",
-                            "description":  "Calcule o empréstimo máximo que pode assumir.",
-                            "inputs":  {
-                                           "income":  "Renda mensal",
-                                           "debt_ratio":  "Ratio dívida %",
-                                           "rate":  "Taxa %",
-                                           "years":  "Anos"
-                                       },
-                            "outputs":  {
-                                            "max_loan":  "Empréstimo máximo"
-                                        },
-                            "seo_title":  "Capacidade de Empréstimo – Rápido e Preciso",
-                            "seo_description":  "Calcule o empréstimo máximo que pode assumir. Calculadora gratuita, precisa e instantânea. Com divisao de zonas de treinamento.",
-                            "example_label":  "Ingreso $5000, ratio deuda 36%, tasa 5%, 30 años",
-                            "range_hints":  {
-                                                "income":  "Varía segundo país e situación",
-                                                "debt_ratio":  "Típicamente 28-43% para aprobación hipotecaria",
-                                                "rate":  "Generalmente entre 2% e 15%",
-                                                "years":  "Común 15, 20, 25 o 30 años"
-                                            },
-                            "result_context":  "Monto máximo de préstamo que puedes permitirte segundo tu ingreso e deudas",
-                            "formula_display":  "Préstamo = Pago máximo × [(1 - (1+r)^-n) / r]",
-                            "steps":  [
-                                          "Calcular pago máximo permitido (ingreso × ratio deuda)",
-                                          "Convertir tasa anual a mensual",
-                                          "Calcular número total de pagos mensuales",
-                                          "Aplicar fórmula de valor presente de anualidad"
-                                      ],
-                            "mistakes":  [
-                                             "Usar ratio de deuda incorrecto",
-                                             "Não considerar otras deudas existentes",
-                                             "Esquecer convertir tasa anual a mensual"
-                                         ],
-                            "input_type_review":  [
-
-                                                  ]
-                        },
-                 "de":  {
-                            "name":  "Finanzierungsrahmen-Rechner",
-                            "desc":  "Ermitteln Sie den maximalen Kreditbetrag, den Sie sich bei Ihrem Einkommen leisten können.",
-                            "seo_title":  "Finanzierungsrahmen-Rechner | CalcToWork",
-                            "seo_desc":  "Ermitteln Sie den maximalen Kreditbetrag, den Sie sich bei Ihrem Einkommen leisten können.",
-                            "seo_description":  "Ermitteln Sie den maximalen Kreditbetrag, den Sie sich bei Ihrem Einkommen leisten können.",
-                            "inputs":  {
-                                           "income":  "Income",
-                                           "debt_ratio":  "Debt Ratio",
-                                           "rate":  "Rate",
-                                           "years":  "Years"
-                                       },
-                            "outputs":  {
-                                            "max_loan":  "Max Loan"
-                                        },
-                            "range_hints":  {
-                                                "income":  "Typischer Wert entre 0 y 500. Valor por defecto: 5000 USD.",
-                                                "debt_ratio":  "Typischer Wert entre 0 y 500. Valor por defecto: 36 %.",
-                                                "rate":  "Typischer Wert entre 0 y 500. Valor por defecto: 5 %.",
-                                                "years":  "Typischer Wert entre 0 y 500. Valor por defecto: 30 yr."
-                                            },
-                            "result_context":  "Resultados: {max_loan} USD de préstamo máximo.",
-                            "formula_display":  "Max Loan (USD) = f(income, debt_ratio, rate, years)",
-                            "input_type_review":  [
-                                                      {
-                                                          "field_id":  "income",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Considerar tipo \"select\" para unidades predefinidas"
-                                                      },
-                                                      {
-                                                          "field_id":  "debt_ratio",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Considerar tipo \"select\" para unidades predefinidas"
-                                                      },
-                                                      {
-                                                          "field_id":  "rate",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Considerar tipo \"select\" para unidades predefinidas"
-                                                      },
-                                                      {
-                                                          "field_id":  "years",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Considerar tipo \"select\" para unidades predefinidas"
-                                                      }
-                                                  ],
-                            "steps":  [
-                                          "Gib dein monatliches Nettoeinkommen, vorhandene Kredite und die gewuenschte Laufzeit ein",
-                                          "Bestimme die maximale monatliche Rate (ca. 30-40 pct des Nettoeinkommens)",
-                                          "Ziehe bestehende Kreditverpflichtungen von der maximalen Rate ab",
-                                          "Berechne den maximalen Darlehensbetrag anhand des Zinssatzes und der Laufzeit",
-                                          "Vergleiche das Ergebnis mit den ueblichen Immobilienpreisen in deiner Region"
-                                      ],
-                            "mistakes":  [
-                                             "Die monatliche Rate zu knapp kalkulieren und Ruecklagen fuer Instandhaltung vergessen",
-                                             "Einen zu optimistischen Zinssatz fuer die gesamte Laufzeit annehmen",
-                                             "Bestehende Kredite oder Unterhaltsverpflichtungen nicht einrechnen"
-                                         ],
-                            "example_label":  "Maximalen Darlehensbetrag bei 3.000 EUR netto berechnen"
-                        },
-                 "it":  {
-                            "name":  "Capacità di Prestito",
-                            "description":  "Calcola il prestito massimo che puoi permetterti.",
-                            "inputs":  {
-                                           "income":  "Reddito mensile",
-                                           "debt_ratio":  "Ratio debito %",
-                                           "rate":  "Tasso %",
-                                           "years":  "Anni"
-                                       },
-                            "outputs":  {
-                                            "max_loan":  "Prestito massimo"
-                                        },
-                            "seo_title":  "Capacità di Prestito – Veloce e Preciso",
-                            "seo_description":  "Calcola il prestito massimo che puoi permetterti. Calcolatore gratuito, preciso e istantaneo. Con suddivisione delle zone di allenamento.",
-                            "example_label":  "Ingreso $5000, ratio diuda 36%, tasa 5%, 30 años",
-                            "range_hints":  {
-                                                "income":  "Varía según país e setuación",
-                                                "debt_ratio":  "Típicaminte 28-43% per aprobación hipotecaria",
-                                                "rate":  "Gineralminte intre 2% e 15%",
-                                                "years":  "Común 15, 20, 25 o 30 años"
-                                            },
-                            "result_context":  "Monto máximo di préstamo que puedis permitirte según tu ingreso e diudas",
-                            "formula_display":  "Préstamo = Pago máximo × [(1 - (1+r)^-n) / r]",
-                            "steps":  [
-                                          "Calcolare pago máximo permitido (ingreso × ratio diuda)",
-                                          "Convertire tasa anual a minsual",
-                                          "Calcolare número totale di pagos minsuales",
-                                          "Applicare fórmula di valore presente di anualidad"
-                                      ],
-                            "mistakes":  [
-                                             "Usare ratio di diuda incorrecto",
-                                             "Non consedirare otras diudas existintes",
-                                             "Diminticare convertir tasa anual a minsual"
-                                         ],
-                            "input_type_review":  null
-                        }
-             }
+{
+  "id": "334",
+  "slug": "prestamo-afordable",
+  "block": 17,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "income",
+      "type": "number",
+      "step": "any",
+      "default": 5000,
+      "unit": "USD",
+      "unit_options": [
+        "USD",
+        "EUR",
+        "GBP"
+      ],
+      "unit_category": "currency"
+    },
+    {
+      "id": "debt_ratio",
+      "type": "number",
+      "step": "any",
+      "default": 36,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "percentage"
+    },
+    {
+      "id": "rate",
+      "type": "number",
+      "step": "any",
+      "default": 5,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "percentage"
+    },
+    {
+      "id": "years",
+      "type": "number",
+      "step": 1,
+      "default": 30,
+      "unit": "yr",
+      "unit_options": [
+        "yr",
+        "mo"
+      ],
+      "unit_category": "time"
+    }
+  ],
+  "formula": "var inc=parseFloat(inputs.income)||0;var dr=(parseFloat(inputs.debt_ratio)||0)/100;var r=(parseFloat(inputs.rate)||0)/1200;var n=(parseFloat(inputs.years)||0)*12;var max_payment=inc*dr;var max_loan=r>0?max_payment*(1-Math.pow(1+r,-n))/r:max_payment*n;return{max_loan:max_loan.toFixed(2)};",
+  "outputs": [
+    {
+      "id": "max_loan",
+      "unit": "USD"
+    }
+  ],
+  "related": [
+    "322",
+    "300",
+    "337",
+    "338"
+  ],
+  "example_inputs": {
+    "income": 5000,
+    "debt_ratio": 36,
+    "rate": 5,
+    "years": 30
+  },
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "income": 2500,
+      "debt_ratio": 18,
+      "rate": 5,
+      "years": 30
+    },
+    {
+      "_label": "Average",
+      "income": 3750,
+      "debt_ratio": 27,
+      "rate": 5,
+      "years": 30
+    },
+    {
+      "_label": "High",
+      "income": 5000,
+      "debt_ratio": 36,
+      "rate": 5,
+      "years": 30
+    },
+    {
+      "_label": "Premium",
+      "income": 7500,
+      "debt_ratio": 54,
+      "rate": 5,
+      "years": 30
+    },
+    {
+      "_label": "Enterprise",
+      "income": 10000,
+      "debt_ratio": 72,
+      "rate": 5,
+      "years": 30
+    }
+  ],
+  "units": {
+    "income": "USD",
+    "debt_ratio": "%",
+    "rate": "%",
+    "years": "s"
+  },
+  "i18n": {
+    "es": {
+      "name": "Capacidad de Préstamo",
+      "description": "Calcula el préstamo máximo que puedes asumir.",
+      "inputs": {
+        "income": "Ingreso mensual",
+        "debt_ratio": "Ratio deuda %",
+        "rate": "Tasa %",
+        "years": "Años"
+      },
+      "outputs": {
+        "max_loan": "Préstamo máximo"
+      },
+      "seo_title": "Capacidad de Préstamo Gratuita",
+      "seo_description": "Calcula el préstamo máximo que puedes asumir. Calculadora gratuita, precisa e instantánea. Con desglose de zonas de entrenamiento.",
+      "example_label": "Ingreso $5000, ratio deuda 36%, tasa 5%, 30 años",
+      "range_hints": {
+        "income": "Varía según país y situación",
+        "debt_ratio": "Típicamente 28-43% para aprobación hipotecaria",
+        "rate": "Generalmente entre 2% y 15%",
+        "years": "Común 15, 20, 25 o 30 años"
+      },
+      "result_context": "Monto máximo de préstamo que puedes permitirte según tu ingreso y deudas",
+      "formula_display": "Préstamo = Pago máximo × [(1 - (1+r)^-n) / r]",
+      "steps": [
+        "Calcular pago máximo permitido (ingreso × ratio deuda)",
+        "Convertir tasa anual a mensual",
+        "Calcular número total de pagos mensuales",
+        "Aplicar fórmula de valor presente de anualidad"
+      ],
+      "mistakes": [
+        "Usar ratio de deuda incorrecto",
+        "No considerar otras deudas existentes",
+        "Olvidar convertir tasa anual a mensual"
+      ]
+    },
+    "en": {
+      "name": "Loan Affordability Calculator",
+      "description": "Calculate the maximum loan you can afford.",
+      "inputs": {
+        "income": "Monthly income",
+        "debt_ratio": "Debt ratio %",
+        "rate": "Rate %",
+        "years": "Years"
+      },
+      "outputs": {
+        "max_loan": "Max loan"
+      },
+      "seo_title": "Loan Affordability Calculator – Easy Calculator",
+      "seo_description": "Loan Affordability Calculator. Monthly income, Debt ratio %, Rate % to determine Max loan. sports and fitness-validated formula used by athletes and.",
+      "example_label": "Ingreso $5000, ratio deuda 36%, tasa 5%, 30 años",
+      "range_hints": {
+        "income": "Varía según país y situación",
+        "debt_ratio": "Típicamente 28-43% para aprobación hipotecaria",
+        "rate": "Generalmente entre 2% y 15%",
+        "years": "Común 15, 20, 25 o 30 años"
+      },
+      "result_context": "Monto máximo de préstamo que puedes permitirte según tu ingreso y deudas",
+      "formula_display": "Préstamo = Pago máximo × [(1 - (1+r)^-n) / r]",
+      "steps": [
+        "Calcular pago máximo permitido (ingreso × ratio deuda)",
+        "Convertir tasa anual a mensual",
+        "Calcular número total de pagos mensuales",
+        "Aplicar fórmula de valor presente de anualidad"
+      ],
+      "mistakes": [
+        "Usar ratio de deuda incorrecto",
+        "No considerar otras deudas existentes",
+        "Olvidar convertir tasa anual a mensual"
+      ]
+    },
+    "fr": {
+      "name": "Capacité d'Emprunt",
+      "description": "Calculez le prêt maximum que vous pouvez assumer.",
+      "inputs": {
+        "income": "Revenu mensuel",
+        "debt_ratio": "Ratio dette %",
+        "rate": "Taux %",
+        "years": "Années"
+      },
+      "outputs": {
+        "max_loan": "Prêt maximum"
+      },
+      "seo_title": "Capacité d'Emprunt – Rapide et Précis",
+      "seo_description": "Calculez le prêt maximum que vous pouvez assumer. Calculateur gratuit, précis et instantané. Avec decomposition des zones d'entrainement.",
+      "example_label": "Ingreso $5000, ratio deuda 36%, tasa 5%, 30 años",
+      "range_hints": {
+        "income": "Varía selon país et situación",
+        "debt_ratio": "typiquement 28-43% pour aprobación hipotecaria",
+        "rate": "Generalmente entre 2% et 15%",
+        "years": "Común 15, 20, 25 o 30 años"
+      },
+      "result_context": "Monto maximum de préstamo que puedes permitirte selon tu ingreso et deudas",
+      "formula_display": "Préstamo = Pago maximum × [(1 - (1+r)^-n) / r]",
+      "steps": [
+        "Calculer pago maximum permitido (ingreso × ratio deuda)",
+        "Convertir tasa anual a mensual",
+        "Calculer Nombre total de pagos mensuales",
+        "Aplicar fórmula de valor presente de anualidad"
+      ],
+      "mistakes": [
+        "Utiliser ratio de deuda incorrecto",
+        "Ne pas considérer otras deudas existentes",
+        "Oublier convertir tasa anual a mensual"
+      ]
+    },
+    "pt": {
+      "name": "Capacidade de Empréstimo",
+      "description": "Calcule o empréstimo máximo que pode assumir.",
+      "inputs": {
+        "income": "Renda mensal",
+        "debt_ratio": "Ratio dívida %",
+        "rate": "Taxa %",
+        "years": "Anos"
+      },
+      "outputs": {
+        "max_loan": "Empréstimo máximo"
+      },
+      "seo_title": "Capacidade de Empréstimo – Rápido e Preciso",
+      "seo_description": "Calcule o empréstimo máximo que pode assumir. Calculadora gratuita, precisa e instantânea. Com divisao de zonas de treinamento.",
+      "example_label": "Ingreso $5000, ratio deuda 36%, tasa 5%, 30 años",
+      "range_hints": {
+        "income": "Varía segundo país e situación",
+        "debt_ratio": "Típicamente 28-43% para aprobación hipotecaria",
+        "rate": "Generalmente entre 2% e 15%",
+        "years": "Común 15, 20, 25 o 30 años"
+      },
+      "result_context": "Monto máximo de préstamo que puedes permitirte segundo tu ingreso e deudas",
+      "formula_display": "Préstamo = Pago máximo × [(1 - (1+r)^-n) / r]",
+      "steps": [
+        "Calcular pago máximo permitido (ingreso × ratio deuda)",
+        "Convertir tasa anual a mensual",
+        "Calcular número total de pagos mensuales",
+        "Aplicar fórmula de valor presente de anualidad"
+      ],
+      "mistakes": [
+        "Usar ratio de deuda incorrecto",
+        "Não considerar otras deudas existentes",
+        "Esquecer convertir tasa anual a mensual"
+      ]
+    },
+    "de": {
+      "name": "Finanzierungsrahmen-Rechner",
+      "seo_title": "Finanzierungsrahmen-Rechner | CalcToWork",
+      "seo_description": "Ermitteln Sie den maximalen Kreditbetrag, den Sie sich bei Ihrem Einkommen leisten können.",
+      "inputs": {
+        "income": "Income",
+        "debt_ratio": "Debt Ratio",
+        "rate": "Rate",
+        "years": "Years"
+      },
+      "outputs": {
+        "max_loan": "Max Loan"
+      },
+      "range_hints": {
+        "income": "Typischer Wert entre 0 y 500. Valor por defecto: 5000 USD.",
+        "debt_ratio": "Typischer Wert entre 0 y 500. Valor por defecto: 36 %.",
+        "rate": "Typischer Wert entre 0 y 500. Valor por defecto: 5 %.",
+        "years": "Typischer Wert entre 0 y 500. Valor por defecto: 30 yr."
+      },
+      "result_context": "Resultados: {max_loan} USD de préstamo máximo.",
+      "formula_display": "Max Loan (USD) = f(income, debt_ratio, rate, years)",
+      "steps": [
+        "Gib dein monatliches Nettoeinkommen, vorhandene Kredite und die gewuenschte Laufzeit ein",
+        "Bestimme die maximale monatliche Rate (ca. 30-40 pct des Nettoeinkommens)",
+        "Ziehe bestehende Kreditverpflichtungen von der maximalen Rate ab",
+        "Berechne den maximalen Darlehensbetrag anhand des Zinssatzes und der Laufzeit",
+        "Vergleiche das Ergebnis mit den ueblichen Immobilienpreisen in deiner Region"
+      ],
+      "mistakes": [
+        "Die monatliche Rate zu knapp kalkulieren und Ruecklagen fuer Instandhaltung vergessen",
+        "Einen zu optimistischen Zinssatz fuer die gesamte Laufzeit annehmen",
+        "Bestehende Kredite oder Unterhaltsverpflichtungen nicht einrechnen"
+      ],
+      "example_label": "Maximalen Darlehensbetrag bei 3.000 EUR netto berechnen",
+      "description": "Ermitteln Sie den maximalen Kreditbetrag, den Sie sich bei Ihrem Einkommen leisten können."
+    },
+    "it": {
+      "name": "Capacità di Prestito",
+      "description": "Calcola il prestito massimo che puoi permetterti.",
+      "inputs": {
+        "income": "Reddito mensile",
+        "debt_ratio": "Ratio debito %",
+        "rate": "Tasso %",
+        "years": "Anni"
+      },
+      "outputs": {
+        "max_loan": "Prestito massimo"
+      },
+      "seo_title": "Capacità di Prestito – Veloce e Preciso",
+      "seo_description": "Calcola il prestito massimo che puoi permetterti. Calcolatore gratuito, preciso e istantaneo. Con suddivisione delle zone di allenamento.",
+      "example_label": "Ingreso $5000, ratio diuda 36%, tasa 5%, 30 años",
+      "range_hints": {
+        "income": "Varía según país e setuación",
+        "debt_ratio": "Típicaminte 28-43% per aprobación hipotecaria",
+        "rate": "Gineralminte intre 2% e 15%",
+        "years": "Común 15, 20, 25 o 30 años"
+      },
+      "result_context": "Monto máximo di préstamo que puedis permitirte según tu ingreso e diudas",
+      "formula_display": "Préstamo = Pago máximo × [(1 - (1+r)^-n) / r]",
+      "steps": [
+        "Calcolare pago máximo permitido (ingreso × ratio diuda)",
+        "Convertire tasa anual a minsual",
+        "Calcolare número totale di pagos minsuales",
+        "Applicare fórmula di valore presente di anualidad"
+      ],
+      "mistakes": [
+        "Usare ratio di diuda incorrecto",
+        "Non consedirare otras diudas existintes",
+        "Diminticare convertir tasa anual a minsual"
+      ]
+    }
+  }
 }

@@ -64,47 +64,6 @@
     "tension_v": "230",
     "factor_simultaneidad": 0.7
   },
-  "example_label": "Dimensionar cuadro eléctrico para vivienda de 9.2 kW contratados a 230 V monofásico con factor de simultaneidad 0.7.",
-  "range_hints": {
-    "potencia_kw": "Potencia contratada según factura o potencia instalada total. Viviendas: 3.45-9.2 kW. Comercios: 10-50 kW. Industria: 50-200 kW",
-    "tension_v": "230 V monofásico para viviendas hasta 14.5 kW. 400 V trifásico obligatorio por encima de 14.5 kW o si hay equipos trifásicos",
-    "factor_simultaneidad": "ITC-BT-10: unifamiliares 0.5-0.7, edificios colectivos 0.4-0.6 por circuito, comercios 0.7-0.9, industria 0.8-1.0 según proceso"
-  },
-  "result_context": "Para {potencia_kw} kW a {tension_v} V con factor {factor_simultaneidad}: corriente máxima {corriente_max_a} A, ICP/IGA recomendado {icp_recomendado_a} A y {circuitos_estimados} circuitos estimados. Verificar sección de acometida según ITC-BT-11.",
-  "formula_display": "I_máx = (P_kW × 1000 × Fs) / (V × k)  con k=1 monofásico, k=√3 trifásico.  ICP según escalones normalizados: 16-20-25-32-40-50-63 A.  Circuitos = ceil(I_máx / 16).",
-  "steps": [
-    "Identificar la potencia contratada en la factura eléctrica (kW) o sumar todas las cargas previstas en la instalación",
-    "Seleccionar la tensión de suministro: 230 V monofásico para viviendas (<14.5 kW), 400 V trifásico para potencias superiores o equipos trifásicos",
-    "Aplicar factor de simultaneidad según ITC-BT-10: en una vivienda no todos los electrodomésticos funcionan a la vez. Factor típico 0.5-0.7",
-    "Calcular corriente máxima: I = (P × 1000 × Fs) / V (monofásico) o I = (P × 1000 × Fs) / (√3 × V) (trifásico)",
-    "Seleccionar ICP/IGA normalizado: redondear al escalón superior entre 16, 20, 25, 32, 40, 50, 63 A. Estimar circuitos: I_máx / 16 A redondeando al alza"
-  ],
-  "mistakes": [
-    "No aplicar factor de simultaneidad: una vivienda de 9.2 kW sin factor daría 40 A de IGA, pero con Fs=0.7 solo necesita 28 A, ahorrando en el término fijo de factura",
-    "Confundir potencia contratada con potencia instalada: la contratada es la máxima que permite el ICP, la instalada es la suma de todas las cargas. No contratar más potencia de la necesaria",
-    "Usar sección insuficiente para la derivación individual: 40 m desde contador al cuadro con 40 A requiere 16 mm² Cu para cumplir caída de tensión, no 10 mm²",
-    "No prever espacio de reserva: instalar un cuadro sin carriles libres obliga a cambiarlo al añadir un circuito. Reservar mínimo 20 % de espacio"
-  ],
-  "input_type_review": [
-    {
-      "field_id": "potencia_kw",
-      "current_type": "number",
-      "recommended_type": "number",
-      "reason": "Considerar tipo \"select\" para unidades predefinidas"
-    },
-    {
-      "field_id": "tension_v",
-      "current_type": "select",
-      "recommended_type": "select",
-      "reason": "Correcto: valor continuo con decimales"
-    },
-    {
-      "field_id": "factor_simultaneidad",
-      "current_type": "number",
-      "recommended_type": "number",
-      "reason": "Correcto: valor continuo con decimales"
-    }
-  ],
   "comparison_presets": [
     {
       "_label": "Piso pequeño (3.45 kW)",
@@ -138,7 +97,6 @@
   "i18n": {
     "es": {
       "name": "Calculadora de Cuadro Eléctrico",
-      "desc": "Calcula el interruptor de control de potencia (ICP), el diferencial y el número de circuitos del cuadro eléctrico. Calculo preciso y rapido con.",
       "seo_title": "Calculadora Cuadro Eléctrico – ICP",
       "inputs": {
         "potencia_kw": "Potencia contratada (kW)",
@@ -169,24 +127,10 @@
         "Usar sección insuficiente para la distancia al contador",
         "No prever diferencial de 30mA y 40A mínimo"
       ],
-      "input_type_review": [
-        {
-          "field_id": "potencia_kw",
-          "reason": "Correcto: valor continuo con decimales"
-        },
-        {
-          "field_id": "tension_v",
-          "reason": "Correcto: opción discreta"
-        },
-        {
-          "field_id": "factor_simultaneidad",
-          "reason": "Correcto: valor continuo con decimales"
-        }
-      ]
+      "description": "Calcula el interruptor de control de potencia (ICP), el diferencial y el número de circuitos del cuadro eléctrico. Calculo preciso y rapido con."
     },
     "en": {
       "name": "Electrical Panel Calculator",
-      "desc": "Electrical Panel Calculator. Free online calculator with formula, examples and step-by-step guide.",
       "seo_title": "Electrical Panel Calculator – Breakers",
       "inputs": {
         "potencia_kw": "Contracted power (kW)",
@@ -217,30 +161,10 @@
         "Usar sección insuficiente para la distancia al contador",
         "No prever diferencial de 30mA y 40A mínimo"
       ],
-      "input_type_review": [
-        {
-          "field_id": "potencia_kw",
-          "current_type": "number",
-          "recommended_type": "number",
-          "reason": "Correcto: valor continuo con decimales"
-        },
-        {
-          "field_id": "tension_v",
-          "current_type": "select",
-          "recommended_type": "select",
-          "reason": "Correcto: opción discreta"
-        },
-        {
-          "field_id": "factor_simultaneidad",
-          "current_type": "number",
-          "recommended_type": "number",
-          "reason": "Correcto: valor continuo con decimales"
-        }
-      ]
+      "description": "Electrical Panel Calculator. Free online calculator with formula, examples and step-by-step guide."
     },
     "fr": {
       "name": "Calculateur Tableau Électrique",
-      "desc": "Calculez le disjoncteur principal et les circuits.",
       "seo_title": "Calculateur Tableau Électrique",
       "inputs": {
         "potencia_kw": "Puissance souscrite (kW)",
@@ -271,30 +195,10 @@
         "Utiliser sección insuffisant pour la distancia al contador",
         "No prever diferencial de 30mA et 40A Minimum"
       ],
-      "input_type_review": [
-        {
-          "field_id": "potencia_kw",
-          "current_type": "number",
-          "recommended_type": "number",
-          "reason": "Correct : valeur continue avec décimales"
-        },
-        {
-          "field_id": "tension_v",
-          "current_type": "select",
-          "recommended_type": "select",
-          "reason": "Correct : opción discreta"
-        },
-        {
-          "field_id": "factor_simultaneidad",
-          "current_type": "number",
-          "recommended_type": "number",
-          "reason": "Correct : valeur continue avec décimales"
-        }
-      ]
+      "description": "Calculez le disjoncteur principal et les circuits."
     },
     "pt": {
       "name": "Calculadora de Quadro Elétrico",
-      "desc": "Calcule o disjuntor geral, diferencial e número de circuitos do quadro elétrico. Calculo preciso e rapido com metodologia clara.",
       "seo_title": "Calculadora de Quadro Elétrico",
       "inputs": {
         "potencia_kw": "Potência contratada (kW)",
@@ -325,32 +229,11 @@
         "Usar seção insuficiente para a distancia ao contador",
         "Não prever diferencial de 30mA e 40A mínimo"
       ],
-      "input_type_review": [
-        {
-          "field_id": "potencia_kw",
-          "current_type": "number",
-          "recommended_type": "number",
-          "reason": "Correto: valor contínuo com decimais"
-        },
-        {
-          "field_id": "tension_v",
-          "current_type": "select",
-          "recommended_type": "select",
-          "reason": "Correto: opção discreta"
-        },
-        {
-          "field_id": "factor_simultaneidad",
-          "current_type": "number",
-          "recommended_type": "number",
-          "reason": "Correto: valor contínuo com decimais"
-        }
-      ]
+      "description": "Calcule o disjuntor geral, diferencial e número de circuitos do quadro elétrico. Calculo preciso e rapido com metodologia clara."
     },
     "de": {
       "name": "Verteiler-Rechner",
-      "desc": "Planen Sie Ihren Sicherungskasten: Anzahl der Stromkreise, FI-Schalter und Leitungsschutzschalter.",
       "seo_title": "Verteiler-Rechner | CalcToWork",
-      "seo_desc": "Planen Sie Ihren Sicherungskasten: Anzahl der Stromkreise, FI-Schalter und Leitungsschutzschalter.",
       "seo_description": "Planen Sie Ihren Sicherungskasten: Anzahl der Stromkreise, FI-Schalter und Leitungsschutzschalter.",
       "inputs": {
         "potencia_kw": "Potencia Kw",
@@ -382,30 +265,10 @@
         "Anschlussleistung mit installierter Leistung verwechselt — eine 9,2-kW-Anlage mit Gleichzeitigkeitsfaktor 0,7 braucht nur einen 28-A-Hauptschalter, nicht 40 A",
         "Keine Reserveplätze im Verteiler eingeplant — bei einer späteren Erweiterung (Wallbox, Klimaanlage) muss der gesamte Verteiler getauscht werden"
       ],
-      "input_type_review": [
-        {
-          "field_id": "potencia_kw",
-          "current_type": "number",
-          "recommended_type": "number",
-          "reason": "Considerar tipo \"select\" para unidades predefinidas"
-        },
-        {
-          "field_id": "tension_v",
-          "current_type": "select",
-          "recommended_type": "select",
-          "reason": "Correcto: valor continuo con decimales"
-        },
-        {
-          "field_id": "factor_simultaneidad",
-          "current_type": "number",
-          "recommended_type": "number",
-          "reason": "Correcto: valor continuo con decimales"
-        }
-      ]
+      "description": "Planen Sie Ihren Sicherungskasten: Anzahl der Stromkreise, FI-Schalter und Leitungsschutzschalter."
     },
     "it": {
       "name": "Calcolatore Quadro Elettrico",
-      "desc": "Calcola l'interruttore generale (IG), il differenziale e il numero di circuiti del quadro elettrico secondo CEI 64-8. Gratuito, calcolo preciso e immediato.",
       "seo_title": "Calcolatore Quadro Elettrico – Magnetotermici",
       "inputs": {
         "potencia_kw": "Potenza contrattuale (kW)",
@@ -439,20 +302,7 @@
         "Usare una sezione insufficiente per la linea montante: 40 m dal contatore al quadro con 40 A richiedono 16 mm² in rame per rispettare la caduta di tensione, non 10 mm²",
         "Non prevedere spazio di riserva nel quadro: installare un quadro senza moduli liberi obbliga a sostituirlo per aggiungere un circuito. Riservare almeno il 20 % di spazio"
       ],
-      "input_type_review": [
-        {
-          "field_id": "potencia_kw",
-          "reason": "Corretto: valore numerico continuo"
-        },
-        {
-          "field_id": "tension_v",
-          "reason": "Corretto: opzione discreta"
-        },
-        {
-          "field_id": "factor_simultaneidad",
-          "reason": "Corretto: valore numerico continuo"
-        }
-      ]
+      "description": "Calcola l'interruttore generale (IG), il differenziale e il numero di circuiti del quadro elettrico secondo CEI 64-8. Gratuito, calcolo preciso e immediato."
     }
   }
 }

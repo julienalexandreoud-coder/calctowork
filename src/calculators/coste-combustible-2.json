@@ -1,372 +1,295 @@
-﻿{
-    "id":  "503",
-    "slug":  "coste-combustible-2",
-    "block":  7,
-    "block_slug":  "cotidiano",
-    "inputs":  [
-                   {
-                       "id":  "distance",
-                       "type":  "number",
-                       "step":  "any",
-                       "default":  100,
-                       "unit":  "km",
-                       "unit_options":  [
-                                            "km",
-                                            "mi"
-                                        ],
-                       "unit_category":  "length"
-                   },
-                   {
-                       "id":  "efficiency",
-                       "type":  "number",
-                       "step":  "any",
-                       "default":  6,
-                       "unit":  "L/100km",
-                       "unit_options":  [
-                                            "L/100km",
-                                            "mpg"
-                                        ],
-                       "unit_category":  "volume"
-                   },
-                   {
-                       "id":  "price",
-                       "type":  "number",
-                       "step":  "any",
-                       "default":  1.5,
-                       "unit":  "$/L",
-                       "unit_options":  [
-                                            "$/L",
-                                            "$/gal(us)"
-                                        ],
-                       "unit_category":  "currency_per_volume"
-                   }
-               ],
-    "formula":  "var d=parseFloat(inputs.distance)||0;var eff=parseFloat(inputs.efficiency)||1;var pr=parseFloat(inputs.price)||0;var fuel=d*eff/100;var cost=fuel*pr;return{cost:cost.toFixed(2),fuel:fuel.toFixed(2)};",
-    "outputs":  [
-                    {
-                        "id":  "cost",
-                        "unit":  "USD"
-                    },
-                    {
-                        "id":  "fuel",
-                        "unit":  "L"
-                    }
-                ],
-    "related":  [
-                    "504",
-                    "505",
-                    "517",
-                    "500"
-                ],
-    "example_inputs":  {
-                           "distance":  100,
-                           "efficiency":  6,
-                           "price":  1.5
-                       },
-    "example_label":  "Ejemplo para coste combustible 2: valores 100km, 6L/100km, 1.5$/L",
-    "range_hints":  {
-                        "distance":  "Valor típico entre 0 y 500. Valor por defecto: 100 km.",
-                        "efficiency":  "Valor típico entre 0 y 500. Valor por defecto: 6 L/100km.",
-                        "price":  "Valor típico entre 0 y 500. Valor por defecto: 1.5 $/L."
-                    },
-    "result_context":  "El coste del combustible es {cost} USD y necesitarás {fuel} L para el viaje.",
-    "result_context_en":  "The fuel cost is {cost} USD and you will need {fuel} L for the trip.",
-    "result_context_fr":  "Le coût du carburant est de {cost} USD et vous aurez besoin de {fuel} L pour le voyage.",
-    "result_context_pt":  "O custo do combustível é {cost} USD e você precisará de {fuel} L para a viagem.",
-    "result_context_de":  "Die Kraftstoffkosten betragen {cost} USD und Sie benötigen {fuel} L für die Fahrt.",
-    "result_context_it":  "Il costo del carburante è {cost} USD e avrai bisogno di {fuel} L per il viaggio.",
-    "formula_display":  "eff ÷ 100 → cost, fuel",
-    "steps":  [
-                  "Introducir los valores de distance, efficiency y price",
-                  "Verificar que las unidades sean correctas y convertir si es necesario (km, mi)",
-                  "Calcular los valores de cost y fuel",
-                  "El resultado se expresa en USD. Verificar que la magnitud es coherente",
-                  "Utilizar el resultado para la aplicación práctica correspondiente"
-              ],
-    "mistakes":  [
-                     "No considerar si la propina se calcula antes o después de impuestos",
-                     "Olvidar que los meses tienen diferente número de días",
-                     "Usar el formato de fecha incorrecto (MM/DD vs DD/MM) al introducir datos"
-                 ],
-    "input_type_review":  [
-                              {
-                                  "field_id":  "distance",
-                                  "current_type":  "number",
-                                  "recommended_type":  "number",
-                                  "reason":  "Considerar tipo \"select\" para unidades predefinidas"
-                              },
-                              {
-                                  "field_id":  "efficiency",
-                                  "current_type":  "number",
-                                  "recommended_type":  "number",
-                                  "reason":  "Considerar tipo \"select\" para unidades predefinidas"
-                              },
-                              {
-                                  "field_id":  "price",
-                                  "current_type":  "number",
-                                  "recommended_type":  "number",
-                                  "reason":  "Considerar tipo \"select\" para unidades predefinidas"
-                              }
-                          ],
-    "comparison_presets":  [
-                               {
-                                   "_label":  "Escenario minimo",
-                                   "distance":  40.0,
-                                   "efficiency":  2.4,
-                                   "price":  0.6
-                               },
-                               {
-                                   "_label":  "Uso habitual",
-                                   "distance":  70.0,
-                                   "efficiency":  4.2,
-                                   "price":  1.05
-                               },
-                               {
-                                   "_label":  "Uso frecuente",
-                                   "distance":  100.0,
-                                   "efficiency":  6.0,
-                                   "price":  1.5
-                               },
-                               {
-                                   "_label":  "Uso intensivo",
-                                   "distance":  150.0,
-                                   "efficiency":  9.0,
-                                   "price":  2.25
-                               },
-                               {
-                                   "_label":  "Caso maximo",
-                                   "distance":  250.0,
-                                   "efficiency":  15.0,
-                                   "price":  3.75
-                               }
-                           ],
-    "units":  {
-                  "distance":  "m",
-                  "efficiency":  "m³",
-                  "price":  "$/L"
-              },
-    "i18n":  {
-                 "es":  {
-                            "name":  "Calculadora de Coste de Combustible",
-                            "description":  "Calcula el coste y consumo de combustible para un trayecto.",
-                            "inputs":  {
-                                           "distance":  "Distancia",
-                                           "efficiency":  "Consumo",
-                                           "price":  "Precio/L"
-                                       },
-                            "outputs":  {
-                                            "cost":  "Coste",
-                                            "fuel":  "Combustible"
-                                        },
-                            "seo_title":  "Calculadora de Coste de Combustible Gratuita",
-                            "seo_description":  "Calcula el coste y consumo de combustible para un trayecto. Calculadora gratuita, precisa e instantánea. Herramienta gratuita con formula y ejemplos.",
-                            "example_label":  "100 km, consumo 6L/100km, precio $1.50/L",
-                            "range_hints":  {
-                                                "distance":  "Varía según viaje",
-                                                "efficiency":  "Típicamente 4-15 L/100km",
-                                                "price":  "Varía por país y tipo de combustible"
-                                            },
-                            "result_context":  "Costo total de combustible y litros consumidos",
-                            "formula_display":  "Combustible = Distancia × Eficiencia/100; Costo = Combustible × Precio",
-                            "steps":  [
-                                          "Calcular litros necesarios (distancia × eficiencia / 100)",
-                                          "Multiplicar litros por precio por litro"
-                                      ],
-                            "mistakes":  [
-                                             "No convertir unidades correctamente (km vs millas)",
-                                             "Confundir L/100km con mpg"
-                                         ],
-                            "input_type_review":  [
-
-                                                  ]
-                        },
-                 "en":  {
-                            "name":  "Fuel Cost Calculator",
-                            "description":  "Calculate fuel cost and consumption for a trip.",
-                            "inputs":  {
-                                           "distance":  "Distance",
-                                           "efficiency":  "Fuel efficiency",
-                                           "price":  "Price per litre"
-                                       },
-                            "outputs":  {
-                                            "cost":  "Cost",
-                                            "fuel":  "Fuel used"
-                                        },
-                            "seo_title":  "Fuel Cost Calculator – Instant Results",
-                            "seo_description":  "Fuel Cost Calculator. Distance, Fuel efficiency, Price per litre — get Cost, Fuel used instantly for your carpentry and metalwork project. Includes waste.",
-                            "example_label":  "100 km, consumo 6L/100km, precio $1.50/L",
-                            "range_hints":  {
-                                                "distance":  "Varía según viaje",
-                                                "efficiency":  "Típicamente 4-15 L/100km",
-                                                "price":  "Varía por país y tipo de combustible"
-                                            },
-                            "result_context":  "Costo total de combustible y litros consumidos",
-                            "formula_display":  "Combustible = Distancia × Eficiencia/100; Costo = Combustible × Precio",
-                            "steps":  [
-                                          "Calcular litros necesarios (distancia × eficiencia / 100)",
-                                          "Multiplicar litros por precio por litro"
-                                      ],
-                            "mistakes":  [
-                                             "No convertir unidades correctamente (km vs millas)",
-                                             "Confundir L/100km con mpg"
-                                         ],
-                            "input_type_review":  "distance es longitud, efficiency es volumen/distancia, price es moneda/volumen"
-                        },
-                 "fr":  {
-                            "name":  "Coût du Carburant",
-                            "description":  "Calculez le coût et la consommation de carburant pour un trajet.",
-                            "inputs":  {
-                                           "distance":  "Distance",
-                                           "efficiency":  "Consommation",
-                                           "price":  "Prix/L"
-                                       },
-                            "outputs":  {
-                                            "cost":  "Coût",
-                                            "fuel":  "Carburant"
-                                        },
-                            "seo_title":  "Coût du Carburant – Rapide et Précis",
-                            "seo_description":  "Calculez le coût et la consommation de carburant pour un trajet. Calculateur gratuit, précis et instantané. Outil gratuit avec formule et exemples.",
-                            "example_label":  "100 km, consumo 6L/100km, precio $1.50/L",
-                            "range_hints":  {
-                                                "distance":  "Varía selon viaje",
-                                                "efficiency":  "typiquement 4-15 L/100km",
-                                                "price":  "Varía par país et tipo de combustible"
-                                            },
-                            "result_context":  "Costo total de combustible et litros consumidos",
-                            "formula_display":  "Combustible = Distancia × Eficiencia/100; Costo = Combustible × Precio",
-                            "steps":  [
-                                          "Calculer litros necesarios (distancia × eficiencia / 100)",
-                                          "Multiplier litros par precio par litro"
-                                      ],
-                            "mistakes":  [
-                                             "No convertir unités correctamente (km vs millas)",
-                                             "Confondre L/100km avec mpg"
-                                         ],
-                            "input_type_review":  [
-
-                                                  ]
-                        },
-                 "pt":  {
-                            "name":  "Custo do Combustível",
-                            "description":  "Calcule o custo e consumo de combustível para uma viagem.",
-                            "inputs":  {
-                                           "distance":  "Distância",
-                                           "efficiency":  "Consumo",
-                                           "price":  "Preço/L"
-                                       },
-                            "outputs":  {
-                                            "cost":  "Custo",
-                                            "fuel":  "Combustível"
-                                        },
-                            "seo_title":  "Custo do Combustível – Rápido e Preciso",
-                            "seo_description":  "Calcule o custo e consumo de combustível para uma viagem. Calculadora gratuita, precisa e instantânea Usado por profissionais e estudantes em todo o.",
-                            "example_label":  "100 km, consumo 6L/100km, precio $1.50/L",
-                            "range_hints":  {
-                                                "distance":  "Varía segundo viaje",
-                                                "efficiency":  "Típicamente 4-15 L/100km",
-                                                "price":  "Varía por país e tipo de combustible"
-                                            },
-                            "result_context":  "Costo total de combustible e litros consumidos",
-                            "formula_display":  "Combustible = Distancia × Eficiencia/100; Costo = Combustible × Precio",
-                            "steps":  [
-                                          "Calcular litros necessários (distancia × eficiência / 100)",
-                                          "Multiplicar litros por precio por litro"
-                                      ],
-                            "mistakes":  [
-                                             "Não convertir unidades correctamente (km vs millas)",
-                                             "Confundir L/100km com mpg"
-                                         ],
-                            "input_type_review":  [
-
-                                                  ]
-                        },
-                 "de":  {
-                            "name":  "Spritkosten-Rechner",
-                            "desc":  "Berechnen Sie die Kraftstoffkosten für Ihre Autofahrt.",
-                            "seo_title":  "Spritkosten-Rechner | CalcToWork",
-                            "seo_desc":  "Berechnen Sie die Kraftstoffkosten für Ihre Autofahrt.",
-                            "seo_description":  "Berechnen Sie die Kraftstoffkosten für Ihre Autofahrt.",
-                            "inputs":  {
-                                           "distance":  "Distance",
-                                           "efficiency":  "Efficiency",
-                                           "price":  "Price"
-                                       },
-                            "outputs":  {
-                                            "cost":  "Cost",
-                                            "fuel":  "Fuel"
-                                        },
-                            "range_hints":  {
-                                                "distance":  "Typischer Wert entre 0 y 500. Valor por defecto: 100 km.",
-                                                "efficiency":  "Typischer Wert entre 0 y 500. Valor por defecto: 6 L/100km.",
-                                                "price":  "Typischer Wert entre 0 y 500. Valor por defecto: 1.5 $/L."
-                                            },
-                            "result_context":  "Die Kraftstoffkosten betragen {cost} USD und Sie benötigen {fuel} L für die Fahrt.",
-                            "formula_display":  "eff ÷ 100 → cost, fuel",
-                            "input_type_review":  [
-                                                      {
-                                                          "field_id":  "distance",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Considerar tipo \"select\" para unidades predefinidas"
-                                                      },
-                                                      {
-                                                          "field_id":  "efficiency",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Considerar tipo \"select\" para unidades predefinidas"
-                                                      },
-                                                      {
-                                                          "field_id":  "price",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Considerar tipo \"select\" para unidades predefinidas"
-                                                      }
-                                                  ],
-                            "steps":  [
-                                          "Gib die gefahrene Strecke, den Kraftstoffverbrauch und den Preis pro Liter ein",
-                                          "Berechne die benoetigte Kraftstoffmenge: Strecke x Verbrauch / 100",
-                                          "Multipliziere die Kraftstoffmenge mit dem Literpreis",
-                                          "Teile die Gesamtkosten durch die Anzahl der Mitfahrer",
-                                          "Vergleiche die Kosten mit alternativen Verkehrsmitteln"
-                                      ],
-                            "mistakes":  [
-                                             "Den Verbrauch in l/100 km mit dem in km/l verwechseln",
-                                             "Einen Stadtverbrauch fuer eine reine Autobahnfahrt ansetzen",
-                                             "Nebenausgaben wie Maut, Parkgebuehren und Verschleiss ignorieren"
-                                         ],
-                            "example_label":  "Spritkosten fuer 350 km bei 7 l/100 km berechnen"
-                        },
-                 "it":  {
-                            "name":  "Calcolatore Costo Carburante",
-                            "description":  "Calcola il costo e consumo di carburante per un viaggio.",
-                            "inputs":  {
-                                           "distance":  "Distanza",
-                                           "efficiency":  "Consumo",
-                                           "price":  "Prezzo/L"
-                                       },
-                            "outputs":  {
-                                            "cost":  "Costo",
-                                            "fuel":  "Carburante"
-                                        },
-                            "seo_title":  "Calcolatore Costo Carburante – Veloce e Preciso",
-                            "seo_description":  "Calcola il costo e consumo di carburante per un viaggio. Calcolatore gratuito, preciso e istantaneo Usato da professionisti e studenti in tutto il mondo.",
-                            "example_label":  "100 km, consumo 6L/100km, prezzo $1.50/L",
-                            "range_hints":  {
-                                                "distance":  "Varía según viaje",
-                                                "efficiency":  "Típicaminte 4-15 L/100km",
-                                                "price":  "Varía per país e tipo di combustible"
-                                            },
-                            "result_context":  "Costo totale di combustible e litros consumidos",
-                            "formula_display":  "Combustible = Discosìcia × Eficiincia/100; Costo = Combustible × Precio",
-                            "steps":  [
-                                          "Calcolare litros necessari (discosìza × efficiinza / 100)",
-                                          "Moltiplicare litros per prezzo per litro"
-                                      ],
-                            "mistakes":  [
-                                             "No convertir unità correttaminte (km vs mille)",
-                                             "Confondire L/100km con mpg"
-                                         ],
-                            "input_type_review":  null
-                        }
-             }
+{
+  "id": "503",
+  "slug": "coste-combustible-2",
+  "block": 7,
+  "block_slug": "cotidiano",
+  "inputs": [
+    {
+      "id": "distance",
+      "type": "number",
+      "step": "any",
+      "default": 100,
+      "unit": "km",
+      "unit_options": [
+        "km",
+        "mi"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "efficiency",
+      "type": "number",
+      "step": "any",
+      "default": 6,
+      "unit": "L/100km",
+      "unit_options": [
+        "L/100km",
+        "mpg"
+      ],
+      "unit_category": "volume"
+    },
+    {
+      "id": "price",
+      "type": "number",
+      "step": "any",
+      "default": 1.5,
+      "unit": "$/L",
+      "unit_options": [
+        "$/L",
+        "$/gal(us)"
+      ],
+      "unit_category": "currency_per_volume"
+    }
+  ],
+  "formula": "var d=parseFloat(inputs.distance)||0;var eff=parseFloat(inputs.efficiency)||1;var pr=parseFloat(inputs.price)||0;var fuel=d*eff/100;var cost=fuel*pr;return{cost:cost.toFixed(2),fuel:fuel.toFixed(2)};",
+  "outputs": [
+    {
+      "id": "cost",
+      "unit": "USD"
+    },
+    {
+      "id": "fuel",
+      "unit": "L"
+    }
+  ],
+  "related": [
+    "504",
+    "505",
+    "517",
+    "500"
+  ],
+  "example_inputs": {
+    "distance": 100,
+    "efficiency": 6,
+    "price": 1.5
+  },
+  "comparison_presets": [
+    {
+      "_label": "Escenario minimo",
+      "distance": 40.0,
+      "efficiency": 2.4,
+      "price": 0.6
+    },
+    {
+      "_label": "Uso habitual",
+      "distance": 70.0,
+      "efficiency": 4.2,
+      "price": 1.05
+    },
+    {
+      "_label": "Uso frecuente",
+      "distance": 100.0,
+      "efficiency": 6.0,
+      "price": 1.5
+    },
+    {
+      "_label": "Uso intensivo",
+      "distance": 150.0,
+      "efficiency": 9.0,
+      "price": 2.25
+    },
+    {
+      "_label": "Caso maximo",
+      "distance": 250.0,
+      "efficiency": 15.0,
+      "price": 3.75
+    }
+  ],
+  "units": {
+    "distance": "m",
+    "efficiency": "m³",
+    "price": "$/L"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Coste de Combustible",
+      "description": "Calcula el coste y consumo de combustible para un trayecto.",
+      "inputs": {
+        "distance": "Distancia",
+        "efficiency": "Consumo",
+        "price": "Precio/L"
+      },
+      "outputs": {
+        "cost": "Coste",
+        "fuel": "Combustible"
+      },
+      "seo_title": "Calculadora de Coste de Combustible Gratuita",
+      "seo_description": "Calcula el coste y consumo de combustible para un trayecto. Calculadora gratuita, precisa e instantánea. Herramienta gratuita con formula y ejemplos.",
+      "example_label": "100 km, consumo 6L/100km, precio $1.50/L",
+      "range_hints": {
+        "distance": "Varía según viaje",
+        "efficiency": "Típicamente 4-15 L/100km",
+        "price": "Varía por país y tipo de combustible"
+      },
+      "result_context": "Costo total de combustible y litros consumidos",
+      "formula_display": "Combustible = Distancia × Eficiencia/100; Costo = Combustible × Precio",
+      "steps": [
+        "Calcular litros necesarios (distancia × eficiencia / 100)",
+        "Multiplicar litros por precio por litro"
+      ],
+      "mistakes": [
+        "No convertir unidades correctamente (km vs millas)",
+        "Confundir L/100km con mpg"
+      ]
+    },
+    "en": {
+      "name": "Fuel Cost Calculator",
+      "description": "Calculate fuel cost and consumption for a trip.",
+      "inputs": {
+        "distance": "Distance",
+        "efficiency": "Fuel efficiency",
+        "price": "Price per litre"
+      },
+      "outputs": {
+        "cost": "Cost",
+        "fuel": "Fuel used"
+      },
+      "seo_title": "Fuel Cost Calculator – Instant Results",
+      "seo_description": "Fuel Cost Calculator. Distance, Fuel efficiency, Price per litre — get Cost, Fuel used instantly for your carpentry and metalwork project. Includes waste.",
+      "example_label": "100 km, consumo 6L/100km, precio $1.50/L",
+      "range_hints": {
+        "distance": "Varía según viaje",
+        "efficiency": "Típicamente 4-15 L/100km",
+        "price": "Varía por país y tipo de combustible"
+      },
+      "result_context": "Costo total de combustible y litros consumidos",
+      "formula_display": "Combustible = Distancia × Eficiencia/100; Costo = Combustible × Precio",
+      "steps": [
+        "Calcular litros necesarios (distancia × eficiencia / 100)",
+        "Multiplicar litros por precio por litro"
+      ],
+      "mistakes": [
+        "No convertir unidades correctamente (km vs millas)",
+        "Confundir L/100km con mpg"
+      ]
+    },
+    "fr": {
+      "name": "Coût du Carburant",
+      "description": "Calculez le coût et la consommation de carburant pour un trajet.",
+      "inputs": {
+        "distance": "Distance",
+        "efficiency": "Consommation",
+        "price": "Prix/L"
+      },
+      "outputs": {
+        "cost": "Coût",
+        "fuel": "Carburant"
+      },
+      "seo_title": "Coût du Carburant – Rapide et Précis",
+      "seo_description": "Calculez le coût et la consommation de carburant pour un trajet. Calculateur gratuit, précis et instantané. Outil gratuit avec formule et exemples.",
+      "example_label": "100 km, consumo 6L/100km, precio $1.50/L",
+      "range_hints": {
+        "distance": "Varía selon viaje",
+        "efficiency": "typiquement 4-15 L/100km",
+        "price": "Varía par país et tipo de combustible"
+      },
+      "result_context": "Costo total de combustible et litros consumidos",
+      "formula_display": "Combustible = Distancia × Eficiencia/100; Costo = Combustible × Precio",
+      "steps": [
+        "Calculer litros necesarios (distancia × eficiencia / 100)",
+        "Multiplier litros par precio par litro"
+      ],
+      "mistakes": [
+        "No convertir unités correctamente (km vs millas)",
+        "Confondre L/100km avec mpg"
+      ]
+    },
+    "pt": {
+      "name": "Custo do Combustível",
+      "description": "Calcule o custo e consumo de combustível para uma viagem.",
+      "inputs": {
+        "distance": "Distância",
+        "efficiency": "Consumo",
+        "price": "Preço/L"
+      },
+      "outputs": {
+        "cost": "Custo",
+        "fuel": "Combustível"
+      },
+      "seo_title": "Custo do Combustível – Rápido e Preciso",
+      "seo_description": "Calcule o custo e consumo de combustível para uma viagem. Calculadora gratuita, precisa e instantânea Usado por profissionais e estudantes em todo o.",
+      "example_label": "100 km, consumo 6L/100km, precio $1.50/L",
+      "range_hints": {
+        "distance": "Varía segundo viaje",
+        "efficiency": "Típicamente 4-15 L/100km",
+        "price": "Varía por país e tipo de combustible"
+      },
+      "result_context": "Costo total de combustible e litros consumidos",
+      "formula_display": "Combustible = Distancia × Eficiencia/100; Costo = Combustible × Precio",
+      "steps": [
+        "Calcular litros necessários (distancia × eficiência / 100)",
+        "Multiplicar litros por precio por litro"
+      ],
+      "mistakes": [
+        "Não convertir unidades correctamente (km vs millas)",
+        "Confundir L/100km com mpg"
+      ]
+    },
+    "de": {
+      "name": "Spritkosten-Rechner",
+      "seo_title": "Spritkosten-Rechner | CalcToWork",
+      "seo_description": "Berechnen Sie die Kraftstoffkosten für Ihre Autofahrt.",
+      "inputs": {
+        "distance": "Distance",
+        "efficiency": "Efficiency",
+        "price": "Price"
+      },
+      "outputs": {
+        "cost": "Cost",
+        "fuel": "Fuel"
+      },
+      "range_hints": {
+        "distance": "Typischer Wert entre 0 y 500. Valor por defecto: 100 km.",
+        "efficiency": "Typischer Wert entre 0 y 500. Valor por defecto: 6 L/100km.",
+        "price": "Typischer Wert entre 0 y 500. Valor por defecto: 1.5 $/L."
+      },
+      "result_context": "Die Kraftstoffkosten betragen {cost} USD und Sie benötigen {fuel} L für die Fahrt.",
+      "formula_display": "eff ÷ 100 → cost, fuel",
+      "steps": [
+        "Gib die gefahrene Strecke, den Kraftstoffverbrauch und den Preis pro Liter ein",
+        "Berechne die benoetigte Kraftstoffmenge: Strecke x Verbrauch / 100",
+        "Multipliziere die Kraftstoffmenge mit dem Literpreis",
+        "Teile die Gesamtkosten durch die Anzahl der Mitfahrer",
+        "Vergleiche die Kosten mit alternativen Verkehrsmitteln"
+      ],
+      "mistakes": [
+        "Den Verbrauch in l/100 km mit dem in km/l verwechseln",
+        "Einen Stadtverbrauch fuer eine reine Autobahnfahrt ansetzen",
+        "Nebenausgaben wie Maut, Parkgebuehren und Verschleiss ignorieren"
+      ],
+      "example_label": "Spritkosten fuer 350 km bei 7 l/100 km berechnen",
+      "description": "Berechnen Sie die Kraftstoffkosten für Ihre Autofahrt."
+    },
+    "it": {
+      "name": "Calcolatore Costo Carburante",
+      "description": "Calcola il costo e consumo di carburante per un viaggio.",
+      "inputs": {
+        "distance": "Distanza",
+        "efficiency": "Consumo",
+        "price": "Prezzo/L"
+      },
+      "outputs": {
+        "cost": "Costo",
+        "fuel": "Carburante"
+      },
+      "seo_title": "Calcolatore Costo Carburante – Veloce e Preciso",
+      "seo_description": "Calcola il costo e consumo di carburante per un viaggio. Calcolatore gratuito, preciso e istantaneo Usato da professionisti e studenti in tutto il mondo.",
+      "example_label": "100 km, consumo 6L/100km, prezzo $1.50/L",
+      "range_hints": {
+        "distance": "Varía según viaje",
+        "efficiency": "Típicaminte 4-15 L/100km",
+        "price": "Varía per país e tipo di combustible"
+      },
+      "result_context": "Costo totale di combustible e litros consumidos",
+      "formula_display": "Combustible = Discosìcia × Eficiincia/100; Costo = Combustible × Precio",
+      "steps": [
+        "Calcolare litros necessari (discosìza × efficiinza / 100)",
+        "Moltiplicare litros per prezzo per litro"
+      ],
+      "mistakes": [
+        "No convertir unità correttaminte (km vs mille)",
+        "Confondire L/100km con mpg"
+      ]
+    }
+  }
 }

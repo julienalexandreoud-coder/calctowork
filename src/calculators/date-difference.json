@@ -1,689 +1,406 @@
-﻿{
-    "id":  "943",
-    "slug":  "date-difference",
-    "block":  14,
-    "block_slug":  "cotidiano",
-    "inputs":  [
-                   {
-                       "id":  "anio1",
-                       "type":  "number",
-                       "min":  1900,
-                       "max":  2030,
-                       "step":  1,
-                       "default":  2020,
-                       "unit":  ""
-                   },
-                   {
-                       "id":  "mes1",
-                       "type":  "number",
-                       "min":  1,
-                       "max":  12,
-                       "step":  1,
-                       "default":  1,
-                       "unit":  ""
-                   },
-                   {
-                       "id":  "dia1",
-                       "type":  "number",
-                       "min":  1,
-                       "max":  31,
-                       "step":  1,
-                       "default":  1,
-                       "unit":  ""
-                   },
-                   {
-                       "id":  "anio2",
-                       "type":  "number",
-                       "min":  1900,
-                       "max":  2030,
-                       "step":  1,
-                       "default":  2025,
-                       "unit":  ""
-                   },
-                   {
-                       "id":  "mes2",
-                       "type":  "number",
-                       "min":  1,
-                       "max":  12,
-                       "step":  1,
-                       "default":  1,
-                       "unit":  ""
-                   },
-                   {
-                       "id":  "dia2",
-                       "type":  "number",
-                       "min":  1,
-                       "max":  31,
-                       "step":  1,
-                       "default":  1,
-                       "unit":  ""
-                   }
-               ],
-    "formula":  "var y1=parseInt(inputs.anio1)||2020,m1=parseInt(inputs.mes1)||1,d1=parseInt(inputs.dia1)||1,y2=parseInt(inputs.anio2)||2025,m2=parseInt(inputs.mes2)||1,d2=parseInt(inputs.dia2)||1;var date1=new Date(y1,m1-1,d1),date2=new Date(y2,m2-1,d2);var diff=Math.abs(date2-date1);var dias=Math.floor(diff/86400000);var semanas=Math.floor(dias/7);var meses=Math.floor(dias/30.44);var anos=Math.floor(dias/365.25);return{total_days:dias,total_weeks:semanas,total_months:meses,total_years:anos};",
-    "outputs":  [
-                    {
-                        "id":  "total_days",
-                        "unit":  "",
-                        "highlight":  true
-                    },
-                    {
-                        "id":  "total_weeks",
-                        "unit":  "",
-                        "highlight":  false
-                    },
-                    {
-                        "id":  "total_months",
-                        "unit":  "",
-                        "highlight":  false
-                    },
-                    {
-                        "id":  "total_years",
-                        "unit":  "",
-                        "highlight":  false
-                    }
-                ],
-    "related":  [
-                    "942",
-                    "944",
-                    "808",
-                    "502"
-                ],
-    "example_inputs":  {
-                           "dia2":  1,
-                           "dia1":  1,
-                           "anio1":  2020,
-                           "anio2":  2025,
-                           "mes2":  1,
-                           "mes1":  1
-                       },
-    "example_label":  "Ejemplo para date difference: valores 2020, 1, 1, 2025",
-    "range_hints":  {
-                        "anio1":  "Valor típico entre 1900 y 2030. Valor por defecto: 2020.",
-                        "mes1":  "Valor típico entre 1 y 12. Valor por defecto: 1.",
-                        "dia1":  "Valor típico entre 1 y 31. Valor por defecto: 1.",
-                        "anio2":  "Valor típico entre 1900 y 2030. Valor por defecto: 2025.",
-                        "mes2":  "Valor típico entre 1 y 12. Valor por defecto: 1.",
-                        "dia2":  "Valor típico entre 1 y 31. Valor por defecto: 1."
-                    },
-    "result_context":  "La diferencia entre las fechas es de {total_days} días, {total_weeks} semanas, {total_months} meses o {total_years} años.",
-    "result_context_en":  "The difference between the dates is {total_days} days, {total_weeks} weeks, {total_months} months or {total_years} years.",
-    "result_context_fr":  "La différence entre les dates est de {total_days} jours, {total_weeks} semaines, {total_months} mois ou {total_years} ans.",
-    "result_context_pt":  "A diferença entre as datas é de {total_days} dias, {total_weeks} semanas, {total_months} meses ou {total_years} anos.",
-    "result_context_de":  "Der Unterschied zwischen den Daten beträgt {total_days} Tage, {total_weeks} Wochen, {total_months} Monate oder {total_years} Jahre.",
-    "result_context_it":  "La differenza tra le date è di {total_days} giorni, {total_weeks} settimane, {total_months} mesi o {total_years} anni.",
-    "formula_display":  "diff ÷ 86400000 → total_days, total_weeks",
-    "steps":  [
-                  "Introducir los valores de anio1, mes1, dia1, anio2, mes2 y dia2",
-                  "Verificar que los valores introducidos están en el rango y formato correctos",
-                  "Calcular los valores de total days y total weeks",
-                  "Verificar que el resultado es coherente con los valores de entrada",
-                  "Utilizar el resultado para la aplicación práctica correspondiente"
-              ],
-    "mistakes":  [
-                     "No considerar si la propina se calcula antes o después de impuestos",
-                     "Olvidar que los meses tienen diferente número de días",
-                     "Usar el formato de fecha incorrecto (MM/DD vs DD/MM) al introducir datos"
-                 ],
-    "input_type_review":  [
-                              {
-                                  "field_id":  "anio1",
-                                  "current_type":  "number",
-                                  "recommended_type":  "number",
-                                  "reason":  "Correcto: valor entero para conteo"
-                              },
-                              {
-                                  "field_id":  "mes1",
-                                  "current_type":  "number",
-                                  "recommended_type":  "number",
-                                  "reason":  "Correcto: valor entero para conteo"
-                              },
-                              {
-                                  "field_id":  "dia1",
-                                  "current_type":  "number",
-                                  "recommended_type":  "number",
-                                  "reason":  "Correcto: valor entero para conteo"
-                              },
-                              {
-                                  "field_id":  "anio2",
-                                  "current_type":  "number",
-                                  "recommended_type":  "number",
-                                  "reason":  "Correcto: valor entero para conteo"
-                              },
-                              {
-                                  "field_id":  "mes2",
-                                  "current_type":  "number",
-                                  "recommended_type":  "number",
-                                  "reason":  "Correcto: valor entero para conteo"
-                              },
-                              {
-                                  "field_id":  "dia2",
-                                  "current_type":  "number",
-                                  "recommended_type":  "number",
-                                  "reason":  "Correcto: valor entero para conteo"
-                              }
-                          ],
-    "comparison_presets":  [
-                               {
-                                   "_label":  "Escenario minimo",
-                                   "anio1":  1900.0,
-                                   "mes1":  1.0,
-                                   "dia1":  1.0,
-                                   "anio2":  1900.0,
-                                   "mes2":  1.0,
-                                   "dia2":  1.0
-                               },
-                               {
-                                   "_label":  "Uso habitual",
-                                   "anio1":  1900.0,
-                                   "mes1":  1.0,
-                                   "dia1":  1.0,
-                                   "anio2":  1900.0,
-                                   "mes2":  1.0,
-                                   "dia2":  1.0
-                               },
-                               {
-                                   "_label":  "Uso frecuente",
-                                   "anio1":  2020.0,
-                                   "mes1":  1.0,
-                                   "dia1":  1.0,
-                                   "anio2":  2025.0,
-                                   "mes2":  1.0,
-                                   "dia2":  1.0
-                               },
-                               {
-                                   "_label":  "Uso intensivo",
-                                   "anio1":  2030.0,
-                                   "mes1":  1.5,
-                                   "dia1":  1.5,
-                                   "anio2":  2030.0,
-                                   "mes2":  1.5,
-                                   "dia2":  1.5
-                               },
-                               {
-                                   "_label":  "Caso maximo",
-                                   "anio1":  2030.0,
-                                   "mes1":  2.5,
-                                   "dia1":  2.5,
-                                   "anio2":  2030.0,
-                                   "mes2":  2.5,
-                                   "dia2":  2.5
-                               }
-                           ],
-    "i18n":  {
-                 "es":  {
-                            "name":  "Calculadora de Diferencia de Fechas",
-                            "desc":  "Calcula el numero exacto de dias, semanas y meses entre dos fechas. Con explicacion de estadisticas. Usado por profesionales y estudiantes en todo el.",
-                            "description":  "Calculadora de Diferencia de Fechas.",
-                            "seo_title":  "Calculadora de Diferencia de Fechas Gratuita",
-                            "seo_description":  "Calcula el numero exacto de dias, semanas y meses entre dos fechas. Con explicacion de estadisticas. Usado por profesionales y estudiantes en todo el.",
-                            "inputs":  {
-                                           "anio1":  "anio1",
-                                           "mes1":  "mes1",
-                                           "dia1":  "dia1",
-                                           "anio2":  "anio2",
-                                           "mes2":  "mes2",
-                                           "dia2":  "dia2"
-                                       },
-                            "outputs":  {
-                                            "total_days":  "Dias totales",
-                                            "total_weeks":  "Semanas",
-                                            "total_months":  "Meses",
-                                            "total_years":  "Anos"
-                                        },
-                            "example_label":  "Calculate date difference with anio1 2020, mes1 1, dia1 1, anio2 2025, mes2 1, dia2 1.",
-                            "range_hints":  {
-                                                "dia2":  "Typical range: 1-31.",
-                                                "dia1":  "Typical range: 1-31.",
-                                                "anio1":  "Typical range: 1900-2030.",
-                                                "anio2":  "Typical range: 1900-2030.",
-                                                "mes2":  "Typical range: 1-12.",
-                                                "mes1":  "Typical range: 1-12."
-                                            },
-                            "result_context":  "Your calculated total days is {total_days}.",
-                            "formula_display":  "Calculate date difference based on input values.",
-                            "steps":  [
-                                          "Enter input values: anio1: 2020, mes1: 1, dia1: 1, anio2: 2025, mes2: 1, dia2: 1",
-                                          "Calculate and display the total_days result",
-                                          "Calculate and display the total_weeks result",
-                                          "Calculate and display the total_months result",
-                                          "Calculate and display the total_years result"
-                                      ],
-                            "mistakes":  [
-                                             "Entering zero or negative values where positive required",
-                                             "Using incorrect input values outside recommended range"
-                                         ],
-                            "input_type_review":  [
-                                                      {
-                                                          "field_id":  "anio1",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "mes1",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "dia1",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "anio2",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "mes2",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "dia2",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      }
-                                                  ]
-                        },
-                 "en":  {
-                            "name":  "Date Difference Calculator",
-                            "desc":  "Date Difference Calculator. Free online calculator with formula, examples and step-by-step guide.",
-                            "description":  "Date Difference Calculator.",
-                            "seo_title":  "Date Difference Calculator – Free Online Tool",
-                            "seo_description":  "Calculate the exact number of days, weeks, and months between two dates. Includes business days count. Easy-to-use calculator with formula breakdown and.",
-                            "inputs":  {
-                                           "anio1":  "anio1",
-                                           "mes1":  "mes1",
-                                           "dia1":  "dia1",
-                                           "anio2":  "anio2",
-                                           "mes2":  "mes2",
-                                           "dia2":  "dia2"
-                                       },
-                            "outputs":  {
-                                            "total_days":  "Total days",
-                                            "total_weeks":  "Total weeks",
-                                            "total_months":  "Total months",
-                                            "total_years":  "Total years"
-                                        },
-                            "example_label":  "Calculate date difference with anio1 2020, mes1 1, dia1 1, anio2 2025, mes2 1, dia2 1.",
-                            "range_hints":  {
-                                                "dia2":  "Typical range: 1-31.",
-                                                "dia1":  "Typical range: 1-31.",
-                                                "anio1":  "Typical range: 1900-2030.",
-                                                "anio2":  "Typical range: 1900-2030.",
-                                                "mes2":  "Typical range: 1-12.",
-                                                "mes1":  "Typical range: 1-12."
-                                            },
-                            "result_context":  "Your calculated total days is {total_days}.",
-                            "formula_display":  "Calculate date difference based on input values.",
-                            "steps":  [
-                                          "Enter input values: anio1: 2020, mes1: 1, dia1: 1, anio2: 2025, mes2: 1, dia2: 1",
-                                          "Calculate and display the total_days result",
-                                          "Calculate and display the total_weeks result",
-                                          "Calculate and display the total_months result",
-                                          "Calculate and display the total_years result"
-                                      ],
-                            "mistakes":  [
-                                             "Entering zero or negative values where positive required",
-                                             "Using incorrect input values outside recommended range"
-                                         ],
-                            "input_type_review":  [
-                                                      {
-                                                          "field_id":  "anio1",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "mes1",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "dia1",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "anio2",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "mes2",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "dia2",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      }
-                                                  ]
-                        },
-                 "fr":  {
-                            "name":  "Calculatrice de Différence entre Dates",
-                            "desc":  "Calculez le nombre exact de jours, semaines et mois entre deux dates. Calculatrice facile a utiliser avec decomposition de la formule.",
-                            "description":  "Calculatrice de Différence entre Dates.",
-                            "seo_title":  "Calculatrice de Différence entre Dates en Ligne",
-                            "seo_description":  "Calculez le nombre exact de jours, semaines et mois entre deux dates. Calculatrice facile a utiliser avec decomposition de la formule.",
-                            "inputs":  {
-                                           "anio1":  "anio1",
-                                           "mes1":  "mes1",
-                                           "dia1":  "dia1",
-                                           "anio2":  "anio2",
-                                           "mes2":  "mes2",
-                                           "dia2":  "dia2"
-                                       },
-                            "outputs":  {
-                                            "total_days":  "Total days",
-                                            "total_weeks":  "Total weeks",
-                                            "total_months":  "Total months",
-                                            "total_years":  "Total years"
-                                        },
-                            "example_label":  "Calculate date difference with anio1 2020, mes1 1, dia1 1, anio2 2025, mes2 1, dia2 1.",
-                            "range_hints":  {
-                                                "dia2":  "Typical range: 1-31.",
-                                                "dia1":  "Typical range: 1-31.",
-                                                "anio1":  "Typical range: 1900-2030.",
-                                                "anio2":  "Typical range: 1900-2030.",
-                                                "mes2":  "Typical range: 1-12.",
-                                                "mes1":  "Typical range: 1-12."
-                                            },
-                            "result_context":  "Your calculated total days is {total_days}.",
-                            "formula_display":  "Calculate date difference based on input values.",
-                            "steps":  [
-                                          "Enter input values: anio1: 2020, mes1: 1, dia1: 1, anio2: 2025, mes2: 1, dia2: 1",
-                                          "Calculate and display the total_days result",
-                                          "Calculate and display the total_weeks result",
-                                          "Calculate and display the total_months result",
-                                          "Calculate and display the total_years result"
-                                      ],
-                            "mistakes":  [
-                                             "Entering zero or negative values where positive required",
-                                             "Using incorrect input values outside recommended range"
-                                         ],
-                            "input_type_review":  [
-                                                      {
-                                                          "field_id":  "anio1",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "mes1",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "dia1",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "anio2",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "mes2",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "dia2",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      }
-                                                  ]
-                        },
-                 "pt":  {
-                            "name":  "Calculadora de Diferença de Datas",
-                            "desc":  "Calcule o numero exato de dias, semanas e meses entre duas datas. Calculadora facil de usar com detalhamento da formula.",
-                            "description":  "Calculadora de Diferença de Datas.",
-                            "seo_title":  "Calculadora de Diferença de Datas",
-                            "seo_description":  "Calcule o numero exato de dias, semanas e meses entre duas datas. Calculadora facil de usar com detalhamento da formula.",
-                            "inputs":  {
-                                           "anio1":  "anio1",
-                                           "mes1":  "mes1",
-                                           "dia1":  "dia1",
-                                           "anio2":  "anio2",
-                                           "mes2":  "mes2",
-                                           "dia2":  "dia2"
-                                       },
-                            "outputs":  {
-                                            "total_days":  "Total days",
-                                            "total_weeks":  "Total weeks",
-                                            "total_months":  "Total months",
-                                            "total_years":  "Total years"
-                                        },
-                            "example_label":  "Calculate date difference with anio1 2020, mes1 1, dia1 1, anio2 2025, mes2 1, dia2 1.",
-                            "range_hints":  {
-                                                "dia2":  "Typical range: 1-31.",
-                                                "dia1":  "Typical range: 1-31.",
-                                                "anio1":  "Typical range: 1900-2030.",
-                                                "anio2":  "Typical range: 1900-2030.",
-                                                "mes2":  "Typical range: 1-12.",
-                                                "mes1":  "Typical range: 1-12."
-                                            },
-                            "result_context":  "Your calculated total days is {total_days}.",
-                            "formula_display":  "Calculate date difference based on input values.",
-                            "steps":  [
-                                          "Enter input values: anio1: 2020, mes1: 1, dia1: 1, anio2: 2025, mes2: 1, dia2: 1",
-                                          "Calculate and display the total_days result",
-                                          "Calculate and display the total_weeks result",
-                                          "Calculate and display the total_months result",
-                                          "Calculate and display the total_years result"
-                                      ],
-                            "mistakes":  [
-                                             "Entering zero or negative values where positive required",
-                                             "Using incorrect input values outside recommended range"
-                                         ],
-                            "input_type_review":  [
-                                                      {
-                                                          "field_id":  "anio1",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "mes1",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "dia1",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "anio2",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "mes2",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "dia2",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Current type is appropriate for this input."
-                                                      }
-                                                  ]
-                        },
-                 "de":  {
-                            "name":  "Date Difference (EN)",
-                            "desc":  "Calculate the exact number of days, weeks, months and years between any two dates.",
-                            "seo_title":  "Date Difference (EN) | CalcToWork",
-                            "seo_desc":  "Calculate the exact number of days, weeks, months and years between any two dates.",
-                            "seo_description":  "Calculate the exact number of days, weeks, months and years between any two dates.",
-                            "inputs":  {
-                                           "anio1":  "Anio1",
-                                           "mes1":  "Mes1",
-                                           "dia1":  "Dia1",
-                                           "anio2":  "Anio2",
-                                           "mes2":  "Mes2",
-                                           "dia2":  "Dia2"
-                                       },
-                            "outputs":  {
-                                            "total_days":  "Total Days",
-                                            "total_weeks":  "Total Weeks",
-                                            "total_months":  "Total Months",
-                                            "total_years":  "Total Years"
-                                        },
-                            "range_hints":  {
-                                                "anio1":  "Typischer Wert entre 1900 y 2030. Valor por defecto: 2020.",
-                                                "mes1":  "Typischer Wert entre 1 y 12. Valor por defecto: 1.",
-                                                "dia1":  "Typischer Wert entre 1 y 31. Valor por defecto: 1.",
-                                                "anio2":  "Typischer Wert entre 1900 y 2030. Valor por defecto: 2025.",
-                                                "mes2":  "Typischer Wert entre 1 y 12. Valor por defecto: 1.",
-                                                "dia2":  "Typischer Wert entre 1 y 31. Valor por defecto: 1."
-                                            },
-                            "result_context":  "Der Unterschied zwischen den Daten beträgt {total_days} Tage, {total_weeks} Wochen, {total_months} Monate oder {total_years} Jahre.",
-                            "formula_display":  "diff ÷ 86400000 → total_days, total_weeks",
-                            "input_type_review":  [
-                                                      {
-                                                          "field_id":  "anio1",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Correcto: valor entero para conteo"
-                                                      },
-                                                      {
-                                                          "field_id":  "mes1",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Correcto: valor entero para conteo"
-                                                      },
-                                                      {
-                                                          "field_id":  "dia1",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Correcto: valor entero para conteo"
-                                                      },
-                                                      {
-                                                          "field_id":  "anio2",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Correcto: valor entero para conteo"
-                                                      },
-                                                      {
-                                                          "field_id":  "mes2",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Correcto: valor entero para conteo"
-                                                      },
-                                                      {
-                                                          "field_id":  "dia2",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Correcto: valor entero para conteo"
-                                                      }
-                                                  ],
-                            "steps":  [
-                                          "Gib die zwei zu vergleichenden Daten ein",
-                                          "Wandle beide Daten in ein einheitliches Format um",
-                                          "Subtrahiere das fruehere vom spaeteren Datum in Tagen",
-                                          "Rechne die Tagesdifferenz in Jahre, Monate und Tage um",
-                                          "Pruefe, ob ein Schaltjahr die Berechnung beeinflusst"
-                                      ],
-                            "mistakes":  [
-                                             "Das Zieldatum vor dem Startdatum ansetzen",
-                                             "Die Kalenderwochen als Grundlage nehmen, statt exakter Tage",
-                                             "Nicht beachten, dass das Jahr 0 im gregorianischen Kalender nicht existiert"
-                                         ],
-                            "example_label":  "Datumsdifferenz zwischen zwei historischen Daten"
-                        },
-                 "it":  {
-                            "name":  "Calcolatrice di Differenza tra Date",
-                            "desc":  "Calcola il numero esatto di giorni, settimane e mesi tra due date. Con spiegazione delle statistiche. Usato da professionisti e studenti in tutto il.",
-                            "description":  "Calcolatrice di Differenza tra Date.",
-                            "seo_title":  "Calcolatrice di Differenza tra Date",
-                            "seo_description":  "Calcola il numero esatto di giorni, settimane e mesi tra due date. Con spiegazione delle statistiche. Usato da professionisti e studenti in tutto il.",
-                            "inputs":  {
-                                           "anio1":  "anio1",
-                                           "mes1":  "mes1",
-                                           "dia1":  "dia1",
-                                           "anio2":  "anio2",
-                                           "mes2":  "mes2",
-                                           "dia2":  "dia2"
-                                       },
-                            "outputs":  {
-                                            "total_days":  "Total days",
-                                            "total_weeks":  "Total weeks",
-                                            "total_months":  "Total months",
-                                            "total_years":  "Total years"
-                                        },
-                            "example_label":  "Calculate date differince with anio1 2020, mese1 1, dia1 1, anio2 2025, mese2 1, dia2 1.",
-                            "range_hints":  {
-                                                "dia2":  "Tepical range: 1-31.",
-                                                "dia1":  "Tepical range: 1-31.",
-                                                "anio1":  "Tepical range: 1900-2030.",
-                                                "anio2":  "Tepical range: 1900-2030.",
-                                                "mes2":  "Tepical range: 1-12.",
-                                                "mes1":  "Tepical range: 1-12."
-                                            },
-                            "result_context":  "Your calculated totale daes is {totale_daes}.",
-                            "formula_display":  "Calculate date differince based on input values.",
-                            "steps":  [
-                                          "Enter input values: anio1: 2020, mese1: 1, dia1: 1, anio2: 2025, mese2: 1, dia2: 1",
-                                          "Calculate and displae the totale_daes result",
-                                          "Calculate and displae the totale_weeks result",
-                                          "Calculate and displae the totale_months result",
-                                          "Calculate and displae the totale_eears result"
-                                      ],
-                            "mistakes":  [
-                                             "Entering zero or negative values where posetive required",
-                                             "Usenzag incorrect input values outsedi recommindid range"
-                                         ],
-                            "input_type_review":  [
-                                                      {
-                                                          "field_id":  "anio1",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Currint tepe is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "mes1",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Currint tepe is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "dia1",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Currint tepe is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "anio2",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Currint tepe is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "mes2",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Currint tepe is appropriate for this input."
-                                                      },
-                                                      {
-                                                          "field_id":  "dia2",
-                                                          "current_type":  "number",
-                                                          "recommended_type":  "number",
-                                                          "reason":  "Currint tepe is appropriate for this input."
-                                                      }
-                                                  ]
-                        }
-             }
+{
+  "id": "943",
+  "slug": "date-difference",
+  "block": 14,
+  "block_slug": "cotidiano",
+  "inputs": [
+    {
+      "id": "anio1",
+      "type": "number",
+      "min": 1900,
+      "max": 2030,
+      "step": 1,
+      "default": 2020,
+      "unit": ""
+    },
+    {
+      "id": "mes1",
+      "type": "number",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "default": 1,
+      "unit": ""
+    },
+    {
+      "id": "dia1",
+      "type": "number",
+      "min": 1,
+      "max": 31,
+      "step": 1,
+      "default": 1,
+      "unit": ""
+    },
+    {
+      "id": "anio2",
+      "type": "number",
+      "min": 1900,
+      "max": 2030,
+      "step": 1,
+      "default": 2025,
+      "unit": ""
+    },
+    {
+      "id": "mes2",
+      "type": "number",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "default": 1,
+      "unit": ""
+    },
+    {
+      "id": "dia2",
+      "type": "number",
+      "min": 1,
+      "max": 31,
+      "step": 1,
+      "default": 1,
+      "unit": ""
+    }
+  ],
+  "formula": "var y1=parseInt(inputs.anio1)||2020,m1=parseInt(inputs.mes1)||1,d1=parseInt(inputs.dia1)||1,y2=parseInt(inputs.anio2)||2025,m2=parseInt(inputs.mes2)||1,d2=parseInt(inputs.dia2)||1;var date1=new Date(y1,m1-1,d1),date2=new Date(y2,m2-1,d2);var diff=Math.abs(date2-date1);var dias=Math.floor(diff/86400000);var semanas=Math.floor(dias/7);var meses=Math.floor(dias/30.44);var anos=Math.floor(dias/365.25);return{total_days:dias,total_weeks:semanas,total_months:meses,total_years:anos};",
+  "outputs": [
+    {
+      "id": "total_days",
+      "unit": "",
+      "highlight": true
+    },
+    {
+      "id": "total_weeks",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "total_months",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "total_years",
+      "unit": "",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "942",
+    "944",
+    "808",
+    "502"
+  ],
+  "example_inputs": {
+    "dia2": 1,
+    "dia1": 1,
+    "anio1": 2020,
+    "anio2": 2025,
+    "mes2": 1,
+    "mes1": 1
+  },
+  "comparison_presets": [
+    {
+      "_label": "Escenario minimo",
+      "anio1": 1900.0,
+      "mes1": 1.0,
+      "dia1": 1.0,
+      "anio2": 1900.0,
+      "mes2": 1.0,
+      "dia2": 1.0
+    },
+    {
+      "_label": "Uso habitual",
+      "anio1": 1900.0,
+      "mes1": 1.0,
+      "dia1": 1.0,
+      "anio2": 1900.0,
+      "mes2": 1.0,
+      "dia2": 1.0
+    },
+    {
+      "_label": "Uso frecuente",
+      "anio1": 2020.0,
+      "mes1": 1.0,
+      "dia1": 1.0,
+      "anio2": 2025.0,
+      "mes2": 1.0,
+      "dia2": 1.0
+    },
+    {
+      "_label": "Uso intensivo",
+      "anio1": 2030.0,
+      "mes1": 1.5,
+      "dia1": 1.5,
+      "anio2": 2030.0,
+      "mes2": 1.5,
+      "dia2": 1.5
+    },
+    {
+      "_label": "Caso maximo",
+      "anio1": 2030.0,
+      "mes1": 2.5,
+      "dia1": 2.5,
+      "anio2": 2030.0,
+      "mes2": 2.5,
+      "dia2": 2.5
+    }
+  ],
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Diferencia de Fechas",
+      "desc": "Calcula el numero exacto de dias, semanas y meses entre dos fechas. Con explicacion de estadisticas. Usado por profesionales y estudiantes en todo el.",
+      "description": "Calculadora de Diferencia de Fechas.",
+      "seo_title": "Calculadora de Diferencia de Fechas Gratuita",
+      "seo_description": "Calcula el numero exacto de dias, semanas y meses entre dos fechas. Con explicacion de estadisticas. Usado por profesionales y estudiantes en todo el.",
+      "inputs": {
+        "anio1": "anio1",
+        "mes1": "mes1",
+        "dia1": "dia1",
+        "anio2": "anio2",
+        "mes2": "mes2",
+        "dia2": "dia2"
+      },
+      "outputs": {
+        "total_days": "Dias totales",
+        "total_weeks": "Semanas",
+        "total_months": "Meses",
+        "total_years": "Anos"
+      },
+      "example_label": "Calculate date difference with anio1 2020, mes1 1, dia1 1, anio2 2025, mes2 1, dia2 1.",
+      "range_hints": {
+        "dia2": "Typical range: 1-31.",
+        "dia1": "Typical range: 1-31.",
+        "anio1": "Typical range: 1900-2030.",
+        "anio2": "Typical range: 1900-2030.",
+        "mes2": "Typical range: 1-12.",
+        "mes1": "Typical range: 1-12."
+      },
+      "result_context": "Your calculated total days is {total_days}.",
+      "formula_display": "Calculate date difference based on input values.",
+      "steps": [
+        "Enter input values: anio1: 2020, mes1: 1, dia1: 1, anio2: 2025, mes2: 1, dia2: 1",
+        "Calculate and display the total_days result",
+        "Calculate and display the total_weeks result",
+        "Calculate and display the total_months result",
+        "Calculate and display the total_years result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ]
+    },
+    "en": {
+      "name": "Date Difference Calculator",
+      "desc": "Date Difference Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Date Difference Calculator.",
+      "seo_title": "Date Difference Calculator – Free Online Tool",
+      "seo_description": "Calculate the exact number of days, weeks, and months between two dates. Includes business days count. Easy-to-use calculator with formula breakdown and.",
+      "inputs": {
+        "anio1": "anio1",
+        "mes1": "mes1",
+        "dia1": "dia1",
+        "anio2": "anio2",
+        "mes2": "mes2",
+        "dia2": "dia2"
+      },
+      "outputs": {
+        "total_days": "Total days",
+        "total_weeks": "Total weeks",
+        "total_months": "Total months",
+        "total_years": "Total years"
+      },
+      "example_label": "Calculate date difference with anio1 2020, mes1 1, dia1 1, anio2 2025, mes2 1, dia2 1.",
+      "range_hints": {
+        "dia2": "Typical range: 1-31.",
+        "dia1": "Typical range: 1-31.",
+        "anio1": "Typical range: 1900-2030.",
+        "anio2": "Typical range: 1900-2030.",
+        "mes2": "Typical range: 1-12.",
+        "mes1": "Typical range: 1-12."
+      },
+      "result_context": "Your calculated total days is {total_days}.",
+      "formula_display": "Calculate date difference based on input values.",
+      "steps": [
+        "Enter input values: anio1: 2020, mes1: 1, dia1: 1, anio2: 2025, mes2: 1, dia2: 1",
+        "Calculate and display the total_days result",
+        "Calculate and display the total_weeks result",
+        "Calculate and display the total_months result",
+        "Calculate and display the total_years result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ]
+    },
+    "fr": {
+      "name": "Calculatrice de Différence entre Dates",
+      "desc": "Calculez le nombre exact de jours, semaines et mois entre deux dates. Calculatrice facile a utiliser avec decomposition de la formule.",
+      "description": "Calculatrice de Différence entre Dates.",
+      "seo_title": "Calculatrice de Différence entre Dates en Ligne",
+      "seo_description": "Calculez le nombre exact de jours, semaines et mois entre deux dates. Calculatrice facile a utiliser avec decomposition de la formule.",
+      "inputs": {
+        "anio1": "anio1",
+        "mes1": "mes1",
+        "dia1": "dia1",
+        "anio2": "anio2",
+        "mes2": "mes2",
+        "dia2": "dia2"
+      },
+      "outputs": {
+        "total_days": "Total days",
+        "total_weeks": "Total weeks",
+        "total_months": "Total months",
+        "total_years": "Total years"
+      },
+      "example_label": "Calculate date difference with anio1 2020, mes1 1, dia1 1, anio2 2025, mes2 1, dia2 1.",
+      "range_hints": {
+        "dia2": "Typical range: 1-31.",
+        "dia1": "Typical range: 1-31.",
+        "anio1": "Typical range: 1900-2030.",
+        "anio2": "Typical range: 1900-2030.",
+        "mes2": "Typical range: 1-12.",
+        "mes1": "Typical range: 1-12."
+      },
+      "result_context": "Your calculated total days is {total_days}.",
+      "formula_display": "Calculate date difference based on input values.",
+      "steps": [
+        "Enter input values: anio1: 2020, mes1: 1, dia1: 1, anio2: 2025, mes2: 1, dia2: 1",
+        "Calculate and display the total_days result",
+        "Calculate and display the total_weeks result",
+        "Calculate and display the total_months result",
+        "Calculate and display the total_years result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Diferença de Datas",
+      "desc": "Calcule o numero exato de dias, semanas e meses entre duas datas. Calculadora facil de usar com detalhamento da formula.",
+      "description": "Calculadora de Diferença de Datas.",
+      "seo_title": "Calculadora de Diferença de Datas",
+      "seo_description": "Calcule o numero exato de dias, semanas e meses entre duas datas. Calculadora facil de usar com detalhamento da formula.",
+      "inputs": {
+        "anio1": "anio1",
+        "mes1": "mes1",
+        "dia1": "dia1",
+        "anio2": "anio2",
+        "mes2": "mes2",
+        "dia2": "dia2"
+      },
+      "outputs": {
+        "total_days": "Total days",
+        "total_weeks": "Total weeks",
+        "total_months": "Total months",
+        "total_years": "Total years"
+      },
+      "example_label": "Calculate date difference with anio1 2020, mes1 1, dia1 1, anio2 2025, mes2 1, dia2 1.",
+      "range_hints": {
+        "dia2": "Typical range: 1-31.",
+        "dia1": "Typical range: 1-31.",
+        "anio1": "Typical range: 1900-2030.",
+        "anio2": "Typical range: 1900-2030.",
+        "mes2": "Typical range: 1-12.",
+        "mes1": "Typical range: 1-12."
+      },
+      "result_context": "Your calculated total days is {total_days}.",
+      "formula_display": "Calculate date difference based on input values.",
+      "steps": [
+        "Enter input values: anio1: 2020, mes1: 1, dia1: 1, anio2: 2025, mes2: 1, dia2: 1",
+        "Calculate and display the total_days result",
+        "Calculate and display the total_weeks result",
+        "Calculate and display the total_months result",
+        "Calculate and display the total_years result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ]
+    },
+    "de": {
+      "name": "Date Difference (EN)",
+      "seo_title": "Date Difference (EN) | CalcToWork",
+      "seo_description": "Calculate the exact number of days, weeks, months and years between any two dates.",
+      "inputs": {
+        "anio1": "Anio1",
+        "mes1": "Mes1",
+        "dia1": "Dia1",
+        "anio2": "Anio2",
+        "mes2": "Mes2",
+        "dia2": "Dia2"
+      },
+      "outputs": {
+        "total_days": "Total Days",
+        "total_weeks": "Total Weeks",
+        "total_months": "Total Months",
+        "total_years": "Total Years"
+      },
+      "range_hints": {
+        "anio1": "Typischer Wert entre 1900 y 2030. Valor por defecto: 2020.",
+        "mes1": "Typischer Wert entre 1 y 12. Valor por defecto: 1.",
+        "dia1": "Typischer Wert entre 1 y 31. Valor por defecto: 1.",
+        "anio2": "Typischer Wert entre 1900 y 2030. Valor por defecto: 2025.",
+        "mes2": "Typischer Wert entre 1 y 12. Valor por defecto: 1.",
+        "dia2": "Typischer Wert entre 1 y 31. Valor por defecto: 1."
+      },
+      "result_context": "Der Unterschied zwischen den Daten beträgt {total_days} Tage, {total_weeks} Wochen, {total_months} Monate oder {total_years} Jahre.",
+      "formula_display": "diff ÷ 86400000 → total_days, total_weeks",
+      "steps": [
+        "Gib die zwei zu vergleichenden Daten ein",
+        "Wandle beide Daten in ein einheitliches Format um",
+        "Subtrahiere das fruehere vom spaeteren Datum in Tagen",
+        "Rechne die Tagesdifferenz in Jahre, Monate und Tage um",
+        "Pruefe, ob ein Schaltjahr die Berechnung beeinflusst"
+      ],
+      "mistakes": [
+        "Das Zieldatum vor dem Startdatum ansetzen",
+        "Die Kalenderwochen als Grundlage nehmen, statt exakter Tage",
+        "Nicht beachten, dass das Jahr 0 im gregorianischen Kalender nicht existiert"
+      ],
+      "example_label": "Datumsdifferenz zwischen zwei historischen Daten",
+      "description": "Calculate the exact number of days, weeks, months and years between any two dates."
+    },
+    "it": {
+      "name": "Calcolatrice di Differenza tra Date",
+      "desc": "Calcola il numero esatto di giorni, settimane e mesi tra due date. Con spiegazione delle statistiche. Usato da professionisti e studenti in tutto il.",
+      "description": "Calcolatrice di Differenza tra Date.",
+      "seo_title": "Calcolatrice di Differenza tra Date",
+      "seo_description": "Calcola il numero esatto di giorni, settimane e mesi tra due date. Con spiegazione delle statistiche. Usato da professionisti e studenti in tutto il.",
+      "inputs": {
+        "anio1": "anio1",
+        "mes1": "mes1",
+        "dia1": "dia1",
+        "anio2": "anio2",
+        "mes2": "mes2",
+        "dia2": "dia2"
+      },
+      "outputs": {
+        "total_days": "Total days",
+        "total_weeks": "Total weeks",
+        "total_months": "Total months",
+        "total_years": "Total years"
+      },
+      "example_label": "Calculate date differince with anio1 2020, mese1 1, dia1 1, anio2 2025, mese2 1, dia2 1.",
+      "range_hints": {
+        "dia2": "Tepical range: 1-31.",
+        "dia1": "Tepical range: 1-31.",
+        "anio1": "Tepical range: 1900-2030.",
+        "anio2": "Tepical range: 1900-2030.",
+        "mes2": "Tepical range: 1-12.",
+        "mes1": "Tepical range: 1-12."
+      },
+      "result_context": "Your calculated totale daes is {totale_daes}.",
+      "formula_display": "Calculate date differince based on input values.",
+      "steps": [
+        "Enter input values: anio1: 2020, mese1: 1, dia1: 1, anio2: 2025, mese2: 1, dia2: 1",
+        "Calculate and displae the totale_daes result",
+        "Calculate and displae the totale_weeks result",
+        "Calculate and displae the totale_months result",
+        "Calculate and displae the totale_eears result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where posetive required",
+        "Usenzag incorrect input values outsedi recommindid range"
+      ]
+    }
+  }
 }

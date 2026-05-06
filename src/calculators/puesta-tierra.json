@@ -63,47 +63,6 @@
     "resistencia_max_ohm": 10,
     "tipo_pica": "cobre"
   },
-  "example_label": "Calcular puesta a tierra para suelo con resistividad 100 Ω·m, resistencia objetivo <10 Ω, usando picas de cobre de 2 m.",
-  "range_hints": {
-    "resistividad_ohm_m": "Resistividad del terreno (medir con telurómetro método Wenner): húmedo/arcilloso 10-100 Ω·m, normal 100-500, seco/pedregoso 500-5000, roca >5000 Ω·m",
-    "resistencia_max_ohm": "Valor máx admisible ITC-BT-18: viviendas con diferencial 30 mA <50 Ω (30 mA × 50 Ω = 1.5 V seguro). Locales húmedos <20 Ω. Pararrayos <10 Ω. Hospital <5 Ω",
-    "tipo_pica": "Pica de cobre electrolítico: 16 mm Ø × 2 m, resistente a corrosión. Pica acero galvanizado: 18-25 mm Ø, económica pero menor durabilidad en suelos ácidos"
-  },
-  "result_context": "Con resistividad {resistividad_ohm_m} Ω·m, una pica de 2 m ofrece {r_pica_ohm} Ω. Se necesitan {picas_necesarias} picas para <{resistencia_max_ohm} Ω. Conductor de tierra: {conductor_mm2} mm². Longitud pica: {longitud_pica_m} m.",
-  "formula_display": "R_pica = (ρ / (2πL)) × ln(4L/d).  ρ = resistividad terreno (Ω·m).  L = longitud pica (m).  d = diámetro pica (m).  R_total = R_pica / (n × factor_agrupamiento).  Conductor CPT ≥16 mm² Cu o 25 mm² Fe galvanizado.",
-  "steps": [
-    "Medir la resistividad del terreno con telurómetro en configuración Wenner (4 picas a igual distancia). Realizar al menos 3 mediciones en diferentes orientaciones",
-    "Establecer la resistencia de tierra máxima admisible: vivienda <10 Ω, equipos sensibles <5 Ω, centros de transformación <1 Ω según ITC-RAT-13",
-    "Calcular resistencia de una pica (2 m, 16 mm Ø): R = ρ/(2π×2) × ln(4×2/0.016). Para ρ=100: R = 100/12.57 × ln(500) = 7.96 × 6.21 = 49.4 Ω",
-    "Determinar nº de picas: n = ceil(R_pica / R_max). Para R_pica=49.4 y R_max=10: n = ceil(4.94) = 5 picas (factor agrupamiento 1.2 si separación <4 m)",
-    "Especificar conductor de tierra: 16 mm² Cu desnudo enterrado a >0.5 m. Conectar a borne principal mediante soldadura aluminotérmica o grapa certificada"
-  ],
-  "mistakes": [
-    "No medir la resistividad real antes de diseñar: estimar sin medición lleva a infradimensionar (riesgo de electrocución) o sobredimensionar (coste innecesario)",
-    "Clavar picas muy juntas: si la separación es menor que la longitud de la pica (2 m), las esferas de influencia se solapan y la resistencia no se divide proporcionalmente. Separación ≥4 m",
-    "Olvidar la equipotencialidad: no conectar todas las masas metálicas (tuberías, estructuras, armaduras) al mismo electrodo crea diferencias de potencial peligrosas en caso de defecto",
-    "Usar conductor de tierra de sección insuficiente: ITC-BT-18 exige mínimo 16 mm² Cu para el conductor de protección principal. Un cable de 6 mm² se funde antes de que salte la protección"
-  ],
-  "input_type_review": [
-    {
-      "field_id": "resistividad_ohm_m",
-      "current_type": "number",
-      "recommended_type": "number",
-      "reason": "Correcto: valor entero para conteo"
-    },
-    {
-      "field_id": "resistencia_max_ohm",
-      "current_type": "number",
-      "recommended_type": "number",
-      "reason": "Correcto: valor entero para conteo"
-    },
-    {
-      "field_id": "tipo_pica",
-      "current_type": "select",
-      "recommended_type": "select",
-      "reason": "Correcto: valor continuo con decimales"
-    }
-  ],
   "comparison_presets": [
     {
       "_label": "Arcilloso (50 Ω·m)",
@@ -139,7 +98,6 @@
   "i18n": {
     "es": {
       "name": "Calculadora de Puesta a Tierra",
-      "desc": "Calcula picas y conductor de tierra según resistividad.",
       "seo_title": "Calculadora Puesta a Tierra – Hastes",
       "inputs": {
         "resistividad_ohm_m": "Resistividad del terreno (Ω·m)",
@@ -171,24 +129,10 @@
         "Enterrar picas en suelo seco (mejor en zona húmeda)",
         "No conectar todas las masas al mismo sistema de tierra"
       ],
-      "input_type_review": [
-        {
-          "field_id": "resistividad_ohm_m",
-          "reason": "Correcto: valor continuo con decimales"
-        },
-        {
-          "field_id": "resistencia_max_ohm",
-          "reason": "Correcto: valor continuo con decimales"
-        },
-        {
-          "field_id": "tipo_pica",
-          "reason": "Correcto: opción discreta"
-        }
-      ]
+      "description": "Calcula picas y conductor de tierra según resistividad."
     },
     "en": {
       "name": "Earthing (Grounding) Calculator",
-      "desc": "Calculate earth rods and conductor by soil resistivity.",
       "seo_title": "Earthing System Calculator – Ground Rods",
       "inputs": {
         "resistividad_ohm_m": "Soil resistivity (ΩÂ·m)",
@@ -220,30 +164,10 @@
         "Enterrar picas en suelo seco (mejor en zona húmeda)",
         "No conectar todas las masas al mismo sistema de tierra"
       ],
-      "input_type_review": [
-        {
-          "field_id": "resistividad_ohm_m",
-          "current_type": "number",
-          "recommended_type": "number",
-          "reason": "Correcto: valor continuo con decimales"
-        },
-        {
-          "field_id": "resistencia_max_ohm",
-          "current_type": "number",
-          "recommended_type": "number",
-          "reason": "Correcto: valor continuo con decimales"
-        },
-        {
-          "field_id": "tipo_pica",
-          "current_type": "select",
-          "recommended_type": "select",
-          "reason": "Correcto: opción discreta"
-        }
-      ]
+      "description": "Calculate earth rods and conductor by soil resistivity."
     },
     "fr": {
       "name": "Calculateur Mise à la Terre",
-      "desc": "Calculez piquet et conducteur de terre selon résistivité.",
       "seo_title": "Calculateur Mise à la Terre – Calcul Facile",
       "inputs": {
         "resistividad_ohm_m": "Résistivité sol (Ω·m)",
@@ -275,30 +199,10 @@
         "Enterrar picas dans sol seco (mejor dans zona húmeda)",
         "No conectar toutes les masas al même sistema de tierra"
       ],
-      "input_type_review": [
-        {
-          "field_id": "resistividad_ohm_m",
-          "current_type": "number",
-          "recommended_type": "number",
-          "reason": "Correct : valeur continue avec décimales"
-        },
-        {
-          "field_id": "resistencia_max_ohm",
-          "current_type": "number",
-          "recommended_type": "number",
-          "reason": "Correct : valeur continue avec décimales"
-        },
-        {
-          "field_id": "tipo_pica",
-          "current_type": "select",
-          "recommended_type": "select",
-          "reason": "Correct : opción discreta"
-        }
-      ]
+      "description": "Calculez piquet et conducteur de terre selon résistivité."
     },
     "pt": {
       "name": "Calculadora de Aterramento Elétrico",
-      "desc": "Calcule o número de hastes de aterramento e o condutor de terra pela resistividade do solo Usado por profissionais e estudantes em todo o mundo.",
       "seo_title": "Calculadora Aterramento Elétrico",
       "inputs": {
         "resistividad_ohm_m": "Resistividade do solo (Ω·m)",
@@ -330,32 +234,11 @@
         "Enterrar picas em solo seco (mejor em zona húmeda)",
         "Não conectar todas as masas ao mismo sistema de terra"
       ],
-      "input_type_review": [
-        {
-          "field_id": "resistividad_ohm_m",
-          "current_type": "number",
-          "recommended_type": "number",
-          "reason": "Correto: valor contínuo com decimais"
-        },
-        {
-          "field_id": "resistencia_max_ohm",
-          "current_type": "number",
-          "recommended_type": "number",
-          "reason": "Correto: valor contínuo com decimais"
-        },
-        {
-          "field_id": "tipo_pica",
-          "current_type": "select",
-          "recommended_type": "select",
-          "reason": "Correto: opção discreta"
-        }
-      ]
+      "description": "Calcule o número de hastes de aterramento e o condutor de terra pela resistividade do solo Usado por profissionais e estudantes em todo o mundo."
     },
     "de": {
       "name": "Erdungsanlage-Rechner",
-      "desc": "Berechnen Sie den Erdungswiderstand für Tiefenerder, Ringerder oder Fundamenterder nach DIN 18014.",
       "seo_title": "Erdungsanlage-Rechner | CalcToWork",
-      "seo_desc": "Berechnen Sie den Erdungswiderstand für Tiefenerder, Ringerder oder Fundamenterder nach DIN 18014.",
       "seo_description": "Berechnen Sie den Erdungswiderstand für Tiefenerder, Ringerder oder Fundamenterder nach DIN 18014.",
       "inputs": {
         "resistividad_ohm_m": "Resistividad Ohm M",
@@ -388,30 +271,10 @@
         "Tiefenerder zu dicht gesetzt — bei Abständen unter 2 m (Länge des Erders) überlappen die Spannungstrichter und die Gesamtwirkung ist nicht die Summe der Einzelwiderstände",
         "Kein Potentialausgleich an metallene Rohrleitungen und Gebäudeteile angeschlossen — bei einem Erdschluss entstehen gefährliche Spannungsdifferenzen zwischen berührbaren Teilen"
       ],
-      "input_type_review": [
-        {
-          "field_id": "resistividad_ohm_m",
-          "current_type": "number",
-          "recommended_type": "number",
-          "reason": "Correcto: valor entero para conteo"
-        },
-        {
-          "field_id": "resistencia_max_ohm",
-          "current_type": "number",
-          "recommended_type": "number",
-          "reason": "Correcto: valor entero para conteo"
-        },
-        {
-          "field_id": "tipo_pica",
-          "current_type": "select",
-          "recommended_type": "select",
-          "reason": "Correcto: valor continuo con decimales"
-        }
-      ]
+      "description": "Berechnen Sie den Erdungswiderstand für Tiefenerder, Ringerder oder Fundamenterder nach DIN 18014."
     },
     "it": {
       "name": "Calcolatore Impianto di Messa a Terra",
-      "desc": "Calcola il numero di picchetti e la sezione del conduttore di terra in base alla resistività del suolo. Gratuito, con formula e normativa CEI 64-8.",
       "seo_title": "Calcolatore Messa a Terra – Picchetti e Conduttore",
       "inputs": {
         "resistividad_ohm_m": "Resistività del terreno (Ω·m)",
@@ -446,20 +309,7 @@
         "Dimenticare l'equipotenzialità: non collegare tutte le masse metalliche (tubazioni, strutture, armature) allo stesso dispersore crea differenze di potenziale pericolose in caso di guasto",
         "Usare un conduttore di terra di sezione insufficiente: la CEI 64-8 richiede minimo 16 mm² Cu per il conduttore di protezione principale. Un cavo da 6 mm² fonde prima che scatti la protezione"
       ],
-      "input_type_review": [
-        {
-          "field_id": "resistividad_ohm_m",
-          "reason": "Corretto: valore numerico continuo"
-        },
-        {
-          "field_id": "resistencia_max_ohm",
-          "reason": "Corretto: valore numerico continuo"
-        },
-        {
-          "field_id": "tipo_pica",
-          "reason": "Corretto: opzione discreta"
-        }
-      ]
+      "description": "Calcola il numero di picchetti e la sezione del conduttore di terra in base alla resistività del suolo. Gratuito, con formula e normativa CEI 64-8."
     }
   }
 }

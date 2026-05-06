@@ -82,54 +82,6 @@
     "corriente_a": 16,
     "tension_v": "230"
   },
-  "example_label": "Verificar caída para cable de 2.5 mm², 30 m, 16 A a 230 V monofásico.",
-  "range_hints": {
-    "seccion_mm2": "Sección del conductor instalado: 1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120 mm² según UNE 60228. La sección real va marcada en la cubierta",
-    "longitud_m": "Longitud real del trazado del cable desde el origen de la instalación hasta el punto de consumo más alejado, no la distancia en línea recta",
-    "corriente_a": "Corriente de funcionamiento en régimen permanente. No confundir con la corriente de cortocircuito ni con la de arranque de motores",
-    "tension_v": "230 V monofásico (fase-neutro) o 400 V trifásico (fase-fase). Para trifásica la fórmula usa √3 en lugar de 2"
-  },
-  "result_context": "Con cable de {seccion_mm2} mm², {longitud_m} m de longitud y {corriente_a} A a {tension_v} V, la caída es de {caida_v} V ({caida_pct} %). Cumplimiento REBT: {cumple_rebt}. Límite: 3 % alumbrado, 5 % fuerza.",
-  "formula_display": "ΔU = (2 × L × I) / (σ × S) para monofásico.  ΔU% = (ΔU / V) × 100.  σ(Cu)=56 m/(Ω×mm²) a 20 °C. Límite REBT: 3 % alumbrado, 5 % fuerza.",
-  "steps": [
-    "Identificar la sección real del conductor en mm² (marcada en cubierta o placa del cuadro eléctrico)",
-    "Medir la longitud real del cable desde la protección en origen hasta el receptor más alejado, incluyendo curvas y recorrido de la canalización",
-    "Calcular la caída monofásica: ΔU = (2 × L × I) / (56 × S). Ejemplo con 2.5 mm², 30 m, 16 A: ΔU = (2×30×16)/(56×2.5) = 960/140 = 6.86 V",
-    "Obtener el porcentaje: ΔU% = (ΔU / V) × 100 = (6.86/230) × 100 = 2.98 %",
-    "Verificar según ITC-BT-19: alumbrado máx 3 % (cumple 2.98 %), fuerza máx 5 %. Si no cumple, aumentar sección o reducir longitud"
-  ],
-  "mistakes": [
-    "Usar distancia en línea recta en vez de la longitud real: las curvas y desvíos añaden un 15-30 % de cable extra, invalidando el cálculo de caída",
-    "Aplicar fórmula monofásica a circuito trifásico: para trifásica ΔU = (√3 × L × I)/(σ × S), que da una caída un 13 % menor",
-    "Olvidar que la conductividad del cobre disminuye con la temperatura: a 20 °C σ=56, pero a 70 °C (funcionamiento normal) baja a 47 m/(Ω×mm²), un 16 % menos",
-    "No comprobar la caída acumulada desde el contador: el REBT limita la caída total desde el origen, no por tramos individuales"
-  ],
-  "input_type_review": [
-    {
-      "field_id": "seccion_mm2",
-      "current_type": "number",
-      "recommended_type": "number",
-      "reason": "Correcto: valor continuo con decimales"
-    },
-    {
-      "field_id": "longitud_m",
-      "current_type": "number",
-      "recommended_type": "number",
-      "reason": "Considerar tipo \"select\" para unidades predefinidas"
-    },
-    {
-      "field_id": "corriente_a",
-      "current_type": "number",
-      "recommended_type": "number",
-      "reason": "Considerar tipo \"select\" para unidades predefinidas"
-    },
-    {
-      "field_id": "tension_v",
-      "current_type": "select",
-      "recommended_type": "select",
-      "reason": "Correcto: valor continuo con decimales"
-    }
-  ],
   "comparison_presets": [
     {
       "_label": "Alumbrado (1.5 mm²)",
@@ -169,7 +121,6 @@
   "i18n": {
     "es": {
       "name": "Calculadora de Caída de Tensión",
-      "desc": "Calcula la caída de tensión en voltios y porcentaje para verificar el cumplimiento del REBT Usado por profesionales y estudiantes en todo el mundo.",
       "seo_title": "Calculadora Caída de Tensión – %",
       "inputs": {
         "seccion_mm2": "Sección cable (mm²)",
@@ -202,28 +153,10 @@
         "No considerar que cables agrupados disipan menos calor",
         "Confundir conductividad del cobre (56) con aluminio (35)"
       ],
-      "input_type_review": [
-        {
-          "field_id": "seccion_mm2",
-          "reason": "Correcto: valor continuo con decimales"
-        },
-        {
-          "field_id": "longitud_m",
-          "reason": "Correcto: valor continuo con decimales"
-        },
-        {
-          "field_id": "corriente_a",
-          "reason": "Correcto: valor continuo con decimales"
-        },
-        {
-          "field_id": "tension_v",
-          "reason": "Correcto: opción discreta"
-        }
-      ]
+      "description": "Calcula la caída de tensión en voltios y porcentaje para verificar el cumplimiento del REBT Usado por profesionales y estudiantes en todo el mundo."
     },
     "en": {
       "name": "Voltage Drop Calculator",
-      "desc": "Check if your cable's voltage drop meets IEC 60364 limits. Enter section, length, current and voltage. Free, no sign-up, instant results.",
       "seo_title": "Voltage Drop Calculator – % and Volts – IEC 60364",
       "inputs": {
         "seccion_mm2": "Cable section (mm²)",
@@ -259,28 +192,10 @@
       ],
       "trust_note": "Calculation based on annealed electrolytic copper conductivity at 20 °C (σ = 56 m/(Ω·mm²), 100 % IACS). For aluminum use σ = 35 m/(Ω·mm²). At elevated operating temperatures the actual σ value decreases, increasing voltage drop.",
       "standard": "IEC 60364-5-52: 3 % for lighting circuits, 5 % for power circuits. NEC Article 210.19(A) limits combined feeder and branch circuit drop to 5 % in North America. Measurement from installation origin to the farthest utilization point.",
-      "input_type_review": [
-        {
-          "field_id": "seccion_mm2",
-          "reason": "Correct: continuous numeric value"
-        },
-        {
-          "field_id": "longitud_m",
-          "reason": "Correct: continuous numeric value"
-        },
-        {
-          "field_id": "corriente_a",
-          "reason": "Correct: continuous numeric value"
-        },
-        {
-          "field_id": "tension_v",
-          "reason": "Correct: discrete option"
-        }
-      ]
+      "description": "Check if your cable's voltage drop meets IEC 60364 limits. Enter section, length, current and voltage. Free, no sign-up, instant results."
     },
     "fr": {
       "name": "Calculateur Chute de Tension",
-      "desc": "Vérifiez si la chute de tension de votre câble respecte la NF C 15-100. Saisissez section, longueur, courant et tension. Gratuit, sans inscription.",
       "seo_title": "Calculateur Chute de Tension – % et Volts – NF C 15-100",
       "inputs": {
         "seccion_mm2": "Section du câble (mm²)",
@@ -316,28 +231,10 @@
       ],
       "trust_note": "Calcul basé sur la conductivité du cuivre électrolytique recuit à 20 °C (σ = 56 m/(Ω·mm²), 100 % IACS). Pour l'aluminium, utiliser σ = 35 m/(Ω·mm²). À température de service élevée, la valeur réelle de σ diminue, ce qui augmente la chute de tension.",
       "standard": "NF C 15-100 (France) : 3 % pour l'éclairage, 5 % pour les circuits de force. IEC 60364-5-52 au niveau international. La chute se mesure de l'origine de l'installation jusqu'au point d'utilisation le plus éloigné.",
-      "input_type_review": [
-        {
-          "field_id": "seccion_mm2",
-          "reason": "Correct : valeur numérique continue"
-        },
-        {
-          "field_id": "longitud_m",
-          "reason": "Correct : valeur numérique continue"
-        },
-        {
-          "field_id": "corriente_a",
-          "reason": "Correct : valeur numérique continue"
-        },
-        {
-          "field_id": "tension_v",
-          "reason": "Correct : option discrète"
-        }
-      ]
+      "description": "Vérifiez si la chute de tension de votre câble respecte la NF C 15-100. Saisissez section, longueur, courant et tension. Gratuit, sans inscription."
     },
     "pt": {
       "name": "Calculadora de Queda de Tensão",
-      "desc": "Verifique se a queda de tensão do seu cabo atende à NBR 5410. Insira seção, comprimento, corrente e tensão. Grátis, sem cadastro, resultado imediato.",
       "seo_title": "Calculadora Queda de Tensão – % e Volts – NBR 5410",
       "inputs": {
         "seccion_mm2": "Seção do cabo (mm²)",
@@ -373,30 +270,11 @@
       ],
       "trust_note": "Cálculo baseado na condutividade do cobre eletrolítico recozido a 20 °C (σ = 56 m/(Ω·mm²), 100 % IACS). Para alumínio use σ = 35 m/(Ω·mm²). Em temperaturas de operação elevadas, o valor real de σ diminui, aumentando a queda de tensão.",
       "standard": "NBR 5410 (Brasil): 3 % para iluminação, 5 % para circuitos de força. IEC 60364-5-52 a nível internacional. A queda é medida da origem da instalação até o ponto de utilização mais distante.",
-      "input_type_review": [
-        {
-          "field_id": "seccion_mm2",
-          "reason": "Correto: valor numérico contínuo"
-        },
-        {
-          "field_id": "longitud_m",
-          "reason": "Correto: valor numérico contínuo"
-        },
-        {
-          "field_id": "corriente_a",
-          "reason": "Correto: valor numérico contínuo"
-        },
-        {
-          "field_id": "tension_v",
-          "reason": "Correto: opção discreta"
-        }
-      ]
+      "description": "Verifique se a queda de tensão do seu cabo atende à NBR 5410. Insira seção, comprimento, corrente e tensão. Grátis, sem cadastro, resultado imediato."
     },
     "de": {
       "name": "Spannungsfall-Rechner",
-      "desc": "Berechnen Sie den Spannungsfall in elektrischen Leitungen nach DIN VDE 0100-520.",
       "seo_title": "Spannungsfall-Rechner | CalcToWork",
-      "seo_desc": "Berechnen Sie den Spannungsfall in elektrischen Leitungen nach DIN VDE 0100-520.",
       "seo_description": "Berechnen Sie den Spannungsfall in elektrischen Leitungen nach DIN VDE 0100-520.",
       "inputs": {
         "seccion_mm2": "Seccion Mm2",
@@ -430,36 +308,10 @@
         "Einphasen-Formel für Drehstrom verwendet — bei Drehstrom gilt ΔU = (√3 × L × I) / (κ × S), der Spannungsfall ist etwa 13 % geringer",
         "Leitfähigkeit bei Betriebstemperatur unterschätzt — Kupfer hat bei 70 °C nur noch κ = 47 m/(Ω·mm²) statt 56 bei 20 °C"
       ],
-      "input_type_review": [
-        {
-          "field_id": "seccion_mm2",
-          "current_type": "number",
-          "recommended_type": "number",
-          "reason": "Correcto: valor continuo con decimales"
-        },
-        {
-          "field_id": "longitud_m",
-          "current_type": "number",
-          "recommended_type": "number",
-          "reason": "Considerar tipo \"select\" para unidades predefinidas"
-        },
-        {
-          "field_id": "corriente_a",
-          "current_type": "number",
-          "recommended_type": "number",
-          "reason": "Considerar tipo \"select\" para unidades predefinidas"
-        },
-        {
-          "field_id": "tension_v",
-          "current_type": "select",
-          "recommended_type": "select",
-          "reason": "Correcto: valor continuo con decimales"
-        }
-      ]
+      "description": "Berechnen Sie den Spannungsfall in elektrischen Leitungen nach DIN VDE 0100-520."
     },
     "it": {
       "name": "Calcolatore Caduta di Tensione",
-      "desc": "Verifica se la caduta di tensione del tuo cavo rispetta la norma CEI 64-8. Inserisci sezione, lunghezza, corrente e tensione. Gratuito, senza registrazione.",
       "seo_title": "Calcolatore Caduta di Tensione – % e Volt – CEI 64-8",
       "inputs": {
         "seccion_mm2": "Sezione cavo (mm²)",
@@ -495,24 +347,7 @@
       ],
       "trust_note": "Calcolo basato sulla conduttività del rame elettrolitico ricotto a 20 °C (σ = 56 m/(Ω·mm²), 100 % IACS). Per alluminio usare σ = 35 m/(Ω·mm²). A temperature di esercizio elevate il valore effettivo di σ diminuisce, aumentando la caduta di tensione.",
       "standard": "CEI 64-8: 3 % per circuiti illuminazione, 5 % per circuiti di potenza. Misurazione dall'origine dell'installazione fino al punto di utilizzo più lontano.",
-      "input_type_review": [
-        {
-          "field_id": "seccion_mm2",
-          "reason": "Corretto: valore numerico continuo"
-        },
-        {
-          "field_id": "longitud_m",
-          "reason": "Corretto: valore numerico continuo"
-        },
-        {
-          "field_id": "corriente_a",
-          "reason": "Corretto: valore numerico continuo"
-        },
-        {
-          "field_id": "tension_v",
-          "reason": "Corretto: opzione discreta"
-        }
-      ]
+      "description": "Verifica se la caduta di tensione del tuo cavo rispetta la norma CEI 64-8. Inserisci sezione, lunghezza, corrente e tensione. Gratuito, senza registrazione."
     }
   }
 }
