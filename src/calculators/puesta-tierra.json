@@ -146,24 +146,23 @@
         "longitud_pica_m": "Rod length (m)"
       },
       "seo_description": "Calculate voltage drop percentage in electrical cables. Enter length, current and wire size. Free electrical calculator for code compliance.",
-      "example_label": "Calcular puesta a tierra con resistividad de 100 Î©Â·m y resistencia mÃ¡xima de 10 Î© usando pica de cobre de 2m.",
+      "example_label": "Calculate puesta a tierra con resistividad de 100 Ω·m y resistencia máxima de 10 Ω using pica de cobre de 2m.",
       "range_hints": {
         "resistividad_ohm_m": "Suelo húmedo: 50-200 ΩÂ·m, Seco: 200-500 ΩÂ·m, Rocoso: >500 ΩÂ·m",
         "resistencia_max_ohm": "Vivienda: <10 Ω, Industrial: <5 Ω, Hospitalaria: <1 Ω"
       },
-      "result_context": "Con resistividad {resistividad_ohm_m} Î©Â·m y pica {tipo_pica} se estima resistencia de {resistencia_ohm} Î©. Â¿Cumple? {cumple}. NÃºmero de picas necesarias: {picas_ud}.",
-      "formula_display": "R_pica = (resistividad Ã— 0.366) Ã· longitud; R_total = R_pica Ã· num_picas",
+      "result_context": "Con resistividad {resistividad_ohm_m} Ω·m y pica {tipo_pica} se estima resistencia de {resistencia_ohm} Ω. ¿Cumple? {cumple}. Número de picas necesarias: {picas_ud}.",
+      "formula_display": "R_pica = (resistividad × 0.366) ÷ length; R_total = R_pica ÷ num_picas",
       "steps": [
-        "Calculate the percentage drop: (2 × L × I × ρ) ÷ (A × V) × 100",
-        "Where L = one-way cable length, I = current, ρ = resistivity, A = cross-section",
-        "Copper resistivity = 0.0172 Ω·mm²/m; aluminum = 0.0282",
-        "Compare result to maximum allowed: 3% for lighting, 5% for other uses",
-        "If drop exceeds limit, increase cable cross-section"
+        "Calculate resistencia de una pica: (100 × 0.366) ÷ 2 = 18.3 Ω",
+        "Verify: 18.3 Ω > 10 Ω (no cumple con una pica)",
+        "Calculate picas necesarias: 18.3 Ω ÷ 10 Ω = 1.83 → 2 picas",
+        "Con 2 picas en paralelo: 18.3 Ω ÷ 2 = 9.15 Ω ✓ (cumple)"
       ],
       "mistakes": [
-        "Calculating drop for the wrong voltage — 230 V vs 400 V three-phase",
-        "Not doubling the length — current travels out AND back",
-        "Using the nominal voltage instead of the actual supply voltage"
+        "No Measure resistividad real of the suelo antes de diseñar",
+        "Enterrar picas en suelo seco (best en zona húmeda)",
+        "No conectar todas The masas to the same sistema de tierra"
       ],
       "description": "Calculate voltage drop in electrical cables. Enter cable length, current, and conductor size to verify voltage drop stays within limits.",
       "rc": "The voltage drop of {caida}% over {distancia} m is within acceptable limits for this circuit type.",
