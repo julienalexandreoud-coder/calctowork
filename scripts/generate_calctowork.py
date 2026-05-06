@@ -53,6 +53,10 @@ except ImportError:
 
 # ── Paths ──────────────────────────────────────────────────────────────────────
 ROOT          = Path(__file__).parent.parent
+
+sys.path.insert(0, str(ROOT))
+from config.gauges import GAUGE_CONFIGS
+from config.blocks import BLOCK_ICONS
 SRC           = ROOT / "src"
 CALCS_FILE    = SRC / "calculators" / "calculators.json"
 I18N_DIR      = SRC / "i18n"
@@ -75,31 +79,8 @@ DATE_PUBLISHED = {
     13: "2024-07-15", 14: "2024-07-15", 15: "2024-08-01", 16: "2024-08-01",
     17: "2024-08-15", 18: "2024-08-15",
 }
-
-BLOCK_ICONS = {
-    "estructuras":   "🏗️",
-    "mamposteria":   "🧱",
-    "pavimentos":    "🪨",
-    "fontaneria":    "🔧",
-    "electricidad":  "⚡",
-    "climatizacion": "🌡️",
-    "carpinteria":   "🪵",
-    "pintura":       "🎨",
-    "gestion":       "📊",
-    # Batch 1-2 blocks
-    "matematicas":   "🔢",
-    "ciencia":       "⚛️",
-    "salud":         "❤️",
-    "finanzas":      "💶",
-    "cotidiano":     "🛠️",
-    # Batch 3 blocks
-    "quimica":       "🧪",
-    "electronica":   "🔌",
-    "clima":         "🌤️",
-    "utilidades":    "🧰",
-    "fotografia":    "📷",
-    "transporte":    "✈️",
-}
+# BLOCK_ICONS imported from config.blocks
+# GAUGE_CONFIGS imported from config.gauges
 
 COPIED_LABEL = {
     "es": "¡Copiado!", "en": "Copied!",
@@ -146,81 +127,8 @@ AUTHOR_LINE = {
     "it": "Scritto e revisionato dal team editoriale di CalcToWork. Ultimo aggiornamento: {date}.",
 }
 
-GAUGE_CONFIGS = {
-    "044":     {"min": 0,  "max": 10,     "label": "Drop",             "unit": "%"},
-    "052":     {"min": 0,  "max": 5000,   "label": "Wh/day",           "unit": "Wh"},
-    "056":     {"min": 0,  "max": 15,     "label": "COP",              "unit": "COP"},
-    "057":     {"min": 0,  "max": 100,    "label": "%",                "unit": "%"},
-    "080":     {"min": 0,  "max": 20,     "label": "Years",            "unit": "yr"},
-    "081":     {"min": 0,  "max": 20,     "label": "Years",            "unit": "yr"},
-    "082":     {"min": 0,  "max": 100,    "label": "Liters",           "unit": "L"},
-    "090":     {"min": 0,  "max": 100,    "label": "%",                "unit": "%"},
-    "093":     {"min": 0,  "max": 30,     "label": "IVA",              "unit": "%"},
-    "095":     {"min": 0,  "max": 100,    "label": "Margin",           "unit": "%"},
-    "096":     {"min": 0,  "max": 100000, "label": "EUR",              "unit": "\u20ac"},
-    "100":     {"min": 0,  "max": 100,    "label": "%",                "unit": "%"},
-    "200":     {"min": 0,  "max": 100,    "label": "%",                "unit": "%"},
-    "201":     {"min": 0,  "max": 100,    "label": "Cambio Pct",       "unit": "%"},
-    "301":     {"min": 0,  "max": 5000,   "label": "Monthly",          "unit": "\u20ac/mo"},
-    "302":     {"min": 0,  "max": 1000000,"label": "Value",            "unit": "\u20ac"},
-    "303":     {"min": 0,  "max": 100,    "label": "%",                "unit": "%"},
-    "304":     {"min": 0,  "max": 30,     "label": "IVA",              "unit": "%"},
-    "306":     {"min": 0,  "max": 50,     "label": "Discount",         "unit": "%"},
-    "307":     {"min": 0,  "max": 100000, "label": "EUR",              "unit": "\u20ac"},
-    "310":     {"min": 0,  "max": 100,    "label": "Roi Pct",          "unit": "%"},
-    "311":     {"min": 0,  "max": 100,    "label": "%",                "unit": "%"},
-    "317":     {"min": 0,  "max": 100,    "label": "Retorno Pct",      "unit": "%"},
-    "318":     {"min": 0,  "max": 100,    "label": "Ratio",            "unit": "%"},
-    "320":     {"min": -50, "max": 200,   "label": "Cagr",             "unit": "%"},
-    "321":     {"min": 0,  "max": 100,    "label": "Apr",              "unit": "%"},
-    "323":     {"min": 0,  "max": 100,    "label": "Yield Pct",        "unit": "%"},
-    "324":     {"min": 0,  "max": 100,    "label": "Cap Rate",         "unit": "%"},
-    "325":     {"min": 0,  "max": 100,    "label": "Yield Pct",        "unit": "%"},
-    "326":     {"min": 0,  "max": 100,    "label": "%",                "unit": "%"},
-    "329":     {"min": 0,  "max": 100,    "label": "Wacc",             "unit": "%"},
-    "331":     {"min": 0,  "max": 100,    "label": "%",                "unit": "%"},
-    "332":     {"min": 0,  "max": 100,    "label": "Tax Equiv",        "unit": "%"},
-    "333":     {"min": 0,  "max": 100,    "label": "Real",             "unit": "%"},
-    "337":     {"min": 0,  "max": 100,    "label": "%",                "unit": "%"},
-    "339":     {"min": -50, "max": 200,   "label": "Cagr",             "unit": "%"},
-    "400":     {"min": 10, "max": 45,     "label": "BMI",              "unit": "kg/m\u00b2"},
-    "401":     {"min": 0,  "max": 5000,   "label": "kcal",             "unit": "kcal"},
-    "411":     {"min": 40, "max": 220,    "label": "HR",               "unit": "bpm"},
-    "413":     {"min": 3,  "max": 60,     "label": "Fat %",            "unit": "%"},
-    "414":     {"min": 40, "max": 150,    "label": "kg",               "unit": "kg"},
-    "416":     {"min": 0,  "max": 100,    "label": "Bai",              "unit": "%"},
-    "419":     {"min": 40, "max": 220,    "label": "HR",               "unit": "bpm"},
-    "420":     {"min": 40, "max": 220,    "label": "HR",               "unit": "bpm"},
-    "425":     {"min": 0,  "max": 100,    "label": "Bfp",              "unit": "%"},
-    "426":     {"min": 0,  "max": 5000,   "label": "kcal",             "unit": "kcal"},
-    "427":     {"min": 0,  "max": 5000,   "label": "kcal",             "unit": "kcal"},
-    "428":     {"min": 0,  "max": 5000,   "label": "kcal",             "unit": "kcal"},
-    "429":     {"min": 0,  "max": 5000,   "label": "kcal",             "unit": "kcal"},
-    "432":     {"min": 0,  "max": 5000,   "label": "kcal",             "unit": "kcal"},
-    "433":     {"min": 0,  "max": 100,    "label": "Percentile",       "unit": "%"},
-    "434":     {"min": 0,  "max": 6,      "label": "L/day",            "unit": "L"},
-    "500":     {"min": 0,  "max": 50,     "label": "Tip",              "unit": "%"},
-    "516":     {"min": 0,  "max": 100,    "label": "Uptime Pct",       "unit": "%"},
-    "607":     {"min": 0,  "max": 100,    "label": "Cv Porcentaje",    "unit": "%"},
-    "700":     {"min": 0,  "max": 200,    "label": "Speed",            "unit": "km/h"},
-    "801":     {"min": 0,  "max": 200,    "label": "Value",            "unit": "kg"},
-    "805":     {"min": 0,  "max": 200,    "label": "Speed",            "unit": "km/h"},
-    "901":     {"min": 0,  "max": 5000,   "label": "kcal",             "unit": "kcal"},
-    "930":     {"min": 0,  "max": 100,    "label": "%",                "unit": "%"},
-    "931":     {"min": 0,  "max": 100,    "label": "%",                "unit": "%"},
-    "932":     {"min": 0,  "max": 100,    "label": "%",                "unit": "%"},
-    "933":     {"min": 40, "max": 220,    "label": "HR",               "unit": "bpm"},
-    "939":     {"min": 0,  "max": 100,    "label": "Margin Pct",       "unit": "%"},
-    "951":     {"min": 0,  "max": 300,    "label": "kg",               "unit": "kg"},
-    "958":     {"min": 0,  "max": 100,    "label": "%",                "unit": "%"},
-    "961":     {"min": 0,  "max": 100,    "label": "A1C Estimated",    "unit": "%"},
-    "1023":    {"min": 0,  "max": 100,    "label": "Rh",               "unit": "%"},
-    "1060":    {"min": 3,  "max": 60,     "label": "Fat %",            "unit": "%"},
-    "1061":    {"min": 0,  "max": 100,    "label": "%",                "unit": "%"},
-    "1065":    {"min": 0,  "max": 100,    "label": "Dividend Yield",   "unit": "%"},
-    "1089":    {"min": 0,  "max": 100,    "label": "Humedad Relativa", "unit": "%"},
-    "1094":    {"min": 0,  "max": 100,    "label": "%",                "unit": "%"},
-}
+
+# GAUGE_CONFIGS imported from config.gauges
 
 GA4_ID = os.environ.get("GA4_MEASUREMENT_ID", "G-FBFV87HD35")
 

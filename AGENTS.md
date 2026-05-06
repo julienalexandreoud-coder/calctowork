@@ -64,14 +64,17 @@ C:\Microsaas\obra
 ## Build Process
 
 ```bash
+# Python path (required — Python 3.11+)
+PYTHON = C:\Users\julie\AppData\Local\Programs\Python\Python314\python.exe
+
 # 1. Install dependencies
-pip install -r requirements.txt
+$PYTHON -m pip install -r requirements.txt
 
 # 2. Run the build
-python scripts/generate_calctowork.py
+$PYTHON scripts/generate_calctowork.py
 
 # 3. Verify output
-python scripts/tests/test_build.py
+$PYTHON scripts/verify_build.py
 
 # 4. Deploy
 firebase deploy --only hosting
@@ -79,10 +82,10 @@ firebase deploy --only hosting
 
 **Output:**
 - `public/` is wiped and regenerated
-- ~20,344 HTML pages (6 languages × ~441 calculators + parametric variants + static pages)
-- `public/sitemap.xml` + `public/sitemap-{lang}.xml`
-- `public/ads.txt` (copied from `src/ads.txt`)
-- `public/robots.txt` (copied from `src/robots.txt`)
+- ~2,916 base pages (461 calculators × 6 languages + block pages + index)
+- ~16,422 parametric variant pages
+- 24 legal/static pages
+- ~19,362 total URLs across 6 per-language sitemaps
 
 ## Content Quality Tiers
 
