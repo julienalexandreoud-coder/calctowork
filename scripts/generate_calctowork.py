@@ -904,7 +904,7 @@ STATIC_PAGES = {
         },
         "en": {
             "title": "About Us",
-            "description": "Learn about CalcToWork, the free online calculator platform with over 180 tools in 6 languages.",
+            "description": "Learn about CalcToWork, the free online calculator platform with over 460 tools in 6 languages.",
             "body": """
 <h2>What is CalcToWork?</h2>
 <p>CalcToWork is a free online calculator platform designed to make calculations accessible to everyone. We offer over <strong>440 calculators</strong> covering a wide range of categories:</p>
@@ -960,7 +960,7 @@ STATIC_PAGES = {
         },
         "pt": {
             "title": "Sobre Nós",
-            "description": "Conheça o CalcToWork, a plataforma de calculadoras online gratuitas com mais de 180 ferramentas em 6 idiomas.",
+            "description": "Conheça o CalcToWork, a plataforma de calculadoras online gratuitas com mais de 460 ferramentas em 6 idiomas.",
             "body": """
 <h2>O que é o CalcToWork?</h2>
 <p>O CalcToWork é uma plataforma de calculadoras online gratuitas projetada para tornar os cálculos acessíveis a todos. Oferecemos mais de <strong>440 calculadoras</strong> abrangendo diversas categorias:</p>
@@ -988,7 +988,7 @@ STATIC_PAGES = {
         },
         "de": {
             "title": "Über uns",
-            "description": "Erfahren Sie mehr über CalcToWork, die kostenlose Online-Rechner-Plattform mit über 180 Werkzeugen in 6 Sprachen.",
+            "description": "Erfahren Sie mehr über CalcToWork, die kostenlose Online-Rechner-Plattform mit über 460 Werkzeugen in 6 Sprachen.",
             "body": """
 <h2>Was ist CalcToWork?</h2>
 <p>CalcToWork ist eine Plattform für kostenlose Online-Rechner, die darauf ausgelegt ist, Berechnungen für jeden zugänglich zu machen. Wir bieten über <strong>440 Rechner</strong> in einer Vielzahl von Kategorien:</p>
@@ -1256,7 +1256,7 @@ def copy_assets() -> None:
     min_js = _minify_js(JS_SRC)
     (PUBLIC / "js" / "calculator.js").write_text(min_js, encoding="utf-8")
 
-    for name in ("dark-mode.js", "favorites.js", "cookie-consent.js", "email-capture.js", "analytics-tracker.js"):
+    for name in ("dark-mode.js", "favorites.js", "cookie-consent.js", "email-capture.js", "analytics-tracker.js", "history.js"):
         src_path = SRC / "js" / name
         if src_path.exists():
             minified = _minify_js(src_path)
