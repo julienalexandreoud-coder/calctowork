@@ -1,0 +1,269 @@
+{
+  "id": "1106",
+  "slug": "carpet-calculator",
+  "block": 3,
+  "block_slug": "pavimentos",
+  "inputs": [
+    {
+      "id": "room_length",
+      "type": "number",
+      "min": 0.1,
+      "max": 50,
+      "step": 0.1,
+      "default": 5,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "room_width",
+      "type": "number",
+      "min": 0.1,
+      "max": 30,
+      "step": 0.1,
+      "default": 4,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "carpet_roll_width",
+      "type": "select",
+      "options": [
+        {
+          "value": "3.66",
+          "label": "12 ft (3.66m)"
+        },
+        {
+          "value": "4.57",
+          "label": "15 ft (4.57m)"
+        }
+      ],
+      "default": "3.66"
+    },
+    {
+      "id": "pattern_repeat",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 0,
+      "unit": "cm",
+      "unit_category": "length"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "room_area_m2",
+      "unit": "m²",
+      "highlight": true
+    },
+    {
+      "id": "square_yards",
+      "unit": "yd²"
+    },
+    {
+      "id": "linear_meters_needed",
+      "unit": "m"
+    },
+    {
+      "id": "waste_percent",
+      "unit": "%"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.room_length)||0,W=parseFloat(inputs.room_width)||0,crw=parseFloat(inputs.carpet_roll_width)||4,pr=parseFloat(inputs.pattern_repeat)||0;if(!L||!W)return{error:true};var area=+(L*W).toFixed(2),sqy=+(area*1.196).toFixed(2),adj=pr>0?Math.ceil(L/(pr/100))*(pr/100):L,lm=+(Math.ceil(W/crw)*adj).toFixed(1),waste=+(Math.max(5,((lm*crw/area)-1)*100)).toFixed(1);return{room_area_m2:area,square_yards:sqy,linear_meters_needed:lm,waste_percent:waste};",
+  "formula_display": "Room area = Length × Width; Linear metres = ceil(area ÷ roll_width × adjustment_factor)",
+  "result_context": "Room area: {room_area_m2} m² ({square_yards} sq yd), linear metres needed: {linear_meters_needed}",
+  "example_inputs": {
+    "room_length": 5,
+    "room_width": 4,
+    "carpet_roll_width": 3.66,
+    "pattern_repeat": 0
+  },
+  "steps": [
+    "Room area: 5 m × 4 m = 20 m²",
+    "Roll width: 3.66 m (standard 12 ft roll)",
+    "Linear metres from roll: ceil(20 ÷ 3.66) × 3.66 = ~21.96 m",
+    "Add 10% for cuts and seams: ~24 linear metres"
+  ],
+  "mistakes": [
+    "Measuring the room and buying exactly that area — seams and cuts waste 10-15%",
+    "Forgetting to add extra for pattern matching (pattern repeat × number of drops)",
+    "Not accounting for door and bay window recesses"
+  ],
+  "related": [
+    "1107",
+    "1106",
+    "1112",
+    "021"
+  ],
+  "comparison_presets": [
+    {
+      "room_length": 3,
+      "room_width": 3,
+      "carpet_roll_width": 3.66,
+      "pattern_repeat": 0
+    },
+    {
+      "room_length": 4,
+      "room_width": 3.5,
+      "carpet_roll_width": 3.66,
+      "pattern_repeat": 0
+    },
+    {
+      "room_length": 5,
+      "room_width": 4,
+      "carpet_roll_width": 3.66,
+      "pattern_repeat": 0
+    },
+    {
+      "room_length": 6,
+      "room_width": 4.5,
+      "carpet_roll_width": 3.66,
+      "pattern_repeat": 0.64
+    },
+    {
+      "room_length": 7,
+      "room_width": 5,
+      "carpet_roll_width": 3.66,
+      "pattern_repeat": 0.64
+    }
+  ],
+  "units": {
+    "room_length": "m",
+    "room_width": "m",
+    "carpet_roll_width": "m",
+    "pattern_repeat": "m"
+  },
+  "example_label": "Ejemplo para carpet calculator: valores 5m, 4m, 0cm",
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Moqueta",
+      "desc": "Calculadora 1106. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculadora de Moqueta – Metros Cuadrados y Lineales",
+      "seo_desc": "Calcula cuánta moqueta o alfombra necesitas en metros cuadrados, yardas y metros lineales. Introduce el tamaño de la habitación y el ancho del rollo.",
+      "seo_description": "Mide y presupuesta la instalación de tu moqueta o alfombra. Introduce el tamaño de la habitación y el ancho del rollo para obtener m², yardas y metros lineales, con desperdicio incluido.",
+      "inputs": {
+        "room_length": "Largo de la habitación",
+        "room_width": "Ancho de la habitación",
+        "carpet_roll_width": "Ancho del rollo de moqueta",
+        "pattern_repeat": "Repetición del patrón"
+      },
+      "outputs": {
+        "room_area_m2": "Área de la habitación",
+        "square_yards": "Yardas cuadradas",
+        "linear_meters_needed": "Metros lineales necesarios",
+        "waste_percent": "Desperdicio"
+      }
+    },
+    "en": {
+      "name": "Carpet Calculator",
+      "desc": "Calculator 1106. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Carpet Calculator – Square Metres & Linear Metres",
+      "seo_desc": "Calculate how much carpet you need in square metres, square yards and linear metres. Enter room size and roll width to get exact carpet quantity with waste.",
+      "seo_description": "Measure and budget your carpet installation accurately. Enter room size and roll width to get coverage in square metres, square yards, and linear metres — with cutting waste factored in.",
+      "inputs": {
+        "room_length": "Room length",
+        "room_width": "Room width",
+        "carpet_roll_width": "Carpet roll width",
+        "pattern_repeat": "Pattern repeat"
+      },
+      "outputs": {
+        "room_area_m2": "Room area",
+        "square_yards": "Square yards",
+        "linear_meters_needed": "Linear metres needed",
+        "waste_percent": "Waste"
+      }
+    },
+    "fr": {
+      "name": "Calculatrice de Moquette",
+      "desc": "Calculateur 1106. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculatrice Moquette – Mètres Carrés et Linéaires",
+      "seo_desc": "Calculez la quantité de moquette nécessaire en m², yards et mètres linéaires. Entrez les dimensions de la pièce et la largeur du rouleau.",
+      "seo_description": "Estimez la quantité de moquette à commander pour votre pièce. Entrez les dimensions et la largeur du rouleau pour obtenir les m², yards carrés et mètres linéaires nécessaires, chutes comprises.",
+      "inputs": {
+        "room_length": "Longueur de la pièce",
+        "room_width": "Largeur de la pièce",
+        "carpet_roll_width": "Largeur du rouleau de moquette",
+        "pattern_repeat": "Répétition du motif"
+      },
+      "outputs": {
+        "room_area_m2": "Surface de la pièce",
+        "square_yards": "Yards carrés",
+        "linear_meters_needed": "Mètres linéaires nécessaires",
+        "waste_percent": "Chutes"
+      }
+    },
+    "pt": {
+      "name": "Calculadora de Carpete",
+      "desc": "Calculadora 1106. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculadora de Carpete – Metros Quadrados e Lineares",
+      "seo_desc": "Calcule quanto carpete você precisa em metros quadrados, jardas e metros lineares. Insira o tamanho do quarto e a largura do rolo para obter a quantidade exata.",
+      "seo_description": "Calcule o carpete ideal para cada ambiente. Insira as dimensões do quarto e a largura do rolo para ver a área em m², jardas quadradas e metros lineares, já com a margem de desperdício.",
+      "inputs": {
+        "room_length": "Comprimento do quarto",
+        "room_width": "Largura do quarto",
+        "carpet_roll_width": "Largura do rolo de carpete",
+        "pattern_repeat": "Repetição do padrão"
+      },
+      "outputs": {
+        "room_area_m2": "Área do quarto",
+        "square_yards": "Jardas quadradas",
+        "linear_meters_needed": "Metros lineares necessários",
+        "waste_percent": "Desperdício"
+      }
+    },
+    "de": {
+      "name": "Carpet calculator",
+      "desc": "Berechnen Sie carpet calculator online. Geben Sie room length, room width, carpet roll width ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Carpet calculator | CalcToWork",
+      "seo_desc": "Carpet calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Carpet calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "room_length": "Room Length",
+        "room_width": "Room Width",
+        "carpet_roll_width": "Carpet Roll Width",
+        "pattern_repeat": "Pattern Repeat"
+      },
+      "outputs": {
+        "room_area_m2": "Room Area M2",
+        "square_yards": "Square Yards",
+        "linear_meters_needed": "Linear Meters Needed",
+        "waste_percent": "Waste Percent"
+      },
+      "example_label": "Ejemplo para carpet calculator: valores 5m, 4m, 0cm",
+      "range_hints": {},
+      "result_context": "Room area: {room_area_m2} m² ({square_yards} sq yd), linear metres needed: {linear_meters_needed}",
+      "formula_display": "Room area = Length × Width; Linear metres = ceil(area ÷ roll_width × adjustment_factor)",
+      "steps": [
+        "Room area: 5 m × 4 m = 20 m²",
+        "Roll width: 3.66 m (standard 12 ft roll)",
+        "Linear metres from roll: ceil(20 ÷ 3.66) × 3.66 = ~21.96 m",
+        "Add 10% for cuts and seams: ~24 linear metres"
+      ],
+      "mistakes": [
+        "Measuring the room and buying exactly that area — seams and cuts waste 10-15%",
+        "Forgetting to add extra for pattern matching (pattern repeat × number of drops)",
+        "Not accounting for door and bay window recesses"
+      ],
+      "input_type_review": []
+    },
+    "it": {
+      "name": "Calcolatore di Moquette",
+      "desc": "Calcolatore 1106. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calcolatore Moquette – Metri Quadri e Lineari",
+      "seo_desc": "Calcola quanta moquette ti serve in m², yard quadrati e metri lineari. Inserisci le dimensioni della stanza e la larghezza del rotolo.",
+      "seo_description": "Calcola la moquette perfetta per ogni stanza in pochi passaggi. Inserisci le dimensioni dell'ambiente e la larghezza del rotolo per ottenere m², yard quadrati e metri lineari, scarto incluso.",
+      "inputs": {
+        "room_length": "Lunghezza stanza",
+        "room_width": "Larghezza stanza",
+        "carpet_roll_width": "Larghezza rotolo moquette",
+        "pattern_repeat": "Ripetizione del motivo"
+      },
+      "outputs": {
+        "room_area_m2": "Area stanza",
+        "square_yards": "Yard quadrati",
+        "linear_meters_needed": "Metri lineari necessari",
+        "waste_percent": "Scarto"
+      }
+    }
+  }
+}

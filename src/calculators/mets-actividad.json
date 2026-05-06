@@ -1,0 +1,449 @@
+{
+  "id": "429",
+  "slug": "mets-actividad",
+  "block": 10,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "weight",
+      "type": "number",
+      "step": "any",
+      "default": 70,
+      "unit": "kg",
+      "unit_options": [
+        "kg",
+        "lb"
+      ],
+      "unit_category": "mass"
+    },
+    {
+      "id": "mets",
+      "type": "number",
+      "step": "any",
+      "default": 5,
+      "unit": "METs",
+      "unit_options": [
+        "METs"
+      ],
+      "unit_category": ""
+    },
+    {
+      "id": "minutes",
+      "type": "number",
+      "step": "any",
+      "default": 30,
+      "unit": "min",
+      "unit_options": [
+        "min",
+        "h"
+      ],
+      "unit_category": "time"
+    }
+  ],
+  "formula": "var w=parseFloat(inputs.weight)||0;var mets=parseFloat(inputs.mets)||0;var min=parseFloat(inputs.minutes)||0;var cal=mets*3.5*w*min/200;return{calories:cal.toFixed(1)};",
+  "outputs": [
+    {
+      "id": "calories",
+      "unit": "kcal"
+    }
+  ],
+  "related": [
+    "428",
+    "905",
+    "415",
+    "417"
+  ],
+  "example_inputs": {
+    "weight": 70,
+    "mets": 5,
+    "minutes": 30
+  },
+  "example_label": "Ejemplo para mets actividad: valores 70kg, 5METs, 30min",
+  "result_context": "Calorías quemadas durante la actividad según METs: {calories} kcal.",
+  "result_context_en": "Calories burned during activity based on METs: {calories} kcal.",
+  "result_context_fr": "Calories brûlées pendant l'activité selon les METs : {calories} kcal.",
+  "result_context_pt": "Calorias queimadas durante a atividade segundo METs: {calories} kcal.",
+  "result_context_de": "Während der Aktivität verbrannte Kalorien nach METs: {calories} kcal.",
+  "result_context_it": "Calorie bruciate durante l'attività secondo i MET: {calories} kcal.",
+  "formula_display": "Calories (kcal) = f(weight, mets, minutes)",
+  "steps": [
+    "Introducir los valores de weight, mets y minutes",
+    "Verificar que las unidades sean correctas y convertir si es necesario (kg, lb)",
+    "Realizar el cálculo para obtener calories",
+    "El resultado se expresa en kcal. Verificar que la magnitud es coherente",
+    "Comparar el resultado con los valores de referencia para interpretar su significado"
+  ],
+  "mistakes": [
+    "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+    "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+    "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "weight",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "mets",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "minutes",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "weight": 35,
+      "mets": 2,
+      "minutes": 30
+    },
+    {
+      "_label": "Teen",
+      "weight": 52,
+      "mets": 4,
+      "minutes": 30
+    },
+    {
+      "_label": "Adult (F)",
+      "weight": 70,
+      "mets": 5,
+      "minutes": 30
+    },
+    {
+      "_label": "Adult (M)",
+      "weight": 105,
+      "mets": 8,
+      "minutes": 30
+    },
+    {
+      "_label": "Elderly",
+      "weight": 140,
+      "mets": 10,
+      "minutes": 30
+    }
+  ],
+  "units": {
+    "weight": "kg",
+    "minutes": "s"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de METs",
+      "description": "Calcula calorías quemadas usando el equivalente metabólico.",
+      "inputs": {
+        "weight": "Peso",
+        "mets": "METs",
+        "minutes": "Minutos"
+      },
+      "outputs": {
+        "calories": "Calorías"
+      },
+      "seo_title": "Calculadora de METs Gratuita – Herramienta Gratuita",
+      "seo_description": "Calcula calorías quemadas usando el equivalente metabólico. Calculadora gratuita, precisa e instantánea. Obten resultados al instante con explicacion.",
+      "example_label": "Calcular calorías quemadas con 5 METs durante 30 minutos para 70kg",
+      "range_hints": {
+        "weight": "Peso común: 45-120 kg",
+        "mets": "METs: 1-15 METs",
+        "minutes": "Rango: 0-1000 min"
+      },
+      "result_context": "1 MET = reposo; actividades moderadas son 3-6 METs, vigorosas >6 METs según intensidad.",
+      "formula_display": "Calorías = METs × 3.5 × peso (kg) × minutos ÷ 200",
+      "steps": [
+        "Ingresa peso corporal en kg",
+        "Selecciona METs de la actividad (1=reposo, 5=caminar rápido)",
+        "Ingresa duración en minutos",
+        "Aplica: METs × 3.5 × peso × minutos ÷ 200"
+      ],
+      "mistakes": [
+        "Usar METs de actividad incorrecta (consultar compendio Ainsworth)",
+        "No considerar que METs varía por intensidad (caminar ≠ correr)",
+        "Sumar calorías de ejercicio sin contar línea base (ya incluidas en TDEE)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "weight",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "mets",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "minutes",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "en": {
+      "name": "METs Calculator",
+      "description": "Calculate calories burned using metabolic equivalent.",
+      "inputs": {
+        "weight": "Weight",
+        "mets": "METs",
+        "minutes": "Minutes"
+      },
+      "outputs": {
+        "calories": "Calories"
+      },
+      "seo_title": "METs Calculator – Activity Calories",
+      "seo_description": "METs Calculator. METs Calculator = f(Weight, METs, Minutes) — Weight, METs, Minutes to find Calories. Step-by-step solution with worked example for math.",
+      "example_label": "Calcular calorías quemadas con 5 METs durante 30 minutos para 70kg",
+      "range_hints": {
+        "weight": "Peso común: 45-120 kg",
+        "mets": "METs: 1-15 METs",
+        "minutes": "Rango: 0-1000 min"
+      },
+      "result_context": "1 MET = reposo; actividades moderadas son 3-6 METs, vigorosas >6 METs según intensidad.",
+      "formula_display": "Calorías = METs × 3.5 × peso (kg) × minutos ÷ 200",
+      "steps": [
+        "Ingresa peso corporal en kg",
+        "Selecciona METs de la actividad (1=reposo, 5=caminar rápido)",
+        "Ingresa duración en minutos",
+        "Aplica: METs × 3.5 × peso × minutos ÷ 200"
+      ],
+      "mistakes": [
+        "Usar METs de actividad incorrecta (consultar compendio Ainsworth)",
+        "No considerar que METs varía por intensidad (caminar â‰  correr)",
+        "Sumar calorías de ejercicio sin contar línea base (ya incluidas en TDEE)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "weight",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "mets",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "minutes",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur METs",
+      "description": "Calculez les calories brûlées avec l'équivalent métabolique.",
+      "inputs": {
+        "weight": "Poids",
+        "mets": "METs",
+        "minutes": "Minutes"
+      },
+      "outputs": {
+        "calories": "Calories"
+      },
+      "seo_title": "Calculateur METs – Outil Gratuit",
+      "seo_description": "Calculez les calories brûlées avec l'équivalent métabolique. Calculateur gratuit, précis et instantané. Obtenez des resultats instantanes avec.",
+      "example_label": "Calculer calorías quemadas avec 5 METs durante 30 minutos pour 70kg",
+      "range_hints": {
+        "weight": "Peso común: 45-120 kg",
+        "mets": "METs: 1-15 METs",
+        "minutes": "Rango: 0-1000 min"
+      },
+      "result_context": "1 MET = reposo; actividades moderadas son 3-6 METs, vigorosas >6 METs selon intensidad.",
+      "formula_display": "Calorías = METs × 3.5 × peso (kg) × minutos Á· 200",
+      "steps": [
+        "Ingresa peso corporal dans kg",
+        "Selecciona METs de la actividad (1=reposo, 5=caminar rápido)",
+        "Ingresa duración dans minutos",
+        "Aplica: METs × 3.5 × peso × minutos Á· 200"
+      ],
+      "mistakes": [
+        "Utiliser METs de actividad incorrecta (consultar compendio Ainsworth)",
+        "Ne pas considérer que METs varía par intensidad (caminar â‰  correr)",
+        "Sumar calorías de ejercicio sans contar línea base (ya incluidas dans TDEE)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "weight",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "mets",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "minutes",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de METs",
+      "description": "Calcule calorias queimadas usando equivalente metabólico.",
+      "inputs": {
+        "weight": "Peso",
+        "mets": "METs",
+        "minutes": "Minutos"
+      },
+      "outputs": {
+        "calories": "Calorias"
+      },
+      "seo_title": "Calculadora de METs – Ferramenta Grátis",
+      "seo_description": "Calcule calorias queimadas usando equivalente metabólico. Calculadora gratuita, precisa e instantânea. Obtenha resultados instantaneos com explicacao.",
+      "example_label": "Calcular calorías quemadas com 5 METs durante 30 minutos para 70kg",
+      "range_hints": {
+        "weight": "Peso comum: 45-120 kg",
+        "mets": "METs: 1-15 METs",
+        "minutes": "Rango: 0-1000 min"
+      },
+      "result_context": "1 MET = reposo; atividades moderadas são 3-6 METs, vigorosas >6 METs segundo intensidad.",
+      "formula_display": "Calorías = METs × 3.5 × peso (kg) × minutos ÷ 200",
+      "steps": [
+        "Ingresa peso corporal em kg",
+        "Selecciona METs da atividade (1=reposo, 5=caminar rápido)",
+        "Ingresa duración em minutos",
+        "Aplica: METs × 3.5 × peso × minutos ÷ 200"
+      ],
+      "mistakes": [
+        "Usar METs de atividade incorrecta (consultar compendio Ainsworth)",
+        "Não considerar que METs varía por intensidad (caminar â‰  correr)",
+        "Sumar calorías de ejercicio sem contar línea base (ya incluidas em TDEE)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "weight",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        },
+        {
+          "field_id": "mets",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        },
+        {
+          "field_id": "minutes",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        }
+      ]
+    },
+    "de": {
+      "name": "Mets actividad",
+      "desc": "Berechnen Sie mets actividad online. Geben Sie weight, mets, minutes ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Mets actividad | CalcToWork",
+      "seo_desc": "Mets actividad online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Mets actividad online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "weight": "Weight",
+        "mets": "Mets",
+        "minutes": "Minutes"
+      },
+      "outputs": {
+        "calories": "Calories"
+      },
+      "example_label": "Ejemplo para mets actividad: valores 70kg, 5METs, 30min",
+      "range_hints": {},
+      "result_context": "Während der Aktivität verbrannte Kalorien nach METs: {calories} kcal.",
+      "formula_display": "Calories (kcal) = f(weight, mets, minutes)",
+      "steps": [
+        "Introducir los valores de weight, mets y minutes",
+        "Verificar que las unidades sean correctas y convertir si es necesario (kg, lb)",
+        "Realizar el cálculo para obtener calories",
+        "El resultado se expresa en kcal. Verificar que la magnitud es coherente",
+        "Comparar el resultado con los valores de referencia para interpretar su significado"
+      ],
+      "mistakes": [
+        "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+        "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+        "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "weight",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "mets",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "minutes",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore METs",
+      "description": "Calcola le calorie bruciate usando l'equivalente metabolico.",
+      "inputs": {
+        "weight": "Peso",
+        "mets": "METs",
+        "minutes": "Minuti"
+      },
+      "outputs": {
+        "calories": "Calorie"
+      },
+      "seo_title": "Calcolatore METs – Strumento Gratuito",
+      "seo_description": "Calcola le calorie bruciate usando l'equivalente metabolico. Calcolatore gratuito, preciso e istantaneo. Ottieni risultati istantanei con spiegazione.",
+      "example_label": "Calcolare calorías quemadas con 5 METs durante 30 minuti per 70kg",
+      "range_hints": {
+        "weight": "Peso común: 45-120 kg",
+        "mets": "METs: 1-15 METs",
+        "minutes": "Rango: 0-1000 min"
+      },
+      "result_context": "1 MET = reposo; attivitàes modiradas son 3-6 METs, vigorosa >6 METs según intinsedad.",
+      "formula_display": "Calorías = METs × 3.5 × peso (kg) × minuti ÷ 200",
+      "steps": [
+        "Ingresa peso corperal in kg",
+        "Selecciona METs dilla attività (1=reposo, 5=caminar rápido)",
+        "Ingresa duración in minuti",
+        "Aplica: METs × 3.5 × peso × minuti ÷ 200"
+      ],
+      "mistakes": [
+        "Usare METs di attività incorrecta (consultar compindio Ainsworth)",
+        "Non consedirare que METs varía per intinsedad (caminar ≠ correr)",
+        "Sommmare calorías di ejercicio senza contar línea base (ea incluidas in TDEE)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "weight",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        },
+        {
+          "field_id": "mets",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        },
+        {
+          "field_id": "minutes",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,569 @@
+{
+  "id": "014",
+  "slug": "tabique-pladur",
+  "block": 2,
+  "block_slug": "mamposteria",
+  "inputs": [
+    {
+      "id": "largo",
+      "type": "number",
+      "min": 0.5,
+      "max": 200,
+      "step": 0.1,
+      "default": 10,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "alto",
+      "type": "number",
+      "min": 0.5,
+      "max": 5,
+      "step": 0.1,
+      "default": 2.6,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "tipo_placa",
+      "type": "select",
+      "default": "single",
+      "options": [
+        "single",
+        "double"
+      ]
+    },
+    {
+      "id": "aislamiento",
+      "type": "select",
+      "default": "si",
+      "options": [
+        "si",
+        "no"
+      ]
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.largo)||0,H=parseFloat(inputs.alto)||0,doble=inputs.tipo_placa==='double'?2:1,aisl=inputs.aislamiento==='si';if(!L||!H)return{error:true};var area=L*H,placas=Math.ceil(area*doble/2.88*1.1),perfiles_canal=Math.ceil(L*2*1.1),perfiles_mont=Math.ceil(L/0.6+1)*doble,tornillos=Math.ceil(area*20),pasta_kg=+(area*0.5).toFixed(1),lana_m2=aisl?+area.toFixed(2):0;return{area_m2:+area.toFixed(2),placas_ud:placas,perfiles_canal:perfiles_canal,perfiles_montante:perfiles_mont,tornillos_ud:tornillos,pasta_juntas_kg:pasta_kg,lana_mineral_m2:lana_m2};",
+  "outputs": [
+    {
+      "id": "area_m2",
+      "unit": "m²",
+      "highlight": true
+    },
+    {
+      "id": "placas_ud",
+      "unit": "placas 2.88m²"
+    },
+    {
+      "id": "perfiles_canal",
+      "unit": "uds"
+    },
+    {
+      "id": "perfiles_montante",
+      "unit": "uds"
+    },
+    {
+      "id": "tornillos_ud",
+      "unit": "uds"
+    },
+    {
+      "id": "pasta_juntas_kg",
+      "unit": "kg"
+    },
+    {
+      "id": "lana_mineral_m2",
+      "unit": "m²"
+    }
+  ],
+  "related": [
+    "015",
+    "016",
+    "018",
+    "011"
+  ],
+  "example_inputs": {
+    "largo": 10,
+    "alto": 2.6,
+    "tipo_placa": "single",
+    "aislamiento": "si"
+  },
+  "example_label": "Ejemplo para tabique pladur: valores 10m, 2.6m",
+  "range_hints": {
+    "largo": "Valor típico entre 0.5 y 200. Valor por defecto: 10 m.",
+    "alto": "Valor típico entre 0.5 y 5. Valor por defecto: 2.6 m.",
+    "tipo_placa": "Seleccionar entre las opciones: single, double",
+    "aislamiento": "Seleccionar entre las opciones: si, no"
+  },
+  "result_context": "Resultados: {area_m2} m² de superficie, {placas_ud} placas, {perfiles_canal} perfiles canal, {perfiles_montante} perfiles montante, {tornillos_ud} tornillos, {pasta_juntas_kg} kg de pasta de juntas, {lana_mineral_m2} m² de lana mineral.",
+  "formula_display": "L × 2 × 1 → area_m2, placas_ud",
+  "steps": [
+    "Introducir los valores de largo, alto, tipo_placa y aislamiento",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m, cm, mm)",
+    "Calcular los valores de area m2 y placas ud",
+    "El resultado se expresa en m². Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Introducir valores con unidades incorrectas sin verificar la conversión",
+    "Redondear resultados intermedios en lugar del resultado final",
+    "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "largo",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "alto",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "tipo_placa",
+      "current_type": "select",
+      "recommended_type": "select",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "aislamiento",
+      "current_type": "select",
+      "recommended_type": "select",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small wall",
+      "largo": 5,
+      "alto": 1.3
+    },
+    {
+      "_label": "Medium wall",
+      "largo": 7.5,
+      "alto": 1.95
+    },
+    {
+      "_label": "Large wall",
+      "largo": 10,
+      "alto": 2.6
+    },
+    {
+      "_label": "Room",
+      "largo": 15,
+      "alto": 3.9
+    },
+    {
+      "_label": "House perimeter",
+      "largo": 20,
+      "alto": 5
+    }
+  ],
+  "units": {
+    "largo": "m",
+    "alto": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Tabique de Pladur",
+      "desc": "Calcula placas, perfiles y materiales para tabiques de pladur.",
+      "seo_title": "Calculadora de Pladur – Materiales para Tabiques",
+      "inputs": {
+        "largo": "Longitud tabique",
+        "alto": "Altura tabique",
+        "tipo_placa": "Tipo placa",
+        "aislamiento": "Con lana mineral"
+      },
+      "outputs": {
+        "area_m2": "Área",
+        "placas_ud": "Placas yeso",
+        "perfiles_canal": "Perfiles canal (suelo/techo)",
+        "perfiles_montante": "Perfiles montante",
+        "tornillos_ud": "Tornillos",
+        "pasta_juntas_kg": "Pasta de juntas",
+        "lana_mineral_m2": "Lana mineral"
+      },
+      "seo_description": "Calcula los materiales de pladur necesarios para tabiques y falsos techos. Incluye placas, perfiles, tornillos y aislante. Herramienta gratuita.",
+      "example_label": "Calcular materiales para un tabique de pladur de 10m × 2.6m con doble placa y aislamiento de lana mineral.",
+      "range_hints": {
+        "largo": "Longitud total del tabique",
+        "alto": "Altura libre de suelo a techo"
+      },
+      "result_context": "Tabique de {area_m2} m² requiere {placas_ud} placas de yeso, {perfiles_canal} perfiles de canal, {perfiles_montante} montantes, {tornillos_ud} tornillos, {pasta_juntas_kg} kg de pasta y {lana_mineral_m2} m² de aislamiento.",
+      "formula_display": "Área = largo × alto; Placas = (área × capas) ÷ 2.88 m²/placa",
+      "steps": [
+        "Calcular área: 10m × 2.6m = 26m²",
+        "Calcular placas (doble): 26m² × 2 caras ÷ 2.88m² × 1.1 (merma) = 20 placas",
+        "Calcular perfiles canal (suelo/techo): 10m × 2 × 1.1 = 22 unidades",
+        "Calcular montantes (cada 0.60m): (10m ÷ 0.60m + 1) × 2 = 34 montantes",
+        "Calcular tornillos: 26m² × 20 ud/m² = 520 tornillos"
+      ],
+      "mistakes": [
+        "No usar doble placa cuando se requiere aislamiento acústico",
+        "Separar demasiado los montantes (máximo 0.60m)",
+        "No colocar lana mineral cuando el tabique separa ambientes ruidosos"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "alto",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "tipo_placa",
+          "reason": "Correcto: opción discreta"
+        },
+        {
+          "field_id": "aislamiento",
+          "reason": "Correcto: opción discreta"
+        }
+      ]
+    },
+    "en": {
+      "name": "Drywall Partition Calculator",
+      "desc": "Drywall Partition Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Drywall Calculator – Boards & Studs",
+      "seo_desc": "Drywall Partition Calculator. Partition length, Partition height, Board type — get Area, Gypsum boards, Track profiles instantly for your masonry and.",
+      "inputs": {
+        "largo": "Partition length",
+        "alto": "Partition height",
+        "tipo_placa": "Board type",
+        "aislamiento": "With mineral wool"
+      },
+      "outputs": {
+        "area_m2": "Area",
+        "placas_ud": "Gypsum boards",
+        "perfiles_canal": "Track profiles",
+        "perfiles_montante": "Stud profiles",
+        "tornillos_ud": "Screws",
+        "pasta_juntas_kg": "Joint compound",
+        "lana_mineral_m2": "Mineral wool"
+      },
+      "seo_description": "Calculate plasterboard, metal studs, screws and joint compound for drywall partitions. Single or double layer with optional mineral wool insulation.",
+      "example_label": "Calcular materiales para un tabique de pladur de 10m × 2.6m con doble placa y aislamiento de lana mineral.",
+      "range_hints": {
+        "largo": "Longitud total del tabique",
+        "alto": "Altura libre de suelo a techo"
+      },
+      "result_context": "Tabique de {area_m2} m² requiere {placas_ud} placas de yeso, {perfiles_canal} perfiles de canal, {perfiles_montante} montantes, {tornillos_ud} tornillos, {pasta_juntas_kg} kg de pasta y {lana_mineral_m2} m² de aislamiento.",
+      "formula_display": "Área = largo × alto; Placas = (área × capas) ÷ 2.88 m²/placa",
+      "steps": [
+        "Calcular área: 10m × 2.6m = 26m²",
+        "Calcular placas (doble): 26m² × 2 caras ÷ 2.88m² × 1.1 (merma) = 20 placas",
+        "Calcular perfiles canal (suelo/techo): 10m × 2 × 1.1 = 22 unidades",
+        "Calcular montantes (cada 0.60m): (10m ÷ 0.60m + 1) × 2 = 34 montantes",
+        "Calcular tornillos: 26m² × 20 ud/m² = 520 tornillos"
+      ],
+      "mistakes": [
+        "No usar doble placa cuando se requiere aislamiento acústico",
+        "Separar demasiado los montantes (máximo 0.60m)",
+        "No colocar lana mineral cuando el tabique separa ambientes ruidosos"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "tipo_placa",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: opción discreta"
+        },
+        {
+          "field_id": "aislamiento",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: opción discreta"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Cloison Placo",
+      "desc": "Calculez plaques, rails et vis pour cloisons sèches.",
+      "seo_title": "Calculateur Placo – Plaques et Rails",
+      "inputs": {
+        "largo": "Longueur cloison",
+        "alto": "Hauteur cloison",
+        "tipo_placa": "Type plaque",
+        "aislamiento": "Avec laine minérale"
+      },
+      "outputs": {
+        "area_m2": "Surface",
+        "placas_ud": "Plaques plâtre",
+        "perfiles_canal": "Rails bas/haut",
+        "perfiles_montante": "Montants",
+        "tornillos_ud": "Vis",
+        "pasta_juntas_kg": "Enduit de joints",
+        "lana_mineral_m2": "Laine minérale"
+      },
+      "seo_description": "Calculez plaques de plâtre, rails métalliques, vis et enduit pour cloisons sèches Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calculer les matériaux pour un tabique de pladur de 10m × 2.6m avec double placa et isolation de lana mineral.",
+      "range_hints": {
+        "largo": "Longueur totale du tabique",
+        "alto": "hauteur libre de sol a toit"
+      },
+      "result_context": "Tabique de {area_m2} m² nécessite {placas_ud} placas de plâtre, {perfiles_canal} perfiles de canal, {perfiles_montante} montantes, {tornillos_ud} tornillos, {pasta_juntas_kg} kg de pasta et {lana_mineral_m2} m² de isolation.",
+      "formula_display": "Área = longueur × alto; Placas = (área × capas) Á· 2.88 m²/placa",
+      "steps": [
+        "Calculer área: 10m × 2.6m = 26m²",
+        "Calculer placas (double): 26m² × 2 caras Á· 2.88m² × 1.1 (merma) = 20 placas",
+        "Calculer perfiles canal (sol/toit): 10m × 2 × 1.1 = 22 unités",
+        "Calculer montantes (chaque 0.60m): (10m Á· 0.60m + 1) × 2 = 34 montantes",
+        "Calculer tornillos: 26m² × 20 ud/m² = 520 tornillos"
+      ],
+      "mistakes": [
+        "No Utiliser double placa cuando se nécessite isolation acoustique",
+        "Separar demasiado les montantes (maximum 0.60m)",
+        "No colocar lana mineral cuando le tabique separa ambientes ruidosos"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "tipo_placa",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correct : opción discreta"
+        },
+        {
+          "field_id": "aislamiento",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correct : opción discreta"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Divisória Drywall",
+      "desc": "Calcule placas de gesso acartonado, perfis metálicos, parafusos e massa corrida para divisórias Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora Drywall – Chapas e Perfis",
+      "inputs": {
+        "largo": "Comprimento divisória",
+        "alto": "Altura divisória",
+        "tipo_placa": "Tipo placa",
+        "aislamiento": "Com lã mineral"
+      },
+      "outputs": {
+        "area_m2": "Área",
+        "placas_ud": "Placas gesso",
+        "perfiles_canal": "Perfis guia (piso/teto)",
+        "perfiles_montante": "Perfis montante",
+        "tornillos_ud": "Parafusos",
+        "pasta_juntas_kg": "Massa de juntas",
+        "lana_mineral_m2": "Lã mineral"
+      },
+      "seo_description": "Calcule placas de gesso acartonado, perfis metálicos, parafusos e massa corrida para divisórias Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular materiais para um tabique de pladur de 10m × 2.6m com duplo placa e isolamento de lana mineral.",
+      "range_hints": {
+        "largo": "Longitud total do tabique",
+        "alto": "Altura libre de solo a telhado"
+      },
+      "result_context": "Tabique de {area_m2} m² requer {placas_ud} placas de gesso, {perfiles_canal} perfiles de canal, {perfiles_montante} montantes, {tornillos_ud} tornillos, {pasta_juntas_kg} kg de pasta e {lana_mineral_m2} m² de aislamiento.",
+      "formula_display": "Área = comprimento × alto; Placas = (área × capas) ÷ 2.88 m²/placa",
+      "steps": [
+        "Calcular área: 10m × 2.6m = 26m²",
+        "Calcular placas (duplo): 26m² × 2 caras ÷ 2.88m² × 1.1 (merma) = 20 placas",
+        "Calcular perfiles canal (suelo/techo): 10m × 2 × 1.1 = 22 unidades",
+        "Calcular montantes (cada 0.60m): (10m ÷ 0.60m + 1) × 2 = 34 montantes",
+        "Calcular tornillos: 26m² × 20 ud/m² = 520 tornillos"
+      ],
+      "mistakes": [
+        "Não usar duplo placa cuando é necessário isolamento acústico",
+        "Separar demasiado os montantes (máximo 0.60m)",
+        "Não colocar lana mineral cuando o tabique separa ambientes ruidosos"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "tipo_placa",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correto: opção discreta"
+        },
+        {
+          "field_id": "aislamiento",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correto: opção discreta"
+        }
+      ]
+    },
+    "de": {
+      "name": "Trockenbau Gipskarton",
+      "desc": "Berechnen Sie trockenbau Gipskarton online. Geben Sie largo, alto, tipo placa ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Trockenbau Gipskarton | CalcToWork",
+      "seo_desc": "Trockenbau Gipskarton online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Trockenbau Gipskarton online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "largo": "Largo",
+        "alto": "Alto",
+        "tipo_placa": "Tipo Placa",
+        "aislamiento": "Aislamiento"
+      },
+      "outputs": {
+        "area_m2": "Area M2",
+        "placas_ud": "Placas Ud",
+        "perfiles_canal": "Perfiles Canal",
+        "perfiles_montante": "Perfiles Montante",
+        "tornillos_ud": "Tornillos Ud",
+        "pasta_juntas_kg": "Pasta Juntas Kg",
+        "lana_mineral_m2": "Lana Mineral M2"
+      },
+      "example_label": "Ejemplo para tabique pladur: valores 10m, 2.6m",
+      "range_hints": {
+        "largo": "Valor típico entre 0.5 y 200. Valor por defecto: 10 m.",
+        "alto": "Valor típico entre 0.5 y 5. Valor por defecto: 2.6 m.",
+        "tipo_placa": "Seleccionar entre las opciones: single, double",
+        "aislamiento": "Seleccionar entre las opciones: si, no"
+      },
+      "result_context": "Resultados: {area_m2} m² de superficie, {placas_ud} placas, {perfiles_canal} perfiles canal, {perfiles_montante} perfiles montante, {tornillos_ud} tornillos, {pasta_juntas_kg} kg de pasta de juntas, {lana_mineral_m2} m² de lana mineral.",
+      "formula_display": "L × 2 × 1 → area_m2, placas_ud",
+      "steps": [
+        "Introducir los valores de largo, alto, tipo_placa y aislamiento",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m, cm, mm)",
+        "Calcular los valores de area m2 y placas ud",
+        "El resultado se expresa en m². Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Introducir valores con unidades incorrectas sin verificar la conversión",
+        "Redondear resultados intermedios en lugar del resultado final",
+        "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "tipo_placa",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "aislamiento",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Rasatura con Gesso",
+      "description": "Calcola la quantità di gesso per rasare pareti.",
+      "seo_title": "Calcolatore Cartongesso – Lastre",
+      "seo_description": "Calcolatore Rasatura con Gesso. Superficie (m²), Numero di mani ââ‚¬” ottieni Gesso (kg), Sacchi 25 kg istantaneamente per il tuo progetto di muratura e.",
+      "inputs": {
+        "area": "Superficie (m²)",
+        "capas": "Numero di mani"
+      },
+      "outputs": {
+        "yeso_kg": "Gesso (kg)",
+        "sacos_25kg": "Sacchi 25 kg"
+      },
+      "example_label": "Calcolare opacoriales per un tabique di cartongesso di 10m × 2.6m con doble letra e isolaminto dillana minerale.",
+      "range_hints": {
+        "largo": "Longitud totale dil tabique",
+        "alto": "Altura libre di terrinon a soffitto"
+      },
+      "result_context": "Tabique di {area_m2} m² richiedi {letre_ud} letre di gesso, {perfiles_canal} perfiles di canal, {perfiles_moncosìte} montprima, {tornili_ud} tornili, {pasta_guarnizioni_kg} kg di pasta e {lana_mineral_m2} m² di isolaminto.",
+      "formula_display": "Área = lunghezza × alto; Placas = (área × strati) ÷ 2.88 m²/letra",
+      "steps": [
+        "Calcolare área: 10m × 2.6m = 26m²",
+        "Calcolare letre (doble): 26m² × 2 facce ÷ 2.88m² × 1.1 (merma) = 20 letre",
+        "Calcolare perfiles canal (terrinon/soffitto): 10m × 2 × 1.1 = 22 unità",
+        "Calcolare montprima (cada 0.60m): (10m ÷ 0.60m + 1) × 2 = 34 montprima",
+        "Calcolare tornili: 26m² × 20 ud/m² = 520 tornili"
+      ],
+      "mistakes": [
+        "No usar doble letra quando se richiedi isolaminto acústico",
+        "Seperr troppo i montprima (máximo 0.60m)",
+        "No colocar lana minerale quando el tabique seper ambiintes ruidosos"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "tipo_placa",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Corretto: opción discreta"
+        },
+        {
+          "field_id": "aislamiento",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Corretto: opción discreta"
+        }
+      ]
+    }
+  }
+}

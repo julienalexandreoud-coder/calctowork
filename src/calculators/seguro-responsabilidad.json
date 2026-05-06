@@ -1,0 +1,446 @@
+{
+  "id": "087",
+  "slug": "seguro-responsabilidad",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "facturacion_anual_eur",
+      "type": "number",
+      "min": 10000,
+      "max": 2000000,
+      "step": 5000,
+      "default": 150000,
+      "unit": "â‚¬/año"
+    },
+    {
+      "id": "tipo_actividad",
+      "type": "select",
+      "default": "reforma",
+      "options": [
+        "reforma",
+        "obra_nueva",
+        "instalaciones",
+        "servicios"
+      ]
+    },
+    {
+      "id": "capital_asegurado_eur",
+      "type": "number",
+      "min": 100000,
+      "max": 2000000,
+      "step": 50000,
+      "default": 300000,
+      "unit": "â‚¬"
+    }
+  ],
+  "formula": "var F=parseFloat(inputs.facturacion_anual_eur)||0,Ca=parseFloat(inputs.capital_asegurado_eur)||300000,tasa={'reforma':0.003,'obra_nueva':0.004,'instalaciones':0.0035,'servicios':0.002};if(!F)return{error:true};var prima=+(Math.max(F*tasa[inputs.tipo_actividad],Ca*0.001)).toFixed(2),mensual=+(prima/12).toFixed(2);return{prima_anual_eur:prima,prima_mensual_eur:mensual};",
+  "outputs": [
+    {
+      "id": "prima_anual_eur",
+      "unit": "â‚¬/año",
+      "highlight": true
+    },
+    {
+      "id": "prima_mensual_eur",
+      "unit": "â‚¬/mes"
+    }
+  ],
+  "related": [
+    "079",
+    "078",
+    "092",
+    "080"
+  ],
+  "example_inputs": {
+    "facturacion_anual_eur": 150000,
+    "tipo_actividad": "reforma",
+    "capital_asegurado_eur": 300000
+  },
+  "example_label": "Calcular seguro de RC para empresa de reformas con 150000 € de facturación anual y 300000 € de capital.",
+  "range_hints": {
+    "facturacion_anual_eur": "Volumen de negocio anual estimado de la empresa o autónomo (€/año)",
+    "tipo_actividad": "Tipo de actividad principal: reforma, obra nueva (mayor riesgo), instalaciones o servicios profesionales",
+    "capital_asegurado_eur": "Capital máximo cubierto por siniestro. Mínimo recomendado: 300.000 € para reformas (€)"
+  },
+  "result_context": "Resultados: prima anual de {prima_anual_eur} €/año, prima mensual de {prima_mensual_eur} €/mes.",
+  "formula_display": "Prima = facturación × tasa_actividad (máx.: capital_asegurado × 0.1%)",
+  "steps": [
+    "Introduce la facturación anual estimada de la empresa constructora (volumen de negocio)",
+    "Selecciona el tipo de actividad principal: reforma, obra nueva, instalaciones o servicios profesionales",
+    "Define el capital asegurado: importe máximo que cubre la póliza por siniestro (mínimo recomendado 300.000 €)",
+    "La prima se calcula como facturación × tasa según actividad (0.2-0.4% según riesgo)",
+    "La aseguradora aplica un mínimo de prima basado en el capital asegurado (~0.1% del capital)",
+    "El coste se puede pagar anualmente o fraccionado en mensualidades (con recargo por fraccionamiento)"
+  ],
+  "mistakes": [
+    "No contratar seguro de responsabilidad civil: es obligatorio para ejercer como constructor o reformista",
+    "Elegir un capital asegurado insuficiente: un solo siniestro grave puede superar los 300.000 €",
+    "Olvidar declarar todas las actividades: la póliza puede no cubrir trabajos no declarados expresamente",
+    "No revisar la póliza anualmente: la facturación cambia y el capital debe actualizarse",
+    "Confundir seguro de responsabilidad civil con seguro decenal (obligatorio para obra nueva según LOE)"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "facturacion_anual_eur",
+      "reason": "Tipo correcto: numérico para facturación anual de la empresa en €."
+    },
+    {
+      "field_id": "tipo_actividad",
+      "reason": "Tipo correcto: selector discreto para el tipo de actividad según riesgo."
+    },
+    {
+      "field_id": "capital_asegurado_eur",
+      "reason": "Tipo correcto: numérico para capital máximo cubierto por siniestro en €."
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Autónomo reformas (baja facturación)",
+      "facturacion_anual_eur": 50000,
+      "capital_asegurado_eur": 150000
+    },
+    {
+      "_label": "Pequeña empresa reformas",
+      "facturacion_anual_eur": 150000,
+      "capital_asegurado_eur": 300000
+    },
+    {
+      "_label": "Constructora obra nueva",
+      "facturacion_anual_eur": 500000,
+      "capital_asegurado_eur": 600000
+    },
+    {
+      "_label": "Instalaciones eléctricas/fontanería",
+      "facturacion_anual_eur": 200000,
+      "capital_asegurado_eur": 300000
+    },
+    {
+      "_label": "Gran constructora",
+      "facturacion_anual_eur": 2000000,
+      "capital_asegurado_eur": 1000000
+    }
+  ],
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Seguro de Responsabilidad Civil",
+      "desc": "Estima el importe de la prima del seguro de responsabilidad civil para constructores y autónomos de la construcción. Obten resultados al instante con.",
+      "seo_title": "Calculadora Seguro Responsabilidad Civil – Construcción",
+      "seo_desc": "Calcula la prima de tu seguro de RC profesional: introduce facturación anual, tipo de actividad y capital asegurado. Resultados al instante sin registro.",
+      "inputs": {
+        "facturacion_anual_eur": "Facturación anual (€)",
+        "tipo_actividad": "Tipo de actividad",
+        "capital_asegurado_eur": "Capital asegurado (€)"
+      },
+      "outputs": {
+        "prima_anual_eur": "Prima anual estimada",
+        "prima_mensual_eur": "Prima mensual"
+      },
+      "seo_description": "Calcula la prima estimada del seguro de responsabilidad civil para constructores y reformistas. Basado en facturación anual, tipo de actividad (reforma, obra nueva, instalaciones) y capital asegurado.",
+      "example_label": "Calcular seguro de RC para empresa de reformas con 150000 € de facturación anual y 300000 € de capital.",
+      "range_hints": {
+        "facturacion_anual_eur": "Valor entre 10000 y 2000000 €/año.",
+        "capital_asegurado_eur": "Valor entre 100000 y 2000000 €.",
+        "tipo_actividad": "Tipo de actividad principal: reforma, obra nueva (mayor riesgo), instalaciones o servicios profesionales"
+      },
+      "result_context": "Resultados: prima anual de {prima_anual_eur} €/año, prima mensual de {prima_mensual_eur} €/mes.",
+      "formula_display": "Prima = facturación × tasa_actividad (máx.: capital_asegurado × 0.1%)",
+      "steps": [
+        "Introduce la facturación anual estimada de la empresa constructora (volumen de negocio)",
+        "Selecciona el tipo de actividad principal: reforma, obra nueva, instalaciones o servicios profesionales",
+        "Define el capital asegurado: importe máximo que cubre la póliza por siniestro (mínimo recomendado 300.000 €)",
+        "La prima se calcula como facturación × tasa según actividad (0.2-0.4% según riesgo)",
+        "La aseguradora aplica un mínimo de prima basado en el capital asegurado (~0.1% del capital)",
+        "El coste se puede pagar anualmente o fraccionado en mensualidades (con recargo por fraccionamiento)"
+      ],
+      "mistakes": [
+        "No contratar seguro de responsabilidad civil: es obligatorio para ejercer como constructor o reformista",
+        "Elegir un capital asegurado insuficiente: un solo siniestro grave puede superar los 300.000 €",
+        "Olvidar declarar todas las actividades: la póliza puede no cubrir trabajos no declarados expresamente",
+        "No revisar la póliza anualmente: la facturación cambia y el capital debe actualizarse",
+        "Confundir seguro de responsabilidad civil con seguro decenal (obligatorio para obra nueva según LOE)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "facturacion_anual_eur",
+          "reason": "Tipo correcto: numérico para facturación anual de la empresa en €."
+        },
+        {
+          "field_id": "tipo_actividad",
+          "reason": "Tipo correcto: selector discreto para el tipo de actividad según riesgo."
+        },
+        {
+          "field_id": "capital_asegurado_eur",
+          "reason": "Tipo correcto: numérico para capital máximo cubierto por siniestro en €."
+        }
+      ]
+    },
+    "en": {
+      "name": "Liability Insurance Estimator",
+      "desc": "Liability Insurance Estimator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Liability Insurance Calculator – Construction",
+      "seo_desc": "Calculate your professional liability insurance premium: enter annual revenue, activity type, and insured capital. Instant results, no registration.",
+      "inputs": {
+        "facturacion_anual_eur": "Annual turnover (â‚¬)",
+        "tipo_actividad": "Activity type",
+        "capital_asegurado_eur": "Insured sum (â‚¬)"
+      },
+      "outputs": {
+        "prima_anual_eur": "Estimated annual premium",
+        "prima_mensual_eur": "Monthly premium"
+      },
+      "seo_description": "Calculate estimated liability insurance premiums for builders and renovators. Based on annual revenue, activity type (renovation, new build, installations), and insured capital.",
+      "example_label": "Calcular seguro de RC para empresa de reformas con 150000 € de facturación anual y 300000 € de capital.",
+      "range_hints": {
+        "facturacion_anual_eur": "Valor entre 10000 y 2000000 â‚¬/año.",
+        "capital_asegurado_eur": "Valor entre 100000 y 2000000 â‚¬.",
+        "tipo_actividad": "Tipo de actividad principal: reforma, obra nueva (mayor riesgo), instalaciones o servicios profesionales"
+      },
+      "result_context": "Resultados: prima anual de {prima_anual_eur} €/año, prima mensual de {prima_mensual_eur} €/mes.",
+      "formula_display": "Prima = facturación × tasa_actividad (máx.: capital_asegurado × 0.1%)",
+      "steps": [
+        "Introduce la facturación anual estimada de la empresa constructora (volumen de negocio)",
+        "Selecciona el tipo de actividad principal: reforma, obra nueva, instalaciones o servicios profesionales",
+        "Define el capital asegurado: importe máximo que cubre la póliza por siniestro (mínimo recomendado 300.000 €)",
+        "La prima se calcula como facturación × tasa según actividad (0.2-0.4% según riesgo)",
+        "La aseguradora aplica un mínimo de prima basado en el capital asegurado (~0.1% del capital)",
+        "El coste se puede pagar anualmente o fraccionado en mensualidades (con recargo por fraccionamiento)"
+      ],
+      "mistakes": [
+        "No contratar seguro de responsabilidad civil: es obligatorio para ejercer como constructor o reformista",
+        "Elegir un capital asegurado insuficiente: un solo siniestro grave puede superar los 300.000 €",
+        "Olvidar declarar todas las actividades: la póliza puede no cubrir trabajos no declarados expresamente",
+        "No revisar la póliza anualmente: la facturación cambia y el capital debe actualizarse",
+        "Confundir seguro de responsabilidad civil con seguro decenal (obligatorio para obra nueva según LOE)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "facturacion_anual_eur",
+          "reason": "Tipo correcto: numérico para facturación anual de la empresa en €."
+        },
+        {
+          "field_id": "tipo_actividad",
+          "reason": "Tipo correcto: selector discreto para el tipo de actividad según riesgo."
+        },
+        {
+          "field_id": "capital_asegurado_eur",
+          "reason": "Tipo correcto: numérico para capital máximo cubierto por siniestro en €."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Estimateur Assurance Responsabilité Civile",
+      "desc": "Estimez le montant de la prime d'assurance responsabilité civile professionnelle pour artisans du bâtiment. Obtenez des resultats instantanes avec.",
+      "seo_title": "Calculateur Assurance RC Artisan",
+      "inputs": {
+        "facturacion_anual_eur": "Chiffre d'affaires annuel (€)",
+        "tipo_actividad": "Type d'activité",
+        "capital_asegurado_eur": "Capital assuré (€)"
+      },
+      "outputs": {
+        "prima_anual_eur": "Prime annuelle estimée",
+        "prima_mensual_eur": "Prime mensuelle"
+      },
+      "seo_description": "Estimez le montant de la prime d'assurance responsabilité civile professionnelle pour artisans du bâtiment. Obtenez des resultats instantanes avec.",
+      "example_label": "Calcular seguro de RC para empresa de reformas con 150000 € de facturación anual y 300000 € de capital.",
+      "range_hints": {
+        "facturacion_anual_eur": "Valor entre 10000 et 2000000 â‚¬/año.",
+        "capital_asegurado_eur": "Valor entre 100000 et 2000000 €.",
+        "tipo_actividad": "Tipo de actividad principal: reforma, obra nueva (mayor riesgo), instalaciones o servicios profesionales"
+      },
+      "result_context": "Resultados: prima anual de {prima_anual_eur} €/año, prima mensual de {prima_mensual_eur} €/mes.",
+      "formula_display": "Prima = facturación × tasa_actividad (máx.: capital_asegurado × 0.1%)",
+      "steps": [
+        "Introduce la facturación anual estimada de la empresa constructora (volumen de negocio)",
+        "Selecciona el tipo de actividad principal: reforma, obra nueva, instalaciones o servicios profesionales",
+        "Define el capital asegurado: importe máximo que cubre la póliza por siniestro (mínimo recomendado 300.000 €)",
+        "La prima se calcula como facturación × tasa según actividad (0.2-0.4% según riesgo)",
+        "La aseguradora aplica un mínimo de prima basado en el capital asegurado (~0.1% del capital)",
+        "El coste se puede pagar anualmente o fraccionado en mensualidades (con recargo por fraccionamiento)"
+      ],
+      "mistakes": [
+        "No contratar seguro de responsabilidad civil: es obligatorio para ejercer como constructor o reformista",
+        "Elegir un capital asegurado insuficiente: un solo siniestro grave puede superar los 300.000 €",
+        "Olvidar declarar todas las actividades: la póliza puede no cubrir trabajos no declarados expresamente",
+        "No revisar la póliza anualmente: la facturación cambia y el capital debe actualizarse",
+        "Confundir seguro de responsabilidad civil con seguro decenal (obligatorio para obra nueva según LOE)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "facturacion_anual_eur",
+          "reason": "Tipo correcto: numérico para facturación anual de la empresa en €."
+        },
+        {
+          "field_id": "tipo_actividad",
+          "reason": "Tipo correcto: selector discreto para el tipo de actividad según riesgo."
+        },
+        {
+          "field_id": "capital_asegurado_eur",
+          "reason": "Tipo correcto: numérico para capital máximo cubierto por siniestro en €."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Seguro de Responsabilidade Civil",
+      "desc": "Estime o prêmio do seguro de responsabilidade civil para construtores e autônomos Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora de Seguro de Responsabilidade Civil",
+      "inputs": {
+        "facturacion_anual_eur": "Faturamento anual (R$)",
+        "tipo_actividad": "Tipo de atividade",
+        "capital_asegurado_eur": "Capital segurado (R$)"
+      },
+      "outputs": {
+        "prima_anual_eur": "Prêmio anual estimado",
+        "prima_mensual_eur": "Prêmio mensal"
+      },
+      "seo_description": "Estime o prêmio do seguro de responsabilidade civil para construtores e autônomos Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular seguro de RC para empresa de reformas con 150000 € de facturación anual y 300000 € de capital.",
+      "range_hints": {
+        "facturacion_anual_eur": "Valor entre 10000 e 2000000 â‚¬/año.",
+        "capital_asegurado_eur": "Valor entre 100000 e 2000000 €.",
+        "tipo_actividad": "Tipo de actividad principal: reforma, obra nueva (mayor riesgo), instalaciones o servicios profesionales"
+      },
+      "result_context": "Resultados: prima anual de {prima_anual_eur} €/año, prima mensual de {prima_mensual_eur} €/mes.",
+      "formula_display": "Prima = facturación × tasa_actividad (máx.: capital_asegurado × 0.1%)",
+      "steps": [
+        "Introduce la facturación anual estimada de la empresa constructora (volumen de negocio)",
+        "Selecciona el tipo de actividad principal: reforma, obra nueva, instalaciones o servicios profesionales",
+        "Define el capital asegurado: importe máximo que cubre la póliza por siniestro (mínimo recomendado 300.000 €)",
+        "La prima se calcula como facturación × tasa según actividad (0.2-0.4% según riesgo)",
+        "La aseguradora aplica un mínimo de prima basado en el capital asegurado (~0.1% del capital)",
+        "El coste se puede pagar anualmente o fraccionado en mensualidades (con recargo por fraccionamiento)"
+      ],
+      "mistakes": [
+        "No contratar seguro de responsabilidad civil: es obligatorio para ejercer como constructor o reformista",
+        "Elegir un capital asegurado insuficiente: un solo siniestro grave puede superar los 300.000 €",
+        "Olvidar declarar todas las actividades: la póliza puede no cubrir trabajos no declarados expresamente",
+        "No revisar la póliza anualmente: la facturación cambia y el capital debe actualizarse",
+        "Confundir seguro de responsabilidad civil con seguro decenal (obligatorio para obra nueva según LOE)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "facturacion_anual_eur",
+          "reason": "Tipo correcto: numérico para facturación anual de la empresa en €."
+        },
+        {
+          "field_id": "tipo_actividad",
+          "reason": "Tipo correcto: selector discreto para el tipo de actividad según riesgo."
+        },
+        {
+          "field_id": "capital_asegurado_eur",
+          "reason": "Tipo correcto: numérico para capital máximo cubierto por siniestro en €."
+        }
+      ]
+    },
+    "de": {
+      "name": "Versicherung Haftpflicht",
+      "desc": "Berechnen Sie versicherung Haftpflicht online. Geben Sie facturacion anual eur, tipo actividad, capital asegurado eur ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Versicherung Haftpflicht | CalcToWork",
+      "seo_desc": "Versicherung Haftpflicht online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Versicherung Haftpflicht online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "facturacion_anual_eur": "Facturacion Anual Eur",
+        "tipo_actividad": "Tipo Actividad",
+        "capital_asegurado_eur": "Capital Asegurado Eur"
+      },
+      "outputs": {
+        "prima_anual_eur": "Prima Anual Eur",
+        "prima_mensual_eur": "Prima Mensual Eur"
+      },
+      "example_label": "Calcular seguro de RC para empresa de reformas con 150000 € de facturación anual y 300000 € de capital.",
+      "range_hints": {
+        "facturacion_anual_eur": "Volumen de negocio anual estimado de la empresa o autónomo (€/año)",
+        "tipo_actividad": "Tipo de actividad principal: reforma, obra nueva (mayor riesgo), instalaciones o servicios profesionales",
+        "capital_asegurado_eur": "Capital máximo cubierto por siniestro. Mínimo recomendado: 300.000 € para reformas (€)"
+      },
+      "result_context": "Resultados: prima anual de {prima_anual_eur} €/año, prima mensual de {prima_mensual_eur} €/mes.",
+      "formula_display": "Prima = facturación × tasa_actividad (máx.: capital_asegurado × 0.1%)",
+      "steps": [
+        "Introduce la facturación anual estimada de la empresa constructora (volumen de negocio)",
+        "Selecciona el tipo de actividad principal: reforma, obra nueva, instalaciones o servicios profesionales",
+        "Define el capital asegurado: importe máximo que cubre la póliza por siniestro (mínimo recomendado 300.000 €)",
+        "La prima se calcula como facturación × tasa según actividad (0.2-0.4% según riesgo)",
+        "La aseguradora aplica un mínimo de prima basado en el capital asegurado (~0.1% del capital)",
+        "El coste se puede pagar anualmente o fraccionado en mensualidades (con recargo por fraccionamiento)"
+      ],
+      "mistakes": [
+        "No contratar seguro de responsabilidad civil: es obligatorio para ejercer como constructor o reformista",
+        "Elegir un capital asegurado insuficiente: un solo siniestro grave puede superar los 300.000 €",
+        "Olvidar declarar todas las actividades: la póliza puede no cubrir trabajos no declarados expresamente",
+        "No revisar la póliza anualmente: la facturación cambia y el capital debe actualizarse",
+        "Confundir seguro de responsabilidad civil con seguro decenal (obligatorio para obra nueva según LOE)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "facturacion_anual_eur",
+          "reason": "Tipo correcto: numérico para facturación anual de la empresa en €."
+        },
+        {
+          "field_id": "tipo_actividad",
+          "reason": "Tipo correcto: selector discreto para el tipo de actividad según riesgo."
+        },
+        {
+          "field_id": "capital_asegurado_eur",
+          "reason": "Tipo correcto: numérico para capital máximo cubierto por siniestro en €."
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Inerti e Aggregati",
+      "description": "Calcola il peso e il volume degli aggregati per calcestruzzo.",
+      "seo_title": "Calcolatore Inerti e Aggregati",
+      "seo_description": "Calcola il peso degli aggregati per calcestruzzo Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo rapido, preciso.",
+      "inputs": {
+        "volumen": "Volume (m³)",
+        "densidad": "Densità (t/m³)",
+        "facturacion_anual_eur": "facturacion anual eur (â‚¬/año)",
+        "tipo_actividad": "tipo actividad ()",
+        "capital_asegurado_eur": "capital asegurado eur (â‚¬)"
+      },
+      "outputs": {
+        "peso_ton": "Peso (t)",
+        "camiones": "Camion da 10 t",
+        "prima_anual_eur": "prima anual eur (â‚¬/año)",
+        "prima_mensual_eur": "prima mensual eur (â‚¬/mes)"
+      },
+      "example_label": "Calcular seguro de RC para empresa de reformas con 150000 € de facturación anual y 300000 € de capital.",
+      "range_hints": {
+        "facturacion_anual_eur": "Valor intre 10000 e 2000000 €/año.",
+        "capital_asegurado_eur": "Valor intre 100000 e 2000000 €.",
+        "tipo_actividad": "Tipo de actividad principal: reforma, obra nueva (mayor riesgo), instalaciones o servicios profesionales"
+      },
+      "result_context": "Resultados: prima anual de {prima_anual_eur} €/año, prima mensual de {prima_mensual_eur} €/mes.",
+      "formula_display": "Prima = facturación × tasa_actividad (máx.: capital_asegurado × 0.1%)",
+      "steps": [
+        "Introduce la facturación anual estimada de la empresa constructora (volumen de negocio)",
+        "Selecciona el tipo de actividad principal: reforma, obra nueva, instalaciones o servicios profesionales",
+        "Define el capital asegurado: importe máximo que cubre la póliza por siniestro (mínimo recomendado 300.000 €)",
+        "La prima se calcula como facturación × tasa según actividad (0.2-0.4% según riesgo)",
+        "La aseguradora aplica un mínimo de prima basado en el capital asegurado (~0.1% del capital)",
+        "El coste se puede pagar anualmente o fraccionado en mensualidades (con recargo por fraccionamiento)"
+      ],
+      "mistakes": [
+        "No contratar seguro de responsabilidad civil: es obligatorio para ejercer como constructor o reformista",
+        "Elegir un capital asegurado insuficiente: un solo siniestro grave puede superar los 300.000 €",
+        "Olvidar declarar todas las actividades: la póliza puede no cubrir trabajos no declarados expresamente",
+        "No revisar la póliza anualmente: la facturación cambia y el capital debe actualizarse",
+        "Confundir seguro de responsabilidad civil con seguro decenal (obligatorio para obra nueva según LOE)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "facturacion_anual_eur",
+          "reason": "Tipo correcto: numérico para facturación anual de la empresa en €."
+        },
+        {
+          "field_id": "tipo_actividad",
+          "reason": "Tipo correcto: selector discreto para el tipo de actividad según riesgo."
+        },
+        {
+          "field_id": "capital_asegurado_eur",
+          "reason": "Tipo correcto: numérico para capital máximo cubierto por siniestro en €."
+        }
+      ],
+      "desc": "Calcola il premio annuale stimato dell'assicurazione RC per imprese edili."
+    }
+  }
+}

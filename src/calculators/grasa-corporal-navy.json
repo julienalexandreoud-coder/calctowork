@@ -1,0 +1,526 @@
+{
+  "id": "425",
+  "slug": "grasa-corporal-navy",
+  "block": 1,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "waist",
+      "type": "number",
+      "step": "any",
+      "default": 80,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "neck",
+      "type": "number",
+      "step": "any",
+      "default": 40,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "height",
+      "type": "number",
+      "step": "any",
+      "default": 175,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "ft"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "gender",
+      "type": "select",
+      "options": [
+        "male",
+        "female"
+      ],
+      "default": "male",
+      "unit": "",
+      "unit_options": [],
+      "unit_category": ""
+    }
+  ],
+  "formula": "var w=parseFloat(inputs.waist)||0;var n=parseFloat(inputs.neck)||0;var h=parseFloat(inputs.height)||0;var g=inputs.gender||'male';var bfp=g==='male'?495/(1.0324-0.19077*Math.log10(w-n)+0.15456*Math.log10(h))-450:495/(1.29579-0.35004*Math.log10(w-n)+0.22100*Math.log10(h))-450;return{bfp:bfp.toFixed(2)};",
+  "outputs": [
+    {
+      "id": "bfp",
+      "unit": "%"
+    }
+  ],
+  "related": [
+    "416",
+    "400",
+    "415",
+    "426"
+  ],
+  "example_inputs": {
+    "waist": 85,
+    "neck": 38,
+    "height": 175,
+    "gender": "male"
+  },
+  "example_label": "Ejemplo para grasa corporal navy: valores 80cm, 40cm, 175cm",
+  "range_hints": {
+    "waist": "Valor típico entre 0 y 500. Valor por defecto: 80 cm.",
+    "neck": "Valor típico entre 0 y 500. Valor por defecto: 40 cm.",
+    "height": "Valor típico entre 0 y 500. Valor por defecto: 175 cm.",
+    "gender": "Seleccionar entre las opciones: male, female"
+  },
+  "result_context": "Tu porcentaje de grasa corporal según el método de la Marina de EE.UU. es del {bfp}%.",
+  "result_context_en": "Your body fat percentage according to the U.S. Navy method is {bfp}%.",
+  "result_context_fr": "Votre pourcentage de graisse corporelle selon la méthode de la Marine américaine est de {bfp}%.",
+  "result_context_pt": "Seu percentual de gordura corporal segundo o método da Marinha dos EUA é de {bfp}%.",
+  "result_context_de": "Ihr Körperfettanteil nach der US-Navy-Methode beträgt {bfp}%.",
+  "result_context_it": "La tua percentuale di grasso corporeo secondo il metodo della Marina statunitense è del {bfp}%.",
+  "formula_display": "Bfp (%) = f(waist, neck, height, gender)",
+  "steps": [
+    "Introducir los valores de waist, neck, height y gender",
+    "Verificar que las unidades sean correctas y convertir si es necesario (cm, in)",
+    "Realizar el cálculo para obtener bfp",
+    "El resultado se expresa en %. Verificar que la magnitud es coherente",
+    "Comparar el resultado con los valores de referencia para interpretar su significado"
+  ],
+  "mistakes": [
+    "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+    "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+    "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "waist",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "neck",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "height",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "gender",
+      "current_type": "select",
+      "recommended_type": "select",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "waist": 42,
+      "neck": 19,
+      "height": 175
+    },
+    {
+      "_label": "Teen",
+      "waist": 64,
+      "neck": 28,
+      "height": 175
+    },
+    {
+      "_label": "Adult (F)",
+      "waist": 85,
+      "neck": 38,
+      "height": 175
+    },
+    {
+      "_label": "Adult (M)",
+      "waist": 128,
+      "neck": 57,
+      "height": 175
+    },
+    {
+      "_label": "Elderly",
+      "waist": 170,
+      "neck": 76,
+      "height": 175
+    }
+  ],
+  "units": {
+    "waist": "m",
+    "neck": "m",
+    "height": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Grasa Corporal Método Navy",
+      "description": "Estima el % de grasa corporal con el método de la Marina.",
+      "inputs": {
+        "waist": "Cintura",
+        "neck": "Cuello",
+        "height": "Altura",
+        "gender": "Sexo"
+      },
+      "outputs": {
+        "bfp": "% Grasa corporal"
+      },
+      "seo_title": "Grasa Corporal Método Navy Gratuita",
+      "seo_description": "Estima el % de grasa corporal con el método de la Marina. Calculadora gratuita, precisa e instantánea. Obten resultados al instante con explicacion paso.",
+      "example_label": "Calcular grasa corporal método Navy para hombre con cintura 80cm, cuello 40cm",
+      "range_hints": {
+        "waist": "Cintura: 60-120 cm",
+        "neck": "Cuello: 30-50 cm",
+        "height": "Altura común: 140-200 cm"
+      },
+      "result_context": "El método Navy usa circunferencias corporales; precisión ±3-4% comparado con DEXA como referencia.",
+      "formula_display": "Hombre: %Grasa = 495 ÷ (1.0324 - 0.19077 × log(cintura-cuello) + 0.15456 × log(altura)) - 450",
+      "steps": [
+        "Mide cintura a nivel del ombligo (cm)",
+        "Mide cuello justo bajo la nuez de Adán (cm)",
+        "Mide altura total (cm)",
+        "Aplica fórmula Navy específica por género usando logaritmos",
+        "Compara con rangos: hombres 8-19% saludable, mujeres 21-33%"
+      ],
+      "mistakes": [
+        "Medir cintura sobre ropa o con cinta floja (subestima grasa)",
+        "Medir cuello muy abajo (debe ser justo bajo nuez de Adán)",
+        "Aplicar fórmula hombre a mujer o viceversa (usa ecuaciones distintas)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "waist",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "neck",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "height",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "gender",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "en": {
+      "name": "Body Fat Navy Method",
+      "description": "Estimate body fat percentage using the Navy method.",
+      "inputs": {
+        "waist": "Waist",
+        "neck": "Neck",
+        "height": "Height",
+        "gender": "Gender"
+      },
+      "outputs": {
+        "bfp": "Body fat %"
+      },
+      "seo_title": "Body Fat Navy Method – Easy Calculator",
+      "seo_description": "Body Fat Navy Method. Waist, Neck, Height — get Body fat % instantly for your foundation and structure project. Includes waste factor andMaterial ordering.",
+      "example_label": "Calcular grasa corporal método Navy para hombre con cintura 80cm, cuello 40cm",
+      "range_hints": {
+        "waist": "Cintura: 60-120 cm",
+        "neck": "Cuello: 30-50 cm",
+        "height": "Altura común: 140-200 cm"
+      },
+      "result_context": "El método Navy usa circunferencias corporales; precisión ±3-4% comparado con DEXA como referencia.",
+      "formula_display": "Hombre: %Grasa = 495 ÷ (1.0324 - 0.19077 × log(cintura-cuello) + 0.15456 × log(altura)) - 450",
+      "steps": [
+        "Mide cintura a nivel del ombligo (cm)",
+        "Mide cuello justo bajo la nuez de Adán (cm)",
+        "Mide altura total (cm)",
+        "Aplica fórmula Navy específica por género usando logaritmos",
+        "Compara con rangos: hombres 8-19% saludable, mujeres 21-33%"
+      ],
+      "mistakes": [
+        "Medir cintura sobre ropa o con cinta floja (subestima grasa)",
+        "Medir cuello muy abajo (debe ser justo bajo nuez de Adán)",
+        "Aplicar fórmula hombre a mujer o viceversa (usa ecuaciones distintas)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "waist",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "neck",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "height",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "gender",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Grassee Corporelle Navy",
+      "description": "Estimez le % de graisse corporelle avec la méthode Navy.",
+      "inputs": {
+        "waist": "Taille",
+        "neck": "Cou",
+        "height": "Taille",
+        "gender": "Sexe"
+      },
+      "outputs": {
+        "bfp": "% Graisse"
+      },
+      "seo_title": "Grassee Corporelle Navy – Calcul Facile",
+      "seo_description": "Estimez le % de graisse corporelle avec la méthode Navy. Calculateur gratuit, précis et instantané. Obtenez des resultats instantanes avec explication.",
+      "example_label": "Calculer grasa corporal método Navy pour hombre avec cintura 80cm, cuello 40cm",
+      "range_hints": {
+        "waist": "Cintura: 60-120 cm",
+        "neck": "Cuello: 30-50 cm",
+        "height": "hauteur común: 140-200 cm"
+      },
+      "result_context": "le método Navy usa circunferencias corporales; precisión ±3-4% comparado avec DEXA como referencia.",
+      "formula_display": "Hombre: %Grasa = 495 Á· (1.0324 - 0.19077 × log(cintura-cuello) + 0.15456 × log(hauteur)) - 450",
+      "steps": [
+        "Mide cintura a nivel du ombligo (cm)",
+        "Mide cuello justo sous la nuez de Adán (cm)",
+        "Mide hauteur total (cm)",
+        "Aplica fórmula Navy específica par género usando logaritmos",
+        "Compara avec rangos: hombres 8-19% saludable, mujeres 21-33%"
+      ],
+      "mistakes": [
+        "Medir cintura sur ropa o avec cinta floja (subestima grasa)",
+        "Medir cuello muy abajo (debe ser justo sous nuez de Adán)",
+        "Aplicar fórmula hombre a mujer o viceversa (usa ecuaciones distintas)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "waist",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "neck",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "height",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "gender",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Gordura Corporal Método Navy",
+      "description": "Estime a % de gordura corporal com o método Navy.",
+      "inputs": {
+        "waist": "Cintura",
+        "neck": "Pescoço",
+        "height": "Altura",
+        "gender": "Sexo"
+      },
+      "outputs": {
+        "bfp": "% Gordura"
+      },
+      "seo_title": "Gordura Corporal Método Navy – Fácil e Grátis",
+      "seo_description": "Estime a % de gordura corporal com o método Navy. Calculadora gratuita, precisa e instantânea. Obtenha resultados instantaneos com explicacao passo a.",
+      "example_label": "Calcular grasa corporal método Navy para hombre com cintura 80cm, cuello 40cm",
+      "range_hints": {
+        "waist": "Cintura: 60-120 cm",
+        "neck": "Cuello: 30-50 cm",
+        "height": "Altura comum: 140-200 cm"
+      },
+      "result_context": "El método Navy usa circunferencias corporales; precisión ±3-4% comparado com DEXA como referencia.",
+      "formula_display": "Hombre: %Grasa = 495 ÷ (1.0324 - 0.19077 × log(cintura-cuello) + 0.15456 × log(altura)) - 450",
+      "steps": [
+        "Mide cintura a nivel do ombligo (cm)",
+        "Mide cuello justo sob a nuez de Adán (cm)",
+        "Mide altura total (cm)",
+        "Aplica fórmula Navy específica por género usando logaritmos",
+        "Compara com rangos: hombres 8-19% saludable, mujeres 21-33%"
+      ],
+      "mistakes": [
+        "Medir cintura sobre ropa o com cinta floja (subestima grasa)",
+        "Medir cuello muy abajo (deve ser justo sob nuez de Adán)",
+        "Aplicar fórmula hombre a mujer o viceversa (usa ecuaciones distintas)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "waist",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        },
+        {
+          "field_id": "neck",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        },
+        {
+          "field_id": "height",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        },
+        {
+          "field_id": "gender",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Tipo atual é apropiado"
+        }
+      ]
+    },
+    "de": {
+      "name": "Grasa Körper navy",
+      "desc": "Berechnen Sie grasa Körper navy online. Geben Sie waist, neck, height ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Grasa Körper navy | CalcToWork",
+      "seo_desc": "Grasa Körper navy online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Grasa Körper navy online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "waist": "Waist",
+        "neck": "Neck",
+        "height": "Height",
+        "gender": "Gender"
+      },
+      "outputs": {
+        "bfp": "Bfp"
+      },
+      "example_label": "Ejemplo para grasa corporal navy: valores 80cm, 40cm, 175cm",
+      "range_hints": {
+        "waist": "Valor típico entre 0 y 500. Valor por defecto: 80 cm.",
+        "neck": "Valor típico entre 0 y 500. Valor por defecto: 40 cm.",
+        "height": "Valor típico entre 0 y 500. Valor por defecto: 175 cm.",
+        "gender": "Seleccionar entre las opciones: male, female"
+      },
+      "result_context": "Ihr Körperfettanteil nach der US-Navy-Methode beträgt {bfp}%.",
+      "formula_display": "Bfp (%) = f(waist, neck, height, gender)",
+      "steps": [
+        "Introducir los valores de waist, neck, height y gender",
+        "Verificar que las unidades sean correctas y convertir si es necesario (cm, in)",
+        "Realizar el cálculo para obtener bfp",
+        "El resultado se expresa en %. Verificar que la magnitud es coherente",
+        "Comparar el resultado con los valores de referencia para interpretar su significado"
+      ],
+      "mistakes": [
+        "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+        "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+        "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "waist",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "neck",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "height",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "gender",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Grasso Corporeo Metodo Navy",
+      "description": "Stima la % di grasso corporeo con il metodo Navy.",
+      "inputs": {
+        "waist": "Vita",
+        "neck": "Collo",
+        "height": "Altezza",
+        "gender": "Sesso"
+      },
+      "outputs": {
+        "bfp": "% Grasso"
+      },
+      "seo_title": "Grasso Corporeo Metodo Navy – Calcolo Facile",
+      "seo_description": "Stima la % di grasso corporeo con il metodo Navy. Calcolatore gratuito, preciso e istantaneo. Ottieni risultati istantanei con spiegazione passo dopo.",
+      "example_label": "Calcolare grasa corperal método Nave per hombre con cintura 80cm, cuello 40cm",
+      "range_hints": {
+        "waist": "Cintura: 60-120 cm",
+        "neck": "Cuello: 30-50 cm",
+        "height": "Altura común: 140-200 cm"
+      },
+      "result_context": "El método Nave usa circunferincias corperales; preciseón ±3-4% comperdo con DEXA come referincia.",
+      "formula_display": "Hombre: %Grasa = 495 ÷ (1.0324 - 0.19077 × log(cintura-cuello) + 0.15456 × log(altezza)) - 450",
+      "steps": [
+        "Midi cintura a nivel dil ombligo (cm)",
+        "Midi cuello justo basso la nuez di Adán (cm)",
+        "Midi altezza totale (cm)",
+        "Aplica fórmula Nave específica per género usando logaritmos",
+        "Comper con rangos: hombres 8-19% saludable, mujeres 21-33%"
+      ],
+      "mistakes": [
+        "Medir cintura su ropa o con cinta floja (subestima grasa)",
+        "Medir cuello molto abasso (dive essere justo basso nuez di Adán)",
+        "Applicare fórmula hombre a mujer o viceversa (usa ecuaciones distintas)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "waist",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        },
+        {
+          "field_id": "neck",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        },
+        {
+          "field_id": "height",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        },
+        {
+          "field_id": "gender",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Tipo attuale es apropiado"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,474 @@
+{
+  "id": "080",
+  "slug": "amortizacion-maquinaria",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "coste_eur",
+      "type": "number",
+      "min": 100,
+      "max": 500000,
+      "step": 100,
+      "default": 15000,
+      "unit": "â‚¬",
+      "unit_options": [
+        "â‚¬",
+        "$"
+      ],
+      "unit_category": "currency"
+    },
+    {
+      "id": "anos_vida_util",
+      "type": "number",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 5,
+      "unit": "años"
+    },
+    {
+      "id": "valor_residual_pct",
+      "type": "number",
+      "min": 0,
+      "max": 40,
+      "step": 5,
+      "default": 10,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    }
+  ],
+  "formula": "var C=parseFloat(inputs.coste_eur)||0,Y=parseFloat(inputs.anos_vida_util)||5,Vr=parseFloat(inputs.valor_residual_pct)||10;if(!C||!Y)return{error:true};var residual=+(C*Vr/100).toFixed(2),base=C-residual,anual=+(base/Y).toFixed(2),mensual=+(anual/12).toFixed(2),diaria=+(anual/220).toFixed(2);return{amort_anual_eur:anual,amort_mensual_eur:mensual,amort_diaria_eur:diaria};",
+  "outputs": [
+    {
+      "id": "amort_anual_eur",
+      "unit": "â‚¬/año",
+      "highlight": true
+    },
+    {
+      "id": "amort_mensual_eur",
+      "unit": "â‚¬/mes"
+    },
+    {
+      "id": "amort_diaria_eur",
+      "unit": "â‚¬/día"
+    }
+  ],
+  "related": [
+    "081",
+    "094",
+    "079",
+    "078"
+  ],
+  "example_inputs": {
+    "coste_eur": 15000,
+    "anos_vida_util": 5,
+    "valor_residual_pct": 10
+  },
+  "example_label": "Calcular amortización de una hormigonera de 15000 € con 5 años de vida útil y 10% de valor residual.",
+  "range_hints": {
+    "coste_eur": "Precio de compra de la maquinaria incluyendo IVA no deducible, transporte e instalación (€)",
+    "anos_vida_util": "Años de vida útil según tablas fiscales: 8-12 para maquinaria pesada, 4-6 para herramientas (años)",
+    "valor_residual_pct": "Porcentaje del valor de compra que se recupera al vender la máquina al final de su vida útil (%)"
+  },
+  "result_context": "Resultados: amortización anual de {amort_anual_eur} €/año, amortización mensual de {amort_mensual_eur} €/mes, amortización diaria de {amort_diaria_eur} €/día.",
+  "formula_display": "Cuota anual lineal = (coste_compra − valor_residual) ÷ años_vida_útil",
+  "steps": [
+    "Determina el coste de adquisición de la maquinaria (incluye transporte, instalación y puesta en marcha)",
+    "Estima el valor residual: lo que podrías vender la máquina al final de su vida útil (típicamente 5-15%)",
+    "Define la vida útil según tablas fiscales: maquinaria de construcción 8-12 años, herramientas 4-6 años",
+    "Aplica el método lineal: (coste − residual) ÷ años = cuota anual constante",
+    "Para método de saldo decreciente: aplica un coeficiente del 2.5× sobre la cuota lineal el primer año, luego sobre el valor pendiente",
+    "Divide la cuota anual entre 12 para amortización mensual y entre 220 para coste diario imputable a obra"
+  ],
+  "mistakes": [
+    "No considerar el valor residual: incluso maquinaria vieja tiene valor como chatarra o repuestos",
+    "Usar vida útil incorrecta: consulta las tablas fiscales de la Agencia Tributaria para cada tipo de bien",
+    "Olvidar que el terreno no se amortiza; solo la construcción y la maquinaria",
+    "Confundir amortización contable (lineal) con amortización fiscal (acelerada posible para pymes)",
+    "No registrar la amortización como gasto deducible en el IRPF o Impuesto de Sociedades"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "coste_eur",
+      "reason": "Tipo correcto: numérico en € para el precio de adquisición de la maquinaria."
+    },
+    {
+      "field_id": "anos_vida_util",
+      "reason": "Tipo correcto: numérico entero para años de vida útil según tablas fiscales."
+    },
+    {
+      "field_id": "valor_residual_pct",
+      "reason": "Tipo correcto: numérico porcentual para el valor de reventa estimado."
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Herramienta eléctrica (taladro, radial)",
+      "coste_eur": 500,
+      "anos_vida_util": 4,
+      "valor_residual_pct": 5
+    },
+    {
+      "_label": "Hormigonera eléctrica 250L",
+      "coste_eur": 3000,
+      "anos_vida_util": 6,
+      "valor_residual_pct": 10
+    },
+    {
+      "_label": "Miniexcavadora 2.5t",
+      "coste_eur": 25000,
+      "anos_vida_util": 8,
+      "valor_residual_pct": 15
+    },
+    {
+      "_label": "Retroexcavadora mixta",
+      "coste_eur": 60000,
+      "anos_vida_util": 10,
+      "valor_residual_pct": 15
+    },
+    {
+      "_label": "Grúa torre desmontable",
+      "coste_eur": 120000,
+      "anos_vida_util": 12,
+      "valor_residual_pct": 20
+    }
+  ],
+  "units": {
+    "coste_eur": "EUR",
+    "valor_residual_pct": "%"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Amortización de Maquinaria",
+      "desc": "Calcula la amortización anual y mensual de maquinaria.",
+      "seo_title": "Calculadora Amortización Maquinaria – Construcción Gratuita",
+      "seo_desc": "Calcula la cuota de amortización de maquinaria de obra: anual, mensual y diaria. Introduce coste de compra, vida útil y valor residual. Gratis.",
+      "inputs": {
+        "coste_eur": "Coste de adquisición",
+        "anos_vida_util": "Años de vida útil",
+        "valor_residual_pct": "Valor residual (%)"
+      },
+      "outputs": {
+        "amort_anual_eur": "Amortización anual",
+        "amort_mensual_eur": "Amortización mensual",
+        "amort_diaria_eur": "Amortización diaria"
+      },
+      "seo_description": "Calcula la amortización contable y fiscal de maquinaria de construcción. Método lineal y de saldo decreciente. Ideal para contabilidad de obra y declaración de impuestos.",
+      "example_label": "Calcular amortización de una hormigonera de 15000 € con 5 años de vida útil y 10% de valor residual.",
+      "range_hints": {
+        "coste_eur": "Valor entre 100 y 500000 €.",
+        "anos_vida_util": "Valor entre 1 y 20 años.",
+        "valor_residual_pct": "Valor entre 0 y 40 %."
+      },
+      "result_context": "Resultados: amortización anual de {amort_anual_eur} €/año, amortización mensual de {amort_mensual_eur} €/mes, amortización diaria de {amort_diaria_eur} €/día.",
+      "formula_display": "Cuota anual lineal = (coste_compra − valor_residual) ÷ años_vida_útil",
+      "steps": [
+        "Determina el coste de adquisición de la maquinaria (incluye transporte, instalación y puesta en marcha)",
+        "Estima el valor residual: lo que podrías vender la máquina al final de su vida útil (típicamente 5-15%)",
+        "Define la vida útil según tablas fiscales: maquinaria de construcción 8-12 años, herramientas 4-6 años",
+        "Aplica el método lineal: (coste − residual) ÷ años = cuota anual constante",
+        "Para método de saldo decreciente: aplica un coeficiente del 2.5× sobre la cuota lineal el primer año, luego sobre el valor pendiente",
+        "Divide la cuota anual entre 12 para amortización mensual y entre 220 para coste diario imputable a obra"
+      ],
+      "mistakes": [
+        "No considerar el valor residual: incluso maquinaria vieja tiene valor como chatarra o repuestos",
+        "Usar vida útil incorrecta: consulta las tablas fiscales de la Agencia Tributaria para cada tipo de bien",
+        "Olvidar que el terreno no se amortiza; solo la construcción y la maquinaria",
+        "Confundir amortización contable (lineal) con amortización fiscal (acelerada posible para pymes)",
+        "No registrar la amortización como gasto deducible en el IRPF o Impuesto de Sociedades"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "coste_eur",
+          "reason": "Tipo correcto: numérico en € para el precio de adquisición de la maquinaria."
+        },
+        {
+          "field_id": "anos_vida_util",
+          "reason": "Tipo correcto: numérico entero para años de vida útil según tablas fiscales."
+        },
+        {
+          "field_id": "valor_residual_pct",
+          "reason": "Tipo correcto: numérico porcentual para el valor de reventa estimado."
+        }
+      ]
+    },
+    "en": {
+      "name": "Machinery Amortisation Calculator",
+      "desc": "Calculate annual and monthly machinery depreciation.",
+      "seo_title": "Equipment Depreciation Calculator – Construction Free",
+      "seo_desc": "Calculate depreciation for your construction equipment: annual, monthly, and daily. Enter purchase cost, useful life, and residual value. Free.",
+      "inputs": {
+        "coste_eur": "Acquisition cost",
+        "anos_vida_util": "Useful life (years)",
+        "valor_residual_pct": "Residual value (%)"
+      },
+      "outputs": {
+        "amort_anual_eur": "Annual depreciation",
+        "amort_mensual_eur": "Monthly depreciation",
+        "amort_diaria_eur": "Daily depreciation"
+      },
+      "seo_description": "Calculate accounting and tax depreciation for construction machinery. Straight-line and declining balance methods. Ideal for job cost accounting and tax filings.",
+      "example_label": "Calcular amortización de una hormigonera de 15000 € con 5 años de vida útil y 10% de valor residual.",
+      "range_hints": {
+        "coste_eur": "Valor entre 100 y 500000 â‚¬.",
+        "anos_vida_util": "Valor entre 1 y 20 años.",
+        "valor_residual_pct": "Valor entre 0 y 40 %."
+      },
+      "result_context": "Resultados: amortización anual de {amort_anual_eur} €/año, amortización mensual de {amort_mensual_eur} €/mes, amortización diaria de {amort_diaria_eur} €/día.",
+      "formula_display": "Cuota anual lineal = (coste_compra − valor_residual) ÷ años_vida_útil",
+      "steps": [
+        "Determina el coste de adquisición de la maquinaria (incluye transporte, instalación y puesta en marcha)",
+        "Estima el valor residual: lo que podrías vender la máquina al final de su vida útil (típicamente 5-15%)",
+        "Define la vida útil según tablas fiscales: maquinaria de construcción 8-12 años, herramientas 4-6 años",
+        "Aplica el método lineal: (coste − residual) ÷ años = cuota anual constante",
+        "Para método de saldo decreciente: aplica un coeficiente del 2.5× sobre la cuota lineal el primer año, luego sobre el valor pendiente",
+        "Divide la cuota anual entre 12 para amortización mensual y entre 220 para coste diario imputable a obra"
+      ],
+      "mistakes": [
+        "No considerar el valor residual: incluso maquinaria vieja tiene valor como chatarra o repuestos",
+        "Usar vida útil incorrecta: consulta las tablas fiscales de la Agencia Tributaria para cada tipo de bien",
+        "Olvidar que el terreno no se amortiza; solo la construcción y la maquinaria",
+        "Confundir amortización contable (lineal) con amortización fiscal (acelerada posible para pymes)",
+        "No registrar la amortización como gasto deducible en el IRPF o Impuesto de Sociedades"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "coste_eur",
+          "reason": "Tipo correcto: numérico en € para el precio de adquisición de la maquinaria."
+        },
+        {
+          "field_id": "anos_vida_util",
+          "reason": "Tipo correcto: numérico entero para años de vida útil según tablas fiscales."
+        },
+        {
+          "field_id": "valor_residual_pct",
+          "reason": "Tipo correcto: numérico porcentual para el valor de reventa estimado."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Amortissement Matériel",
+      "desc": "Calculez l'amortissement annuel et mensuel du matériel.",
+      "seo_title": "Calculateur Amortissement Équipement – Construction Gratuit",
+      "seo_desc": "Calculez l'amortissement de votre matériel de chantier : annuel, mensuel et journalier. Entrez coût d'achat, durée de vie et valeur résiduelle. Gratuit.",
+      "inputs": {
+        "coste_eur": "Coût d'acquisition",
+        "anos_vida_util": "Durée de vie (ans)",
+        "valor_residual_pct": "Valeur résiduelle (%)"
+      },
+      "outputs": {
+        "amort_anual_eur": "Amortissement annuel",
+        "amort_mensual_eur": "Amortissement mensuel",
+        "amort_diaria_eur": "Amortissement journalier"
+      },
+      "seo_description": "Calculez l'amortissement comptable et fiscal du matériel de construction. Méthode linéaire et dégressive. Idéal pour la comptabilité chantier et les déclarations fiscales.",
+      "example_label": "Calcular amortización de una hormigonera de 15000 € con 5 años de vida útil y 10% de valor residual.",
+      "range_hints": {
+        "coste_eur": "Valor entre 100 et 500000 €.",
+        "anos_vida_util": "Valor entre 1 et 20 años.",
+        "valor_residual_pct": "Valor entre 0 et 40 %."
+      },
+      "result_context": "Resultados: amortización anual de {amort_anual_eur} €/año, amortización mensual de {amort_mensual_eur} €/mes, amortización diaria de {amort_diaria_eur} €/día.",
+      "formula_display": "Cuota anual lineal = (coste_compra − valor_residual) ÷ años_vida_útil",
+      "steps": [
+        "Determina el coste de adquisición de la maquinaria (incluye transporte, instalación y puesta en marcha)",
+        "Estima el valor residual: lo que podrías vender la máquina al final de su vida útil (típicamente 5-15%)",
+        "Define la vida útil según tablas fiscales: maquinaria de construcción 8-12 años, herramientas 4-6 años",
+        "Aplica el método lineal: (coste − residual) ÷ años = cuota anual constante",
+        "Para método de saldo decreciente: aplica un coeficiente del 2.5× sobre la cuota lineal el primer año, luego sobre el valor pendiente",
+        "Divide la cuota anual entre 12 para amortización mensual y entre 220 para coste diario imputable a obra"
+      ],
+      "mistakes": [
+        "No considerar el valor residual: incluso maquinaria vieja tiene valor como chatarra o repuestos",
+        "Usar vida útil incorrecta: consulta las tablas fiscales de la Agencia Tributaria para cada tipo de bien",
+        "Olvidar que el terreno no se amortiza; solo la construcción y la maquinaria",
+        "Confundir amortización contable (lineal) con amortización fiscal (acelerada posible para pymes)",
+        "No registrar la amortización como gasto deducible en el IRPF o Impuesto de Sociedades"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "coste_eur",
+          "reason": "Tipo correcto: numérico en € para el precio de adquisición de la maquinaria."
+        },
+        {
+          "field_id": "anos_vida_util",
+          "reason": "Tipo correcto: numérico entero para años de vida útil según tablas fiscales."
+        },
+        {
+          "field_id": "valor_residual_pct",
+          "reason": "Tipo correcto: numérico porcentual para el valor de reventa estimado."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Depreciação de Equipamentos",
+      "desc": "Calcule a depreciação anual e mensal de equipamentos.",
+      "seo_title": "Calculadora Depreciação Equipamentos",
+      "inputs": {
+        "coste_eur": "Custo de aquisição",
+        "anos_vida_util": "Anos de vida útil",
+        "valor_residual_pct": "Valor residual (%)"
+      },
+      "outputs": {
+        "amort_anual_eur": "Depreciação anual",
+        "amort_mensual_eur": "Depreciação mensal",
+        "amort_diaria_eur": "Depreciação diária"
+      },
+      "seo_description": "Calcule a depreciação anual e mensal de equipamentos e máquinas de construção Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular amortización de una hormigonera de 15000 € con 5 años de vida útil y 10% de valor residual.",
+      "range_hints": {
+        "coste_eur": "Valor entre 100 e 500000 €.",
+        "anos_vida_util": "Valor entre 1 e 20 años.",
+        "valor_residual_pct": "Valor entre 0 e 40 %."
+      },
+      "result_context": "Resultados: amortización anual de {amort_anual_eur} €/año, amortización mensual de {amort_mensual_eur} €/mes, amortización diaria de {amort_diaria_eur} €/día.",
+      "formula_display": "Cuota anual lineal = (coste_compra − valor_residual) ÷ años_vida_útil",
+      "steps": [
+        "Determina el coste de adquisición de la maquinaria (incluye transporte, instalación y puesta en marcha)",
+        "Estima el valor residual: lo que podrías vender la máquina al final de su vida útil (típicamente 5-15%)",
+        "Define la vida útil según tablas fiscales: maquinaria de construcción 8-12 años, herramientas 4-6 años",
+        "Aplica el método lineal: (coste − residual) ÷ años = cuota anual constante",
+        "Para método de saldo decreciente: aplica un coeficiente del 2.5× sobre la cuota lineal el primer año, luego sobre el valor pendiente",
+        "Divide la cuota anual entre 12 para amortización mensual y entre 220 para coste diario imputable a obra"
+      ],
+      "mistakes": [
+        "No considerar el valor residual: incluso maquinaria vieja tiene valor como chatarra o repuestos",
+        "Usar vida útil incorrecta: consulta las tablas fiscales de la Agencia Tributaria para cada tipo de bien",
+        "Olvidar que el terreno no se amortiza; solo la construcción y la maquinaria",
+        "Confundir amortización contable (lineal) con amortización fiscal (acelerada posible para pymes)",
+        "No registrar la amortización como gasto deducible en el IRPF o Impuesto de Sociedades"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "coste_eur",
+          "reason": "Tipo correcto: numérico en € para el precio de adquisición de la maquinaria."
+        },
+        {
+          "field_id": "anos_vida_util",
+          "reason": "Tipo correcto: numérico entero para años de vida útil según tablas fiscales."
+        },
+        {
+          "field_id": "valor_residual_pct",
+          "reason": "Tipo correcto: numérico porcentual para el valor de reventa estimado."
+        }
+      ]
+    },
+    "de": {
+      "name": "Abschreibung Maschinen",
+      "desc": "Berechnen Sie abschreibung Maschinen online. Geben Sie coste eur, anos vida util, valor residual pct ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Abschreibung Maschinen | CalcToWork",
+      "seo_desc": "Abschreibung Maschinen online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Abschreibung Maschinen online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "coste_eur": "Coste Eur",
+        "anos_vida_util": "Anos Vida Util",
+        "valor_residual_pct": "Valor Residual Pct"
+      },
+      "outputs": {
+        "amort_anual_eur": "Amort Anual Eur",
+        "amort_mensual_eur": "Amort Mensual Eur",
+        "amort_diaria_eur": "Amort Diaria Eur"
+      },
+      "example_label": "Calcular amortización de una hormigonera de 15000 € con 5 años de vida útil y 10% de valor residual.",
+      "range_hints": {
+        "coste_eur": "Precio de compra de la maquinaria incluyendo IVA no deducible, transporte e instalación (€)",
+        "anos_vida_util": "Años de vida útil según tablas fiscales: 8-12 para maquinaria pesada, 4-6 para herramientas (años)",
+        "valor_residual_pct": "Porcentaje del valor de compra que se recupera al vender la máquina al final de su vida útil (%)"
+      },
+      "result_context": "Resultados: amortización anual de {amort_anual_eur} €/año, amortización mensual de {amort_mensual_eur} €/mes, amortización diaria de {amort_diaria_eur} €/día.",
+      "formula_display": "Cuota anual lineal = (coste_compra − valor_residual) ÷ años_vida_útil",
+      "steps": [
+        "Determina el coste de adquisición de la maquinaria (incluye transporte, instalación y puesta en marcha)",
+        "Estima el valor residual: lo que podrías vender la máquina al final de su vida útil (típicamente 5-15%)",
+        "Define la vida útil según tablas fiscales: maquinaria de construcción 8-12 años, herramientas 4-6 años",
+        "Aplica el método lineal: (coste − residual) ÷ años = cuota anual constante",
+        "Para método de saldo decreciente: aplica un coeficiente del 2.5× sobre la cuota lineal el primer año, luego sobre el valor pendiente",
+        "Divide la cuota anual entre 12 para amortización mensual y entre 220 para coste diario imputable a obra"
+      ],
+      "mistakes": [
+        "No considerar el valor residual: incluso maquinaria vieja tiene valor como chatarra o repuestos",
+        "Usar vida útil incorrecta: consulta las tablas fiscales de la Agencia Tributaria para cada tipo de bien",
+        "Olvidar que el terreno no se amortiza; solo la construcción y la maquinaria",
+        "Confundir amortización contable (lineal) con amortización fiscal (acelerada posible para pymes)",
+        "No registrar la amortización como gasto deducible en el IRPF o Impuesto de Sociedades"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "coste_eur",
+          "reason": "Tipo correcto: numérico en € para el precio de adquisición de la maquinaria."
+        },
+        {
+          "field_id": "anos_vida_util",
+          "reason": "Tipo correcto: numérico entero para años de vida útil según tablas fiscales."
+        },
+        {
+          "field_id": "valor_residual_pct",
+          "reason": "Tipo correcto: numérico porcentual para el valor de reventa estimado."
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Costo Manodopera",
+      "description": "Calcola il costo della manodopera per un lavoro.",
+      "seo_title": "Calcolatore Ammortamento Attrezzatura",
+      "seo_description": "Calcola il costo della manodopera in base alle ore e al costo orario Usato da professionisti e studenti in tutto il mondo.",
+      "inputs": {
+        "horas": "Ore totali",
+        "costo_hora": "Costo orario (€/h)",
+        "num_operarios": "Operai",
+        "coste_eur": "coste eur (â‚¬)",
+        "anos_vida_util": "anos vida util (años)",
+        "valor_residual_pct": "valor residual pct (%)"
+      },
+      "outputs": {
+        "costo_total": "Costo totale (€)",
+        "costo_diario": "Costo giornaliero (€)",
+        "amort_anual_eur": "amort anual eur (â‚¬/año)",
+        "amort_mensual_eur": "amort mensual eur (â‚¬/mes)",
+        "amort_diaria_eur": "amort diaria eur (â‚¬/día)"
+      },
+      "example_label": "Calcular amortización de una hormigonera de 15000 € con 5 años de vida útil y 10% de valor residual.",
+      "range_hints": {
+        "coste_eur": "Valor intre 100 e 500000 €.",
+        "anos_vida_util": "Valor intre 1 e 20 años.",
+        "valor_residual_pct": "Valor intre 0 e 40 %."
+      },
+      "result_context": "Resultados: amortización anual de {amort_anual_eur} €/año, amortización mensual de {amort_mensual_eur} €/mes, amortización diaria de {amort_diaria_eur} €/día.",
+      "formula_display": "Cuota anual lineal = (coste_compra − valor_residual) ÷ años_vida_útil",
+      "steps": [
+        "Determina el coste de adquisición de la maquinaria (incluye transporte, instalación y puesta en marcha)",
+        "Estima el valor residual: lo que podrías vender la máquina al final de su vida útil (típicamente 5-15%)",
+        "Define la vida útil según tablas fiscales: maquinaria de construcción 8-12 años, herramientas 4-6 años",
+        "Aplica el método lineal: (coste − residual) ÷ años = cuota anual constante",
+        "Para método de saldo decreciente: aplica un coeficiente del 2.5× sobre la cuota lineal el primer año, luego sobre el valor pendiente",
+        "Divide la cuota anual entre 12 para amortización mensual y entre 220 para coste diario imputable a obra"
+      ],
+      "mistakes": [
+        "No considerar el valor residual: incluso maquinaria vieja tiene valor como chatarra o repuestos",
+        "Usar vida útil incorrecta: consulta las tablas fiscales de la Agencia Tributaria para cada tipo de bien",
+        "Olvidar que el terreno no se amortiza; solo la construcción y la maquinaria",
+        "Confundir amortización contable (lineal) con amortización fiscal (acelerada posible para pymes)",
+        "No registrar la amortización como gasto deducible en el IRPF o Impuesto de Sociedades"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "coste_eur",
+          "reason": "Tipo correcto: numérico en € para el precio de adquisición de la maquinaria."
+        },
+        {
+          "field_id": "anos_vida_util",
+          "reason": "Tipo correcto: numérico entero para años de vida útil según tablas fiscales."
+        },
+        {
+          "field_id": "valor_residual_pct",
+          "reason": "Tipo correcto: numérico porcentual para el valor de reventa estimado."
+        }
+      ],
+      "desc": "Calcola l'ammortamento annuale, mensile e giornaliero dei tuoi macchinari edili con il metodo lineare."
+    }
+  }
+}

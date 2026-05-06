@@ -1,0 +1,413 @@
+{
+  "id": "016",
+  "slug": "revoco-proyectado",
+  "block": 2,
+  "block_slug": "mamposteria",
+  "inputs": [
+    {
+      "id": "area",
+      "type": "number",
+      "min": 1,
+      "max": 2000,
+      "step": 0.5,
+      "default": 50,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "espesor_mm",
+      "type": "number",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "default": 15,
+      "unit": "mm",
+      "unit_options": [
+        "mm",
+        "cm",
+        "m",
+        "in"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area)||0,E=parseFloat(inputs.espesor_mm)||15;if(!A)return{error:true};var kg_m2=E*1.5,kg_total=+(A*kg_m2*1.1).toFixed(1),sacos=Math.ceil(kg_total/25);return{kg_m2:+kg_m2.toFixed(1),kg_total:kg_total,sacos_25kg:sacos};",
+  "outputs": [
+    {
+      "id": "kg_m2",
+      "unit": "kg/m²"
+    },
+    {
+      "id": "kg_total",
+      "unit": "kg (+10% merma)",
+      "highlight": true
+    },
+    {
+      "id": "sacos_25kg",
+      "unit": "sacos 25kg"
+    }
+  ],
+  "related": [
+    "018",
+    "017",
+    "075",
+    "011"
+  ],
+  "example_inputs": {
+    "area": 50,
+    "espesor_mm": 15
+  },
+  "example_label": "Ejemplo para revoco proyectado: valores 50m², 15mm",
+  "range_hints": {
+    "area": "Valor típico entre 1 y 2000. Valor por defecto: 50 m².",
+    "espesor_mm": "Valor típico entre 5 y 30. Valor por defecto: 15 mm."
+  },
+  "result_context": "Resultados: {kg_m2} kg/m² de rendimiento, {kg_total} kg de material, {sacos_25kg} sacos de 25 kg.",
+  "formula_display": "A × kg_m2 × 1 → kg_m2, kg_total",
+  "steps": [
+    "Introducir los valores de area y espesor_mm",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+    "Calcular los valores de kg m2 y kg total",
+    "El resultado se expresa en kg/m². Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Introducir valores con unidades incorrectas sin verificar la conversión",
+    "Redondear resultados intermedios en lugar del resultado final",
+    "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "area",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "espesor_mm",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small wall",
+      "area": 25,
+      "espesor_mm": 8
+    },
+    {
+      "_label": "Medium wall",
+      "area": 37.5,
+      "espesor_mm": 11
+    },
+    {
+      "_label": "Large wall",
+      "area": 50,
+      "espesor_mm": 15
+    },
+    {
+      "_label": "Room",
+      "area": 75,
+      "espesor_mm": 22
+    },
+    {
+      "_label": "House perimeter",
+      "area": 100,
+      "espesor_mm": 30
+    }
+  ],
+  "units": {
+    "area": "m²",
+    "espesor_mm": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Revoco Proyectado",
+      "desc": "Calcula la cantidad de mortero para revoco proyectado en paredes y fachadas Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora Revoco Proyectado – kg",
+      "inputs": {
+        "area": "Área a revocar",
+        "espesor_mm": "Espesor de aplicación"
+      },
+      "outputs": {
+        "kg_m2": "Consumo por m²",
+        "kg_total": "Kg total (+10%)",
+        "sacos_25kg": "Sacos de 25 kg"
+      },
+      "seo_description": "Calcula la cantidad de mortero para revoco proyectado en paredes y fachadas Usado por profesionales y estudiantes en todo el mundo.",
+      "example_label": "Calcular mortero proyectado para revocar 50m² de muro con espesor de 15mm.",
+      "range_hints": {
+        "area": "Superficie total a revocar (descontar huecos si se desea)",
+        "espesor_mm": "Revoco fino: 10-15mm, Revoco grueso: 15-25mm"
+      },
+      "result_context": "Para {area} m² con {espesor_mm}mm de espesor se necesitan {kg_total} kg de mortero proyectado ({sacos_25kg} sacos de 25kg). Consumo: {kg_m2} kg/m².",
+      "formula_display": "Consumo = espesor_mm × 1.5 kg/m² por mm; Total = área × consumo",
+      "steps": [
+        "Calcular consumo por m²: 15mm × 1.5 kg/m²/mm = 22.5 kg/m²",
+        "Calcular total sin merma: 50m² × 22.5 kg/m² = 1125 kg",
+        "Aplicar merma 10%: 1125 kg × 1.10 = 1237.5 kg",
+        "Calcular sacos: 1237.5 kg ÷ 25 kg/saco = 49.5 → 50 sacos"
+      ],
+      "mistakes": [
+        "No preparar adecuadamente el soporte (limpieza, humidificación)",
+        "Aplicar espesor excesivo en una sola capa (puede desprenderse)",
+        "No considerar merma por rebote en proyección mecánica"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "espesor_mm",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Sprayed Plaster Calculator",
+      "desc": "Sprayed Plaster Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Sprayed Plaster Calculator – kg Mortar",
+      "seo_desc": "Sprayed Plaster Calculator. Area to plaster, Application thickness — get Consumption per m², Total kg (+10%), 25 kg bags instantly for your masonry and.",
+      "inputs": {
+        "area": "Area to plaster",
+        "espesor_mm": "Application thickness"
+      },
+      "outputs": {
+        "kg_m2": "Consumption per m²",
+        "kg_total": "Total kg (+10%)",
+        "sacos_25kg": "25 kg bags"
+      },
+      "seo_description": "Calculate kg of sprayed render/plaster for walls and facades. Enter surface area and application thickness in mm. Includes 10% wastage factor.",
+      "example_label": "Calcular mortero proyectado para revocar 50m² de muro con espesor de 15mm.",
+      "range_hints": {
+        "area": "Superficie total a revocar (descontar huecos si se desea)",
+        "espesor_mm": "Revoco fino: 10-15mm, Revoco grueso: 15-25mm"
+      },
+      "result_context": "Para {area} m² con {espesor_mm}mm de espesor se necesitan {kg_total} kg de mortero proyectado ({sacos_25kg} sacos de 25kg). Consumo: {kg_m2} kg/m².",
+      "formula_display": "Consumo = espesor_mm × 1.5 kg/m² por mm; Total = área × consumo",
+      "steps": [
+        "Calcular consumo por m²: 15mm × 1.5 kg/m²/mm = 22.5 kg/m²",
+        "Calcular total sin merma: 50m² × 22.5 kg/m² = 1125 kg",
+        "Aplicar merma 10%: 1125 kg × 1.10 = 1237.5 kg",
+        "Calcular sacos: 1237.5 kg ÷ 25 kg/saco = 49.5 â†’ 50 sacos"
+      ],
+      "mistakes": [
+        "No preparar adecuadamente el soporte (limpieza, humidificación)",
+        "Aplicar espesor excesivo en una sola capa (puede desprenderse)",
+        "No considerar merma por rebote en proyección mecánica"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "espesor_mm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Enduit Projeté",
+      "desc": "Calculez la quantité de mortier pour enduit projeté sur murs et façades Utilise par des professionnels et etudiants dans le monde entier.",
+      "seo_title": "Calculateur Enduit Projeté – kg",
+      "inputs": {
+        "area": "Surface à enduire",
+        "espesor_mm": "Épaisseur d'application"
+      },
+      "outputs": {
+        "kg_m2": "Consommation par m²",
+        "kg_total": "Total kg (+10%)",
+        "sacos_25kg": "Sacs de 25 kg"
+      },
+      "seo_description": "Calculez la quantité de mortier pour enduit projeté sur murs et façades Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calculer mortier proyectado pour revocar 50m² de mur avec épaisseur de 15mm.",
+      "range_hints": {
+        "area": "surface total a revocar (descontar huecos si se desea)",
+        "espesor_mm": "Revoco fino: 10-15mm, Revoco grueso: 15-25mm"
+      },
+      "result_context": "pour {area} m² avec {espesor_mm}mm d'épaisseur se necesitan {kg_total} kg de mortier proyectado ({sacos_25kg} sacs de 25kg). Consumo: {kg_m2} kg/m².",
+      "formula_display": "Consumo = espesor_mm × 1.5 kg/m² par mm; total = área × consumo",
+      "steps": [
+        "Calculer consumo par m²: 15mm × 1.5 kg/m²/mm = 22.5 kg/m²",
+        "Calculer total sans merma: 50m² × 22.5 kg/m² = 1125 kg",
+        "Aplicar merma 10%: 1125 kg × 1.10 = 1237.5 kg",
+        "Calculer sacs: 1237.5 kg Á· 25 kg/saco = 49.5 ââ€ ’ 50 sacs"
+      ],
+      "mistakes": [
+        "No preparar adecuadamente le soporte (limpieza, humidificación)",
+        "Aplicar épaisseur excesivo dans une sola capa (puede desprenderse)",
+        "Ne pas considérer merma par rebote dans proyección mecánica"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "espesor_mm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Reboco Projetado",
+      "desc": "Calcule a quantidade de argamassa para reboco projetado em paredes e fachadas Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora Reboco Projetado – kg",
+      "inputs": {
+        "area": "Área a rebocar",
+        "espesor_mm": "Espessura de aplicação"
+      },
+      "outputs": {
+        "kg_m2": "Consumo por m²",
+        "kg_total": "Total kg (+10%)",
+        "sacos_25kg": "Sacos de 25 kg"
+      },
+      "seo_description": "Calcule a quantidade de argamassa para reboco projetado em paredes e fachadas Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular argamassa proyectado para revocar 50m² de muro com espessura de 15mm.",
+      "range_hints": {
+        "area": "Superficie total a revocar (descontar huecos si se desea)",
+        "espesor_mm": "Revoco fino: 10-15mm, Revoco grosso: 15-25mm"
+      },
+      "result_context": "Para {area} m² com {espesor_mm}mm de espessura são necessários {kg_total} kg de argamassa proyectado ({sacos_25kg} sacos de 25kg). Consumo: {kg_m2} kg/m².",
+      "formula_display": "Consumo = espesor_mm × 1.5 kg/m² por mm; Total = área × consumo",
+      "steps": [
+        "Calcular consumo por m²: 15mm × 1.5 kg/m²/mm = 22.5 kg/m²",
+        "Calcular total sem merma: 50m² × 22.5 kg/m² = 1125 kg",
+        "Aplicar merma 10%: 1125 kg × 1.10 = 1237.5 kg",
+        "Calcular sacos: 1237.5 kg ÷ 25 kg/saco = 49.5 â†’ 50 sacos"
+      ],
+      "mistakes": [
+        "Não preparar adecuadamente o soporte (limpeza, humidificación)",
+        "Aplicar espessura excesivo em uma sola capa (pode desprenderse)",
+        "Não considerar merma por rebote em proyección mecánica"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "espesor_mm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Spritzputz proyectado",
+      "desc": "Berechnen Sie spritzputz proyectado online. Geben Sie area, espesor mm ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Spritzputz proyectado | CalcToWork",
+      "seo_desc": "Spritzputz proyectado online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Spritzputz proyectado online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "area": "Area",
+        "espesor_mm": "Espesor Mm"
+      },
+      "outputs": {
+        "kg_m2": "Kg M2",
+        "kg_total": "Kg Total",
+        "sacos_25kg": "Sacos 25kg"
+      },
+      "example_label": "Ejemplo para revoco proyectado: valores 50m², 15mm",
+      "range_hints": {
+        "area": "Valor típico entre 1 y 2000. Valor por defecto: 50 m².",
+        "espesor_mm": "Valor típico entre 5 y 30. Valor por defecto: 15 mm."
+      },
+      "result_context": "Resultados: {kg_m2} kg/m² de rendimiento, {kg_total} kg de material, {sacos_25kg} sacos de 25 kg.",
+      "formula_display": "A × kg_m2 × 1 → kg_m2, kg_total",
+      "steps": [
+        "Introducir los valores de area y espesor_mm",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+        "Calcular los valores de kg m2 y kg total",
+        "El resultado se expresa en kg/m². Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Introducir valores con unidades incorrectas sin verificar la conversión",
+        "Redondear resultados intermedios en lugar del resultado final",
+        "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "espesor_mm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Posa Piastrelle Muro",
+      "description": "Calcola piastrelle e adesivo per rivestimenti murali.",
+      "seo_title": "Calcolatore Intonaco Proiettato",
+      "seo_description": "Calcolatore Posa Piastrelle Muro. Superficie (m²), Lunghezza piastrella (cm), Larghezza piastrella (cm) ââ‚¬” ottieni Piastrelle necessarie, Adesivo (kg),.",
+      "inputs": {
+        "area": "Superficie (m²)",
+        "largo_azulejo": "Lunghezza piastrella (cm)",
+        "ancho_azulejo": "Larghezza piastrella (cm)",
+        "desperdicio": "Scarto (%)"
+      },
+      "outputs": {
+        "azulejos": "Piastrelle necessarie",
+        "adhesivo_kg": "Adesivo (kg)",
+        "cajas": "Confezioni (appross.)"
+      },
+      "example_label": "Calcolare mortero proeectado per revocar 50m² di muro con spessore di 15mm.",
+      "range_hints": {
+        "area": "Superficie totale a revocar (discontar huecos se se disea)",
+        "espesor_mm": "Revoco fine: 10-15mm, Revoco grosso: 15-25mm"
+      },
+      "result_context": "Per {area} m² con {spessore_mm}mm di spessore sonon necessari {kg_totale} kg di mortero proeectado ({sacos_25kg} sacos di 25kg). Consumo: {kg_m2} kg/m².",
+      "formula_display": "Consumo = spessore_mm × 1.5 kg/m² per mm; Total = área × consumo",
+      "steps": [
+        "Calcolare consumo per m²: 15mm × 1.5 kg/m²/mm = 22.5 kg/m²",
+        "Calcolare totale senza merma: 50m² × 22.5 kg/m² = 1125 kg",
+        "Applicare merma 10%: 1125 kg × 1.10 = 1237.5 kg",
+        "Calcolare sacos: 1237.5 kg ÷ 25 kg/saco = 49.5 → 50 sacos"
+      ],
+      "mistakes": [
+        "No preperr adiguataminte el supperto (limpieza, humidificación)",
+        "Applicare spessore excesevo in una sola strato (puedi disprindirse)",
+        "Non consedirare merma per rebote in proeección mecánica"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "espesor_mm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        }
+      ]
+    }
+  }
+}

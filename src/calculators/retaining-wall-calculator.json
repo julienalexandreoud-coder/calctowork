@@ -1,0 +1,285 @@
+{
+  "id": "1117",
+  "slug": "retaining-wall-calculator",
+  "block": 2,
+  "block_slug": "mamposteria",
+  "inputs": [
+    {
+      "id": "wall_length",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "step": 0.1,
+      "default": 10,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "wall_height",
+      "type": "number",
+      "min": 0.3,
+      "max": 3,
+      "step": 0.1,
+      "default": 1,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "block_length",
+      "type": "number",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "default": 40,
+      "unit": "cm",
+      "unit_category": "length"
+    },
+    {
+      "id": "block_height",
+      "type": "number",
+      "min": 10,
+      "max": 30,
+      "step": 5,
+      "default": 20,
+      "unit": "cm",
+      "unit_category": "length"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "blocks_needed",
+      "unit": "blocks",
+      "highlight": true
+    },
+    {
+      "id": "gravel_tonnes",
+      "unit": "t"
+    },
+    {
+      "id": "base_depth_cm",
+      "unit": "cm"
+    },
+    {
+      "id": "drainage_pipe_m",
+      "unit": "m"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.wall_length)||0,H=parseFloat(inputs.wall_height)||0,bl=parseFloat(inputs.block_length)||0.4,bh=parseFloat(inputs.block_height)||0.2;if(!L||!H)return{error:true};var brow=Math.ceil(L/bl),rows=Math.ceil(H/bh),blocks=Math.ceil(brow*rows*1.05),base=Math.ceil(H*50),gravel=+(L*0.3*0.3*1.5).toFixed(1),pipe=+(L*1.1).toFixed(1);return{blocks_needed:blocks,gravel_tonnes:gravel,base_depth_cm:base,drainage_pipe_m:pipe};",
+  "formula_display": "Blocks = ceil(length ÷ block_L) × ceil(height ÷ block_H); Gravel = length × base_depth × 0.6",
+  "result_context": "Blocks needed: {blocks_needed}, gravel: {gravel_tonnes} t, base depth: {base_depth_cm} cm, drainage pipe: {drainage_pipe_m} m",
+  "example_inputs": {
+    "wall_length": 6,
+    "wall_height": 0.9,
+    "block_length": 0.4,
+    "block_height": 0.2
+  },
+  "steps": [
+    "Courses high: ceil(0.9 m ÷ 0.2 m) = 5 courses",
+    "Blocks per course: ceil(6 m ÷ 0.4 m) = 15 blocks",
+    "Total blocks: 15 × 5 = 75 blocks",
+    "Base gravel depth: 20 cm; Volume: 6 × 0.6 × 0.2 = 0.72 m³ ≈ 1.1 tonnes"
+  ],
+  "mistakes": [
+    "Not burying the first course below grade — minimum 10% of wall height",
+    "Forgetting drainage pipe and gravel backfill behind the wall",
+    "Using standard blocks instead of approved retaining wall blocks for walls > 90 cm"
+  ],
+  "related": [
+    "1116",
+    "1115",
+    "1118",
+    "011"
+  ],
+  "buying_units": {
+    "blocks_needed": [
+      {
+        "label": "Blocks",
+        "factor": 1,
+        "round": "ceil",
+        "unit_suffix": "blocks"
+      },
+      {
+        "label": "Pallets (100 blocks)",
+        "factor": 0.01,
+        "round": "ceil",
+        "unit_suffix": "pallets"
+      }
+    ]
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small wall",
+      "wall_length": 3,
+      "block_length": 20,
+      "block_height": 0.2,
+      "wall_height": 0.9
+    },
+    {
+      "_label": "Medium wall",
+      "wall_length": 4.5,
+      "block_length": 20,
+      "block_height": 0.2,
+      "wall_height": 0.9
+    },
+    {
+      "_label": "Large wall",
+      "wall_length": 6,
+      "block_length": 20,
+      "block_height": 0.2,
+      "wall_height": 0.9
+    },
+    {
+      "_label": "Room",
+      "wall_length": 9,
+      "block_length": 20,
+      "block_height": 0.2,
+      "wall_height": 0.9
+    },
+    {
+      "_label": "House perimeter",
+      "wall_length": 12,
+      "block_length": 20,
+      "block_height": 0.2,
+      "wall_height": 0.9
+    }
+  ],
+  "units": {
+    "wall_length": "m",
+    "wall_height": "m",
+    "block_length": "m",
+    "block_height": "m"
+  },
+  "example_label": "Ejemplo para retaining wall calculator: valores 10m, 1m, 40cm, 20cm",
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Muro de Contención",
+      "desc": "Calculadora 1117. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculadora Muro de Contención – Bloques y Materiales",
+      "seo_desc": "Calcula cuántos bloques, toneladas de grava y tubo de drenaje necesitas para un muro de contención. Introduce las dimensiones y el tamaño del bloque.",
+      "seo_description": "Calcula bloques, grava de drenaje, profundidad de base y tubo para muro de contención. Introduce dimensiones del muro y tamaño del bloque para estimaciones exactas.",
+      "inputs": {
+        "wall_length": "Largo del muro",
+        "wall_height": "Alto del muro",
+        "block_length": "Largo del bloque",
+        "block_height": "Alto del bloque"
+      },
+      "outputs": {
+        "blocks_needed": "Bloques necesarios",
+        "gravel_tonnes": "Grava de drenaje",
+        "base_depth_cm": "Profundidad de la base",
+        "drainage_pipe_m": "Tubo de drenaje"
+      }
+    },
+    "en": {
+      "name": "Retaining Wall Calculator",
+      "desc": "Calculator 1117. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Retaining Wall Calculator – Blocks & Materials",
+      "seo_desc": "Calculate how many blocks, tonnes of gravel and drainage pipe you need for a retaining wall. Enter wall dimensions and block size to get exact material quantities.",
+      "seo_description": "Calculate retaining wall blocks, drainage gravel, base depth and pipe needed. Enter wall dimensions and block size to get accurate material estimates instantly.",
+      "inputs": {
+        "wall_length": "Wall length",
+        "wall_height": "Wall height",
+        "block_length": "Block length",
+        "block_height": "Block height"
+      },
+      "outputs": {
+        "blocks_needed": "Blocks needed",
+        "gravel_tonnes": "Drainage gravel",
+        "base_depth_cm": "Base depth",
+        "drainage_pipe_m": "Drainage pipe"
+      }
+    },
+    "fr": {
+      "name": "Calculatrice Mur de Soutènement",
+      "desc": "Calculateur 1117. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculatrice Mur Soutènement – Blocs et Matériaux",
+      "seo_desc": "Calculez les blocs, tonnes de gravier et tuyau de drainage pour un mur de soutènement. Entrez les dimensions et la taille des blocs.",
+      "seo_description": "Calculez blocs, gravier de drainage, profondeur de semelle et tuyau pour mur de soutènement. Entrez dimensions et taille de bloc pour des estimations précises.",
+      "inputs": {
+        "wall_length": "Longueur du mur",
+        "wall_height": "Hauteur du mur",
+        "block_length": "Longueur du bloc",
+        "block_height": "Hauteur du bloc"
+      },
+      "outputs": {
+        "blocks_needed": "Blocs nécessaires",
+        "gravel_tonnes": "Gravier de drainage",
+        "base_depth_cm": "Profondeur de la semelle",
+        "drainage_pipe_m": "Tuyau de drainage"
+      }
+    },
+    "pt": {
+      "name": "Calculadora de Muro de Contenção",
+      "desc": "Calculadora 1117. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculadora Muro de Contenção – Blocos e Materiais",
+      "seo_desc": "Calcule quantos blocos, toneladas de brita e tubo de drenagem você precisa para um muro de contenção. Insira as dimensões e o tamanho do bloco.",
+      "seo_description": "Calcule blocos, brita de drenagem, profundidade da base e tubo para muro de contenção. Insira dimensões do muro e tamanho do bloco para estimativas precisas.",
+      "inputs": {
+        "wall_length": "Comprimento do muro",
+        "wall_height": "Altura do muro",
+        "block_length": "Comprimento do bloco",
+        "block_height": "Altura do bloco"
+      },
+      "outputs": {
+        "blocks_needed": "Blocos necessários",
+        "gravel_tonnes": "Brita de drenagem",
+        "base_depth_cm": "Profundidade da base",
+        "drainage_pipe_m": "Tubo de drenagem"
+      }
+    },
+    "de": {
+      "name": "Retaining wall calculator",
+      "desc": "Berechnen Sie retaining wall calculator online. Geben Sie wall length, wall height, block length ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Retaining wall calculator | CalcToWork",
+      "seo_desc": "Retaining wall calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Retaining wall calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "wall_length": "Wall Length",
+        "wall_height": "Wall Height",
+        "block_length": "Block Length",
+        "block_height": "Block Height"
+      },
+      "outputs": {
+        "blocks_needed": "Blocks Needed",
+        "gravel_tonnes": "Gravel Tonnes",
+        "base_depth_cm": "Base Depth Cm",
+        "drainage_pipe_m": "Drainage Pipe M"
+      },
+      "example_label": "Ejemplo para retaining wall calculator: valores 10m, 1m, 40cm, 20cm",
+      "range_hints": {},
+      "result_context": "Blocks needed: {blocks_needed}, gravel: {gravel_tonnes} t, base depth: {base_depth_cm} cm, drainage pipe: {drainage_pipe_m} m",
+      "formula_display": "Blocks = ceil(length ÷ block_L) × ceil(height ÷ block_H); Gravel = length × base_depth × 0.6",
+      "steps": [
+        "Courses high: ceil(0.9 m ÷ 0.2 m) = 5 courses",
+        "Blocks per course: ceil(6 m ÷ 0.4 m) = 15 blocks",
+        "Total blocks: 15 × 5 = 75 blocks",
+        "Base gravel depth: 20 cm; Volume: 6 × 0.6 × 0.2 = 0.72 m³ ≈ 1.1 tonnes"
+      ],
+      "mistakes": [
+        "Not burying the first course below grade — minimum 10% of wall height",
+        "Forgetting drainage pipe and gravel backfill behind the wall",
+        "Using standard blocks instead of approved retaining wall blocks for walls > 90 cm"
+      ],
+      "input_type_review": []
+    },
+    "it": {
+      "name": "Calcolatore di Muro di Contenimento",
+      "desc": "Calcolatore 1117. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calcolatore Muro Contenimento – Blocchi e Materiali",
+      "seo_desc": "Calcola i blocchi, le tonnellate di ghiaia e il tubo di drenaggio per un muro di contenimento. Inserisci le dimensioni e il formato del blocco.",
+      "seo_description": "Calcola blocchi, ghiaia di drenaggio, profondità base e tubo per muro di contenimento. Inserisci dimensioni muro e formato blocco per stime precise dei materiali.",
+      "inputs": {
+        "wall_length": "Lunghezza muro",
+        "wall_height": "Altezza muro",
+        "block_length": "Lunghezza blocco",
+        "block_height": "Altezza blocco"
+      },
+      "outputs": {
+        "blocks_needed": "Blocchi necessari",
+        "gravel_tonnes": "Ghiaia di drenaggio",
+        "base_depth_cm": "Profondità della base",
+        "drainage_pipe_m": "Tubo di drenaggio"
+      }
+    }
+  }
+}

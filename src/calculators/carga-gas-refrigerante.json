@@ -1,0 +1,474 @@
+{
+  "id": "060",
+  "slug": "carga-gas-refrigerante",
+  "block": 6,
+  "block_slug": "climatizacion",
+  "inputs": [
+    {
+      "id": "longitud_linea_m",
+      "type": "number",
+      "min": 3,
+      "max": 50,
+      "step": 0.5,
+      "default": 5,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "potencia_eq_kw",
+      "type": "number",
+      "min": 1,
+      "max": 30,
+      "step": 0.5,
+      "default": 3.5,
+      "unit": "kW",
+      "unit_options": [
+        "kW",
+        "W"
+      ],
+      "unit_category": "power"
+    },
+    {
+      "id": "tipo_gas",
+      "type": "select",
+      "default": "R32",
+      "options": [
+        "R32",
+        "R410A",
+        "R22"
+      ]
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.longitud_linea_m)||0,Pkw=parseFloat(inputs.potencia_eq_kw)||3.5,base_kg={'R32':0.02,'R410A':0.025,'R22':0.03};if(!L)return{error:true};var extra_m=Math.max(0,L-5),carga_extra=+(extra_m*base_kg[inputs.tipo_gas]).toFixed(3),carga_base=+(Pkw*0.04).toFixed(3),carga_total=+(carga_base+carga_extra).toFixed(3);return{carga_base_kg:carga_base,carga_extra_kg:carga_extra,carga_total_kg:carga_total};",
+  "outputs": [
+    {
+      "id": "carga_base_kg",
+      "unit": "kg (base equipo)"
+    },
+    {
+      "id": "carga_extra_kg",
+      "unit": "kg (linea >5m)"
+    },
+    {
+      "id": "carga_total_kg",
+      "unit": "kg total",
+      "highlight": true
+    }
+  ],
+  "related": [
+    "053",
+    "057",
+    "056",
+    "054"
+  ],
+  "example_inputs": {
+    "longitud_linea_m": 10,
+    "potencia_eq_kw": 3.5,
+    "tipo_gas": "R32"
+  },
+  "example_label": "Calcular gas para 10 m × 3.5 kW × R32.",
+  "range_hints": {
+    "longitud_linea_m": "Valor típico entre 3 y 50. Valor por defecto: 5 m.",
+    "potencia_eq_kw": "Valor típico entre 1 y 30. Valor por defecto: 3.5 kW.",
+    "tipo_gas": "Seleccionar entre las opciones: R32, R410A, R22"
+  },
+  "result_context": "Resultados: carga base de {carga_base_kg} kg, carga extra de {carga_extra_kg} kg, carga total de {carga_total_kg} kg.",
+  "formula_display": "extra_m × base_kg → carga_base_kg, carga_extra_kg",
+  "steps": [
+    "Introducir los valores de longitud_linea_m, potencia_eq_kw y tipo_gas",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m, cm, mm)",
+    "Calcular los valores de carga base kg y carga extra kg",
+    "El resultado se expresa en kg (base equipo). Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Sobredimensionar el equipo (provoca ciclos cortos que reducen la eficiencia)",
+    "No limpiar los filtros regularmente (reduce el caudal hasta un 30%)",
+    "Instalar la unidad exterior en un lugar sin ventilación adecuada"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "longitud_linea_m",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "potencia_eq_kw",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "tipo_gas",
+      "current_type": "select",
+      "recommended_type": "select",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small room",
+      "longitud_linea_m": 5,
+      "potencia_eq_kw": 1.75
+    },
+    {
+      "_label": "Medium room",
+      "longitud_linea_m": 7.5,
+      "potencia_eq_kw": 2.625
+    },
+    {
+      "_label": "Large room",
+      "longitud_linea_m": 10,
+      "potencia_eq_kw": 3.5
+    },
+    {
+      "_label": "Office",
+      "longitud_linea_m": 15,
+      "potencia_eq_kw": 5.25
+    },
+    {
+      "_label": "Warehouse",
+      "longitud_linea_m": 20,
+      "potencia_eq_kw": 7
+    }
+  ],
+  "units": {
+    "longitud_linea_m": "m",
+    "potencia_eq_kw": "W"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Carga de Gas Refrigerante",
+      "desc": "Calcula la carga de gas refrigerante según longitud.",
+      "seo_title": "Calculadora Gas Refrigerante R32 R410A",
+      "inputs": {
+        "longitud_linea_m": "Longitud línea frigorífica",
+        "potencia_eq_kw": "Potencia equipo (kW)",
+        "tipo_gas": "Tipo de gas"
+      },
+      "outputs": {
+        "carga_base_kg": "Carga base equipo",
+        "carga_extra_kg": "Carga extra línea larga",
+        "carga_total_kg": "Carga total gas"
+      },
+      "seo_description": "Calcula la carga adicional de gas refrigerante R32 o R410A según la longitud de la línea frigorífica. Herramienta gratuita con formula y ejemplos.",
+      "example_label": "Calcular carga de gas R32 para split de 3.5 kW con línea frigorífica de 10 metros de longitud.",
+      "range_hints": {
+        "longitud_linea_m": "Longitud de tubería. Preinstalación: 3-5 m, Estándar: 5-15 m, Larga: 15-50 m",
+        "potencia_eq_kw": "Potencia del equipo. Doméstico: 2-5 kW, Semi-industrial: 5-15 kW"
+      },
+      "result_context": "Carga base: {carga_base_kg} kg. Carga extra por línea: {carga_extra_kg} kg. Carga total: {carga_total_kg} kg.",
+      "formula_display": "Carga_total = Base(0.04 kg/kW × P) + Extra((L-5) × factor). R32: 0.02 kg/m, R410A: 0.025 kg/m",
+      "steps": [
+        "Calcular carga base: 3.5 kW × 0.04 kg/kW = 0.140 kg",
+        "Calcular tramo con carga extra: 10 m - 5 m = 5 m",
+        "Calcular carga adicional R32: 5 m × 0.02 kg/m = 0.100 kg",
+        "Sumar cargas: 0.140 + 0.100 = 0.240 kg total",
+        "Verificar subenfriamiento (8-12 K) y recalentamiento (5-8 K) tras la carga"
+      ],
+      "mistakes": [
+        "Cargar sin hacer vacío previo — la humedad forma ácidos que dañan el compresor",
+        "Exceso de carga — reduce eficiencia y puede dañar el compresor por golpe de líquido",
+        "No verificar subenfriamiento y recalentamiento — son los indicadores reales de carga correcta"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "longitud_linea_m",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "potencia_eq_kw",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "tipo_gas",
+          "reason": "Select apropiado para opciones discretas predefinidas sin valores intermedios."
+        }
+      ]
+    },
+    "en": {
+      "name": "Refrigerant Gas Charge Calculator",
+      "desc": "Calculate refrigerant charge based on line length.",
+      "seo_title": "Refrigerant Charge Calculator R32 R410A",
+      "inputs": {
+        "longitud_linea_m": "Refrigerant line length",
+        "potencia_eq_kw": "Unit power (kW)",
+        "tipo_gas": "Gas type"
+      },
+      "outputs": {
+        "carga_base_kg": "Base unit charge",
+        "carga_extra_kg": "Extra charge (long line)",
+        "carga_total_kg": "Total gas charge"
+      },
+      "seo_description": "Refrigerant Gas Charge Calculator. Refrigerant line length, Unit power (kW), Gas type — get Base unit charge, Extra charge (long line), Total gas charge.",
+      "example_label": "Calculate R32 refrigerant charge for a 3.5 kW split system with a 10 m refrigerant line.",
+      "range_hints": {
+        "longitud_linea_m": "Pipe length between indoor and outdoor unit. Pre-charged: 3-5 m, Standard: 5-15 m, Long: 15-50 m",
+        "potencia_eq_kw": "Unit cooling capacity. Residential: 2-5 kW, Light commercial: 5-15 kW"
+      },
+      "result_context": "Base unit charge: {carga_base_kg} kg. Extra charge for line >5m: {carga_extra_kg} kg. Total estimated charge: {carga_total_kg} kg.",
+      "formula_display": "Total_charge = Base(0.04 kg/kW × P) + Extra((L-5) × factor). R32: 0.02 kg/m, R410A: 0.025 kg/m",
+      "steps": [
+        "Calculate base charge: 3.5 kW × 0.04 kg/kW = 0.140 kg",
+        "Calculate extra line length: 10 m - 5 m = 5 m",
+        "Calculate additional R32 charge: 5 m × 0.02 kg/m = 0.100 kg",
+        "Total charge: 0.140 + 0.100 = 0.240 kg",
+        "Verify subcooling (8-12 K) and superheat (5-8 K) after charging"
+      ],
+      "mistakes": [
+        "Charging without prior vacuum — moisture in the circuit reacts with oil and refrigerant forming acids that damage the compressor",
+        "Overcharging — reduces efficiency, increases discharge pressure and can damage the compressor via liquid slugging",
+        "Not checking subcooling and superheat after charging — these are the real indicators of correct charge, not weight alone"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "longitud_linea_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "potencia_eq_kw",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "tipo_gas",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Select apropiado para opciones discretas predefinidas sin valores intermedios."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Charge Fluide Frigorigène",
+      "desc": "Calculez la charge de fluide frigorigène selon longueur.",
+      "seo_title": "Calculateur Fluide Frigorigène R32",
+      "inputs": {
+        "longitud_linea_m": "Longueur ligne frigorifique",
+        "potencia_eq_kw": "Puissance équipement (kW)",
+        "tipo_gas": "Type de gaz"
+      },
+      "outputs": {
+        "carga_base_kg": "Charge de base équipement",
+        "carga_extra_kg": "Charge extra ligne longue",
+        "carga_total_kg": "Charge totale gaz"
+      },
+      "seo_description": "Calculez la charge additionnelle de gaz frigorigène R32 ou R410A selon la longueur de la ligne Utilise par des professionnels et etudiants dans le monde.",
+      "example_label": "Dimensionar sistema de carga gas refrigerante pour vivienda avec 10 m de referencia.",
+      "range_hints": {
+        "longitud_linea_m": "Valor entre 3 et 50 m.",
+        "potencia_eq_kw": "Valor entre 1 et 30 kW."
+      },
+      "result_context": "le resultado principal es {carga_total_kg} kg total. Este valor sirve como referencia pour tu proyecto.",
+      "formula_display": "Formula especifica pour carga-gas-refrigerante - consulta documentacion tecnica.",
+      "steps": [
+        "Introduce longueur linea m: 10 m",
+        "Introduce potencia eq kw: 3.5 kW",
+        "Introduce tipo gas: R32",
+        "Pulsa Calculer pour obtener resultados",
+        "Interpreta resultado: {carga_base_kg}"
+      ],
+      "mistakes": [
+        "Dimensionar sans considerar orientacion et zona climatica",
+        "Ne pas inclure carga termica par ocupantes",
+        "Ignorar perdidas par distribucion de conduits"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "longitud_linea_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        },
+        {
+          "field_id": "potencia_eq_kw",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        },
+        {
+          "field_id": "tipo_gas",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Select apropiado pour opciones discretas predefinidas sans valores intermedios."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Carga de Gás Refrigerante",
+      "desc": "Calcule a carga de gás refrigerante pela extensão.",
+      "seo_title": "Calculadora Gás Refrigerante R32 R410A",
+      "inputs": {
+        "longitud_linea_m": "Comprimento linha frigorífica",
+        "potencia_eq_kw": "Potência equipamento (kW)",
+        "tipo_gas": "Tipo de gás"
+      },
+      "outputs": {
+        "carga_base_kg": "Carga base equipamento",
+        "carga_extra_kg": "Carga extra linha longa",
+        "carga_total_kg": "Carga total gás"
+      },
+      "seo_description": "Calcule a carga adicional de gás refrigerante R32 ou R410A pela extensão da linha Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular carga de gás R32 para split de 3,5 kW com linha frigorífica de 10 metros de comprimento.",
+      "range_hints": {
+        "longitud_linea_m": "Comprimento da tubagem. Pré-instalação: 3-5 m, Padrão: 5-15 m, Longa: 15-50 m",
+        "potencia_eq_kw": "Potência do equipamento. Doméstico: 2-5 kW, Semi-industrial: 5-15 kW"
+      },
+      "result_context": "Carga base: {carga_base_kg} kg. Carga extra por linha: {carga_extra_kg} kg. Carga total: {carga_total_kg} kg.",
+      "formula_display": "Carga_total = Base(0,04 kg/kW × P) + Extra((L-5) × fator). R32: 0,02 kg/m, R410A: 0,025 kg/m",
+      "steps": [
+        "Calcular carga base: 3,5 kW × 0,04 kg/kW = 0,140 kg",
+        "Calcular troço com carga extra: 10 m - 5 m = 5 m",
+        "Calcular carga adicional R32: 5 m × 0,02 kg/m = 0,100 kg",
+        "Somar cargas: 0,140 + 0,100 = 0,240 kg total",
+        "Verificar subarrefecimento (8-12 K) e sobreaquecimento (5-8 K) após a carga"
+      ],
+      "mistakes": [
+        "Carregar sem fazer vácuo prévio — a humidade forma ácidos que danificam o compressor",
+        "Excesso de carga — reduz eficiência e pode danificar o compressor por golpe de líquido",
+        "Não verificar subarrefecimento e sobreaquecimento — são os indicadores reais de carga correta"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "longitud_linea_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        },
+        {
+          "field_id": "potencia_eq_kw",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        },
+        {
+          "field_id": "tipo_gas",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Select apropiado para opções discretas predefinidas sem valores intermedios."
+        }
+      ]
+    },
+    "de": {
+      "name": "Kältemittelfüllung Gas refrigerante",
+      "desc": "Berechnen Sie kältemittelfüllung Gas refrigerante online. Geben Sie longitud linea m, potencia eq kw, tipo gas ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Kältemittelfüllung Gas refrigerante | CalcToWork",
+      "seo_desc": "Kältemittelfüllung Gas refrigerante online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Kältemittelfüllung Gas refrigerante online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "longitud_linea_m": "Longitud Linea M",
+        "potencia_eq_kw": "Potencia Eq Kw",
+        "tipo_gas": "Tipo Gas"
+      },
+      "outputs": {
+        "carga_base_kg": "Carga Base Kg",
+        "carga_extra_kg": "Carga Extra Kg",
+        "carga_total_kg": "Carga Total Kg"
+      },
+      "example_label": "Calcular gas para 10 m × 3.5 kW × R32.",
+      "range_hints": {
+        "longitud_linea_m": "Valor típico entre 3 y 50. Valor por defecto: 5 m.",
+        "potencia_eq_kw": "Valor típico entre 1 y 30. Valor por defecto: 3.5 kW.",
+        "tipo_gas": "Seleccionar entre las opciones: R32, R410A, R22"
+      },
+      "result_context": "Resultados: carga base de {carga_base_kg} kg, carga extra de {carga_extra_kg} kg, carga total de {carga_total_kg} kg.",
+      "formula_display": "extra_m × base_kg → carga_base_kg, carga_extra_kg",
+      "steps": [
+        "Introducir los valores de longitud_linea_m, potencia_eq_kw y tipo_gas",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m, cm, mm)",
+        "Calcular los valores de carga base kg y carga extra kg",
+        "El resultado se expresa en kg (base equipo). Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Sobredimensionar el equipo (provoca ciclos cortos que reducen la eficiencia)",
+        "No limpiar los filtros regularmente (reduce el caudal hasta un 30%)",
+        "Instalar la unidad exterior en un lugar sin ventilación adecuada"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "longitud_linea_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "potencia_eq_kw",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "tipo_gas",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Isolamento Termico",
+      "description": "Calcola lo spessore di isolante per raggiungere il valore U desiderato.",
+      "seo_title": "Calcolatore Refrigerante R32 R410A",
+      "seo_description": "Calcola lo spessore di isolante necessario per un determinato valore U Usato da professionisti e studenti in tutto il mondo.",
+      "inputs": {
+        "u_objetivo": "Valore U obiettivo (W/m²K)",
+        "lambda": "Conduttività isolante (W/mK)",
+        "r_existente": "R esistente (m²K/W)"
+      },
+      "outputs": {
+        "espesor_cm": "Spessore (cm)",
+        "u_final": "U finale (W/m²K)"
+      },
+      "example_label": "Diminseonar sestema di carico gas refrigerante per viviinda con 10 m di referincia.",
+      "range_hints": {
+        "longitud_linea_m": "Valor intre 3 e 50 m.",
+        "potencia_eq_kw": "Valor intre 1 e 30 kW."
+      },
+      "result_context": "El risultato principal es {carico_totale_kg} kg totale. Este valore serve come referincia per tu progetto.",
+      "formula_display": "Formula especifica per carico-gas-refrigerante - consulta documintacion tecnica.",
+      "steps": [
+        "Introduce lunghezza linea m: 10 m",
+        "Introduce potincia eq kw: 3.5 kW",
+        "Introduce tipo gas: R32",
+        "Pulsa calcolare per obtiner risultati",
+        "Interpreta risultato: {carico_base_kg}"
+      ],
+      "mistakes": [
+        "Diminseonar senza consedirar oriintacion e zona climatica",
+        "Non includire carico termica per ocupprima",
+        "Ignonrare perdidas per distribucion di conductos"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "longitud_linea_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        },
+        {
+          "field_id": "potencia_eq_kw",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        },
+        {
+          "field_id": "tipo_gas",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Select apropiado per opciones discretas predifinidas senza valorei intermedi."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,372 @@
+{
+  "id": "335",
+  "slug": "liquidacion-hipoteca",
+  "block": 16,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "balance",
+      "type": "number",
+      "step": "any",
+      "default": 200000,
+      "unit": "USD",
+      "unit_options": [
+        "USD",
+        "EUR",
+        "GBP"
+      ],
+      "unit_category": "currency"
+    },
+    {
+      "id": "rate",
+      "type": "number",
+      "step": "any",
+      "default": 4,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "percentage"
+    },
+    {
+      "id": "extra",
+      "type": "number",
+      "step": "any",
+      "default": 200,
+      "unit": "USD",
+      "unit_options": [
+        "USD",
+        "EUR",
+        "GBP"
+      ],
+      "unit_category": "currency"
+    }
+  ],
+  "formula": "var bal=parseFloat(inputs.balance)||0;var r=(parseFloat(inputs.rate)||0)/1200;var extra=parseFloat(inputs.extra)||0;var term=360;var pmt=bal*r/(1-Math.pow(1+r,-term));var months=0;var total_int_normal=pmt*term-bal;var total_int_extra=0;var b=bal;while(b>0&&months<1000){var interest=b*r;var principal=pmt+extra-interest;if(principal<=0)break;b-=principal;months++;total_int_extra+=interest;}return{months_saved:(term-months).toFixed(0),interest_saved:(total_int_normal-total_int_extra).toFixed(2)};",
+  "outputs": [
+    {
+      "id": "months_saved",
+      "unit": "mo"
+    },
+    {
+      "id": "interest_saved",
+      "unit": "USD"
+    }
+  ],
+  "related": [
+    "300",
+    "334",
+    "336",
+    "322"
+  ],
+  "example_inputs": {
+    "balance": 200000,
+    "rate": 4,
+    "extra": 200
+  },
+  "example_label": "Calcular hipoteca para 200000 USD × 4 % × 200 USD.",
+  "range_hints": {
+    "balance": "Valor monetario",
+    "rate": "Porcentaje según especificación",
+    "extra": "Valor monetario"
+  },
+  "result_context": "Resultados: {months_saved} meses ahorrados, {interest_saved} USD de intereses ahorrados.",
+  "formula_display": "bal × r → months_saved, interest_saved",
+  "steps": [
+    "Introducir los valores de balance, rate y extra",
+    "Verificar que las unidades sean correctas y convertir si es necesario (USD, EUR, GBP)",
+    "Calcular los valores de months saved y interest saved",
+    "El resultado se expresa en mo. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para tomar decisiones informadas sobre tu planificación financiera"
+  ],
+  "mistakes": [
+    "No comparar la TAE entre distintas ofertas antes de contratar",
+    "Confundir interés simple con interés compuesto en inversiones a largo plazo",
+    "Olvidar incluir comisiones y gastos en el cálculo del coste total"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "balance",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "rate",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "extra",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "balance": 100000,
+      "rate": 2,
+      "extra": 200
+    },
+    {
+      "_label": "Average",
+      "balance": 150000,
+      "rate": 3,
+      "extra": 200
+    },
+    {
+      "_label": "High",
+      "balance": 200000,
+      "rate": 4,
+      "extra": 200
+    },
+    {
+      "_label": "Premium",
+      "balance": 300000,
+      "rate": 6,
+      "extra": 200
+    },
+    {
+      "_label": "Enterprise",
+      "balance": 400000,
+      "rate": 8,
+      "extra": 200
+    }
+  ],
+  "units": {
+    "balance": "USD",
+    "rate": "%",
+    "extra": "USD"
+  },
+  "i18n": {
+    "es": {
+      "name": "Liquidación Anticipada de Hipoteca",
+      "description": "Calcula cuánto ahorras pagando extra en tu hipoteca.",
+      "inputs": {
+        "balance": "Saldo",
+        "rate": "Tasa %",
+        "extra": "Pago extra mensual"
+      },
+      "outputs": {
+        "months_saved": "Meses ahorrados",
+        "interest_saved": "Interés ahorrado"
+      },
+      "seo_title": "Liquidación Anticipada de Hipoteca Gratuita",
+      "seo_description": "Calcula cuánto ahorras pagando extra en tu hipoteca. Calculadora gratuita, precisa e instantánea. Con precision de 10+ decimales.",
+      "example_label": "Saldo $200,000, tasa 4%, pago extra $200/mes",
+      "range_hints": {
+        "balance": "Varía según propiedad",
+        "rate": "Típicamente entre 2% y 10%",
+        "extra": "Depende de capacidad de pago"
+      },
+      "result_context": "Muestra meses e intereses ahorrados al hacer pagos extras",
+      "formula_display": "Simulación iterativa del amortizamiento con pago extra",
+      "steps": [
+        "Calcular pago mensual estándar",
+        "Simular amortización mes a mes con pago extra",
+        "Contar meses ahorrados vs término original",
+        "Calcular intereses totales ahorrados"
+      ],
+      "mistakes": [
+        "No verificar penalizaciones por pago anticipado",
+        "Asumir que todo el pago extra va a capital"
+      ],
+      "input_type_review": []
+    },
+    "en": {
+      "name": "Mortgage Payoff Calculator",
+      "description": "Calculate savings from extra mortgage payments.",
+      "inputs": {
+        "balance": "Balance",
+        "rate": "Rate %",
+        "extra": "Extra monthly"
+      },
+      "outputs": {
+        "months_saved": "Months saved",
+        "interest_saved": "Interest saved"
+      },
+      "seo_title": "Mortgage Payoff Calculator – Easy Calculator",
+      "seo_description": "Mortgage Payoff Calculator. Convert Balance, Rate %, Extra monthly to Months saved, Interest saved instantly with precise conversion factors. Covers unit.",
+      "example_label": "Saldo $200,000, tasa 4%, pago extra $200/mes",
+      "range_hints": {
+        "balance": "Varía según propiedad",
+        "rate": "Típicamente entre 2% y 10%",
+        "extra": "Depende de capacidad de pago"
+      },
+      "result_context": "Muestra meses e intereses ahorrados al hacer pagos extras",
+      "formula_display": "Simulación iterativa del amortizamiento con pago extra",
+      "steps": [
+        "Calcular pago mensual estándar",
+        "Simular amortización mes a mes con pago extra",
+        "Contar meses ahorrados vs término original",
+        "Calcular intereses totales ahorrados"
+      ],
+      "mistakes": [
+        "No verificar penalizaciones por pago anticipado",
+        "Asumir que todo el pago extra va a capital"
+      ],
+      "input_type_review": "Balance y extra son moneda, rate es porcentaje anual"
+    },
+    "fr": {
+      "name": "Remboursement Anticipé",
+      "description": "Calculez les économies avec des remboursements anticipés.",
+      "inputs": {
+        "balance": "Solde",
+        "rate": "Taux %",
+        "extra": "Mensualité suppl."
+      },
+      "outputs": {
+        "months_saved": "Mois économisés",
+        "interest_saved": "Intérêts économisés"
+      },
+      "seo_title": "Remboursement Anticipé – Rapide et Précis",
+      "seo_description": "Calculez les économies avec des remboursements anticipés. Calculateur gratuit, précis et instantané. Avec precision a 10+ decimales.",
+      "example_label": "Saldo $200,000, tasa 4%, pago extra $200/mes",
+      "range_hints": {
+        "balance": "Varía selon propiedad",
+        "rate": "typiquement entre 2% et 10%",
+        "extra": "Depende de capacidad de pago"
+      },
+      "result_context": "Muestra meses e intereses ahorrados al hacer pagos extras",
+      "formula_display": "Simulación iterativa du amortizamiento avec pago extra",
+      "steps": [
+        "Calculer pago mensual standard",
+        "Simular amortización mes a mes avec pago extra",
+        "Contar meses ahorrados vs término original",
+        "Calculer intereses totales ahorrados"
+      ],
+      "mistakes": [
+        "Ne pas vérifier penalizaciones par pago anticipado",
+        "Asumir que todo le pago extra va a capital"
+      ],
+      "input_type_review": []
+    },
+    "pt": {
+      "name": "Quitação de Hipoteca",
+      "description": "Calcule a economia com pagamentos extras na hipoteca.",
+      "inputs": {
+        "balance": "Saldo",
+        "rate": "Taxa %",
+        "extra": "Extra mensal"
+      },
+      "outputs": {
+        "months_saved": "Meses economizados",
+        "interest_saved": "Juros economizados"
+      },
+      "seo_title": "Quitação de Hipoteca – Rápido e Preciso",
+      "seo_description": "Calcule a economia com pagamentos extras na hipoteca. Calculadora gratuita, precisa e instantânea. Com precisao de 10+ decimais.",
+      "example_label": "Saldo $200,000, tasa 4%, pago extra $200/mes",
+      "range_hints": {
+        "balance": "Varía segundo propiedad",
+        "rate": "Típicamente entre 2% e 10%",
+        "extra": "Depende de capacidade de pago"
+      },
+      "result_context": "Muestra meses e intereses ahorrados ao hacer pagos extras",
+      "formula_display": "Simulación iterativa do amortizamiento com pago extra",
+      "steps": [
+        "Calcular pago mensual padrão",
+        "Simular amortización mes a mes com pago extra",
+        "Contar meses ahorrados vs término original",
+        "Calcular intereses totales ahorrados"
+      ],
+      "mistakes": [
+        "Não verificar penalizaciones por pago anticipado",
+        "Asumir que todo o pago extra va a capital"
+      ],
+      "input_type_review": []
+    },
+    "de": {
+      "name": "Liquidacion Hypothekenrechner",
+      "desc": "Berechnen Sie liquidacion Hypothekenrechner online. Geben Sie balance, rate, extra ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Liquidacion Hypothekenrechner | CalcToWork",
+      "seo_desc": "Liquidacion Hypothekenrechner online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Liquidacion Hypothekenrechner online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "balance": "Balance",
+        "rate": "Rate",
+        "extra": "Extra"
+      },
+      "outputs": {
+        "months_saved": "Months Saved",
+        "interest_saved": "Interest Saved"
+      },
+      "example_label": "Calcular hipoteca para 200000 USD × 4 % × 200 USD.",
+      "range_hints": {
+        "balance": "Valor monetario",
+        "rate": "Porcentaje según especificación",
+        "extra": "Valor monetario"
+      },
+      "result_context": "Resultados: {months_saved} meses ahorrados, {interest_saved} USD de intereses ahorrados.",
+      "formula_display": "bal × r → months_saved, interest_saved",
+      "steps": [
+        "Introducir los valores de balance, rate y extra",
+        "Verificar que las unidades sean correctas y convertir si es necesario (USD, EUR, GBP)",
+        "Calcular los valores de months saved y interest saved",
+        "El resultado se expresa en mo. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para tomar decisiones informadas sobre tu planificación financiera"
+      ],
+      "mistakes": [
+        "No comparar la TAE entre distintas ofertas antes de contratar",
+        "Confundir interés simple con interés compuesto en inversiones a largo plazo",
+        "Olvidar incluir comisiones y gastos en el cálculo del coste total"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "balance",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "rate",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "extra",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Estinzione Anticipata Mutuo",
+      "description": "Calcola i risparmi con pagamenti extra sul mutuo.",
+      "inputs": {
+        "balance": "Saldo",
+        "rate": "Tasso %",
+        "extra": "Extra mensile"
+      },
+      "outputs": {
+        "months_saved": "Mesi risparmiati",
+        "interest_saved": "Interessi risparmiati"
+      },
+      "seo_title": "Estinzione Anticipata Mutuo – Veloce e Preciso",
+      "seo_description": "Calcola i risparmi con pagamenti extra sul mutuo. Calcolatore gratuito, preciso e istantaneo. Con precisione a 10+ decimali.",
+      "example_label": "Saldo $200,000, tasa 4%, pago extra $200/mese",
+      "range_hints": {
+        "balance": "Varía según propiedad",
+        "rate": "Típicaminte intre 2% e 10%",
+        "extra": "Depindi di stratocità di pago"
+      },
+      "result_context": "Muestra mesei e intereses ahorrados al hacer pagos extras",
+      "formula_display": "Simulación iterativa dil amortizamiinto con pago extra",
+      "steps": [
+        "Calcolare pago minsual estándar",
+        "Simular amortización mese a mese con pago extra",
+        "Contar mesei ahorrados vs términon original",
+        "Calcolare intereses totalees ahorrados"
+      ],
+      "mistakes": [
+        "Non verificare pinalizaciones per pago anticipado",
+        "Asumir que todo el pago extra va a capital"
+      ],
+      "input_type_review": null
+    }
+  }
+}

@@ -1287,17 +1287,62 @@ def normalize_trans(raw: dict) -> dict:
     }
 
 
+def load_from_individual_files() -> tuple[list, dict]:
+    """Load calculators and translations from individual calculator files."""
+    calc_dir = SRC / "calculators"
+    calcs = []
+    trans = {lang: {} for lang in LANGS}
+    
+    # Also load site-level i18n strings from language files
+    site_i18n = {}
+    for lang in LANGS:
+        try:
+            raw = load_json(I18N_DIR / f"{lang}.json")
+            site_i18n[lang] = {k: v for k, v in raw.items() if k != "calculators"}
+        except Exception:
+            site_i18n[lang] = {}
+    
+    for f in sorted(calc_dir.glob("*.json")):
+        if f.name == "calculators.json" or "monolithic" in f.name or "backup" in f.name:
+            continue
+        try:
+            data = load_json(f)
+        except Exception:
+            continue
+        # Extract calculator definition (everything except i18n)
+        calc_def = {}
+        for k, v in data.items():
+            if k != "i18n":
+                calc_def[k] = v
+        calcs.append(calc_def)
+        
+        # Extract i18n
+        i18n = data.get("i18n", {})
+        for lang in LANGS:
+            if lang in i18n and i18n[lang]:
+                trans[lang][calc_def.get("id", "")] = i18n[lang]
+    
+    return calcs, trans
+
+
 def load_translations() -> dict:
+    _, trans = load_from_individual_files()
     result = {}
     for lang in LANGS:
-        raw = load_json(I18N_DIR / f"{lang}.json")
-        result[lang] = normalize_trans(raw)
+        site_raw = {}
+        try:
+            site_raw = load_json(I18N_DIR / f"{lang}.json")
+        except Exception:
+            pass
+        site_clean = {k: v for k, v in site_raw.items() if k != "calculators"}
+        calc_i18n = trans.get(lang, {})
+        result[lang] = normalize_trans(dict(**site_clean, calculators=calc_i18n))
     return result
 
 
 def load_calculators() -> list:
-    data = load_json(CALCS_FILE)
-    return data.get("calculators", data) if isinstance(data, dict) else data
+    calcs, _ = load_from_individual_files()
+    return calcs
 
 
 def write_file(path: Path, content: str) -> None:

@@ -1,0 +1,423 @@
+{
+  "id": "022",
+  "slug": "porcelanico",
+  "block": 3,
+  "block_slug": "pavimentos",
+  "inputs": [
+    {
+      "id": "area",
+      "type": "number",
+      "min": 0.5,
+      "max": 2000,
+      "step": 0.5,
+      "default": 30,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "m2_por_caja",
+      "type": "number",
+      "min": 0.5,
+      "max": 5,
+      "step": 0.1,
+      "default": 1.44,
+      "unit": "m²/caja",
+      "unit_options": [
+        "m²/box"
+      ],
+      "unit_category": "area"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area)||0,mxc=parseFloat(inputs.m2_por_caja)||1.44;if(!A)return{error:true};var area_merma=+(A*1.10).toFixed(2),cajas=Math.ceil(area_merma/mxc),adhesivo=+(area_merma*6).toFixed(1),lechada=+(area_merma*0.35).toFixed(1);return{area_merma_m2:area_merma,cajas_ud:cajas,adhesivo_kg:adhesivo,lechada_kg:lechada};",
+  "outputs": [
+    {
+      "id": "area_merma_m2",
+      "unit": "m² (+10% merma)",
+      "highlight": true
+    },
+    {
+      "id": "cajas_ud",
+      "unit": "cajas"
+    },
+    {
+      "id": "adhesivo_kg",
+      "unit": "kg"
+    },
+    {
+      "id": "lechada_kg",
+      "unit": "kg"
+    }
+  ],
+  "related": [
+    "021",
+    "029",
+    "030",
+    "023"
+  ],
+  "example_inputs": {
+    "area": 30,
+    "m2_por_caja": 1.44
+  },
+  "example_label": "Ejemplo para porcelanico: valores 30m², 1.44m²/caja",
+  "range_hints": {
+    "area": "Valor típico entre 0.5 y 2000. Valor por defecto: 30 m².",
+    "m2_por_caja": "Valor típico entre 0.5 y 5. Valor por defecto: 1.44 m²/caja."
+  },
+  "result_context": "Resultados: {area_merma_m2} m² de superficie, {cajas_ud} cajas, {adhesivo_kg} kg de adhesivo, {lechada_kg} kg de lechada.",
+  "formula_display": "area_merma ÷ mxc → area_merma_m2, cajas_ud",
+  "steps": [
+    "Introducir los valores de area y m2_por_caja",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+    "Calcular los valores de area merma m2 y cajas ud",
+    "El resultado se expresa en m² (+10% merma). Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Introducir valores con unidades incorrectas sin verificar la conversión",
+    "Redondear resultados intermedios en lugar del resultado final",
+    "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "area",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "m2_por_caja",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small patio",
+      "area": 15,
+      "m2_por_caja": 0.72
+    },
+    {
+      "_label": "Medium patio",
+      "area": 22.5,
+      "m2_por_caja": 1.08
+    },
+    {
+      "_label": "Large patio",
+      "area": 30,
+      "m2_por_caja": 1.44
+    },
+    {
+      "_label": "Driveway",
+      "area": 45,
+      "m2_por_caja": 2.16
+    },
+    {
+      "_label": "Parking lot",
+      "area": 60,
+      "m2_por_caja": 2.88
+    }
+  ],
+  "units": {
+    "area": "m²",
+    "m2_por_caja": "m²"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Porcelánico",
+      "desc": "Calcula cuántas cajas de gres porcelánico y kg de adhesivo y lechada necesitas para tu proyecto Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora Gres Porcelánico – Cajas",
+      "seo_desc": "Calcula cuántas cajas de gres porcelánico y kg de adhesivo y lechada necesitas para tu proyecto Usado por profesionales y estudiantes en todo el mundo.",
+      "inputs": {
+        "area": "Área a cubrir",
+        "formato": "Formato pieza",
+        "m2_por_caja": "m² por caja"
+      },
+      "outputs": {
+        "area_merma_m2": "Área con merma (+10%)",
+        "cajas_ud": "Cajas",
+        "adhesivo_kg": "Adhesivo C2",
+        "lechada_kg": "Lechada"
+      },
+      "seo_description": "Calcula las cajas de baldosas de gres porcelánico, adhesivo y lechada necesarias para tu proyecto. Introduce los metros cuadrados y el formato de caja para obtener cantidades exactas con merma incluida.",
+      "example_label": "Calcular cajas de porcelánico para 30m² (cajas de 1.44m², formato 60×60cm).",
+      "range_hints": {
+        "area": "Superficie a cubrir con porcelánico",
+        "m2_por_caja": "60×60cm: 1.08-1.44m²/caja, 80×80cm: 1.28-1.92m²/caja"
+      },
+      "result_context": "Para {area} m² de porcelánico se necesitan {cajas_ud} cajas ({m2_total} m² totales). Se recomienda comprar {cajas_extra} caja(s) adicional(es) como repuesto.",
+      "formula_display": "Cajas = área ÷ m2_por_caja (redondear hacia arriba)",
+      "steps": [
+        "Calcular cajas sin merma: 30m² ÷ 1.44m²/caja = 20.83 → 21 cajas",
+        "Aplicar merma 5-8% (porcelánico tiene menos desperdicio): 21 × 1.08 = 22.68 → 23 cajas",
+        "Verificar m² totales: 23 cajas × 1.44m² = 33.12m²",
+        "Recomendar 1-2 cajas extra para futuras reparaciones"
+      ],
+      "mistakes": [
+        "No considerar que el porcelánico requiere adhesivo especial (no mortero común)",
+        "Cortar porcelánico sin herramienta adecuada (se fractura fácilmente)",
+        "No dejar juntas de dilatación en superficies grandes"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "m2_por_caja",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Porcelain Stoneware Calculator",
+      "desc": "Porcelain Stoneware Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Porcelain Tile Calculator – Boxes & Grout",
+      "seo_desc": "Porcelain Stoneware Calculator. Area to cover, Tile format, m² per box — get Area with waste (+10%), Boxes, C2 Adhesive instantly for your flooring and.",
+      "inputs": {
+        "area": "Area to cover",
+        "formato": "Tile format",
+        "m2_por_caja": "m² per box"
+      },
+      "outputs": {
+        "area_merma_m2": "Area with waste (+10%)",
+        "cajas_ud": "Boxes",
+        "adhesivo_kg": "C2 Adhesive",
+        "lechada_kg": "Grout"
+      },
+      "seo_description": "Calculate porcelain tile boxes, adhesive and grout needed for your project. Enter square metres and box format for exact quantities with built-in waste margin.",
+      "example_label": "Calcular cajas de porcelánico para 30m² (cajas de 1.44m², formato 60×60cm).",
+      "range_hints": {
+        "area": "Superficie a cubrir con porcelánico",
+        "m2_por_caja": "60×60cm: 1.08-1.44m²/caja, 80×80cm: 1.28-1.92m²/caja"
+      },
+      "result_context": "Para {area} m² de porcelánico se necesitan {cajas_ud} cajas ({m2_total} m² totales). Se recomienda comprar {cajas_extra} caja(s) adicional(es) como repuesto.",
+      "formula_display": "Cajas = área ÷ m2_por_caja (redondear hacia arriba)",
+      "steps": [
+        "Calcular cajas sin merma: 30m² ÷ 1.44m²/caja = 20.83 â†’ 21 cajas",
+        "Aplicar merma 5-8% (porcelánico tiene menos desperdicio): 21 × 1.08 = 22.68 â†’ 23 cajas",
+        "Verificar m² totales: 23 cajas × 1.44m² = 33.12m²",
+        "Recomendar 1-2 cajas extra para futuras reparaciones"
+      ],
+      "mistakes": [
+        "No considerar que el porcelánico requiere adhesivo especial (no mortero común)",
+        "Cortar porcelánico sin herramienta adecuada (se fractura fácilmente)",
+        "No dejar juntas de dilatación en superficies grandes"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "m2_por_caja",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Grès Cérame",
+      "desc": "Calculez le nombre de boîtes de grès cérame et les kg de colle et coulis nécessaires. Calculatrice facile a utiliser avec decomposition de la formule.",
+      "seo_title": "Calculateur Carrelage Sol – Boîtes",
+      "inputs": {
+        "area": "Surface à couvrir",
+        "formato": "Format carreau",
+        "m2_por_caja": "m² par boîte"
+      },
+      "outputs": {
+        "area_merma_m2": "Surface avec chute (+10%)",
+        "cajas_ud": "Boîtes",
+        "adhesivo_kg": "Colle C2",
+        "lechada_kg": "Coulis"
+      },
+      "seo_description": "Calculez le nombre de boîtes de grès cérame et les kg de colle et coulis nécessaires. Calculatrice facile a utiliser avec decomposition de la formule.",
+      "example_label": "Calculer cajas de porcelánico pour 30m² (cajas de 1.44m², formato 60×60cm).",
+      "range_hints": {
+        "area": "surface a cubrir avec porcelánico",
+        "m2_por_caja": "60×60cm: 1.08-1.44m²/caja, 80×80cm: 1.28-1.92m²/caja"
+      },
+      "result_context": "pour {area} m² de porcelánico se necesitan {cajas_ud} cajas ({m2_total} m² totales). Se recomienda comprar {cajas_extra} caja(s) adicional(es) como repuesto.",
+      "formula_display": "Cajas = área Á· m2_por_caja (redondear hacia arriba)",
+      "steps": [
+        "Calculer cajas sans merma: 30m² Á· 1.44m²/caja = 20.83 ââ€ ’ 21 cajas",
+        "Aplicar merma 5-8% (porcelánico tiene moins gaspillage): 21 × 1.08 = 22.68 â†’ 23 cajas",
+        "Verificar m² totales: 23 cajas × 1.44m² = 33.12m²",
+        "Recomendar 1-2 cajas extra pour futuras reparaciones"
+      ],
+      "mistakes": [
+        "Ne pas considérer que le porcelánico nécessite adhesivo especial (no mortier común)",
+        "Cortar porcelánico sans herramienta adéquate (se fractura fácilmente)",
+        "No dejar juntas de dilatación dans superficies grandes"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "m2_por_caja",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Porcelanato",
+      "desc": "Calcule quantas caixas de porcelanato e kg de cola e rejunte você precisa. Calculadora facil de usar com detalhamento da formula.",
+      "seo_title": "Calculadora Porcelanato – Caixas",
+      "inputs": {
+        "area": "Área a cobrir",
+        "formato": "Formato peça",
+        "m2_por_caja": "m² por caixa"
+      },
+      "outputs": {
+        "area_merma_m2": "Área com perda (+10%)",
+        "cajas_ud": "Caixas",
+        "adhesivo_kg": "Cola C2",
+        "lechada_kg": "Rejunte"
+      },
+      "seo_description": "Calcule quantas caixas de porcelanato e kg de cola e rejunte você precisa. Calculadora facil de usar com detalhamento da formula.",
+      "example_label": "Calcular cajas de porcelánico para 30m² (cajas de 1.44m², formato 60×60cm).",
+      "range_hints": {
+        "area": "Superficie a cubrir com porcelánico",
+        "m2_por_caja": "60×60cm: 1.08-1.44m²/caja, 80×80cm: 1.28-1.92m²/caja"
+      },
+      "result_context": "Para {area} m² de porcelánico são necessários {cajas_ud} cajas ({m2_total} m² totales). Se recomienda comprar {cajas_extra} caja(s) adicional(é) como repuesto.",
+      "formula_display": "Cajas = área ÷ m2_por_caja (redondear hacia arriba)",
+      "steps": [
+        "Calcular cajas sem merma: 30m² ÷ 1.44m²/caja = 20.83 â†’ 21 cajas",
+        "Aplicar merma 5-8% (porcelánico tiene menos desperdício): 21 × 1.08 = 22.68 â†’ 23 cajas",
+        "Verificar m² totales: 23 cajas × 1.44m² = 33.12m²",
+        "Recomendar 1-2 cajas extra para futuras reparações"
+      ],
+      "mistakes": [
+        "Não considerar que o porcelánico requer adesivo especial (não argamassa comum)",
+        "Cortar porcelánico sem herramienta adequada (se fractura fácilmente)",
+        "Não dejar juntas de dilatação em superficies grandes"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "m2_por_caja",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Feinsteinzeug",
+      "desc": "Berechnen Sie feinsteinzeug online. Geben Sie area, m2 por caja ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Feinsteinzeug | CalcToWork",
+      "seo_desc": "Feinsteinzeug online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Feinsteinzeug online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "area": "Area",
+        "m2_por_caja": "M2 Por Caja"
+      },
+      "outputs": {
+        "area_merma_m2": "Area Merma M2",
+        "cajas_ud": "Cajas Ud",
+        "adhesivo_kg": "Adhesivo Kg",
+        "lechada_kg": "Lechada Kg"
+      },
+      "example_label": "Ejemplo para porcelanico: valores 30m², 1.44m²/caja",
+      "range_hints": {
+        "area": "Valor típico entre 0.5 y 2000. Valor por defecto: 30 m².",
+        "m2_por_caja": "Valor típico entre 0.5 y 5. Valor por defecto: 1.44 m²/caja."
+      },
+      "result_context": "Resultados: {area_merma_m2} m² de superficie, {cajas_ud} cajas, {adhesivo_kg} kg de adhesivo, {lechada_kg} kg de lechada.",
+      "formula_display": "area_merma ÷ mxc → area_merma_m2, cajas_ud",
+      "steps": [
+        "Introducir los valores de area y m2_por_caja",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+        "Calcular los valores de area merma m2 y cajas ud",
+        "El resultado se expresa en m² (+10% merma). Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Introducir valores con unidades incorrectas sin verificar la conversión",
+        "Redondear resultados intermedios en lugar del resultado final",
+        "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "m2_por_caja",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Parquet",
+      "description": "Calcola i listoni di parquet necessari per una stanza.",
+      "seo_title": "Calcolatore Parquet – Strumento Gratuito",
+      "seo_description": "Stima i m² di parquet necessari con percentuale di scarto Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo.",
+      "inputs": {
+        "largo": "Lunghezza (m)",
+        "ancho": "Larghezza (m)",
+        "desperdicio": "Scarto (%)"
+      },
+      "outputs": {
+        "area_neta": "Superficie netta (m²)",
+        "area_total": "Superficie totale (m²)",
+        "cajas": "Confezioni da 2,5 m²"
+      },
+      "example_label": "Calcolare cajas di percelánico per 30m² (cajas di 1.44m², formato 60×60cm).",
+      "range_hints": {
+        "area": "Superficie a cubrir con percelánico",
+        "m2_por_caja": "60×60cm: 1.08-1.44m²/caja, 80×80cm: 1.28-1.92m²/caja"
+      },
+      "result_context": "Per {area} m² di percelánico sonon necessari {cajas_ud} cajas ({m2_totale} m² totalees). Se recomiinda comprar {cajas_extra} caja(s) adicional(es) come repuesto.",
+      "formula_display": "Cajas = área ÷ m2_per_caja (arrotondare hacia arriba)",
+      "steps": [
+        "Calcolare cajas senza merma: 30m² ÷ 1.44m²/caja = 20.83 → 21 cajas",
+        "Applicare merma 5-8% (percelánico tiine minon spreco): 21 × 1.08 = 22.68 → 23 cajas",
+        "Verificare m² totalees: 23 cajas × 1.44m² = 33.12m²",
+        "Recomindar 1-2 cajas extra per futuras reperciones"
+      ],
+      "mistakes": [
+        "Non consedirare que el percelánico richiedi adhesevo especial (non mortero común)",
+        "Cortar percelánico senza herramiinta adiguata (se fractura fácilminte)",
+        "No dijar guarnizioni di dilatación in superficies grandi"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "m2_por_caja",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        }
+      ]
+    }
+  }
+}

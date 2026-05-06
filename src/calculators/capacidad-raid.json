@@ -1,0 +1,364 @@
+{
+  "id": "515",
+  "slug": "capacidad-raid",
+  "block": 6,
+  "block_slug": "cotidiano",
+  "inputs": [
+    {
+      "id": "drives",
+      "type": "number",
+      "step": 1,
+      "default": 4,
+      "unit": "",
+      "unit_options": [],
+      "unit_category": ""
+    },
+    {
+      "id": "drive_size",
+      "type": "number",
+      "step": "any",
+      "default": 2000,
+      "unit": "GB",
+      "unit_options": [
+        "GB",
+        "TB"
+      ],
+      "unit_category": "digital_storage"
+    },
+    {
+      "id": "raid",
+      "type": "select",
+      "options": [
+        "0",
+        "1",
+        "5",
+        "6",
+        "10"
+      ],
+      "default": "5",
+      "unit": "",
+      "unit_options": [],
+      "unit_category": ""
+    }
+  ],
+  "formula": "var d=parseFloat(inputs.drives)||0;var s=parseFloat(inputs.drive_size)||0;var r=inputs.raid||'5';var usable=r==='0'?d*s:r==='1'?s:r==='5'?(d-1)*s:r==='6'?(d-2)*s:r==='10'?(d/2)*s:0;var red=r==='0'?'None':r==='1'?'Mirror':r==='5'?'1 drive':r==='6'?'2 drives':r==='10'?'Mirror + Stripe':'Unknown';return{usable:usable.toFixed(0),redundancy:red};",
+  "outputs": [
+    {
+      "id": "usable",
+      "unit": "GB"
+    },
+    {
+      "id": "redundancy",
+      "unit": ""
+    }
+  ],
+  "related": [
+    "511",
+    "510",
+    "500",
+    "501"
+  ],
+  "example_inputs": {
+    "drives": 4,
+    "drive_size": 2000,
+    "raid": "5"
+  },
+  "example_label": "Ejemplo para capacidad raid: valores 4, 2000GB",
+  "range_hints": {
+    "drives": "Valor típico entre 0 y 500. Valor por defecto: 4.",
+    "drive_size": "Valor típico entre 0 y 500. Valor por defecto: 2000 GB.",
+    "raid": "Seleccionar entre las opciones: 0, 1, 5, 6, 10"
+  },
+  "result_context": "La capacidad útil RAID es {usable} GB con redundancia de {redundancy}.",
+  "result_context_en": "The usable RAID capacity is {usable} GB with {redundancy} redundancy.",
+  "result_context_fr": "La capacité utile RAID est de {usable} Go avec une redondance de {redundancy}.",
+  "result_context_pt": "A capacidade útil RAID é {usable} GB com redundância de {redundancy}.",
+  "result_context_de": "Die nutzbare RAID-Kapazität beträgt {usable} GB mit {redundancy} Redundanz.",
+  "result_context_it": "La capacità utile RAID è {usable} GB con ridondanza di {redundancy}.",
+  "formula_display": "d ÷ 2 → usable, redundancy",
+  "steps": [
+    "Introducir los valores de drives, drive_size y raid",
+    "Verificar que las unidades sean correctas y convertir si es necesario (GB, TB)",
+    "Calcular los valores de usable y redundancy",
+    "El resultado se expresa en GB. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "No considerar si la propina se calcula antes o después de impuestos",
+    "Olvidar que los meses tienen diferente número de días",
+    "Usar el formato de fecha incorrecto (MM/DD vs DD/MM) al introducir datos"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "drives",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "drive_size",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "raid",
+      "current_type": "select",
+      "recommended_type": "select",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Escenario minimo",
+      "drives": 1.6,
+      "drive_size": 800.0
+    },
+    {
+      "_label": "Uso habitual",
+      "drives": 2.8,
+      "drive_size": 1000.0
+    },
+    {
+      "_label": "Uso frecuente",
+      "drives": 4.0,
+      "drive_size": 1000.0
+    },
+    {
+      "_label": "Uso intensivo",
+      "drives": 6.0,
+      "drive_size": 1000.0
+    },
+    {
+      "_label": "Caso maximo",
+      "drives": 10.0,
+      "drive_size": 1000.0
+    }
+  ],
+  "units": {
+    "drive_size": "MB"
+  },
+  "i18n": {
+    "es": {
+      "name": "Capacidad RAID",
+      "description": "Calcula la capacidad útil de un arreglo RAID.",
+      "inputs": {
+        "drives": "Discos",
+        "drive_size": "Tamaño disco",
+        "raid": "Nivel RAID"
+      },
+      "outputs": {
+        "usable": "Capacidad útil",
+        "redundancy": "Redundancia"
+      },
+      "seo_title": "Capacidad RAID Gratuita – Paso a Paso",
+      "seo_description": "Calcula la capacidad útil de un arreglo RAID. Calculadora gratuita, precisa e instantánea Usado por profesionales y estudiantes en todo el mundo.",
+      "example_label": "4 discos de 2TB en RAID 5",
+      "range_hints": {
+        "drives": "2-24 discos según RAID",
+        "drive_size": "500 GB - 20 TB por disco",
+        "raid": "0, 1, 5, 6, 10"
+      },
+      "result_context": "Capacidad usable y redundancia del array",
+      "formula_display": "RAID 0: n×s | RAID 1: s | RAID 5: (n-1)×s | RAID 6: (n-2)×s | RAID 10: (n/2)×s",
+      "steps": [
+        "Identificar nivel RAID",
+        "Aplicar fórmula correspondiente",
+        "Calcular capacidad de redundancia"
+      ],
+      "mistakes": [
+        "Usar nivel RAID con muy pocos discos",
+        "No considerar disco de repuesto"
+      ],
+      "input_type_review": []
+    },
+    "en": {
+      "name": "RAID Capacity Calculator",
+      "description": "Calculate usable capacity of a RAID array.",
+      "inputs": {
+        "drives": "Drives",
+        "drive_size": "Drive size",
+        "raid": "RAID level"
+      },
+      "outputs": {
+        "usable": "Usable",
+        "redundancy": "Redundancy"
+      },
+      "seo_title": "RAID Capacity Calculator – Step-by-Step",
+      "seo_description": "RAID Capacity Calculator. Drives, Drive size, RAID level — get Usable, Redundancy instantly for your HVAC and climate control project. Includes waste.",
+      "example_label": "4 discos de 2TB en RAID 5",
+      "range_hints": {
+        "drives": "2-24 discos según RAID",
+        "drive_size": "500 GB - 20 TB por disco",
+        "raid": "0, 1, 5, 6, 10"
+      },
+      "result_context": "Capacidad usable y redundancia del array",
+      "formula_display": "RAID 0: n×s | RAID 1: s | RAID 5: (n-1)×s | RAID 6: (n-2)×s | RAID 10: (n/2)×s",
+      "steps": [
+        "Identificar nivel RAID",
+        "Aplicar fórmula correspondiente",
+        "Calcular capacidad de redundancia"
+      ],
+      "mistakes": [
+        "Usar nivel RAID con muy pocos discos",
+        "No considerar disco de repuesto"
+      ],
+      "input_type_review": "drives es conteo, drive_size es almacenamiento, raid es selección"
+    },
+    "fr": {
+      "name": "Capacité RAID",
+      "description": "Calculez la capacité utile d'un RAID.",
+      "inputs": {
+        "drives": "Disques",
+        "drive_size": "Taille disque",
+        "raid": "Niveau RAID"
+      },
+      "outputs": {
+        "usable": "Capacité utile",
+        "redundancy": "Redondance"
+      },
+      "seo_title": "Capacité RAID – Étape par Étape",
+      "seo_description": "Capacité RAID. Disques, Taille disque, Niveau RAID ââ‚¬” obtenez Capacité utile, Redondance instantanément pour votre projet de climatisation et confort.",
+      "example_label": "4 discos de 2TB dans RAID 5",
+      "range_hints": {
+        "drives": "2-24 discos selon RAID",
+        "drive_size": "500 GB - 20 TB par disco",
+        "raid": "0, 1, 5, 6, 10"
+      },
+      "result_context": "Capacidad usable et redundancia du array",
+      "formula_display": "RAID 0: n×s | RAID 1: s | RAID 5: (n-1)×s | RAID 6: (n-2)×s | RAID 10: (n/2)×s",
+      "steps": [
+        "Identificar nivel RAID",
+        "Aplicar fórmula correspondiente",
+        "Calculer capacidad de redundancia"
+      ],
+      "mistakes": [
+        "Utiliser nivel RAID avec muy pocos discos",
+        "Ne pas considérer disco de repuesto"
+      ],
+      "input_type_review": []
+    },
+    "pt": {
+      "name": "Capacidade RAID",
+      "description": "Calcule a capacidade útil de um array RAID.",
+      "inputs": {
+        "drives": "Drives",
+        "drive_size": "Tamanho disco",
+        "raid": "Nível RAID"
+      },
+      "outputs": {
+        "usable": "Capacidade útil",
+        "redundancy": "Redundância"
+      },
+      "seo_title": "Capacidade RAID – Passo a Passo",
+      "seo_description": "Calcule a capacidade útil de um array RAID. Calculadora gratuita, precisa e instantânea. Calculadora facil de usar com detalhamento da formula.",
+      "example_label": "4 discos de 2TB em RAID 5",
+      "range_hints": {
+        "drives": "2-24 discos segundo RAID",
+        "drive_size": "500 GB - 20 TB por disco",
+        "raid": "0, 1, 5, 6, 10"
+      },
+      "result_context": "Capacidad usable e redundancia do array",
+      "formula_display": "RAID 0: n×s | RAID 1: s | RAID 5: (n-1)×s | RAID 6: (n-2)×s | RAID 10: (n/2)×s",
+      "steps": [
+        "Identificar nivel RAID",
+        "Aplicar fórmula correspondiente",
+        "Calcular capacidade de redundancia"
+      ],
+      "mistakes": [
+        "Usar nivel RAID com muy pocos discos",
+        "Não considerar disco de repuesto"
+      ],
+      "input_type_review": []
+    },
+    "de": {
+      "name": "Capacidad raid",
+      "desc": "Berechnen Sie capacidad raid online. Geben Sie drives, drive size, raid ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Capacidad raid | CalcToWork",
+      "seo_desc": "Capacidad raid online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Capacidad raid online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "drives": "Drives",
+        "drive_size": "Drive Size",
+        "raid": "Raid"
+      },
+      "outputs": {
+        "usable": "Usable",
+        "redundancy": "Redundancy"
+      },
+      "example_label": "Ejemplo para capacidad raid: valores 4, 2000GB",
+      "range_hints": {
+        "drives": "Valor típico entre 0 y 500. Valor por defecto: 4.",
+        "drive_size": "Valor típico entre 0 y 500. Valor por defecto: 2000 GB.",
+        "raid": "Seleccionar entre las opciones: 0, 1, 5, 6, 10"
+      },
+      "result_context": "Die nutzbare RAID-Kapazität beträgt {usable} GB mit {redundancy} Redundanz.",
+      "formula_display": "d ÷ 2 → usable, redundancy",
+      "steps": [
+        "Introducir los valores de drives, drive_size y raid",
+        "Verificar que las unidades sean correctas y convertir si es necesario (GB, TB)",
+        "Calcular los valores de usable y redundancy",
+        "El resultado se expresa en GB. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "No considerar si la propina se calcula antes o después de impuestos",
+        "Olvidar que los meses tienen diferente número de días",
+        "Usar el formato de fecha incorrecto (MM/DD vs DD/MM) al introducir datos"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "drives",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "drive_size",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "raid",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Capacità RAID",
+      "description": "Calcola la capacità utilizzabile di un array RAID.",
+      "inputs": {
+        "drives": "Dischi",
+        "drive_size": "Dimensione disco",
+        "raid": "Livello RAID"
+      },
+      "outputs": {
+        "usable": "Utilizzabile",
+        "redundancy": "Ridondanza"
+      },
+      "seo_title": "Capacità RAID – Passo dopo Passo",
+      "seo_description": "Calcola la capacità utilizzabile di un array RAID. Calcolatore gratuito, preciso e istantaneo Usato da professionisti e studenti in tutto il mondo.",
+      "example_label": "4 discos di 2TB in RAID 5",
+      "range_hints": {
+        "drives": "2-24 discos según RAID",
+        "drive_size": "500 GB - 20 TB per disco",
+        "raid": "0, 1, 5, 6, 10"
+      },
+      "result_context": "Capacidad usable e redundancia dil arrae",
+      "formula_display": "RAID 0: n×s | RAID 1: s | RAID 5: (n-1)×s | RAID 6: (n-2)×s | RAID 10: (n/2)×s",
+      "steps": [
+        "Idintificar nivel RAID",
+        "Applicare fórmula correspondiinte",
+        "Calcolare stratocità di redundancia"
+      ],
+      "mistakes": [
+        "Usare nivel RAID con molto pocos discos",
+        "Non consedirare disco di repuesto"
+      ],
+      "input_type_review": null
+    }
+  }
+}

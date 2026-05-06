@@ -1,0 +1,477 @@
+{
+  "id": "098",
+  "slug": "factor-merma-material",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "cantidad_neta",
+      "type": "number",
+      "min": 0.1,
+      "max": 100000,
+      "step": 0.1,
+      "default": 100,
+      "unit": "(unidades)"
+    },
+    {
+      "id": "factor_merma_pct",
+      "type": "number",
+      "min": 1,
+      "max": 30,
+      "step": 0.5,
+      "default": 10,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    },
+    {
+      "id": "precio_ud",
+      "type": "number",
+      "min": 0.01,
+      "max": 10000,
+      "step": 0.01,
+      "default": 25,
+      "unit": "â‚¬/ud"
+    }
+  ],
+  "formula": "var Q=parseFloat(inputs.cantidad_neta)||0,mp=parseFloat(inputs.factor_merma_pct)||10,P=parseFloat(inputs.precio_ud)||25;if(!Q)return{error:true};var q_pedir=+(Q*(1+mp/100)).toFixed(2),q_merma=+(q_pedir-Q).toFixed(2),coste_merma=+(q_merma*P).toFixed(2),coste_total=+(q_pedir*P).toFixed(2);return{cantidad_pedir:q_pedir,cantidad_merma:q_merma,coste_merma_eur:coste_merma,coste_total_eur:coste_total};",
+  "outputs": [
+    {
+      "id": "cantidad_pedir",
+      "unit": "uds a pedir",
+      "highlight": true
+    },
+    {
+      "id": "cantidad_merma",
+      "unit": "uds merma"
+    },
+    {
+      "id": "coste_merma_eur",
+      "unit": "â‚¬ coste merma"
+    },
+    {
+      "id": "coste_total_eur",
+      "unit": "â‚¬ coste total"
+    }
+  ],
+  "related": [
+    "078",
+    "090",
+    "084",
+    "079"
+  ],
+  "example_inputs": {
+    "cantidad_neta": 100,
+    "factor_merma_pct": 10,
+    "precio_ud": 25
+  },
+  "example_label": "Calcular material a pedir para 100 m² de baldosa con 10% de merma a 25 €/m².",
+  "range_hints": {
+    "cantidad_neta": "Cantidad exacta de material necesaria según planos, sin margen de merma (unidades)",
+    "factor_merma_pct": "Porcentaje adicional por roturas, cortes y desperdicio según el tipo de material (%)",
+    "precio_ud": "Precio unitario del material según tarifa del proveedor (€/ud)"
+  },
+  "result_context": "Resultados: {cantidad_pedir} unidades a pedir, {cantidad_merma} unidades de merma, coste de merma de {coste_merma_eur} €, coste total de {coste_total_eur} €.",
+  "formula_display": "Cantidad_a_pedir = cantidad_neta × (1 + factor_merma%). Coste merma = merma × precio_ud",
+  "steps": [
+    "Mide la cantidad neta exacta de material necesaria según planos y mediciones de proyecto",
+    "Determina el factor de merma según el material: 5-10% para ladrillos y bloques, 10-15% para baldosas y azulejos, 3-5% para materiales a granel",
+    "Aplica la fórmula: cantidad a pedir = cantidad neta × (1 + merma/100). Este es el pedido real al proveedor",
+    "Calcula las unidades de merma: cantidad_pedida − cantidad_neta (material que se pierde en cortes, roturas, ajustes)",
+    "Multiplica la merma por el precio unitario para conocer el coste del desperdicio",
+    "Ajusta el factor de merma según la complejidad del corte y la experiencia del oficial"
+  ],
+  "mistakes": [
+    "Aplicar el mismo factor de merma a todos los materiales: la baldosa grande se rompe más que el ladrillo estándar",
+    "No considerar merma adicional en obras con muchos recortes, esquinas, pilares o instalaciones vistas",
+    "Pedir justo la cantidad neta sin merma y quedarse corto a mitad de la obra (retrasos y costes de envío extra)",
+    "No negociar con el proveedor la devolución de material sobrante en buen estado (palets completos sin abrir)",
+    "Olvidar que la merma también genera costes de gestión de residuos (llevar escombros al vertedero)"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "cantidad_neta",
+      "reason": "Tipo correcto: numérico decimal para la cantidad exacta de material según planos."
+    },
+    {
+      "field_id": "factor_merma_pct",
+      "reason": "Tipo correcto: numérico porcentual para el factor de merma del material."
+    },
+    {
+      "field_id": "precio_ud",
+      "reason": "Tipo correcto: numérico decimal para el precio unitario del material."
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Ladrillo cerámico (merma baja)",
+      "cantidad_neta": 5000,
+      "factor_merma_pct": 5,
+      "precio_ud": 0.35
+    },
+    {
+      "_label": "Baldosa cerámica estándar",
+      "cantidad_neta": 100,
+      "factor_merma_pct": 10,
+      "precio_ud": 25
+    },
+    {
+      "_label": "Azulejo porcelánico (merma alta)",
+      "cantidad_neta": 80,
+      "factor_merma_pct": 15,
+      "precio_ud": 35
+    },
+    {
+      "_label": "Bloque de hormigón",
+      "cantidad_neta": 2000,
+      "factor_merma_pct": 5,
+      "precio_ud": 1.2
+    },
+    {
+      "_label": "Piedra natural (merma muy alta)",
+      "cantidad_neta": 50,
+      "factor_merma_pct": 20,
+      "precio_ud": 60
+    }
+  ],
+  "units": {
+    "factor_merma_pct": "%"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Factor de Merma de Material",
+      "desc": "Calcula cuánto material pedir con factor de merma.",
+      "seo_title": "Calculadora Merma Material – Cantidad a Pedir en Obra",
+      "seo_desc": "Calcula cuánto material pedir realmente al proveedor aplicando el factor de merma. Introduce cantidad neta, % de merma y precio unitario. Gratis.",
+      "inputs": {
+        "cantidad_neta": "Cantidad neta necesaria",
+        "factor_merma_pct": "Factor de merma (%)",
+        "precio_ud": "Precio por unidad (€)"
+      },
+      "outputs": {
+        "cantidad_pedir": "Cantidad a pedir",
+        "cantidad_merma": "Cantidad de merma",
+        "coste_merma_eur": "Coste de merma (€)",
+        "coste_total_eur": "Coste total (€)"
+      },
+      "seo_description": "Calcula la cantidad óptima de material a comprar aplicando el factor de merma. Evita quedarte corto a mitad de obra o comprar de más. Incluye el coste del desperdicio en el presupuesto.",
+      "example_label": "Calcular material a pedir para 100 m² de baldosa con 10% de merma a 25 €/m².",
+      "range_hints": {
+        "cantidad_neta": "Valor entre 0.1 y 100000 (unidades).",
+        "factor_merma_pct": "Valor entre 1 y 30 %.",
+        "precio_ud": "Valor entre 0.01 y 10000 €/ud."
+      },
+      "result_context": "Resultados: {cantidad_pedir} unidades a pedir, {cantidad_merma} unidades de merma, coste de merma de {coste_merma_eur} €, coste total de {coste_total_eur} €.",
+      "formula_display": "Cantidad_a_pedir = cantidad_neta × (1 + factor_merma%). Coste merma = merma × precio_ud",
+      "steps": [
+        "Mide la cantidad neta exacta de material necesaria según planos y mediciones de proyecto",
+        "Determina el factor de merma según el material: 5-10% para ladrillos y bloques, 10-15% para baldosas y azulejos, 3-5% para materiales a granel",
+        "Aplica la fórmula: cantidad a pedir = cantidad neta × (1 + merma/100). Este es el pedido real al proveedor",
+        "Calcula las unidades de merma: cantidad_pedida − cantidad_neta (material que se pierde en cortes, roturas, ajustes)",
+        "Multiplica la merma por el precio unitario para conocer el coste del desperdicio",
+        "Ajusta el factor de merma según la complejidad del corte y la experiencia del oficial"
+      ],
+      "mistakes": [
+        "Aplicar el mismo factor de merma a todos los materiales: la baldosa grande se rompe más que el ladrillo estándar",
+        "No considerar merma adicional en obras con muchos recortes, esquinas, pilares o instalaciones vistas",
+        "Pedir justo la cantidad neta sin merma y quedarse corto a mitad de la obra (retrasos y costes de envío extra)",
+        "No negociar con el proveedor la devolución de material sobrante en buen estado (palets completos sin abrir)",
+        "Olvidar que la merma también genera costes de gestión de residuos (llevar escombros al vertedero)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "cantidad_neta",
+          "reason": "Tipo correcto: numérico decimal para la cantidad exacta de material según planos."
+        },
+        {
+          "field_id": "factor_merma_pct",
+          "reason": "Tipo correcto: numérico porcentual para el factor de merma del material."
+        },
+        {
+          "field_id": "precio_ud",
+          "reason": "Tipo correcto: numérico decimal para el precio unitario del material."
+        }
+      ]
+    },
+    "en": {
+      "name": "Material Waste Factor Calculator",
+      "desc": "Calculate how much material to order with waste factor.",
+      "seo_title": "Material Waste Calculator – Quantity to Order for Site",
+      "seo_desc": "Calculate how much material to actually order from the supplier applying the waste factor. Enter net quantity, waste %, and unit price. Free.",
+      "inputs": {
+        "cantidad_neta": "Net quantity needed",
+        "factor_merma_pct": "Waste factor (%)",
+        "precio_ud": "Price per unit (â‚¬)"
+      },
+      "outputs": {
+        "cantidad_pedir": "Quantity to order",
+        "cantidad_merma": "Waste quantity",
+        "coste_merma_eur": "Waste cost (â‚¬)",
+        "coste_total_eur": "Total cost (â‚¬)"
+      },
+      "seo_description": "Calculate the optimal quantity of material to purchase applying the waste factor. Avoid running short mid-project or overbuying. Include waste cost in your budget.",
+      "example_label": "Calcular material a pedir para 100 m² de baldosa con 10% de merma a 25 €/m².",
+      "range_hints": {
+        "cantidad_neta": "Valor entre 0.1 y 100000 (unidades).",
+        "factor_merma_pct": "Valor entre 1 y 30 %.",
+        "precio_ud": "Valor entre 0.01 y 10000 â‚¬/ud."
+      },
+      "result_context": "Resultados: {cantidad_pedir} unidades a pedir, {cantidad_merma} unidades de merma, coste de merma de {coste_merma_eur} €, coste total de {coste_total_eur} €.",
+      "formula_display": "Cantidad_a_pedir = cantidad_neta × (1 + factor_merma%). Coste merma = merma × precio_ud",
+      "steps": [
+        "Mide la cantidad neta exacta de material necesaria según planos y mediciones de proyecto",
+        "Determina el factor de merma según el material: 5-10% para ladrillos y bloques, 10-15% para baldosas y azulejos, 3-5% para materiales a granel",
+        "Aplica la fórmula: cantidad a pedir = cantidad neta × (1 + merma/100). Este es el pedido real al proveedor",
+        "Calcula las unidades de merma: cantidad_pedida − cantidad_neta (material que se pierde en cortes, roturas, ajustes)",
+        "Multiplica la merma por el precio unitario para conocer el coste del desperdicio",
+        "Ajusta el factor de merma según la complejidad del corte y la experiencia del oficial"
+      ],
+      "mistakes": [
+        "Aplicar el mismo factor de merma a todos los materiales: la baldosa grande se rompe más que el ladrillo estándar",
+        "No considerar merma adicional en obras con muchos recortes, esquinas, pilares o instalaciones vistas",
+        "Pedir justo la cantidad neta sin merma y quedarse corto a mitad de la obra (retrasos y costes de envío extra)",
+        "No negociar con el proveedor la devolución de material sobrante en buen estado (palets completos sin abrir)",
+        "Olvidar que la merma también genera costes de gestión de residuos (llevar escombros al vertedero)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "cantidad_neta",
+          "reason": "Tipo correcto: numérico decimal para la cantidad exacta de material según planos."
+        },
+        {
+          "field_id": "factor_merma_pct",
+          "reason": "Tipo correcto: numérico porcentual para el factor de merma del material."
+        },
+        {
+          "field_id": "precio_ud",
+          "reason": "Tipo correcto: numérico decimal para el precio unitario del material."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Taux de Chute Matériaux",
+      "desc": "Calculez la quantité de matériaux à commander avec chute.",
+      "seo_title": "Calculateur Coefficient de Perte",
+      "inputs": {
+        "cantidad_neta": "Quantité nette nécessaire",
+        "factor_merma_pct": "Taux de chute (%)",
+        "precio_ud": "Prix par unité (€)"
+      },
+      "outputs": {
+        "cantidad_pedir": "Quantité à commander",
+        "cantidad_merma": "Quantité de chute",
+        "coste_merma_eur": "Coût de la chute (€)",
+        "coste_total_eur": "Coût total (€)"
+      },
+      "seo_description": "Calculez la quantité réelle de matériaux à commander en appliquant le taux de chute ou de perte. Entrez vos valeurs pour des resultats precis.",
+      "example_label": "Calcular material a pedir para 100 m² de baldosa con 10% de merma a 25 €/m².",
+      "range_hints": {
+        "cantidad_neta": "Valor entre 0.1 et 100000 (unités).",
+        "factor_merma_pct": "Valor entre 1 et 30 %.",
+        "precio_ud": "Valor entre 0.01 et 10000 €/ud."
+      },
+      "result_context": "Resultados: {cantidad_pedir} unidades a pedir, {cantidad_merma} unidades de merma, coste de merma de {coste_merma_eur} €, coste total de {coste_total_eur} €.",
+      "formula_display": "Cantidad_a_pedir = cantidad_neta × (1 + factor_merma%). Coste merma = merma × precio_ud",
+      "steps": [
+        "Mide la cantidad neta exacta de material necesaria según planos y mediciones de proyecto",
+        "Determina el factor de merma según el material: 5-10% para ladrillos y bloques, 10-15% para baldosas y azulejos, 3-5% para materiales a granel",
+        "Aplica la fórmula: cantidad a pedir = cantidad neta × (1 + merma/100). Este es el pedido real al proveedor",
+        "Calcula las unidades de merma: cantidad_pedida − cantidad_neta (material que se pierde en cortes, roturas, ajustes)",
+        "Multiplica la merma por el precio unitario para conocer el coste del desperdicio",
+        "Ajusta el factor de merma según la complejidad del corte y la experiencia del oficial"
+      ],
+      "mistakes": [
+        "Aplicar el mismo factor de merma a todos los materiales: la baldosa grande se rompe más que el ladrillo estándar",
+        "No considerar merma adicional en obras con muchos recortes, esquinas, pilares o instalaciones vistas",
+        "Pedir justo la cantidad neta sin merma y quedarse corto a mitad de la obra (retrasos y costes de envío extra)",
+        "No negociar con el proveedor la devolución de material sobrante en buen estado (palets completos sin abrir)",
+        "Olvidar que la merma también genera costes de gestión de residuos (llevar escombros al vertedero)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "cantidad_neta",
+          "reason": "Tipo correcto: numérico decimal para la cantidad exacta de material según planos."
+        },
+        {
+          "field_id": "factor_merma_pct",
+          "reason": "Tipo correcto: numérico porcentual para el factor de merma del material."
+        },
+        {
+          "field_id": "precio_ud",
+          "reason": "Tipo correcto: numérico decimal para el precio unitario del material."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Fator de Perda de Material",
+      "desc": "Calcule a quantidade real de material a pedir aplicando o fator de perda ou desperdício Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora de Fator de Perda de Material",
+      "inputs": {
+        "cantidad_neta": "Quantidade líquida necessária",
+        "factor_merma_pct": "Fator de perda (%)",
+        "precio_ud": "Preço por unidade (R$)"
+      },
+      "outputs": {
+        "cantidad_pedir": "Quantidade a pedir",
+        "cantidad_merma": "Quantidade de perda",
+        "coste_merma_eur": "Custo da perda (R$)",
+        "coste_total_eur": "Custo total (R$)"
+      },
+      "seo_description": "Calcule a quantidade real de material a pedir aplicando o fator de perda ou desperdício Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular material a pedir para 100 m² de baldosa con 10% de merma a 25 €/m².",
+      "range_hints": {
+        "cantidad_neta": "Valor entre 0.1 e 100000 (unidades).",
+        "factor_merma_pct": "Valor entre 1 e 30 %.",
+        "precio_ud": "Valor entre 0.01 e 10000 €/ud."
+      },
+      "result_context": "Resultados: {cantidad_pedir} unidades a pedir, {cantidad_merma} unidades de merma, coste de merma de {coste_merma_eur} €, coste total de {coste_total_eur} €.",
+      "formula_display": "Cantidad_a_pedir = cantidad_neta × (1 + factor_merma%). Coste merma = merma × precio_ud",
+      "steps": [
+        "Mide la cantidad neta exacta de material necesaria según planos y mediciones de proyecto",
+        "Determina el factor de merma según el material: 5-10% para ladrillos y bloques, 10-15% para baldosas y azulejos, 3-5% para materiales a granel",
+        "Aplica la fórmula: cantidad a pedir = cantidad neta × (1 + merma/100). Este es el pedido real al proveedor",
+        "Calcula las unidades de merma: cantidad_pedida − cantidad_neta (material que se pierde en cortes, roturas, ajustes)",
+        "Multiplica la merma por el precio unitario para conocer el coste del desperdicio",
+        "Ajusta el factor de merma según la complejidad del corte y la experiencia del oficial"
+      ],
+      "mistakes": [
+        "Aplicar el mismo factor de merma a todos los materiales: la baldosa grande se rompe más que el ladrillo estándar",
+        "No considerar merma adicional en obras con muchos recortes, esquinas, pilares o instalaciones vistas",
+        "Pedir justo la cantidad neta sin merma y quedarse corto a mitad de la obra (retrasos y costes de envío extra)",
+        "No negociar con el proveedor la devolución de material sobrante en buen estado (palets completos sin abrir)",
+        "Olvidar que la merma también genera costes de gestión de residuos (llevar escombros al vertedero)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "cantidad_neta",
+          "reason": "Tipo correcto: numérico decimal para la cantidad exacta de material según planos."
+        },
+        {
+          "field_id": "factor_merma_pct",
+          "reason": "Tipo correcto: numérico porcentual para el factor de merma del material."
+        },
+        {
+          "field_id": "precio_ud",
+          "reason": "Tipo correcto: numérico decimal para el precio unitario del material."
+        }
+      ]
+    },
+    "de": {
+      "name": "Materialverschnitt merma material",
+      "desc": "Berechnen Sie materialverschnitt merma material online. Geben Sie cantidad neta, factor merma pct, precio ud ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Materialverschnitt merma material | CalcToWork",
+      "seo_desc": "Materialverschnitt merma material online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Materialverschnitt merma material online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "cantidad_neta": "Cantidad Neta",
+        "factor_merma_pct": "Factor Merma Pct",
+        "precio_ud": "Precio Ud"
+      },
+      "outputs": {
+        "cantidad_pedir": "Cantidad Pedir",
+        "cantidad_merma": "Cantidad Merma",
+        "coste_merma_eur": "Coste Merma Eur",
+        "coste_total_eur": "Coste Total Eur"
+      },
+      "example_label": "Calcular material a pedir para 100 m² de baldosa con 10% de merma a 25 €/m².",
+      "range_hints": {
+        "cantidad_neta": "Cantidad exacta de material necesaria según planos, sin margen de merma (unidades)",
+        "factor_merma_pct": "Porcentaje adicional por roturas, cortes y desperdicio según el tipo de material (%)",
+        "precio_ud": "Precio unitario del material según tarifa del proveedor (€/ud)"
+      },
+      "result_context": "Resultados: {cantidad_pedir} unidades a pedir, {cantidad_merma} unidades de merma, coste de merma de {coste_merma_eur} €, coste total de {coste_total_eur} €.",
+      "formula_display": "Cantidad_a_pedir = cantidad_neta × (1 + factor_merma%). Coste merma = merma × precio_ud",
+      "steps": [
+        "Mide la cantidad neta exacta de material necesaria según planos y mediciones de proyecto",
+        "Determina el factor de merma según el material: 5-10% para ladrillos y bloques, 10-15% para baldosas y azulejos, 3-5% para materiales a granel",
+        "Aplica la fórmula: cantidad a pedir = cantidad neta × (1 + merma/100). Este es el pedido real al proveedor",
+        "Calcula las unidades de merma: cantidad_pedida − cantidad_neta (material que se pierde en cortes, roturas, ajustes)",
+        "Multiplica la merma por el precio unitario para conocer el coste del desperdicio",
+        "Ajusta el factor de merma según la complejidad del corte y la experiencia del oficial"
+      ],
+      "mistakes": [
+        "Aplicar el mismo factor de merma a todos los materiales: la baldosa grande se rompe más que el ladrillo estándar",
+        "No considerar merma adicional en obras con muchos recortes, esquinas, pilares o instalaciones vistas",
+        "Pedir justo la cantidad neta sin merma y quedarse corto a mitad de la obra (retrasos y costes de envío extra)",
+        "No negociar con el proveedor la devolución de material sobrante en buen estado (palets completos sin abrir)",
+        "Olvidar que la merma también genera costes de gestión de residuos (llevar escombros al vertedero)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "cantidad_neta",
+          "reason": "Tipo correcto: numérico decimal para la cantidad exacta de material según planos."
+        },
+        {
+          "field_id": "factor_merma_pct",
+          "reason": "Tipo correcto: numérico porcentual para el factor de merma del material."
+        },
+        {
+          "field_id": "precio_ud",
+          "reason": "Tipo correcto: numérico decimal para el precio unitario del material."
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Distanza di Sicurezza",
+      "description": "Calcola le distanze di sicurezza per lavori in quota.",
+      "seo_title": "Calcolatore Distanza di Sicurezza",
+      "seo_description": "Calcola le distanze di sicurezza e le protezioni per i lavori in quota Usato da professionisti e studenti in tutto il mondo.",
+      "inputs": {
+        "altura_trabajo": "Altezza lavoro (m)",
+        "tipo_proteccion": "Tipo protezione (1-3)",
+        "cantidad_neta": "cantidad neta ((unidades))",
+        "factor_merma_pct": "factor merma pct (%)",
+        "precio_ud": "precio ud (â‚¬/ud)"
+      },
+      "outputs": {
+        "distancia_minima": "Distanza minima (m)",
+        "altura_barandilla": "Altezza parapetto (m)",
+        "protecciones": "Protezioni richieste",
+        "cantidad_pedir": "cantidad pedir (uds a pedir)",
+        "cantidad_merma": "cantidad merma (uds merma)",
+        "coste_merma_eur": "coste merma eur (â‚¬ coste merma)",
+        "coste_total_eur": "coste total eur (â‚¬ coste total)"
+      },
+      "example_label": "Calcular material a pedir para 100 m² de baldosa con 10% de merma a 25 €/m².",
+      "range_hints": {
+        "cantidad_neta": "Valor intre 0.1 e 100000 (unità).",
+        "factor_merma_pct": "Valor intre 1 e 30 %.",
+        "precio_ud": "Valor intre 0.01 e 10000 €/ud."
+      },
+      "result_context": "Resultados: {cantidad_pedir} unidades a pedir, {cantidad_merma} unidades de merma, coste de merma de {coste_merma_eur} €, coste total de {coste_total_eur} €.",
+      "formula_display": "Cantidad_a_pedir = cantidad_neta × (1 + factor_merma%). Coste merma = merma × precio_ud",
+      "steps": [
+        "Mide la cantidad neta exacta de material necesaria según planos y mediciones de proyecto",
+        "Determina el factor de merma según el material: 5-10% para ladrillos y bloques, 10-15% para baldosas y azulejos, 3-5% para materiales a granel",
+        "Aplica la fórmula: cantidad a pedir = cantidad neta × (1 + merma/100). Este es el pedido real al proveedor",
+        "Calcula las unidades de merma: cantidad_pedida − cantidad_neta (material que se pierde en cortes, roturas, ajustes)",
+        "Multiplica la merma por el precio unitario para conocer el coste del desperdicio",
+        "Ajusta el factor de merma según la complejidad del corte y la experiencia del oficial"
+      ],
+      "mistakes": [
+        "Aplicar el mismo factor de merma a todos los materiales: la baldosa grande se rompe más que el ladrillo estándar",
+        "No considerar merma adicional en obras con muchos recortes, esquinas, pilares o instalaciones vistas",
+        "Pedir justo la cantidad neta sin merma y quedarse corto a mitad de la obra (retrasos y costes de envío extra)",
+        "No negociar con el proveedor la devolución de material sobrante en buen estado (palets completos sin abrir)",
+        "Olvidar que la merma también genera costes de gestión de residuos (llevar escombros al vertedero)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "cantidad_neta",
+          "reason": "Tipo correcto: numérico decimal para la cantidad exacta de material según planos."
+        },
+        {
+          "field_id": "factor_merma_pct",
+          "reason": "Tipo correcto: numérico porcentual para el factor de merma del material."
+        },
+        {
+          "field_id": "precio_ud",
+          "reason": "Tipo correcto: numérico decimal para el precio unitario del material."
+        }
+      ],
+      "desc": "Calcola la quantità reale di materiale da ordinare considerando la percentuale di sfrido."
+    }
+  }
+}

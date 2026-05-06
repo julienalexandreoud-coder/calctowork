@@ -1,0 +1,638 @@
+{
+  "id": "300",
+  "slug": "hipoteca",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "precio_vivienda",
+      "type": "number",
+      "min": 1000,
+      "max": 1000000000,
+      "step": 1000,
+      "default": 200000,
+      "unit": "â‚¬"
+    },
+    {
+      "id": "entrada_pct",
+      "type": "number",
+      "min": 0,
+      "max": 90,
+      "step": 1,
+      "default": 20,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    },
+    {
+      "id": "interes_anual_pct",
+      "type": "number",
+      "min": 0.01,
+      "max": 25,
+      "step": 0.01,
+      "default": 3.5,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    },
+    {
+      "id": "plazo_anos",
+      "type": "number",
+      "min": 1,
+      "max": 40,
+      "step": 1,
+      "default": 25,
+      "unit": "años"
+    }
+  ],
+  "formula": "var P=parseFloat(inputs.precio_vivienda)||0,E=parseFloat(inputs.entrada_pct)||20,R=parseFloat(inputs.interes_anual_pct)||0,N=parseFloat(inputs.plazo_anos)||0;if(!P||!R||!N)return{error:true};var principal=+(P*(1-E/100)).toFixed(2),r=R/100/12,n=N*12;var cuota=r?principal*(r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1):principal/n;var total=+(cuota*n).toFixed(2),intereses=+(total-principal).toFixed(2);var tbl=[],bal=principal;for(var i=1;i<=N;i++){  var int_yr=+(bal*R/100).toFixed(2);  var pri_yr=+(Math.min(cuota*12-int_yr,bal)).toFixed(2);  bal=+(Math.max(bal-pri_yr,0)).toFixed(2);  tbl.push({year:i,interest:int_yr,principal:pri_yr,balance:bal});}return{cuota_mensual:+cuota.toFixed(2),principal_eur:+principal.toFixed(0),total_intereses:intereses,total_pagado:total,table:tbl};",
+  "outputs": [
+    {
+      "id": "cuota_mensual",
+      "unit": "â‚¬/mes",
+      "highlight": true
+    },
+    {
+      "id": "principal_eur",
+      "unit": "â‚¬"
+    },
+    {
+      "id": "total_intereses",
+      "unit": "â‚¬"
+    },
+    {
+      "id": "total_pagado",
+      "unit": "â‚¬"
+    }
+  ],
+  "related": [
+    "301",
+    "302",
+    "303",
+    "936"
+  ],
+  "tableHeaders": [
+    "year",
+    "interest",
+    "principal",
+    "balance"
+  ],
+  "example_inputs": {
+    "precio_vivienda": 285000,
+    "entrada_pct": 18,
+    "interes_anual_pct": 3.25,
+    "plazo_anos": 28
+  },
+  "example_label": "Calcula la cuota mensual de tu hipoteca: vivienda 285.000eur, entrada 18%, interes 3,25%, plazo 28 anos",
+  "range_hints": {
+    "precio_vivienda": "Valor típico entre 1000 y 1000000000. Valor por defecto: 200000 â‚¬.",
+    "entrada_pct": "Valor típico entre 0 y 90. Valor por defecto: 20 %.",
+    "interes_anual_pct": "Valor típico entre 0.01 y 25. Valor por defecto: 3.5 %.",
+    "plazo_anos": "Valor típico entre 1 y 40. Valor por defecto: 25 años."
+  },
+  "result_context": "Tu cuota mensual será de {cuota_mensual} €/mes. El préstamo hipotecario es de {principal_eur} €. En total pagarás {total_pagado} €, de los cuales {total_intereses} € serán intereses.",
+  "result_context_en": "Your monthly payment will be {cuota_mensual} €/month. The mortgage loan is {principal_eur} €. You will pay {total_pagado} € in total, of which {total_intereses} € will be interest.",
+  "result_context_fr": "Votre mensualité sera de {cuota_mensual} €/mois. Le prêt hypothécaire est de {principal_eur} €. Vous paierez {total_pagado} € au total, dont {total_intereses} € d'intérêts.",
+  "result_context_pt": "Sua prestação mensal será de {cuota_mensual} €/mês. O empréstimo hipotecário é de {principal_eur} €. No total, pagará {total_pagado} €, dos quais {total_intereses} € serão juros.",
+  "result_context_de": "Ihre monatliche Rate beträgt {cuota_mensual} €/Monat. Das Hypothekendarlehen beträgt {principal_eur} €. Insgesamt zahlen Sie {total_pagado} €, davon {total_intereses} € an Zinsen.",
+  "result_context_it": "La tua rata mensile sarà di {cuota_mensual} €/mese. Il mutuo ipotecario è di {principal_eur} €. In totale pagherai {total_pagado} €, di cui {total_intereses} € di interessi.",
+  "formula_display": "Cuota = P x [r x (1+r)^n] / [(1+r)^n - 1]",
+  "steps": [
+    "Introduce el precio total de la vivienda que deseas adquirir incluyendo los gastos de compraventa",
+    "Define el porcentaje de entrada o down payment (los bancos suelen exigir al menos un 20% del valor de tasacion)",
+    "Establece la tasa de interes anual ofrecida por el banco (referencia: Euribor + diferencial del banco)",
+    "Selecciona el plazo en anos: a mas plazo menor cuota mensual pero mayor coste total en intereses",
+    "Revisa la cuota mensual resultante y comprueba que no supera el 30-35% de tus ingresos netos mensuales"
+  ],
+  "mistakes": [
+    "No considerar los gastos adicionales: notaria, registro, impuestos como ITP o AJD, tasacion y comisiones bancarias",
+    "Olvidar que el tipo de interes puede ser variable y cambiar con el Euribor, encareciendo la cuota significativamente",
+    "No verificar si la cuota mensual supera el 35% de tus ingresos netos, limite prudencial para evitar sobreendeudamiento"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "precio_vivienda",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "entrada_pct",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "interes_anual_pct",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "plazo_anos",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "principal": 100000,
+      "interest_rate": 3.5,
+      "years": 30
+    },
+    {
+      "principal": 150000,
+      "interest_rate": 4,
+      "years": 25
+    },
+    {
+      "principal": 200000,
+      "interest_rate": 4.5,
+      "years": 30
+    },
+    {
+      "principal": 300000,
+      "interest_rate": 5,
+      "years": 30
+    },
+    {
+      "principal": 500000,
+      "interest_rate": 5.5,
+      "years": 25
+    }
+  ],
+  "units": {
+    "entrada_pct": "%",
+    "interes_anual_pct": "%"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Hipoteca",
+      "desc": "Calcula la cuota mensual, intereses totales y coste total de tu hipoteca.",
+      "description": "Calcula la cuota mensual, intereses totales y coste total de tu hipoteca.",
+      "seo_title": "Calculadora de Hipoteca Gratuita",
+      "seo_description": "Calcula la cuota mensual de tu hipoteca, los intereses totales y el coste total. Introduce precio, entrada, tipo de interés y plazo.",
+      "inputs": {
+        "precio_vivienda": "Precio de la vivienda (€)",
+        "entrada_pct": "Entrada (%)",
+        "interes_anual_pct": "Interés anual (%)",
+        "plazo_anos": "Plazo (años)"
+      },
+      "outputs": {
+        "cuota_mensual": "Cuota mensual",
+        "principal_eur": "Capital prestado",
+        "total_intereses": "Total intereses",
+        "total_pagado": "Total pagado"
+      },
+      "example_label": "Calculating monthly mortgage payment for a €285,000 home with 18% down payment over 28 years at 3.25% interest.",
+      "range_hints": {
+        "precio_vivienda": "€50,000 - €2,000,000 typical home prices",
+        "entrada_pct": "10-40% down payment, 20% recommended",
+        "interes_anual_pct": "2-6% current mortgage rates",
+        "plazo_anos": "15-35 years typical loan terms"
+      },
+      "result_context": "The cuota_mensual of {cuota_mensual} represents your monthly mortgage payment including principal and interest. Total interest paid over the loan life will be {total_intereses}.",
+      "formula_display": "Monthly Payment = P × [r(1+r)^n] ÷ [(1+r)^n - 1]",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Calculate loan principal after down payment",
+          "calculation": "€285,000 × (1 - 18/100) = €233,700"
+        },
+        {
+          "step": 2,
+          "description": "Convert annual rate to monthly rate",
+          "calculation": "3.25% ÷ 12 ÷ 100 = 0.002708"
+        },
+        {
+          "step": 3,
+          "description": "Calculate total number of payments",
+          "calculation": "28 years × 12 = 336 months"
+        },
+        {
+          "step": 4,
+          "description": "Apply mortgage payment formula",
+          "calculation": "€233,700 × [0.002708(1.002708)^336] ÷ [(1.002708)^336 - 1] = €1,048.23"
+        }
+      ],
+      "mistakes": [
+        "Forgetting to include property taxes and insurance in total monthly housing costs",
+        "Using the home price instead of the loan principal (after down payment) in calculations",
+        "Not accounting for the total interest paid over the entire loan term"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_vivienda",
+          "reason": "Correct type for currency input with step of 1000"
+        },
+        {
+          "field_id": "entrada_pct",
+          "reason": "Correct type for percentage input"
+        },
+        {
+          "field_id": "interes_anual_pct",
+          "reason": "Correct type for interest rate with 0.01 precision"
+        },
+        {
+          "field_id": "plazo_anos",
+          "reason": "Correct type for year count"
+        }
+      ]
+    },
+    "en": {
+      "name": "Mortgage Calculator",
+      "desc": "Calculate your monthly mortgage payment, total interest and overall cost.",
+      "description": "Calculate your monthly mortgage payment, total interest and overall cost.",
+      "seo_title": "Mortgage Calculator – Monthly Payment & Interest",
+      "seo_description": "Calculate your monthly mortgage payment, total interest and total cost. Enter price, down payment, interest rate and term.",
+      "inputs": {
+        "precio_vivienda": "Property price (â‚¬)",
+        "entrada_pct": "Down payment (%)",
+        "interes_anual_pct": "Annual interest (%)",
+        "plazo_anos": "Term (years)"
+      },
+      "outputs": {
+        "cuota_mensual": "Monthly payment",
+        "principal_eur": "Loan principal",
+        "total_intereses": "Total interest",
+        "total_pagado": "Total paid"
+      },
+      "example_label": "Calculating monthly mortgage payment for a â‚¬285,000 home with 18% down payment over 28 years at 3.25% interest.",
+      "range_hints": {
+        "precio_vivienda": "â‚¬50,000 - â‚¬2,000,000 typical home prices",
+        "entrada_pct": "10-40% down payment, 20% recommended",
+        "interes_anual_pct": "2-6% current mortgage rates",
+        "plazo_anos": "15-35 years typical loan terms"
+      },
+      "result_context": "The cuota_mensual of {cuota_mensual} represents your monthly mortgage payment including principal and interest. Total interest paid over the loan life will be {total_intereses}.",
+      "formula_display": "Monthly Payment = P × [r(1+r)^n] ÷ [(1+r)^n - 1]",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Calculate loan principal after down payment",
+          "calculation": "â‚¬285,000 × (1 - 18/100) = â‚¬233,700"
+        },
+        {
+          "step": 2,
+          "description": "Convert annual rate to monthly rate",
+          "calculation": "3.25% ÷ 12 ÷ 100 = 0.002708"
+        },
+        {
+          "step": 3,
+          "description": "Calculate total number of payments",
+          "calculation": "28 years × 12 = 336 months"
+        },
+        {
+          "step": 4,
+          "description": "Apply mortgage payment formula",
+          "calculation": "â‚¬233,700 × [0.002708(1.002708)^336] ÷ [(1.002708)^336 - 1] = â‚¬1,048.23"
+        }
+      ],
+      "mistakes": [
+        "Forgetting to include property taxes and insurance in total monthly housing costs",
+        "Using the home price instead of the loan principal (after down payment) in calculations",
+        "Not accounting for the total interest paid over the entire loan term"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_vivienda",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for currency input with step of 1000"
+        },
+        {
+          "field_id": "entrada_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for percentage input"
+        },
+        {
+          "field_id": "interes_anual_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for interest rate with 0.01 precision"
+        },
+        {
+          "field_id": "plazo_anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for year count"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur d'Hypothèque",
+      "desc": "Calculez votre mensualité, les intérêts totaux et le coût total de votre prêt immobilier.",
+      "description": "Calculez votre mensualité, les intérêts totaux et le coût total de votre prêt immobilier.",
+      "seo_title": "Calculateur Hypothèque – Mensualité et Intérêts",
+      "seo_description": "Calculez la mensualité, les intérêts totaux et le coût total de votre hypothèque. Avec options de composition et taxes. Utilise par des professionnels.",
+      "inputs": {
+        "precio_vivienda": "Prix du bien (€)",
+        "entrada_pct": "Apport (%)",
+        "interes_anual_pct": "Taux annuel (%)",
+        "plazo_anos": "Durée (ans)"
+      },
+      "outputs": {
+        "cuota_mensual": "Mensualité",
+        "principal_eur": "Capital emprunté",
+        "total_intereses": "Total intérêts",
+        "total_pagado": "Total payé"
+      },
+      "example_label": "Calculating monthly mortgage payment for a €285,000 home with 18% down payment over 28 years at 3.25% interest.",
+      "range_hints": {
+        "precio_vivienda": "€50,000 - €2,000,000 typical home prices",
+        "entrada_pct": "10-40% down payment, 20% recommended",
+        "interes_anual_pct": "2-6% current mortgage rates",
+        "plazo_anos": "15-35 years typical loan terms"
+      },
+      "result_context": "The cuota_mensual of {cuota_mensual} represents your monthly mortgage payment including principal and interest. total interest paid over the loan life will be {total_intereses}.",
+      "formula_display": "Monthly Payment = P × [r(1+r)^n] Á· [(1+r)^n - 1]",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Calculate loan principal after down payment",
+          "calculation": "â‚¬285,000 × (1 - 18/100) = â‚¬233,700"
+        },
+        {
+          "step": 2,
+          "description": "Convert annual rate to monthly rate",
+          "calculation": "3.25% Á· 12 Á· 100 = 0.002708"
+        },
+        {
+          "step": 3,
+          "description": "Calculate total number of payments",
+          "calculation": "28 years × 12 = 336 months"
+        },
+        {
+          "step": 4,
+          "description": "Apply mortgage payment formula",
+          "calculation": "â€233,700 × [0.002708(1.002708)^336] Á· [(1.002708)^336 - 1] = â€1,048.23"
+        }
+      ],
+      "mistakes": [
+        "Forgetting to include property taxes and insurance in total monthly housing costs",
+        "Using the home price instead of the loan principal (after down payment) in calculations",
+        "Not accounting for the total interest paid over the entire loan term"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_vivienda",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for currency input with step of 1000"
+        },
+        {
+          "field_id": "entrada_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for percentage input"
+        },
+        {
+          "field_id": "interes_anual_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for interest rate with 0.01 precision"
+        },
+        {
+          "field_id": "plazo_anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for year count"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Hipoteca",
+      "desc": "Calcule a prestação mensal, juros totais e custo total da sua hipoteca.",
+      "description": "Calcule a prestação mensal, juros totais e custo total da sua hipoteca.",
+      "seo_title": "Calculadora de Hipoteca – Prestação Mensal",
+      "seo_description": "Calcule a prestação mensal da sua hipoteca, juros totais e custo total. Com opcoes de compostagem e impostos. Usado por profissionais e estudantes em.",
+      "inputs": {
+        "precio_vivienda": "Preço do imóvel (€)",
+        "entrada_pct": "Entrada (%)",
+        "interes_anual_pct": "Taxa anual (%)",
+        "plazo_anos": "Prazo (anos)"
+      },
+      "outputs": {
+        "cuota_mensual": "Prestação mensal",
+        "principal_eur": "Capital emprestado",
+        "total_intereses": "Total juros",
+        "total_pagado": "Total pago"
+      },
+      "example_label": "Calculating monthly mortgage payment for a €285,000 home with 18% down payment over 28 years at 3.25% interest.",
+      "range_hints": {
+        "precio_vivienda": "€50,000 - €2,000,000 typical home prices",
+        "entrada_pct": "10-40% down payment, 20% recommended",
+        "interes_anual_pct": "2-6% current mortgage rates",
+        "plazo_anos": "15-35 years typical loan terms"
+      },
+      "result_context": "The cuota_mensual of {cuota_mensual} represents your monthly mortgage payment including principal and interest. Total interest paid over the loan life will be {total_intereses}.",
+      "formula_display": "Monthly Payment = P × [r(1+r)^n] ÷ [(1+r)^n - 1]",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Calculate loan principal after down payment",
+          "calculation": "â‚¬285,000 × (1 - 18/100) = â‚¬233,700"
+        },
+        {
+          "step": 2,
+          "description": "Convert annual rate to monthly rate",
+          "calculation": "3.25% ÷ 12 ÷ 100 = 0.002708"
+        },
+        {
+          "step": 3,
+          "description": "Calculate total number of payments",
+          "calculation": "28 years × 12 = 336 months"
+        },
+        {
+          "step": 4,
+          "description": "Apply mortgage payment formula",
+          "calculation": "â‚¬233,700 × [0.002708(1.002708)^336] ÷ [(1.002708)^336 - 1] = â‚¬1,048.23"
+        }
+      ],
+      "mistakes": [
+        "Forgetting to include property taxes and insurance in total monthly housing costs",
+        "Using the home price instead of the loan principal (after down payment) in calculations",
+        "Not accounting for the total interest paid over the entire loan term"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_vivienda",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for currency input with step of 1000"
+        },
+        {
+          "field_id": "entrada_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for percentage input"
+        },
+        {
+          "field_id": "interes_anual_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for interest rate with 0.01 precision"
+        },
+        {
+          "field_id": "plazo_anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for year count"
+        }
+      ]
+    },
+    "de": {
+      "name": "Hypothekenrechner",
+      "desc": "Berechnen Sie hypothekenrechner online. Geben Sie precio vivienda, entrada pct, interes anual pct ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Hypothekenrechner | CalcToWork",
+      "seo_desc": "Hypothekenrechner online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Hypothekenrechner online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "precio_vivienda": "Precio Vivienda",
+        "entrada_pct": "Entrada Pct",
+        "interes_anual_pct": "Interes Anual Pct",
+        "plazo_anos": "Plazo Anos"
+      },
+      "outputs": {
+        "cuota_mensual": "Cuota Mensual",
+        "principal_eur": "Principal Eur",
+        "total_intereses": "Total Intereses",
+        "total_pagado": "Total Pagado"
+      },
+      "example_label": "Calcula la cuota mensual de tu hipoteca: vivienda 285.000eur, entrada 18%, interes 3,25%, plazo 28 anos",
+      "range_hints": {
+        "precio_vivienda": "Valor típico entre 1000 y 1000000000. Valor por defecto: 200000 â‚¬.",
+        "entrada_pct": "Valor típico entre 0 y 90. Valor por defecto: 20 %.",
+        "interes_anual_pct": "Valor típico entre 0.01 y 25. Valor por defecto: 3.5 %.",
+        "plazo_anos": "Valor típico entre 1 y 40. Valor por defecto: 25 años."
+      },
+      "result_context": "Ihre monatliche Rate beträgt {cuota_mensual} €/Monat. Das Hypothekendarlehen beträgt {principal_eur} €. Insgesamt zahlen Sie {total_pagado} €, davon {total_intereses} € an Zinsen.",
+      "formula_display": "Cuota = P x [r x (1+r)^n] / [(1+r)^n - 1]",
+      "steps": [
+        "Introduce el precio total de la vivienda que deseas adquirir incluyendo los gastos de compraventa",
+        "Define el porcentaje de entrada o down payment (los bancos suelen exigir al menos un 20% del valor de tasacion)",
+        "Establece la tasa de interes anual ofrecida por el banco (referencia: Euribor + diferencial del banco)",
+        "Selecciona el plazo en anos: a mas plazo menor cuota mensual pero mayor coste total en intereses",
+        "Revisa la cuota mensual resultante y comprueba que no supera el 30-35% de tus ingresos netos mensuales"
+      ],
+      "mistakes": [
+        "No considerar los gastos adicionales: notaria, registro, impuestos como ITP o AJD, tasacion y comisiones bancarias",
+        "Olvidar que el tipo de interes puede ser variable y cambiar con el Euribor, encareciendo la cuota significativamente",
+        "No verificar si la cuota mensual supera el 35% de tus ingresos netos, limite prudencial para evitar sobreendeudamiento"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_vivienda",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "entrada_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "interes_anual_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "plazo_anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Mutuo",
+      "desc": "Calcola la rata mensile, gli interessi totali e il costo totale del tuo mutuo.",
+      "description": "Calcola la rata mensile, gli interessi totali e il costo totale del tuo mutuo.",
+      "seo_title": "Calcolatore Mutuo – Rata Mensile e Interessi",
+      "seo_description": "Calcola la rata mensile del mutuo, gli interessi totali e il costo complessivo. Con opzioni di capitalizzazione e tasse.",
+      "inputs": {
+        "precio_vivienda": "Prezzo immobile (€)",
+        "entrada_pct": "Acconto (%)",
+        "interes_anual_pct": "Tasso annuale (%)",
+        "plazo_anos": "Durata (anni)"
+      },
+      "outputs": {
+        "cuota_mensual": "Rata mensile",
+        "principal_eur": "Capitale finanziato",
+        "total_intereses": "Totale interessi",
+        "total_pagado": "Totale pagato"
+      },
+      "example_label": "Calculating monthle mortgage paemint for a €285,000 home with 18% down paemint over 28 eears at 3.25% interest.",
+      "range_hints": {
+        "precio_vivienda": "€50,000 - €2,000,000 tepical home prices",
+        "entrada_pct": "10-40% down paemint, 20% recommindid",
+        "interes_anual_pct": "2-6% currint mortgage rates",
+        "plazo_anos": "15-35 eears tepical loan terms"
+      },
+      "result_context": "The cuota_minsual of {cuota_minsual} represents eour monthle mortgage paemint including principal and interest. Total interest paid over the loan life will be {totale_intereses}.",
+      "formula_display": "Monthle Paemint = P × [r(1+r)^n] ÷ [(1+r)^n - 1]",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Calculate loan principal after down payment",
+          "calculation": "€285,000 × (1 - 18/100) = €233,700"
+        },
+        {
+          "step": 2,
+          "description": "Convert annual rate to monthly rate",
+          "calculation": "3.25% ÷ 12 ÷ 100 = 0.002708"
+        },
+        {
+          "step": 3,
+          "description": "Calculate total number of payments",
+          "calculation": "28 years × 12 = 336 months"
+        },
+        {
+          "step": 4,
+          "description": "Apply mortgage payment formula",
+          "calculation": "€233,700 × [0.002708(1.002708)^336] ÷ [(1.002708)^336 - 1] = €1,048.23"
+        }
+      ],
+      "mistakes": [
+        "Forgetting to includi properte taxes and insurance in totale monthle housenzag costs",
+        "Usenzag the home price instead of the loan principal (after down paemint) in calculations",
+        "Not accounting for the totale interest paid over the intire loan term"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_vivienda",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for currince input with step of 1000"
+        },
+        {
+          "field_id": "entrada_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for percintage input"
+        },
+        {
+          "field_id": "interes_anual_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for interest rate with 0.01 preciseon"
+        },
+        {
+          "field_id": "plazo_anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for eear count"
+        }
+      ]
+    }
+  }
+}

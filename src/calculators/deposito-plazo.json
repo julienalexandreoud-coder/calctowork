@@ -1,0 +1,537 @@
+{
+  "id": "316",
+  "slug": "deposito-plazo",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "capital",
+      "type": "number",
+      "min": 1,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 10000,
+      "unit": ""
+    },
+    {
+      "id": "tasa_anual",
+      "type": "number",
+      "min": 0.01,
+      "max": 30,
+      "step": "any",
+      "default": 4,
+      "unit": ""
+    },
+    {
+      "id": "plazo_meses",
+      "type": "number",
+      "min": 1,
+      "max": 120,
+      "step": "any",
+      "default": 12,
+      "unit": ""
+    }
+  ],
+  "formula": "var c=parseFloat(inputs.capital)||0,r=parseFloat(inputs.tasa_anual)||0,m=parseFloat(inputs.plazo_meses)||0;var i=c*(r/100)*(m/12);return{intereses:+i.toFixed(2),total:+(c+i).toFixed(2)};",
+  "outputs": [
+    {
+      "id": "intereses",
+      "unit": "â‚¬",
+      "highlight": true
+    },
+    {
+      "id": "total",
+      "unit": "â‚¬"
+    }
+  ],
+  "related": [
+    "302",
+    "303",
+    "300",
+    "301"
+  ],
+  "example_inputs": {
+    "capital": 20000,
+    "tasa_anual": 3.5,
+    "plazo_meses": 18
+  },
+  "example_label": "Calcula los intereses de tu deposito a plazo fijo de 20.000eur al 3,5% TIN a 18 meses",
+  "range_hints": {
+    "capital": "Introduce el valor de capital. Valor sugerido: 10000",
+    "tasa_anual": "Introduce el valor de tasa anual. Valor sugerido: 4",
+    "plazo_meses": "Introduce el valor de plazo meses. Valor sugerido: 12"
+  },
+  "result_context": "Resultados: {intereses} € de intereses, {total} € en total.",
+  "formula_display": "Intereses = Capital x (Tasa anual/100) x (Plazo en meses/12)",
+  "steps": [
+    "Introduce el capital que deseas depositar en el producto de ahorro a plazo fijo ofrecido por tu banco",
+    "Indica la tasa de interes anual nominal (TIN) que ofrece la entidad para ese deposito concreto",
+    "Especifica el plazo de imposicion en meses durante el cual el dinero quedara inmovilizado sin poder retirarlo",
+    "Calcula los intereses brutos con interes simple: Capital x TIN/100 x Meses/12",
+    "Recuerda que los intereses generados tributan como rendimiento del capital mobiliario (retencion del 19% en Espana)"
+  ],
+  "mistakes": [
+    "Confundir TIN (Tipo de Interes Nominal) con TAE (Tasa Anual Equivalente): la TAE incluye comisiones y frecuencia de liquidacion",
+    "No considerar la penalizacion por cancelacion anticipada: la mayoria de depositos penalizan retirar el dinero antes del vencimiento",
+    "Olvidar que los intereses del deposito tributan en la declaracion de la renta como rendimiento del capital mobiliario"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "capital",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "tasa_anual",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "plazo_meses",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "capital": 10000,
+      "plazo_meses": 9,
+      "tasa_anual": 3.5
+    },
+    {
+      "_label": "Average",
+      "capital": 15000,
+      "plazo_meses": 14,
+      "tasa_anual": 3.5
+    },
+    {
+      "_label": "High",
+      "capital": 20000,
+      "plazo_meses": 18,
+      "tasa_anual": 3.5
+    },
+    {
+      "_label": "Premium",
+      "capital": 30000,
+      "plazo_meses": 27,
+      "tasa_anual": 3.5
+    },
+    {
+      "_label": "Enterprise",
+      "capital": 40000,
+      "plazo_meses": 36,
+      "tasa_anual": 3.5
+    }
+  ],
+  "i18n": {
+    "es": {
+      "name": "Calculadora Deposito Plazo",
+      "desc": "Calcula Interés = Capital × (1 + Tasa/n)^(n×t) - Capital. Ejemplo: 10.000 € al 3,5 % anual, 1 año, capitalización mensual = Interés = 355,77 €; Total = 10.355,77 €....",
+      "description": "Calculadora Deposito Plazo",
+      "seo_title": "Calculadora Deposito Plazo Gratuita",
+      "seo_description": "Calcula Interés = Capital × (1 + Tasa/n)^(n×t) - Capital. Ejemplo: 10.000 € al 3,5 % anual, 1 año, capitalización mensual = Interés = 355,77 €; Total = 10.355,77 €....",
+      "inputs": {
+        "capital": "Capital",
+        "tasa_anual": "Tasa anual (%)",
+        "plazo_meses": "Plazo (meses)"
+      },
+      "outputs": {
+        "intereses": "Intereses",
+        "total": "Total"
+      },
+      "example_label": "Calculating return on €20,000 term deposit at 3.5% annual rate for 18 months.",
+      "range_hints": {
+        "capital": "€1,000 - €500,000 deposit amounts",
+        "tasa_anual": "1-6% term deposit rates",
+        "plazo_meses": "3-60 months typical terms"
+      },
+      "result_context": "The intereses of {intereses} is earned over the term. The total of {total} is returned at maturity.",
+      "formula_display": "Interest = Principal × Rate × (Months ÷ 12)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert annual rate to decimal",
+          "calculation": "3.5% ÷ 100 = 0.035"
+        },
+        {
+          "step": 2,
+          "description": "Calculate time factor in years",
+          "calculation": "18 months ÷ 12 = 1.5 years"
+        },
+        {
+          "step": 3,
+          "description": "Calculate simple interest",
+          "calculation": "€20,000 × 0.035 × 1.5 = €1,050"
+        },
+        {
+          "step": 4,
+          "description": "Add interest to principal",
+          "calculation": "€20,000 + €1,050 = €21,050"
+        }
+      ],
+      "mistakes": [
+        "Not checking early withdrawal penalties before investing",
+        "Confusing nominal rate with effective annual rate",
+        "Forgetting to compare with inflation for real returns"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "capital",
+          "reason": "Correct type for deposit amount"
+        },
+        {
+          "field_id": "tasa_anual",
+          "reason": "Correct type for annual rate"
+        },
+        {
+          "field_id": "plazo_meses",
+          "reason": "Correct type for term in months"
+        }
+      ]
+    },
+    "en": {
+      "name": "Term Deposit Calculator",
+      "desc": "Term Deposit Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Term Deposit Calculator",
+      "seo_title": "Term Deposit Calculator – Free Online Tool",
+      "seo_description": "Calculate Interest = Capital × (1 + Rate/n)^(n×t) - Capital. Example: â‚¬10,000 at 3.5% annual, 1 year, monthly compounding = Interest = â‚¬355.77; Total = â‚¬10,355.77....",
+      "inputs": {
+        "capital": "Principal",
+        "tasa_anual": "Annual rate (%)",
+        "plazo_meses": "Term (months)"
+      },
+      "outputs": {
+        "intereses": "Interest",
+        "total": "Total"
+      },
+      "example_label": "Calculating return on â‚¬20,000 term deposit at 3.5% annual rate for 18 months.",
+      "range_hints": {
+        "capital": "â‚¬1,000 - â‚¬500,000 deposit amounts",
+        "tasa_anual": "1-6% term deposit rates",
+        "plazo_meses": "3-60 months typical terms"
+      },
+      "result_context": "The intereses of {intereses} is earned over the term. The total of {total} is returned at maturity.",
+      "formula_display": "Interest = Principal × Rate × (Months ÷ 12)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert annual rate to decimal",
+          "calculation": "3.5% ÷ 100 = 0.035"
+        },
+        {
+          "step": 2,
+          "description": "Calculate time factor in years",
+          "calculation": "18 months ÷ 12 = 1.5 years"
+        },
+        {
+          "step": 3,
+          "description": "Calculate simple interest",
+          "calculation": "â‚¬20,000 × 0.035 × 1.5 = â‚¬1,050"
+        },
+        {
+          "step": 4,
+          "description": "Add interest to principal",
+          "calculation": "â‚¬20,000 + â‚¬1,050 = â‚¬21,050"
+        }
+      ],
+      "mistakes": [
+        "Not checking early withdrawal penalties before investing",
+        "Confusing nominal rate with effective annual rate",
+        "Forgetting to compare with inflation for real returns"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "capital",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for deposit amount"
+        },
+        {
+          "field_id": "tasa_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for annual rate"
+        },
+        {
+          "field_id": "plazo_meses",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for term in months"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Depot A Terme",
+      "desc": "Calculez Interest = Capital × (1 + Rate/n)^(n×t) - Capital. Exemple: €10,000 at 3.5% annual, 1 year, monthly compounding = Interest = €355.77; Total = €10,355.77....",
+      "description": "Calculateur Depot A Terme",
+      "seo_title": "Calculateur Depot A Terme – Étape par Étape",
+      "seo_description": "Calculez Interest = Capital × (1 + Rate/n)^(n×t) - Capital. Exemple: €10,000 at 3.5% annual, 1 year, monthly compounding = Interest = €355.77; Total = €10,355.77....",
+      "inputs": {
+        "capital": "Capital",
+        "tasa_anual": "Taux annuel (%)",
+        "plazo_meses": "Durée (mois)"
+      },
+      "outputs": {
+        "intereses": "Intérêts",
+        "total": "Total"
+      },
+      "example_label": "Calculating return on €20,000 term deposit at 3.5% annual rate for 18 months.",
+      "range_hints": {
+        "capital": "€1,000 - €500,000 deposit amounts",
+        "tasa_anual": "1-6% term deposit rates",
+        "plazo_meses": "3-60 months typical terms"
+      },
+      "result_context": "The intereses of {intereses} is earned over the term. The total of {total} is returned at maturity.",
+      "formula_display": "Interest = Principal × Rate × (Months Á· 12)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert annual rate to decimal",
+          "calculation": "3.5% Á· 100 = 0.035"
+        },
+        {
+          "step": 2,
+          "description": "Calculate time factor in years",
+          "calculation": "18 months Á· 12 = 1.5 years"
+        },
+        {
+          "step": 3,
+          "description": "Calculate simple interest",
+          "calculation": "â‚¬20,000 × 0.035 × 1.5 = â‚¬1,050"
+        },
+        {
+          "step": 4,
+          "description": "Add interest to principal",
+          "calculation": "€20,000 + €1,050 = €21,050"
+        }
+      ],
+      "mistakes": [
+        "Not checking early withdrawal penalties before investing",
+        "Confusing nominal rate with effective annual rate",
+        "Forgetting to compare with inflation for real returns"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "capital",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for deposit amount"
+        },
+        {
+          "field_id": "tasa_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for annual rate"
+        },
+        {
+          "field_id": "plazo_meses",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for term in months"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora Deposito Prazo",
+      "desc": "Calcule Interest = Capital × (1 + Rate/n)^(n×t) - Capital. Exemplo: €10,000 at 3.5% annual, 1 year, monthly compounding = Interest = €355.77; Total = €10,355.77....",
+      "description": "Calculadora Deposito Prazo",
+      "seo_title": "Calculadora Deposito Prazo – Passo a Passo",
+      "seo_description": "Calcule Interest = Capital × (1 + Rate/n)^(n×t) - Capital. Exemplo: €10,000 at 3.5% annual, 1 year, monthly compounding = Interest = €355.77; Total = €10,355.77....",
+      "inputs": {
+        "capital": "Capital",
+        "tasa_anual": "Taxa anual (%)",
+        "plazo_meses": "Prazo (meses)"
+      },
+      "outputs": {
+        "intereses": "Juros",
+        "total": "Total"
+      },
+      "example_label": "Calculating return on €20,000 term deposit at 3.5% annual rate for 18 months.",
+      "range_hints": {
+        "capital": "€1,000 - €500,000 deposit amounts",
+        "tasa_anual": "1-6% term deposit rates",
+        "plazo_meses": "3-60 months typical terms"
+      },
+      "result_context": "The intereses of {intereses} is earned over the term. The total of {total} is returned at maturity.",
+      "formula_display": "Interest = Principal × Rate × (Months ÷ 12)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert annual rate to decimal",
+          "calculation": "3.5% ÷ 100 = 0.035"
+        },
+        {
+          "step": 2,
+          "description": "Calculate time factor in years",
+          "calculation": "18 months ÷ 12 = 1.5 years"
+        },
+        {
+          "step": 3,
+          "description": "Calculate simple interest",
+          "calculation": "â‚¬20,000 × 0.035 × 1.5 = â‚¬1,050"
+        },
+        {
+          "step": 4,
+          "description": "Add interest to principal",
+          "calculation": "€20,000 + €1,050 = €21,050"
+        }
+      ],
+      "mistakes": [
+        "Not checking early withdrawal penalties before investing",
+        "Confusing nominal rate with effective annual rate",
+        "Forgetting to compare with inflation for real returns"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "capital",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for deposit amount"
+        },
+        {
+          "field_id": "tasa_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for annual rate"
+        },
+        {
+          "field_id": "plazo_meses",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for term in months"
+        }
+      ]
+    },
+    "de": {
+      "name": "Festgeld Laufzeit",
+      "desc": "Berechnen Sie festgeld Laufzeit online. Geben Sie capital, tasa anual, plazo meses ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Festgeld Laufzeit | CalcToWork",
+      "seo_desc": "Festgeld Laufzeit online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Festgeld Laufzeit online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "capital": "Capital",
+        "tasa_anual": "Tasa Anual",
+        "plazo_meses": "Plazo Meses"
+      },
+      "outputs": {
+        "intereses": "Intereses",
+        "total": "Total"
+      },
+      "example_label": "Calcula los intereses de tu deposito a plazo fijo de 20.000eur al 3,5% TIN a 18 meses",
+      "range_hints": {
+        "capital": "Introduce el valor de capital. Valor sugerido: 10000",
+        "tasa_anual": "Introduce el valor de tasa anual. Valor sugerido: 4",
+        "plazo_meses": "Introduce el valor de plazo meses. Valor sugerido: 12"
+      },
+      "result_context": "Resultados: {intereses} € de intereses, {total} € en total.",
+      "formula_display": "Intereses = Capital x (Tasa anual/100) x (Plazo en meses/12)",
+      "steps": [
+        "Introduce el capital que deseas depositar en el producto de ahorro a plazo fijo ofrecido por tu banco",
+        "Indica la tasa de interes anual nominal (TIN) que ofrece la entidad para ese deposito concreto",
+        "Especifica el plazo de imposicion en meses durante el cual el dinero quedara inmovilizado sin poder retirarlo",
+        "Calcula los intereses brutos con interes simple: Capital x TIN/100 x Meses/12",
+        "Recuerda que los intereses generados tributan como rendimiento del capital mobiliario (retencion del 19% en Espana)"
+      ],
+      "mistakes": [
+        "Confundir TIN (Tipo de Interes Nominal) con TAE (Tasa Anual Equivalente): la TAE incluye comisiones y frecuencia de liquidacion",
+        "No considerar la penalizacion por cancelacion anticipada: la mayoria de depositos penalizan retirar el dinero antes del vencimiento",
+        "Olvidar que los intereses del deposito tributan en la declaracion de la renta como rendimiento del capital mobiliario"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "capital",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "tasa_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "plazo_meses",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Deposito Termine",
+      "desc": "Calcola Interest = Capital × (1 + Rate/n)^(n×t) - Capital. Esempio: €10,000 at 3.5% annual, 1 year, monthly compounding = Interest = €355.77; Total = €10,355.77....",
+      "description": "Calcolatore Deposito Termine",
+      "seo_title": "Calcolatore Deposito Termine – Passo dopo Passo",
+      "seo_description": "Calcola Interest = Capital × (1 + Rate/n)^(n×t) - Capital. Esempio: €10,000 at 3.5% annual, 1 year, monthly compounding = Interest = €355.77; Total = €10,355.77....",
+      "inputs": {
+        "capital": "Capitale",
+        "tasa_anual": "Tasso annuale (%)",
+        "plazo_meses": "Durata (mesi)"
+      },
+      "outputs": {
+        "intereses": "Interessi",
+        "total": "Totale"
+      },
+      "example_label": "Calculating return on €20,000 term diposet at 3.5% annual rate for 18 months.",
+      "range_hints": {
+        "capital": "€1,000 - €500,000 diposet amounts",
+        "tasa_anual": "1-6% term diposet rates",
+        "plazo_meses": "3-60 months tepical terms"
+      },
+      "result_context": "The intereses of {intereses} is earned over the term. The totale of {totale} is returned at maturite.",
+      "formula_display": "Interest = Principal × Rate × (Months ÷ 12)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert annual rate to decimal",
+          "calculation": "3.5% ÷ 100 = 0.035"
+        },
+        {
+          "step": 2,
+          "description": "Calculate time factor in years",
+          "calculation": "18 months ÷ 12 = 1.5 years"
+        },
+        {
+          "step": 3,
+          "description": "Calculate simple interest",
+          "calculation": "€20,000 × 0.035 × 1.5 = €1,050"
+        },
+        {
+          "step": 4,
+          "description": "Add interest to principal",
+          "calculation": "€20,000 + €1,050 = €21,050"
+        }
+      ],
+      "mistakes": [
+        "Not checking earle withdrawal pinalties before investing",
+        "Confusenzag nonminal rate with effective annual rate",
+        "Forgetting to compare with inflation for real returns"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "capital",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for diposet amount"
+        },
+        {
+          "field_id": "tasa_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for annual rate"
+        },
+        {
+          "field_id": "plazo_meses",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for term in months"
+        }
+      ]
+    }
+  }
+}

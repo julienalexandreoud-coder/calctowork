@@ -1,0 +1,291 @@
+{
+  "id": "1115",
+  "slug": "drywall-calculator",
+  "block": 2,
+  "block_slug": "mamposteria",
+  "inputs": [
+    {
+      "id": "wall_length",
+      "type": "number",
+      "min": 0.1,
+      "max": 100,
+      "step": 0.1,
+      "default": 5,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "wall_height",
+      "type": "number",
+      "min": 1,
+      "max": 10,
+      "step": 0.1,
+      "default": 2.7,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "sheet_size",
+      "type": "select",
+      "options": [
+        {
+          "value": "1.2x2.4",
+          "label": "1.2×2.4m (4×8 ft)"
+        },
+        {
+          "value": "1.2x3.0",
+          "label": "1.2×3.0m (4×10 ft)"
+        },
+        {
+          "value": "1.2x3.6",
+          "label": "1.2×3.6m (4×12 ft)"
+        }
+      ],
+      "default": "1.2x2.4"
+    },
+    {
+      "id": "layers",
+      "type": "number",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 1,
+      "unit": "pcs",
+      "unit_category": "count"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "wall_area_m2",
+      "unit": "m²",
+      "highlight": true
+    },
+    {
+      "id": "sheets_needed",
+      "unit": "sheets"
+    },
+    {
+      "id": "mud_kg",
+      "unit": "kg"
+    },
+    {
+      "id": "tape_meters",
+      "unit": "m"
+    },
+    {
+      "id": "screws_count",
+      "unit": "pcs"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.wall_length)||0,H=parseFloat(inputs.wall_height)||0,ss=inputs.sheet_size||'4x8',layers=parseFloat(inputs.layers)||1;if(!L||!H)return{error:true};var area=+(L*H*layers).toFixed(2),sa={'4x8':2.97,'4x12':4.46,'4x10':3.72},sheet_area=sa[ss]||2.97,sheets=Math.ceil(area/sheet_area*1.10),mud=+(area*0.5).toFixed(1),tape=+(area*0.9).toFixed(1),screws=Math.ceil(area*8);return{wall_area_m2:+(L*H).toFixed(2),sheets_needed:sheets,mud_kg:mud,tape_meters:tape,screws_count:screws};",
+  "formula_display": "Area = Length × Height × layers; Sheets = ceil(area ÷ sheet_size × 1.08)",
+  "result_context": "Wall area: {wall_area_m2} m², sheets needed: {sheets_needed}, mud: {mud_kg} kg, tape: {tape_meters} m",
+  "example_inputs": {
+    "wall_length": 6,
+    "wall_height": 2.7,
+    "sheet_size": 2.88,
+    "layers": 1
+  },
+  "steps": [
+    "Wall area: 6 m × 2.7 m = 16.2 m²",
+    "Standard sheet (1.2 × 2.4 m) = 2.88 m²",
+    "Sheets with 8% waste: ceil(16.2 ÷ 2.88 × 1.08) = 7 sheets",
+    "Joint compound: ~0.5 kg/m² = 8 kg; Tape: ~1.5 m/m² = 24 m"
+  ],
+  "mistakes": [
+    "Calculating only the net area without adding waste for cuts around outlets",
+    "Forgetting ceiling drywall — it uses the same sheet size but needs different screws",
+    "Not accounting for double-layer firewall requirements in some rooms"
+  ],
+  "related": [
+    "1117",
+    "1104",
+    "1105",
+    "011"
+  ],
+  "comparison_presets": [
+    {
+      "wall_length": 4,
+      "wall_height": 2.4,
+      "sheet_size": 2.88,
+      "layers": 1
+    },
+    {
+      "wall_length": 6,
+      "wall_height": 2.4,
+      "sheet_size": 2.88,
+      "layers": 1
+    },
+    {
+      "wall_length": 8,
+      "wall_height": 2.7,
+      "sheet_size": 2.88,
+      "layers": 1
+    },
+    {
+      "wall_length": 10,
+      "wall_height": 2.7,
+      "sheet_size": 2.88,
+      "layers": 1
+    },
+    {
+      "wall_length": 12,
+      "wall_height": 3,
+      "sheet_size": 3.6,
+      "layers": 2
+    }
+  ],
+  "buying_units": {
+    "sheets_needed": [
+      {
+        "label": "Sheets (1.2×2.4 m)",
+        "factor": 1,
+        "round": "ceil",
+        "unit_suffix": "sheets"
+      }
+    ]
+  },
+  "units": {
+    "wall_length": "m",
+    "wall_height": "m"
+  },
+  "example_label": "Ejemplo para drywall calculator: valores 5m, 2.7m, 1pcs",
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Pladur",
+      "desc": "Calculadora 1115. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculadora de Pladur – Planchas, Pasta y Tornillos",
+      "seo_desc": "Calcula cuántas planchas de pladur, kg de pasta y tornillos necesitas. Introduce las dimensiones de la pared y el tamaño de la plancha para obtener las cantidades...",
+      "seo_description": "Calcula planchas de pladur, pasta de juntas, cinta y tornillos necesarios. Introduce dimensiones de pared y tamaño de plancha para cantidades exactas al instante.",
+      "inputs": {
+        "wall_length": "Largo de la pared",
+        "wall_height": "Alto de la pared",
+        "sheet_size": "Tamaño de la plancha",
+        "layers": "Número de capas"
+      },
+      "outputs": {
+        "wall_area_m2": "Área de la pared",
+        "sheets_needed": "Planchas necesarias",
+        "mud_kg": "Pasta de juntas",
+        "tape_meters": "Cinta necesaria",
+        "screws_count": "Tornillos necesarios"
+      }
+    },
+    "en": {
+      "name": "Drywall Calculator",
+      "desc": "Calculator 1115. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Drywall Calculator – Sheets, Mud & Screws",
+      "seo_desc": "Calculate how many drywall sheets, kg of joint compound and screws you need. Enter wall dimensions and sheet size to get exact quantities instantly.",
+      "seo_description": "Estimate drywall sheets, joint compound, tape, and screws for your project. Enter wall dimensions and sheet size to get exact material quantities in seconds.",
+      "inputs": {
+        "wall_length": "Wall length",
+        "wall_height": "Wall height",
+        "sheet_size": "Sheet size",
+        "layers": "Number of layers"
+      },
+      "outputs": {
+        "wall_area_m2": "Wall area",
+        "sheets_needed": "Sheets needed",
+        "mud_kg": "Joint compound",
+        "tape_meters": "Tape needed",
+        "screws_count": "Screws needed"
+      }
+    },
+    "fr": {
+      "name": "Calculatrice Placo",
+      "desc": "Calculateur 1115. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculatrice Placo – Plaques, Enduit et Vis",
+      "seo_desc": "Calculez le nombre de plaques de plâtre, kg d'enduit et vis nécessaires. Entrez les dimensions du mur et la taille des plaques pour obtenir les quantités exactes.",
+      "seo_description": "Estimez plaques de plâtre, enduit, ruban et vis pour votre projet. Entrez dimensions du mur et taille des plaques pour des quantités précises en quelques secondes.",
+      "inputs": {
+        "wall_length": "Longueur du mur",
+        "wall_height": "Hauteur du mur",
+        "sheet_size": "Taille de la plaque",
+        "layers": "Nombre de couches"
+      },
+      "outputs": {
+        "wall_area_m2": "Surface du mur",
+        "sheets_needed": "Plaques nécessaires",
+        "mud_kg": "Enduit nécessaire",
+        "tape_meters": "Ruban nécessaire",
+        "screws_count": "Vis nécessaires"
+      }
+    },
+    "pt": {
+      "name": "Calculadora de Drywall",
+      "desc": "Calculadora 1115. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculadora de Drywall – Chapas, Massa e Parafusos",
+      "seo_desc": "Calcule quantas chapas de drywall, kg de massa corrida e parafusos você precisa. Insira as dimensões da parede e o tamanho da chapa para obter as quantidades exatas.",
+      "seo_description": "Calcule chapas de drywall, massa corrida, fita e parafusos para seu projeto. Insira dimensões da parede e tamanho da chapa para quantidades exatas de material.",
+      "inputs": {
+        "wall_length": "Comprimento da parede",
+        "wall_height": "Altura da parede",
+        "sheet_size": "Tamanho da chapa",
+        "layers": "Número de camadas"
+      },
+      "outputs": {
+        "wall_area_m2": "Área da parede",
+        "sheets_needed": "Chapas necessárias",
+        "mud_kg": "Massa corrida",
+        "tape_meters": "Fita necessária",
+        "screws_count": "Parafusos necessários"
+      }
+    },
+    "de": {
+      "name": "Drywall calculator",
+      "desc": "Berechnen Sie drywall calculator online. Geben Sie wall length, wall height, sheet size ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Drywall calculator | CalcToWork",
+      "seo_desc": "Drywall calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Drywall calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "wall_length": "Wall Length",
+        "wall_height": "Wall Height",
+        "sheet_size": "Sheet Size",
+        "layers": "Layers"
+      },
+      "outputs": {
+        "wall_area_m2": "Wall Area M2",
+        "sheets_needed": "Sheets Needed",
+        "mud_kg": "Mud Kg",
+        "tape_meters": "Tape Meters",
+        "screws_count": "Screws Count"
+      },
+      "example_label": "Ejemplo para drywall calculator: valores 5m, 2.7m, 1pcs",
+      "range_hints": {},
+      "result_context": "Wall area: {wall_area_m2} m², sheets needed: {sheets_needed}, mud: {mud_kg} kg, tape: {tape_meters} m",
+      "formula_display": "Area = Length × Height × layers; Sheets = ceil(area ÷ sheet_size × 1.08)",
+      "steps": [
+        "Wall area: 6 m × 2.7 m = 16.2 m²",
+        "Standard sheet (1.2 × 2.4 m) = 2.88 m²",
+        "Sheets with 8% waste: ceil(16.2 ÷ 2.88 × 1.08) = 7 sheets",
+        "Joint compound: ~0.5 kg/m² = 8 kg; Tape: ~1.5 m/m² = 24 m"
+      ],
+      "mistakes": [
+        "Calculating only the net area without adding waste for cuts around outlets",
+        "Forgetting ceiling drywall — it uses the same sheet size but needs different screws",
+        "Not accounting for double-layer firewall requirements in some rooms"
+      ],
+      "input_type_review": []
+    },
+    "it": {
+      "name": "Calcolatore di Cartongesso",
+      "desc": "Calcolatore 1115. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calcolatore Cartongesso – Lastre, Stucco e Viti",
+      "seo_desc": "Calcola quante lastre di cartongesso, kg di stucco e viti ti servono. Inserisci le dimensioni della parete e il formato della lastra per ottenere le quantità esatte.",
+      "seo_description": "Calcola lastre di cartongesso, stucco, nastro e viti per il tuo progetto. Inserisci dimensioni parete e formato lastra per quantità esatte di materiale in pochi secondi.",
+      "inputs": {
+        "wall_length": "Lunghezza parete",
+        "wall_height": "Altezza parete",
+        "sheet_size": "Formato lastra",
+        "layers": "Numero di strati"
+      },
+      "outputs": {
+        "wall_area_m2": "Area parete",
+        "sheets_needed": "Lastre necessarie",
+        "mud_kg": "Stucco necessario",
+        "tape_meters": "Nastro necessario",
+        "screws_count": "Viti necessarie"
+      }
+    }
+  }
+}

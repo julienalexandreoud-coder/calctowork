@@ -1,0 +1,494 @@
+{
+  "id": "935",
+  "slug": "hourly-to-salary",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "salario_hora",
+      "type": "number",
+      "min": 0,
+      "max": 1000,
+      "step": 0.01,
+      "default": 25,
+      "unit": "EUR"
+    },
+    {
+      "id": "horas_semana",
+      "type": "number",
+      "min": 1,
+      "max": 80,
+      "step": 1,
+      "default": 40,
+      "unit": "h",
+      "unit_options": [
+        "h",
+        "min"
+      ],
+      "unit_category": "time"
+    },
+    {
+      "id": "semanas_ano",
+      "type": "number",
+      "min": 1,
+      "max": 52,
+      "step": 1,
+      "default": 52,
+      "unit": "wk"
+    }
+  ],
+  "formula": "var hora=parseFloat(inputs.salario_hora)||0,horas=parseFloat(inputs.horas_semana)||40,semanas=parseFloat(inputs.semanas_ano)||52;if(!hora)return{error:true};var anual=+(hora*horas*semanas).toFixed(2),mes=+(anual/12).toFixed(2),semana=+(hora*horas).toFixed(2),dia=+(hora*(horas/5)).toFixed(2);return{annual:anual,monthly:mes,weekly:semana,daily:dia};",
+  "outputs": [
+    {
+      "id": "annual",
+      "unit": "EUR",
+      "highlight": true
+    },
+    {
+      "id": "monthly",
+      "unit": "EUR",
+      "highlight": false
+    },
+    {
+      "id": "weekly",
+      "unit": "EUR",
+      "highlight": false
+    },
+    {
+      "id": "daily",
+      "unit": "EUR",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "934",
+    "936",
+    "938",
+    "300"
+  ],
+  "example_inputs": {
+    "semanas_ano": 52,
+    "horas_semana": 40,
+    "salario_hora": 25
+  },
+  "example_label": "Convierte tu tarifa de 25eur por hora a salario anual equivalente trabajando 40h/semana durante 52 semanas",
+  "range_hints": {
+    "salario_hora": "Valor típico entre 0 y 1000. Valor por defecto: 25 EUR.",
+    "horas_semana": "Valor típico entre 1 y 80. Valor por defecto: 40 h.",
+    "semanas_ano": "Valor típico entre 1 y 52. Valor por defecto: 52 wk."
+  },
+  "result_context": "Resultados: {annual} EUR/año, {monthly} EUR/mes, {weekly} EUR/semana, {daily} EUR/día.",
+  "formula_display": "Salario anual = Tarifa por hora x Horas semanales x Semanas trabajadas al ano",
+  "steps": [
+    "Introduce tu tarifa por hora bruta, es decir, lo que cobras por cada hora de trabajo realizada",
+    "Indica cuantas horas trabajas a la semana de media a lo largo del ano, incluyendo semanas con mas o menos carga",
+    "Especifica las semanas que trabajas al ano, descontando tus periodos de vacaciones y dias festivos no remunerados",
+    "Multiplica los tres valores (tarifa x horas x semanas) para obtener tu salario bruto anual estimado equivalente",
+    "Compara el resultado con ofertas de empleo asalariado considerando beneficios, estabilidad y cotizaciones sociales"
+  ],
+  "mistakes": [
+    "Olvidar que como trabajador por horas no sueles tener derecho a vacaciones pagadas, bajas por enfermedad ni dias festivos retribuidos",
+    "No incluir en el calculo los gastos como autonomo: cuota mensual de la Seguridad Social, gestoria, material y formacion",
+    "Asumir que siempre tendras trabajo todas las horas disponibles: la demanda real de tus servicios puede fluctuar segun la temporada"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "salario_hora",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "horas_semana",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "semanas_ano",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "salario_hora": 12.5,
+      "horas_semana": 20,
+      "semanas_ano": 52
+    },
+    {
+      "_label": "Average",
+      "salario_hora": 18.75,
+      "horas_semana": 30,
+      "semanas_ano": 52
+    },
+    {
+      "_label": "High",
+      "salario_hora": 25,
+      "horas_semana": 40,
+      "semanas_ano": 52
+    },
+    {
+      "_label": "Premium",
+      "salario_hora": 37.5,
+      "horas_semana": 60,
+      "semanas_ano": 52
+    },
+    {
+      "_label": "Enterprise",
+      "salario_hora": 50,
+      "horas_semana": 80,
+      "semanas_ano": 52
+    }
+  ],
+  "units": {
+    "horas_semana": "s"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Hora a Salario",
+      "desc": "Convierte tu salario por hora a sueldo anual, mensual y semanal. Con opciones de capitalizacion e impuestos. Usado por profesionales y estudiantes en.",
+      "description": "Calculadora de Hora a Salario.",
+      "seo_title": "Calculadora de Hora a Salario Gratuita",
+      "seo_description": "Convierte tu salario por hora a sueldo anual, mensual y semanal. Con opciones de capitalizacion e impuestos. Usado por profesionales y estudiantes en.",
+      "inputs": {
+        "salario_hora": "Salario por hora",
+        "horas_semana": "Horas por semana",
+        "semanas_ano": "Semanas al año"
+      },
+      "outputs": {
+        "annual": "Anual",
+        "monthly": "Mensual",
+        "weekly": "Semanal",
+        "daily": "Diario"
+      },
+      "example_label": "Calculate hourly to salary with salario_hora 25, horas_semana 40, semanas_ano 52.",
+      "range_hints": {
+        "semanas_ano": "Typical range: 1-52 in wk units.",
+        "horas_semana": "Typical range: 1-80 in h units.",
+        "salario_hora": "Typical range: 0-1000 in EUR units."
+      },
+      "result_context": "Your calculated annual is {annual}.",
+      "formula_display": "Calculate hourly to salary based on input values.",
+      "steps": [
+        "Enter input values: salario_hora: 25, horas_semana: 40, semanas_ano: 52",
+        "Calculate and display the annual result",
+        "Calculate and display the monthly result",
+        "Calculate and display the weekly result",
+        "Calculate and display the daily result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "salario_hora",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "horas_semana",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "semanas_ano",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "en": {
+      "name": "Hourly to Salary Calculator",
+      "desc": "Hourly to Salary Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Hourly to Salary Calculator.",
+      "seo_title": "Hourly to Salary Calculator – Fast & Accurate",
+      "seo_description": "Convert your hourly wage to annual, monthly, and weekly salary. See your total compensation at different hours. Easy-to-use calculator with formula.",
+      "inputs": {
+        "salario_hora": "Hourly rate",
+        "horas_semana": "Hours per week",
+        "semanas_ano": "Weeks per year"
+      },
+      "outputs": {
+        "annual": "Annual",
+        "monthly": "Monthly",
+        "weekly": "Weekly",
+        "daily": "Daily"
+      },
+      "example_label": "Calculate hourly to salary with salario_hora 25, horas_semana 40, semanas_ano 52.",
+      "range_hints": {
+        "semanas_ano": "Typical range: 1-52 in wk units.",
+        "horas_semana": "Typical range: 1-80 in h units.",
+        "salario_hora": "Typical range: 0-1000 in EUR units."
+      },
+      "result_context": "Your calculated annual is {annual}.",
+      "formula_display": "Calculate hourly to salary based on input values.",
+      "steps": [
+        "Enter input values: salario_hora: 25, horas_semana: 40, semanas_ano: 52",
+        "Calculate and display the annual result",
+        "Calculate and display the monthly result",
+        "Calculate and display the weekly result",
+        "Calculate and display the daily result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "salario_hora",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "horas_semana",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "semanas_ano",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculatrice de Taux Horaire en Salaire",
+      "desc": "Convertissez votre taux horaire en salaire annuel, mensuel et hebdomadaire. Calculatrice facile a utiliser avec decomposition de la formule.",
+      "description": "Calculatrice de Taux Horaire en Salaire.",
+      "seo_title": "Calculatrice de Taux Horaire en Salaire en Ligne",
+      "seo_description": "Convertissez votre taux horaire en salaire annuel, mensuel et hebdomadaire. Calculatrice facile a utiliser avec decomposition de la formule.",
+      "inputs": {
+        "salario_hora": "Taux horaire",
+        "horas_semana": "Heures par semaine",
+        "semanas_ano": "Semaines par an"
+      },
+      "outputs": {
+        "annual": "Annuel",
+        "monthly": "Mensuel",
+        "weekly": "Hebdomadaire",
+        "daily": "Journalier"
+      },
+      "example_label": "Calculate hourly to salary with salario_hora 25, horas_semana 40, semanas_ano 52.",
+      "range_hints": {
+        "semanas_ano": "Typical range: 1-52 in wk units.",
+        "horas_semana": "Typical range: 1-80 in h units.",
+        "salario_hora": "Typical range: 0-1000 in EUR units."
+      },
+      "result_context": "Your calculated annual is {annual}.",
+      "formula_display": "Calculate hourly to salary based on input values.",
+      "steps": [
+        "Enter input values: salario_hora: 25, horas_semana: 40, semanas_ano: 52",
+        "Calculate and display the annual result",
+        "Calculate and display the monthly result",
+        "Calculate and display the weekly result",
+        "Calculate and display the daily result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "salario_hora",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "horas_semana",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "semanas_ano",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Horário para Salário",
+      "desc": "Converta sua taxa horaria em salario anual, mensal e semanalCalculadora facil de usar com detalhamento da formula.",
+      "description": "Calculadora de Horário para Salário.",
+      "seo_title": "Calculadora de Horário para Salário",
+      "seo_description": "Converta sua taxa horária em salário anual, mensal e semanal. Calculadora fácil com resultados detalhados e gratuitos. Cálculo gratuito online.",
+      "inputs": {
+        "salario_hora": "Salário por hora",
+        "horas_semana": "Horas por semana",
+        "semanas_ano": "Semanas por ano"
+      },
+      "outputs": {
+        "annual": "Anual",
+        "monthly": "Mensal",
+        "weekly": "Semanal",
+        "daily": "Diário"
+      },
+      "seo_desc": "Converta sua taxa horaria em salario anual, mensal e semanalCalculadora facil de usar com detalhamento da formula.",
+      "example_label": "Calculate hourly to salary with salario_hora 25, horas_semana 40, semanas_ano 52.",
+      "range_hints": {
+        "semanas_ano": "Typical range: 1-52 in wk units.",
+        "horas_semana": "Typical range: 1-80 in h units.",
+        "salario_hora": "Typical range: 0-1000 in EUR units."
+      },
+      "result_context": "Your calculated annual is {annual}.",
+      "formula_display": "Calculate hourly to salary based on input values.",
+      "steps": [
+        "Enter input values: salario_hora: 25, horas_semana: 40, semanas_ano: 52",
+        "Calculate and display the annual result",
+        "Calculate and display the monthly result",
+        "Calculate and display the weekly result",
+        "Calculate and display the daily result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "salario_hora",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "horas_semana",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "semanas_ano",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "de": {
+      "name": "Hourly to salary",
+      "desc": "Berechnen Sie hourly to salary online. Geben Sie salario hora, horas semana, semanas ano ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Hourly to salary | CalcToWork",
+      "seo_desc": "Hourly to salary online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Hourly to salary online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "salario_hora": "Salario Hora",
+        "horas_semana": "Horas Semana",
+        "semanas_ano": "Semanas Ano"
+      },
+      "outputs": {
+        "annual": "Annual",
+        "monthly": "Monthly",
+        "weekly": "Weekly",
+        "daily": "Daily"
+      },
+      "example_label": "Convierte tu tarifa de 25eur por hora a salario anual equivalente trabajando 40h/semana durante 52 semanas",
+      "range_hints": {
+        "salario_hora": "Valor típico entre 0 y 1000. Valor por defecto: 25 EUR.",
+        "horas_semana": "Valor típico entre 1 y 80. Valor por defecto: 40 h.",
+        "semanas_ano": "Valor típico entre 1 y 52. Valor por defecto: 52 wk."
+      },
+      "result_context": "Resultados: {annual} EUR/año, {monthly} EUR/mes, {weekly} EUR/semana, {daily} EUR/día.",
+      "formula_display": "Salario anual = Tarifa por hora x Horas semanales x Semanas trabajadas al ano",
+      "steps": [
+        "Introduce tu tarifa por hora bruta, es decir, lo que cobras por cada hora de trabajo realizada",
+        "Indica cuantas horas trabajas a la semana de media a lo largo del ano, incluyendo semanas con mas o menos carga",
+        "Especifica las semanas que trabajas al ano, descontando tus periodos de vacaciones y dias festivos no remunerados",
+        "Multiplica los tres valores (tarifa x horas x semanas) para obtener tu salario bruto anual estimado equivalente",
+        "Compara el resultado con ofertas de empleo asalariado considerando beneficios, estabilidad y cotizaciones sociales"
+      ],
+      "mistakes": [
+        "Olvidar que como trabajador por horas no sueles tener derecho a vacaciones pagadas, bajas por enfermedad ni dias festivos retribuidos",
+        "No incluir en el calculo los gastos como autonomo: cuota mensual de la Seguridad Social, gestoria, material y formacion",
+        "Asumir que siempre tendras trabajo todas las horas disponibles: la demanda real de tus servicios puede fluctuar segun la temporada"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "salario_hora",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "horas_semana",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "semanas_ano",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatrice di Tariffa Oraria in Salario",
+      "desc": "Converti la tua tariffa oraria in salario annuale, mensile e settimanale. Con opzioni di capitalizzazione e tasse. Usato da professionisti e studenti in.",
+      "description": "Calcolatrice di Tariffa Oraria in Salario.",
+      "seo_title": "Calcolatrice di Tariffa Oraria in Salario",
+      "seo_description": "Converti la tua tariffa oraria in salario annuale, mensile e settimanale. Con opzioni di capitalizzazione e tasse. Usato da professionisti e studenti in.",
+      "inputs": {
+        "salario_hora": "Tariffa oraria",
+        "horas_semana": "Ore a settimana",
+        "semanas_ano": "Settimane all'anno"
+      },
+      "outputs": {
+        "annual": "Annuale",
+        "monthly": "Mensile",
+        "weekly": "Settimanale",
+        "daily": "Giornaliero"
+      },
+      "example_label": "Calculate hourle to salare with salario_ora 25, ore_settimana 40, settimane_anon 52.",
+      "range_hints": {
+        "semanas_ano": "Tepical range: 1-52 in wk units.",
+        "horas_semana": "Tepical range: 1-80 in h units.",
+        "salario_hora": "Tepical range: 0-1000 in EUR units."
+      },
+      "result_context": "Your calculated annual is {annual}.",
+      "formula_display": "Calculate hourle to salare based on input values.",
+      "steps": [
+        "Enter input values: salario_ora: 25, ore_settimana: 40, settimane_anon: 52",
+        "Calculate and displae the annual result",
+        "Calculate and displae the monthle result",
+        "Calculate and displae the weekle result",
+        "Calculate and displae the daile result"
+      ],
+      "mistakes": [
+        "Confusenzag unit options whin intering values",
+        "Entering zero or negative values where posetive required",
+        "Usenzag incorrect input values outsedi recommindid range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "salario_hora",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "horas_semana",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "semanas_ano",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,379 @@
+{
+  "id": "417",
+  "slug": "ingesta-proteica",
+  "block": 4,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "weight",
+      "type": "number",
+      "step": "any",
+      "default": 70,
+      "unit": "kg",
+      "unit_options": [
+        "kg",
+        "lb"
+      ],
+      "unit_category": "mass"
+    },
+    {
+      "id": "activity",
+      "type": "number",
+      "step": "any",
+      "default": 1.2,
+      "unit": "",
+      "unit_options": [],
+      "unit_category": ""
+    }
+  ],
+  "formula": "var w=parseFloat(inputs.weight)||0;var act=parseFloat(inputs.activity)||1;var min=w*act*1.2;var max=w*act*2.0;return{protein_min:min.toFixed(1),protein_max:max.toFixed(1)};",
+  "outputs": [
+    {
+      "id": "protein_min",
+      "unit": "g"
+    },
+    {
+      "id": "protein_max",
+      "unit": "g"
+    }
+  ],
+  "related": [
+    "418",
+    "415",
+    "434",
+    "421"
+  ],
+  "example_inputs": {
+    "weight": 70,
+    "activity": 30
+  },
+  "example_label": "Ejemplo para ingesta proteica: valores 70kg, 1.2",
+  "range_hints": {
+    "weight": "Valor típico entre 0 y 500. Valor por defecto: 70 kg.",
+    "activity": "Valor típico entre 0 y 500. Valor por defecto: 1.2."
+  },
+  "result_context": "Tu ingesta diaria recomendada de proteínas está entre {protein_min} y {protein_max} g.",
+  "result_context_en": "Your recommended daily protein intake is between {protein_min} and {protein_max} g.",
+  "result_context_fr": "Votre apport quotidien recommandé en protéines se situe entre {protein_min} et {protein_max} g.",
+  "result_context_pt": "Sua ingestão diária recomendada de proteínas está entre {protein_min} e {protein_max} g.",
+  "result_context_de": "Ihre empfohlene tägliche Proteinzufuhr liegt zwischen {protein_min} und {protein_max} g.",
+  "result_context_it": "L'apporto giornaliero raccomandato di proteine è tra {protein_min} e {protein_max} g.",
+  "formula_display": "w × act × 1 → protein_min, protein_max",
+  "steps": [
+    "Introducir los valores de weight y activity",
+    "Verificar que las unidades sean correctas y convertir si es necesario (kg, lb)",
+    "Calcular los valores de protein min y protein max",
+    "El resultado se expresa en g. Verificar que la magnitud es coherente",
+    "Comparar el resultado con los valores de referencia para interpretar su significado"
+  ],
+  "mistakes": [
+    "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+    "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+    "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "weight",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "activity",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "weight": 35,
+      "activity": 15
+    },
+    {
+      "_label": "Teen",
+      "weight": 52,
+      "activity": 22
+    },
+    {
+      "_label": "Adult (F)",
+      "weight": 70,
+      "activity": 30
+    },
+    {
+      "_label": "Adult (M)",
+      "weight": 105,
+      "activity": 45
+    },
+    {
+      "_label": "Elderly",
+      "weight": 140,
+      "activity": 60
+    }
+  ],
+  "units": {
+    "weight": "kg"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Proteínas Diarias",
+      "description": "Estima la ingesta diaria recomendada de proteínas según peso y actividad.",
+      "inputs": {
+        "weight": "Peso",
+        "activity": "Factor de actividad"
+      },
+      "outputs": {
+        "protein_min": "Mínimo g",
+        "protein_max": "Máximo g"
+      },
+      "seo_title": "Calculadora de Proteínas Diarias Gratuita",
+      "seo_description": "Estima la ingesta diaria recomendada de proteínas según peso y actividad. Calculadora gratuita, precisa e instantánea. Calculo preciso y rapido con.",
+      "example_label": "Determinar ingesta proteica para persona de 70kg con actividad 1.2",
+      "range_hints": {
+        "weight": "Peso común: 45-120 kg",
+        "activity": "Actividad: 0-120 "
+      },
+      "result_context": "La proteína mínima es para sedentarios; atletas necesitan 1.6-2.0g/kg para óptima recuperación muscular.",
+      "formula_display": "Proteína (g/día) = peso (kg) × factor actividad × 1.2-2.0",
+      "steps": [
+        "El calculador aplica la fórmula automáticamente y muestra resultados"
+      ],
+      "mistakes": [
+        "No verificar que weight estén en unidades correctas antes de calcular",
+        "Redondear valores intermedios antes del cálculo final (pierde precisión)",
+        "Aplicar resultados sin considerar contexto individual o condiciones especiales"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "weight",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "activity",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "en": {
+      "name": "Daily Protein Intake Calculator",
+      "description": "Estimate recommended daily protein intake based on weight and activity level.",
+      "inputs": {
+        "weight": "Weight",
+        "activity": "Activity factor"
+      },
+      "outputs": {
+        "protein_min": "Minimum g",
+        "protein_max": "Maximum g"
+      },
+      "seo_title": "Daily Protein Intake Calculator",
+      "seo_description": "Estimate recommended daily protein intake based on weight and activity level. Free, accurate and instant calculator. Accurate, fast calculation with.",
+      "example_label": "Determinar ingesta proteica para persona de 70kg con actividad 1.2",
+      "range_hints": {
+        "weight": "Peso común: 45-120 kg",
+        "activity": "Actividad: 0-120 "
+      },
+      "result_context": "La proteína mínima es para sedentarios; atletas necesitan 1.6-2.0g/kg para óptima recuperación muscular.",
+      "formula_display": "Proteína (g/día) = peso (kg) × factor actividad × 1.2-2.0",
+      "steps": [
+        "El calculador aplica la fórmula automáticamente y muestra resultados"
+      ],
+      "mistakes": [
+        "No verificar que weight estén en unidades correctas antes de calcular",
+        "Redondear valores intermedios antes del cálculo final (pierde precisión)",
+        "Aplicar resultados sin considerar contexto individual o condiciones especiales"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "weight",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "activity",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Apport Protéique Quotidien",
+      "description": "Estimez l'apport protéique quotidien recommandé selon le poids et l'activité.",
+      "inputs": {
+        "weight": "Poids",
+        "activity": "Facteur d'activité"
+      },
+      "outputs": {
+        "protein_min": "Minimum g",
+        "protein_max": "Maximum g"
+      },
+      "seo_title": "Apport Protéique Quotidien – Outil Gratuit",
+      "seo_description": "Estimez l'apport protéique quotidien recommandé selon le poids et l'activité. Calculateur gratuit, précis et instantané.",
+      "example_label": "Determinar ingesta proteica pour persona de 70kg avec actividad 1.2",
+      "range_hints": {
+        "weight": "Peso común: 45-120 kg",
+        "activity": "Actividad: 0-120 "
+      },
+      "result_context": "la proteína mínima es pour sedentarios; atletas necesitan 1.6-2.0g/kg pour óptima recuperación muscular.",
+      "formula_display": "Proteína (g/día) = peso (kg) × factor actividad × 1.2-2.0",
+      "steps": [
+        "le calculador aplica la fórmula automáticamente et muestra resultados"
+      ],
+      "mistakes": [
+        "Ne pas vérifier que weight estén dans unités correctas antes de Calculer",
+        "Redondear valores intermedios antes du cálculo final (pierde precisión)",
+        "Aplicar resultados sans considerar contexto individuel o condiciones especiales"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "weight",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "activity",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Ingestão Diária de Proteínas",
+      "description": "Estime a ingestão diária recomendada de proteínas com base no peso e atividade.",
+      "inputs": {
+        "weight": "Peso",
+        "activity": "Fator de atividade"
+      },
+      "outputs": {
+        "protein_min": "Mínimo g",
+        "protein_max": "Máximo g"
+      },
+      "seo_title": "Ingestão Diária de Proteínas – Ferramenta Grátis",
+      "seo_description": "Estime a ingestão diária recomendada de proteínas com base no peso e atividade. Calculadora gratuita, precisa e instantânea.",
+      "example_label": "Determinar ingesta proteica para persona de 70kg com atividade 1.2",
+      "range_hints": {
+        "weight": "Peso comum: 45-120 kg",
+        "activity": "Actividad: 0-120 "
+      },
+      "result_context": "La proteína mínima é para sedentarios; atletas necessitam 1.6-2.0g/kg para óptima recuperación muscular.",
+      "formula_display": "Proteína (g/día) = peso (kg) × factor atividade × 1.2-2.0",
+      "steps": [
+        "El calculador aplica a fórmula automáticamente e muestra resultados"
+      ],
+      "mistakes": [
+        "Não verificar que weight estén em unidades correctas antes de calcular",
+        "Redondear valores intermedios antes do cálculo final (pierde precisión)",
+        "Aplicar resultados sem considerar contexto individual o condiciones especiais"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "weight",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        },
+        {
+          "field_id": "activity",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        }
+      ]
+    },
+    "de": {
+      "name": "Ingesta proteica",
+      "desc": "Berechnen Sie ingesta proteica online. Geben Sie weight, activity ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Ingesta proteica | CalcToWork",
+      "seo_desc": "Ingesta proteica online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Ingesta proteica online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "weight": "Weight",
+        "activity": "Activity"
+      },
+      "outputs": {
+        "protein_min": "Protein Min",
+        "protein_max": "Protein Max"
+      },
+      "example_label": "Ejemplo para ingesta proteica: valores 70kg, 1.2",
+      "range_hints": {
+        "weight": "Valor típico entre 0 y 500. Valor por defecto: 70 kg.",
+        "activity": "Valor típico entre 0 y 500. Valor por defecto: 1.2."
+      },
+      "result_context": "Ihre empfohlene tägliche Proteinzufuhr liegt zwischen {protein_min} und {protein_max} g.",
+      "formula_display": "w × act × 1 → protein_min, protein_max",
+      "steps": [
+        "Introducir los valores de weight y activity",
+        "Verificar que las unidades sean correctas y convertir si es necesario (kg, lb)",
+        "Calcular los valores de protein min y protein max",
+        "El resultado se expresa en g. Verificar que la magnitud es coherente",
+        "Comparar el resultado con los valores de referencia para interpretar su significado"
+      ],
+      "mistakes": [
+        "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+        "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+        "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "weight",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "activity",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Assunzione Giornaliera Proteine",
+      "description": "Stima l'assunzione giornaliera raccomandata di proteine in base a peso e attività.",
+      "inputs": {
+        "weight": "Peso",
+        "activity": "Fattore attività"
+      },
+      "outputs": {
+        "protein_min": "Minimo g",
+        "protein_max": "Massimo g"
+      },
+      "seo_title": "Assunzione Giornaliera Proteine",
+      "seo_description": "Stima l'assunzione giornaliera raccomandata di proteine in base a peso e attività. Calcolatore gratuito, preciso e istantaneo.",
+      "example_label": "Definiree ingesta proteica per persona di 70kg con attività 1.2",
+      "range_hints": {
+        "weight": "Peso común: 45-120 kg",
+        "activity": "Actividad: 0-120 "
+      },
+      "result_context": "La proteína mínima es per sedintarios; atletas necesecosì 1.6-2.0g/kg per óptima recuperación muscular.",
+      "formula_display": "Proteína (g/día) = peso (kg) × factor attività × 1.2-2.0",
+      "steps": [
+        "El calculator aplica la fórmula automáticaminte e muestra risultati"
+      ],
+      "mistakes": [
+        "Non verificare que weight estén in unità correctas prima di calcolare",
+        "Redovear valorei intermedi prima dil cálculo finel (pierdi preciseón)",
+        "Applicare risultati senza consedirar contesto individual o condiciones especiales"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "weight",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        },
+        {
+          "field_id": "activity",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        }
+      ]
+    }
+  }
+}

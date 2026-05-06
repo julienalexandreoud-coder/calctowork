@@ -1,0 +1,558 @@
+{
+  "id": "959",
+  "slug": "sample-size-confidence",
+  "block": 18,
+  "block_slug": "estadistica",
+  "inputs": [
+    {
+      "id": "tamano_muestra",
+      "type": "number",
+      "min": 1,
+      "max": 999999,
+      "step": 1,
+      "default": 100,
+      "unit": ""
+    },
+    {
+      "id": "proporcion",
+      "type": "number",
+      "min": 0,
+      "max": 1,
+      "step": 0.01,
+      "default": 0.5,
+      "unit": ""
+    },
+    {
+      "id": "margen_error",
+      "type": "number",
+      "min": 0.001,
+      "max": 0.5,
+      "step": 0.001,
+      "default": 0.05,
+      "unit": ""
+    },
+    {
+      "id": "confianza",
+      "type": "number",
+      "min": 0.8,
+      "max": 0.99,
+      "step": 0.01,
+      "default": 0.95,
+      "unit": ""
+    }
+  ],
+  "formula": "var n=parseInt(inputs.tamano_muestra)||0,p=parseFloat(inputs.proporcion)||0.5,e=parseFloat(inputs.margen_error)||0.05,conf=parseFloat(inputs.confianza)||0.95;if(!n)return{error:true};var z={0.9:1.645,0.95:1.96,0.99:2.576};var zv=z[conf]||1.96;var se=+Math.sqrt(p*(1-p)/n).toFixed(4);var me=+(zv*se).toFixed(4);var lower=+(p-me).toFixed(4),upper=+(p+me).toFixed(4);return{sample_size:n,standard_error:se,margin_of_error:me,ci_lower:lower,ci_upper:upper};",
+  "outputs": [
+    {
+      "id": "sample_size",
+      "unit": ""
+    },
+    {
+      "id": "standard_error",
+      "unit": "",
+      "highlight": true
+    },
+    {
+      "id": "margin_of_error",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "ci_lower",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "ci_upper",
+      "unit": "",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "958",
+    "957",
+    "961",
+    "606"
+  ],
+  "example_inputs": {
+    "proporcion": 0.5,
+    "confianza": 0.95,
+    "margen_error": 0.05,
+    "tamano_muestra": 100
+  },
+  "example_label": "Ejemplo para sample size confidence: valores 100, 0.5, 0.05, 0.95",
+  "range_hints": {
+    "tamano_muestra": "Valor típico entre 1 y 999999. Valor por defecto: 100.",
+    "proporcion": "Valor típico entre 0 y 1. Valor por defecto: 0.5.",
+    "margen_error": "Valor típico entre 0.001 y 0.5. Valor por defecto: 0.05.",
+    "confianza": "Valor típico entre 0.8 y 0.99. Valor por defecto: 0.95."
+  },
+  "result_context": "El error estándar es {standard_error}, el margen de error es {margin_of_error}, y el intervalo de confianza va de {ci_lower} a {ci_upper}.",
+  "result_context_en": "The standard error is {standard_error}, the margin of error is {margin_of_error}, and the confidence interval ranges from {ci_lower} to {ci_upper}.",
+  "result_context_fr": "L'erreur type est de {standard_error}, la marge d'erreur est de {margin_of_error}, et l'intervalle de confiance va de {ci_lower} à {ci_upper}.",
+  "result_context_pt": "O erro padrão é {standard_error}, a margem de erro é {margin_of_error} e o intervalo de confiança vai de {ci_lower} a {ci_upper}.",
+  "result_context_de": "Der Standardfehler beträgt {standard_error}, die Fehlermarge ist {margin_of_error}, und das Konfidenzintervall reicht von {ci_lower} bis {ci_upper}.",
+  "result_context_it": "L'errore standard è {standard_error}, il margine di errore è {margin_of_error} e l'intervallo di confidenza va da {ci_lower} a {ci_upper}.",
+  "formula_display": "zv × se → sample_size, standard_error",
+  "steps": [
+    "Introducir los valores de tamano_muestra, proporcion, margen_error y confianza",
+    "Verificar que los valores introducidos están en el rango y formato correctos",
+    "Calcular los valores de sample size y standard error",
+    "Verificar que el resultado es coherente con los valores de entrada",
+    "El resultado puede usarse como dato intermedio para cálculos posteriores más complejos"
+  ],
+  "mistakes": [
+    "Confundir media con mediana en distribuciones asimétricas",
+    "Usar la desviación estándar de la muestra (n-1) para datos de población (n)",
+    "Interpretar correlación como causalidad"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "tamano_muestra",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "proporcion",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "margen_error",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "confianza",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Muestra pequena",
+      "tamano_muestra": 40.0,
+      "proporcion": 0.2,
+      "margen_error": 0.02,
+      "confianza": 0.8
+    },
+    {
+      "_label": "Datos uniformes",
+      "tamano_muestra": 70.0,
+      "proporcion": 0.35,
+      "margen_error": 0.03,
+      "confianza": 0.8
+    },
+    {
+      "_label": "Datos dispersos",
+      "tamano_muestra": 100.0,
+      "proporcion": 0.5,
+      "margen_error": 0.05,
+      "confianza": 0.95
+    },
+    {
+      "_label": "Muestra grande",
+      "tamano_muestra": 150.0,
+      "proporcion": 0.75,
+      "margen_error": 0.08,
+      "confianza": 0.99
+    },
+    {
+      "_label": "Valores atipicos",
+      "tamano_muestra": 250.0,
+      "proporcion": 1.0,
+      "margen_error": 0.12,
+      "confianza": 0.99
+    }
+  ],
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Tamaño de Muestra",
+      "desc": "Calcula el tamano de muestra minimo para tu encuesta o experimento Usado por profesionales y estudiantes en todo el mundo.",
+      "description": "Calculadora de Tamaño de Muestra.",
+      "seo_title": "Calculadora de Tamaño de Muestra Gratuita",
+      "seo_description": "Calcula el tamano de muestra minimo para tu encuesta o experimento Usado por profesionales y estudiantes en todo el mundo.",
+      "inputs": {
+        "tamano_muestra": "tamano_muestra",
+        "proporcion": "proporcion",
+        "margen_error": "Margen de error %",
+        "confianza": "confianza"
+      },
+      "outputs": {
+        "standard_error": "Error estandar",
+        "margin_of_error": "Margen error",
+        "ci_lower": "IC inferior",
+        "ci_upper": "IC superior"
+      },
+      "example_label": "Calculate sample size confidence with tamano_muestra 100, proporcion 0.5, margen_error 0.05, confianza 0.95.",
+      "range_hints": {
+        "proporcion": "Typical range: 0-1.",
+        "confianza": "Typical range: 0.8-0.99.",
+        "margen_error": "Typical range: 0.001-0.5.",
+        "tamano_muestra": "Typical range: 1-999999."
+      },
+      "result_context": "Your calculated standard error is {standard_error}.",
+      "formula_display": "Calculate sample size confidence based on input values.",
+      "steps": [
+        "Enter input values: tamano_muestra: 100, proporcion: 0.5, margen_error: 0.05, confianza: 0.95",
+        "Calculate and display the standard_error result",
+        "Calculate and display the margin_of_error result",
+        "Calculate and display the ci_lower result",
+        "Calculate and display the ci_upper result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "tamano_muestra",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "proporcion",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "margen_error",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "confianza",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "en": {
+      "name": "Sample Size Calculator",
+      "desc": "Sample Size Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Sample Size Calculator.",
+      "seo_title": "Sample Size Calculator – Instant Results",
+      "seo_description": "Calculate the minimum sample size needed for your survey or experiment. Enter confidence level and margin of error. Easy-to-use calculator with formula.",
+      "inputs": {
+        "tamano_muestra": "tamano_muestra",
+        "proporcion": "proporcion",
+        "margen_error": "Margin of error %",
+        "confianza": "confianza"
+      },
+      "outputs": {
+        "standard_error": "Standard error",
+        "margin_of_error": "Margin of error",
+        "ci_lower": "CI lower",
+        "ci_upper": "CI upper"
+      },
+      "example_label": "Calculate sample size confidence with tamano_muestra 100, proporcion 0.5, margen_error 0.05, confianza 0.95.",
+      "range_hints": {
+        "proporcion": "Typical range: 0-1.",
+        "confianza": "Typical range: 0.8-0.99.",
+        "margen_error": "Typical range: 0.001-0.5.",
+        "tamano_muestra": "Typical range: 1-999999."
+      },
+      "result_context": "Your calculated standard error is {standard_error}.",
+      "formula_display": "Calculate sample size confidence based on input values.",
+      "steps": [
+        "Enter input values: tamano_muestra: 100, proporcion: 0.5, margen_error: 0.05, confianza: 0.95",
+        "Calculate and display the standard_error result",
+        "Calculate and display the margin_of_error result",
+        "Calculate and display the ci_lower result",
+        "Calculate and display the ci_upper result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "tamano_muestra",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "proporcion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "margen_error",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "confianza",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculatrice de Taille d'Échantillon",
+      "desc": "Calculez la taille d'echantillon minimale pour votre enquete ou experience. Calculatrice facile a utiliser avec decomposition de la formule.",
+      "description": "Calculatrice de Taille d'Échantillon.",
+      "seo_title": "Calculatrice de Taille d'Échantillon en Ligne",
+      "seo_description": "Calculez la taille d'echantillon minimale pour votre enquete ou experience. Calculatrice facile a utiliser avec decomposition de la formule.",
+      "inputs": {
+        "tamano_muestra": "tamano_muestra",
+        "proporcion": "proporcion",
+        "margen_error": "Marge d'erreur %",
+        "confianza": "confianza"
+      },
+      "outputs": {
+        "standard_error": "Standard error",
+        "margin_of_error": "Margin of error",
+        "ci_lower": "CI lower",
+        "ci_upper": "CI upper"
+      },
+      "example_label": "Calculate sample size confidence with tamano_muestra 100, proporcion 0.5, margen_error 0.05, confianza 0.95.",
+      "range_hints": {
+        "proporcion": "Typical range: 0-1.",
+        "confianza": "Typical range: 0.8-0.99.",
+        "margen_error": "Typical range: 0.001-0.5.",
+        "tamano_muestra": "Typical range: 1-999999."
+      },
+      "result_context": "Your calculated standard error is {standard_error}.",
+      "formula_display": "Calculate sample size confidence based on input values.",
+      "steps": [
+        "Enter input values: tamano_muestra: 100, proporcion: 0.5, margen_error: 0.05, confianza: 0.95",
+        "Calculate and display the standard_error result",
+        "Calculate and display the margin_of_error result",
+        "Calculate and display the ci_lower result",
+        "Calculate and display the ci_upper result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "tamano_muestra",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "proporcion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "margen_error",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "confianza",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Tamanho de Amostra",
+      "desc": "Calcule o tamanho de amostra minimo para sua pesquisaCalculadora facil de usar com detalhamento da formula.",
+      "description": "Calculadora de Tamanho de Amostra.",
+      "seo_title": "Calculadora de Tamanho de Amostra",
+      "seo_description": "Calcule o tamanho de amostra mínimo para sua pesquisa. Calculadora fácil com resultados detalhados e precisos online. Cálculo gratuito online.",
+      "inputs": {
+        "tamano_muestra": "tamano_muestra",
+        "proporcion": "proporcion",
+        "margen_error": "Margem de erro %",
+        "confianza": "confianza"
+      },
+      "outputs": {
+        "standard_error": "Standard error",
+        "margin_of_error": "Margin of error",
+        "ci_lower": "CI lower",
+        "ci_upper": "CI upper"
+      },
+      "example_label": "Calculate sample size confidence with tamano_muestra 100, proporcion 0.5, margen_error 0.05, confianza 0.95.",
+      "range_hints": {
+        "proporcion": "Typical range: 0-1.",
+        "confianza": "Typical range: 0.8-0.99.",
+        "margen_error": "Typical range: 0.001-0.5.",
+        "tamano_muestra": "Typical range: 1-999999."
+      },
+      "result_context": "Your calculated standard error is {standard_error}.",
+      "formula_display": "Calculate sample size confidence based on input values.",
+      "steps": [
+        "Enter input values: tamano_muestra: 100, proporcion: 0.5, margen_error: 0.05, confianza: 0.95",
+        "Calculate and display the standard_error result",
+        "Calculate and display the margin_of_error result",
+        "Calculate and display the ci_lower result",
+        "Calculate and display the ci_upper result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "tamano_muestra",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "proporcion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "margen_error",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "confianza",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "de": {
+      "name": "Sample size confidence",
+      "desc": "Berechnen Sie sample size confidence online. Geben Sie tamano muestra, proporcion, margen error ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Sample size confidence | CalcToWork",
+      "seo_desc": "Sample size confidence online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Sample size confidence online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "tamano_muestra": "Tamano Muestra",
+        "proporcion": "Proporcion",
+        "margen_error": "Margen Error",
+        "confianza": "Confianza"
+      },
+      "outputs": {
+        "sample_size": "Sample Size",
+        "standard_error": "Standard Error",
+        "margin_of_error": "Margin Of Error",
+        "ci_lower": "Ci Lower",
+        "ci_upper": "Ci Upper"
+      },
+      "example_label": "Ejemplo para sample size confidence: valores 100, 0.5, 0.05, 0.95",
+      "range_hints": {
+        "tamano_muestra": "Valor típico entre 1 y 999999. Valor por defecto: 100.",
+        "proporcion": "Valor típico entre 0 y 1. Valor por defecto: 0.5.",
+        "margen_error": "Valor típico entre 0.001 y 0.5. Valor por defecto: 0.05.",
+        "confianza": "Valor típico entre 0.8 y 0.99. Valor por defecto: 0.95."
+      },
+      "result_context": "Der Standardfehler beträgt {standard_error}, die Fehlermarge ist {margin_of_error}, und das Konfidenzintervall reicht von {ci_lower} bis {ci_upper}.",
+      "formula_display": "zv × se → sample_size, standard_error",
+      "steps": [
+        "Introducir los valores de tamano_muestra, proporcion, margen_error y confianza",
+        "Verificar que los valores introducidos están en el rango y formato correctos",
+        "Calcular los valores de sample size y standard error",
+        "Verificar que el resultado es coherente con los valores de entrada",
+        "El resultado puede usarse como dato intermedio para cálculos posteriores más complejos"
+      ],
+      "mistakes": [
+        "Confundir media con mediana en distribuciones asimétricas",
+        "Usar la desviación estándar de la muestra (n-1) para datos de población (n)",
+        "Interpretar correlación como causalidad"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "tamano_muestra",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "proporcion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "margen_error",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "confianza",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatrice di Dimensione del Campione",
+      "desc": "Calcola la dimensione minima del campione per il tuo sondaggio o esperimento Usato da professionisti e studenti in tutto il mondo.",
+      "description": "Calcolatrice di Dimensione del Campione.",
+      "seo_title": "Calcolatrice di Dimensione del Campione",
+      "seo_description": "Calcola la dimensione minima del campione per il tuo sondaggio o esperimento Usato da professionisti e studenti in tutto il mondo.",
+      "inputs": {
+        "tamano_muestra": "tamano_muestra",
+        "proporcion": "proporcion",
+        "margen_error": "Margine di errore %",
+        "confianza": "confianza"
+      },
+      "outputs": {
+        "standard_error": "Standard error",
+        "margin_of_error": "Margin of error",
+        "ci_lower": "CI lower",
+        "ci_upper": "CI upper"
+      },
+      "example_label": "Calculate sample seze confidince with tamanon_muestra 100, propercion 0.5, margin_errore 0.05, confianza 0.95.",
+      "range_hints": {
+        "proporcion": "Tepical range: 0-1.",
+        "confianza": "Tepical range: 0.8-0.99.",
+        "margen_error": "Tepical range: 0.001-0.5.",
+        "tamano_muestra": "Tepical range: 1-999999."
+      },
+      "result_context": "Your calculated scosìdard errore is {scosìdard_errore}.",
+      "formula_display": "Calculate sample seze confidince based on input values.",
+      "steps": [
+        "Enter input values: tamanon_muestra: 100, propercion: 0.5, margin_errore: 0.05, confianza: 0.95",
+        "Calculate and displae the scosìdard_errore result",
+        "Calculate and displae the margin_of_errore result",
+        "Calculate and displae the ci_lower result",
+        "Calculate and displae the ci_upper result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where posetive required",
+        "Usenzag incorrect input values outsedi recommindid range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "tamano_muestra",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "proporcion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "margen_error",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "confianza",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        }
+      ]
+    }
+  }
+}

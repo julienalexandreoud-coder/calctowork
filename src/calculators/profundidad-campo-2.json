@@ -1,0 +1,386 @@
+{
+  "id": "1040",
+  "slug": "profundidad-campo-2",
+  "block": 5,
+  "block_slug": "fotografia",
+  "inputs": [
+    {
+      "id": "focal",
+      "type": "number",
+      "step": "any",
+      "default": 50,
+      "unit": "mm",
+      "unit_options": [
+        "mm"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "aperture",
+      "type": "number",
+      "step": "any",
+      "default": 2.8,
+      "unit": "f/",
+      "unit_options": [
+        "f/"
+      ],
+      "unit_category": ""
+    },
+    {
+      "id": "distance",
+      "type": "number",
+      "step": "any",
+      "default": 3,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "ft"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "coc",
+      "type": "number",
+      "step": "any",
+      "default": 0.03,
+      "unit": "mm",
+      "unit_options": [
+        "mm"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var f=parseFloat(inputs.focal)||1;var a=parseFloat(inputs.aperture)||1;var d=parseFloat(inputs.distance)||1;var c=parseFloat(inputs.coc)||0.03;var dof=2*d*d*(a*c)/(f*f);return{dof:dof.toFixed(3)};",
+  "outputs": [
+    {
+      "id": "dof",
+      "unit": "m"
+    }
+  ],
+  "related": [
+    "1039",
+    "1041",
+    "1042",
+    "1043"
+  ],
+  "example_inputs": {
+    "focal": 50,
+    "aperture": 2.8,
+    "distance": 3,
+    "coc": 0.03
+  },
+  "example_label": "Ejemplo para profundidad campo 2: valores 50mm, 2.8f/, 3m, 0.03mm",
+  "range_hints": {
+    "focal": "Valor típico entre 0 y 500. Valor por defecto: 50 mm.",
+    "aperture": "Valor típico entre 0 y 500. Valor por defecto: 2.8 f/.",
+    "distance": "Valor típico entre 0 y 500. Valor por defecto: 3 m.",
+    "coc": "Valor típico entre 0 y 500. Valor por defecto: 0.03 mm."
+  },
+  "result_context": "Con apertura f/{aperture} y distancia de {distance} m, la profundidad de campo es de {dof} m.",
+  "result_context_en": "With aperture f/{aperture} and distance of {distance} m, the depth of field is {dof} m.",
+  "result_context_fr": "Avec une ouverture f/{aperture} et une distance de {distance} m, la profondeur de champ est de {dof} m.",
+  "result_context_pt": "Com abertura f/{aperture} e distância de {distance} m, a profundidade de campo é de {dof} m.",
+  "result_context_de": "Bei Blende f/{aperture} und einem Abstand von {distance} m beträgt die Schärfentiefe {dof} m.",
+  "result_context_it": "Con apertura f/{aperture} e distanza di {distance} m, la profondità di campo è di {dof} m.",
+  "formula_display": "Dof (m) = f(focal, aperture, distance, coc)",
+  "steps": [
+    "Introducir los valores de focal, aperture, distance y coc",
+    "Verificar que las unidades sean correctas y convertir si es necesario (mm)",
+    "Realizar el cálculo para obtener dof",
+    "El resultado se expresa en m. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Confundir la distancia hiperfocal con la profundidad de campo",
+    "Olvidar que el factor de recorte del sensor afecta a la profundidad de campo",
+    "Usar ISO muy alto innecesariamente (introduce ruido digital)"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "focal",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "aperture",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "distance",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "coc",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small print",
+      "focal": 25,
+      "aperture": 1,
+      "distance": 3,
+      "coc": 0.03
+    },
+    {
+      "_label": "Standard",
+      "focal": 38,
+      "aperture": 2,
+      "distance": 3,
+      "coc": 0.03
+    },
+    {
+      "_label": "Large poster",
+      "focal": 50,
+      "aperture": 3,
+      "distance": 3,
+      "coc": 0.03
+    },
+    {
+      "_label": "Banner",
+      "focal": 75,
+      "aperture": 4,
+      "distance": 3,
+      "coc": 0.03
+    },
+    {
+      "_label": "Billboard",
+      "focal": 100,
+      "aperture": 6,
+      "distance": 3,
+      "coc": 0.03
+    }
+  ],
+  "units": {
+    "focal": "m",
+    "distance": "m",
+    "coc": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Profundidad de Campo",
+      "description": "Calcula la profundidad de campo aproximada.",
+      "inputs": {
+        "focal": "Distancia focal",
+        "aperture": "Apertura",
+        "distance": "Distancia",
+        "coc": "Círculo confusión"
+      },
+      "outputs": {
+        "dof": "Profundidad campo"
+      },
+      "seo_title": "Profundidad de Campo – Calculadora DoF Fotografía Gratuita",
+      "seo_description": "Calcula la profundidad de campo (DoF) según focal, apertura, distancia y sensor. Ejemplo: 50mm, f/2.8, 3m, Full Frame → DoF=0.42 m. Gratis.",
+      "example_label": "Ejemplo de cálculo",
+      "range_hints": {},
+      "result_context": "Resultado del cálculo profundidad campo.",
+      "formula_display": "Ver fórmula en el cálculo",
+      "steps": [
+        "Identificar los valores de entrada",
+        "Aplicar la fórmula correspondiente",
+        "Realizar el cálculo",
+        "Obtener los 1 resultados"
+      ],
+      "mistakes": [
+        "No verificar las unidades de entrada",
+        "Redondear resultados intermedios",
+        "No verificar el rango de validez"
+      ],
+      "input_type_review": []
+    },
+    "en": {
+      "name": "Depth of Field Calculator",
+      "description": "Calculate approximate depth of field.",
+      "inputs": {
+        "focal": "Focal length",
+        "aperture": "Aperture",
+        "distance": "Distance",
+        "coc": "Circle of confusion"
+      },
+      "outputs": {
+        "dof": "Depth of field"
+      },
+      "seo_title": "Depth of Field Calculator – Photography DoF",
+      "seo_description": "Calculate depth of field (DoF) from focal length, aperture, distance, and sensor. Example: 50mm, f/2.8, 3m, Full Frame â†’ DoF=0.42 m. Free.",
+      "example_label": "Ejemplo de cálculo",
+      "range_hints": {},
+      "result_context": "Resultado del cálculo profundidad campo.",
+      "formula_display": "Ver fórmula en el cálculo",
+      "steps": [
+        "Identificar los valores de entrada",
+        "Aplicar la fórmula correspondiente",
+        "Realizar el cálculo",
+        "Obtener los 1 resultados"
+      ],
+      "mistakes": [
+        "No verificar las unidades de entrada",
+        "Redondear resultados intermedios",
+        "No verificar el rango de validez"
+      ],
+      "input_type_review": "4 entrada(s) de tipo number"
+    },
+    "fr": {
+      "name": "Profondeur de Champ",
+      "description": "Calculez la profondeur de champ approximative.",
+      "inputs": {
+        "focal": "Distance focale",
+        "aperture": "Ouverture",
+        "distance": "Distance",
+        "coc": "Cercle de confusion"
+      },
+      "outputs": {
+        "dof": "Profondeur champ"
+      },
+      "seo_title": "Profondeur de Champ – Calculateur DoF Photographie en Ligne",
+      "seo_description": "Calculez la profondeur de champ (DoF) selon focale, ouverture, distance et capteur. Exemple: 50mm, f/2.8, 3m → DoF=0.42 m. Gratuit.",
+      "example_label": "Ejemplo de cálculo",
+      "range_hints": {},
+      "result_context": "Resultado du cálculo profondeur campo.",
+      "formula_display": "Ver fórmula dans le cálculo",
+      "steps": [
+        "Identificar les valores de entrada",
+        "Aplicar la fórmula correspondiente",
+        "Realizar le cálculo",
+        "Obtener les 1 resultados"
+      ],
+      "mistakes": [
+        "Ne pas vérifier les unités de entrada",
+        "Redondear resultados intermedios",
+        "Ne pas vérifier le rango de validez"
+      ],
+      "input_type_review": []
+    },
+    "pt": {
+      "name": "Profundidade de Campo",
+      "description": "Calcule a profundidade de campo aproximada.",
+      "inputs": {
+        "focal": "Distância focal",
+        "aperture": "Abertura",
+        "distance": "Distância",
+        "coc": "Círculo confusão"
+      },
+      "outputs": {
+        "dof": "Profundidade campo"
+      },
+      "seo_title": "Profundidade de Campo – Calculadora DoF Fotografia",
+      "seo_description": "Calcule a profundidade de campo (DoF) por focal, abertura, distância e sensor. Exemplo: 50mm, f/2.8, 3m, Full Frame → DoF=0.42 m. Grátis.",
+      "example_label": "Ejemplo de cálculo",
+      "range_hints": {},
+      "result_context": "Resultado do cálculo profundidade campo.",
+      "formula_display": "Ver fórmula não cálculo",
+      "steps": [
+        "Identificar os valores de entrada",
+        "Aplicar a fórmula correspondiente",
+        "Realizar o cálculo",
+        "Obtener os 1 resultados"
+      ],
+      "mistakes": [
+        "Não verificar as unidades de entrada",
+        "Redondear resultados intermedios",
+        "Não verificar o intervalo de validez"
+      ],
+      "input_type_review": []
+    },
+    "de": {
+      "name": "Profundidad campo 2",
+      "desc": "Berechnen Sie profundidad campo 2 online. Geben Sie focal, aperture, distance ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Profundidad campo 2 | CalcToWork",
+      "seo_desc": "Profundidad campo 2 online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Profundidad campo 2 online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "focal": "Focal",
+        "aperture": "Aperture",
+        "distance": "Distance",
+        "coc": "Coc"
+      },
+      "outputs": {
+        "dof": "Dof"
+      },
+      "example_label": "Ejemplo para profundidad campo 2: valores 50mm, 2.8f/, 3m, 0.03mm",
+      "range_hints": {
+        "focal": "Valor típico entre 0 y 500. Valor por defecto: 50 mm.",
+        "aperture": "Valor típico entre 0 y 500. Valor por defecto: 2.8 f/.",
+        "distance": "Valor típico entre 0 y 500. Valor por defecto: 3 m.",
+        "coc": "Valor típico entre 0 y 500. Valor por defecto: 0.03 mm."
+      },
+      "result_context": "Bei Blende f/{aperture} und einem Abstand von {distance} m beträgt die Schärfentiefe {dof} m.",
+      "formula_display": "Dof (m) = f(focal, aperture, distance, coc)",
+      "steps": [
+        "Introducir los valores de focal, aperture, distance y coc",
+        "Verificar que las unidades sean correctas y convertir si es necesario (mm)",
+        "Realizar el cálculo para obtener dof",
+        "El resultado se expresa en m. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Confundir la distancia hiperfocal con la profundidad de campo",
+        "Olvidar que el factor de recorte del sensor afecta a la profundidad de campo",
+        "Usar ISO muy alto innecesariamente (introduce ruido digital)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "focal",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "aperture",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "distance",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "coc",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Profondità di Campo",
+      "description": "Calcola la profondità di campo approssimativa.",
+      "inputs": {
+        "focal": "Distanza focale",
+        "aperture": "Diaframma",
+        "distance": "Distanza",
+        "coc": "Cerchio confusione"
+      },
+      "outputs": {
+        "dof": "Profondità campo"
+      },
+      "seo_title": "Profondità di Campo – Calcolatore DoF Fotografia",
+      "seo_description": "Calcola la profondità di campo (DoF) da focale, apertura, distanza e sensore. Esempio: 50mm, f/2.8, 3m → DoF=0.42 m. Gratuito.",
+      "example_label": "Ejemplo di cálculo",
+      "range_hints": {},
+      "result_context": "Resultado dil cálculo profondità campo.",
+      "formula_display": "Ver fórmula in el cálculo",
+      "steps": [
+        "Idintificar i valorei di intrada",
+        "Applicare la fórmula correspondiinte",
+        "Realizar el cálculo",
+        "Obtiner i 1 risultati"
+      ],
+      "mistakes": [
+        "Non verificare le unità di intrada",
+        "Redovear risultati intermedi",
+        "Non verificare el rango di validiz"
+      ],
+      "input_type_review": null
+    }
+  }
+}

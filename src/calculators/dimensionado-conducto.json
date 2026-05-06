@@ -1,0 +1,401 @@
+{
+  "id": "058",
+  "slug": "dimensionado-conducto",
+  "block": 6,
+  "block_slug": "climatizacion",
+  "inputs": [
+    {
+      "id": "caudal_m3h",
+      "type": "number",
+      "min": 10,
+      "max": 100000,
+      "step": 10,
+      "default": 1000,
+      "unit": "m³/h"
+    },
+    {
+      "id": "perdida_carga_pa_m",
+      "type": "number",
+      "min": 0.5,
+      "max": 5,
+      "step": 0.1,
+      "default": 1.5,
+      "unit": "Pa/m"
+    }
+  ],
+  "formula": "var Q=parseFloat(inputs.caudal_m3h)||0,dP=parseFloat(inputs.perdida_carga_pa_m)||1.5;if(!Q)return{error:true};var rho=1.2,v=Math.pow(dP*2/rho*0.5,0.5)*2,A_m2=Q/3600/v,D_mm=+(Math.sqrt(4*A_m2/Math.PI)*1000).toFixed(0),D_norm=D_mm<=100?100:D_mm<=125?125:D_mm<=160?160:D_mm<=200?200:D_mm<=250?250:315;return{velocidad_ms:+v.toFixed(2),diametro_mm:D_norm,area_m2:+A_m2.toFixed(4)};",
+  "outputs": [
+    {
+      "id": "velocidad_ms",
+      "unit": "m/s"
+    },
+    {
+      "id": "diametro_mm",
+      "unit": "mm Ã˜",
+      "highlight": true
+    },
+    {
+      "id": "area_m2",
+      "unit": "m² sección"
+    }
+  ],
+  "related": [
+    "054",
+    "055",
+    "059",
+    "053"
+  ],
+  "example_inputs": {
+    "caudal_m3h": 100,
+    "perdida_carga_pa_m": 100
+  },
+  "example_label": "Ejemplo para dimensionado conducto: valores 1000m³/h, 1.5Pa/m",
+  "range_hints": {
+    "caudal_m3h": "Valor típico entre 10 y 100000. Valor por defecto: 1000 m³/h.",
+    "perdida_carga_pa_m": "Valor típico entre 0.5 y 5. Valor por defecto: 1.5 Pa/m."
+  },
+  "result_context": "Resultados: velocidad de {velocidad_ms} m/s, diámetro de {diametro_mm} mm, área de sección de {area_m2} m².",
+  "formula_display": "2 ÷ rho → velocidad_ms, diametro_mm",
+  "steps": [
+    "Introducir los valores de caudal_m3h y perdida_carga_pa_m",
+    "Verificar que los valores introducidos están en el rango y formato correctos",
+    "Calcular los valores de velocidad ms y diametro mm",
+    "El resultado se expresa en m/s. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Sobredimensionar el equipo (provoca ciclos cortos que reducen la eficiencia)",
+    "No limpiar los filtros regularmente (reduce el caudal hasta un 30%)",
+    "Instalar la unidad exterior en un lugar sin ventilación adecuada"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "caudal_m3h",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "perdida_carga_pa_m",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small room",
+      "caudal_m3h": 50,
+      "perdida_carga_pa_m": 5
+    },
+    {
+      "_label": "Medium room",
+      "caudal_m3h": 80,
+      "perdida_carga_pa_m": 5
+    },
+    {
+      "_label": "Large room",
+      "caudal_m3h": 100,
+      "perdida_carga_pa_m": 5
+    },
+    {
+      "_label": "Office",
+      "caudal_m3h": 150,
+      "perdida_carga_pa_m": 5
+    },
+    {
+      "_label": "Warehouse",
+      "caudal_m3h": 200,
+      "perdida_carga_pa_m": 5
+    }
+  ],
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Dimensionado de Conducto",
+      "desc": "Calcula el diámetro de conducto por el método de pérdida de carga constante para instalaciones de climatización. Introduce tus valores y obtiene.",
+      "seo_title": "Calculadora de Dimensionado de Conducto Gratuita",
+      "inputs": {
+        "caudal_m3h": "Caudal (m³/h)",
+        "perdida_carga_pa_m": "Pérdida de carga (Pa/m)"
+      },
+      "outputs": {
+        "velocidad_ms": "Velocidad (m/s)",
+        "diametro_mm": "Diámetro (mm)",
+        "area_m2": "Sección (m²)"
+      },
+      "seo_description": "Calcula el diámetro de conducto por el método de pérdida de carga constante para instalaciones de climatización. Introduce tus valores y obtiene.",
+      "example_label": "Dimensionar conducto por pérdida de carga constante para 1000 m³/h con 1.5 Pa/m de fricción.",
+      "range_hints": {
+        "caudal_m3h": "Caudal de diseño. Ramal: 50-300 m³/h, Principal: 500-5000 m³/h",
+        "perdida_carga_pa_m": "Baja velocidad: 0.5-1.0 Pa/m, Estándar: 1.0-2.0 Pa/m, Industrial: 2.0-5.0 Pa/m"
+      },
+      "result_context": "Conducto con pérdida constante: velocidad de {velocidad_ms} m/s, diámetro normalizado de {diametro_mm} mm, sección de {area_m2} m².",
+      "formula_display": "Método de igual fricción. v ≈ f(ΔP, ρ). D = √(4Q/πv). Normalizado a diámetros comerciales.",
+      "steps": [
+        "Caudal de diseño: 1000 m³/h = 0.278 m³/s",
+        "Para 1.5 Pa/m con ρ=1.2 kg/m³, estimar velocidad ≈ 3.8 m/s",
+        "Calcular sección: 0.278 ÷ 3.8 = 0.0732 m²",
+        "Calcular diámetro: √(4 × 0.0732 ÷ π) × 1000 = 305 mm",
+        "Normalizar a diámetro comercial: 315 mm"
+      ],
+      "mistakes": [
+        "Usar la misma pérdida de carga en todos los tramos — en ramales se permiten pérdidas mayores",
+        "No considerar la rugosidad del material — conductos flexibles tienen más pérdida que chapa lisa",
+        "Olvidar la recuperación estática en derivaciones"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "caudal_m3h",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "perdida_carga_pa_m",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        }
+      ]
+    },
+    "en": {
+      "name": "HVAC Duct Sizing Calculator",
+      "desc": "HVAC Duct Sizing Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "HVAC Duct Sizing – Pressure Drop Method",
+      "inputs": {
+        "caudal_m3h": "Airflow (m³/h)",
+        "perdida_carga_pa_m": "Pressure drop (Pa/m)"
+      },
+      "outputs": {
+        "velocidad_ms": "Velocity (m/s)",
+        "diametro_mm": "Diameter (mm)",
+        "area_m2": "Section (m²)"
+      },
+      "seo_description": "HVAC Duct Sizing Calculator. Airflow (m³/h), Pressure drop (Pa/m) — get Velocity (m/s), Diameter (mm), Section (m²) instantly for your HVAC and climate.",
+      "example_label": "Size duct by equal friction method for 1000 m³/h with 1.5 Pa/m friction loss.",
+      "range_hints": {
+        "caudal_m3h": "Design airflow. Branch: 50-300 m³/h, Main: 500-5000 m³/h",
+        "perdida_carga_pa_m": "Low velocity: 0.5-1.0 Pa/m, Standard: 1.0-2.0 Pa/m, Industrial: 2.0-5.0 Pa/m"
+      },
+      "result_context": "Duct with constant pressure drop: velocity of {velocidad_ms} m/s, standardized diameter of {diametro_mm} mm, cross section of {area_m2} m².",
+      "formula_display": "Equal friction method. v ≈ f(ΔP, ρ). D = √(4Q/πv). Standardized to commercial diameters.",
+      "steps": [
+        "Design airflow: 1000 m³/h = 0.278 m³/s",
+        "For 1.5 Pa/m with ρ=1.2 kg/m³, estimate design velocity ≈ 3.8 m/s",
+        "Calculate section: 0.278 ÷ 3.8 = 0.0732 m²",
+        "Calculate diameter: √(4 × 0.0732 ÷ π) × 1000 = 305 mm",
+        "Standardize to commercial size: 315 mm"
+      ],
+      "mistakes": [
+        "Using same pressure drop in all runs — branches can tolerate higher losses (2-3 Pa/m) for balancing",
+        "Not accounting for material roughness — flexible ducts have 3-5× more loss than smooth sheet metal",
+        "Forgetting static regain at branches — may need diameter adjustments to maintain constant pressure"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "caudal_m3h",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "perdida_carga_pa_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Dimensionnement Gaine",
+      "desc": "Dimensionnez les gaines par perte de charge constante.",
+      "seo_title": "Dimensionnement Gaines – Perte Charge",
+      "inputs": {
+        "caudal_m3h": "Débit (m³/h)",
+        "perdida_carga_pa_m": "Perte de charge (Pa/m)"
+      },
+      "outputs": {
+        "velocidad_ms": "Vitesse (m/s)",
+        "diametro_mm": "Diamètre (mm)",
+        "area_m2": "Section (m²)"
+      },
+      "seo_description": "Calculez le diamètre de gaine par la méthode de perte de charge constante pour installations CVC. Entrez vos valeurs pour des resultats precis.",
+      "example_label": "Dimensionar sistema de dimensionado conduit pour vivienda avec 100 m³/h de referencia.",
+      "range_hints": {
+        "caudal_m3h": "Valor entre 10 et 100000 m³/h.",
+        "perdida_carga_pa_m": "Valor entre 0.5 et 5 Pa/m."
+      },
+      "result_context": "le resultado principal es {diametro_mm} mm Á˜. Este valor sirve como referencia pour tu proyecto.",
+      "formula_display": "Formula especifica pour dimensionado-conduit - consulta documentacion tecnica.",
+      "steps": [
+        "Introduce caudal m3h: 100 m³/h",
+        "Introduce perdida carga pa m: 100 Pa/m",
+        "Revisa les valores introducidos",
+        "Pulsa Calculer pour obtener resultados",
+        "Interpreta resultado: {velocidad_ms}"
+      ],
+      "mistakes": [
+        "Dimensionar sans considerar orientacion et zona climatica",
+        "Ne pas inclure carga termica par ocupantes",
+        "Ignorar perdidas par distribucion de conduits"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "caudal_m3h",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        },
+        {
+          "field_id": "perdida_carga_pa_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Dimensionamento de Duto",
+      "desc": "Calcule o diâmetro de duto pelo método de perda de carga constante Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora de Dimensionamento de Duto",
+      "inputs": {
+        "caudal_m3h": "Vazão (m³/h)",
+        "perdida_carga_pa_m": "Perda de carga (Pa/m)"
+      },
+      "outputs": {
+        "velocidad_ms": "Velocidade (m/s)",
+        "diametro_mm": "Diâmetro (mm)",
+        "area_m2": "Seção (m²)"
+      },
+      "seo_description": "Calcule o diâmetro de duto pelo método de perda de carga constante Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Dimensionar duto por perda de carga constante para 1000 m³/h com 1,5 Pa/m de fricção.",
+      "range_hints": {
+        "caudal_m3h": "Vazão de projeto. Ramal: 50-300 m³/h, Principal: 500-5000 m³/h",
+        "perdida_carga_pa_m": "Baixa velocidade: 0,5-1,0 Pa/m, Padrão: 1,0-2,0 Pa/m, Industrial: 2,0-5,0 Pa/m"
+      },
+      "result_context": "Duto com perda constante: velocidade de {velocidad_ms} m/s, diâmetro normalizado de {diametro_mm} mm, seção de {area_m2} m².",
+      "formula_display": "Método de igual fricção. v ≈ f(ΔP, ρ). D = √(4Q/πv). Normalizado para diâmetros comerciais.",
+      "steps": [
+        "Vazão de projeto: 1000 m³/h = 0,278 m³/s",
+        "Para 1,5 Pa/m com ρ=1,2 kg/m³, estimar velocidade ≈ 3,8 m/s",
+        "Calcular seção: 0,278 ÷ 3,8 = 0,0732 m²",
+        "Calcular diâmetro: √(4 × 0,0732 ÷ π) × 1000 = 305 mm",
+        "Normalizar para diâmetro comercial: 315 mm"
+      ],
+      "mistakes": [
+        "Usar a mesma perda de carga em todos os trechos — ramais podem tolerar perdas maiores",
+        "Não considerar a rugosidade do material — dutos flexíveis têm 3-5× mais perda que chapa lisa",
+        "Esquecer a recuperação estática em derivações"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "caudal_m3h",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        },
+        {
+          "field_id": "perdida_carga_pa_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        }
+      ]
+    },
+    "de": {
+      "name": "Dimensionierung Kanal",
+      "desc": "Berechnen Sie dimensionierung Kanal online. Geben Sie caudal m3h, perdida carga pa m ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Dimensionierung Kanal | CalcToWork",
+      "seo_desc": "Dimensionierung Kanal online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Dimensionierung Kanal online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "caudal_m3h": "Caudal M3h",
+        "perdida_carga_pa_m": "Perdida Carga Pa M"
+      },
+      "outputs": {
+        "velocidad_ms": "Velocidad Ms",
+        "diametro_mm": "Diametro Mm",
+        "area_m2": "Area M2"
+      },
+      "example_label": "Ejemplo para dimensionado conducto: valores 1000m³/h, 1.5Pa/m",
+      "range_hints": {
+        "caudal_m3h": "Valor típico entre 10 y 100000. Valor por defecto: 1000 m³/h.",
+        "perdida_carga_pa_m": "Valor típico entre 0.5 y 5. Valor por defecto: 1.5 Pa/m."
+      },
+      "result_context": "Resultados: velocidad de {velocidad_ms} m/s, diámetro de {diametro_mm} mm, área de sección de {area_m2} m².",
+      "formula_display": "2 ÷ rho → velocidad_ms, diametro_mm",
+      "steps": [
+        "Introducir los valores de caudal_m3h y perdida_carga_pa_m",
+        "Verificar que los valores introducidos están en el rango y formato correctos",
+        "Calcular los valores de velocidad ms y diametro mm",
+        "El resultado se expresa en m/s. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Sobredimensionar el equipo (provoca ciclos cortos que reducen la eficiencia)",
+        "No limpiar los filtros regularmente (reduce el caudal hasta un 30%)",
+        "Instalar la unidad exterior en un lugar sin ventilación adecuada"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "caudal_m3h",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "perdida_carga_pa_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Caldaia a Gas",
+      "description": "Seleziona la potenza della caldaia per riscaldamento e ACS.",
+      "seo_title": "Calcolatore Caldaia a Gas – Veloce e Preciso",
+      "seo_description": "Calcola la potenza della caldaia per riscaldamento e acqua calda Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo.",
+      "inputs": {
+        "area": "Superficie (m²)",
+        "altura": "Altezza (m)",
+        "t_ext": "T esterna design (°C)",
+        "acs_litros": "ACS giornaliero (L)"
+      },
+      "outputs": {
+        "carga_calefaccion": "Carico riscaldamento (kW)",
+        "carga_acs": "Carico ACS (kW)",
+        "potencia_total": "Potenza caldaia (kW)"
+      },
+      "example_label": "Diminseonar sestema di diminseonado conducto per viviinda con 100 m³/h di referincia.",
+      "range_hints": {
+        "caudal_m3h": "Valor intre 10 e 100000 m³/h.",
+        "perdida_carga_pa_m": "Valor intre 0.5 e 5 Pa/m."
+      },
+      "result_context": "El risultato principal es {diametro_mm} mm Ø. Este valore serve come referincia per tu progetto.",
+      "formula_display": "Formula especifica per diminseonado-conducto - consulta documintacion tecnica.",
+      "steps": [
+        "Introduce pertata m3h: 100 m³/h",
+        "Introduce perdida carico pa m: 100 Pa/m",
+        "Revisa i valorei introducidos",
+        "Pulsa calcolare per obtiner risultati",
+        "Interpreta risultato: {velocità_ms}"
+      ],
+      "mistakes": [
+        "Diminseonar senza consedirar oriintacion e zona climatica",
+        "Non includire carico termica per ocupprima",
+        "Ignonrare perdidas per distribucion di conductos"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "caudal_m3h",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        },
+        {
+          "field_id": "perdida_carga_pa_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        }
+      ]
+    }
+  }
+}

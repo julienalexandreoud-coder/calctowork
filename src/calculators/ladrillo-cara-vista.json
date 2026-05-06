@@ -1,0 +1,512 @@
+{
+  "id": "012",
+  "slug": "ladrillo-cara-vista",
+  "block": 2,
+  "block_slug": "mamposteria",
+  "inputs": [
+    {
+      "id": "largo",
+      "type": "number",
+      "min": 0.5,
+      "max": 200,
+      "step": 0.1,
+      "default": 8,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "alto",
+      "type": "number",
+      "min": 0.5,
+      "max": 10,
+      "step": 0.1,
+      "default": 2.8,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "descontar_huecos",
+      "type": "number",
+      "min": 0,
+      "max": 50,
+      "step": 0.1,
+      "default": 4,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.largo)||0,H=parseFloat(inputs.alto)||0,huecos=parseFloat(inputs.descontar_huecos)||0;if(!L||!H)return{error:true};var area_bruta=L*H,area_neta=Math.max(0,area_bruta-huecos),ladrillos=Math.ceil(area_neta*55*1.07),mortero=+(area_neta*20).toFixed(1),junta=+(area_neta*0.5).toFixed(1);return{area_bruta:+area_bruta.toFixed(2),area_neta:+area_neta.toFixed(2),ladrillos_ud:ladrillos,mortero_kg:mortero,lechada_kg:junta};",
+  "outputs": [
+    {
+      "id": "area_bruta",
+      "unit": "m²"
+    },
+    {
+      "id": "area_neta",
+      "unit": "m²",
+      "highlight": true
+    },
+    {
+      "id": "ladrillos_ud",
+      "unit": "uds (+7% merma)"
+    },
+    {
+      "id": "mortero_kg",
+      "unit": "kg"
+    },
+    {
+      "id": "lechada_kg",
+      "unit": "kg"
+    }
+  ],
+  "related": [
+    "011",
+    "013",
+    "019",
+    "014"
+  ],
+  "example_inputs": {
+    "largo": 8,
+    "alto": 2.8,
+    "descontar_huecos": 4
+  },
+  "example_label": "Calcular ladrillos para 8 m × 2.8 m × 4 m².",
+  "range_hints": {
+    "largo": "Valor típico entre 0.5 y 200. Valor por defecto: 8 m.",
+    "alto": "Valor típico entre 0.5 y 10. Valor por defecto: 2.8 m.",
+    "descontar_huecos": "Valor típico entre 0 y 50. Valor por defecto: 4 m²."
+  },
+  "result_context": "Resultados: {area_bruta} m² de área bruta, {area_neta} m² de área neta, {ladrillos_ud} ladrillos, {mortero_kg} kg de mortero, {lechada_kg} kg de lechada.",
+  "formula_display": "Ladrillos = área ÷ área_ladrillo × desperdicio",
+  "steps": [
+    "Calcular área del muro",
+    "Calcular área de un ladrillo con junta",
+    "Dividir área muro por área ladrillo",
+    "Agregar 5-10% de desperdicio",
+    "Calcular mortero necesario"
+  ],
+  "mistakes": [
+    "No dejar juntas de dilatación",
+    "Mortero con demasiada arena",
+    "No humedecer ladrillos en clima seco"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "largo",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "alto",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "descontar_huecos",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small wall",
+      "largo": 4,
+      "descontar_huecos": 2,
+      "alto": 2.8
+    },
+    {
+      "_label": "Medium wall",
+      "largo": 6,
+      "descontar_huecos": 3,
+      "alto": 2.8
+    },
+    {
+      "_label": "Large wall",
+      "largo": 8,
+      "descontar_huecos": 4,
+      "alto": 2.8
+    },
+    {
+      "_label": "Room",
+      "largo": 12,
+      "descontar_huecos": 6,
+      "alto": 2.8
+    },
+    {
+      "_label": "House perimeter",
+      "largo": 16,
+      "descontar_huecos": 8,
+      "alto": 2.8
+    }
+  ],
+  "units": {
+    "largo": "m",
+    "alto": "m",
+    "descontar_huecos": "m²"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Ladrillo Cara Vista",
+      "desc": "Calcula cuántos ladrillos cara vista necesitas y la cantidad de mortero y lechada para juntas Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora Ladrillo Cara Vista",
+      "inputs": {
+        "largo": "Longitud pared",
+        "alto": "Altura pared",
+        "descontar_huecos": "Descontar huecos"
+      },
+      "outputs": {
+        "area_bruta": "Área bruta",
+        "area_neta": "Área neta",
+        "ladrillos_ud": "Ladrillos cara vista",
+        "mortero_kg": "Mortero",
+        "lechada_kg": "Lechada juntas"
+      },
+      "seo_description": "Calcula cuántos ladrillos cara vista necesitas y la cantidad de mortero y lechada para juntas Usado por profesionales y estudiantes en todo el mundo.",
+      "example_label": "Calcular ladrillos cara vista para una fachada de 8m × 2.8m descontando 4m² de huecos.",
+      "range_hints": {
+        "largo": "Longitud de la fachada o muro visto",
+        "alto": "Altura del muro cara vista",
+        "descontar_huecos": "Área total de ventanas y puertas a descontar"
+      },
+      "result_context": "Fachada de {area_bruta} m² brutos ({area_neta} m² netos) requiere {ladrillos_ud} ladrillos cara vista, {mortero_kg} kg de mortero y {lechada_kg} kg de lechada para juntas.",
+      "formula_display": "Área_neta = (largo × alto) - huecos; Ladrillos = área_neta × 55 ud/m²",
+      "steps": [
+        "Calcular área bruta: 8m × 2.8m = 22.4m²",
+        "Restar huecos: 22.4m² - 4m² = 18.4m² netos",
+        "Calcular ladrillos: 18.4m² × 55 ud/m² × 1.07 (merma 7%) = 1083 ladrillos",
+        "Calcular mortero: 18.4m² × 20 kg/m² = 368 kg",
+        "Calcular lechada para juntas: 18.4m² × 0.5 kg/m² = 9.2 kg"
+      ],
+      "mistakes": [
+        "No considerar merma mayor (7%) por la delicadeza del material cara vista",
+        "No calcular lechada especial para juntas vistas",
+        "No prever ladrillos adicionales para replanteo y cortes especiales"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "alto",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "descontar_huecos",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Face Brick Calculator",
+      "desc": "Face Brick Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Face Brick Calculator – Materials & Qty",
+      "seo_desc": "Face Brick Calculator. Wall length, Wall height, Deduct openings — get Gross area, Net area, Face bricks instantly for your masonry and enclosures.",
+      "inputs": {
+        "largo": "Wall length",
+        "alto": "Wall height",
+        "descontar_huecos": "Deduct openings"
+      },
+      "outputs": {
+        "area_bruta": "Gross area",
+        "area_neta": "Net area",
+        "ladrillos_ud": "Face bricks",
+        "mortero_kg": "Mortar",
+        "lechada_kg": "Joint grout"
+      },
+      "seo_description": "Calculate how many face bricks, mortar and joint grout you need for exposed brickwork walls and facades. Includes 7% waste for cuts and breakage.",
+      "example_label": "Calcular ladrillos cara vista para una fachada de 8m × 2.8m descontando 4m² de huecos.",
+      "range_hints": {
+        "largo": "Longitud de la fachada o muro visto",
+        "alto": "Altura del muro cara vista",
+        "descontar_huecos": "Área total de ventanas y puertas a descontar"
+      },
+      "result_context": "Fachada de {area_bruta} m² brutos ({area_neta} m² netos) requiere {ladrillos_ud} ladrillos cara vista, {mortero_kg} kg de mortero y {lechada_kg} kg de lechada para juntas.",
+      "formula_display": "Área_neta = (largo × alto) - huecos; Ladrillos = área_neta × 55 ud/m²",
+      "steps": [
+        "Calcular área bruta: 8m × 2.8m = 22.4m²",
+        "Restar huecos: 22.4m² - 4m² = 18.4m² netos",
+        "Calcular ladrillos: 18.4m² × 55 ud/m² × 1.07 (merma 7%) = 1083 ladrillos",
+        "Calcular mortero: 18.4m² × 20 kg/m² = 368 kg",
+        "Calcular lechada para juntas: 18.4m² × 0.5 kg/m² = 9.2 kg"
+      ],
+      "mistakes": [
+        "No considerar merma mayor (7%) por la delicadeza del material cara vista",
+        "No calcular lechada especial para juntas vistas",
+        "No prever ladrillos adicionales para replanteo y cortes especiales"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "descontar_huecos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Brique de Parement",
+      "desc": "Calculez le nombre de briques de parement et la quantité de mortier et coulis. Calculatrice facile a utiliser avec decomposition de la formule.",
+      "seo_title": "Calculateur Brique de Parement",
+      "inputs": {
+        "largo": "Longueur mur",
+        "alto": "Hauteur mur",
+        "descontar_huecos": "Déduire ouvertures"
+      },
+      "outputs": {
+        "area_bruta": "Surface brute",
+        "area_neta": "Surface nette",
+        "ladrillos_ud": "Briques de parement",
+        "mortero_kg": "Mortier",
+        "lechada_kg": "Coulis joints"
+      },
+      "seo_description": "Calculez le nombre de briques de parement et la quantité de mortier et coulis. Calculatrice facile a utiliser avec decomposition de la formule.",
+      "example_label": "Calculer briques cara vista pour une fachada de 8m × 2.8m descontando 4m² de huecos.",
+      "range_hints": {
+        "largo": "longueur de la fachada o mur visto",
+        "alto": "hauteur du mur cara vista",
+        "descontar_huecos": "Área total de fenêtres et portes a descontar"
+      },
+      "result_context": "Fachada de {area_bruta} m² brutos ({area_neta} m² netos) nécessite {ladrillos_ud} briques cara vista, {mortero_kg} kg de mortier et {lechada_kg} kg de lechada pour juntas.",
+      "formula_display": "Área_neta = (longueur × alto) - huecos; briques = área_neta × 55 ud/m²",
+      "steps": [
+        "Calculer área bruta: 8m × 2.8m = 22.4m²",
+        "Restar huecos: 22.4m² - 4m² = 18.4m² netos",
+        "Calculer briques: 18.4m² × 55 ud/m² × 1.07 (merma 7%) = 1083 briques",
+        "Calculer mortier: 18.4m² × 20 kg/m² = 368 kg",
+        "Calculer lechada pour juntas: 18.4m² × 0.5 kg/m² = 9.2 kg"
+      ],
+      "mistakes": [
+        "Ne pas considérer merma mayor (7%) par la delicadeza du material cara vista",
+        "No Calculer lechada especial pour juntas vistas",
+        "No prever briques adicionales pour replanteo et cortes especiales"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "descontar_huecos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Tijolo Aparente",
+      "desc": "Calcule quantos tijolos aparentes você precisa e a quantidade de argamassa e rejunte. Calculadora facil de usar com detalhamento da formula.",
+      "seo_title": "Calculadora de Tijolo Aparente",
+      "inputs": {
+        "largo": "Comprimento parede",
+        "alto": "Altura parede",
+        "descontar_huecos": "Descontar vãos"
+      },
+      "outputs": {
+        "area_bruta": "Área bruta",
+        "area_neta": "Área líquida",
+        "ladrillos_ud": "Tijolos aparentes",
+        "mortero_kg": "Argamassa",
+        "lechada_kg": "Rejunte juntas"
+      },
+      "seo_description": "Calcule quantos tijolos aparentes você precisa e a quantidade de argamassa e rejunte. Calculadora facil de usar com detalhamento da formula.",
+      "example_label": "Calcular tijolos cara vista para uma fachada de 8m × 2.8m descontando 4m² de huecos.",
+      "range_hints": {
+        "largo": "Longitud da fachada o muro visto",
+        "alto": "Altura do muro cara vista",
+        "descontar_huecos": "Área total de janelas e portas a descontar"
+      },
+      "result_context": "Fachada de {area_bruta} m² brutos ({area_neta} m² netos) requer {ladrillos_ud} tijolos cara vista, {mortero_kg} kg de argamassa e {lechada_kg} kg de lechada para juntas.",
+      "formula_display": "Área_neta = (comprimento × alto) - huecos; Ladrillos = área_neta × 55 ud/m²",
+      "steps": [
+        "Calcular área bruta: 8m × 2.8m = 22.4m²",
+        "Restar huecos: 22.4m² - 4m² = 18.4m² netos",
+        "Calcular tijolos: 18.4m² × 55 ud/m² × 1.07 (merma 7%) = 1083 tijolos",
+        "Calcular argamassa: 18.4m² × 20 kg/m² = 368 kg",
+        "Calcular lechada para juntas: 18.4m² × 0.5 kg/m² = 9.2 kg"
+      ],
+      "mistakes": [
+        "Não considerar merma mayor (7%) por a delicadeza do material cara vista",
+        "Não calcular lechada especial para juntas vistas",
+        "Não prever tijolos adicionales para replanteo e cortes especiais"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "descontar_huecos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Ziegel Verblend Sichtmauerwerk",
+      "desc": "Berechnen Sie ziegel Verblend Sichtmauerwerk online. Geben Sie largo, alto, descontar huecos ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Ziegel Verblend Sichtmauerwerk | CalcToWork",
+      "seo_desc": "Ziegel Verblend Sichtmauerwerk online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Ziegel Verblend Sichtmauerwerk online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "largo": "Largo",
+        "alto": "Alto",
+        "descontar_huecos": "Descontar Huecos"
+      },
+      "outputs": {
+        "area_bruta": "Area Bruta",
+        "area_neta": "Area Neta",
+        "ladrillos_ud": "Ladrillos Ud",
+        "mortero_kg": "Mortero Kg",
+        "lechada_kg": "Lechada Kg"
+      },
+      "example_label": "Calcular ladrillos para 8 m × 2.8 m × 4 m².",
+      "range_hints": {
+        "largo": "Valor típico entre 0.5 y 200. Valor por defecto: 8 m.",
+        "alto": "Valor típico entre 0.5 y 10. Valor por defecto: 2.8 m.",
+        "descontar_huecos": "Valor típico entre 0 y 50. Valor por defecto: 4 m²."
+      },
+      "result_context": "Resultados: {area_bruta} m² de área bruta, {area_neta} m² de área neta, {ladrillos_ud} ladrillos, {mortero_kg} kg de mortero, {lechada_kg} kg de lechada.",
+      "formula_display": "Ladrillos = área ÷ área_ladrillo × desperdicio",
+      "steps": [
+        "Calcular área del muro",
+        "Calcular área de un ladrillo con junta",
+        "Dividir área muro por área ladrillo",
+        "Agregar 5-10% de desperdicio",
+        "Calcular mortero necesario"
+      ],
+      "mistakes": [
+        "No dejar juntas de dilatación",
+        "Mortero con demasiada arena",
+        "No humedecer ladrillos en clima seco"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "descontar_huecos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Blocchi in Cemento",
+      "description": "Calcola blocchi di cemento e malta per murature.",
+      "seo_title": "Calcolatore Blocchi in Cemento",
+      "seo_description": "Stima il numero di blocchi in cemento e la malta necessaria Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo.",
+      "inputs": {
+        "largo": "Lunghezza (m)",
+        "alto": "Altezza (m)",
+        "espesor_bloque": "Spessore blocco (cm)"
+      },
+      "outputs": {
+        "bloques": "Blocchi necessari",
+        "mortero_m3": "Malta (m³)",
+        "cemento_sacos": "Sacchi cemento"
+      },
+      "example_label": "Calcolare mattoni cara vista per una fachada di 8m × 2.8m disconcosìdo 4m² di huecos.",
+      "range_hints": {
+        "largo": "Longitud dilla fachada o muro visto",
+        "alto": "Altura dil muro cara vista",
+        "descontar_huecos": "Área totale di finestre e perte a discontar"
+      },
+      "result_context": "Fachada di {area_bruta} m² brutos ({area_neta} m² netos) richiedi {mattoni_ud} mattoni cara vista, {mortero_kg} kg di mortero e {lechada_kg} kg di lechada per guarnizioni.",
+      "formula_display": "Área_neta = (lunghezza × alto) - huecos; Ladrili = área_neta × 55 ud/m²",
+      "steps": [
+        "Calcolare área bruta: 8m × 2.8m = 22.4m²",
+        "Sottrarre huecos: 22.4m² - 4m² = 18.4m² netos",
+        "Calcolare mattoni: 18.4m² × 55 ud/m² × 1.07 (merma 7%) = 1083 mattoni",
+        "Calcolare mortero: 18.4m² × 20 kg/m² = 368 kg",
+        "Calcolare lechada per guarnizioni: 18.4m² × 0.5 kg/m² = 9.2 kg"
+      ],
+      "mistakes": [
+        "Non consedirare merma maggiore (7%) per la dilicadiza dil opacorial cara vista",
+        "No calcolare lechada especial per guarnizioni vistas",
+        "No prever mattoni adicionales per repianonteo e taglios especiales"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "descontar_huecos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        }
+      ]
+    }
+  }
+}

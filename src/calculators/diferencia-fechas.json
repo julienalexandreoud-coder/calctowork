@@ -1,0 +1,413 @@
+{
+  "id": "502",
+  "slug": "diferencia-fechas",
+  "block": 13,
+  "block_slug": "cotidiano",
+  "inputs": [
+    {
+      "id": "anio1",
+      "type": "number",
+      "min": 1900,
+      "max": 2100,
+      "step": 1,
+      "default": 2020,
+      "unit": "año"
+    },
+    {
+      "id": "mes1",
+      "type": "number",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "default": 1,
+      "unit": "mes"
+    },
+    {
+      "id": "anio2",
+      "type": "number",
+      "min": 1900,
+      "max": 2100,
+      "step": 1,
+      "default": 2026,
+      "unit": "año"
+    },
+    {
+      "id": "mes2",
+      "type": "number",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "default": 4,
+      "unit": "mes"
+    }
+  ],
+  "formula": "var y1=parseFloat(inputs.anio1)||0,m1=parseFloat(inputs.mes1)||1,y2=parseFloat(inputs.anio2)||0,m2=parseFloat(inputs.mes2)||1;if(!y1||!y2)return{error:true};var d1=new Date(y1,m1-1,1),d2=new Date(y2,m2-1,1),ms=Math.abs(d2-d1),dias=Math.round(ms/86400000),meses=Math.round(dias/30.44),semanas=Math.round(dias/7),anios=+(dias/365.25).toFixed(2);return{dias:dias,semanas:semanas,meses:meses,anios:anios};",
+  "outputs": [
+    {
+      "id": "dias",
+      "unit": "días",
+      "highlight": true
+    },
+    {
+      "id": "semanas",
+      "unit": "semanas"
+    },
+    {
+      "id": "meses",
+      "unit": "meses"
+    },
+    {
+      "id": "anios",
+      "unit": "años"
+    }
+  ],
+  "related": [
+    "501",
+    "500",
+    "200",
+    "943"
+  ],
+  "example_inputs": {
+    "anio1": 2020,
+    "mes1": 1,
+    "anio2": 2026,
+    "mes2": 4
+  },
+  "example_label": "Ejemplo para diferencia fechas: valores 2020año, 1mes, 2026año, 4mes",
+  "range_hints": {
+    "anio1": "Valor típico entre 1900 y 2100. Valor por defecto: 2020 año.",
+    "mes1": "Valor típico entre 1 y 12. Valor por defecto: 1 mes.",
+    "anio2": "Valor típico entre 1900 y 2100. Valor por defecto: 2026 año.",
+    "mes2": "Valor típico entre 1 y 12. Valor por defecto: 4 mes."
+  },
+  "result_context": "La diferencia entre las fechas es de {dias} días, {semanas} semanas, {meses} meses o {anios} años.",
+  "result_context_en": "The difference between the dates is {dias} days, {semanas} weeks, {meses} months or {anios} years.",
+  "result_context_fr": "La différence entre les dates est de {dias} jours, {semanas} semaines, {meses} mois ou {anios} ans.",
+  "result_context_pt": "A diferença entre as datas é de {dias} dias, {semanas} semanas, {meses} meses ou {anios} anos.",
+  "result_context_de": "Der Unterschied zwischen den Daten beträgt {dias} Tage, {semanas} Wochen, {meses} Monate oder {anios} Jahre.",
+  "result_context_it": "La differenza tra le date è di {dias} giorni, {semanas} settimane, {meses} mesi o {anios} anni.",
+  "formula_display": "ms ÷ 86400000 → dias, semanas",
+  "steps": [
+    "Introducir los valores de anio1, mes1, anio2 y mes2",
+    "Verificar que los valores introducidos están en el rango y formato correctos",
+    "Calcular los valores de dias y semanas",
+    "El resultado se expresa en días. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "No considerar si la propina se calcula antes o después de impuestos",
+    "Olvidar que los meses tienen diferente número de días",
+    "Usar el formato de fecha incorrecto (MM/DD vs DD/MM) al introducir datos"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "anio1",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "mes1",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "anio2",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "mes2",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Escenario minimo",
+      "anio1": 1900.0,
+      "mes1": 1.0,
+      "anio2": 1900.0,
+      "mes2": 1.6
+    },
+    {
+      "_label": "Uso habitual",
+      "anio1": 1900.0,
+      "mes1": 1.0,
+      "anio2": 1900.0,
+      "mes2": 2.8
+    },
+    {
+      "_label": "Uso frecuente",
+      "anio1": 2020.0,
+      "mes1": 1.0,
+      "anio2": 2026.0,
+      "mes2": 4.0
+    },
+    {
+      "_label": "Uso intensivo",
+      "anio1": 2100.0,
+      "mes1": 1.5,
+      "anio2": 2100.0,
+      "mes2": 6.0
+    },
+    {
+      "_label": "Caso maximo",
+      "anio1": 2100.0,
+      "mes1": 2.5,
+      "anio2": 2100.0,
+      "mes2": 10.0
+    }
+  ],
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Diferencia entre Fechas",
+      "desc": "Calcula los días, semanas, meses y años entre dos fechas.",
+      "description": "Calcula los días, semanas, meses y años entre dos fechas.",
+      "seo_title": "Calculadora de Diferencia entre Fechas Online",
+      "seo_description": "Calcula cuántos días, semanas, meses y años hay entre dos fechas. Introduce año y mes de inicio y fin. Con manejo de fechas y zonas horarias.",
+      "inputs": {
+        "anio1": "Año inicio",
+        "mes1": "Mes inicio (1-12)",
+        "anio2": "Año fin",
+        "mes2": "Mes fin (1-12)"
+      },
+      "outputs": {
+        "dias": "Días",
+        "semanas": "Semanas",
+        "meses": "Meses",
+        "anios": "Años"
+      },
+      "example_label": "De enero 2020 a abril 2026",
+      "range_hints": {
+        "anio1/anio2": "1900-2100",
+        "mes1/mes2": "1 a 12"
+      },
+      "result_context": "Diferencia entre dos fechas en días, semanas, meses y años",
+      "formula_display": "Diferencia = |Fecha2 - Fecha1|",
+      "steps": [
+        "Convertir ambas fechas a timestamp",
+        "Calcular diferencia absoluta en milisegundos",
+        "Convertir a días, semanas, meses, años"
+      ],
+      "mistakes": [
+        "No considerar años bisiestos",
+        "Confundir cuál fecha es primero"
+      ],
+      "input_type_review": []
+    },
+    "en": {
+      "name": "Date Difference Calculator",
+      "desc": "Calculate the days, weeks, months and years between two dates.",
+      "description": "Calculate the days, weeks, months and years between two dates.",
+      "seo_title": "Date Difference Calculator – Days Between Dates",
+      "seo_description": "Calculate how many days, weeks, months and years are between two dates. Enter start and end year and month. Easy-to-use calculator with formula breakdown.",
+      "inputs": {
+        "anio1": "Start year",
+        "mes1": "Start month (1-12)",
+        "anio2": "End year",
+        "mes2": "End month (1-12)"
+      },
+      "outputs": {
+        "dias": "Days",
+        "semanas": "Weeks",
+        "meses": "Months",
+        "anios": "Years"
+      },
+      "example_label": "De enero 2020 a abril 2026",
+      "range_hints": {
+        "anio1/anio2": "1900-2100",
+        "mes1/mes2": "1 a 12"
+      },
+      "result_context": "Diferencia entre dos fechas en días, semanas, meses y años",
+      "formula_display": "Diferencia = |Fecha2 - Fecha1|",
+      "steps": [
+        "Convertir ambas fechas a timestamp",
+        "Calcular diferencia absoluta en milisegundos",
+        "Convertir a días, semanas, meses, años"
+      ],
+      "mistakes": [
+        "No considerar años bisiestos",
+        "Confundir cuál fecha es primero"
+      ],
+      "input_type_review": "Años son calendario, meses son números 1-12"
+    },
+    "fr": {
+      "name": "Calculateur de Différence de Dates",
+      "desc": "Calculez les jours, semaines, mois et années entre deux dates.",
+      "description": "Calculez les jours, semaines, mois et années entre deux dates.",
+      "seo_title": "Calculateur Différence Dates – Jours Entre Dates",
+      "seo_description": "Calculez combien de jours, semaines, mois et années séparent deux dates. Calculatrice facile a utiliser avec decomposition de la formule.",
+      "inputs": {
+        "anio1": "Année début",
+        "mes1": "Mois début (1-12)",
+        "anio2": "Année fin",
+        "mes2": "Mois fin (1-12)"
+      },
+      "outputs": {
+        "dias": "Jours",
+        "semanas": "Semaines",
+        "meses": "Mois",
+        "anios": "Années"
+      },
+      "example_label": "de enero 2020 a abril 2026",
+      "range_hints": {
+        "anio1/anio2": "1900-2100",
+        "mes1/mes2": "1 a 12"
+      },
+      "result_context": "Diferencia entre dos fechas dans días, semanas, meses et años",
+      "formula_display": "Diferencia = |Fecha2 - Fecha1|",
+      "steps": [
+        "Convertir ambas fechas a timestamp",
+        "Calculer diferencia absoluta dans milisegundos",
+        "Convertir a días, semanas, meses, años"
+      ],
+      "mistakes": [
+        "Ne pas considérer años bisiestos",
+        "Confondre cuál fecha es primero"
+      ],
+      "input_type_review": []
+    },
+    "pt": {
+      "name": "Calculadora de Diferença entre Datas",
+      "desc": "Calcule os dias, semanas, meses e anos entre duas datas.",
+      "description": "Calcule os dias, semanas, meses e anos entre duas datas.",
+      "seo_title": "Calculadora Diferença entre Datas Online",
+      "seo_description": "Calcule quantos dias, semanas, meses e anos existem entre duas datas. Calculadora facil de usar com detalhamento da formula.",
+      "inputs": {
+        "anio1": "Ano início",
+        "mes1": "Mês início (1-12)",
+        "anio2": "Ano fim",
+        "mes2": "Mês fim (1-12)"
+      },
+      "outputs": {
+        "dias": "Dias",
+        "semanas": "Semanas",
+        "meses": "Meses",
+        "anios": "Anos"
+      },
+      "example_label": "De enero 2020 a abril 2026",
+      "range_hints": {
+        "anio1/anio2": "1900-2100",
+        "mes1/mes2": "1 a 12"
+      },
+      "result_context": "Diferencia entre dos fechas em días, semanas, meses e años",
+      "formula_display": "Diferencia = |Fecha2 - Fecha1|",
+      "steps": [
+        "Convertir ambas fechas a timestamp",
+        "Calcular diferencia absoluta em milisegundos",
+        "Convertir a días, semanas, meses, años"
+      ],
+      "mistakes": [
+        "Não considerar años bisiestos",
+        "Confundir cuál fecha é primero"
+      ],
+      "input_type_review": []
+    },
+    "de": {
+      "name": "Diferencia fechas",
+      "desc": "Berechnen Sie diferencia fechas online. Geben Sie anio1, mes1, anio2 ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Diferencia fechas | CalcToWork",
+      "seo_desc": "Diferencia fechas online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Diferencia fechas online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "anio1": "Anio1",
+        "mes1": "Mes1",
+        "anio2": "Anio2",
+        "mes2": "Mes2"
+      },
+      "outputs": {
+        "dias": "Dias",
+        "semanas": "Semanas",
+        "meses": "Meses",
+        "anios": "Anios"
+      },
+      "example_label": "Ejemplo para diferencia fechas: valores 2020año, 1mes, 2026año, 4mes",
+      "range_hints": {
+        "anio1": "Valor típico entre 1900 y 2100. Valor por defecto: 2020 año.",
+        "mes1": "Valor típico entre 1 y 12. Valor por defecto: 1 mes.",
+        "anio2": "Valor típico entre 1900 y 2100. Valor por defecto: 2026 año.",
+        "mes2": "Valor típico entre 1 y 12. Valor por defecto: 4 mes."
+      },
+      "result_context": "Der Unterschied zwischen den Daten beträgt {dias} Tage, {semanas} Wochen, {meses} Monate oder {anios} Jahre.",
+      "formula_display": "ms ÷ 86400000 → dias, semanas",
+      "steps": [
+        "Introducir los valores de anio1, mes1, anio2 y mes2",
+        "Verificar que los valores introducidos están en el rango y formato correctos",
+        "Calcular los valores de dias y semanas",
+        "El resultado se expresa en días. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "No considerar si la propina se calcula antes o después de impuestos",
+        "Olvidar que los meses tienen diferente número de días",
+        "Usar el formato de fecha incorrecto (MM/DD vs DD/MM) al introducir datos"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "anio1",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "mes1",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "anio2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "mes2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Differenza tra Date",
+      "desc": "Calcola i giorni, settimane, mesi e anni tra due date.",
+      "description": "Calcola i giorni, settimane, mesi e anni tra due date.",
+      "seo_title": "Calcolatore Differenza Date – Giorni tra Date Online",
+      "seo_description": "Calcola quanti giorni, settimane, mesi e anni separano due date. Con gestione date e fusi orari. Usato da professionisti e studenti in tutto il mondo.",
+      "inputs": {
+        "anio1": "Anno inizio",
+        "mes1": "Mese inizio (1-12)",
+        "anio2": "Anno fine",
+        "mes2": "Mese fine (1-12)"
+      },
+      "outputs": {
+        "dias": "Giorni",
+        "semanas": "Settimane",
+        "meses": "Mesi",
+        "anios": "Anni"
+      },
+      "example_label": "De inero 2020 a abril 2026",
+      "range_hints": {
+        "anio1/anio2": "1900-2100",
+        "mes1/mes2": "1 a 12"
+      },
+      "result_context": "Diferincia intre dos fechas in días, settimane, mesei e años",
+      "formula_display": "Diferincia = |Fecha2 - Fecha1|",
+      "steps": [
+        "Convertire ambas fechas a timesetamp",
+        "Calcolare diferincia absoluta in milisegundos",
+        "Convertire a días, settimane, mesei, años"
+      ],
+      "mistakes": [
+        "Non consedirare años biseestos",
+        "Confondire cuál fecha es primero"
+      ],
+      "input_type_review": null
+    }
+  }
+}

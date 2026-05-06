@@ -1,0 +1,460 @@
+{
+  "id": "049",
+  "slug": "baterias-autonomia",
+  "block": 5,
+  "block_slug": "electricidad",
+  "inputs": [
+    {
+      "id": "consumo_diario_kwh",
+      "type": "number",
+      "min": 0.5,
+      "max": 200,
+      "step": 0.5,
+      "default": 10,
+      "unit": "kWh/día"
+    },
+    {
+      "id": "dias_autonomia",
+      "type": "number",
+      "min": 0.5,
+      "max": 5,
+      "step": 0.5,
+      "default": 1,
+      "unit": "días"
+    },
+    {
+      "id": "capacidad_bateria_kwh",
+      "type": "number",
+      "min": 2,
+      "max": 20,
+      "step": 0.5,
+      "default": 5,
+      "unit": "kWh/bat"
+    }
+  ],
+  "formula": "var C=parseFloat(inputs.consumo_diario_kwh)||0,D=parseFloat(inputs.dias_autonomia)||1,CB=parseFloat(inputs.capacidad_bateria_kwh)||5;if(!C)return{error:true};var kwh_nec=+(C*D/0.8).toFixed(2),baterias=Math.ceil(kwh_nec/CB),kwh_inst=+(baterias*CB).toFixed(1);return{kwh_necesario:kwh_nec,baterias_ud:baterias,kwh_instalado:kwh_inst};",
+  "outputs": [
+    {
+      "id": "kwh_necesario",
+      "unit": "kWh necesario"
+    },
+    {
+      "id": "baterias_ud",
+      "unit": "baterías",
+      "highlight": true
+    },
+    {
+      "id": "kwh_instalado",
+      "unit": "kWh instalado"
+    }
+  ],
+  "related": [
+    "048",
+    "052",
+    "047",
+    "043"
+  ],
+  "example_inputs": {
+    "consumo_diario_kwh": 10,
+    "dias_autonomia": 1,
+    "capacidad_bateria_kwh": 5
+  },
+  "example_label": "Dimensionar banco de baterías para 10 kWh/día con 2 días de autonomía usando baterías de litio de 5 kWh.",
+  "range_hints": {
+    "consumo_diario_kwh": "Consumo diario de la instalación en kWh. Para sistema aislado, considerar consumos nocturnos (cubiertos por batería) y diurnos (cubiertos por paneles directamente)",
+    "dias_autonomia": "Días sin sol que el sistema debe soportar: zona mediterránea 1-2 días, zona atlántica 2-3 días, zonas montañosas o muy nubladas 3-5 días",
+    "capacidad_bateria_kwh": "Capacidad de cada batería: litio residencial 2.4-5-7.5-10-13.5 kWh. Plomo-ácido OPzS: 2 V × Ah / 1000 por vaso"
+  },
+  "result_context": "Para {consumo_diario_kwh} kWh/día y {dias_autonomia} días de autonomía se necesitan {kwh_necesario} kWh efectivos. Con baterías de {capacidad_bateria_kwh} kWh: {baterias_ud} unidades ({kwh_instalado} kWh instalados).",
+  "formula_display": "Energía_necesaria = (consumo_diario × días) / (DoD × η_inversor).  DoD litio = 0.80-0.90, DoD Pb-ácido = 0.50.  Nº baterías = ceil(Energía / capacidad_unitaria).  η carga/descarga litio ≈ 0.95.",
+  "steps": [
+    "Determinar el consumo diario en kWh que debe cubrir la batería (normalmente el consumo nocturno más un margen)",
+    "Establecer los días de autonomía según ubicación y criticidad: 1 día con apoyo de red, 2-3 días aislado en zona soleada, 5 días para zonas de montaña",
+    "Seleccionar profundidad de descarga (DoD) según tecnología: LiFePO4 90 %, NMC 80 %, AGM 50 %, OPzS 60 %",
+    "Calcular energía necesaria: E = (consumo × días) / (DoD × 0.95). El factor 0.95 cubre pérdidas del inversor/cargador en la conversión",
+    "Dividir la energía total entre la capacidad unitaria de la batería. Redondear al alza. Verificar compatibilidad de tensión con el inversor (48 V típico)"
+  ],
+  "mistakes": [
+    "No considerar la profundidad de descarga máxima: descargar Pb-ácido al 100 % diariamente la destruye en <50 ciclos. DoD máx recomendada: 50 % Pb, 80-90 % litio",
+    "Mezclar baterías de distinta capacidad, tecnología o antigüedad: las más débiles limitan al conjunto, se sobrecargan/descargan desigualmente y envejecen prematuramente",
+    "Olvidar que la capacidad útil disminuye con la temperatura: a 0 °C una batería de litio pierde 10-15 % de capacidad. A -10 °C puede perder hasta el 30 %",
+    "Instalar baterías de litio sin BMS (Battery Management System): sin balanceo de celdas, protección contra sobrecarga y control térmico, las celdas se degradan en meses"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "consumo_diario_kwh",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "dias_autonomia",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "capacidad_bateria_kwh",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Fin de semana (5 kWh/d, 1 día)",
+      "consumo_diario_kwh": 5,
+      "dias_autonomia": 1,
+      "capacidad_bateria_kwh": 5
+    },
+    {
+      "_label": "Residencia aislada (10 kWh/d, 2 días)",
+      "consumo_diario_kwh": 10,
+      "dias_autonomia": 2,
+      "capacidad_bateria_kwh": 10
+    },
+    {
+      "_label": "Casa rural (15 kWh/d, 3 días)",
+      "consumo_diario_kwh": 15,
+      "dias_autonomia": 3,
+      "capacidad_bateria_kwh": 13.5
+    },
+    {
+      "_label": "Refugio montaña (8 kWh/d, 5 días)",
+      "consumo_diario_kwh": 8,
+      "dias_autonomia": 5,
+      "capacidad_bateria_kwh": 5
+    },
+    {
+      "_label": "Granja aislada (30 kWh/d, 2 días)",
+      "consumo_diario_kwh": 30,
+      "dias_autonomia": 2,
+      "capacidad_bateria_kwh": 13.5
+    }
+  ],
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Baterías de Almacenamiento",
+      "desc": "Calcula los kWh de almacenamiento y el número de baterías para tu instalación solar de autoconsumo Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora Baterías Solares – kWh",
+      "inputs": {
+        "consumo_diario_kwh": "Consumo diario (kWh)",
+        "dias_autonomia": "Días de autonomía",
+        "capacidad_bateria_kwh": "Capacidad batería (kWh)"
+      },
+      "outputs": {
+        "kwh_necesario": "kWh necesario",
+        "baterias_ud": "Número de baterías",
+        "kwh_instalado": "kWh instalado"
+      },
+      "seo_description": "Calcula los kWh de almacenamiento y el número de baterías para tu instalación solar de autoconsumo Usado por profesionales y estudiantes en todo el mundo.",
+      "example_label": "Calcular baterías para 10 kWh/día de consumo, 2 días de autonomía con baterías de 5 kWh.",
+      "range_hints": {
+        "consumo_diario_kwh": "Consumo diario de la instalación",
+        "dias_autonomia": "Días sin sol: 1-5 días según ubicación",
+        "capacidad_bateria_kwh": "Baterías litio: 2.5-15 kWh por unidad"
+      },
+      "result_context": "Para {consumo_diario_kwh} kWh/día con {dias_autonomia} días de autonomía se necesitan {energia_total_kwh} kWh. Con baterías de {capacidad_bateria_kwh} kWh: {baterias_ud} baterías ({configuracion}).",
+      "formula_display": "Energía = consumo × días ÷ profundidad_descarga; Baterías = energía ÷ capacidad_unitaria",
+      "steps": [
+        "Energía necesaria: 10 kWh × 2 días = 20 kWh",
+        "Considerar profundidad descarga 80% (litio): 20 kWh ÷ 0.80 = 25 kWh",
+        "Calcular baterías: 25 kWh ÷ 5 kWh = 5 baterías",
+        "Configuración: 5 baterías en paralelo (o serie-paralelo según voltaje)"
+      ],
+      "mistakes": [
+        "No considerar profundidad de descarga (acorta vida útil)",
+        "Mezclar baterías de diferente capacidad o antigüedad",
+        "No prever BMS (Battery Management System) para litio"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "consumo_diario_kwh",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "dias_autonomia",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "capacidad_bateria_kwh",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Battery Storage Calculator",
+      "desc": "Battery Storage Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Solar Battery Calculator – kWh & Batteries",
+      "inputs": {
+        "consumo_diario_kwh": "Daily consumption (kWh)",
+        "dias_autonomia": "Days of autonomy",
+        "capacidad_bateria_kwh": "Battery capacity (kWh)"
+      },
+      "outputs": {
+        "kwh_necesario": "kWh required",
+        "baterias_ud": "Number of batteries",
+        "kwh_instalado": "Installed kWh"
+      },
+      "seo_description": "Battery Storage Calculator. Daily consumption (kWh), Days of autonomy, Battery capacity (kWh) — get kWh required, Number of batteries, Installed kWh.",
+      "example_label": "Calcular baterías para 10 kWh/día de consumo, 2 días de autonomía con baterías de 5 kWh.",
+      "range_hints": {
+        "consumo_diario_kwh": "Consumo diario de la instalación",
+        "dias_autonomia": "Días sin sol: 1-5 días según ubicación",
+        "capacidad_bateria_kwh": "Baterías litio: 2.5-15 kWh por unidad"
+      },
+      "result_context": "Para {consumo_diario_kwh} kWh/día con {dias_autonomia} días de autonomía se necesitan {energia_total_kwh} kWh. Con baterías de {capacidad_bateria_kwh} kWh: {baterias_ud} baterías ({configuracion}).",
+      "formula_display": "Energía = consumo × días ÷ profundidad_descarga; Baterías = energía ÷ capacidad_unitaria",
+      "steps": [
+        "Energía necesaria: 10 kWh × 2 días = 20 kWh",
+        "Considerar profundidad descarga 80% (litio): 20 kWh ÷ 0.80 = 25 kWh",
+        "Calcular baterías: 25 kWh ÷ 5 kWh = 5 baterías",
+        "Configuración: 5 baterías en paralelo (o serie-paralelo según voltaje)"
+      ],
+      "mistakes": [
+        "No considerar profundidad de descarga (acorta vida útil)",
+        "Mezclar baterías de diferente capacidad o antigüedad",
+        "No prever BMS (Battery Management System) para litio"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "consumo_diario_kwh",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "dias_autonomia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "capacidad_bateria_kwh",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Batteries Solaires",
+      "desc": "Calculez les batteries pour autoconsommation solaire.",
+      "seo_title": "Calculateur Batteries Solaires – kWh",
+      "inputs": {
+        "consumo_diario_kwh": "Consommation journalière (kWh)",
+        "dias_autonomia": "Jours d'autonomie",
+        "capacidad_bateria_kwh": "Capacité batterie (kWh)"
+      },
+      "outputs": {
+        "kwh_necesario": "kWh nécessaire",
+        "baterias_ud": "Nombre de batteries",
+        "kwh_instalado": "kWh installé"
+      },
+      "seo_description": "Calculez les kWh de stockage et le nombre de batteries pour votre installation solaire. Calculatrice facile a utiliser avec decomposition de la formule.",
+      "example_label": "Calculer baterías pour 10 kWh/día de consumo, 2 días de autonomía avec baterías de 5 kWh.",
+      "range_hints": {
+        "consumo_diario_kwh": "Consumo diario de la instalación",
+        "dias_autonomia": "Días sans sol: 1-5 días selon ubicación",
+        "capacidad_bateria_kwh": "Baterías litio: 2.5-15 kWh par unidad"
+      },
+      "result_context": "pour {consumo_diario_kwh} kWh/día avec {dias_autonomia} días de autonomía se necesitan {energia_total_kwh} kWh. avec baterías de {capacidad_bateria_kwh} kWh: {baterias_ud} baterías ({configuracion}).",
+      "formula_display": "Energía = consumo × días Á· profundidad_descarga; Baterías = energía Á· capacidad_unitaria",
+      "steps": [
+        "Energía nécessaire: 10 kWh × 2 días = 20 kWh",
+        "Considerar profondeur descarga 80% (litio): 20 kWh Á· 0.80 = 25 kWh",
+        "Calculer baterías: 25 kWh Á· 5 kWh = 5 baterías",
+        "Configuración: 5 baterías dans paralelo (o serie-paralelo selon voltaje)"
+      ],
+      "mistakes": [
+        "Ne pas considérer profondeur de descarga (acorta vida útil)",
+        "mélanger baterías de différent capacidad o antigüedad",
+        "No prever BMS (Battery Management System) pour litio"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "consumo_diario_kwh",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "dias_autonomia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "capacidad_bateria_kwh",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Baterias de Armazenamento",
+      "desc": "Calcule o armazenamento em kWh e o número de baterias para sua instalação solar. Calculadora facil de usar com detalhamento da formula.",
+      "seo_title": "Calculadora Baterias Solares – kWh",
+      "inputs": {
+        "consumo_diario_kwh": "Consumo diário (kWh)",
+        "dias_autonomia": "Dias de autonomia",
+        "capacidad_bateria_kwh": "Capacidade bateria (kWh)"
+      },
+      "outputs": {
+        "kwh_necesario": "kWh necessário",
+        "baterias_ud": "Número de baterias",
+        "kwh_instalado": "kWh instalado"
+      },
+      "seo_description": "Calcule o armazenamento em kWh e o número de baterias para sua instalação solar. Calculadora facil de usar com detalhamento da formula.",
+      "example_label": "Calcular baterías para 10 kWh/día de consumo, 2 días de autonomía com baterías de 5 kWh.",
+      "range_hints": {
+        "consumo_diario_kwh": "Consumo diario da instalação",
+        "dias_autonomia": "Días sem sol: 1-5 días segundo ubicación",
+        "capacidad_bateria_kwh": "Baterías litio: 2.5-15 kWh por unidad"
+      },
+      "result_context": "Para {consumo_diario_kwh} kWh/día com {dias_autonomia} días de autonomía são necessários {energia_total_kwh} kWh. Con baterías de {capacidad_bateria_kwh} kWh: {baterias_ud} baterías ({configuracion}).",
+      "formula_display": "Energía = consumo × días ÷ profundidad_descarga; Baterías = energía ÷ capacidad_unitaria",
+      "steps": [
+        "Energía necessária: 10 kWh × 2 días = 20 kWh",
+        "Considerar profundidade descarga 80% (litio): 20 kWh ÷ 0.80 = 25 kWh",
+        "Calcular baterías: 25 kWh ÷ 5 kWh = 5 baterías",
+        "Configuración: 5 baterías em paralelo (o serie-paralelo segundo voltaje)"
+      ],
+      "mistakes": [
+        "Não considerar profundidade de descarga (acorta vida útil)",
+        "Mezclar baterías de diferente capacidade o antigüedad",
+        "Não prever BMS (Battery Management System) para litio"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "consumo_diario_kwh",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "dias_autonomia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "capacidad_bateria_kwh",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Batteriespeicher Autonomie",
+      "desc": "Berechnen Sie batteriespeicher Autonomie online. Geben Sie consumo diario kwh, dias autonomia, capacidad bateria kwh ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Batteriespeicher Autonomie | CalcToWork",
+      "seo_desc": "Batteriespeicher Autonomie online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Batteriespeicher Autonomie online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "consumo_diario_kwh": "Consumo Diario Kwh",
+        "dias_autonomia": "Dias Autonomia",
+        "capacidad_bateria_kwh": "Capacidad Bateria Kwh"
+      },
+      "outputs": {
+        "kwh_necesario": "Kwh Necesario",
+        "baterias_ud": "Baterias Ud",
+        "kwh_instalado": "Kwh Instalado"
+      },
+      "example_label": "Dimensionar banco de baterías para 10 kWh/día con 2 días de autonomía usando baterías de litio de 5 kWh.",
+      "range_hints": {
+        "consumo_diario_kwh": "Consumo diario de la instalación en kWh. Para sistema aislado, considerar consumos nocturnos (cubiertos por batería) y diurnos (cubiertos por paneles directamente)",
+        "dias_autonomia": "Días sin sol que el sistema debe soportar: zona mediterránea 1-2 días, zona atlántica 2-3 días, zonas montañosas o muy nubladas 3-5 días",
+        "capacidad_bateria_kwh": "Capacidad de cada batería: litio residencial 2.4-5-7.5-10-13.5 kWh. Plomo-ácido OPzS: 2 V × Ah / 1000 por vaso"
+      },
+      "result_context": "Para {consumo_diario_kwh} kWh/día y {dias_autonomia} días de autonomía se necesitan {kwh_necesario} kWh efectivos. Con baterías de {capacidad_bateria_kwh} kWh: {baterias_ud} unidades ({kwh_instalado} kWh instalados).",
+      "formula_display": "Energía_necesaria = (consumo_diario × días) / (DoD × η_inversor).  DoD litio = 0.80-0.90, DoD Pb-ácido = 0.50.  Nº baterías = ceil(Energía / capacidad_unitaria).  η carga/descarga litio ≈ 0.95.",
+      "steps": [
+        "Determinar el consumo diario en kWh que debe cubrir la batería (normalmente el consumo nocturno más un margen)",
+        "Establecer los días de autonomía según ubicación y criticidad: 1 día con apoyo de red, 2-3 días aislado en zona soleada, 5 días para zonas de montaña",
+        "Seleccionar profundidad de descarga (DoD) según tecnología: LiFePO4 90 %, NMC 80 %, AGM 50 %, OPzS 60 %",
+        "Calcular energía necesaria: E = (consumo × días) / (DoD × 0.95). El factor 0.95 cubre pérdidas del inversor/cargador en la conversión",
+        "Dividir la energía total entre la capacidad unitaria de la batería. Redondear al alza. Verificar compatibilidad de tensión con el inversor (48 V típico)"
+      ],
+      "mistakes": [
+        "No considerar la profundidad de descarga máxima: descargar Pb-ácido al 100 % diariamente la destruye en <50 ciclos. DoD máx recomendada: 50 % Pb, 80-90 % litio",
+        "Mezclar baterías de distinta capacidad, tecnología o antigüedad: las más débiles limitan al conjunto, se sobrecargan/descargan desigualmente y envejecen prematuramente",
+        "Olvidar que la capacidad útil disminuye con la temperatura: a 0 °C una batería de litio pierde 10-15 % de capacidad. A -10 °C puede perder hasta el 30 %",
+        "Instalar baterías de litio sin BMS (Battery Management System): sin balanceo de celdas, protección contra sobrecarga y control térmico, las celdas se degradan en meses"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "consumo_diario_kwh",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "dias_autonomia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "capacidad_bateria_kwh",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Batterie di Accumulo",
+      "desc": "Calcola i kWh di accumulo e il numero di batterie per il tuo impianto solare a isola o con accumulo. Gratuito, con formula e calcoli dettagliati.",
+      "seo_title": "Calcolatore Batterie Solari – kWh e Unità",
+      "inputs": {
+        "consumo_diario_kwh": "Consumo giornaliero (kWh)",
+        "dias_autonomia": "Giorni di autonomia",
+        "capacidad_bateria_kwh": "Capacità batteria (kWh)"
+      },
+      "outputs": {
+        "kwh_necesario": "kWh necessari",
+        "baterias_ud": "Numero batterie",
+        "kwh_instalado": "kWh installati"
+      },
+      "seo_description": "Calcola i kWh necessari e il numero di batterie per l'accumulo fotovoltaico in base a consumo giornaliero, giorni di autonomia e capacità unitaria.",
+      "example_label": "Dimensionare il banco batterie per 10 kWh/giorno con 2 giorni di autonomia usando batterie al litio da 5 kWh.",
+      "range_hints": {
+        "consumo_diario_kwh": "Consumo giornaliero dell'impianto in kWh. Per sistemi a isola, considerare i consumi notturni (coperti dalla batteria) e quelli diurni (coperti direttamente dai pannelli)",
+        "dias_autonomia": "Giorni senza sole che il sistema deve sopportare: zona mediterranea 1-2 giorni, zona continentale 2-3 giorni, zone montane o molto nuvolose 3-5 giorni",
+        "capacidad_bateria_kwh": "Capacità di ogni batteria: litio residenziale 2.4-5-7.5-10-13.5 kWh. Piombo-acido OPzS: 2 V × Ah / 1000 per elemento"
+      },
+      "result_context": "Per {consumo_diario_kwh} kWh/giorno e {dias_autonomia} giorni di autonomia servono {kwh_necesario} kWh effettivi. Con batterie da {capacidad_bateria_kwh} kWh: {baterias_ud} unità ({kwh_instalado} kWh installati).",
+      "formula_display": "Energia_necessaria = (consumo_giornaliero × giorni) / (DoD × η_inverter). DoD litio = 0.80-0.90, DoD piombo = 0.50. N° batterie = ceil(Energia / capacità_unitaria). η carica/scarica litio ≈ 0.95.",
+      "steps": [
+        "Determinare il consumo giornaliero in kWh che deve coprire la batteria (normalmente il consumo notturno più un margine)",
+        "Stabilire i giorni di autonomia in base alla località e alla criticità: 1 giorno con supporto di rete, 2-3 giorni a isola in zona soleggiata, 5 giorni per zone montane",
+        "Selezionare la profondità di scarica (DoD) in base alla tecnologia: LiFePO4 90 %, NMC 80 %, AGM 50 %, OPzS 60 %",
+        "Calcolare l'energia necessaria: E = (consumo × giorni) / (DoD × 0.95). Il fattore 0.95 copre le perdite dell'inverter/caricabatterie",
+        "Dividere l'energia totale per la capacità unitaria della batteria scelta. Arrotondare all'intero superiore. Verificare la compatibilità di tensione con l'inverter (48 V tipico)"
+      ],
+      "mistakes": [
+        "Non considerare la profondità di scarica massima: scaricare una batteria al piombo al 100 % ogni giorno la distrugge in meno di 50 cicli. DoD max raccomandata: 50 % piombo, 80-90 % litio",
+        "Mescolare batterie di diversa capacità, tecnologia o età: le batterie più deboli limitano l'intero banco, si sovraccaricano/scaricano in modo disomogeneo e invecchiano prematuramente",
+        "Dimenticare che la capacità utile diminuisce con la temperatura: a 0 °C una batteria al litio perde il 10-15 % della capacità. A -10 °C può perdere fino al 30 %",
+        "Installare batterie al litio senza BMS (Battery Management System): senza bilanciamento celle, protezione da sovraccarico e controllo termico, le celle si degradano in pochi mesi"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "consumo_diario_kwh",
+          "reason": "Corretto: valore numerico continuo"
+        },
+        {
+          "field_id": "dias_autonomia",
+          "reason": "Corretto: valore numerico continuo"
+        },
+        {
+          "field_id": "capacidad_bateria_kwh",
+          "reason": "Corretto: valore numerico continuo"
+        }
+      ]
+    }
+  }
+}

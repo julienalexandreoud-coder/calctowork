@@ -1,0 +1,508 @@
+{
+  "id": "027",
+  "slug": "azulejo-pared",
+  "block": 3,
+  "block_slug": "pavimentos",
+  "inputs": [
+    {
+      "id": "area",
+      "type": "number",
+      "min": 0.5,
+      "max": 500,
+      "step": 0.5,
+      "default": 20,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "tam_pieza_cm",
+      "type": "number",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "default": 30,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "piezas_por_caja",
+      "type": "number",
+      "min": 1,
+      "max": 30,
+      "step": 1,
+      "default": 10,
+      "unit": "ud",
+      "unit_options": [
+        "piezas/caja"
+      ],
+      "unit_category": "count"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area)||0,tam=parseFloat(inputs.tam_pieza_cm)||30,pxc=parseFloat(inputs.piezas_por_caja)||10;if(!A)return{error:true};var area_merma=+(A*1.15).toFixed(2),pieza_m2=(tam/100)*(tam/100),piezas=Math.ceil(area_merma/pieza_m2),cajas=Math.ceil(piezas/pxc),adhesivo=+(area_merma*4).toFixed(1),lechada=+(area_merma*0.4).toFixed(1);return{area_merma_m2:area_merma,piezas_ud:piezas,cajas_ud:cajas,adhesivo_kg:adhesivo,lechada_kg:lechada};",
+  "outputs": [
+    {
+      "id": "area_merma_m2",
+      "unit": "m² (+15% merma)",
+      "highlight": true
+    },
+    {
+      "id": "piezas_ud",
+      "unit": "piezas"
+    },
+    {
+      "id": "cajas_ud",
+      "unit": "cajas"
+    },
+    {
+      "id": "adhesivo_kg",
+      "unit": "kg"
+    },
+    {
+      "id": "lechada_kg",
+      "unit": "kg"
+    }
+  ],
+  "related": [
+    "021",
+    "028",
+    "029",
+    "026"
+  ],
+  "example_inputs": {
+    "area": 20,
+    "tam_pieza_cm": 30,
+    "piezas_por_caja": 10
+  },
+  "example_label": "Ejemplo para azulejo pared: valores 20m², 30cm, 10ud",
+  "range_hints": {
+    "area": "Valor típico entre 0.5 y 500. Valor por defecto: 20 m².",
+    "tam_pieza_cm": "Valor típico entre 10 y 60. Valor por defecto: 30 cm.",
+    "piezas_por_caja": "Valor típico entre 1 y 30. Valor por defecto: 10 ud."
+  },
+  "result_context": "Resultados: {area_merma_m2} m² de superficie, {piezas_ud} piezas, {cajas_ud} cajas, {adhesivo_kg} kg de adhesivo, {lechada_kg} kg de lechada.",
+  "formula_display": "tam ÷ 100 → area_merma_m2, piezas_ud",
+  "steps": [
+    "Introducir los valores de area, tam_pieza_cm y piezas_por_caja",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+    "Calcular los valores de area merma m2 y piezas ud",
+    "El resultado se expresa en m² (+15% merma). Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Introducir valores con unidades incorrectas sin verificar la conversión",
+    "Redondear resultados intermedios en lugar del resultado final",
+    "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "area",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "tam_pieza_cm",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "piezas_por_caja",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small patio",
+      "area": 10,
+      "tam_pieza_cm": 15,
+      "piezas_por_caja": 10
+    },
+    {
+      "_label": "Medium patio",
+      "area": 15,
+      "tam_pieza_cm": 20,
+      "piezas_por_caja": 10
+    },
+    {
+      "_label": "Large patio",
+      "area": 20,
+      "tam_pieza_cm": 30,
+      "piezas_por_caja": 10
+    },
+    {
+      "_label": "Driveway",
+      "area": 30,
+      "tam_pieza_cm": 45,
+      "piezas_por_caja": 10
+    },
+    {
+      "_label": "Parking lot",
+      "area": 40,
+      "tam_pieza_cm": 60,
+      "piezas_por_caja": 10
+    }
+  ],
+  "units": {
+    "area": "m²",
+    "tam_pieza_cm": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Azulejo de Pared",
+      "desc": "Calcula azulejos, adhesivo y lechada para paredes.",
+      "seo_title": "¿Cuántos Azulejos Necesito? Online",
+      "seo_desc": "Calcula cuántos azulejos, cajas, adhesivo y lechada necesitas para revestir paredes de baño y cocina Usado por profesionales y estudiantes en todo el.",
+      "inputs": {
+        "area": "Área a revestir",
+        "tam_pieza_cm": "Tamaño pieza (lado)",
+        "piezas_por_caja": "Piezas por caja"
+      },
+      "outputs": {
+        "area_merma_m2": "Área con merma (+15%)",
+        "piezas_ud": "Piezas",
+        "cajas_ud": "Cajas",
+        "adhesivo_kg": "Adhesivo",
+        "lechada_kg": "Lechada"
+      },
+      "seo_description": "Calcula los azulejos, cajas, adhesivo y lechada necesarios para alicatar paredes de cocina o baño. Con merma del 15% que cubre recortes en esquinas, ventanas y puertas.",
+      "example_label": "Calcular azulejos de 20×20cm para revestir 35m² de pared (20 piezas por caja).",
+      "range_hints": {
+        "area": "Superficie de paredes a revestir (baños, cocinas)",
+        "tam_pieza_cm": "Formatos comunes: 15×15, 20×20, 20×30, 30×60 cm",
+        "piezas_por_caja": "Varía según tamaño: 20×20 ≈ 15-25 ud/caja"
+      },
+      "result_context": "Para {area} m² de pared se necesitan {piezas_ud} azulejos de {tam_pieza_cm}×{tam_pieza_cm}cm, equivalentes a {cajas_ud} cajas. Adhesivo necesario: {adhesivo_kg} kg.",
+      "formula_display": "Piezas = área ÷ (lado_m × lado_m); Cajas = piezas ÷ piezas_por_caja",
+      "steps": [
+        "Calcular área por pieza: 0.20m × 0.20m = 0.04m²",
+        "Calcular piezas: 35m² ÷ 0.04m² = 875 piezas",
+        "Aplicar merma 10% (más cortes en paredes): 875 × 1.10 = 963 piezas",
+        "Calcular cajas: 963 ÷ 20 = 48.15 → 49 cajas",
+        "Calcular adhesivo: 35m² × 5 kg/m² = 175 kg"
+      ],
+      "mistakes": [
+        "No comenzar desde el centro o punto visible (cortes asimétricos)",
+        "No usar nivelador de juntas para azulejos grandes",
+        "No impermeabilizar paredes de ducha antes de azulejar"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "tam_pieza_cm",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "piezas_por_caja",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Wall Tile Calculator",
+      "desc": "Wall Tile Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Wall Tile Calculator – Bathroom & Shower Tiling (2026)",
+      "seo_desc": "Free wall tile calculator for bathrooms, showers & kitchens. Calculate exactly how many tiles you need including adhesive & grout. Instant results with waste factor.",
+      "inputs": {
+        "area": "Area to tile",
+        "tam_pieza_cm": "Tile size (side)",
+        "piezas_por_caja": "Pieces per box"
+      },
+      "outputs": {
+        "area_merma_m2": "Area with waste (+15%)",
+        "piezas_ud": "Pieces",
+        "cajas_ud": "Boxes",
+        "adhesivo_kg": "Adhesive",
+        "lechada_kg": "Grout"
+      },
+      "seo_description": "Calculate wall tiles, boxes, adhesive and grout for kitchen and bathroom tiling. With 15% waste margin covering cuts around corners, windows and doors.",
+      "example_label": "Calcular azulejos de 20×20cm para revestir 35m² de pared (20 piezas por caja).",
+      "range_hints": {
+        "area": "Superficie de paredes a revestir (baños, cocinas)",
+        "tam_pieza_cm": "Formatos comunes: 15×15, 20×20, 20×30, 30×60 cm",
+        "piezas_por_caja": "Varía según tamaño: 20×20 â‰ˆ 15-25 ud/caja"
+      },
+      "result_context": "Para {area} m² de pared se necesitan {piezas_ud} azulejos de {tam_pieza_cm}×{tam_pieza_cm}cm, equivalentes a {cajas_ud} cajas. Adhesivo necesario: {adhesivo_kg} kg.",
+      "formula_display": "Piezas = área ÷ (lado_m × lado_m); Cajas = piezas ÷ piezas_por_caja",
+      "steps": [
+        "Calcular área por pieza: 0.20m × 0.20m = 0.04m²",
+        "Calcular piezas: 35m² ÷ 0.04m² = 875 piezas",
+        "Aplicar merma 10% (más cortes en paredes): 875 × 1.10 = 963 piezas",
+        "Calcular cajas: 963 ÷ 20 = 48.15 â†’ 49 cajas",
+        "Calcular adhesivo: 35m² × 5 kg/m² = 175 kg"
+      ],
+      "mistakes": [
+        "No comenzar desde el centro o punto visible (cortes asimétricos)",
+        "No usar nivelador de juntas para azulejos grandes",
+        "No impermeabilizar paredes de ducha antes de azulejar"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "tam_pieza_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "piezas_por_caja",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Carrelage Mural",
+      "desc": "Calculez le nombre de carreaux muraux, boîtes, colle et coulis pour salle de bain et cuisine. Calculatrice facile a utiliser avec decomposition de la.",
+      "seo_title": "Combien de Carreaux Mur? Online",
+      "inputs": {
+        "area": "Surface à carreler",
+        "tam_pieza_cm": "Taille carreau (côté)",
+        "piezas_por_caja": "Pièces par boîte"
+      },
+      "outputs": {
+        "area_merma_m2": "Surface avec chute (+15%)",
+        "piezas_ud": "Pièces",
+        "cajas_ud": "Boîtes",
+        "adhesivo_kg": "Colle",
+        "lechada_kg": "Coulis"
+      },
+      "seo_description": "Calculez le nombre de carreaux muraux, boîtes, colle et coulis pour salle de bain et cuisine. Calculatrice facile a utiliser avec decomposition de la.",
+      "example_label": "Calculer carreaux de 20×20cm pour revestir 35m² de pared (20 piezas par caja).",
+      "range_hints": {
+        "area": "surface de paredes a revestir (baños, cocinas)",
+        "tam_pieza_cm": "Formatos comunes: 15×15, 20×20, 20×30, 30×60 cm",
+        "piezas_por_caja": "Varía selon tamaño: 20×20 â‰ˆ 15-25 ud/caja"
+      },
+      "result_context": "pour {area} m² de pared se necesitan {piezas_ud} carreaux de {tam_pieza_cm}×{tam_pieza_cm}cm, equivalentes a {cajas_ud} cajas. Adhesivo nécessaire: {adhesivo_kg} kg.",
+      "formula_display": "Piezas = área Á· (lado_m × lado_m); Cajas = piezas Á· piezas_por_caja",
+      "steps": [
+        "Calculer área par pieza: 0.20m × 0.20m = 0.04m²",
+        "Calculer piezas: 35m² Á· 0.04m² = 875 piezas",
+        "Aplicar merma 10% (plus cortes dans paredes): 875 × 1.10 = 963 piezas",
+        "Calculer cajas: 963 Á· 20 = 48.15 ââ€ ’ 49 cajas",
+        "Calculer adhesivo: 35m² × 5 kg/m² = 175 kg"
+      ],
+      "mistakes": [
+        "No comenzar de le centro o punto visible (cortes asimétricos)",
+        "No Utiliser nivelador de juntas pour carreaux grandes",
+        "No impermeabilizar paredes de ducha antes de azulejar"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "tam_pieza_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "piezas_por_caja",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Azulejo de Parede",
+      "desc": "Calcule quantos azulejos, caixas, cola e rejunte você precisa para banheiro e cozinha. Calculadora facil de usar com detalhamento da formula.",
+      "seo_title": "Quantos Revestimentos Preciso? Online",
+      "inputs": {
+        "area": "Área a revestir",
+        "tam_pieza_cm": "Tamanho peça (lado)",
+        "piezas_por_caja": "Peças por caixa"
+      },
+      "outputs": {
+        "area_merma_m2": "Área com perda (+15%)",
+        "piezas_ud": "Peças",
+        "cajas_ud": "Caixas",
+        "adhesivo_kg": "Cola",
+        "lechada_kg": "Rejunte"
+      },
+      "seo_description": "Calcule quantos azulejos, caixas, cola e rejunte você precisa para banheiro e cozinha. Calculadora facil de usar com detalhamento da formula.",
+      "example_label": "Calcular azulejos de 20×20cm para revestir 35m² de parede (20 piezas por caja).",
+      "range_hints": {
+        "area": "Superficie de paredes a revestir (baños, cocinas)",
+        "tam_pieza_cm": "Formatos comuns: 15×15, 20×20, 20×30, 30×60 cm",
+        "piezas_por_caja": "Varía segundo tamaño: 20×20 â‰ˆ 15-25 ud/caja"
+      },
+      "result_context": "Para {area} m² de parede são necessários {piezas_ud} azulejos de {tam_pieza_cm}×{tam_pieza_cm}cm, equivalentes a {cajas_ud} cajas. Adhesivo necessário: {adhesivo_kg} kg.",
+      "formula_display": "Piezas = área ÷ (lado_m × lado_m); Cajas = piezas ÷ piezas_por_caja",
+      "steps": [
+        "Calcular área por pieza: 0.20m × 0.20m = 0.04m²",
+        "Calcular piezas: 35m² ÷ 0.04m² = 875 piezas",
+        "Aplicar merma 10% (mais cortes em paredes): 875 × 1.10 = 963 piezas",
+        "Calcular cajas: 963 ÷ 20 = 48.15 â†’ 49 cajas",
+        "Calcular adesivo: 35m² × 5 kg/m² = 175 kg"
+      ],
+      "mistakes": [
+        "Não comenzar desde o centro o punto visible (cortes asimétricos)",
+        "Não usar nivelador de juntas para azulejos grandes",
+        "Não impermeabilizar paredes de ducha antes de azulejar"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "tam_pieza_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "piezas_por_caja",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Wandfliesen Wand",
+      "desc": "Berechnen Sie wandfliesen Wand online. Geben Sie area, tam pieza cm, piezas por caja ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Wandfliesen Wand | CalcToWork",
+      "seo_desc": "Wandfliesen Wand online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Wandfliesen Wand online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "area": "Area",
+        "tam_pieza_cm": "Tam Pieza Cm",
+        "piezas_por_caja": "Piezas Por Caja"
+      },
+      "outputs": {
+        "area_merma_m2": "Area Merma M2",
+        "piezas_ud": "Piezas Ud",
+        "cajas_ud": "Cajas Ud",
+        "adhesivo_kg": "Adhesivo Kg",
+        "lechada_kg": "Lechada Kg"
+      },
+      "example_label": "Ejemplo para azulejo pared: valores 20m², 30cm, 10ud",
+      "range_hints": {
+        "area": "Valor típico entre 0.5 y 500. Valor por defecto: 20 m².",
+        "tam_pieza_cm": "Valor típico entre 10 y 60. Valor por defecto: 30 cm.",
+        "piezas_por_caja": "Valor típico entre 1 y 30. Valor por defecto: 10 ud."
+      },
+      "result_context": "Resultados: {area_merma_m2} m² de superficie, {piezas_ud} piezas, {cajas_ud} cajas, {adhesivo_kg} kg de adhesivo, {lechada_kg} kg de lechada.",
+      "formula_display": "tam ÷ 100 → area_merma_m2, piezas_ud",
+      "steps": [
+        "Introducir los valores de area, tam_pieza_cm y piezas_por_caja",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+        "Calcular los valores de area merma m2 y piezas ud",
+        "El resultado se expresa en m² (+15% merma). Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Introducir valores con unidades incorrectas sin verificar la conversión",
+        "Redondear resultados intermedios en lugar del resultado final",
+        "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "tam_pieza_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "piezas_por_caja",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Pavimentazione Esterna in Calcestruzzo",
+      "description": "Calcola il calcestruzzo per vialetti e piazzali.",
+      "seo_title": "Quante Piastrelle Bagno? Online",
+      "seo_description": "Calcola il calcestruzzo per pavimentazioni esterne Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo rapido,.",
+      "inputs": {
+        "largo": "Lunghezza (m)",
+        "ancho": "Larghezza (m)",
+        "espesor": "Spessore (m)"
+      },
+      "outputs": {
+        "volumen": "Volume (m³)",
+        "cemento_sacos": "Sacchi cemento",
+        "arena_m3": "Sabbia (m³)",
+        "grava_m3": "Ghiaia (m³)"
+      },
+      "example_label": "Calcolare piastrelle di 20×20cm per rivestire 35m² di pared (20 piezas per caja).",
+      "range_hints": {
+        "area": "Superficie di paredis a rivestire (baños, cocinas)",
+        "tam_pieza_cm": "Formatos comuni: 15×15, 20×20, 20×30, 30×60 cm",
+        "piezas_por_caja": "Varía según tamaño: 20×20 ≈ 15-25 ud/caja"
+      },
+      "result_context": "Per {area} m² di pared sonon necessari {piezas_ud} piastrelle di {tam_pieza_cm}×{tam_pieza_cm}cm, equivalintes a {cajas_ud} cajas. Adhesevo necessario: {adhesevo_kg} kg.",
+      "formula_display": "Piezas = área ÷ (lato_m × lato_m); Cajas = piezas ÷ piezas_per_caja",
+      "steps": [
+        "Calcolare área per pieza: 0.20m × 0.20m = 0.04m²",
+        "Calcolare piezas: 35m² ÷ 0.04m² = 875 piezas",
+        "Applicare merma 10% (más taglios in paredis): 875 × 1.10 = 963 piezas",
+        "Calcolare cajas: 963 ÷ 20 = 48.15 → 49 cajas",
+        "Calcolare adhesevo: 35m² × 5 kg/m² = 175 kg"
+      ],
+      "mistakes": [
+        "No cominzar disdi el cintro o punto viseble (taglios asemétricos)",
+        "No usar nivelator di guarnizioni per piastrelle grandi",
+        "No impermeabilizar paredis di ducha prima di bluejar"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "tam_pieza_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "piezas_por_caja",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        }
+      ]
+    }
+  }
+}

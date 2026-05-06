@@ -1,0 +1,427 @@
+{
+  "id": "028",
+  "slug": "mosaico",
+  "block": 3,
+  "block_slug": "pavimentos",
+  "inputs": [
+    {
+      "id": "area",
+      "type": "number",
+      "min": 0.1,
+      "max": 300,
+      "step": 0.1,
+      "default": 8,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "tam_malla_cm",
+      "type": "number",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "default": 30,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in",
+        "ft"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area)||0,tam=parseFloat(inputs.tam_malla_cm)||30;if(!A)return{error:true};var area_merma=+(A*1.10).toFixed(2),malla_m2=(tam/100)*(tam/100),mallas=Math.ceil(area_merma/malla_m2),adhesivo=+(area_merma*5).toFixed(1),lechada=+(area_merma*0.6).toFixed(1);return{area_merma_m2:area_merma,mallas_ud:mallas,adhesivo_kg:adhesivo,lechada_kg:lechada};",
+  "outputs": [
+    {
+      "id": "area_merma_m2",
+      "unit": "m² (+10%)",
+      "highlight": true
+    },
+    {
+      "id": "mallas_ud",
+      "unit": "mallas"
+    },
+    {
+      "id": "adhesivo_kg",
+      "unit": "kg"
+    },
+    {
+      "id": "lechada_kg",
+      "unit": "kg"
+    }
+  ],
+  "related": [
+    "027",
+    "021",
+    "029",
+    "022"
+  ],
+  "example_inputs": {
+    "area": 8,
+    "tam_malla_cm": 30
+  },
+  "example_label": "Ejemplo para mosaico: valores 8m², 30cm",
+  "range_hints": {
+    "area": "Valor típico entre 0.1 y 300. Valor por defecto: 8 m².",
+    "tam_malla_cm": "Valor típico entre 20 y 60. Valor por defecto: 30 cm."
+  },
+  "result_context": "Resultados: {area_merma_m2} m² de superficie, {mallas_ud} mallas, {adhesivo_kg} kg de adhesivo, {lechada_kg} kg de lechada.",
+  "formula_display": "tam ÷ 100 → area_merma_m2, mallas_ud",
+  "steps": [
+    "Introducir los valores de area y tam_malla_cm",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+    "Calcular los valores de area merma m2 y mallas ud",
+    "El resultado se expresa en m² (+10%). Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Introducir valores con unidades incorrectas sin verificar la conversión",
+    "Redondear resultados intermedios en lugar del resultado final",
+    "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "area",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "tam_malla_cm",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small wall",
+      "area": 4,
+      "tam_malla_cm": 20
+    },
+    {
+      "_label": "Medium patio",
+      "area": 6,
+      "tam_malla_cm": 20
+    },
+    {
+      "_label": "Large patio",
+      "area": 8,
+      "tam_malla_cm": 30
+    },
+    {
+      "_label": "Driveway",
+      "area": 12,
+      "tam_malla_cm": 45
+    },
+    {
+      "_label": "Parking lot",
+      "area": 16,
+      "tam_malla_cm": 60
+    }
+  ],
+  "units": {
+    "area": "m²",
+    "tam_malla_cm": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Mosaico",
+      "desc": "Calcula cuántas mallas de mosaico y kg de adhesivo y lechada necesitas para tu proyecto Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora Mosaico – Mallas y Cola",
+      "seo_desc": "Calcula cuántas mallas de mosaico y kg de adhesivo y lechada necesitas para tu proyecto Usado por profesionales y estudiantes en todo el mundo.",
+      "inputs": {
+        "area": "Área a cubrir",
+        "tam_malla_cm": "Tamaño malla"
+      },
+      "outputs": {
+        "area_merma_m2": "Área con merma",
+        "mallas_ud": "Mallas",
+        "adhesivo_kg": "Adhesivo",
+        "lechada_kg": "Lechada"
+      },
+      "seo_description": "Calcula las mallas de mosaico vítreo o cerámico, adhesivo blanco y lechada fina necesarias para tu proyecto. Incluye merma del 10% y es apto para baños, cocinas y zonas húmedas.",
+      "example_label": "Calcular mosaico sobre malla de 30×30cm para cubrir 8m² (típico para piscinas o baños).",
+      "range_hints": {
+        "area": "Superficie a cubrir con mosaico",
+        "tam_malla_cm": "Mallas comunes: 30×30cm, algunas de 32×32cm"
+      },
+      "result_context": "Para {area} m² se necesitan {mallas_ud} mallas de mosaico de {tam_malla_cm}×{tam_malla_cm}cm ({m2_total} m²). Adhesivo: {adhesivo_kg} kg, Fragüe: {fragüe_kg} kg.",
+      "formula_display": "Mallas = área ÷ (lado_m × lado_m); Adhesivo = área × 4 kg/m²",
+      "steps": [
+        "Calcular área por malla: 0.30m × 0.30m = 0.09m²",
+        "Calcular mallas: 8m² ÷ 0.09m² = 88.89 → 89 mallas",
+        "Aplicar merma 5%: 89 × 1.05 = 93.45 → 94 mallas",
+        "Calcular adhesivo: 8m² × 4 kg/m² = 32 kg (adhesivo blanco para mosaico)",
+        "Calcular fragüe: 8m² × 0.5 kg/m² = 4 kg"
+      ],
+      "mistakes": [
+        "No usar adhesivo blanco (puede transparentarse en mosaicos vítreos)",
+        "No limpiar el exceso de fragüe inmediatamente (se endurece)",
+        "No respetar tiempo de curado antes de llenar piscina"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "tam_malla_cm",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Mosaic Calculator",
+      "desc": "Mosaic Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Mosaic Tile Calculator – Sheets & Adhesive",
+      "seo_desc": "Mosaic Calculator. Area to cover, Mesh size — get Area with waste, Mesh sheets, Adhesive instantly for your flooring and tiling project. Includes waste.",
+      "inputs": {
+        "area": "Area to cover",
+        "tam_malla_cm": "Mesh size"
+      },
+      "outputs": {
+        "area_merma_m2": "Area with waste",
+        "mallas_ud": "Mesh sheets",
+        "adhesivo_kg": "Adhesive",
+        "lechada_kg": "Grout"
+      },
+      "seo_description": "Calculate glass or ceramic mosaic sheets, white adhesive and fine grout for your project. Includes 10% waste and is suitable for bathrooms, kitchens and wet areas.",
+      "example_label": "Calcular mosaico sobre malla de 30×30cm para cubrir 8m² (típico para piscinas o baños).",
+      "range_hints": {
+        "area": "Superficie a cubrir con mosaico",
+        "tam_malla_cm": "Mallas comunes: 30×30cm, algunas de 32×32cm"
+      },
+      "result_context": "Para {area} m² se necesitan {mallas_ud} mallas de mosaico de {tam_malla_cm}×{tam_malla_cm}cm ({m2_total} m²). Adhesivo: {adhesivo_kg} kg, Fragüe: {fragüe_kg} kg.",
+      "formula_display": "Mallas = área ÷ (lado_m × lado_m); Adhesivo = área × 4 kg/m²",
+      "steps": [
+        "Calcular área por malla: 0.30m × 0.30m = 0.09m²",
+        "Calcular mallas: 8m² ÷ 0.09m² = 88.89 â†’ 89 mallas",
+        "Aplicar merma 5%: 89 × 1.05 = 93.45 â†’ 94 mallas",
+        "Calcular adhesivo: 8m² × 4 kg/m² = 32 kg (adhesivo blanco para mosaico)",
+        "Calcular fragüe: 8m² × 0.5 kg/m² = 4 kg"
+      ],
+      "mistakes": [
+        "No usar adhesivo blanco (puede transparentarse en mosaicos vítreos)",
+        "No limpiar el exceso de fragüe inmediatamente (se endurece)",
+        "No respetar tiempo de curado antes de llenar piscina"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "tam_malla_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Mosaïque",
+      "desc": "Calculez le nombre de plaques de mosaïque et les kg de colle et coulis nécessaires. Calculatrice facile a utiliser avec decomposition de la formule.",
+      "seo_title": "Calculateur Mosaïque – Treillis",
+      "inputs": {
+        "area": "Surface à couvrir",
+        "tam_malla_cm": "Taille plaque"
+      },
+      "outputs": {
+        "area_merma_m2": "Surface avec chute",
+        "mallas_ud": "Plaques",
+        "adhesivo_kg": "Colle",
+        "lechada_kg": "Coulis"
+      },
+      "seo_description": "Calculez le nombre de plaques de mosaïque et les kg de colle et coulis nécessaires. Calculatrice facile a utiliser avec decomposition de la formule.",
+      "example_label": "Calculer mosaico sur malla de 30×30cm pour cubrir 8m² (typique pour piscinas o baños).",
+      "range_hints": {
+        "area": "surface a cubrir avec mosaico",
+        "tam_malla_cm": "Mallas comunes: 30×30cm, algunas de 32×32cm"
+      },
+      "result_context": "pour {area} m² se necesitan {mallas_ud} mallas de mosaico de {tam_malla_cm}×{tam_malla_cm}cm ({m2_total} m²). Adhesivo: {adhesivo_kg} kg, Fragüe: {fragüe_kg} kg.",
+      "formula_display": "Mallas = área Á· (lado_m × lado_m); Adhesivo = área × 4 kg/m²",
+      "steps": [
+        "Calculer área par malla: 0.30m × 0.30m = 0.09m²",
+        "Calculer mallas: 8m² Á· 0.09m² = 88.89 ââ€ ’ 89 mallas",
+        "Aplicar merma 5%: 89 × 1.05 = 93.45 â†’ 94 mallas",
+        "Calculer adhesivo: 8m² × 4 kg/m² = 32 kg (adhesivo blanco pour mosaico)",
+        "Calculer fragüe: 8m² × 0.5 kg/m² = 4 kg"
+      ],
+      "mistakes": [
+        "No Utiliser adhesivo blanco (puede transparentarse dans mosaicos vítreos)",
+        "No limpiar le exceso de fragüe inmediatamente (se endurece)",
+        "No respetar tiempo de curado antes de llenar piscina"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "tam_malla_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Pastilha de Vidro",
+      "desc": "Calcule quantas placas de pastilha de vidro e kg de cola e rejunte você precisa. Calculadora facil de usar com detalhamento da formula.",
+      "seo_title": "Calculadora de Pastilha de Vidro",
+      "inputs": {
+        "area": "Área a cobrir",
+        "tam_malla_cm": "Tamanho placa"
+      },
+      "outputs": {
+        "area_merma_m2": "Área com perda",
+        "mallas_ud": "Placas",
+        "adhesivo_kg": "Cola",
+        "lechada_kg": "Rejunte"
+      },
+      "seo_description": "Calcule quantas placas de pastilha de vidro e kg de cola e rejunte você precisa. Calculadora facil de usar com detalhamento da formula.",
+      "example_label": "Calcular mosaico sobre malha de 30×30cm para cubrir 8m² (típico para piscinas o baños).",
+      "range_hints": {
+        "area": "Superficie a cubrir com mosaico",
+        "tam_malla_cm": "Mallas comuns: 30×30cm, algunas de 32×32cm"
+      },
+      "result_context": "Para {area} m² são necessários {mallas_ud} mallas de mosaico de {tam_malla_cm}×{tam_malla_cm}cm ({m2_total} m²). Adhesivo: {adhesivo_kg} kg, Fragüe: {fragüe_kg} kg.",
+      "formula_display": "Mallas = área ÷ (lado_m × lado_m); Adhesivo = área × 4 kg/m²",
+      "steps": [
+        "Calcular área por malha: 0.30m × 0.30m = 0.09m²",
+        "Calcular mallas: 8m² ÷ 0.09m² = 88.89 â†’ 89 mallas",
+        "Aplicar merma 5%: 89 × 1.05 = 93.45 â†’ 94 mallas",
+        "Calcular adesivo: 8m² × 4 kg/m² = 32 kg (adesivo blanco para mosaico)",
+        "Calcular fragüe: 8m² × 0.5 kg/m² = 4 kg"
+      ],
+      "mistakes": [
+        "Não usar adesivo blanco (pode transparentarse em mosaicos vítreos)",
+        "Não limpiar o exceso de fragüe inmediatamente (se endurece)",
+        "Não respeitar tiempo de cura antes de llenar piscina"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "tam_malla_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Mosaik",
+      "desc": "Berechnen Sie mosaik online. Geben Sie area, tam malla cm ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Mosaik | CalcToWork",
+      "seo_desc": "Mosaik online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Mosaik online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "area": "Area",
+        "tam_malla_cm": "Tam Malla Cm"
+      },
+      "outputs": {
+        "area_merma_m2": "Area Merma M2",
+        "mallas_ud": "Mallas Ud",
+        "adhesivo_kg": "Adhesivo Kg",
+        "lechada_kg": "Lechada Kg"
+      },
+      "example_label": "Ejemplo para mosaico: valores 8m², 30cm",
+      "range_hints": {
+        "area": "Valor típico entre 0.1 y 300. Valor por defecto: 8 m².",
+        "tam_malla_cm": "Valor típico entre 20 y 60. Valor por defecto: 30 cm."
+      },
+      "result_context": "Resultados: {area_merma_m2} m² de superficie, {mallas_ud} mallas, {adhesivo_kg} kg de adhesivo, {lechada_kg} kg de lechada.",
+      "formula_display": "tam ÷ 100 → area_merma_m2, mallas_ud",
+      "steps": [
+        "Introducir los valores de area y tam_malla_cm",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+        "Calcular los valores de area merma m2 y mallas ud",
+        "El resultado se expresa en m² (+10%). Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Introducir valores con unidades incorrectas sin verificar la conversión",
+        "Redondear resultados intermedios en lugar del resultado final",
+        "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "tam_malla_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Mosaico",
+      "description": "Calcola tessere di mosaico e adesivo per rivestimenti.",
+      "seo_title": "Calcolatore Mosaico – Veloce e Preciso",
+      "seo_description": "Stima tessere e adesivo per rivestimenti a mosaico Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo rapido,.",
+      "inputs": {
+        "area": "Superficie (m²)",
+        "desperdicio": "Scarto (%)"
+      },
+      "outputs": {
+        "mosaico_m2": "Mosaico (m²)",
+        "adhesivo_kg": "Adesivo (kg)",
+        "hojas": "Fogli 30×30 (appross.)"
+      },
+      "example_label": "Calcolare mosaico su malla di 30×30cm per cubrir 8m² (típico per piscinas o baños).",
+      "range_hints": {
+        "area": "Superficie a cubrir con mosaico",
+        "tam_malla_cm": "Malle comuni: 30×30cm, algunas di 32×32cm"
+      },
+      "result_context": "Per {area} m² sonon necessari {malle_ud} malle di mosaico di {tam_malla_cm}×{tam_malla_cm}cm ({m2_totale} m²). Adhesevo: {adhesevo_kg} kg, Fragüe: {fragüe_kg} kg.",
+      "formula_display": "Malle = área ÷ (lato_m × lato_m); Adhesevo = área × 4 kg/m²",
+      "steps": [
+        "Calcolare área per malla: 0.30m × 0.30m = 0.09m²",
+        "Calcolare malle: 8m² ÷ 0.09m² = 88.89 → 89 malle",
+        "Applicare merma 5%: 89 × 1.05 = 93.45 → 94 malle",
+        "Calcolare adhesevo: 8m² × 4 kg/m² = 32 kg (adhesevo bianco per mosaico)",
+        "Calcolare fragüe: 8m² × 0.5 kg/m² = 4 kg"
+      ],
+      "mistakes": [
+        "No usar adhesevo bianco (puedi transparintarse in mosaicos vítreos)",
+        "No limpiar el exceso di fragüe inmediataminte (se indurece)",
+        "No respetar tempo di stagionatura prima di llinar piscina"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "tam_malla_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        }
+      ]
+    }
+  }
+}

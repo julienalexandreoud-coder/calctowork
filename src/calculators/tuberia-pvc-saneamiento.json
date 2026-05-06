@@ -1,0 +1,443 @@
+{
+  "id": "031",
+  "slug": "tuberia-pvc-saneamiento",
+  "block": 4,
+  "block_slug": "fontaneria",
+  "inputs": [
+    {
+      "id": "longitud",
+      "type": "number",
+      "min": 1,
+      "max": 500,
+      "step": 0.5,
+      "default": 20,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "tramos",
+      "type": "number",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "default": 4,
+      "unit": "tramos",
+      "unit_options": [
+        "tramos"
+      ],
+      "unit_category": "count"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.longitud)||0,tr=parseFloat(inputs.tramos)||4;if(!L)return{error:true};var l_merma=+(L*1.10).toFixed(1),barras=Math.ceil(l_merma/3),codos=tr*2,manguitos=Math.ceil(L/3)+tr,tee_ud=Math.ceil(tr/2);return{longitud_merma_m:l_merma,barras_3m:barras,codos_ud:codos,manguitos_ud:manguitos,tee_ud:tee_ud};",
+  "outputs": [
+    {
+      "id": "longitud_merma_m",
+      "unit": "m (+10%)",
+      "highlight": true
+    },
+    {
+      "id": "barras_3m",
+      "unit": "barras 3m"
+    },
+    {
+      "id": "codos_ud",
+      "unit": "codos"
+    },
+    {
+      "id": "manguitos_ud",
+      "unit": "manguitos"
+    },
+    {
+      "id": "tee_ud",
+      "unit": "tes"
+    }
+  ],
+  "related": [
+    "032",
+    "042",
+    "040",
+    "033"
+  ],
+  "example_inputs": {
+    "longitud": 20,
+    "tramos": 4
+  },
+  "example_label": "Calcular tubería PVC para 20 m × 4 tramos.",
+  "range_hints": {
+    "longitud": "Valor típico entre 1 y 500. Valor por defecto: 20 m.",
+    "tramos": "Valor típico entre 1 y 50. Valor por defecto: 4 tramos."
+  },
+  "result_context": "Resultados: {longitud_merma_m} m de tubería, {barras_3m} barras de 3 m, {codos_ud} codos, {manguitos_ud} manguitos, {tee_ud} tes.",
+  "formula_display": "l_merma ÷ 3 → longitud_merma_m, barras_3m",
+  "steps": [
+    "Introducir los valores de longitud y tramos",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m, cm, mm)",
+    "Calcular los valores de longitud merma m y barras 3m",
+    "El resultado se expresa en m (+10%). Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "No respetar la pendiente mínima del 2% en tuberías de saneamiento",
+    "Usar tubería de pared delgada para instalaciones enterradas",
+    "No instalar válvulas de corte en puntos clave de la instalación"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "longitud",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "tramos",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small bathroom",
+      "longitud": 10,
+      "tramos": 2
+    },
+    {
+      "_label": "Medium bathroom",
+      "longitud": 15,
+      "tramos": 3
+    },
+    {
+      "_label": "Large bathroom",
+      "longitud": 20,
+      "tramos": 4
+    },
+    {
+      "_label": "Apartment",
+      "longitud": 30,
+      "tramos": 6
+    },
+    {
+      "_label": "House",
+      "longitud": 40,
+      "tramos": 8
+    }
+  ],
+  "units": {
+    "longitud": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Tubería PVC Saneamiento",
+      "desc": "Dimensiona tuberías de PVC para saneamiento con la fórmula de Manning. Calcula capacidad y velocidad del flujo por gravedad.",
+      "seo_title": "Calculadora Tubería PVC Saneamiento – Diámetro y Pendiente",
+      "inputs": {
+        "diametro": "Diámetro interior",
+        "pendiente": "Pendiente",
+        "caudal": "Caudal de diseño"
+      },
+      "outputs": {
+        "capacidad_Ls": "Capacidad",
+        "velocidad_ms": "Velocidad del flujo",
+        "area_mm2": "Área de sección",
+        "estado": "Estado"
+      },
+      "seo_description": "Calcula la capacidad hidráulica de tuberías de PVC para saneamiento según Manning. Incluye verificación de velocidad para evitar sedimentación (<0.6 m/s) y erosión (>3 m/s). Diámetros normalizados 32-315 mm.",
+      "example_label": "Dimensionar tubería de PVC para un bajante de 4 L/s con 2% de pendiente.",
+      "range_hints": {
+        "diametro": "Diámetros normalizados: 32-315 mm. Uso doméstico típico: 110 mm para bajantes, 50 mm para lavabos.",
+        "pendiente": "Pendiente recomendada: 1-2% para Ø110, 2-3% para Ø50. Mínimo 1%, máximo 5%.",
+        "caudal": "Caudal típico: lavabo 0.5 L/s, ducha 0.8 L/s, inodoro 2 L/s, bajante 4-8 L/s."
+      },
+      "result_context": "Para tubería PVC de Ø{diametro}mm con pendiente {pendiente}%: capacidad {capacidad_Ls} L/s, velocidad {velocidad_ms} m/s. Caudal de diseño: {caudal} L/s. Estado: {estado}.",
+      "formula_display": "Capacidad (L/s) según Manning: Q = A × (1/n) × R^(2/3) × S^(1/2)",
+      "steps": [
+        "Medir el caudal de diseño en litros por segundo según el número de sanitarios",
+        "Seleccionar la pendiente mínima según normativa (1-2% para PVC sanitario)",
+        "Consultar tabla de diámetros normalizados: 32, 40, 50, 75, 110, 125, 160, 200 mm",
+        "Calcular la capacidad del tubo con la fórmula de Manning para flujo por gravedad",
+        "Verificar que la velocidad (0.6-3 m/s) evite sedimentación y erosión"
+      ],
+      "mistakes": [
+        "Usar pendiente inferior al 1% (riesgo de obstrucción por sedimentación)",
+        "Instalar tubería de PVC para agua caliente sanitaria sin verificar temperatura máxima (60°C)",
+        "No prever registros de limpieza cada 15 m en tramos rectos"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "diametro",
+          "reason": "Correcto: valor continuo para diámetros normalizados"
+        },
+        {
+          "field_id": "pendiente",
+          "reason": "Correcto: porcentaje con decimales"
+        },
+        {
+          "field_id": "caudal",
+          "reason": "Correcto: caudal de diseño en L/s"
+        }
+      ]
+    },
+    "en": {
+      "name": "PVC Drainage Pipe Calculator",
+      "desc": "Size PVC sewer pipes using Manning's formula. Calculate flow capacity and velocity for gravity drainage systems.",
+      "seo_title": "PVC Drainage Pipe Calculator – Diameter & Slope",
+      "inputs": {
+        "diametro": "Inner diameter",
+        "pendiente": "Slope",
+        "caudal": "Design flow rate"
+      },
+      "outputs": {
+        "capacidad_Ls": "Flow capacity",
+        "velocidad_ms": "Flow velocity",
+        "area_mm2": "Cross-section area",
+        "estado": "Status"
+      },
+      "seo_description": "Calculate the hydraulic capacity of PVC sewer pipes using Manning's formula. Includes velocity check to prevent sedimentation (<0.6 m/s) and erosion (>3 m/s). Standard diameters 32-315 mm.",
+      "example_label": "Size a PVC downpipe for 4 L/s at 2% slope.",
+      "range_hints": {
+        "diametro": "Standard diameters: 32-315 mm. Typical domestic use: 110 mm for downpipes, 50 mm for washbasins.",
+        "pendiente": "Recommended slope: 1-2% for Ø110, 2-3% for Ø50. Minimum 1%, maximum 5%.",
+        "caudal": "Typical flow: washbasin 0.5 L/s, shower 0.8 L/s, toilet 2 L/s, downpipe 4-8 L/s."
+      },
+      "result_context": "For PVC pipe Ø{diametro}mm at {pendiente}% slope: capacity {capacidad_Ls} L/s, velocity {velocidad_ms} m/s. Design flow: {caudal} L/s. Status: {estado}.",
+      "formula_display": "Capacity (L/s) per Manning: Q = A × (1/n) × R^(2/3) × S^(1/2)",
+      "steps": [
+        "Measure the design flow rate in litres per second based on the number of fixtures",
+        "Select the minimum slope according to regulations (1-2% for PVC sewer)",
+        "Check standard diameter table: 32, 40, 50, 75, 110, 125, 160, 200 mm",
+        "Calculate pipe capacity using Manning's formula for gravity flow",
+        "Verify velocity (0.6-3 m/s) to prevent sedimentation and erosion"
+      ],
+      "mistakes": [
+        "Using slope below 1% (risk of blockage due to sedimentation)",
+        "Installing PVC pipe for domestic hot water without checking maximum temperature (60°C)",
+        "Not providing cleaning access points every 15 m on straight runs"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "diametro",
+          "reason": "Correct: continuous value for standard diameters"
+        },
+        {
+          "field_id": "pendiente",
+          "reason": "Correct: percentage with decimals"
+        },
+        {
+          "field_id": "caudal",
+          "reason": "Correct: design flow rate in L/s"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Tube PVC Assainissement",
+      "desc": "Dimensionnez les tubes PVC d'assainissement avec la formule de Manning. Calculez la capacité et la vitesse d'écoulement gravitaire.",
+      "seo_title": "Calculateur Tube PVC – Diamètre et Pente",
+      "inputs": {
+        "diametro": "Diamètre intérieur",
+        "pendiente": "Pente",
+        "caudal": "Débit de conception"
+      },
+      "outputs": {
+        "capacidad_Ls": "Capacité d'écoulement",
+        "velocidad_ms": "Vitesse d'écoulement",
+        "area_mm2": "Section transversale",
+        "estado": "État"
+      },
+      "seo_description": "Calculez la capacité hydraulique des tubes PVC d'assainissement avec la formule de Manning. Vérification de vitesse pour éviter sédimentation (<0.6 m/s) et érosion (>3 m/s). Diamètres normalisés 32-315 mm.",
+      "example_label": "Dimensionner une descente PVC pour 4 L/s avec 2% de pente.",
+      "range_hints": {
+        "diametro": "Diamètres normalisés : 32-315 mm. Usage domestique : 110 mm pour descentes, 50 mm pour lavabos.",
+        "pendiente": "Pente recommandée : 1-2% pour Ø110, 2-3% pour Ø50. Minimum 1%, maximum 5%.",
+        "caudal": "Débit typique : lavabo 0.5 L/s, douche 0.8 L/s, WC 2 L/s, descente 4-8 L/s."
+      },
+      "result_context": "Pour tube PVC Ø{diametro}mm à {pendiente}% de pente : capacité {capacidad_Ls} L/s, vitesse {velocidad_ms} m/s. Débit de conception : {caudal} L/s. État : {estado}.",
+      "formula_display": "Capacité (L/s) selon Manning : Q = A × (1/n) × R^(2/3) × S^(1/2)",
+      "steps": [
+        "Mesurer le débit de conception en litres par seconde selon le nombre d'appareils",
+        "Sélectionner la pente minimale réglementaire (1-2% pour PVC sanitaire)",
+        "Consulter le tableau des diamètres normalisés : 32, 40, 50, 75, 110, 125, 160, 200 mm",
+        "Calculer la capacité du tube avec la formule de Manning pour écoulement gravitaire",
+        "Vérifier que la vitesse (0.6-3 m/s) évite sédimentation et érosion"
+      ],
+      "mistakes": [
+        "Utiliser une pente inférieure à 1% (risque d'obstruction par sédimentation)",
+        "Installer un tube PVC pour eau chaude sanitaire sans vérifier la température maximale (60°C)",
+        "Ne pas prévoir de regards de visite tous les 15 m en sections droites"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "diametro",
+          "reason": "Correct : valeur continue pour diamètres normalisés"
+        },
+        {
+          "field_id": "pendiente",
+          "reason": "Correct : pourcentage avec décimales"
+        },
+        {
+          "field_id": "caudal",
+          "reason": "Correct : débit de conception en L/s"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Tubulação PVC Esgoto",
+      "desc": "Dimensione tubos de PVC para esgoto com a fórmula de Manning. Calcule capacidade e velocidade do fluxo por gravidade.",
+      "seo_title": "Calculadora Tubulação PVC Esgoto – Diâmetro e Declividade",
+      "inputs": {
+        "diametro": "Diâmetro interno",
+        "pendiente": "Declividade",
+        "caudal": "Vazão de projeto"
+      },
+      "outputs": {
+        "capacidad_Ls": "Capacidade",
+        "velocidad_ms": "Velocidade do fluxo",
+        "area_mm2": "Área da seção",
+        "estado": "Estado"
+      },
+      "seo_description": "Calcule a capacidade hidráulica de tubos de PVC para esgoto com a fórmula de Manning. Inclui verificação de velocidade para evitar sedimentação (<0.6 m/s) e erosão (>3 m/s). Diâmetros padronizados 32-315 mm.",
+      "example_label": "Dimensionar uma tubulação de descida PVC para 4 L/s com 2% de declividade.",
+      "range_hints": {
+        "diametro": "Diâmetros padronizados: 32-315 mm. Uso doméstico: 110 mm para colunas, 50 mm para lavatórios.",
+        "pendiente": "Declividade recomendada: 1-2% para Ø110, 2-3% para Ø50. Mínimo 1%, máximo 5%.",
+        "caudal": "Vazão típica: lavatório 0.5 L/s, ducha 0.8 L/s, vaso sanitário 2 L/s, coluna 4-8 L/s."
+      },
+      "result_context": "Para tubo PVC Ø{diametro}mm com declividade {pendiente}%: capacidade {capacidad_Ls} L/s, velocidade {velocidad_ms} m/s. Vazão de projeto: {caudal} L/s. Estado: {estado}.",
+      "formula_display": "Capacidade (L/s) segundo Manning: Q = A × (1/n) × R^(2/3) × S^(1/2)",
+      "steps": [
+        "Medir a vazão de projeto em litros por segundo conforme o número de aparelhos",
+        "Selecionar a declividade mínima conforme normativa (1-2% para PVC sanitário)",
+        "Consultar tabela de diâmetros padronizados: 32, 40, 50, 75, 110, 125, 160, 200 mm",
+        "Calcular a capacidade do tubo com a fórmula de Manning para escoamento por gravidade",
+        "Verificar se a velocidade (0.6-3 m/s) evita sedimentação e erosão"
+      ],
+      "mistakes": [
+        "Usar declividade inferior a 1% (risco de obstrução por sedimentação)",
+        "Instalar tubo de PVC para água quente sem verificar temperatura máxima (60°C)",
+        "Não prever caixas de inspeção a cada 15 m em trechos retos"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "diametro",
+          "reason": "Correto: valor contínuo para diâmetros padronizados"
+        },
+        {
+          "field_id": "pendiente",
+          "reason": "Correto: porcentagem com decimais"
+        },
+        {
+          "field_id": "caudal",
+          "reason": "Correto: vazão de projeto em L/s"
+        }
+      ]
+    },
+    "de": {
+      "name": "Rohr KG Abwasser",
+      "desc": "Berechnen Sie rohr KG Abwasser online. Geben Sie longitud, tramos ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Rohr KG Abwasser | CalcToWork",
+      "seo_desc": "Rohr KG Abwasser online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Rohr KG Abwasser online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "longitud": "Longitud",
+        "tramos": "Tramos"
+      },
+      "outputs": {
+        "longitud_merma_m": "Longitud Merma M",
+        "barras_3m": "Barras 3m",
+        "codos_ud": "Codos Ud",
+        "manguitos_ud": "Manguitos Ud",
+        "tee_ud": "Tee Ud"
+      },
+      "example_label": "Calcular tubería PVC para 20 m × 4 tramos.",
+      "range_hints": {
+        "longitud": "Valor típico entre 1 y 500. Valor por defecto: 20 m.",
+        "tramos": "Valor típico entre 1 y 50. Valor por defecto: 4 tramos."
+      },
+      "result_context": "Resultados: {longitud_merma_m} m de tubería, {barras_3m} barras de 3 m, {codos_ud} codos, {manguitos_ud} manguitos, {tee_ud} tes.",
+      "formula_display": "l_merma ÷ 3 → longitud_merma_m, barras_3m",
+      "steps": [
+        "Introducir los valores de longitud y tramos",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m, cm, mm)",
+        "Calcular los valores de longitud merma m y barras 3m",
+        "El resultado se expresa en m (+10%). Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "No respetar la pendiente mínima del 2% en tuberías de saneamiento",
+        "Usar tubería de pared delgada para instalaciones enterradas",
+        "No instalar válvulas de corte en puntos clave de la instalación"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "longitud",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "tramos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Tubi PVC Scarico",
+      "desc": "Dimensiona tubi PVC per scarico con la formula di Manning. Calcola capacità e velocità del flusso per gravità.",
+      "seo_title": "Calcolatore Tubi PVC Scarico – Diametro e Pendenza",
+      "inputs": {
+        "diametro": "Diametro interno",
+        "pendiente": "Pendenza",
+        "caudal": "Portata di progetto"
+      },
+      "outputs": {
+        "capacidad_Ls": "Capacità",
+        "velocidad_ms": "Velocità del flusso",
+        "area_mm2": "Sezione trasversale",
+        "estado": "Stato"
+      },
+      "seo_description": "Calcola la capacità idraulica dei tubi PVC per fognatura con la formula di Manning. Include verifica della velocità per prevenire sedimentazione (<0.6 m/s) ed erosione (>3 m/s). Diametri standard 32-315 mm.",
+      "example_label": "Dimensionare un tubo di scarico PVC per 4 L/s con pendenza del 2%.",
+      "range_hints": {
+        "diametro": "Diametri standard: 32-315 mm. Uso domestico tipico: 110 mm per colonne, 50 mm per lavabi.",
+        "pendiente": "Pendenza consigliata: 1-2% per Ø110, 2-3% per Ø50. Minimo 1%, massimo 5%.",
+        "caudal": "Portata tipica: lavabo 0.5 L/s, doccia 0.8 L/s, WC 2 L/s, colonna 4-8 L/s."
+      },
+      "result_context": "Per tubo PVC Ø{diametro}mm con pendenza {pendiente}%: capacità {capacidad_Ls} L/s, velocità {velocidad_ms} m/s. Portata di progetto: {caudal} L/s. Stato: {estado}.",
+      "formula_display": "Capacità (L/s) secondo Manning: Q = A × (1/n) × R^(2/3) × S^(1/2)",
+      "steps": [
+        "Misurare la portata di progetto in litri al secondo in base al numero di apparecchi",
+        "Selezionare la pendenza minima secondo normativa (1-2% per PVC sanitario)",
+        "Consultare la tabella dei diametri standard: 32, 40, 50, 75, 110, 125, 160, 200 mm",
+        "Calcolare la capacità del tubo con la formula di Manning per flusso a gravità",
+        "Verificare che la velocità (0.6-3 m/s) eviti sedimentazione ed erosione"
+      ],
+      "mistakes": [
+        "Usare pendenza inferiore all'1% (rischio di ostruzione per sedimentazione)",
+        "Installare tubo PVC per acqua calda sanitaria senza verificare la temperatura massima (60°C)",
+        "Non prevedere pozzetti di ispezione ogni 15 m nei tratti rettilinei"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "diametro",
+          "reason": "Corretto: valore continuo per diametri standard"
+        },
+        {
+          "field_id": "pendiente",
+          "reason": "Corretto: percentuale con decimali"
+        },
+        {
+          "field_id": "caudal",
+          "reason": "Corretto: portata di progetto in L/s"
+        }
+      ]
+    }
+  }
+}

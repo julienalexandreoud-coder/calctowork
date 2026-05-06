@@ -1,0 +1,360 @@
+{
+  "id": "1045",
+  "slug": "viento-cruzado",
+  "block": 2,
+  "block_slug": "transporte",
+  "inputs": [
+    {
+      "id": "wind_dir",
+      "type": "number",
+      "step": "any",
+      "default": 270,
+      "unit": "deg",
+      "unit_options": [
+        "deg"
+      ],
+      "unit_category": "angle"
+    },
+    {
+      "id": "runway",
+      "type": "number",
+      "step": "any",
+      "default": 360,
+      "unit": "deg",
+      "unit_options": [
+        "deg"
+      ],
+      "unit_category": "angle"
+    },
+    {
+      "id": "wind_speed",
+      "type": "number",
+      "step": "any",
+      "default": 20,
+      "unit": "kt",
+      "unit_options": [
+        "kt",
+        "km/h",
+        "mph"
+      ],
+      "unit_category": "speed"
+    }
+  ],
+  "formula": "var wd=(parseFloat(inputs.wind_dir)||0)*Math.PI/180;var rw=(parseFloat(inputs.runway)||0)*Math.PI/180;var ws=parseFloat(inputs.wind_speed)||0;var angle=wd-rw;var cw=ws*Math.sin(angle);var hw=ws*Math.cos(angle);return{crosswind:Math.abs(cw).toFixed(1),headwind:hw.toFixed(1)};",
+  "outputs": [
+    {
+      "id": "crosswind",
+      "unit": "kt"
+    },
+    {
+      "id": "headwind",
+      "unit": "kt"
+    }
+  ],
+  "related": [
+    "1046",
+    "1047",
+    "1048",
+    "1049"
+  ],
+  "example_inputs": {
+    "wind_dir": 270,
+    "runway": 360,
+    "wind_speed": 20
+  },
+  "example_label": "Ejemplo para viento cruzado: valores 270deg, 360deg, 20kt",
+  "range_hints": {
+    "wind_dir": "Valor típico entre 0 y 500. Valor por defecto: 270 deg.",
+    "runway": "Valor típico entre 0 y 500. Valor por defecto: 360 deg.",
+    "wind_speed": "Valor típico entre 0 y 500. Valor por defecto: 20 kt."
+  },
+  "result_context": "Viento cruzado: {crosswind} kt, viento de frente: {headwind} kt.",
+  "result_context_en": "Crosswind: {crosswind} kt, headwind: {headwind} kt.",
+  "result_context_fr": "Vent de travers : {crosswind} kt, vent de face : {headwind} kt.",
+  "result_context_pt": "Vento cruzado: {crosswind} kt, vento de proa: {headwind} kt.",
+  "result_context_de": "Seitenwind: {crosswind} kt, Gegenwind: {headwind} kt.",
+  "result_context_it": "Vento trasversale: {crosswind} kt, vento contrario: {headwind} kt.",
+  "formula_display": "PI ÷ 180 → crosswind, headwind",
+  "steps": [
+    "Introducir los valores de wind_dir, runway y wind_speed",
+    "Verificar que las unidades sean correctas y convertir si es necesario (deg)",
+    "Calcular los valores de crosswind y headwind",
+    "El resultado se expresa en kt. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Usar litros y millas sin convertir unidades (1 galón US = 3.785 L)",
+    "No considerar que el consumo urbano puede ser hasta un 50% mayor que el extraurbano",
+    "Olvidar que la presión de neumáticos debe medirse en frío"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "wind_dir",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "runway",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "wind_speed",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "City",
+      "wind_dir": 135,
+      "runway": 180,
+      "wind_speed": 20
+    },
+    {
+      "_label": "Suburban",
+      "wind_dir": 202,
+      "runway": 270,
+      "wind_speed": 20
+    },
+    {
+      "_label": "Highway",
+      "wind_dir": 270,
+      "runway": 360,
+      "wind_speed": 20
+    },
+    {
+      "_label": "Long haul",
+      "wind_dir": 405,
+      "runway": 540,
+      "wind_speed": 20
+    },
+    {
+      "_label": "International",
+      "wind_dir": 540,
+      "runway": 720,
+      "wind_speed": 20
+    }
+  ],
+  "units": {
+    "wind_dir": "deg",
+    "runway": "deg",
+    "wind_speed": "m/s"
+  },
+  "i18n": {
+    "es": {
+      "name": "Componente de Viento Cruzado",
+      "description": "Calcula los componentes de viento cruzado y de cara.",
+      "inputs": {
+        "wind_dir": "Dirección viento",
+        "runway": "Pista",
+        "wind_speed": "Velocidad viento"
+      },
+      "outputs": {
+        "crosswind": "Viento cruzado",
+        "headwind": "Viento de cara"
+      },
+      "seo_title": "Componente de Viento Cruzado – Calculadora Aviación Gratuita",
+      "seo_description": "Calcula el componente de viento cruzado y de frente para despegue/aterrizaje. Fórmula: XW = viento × sin(ángulo). Ejemplo: 15 kt, 30° → XW=7.5 kt. Gratis.",
+      "example_label": "Ejemplo de cálculo de transporte",
+      "range_hints": {},
+      "result_context": "Resultado del cálculo viento cruzado.",
+      "formula_display": "Ver fórmula en el cálculo",
+      "steps": [
+        "Identificar los valores de entrada",
+        "Aplicar la fórmula correspondiente",
+        "Realizar el cálculo",
+        "Obtener los 2 resultados"
+      ],
+      "mistakes": [
+        "No convertir unidades de distancia",
+        "No considerar condiciones reales",
+        "Usar fórmulas fuera de rango"
+      ],
+      "input_type_review": []
+    },
+    "en": {
+      "name": "Crosswind Component Calculator",
+      "description": "Calculate crosswind and headwind components.",
+      "inputs": {
+        "wind_dir": "Wind direction",
+        "runway": "Runway",
+        "wind_speed": "Wind speed"
+      },
+      "outputs": {
+        "crosswind": "Crosswind",
+        "headwind": "Headwind"
+      },
+      "seo_title": "Crosswind Component Calculator – Aviation",
+      "seo_description": "Calculate crosswind and headwind components for takeoff/landing. Formula: XW = wind × sin(angle). Example: 15 kt, 30° â†’ XW=7.5 kt. Free.",
+      "example_label": "Ejemplo de cálculo de transporte",
+      "range_hints": {},
+      "result_context": "Resultado del cálculo viento cruzado.",
+      "formula_display": "Ver fórmula en el cálculo",
+      "steps": [
+        "Identificar los valores de entrada",
+        "Aplicar la fórmula correspondiente",
+        "Realizar el cálculo",
+        "Obtener los 2 resultados"
+      ],
+      "mistakes": [
+        "No convertir unidades de distancia",
+        "No considerar condiciones reales",
+        "Usar fórmulas fuera de rango"
+      ],
+      "input_type_review": "3 entrada(s) de tipo number"
+    },
+    "fr": {
+      "name": "Composante de Vent de Travers",
+      "description": "Calculez les composantes de vent de travers et de face.",
+      "inputs": {
+        "wind_dir": "Direction vent",
+        "runway": "Piste",
+        "wind_speed": "Vitesse vent"
+      },
+      "outputs": {
+        "crosswind": "Vent de travers",
+        "headwind": "Vent de face"
+      },
+      "seo_title": "Composante de Vent de Travers – Calculateur Aviation en",
+      "seo_description": "Calculez les composantes de vent de travers et de face pour décollage/atterrissage. Formule: XW = vent × sin(angle). Exemple: 15 kt, 30° → XW=7.5 kt.",
+      "example_label": "Ejemplo de cálculo de transporte",
+      "range_hints": {},
+      "result_context": "Resultado du cálculo viento cruzado.",
+      "formula_display": "Ver fórmula dans le cálculo",
+      "steps": [
+        "Identificar les valores de entrada",
+        "Aplicar la fórmula correspondiente",
+        "Realizar le cálculo",
+        "Obtener les 2 resultados"
+      ],
+      "mistakes": [
+        "No convertir unités de distancia",
+        "Ne pas considérer condiciones reales",
+        "Utiliser fórmulas fuera de rango"
+      ],
+      "input_type_review": []
+    },
+    "pt": {
+      "name": "Componente de Vento",
+      "description": "Calcule os componentes de vento cruzado e de proa.",
+      "inputs": {
+        "wind_dir": "Direção vento",
+        "runway": "Pista",
+        "wind_speed": "Velocidade vento"
+      },
+      "outputs": {
+        "crosswind": "Vento cruzado",
+        "headwind": "Vento de proa"
+      },
+      "seo_title": "Componente de Vento Cruzado – Calculadora Aviação",
+      "seo_description": "Calcule o componente de vento cruzado e de frente para descolagem/aterragem. Fórmula: XW = vento × sin(ângulo). Exemplo: 15 kt, 30° → XW=7.5 kt.",
+      "example_label": "Ejemplo de cálculo de transporte",
+      "range_hints": {},
+      "result_context": "Resultado do cálculo vento cruzado.",
+      "formula_display": "Ver fórmula não cálculo",
+      "steps": [
+        "Identificar os valores de entrada",
+        "Aplicar a fórmula correspondiente",
+        "Realizar o cálculo",
+        "Obtener os 2 resultados"
+      ],
+      "mistakes": [
+        "Não convertir unidades de distancia",
+        "Não considerar condiciones reales",
+        "Usar fórmulas fuera de intervalo"
+      ],
+      "input_type_review": []
+    },
+    "de": {
+      "name": "Viento cruzado",
+      "desc": "Berechnen Sie viento cruzado online. Geben Sie wind dir, runway, wind speed ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Viento cruzado | CalcToWork",
+      "seo_desc": "Viento cruzado online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Viento cruzado online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "wind_dir": "Wind Dir",
+        "runway": "Runway",
+        "wind_speed": "Wind Speed"
+      },
+      "outputs": {
+        "crosswind": "Crosswind",
+        "headwind": "Headwind"
+      },
+      "example_label": "Ejemplo para viento cruzado: valores 270deg, 360deg, 20kt",
+      "range_hints": {
+        "wind_dir": "Valor típico entre 0 y 500. Valor por defecto: 270 deg.",
+        "runway": "Valor típico entre 0 y 500. Valor por defecto: 360 deg.",
+        "wind_speed": "Valor típico entre 0 y 500. Valor por defecto: 20 kt."
+      },
+      "result_context": "Seitenwind: {crosswind} kt, Gegenwind: {headwind} kt.",
+      "formula_display": "PI ÷ 180 → crosswind, headwind",
+      "steps": [
+        "Introducir los valores de wind_dir, runway y wind_speed",
+        "Verificar que las unidades sean correctas y convertir si es necesario (deg)",
+        "Calcular los valores de crosswind y headwind",
+        "El resultado se expresa en kt. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Usar litros y millas sin convertir unidades (1 galón US = 3.785 L)",
+        "No considerar que el consumo urbano puede ser hasta un 50% mayor que el extraurbano",
+        "Olvidar que la presión de neumáticos debe medirse en frío"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "wind_dir",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "runway",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "wind_speed",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Componente Vento Trasversale",
+      "description": "Calcola le componenti del vento trasversale e di prua.",
+      "inputs": {
+        "wind_dir": "Direzione vento",
+        "runway": "Pista",
+        "wind_speed": "Velocità vento"
+      },
+      "outputs": {
+        "crosswind": "Vento trasversale",
+        "headwind": "Vento di prua"
+      },
+      "seo_title": "Componente di Vento Traverso – Calcolatore Aviazione",
+      "seo_description": "Calcola le componenti di vento traverso e frontale per decollo/atterraggio. Formula: XW = vento × sin(angolo). Esempio: 15 kt, 30° → XW=7.5 kt.",
+      "example_label": "Ejemplo di cálculo di transperte",
+      "range_hints": {},
+      "result_context": "Resultado dil cálculo viinto cruzado.",
+      "formula_display": "Ver fórmula in el cálculo",
+      "steps": [
+        "Idintificar i valorei di intrada",
+        "Applicare la fórmula correspondiinte",
+        "Realizar el cálculo",
+        "Obtiner i 2 risultati"
+      ],
+      "mistakes": [
+        "No convertir unità di discosìza",
+        "Non consedirare condiciones reales",
+        "Usare fórmule fuori di rango"
+      ],
+      "input_type_review": null
+    }
+  }
+}

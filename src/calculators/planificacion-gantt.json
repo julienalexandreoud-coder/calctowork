@@ -1,0 +1,468 @@
+{
+  "id": "091",
+  "slug": "planificacion-gantt",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "num_tareas",
+      "type": "number",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "default": 8,
+      "unit": "tareas"
+    },
+    {
+      "id": "duracion_media_dias",
+      "type": "number",
+      "min": 1,
+      "max": 30,
+      "step": 1,
+      "default": 5,
+      "unit": "días/tarea"
+    },
+    {
+      "id": "paralelismo_pct",
+      "type": "number",
+      "min": 0,
+      "max": 70,
+      "step": 5,
+      "default": 30,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    }
+  ],
+  "formula": "var N=parseFloat(inputs.num_tareas)||0,D=parseFloat(inputs.duracion_media_dias)||5,par=parseFloat(inputs.paralelismo_pct)||30;if(!N)return{error:true};var dias_total=Math.ceil(N*D*(1-par/100)),semanas=+(dias_total/5).toFixed(1),semanas_imprevistos=+(semanas*1.15).toFixed(1);return{dias_total:dias_total,semanas:semanas,semanas_con_imprevistos:semanas_imprevistos};",
+  "outputs": [
+    {
+      "id": "dias_total",
+      "unit": "días laborables"
+    },
+    {
+      "id": "semanas",
+      "unit": "semanas",
+      "highlight": true
+    },
+    {
+      "id": "semanas_con_imprevistos",
+      "unit": "semanas (+15% imprevistos)"
+    }
+  ],
+  "related": [
+    "090",
+    "078",
+    "099",
+    "079"
+  ],
+  "example_inputs": {
+    "num_tareas": 10,
+    "duracion_media_dias": 5,
+    "paralelismo_pct": 30
+  },
+  "example_label": "Calcular planificación para 10 tareas de 5 días de duración media con 30% de solape.",
+  "range_hints": {
+    "num_tareas": "Número total de tareas del proyecto según el plan de obra o estructura de desglose (tareas)",
+    "duracion_media_dias": "Duración media estimada de cada tarea considerando recursos asignados (días/tarea)",
+    "paralelismo_pct": "Porcentaje de tareas que se ejecutan en paralelo. 20-40% es típico en construcción (%)"
+  },
+  "result_context": "Resultados: {dias_total} días laborables, {semanas} semanas, {semanas_con_imprevistos} semanas con 15 % de imprevistos.",
+  "formula_display": "Duración = nº_tareas × duración_media × (1 − paralelismo%)",
+  "steps": [
+    "Enumera el número de tareas del proyecto (según el desglose EDT o plan de obra)",
+    "Asigna la duración media estimada por tarea considerando la complejidad y recursos disponibles",
+    "Estima el porcentaje de paralelismo: tareas que pueden ejecutarse simultáneamente (30% es típico en construcción)",
+    "Calcula los días laborables totales considerando el solape de tareas paralelas",
+    "Convierte a semanas laborables (÷5 días/semana) y añade un 15% para imprevistos (climatología, retrasos de suministros)",
+    "Compara con el plazo contractual para verificar la viabilidad del cronograma"
+  ],
+  "mistakes": [
+    "Planificar todas las tareas en serie: la construcción permite muchos solapes (instalaciones mientras secan soleras, etc.)",
+    "No añadir margen de imprevistos: retrasos por lluvia, falta de materiales o averías de maquinaria son habituales",
+    "Olvidar los tiempos de curado del hormigón (7-28 días según elemento estructural) en la secuencia de tareas",
+    "No considerar los periodos de vacaciones, festivos locales y días de climatología adversa según la zona",
+    "Confundir días laborables con días naturales: el plazo de ejecución suele referirse a días laborables"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "num_tareas",
+      "reason": "Tipo correcto: numérico entero para el número de tareas del proyecto."
+    },
+    {
+      "field_id": "duracion_media_dias",
+      "reason": "Tipo correcto: numérico para la duración media de cada tarea en días."
+    },
+    {
+      "field_id": "paralelismo_pct",
+      "reason": "Tipo correcto: numérico porcentual para el grado de solape entre tareas."
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Reforma pequeña (baño/cocina)",
+      "num_tareas": 8,
+      "duracion_media_dias": 3,
+      "paralelismo_pct": 20
+    },
+    {
+      "_label": "Reforma integral piso",
+      "num_tareas": 15,
+      "duracion_media_dias": 5,
+      "paralelismo_pct": 25
+    },
+    {
+      "_label": "Vivienda unifamiliar nueva",
+      "num_tareas": 25,
+      "duracion_media_dias": 7,
+      "paralelismo_pct": 30
+    },
+    {
+      "_label": "Edificio plurifamiliar",
+      "num_tareas": 40,
+      "duracion_media_dias": 8,
+      "paralelismo_pct": 35
+    },
+    {
+      "_label": "Nave industrial",
+      "num_tareas": 50,
+      "duracion_media_dias": 6,
+      "paralelismo_pct": 40
+    }
+  ],
+  "units": {
+    "paralelismo_pct": "%"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Planificación Gantt Simple",
+      "desc": "Estima la duración total de una obra en días y semanas considerando el paralelismo entre tareas Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora Planificación Obra – Días, Semanas y Gantt",
+      "seo_desc": "Calcula los días y semanas de tu proyecto de construcción. Introduce tareas, duración media y paralelismo para obtener la planificación con imprevistos.",
+      "inputs": {
+        "num_tareas": "Número de tareas",
+        "duracion_media_dias": "Duración media por tarea (días)",
+        "paralelismo_pct": "% tareas paralelas"
+      },
+      "outputs": {
+        "dias_total": "Días laborables",
+        "semanas": "Semanas",
+        "semanas_con_imprevistos": "Semanas con imprevistos (+15%)"
+      },
+      "seo_description": "Calcula la duración estimada de tu obra considerando solapes entre tareas. Incluye margen del 15% para imprevistos climáticos, retrasos de suministros y otras contingencias habituales en construcción.",
+      "example_label": "Calcular planificación para 10 tareas de 5 días de duración media con 30% de solape.",
+      "range_hints": {
+        "num_tareas": "Valor entre 2 y 50 tareas.",
+        "duracion_media_dias": "Valor entre 1 y 30 días/tarea.",
+        "paralelismo_pct": "Valor entre 0 y 70 %."
+      },
+      "result_context": "Resultados: {dias_total} días laborables, {semanas} semanas, {semanas_con_imprevistos} semanas con 15 % de imprevistos.",
+      "formula_display": "Duración = nº_tareas × duración_media × (1 − paralelismo%)",
+      "steps": [
+        "Enumera el número de tareas del proyecto (según el desglose EDT o plan de obra)",
+        "Asigna la duración media estimada por tarea considerando la complejidad y recursos disponibles",
+        "Estima el porcentaje de paralelismo: tareas que pueden ejecutarse simultáneamente (30% es típico en construcción)",
+        "Calcula los días laborables totales considerando el solape de tareas paralelas",
+        "Convierte a semanas laborables (÷5 días/semana) y añade un 15% para imprevistos (climatología, retrasos de suministros)",
+        "Compara con el plazo contractual para verificar la viabilidad del cronograma"
+      ],
+      "mistakes": [
+        "Planificar todas las tareas en serie: la construcción permite muchos solapes (instalaciones mientras secan soleras, etc.)",
+        "No añadir margen de imprevistos: retrasos por lluvia, falta de materiales o averías de maquinaria son habituales",
+        "Olvidar los tiempos de curado del hormigón (7-28 días según elemento estructural) en la secuencia de tareas",
+        "No considerar los periodos de vacaciones, festivos locales y días de climatología adversa según la zona",
+        "Confundir días laborables con días naturales: el plazo de ejecución suele referirse a días laborables"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "num_tareas",
+          "reason": "Tipo correcto: numérico entero para el número de tareas del proyecto."
+        },
+        {
+          "field_id": "duracion_media_dias",
+          "reason": "Tipo correcto: numérico para la duración media de cada tarea en días."
+        },
+        {
+          "field_id": "paralelismo_pct",
+          "reason": "Tipo correcto: numérico porcentual para el grado de solape entre tareas."
+        }
+      ]
+    },
+    "en": {
+      "name": "Simple Project Planning Calculator",
+      "desc": "Simple Project Planning Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Site Scheduling Calculator – Days, Weeks & Gantt",
+      "seo_desc": "Calculate days and weeks for your construction project. Enter tasks, average duration, and parallelism for planning with contingencies.",
+      "inputs": {
+        "num_tareas": "Number of tasks",
+        "duracion_media_dias": "Average task duration (days)",
+        "paralelismo_pct": "% parallel tasks"
+      },
+      "outputs": {
+        "dias_total": "Working days",
+        "semanas": "Weeks",
+        "semanas_con_imprevistos": "Weeks with contingency (+15%)"
+      },
+      "seo_description": "Calculate estimated construction duration considering task overlaps. Includes 15% margin for weather contingencies, supply delays, and other common construction unforeseen events.",
+      "example_label": "Calcular planificación para 10 tareas de 5 días de duración media con 30% de solape.",
+      "range_hints": {
+        "num_tareas": "Valor entre 2 y 50 tareas.",
+        "duracion_media_dias": "Valor entre 1 y 30 días/tarea.",
+        "paralelismo_pct": "Valor entre 0 y 70 %."
+      },
+      "result_context": "Resultados: {dias_total} días laborables, {semanas} semanas, {semanas_con_imprevistos} semanas con 15 % de imprevistos.",
+      "formula_display": "Duración = nº_tareas × duración_media × (1 − paralelismo%)",
+      "steps": [
+        "Enumera el número de tareas del proyecto (según el desglose EDT o plan de obra)",
+        "Asigna la duración media estimada por tarea considerando la complejidad y recursos disponibles",
+        "Estima el porcentaje de paralelismo: tareas que pueden ejecutarse simultáneamente (30% es típico en construcción)",
+        "Calcula los días laborables totales considerando el solape de tareas paralelas",
+        "Convierte a semanas laborables (÷5 días/semana) y añade un 15% para imprevistos (climatología, retrasos de suministros)",
+        "Compara con el plazo contractual para verificar la viabilidad del cronograma"
+      ],
+      "mistakes": [
+        "Planificar todas las tareas en serie: la construcción permite muchos solapes (instalaciones mientras secan soleras, etc.)",
+        "No añadir margen de imprevistos: retrasos por lluvia, falta de materiales o averías de maquinaria son habituales",
+        "Olvidar los tiempos de curado del hormigón (7-28 días según elemento estructural) en la secuencia de tareas",
+        "No considerar los periodos de vacaciones, festivos locales y días de climatología adversa según la zona",
+        "Confundir días laborables con días naturales: el plazo de ejecución suele referirse a días laborables"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "num_tareas",
+          "reason": "Tipo correcto: numérico entero para el número de tareas del proyecto."
+        },
+        {
+          "field_id": "duracion_media_dias",
+          "reason": "Tipo correcto: numérico para la duración media de cada tarea en días."
+        },
+        {
+          "field_id": "paralelismo_pct",
+          "reason": "Tipo correcto: numérico porcentual para el grado de solape entre tareas."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Planning Gantt Simple",
+      "desc": "Estimez la durée totale d'un chantier en jours et semaines en tenant compte du parallélisme des tâches. Calculatrice facile a utiliser avec decomposition.",
+      "seo_title": "Planification Chantier – Semaines",
+      "inputs": {
+        "num_tareas": "Nombre de tâches",
+        "duracion_media_dias": "Durée moyenne par tâche (jours)",
+        "paralelismo_pct": "% tâches parallèles"
+      },
+      "outputs": {
+        "dias_total": "Jours ouvrables",
+        "semanas": "Semaines",
+        "semanas_con_imprevistos": "Semaines avec imprévus (+15%)"
+      },
+      "seo_description": "Estimez la durée totale d'un chantier en jours et semaines en tenant compte du parallélisme des tâches. Calculatrice facile a utiliser avec decomposition.",
+      "example_label": "Calcular planificación para 10 tareas de 5 días de duración media con 30% de solape.",
+      "range_hints": {
+        "num_tareas": "Valor entre 2 et 50 tareas.",
+        "duracion_media_dias": "Valor entre 1 et 30 días/tarea.",
+        "paralelismo_pct": "Valor entre 0 et 70 %."
+      },
+      "result_context": "Resultados: {dias_total} días laborables, {semanas} semanas, {semanas_con_imprevistos} semanas con 15 % de imprevistos.",
+      "formula_display": "Duración = nº_tareas × duración_media × (1 − paralelismo%)",
+      "steps": [
+        "Enumera el número de tareas del proyecto (según el desglose EDT o plan de obra)",
+        "Asigna la duración media estimada por tarea considerando la complejidad y recursos disponibles",
+        "Estima el porcentaje de paralelismo: tareas que pueden ejecutarse simultáneamente (30% es típico en construcción)",
+        "Calcula los días laborables totales considerando el solape de tareas paralelas",
+        "Convierte a semanas laborables (÷5 días/semana) y añade un 15% para imprevistos (climatología, retrasos de suministros)",
+        "Compara con el plazo contractual para verificar la viabilidad del cronograma"
+      ],
+      "mistakes": [
+        "Planificar todas las tareas en serie: la construcción permite muchos solapes (instalaciones mientras secan soleras, etc.)",
+        "No añadir margen de imprevistos: retrasos por lluvia, falta de materiales o averías de maquinaria son habituales",
+        "Olvidar los tiempos de curado del hormigón (7-28 días según elemento estructural) en la secuencia de tareas",
+        "No considerar los periodos de vacaciones, festivos locales y días de climatología adversa según la zona",
+        "Confundir días laborables con días naturales: el plazo de ejecución suele referirse a días laborables"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "num_tareas",
+          "reason": "Tipo correcto: numérico entero para el número de tareas del proyecto."
+        },
+        {
+          "field_id": "duracion_media_dias",
+          "reason": "Tipo correcto: numérico para la duración media de cada tarea en días."
+        },
+        {
+          "field_id": "paralelismo_pct",
+          "reason": "Tipo correcto: numérico porcentual para el grado de solape entre tareas."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Cronograma Simples",
+      "desc": "Estime a duração total de uma obra em dias e semanas considerando o paralelismo das tarefas. Calculadora facil de usar com detalhamento da formula.",
+      "seo_title": "Calculadora de Cronograma Simples",
+      "inputs": {
+        "num_tareas": "Número de tarefas",
+        "duracion_media_dias": "Duração média por tarefa (dias)",
+        "paralelismo_pct": "% tarefas paralelas"
+      },
+      "outputs": {
+        "dias_total": "Dias úteis",
+        "semanas": "Semanas",
+        "semanas_con_imprevistos": "Semanas com imprevistos (+15%)"
+      },
+      "seo_description": "Estime a duração total de uma obra em dias e semanas considerando o paralelismo das tarefas. Calculadora facil de usar com detalhamento da formula.",
+      "example_label": "Calcular planificación para 10 tareas de 5 días de duración media con 30% de solape.",
+      "range_hints": {
+        "num_tareas": "Valor entre 2 e 50 tareas.",
+        "duracion_media_dias": "Valor entre 1 e 30 días/tarea.",
+        "paralelismo_pct": "Valor entre 0 e 70 %."
+      },
+      "result_context": "Resultados: {dias_total} días laborables, {semanas} semanas, {semanas_con_imprevistos} semanas con 15 % de imprevistos.",
+      "formula_display": "Duración = nº_tareas × duración_media × (1 − paralelismo%)",
+      "steps": [
+        "Enumera el número de tareas del proyecto (según el desglose EDT o plan de obra)",
+        "Asigna la duración media estimada por tarea considerando la complejidad y recursos disponibles",
+        "Estima el porcentaje de paralelismo: tareas que pueden ejecutarse simultáneamente (30% es típico en construcción)",
+        "Calcula los días laborables totales considerando el solape de tareas paralelas",
+        "Convierte a semanas laborables (÷5 días/semana) y añade un 15% para imprevistos (climatología, retrasos de suministros)",
+        "Compara con el plazo contractual para verificar la viabilidad del cronograma"
+      ],
+      "mistakes": [
+        "Planificar todas las tareas en serie: la construcción permite muchos solapes (instalaciones mientras secan soleras, etc.)",
+        "No añadir margen de imprevistos: retrasos por lluvia, falta de materiales o averías de maquinaria son habituales",
+        "Olvidar los tiempos de curado del hormigón (7-28 días según elemento estructural) en la secuencia de tareas",
+        "No considerar los periodos de vacaciones, festivos locales y días de climatología adversa según la zona",
+        "Confundir días laborables con días naturales: el plazo de ejecución suele referirse a días laborables"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "num_tareas",
+          "reason": "Tipo correcto: numérico entero para el número de tareas del proyecto."
+        },
+        {
+          "field_id": "duracion_media_dias",
+          "reason": "Tipo correcto: numérico para la duración media de cada tarea en días."
+        },
+        {
+          "field_id": "paralelismo_pct",
+          "reason": "Tipo correcto: numérico porcentual para el grado de solape entre tareas."
+        }
+      ]
+    },
+    "de": {
+      "name": "Bauzeitenplan Gantt",
+      "desc": "Berechnen Sie bauzeitenplan Gantt online. Geben Sie num tareas, duracion media dias, paralelismo pct ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Bauzeitenplan Gantt | CalcToWork",
+      "seo_desc": "Bauzeitenplan Gantt online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Bauzeitenplan Gantt online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "num_tareas": "Num Tareas",
+        "duracion_media_dias": "Duracion Media Dias",
+        "paralelismo_pct": "Paralelismo Pct"
+      },
+      "outputs": {
+        "dias_total": "Dias Total",
+        "semanas": "Semanas",
+        "semanas_con_imprevistos": "Semanas Con Imprevistos"
+      },
+      "example_label": "Calcular planificación para 10 tareas de 5 días de duración media con 30% de solape.",
+      "range_hints": {
+        "num_tareas": "Número total de tareas del proyecto según el plan de obra o estructura de desglose (tareas)",
+        "duracion_media_dias": "Duración media estimada de cada tarea considerando recursos asignados (días/tarea)",
+        "paralelismo_pct": "Porcentaje de tareas que se ejecutan en paralelo. 20-40% es típico en construcción (%)"
+      },
+      "result_context": "Resultados: {dias_total} días laborables, {semanas} semanas, {semanas_con_imprevistos} semanas con 15 % de imprevistos.",
+      "formula_display": "Duración = nº_tareas × duración_media × (1 − paralelismo%)",
+      "steps": [
+        "Enumera el número de tareas del proyecto (según el desglose EDT o plan de obra)",
+        "Asigna la duración media estimada por tarea considerando la complejidad y recursos disponibles",
+        "Estima el porcentaje de paralelismo: tareas que pueden ejecutarse simultáneamente (30% es típico en construcción)",
+        "Calcula los días laborables totales considerando el solape de tareas paralelas",
+        "Convierte a semanas laborables (÷5 días/semana) y añade un 15% para imprevistos (climatología, retrasos de suministros)",
+        "Compara con el plazo contractual para verificar la viabilidad del cronograma"
+      ],
+      "mistakes": [
+        "Planificar todas las tareas en serie: la construcción permite muchos solapes (instalaciones mientras secan soleras, etc.)",
+        "No añadir margen de imprevistos: retrasos por lluvia, falta de materiales o averías de maquinaria son habituales",
+        "Olvidar los tiempos de curado del hormigón (7-28 días según elemento estructural) en la secuencia de tareas",
+        "No considerar los periodos de vacaciones, festivos locales y días de climatología adversa según la zona",
+        "Confundir días laborables con días naturales: el plazo de ejecución suele referirse a días laborables"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "num_tareas",
+          "reason": "Tipo correcto: numérico entero para el número de tareas del proyecto."
+        },
+        {
+          "field_id": "duracion_media_dias",
+          "reason": "Tipo correcto: numérico para la duración media de cada tarea en días."
+        },
+        {
+          "field_id": "paralelismo_pct",
+          "reason": "Tipo correcto: numérico porcentual para el grado de solape entre tareas."
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Sconto e Margine",
+      "description": "Calcola il prezzo di vendita con margine e IVA.",
+      "seo_title": "Cronoprogramma Lavori – Settimane",
+      "seo_description": "Calcola il prezzo finale con margine, sconto e IVA Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo rapido,.",
+      "inputs": {
+        "costo": "Costo (€)",
+        "margen": "Margine (%)",
+        "iva": "IVA (%)",
+        "num_tareas": "num tareas (tareas)",
+        "duracion_media_dias": "duracion media dias (días/tarea)",
+        "paralelismo_pct": "paralelismo pct (%)"
+      },
+      "outputs": {
+        "precio_venta": "Prezzo di vendita (€)",
+        "precio_con_iva": "Prezzo IVA inclusa (€)",
+        "ganancia": "Guadagno (€)",
+        "dias_total": "dias total (días laborables)",
+        "semanas": "semanas (semanas)",
+        "semanas_con_imprevistos": "semanas con imprevistos (semanas (+15% imprevistos))"
+      },
+      "example_label": "Calcular planificación para 10 tareas de 5 días de duración media con 30% de solape.",
+      "range_hints": {
+        "num_tareas": "Valor intre 2 e 50 compiti.",
+        "duracion_media_dias": "Valor intre 1 e 30 días/compito.",
+        "paralelismo_pct": "Valor intre 0 e 70 %."
+      },
+      "result_context": "Resultados: {dias_total} días laborables, {semanas} semanas, {semanas_con_imprevistos} semanas con 15 % de imprevistos.",
+      "formula_display": "Duración = nº_tareas × duración_media × (1 − paralelismo%)",
+      "steps": [
+        "Enumera el número de tareas del proyecto (según el desglose EDT o plan de obra)",
+        "Asigna la duración media estimada por tarea considerando la complejidad y recursos disponibles",
+        "Estima el porcentaje de paralelismo: tareas que pueden ejecutarse simultáneamente (30% es típico en construcción)",
+        "Calcula los días laborables totales considerando el solape de tareas paralelas",
+        "Convierte a semanas laborables (÷5 días/semana) y añade un 15% para imprevistos (climatología, retrasos de suministros)",
+        "Compara con el plazo contractual para verificar la viabilidad del cronograma"
+      ],
+      "mistakes": [
+        "Planificar todas las tareas en serie: la construcción permite muchos solapes (instalaciones mientras secan soleras, etc.)",
+        "No añadir margen de imprevistos: retrasos por lluvia, falta de materiales o averías de maquinaria son habituales",
+        "Olvidar los tiempos de curado del hormigón (7-28 días según elemento estructural) en la secuencia de tareas",
+        "No considerar los periodos de vacaciones, festivos locales y días de climatología adversa según la zona",
+        "Confundir días laborables con días naturales: el plazo de ejecución suele referirse a días laborables"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "num_tareas",
+          "reason": "Tipo correcto: numérico entero para el número de tareas del proyecto."
+        },
+        {
+          "field_id": "duracion_media_dias",
+          "reason": "Tipo correcto: numérico para la duración media de cada tarea en días."
+        },
+        {
+          "field_id": "paralelismo_pct",
+          "reason": "Tipo correcto: numérico porcentual para el grado de solape entre tareas."
+        }
+      ],
+      "desc": "Calcola la durata stimata del tuo progetto in base al numero di attività e alla percentuale di sovrapposizione."
+    }
+  }
+}

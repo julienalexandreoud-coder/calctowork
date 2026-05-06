@@ -1,0 +1,456 @@
+{
+  "id": "306",
+  "slug": "descuento",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "precio_original",
+      "type": "number",
+      "min": 0.01,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 120,
+      "unit": "â‚¬"
+    },
+    {
+      "id": "descuento_pct",
+      "type": "number",
+      "min": 0.01,
+      "max": 99,
+      "step": 0.5,
+      "default": 25,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    }
+  ],
+  "formula": "var P=parseFloat(inputs.precio_original)||0,D=parseFloat(inputs.descuento_pct)||0;if(!P||!D)return{error:true};var ahorro=+(P*D/100).toFixed(2),final=+(P-ahorro).toFixed(2);return{precio_final:final,ahorro:ahorro};",
+  "outputs": [
+    {
+      "id": "precio_final",
+      "unit": "â‚¬",
+      "highlight": true
+    },
+    {
+      "id": "ahorro",
+      "unit": "â‚¬"
+    }
+  ],
+  "related": [
+    "304",
+    "200",
+    "201",
+    "300"
+  ],
+  "example_inputs": {
+    "precio_original": 189.95,
+    "descuento_pct": 35
+  },
+  "example_label": "Calcula el precio rebajado de un producto de 189,95eur con un descuento del 35%",
+  "range_hints": {
+    "precio_original": "Introduce el valor de precio original (â‚¬). Valor sugerido: 120",
+    "descuento_pct": "Introduce el valor de descuento pct (%). Valor sugerido: 25"
+  },
+  "result_context": "El precio final tras aplicar el descuento es de {precio_final} €. Te has ahorrado {ahorro} € respecto al precio original.",
+  "result_context_en": "The final price after applying the discount is {precio_final} €. You have saved {ahorro} € compared to the original price.",
+  "result_context_fr": "Le prix final après application de la remise est de {precio_final} €. Vous avez économisé {ahorro} € par rapport au prix initial.",
+  "result_context_pt": "O preço final após aplicar o desconto é de {precio_final} €. Você economizou {ahorro} € em relação ao preço original.",
+  "result_context_de": "Der Endpreis nach Abzug des Rabatts beträgt {precio_final} €. Sie haben {ahorro} € gegenüber dem ursprünglichen Preis gespart.",
+  "result_context_it": "Il prezzo finale dopo l'applicazione dello sconto è di {precio_final} €. Hai risparmiato {ahorro} € rispetto al prezzo originale.",
+  "formula_display": "Precio final = Precio original x (1 - Descuento%/100)",
+  "steps": [
+    "Introduce el precio original o de partida del producto sin haber aplicado ningun descuento todavia",
+    "Indica el porcentaje de descuento que se va a aplicar sobre el precio de partida",
+    "Convierte el porcentaje de descuento a formato decimal dividiendo entre 100 (ej: 35% -> 0,35)",
+    "Multiplica el precio original por el complemento del descuento (1 - descuento decimal) para hallar el precio final",
+    "Calcula el ahorro obtenido en euros para valorar si la oferta es realmente significativa"
+  ],
+  "mistakes": [
+    "Aplicar descuentos sucesivos de forma aditiva: un 20% mas un 10% adicional NO equivale a un 30% de descuento total",
+    "No verificar si el descuento anunciado se aplica sobre el precio con IVA o sin IVA, lo que cambia el ahorro real",
+    "Olvidar que en promociones como 2x1 o segunda unidad al 50% el descuento real equivalente no es evidente a simple vista"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "precio_original",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "descuento_pct",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "precio_original": 95,
+      "descuento_pct": 17.5
+    },
+    {
+      "_label": "Average",
+      "precio_original": 142,
+      "descuento_pct": 26.25
+    },
+    {
+      "_label": "High",
+      "precio_original": 190,
+      "descuento_pct": 35
+    },
+    {
+      "_label": "Premium",
+      "precio_original": 285,
+      "descuento_pct": 52.5
+    },
+    {
+      "_label": "Enterprise",
+      "precio_original": 380,
+      "descuento_pct": 70
+    }
+  ],
+  "units": {
+    "descuento_pct": "%"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Descuento",
+      "desc": "Calcula el precio final y el ahorro con un descuento porcentual.",
+      "description": "Calcula el precio final y el ahorro con un descuento porcentual.",
+      "seo_title": "Calculadora de Descuento Gratuita",
+      "seo_description": "Calcula cuánto pagas tras un descuento del X%. Introduce el precio original y el porcentaje de descuento. Calculadora facil de usar con desglose de.",
+      "inputs": {
+        "precio_original": "Precio original (€)",
+        "descuento_pct": "Descuento (%)"
+      },
+      "outputs": {
+        "precio_final": "Precio final",
+        "ahorro": "Ahorro"
+      },
+      "example_label": "Calculating final price and savings for a €189.95 item with 35% discount.",
+      "range_hints": {
+        "precio_original": "€1 - €10,000+ original prices",
+        "descuento_pct": "5-90% discount percentages"
+      },
+      "result_context": "The precio_final of {precio_final} is what you pay after discount. The ahorro of {ahorro} shows how much you saved.",
+      "formula_display": "Final Price = Original × (1 - Discount% ÷ 100)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert discount percentage to decimal",
+          "calculation": "35% ÷ 100 = 0.35"
+        },
+        {
+          "step": 2,
+          "description": "Calculate discount amount",
+          "calculation": "€189.95 × 0.35 = €66.48"
+        },
+        {
+          "step": 3,
+          "description": "Subtract discount from original price",
+          "calculation": "€189.95 - €66.48 = €123.47"
+        }
+      ],
+      "mistakes": [
+        "Adding discount percentages when multiple discounts apply (should compound)",
+        "Calculating discount from wrong base price",
+        "Forgetting to check if discount applies to sale items"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_original",
+          "reason": "Correct type for price input"
+        },
+        {
+          "field_id": "descuento_pct",
+          "reason": "Correct type for discount percentage"
+        }
+      ]
+    },
+    "en": {
+      "name": "Discount Calculator",
+      "desc": "Calculate the final price and savings with a percentage discount.",
+      "description": "Calculate the final price and savings with a percentage discount.",
+      "seo_title": "Discount Calculator – Final Price Online",
+      "seo_description": "Discount Calculator. Original price (â‚¬), Discount (%) to find Final price, Savings. personal finance-grade formula with compounding, tax, and fee.",
+      "inputs": {
+        "precio_original": "Original price (â‚¬)",
+        "descuento_pct": "Discount (%)"
+      },
+      "outputs": {
+        "precio_final": "Final price",
+        "ahorro": "Savings"
+      },
+      "example_label": "Calculating final price and savings for a â‚¬189.95 item with 35% discount.",
+      "range_hints": {
+        "precio_original": "â‚¬1 - â‚¬10,000+ original prices",
+        "descuento_pct": "5-90% discount percentages"
+      },
+      "result_context": "The precio_final of {precio_final} is what you pay after discount. The ahorro of {ahorro} shows how much you saved.",
+      "formula_display": "Final Price = Original × (1 - Discount% ÷ 100)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert discount percentage to decimal",
+          "calculation": "35% ÷ 100 = 0.35"
+        },
+        {
+          "step": 2,
+          "description": "Calculate discount amount",
+          "calculation": "â‚¬189.95 × 0.35 = â‚¬66.48"
+        },
+        {
+          "step": 3,
+          "description": "Subtract discount from original price",
+          "calculation": "â‚¬189.95 - â‚¬66.48 = â‚¬123.47"
+        }
+      ],
+      "mistakes": [
+        "Adding discount percentages when multiple discounts apply (should compound)",
+        "Calculating discount from wrong base price",
+        "Forgetting to check if discount applies to sale items"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_original",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for price input"
+        },
+        {
+          "field_id": "descuento_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for discount percentage"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur de Remise",
+      "desc": "Calculez le prix final et les économies avec une remise en pourcentage.",
+      "description": "Calculez le prix final et les économies avec une remise en pourcentage.",
+      "seo_title": "Calculateur de Remise – Prix Final en Ligne",
+      "seo_description": "Calculez combien vous payez après une remise de X%. Entrez le prix original et le pourcentage. Calculatrice facile a utiliser avec decomposition de la.",
+      "inputs": {
+        "precio_original": "Prix original (€)",
+        "descuento_pct": "Remise (%)"
+      },
+      "outputs": {
+        "precio_final": "Prix final",
+        "ahorro": "Économies"
+      },
+      "example_label": "Calculating final price and savings for a €189.95 item with 35% discount.",
+      "range_hints": {
+        "precio_original": "€1 - €10,000+ original prices",
+        "descuento_pct": "5-90% discount percentages"
+      },
+      "result_context": "The precio_final of {precio_final} is what you pay after discount. The ahorro of {ahorro} shows how much you saved.",
+      "formula_display": "Final Price = Original × (1 - Discount% Á· 100)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert discount percentage to decimal",
+          "calculation": "35% Á· 100 = 0.35"
+        },
+        {
+          "step": 2,
+          "description": "Calculate discount amount",
+          "calculation": "â‚¬189.95 × 0.35 = â‚¬66.48"
+        },
+        {
+          "step": 3,
+          "description": "Subtract discount from original price",
+          "calculation": "€189.95 - €66.48 = €123.47"
+        }
+      ],
+      "mistakes": [
+        "Adding discount percentages when multiple discounts apply (should compound)",
+        "Calculating discount from wrong base price",
+        "Forgetting to check if discount applies to sale items"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_original",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for price input"
+        },
+        {
+          "field_id": "descuento_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for discount percentage"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Desconto",
+      "desc": "Calcule o preço final e a poupança com um desconto percentual.",
+      "description": "Calcule o preço final e a poupança com um desconto percentual.",
+      "seo_title": "Calculadora de Desconto Online Grátis",
+      "seo_description": "Calcule quanto paga após um desconto de X%. Insira o preço original e a percentagem de desconto. Calculadora facil de usar com detalhamento da formula.",
+      "inputs": {
+        "precio_original": "Preço original (€)",
+        "descuento_pct": "Desconto (%)"
+      },
+      "outputs": {
+        "precio_final": "Preço final",
+        "ahorro": "Poupança"
+      },
+      "example_label": "Calculating final price and savings for a €189.95 item with 35% discount.",
+      "range_hints": {
+        "precio_original": "€1 - €10,000+ original prices",
+        "descuento_pct": "5-90% discount percentages"
+      },
+      "result_context": "The precio_final of {precio_final} is what you pay after discount. The ahorro of {ahorro} shows how much you saved.",
+      "formula_display": "Final Price = Original × (1 - Discount% ÷ 100)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert discount percentage to decimal",
+          "calculation": "35% ÷ 100 = 0.35"
+        },
+        {
+          "step": 2,
+          "description": "Calculate discount amount",
+          "calculation": "â‚¬189.95 × 0.35 = â‚¬66.48"
+        },
+        {
+          "step": 3,
+          "description": "Subtract discount from original price",
+          "calculation": "€189.95 - €66.48 = €123.47"
+        }
+      ],
+      "mistakes": [
+        "Adding discount percentages when multiple discounts apply (should compound)",
+        "Calculating discount from wrong base price",
+        "Forgetting to check if discount applies to sale items"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_original",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for price input"
+        },
+        {
+          "field_id": "descuento_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for discount percentage"
+        }
+      ]
+    },
+    "de": {
+      "name": "Rabattrechner",
+      "desc": "Berechnen Sie rabattrechner online. Geben Sie precio original, descuento pct ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Rabattrechner | CalcToWork",
+      "seo_desc": "Rabattrechner online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Rabattrechner online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "precio_original": "Precio Original",
+        "descuento_pct": "Descuento Pct"
+      },
+      "outputs": {
+        "precio_final": "Precio Final",
+        "ahorro": "Ahorro"
+      },
+      "example_label": "Calcula el precio rebajado de un producto de 189,95eur con un descuento del 35%",
+      "range_hints": {
+        "precio_original": "Introduce el valor de precio original (â‚¬). Valor sugerido: 120",
+        "descuento_pct": "Introduce el valor de descuento pct (%). Valor sugerido: 25"
+      },
+      "result_context": "Der Endpreis nach Abzug des Rabatts beträgt {precio_final} €. Sie haben {ahorro} € gegenüber dem ursprünglichen Preis gespart.",
+      "formula_display": "Precio final = Precio original x (1 - Descuento%/100)",
+      "steps": [
+        "Introduce el precio original o de partida del producto sin haber aplicado ningun descuento todavia",
+        "Indica el porcentaje de descuento que se va a aplicar sobre el precio de partida",
+        "Convierte el porcentaje de descuento a formato decimal dividiendo entre 100 (ej: 35% -> 0,35)",
+        "Multiplica el precio original por el complemento del descuento (1 - descuento decimal) para hallar el precio final",
+        "Calcula el ahorro obtenido en euros para valorar si la oferta es realmente significativa"
+      ],
+      "mistakes": [
+        "Aplicar descuentos sucesivos de forma aditiva: un 20% mas un 10% adicional NO equivale a un 30% de descuento total",
+        "No verificar si el descuento anunciado se aplica sobre el precio con IVA o sin IVA, lo que cambia el ahorro real",
+        "Olvidar que en promociones como 2x1 o segunda unidad al 50% el descuento real equivalente no es evidente a simple vista"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_original",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "descuento_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Sconto",
+      "desc": "Calcola il prezzo finale e il risparmio con uno sconto percentuale.",
+      "description": "Calcola il prezzo finale e il risparmio con uno sconto percentuale.",
+      "seo_title": "Calcolatore Sconto – Veloce e Preciso",
+      "seo_description": "Calcola quanto paghi dopo uno sconto del X%. Inserisci il prezzo originale e la percentuale. Con opzioni di capitalizzazione e tasse.",
+      "inputs": {
+        "precio_original": "Prezzo originale (€)",
+        "descuento_pct": "Sconto (%)"
+      },
+      "outputs": {
+        "precio_final": "Prezzo finale",
+        "ahorro": "Risparmio"
+      },
+      "example_label": "Calculating finel price and savings for a €189.95 item with 35% discount.",
+      "range_hints": {
+        "precio_original": "€1 - €10,000+ original prices",
+        "descuento_pct": "5-90% discount percintages"
+      },
+      "result_context": "The prezzo_finel of {prezzo_finel} is what eou pae after discount. The risparmio of {risparmio} shows how much eou saved.",
+      "formula_display": "Final Price = Original × (1 - Discount% ÷ 100)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert discount percentage to decimal",
+          "calculation": "35% ÷ 100 = 0.35"
+        },
+        {
+          "step": 2,
+          "description": "Calculate discount amount",
+          "calculation": "€189.95 × 0.35 = €66.48"
+        },
+        {
+          "step": 3,
+          "description": "Subtract discount from original price",
+          "calculation": "€189.95 - €66.48 = €123.47"
+        }
+      ],
+      "mistakes": [
+        "Adding discount percintages whin multiple discounts apple (should compound)",
+        "Calculating discount from wrong base price",
+        "Forgetting to check if discount applies to sale items"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_original",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for price input"
+        },
+        {
+          "field_id": "descuento_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for discount percintage"
+        }
+      ]
+    }
+  }
+}

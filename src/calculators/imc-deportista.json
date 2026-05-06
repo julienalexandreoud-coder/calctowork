@@ -1,0 +1,427 @@
+{
+  "id": "908",
+  "slug": "imc-deportista",
+  "block": 17,
+  "block_slug": "deportes",
+  "inputs": [
+    {
+      "id": "peso_kg",
+      "type": "number",
+      "min": 20,
+      "max": 300,
+      "step": "any",
+      "default": 75,
+      "unit": "",
+      "unit_options": [
+        "kg",
+        "lb"
+      ],
+      "unit_category": "mass",
+      "unit_default": "kg"
+    },
+    {
+      "id": "altura_cm",
+      "type": "number",
+      "min": 50,
+      "max": 250,
+      "step": "any",
+      "default": 180,
+      "unit": ""
+    }
+  ],
+  "formula": "var p=parseFloat(inputs.peso_kg)||0,h=parseFloat(inputs.altura_cm)||0;if(!p||!h)return{error:true};var hm=h/100,bmi=p/(hm*hm);var cat=bmi<18.5?'Bajo':bmi<25?'Normal':bmi<30?'Sobrepeso':'Obesidad';return{imc:+bmi.toFixed(1),categoria:cat,peso_min:+(18.5*hm*hm).toFixed(1),peso_max:+(24.9*hm*hm).toFixed(1)};",
+  "outputs": [
+    {
+      "id": "imc",
+      "unit": "kg/m²",
+      "highlight": true
+    },
+    {
+      "id": "categoria",
+      "unit": ""
+    },
+    {
+      "id": "peso_min",
+      "unit": "kg"
+    },
+    {
+      "id": "peso_max",
+      "unit": "kg"
+    }
+  ],
+  "related": [
+    "400",
+    "901",
+    "401",
+    "905"
+  ],
+  "example_inputs": {
+    "peso_kg": 75,
+    "altura_cm": 180
+  },
+  "example_label": "Calcular índice de masa corporal para 75 × 180.",
+  "range_hints": {
+    "peso_kg": "Valor típico entre 20 y 300. Valor por defecto: 75.",
+    "altura_cm": "Valor típico entre 50 y 250. Valor por defecto: 180."
+  },
+  "result_context": "Tu IMC es {imc} kg/m² (categoría: {categoria}), con un rango de peso normal entre {peso_min} y {peso_max} kg.",
+  "result_context_en": "Your BMI is {imc} kg/m² (category: {categoria}), with a normal weight range between {peso_min} and {peso_max} kg.",
+  "result_context_fr": "Votre IMC est de {imc} kg/m² (catégorie : {categoria}), avec une fourchette de poids normal entre {peso_min} et {peso_max} kg.",
+  "result_context_pt": "Seu IMC é {imc} kg/m² (categoria: {categoria}), com uma faixa de peso normal entre {peso_min} e {peso_max} kg.",
+  "result_context_de": "Ihr BMI beträgt {imc} kg/m² (Kategorie: {categoria}), mit einem Normalgewichtsbereich zwischen {peso_min} und {peso_max} kg.",
+  "result_context_it": "Il tuo IMC è {imc} kg/m² (categoria: {categoria}), con un intervallo di peso normale tra {peso_min} e {peso_max} kg.",
+  "formula_display": "IMC = peso ÷ altura²",
+  "steps": [
+    "Medir altura en metros",
+    "Elevar altura al cuadrado",
+    "Dividir peso por altura²",
+    "Interpretar resultado según tabla OMS"
+  ],
+  "mistakes": [
+    "No convertir altura a metros",
+    "Interpretar sin considerar masa muscular",
+    "Usar para niños sin ajustes"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "peso_kg",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "altura_cm",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Beginner",
+      "peso_kg": 38,
+      "altura_cm": 90
+    },
+    {
+      "_label": "Intermediate",
+      "peso_kg": 56,
+      "altura_cm": 135
+    },
+    {
+      "_label": "Advanced",
+      "peso_kg": 75,
+      "altura_cm": 180
+    },
+    {
+      "_label": "Elite",
+      "peso_kg": 112,
+      "altura_cm": 250
+    },
+    {
+      "_label": "Pro",
+      "peso_kg": 150,
+      "altura_cm": 250
+    }
+  ],
+  "units": {
+    "peso_kg": "kg",
+    "altura_cm": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora IMC Deportista",
+      "desc": "Calcula IMC = Peso (kg) / Altura² (m) ââ‚¬” en deportistas, ajustar por composición corporal. Ejemplo: Jugador de rugby: 100 kg, 1,85 m = IMC = 29,2...",
+      "description": "Calculadora Imc Deportista",
+      "seo_title": "Calculadora IMC Deportista Gratuita",
+      "seo_description": "Calcula IMC = Peso (kg) / Altura² (m) ââ‚¬” en deportistas, ajustar por composición corporal. Ejemplo: Jugador de rugby: 100 kg, 1,85 m = IMC = 29,2...",
+      "inputs": {
+        "peso_kg": "Peso (kg)",
+        "altura_cm": "Altura (cm)"
+      },
+      "outputs": {
+        "imc": "IMC",
+        "categoria": "Categoría",
+        "peso_min": "Peso mínimo",
+        "peso_max": "Peso máximo"
+      },
+      "example_label": "Calculate imc deportista with peso_kg 75, altura_cm 180.",
+      "range_hints": {
+        "peso_kg": "Typical range: 20-300.",
+        "altura_cm": "Typical range: 50-250."
+      },
+      "result_context": "Your calculated imc is {imc}.",
+      "formula_display": "Calculate imc deportista based on input values.",
+      "steps": [
+        "Enter input values: peso_kg: 75, altura_cm: 180",
+        "Calculate and display the imc result",
+        "Calculate and display the categoria result",
+        "Calculate and display the peso_min result",
+        "Calculate and display the peso_max result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "altura_cm",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "en": {
+      "name": "Athletic Bmi Calculator",
+      "desc": "Athletic Bmi Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Athletic Bmi Calculator",
+      "seo_title": "Athletic Bmi Calculator – Free Online Tool",
+      "seo_description": "Calculate BMI = Weight (kg) / Height² (m) — in athletes, adjust for body composition. Example: Rugby player: 100 kg, 1.85 m = BMI = 29.2 (overweight by formula, but â‰ˆ...",
+      "inputs": {
+        "peso_kg": "Weight (kg)",
+        "altura_cm": "Height (cm)"
+      },
+      "outputs": {
+        "imc": "BMI",
+        "categoria": "Category",
+        "peso_min": "Minimum weight",
+        "peso_max": "Maximum weight"
+      },
+      "example_label": "Calculate imc deportista with peso_kg 75, altura_cm 180.",
+      "range_hints": {
+        "peso_kg": "Typical range: 20-300.",
+        "altura_cm": "Typical range: 50-250."
+      },
+      "result_context": "Your calculated imc is {imc}.",
+      "formula_display": "Calculate imc deportista based on input values.",
+      "steps": [
+        "Enter input values: peso_kg: 75, altura_cm: 180",
+        "Calculate and display the imc result",
+        "Calculate and display the categoria result",
+        "Calculate and display the peso_min result",
+        "Calculate and display the peso_max result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Imc Sportif",
+      "desc": "Calculez BMI = Weight (kg) / Height² (m) ââ‚¬” in athletes, adjust for body composition. Exemple: Rugby player: 100 kg, 1.85 m = BMI = 29.2 (overweight by...",
+      "description": "Calculateur Imc Sportif",
+      "seo_title": "Calculateur Imc Sportif – Outil Gratuit",
+      "seo_description": "Calculez BMI = Weight (kg) / Height² (m) ââ‚¬” in athletes, adjust for body composition. Exemple: Rugby player: 100 kg, 1.85 m = BMI = 29.2 (overweight by...",
+      "inputs": {
+        "peso_kg": "Poids (kg)",
+        "altura_cm": "Taille (cm)"
+      },
+      "outputs": {
+        "imc": "IMC",
+        "categoria": "Catégorie",
+        "peso_min": "Poids minimum",
+        "peso_max": "Poids maximum"
+      },
+      "example_label": "Calculate imc deportista with peso_kg 75, altura_cm 180.",
+      "range_hints": {
+        "peso_kg": "Typical range: 20-300.",
+        "altura_cm": "Typical range: 50-250."
+      },
+      "result_context": "Your calculated imc is {imc}.",
+      "formula_display": "Calculate imc deportista based on input values.",
+      "steps": [
+        "Enter input values: peso_kg: 75, altura_cm: 180",
+        "Calculate and display the imc result",
+        "Calculate and display the categoria result",
+        "Calculate and display the peso_min result",
+        "Calculate and display the peso_max result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora Imc Atleta",
+      "desc": "Calcule BMI = Weight (kg) / Height² (m) ââ‚¬” in athletes, adjust for body composition. Exemplo: Rugby player: 100 kg, 1.85 m = BMI = 29.2 (overweight by...",
+      "description": "Calculadora Imc Atleta",
+      "seo_title": "Calculadora Imc Atleta – Ferramenta Grátis",
+      "seo_description": "Calcule BMI = Weight (kg) / Height² (m) ââ‚¬” in athletes, adjust for body composition. Exemplo: Rugby player: 100 kg, 1.85 m = BMI = 29.2 (overweight by...",
+      "inputs": {
+        "peso_kg": "Peso (kg)",
+        "altura_cm": "Altura (cm)"
+      },
+      "outputs": {
+        "imc": "IMC",
+        "categoria": "Categoria",
+        "peso_min": "Peso mínimo",
+        "peso_max": "Peso máximo"
+      },
+      "example_label": "Calculate imc deportista with peso_kg 75, altura_cm 180.",
+      "range_hints": {
+        "peso_kg": "Typical range: 20-300.",
+        "altura_cm": "Typical range: 50-250."
+      },
+      "result_context": "Your calculated imc is {imc}.",
+      "formula_display": "Calculate imc deportista based on input values.",
+      "steps": [
+        "Enter input values: peso_kg: 75, altura_cm: 180",
+        "Calculate and display the imc result",
+        "Calculate and display the categoria result",
+        "Calculate and display the peso_min result",
+        "Calculate and display the peso_max result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "de": {
+      "name": "BMI deportista",
+      "desc": "Berechnen Sie bMI deportista online. Geben Sie peso kg, altura cm ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "BMI deportista | CalcToWork",
+      "seo_desc": "BMI deportista online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "BMI deportista online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "peso_kg": "Peso Kg",
+        "altura_cm": "Altura Cm"
+      },
+      "outputs": {
+        "imc": "Imc",
+        "categoria": "Categoria",
+        "peso_min": "Peso Min",
+        "peso_max": "Peso Max"
+      },
+      "example_label": "Calcular índice de masa corporal para 75 × 180.",
+      "range_hints": {
+        "peso_kg": "Valor típico entre 20 y 300. Valor por defecto: 75.",
+        "altura_cm": "Valor típico entre 50 y 250. Valor por defecto: 180."
+      },
+      "result_context": "Ihr BMI beträgt {imc} kg/m² (Kategorie: {categoria}), mit einem Normalgewichtsbereich zwischen {peso_min} und {peso_max} kg.",
+      "formula_display": "IMC = peso ÷ altura²",
+      "steps": [
+        "Medir altura en metros",
+        "Elevar altura al cuadrado",
+        "Dividir peso por altura²",
+        "Interpretar resultado según tabla OMS"
+      ],
+      "mistakes": [
+        "No convertir altura a metros",
+        "Interpretar sin considerar masa muscular",
+        "Usar para niños sin ajustes"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Imc Sportivo",
+      "desc": "Calcola BMI = Weight (kg) / Height² (m) ââ‚¬” in athletes, adjust for body composition. Esempio: Rugby player: 100 kg, 1.85 m = BMI = 29.2 (overweight by...",
+      "description": "Calcolatore Imc Sportivo",
+      "seo_title": "Calcolatore Imc Sportivo – Strumento Gratuito",
+      "seo_description": "Calcola BMI = Weight (kg) / Height² (m) ââ‚¬” in athletes, adjust for body composition. Esempio: Rugby player: 100 kg, 1.85 m = BMI = 29.2 (overweight by...",
+      "inputs": {
+        "peso_kg": "Peso (kg)",
+        "altura_cm": "Altezza (cm)"
+      },
+      "outputs": {
+        "imc": "IMC",
+        "categoria": "Categoria",
+        "peso_min": "Peso minimo",
+        "peso_max": "Peso massimo"
+      },
+      "example_label": "Calculate imc dipertista with peso_kg 75, altezza_cm 180.",
+      "range_hints": {
+        "peso_kg": "Tepical range: 20-300.",
+        "altura_cm": "Tepical range: 50-250."
+      },
+      "result_context": "Your calculated imc is {imc}.",
+      "formula_display": "Calculate imc dipertista based on input values.",
+      "steps": [
+        "Enter input values: peso_kg: 75, altezza_cm: 180",
+        "Calculate and displae the imc result",
+        "Calculate and displae the categoria result",
+        "Calculate and displae the peso_min result",
+        "Calculate and displae the peso_max result"
+      ],
+      "mistakes": [
+        "Confusenzag unit options whin intering values",
+        "Entering zero or negative values where posetive required",
+        "Usenzag incorrect input values outsedi recommindid range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        }
+      ]
+    }
+  }
+}

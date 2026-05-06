@@ -1,0 +1,482 @@
+{
+  "id": "071",
+  "slug": "esmalte-sintetico",
+  "block": 8,
+  "block_slug": "pintura",
+  "inputs": [
+    {
+      "id": "area_m2",
+      "type": "number",
+      "min": 0.5,
+      "max": 500,
+      "step": 0.5,
+      "default": 20,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "manos",
+      "type": "number",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2,
+      "unit": "manos",
+      "unit_options": [
+        "coats"
+      ],
+      "unit_category": "count"
+    },
+    {
+      "id": "rendimiento_m2_l",
+      "type": "number",
+      "min": 8,
+      "max": 16,
+      "step": 1,
+      "default": 12,
+      "unit": "m²/L",
+      "unit_options": [
+        "m²/L"
+      ],
+      "unit_category": "yield"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area_m2)||0,M=parseFloat(inputs.manos)||2,R=parseFloat(inputs.rendimiento_m2_l)||12;if(!A)return{error:true};var litros=+(A*M/R*1.1).toFixed(2),imprimacion=+(A/R*1.1).toFixed(2),botes=Math.ceil(litros/0.75);return{litros_esmalte:litros,litros_imprimacion:imprimacion,botes_075L:botes};",
+  "outputs": [
+    {
+      "id": "litros_esmalte",
+      "unit": "L (+10%)",
+      "highlight": true
+    },
+    {
+      "id": "litros_imprimacion",
+      "unit": "L imprimación"
+    },
+    {
+      "id": "botes_075L",
+      "unit": "botes 0.75L"
+    }
+  ],
+  "related": [
+    "072",
+    "075",
+    "069",
+    "070"
+  ],
+  "example_inputs": {
+    "area_m2": 50,
+    "manos": 30,
+    "rendimiento_m2_l": 50
+  },
+  "example_label": "Ejemplo para esmalte sintetico: valores 20m², 2manos, 12m²/L",
+  "range_hints": {
+    "area_m2": "Valor típico entre 0.5 y 500. Valor por defecto: 20 m².",
+    "manos": "Valor típico entre 1 y 3. Valor por defecto: 2 manos.",
+    "rendimiento_m2_l": "Valor típico entre 8 y 16. Valor por defecto: 12 m²/L."
+  },
+  "result_context": "Resultados: {litros_esmalte} L de esmalte con merma, {litros_imprimacion} L de imprimación, {botes_075L} botes de 0,75 L.",
+  "formula_display": "M ÷ R → litros_esmalte, litros_imprimacion",
+  "steps": [
+    "Introducir los valores de area_m2, manos y rendimiento_m2_l",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+    "Calcular los valores de litros esmalte y litros imprimacion",
+    "El resultado se expresa en L (+10%). Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Introducir valores con unidades incorrectas sin verificar la conversión",
+    "Redondear resultados intermedios en lugar del resultado final",
+    "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "area_m2",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "manos",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "rendimiento_m2_l",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small room",
+      "area_m2": 25,
+      "rendimiento_m2_l": 16,
+      "manos": 30
+    },
+    {
+      "_label": "Medium room",
+      "area_m2": 37.5,
+      "rendimiento_m2_l": 16,
+      "manos": 30
+    },
+    {
+      "_label": "Large room",
+      "area_m2": 50,
+      "rendimiento_m2_l": 16,
+      "manos": 30
+    },
+    {
+      "_label": "Office",
+      "area_m2": 75,
+      "rendimiento_m2_l": 16,
+      "manos": 30
+    },
+    {
+      "_label": "Hall",
+      "area_m2": 100,
+      "rendimiento_m2_l": 16,
+      "manos": 30
+    }
+  ],
+  "units": {
+    "area_m2": "m²"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Esmalte Sintético",
+      "desc": "Calcula los litros de esmalte sintético e imprimación para pintar puertas, ventanas y estructuras metálicas. Calculadora facil de usar con desglose de.",
+      "seo_title": "Calculadora Esmalte – Madera y Metal",
+      "inputs": {
+        "area_m2": "Área a esmaltar",
+        "manos": "Número de manos",
+        "rendimiento_m2_l": "Rendimiento (m²/L)"
+      },
+      "outputs": {
+        "litros_esmalte": "Litros esmalte (+10%)",
+        "litros_imprimacion": "Litros imprimación",
+        "botes_075L": "Botes de 0.75L"
+      },
+      "seo_description": "Calcula los litros de esmalte sintético e imprimación para pintar puertas, ventanas y estructuras metálicas. Calculadora facil de usar con desglose de.",
+      "example_label": "Estimar esmalte sintetico necesario para superficie de 50 m².",
+      "range_hints": {
+        "area_m2": "Valor entre 0.5 y 500 m².",
+        "manos": "Valor entre 1 y 3 manos.",
+        "rendimiento_m2_l": "Valor entre 8 y 16 m²/L."
+      },
+      "result_context": "La cantidad calculada de {litros_esmalte} L (+10%) incluye 10% de merma. Ajusta segun porosidad del soporte.",
+      "formula_display": "Formula especifica para esmalte-sintetico - consulta documentacion tecnica.",
+      "steps": [
+        "Introduce area m2: 50 m²",
+        "Introduce manos: 30 manos",
+        "Introduce rendimiento m2 l: 50 m²/L",
+        "Pulsa calcular para obtener resultados",
+        "Interpreta resultado: {litros_esmalte}"
+      ],
+      "mistakes": [
+        "No considerar absorcion del soporte en consumo",
+        "Olvidar aplicar imprimacion antes del acabado",
+        "No añadir merma por herramientas (10-15%)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "manos",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "rendimiento_m2_l",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        }
+      ]
+    },
+    "en": {
+      "name": "Synthetic Enamel Calculator",
+      "desc": "Synthetic Enamel Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Enamel Paint Calculator – Wood & Metal",
+      "inputs": {
+        "area_m2": "Area to enamel",
+        "manos": "Number of coats",
+        "rendimiento_m2_l": "Coverage (m²/L)"
+      },
+      "outputs": {
+        "litros_esmalte": "Enamel litres (+10%)",
+        "litros_imprimacion": "Primer litres",
+        "botes_075L": "0.75L cans"
+      },
+      "seo_description": "Calculate the litres of synthetic enamel and primer for painting doors, windows and metal structures. Easy-to-use calculator with formula breakdown and.",
+      "example_label": "Estimar esmalte sintetico necesario para superficie de 50 m².",
+      "range_hints": {
+        "area_m2": "Valor entre 0.5 y 500 m².",
+        "manos": "Valor entre 1 y 3 manos.",
+        "rendimiento_m2_l": "Valor entre 8 y 16 m²/L."
+      },
+      "result_context": "La cantidad calculada de {litros_esmalte} L (+10%) incluye 10% de merma. Ajusta segun porosidad del soporte.",
+      "formula_display": "Formula especifica para esmalte-sintetico - consulta documentacion tecnica.",
+      "steps": [
+        "Introduce area m2: 50 m²",
+        "Introduce manos: 30 manos",
+        "Introduce rendimiento m2 l: 50 m²/L",
+        "Pulsa calcular para obtener resultados",
+        "Interpreta resultado: {litros_esmalte}"
+      ],
+      "mistakes": [
+        "No considerar absorcion del soporte en consumo",
+        "Olvidar aplicar imprimacion antes del acabado",
+        "No añadir merma por herramientas (10-15%)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "manos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "rendimiento_m2_l",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Laque Synthétique",
+      "desc": "Calculez les litres de laque synthétique et primaire pour peindre portes, fenêtres et structures métalliques. Calculatrice facile a utiliser avec.",
+      "seo_title": "Calculateur Laque – Bois et Métal",
+      "inputs": {
+        "area_m2": "Surface à laquer",
+        "manos": "Nombre de couches",
+        "rendimiento_m2_l": "Rendement (m²/L)"
+      },
+      "outputs": {
+        "litros_esmalte": "Litres laque (+10%)",
+        "litros_imprimacion": "Litres primaire",
+        "botes_075L": "Pots 0,75L"
+      },
+      "seo_description": "Calculez les litres de laque synthétique et primaire pour peindre portes, fenêtres et structures métalliques. Calculatrice facile a utiliser avec.",
+      "example_label": "Estimar esmalte sintetico nécessaire pour surface de 50 m².",
+      "range_hints": {
+        "area_m2": "Valor entre 0.5 et 500 m².",
+        "manos": "Valor entre 1 et 3 manos.",
+        "rendimiento_m2_l": "Valor entre 8 et 16 m²/L."
+      },
+      "result_context": "la quantité calculée de {litros_esmalte} L (+10%) incluye 10% de merma. Ajusta segun porosidad du soporte.",
+      "formula_display": "Formula especifica pour esmalte-sintetico - consulta documentacion tecnica.",
+      "steps": [
+        "Introduce area m2: 50 m²",
+        "Introduce manos: 30 manos",
+        "Introduce rendimiento m2 l: 50 m²/L",
+        "Pulsa Calculer pour obtener resultados",
+        "Interpreta resultado: {litros_esmalte}"
+      ],
+      "mistakes": [
+        "Ne pas considérer absorcion du soporte dans consumo",
+        "Oublier aplicar imprimacion antes du acabado",
+        "No añadir merma par herramientas (10-15%)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        },
+        {
+          "field_id": "manos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        },
+        {
+          "field_id": "rendimiento_m2_l",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Esmalte Sintético",
+      "desc": "Calcule litros de esmalte sintético e fundo preparador para portas, janelas e estruturas. Calculadora facil de usar com detalhamento da formula.",
+      "seo_title": "Calculadora Esmalte – Madeira e Metal",
+      "inputs": {
+        "area_m2": "Área a esmaltar",
+        "manos": "Número de demãos",
+        "rendimiento_m2_l": "Rendimento (m²/L)"
+      },
+      "outputs": {
+        "litros_esmalte": "Litros esmalte (+10%)",
+        "litros_imprimacion": "Litros fundo",
+        "botes_075L": "Potes 900mL"
+      },
+      "seo_description": "Calcule litros de esmalte sintético e fundo preparador para portas, janelas e estruturas. Calculadora facil de usar com detalhamento da formula.",
+      "example_label": "Estimar esmalte sintetico necessário para superfície de 50 m².",
+      "range_hints": {
+        "area_m2": "Valor entre 0.5 e 500 m².",
+        "manos": "Valor entre 1 e 3 manos.",
+        "rendimiento_m2_l": "Valor entre 8 e 16 m²/L."
+      },
+      "result_context": "La quantidade calculada de {litros_esmalte} L (+10%) incluye 10% de merma. Ajusta segun porosidad do soporte.",
+      "formula_display": "Formula especifica para esmalte-sintetico - consulta documentacion tecnica.",
+      "steps": [
+        "Introduce area m2: 50 m²",
+        "Introduce manos: 30 manos",
+        "Introduce desempenho m2 l: 50 m²/L",
+        "Pulsa calcular para obter resultados",
+        "Interpreta resultado: {litros_esmalte}"
+      ],
+      "mistakes": [
+        "Não considerar absorcion do soporte em consumo",
+        "Esquecer aplicar imprimacion antes do acabamento",
+        "Não adicionar merma por herramientas (10-15%)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        },
+        {
+          "field_id": "manos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        },
+        {
+          "field_id": "rendimiento_m2_l",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        }
+      ]
+    },
+    "de": {
+      "name": "Lack Kunstharz",
+      "desc": "Berechnen Sie lack Kunstharz online. Geben Sie area m2, manos, rendimiento m2 l ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Lack Kunstharz | CalcToWork",
+      "seo_desc": "Lack Kunstharz online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Lack Kunstharz online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "area_m2": "Area M2",
+        "manos": "Manos",
+        "rendimiento_m2_l": "Rendimiento M2 L"
+      },
+      "outputs": {
+        "litros_esmalte": "Litros Esmalte",
+        "litros_imprimacion": "Litros Imprimacion",
+        "botes_075L": "Botes 075L"
+      },
+      "example_label": "Ejemplo para esmalte sintetico: valores 20m², 2manos, 12m²/L",
+      "range_hints": {
+        "area_m2": "Valor típico entre 0.5 y 500. Valor por defecto: 20 m².",
+        "manos": "Valor típico entre 1 y 3. Valor por defecto: 2 manos.",
+        "rendimiento_m2_l": "Valor típico entre 8 y 16. Valor por defecto: 12 m²/L."
+      },
+      "result_context": "Resultados: {litros_esmalte} L de esmalte con merma, {litros_imprimacion} L de imprimación, {botes_075L} botes de 0,75 L.",
+      "formula_display": "M ÷ R → litros_esmalte, litros_imprimacion",
+      "steps": [
+        "Introducir los valores de area_m2, manos y rendimiento_m2_l",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+        "Calcular los valores de litros esmalte y litros imprimacion",
+        "El resultado se expresa en L (+10%). Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Introducir valores con unidades incorrectas sin verificar la conversión",
+        "Redondear resultados intermedios en lugar del resultado final",
+        "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "manos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "rendimiento_m2_l",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Pittura Epossidica",
+      "description": "Calcola la resina epossidica per pavimenti industriali.",
+      "seo_title": "Calcolatore Smalto – Legno e Metallo",
+      "seo_description": "Calcola i kg di resina epossidica per la verniciatura di pavimenti Usato da professionisti e studenti in tutto il mondo.",
+      "inputs": {
+        "area": "Superficie (m²)",
+        "capas": "Numero di mani",
+        "rendimiento": "Resa (m²/kg)"
+      },
+      "outputs": {
+        "kg_necesarios": "kg necessari",
+        "botes_4kg": "Latte da 4 kg"
+      },
+      "example_label": "Stimare esmalte senzatetico necessario per superficie di 50 m².",
+      "range_hints": {
+        "area_m2": "Valor intre 0.5 e 500 m².",
+        "manos": "Valor intre 1 e 3 manons.",
+        "rendimiento_m2_l": "Valor intre 8 e 16 m²/L."
+      },
+      "result_context": "La quantità calculada di {litros_esmalte} L (+10%) incluee 10% di merma. Ajusta segun perosedad dil supperto.",
+      "formula_display": "Formula especifica per esmalte-senzatetico - consulta documintacion tecnica.",
+      "steps": [
+        "Introduce area m2: 50 m²",
+        "Introduce manons: 30 manons",
+        "Introduce rindimiinto m2 l: 50 m²/L",
+        "Pulsa calcolare per obtiner risultati",
+        "Interpreta risultato: {litros_esmalte}"
+      ],
+      "mistakes": [
+        "Non consedirare absorcion dil supperto in consumo",
+        "Diminticare aplicar imprimacion prima dil finitura",
+        "No añadir merma per herramiintas (10-15%)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        },
+        {
+          "field_id": "manos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        },
+        {
+          "field_id": "rendimiento_m2_l",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        }
+      ]
+    }
+  }
+}

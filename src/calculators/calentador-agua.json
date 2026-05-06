@@ -1,0 +1,537 @@
+{
+  "id": "035",
+  "slug": "calentador-agua",
+  "block": 4,
+  "block_slug": "fontaneria",
+  "inputs": [
+    {
+      "id": "litros_deposito",
+      "type": "number",
+      "min": 30,
+      "max": 500,
+      "step": 10,
+      "default": 80,
+      "unit": "L",
+      "unit_options": [
+        "L",
+        "mL",
+        "gal"
+      ],
+      "unit_category": "volume"
+    },
+    {
+      "id": "temp_entrada_c",
+      "type": "number",
+      "min": 5,
+      "max": 20,
+      "step": 1,
+      "default": 12,
+      "unit": "°C",
+      "unit_options": [
+        "°C",
+        "°F",
+        "K"
+      ],
+      "unit_category": "temperature"
+    },
+    {
+      "id": "temp_salida_c",
+      "type": "number",
+      "min": 40,
+      "max": 75,
+      "step": 1,
+      "default": 55,
+      "unit": "°C",
+      "unit_options": [
+        "°C",
+        "°F",
+        "K"
+      ],
+      "unit_category": "temperature"
+    },
+    {
+      "id": "horas_calentamiento",
+      "type": "number",
+      "min": 0.5,
+      "max": 8,
+      "step": 0.5,
+      "default": 2,
+      "unit": "h",
+      "unit_options": [
+        "h",
+        "min"
+      ],
+      "unit_category": "time"
+    }
+  ],
+  "formula": "var V=parseFloat(inputs.litros_deposito)||0,Ti=parseFloat(inputs.temp_entrada_c)||12,Ts=parseFloat(inputs.temp_salida_c)||55,H=parseFloat(inputs.horas_calentamiento)||2;if(!V)return{error:true};var kw=+(V*(Ts-Ti)*1.163/1000/H).toFixed(2),kwh=+(V*(Ts-Ti)*1.163/1000).toFixed(2);return{potencia_kw:kw,energia_kwh:kwh,consumo_mes_kwh:+(kwh*30).toFixed(1)};",
+  "outputs": [
+    {
+      "id": "potencia_kw",
+      "unit": "kW",
+      "highlight": true
+    },
+    {
+      "id": "energia_kwh",
+      "unit": "kWh/ciclo"
+    },
+    {
+      "id": "consumo_mes_kwh",
+      "unit": "kWh/mes (1 ciclo/día)"
+    }
+  ],
+  "related": [
+    "036",
+    "034",
+    "052",
+    "031"
+  ],
+  "example_inputs": {
+    "litros_deposito": 80,
+    "temp_entrada_c": 12,
+    "temp_salida_c": 55,
+    "horas_calentamiento": 2
+  },
+  "example_label": "Calcular cal para 80 L × 12 °C × 55 °C × 2 h.",
+  "range_hints": {
+    "litros_deposito": "Valor típico entre 30 y 500. Valor por defecto: 80 L.",
+    "temp_entrada_c": "Valor típico entre 5 y 20. Valor por defecto: 12 °C.",
+    "temp_salida_c": "Valor típico entre 40 y 75. Valor por defecto: 55 °C.",
+    "horas_calentamiento": "Valor típico entre 0.5 y 8. Valor por defecto: 2 h."
+  },
+  "result_context": "Resultados: {potencia_kw} kW de potencia, {energia_kwh} kWh por ciclo, {consumo_mes_kwh} kWh al mes.",
+  "formula_display": "163 ÷ 1000 → potencia_kw, energia_kwh",
+  "steps": [
+    "Introducir los valores de litros_deposito, temp_entrada_c, temp_salida_c y horas_calentamiento",
+    "Verificar que las unidades sean correctas y convertir si es necesario (L, mL, gal)",
+    "Calcular los valores de potencia kw y energia kwh",
+    "El resultado se expresa en kW. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "No respetar la pendiente mínima del 2% en tuberías de saneamiento",
+    "Usar tubería de pared delgada para instalaciones enterradas",
+    "No instalar válvulas de corte en puntos clave de la instalación"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "litros_deposito",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "temp_entrada_c",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "temp_salida_c",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "horas_calentamiento",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small bathroom",
+      "litros_deposito": 40,
+      "temp_salida_c": 40,
+      "temp_entrada_c": 12,
+      "horas_calentamiento": 2
+    },
+    {
+      "_label": "Medium bathroom",
+      "litros_deposito": 60,
+      "temp_salida_c": 41,
+      "temp_entrada_c": 12,
+      "horas_calentamiento": 2
+    },
+    {
+      "_label": "Large bathroom",
+      "litros_deposito": 80,
+      "temp_salida_c": 55,
+      "temp_entrada_c": 12,
+      "horas_calentamiento": 2
+    },
+    {
+      "_label": "Apartment",
+      "litros_deposito": 120,
+      "temp_salida_c": 75,
+      "temp_entrada_c": 12,
+      "horas_calentamiento": 2
+    },
+    {
+      "_label": "House",
+      "litros_deposito": 160,
+      "temp_salida_c": 75,
+      "temp_entrada_c": 12,
+      "horas_calentamiento": 2
+    }
+  ],
+  "units": {
+    "litros_deposito": "m³",
+    "temp_entrada_c": "°C",
+    "temp_salida_c": "°C",
+    "horas_calentamiento": "s"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Calentador de Agua",
+      "desc": "Calcula la potencia en kW necesaria para un calentador eléctrico según el volumen y tiempo de calentamiento. Introduce tus valores y obtiene resultados.",
+      "seo_title": "Calculadora Calentador Eléctrico – kW",
+      "seo_desc": "Calcula la potencia en kW necesaria para un calentador eléctrico según el volumen y tiempo de calentamiento. Introduce tus valores y obtiene resultados.",
+      "inputs": {
+        "litros_deposito": "Capacidad depósito",
+        "temp_entrada_c": "Temperatura de entrada (°C)",
+        "temp_salida_c": "Temperatura de salida (°C)",
+        "horas_calentamiento": "Tiempo de calentamiento"
+      },
+      "outputs": {
+        "potencia_kw": "Potencia necesaria",
+        "energia_kwh": "Energía por ciclo",
+        "consumo_mes_kwh": "Consumo mensual"
+      },
+      "seo_description": "Calcula la potencia (kW) y el consumo eléctrico (kWh) de tu termo de agua caliente según la capacidad, temperaturas de entrada y salida, y tiempo de calentamiento. Aplica el RITE y CTE-HE4.",
+      "example_label": "Calcular potencia de calentador para 100L de agua, de 15°C a 60°C en 2 horas.",
+      "range_hints": {
+        "litros_deposito": "Capacidad del termo/acumulador",
+        "temp_entrada_c": "Temperatura del agua de red (varía por estación)",
+        "temp_salida_c": "Temperatura de uso: 45-50°C ducha, 60°C para legionela",
+        "horas_calentamiento": "Tiempo deseado para calentar el depósito completo"
+      },
+      "result_context": "Para calentar {litros_deposito}L de {temp_entrada_c}°C a {temp_salida_c}°C en {horas_calentamiento}h se necesita potencia de {potencia_kw} kW ({potencia_w} W). Energía requerida: {energia_kwh} kWh.",
+      "formula_display": "Î”T = T_salida - T_entrada; Energía = litros × Î”T × 0.00116; Potencia = energía ÷ horas",
+      "steps": [
+        "Calcular diferencia de temperatura: 60°C - 15°C = 45°C",
+        "Calcular energía: 100L × 45°C × 0.00116 = 5.22 kWh",
+        "Calcular potencia: 5.22 kWh ÷ 2h = 2.61 kW",
+        "Considerar pérdidas: 2.61 kW × 1.15 = 3.0 kW (potencia comercial)"
+      ],
+      "mistakes": [
+        "No programar temperatura mínima de 60°C para evitar legionela",
+        "Dimensionar potencia insuficiente (tiempo de recuperación muy largo)",
+        "No considerar tarifa eléctrica para programar calentamiento en horas valle"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "litros_deposito",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "temp_entrada_c",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "temp_salida_c",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "horas_calentamiento",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Electric Water Heater Calculator",
+      "desc": "Electric Water Heater Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Electric Water Heater Calculator – kW",
+      "seo_desc": "Electric Water Heater Calculator. Tank capacity, Inlet temperature (°C), Outlet temperature (°C) — get Required power, Energy per cycle, Monthly.",
+      "inputs": {
+        "litros_deposito": "Tank capacity",
+        "temp_entrada_c": "Inlet temperature (°C)",
+        "temp_salida_c": "Outlet temperature (°C)",
+        "horas_calentamiento": "Heating time"
+      },
+      "outputs": {
+        "potencia_kw": "Required power",
+        "energia_kwh": "Energy per cycle",
+        "consumo_mes_kwh": "Monthly consumption"
+      },
+      "seo_description": "Calculate the power (kW) and electricity consumption (kWh) of your water heater by capacity, inlet/outlet temperatures and heating time. Applies RITE and CTE-HE4 standards.",
+      "example_label": "Calcular potencia de calentador para 100L de agua, de 15°C a 60°C en 2 horas.",
+      "range_hints": {
+        "litros_deposito": "Capacidad del termo/acumulador",
+        "temp_entrada_c": "Temperatura del agua de red (varía por estación)",
+        "temp_salida_c": "Temperatura de uso: 45-50°C ducha, 60°C para legionela",
+        "horas_calentamiento": "Tiempo deseado para calentar el depósito completo"
+      },
+      "result_context": "Para calentar {litros_deposito}L de {temp_entrada_c}°C a {temp_salida_c}°C en {horas_calentamiento}h se necesita potencia de {potencia_kw} kW ({potencia_w} W). Energía requerida: {energia_kwh} kWh.",
+      "formula_display": "Î”T = T_salida - T_entrada; Energía = litros × Î”T × 0.00116; Potencia = energía ÷ horas",
+      "steps": [
+        "Calcular diferencia de temperatura: 60°C - 15°C = 45°C",
+        "Calcular energía: 100L × 45°C × 0.00116 = 5.22 kWh",
+        "Calcular potencia: 5.22 kWh ÷ 2h = 2.61 kW",
+        "Considerar pérdidas: 2.61 kW × 1.15 = 3.0 kW (potencia comercial)"
+      ],
+      "mistakes": [
+        "No programar temperatura mínima de 60°C para evitar legionela",
+        "Dimensionar potencia insuficiente (tiempo de recuperación muy largo)",
+        "No considerar tarifa eléctrica para programar calentamiento en horas valle"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "litros_deposito",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "temp_entrada_c",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "temp_salida_c",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "horas_calentamiento",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Chauffe-Eau",
+      "desc": "Calculez la puissance en kW nécessaire pour un chauffe-eau selon le nombre de personnes, les douches simultanées et la température d'eau froide.",
+      "seo_title": "Calculateur Chauffe-Eau – Puissance kW et Capacité",
+      "seo_desc": "Calculez la puissance (kW) et la capacité (L) du chauffe-eau selon le nombre d'occupants, l'usage simultané et la température d'entrée. Pour chauffe-eau instantanés gaz et ballons électriques. Utilisé par les professionnels.",
+      "inputs": {
+        "personas": "Nombre de personnes",
+        "uso_simultaneo": "Douches simultanées",
+        "temperatura_entrada": "Température d'entrée"
+      },
+      "outputs": {
+        "potencia_kw": "Puissance nécessaire",
+        "capacidad_litros": "Capacité recommandée",
+        "tipo_recomendado": "Type recommandé"
+      },
+      "seo_description": "Calculez la puissance thermique (kW) avec la formule P = Débit × 4.18 × ΔT et recommandez la capacité de stockage (30-50 L par personne). Pour chauffe-eau instantanés gaz et ballons électriques.",
+      "example_label": "Dimensionner un chauffe-eau pour 4 personnes avec 2 douches simultanées et 10°C de température d'entrée.",
+      "range_hints": {
+        "personas": "1-2 personnes=30-50L, 3-4 personnes=80-100L, 5-6 personnes=150L.",
+        "uso_simultaneo": "1 douche=12 L/min, 2 douches=24 L/min, baignoire=18-20 L/min.",
+        "temperatura_entrada": "Hiver : 5-10°C, été : 15-20°C. Plus la T est basse, plus la puissance nécessaire est élevée."
+      },
+      "result_context": "Pour {personas} personnes avec {uso_simultaneo} douches simultanées et {temperatura_entrada}°C d'entrée : puissance nécessaire {potencia_kw} kW, capacité recommandée {capacidad_litros} L. Recommandation : {tipo_recomendado}.",
+      "formula_display": "P(kW) = Débit(L/s) × 4.18 × (T_sortie − T_entrée)",
+      "steps": [
+        "Compter les personnes et estimer les douches simultanées : 1 douche=12 L/min, 2 simultanées=24 L/min",
+        "Mesurer la température d'eau froide : 10°C en hiver, 15-20°C en été selon la région",
+        "Définir la température de confort : 38-42°C pour la douche",
+        "Puissance thermique : P(kW) = débit(L/s) × 4.18 × (T_confort − T_froide)",
+        "Pour accumulation : 30-50 L par personne. Pour instantané : choisir puissance commerciale (24, 28, 32 kW)"
+      ],
+      "mistakes": [
+        "Choisir un chauffe-eau uniquement par capacité sans vérifier la puissance",
+        "Ne pas tenir compte de la dureté de l'eau : le calcaire réduit l'efficacité",
+        "Installer un chauffe-eau instantané sans vérifier la puissance électrique suffisante (24kW≈105A monophasé)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "personas",
+          "reason": "Correct : nombre de personnes dans le logement"
+        },
+        {
+          "field_id": "uso_simultaneo",
+          "reason": "Correct : douches simultanées"
+        },
+        {
+          "field_id": "temperatura_entrada",
+          "reason": "Correct : température de l'eau froide en °C"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Aquecedor Elétrico",
+      "desc": "Calcule a potência em kW necessária para um aquecedor elétrico Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora Aquecedor Elétrico – kW",
+      "inputs": {
+        "litros_deposito": "Capacidade do boiler",
+        "temp_entrada_c": "Temperatura de entrada (°C)",
+        "temp_salida_c": "Temperatura de saída (°C)",
+        "horas_calentamiento": "Tempo de aquecimento"
+      },
+      "outputs": {
+        "potencia_kw": "Potência necessária",
+        "energia_kwh": "Energia por ciclo",
+        "consumo_mes_kwh": "Consumo mensal"
+      },
+      "seo_description": "Calcule a potência em kW necessária para um aquecedor elétrico. Ferramenta gratuita usada por profissionais e estudantes.",
+      "example_label": "Calcular potencia de calentador para 100L de água, de 15°C a 60°C em 2 horas.",
+      "range_hints": {
+        "litros_deposito": "Capacidad do termo/acumulador",
+        "temp_entrada_c": "Temperatura do água de red (varía por estación)",
+        "temp_salida_c": "Temperatura de uso: 45-50°C ducha, 60°C para legionela",
+        "horas_calentamiento": "Tiempo deseado para calentar o depósito completo"
+      },
+      "result_context": "Para calentar {litros_deposito}L de {temp_entrada_c}°C a {temp_salida_c}°C em {horas_calentamiento}h se necesita potencia de {potencia_kw} kW ({potencia_w} W). Energía requerida: {energia_kwh} kWh.",
+      "formula_display": "Î”T = T_salida - T_entrada; Energía = litros × Î”T × 0.00116; Potencia = energía ÷ horas",
+      "steps": [
+        "Calcular diferencia de temperatura: 60°C - 15°C = 45°C",
+        "Calcular energía: 100L × 45°C × 0.00116 = 5.22 kWh",
+        "Calcular potencia: 5.22 kWh ÷ 2h = 2.61 kW",
+        "Considerar pérdidas: 2.61 kW × 1.15 = 3.0 kW (potencia comercial)"
+      ],
+      "mistakes": [
+        "Não programar temperatura mínima de 60°C para evitar legionela",
+        "Dimensionar potencia insuficiente (tiempo de recuperación muy comprimento)",
+        "Não considerar tarifa eléctrica para programar calentamiento em horas valle"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "litros_deposito",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "temp_entrada_c",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "temp_salida_c",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "horas_calentamiento",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Warmwasserbereiter Wasser",
+      "desc": "Berechnen Sie warmwasserbereiter Wasser online. Geben Sie litros deposito, temp entrada c, temp salida c ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Warmwasserbereiter Wasser | CalcToWork",
+      "seo_desc": "Warmwasserbereiter Wasser online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Warmwasserbereiter Wasser online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "litros_deposito": "Litros Deposito",
+        "temp_entrada_c": "Temp Entrada C",
+        "temp_salida_c": "Temp Salida C",
+        "horas_calentamiento": "Horas Calentamiento"
+      },
+      "outputs": {
+        "potencia_kw": "Potencia Kw",
+        "energia_kwh": "Energia Kwh",
+        "consumo_mes_kwh": "Consumo Mes Kwh"
+      },
+      "example_label": "Calcular cal para 80 L × 12 °C × 55 °C × 2 h.",
+      "range_hints": {
+        "litros_deposito": "Valor típico entre 30 y 500. Valor por defecto: 80 L.",
+        "temp_entrada_c": "Valor típico entre 5 y 20. Valor por defecto: 12 °C.",
+        "temp_salida_c": "Valor típico entre 40 y 75. Valor por defecto: 55 °C.",
+        "horas_calentamiento": "Valor típico entre 0.5 y 8. Valor por defecto: 2 h."
+      },
+      "result_context": "Resultados: {potencia_kw} kW de potencia, {energia_kwh} kWh por ciclo, {consumo_mes_kwh} kWh al mes.",
+      "formula_display": "163 ÷ 1000 → potencia_kw, energia_kwh",
+      "steps": [
+        "Introducir los valores de litros_deposito, temp_entrada_c, temp_salida_c y horas_calentamiento",
+        "Verificar que las unidades sean correctas y convertir si es necesario (L, mL, gal)",
+        "Calcular los valores de potencia kw y energia kwh",
+        "El resultado se expresa en kW. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "No respetar la pendiente mínima del 2% en tuberías de saneamiento",
+        "Usar tubería de pared delgada para instalaciones enterradas",
+        "No instalar válvulas de corte en puntos clave de la instalación"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "litros_deposito",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "temp_entrada_c",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "temp_salida_c",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "horas_calentamiento",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Scaldacqua",
+      "desc": "Calcola la potenza in kW necessaria per uno scaldacqua in base al numero di persone, docce simultanee e temperatura dell'acqua in ingresso.",
+      "seo_title": "Calcolatore Scaldacqua – Potenza kW e Capacità",
+      "seo_desc": "Calcola la potenza (kW) e la capacità (L) dello scaldacqua in base a persone, uso simultaneo e temperatura di ingresso. Per scaldacqua istantanei a gas e boiler elettrici. Usato da professionisti.",
+      "inputs": {
+        "personas": "Numero di persone",
+        "uso_simultaneo": "Docce simultanee",
+        "temperatura_entrada": "Temperatura di ingresso"
+      },
+      "outputs": {
+        "potencia_kw": "Potenza necessaria",
+        "capacidad_litros": "Capacità consigliata",
+        "tipo_recomendado": "Tipo consigliato"
+      },
+      "seo_description": "Calcola la potenza termica (kW) con la formula P = Portata × 4.18 × ΔT e consiglia la capacità di accumulo (30-50 L per persona). Per scaldacqua istantanei a gas e boiler elettrici.",
+      "example_label": "Dimensionare scaldacqua per 4 persone con 2 docce simultanee e temperatura di ingresso di 10°C.",
+      "range_hints": {
+        "personas": "1-2 persone=30-50L, 3-4 persone=80-100L, 5-6 persone=150L.",
+        "uso_simultaneo": "1 doccia=12 L/min, 2 docce=24 L/min, vasca=18-20 L/min.",
+        "temperatura_entrada": "Inverno: 5-10°C, estate: 15-20°C. Minore è la T, maggiore è la potenza necessaria."
+      },
+      "result_context": "Per {personas} persone con {uso_simultaneo} docce simultanee e {temperatura_entrada}°C di ingresso: potenza necessaria {potencia_kw} kW, capacità consigliata {capacidad_litros} L. Consiglio: {tipo_recomendado}.",
+      "formula_display": "P(kW) = Portata(L/s) × 4.18 × (T_uscita − T_ingresso)",
+      "steps": [
+        "Contare le persone e stimare le docce simultanee: 1 doccia=12 L/min, 2 simultanee=24 L/min",
+        "Misurare la temperatura dell'acqua fredda: 10°C in inverno, 15-20°C in estate secondo la zona",
+        "Definire la temperatura di comfort: 38-42°C per la doccia",
+        "Potenza termica: P(kW) = portata(L/s) × 4.18 × (T_comfort − T_fredda)",
+        "Per accumulo: 30-50 L per persona. Per istantaneo: scegliere potenza commerciale (24, 28, 32 kW)"
+      ],
+      "mistakes": [
+        "Scegliere lo scaldacqua solo per capacità senza verificare la potenza",
+        "Non considerare la durezza dell'acqua: il calcare riduce l'efficienza",
+        "Installare scaldacqua istantaneo senza verificare la potenza elettrica sufficiente (24kW≈105A monofase)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "personas",
+          "reason": "Corretto: numero di persone nell'abitazione"
+        },
+        {
+          "field_id": "uso_simultaneo",
+          "reason": "Corretto: docce simultanee"
+        },
+        {
+          "field_id": "temperatura_entrada",
+          "reason": "Corretto: temperatura acqua fredda in °C"
+        }
+      ]
+    }
+  }
+}

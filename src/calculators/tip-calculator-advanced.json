@@ -1,0 +1,497 @@
+{
+  "id": "944",
+  "slug": "tip-calculator-advanced",
+  "block": 14,
+  "block_slug": "cotidiano",
+  "inputs": [
+    {
+      "id": "cuenta",
+      "type": "number",
+      "min": 0,
+      "max": 99999,
+      "step": 0.01,
+      "default": 100,
+      "unit": "EUR"
+    },
+    {
+      "id": "porcentaje",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "step": 0.1,
+      "default": 15,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    },
+    {
+      "id": "personas",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "default": 2,
+      "unit": ""
+    }
+  ],
+  "formula": "var total=parseFloat(inputs.cuenta)||0,pct=parseFloat(inputs.porcentaje)||15,personas=parseInt(inputs.personas)||1;if(!total||personas<1)return{error:true};var propina=+(total*pct/100).toFixed(2),total_f=+(total+propina).toFixed(2),pp=+(total_f/personas).toFixed(2),prop_pp=+(propina/personas).toFixed(2);return{tip:propina,total:total_f,per_person:pp,tip_per_person:prop_pp};",
+  "outputs": [
+    {
+      "id": "tip",
+      "unit": "EUR",
+      "highlight": true
+    },
+    {
+      "id": "total",
+      "unit": "EUR",
+      "highlight": false
+    },
+    {
+      "id": "per_person",
+      "unit": "EUR",
+      "highlight": false
+    },
+    {
+      "id": "tip_per_person",
+      "unit": "EUR",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "935",
+    "942",
+    "934",
+    "500"
+  ],
+  "example_inputs": {
+    "cuenta": 100,
+    "porcentaje": 15,
+    "personas": 2
+  },
+  "example_label": "Calcular cal para 100 EUR × 15 % × 2.",
+  "range_hints": {
+    "cuenta": "Valor monetario",
+    "porcentaje": "Porcentaje aplicable",
+    "personas": "Número de personas"
+  },
+  "result_context": "La propina es {tip} €, el total es {total} €, {per_person} € por persona y {tip_per_person} € de propina por persona.",
+  "result_context_en": "The tip is {tip} €, the total is {total} €, {per_person} € per person and {tip_per_person} € tip per person.",
+  "result_context_fr": "Le pourboire est de {tip} €, le total est de {total} €, {per_person} € par personne et {tip_per_person} € de pourboire par personne.",
+  "result_context_pt": "A gorjeta é {tip} €, o total é {total} €, {per_person} € por pessoa e {tip_per_person} € de gorjeta por pessoa.",
+  "result_context_de": "Das Trinkgeld beträgt {tip} €, die Gesamtsumme beträgt {total} €, {per_person} € pro Person und {tip_per_person} € Trinkgeld pro Person.",
+  "result_context_it": "La mancia è {tip} €, il totale è {total} €, {per_person} € a persona e {tip_per_person} € di mancia a persona.",
+  "formula_display": "pct ÷ 100 → tip, total",
+  "steps": [
+    "Introducir los valores de cuenta, porcentaje y personas",
+    "Verificar que las unidades sean correctas y convertir si es necesario (%)",
+    "Calcular los valores de tip y total",
+    "El resultado se expresa en EUR. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "No considerar si la propina se calcula antes o después de impuestos",
+    "Olvidar que los meses tienen diferente número de días",
+    "Usar el formato de fecha incorrecto (MM/DD vs DD/MM) al introducir datos"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "cuenta",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "porcentaje",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "personas",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Escenario minimo",
+      "cuenta": 40.0,
+      "porcentaje": 6.0,
+      "personas": 1.0
+    },
+    {
+      "_label": "Uso habitual",
+      "cuenta": 70.0,
+      "porcentaje": 10.5,
+      "personas": 1.4
+    },
+    {
+      "_label": "Uso frecuente",
+      "cuenta": 100.0,
+      "porcentaje": 15.0,
+      "personas": 2.0
+    },
+    {
+      "_label": "Uso intensivo",
+      "cuenta": 150.0,
+      "porcentaje": 22.5,
+      "personas": 3.0
+    },
+    {
+      "_label": "Caso maximo",
+      "cuenta": 250.0,
+      "porcentaje": 37.5,
+      "personas": 5.0
+    }
+  ],
+  "units": {
+    "porcentaje": "%"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Propina",
+      "desc": "Calcula la propina y el total por persona. Divide la cuenta facilmente. Con explicacion de estadisticas. Usado por profesionales y estudiantes en todo.",
+      "description": "Calculadora de Propina.",
+      "seo_title": "Calculadora de Propina Gratuita",
+      "seo_description": "Calcula la propina y el total por persona. Divide la cuenta facilmente. Con explicacion de estadisticas. Usado por profesionales y estudiantes en todo.",
+      "inputs": {
+        "cuenta": "Monto de la cuenta",
+        "porcentaje": "porcentaje",
+        "personas": "Dividir entre"
+      },
+      "outputs": {
+        "tip": "Propina",
+        "total": "total",
+        "per_person": "Por persona",
+        "tip_per_person": "Propina/persona"
+      },
+      "example_label": "Calculate tip calculator advanced with cuenta 100, porcentaje 15, personas 2.",
+      "range_hints": {
+        "cuenta": "Typical range: 0-99999 in EUR units.",
+        "porcentaje": "Typical range: 0-100 in % units.",
+        "personas": "Typical range: 1-100."
+      },
+      "result_context": "Your calculated tip is {tip}.",
+      "formula_display": "Calculate tip calculator advanced based on input values.",
+      "steps": [
+        "Enter input values: cuenta: 100, porcentaje: 15, personas: 2",
+        "Calculate and display the tip result",
+        "Calculate and display the total result",
+        "Calculate and display the per_person result",
+        "Calculate and display the tip_per_person result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "cuenta",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "porcentaje",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "personas",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "en": {
+      "name": "Tip Calculator",
+      "desc": "Tip Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Tip Calculator.",
+      "seo_title": "Tip Calculator – Split Bills Easily",
+      "seo_description": "Calculate the tip amount and total bill per person. Split checks easily with customizable tip percentage. Easy-to-use calculator with formula breakdown.",
+      "inputs": {
+        "cuenta": "Bill amount",
+        "porcentaje": "porcentaje",
+        "personas": "Split between"
+      },
+      "outputs": {
+        "tip": "Tip",
+        "total": "total",
+        "per_person": "Per person",
+        "tip_per_person": "Tip per person"
+      },
+      "example_label": "Calculate tip calculator advanced with cuenta 100, porcentaje 15, personas 2.",
+      "range_hints": {
+        "cuenta": "Typical range: 0-99999 in EUR units.",
+        "porcentaje": "Typical range: 0-100 in % units.",
+        "personas": "Typical range: 1-100."
+      },
+      "result_context": "Your calculated tip is {tip}.",
+      "formula_display": "Calculate tip calculator advanced based on input values.",
+      "steps": [
+        "Enter input values: cuenta: 100, porcentaje: 15, personas: 2",
+        "Calculate and display the tip result",
+        "Calculate and display the total result",
+        "Calculate and display the per_person result",
+        "Calculate and display the tip_per_person result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "cuenta",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "porcentaje",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "personas",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculatrice de Pourboire",
+      "desc": "Calculez le pourboire et le montant total par personne. Calculatrice facile a utiliser avec decomposition de la formule.",
+      "description": "Calculatrice de Pourboire.",
+      "seo_title": "Calculatrice de Pourboire en Ligne",
+      "seo_description": "Calculez le pourboire et le montant total par personne. Calculatrice facile a utiliser avec decomposition de la formule.",
+      "inputs": {
+        "cuenta": "Montant de l'addition",
+        "porcentaje": "porcentaje",
+        "personas": "Partager entre"
+      },
+      "outputs": {
+        "tip": "Tip",
+        "total": "total",
+        "per_person": "Per person",
+        "tip_per_person": "Tip per person"
+      },
+      "example_label": "Calculate tip calculator advanced with cuenta 100, porcentaje 15, personas 2.",
+      "range_hints": {
+        "cuenta": "Typical range: 0-99999 in EUR units.",
+        "porcentaje": "Typical range: 0-100 in % units.",
+        "personas": "Typical range: 1-100."
+      },
+      "result_context": "Your calculated tip is {tip}.",
+      "formula_display": "Calculate tip calculator advanced based on input values.",
+      "steps": [
+        "Enter input values: cuenta: 100, porcentaje: 15, personas: 2",
+        "Calculate and display the tip result",
+        "Calculate and display the total result",
+        "Calculate and display the per_person result",
+        "Calculate and display the tip_per_person result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "cuenta",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "porcentaje",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "personas",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Gorjeta",
+      "desc": "Calcule a gorjeta e o total por pessoa. Divida a conta facilmente. Calculadora facil de usar com detalhamento da formula.",
+      "description": "Calculadora de Gorjeta.",
+      "seo_title": "Calculadora de Gorjeta – Rápido e Preciso",
+      "seo_description": "Calcule a gorjeta e o total por pessoa. Divida a conta facilmente. Calculadora facil de usar com detalhamento da formula.",
+      "inputs": {
+        "cuenta": "Valor da conta",
+        "porcentaje": "porcentaje",
+        "personas": "Dividir entre"
+      },
+      "outputs": {
+        "tip": "Tip",
+        "total": "total",
+        "per_person": "Per person",
+        "tip_per_person": "Tip per person"
+      },
+      "example_label": "Calculate tip calculator advanced with cuenta 100, porcentaje 15, personas 2.",
+      "range_hints": {
+        "cuenta": "Typical range: 0-99999 in EUR units.",
+        "porcentaje": "Typical range: 0-100 in % units.",
+        "personas": "Typical range: 1-100."
+      },
+      "result_context": "Your calculated tip is {tip}.",
+      "formula_display": "Calculate tip calculator advanced based on input values.",
+      "steps": [
+        "Enter input values: cuenta: 100, porcentaje: 15, personas: 2",
+        "Calculate and display the tip result",
+        "Calculate and display the total result",
+        "Calculate and display the per_person result",
+        "Calculate and display the tip_per_person result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "cuenta",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "porcentaje",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "personas",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "de": {
+      "name": "Tip calculator advanced",
+      "desc": "Berechnen Sie tip calculator advanced online. Geben Sie cuenta, porcentaje, personas ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Tip calculator advanced | CalcToWork",
+      "seo_desc": "Tip calculator advanced online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Tip calculator advanced online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "cuenta": "Cuenta",
+        "porcentaje": "Porcentaje",
+        "personas": "Personas"
+      },
+      "outputs": {
+        "tip": "Tip",
+        "total": "Total",
+        "per_person": "Per Person",
+        "tip_per_person": "Tip Per Person"
+      },
+      "example_label": "Calcular cal para 100 EUR × 15 % × 2.",
+      "range_hints": {
+        "cuenta": "Valor monetario",
+        "porcentaje": "Porcentaje aplicable",
+        "personas": "Número de personas"
+      },
+      "result_context": "Das Trinkgeld beträgt {tip} €, die Gesamtsumme beträgt {total} €, {per_person} € pro Person und {tip_per_person} € Trinkgeld pro Person.",
+      "formula_display": "pct ÷ 100 → tip, total",
+      "steps": [
+        "Introducir los valores de cuenta, porcentaje y personas",
+        "Verificar que las unidades sean correctas y convertir si es necesario (%)",
+        "Calcular los valores de tip y total",
+        "El resultado se expresa en EUR. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "No considerar si la propina se calcula antes o después de impuestos",
+        "Olvidar que los meses tienen diferente número de días",
+        "Usar el formato de fecha incorrecto (MM/DD vs DD/MM) al introducir datos"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "cuenta",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "porcentaje",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "personas",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatrice di Mancia",
+      "desc": "Calcola la mancia e il totale per persona. Dividi il conto facilmente. Con spiegazione delle statistiche. Usato da professionisti e studenti in tutto il.",
+      "description": "Calcolatrice di Mancia.",
+      "seo_title": "Calcolatrice di Mancia – Veloce e Preciso",
+      "seo_description": "Calcola la mancia e il totale per persona. Dividi il conto facilmente. Con spiegazione delle statistiche. Usato da professionisti e studenti in tutto il.",
+      "inputs": {
+        "cuenta": "Totale del conto",
+        "porcentaje": "porcentaje",
+        "personas": "Dividere tra"
+      },
+      "outputs": {
+        "tip": "Tip",
+        "total": "total",
+        "per_person": "Per person",
+        "tip_per_person": "Tip per person"
+      },
+      "example_label": "Calculate tip calculator advanced with cuinta 100, percintaje 15, personas 2.",
+      "range_hints": {
+        "cuenta": "Tepical range: 0-99999 in EUR units.",
+        "porcentaje": "Tepical range: 0-100 in % units.",
+        "personas": "Tepical range: 1-100."
+      },
+      "result_context": "Your calculated tip is {tip}.",
+      "formula_display": "Calculate tip calculator advanced based on input values.",
+      "steps": [
+        "Enter input values: cuinta: 100, percintaje: 15, personas: 2",
+        "Calculate and displae the tip result",
+        "Calculate and displae the totale result",
+        "Calculate and displae the per_person result",
+        "Calculate and displae the tip_per_person result"
+      ],
+      "mistakes": [
+        "Confusenzag unit options whin intering values",
+        "Entering zero or negative values where posetive required",
+        "Usenzag incorrect input values outsedi recommindid range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "cuenta",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "porcentaje",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "personas",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        }
+      ]
+    }
+  }
+}

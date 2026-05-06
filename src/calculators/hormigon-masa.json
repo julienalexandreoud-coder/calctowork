@@ -1,0 +1,526 @@
+{
+  "id": "001",
+  "slug": "hormigon-masa",
+  "block": 1,
+  "block_slug": "estructuras",
+  "inputs": [
+    {
+      "id": "largo",
+      "type": "number",
+      "min": 0.01,
+      "max": 500,
+      "step": 0.01,
+      "default": 5,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "ancho",
+      "type": "number",
+      "min": 0.01,
+      "max": 500,
+      "step": 0.01,
+      "default": 3,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "espesor",
+      "type": "number",
+      "min": 0.05,
+      "max": 10,
+      "step": 0.01,
+      "default": 0.2,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.largo)||0,W=parseFloat(inputs.ancho)||0,H=parseFloat(inputs.espesor)||0;if(!L||!W||!H)return{error:true};var vol=L*W*H,c=Math.ceil(vol*7),s=+(vol*0.65).toFixed(2),g=+(vol*0.90).toFixed(2);return{volumen:+vol.toFixed(3),cemento_sacos:c,arena_m3:s,grava_m3:g};",
+  "outputs": [
+    {
+      "id": "volumen",
+      "unit": "m³",
+      "highlight": true
+    },
+    {
+      "id": "cemento_sacos",
+      "unit": "sacos 50kg"
+    },
+    {
+      "id": "arena_m3",
+      "unit": "m³"
+    },
+    {
+      "id": "grava_m3",
+      "unit": "m³"
+    }
+  ],
+  "related": [
+    "002",
+    "008",
+    "009",
+    "003"
+  ],
+  "example_inputs": {
+    "largo": 5,
+    "ancho": 3,
+    "espesor": 0.2
+  },
+  "example_label": "Calcular el hormigón necesario para una losa de 5 m × 3 m × 0.2 m.",
+  "range_hints": {
+    "largo": "Medida típica según el proyecto",
+    "ancho": "Medida típica según el proyecto",
+    "espesor": "Espesor según resistencia requerida"
+  },
+  "result_context": "Resultados: {volumen} m³, {cemento_sacos} sacos de cemento, {arena_m3} m³ de arena, {grava_m3} m³ de grava.",
+  "formula_display": "Volumen = largo × ancho × espesor",
+  "steps": [
+    "Multiplicar 5m × 3m = 15.00m² de área",
+    "Multiplicar 15.00m² × 0.2m = 3.00m³ de volumen",
+    "Calcular cemento: 3.00m³ × 7 = 21 sacos",
+    "Calcular arena: 1.95m³",
+    "Calcular grava: 2.70m³"
+  ],
+  "mistakes": [
+    "Usar espesor insuficiente que puede causar grietas",
+    "No considerar el 5-10% de desperdicio",
+    "Confundir metros cúbicos con metros cuadrados"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "largo",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "ancho",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "espesor",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "diagram": "slab",
+  "standard": "EN 206 / ACI 318",
+  "trust_note": "Concrete density 2,400 kg/m³",
+  "comparison_presets": [
+    {
+      "largo": 3,
+      "ancho": 3,
+      "espesor": 0.1
+    },
+    {
+      "largo": 4,
+      "ancho": 4,
+      "espesor": 0.1
+    },
+    {
+      "largo": 5,
+      "ancho": 5,
+      "espesor": 0.12
+    },
+    {
+      "largo": 6,
+      "ancho": 4,
+      "espesor": 0.15
+    },
+    {
+      "largo": 10,
+      "ancho": 5,
+      "espesor": 0.15
+    },
+    {
+      "largo": 10,
+      "ancho": 10,
+      "espesor": 0.2
+    }
+  ],
+  "buying_units": {
+    "volumen": [
+      {
+        "label": "Bags 25 kg",
+        "factor": 10,
+        "round": "ceil",
+        "unit": "bags"
+      },
+      {
+        "label": "Ready-mix truck (6 m³)",
+        "factor": 0.167,
+        "round": "ceil",
+        "unit": "trucks"
+      }
+    ]
+  },
+  "units": {
+    "largo": "m",
+    "ancho": "m",
+    "espesor": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Hormigón en Masa",
+      "desc": "Calcula cemento, arena y grava para hormigón en masa.",
+      "seo_title": "Calculadora Hormigón – Cemento y Grava",
+      "inputs": {
+        "largo": "Longitud",
+        "ancho": "Ancho",
+        "espesor": "Espesor / Altura"
+      },
+      "outputs": {
+        "volumen": "Volumen de hormigón",
+        "cemento_sacos": "Sacos de cemento (50 kg)",
+        "arena_m3": "Arena",
+        "grava_m3": "Grava"
+      },
+      "seo_description": "Calcula la cantidad de cemento, arena y grava para hormigón en masa. Herramienta gratuita para obras y cimentaciones..",
+      "example_label": "Calcular el hormigón necesario para una losa de cimentación de 5m de largo por 3m de ancho con 20cm de espesor.",
+      "range_hints": {
+        "largo": "Medida típica: 3-10m para losas residenciales",
+        "ancho": "Medida típica: 2-5m para losas residenciales",
+        "espesor": "Mínimo 0.15m para cargas ligeras, 0.20-0.30m para cargas normales"
+      },
+      "result_context": "El volumen calculado de {volumen} m³ requiere {cemento_sacos} sacos de cemento, {arena_m3} m³ de arena y {grava_m3} m³ de grava para una mezcla de resistencia estándar.",
+      "formula_display": "Volumen = largo × ancho × espesor",
+      "steps": [
+        "Multiplicar 5m × 3m = 15m² de área superficial",
+        "Multiplicar 15m² × 0.20m = 3m³ de volumen de hormigón",
+        "Calcular materiales: 3m³ × 7 sacos/m³ = 21 sacos de cemento",
+        "Calcular arena: 3m³ × 0.65 = 1.95m³ de arena",
+        "Calcular grava: 3m³ × 0.90 = 2.70m³ de grava"
+      ],
+      "mistakes": [
+        "Usar espesor insuficiente (menos de 15cm) que puede causar grietas bajo carga",
+        "No considerar el 5-10% de desperdicio por derrames y nivelación",
+        "Confundir metros cúbicos con metros cuadrados al pedir el hormigón"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "ancho",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "espesor",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Mass Concrete Calculator",
+      "desc": "Calculate cement, sand and gravel for mass concrete.",
+      "seo_title": "Concrete Volume Calculator ? m?, Cement Bags & Gravel",
+      "inputs": {
+        "largo": "Length",
+        "ancho": "Width",
+        "espesor": "Thickness / Height"
+      },
+      "outputs": {
+        "volumen": "Concrete volume",
+        "cemento_sacos": "Cement bags (50 kg)",
+        "arena_m3": "Sand",
+        "grava_m3": "Gravel"
+      },
+      "seo_description": "Planning a concrete pour for your foundation or slab? Enter slab dimensions to get exact cubic meters, cement bags and aggregate quantities. Includes 10% wastage buffer so you never run short.",
+      "example_label": "Calculate concrete needed for a foundation slab 5m long by 3m wide with 20cm thickness.",
+      "range_hints": {
+        "largo": "Typical range: 3-10m for residential slabs",
+        "ancho": "Typical range: 2-5m for residential slabs",
+        "espesor": "Minimum 0.15m for light loads, 0.20-0.30m for standard loads"
+      },
+      "result_context": "The calculated volume of {volumen} m³ requires {cemento_sacos} cement bags, {arena_m3} m³ of sand and {grava_m3} m³ of gravel for a standard-strength mix.",
+      "formula_display": "Volume = length × width × thickness",
+      "steps": [
+        "Multiply 5m × 3m = 15m² surface area",
+        "Multiply 15m² × 0.20m = 3m³ concrete volume",
+        "Calculate materials: 3m³ × 7 bags/m³ = 21 cement bags",
+        "Calculate sand: 3m³ × 0.65 = 1.95m³ of sand",
+        "Calculate gravel: 3m³ × 0.90 = 2.70m³ of gravel"
+      ],
+      "mistakes": [
+        "Using insufficient thickness (under 0.15m) which can cause cracking under load",
+        "Forgetting the 5-10% waste allowance for spillage and leveling",
+        "Confusing cubic meters with square meters when ordering concrete"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "espesor",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ],
+      "description": "Calculate the exact volume of mass concrete needed for your project. Includes cement bags, sand, and gravel estimates with waste factor."
+    },
+    "fr": {
+      "name": "Calculateur Béton de Masse",
+      "desc": "Calculez le ciment, le sable et le gravier pour le béton.",
+      "seo_title": "Calculateur Béton – Ciment et Gravier",
+      "inputs": {
+        "largo": "Longueur",
+        "ancho": "Largeur",
+        "espesor": "Épaisseur / Hauteur"
+      },
+      "outputs": {
+        "volumen": "Volume de béton",
+        "cemento_sacos": "Sacs de ciment (50 kg)",
+        "arena_m3": "Sable",
+        "grava_m3": "Gravier"
+      },
+      "seo_description": "Calculez la quantité de ciment, sable et gravier pour le béton de masse. Outil gratuit pour chantiers. Inclut le facteur de perte pour les commandes.",
+      "example_label": "Calculer le béton nécessaire pour une dalle de fondation de 5m de longueur par 3m de largeur avec 20cm d'épaisseur.",
+      "range_hints": {
+        "largo": "Mesure typique: 3-10m pour dalles résidentielles",
+        "ancho": "Mesure typique: 2-5m pour dalles résidentielles",
+        "espesor": "Minimum 0.15m pour charges légères, 0.20-0.30m pour charges normales"
+      },
+      "result_context": "Le volume calculé de {volumen} m³ nécessite {cemento_sacos} sacs de ciment, {arena_m3} m³ de sable et {grava_m3} m³ de gravier pour un mélange de résistance standard.",
+      "formula_display": "volume = longueur × largeur × épaisseur",
+      "steps": [
+        "Multiplier 5m × 3m = 15m² de surface",
+        "Multiplier 15m² × 0.20m = 3m³ de volume de béton",
+        "Calculer les matériaux: 3m³ × 7 sacs/m³ = 21 sacs de ciment",
+        "Calculer le sable: 3m³ × 0.65 = 1.95m³ de sable",
+        "Calculer le gravier: 3m³ × 0.90 = 2.70m³ de gravier"
+      ],
+      "mistakes": [
+        "Utiliser une épaisseur insuffisante (moins de 15cm) pouvant causer des fissures sous charge",
+        "Ne pas tenir compte du 5-10% de perte par déversement et nivellement",
+        "Confondre les mètres cubes avec les mètres carrés lors de la commande du béton"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "espesor",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Concreto Simples",
+      "desc": "Calcule cimento, areia e brita para concreto simples.",
+      "seo_title": "Calculadora Concreto – Cimento e Brita",
+      "inputs": {
+        "largo": "Comprimento",
+        "ancho": "Largura",
+        "espesor": "Espessura / Altura"
+      },
+      "outputs": {
+        "volumen": "Volume de concreto",
+        "cemento_sacos": "Sacos de cimento (50 kg)",
+        "arena_m3": "Areia",
+        "grava_m3": "Brita"
+      },
+      "seo_description": "Calcule a quantidade de cimento, areia e brita para concreto simples. Ferramenta gratuita para obras. Inclui fator de desperdicio para pedidos.",
+      "example_label": "Calcular o betão necessário para uma laje de fundação de 5m de comprimento por 3m de largura com 20cm de espessura.",
+      "range_hints": {
+        "largo": "Medida típica: 3-10m para lajes residenciais",
+        "ancho": "Medida típica: 2-5m para lajes residenciais",
+        "espesor": "Mínimo 0.15m para cargas ligeiras, 0.20-0.30m para cargas normais"
+      },
+      "result_context": "O volume calculado de {volumen} m³ necessita de {cemento_sacos} sacos de cimento, {arena_m3} m³ de areia e {grava_m3} m³ de brita para uma mistura de resistência padrão.",
+      "formula_display": "Volume = comprimento × largura × espessura",
+      "steps": [
+        "Multiplicar 5m × 3m = 15m² de área superficial",
+        "Multiplicar 15m² × 0.20m = 3m³ de volume de betão",
+        "Calcular materiais: 3m³ × 7 sacos/m³ = 21 sacos de cimento",
+        "Calcular areia: 3m³ × 0.65 = 1.95m³ de areia",
+        "Calcular pedra britada: 3m³ × 0.90 = 2.70m³ de pedra britada"
+      ],
+      "mistakes": [
+        "Usar espessura insuficiente (menos de 15cm) que pode causar fissuras sob carga",
+        "Não considerar o 5-10% de desperdício por derrames e nivelamento",
+        "Confundir metros cúbicos com metros quadrados ao pedir o betão"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "espesor",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Beton Masse",
+      "desc": "Berechnen Sie beton Masse online. Geben Sie largo, ancho, espesor ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Beton Masse | CalcToWork",
+      "seo_desc": "Beton Masse online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Beton Masse online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "largo": "Largo",
+        "ancho": "Ancho",
+        "espesor": "Espesor"
+      },
+      "outputs": {
+        "volumen": "Volumen",
+        "cemento_sacos": "Cemento Sacos",
+        "arena_m3": "Arena M3",
+        "grava_m3": "Grava M3"
+      },
+      "example_label": "Calcular el hormigón necesario para una losa de 5 m × 3 m × 0.2 m.",
+      "range_hints": {
+        "largo": "Medida típica según el proyecto",
+        "ancho": "Medida típica según el proyecto",
+        "espesor": "Espesor según resistencia requerida"
+      },
+      "result_context": "Resultados: {volumen} m³, {cemento_sacos} sacos de cemento, {arena_m3} m³ de arena, {grava_m3} m³ de grava.",
+      "formula_display": "Volumen = largo × ancho × espesor",
+      "steps": [
+        "Multiplicar 5m × 3m = 15.00m² de área",
+        "Multiplicar 15.00m² × 0.2m = 3.00m³ de volumen",
+        "Calcular cemento: 3.00m³ × 7 = 21 sacos",
+        "Calcular arena: 1.95m³",
+        "Calcular grava: 2.70m³"
+      ],
+      "mistakes": [
+        "Usar espesor insuficiente que puede causar grietas",
+        "No considerar el 5-10% de desperdicio",
+        "Confundir metros cúbicos con metros cuadrados"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "espesor",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Calcestruzzo in Massa",
+      "description": "Calcola il volume di calcestruzzo e i materiali necessari per plinti e fondazioni in massa.",
+      "seo_title": "Calcolatore Calcestruzzo – Cemento",
+      "seo_description": "Calcola cemento, sabbia e ghiaia per fondazioni in calcestruzzo in massa. Gratuito. Include fattore di scarto per gli ordini.",
+      "inputs": {
+        "largo": "Lunghezza (m)",
+        "ancho": "Larghezza (m)",
+        "espesor": "Spessore (m)"
+      },
+      "outputs": {
+        "volumen": "Volume (m³)",
+        "cemento_sacos": "Sacchi di cemento (50 kg)",
+        "arena_m3": "Sabbia (m³)",
+        "grava_m3": "Ghiaia (m³)"
+      },
+      "example_label": "Calcolare el hormigón necessario per una letra di cimintación di 5m dillunghezza per 3m di larghezza con 20cm di spessore.",
+      "range_hints": {
+        "largo": "Medida típica: 3-10m per letras resedinziali",
+        "ancho": "Medida típica: 2-5m per letras resedinziali",
+        "espesor": "Mínimo 0.15m per carichi leggere, 0.20-0.30m per carichi nonrmali"
+      },
+      "result_context": "El volume calculato di {volume} m³ richiedi {ceminto_sacos} sacos di ceminto, {sabbia_m3} m³ di sabbia e {ghiaia_m3} m³ di ghiaia per una miscela di resestinza estándar.",
+      "formula_display": "Volumin = lunghezza × larghezza × spessore",
+      "steps": [
+        "Moltiplicare 5m × 3m = 15m² di área superficial",
+        "Moltiplicare 15m² × 0.20m = 3m³ di volume di hormigón",
+        "Calcolare opacoriales: 3m³ × 7 sacos/m³ = 21 sacos di ceminto",
+        "Calcolare sabbia: 3m³ × 0.65 = 1.95m³ di sabbia",
+        "Calcolare ghiaia: 3m³ × 0.90 = 2.70m³ di ghiaia"
+      ],
+      "mistakes": [
+        "Usare spessore insufficiinte (minon di 15cm) que può causare crepe basso carico",
+        "Non consedirare el 5-10% di spreco per versaminti e nivelación",
+        "Confondire metros cúbicos con metros quadratos al pedir el hormigón"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "espesor",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,611 @@
+{
+  "id": "140",
+  "slug": "ecuacion-bernoulli",
+  "block": 7,
+  "block_slug": "ciencia",
+  "inputs": [
+    {
+      "id": "p1",
+      "type": "number",
+      "step": "any",
+      "default": 100000,
+      "unit": "Pa",
+      "unit_options": [
+        "Pa",
+        "kPa",
+        "bar",
+        "psi"
+      ],
+      "unit_category": "pressure"
+    },
+    {
+      "id": "v1",
+      "type": "number",
+      "step": "any",
+      "default": 2,
+      "unit": "m/s",
+      "unit_options": [
+        "m/s",
+        "km/h",
+        "mph"
+      ],
+      "unit_category": "velocity"
+    },
+    {
+      "id": "h1",
+      "type": "number",
+      "step": "any",
+      "default": 0,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "ft",
+        "cm"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "p2",
+      "type": "number",
+      "step": "any",
+      "default": 80000,
+      "unit": "Pa",
+      "unit_options": [
+        "Pa",
+        "kPa",
+        "bar",
+        "psi"
+      ],
+      "unit_category": "pressure"
+    },
+    {
+      "id": "h2",
+      "type": "number",
+      "step": "any",
+      "default": 5,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "ft",
+        "cm"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var p1=parseFloat(inputs.p1)||0;var v1=parseFloat(inputs.v1)||0;var h1=parseFloat(inputs.h1)||0;var p2=parseFloat(inputs.p2)||0;var h2=parseFloat(inputs.h2)||0;var rho=1000;var g=9.80665;var term=p1+0.5*rho*v1*v1+rho*g*h1-p2-rho*g*h2;var v2=Math.sqrt(2*term/rho);return{v2:v2.toFixed(4)};",
+  "outputs": [
+    {
+      "id": "v2",
+      "unit": "m/s"
+    }
+  ],
+  "related": [
+    "141",
+    "129",
+    "700",
+    "701"
+  ],
+  "example_inputs": {
+    "p1": 150000,
+    "v1": 3.5,
+    "h1": 2,
+    "p2": 120000,
+    "h2": 5
+  },
+  "example_label": "Ejemplo para ecuacion bernoulli: valores 100000Pa, 2m/s, 0m, 80000Pa",
+  "range_hints": {
+    "p1": "Valor típico entre 0 y 500. Valor por defecto: 100000 Pa.",
+    "v1": "Valor típico entre 0 y 500. Valor por defecto: 2 m/s.",
+    "h1": "Introducir un valor numérico en m.",
+    "p2": "Valor típico entre 0 y 500. Valor por defecto: 80000 Pa.",
+    "h2": "Valor típico entre 0 y 500. Valor por defecto: 5 m."
+  },
+  "result_context": "Según la ecuación de Bernoulli, la velocidad del fluido en el punto 2 es {v2} m/s.",
+  "result_context_en": "According to Bernoulli's equation, the fluid velocity at point 2 is {v2} m/s.",
+  "result_context_fr": "Selon l'équation de Bernoulli, la vitesse du fluide au point 2 est de {v2} m/s.",
+  "result_context_pt": "Segundo a equação de Bernoulli, a velocidade do fluido no ponto 2 é {v2} m/s.",
+  "result_context_de": "Nach der Bernoulli-Gleichung beträgt die Fluidgeschwindigkeit an Punkt 2 {v2} m/s.",
+  "result_context_it": "Secondo l'equazione di Bernoulli, la velocità del fluido nel punto 2 è {v2} m/s.",
+  "formula_display": "V2 (m/s) = f(p1, v1, h1, p2, h2)",
+  "steps": [
+    "Introducir los valores de p1, v1, h1, p2 y h2",
+    "Verificar que las unidades sean correctas y convertir si es necesario (Pa, kPa, bar)",
+    "Realizar el cálculo para obtener v2",
+    "El resultado se expresa en m/s. Verificar que la magnitud es coherente",
+    "Documentar el resultado con sus unidades para usarlo en cálculos de ingeniería posteriores"
+  ],
+  "mistakes": [
+    "Mezclar unidades de diferentes sistemas (métrico con imperial) sin convertir",
+    "Usar la temperatura en Celsius en fórmulas que requieren Kelvin (sumar 273.15)",
+    "Confundir masa (kg) con peso (N) en cálculos de física"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "p1",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "v1",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "h1",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "p2",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "h2",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Escala laboratorio",
+      "p1": 1000.0,
+      "v1": 0.8,
+      "h1": 0.4,
+      "p2": 1000.0,
+      "h2": 2.0
+    },
+    {
+      "_label": "Uso domestico",
+      "p1": 1000.0,
+      "v1": 1.4,
+      "h1": 0.7,
+      "p2": 1000.0,
+      "h2": 3.5
+    },
+    {
+      "_label": "Aplicacion industrial",
+      "p1": 1000.0,
+      "v1": 2.0,
+      "h1": 1.0,
+      "p2": 1000.0,
+      "h2": 5.0
+    },
+    {
+      "_label": "Ingenieria civil",
+      "p1": 1000.0,
+      "v1": 3.0,
+      "h1": 1.5,
+      "p2": 1000.0,
+      "h2": 7.5
+    },
+    {
+      "_label": "Escala cientifica",
+      "p1": 1000.0,
+      "v1": 5.0,
+      "h1": 2.5,
+      "p2": 1000.0,
+      "h2": 12.5
+    }
+  ],
+  "units": {
+    "p1": "Pa",
+    "v1": "m/s",
+    "h1": "m",
+    "p2": "Pa",
+    "h2": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Ecuación de Bernoulli",
+      "description": "Calcula la velocidad del fluido usando la ecuación de Bernoulli.",
+      "inputs": {
+        "p1": "Presión 1",
+        "v1": "Velocidad 1",
+        "h1": "Altura 1",
+        "p2": "Presión 2",
+        "h2": "Altura 2"
+      },
+      "outputs": {
+        "v2": "Velocidad 2"
+      },
+      "seo_title": "Ecuación de Bernoulli Gratuita",
+      "seo_description": "Calcula la velocidad del fluido usando la ecuación de Bernoulli. Calculadora gratuita, precisa e instantánea. Calculadora facil de usar con desglose de.",
+      "example_label": "Find velocity v2 using Bernoulli's equation with given pressures, v1=3.5 m/s, and heights.",
+      "range_hints": {
+        "p1": "Pressure 1: 1000 to 1e7 Pa",
+        "v1": "Velocity 1: 0.1 to 100 m/s",
+        "h1": "Height 1: 0 to 100 m",
+        "p2": "Pressure 2: 1000 to 1e7 Pa",
+        "h2": "Height 2: 0 to 100 m"
+      },
+      "result_context": "The velocity v2 {v2} m/s at point 2 is calculated using Bernoulli's principle for fluid flow.",
+      "formula_display": "vââ€šâ€š = √(2 × (Pââ€š + ½ρvââ€š² + ρghââ€š - Pââ€šâ€š - ρghââ€šâ€š) ÷ ρ)",
+      "steps": [
+        "Given: Pââ€š=150000 Pa, vââ€š=3.5 m/s, hââ€š=2m, Pââ€šâ€š=120000 Pa, hââ€šâ€š=5m, ρ=1000 kg/m³",
+        "Calculate each energy term at point 1",
+        "Apply Bernoulli: Pââ€š + ½ρvââ€š² + ρghââ€š = Pââ€šâ€š + ½ρvââ€šâ€š² + ρghââ€šâ€š",
+        "Solve for v₂ using algebraic manipulation"
+      ],
+      "mistakes": [
+        "Not using consistent units (Pa, m/s, m)",
+        "Forgetting the density term in potential energy",
+        "Assuming horizontal flow when heights differ"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "p1",
+          "reason": "Correct - pressure with unit options"
+        },
+        {
+          "field_id": "v1",
+          "reason": "Correct - velocity with unit options"
+        },
+        {
+          "field_id": "h1",
+          "reason": "Correct - height with length unit options"
+        },
+        {
+          "field_id": "p2",
+          "reason": "Correct - pressure with unit options"
+        },
+        {
+          "field_id": "h2",
+          "reason": "Correct - height with length unit options"
+        }
+      ]
+    },
+    "en": {
+      "name": "Bernoulli Equation Calculator",
+      "description": "Calculate fluid velocity using Bernoulli's equation.",
+      "inputs": {
+        "p1": "Pressure 1",
+        "v1": "Velocity 1",
+        "h1": "Height 1",
+        "p2": "Pressure 2",
+        "h2": "Height 2"
+      },
+      "outputs": {
+        "v2": "Velocity 2"
+      },
+      "seo_title": "Bernoulli Equation Calculator – Fast & Accurate",
+      "seo_description": "Bernoulli Equation Calculator. Pressure 1, Velocity 1, Height 1 — get Velocity 2 instantly for your carpentry and metalwork project. Includes waste factor.",
+      "example_label": "Find velocity v2 using Bernoulli's equation with given pressures, v1=3.5 m/s, and heights.",
+      "range_hints": {
+        "p1": "Pressure 1: 1000 to 1e7 Pa",
+        "v1": "Velocity 1: 0.1 to 100 m/s",
+        "h1": "Height 1: 0 to 100 m",
+        "p2": "Pressure 2: 1000 to 1e7 Pa",
+        "h2": "Height 2: 0 to 100 m"
+      },
+      "result_context": "The velocity v2 {v2} m/s at point 2 is calculated using Bernoulli's principle for fluid flow.",
+      "formula_display": "vÃ¢â€šâ€š = Ã¢Ë†Å¡(2 × (PÃ¢â€šÂ + Â½ρvÃ¢â€šÂ² + ρghÃ¢â€šÂ - PÃ¢â€šâ€š - ρghÃ¢â€šâ€š) ÷ ρ)",
+      "steps": [
+        "Given: PÃ¢â€šÂ=150000 Pa, vÃ¢â€šÂ=3.5 m/s, hÃ¢â€šÂ=2m, PÃ¢â€šâ€š=120000 Pa, hÃ¢â€šâ€š=5m, ρ=1000 kg/m³",
+        "Calculate each energy term at point 1",
+        "Apply Bernoulli: PÃ¢â€šÂ + Â½ρvÃ¢â€šÂ² + ρghÃ¢â€šÂ = PÃ¢â€šâ€š + Â½ρvÃ¢â€šâ€š² + ρghÃ¢â€šâ€š",
+        "Solve for vâ‚‚ using algebraic manipulation"
+      ],
+      "mistakes": [
+        "Not using consistent units (Pa, m/s, m)",
+        "Forgetting the density term in potential energy",
+        "Assuming horizontal flow when heights differ"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "p1",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - pressure with unit options"
+        },
+        {
+          "field_id": "v1",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - velocity with unit options"
+        },
+        {
+          "field_id": "h1",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - height with length unit options"
+        },
+        {
+          "field_id": "p2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - pressure with unit options"
+        },
+        {
+          "field_id": "h2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - height with length unit options"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Équation de Bernoulli",
+      "description": "Calculez la vitesse du fluide avec l'équation de Bernoulli.",
+      "inputs": {
+        "p1": "Pression 1",
+        "v1": "Vitesse 1",
+        "h1": "Hauteur 1",
+        "p2": "Pression 2",
+        "h2": "Hauteur 2"
+      },
+      "outputs": {
+        "v2": "Vitesse 2"
+      },
+      "seo_title": "Équation de Bernoulli – Rapide et Précis",
+      "seo_description": "Calculez la vitesse du fluide avec l'équation de Bernoulli. Calculateur gratuit, précis et instantané. Calculatrice facile a utiliser avec decomposition.",
+      "example_label": "Find velocity v2 using Bernoulli's equation with given pressures, v1=3.5 m/s, and heights.",
+      "range_hints": {
+        "p1": "Pressure 1: 1000 to 1e7 Pa",
+        "v1": "Velocity 1: 0.1 to 100 m/s",
+        "h1": "Height 1: 0 to 100 m",
+        "p2": "Pressure 2: 1000 to 1e7 Pa",
+        "h2": "Height 2: 0 to 100 m"
+      },
+      "result_context": "The velocity v2 {v2} m/s at point 2 is calculated using Bernoulli's principle for fluid flow.",
+      "formula_display": "vââ€šâ€š = √(2 × (Pââ€š + ½ρvââ€š² + ρghââ€š - Pââ€šâ€š - ρghââ€šâ€š) Á· ρ)",
+      "steps": [
+        "Given: Pââ€š=150000 Pa, vââ€š=3.5 m/s, hââ€š=2m, Pââ€šâ€š=120000 Pa, hââ€šâ€š=5m, ρ=1000 kg/m³",
+        "Calculate each energy term at point 1",
+        "Apply Bernoulli: Pââ€š + ½ρvââ€š² + ρghââ€š = Pââ€šâ€š + ½ρvââ€šâ€š² + ρghââ€šâ€š",
+        "Solve for v₂ using algebraic manipulation"
+      ],
+      "mistakes": [
+        "Not using consistent units (Pa, m/s, m)",
+        "Forgetting the density term in potential energy",
+        "Assuming horizontal flow when heights differ"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "p1",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - pressure with unit options"
+        },
+        {
+          "field_id": "v1",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - velocity with unit options"
+        },
+        {
+          "field_id": "h1",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - height with length unit options"
+        },
+        {
+          "field_id": "p2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - pressure with unit options"
+        },
+        {
+          "field_id": "h2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - height with length unit options"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Equação de Bernoulli",
+      "description": "Calcule a velocidade do fluido usando a equação de Bernoulli.",
+      "inputs": {
+        "p1": "Pressão 1",
+        "v1": "Velocidade 1",
+        "h1": "Altura 1",
+        "p2": "Pressão 2",
+        "h2": "Altura 2"
+      },
+      "outputs": {
+        "v2": "Velocidade 2"
+      },
+      "seo_title": "Equação de Bernoulli – Rápido e Preciso",
+      "seo_description": "Calcule a velocidade do fluido usando a equação de Bernoulli. Calculadora gratuita, precisa e instantânea. Calculadora facil de usar com detalhamento da.",
+      "example_label": "Find velocity v2 using Bernoulli's equation with given pressures, v1=3.5 m/s, and heights.",
+      "range_hints": {
+        "p1": "Pressure 1: 1000 to 1e7 Pa",
+        "v1": "Velocity 1: 0.1 to 100 m/s",
+        "h1": "Height 1: 0 to 100 m",
+        "p2": "Pressure 2: 1000 to 1e7 Pa",
+        "h2": "Height 2: 0 to 100 m"
+      },
+      "result_context": "The velocity v2 {v2} m/s at point 2 is calculated using Bernoulli's principle for fluid flow.",
+      "formula_display": "vââ€šâ€š = √(2 × (Pââ€š + ½ρvââ€š² + ρghââ€š - Pââ€šâ€š - ρghââ€šâ€š) ÷ ρ)",
+      "steps": [
+        "Given: Pââ€š=150000 Pa, vââ€š=3.5 m/s, hââ€š=2m, Pââ€šâ€š=120000 Pa, hââ€šâ€š=5m, ρ=1000 kg/m³",
+        "Calculate each energy term at point 1",
+        "Apply Bernoulli: Pââ€š + ½ρvââ€š² + ρghââ€š = Pââ€šâ€š + ½ρvââ€šâ€š² + ρghââ€šâ€š",
+        "Solve for v₂ using algebraic manipulation"
+      ],
+      "mistakes": [
+        "Not using consistent units (Pa, m/s, m)",
+        "Forgetting the density term in potential energy",
+        "Assuming horizontal flow when heights differ"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "p1",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - pressure with unit options"
+        },
+        {
+          "field_id": "v1",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - velocity with unit options"
+        },
+        {
+          "field_id": "h1",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - height with length unit options"
+        },
+        {
+          "field_id": "p2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - pressure with unit options"
+        },
+        {
+          "field_id": "h2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - height with length unit options"
+        }
+      ]
+    },
+    "de": {
+      "name": "Gleichung bernoulli",
+      "desc": "Berechnen Sie gleichung bernoulli online. Geben Sie p1, v1, h1 ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Gleichung bernoulli | CalcToWork",
+      "seo_desc": "Gleichung bernoulli online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Gleichung bernoulli online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "p1": "P1",
+        "v1": "V1",
+        "h1": "H1",
+        "p2": "P2",
+        "h2": "H2"
+      },
+      "outputs": {
+        "v2": "V2"
+      },
+      "example_label": "Ejemplo para ecuacion bernoulli: valores 100000Pa, 2m/s, 0m, 80000Pa",
+      "range_hints": {
+        "p1": "Valor típico entre 0 y 500. Valor por defecto: 100000 Pa.",
+        "v1": "Valor típico entre 0 y 500. Valor por defecto: 2 m/s.",
+        "h1": "Introducir un valor numérico en m.",
+        "p2": "Valor típico entre 0 y 500. Valor por defecto: 80000 Pa.",
+        "h2": "Valor típico entre 0 y 500. Valor por defecto: 5 m."
+      },
+      "result_context": "Nach der Bernoulli-Gleichung beträgt die Fluidgeschwindigkeit an Punkt 2 {v2} m/s.",
+      "formula_display": "V2 (m/s) = f(p1, v1, h1, p2, h2)",
+      "steps": [
+        "Introducir los valores de p1, v1, h1, p2 y h2",
+        "Verificar que las unidades sean correctas y convertir si es necesario (Pa, kPa, bar)",
+        "Realizar el cálculo para obtener v2",
+        "El resultado se expresa en m/s. Verificar que la magnitud es coherente",
+        "Documentar el resultado con sus unidades para usarlo en cálculos de ingeniería posteriores"
+      ],
+      "mistakes": [
+        "Mezclar unidades de diferentes sistemas (métrico con imperial) sin convertir",
+        "Usar la temperatura en Celsius en fórmulas que requieren Kelvin (sumar 273.15)",
+        "Confundir masa (kg) con peso (N) en cálculos de física"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "p1",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "v1",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "h1",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "p2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "h2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Equazione di Bernoulli",
+      "description": "Calcola la velocità del fluido usando l'equazione di Bernoulli.",
+      "inputs": {
+        "p1": "Pressione 1",
+        "v1": "Velocità 1",
+        "h1": "Altezza 1",
+        "p2": "Pressione 2",
+        "h2": "Altezza 2"
+      },
+      "outputs": {
+        "v2": "Velocità 2"
+      },
+      "seo_title": "Equazione di Bernoulli – Veloce e Preciso",
+      "seo_description": "Calcola la velocità del fluido usando l'equazione di Bernoulli. Calcolatore gratuito, preciso e istantaneo. Calcolatrice facile da usare con dettaglio.",
+      "example_label": "Find velocite v2 usenzag Bernonulli's equation with givin pressures, v1=3.5 m/s, and heights.",
+      "range_hints": {
+        "p1": "Pressure 1: 1000 to 1e7 Pa",
+        "v1": "Velocite 1: 0.1 to 100 m/s",
+        "h1": "Height 1: 0 to 100 m",
+        "p2": "Pressure 2: 1000 to 1e7 Pa",
+        "h2": "Height 2: 0 to 100 m"
+      },
+      "result_context": "The velocite v2 {v2} m/s at point 2 is calculated usenzag Bernonulli's principle for fluid flow.",
+      "formula_display": "vââ€šâ€š = √(2 × (Pââ€š + ½ρvââ€š² + ρghââ€š - Pââ€šâ€š - ρghââ€šâ€š) ÷ ρ)",
+      "steps": [
+        "Givin: Pââ€š=150000 Pa, vââ€š=3.5 m/s, hââ€š=2m, Pââ€šâ€š=120000 Pa, hââ€šâ€š=5m, ρ=1000 kg/m³",
+        "Calculate each inerge term at point 1",
+        "Apple Bernonulli: Pââ€š + ½ρvââ€š² + ρghââ€š = Pââ€šâ€š + ½ρvââ€šâ€š² + ρghââ€šâ€š",
+        "Solve for v₂ usenzag algebraic manipulation"
+      ],
+      "mistakes": [
+        "Not usenzag consestint units (Pa, m/s, m)",
+        "Forgetting the dinsete term in potintial inerge",
+        "Assuming orizzontale flow whin heights differ"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "p1",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - pressure with unit options"
+        },
+        {
+          "field_id": "v1",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - velocite with unit options"
+        },
+        {
+          "field_id": "h1",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - height with lingth unit options"
+        },
+        {
+          "field_id": "p2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - pressure with unit options"
+        },
+        {
+          "field_id": "h2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - height with lingth unit options"
+        }
+      ]
+    }
+  }
+}

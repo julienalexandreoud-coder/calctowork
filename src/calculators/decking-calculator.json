@@ -1,0 +1,315 @@
+{
+  "id": "1100",
+  "slug": "decking-calculator",
+  "block": 7,
+  "block_slug": "carpinteria",
+  "inputs": [
+    {
+      "id": "deck_length",
+      "type": "number",
+      "min": 0.1,
+      "max": 100,
+      "step": 0.1,
+      "default": 5,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "deck_width",
+      "type": "number",
+      "min": 0.1,
+      "max": 50,
+      "step": 0.1,
+      "default": 3,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "board_width",
+      "type": "number",
+      "min": 5,
+      "max": 30,
+      "step": 0.5,
+      "default": 14,
+      "unit": "cm",
+      "unit_category": "length"
+    },
+    {
+      "id": "board_length",
+      "type": "number",
+      "min": 1,
+      "max": 6,
+      "step": 0.3,
+      "default": 3.6,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "gap_size",
+      "type": "number",
+      "min": 0,
+      "max": 2,
+      "step": 0.1,
+      "default": 0.6,
+      "unit": "cm",
+      "unit_category": "length"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "deck_area_m2",
+      "unit": "m²",
+      "highlight": true
+    },
+    {
+      "id": "boards_needed",
+      "unit": "boards"
+    },
+    {
+      "id": "board_rows",
+      "unit": "rows"
+    },
+    {
+      "id": "waste_percent",
+      "unit": "%"
+    },
+    {
+      "id": "total_linear_meters",
+      "unit": "m"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.deck_length)||0,W=parseFloat(inputs.deck_width)||0,bw=parseFloat(inputs.board_width)||14,bl=parseFloat(inputs.board_length)||3.6,gap=parseFloat(inputs.gap_size)||0.6;if(!L||!W||!bw||!bl)return{error:true};var area=+(L*W).toFixed(2),eff=(bw+gap)/100,rows=Math.ceil(W/eff),bpr=Math.ceil(L/bl),boards=rows*bpr,tlm=+(boards*bl).toFixed(1),waste=+(Math.max(5,((boards*bl*eff/area)-1)*100)).toFixed(1);return{deck_area_m2:area,boards_needed:boards,board_rows:rows,waste_percent:waste,total_linear_meters:tlm};",
+  "formula_display": "Area = Length × Width; Boards = ceil(Width ÷ (board_width + gap)) × ceil(Length ÷ board_length)",
+  "result_context": "Deck area: {deck_area_m2} m², boards needed: {boards_needed}, rows: {board_rows}, waste: {waste_percent}%",
+  "example_inputs": {
+    "deck_length": 5,
+    "deck_width": 4,
+    "board_width": 14,
+    "board_length": 3.6,
+    "gap_size": 0.6
+  },
+  "steps": [
+    "Calculate deck area: 5 m × 4 m = 20.00 m²",
+    "Board effective width with gap: 14 cm + 0.6 cm = 14.6 cm = 0.146 m",
+    "Rows across width: ceil(4 ÷ 0.146) = 28 rows",
+    "Boards per row: ceil(5 ÷ 3.6) = 2 boards per row",
+    "Total boards: 28 × 2 = 56 boards (58 with 5% waste)"
+  ],
+  "mistakes": [
+    "Forgetting to add the gap width when calculating board spacing",
+    "Using board width in metres instead of centimetres",
+    "Not ordering 5-10% extra for cuts and waste"
+  ],
+  "related": [
+    "1103",
+    "1113",
+    "1114",
+    "061"
+  ],
+  "comparison_presets": [
+    {
+      "deck_length": 3,
+      "deck_width": 2.5,
+      "board_width": 14,
+      "board_length": 3.6,
+      "gap_size": 0.6
+    },
+    {
+      "deck_length": 4,
+      "deck_width": 3,
+      "board_width": 14,
+      "board_length": 3.6,
+      "gap_size": 0.6
+    },
+    {
+      "deck_length": 5,
+      "deck_width": 4,
+      "board_width": 14,
+      "board_length": 3.6,
+      "gap_size": 0.6
+    },
+    {
+      "deck_length": 6,
+      "deck_width": 4,
+      "board_width": 14,
+      "board_length": 4.8,
+      "gap_size": 0.6
+    },
+    {
+      "deck_length": 8,
+      "deck_width": 5,
+      "board_width": 19,
+      "board_length": 4.8,
+      "gap_size": 0.6
+    }
+  ],
+  "buying_units": {
+    "boards_needed": [
+      {
+        "label": "Lengths (3.6 m)",
+        "factor": 1,
+        "round": "ceil",
+        "unit_suffix": "lengths"
+      },
+      {
+        "label": "Packs (10 boards)",
+        "factor": 0.1,
+        "round": "ceil",
+        "unit_suffix": "packs"
+      }
+    ]
+  },
+  "units": {
+    "deck_length": "m",
+    "deck_width": "m",
+    "board_width": "m",
+    "board_length": "m",
+    "gap_size": "m"
+  },
+  "example_label": "Ejemplo para decking calculator: valores 5m, 3m, 14cm, 3.6m",
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Tarima",
+      "desc": "Calculadora de Tarimas. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculadora de Tarima – Tablas y Materiales",
+      "seo_desc": "Calcula cuántas tablas de tarima necesitas. Introduce las dimensiones de la terraza y el tamaño de la tabla para obtener el número de tablas al instante.",
+      "seo_description": "Calculadora gratuita de decking: calcula tarimas, tornillos y vigas para decks de madera o compuesto. Incluye factor de desperdicio y espaciado.",
+      "inputs": {
+        "deck_length": "Largo de la terraza",
+        "deck_width": "Ancho de la terraza",
+        "board_width": "Ancho de la tabla",
+        "board_length": "Largo de la tabla",
+        "gap_size": "Separación entre tablas"
+      },
+      "outputs": {
+        "deck_area_m2": "Área de la terraza",
+        "boards_needed": "Tablas necesarias",
+        "board_rows": "Filas de tablas",
+        "waste_percent": "Desperdicio",
+        "total_linear_meters": "Metros lineales totales"
+      }
+    },
+    "en": {
+      "name": "Decking Calculator",
+      "desc": "Decking Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Decking Calculator – Boards & Materials",
+      "seo_desc": "Calculate how many decking boards you need. Enter deck dimensions and board size to get board count, rows and linear metres instantly.",
+      "seo_description": "Free decking calculator: calculate deck boards, screws, and joists for composite or wood decks. Includes waste factor, gap spacing, and board layout optimization.",
+      "inputs": {
+        "deck_length": "Deck length",
+        "deck_width": "Deck width",
+        "board_width": "Board width",
+        "board_length": "Board length",
+        "gap_size": "Gap between boards"
+      },
+      "outputs": {
+        "deck_area_m2": "Deck area",
+        "boards_needed": "Boards needed",
+        "board_rows": "Rows of boards",
+        "waste_percent": "Waste",
+        "total_linear_meters": "Total linear metres"
+      }
+    },
+    "fr": {
+      "name": "Calculatrice de Terrasse",
+      "desc": "Calculateur de Terrasse. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculatrice de Terrasse – Lames et Matériaux",
+      "seo_desc": "Calculez le nombre de lames de terrasse nécessaires. Entrez les dimensions et obtenez instantanément le nombre de lames, rangées et mètres linéaires.",
+      "seo_description": "Calculateur gratuit de terrasse: calculez lames, vis et solives pour terrasses composite ou bois. Inclut marge de déchet et espacement.",
+      "inputs": {
+        "deck_length": "Longueur de la terrasse",
+        "deck_width": "Largeur de la terrasse",
+        "board_width": "Largeur de la lame",
+        "board_length": "Longueur de la lame",
+        "gap_size": "Espacement entre les lames"
+      },
+      "outputs": {
+        "deck_area_m2": "Surface de la terrasse",
+        "boards_needed": "Lames nécessaires",
+        "board_rows": "Rangées de lames",
+        "waste_percent": "Chutes",
+        "total_linear_meters": "Mètres linéaires totaux"
+      }
+    },
+    "pt": {
+      "name": "Calculadora de Deck",
+      "desc": "Calculadora de Deck. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculadora de Deck – Tábuas e Materiais",
+      "seo_desc": "Calcule quantas tábuas de deck você precisa. Insira as dimensões do deck e o tamanho da tábua para obter a contagem de tábuas, fileiras e metros lineares.",
+      "seo_description": "Calculadora gratuita de deck: calcule tábuas, parafusos e vigas para decks de madeira ou compósito. Inclui desperdício e espaçamento.",
+      "inputs": {
+        "deck_length": "Comprimento do deck",
+        "deck_width": "Largura do deck",
+        "board_width": "Largura da tábua",
+        "board_length": "Comprimento da tábua",
+        "gap_size": "Espaço entre tábuas"
+      },
+      "outputs": {
+        "deck_area_m2": "Área do deck",
+        "boards_needed": "Tábuas necessárias",
+        "board_rows": "Fileiras de tábuas",
+        "waste_percent": "Desperdício",
+        "total_linear_meters": "Metros lineares totais"
+      }
+    },
+    "de": {
+      "name": "Decking calculator",
+      "desc": "Berechnen Sie decking calculator online. Geben Sie deck length, deck width, board width ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Decking calculator | CalcToWork",
+      "seo_desc": "Decking calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Decking calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "deck_length": "Deck Length",
+        "deck_width": "Deck Width",
+        "board_width": "Board Width",
+        "board_length": "Board Length",
+        "gap_size": "Gap Size"
+      },
+      "outputs": {
+        "deck_area_m2": "Deck Area M2",
+        "boards_needed": "Boards Needed",
+        "board_rows": "Board Rows",
+        "waste_percent": "Waste Percent",
+        "total_linear_meters": "Total Linear Meters"
+      },
+      "example_label": "Ejemplo para decking calculator: valores 5m, 3m, 14cm, 3.6m",
+      "range_hints": {},
+      "result_context": "Deck area: {deck_area_m2} m², boards needed: {boards_needed}, rows: {board_rows}, waste: {waste_percent}%",
+      "formula_display": "Area = Length × Width; Boards = ceil(Width ÷ (board_width + gap)) × ceil(Length ÷ board_length)",
+      "steps": [
+        "Calculate deck area: 5 m × 4 m = 20.00 m²",
+        "Board effective width with gap: 14 cm + 0.6 cm = 14.6 cm = 0.146 m",
+        "Rows across width: ceil(4 ÷ 0.146) = 28 rows",
+        "Boards per row: ceil(5 ÷ 3.6) = 2 boards per row",
+        "Total boards: 28 × 2 = 56 boards (58 with 5% waste)"
+      ],
+      "mistakes": [
+        "Forgetting to add the gap width when calculating board spacing",
+        "Using board width in metres instead of centimetres",
+        "Not ordering 5-10% extra for cuts and waste"
+      ],
+      "input_type_review": []
+    },
+    "it": {
+      "name": "Calcolatore di Pavimento Esterno",
+      "desc": "Calcolatore Decking. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calcolatore Pavimento Esterno – Assi e Materiali",
+      "seo_desc": "Calcola quante assi del pavimento esterno ti servono. Inserisci le dimensioni del deck e ottieni immediatamente il numero di assi, file e metri lineari.",
+      "seo_description": "Calcolatore gratuito decking: calcola tavole, viti e travi per deck in legno o composito. Include spreco e spaziatura.",
+      "inputs": {
+        "deck_length": "Lunghezza del deck",
+        "deck_width": "Larghezza del deck",
+        "board_width": "Larghezza dell'asse",
+        "board_length": "Lunghezza dell'asse",
+        "gap_size": "Spazio tra le assi"
+      },
+      "outputs": {
+        "deck_area_m2": "Area del deck",
+        "boards_needed": "Assi necessarie",
+        "board_rows": "File di assi",
+        "waste_percent": "Scarto",
+        "total_linear_meters": "Metri lineari totali"
+      }
+    }
+  }
+}

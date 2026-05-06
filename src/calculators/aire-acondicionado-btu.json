@@ -1,0 +1,555 @@
+{
+  "id": "053",
+  "slug": "aire-acondicionado-btu",
+  "block": 6,
+  "block_slug": "climatizacion",
+  "inputs": [
+    {
+      "id": "area_m2",
+      "type": "number",
+      "min": 5,
+      "max": 500,
+      "step": 0.5,
+      "default": 20,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "altura_m",
+      "type": "number",
+      "min": 2.2,
+      "max": 6,
+      "step": 0.1,
+      "default": 2.7,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "orientacion",
+      "type": "select",
+      "default": "norte",
+      "options": [
+        "norte",
+        "sur",
+        "este",
+        "oeste"
+      ]
+    },
+    {
+      "id": "aislamiento",
+      "type": "select",
+      "default": "medio",
+      "options": [
+        "deficiente",
+        "medio",
+        "bueno"
+      ]
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area_m2)||0,H=parseFloat(inputs.altura_m)||2.7,orie={'norte':0.9,'sur':1.1,'este':1.0,'oeste':1.05},aisl={'deficiente':1.2,'medio':1.0,'bueno':0.85};if(!A)return{error:true};var vol=A*H,btu=+(vol*35*orie[inputs.orientacion]*aisl[inputs.aislamiento]).toFixed(0),kw=+(btu/3412).toFixed(2),frig=+(btu*0.252).toFixed(0),modelo=btu<=6000?'1x1':btu<=9000?'1x1 (9000)':btu<=12000?'1x1 (12000)':btu<=18000?'1x1.5 (18000)':'2x1+';return{vol_m3:+vol.toFixed(1),btu_necesarios:btu,kw_frio:kw,frigorias:frig,modelo_sugerido:modelo};",
+  "outputs": [
+    {
+      "id": "vol_m3",
+      "unit": "m³"
+    },
+    {
+      "id": "btu_necesarios",
+      "unit": "BTU/h",
+      "highlight": true
+    },
+    {
+      "id": "kw_frio",
+      "unit": "kW frío"
+    },
+    {
+      "id": "frigorias",
+      "unit": "kcal/h"
+    },
+    {
+      "id": "modelo_sugerido",
+      "unit": "modelo split"
+    }
+  ],
+  "related": [
+    "036",
+    "037",
+    "055",
+    "056"
+  ],
+  "example_inputs": {
+    "area_m2": 20,
+    "altura_m": 2.7,
+    "orientacion": "norte",
+    "aislamiento": "medio"
+  },
+  "example_label": "Ejemplo para aire acondicionado btu: valores 20m², 2.7m",
+  "range_hints": {
+    "area_m2": "Valor típico entre 5 y 500. Valor por defecto: 20 m².",
+    "altura_m": "Valor típico entre 2.2 y 6. Valor por defecto: 2.7 m.",
+    "orientacion": "Seleccionar entre las opciones: norte, sur, este, oeste",
+    "aislamiento": "Seleccionar entre las opciones: deficiente, medio, bueno"
+  },
+  "result_context": "Resultados: volumen de {vol_m3} m³, {btu_necesarios} BTU/h necesarios, {kw_frio} kW de frío, {frigorias} kcal/h, modelo sugerido: {modelo_sugerido}.",
+  "formula_display": "vol × 35 × orie → vol_m3, btu_necesarios",
+  "steps": [
+    "Introducir los valores de area_m2, altura_m, orientacion y aislamiento",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+    "Calcular los valores de vol m3 y btu necesarios",
+    "El resultado se expresa en m³. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Sobredimensionar el equipo (provoca ciclos cortos que reducen la eficiencia)",
+    "No limpiar los filtros regularmente (reduce el caudal hasta un 30%)",
+    "Instalar la unidad exterior en un lugar sin ventilación adecuada"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "area_m2",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "altura_m",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "orientacion",
+      "current_type": "select",
+      "recommended_type": "select",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "aislamiento",
+      "current_type": "select",
+      "recommended_type": "select",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small room",
+      "area_m2": 10,
+      "altura_m": 2.2
+    },
+    {
+      "_label": "Medium room",
+      "area_m2": 15,
+      "altura_m": 2.2
+    },
+    {
+      "_label": "Large room",
+      "area_m2": 20,
+      "altura_m": 2.7
+    },
+    {
+      "_label": "Office",
+      "area_m2": 30,
+      "altura_m": 4.05
+    },
+    {
+      "_label": "Warehouse",
+      "area_m2": 40,
+      "altura_m": 5.4
+    }
+  ],
+  "units": {
+    "area_m2": "m²",
+    "altura_m": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Aire Acondicionado (BTU)",
+      "desc": "Calcula los BTU/h, kW y frigorías necesarios para climatizar tu habitación o local. Orientación y aislamiento incluidos.",
+      "seo_title": "Calculadora Aire Acondicionado BTU",
+      "inputs": {
+        "area_m2": "Área habitación",
+        "altura_m": "Altura techo",
+        "orientacion": "Orientación principal",
+        "aislamiento": "Calidad de aislamiento"
+      },
+      "outputs": {
+        "vol_m3": "Volumen",
+        "btu_necesarios": "BTU/h necesarios",
+        "kw_frio": "kW frío",
+        "frigorias": "kcal/h (frigorías)",
+        "modelo_sugerido": "Modelo split sugerido"
+      },
+      "seo_description": "Calcula los BTU/h, kW y frigorías necesarios para climatizar tu habitación o local. Orientación y aislamiento incluidos.",
+      "example_label": "Calcular capacidad de aire acondicionado para habitación de 25m² con 2.6m de altura, orientación sur y aislamiento bueno.",
+      "range_hints": {
+        "area_m2": "Superficie de la habitación a climatizar",
+        "altura_m": "Altura del techo (afecta volumen)"
+      },
+      "result_context": "Habitación de {area_m2}m² con {altura_m}m de altura requiere equipo de {btu} BTU/h ({toneladas} toneladas). Potencia eléctrica: {potencia_kw} kW.",
+      "formula_display": "BTU = área × altura × factor (40-60 según orientación/aislamiento)",
+      "steps": [
+        "Calcular volumen: 25m² × 2.6m = 65m³",
+        "Factor orientación sur + aislamiento bueno: 50 BTU/m³",
+        "Calcular BTU: 65m³ × 50 = 3250 BTU/h",
+        "Para m² método rápido: 25m² × 600 BTU/m² = 15000 BTU/h",
+        "Convertir a toneladas: 15000 ÷ 12000 = 1.25 toneladas"
+      ],
+      "mistakes": [
+        "Dimensionar solo por m² sin considerar altura y orientación",
+        "No prever capacidad adicional para techos con mucho sol",
+        "Instalar equipo sobredimensionado (cicla mucho, no deshumidifica bien)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "altura_m",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "orientacion",
+          "reason": "Correcto: opción discreta"
+        },
+        {
+          "field_id": "aislamiento",
+          "reason": "Correcto: opción discreta"
+        }
+      ]
+    },
+    "en": {
+      "name": "Air Conditioning BTU Calculator",
+      "desc": "Air Conditioning BTU Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "AC BTU Calculator – What Size Do I Need?",
+      "inputs": {
+        "area_m2": "Room area",
+        "altura_m": "Ceiling height",
+        "orientacion": "Main orientation",
+        "aislamiento": "Insulation quality"
+      },
+      "outputs": {
+        "vol_m3": "Volume",
+        "btu_necesarios": "BTU/h needed",
+        "kw_frio": "Cooling kW",
+        "frigorias": "kcal/h",
+        "modelo_sugerido": "Suggested split model"
+      },
+      "seo_description": "Air Conditioning BTU Calculator. Room area, Ceiling height, Main orientation — get Volume, BTU/h needed, Cooling kW instantly for your HVAC and climate.",
+      "example_label": "Size an AC unit for a 20 m² living room with north orientation and medium insulation.",
+      "range_hints": {
+        "area_m2": "Floor area to condition (5-500 m²). Bedroom: 10-20 m², Living room: 25-40 m², Office: 30-60 m²",
+        "altura_m": "Ceiling height. Residential: 2.5-2.7 m, Commercial: 3-4 m"
+      },
+      "result_context": "For a {vol_m3} m³ space you need {btu_necesarios} BTU/h ({kw_frio} kW). Equivalent to {frigorias} kcal/h. Recommended unit: {modelo_sugerido} split system.",
+      "formula_display": "BTU = Area × Height × 35 × Orientation_Factor × Insulation_Factor",
+      "steps": [
+        "Calculate room volume: 20 m² × 2.7 m = 54.0 m³",
+        "Apply base cooling load: 54.0 m³ × 35 BTU/m³ = 1890 BTU",
+        "Adjust for orientation (north = 0.9): 1890 × 0.9 = 1701 BTU",
+        "Adjust for insulation (medium = 1.0): 1701 × 1.0 = 1701 BTU",
+        "Round to nearest commercial model: 6000 BTU unit (1×1 split)"
+      ],
+      "mistakes": [
+        "Undersizing — a small unit runs continuously, consumes more power and fails to cool on hot days",
+        "Oversizing — short cycles don't dehumidify properly, causing mold and compressor wear",
+        "Ignoring internal heat gains — people (600 BTU/h each), appliances and electronics add significant heat"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "orientacion",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: opción discreta"
+        },
+        {
+          "field_id": "aislamiento",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: opción discreta"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Climatiseur BTU",
+      "desc": "Calculez les BTU/h, kW et kcal/h nécessaires pour climatiser votre pièce ou local. Calculatrice facile a utiliser avec decomposition de la formule.",
+      "seo_title": "Calculateur Climatiseur BTU – Outil Gratuit",
+      "inputs": {
+        "area_m2": "Surface pièce",
+        "altura_m": "Hauteur plafond",
+        "orientacion": "Orientation principale",
+        "aislamiento": "Qualité isolation"
+      },
+      "outputs": {
+        "vol_m3": "Volume",
+        "btu_necesarios": "BTU/h nécessaires",
+        "kw_frio": "kW froid",
+        "frigorias": "kcal/h",
+        "modelo_sugerido": "Modèle split suggéré"
+      },
+      "seo_description": "Calculez les BTU/h, kW et kcal/h nécessaires pour climatiser votre pièce ou local. Calculatrice facile a utiliser avec decomposition de la formule.",
+      "example_label": "Calculer capacidad de aire acondicionado pour habitación de 25m² avec 2.6m de hauteur, orientación sur et isolation bueno.",
+      "range_hints": {
+        "area_m2": "surface de la habitación a climatizar",
+        "altura_m": "hauteur du toit (afecta volume)"
+      },
+      "result_context": "Habitación de {area_m2}m² avec {altura_m}m de hauteur nécessite equipo de {btu} BTU/h ({toneladas} toneladas). Potencia leéctrica: {potencia_kw} kW.",
+      "formula_display": "BTU = área × hauteur × factor (40-60 selon orientación/isolation)",
+      "steps": [
+        "Calculer le volume: 25m² × 2.6m = 65m³",
+        "Factor orientación sur + isolation bueno: 50 BTU/m³",
+        "Calculer BTU: 65m³ × 50 = 3250 BTU/h",
+        "pour m² método rápido: 25m² × 600 BTU/m² = 15000 BTU/h",
+        "Convertir a toneladas: 15000 Á· 12000 = 1.25 toneladas"
+      ],
+      "mistakes": [
+        "Dimensionar solo par m² sans considerar hauteur et orientación",
+        "No prever capacidad adicional pour toits avec mucho sol",
+        "Instalar equipo sobredimensionado (cicla mucho, no deshumidifica bien)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "orientacion",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correct : opción discreta"
+        },
+        {
+          "field_id": "aislamiento",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correct : opción discreta"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Ar-Condicionado (BTU)",
+      "desc": "Calcule os BTU/h e kW necessários para climatizar seu ambienteCalculadora facil de usar com detalhamento da formula.",
+      "seo_title": "Calculadora Ar-Condicionado BTU",
+      "inputs": {
+        "area_m2": "Área do ambiente",
+        "altura_m": "Altura do teto",
+        "orientacion": "Orientação principal",
+        "aislamiento": "Qualidade do isolamento"
+      },
+      "outputs": {
+        "vol_m3": "Volume",
+        "btu_necesarios": "BTU/h necessários",
+        "kw_frio": "kW frio",
+        "frigorias": "kcal/h",
+        "modelo_sugerido": "Modelo split sugerido"
+      },
+      "seo_description": "Calcule os BTU/h e kW necessários para climatizar seu ambiente. Calculadora fácil com resultados rápidos e precisos. Cálculo gratuito online.",
+      "example_label": "Calcular capacidade de aire acondicionado para habitación de 25m² com 2.6m de altura, orientación sur e isolamento bueno.",
+      "range_hints": {
+        "area_m2": "Superficie da habitación a climatizar",
+        "altura_m": "Altura do telhado (afecta volume)"
+      },
+      "result_context": "Habitación de {area_m2}m² com {altura_m}m de altura requer equipo de {btu} BTU/h ({toneladas} toneladas). Potencia eléctrica: {potencia_kw} kW.",
+      "formula_display": "BTU = área × altura × factor (40-60 segundo orientación/aislamiento)",
+      "steps": [
+        "Calcular volume: 25m² × 2.6m = 65m³",
+        "Factor orientación sur + isolamento bueno: 50 BTU/m³",
+        "Calcular BTU: 65m³ × 50 = 3250 BTU/h",
+        "Para m² método rápido: 25m² × 600 BTU/m² = 15000 BTU/h",
+        "Convertir a toneladas: 15000 ÷ 12000 = 1.25 toneladas"
+      ],
+      "mistakes": [
+        "Dimensionar solo por m² sem considerar altura e orientación",
+        "Não prever capacidade adicional para telhados com mucho sol",
+        "Instalar equipo sobredimensionado (cicla mucho, não deshumidifica bien)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "orientacion",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correto: opção discreta"
+        },
+        {
+          "field_id": "aislamiento",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correto: opção discreta"
+        }
+      ]
+    },
+    "de": {
+      "name": "Klimaanlage acondicionado BTU",
+      "desc": "Berechnen Sie klimaanlage acondicionado BTU online. Geben Sie area m2, altura m, orientacion ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Klimaanlage acondicionado BTU | CalcToWork",
+      "seo_desc": "Klimaanlage acondicionado BTU online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Klimaanlage acondicionado BTU online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "area_m2": "Area M2",
+        "altura_m": "Altura M",
+        "orientacion": "Orientacion",
+        "aislamiento": "Aislamiento"
+      },
+      "outputs": {
+        "vol_m3": "Vol M3",
+        "btu_necesarios": "Btu Necesarios",
+        "kw_frio": "Kw Frio",
+        "frigorias": "Frigorias",
+        "modelo_sugerido": "Modelo Sugerido"
+      },
+      "example_label": "Ejemplo para aire acondicionado btu: valores 20m², 2.7m",
+      "range_hints": {
+        "area_m2": "Valor típico entre 5 y 500. Valor por defecto: 20 m².",
+        "altura_m": "Valor típico entre 2.2 y 6. Valor por defecto: 2.7 m.",
+        "orientacion": "Seleccionar entre las opciones: norte, sur, este, oeste",
+        "aislamiento": "Seleccionar entre las opciones: deficiente, medio, bueno"
+      },
+      "result_context": "Resultados: volumen de {vol_m3} m³, {btu_necesarios} BTU/h necesarios, {kw_frio} kW de frío, {frigorias} kcal/h, modelo sugerido: {modelo_sugerido}.",
+      "formula_display": "vol × 35 × orie → vol_m3, btu_necesarios",
+      "steps": [
+        "Introducir los valores de area_m2, altura_m, orientacion y aislamiento",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+        "Calcular los valores de vol m3 y btu necesarios",
+        "El resultado se expresa en m³. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Sobredimensionar el equipo (provoca ciclos cortos que reducen la eficiencia)",
+        "No limpiar los filtros regularmente (reduce el caudal hasta un 30%)",
+        "Instalar la unidad exterior en un lugar sin ventilación adecuada"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "orientacion",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "aislamiento",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Carico Termico Edificio",
+      "description": "Calcola il carico termico per il dimensionamento dell'impianto HVAC.",
+      "seo_title": "Calcolatore Climatizzatore BTU",
+      "seo_description": "Stima il carico termico invernale ed estivo per gli impianti di climatizzazione Usato da professionisti e studenti in tutto il mondo.",
+      "inputs": {
+        "area": "Superficie (m²)",
+        "altura": "Altezza (m)",
+        "u_muros": "U muri (W/m²K)",
+        "u_techo": "U copertura (W/m²K)",
+        "t_ext": "T esterna (°C)",
+        "t_int": "T interna (°C)"
+      },
+      "outputs": {
+        "carga_w": "Carico termico (W)",
+        "carga_kw": "Carico termico (kW)",
+        "potencia_ton": "Potenza (TR)"
+      },
+      "example_label": "Calcolare stratocità di aire acondicionado per habitación di 25m² con 2.6m di altezza, oriintación sur e isolaminto buinon.",
+      "range_hints": {
+        "area_m2": "Superficie dilla habitación a climatizar",
+        "altura_m": "Altura dil soffitto (afecta volume)"
+      },
+      "result_context": "Habitación di {area_m2}m² con {altezza_m}m di altezza richiedi equipo di {btu} BTU/h ({toneladas} toneladas). Potincia eléctrica: {potincia_kw} kW.",
+      "formula_display": "BTU = área × altezza × factor (40-60 según oriintación/isolaminto)",
+      "steps": [
+        "Calcolare volume: 25m² × 2.6m = 65m³",
+        "Factor oriintación sur + isolaminto buinon: 50 BTU/m³",
+        "Calcolare BTU: 65m³ × 50 = 3250 BTU/h",
+        "Per m² método rápido: 25m² × 600 BTU/m² = 15000 BTU/h",
+        "Convertire a toneladas: 15000 ÷ 12000 = 1.25 toneladas"
+      ],
+      "mistakes": [
+        "Diminseonar solo per m² senza consedirar altezza e oriintación",
+        "No prever stratocità adicional per tetti con mucho sol",
+        "Instalar equipo sudiminseonado (cicla mucho, non dishumidifica biin)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "orientacion",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Corretto: opción discreta"
+        },
+        {
+          "field_id": "aislamiento",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Corretto: opción discreta"
+        }
+      ]
+    }
+  }
+}

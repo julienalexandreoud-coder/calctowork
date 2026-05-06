@@ -1,0 +1,478 @@
+{
+  "id": "018",
+  "slug": "enfoscado-guarnecido",
+  "block": 2,
+  "block_slug": "mamposteria",
+  "inputs": [
+    {
+      "id": "area",
+      "type": "number",
+      "min": 1,
+      "max": 3000,
+      "step": 0.5,
+      "default": 80,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "espesor_mm",
+      "type": "number",
+      "min": 10,
+      "max": 25,
+      "step": 1,
+      "default": 15,
+      "unit": "mm",
+      "unit_options": [
+        "mm",
+        "cm",
+        "m",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "tipo",
+      "type": "select",
+      "default": "cemento",
+      "options": [
+        "cemento",
+        "yeso"
+      ]
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area)||0,E=parseFloat(inputs.espesor_mm)||15,yeso=inputs.tipo==='yeso';if(!A)return{error:true};var kg_m2=yeso?E*1.2:E*1.5,total=+(A*kg_m2*1.08).toFixed(1),sacos=Math.ceil(total/25);return{area_m2:+A.toFixed(2),kg_m2:+kg_m2.toFixed(1),total_kg:total,sacos_25kg:sacos};",
+  "outputs": [
+    {
+      "id": "area_m2",
+      "unit": "m²"
+    },
+    {
+      "id": "kg_m2",
+      "unit": "kg/m²"
+    },
+    {
+      "id": "total_kg",
+      "unit": "kg (+8% merma)",
+      "highlight": true
+    },
+    {
+      "id": "sacos_25kg",
+      "unit": "sacos 25kg"
+    }
+  ],
+  "related": [
+    "016",
+    "017",
+    "076",
+    "011"
+  ],
+  "example_inputs": {
+    "area": 80,
+    "espesor_mm": 15,
+    "tipo": "cemento"
+  },
+  "example_label": "Ejemplo para enfoscado guarnecido: valores 80m², 15mm",
+  "range_hints": {
+    "area": "Valor típico entre 1 y 3000. Valor por defecto: 80 m².",
+    "espesor_mm": "Valor típico entre 10 y 25. Valor por defecto: 15 mm.",
+    "tipo": "Seleccionar entre las opciones: cemento, yeso"
+  },
+  "result_context": "Resultados: {area_m2} m² de superficie, {kg_m2} kg/m² de rendimiento, {total_kg} kg de material, {sacos_25kg} sacos de 25 kg.",
+  "formula_display": "A × kg_m2 × 1 → area_m2, kg_m2",
+  "steps": [
+    "Introducir los valores de area, espesor_mm y tipo",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+    "Calcular los valores de area m2 y kg m2",
+    "El resultado se expresa en m². Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Introducir valores con unidades incorrectas sin verificar la conversión",
+    "Redondear resultados intermedios en lugar del resultado final",
+    "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "area",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "espesor_mm",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "tipo",
+      "current_type": "select",
+      "recommended_type": "select",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small wall",
+      "area": 40,
+      "espesor_mm": 10
+    },
+    {
+      "_label": "Medium wall",
+      "area": 60,
+      "espesor_mm": 11
+    },
+    {
+      "_label": "Large wall",
+      "area": 80,
+      "espesor_mm": 15
+    },
+    {
+      "_label": "Room",
+      "area": 120,
+      "espesor_mm": 22
+    },
+    {
+      "_label": "House perimeter",
+      "area": 160,
+      "espesor_mm": 25
+    }
+  ],
+  "units": {
+    "area": "m²",
+    "espesor_mm": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Enfoscado y Guarnecido",
+      "desc": "Calcula los kg de mortero de cemento o yeso para enfoscados y guarnecidos de paredes Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora Enfoscado – Cemento o Yeso",
+      "inputs": {
+        "area": "Área total",
+        "espesor_mm": "Espesor",
+        "tipo": "Tipo de material"
+      },
+      "outputs": {
+        "area_m2": "Área",
+        "kg_m2": "Kg por m²",
+        "total_kg": "Total kg (+8%)",
+        "sacos_25kg": "Sacos de 25 kg"
+      },
+      "seo_description": "Calcula los kg de mortero de cemento o yeso para enfoscados y guarnecidos de paredes Usado por profesionales y estudiantes en todo el mundo.",
+      "example_label": "Calcular mortero de enfoscado para 60m² de paramento con espesor de 15mm tipo monocapa.",
+      "range_hints": {
+        "area": "Superficie total de muros y techos a enfoscar",
+        "espesor_mm": "Monocapa: 12-18mm, Tradicional: 15-25mm en varias capas"
+      },
+      "result_context": "Superficie de {area} m² con {espesor_mm}mm requiere {sacos} sacos de mortero {tipo}. Consumo estimado: {kg_m2} kg/m².",
+      "formula_display": "Consumo = espesor_mm × 1.6 kg/m² por mm; Sacos = (área × consumo) ÷ 25kg",
+      "steps": [
+        "Calcular consumo por m²: 15mm × 1.6 kg/m²/mm = 24 kg/m²",
+        "Calcular total: 60m² × 24 kg/m² = 1440 kg",
+        "Calcular sacos: 1440 kg ÷ 25 kg/saco = 57.6 → 58 sacos",
+        "Para tradicional: considerar capas separadas (guarnecido 10mm + afinado 5mm)"
+      ],
+      "mistakes": [
+        "No humedecer el soporte antes de aplicar mortero tradicional",
+        "Aplicar monocapa sobre soportes muy absorbentes sin imprimación",
+        "No usar malla de refuerzo en encuentros entre materiales diferentes"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "espesor_mm",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "tipo",
+          "reason": "Correcto: opción discreta"
+        }
+      ]
+    },
+    "en": {
+      "name": "Rendering and Skimming Calculator",
+      "desc": "Rendering and Skimming Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Rendering Calculator – Cement or Gypsum",
+      "seo_desc": "Rendering and Skimming Calculator. Total area, Thickness, Material type — get Area, Kg per m², Total kg (+8%) instantly for your masonry and enclosures.",
+      "inputs": {
+        "area": "Total area",
+        "espesor_mm": "Thickness",
+        "tipo": "Material type"
+      },
+      "outputs": {
+        "area_m2": "Area",
+        "kg_m2": "Kg per m²",
+        "total_kg": "Total kg (+8%)",
+        "sacos_25kg": "25 kg bags"
+      },
+      "seo_description": "Calculate kg of cement or gypsum plaster for rendering and skimming walls. Choose material type and enter area with thickness. Includes 8% waste.",
+      "example_label": "Calcular mortero de enfoscado para 60m² de paramento con espesor de 15mm tipo monocapa.",
+      "range_hints": {
+        "area": "Superficie total de muros y techos a enfoscar",
+        "espesor_mm": "Monocapa: 12-18mm, Tradicional: 15-25mm en varias capas"
+      },
+      "result_context": "Superficie de {area} m² con {espesor_mm}mm requiere {sacos} sacos de mortero {tipo}. Consumo estimado: {kg_m2} kg/m².",
+      "formula_display": "Consumo = espesor_mm × 1.6 kg/m² por mm; Sacos = (área × consumo) ÷ 25kg",
+      "steps": [
+        "Calcular consumo por m²: 15mm × 1.6 kg/m²/mm = 24 kg/m²",
+        "Calcular total: 60m² × 24 kg/m² = 1440 kg",
+        "Calcular sacos: 1440 kg ÷ 25 kg/saco = 57.6 â†’ 58 sacos",
+        "Para tradicional: considerar capas separadas (guarnecido 10mm + afinado 5mm)"
+      ],
+      "mistakes": [
+        "No humedecer el soporte antes de aplicar mortero tradicional",
+        "Aplicar monocapa sobre soportes muy absorbentes sin imprimación",
+        "No usar malla de refuerzo en encuentros entre materiales diferentes"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "espesor_mm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "tipo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: opción discreta"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Crépi et Gobetis",
+      "desc": "Calculez les matériaux pour enduits ciment ou plâtre.",
+      "seo_title": "Calculateur Enduit – Ciment ou Plâtre",
+      "inputs": {
+        "area": "Surface totale",
+        "espesor_mm": "Épaisseur",
+        "tipo": "Type de matériau"
+      },
+      "outputs": {
+        "area_m2": "Surface",
+        "kg_m2": "Kg par m²",
+        "total_kg": "Total kg (+8%)",
+        "sacos_25kg": "Sacs de 25 kg"
+      },
+      "seo_description": "Calculez les kg de mortier ciment ou plâtre pour enduits et crépis de murs Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calculer mortier de enfoscado pour 60m² de paramento avec épaisseur de 15mm tipo monocapa.",
+      "range_hints": {
+        "area": "surface total de murs et toits a enfoscar",
+        "espesor_mm": "Monocapa: 12-18mm, Tradicional: 15-25mm dans varias capas"
+      },
+      "result_context": "surface de {area} m² avec {espesor_mm}mm nécessite {sacs} sacs de mortier {tipo}. Consumo estimado: {kg_m2} kg/m².",
+      "formula_display": "Consumo = espesor_mm × 1.6 kg/m² par mm; sacs = (área × consumo) Á· 25kg",
+      "steps": [
+        "Calculer consumo par m²: 15mm × 1.6 kg/m²/mm = 24 kg/m²",
+        "Calculer total: 60m² × 24 kg/m² = 1440 kg",
+        "Calculer sacs: 1440 kg Á· 25 kg/saco = 57.6 ââ€ ’ 58 sacs",
+        "pour tradicional: considerar capas separadas (guarnecido 10mm + afinado 5mm)"
+      ],
+      "mistakes": [
+        "No humedecer le soporte antes de aplicar mortier tradicional",
+        "Aplicar monocapa sur soportes muy absorbentes sans imprimación",
+        "No Utiliser malla de refuerzo dans encuentros entre matériaux diferentes"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "espesor_mm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "tipo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correct : opción discreta"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Reboco e Emboço",
+      "desc": "Calcule os kg de argamassa de cimento ou gesso para rebocos e emboços de paredes. Calculo preciso e rapido com metodologia clara.",
+      "seo_title": "Calculadora Reboco – Cimento ou Gesso",
+      "inputs": {
+        "area": "Área total",
+        "espesor_mm": "Espessura",
+        "tipo": "Tipo de material"
+      },
+      "outputs": {
+        "area_m2": "Área",
+        "kg_m2": "Kg por m²",
+        "total_kg": "Total kg (+8%)",
+        "sacos_25kg": "Sacos de 25 kg"
+      },
+      "seo_description": "Calcule os kg de argamassa de cimento ou gesso para rebocos e emboços de paredes. Calculo preciso e rapido com metodologia clara.",
+      "example_label": "Calcular argamassa de enfoscado para 60m² de paramento com espessura de 15mm tipo monocapa.",
+      "range_hints": {
+        "area": "Superficie total de muros e telhados a enfoscar",
+        "espesor_mm": "Monocapa: 12-18mm, Tradicional: 15-25mm em varias capas"
+      },
+      "result_context": "Superficie de {area} m² com {espesor_mm}mm requer {sacos} sacos de argamassa {tipo}. Consumo estimado: {kg_m2} kg/m².",
+      "formula_display": "Consumo = espesor_mm × 1.6 kg/m² por mm; Sacos = (área × consumo) ÷ 25kg",
+      "steps": [
+        "Calcular consumo por m²: 15mm × 1.6 kg/m²/mm = 24 kg/m²",
+        "Calcular total: 60m² × 24 kg/m² = 1440 kg",
+        "Calcular sacos: 1440 kg ÷ 25 kg/saco = 57.6 â†’ 58 sacos",
+        "Para tradicional: considerar capas separadas (guarnecido 10mm + afinado 5mm)"
+      ],
+      "mistakes": [
+        "Não humedecer o soporte antes de aplicar argamassa tradicional",
+        "Aplicar monocapa sobre soportes muy absorbentes sem imprimación",
+        "Não usar malha de reforço em encuentros entre materiais diferentes"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "espesor_mm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "tipo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correto: opção discreta"
+        }
+      ]
+    },
+    "de": {
+      "name": "Grundputz Feinputz",
+      "desc": "Berechnen Sie grundputz Feinputz online. Geben Sie area, espesor mm, tipo ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Grundputz Feinputz | CalcToWork",
+      "seo_desc": "Grundputz Feinputz online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Grundputz Feinputz online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "area": "Area",
+        "espesor_mm": "Espesor Mm",
+        "tipo": "Tipo"
+      },
+      "outputs": {
+        "area_m2": "Area M2",
+        "kg_m2": "Kg M2",
+        "total_kg": "Total Kg",
+        "sacos_25kg": "Sacos 25kg"
+      },
+      "example_label": "Ejemplo para enfoscado guarnecido: valores 80m², 15mm",
+      "range_hints": {
+        "area": "Valor típico entre 1 y 3000. Valor por defecto: 80 m².",
+        "espesor_mm": "Valor típico entre 10 y 25. Valor por defecto: 15 mm.",
+        "tipo": "Seleccionar entre las opciones: cemento, yeso"
+      },
+      "result_context": "Resultados: {area_m2} m² de superficie, {kg_m2} kg/m² de rendimiento, {total_kg} kg de material, {sacos_25kg} sacos de 25 kg.",
+      "formula_display": "A × kg_m2 × 1 → area_m2, kg_m2",
+      "steps": [
+        "Introducir los valores de area, espesor_mm y tipo",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+        "Calcular los valores de area m2 y kg m2",
+        "El resultado se expresa en m². Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Introducir valores con unidades incorrectas sin verificar la conversión",
+        "Redondear resultados intermedios en lugar del resultado final",
+        "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "espesor_mm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "tipo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Controparete in Cartongesso",
+      "description": "Calcola lastre e profili per contropareti in cartongesso.",
+      "seo_title": "Calcolatore Intonaco – Cemento Gesso",
+      "seo_description": "Stima lastre, profili e viti per contropareti in cartongesso Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo.",
+      "inputs": {
+        "area": "Superficie (m²)",
+        "alto": "Altezza (m)"
+      },
+      "outputs": {
+        "placas": "Lastre (1200×2400)",
+        "montantes": "Montanti (m)",
+        "canales": "Guide (m)",
+        "tornillos": "Viti (appross.)"
+      },
+      "example_label": "Calcolare mortero di infoscado per 60m² di perminto con spessore di 15mm tipo mononstrato.",
+      "range_hints": {
+        "area": "Superficie totale di muros e tetti a infoscar",
+        "espesor_mm": "Mononstrato: 12-18mm, Tradicional: 15-25mm in varias strati"
+      },
+      "result_context": "Superficie di {area} m² con {spessore_mm}mm richiedi {sacos} sacos di mortero {tipo}. Consumo estimado: {kg_m2} kg/m².",
+      "formula_display": "Consumo = spessore_mm × 1.6 kg/m² per mm; Sacos = (área × consumo) ÷ 25kg",
+      "steps": [
+        "Calcolare consumo per m²: 15mm × 1.6 kg/m²/mm = 24 kg/m²",
+        "Calcolare totale: 60m² × 24 kg/m² = 1440 kg",
+        "Calcolare sacos: 1440 kg ÷ 25 kg/saco = 57.6 → 58 sacos",
+        "Per tradicional: consedirar strati seperdas (guarnecido 10mm + afinedo 5mm)"
+      ],
+      "mistakes": [
+        "No humedicer el supperto prima di aplicar mortero tradicional",
+        "Applicare mononstrato su supperti molto absorbintes senza imprimación",
+        "No usar malla di rinforzo in incuintros intre opacoriales diferintes"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "espesor_mm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "tipo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Corretto: opción discreta"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,406 @@
+{
+  "id": "054",
+  "slug": "conductos-aire",
+  "block": 6,
+  "block_slug": "climatizacion",
+  "inputs": [
+    {
+      "id": "caudal_m3h",
+      "type": "number",
+      "min": 50,
+      "max": 50000,
+      "step": 50,
+      "default": 500,
+      "unit": "m³/h"
+    },
+    {
+      "id": "velocidad_ms",
+      "type": "number",
+      "min": 1,
+      "max": 10,
+      "step": 0.5,
+      "default": 4,
+      "unit": "m/s",
+      "unit_options": [
+        "m/s",
+        "km/h",
+        "ft/s"
+      ],
+      "unit_category": "speed"
+    }
+  ],
+  "formula": "var Q=parseFloat(inputs.caudal_m3h)||0,v=parseFloat(inputs.velocidad_ms)||4;if(!Q)return{error:true};var A_m2=Q/3600/v,D_mm=+(Math.sqrt(4*A_m2/Math.PI)*1000).toFixed(0),D_norm=D_mm<=100?100:D_mm<=125?125:D_mm<=160?160:D_mm<=200?200:D_mm<=250?250:D_mm<=315?315:400,lado=+(Math.sqrt(A_m2)*1000).toFixed(0);return{area_conducto_m2:+A_m2.toFixed(4),diametro_circular_mm:D_norm,lado_rectangular_mm:lado};",
+  "outputs": [
+    {
+      "id": "diametro_circular_mm",
+      "unit": "mm Ã˜ (circular)",
+      "highlight": true
+    },
+    {
+      "id": "lado_rectangular_mm",
+      "unit": "mm (cuadrado equiv.)"
+    },
+    {
+      "id": "area_conducto_m2",
+      "unit": "m² sección"
+    }
+  ],
+  "related": [
+    "055",
+    "053",
+    "059",
+    "058"
+  ],
+  "example_inputs": {
+    "caudal_m3h": 500,
+    "velocidad_ms": 4
+  },
+  "example_label": "Ejemplo para conductos aire: valores 500m³/h, 4m/s",
+  "range_hints": {
+    "caudal_m3h": "Valor típico entre 50 y 50000. Valor por defecto: 500 m³/h.",
+    "velocidad_ms": "Valor típico entre 1 y 10. Valor por defecto: 4 m/s."
+  },
+  "result_context": "Resultados: diámetro circular de {diametro_circular_mm} mm, lado rectangular de {lado_rectangular_mm} mm, área del conducto de {area_conducto_m2} m².",
+  "formula_display": "Q ÷ 3600 → diametro_circular_mm, lado_rectangular_mm",
+  "steps": [
+    "Introducir los valores de caudal_m3h y velocidad_ms",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m/s, km/h, ft/s)",
+    "Calcular los valores de diametro circular mm y lado rectangular mm",
+    "El resultado se expresa en mm Ã˜ (circular). Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Sobredimensionar el equipo (provoca ciclos cortos que reducen la eficiencia)",
+    "No limpiar los filtros regularmente (reduce el caudal hasta un 30%)",
+    "Instalar la unidad exterior en un lugar sin ventilación adecuada"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "caudal_m3h",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "velocidad_ms",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small room",
+      "caudal_m3h": 250,
+      "velocidad_ms": 2
+    },
+    {
+      "_label": "Medium room",
+      "caudal_m3h": 400,
+      "velocidad_ms": 3
+    },
+    {
+      "_label": "Large room",
+      "caudal_m3h": 500,
+      "velocidad_ms": 4
+    },
+    {
+      "_label": "Office",
+      "caudal_m3h": 750,
+      "velocidad_ms": 6
+    },
+    {
+      "_label": "Warehouse",
+      "caudal_m3h": 1000,
+      "velocidad_ms": 8
+    }
+  ],
+  "units": {
+    "velocidad_ms": "m/s"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Conductos de Aire",
+      "desc": "Calcula el diámetro circular y sección rectangular para conductos de ventilación y climatización Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora Conductos Aire – Diámetro",
+      "inputs": {
+        "caudal_m3h": "Caudal de aire (m³/h)",
+        "velocidad_ms": "Velocidad del aire (m/s)"
+      },
+      "outputs": {
+        "diametro_circular_mm": "Diámetro circular (mm)",
+        "lado_rectangular_mm": "Lado cuadrado equivalente (mm)",
+        "area_conducto_m2": "Sección conducto (m²)"
+      },
+      "seo_description": "Calcula el diámetro circular y sección rectangular para conductos de ventilación y climatización Usado por profesionales y estudiantes en todo el mundo.",
+      "example_label": "Calcular diámetro de conducto de aire para caudal de 500 m³/h con velocidad de 4 m/s.",
+      "range_hints": {
+        "caudal_m3h": "Caudal de aire a circular",
+        "velocidad_ms": "Conductos principales: 4-6 m/s, Ramales: 3-4 m/s, Difusores: 2-3 m/s"
+      },
+      "result_context": "Para {caudal_m3h} m³/h a {velocidad_ms} m/s se necesita conducto de {diametro_mm}mm de diámetro ({area_cm2} cm² de sección).",
+      "formula_display": "Sección_m2 = caudal_m3/s ÷ velocidad; Diámetro = 2 × √(sección ÷ Ïâ‚¬)",
+      "steps": [
+        "Convertir caudal a m³/s: 500 m³/h ÷ 3600 = 0.139 m³/s",
+        "Calcular sección: 0.139 m³/s ÷ 4 m/s = 0.0347 m²",
+        "Calcular diámetro: 2 × √(0.0347 ÷ Ïâ‚¬) = 0.210m = 210mm",
+        "Diámetro comercial: 200mm o 250mm según disponibilidad"
+      ],
+      "mistakes": [
+        "Usar velocidad muy alta (ruido excesivo)",
+        "Usar velocidad muy baja (conductos muy grandes, costo mayor)",
+        "No considerar pérdidas por codos y derivaciones"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "caudal_m3h",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "velocidad_ms",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Air Duct Calculator",
+      "desc": "Air Duct Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Air Duct Sizing Calculator – Diameter",
+      "inputs": {
+        "caudal_m3h": "Airflow (m³/h)",
+        "velocidad_ms": "Air velocity (m/s)"
+      },
+      "outputs": {
+        "diametro_circular_mm": "Circular diameter (mm)",
+        "lado_rectangular_mm": "Equivalent square (mm)",
+        "area_conducto_m2": "Duct section (m²)"
+      },
+      "seo_description": "Air Duct Calculator. Airflow (m³/h), Air velocity (m/s) — get Circular diameter (mm), Equivalent square (mm), Duct section (m²) instantly for your HVAC.",
+      "example_label": "Size air duct for supply at 500 m³/h with recommended velocity of 4 m/s in the main run.",
+      "range_hints": {
+        "caudal_m3h": "Airflow to transport. Residential: 150-500 m³/h, Office: 500-2000 m³/h, Commercial: 2000-10000 m³/h",
+        "velocidad_ms": "Recommended velocity: main ducts 5-8 m/s, branches 3-5 m/s, grilles 1-2.5 m/s"
+      },
+      "result_context": "Required cross section: {area_conducto_m2} m². Standardized circular duct of {diametro_circular_mm} mm diameter, equivalent square duct of {lado_rectangular_mm} mm side.",
+      "formula_display": "D = √(4Q / πv) where Q = flow (m³/s), v = velocity (m/s)",
+      "steps": [
+        "Convert flow to m³/s: 500 m³/h ÷ 3600 = 0.139 m³/s",
+        "Calculate cross section: 0.139 ÷ 4 = 0.0347 m²",
+        "Calculate circular diameter: √(4 × 0.0347 ÷ 3.1416) × 1000 = 210 mm",
+        "Standardize to commercial size: 200 mm (nearest lower standard)",
+        "Equivalent square: √(0.0347) × 1000 ≈ 186 mm side"
+      ],
+      "mistakes": [
+        "Using excessive velocities — generates noise (>45 dB) and high pressure drops the fan cannot overcome",
+        "Undersizing the duct — increases velocity, noise and fan power consumption",
+        "Not accounting for losses in elbows and branches — each fitting adds equivalent length of straight duct"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "caudal_m3h",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "velocidad_ms",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Gaines d'Air",
+      "desc": "Dimensionnez les gaines de ventilation selon débit.",
+      "seo_title": "Calculateur Gaines CVCA – Diamètre",
+      "inputs": {
+        "caudal_m3h": "Débit d'air (m³/h)",
+        "velocidad_ms": "Vitesse d'air (m/s)"
+      },
+      "outputs": {
+        "diametro_circular_mm": "Diamètre circulaire (mm)",
+        "lado_rectangular_mm": "Côté carré équivalent (mm)",
+        "area_conducto_m2": "Section gaine (m²)"
+      },
+      "seo_description": "Calculez le diamètre circulaire et section rectangulaire pour gaines de ventilation et climatisation. Entrez vos valeurs pour des resultats precis.",
+      "example_label": "Calculer diamètre de conduit de aire pour caudal de 500 m³/h avec velocidad de 4 m/s.",
+      "range_hints": {
+        "caudal_m3h": "Caudal de aire a circular",
+        "velocidad_ms": "conduits principales: 4-6 m/s, Ramales: 3-4 m/s, Difusores: 2-3 m/s"
+      },
+      "result_context": "pour {caudal_m3h} m³/h a {velocidad_ms} m/s se necesita conduit de {diametro_mm}mm de diamètre ({area_cm2} cm² de sección).",
+      "formula_display": "Sección_m2 = caudal_m3/s Á· velocidad; diamètre = 2 × √(sección Á· Ïâ‚¬)",
+      "steps": [
+        "Convertir caudal a m³/s: 500 m³/h Á· 3600 = 0.139 m³/s",
+        "Calculer sección: 0.139 m³/s Á· 4 m/s = 0.0347 m²",
+        "Calculer diamètre: 2 × √(0.0347 Á· Ïâ‚¬) = 0.210m = 210mm",
+        "diamètre comercial: 200mm o 250mm selon disponibilidad"
+      ],
+      "mistakes": [
+        "Utiliser velocidad muy alta (ruido excesivo)",
+        "Utiliser velocidad muy baja (conduits muy grandes, costo mayor)",
+        "Ne pas considérer pérdidas par codos et derivaciones"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "caudal_m3h",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "velocidad_ms",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Dutos de Ar",
+      "desc": "Calcule o diâmetro circular e seção retangular para dutos de ventilação e climatização Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora Dutos de Ar – Diâmetro",
+      "inputs": {
+        "caudal_m3h": "Vazão de ar (m³/h)",
+        "velocidad_ms": "Velocidade do ar (m/s)"
+      },
+      "outputs": {
+        "diametro_circular_mm": "Diâmetro circular (mm)",
+        "lado_rectangular_mm": "Lado quadrado equivalente (mm)",
+        "area_conducto_m2": "Seção duto (m²)"
+      },
+      "seo_description": "Calcule o diâmetro circular e seção retangular para dutos de ventilação e climatização Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular diâmetro de conducto de aire para caudal de 500 m³/h com velocidad de 4 m/s.",
+      "range_hints": {
+        "caudal_m3h": "Caudal de aire a circular",
+        "velocidad_ms": "Conductos principais: 4-6 m/s, Ramales: 3-4 m/s, Difusores: 2-3 m/s"
+      },
+      "result_context": "Para {caudal_m3h} m³/h a {velocidad_ms} m/s se necesita conducto de {diametro_mm}mm de diâmetro ({area_cm2} cm² de seção).",
+      "formula_display": "Sección_m2 = caudal_m3/s ÷ velocidad; Diámetro = 2 × √(seção ÷ Ïâ‚¬)",
+      "steps": [
+        "Convertir caudal a m³/s: 500 m³/h ÷ 3600 = 0.139 m³/s",
+        "Calcular seção: 0.139 m³/s ÷ 4 m/s = 0.0347 m²",
+        "Calcular diâmetro: 2 × √(0.0347 ÷ Ïâ‚¬) = 0.210m = 210mm",
+        "Diámetro comercial: 200mm o 250mm segundo disponibilidad"
+      ],
+      "mistakes": [
+        "Usar velocidad muy alta (ruido excesivo)",
+        "Usar velocidad muy baja (conductos muy grandes, costo mayor)",
+        "Não considerar pérdidas por codos e derivaciones"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "caudal_m3h",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "velocidad_ms",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Lüftungskanal Klimaanlage",
+      "desc": "Berechnen Sie lüftungskanal Klimaanlage online. Geben Sie caudal m3h, velocidad ms ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Lüftungskanal Klimaanlage | CalcToWork",
+      "seo_desc": "Lüftungskanal Klimaanlage online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Lüftungskanal Klimaanlage online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "caudal_m3h": "Caudal M3h",
+        "velocidad_ms": "Velocidad Ms"
+      },
+      "outputs": {
+        "diametro_circular_mm": "Diametro Circular Mm",
+        "lado_rectangular_mm": "Lado Rectangular Mm",
+        "area_conducto_m2": "Area Conducto M2"
+      },
+      "example_label": "Ejemplo para conductos aire: valores 500m³/h, 4m/s",
+      "range_hints": {
+        "caudal_m3h": "Valor típico entre 50 y 50000. Valor por defecto: 500 m³/h.",
+        "velocidad_ms": "Valor típico entre 1 y 10. Valor por defecto: 4 m/s."
+      },
+      "result_context": "Resultados: diámetro circular de {diametro_circular_mm} mm, lado rectangular de {lado_rectangular_mm} mm, área del conducto de {area_conducto_m2} m².",
+      "formula_display": "Q ÷ 3600 → diametro_circular_mm, lado_rectangular_mm",
+      "steps": [
+        "Introducir los valores de caudal_m3h y velocidad_ms",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m/s, km/h, ft/s)",
+        "Calcular los valores de diametro circular mm y lado rectangular mm",
+        "El resultado se expresa en mm Ã˜ (circular). Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Sobredimensionar el equipo (provoca ciclos cortos que reducen la eficiencia)",
+        "No limpiar los filtros regularmente (reduce el caudal hasta un 30%)",
+        "Instalar la unidad exterior en un lugar sin ventilación adecuada"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "caudal_m3h",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "velocidad_ms",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Climatizzatore",
+      "description": "Seleziona la potenza del climatizzatore per una stanza.",
+      "seo_title": "Calcolatore Condotti Aria – Diametro",
+      "seo_description": "Calcola i BTU o kW necessari per climatizzare un locale Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo rapido,.",
+      "inputs": {
+        "area": "Superficie (m²)",
+        "altura": "Altezza (m)",
+        "orientacion": "Orientazione (1-3)",
+        "num_personas": "Persone"
+      },
+      "outputs": {
+        "btu": "Potenza (BTU/h)",
+        "kw": "Potenza (kW)",
+        "modelo_sugerido": "Modello suggerito"
+      },
+      "example_label": "Calcolare diámetro di conducto di aire per pertata di 500 m³/h con velocità di 4 m/s.",
+      "range_hints": {
+        "caudal_m3h": "Caudal di aire a circolare",
+        "velocidad_ms": "Conductos principales: 4-6 m/s, Ramales: 3-4 m/s, Difusores: 2-3 m/s"
+      },
+      "result_context": "Per {pertata_m3h} m³/h a {velocità_ms} m/s se neceseta conducto di {diametro_mm}mm di diámetro ({area_cm2} cm² di sección).",
+      "formula_display": "Sección_m2 = pertata_m3/s ÷ velocità; Diámetro = 2 × √(sección ÷ Ïâ‚¬)",
+      "steps": [
+        "Convertire pertata a m³/s: 500 m³/h ÷ 3600 = 0.139 m³/s",
+        "Calcolare sección: 0.139 m³/s ÷ 4 m/s = 0.0347 m²",
+        "Calcolare diámetro: 2 × √(0.0347 ÷ Ïâ‚¬) = 0.210m = 210mm",
+        "Diámetro commerciale: 200mm o 250mm según disponibilidad"
+      ],
+      "mistakes": [
+        "Usare velocità molto alta (ruido excesevo)",
+        "Usare velocità molto bassa (conductos molto grandi, costo maggiore)",
+        "Non consedirare pérdidas per codos e dirivaciones"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "caudal_m3h",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "velocidad_ms",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        }
+      ]
+    }
+  }
+}

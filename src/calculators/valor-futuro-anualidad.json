@@ -1,0 +1,510 @@
+{
+  "id": "327",
+  "slug": "valor-futuro-anualidad",
+  "block": 14,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "pmt",
+      "type": "number",
+      "step": "any",
+      "default": 100,
+      "unit": "USD",
+      "unit_options": [
+        "USD",
+        "EUR",
+        "GBP"
+      ],
+      "unit_category": "currency"
+    },
+    {
+      "id": "rate",
+      "type": "number",
+      "step": "any",
+      "default": 5,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "percentage"
+    },
+    {
+      "id": "n",
+      "type": "number",
+      "step": 1,
+      "default": 10,
+      "unit": "yr",
+      "unit_options": [
+        "yr",
+        "mo"
+      ],
+      "unit_category": "time"
+    }
+  ],
+  "formula": "var pmt=parseFloat(inputs.pmt)||0;var r=(parseFloat(inputs.rate)||0)/100;var n=parseFloat(inputs.n)||0;var fv=r>0?pmt*((Math.pow(1+r,n)-1)/r):pmt*n;return{fv:fv.toFixed(2)};",
+  "outputs": [
+    {
+      "id": "fv",
+      "unit": "USD"
+    }
+  ],
+  "related": [
+    "328",
+    "302",
+    "321",
+    "322"
+  ],
+  "example_inputs": {
+    "pmt": 500,
+    "rate": 6,
+    "n": 20
+  },
+  "example_label": "Calcular valor futuro de inversión de 500 USD × 6 % × 20 yr.",
+  "range_hints": {
+    "pmt": "Valor típico entre 0 y 500. Valor por defecto: 100 USD.",
+    "rate": "Valor típico entre 0 y 500. Valor por defecto: 5 %.",
+    "n": "Valor típico entre 0 y 500. Valor por defecto: 10 yr."
+  },
+  "result_context": "Resultados: {fv} USD de valor futuro.",
+  "formula_display": "Fv (USD) = f(pmt, rate, n)",
+  "steps": [
+    "Introducir los valores de pmt, rate y n",
+    "Verificar que las unidades sean correctas y convertir si es necesario (USD, EUR, GBP)",
+    "Realizar el cálculo para obtener fv",
+    "El resultado se expresa en USD. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para tomar decisiones informadas sobre tu planificación financiera"
+  ],
+  "mistakes": [
+    "No comparar la TAE entre distintas ofertas antes de contratar",
+    "Confundir interés simple con interés compuesto en inversiones a largo plazo",
+    "Olvidar incluir comisiones y gastos en el cálculo del coste total"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "pmt",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "rate",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "n",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "pmt": 250,
+      "rate": 3,
+      "n": 20
+    },
+    {
+      "_label": "Average",
+      "pmt": 375,
+      "rate": 4,
+      "n": 20
+    },
+    {
+      "_label": "High",
+      "pmt": 500,
+      "rate": 6,
+      "n": 20
+    },
+    {
+      "_label": "Premium",
+      "pmt": 750,
+      "rate": 9,
+      "n": 20
+    },
+    {
+      "_label": "Enterprise",
+      "pmt": 1000,
+      "rate": 12,
+      "n": 20
+    }
+  ],
+  "units": {
+    "pmt": "USD",
+    "rate": "%",
+    "n": "s"
+  },
+  "i18n": {
+    "es": {
+      "name": "Valor Futuro de Anualidad",
+      "description": "Calcula el valor futuro de una serie de pagos iguales.",
+      "inputs": {
+        "pmt": "Pago periódico",
+        "rate": "Tasa %",
+        "n": "Número de períodos"
+      },
+      "outputs": {
+        "fv": "Valor futuro"
+      },
+      "seo_title": "Valor Futuro de Anualidad Gratuita",
+      "seo_description": "Calcula el valor futuro de una serie de pagos iguales. Calculadora gratuita, precisa e instantánea. Con explicacion de estadisticas.",
+      "example_label": "Calculating future value of $500 annual payments at 6% interest over 20 years.",
+      "range_hints": {
+        "pmt": "$100 - $50,000+ periodic payments",
+        "rate": "1-15% interest rates",
+        "n": "5-50 periods"
+      },
+      "result_context": "The fv of {fv} is the accumulated value of all payments plus compound interest.",
+      "formula_display": "FV = PMT × [((1 + r)^n - 1) ÷ r]",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert rate to decimal",
+          "calculation": "6% ÷ 100 = 0.06"
+        },
+        {
+          "step": 2,
+          "description": "Calculate growth factor",
+          "calculation": "(1.06)^20 = 3.2071"
+        },
+        {
+          "step": 3,
+          "description": "Apply annuity formula",
+          "calculation": "$500 × [(3.2071 - 1) ÷ 0.06] = $18,392.79"
+        }
+      ],
+      "mistakes": [
+        "Using ordinary annuity formula when payments are at beginning (annuity due)",
+        "Not matching payment frequency with interest rate period",
+        "Forgetting that inflation reduces real future value"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "pmt",
+          "reason": "Correct type for payment amount"
+        },
+        {
+          "field_id": "rate",
+          "reason": "Correct type for interest rate"
+        },
+        {
+          "field_id": "n",
+          "reason": "Correct type for number of periods"
+        }
+      ]
+    },
+    "en": {
+      "name": "Future Value of Annuity Calculator",
+      "description": "Calculate the future value of a series of equal payments.",
+      "inputs": {
+        "pmt": "Periodic payment",
+        "rate": "Interest rate %",
+        "n": "Number of periods"
+      },
+      "outputs": {
+        "fv": "Future value"
+      },
+      "seo_title": "Future Value of Annuity Calculator",
+      "seo_description": "Future Value of Annuity Calculator. Future Value of Annuity Calculator = f(Periodic payment, Interest rate %, Number of periods) — Periodic payment,.",
+      "example_label": "Calculating future value of $500 annual payments at 6% interest over 20 years.",
+      "range_hints": {
+        "pmt": "$100 - $50,000+ periodic payments",
+        "rate": "1-15% interest rates",
+        "n": "5-50 periods"
+      },
+      "result_context": "The fv of {fv} is the accumulated value of all payments plus compound interest.",
+      "formula_display": "FV = PMT × [((1 + r)^n - 1) ÷ r]",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert rate to decimal",
+          "calculation": "6% ÷ 100 = 0.06"
+        },
+        {
+          "step": 2,
+          "description": "Calculate growth factor",
+          "calculation": "(1.06)^20 = 3.2071"
+        },
+        {
+          "step": 3,
+          "description": "Apply annuity formula",
+          "calculation": "$500 × [(3.2071 - 1) ÷ 0.06] = $18,392.79"
+        }
+      ],
+      "mistakes": [
+        "Using ordinary annuity formula when payments are at beginning (annuity due)",
+        "Not matching payment frequency with interest rate period",
+        "Forgetting that inflation reduces real future value"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "pmt",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for payment amount"
+        },
+        {
+          "field_id": "rate",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for interest rate"
+        },
+        {
+          "field_id": "n",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for number of periods"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Valeur Future d'une Rente",
+      "description": "Calculez la valeur future d'une série de paiements égaux.",
+      "inputs": {
+        "pmt": "Paiement périodique",
+        "rate": "Taux %",
+        "n": "Nombre de périodes"
+      },
+      "outputs": {
+        "fv": "Valeur future"
+      },
+      "seo_title": "Valeur Future d'une Rente – Calcul Facile",
+      "seo_description": "Calculez la valeur future d'une série de paiements égaux. Calculateur gratuit, précis et instantané. Avec explication des statistiques.",
+      "example_label": "Calculating future value of $500 annual payments at 6% interest over 20 years.",
+      "range_hints": {
+        "pmt": "$100 - $50,000+ periodic payments",
+        "rate": "1-15% interest rates",
+        "n": "5-50 periods"
+      },
+      "result_context": "The fv of {fv} is the accumulated value of all payments plus compound interest.",
+      "formula_display": "FV = PMT × [((1 + r)^n - 1) Á· r]",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert rate to decimal",
+          "calculation": "6% Á· 100 = 0.06"
+        },
+        {
+          "step": 2,
+          "description": "Calculate growth factor",
+          "calculation": "(1.06)^20 = 3.2071"
+        },
+        {
+          "step": 3,
+          "description": "Apply annuity formula",
+          "calculation": "$500 × [(3.2071 - 1) Á· 0.06] = $18,392.79"
+        }
+      ],
+      "mistakes": [
+        "Using ordinary annuity formula when payments are at beginning (annuity due)",
+        "Not matching payment frequency with interest rate period",
+        "Forgetting that inflation reduces real future value"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "pmt",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for payment amount"
+        },
+        {
+          "field_id": "rate",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for interest rate"
+        },
+        {
+          "field_id": "n",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for number of periods"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Valor Futuro de Anuidade",
+      "description": "Calcule o valor futuro de uma série de pagamentos iguais.",
+      "inputs": {
+        "pmt": "Pagamento periódico",
+        "rate": "Taxa %",
+        "n": "Número de períodos"
+      },
+      "outputs": {
+        "fv": "Valor futuro"
+      },
+      "seo_title": "Valor Futuro de Anuidade – Fácil e Grátis",
+      "seo_description": "Calcule o valor futuro de uma série de pagamentos iguais. Calculadora gratuita, precisa e instantânea. Com explicacao de estatisticas.",
+      "example_label": "Calculating future value of $500 annual payments at 6% interest over 20 years.",
+      "range_hints": {
+        "pmt": "$100 - $50,000+ periodic payments",
+        "rate": "1-15% interest rates",
+        "n": "5-50 periods"
+      },
+      "result_context": "The fv of {fv} is the accumulated value of all payments plus compound interest.",
+      "formula_display": "FV = PMT × [((1 + r)^n - 1) ÷ r]",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert rate to decimal",
+          "calculation": "6% ÷ 100 = 0.06"
+        },
+        {
+          "step": 2,
+          "description": "Calculate growth factor",
+          "calculation": "(1.06)^20 = 3.2071"
+        },
+        {
+          "step": 3,
+          "description": "Apply annuity formula",
+          "calculation": "$500 × [(3.2071 - 1) ÷ 0.06] = $18,392.79"
+        }
+      ],
+      "mistakes": [
+        "Using ordinary annuity formula when payments are at beginning (annuity due)",
+        "Not matching payment frequency with interest rate period",
+        "Forgetting that inflation reduces real future value"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "pmt",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for payment amount"
+        },
+        {
+          "field_id": "rate",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for interest rate"
+        },
+        {
+          "field_id": "n",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for number of periods"
+        }
+      ]
+    },
+    "de": {
+      "name": "Valor futuro anualidad",
+      "desc": "Berechnen Sie valor futuro anualidad online. Geben Sie pmt, rate, n ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Valor futuro anualidad | CalcToWork",
+      "seo_desc": "Valor futuro anualidad online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Valor futuro anualidad online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "pmt": "Pmt",
+        "rate": "Rate",
+        "n": "N"
+      },
+      "outputs": {
+        "fv": "Fv"
+      },
+      "example_label": "Calcular valor futuro de inversión de 500 USD × 6 % × 20 yr.",
+      "range_hints": {
+        "pmt": "Valor típico entre 0 y 500. Valor por defecto: 100 USD.",
+        "rate": "Valor típico entre 0 y 500. Valor por defecto: 5 %.",
+        "n": "Valor típico entre 0 y 500. Valor por defecto: 10 yr."
+      },
+      "result_context": "Resultados: {fv} USD de valor futuro.",
+      "formula_display": "Fv (USD) = f(pmt, rate, n)",
+      "steps": [
+        "Introducir los valores de pmt, rate y n",
+        "Verificar que las unidades sean correctas y convertir si es necesario (USD, EUR, GBP)",
+        "Realizar el cálculo para obtener fv",
+        "El resultado se expresa en USD. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para tomar decisiones informadas sobre tu planificación financiera"
+      ],
+      "mistakes": [
+        "No comparar la TAE entre distintas ofertas antes de contratar",
+        "Confundir interés simple con interés compuesto en inversiones a largo plazo",
+        "Olvidar incluir comisiones y gastos en el cálculo del coste total"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "pmt",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "rate",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "n",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Valore Futuro di una Rendita",
+      "description": "Calcola il valore futuro di una serie di pagamenti uguali.",
+      "inputs": {
+        "pmt": "Pagamento periodico",
+        "rate": "Tasso %",
+        "n": "Numero di periodi"
+      },
+      "outputs": {
+        "fv": "Valore futuro"
+      },
+      "seo_title": "Valore Futuro di una Rendita – Calcolo Facile",
+      "seo_description": "Calcola il valore futuro di una serie di pagamenti uguali. Calcolatore gratuito, preciso e istantaneo. Con spiegazione delle statistiche.",
+      "example_label": "Calculating future value of $500 annual paemints at 6% interest over 20 eears.",
+      "range_hints": {
+        "pmt": "$100 - $50,000+ periodic paemints",
+        "rate": "1-15% interest rates",
+        "n": "5-50 periods"
+      },
+      "result_context": "The fv of {fv} is the accumulated value of all paemints plus compound interest.",
+      "formula_display": "FV = PMT × [((1 + r)^n - 1) ÷ r]",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert rate to decimal",
+          "calculation": "6% ÷ 100 = 0.06"
+        },
+        {
+          "step": 2,
+          "description": "Calculate growth factor",
+          "calculation": "(1.06)^20 = 3.2071"
+        },
+        {
+          "step": 3,
+          "description": "Apply annuity formula",
+          "calculation": "$500 × [(3.2071 - 1) ÷ 0.06] = $18,392.79"
+        }
+      ],
+      "mistakes": [
+        "Usenzag ordinare annuite formula whin paemints are at beginning (annuite due)",
+        "Not matching paemint frequince with interest rate period",
+        "Forgetting that inflation riduces real future value"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "pmt",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for paemint amount"
+        },
+        {
+          "field_id": "rate",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for interest rate"
+        },
+        {
+          "field_id": "n",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for number of periods"
+        }
+      ]
+    }
+  }
+}

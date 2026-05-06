@@ -1,0 +1,296 @@
+{
+  "id": "1107",
+  "slug": "laminate-flooring-calculator",
+  "block": 3,
+  "block_slug": "pavimentos",
+  "inputs": [
+    {
+      "id": "room_length",
+      "type": "number",
+      "min": 0.1,
+      "max": 50,
+      "step": 0.1,
+      "default": 5,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "room_width",
+      "type": "number",
+      "min": 0.1,
+      "max": 30,
+      "step": 0.1,
+      "default": 4,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "plank_length",
+      "type": "number",
+      "min": 0.5,
+      "max": 2,
+      "step": 0.05,
+      "default": 1.2,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "plank_width",
+      "type": "number",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "default": 19,
+      "unit": "cm",
+      "unit_category": "length"
+    },
+    {
+      "id": "planks_per_box",
+      "type": "number",
+      "min": 5,
+      "max": 20,
+      "step": 1,
+      "default": 8,
+      "unit": "pcs",
+      "unit_category": "count"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "room_area_m2",
+      "unit": "m²",
+      "highlight": true
+    },
+    {
+      "id": "planks_needed",
+      "unit": "planks"
+    },
+    {
+      "id": "boxes_needed",
+      "unit": "boxes"
+    },
+    {
+      "id": "waste_percent",
+      "unit": "%"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.room_length)||0,W=parseFloat(inputs.room_width)||0,pl=parseFloat(inputs.plank_length)||1.22,pw=parseFloat(inputs.plank_width)||0.193,ppb=parseFloat(inputs.planks_per_box)||8;if(!L||!W)return{error:true};var area=+(L*W).toFixed(2),pa=pl*pw,planks=Math.ceil(area/pa*1.10),boxes=Math.ceil(planks/ppb),waste=+(Math.max(10,((planks*pa/area)-1)*100)).toFixed(1);return{room_area_m2:area,planks_needed:planks,boxes_needed:boxes,waste_percent:waste};",
+  "formula_display": "Room area = Length × Width; Planks = ceil(area × 1.1 ÷ (plank_L × plank_W)); Boxes = ceil(planks ÷ planks_per_box)",
+  "result_context": "Room area: {room_area_m2} m², planks needed: {planks_needed}, boxes: {boxes_needed}, waste: {waste_percent}%",
+  "example_inputs": {
+    "room_length": 5,
+    "room_width": 4,
+    "plank_length": 1.26,
+    "plank_width": 0.192,
+    "planks_per_box": 8
+  },
+  "steps": [
+    "Room area: 5 m × 4 m = 20.00 m²",
+    "Plank area: 1.26 m × 0.192 m = 0.242 m²",
+    "Planks needed (with 10% waste): ceil(20 × 1.10 ÷ 0.242) = 92 planks",
+    "Boxes: ceil(92 ÷ 8) = 12 boxes"
+  ],
+  "mistakes": [
+    "Not adding 10% waste for cuts, especially in rooms with diagonal layouts (+15%)",
+    "Measuring closets separately — include them in the total area",
+    "Forgetting the underlay/foam layer adds 3-5 mm — may affect door clearance"
+  ],
+  "related": [
+    "1106",
+    "1118",
+    "1110",
+    "021"
+  ],
+  "comparison_presets": [
+    {
+      "room_length": 3,
+      "room_width": 3,
+      "plank_length": 1.26,
+      "plank_width": 0.192,
+      "planks_per_box": 8
+    },
+    {
+      "room_length": 4,
+      "room_width": 3.5,
+      "plank_length": 1.26,
+      "plank_width": 0.192,
+      "planks_per_box": 8
+    },
+    {
+      "room_length": 5,
+      "room_width": 4,
+      "plank_length": 1.26,
+      "plank_width": 0.192,
+      "planks_per_box": 8
+    },
+    {
+      "room_length": 6,
+      "room_width": 4.5,
+      "plank_length": 1.26,
+      "plank_width": 0.192,
+      "planks_per_box": 8
+    },
+    {
+      "room_length": 8,
+      "room_width": 5,
+      "plank_length": 1.85,
+      "plank_width": 0.24,
+      "planks_per_box": 6
+    }
+  ],
+  "buying_units": {
+    "boxes_needed": [
+      {
+        "label": "Boxes",
+        "factor": 1,
+        "round": "ceil",
+        "unit_suffix": "boxes"
+      }
+    ]
+  },
+  "units": {
+    "room_length": "m",
+    "room_width": "m",
+    "plank_length": "m",
+    "plank_width": "m"
+  },
+  "example_label": "Ejemplo para laminate flooring calculator: valores 5m, 4m, 1.2m, 19cm",
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Suelo Laminado",
+      "desc": "Calculadora 1107. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculadora de Suelo Laminado – Tablas y Cajas",
+      "seo_desc": "Calcula cuántas tablas y cajas de suelo laminado necesitas. Introduce las dimensiones de la habitación y el tamaño de la tabla para obtener las cantidades exactas.",
+      "seo_description": "Calcula las tablas y cajas de suelo laminado que necesitas para cualquier estancia. Introduce las medidas de la habitación, el formato de la lama y las unidades por caja, con un 10% de desperdicio incluido.",
+      "inputs": {
+        "room_length": "Largo de la habitación",
+        "room_width": "Ancho de la habitación",
+        "plank_length": "Largo de la tabla",
+        "plank_width": "Ancho de la tabla",
+        "planks_per_box": "Tablas por caja"
+      },
+      "outputs": {
+        "room_area_m2": "Área de la habitación",
+        "planks_needed": "Tablas necesarias",
+        "boxes_needed": "Cajas necesarias",
+        "waste_percent": "Desperdicio"
+      }
+    },
+    "en": {
+      "name": "Laminate Flooring Calculator",
+      "desc": "Calculator 1107. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Laminate Flooring Calculator – Planks & Boxes",
+      "seo_desc": "Calculate how many laminate flooring planks and boxes you need. Enter room dimensions and plank size to get exact quantities with 10% waste included.",
+      "seo_description": "Estimate laminate flooring planks and boxes needed for any room. Input room dimensions, plank size, and planks per box — includes 10% extra for offcuts and waste.",
+      "inputs": {
+        "room_length": "Room length",
+        "room_width": "Room width",
+        "plank_length": "Plank length",
+        "plank_width": "Plank width",
+        "planks_per_box": "Planks per box"
+      },
+      "outputs": {
+        "room_area_m2": "Room area",
+        "planks_needed": "Planks needed",
+        "boxes_needed": "Boxes needed",
+        "waste_percent": "Waste"
+      }
+    },
+    "fr": {
+      "name": "Calculatrice Parquet Flottant",
+      "desc": "Calculateur 1107. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculatrice Parquet Flottant – Lames et Boîtes",
+      "seo_desc": "Calculez le nombre de lames et boîtes de parquet flottant nécessaires. Entrez les dimensions de la pièce et la taille des lames pour obtenir les quantités exactes.",
+      "seo_description": "Déterminez le nombre de lames et de boîtes de parquet flottant à acheter. Saisissez la surface de la pièce, les dimensions des lames et le nombre de lames par boîte — marge de 10% incluse pour les découpes.",
+      "inputs": {
+        "room_length": "Longueur de la pièce",
+        "room_width": "Largeur de la pièce",
+        "plank_length": "Longueur de la lame",
+        "plank_width": "Largeur de la lame",
+        "planks_per_box": "Lames par boîte"
+      },
+      "outputs": {
+        "room_area_m2": "Surface de la pièce",
+        "planks_needed": "Lames nécessaires",
+        "boxes_needed": "Boîtes nécessaires",
+        "waste_percent": "Chutes"
+      }
+    },
+    "pt": {
+      "name": "Calculadora de Piso Laminado",
+      "desc": "Calculadora 1107. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculadora de Piso Laminado – Tábuas e Caixas",
+      "seo_desc": "Calcule quantas tábuas e caixas de piso laminado você precisa. Insira as dimensões do quarto e o tamanho da tábua para obter as quantidades exatas com 10% de desperdício.",
+      "seo_description": "Saiba quantas tábuas e caixas de piso laminado comprar para o seu projeto. Informe o tamanho do quarto, as dimensões de cada tábua e a quantidade por caixa — com 10% de perda por cortes.",
+      "inputs": {
+        "room_length": "Comprimento do quarto",
+        "room_width": "Largura do quarto",
+        "plank_length": "Comprimento da tábua",
+        "plank_width": "Largura da tábua",
+        "planks_per_box": "Tábuas por caixa"
+      },
+      "outputs": {
+        "room_area_m2": "Área do quarto",
+        "planks_needed": "Tábuas necessárias",
+        "boxes_needed": "Caixas necessárias",
+        "waste_percent": "Desperdício"
+      }
+    },
+    "de": {
+      "name": "Laminate flooring calculator",
+      "desc": "Berechnen Sie laminate flooring calculator online. Geben Sie room length, room width, plank length ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Laminate flooring calculator | CalcToWork",
+      "seo_desc": "Laminate flooring calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Laminate flooring calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "room_length": "Room Length",
+        "room_width": "Room Width",
+        "plank_length": "Plank Length",
+        "plank_width": "Plank Width",
+        "planks_per_box": "Planks Per Box"
+      },
+      "outputs": {
+        "room_area_m2": "Room Area M2",
+        "planks_needed": "Planks Needed",
+        "boxes_needed": "Boxes Needed",
+        "waste_percent": "Waste Percent"
+      },
+      "example_label": "Ejemplo para laminate flooring calculator: valores 5m, 4m, 1.2m, 19cm",
+      "range_hints": {},
+      "result_context": "Room area: {room_area_m2} m², planks needed: {planks_needed}, boxes: {boxes_needed}, waste: {waste_percent}%",
+      "formula_display": "Room area = Length × Width; Planks = ceil(area × 1.1 ÷ (plank_L × plank_W)); Boxes = ceil(planks ÷ planks_per_box)",
+      "steps": [
+        "Room area: 5 m × 4 m = 20.00 m²",
+        "Plank area: 1.26 m × 0.192 m = 0.242 m²",
+        "Planks needed (with 10% waste): ceil(20 × 1.10 ÷ 0.242) = 92 planks",
+        "Boxes: ceil(92 ÷ 8) = 12 boxes"
+      ],
+      "mistakes": [
+        "Not adding 10% waste for cuts, especially in rooms with diagonal layouts (+15%)",
+        "Measuring closets separately — include them in the total area",
+        "Forgetting the underlay/foam layer adds 3-5 mm — may affect door clearance"
+      ],
+      "input_type_review": []
+    },
+    "it": {
+      "name": "Calcolatore Pavimento Laminato",
+      "desc": "Calcolatore 1107. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calcolatore Laminato – Listoni e Confezioni",
+      "seo_desc": "Calcola quanti listoni e confezioni di pavimento laminato ti servono. Inserisci le dimensioni della stanza e il formato del listello per ottenere le quantità esatte.",
+      "seo_description": "Scopri quanti listelli e confezioni di laminato ti occorrono. Inserisci le dimensioni della stanza, il formato del listello e i pezzi per confezione, con il 10% di sfrido per i tagli incluso.",
+      "inputs": {
+        "room_length": "Lunghezza stanza",
+        "room_width": "Larghezza stanza",
+        "plank_length": "Lunghezza listello",
+        "plank_width": "Larghezza listello",
+        "planks_per_box": "Listelli per confezione"
+      },
+      "outputs": {
+        "room_area_m2": "Area stanza",
+        "planks_needed": "Listelli necessari",
+        "boxes_needed": "Confezioni necessarie",
+        "waste_percent": "Scarto"
+      }
+    }
+  }
+}

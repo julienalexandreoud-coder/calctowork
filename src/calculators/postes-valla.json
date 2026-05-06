@@ -1,0 +1,515 @@
+{
+  "id": "103",
+  "slug": "postes-valla",
+  "block": 3,
+  "block_slug": "mamposteria",
+  "inputs": [
+    {
+      "id": "longitud_m",
+      "type": "number",
+      "min": 2,
+      "max": 500,
+      "step": 1,
+      "default": 20,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "separacion_m",
+      "type": "number",
+      "min": 1,
+      "max": 4,
+      "step": 0.5,
+      "default": 2,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "altura_m",
+      "type": "number",
+      "min": 0.5,
+      "max": 3,
+      "step": 0.25,
+      "default": 1.5,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.longitud_m)||0,S=parseFloat(inputs.separacion_m)||2,H=parseFloat(inputs.altura_m)||0;if(!L||!H)return{error:true};var postes=Math.ceil(L/S)+1,paneles=Math.ceil(L/S),hormigon_L=postes*25,tornillos=paneles*8,longitud_poste_m=+(H+0.5).toFixed(2);return{postes_ud:postes,paneles_ud:paneles,hormigon_L:hormigon_L,tornillos_ud:tornillos,longitud_poste_m:longitud_poste_m};",
+  "outputs": [
+    {
+      "id": "postes_ud",
+      "unit": "postes",
+      "highlight": true
+    },
+    {
+      "id": "paneles_ud",
+      "unit": "paneles"
+    },
+    {
+      "id": "hormigon_L",
+      "unit": "L hormigón (dados)"
+    },
+    {
+      "id": "tornillos_ud",
+      "unit": "tornillos/anclajes"
+    },
+    {
+      "id": "longitud_poste_m",
+      "unit": "m por poste"
+    }
+  ],
+  "related": [
+    "011",
+    "017",
+    "013",
+    "012"
+  ],
+  "example_inputs": {
+    "longitud_m": 10,
+    "separacion_m": 2,
+    "altura_m": 3
+  },
+  "example_label": "Ejemplo para postes valla: valores 20m, 2m, 1.5m",
+  "range_hints": {
+    "longitud_m": "Medida lineal en m según plano",
+    "separacion_m": "Medida lineal en m según plano",
+    "altura_m": "Medida lineal en m según plano"
+  },
+  "result_context": "Resultados: {postes_ud} postes, {paneles_ud} paneles, {hormigon_L} L de hormigón (dados), {tornillos_ud} tornillos/anclajes, {longitud_poste_m} m por poste.",
+  "formula_display": "L ÷ S → postes_ud, paneles_ud",
+  "steps": [
+    "Introducir los valores de longitud_m, separacion_m y altura_m",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m, cm, mm)",
+    "Calcular los valores de postes ud y paneles ud",
+    "El resultado se expresa en postes. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Introducir valores con unidades incorrectas sin verificar la conversión",
+    "Redondear resultados intermedios en lugar del resultado final",
+    "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "longitud_m",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "separacion_m",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "altura_m",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small wall",
+      "longitud_m": 5,
+      "separacion_m": 1,
+      "altura_m": 3
+    },
+    {
+      "_label": "Medium wall",
+      "longitud_m": 8,
+      "separacion_m": 1.5,
+      "altura_m": 3
+    },
+    {
+      "_label": "Large wall",
+      "longitud_m": 10,
+      "separacion_m": 2,
+      "altura_m": 3
+    },
+    {
+      "_label": "Room",
+      "longitud_m": 15,
+      "separacion_m": 3,
+      "altura_m": 3
+    },
+    {
+      "_label": "House perimeter",
+      "longitud_m": 20,
+      "separacion_m": 4,
+      "altura_m": 3
+    }
+  ],
+  "units": {
+    "longitud_m": "m",
+    "separacion_m": "m",
+    "altura_m": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Postes y Paneles de Valla",
+      "desc": "Calcula los postes, paneles y hormigón para instalar una valla.",
+      "seo_title": "Calculadora Valla – Postes y Paneles",
+      "inputs": {
+        "longitud_m": "Longitud total de la valla (m)",
+        "separacion_m": "Separación entre postes (m)",
+        "altura_m": "Altura de la valla (m)"
+      },
+      "outputs": {
+        "postes_ud": "Postes",
+        "paneles_ud": "Paneles/tramos",
+        "hormigon_L": "Hormigón para dados (L)",
+        "tornillos_ud": "Tornillos/anclajes",
+        "longitud_poste_m": "Longitud de poste (m)"
+      },
+      "seo_description": "Calcula cuántos postes, paneles y litros de hormigón necesitas para instalar una valla o cerramiento Usado por profesionales y estudiantes en todo el.",
+      "example_label": "Calcular postes valla para muro con 10 m especificadas.",
+      "range_hints": {
+        "longitud_m": "Valor entre 2 y 500 m.",
+        "separacion_m": "Valor entre 1 y 4 m.",
+        "altura_m": "Valor entre 0.5 y 3 m."
+      },
+      "result_context": "El resultado principal es {postes_ud} postes. Este valor sirve como referencia para tu proyecto.",
+      "formula_display": "Postes = Longitud ÷ Separación + 1",
+      "steps": [
+        "Introduce longitud m: 10 m",
+        "Introduce separacion m: 2 m",
+        "Introduce altura m: 3 m",
+        "Pulsa calcular para obtener resultados",
+        "Interpreta resultado: {postes_ud}"
+      ],
+      "mistakes": [
+        "No descontar huecos de puertas y ventanas",
+        "Olvidar merma por cortes y roturas",
+        "No considerar tipo de aparejo en consumo"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "longitud_m",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "separacion_m",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "altura_m",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        }
+      ]
+    },
+    "en": {
+      "name": "Fence Post & Panel Calculator",
+      "desc": "Calculate posts, panels and concrete for fence installation.",
+      "seo_title": "Fence Calculator – Posts & Panels",
+      "inputs": {
+        "longitud_m": "Total fence length (m)",
+        "separacion_m": "Post spacing (m)",
+        "altura_m": "Fence height (m)"
+      },
+      "outputs": {
+        "postes_ud": "Posts",
+        "paneles_ud": "Panels/bays",
+        "hormigon_L": "Concrete for footings (L)",
+        "tornillos_ud": "Screws/fixings",
+        "longitud_poste_m": "Post length (m)"
+      },
+      "seo_description": "Calculate how many fence posts, concrete footings and panels you need. Enter fence length, post spacing and height for instant material quantities.",
+      "example_label": "Calculate fence posts for a 20m boundary with posts every 2m at 1.5m height.",
+      "range_hints": {
+        "longitud_m": "Total fence line length 2–500 m",
+        "separacion_m": "Post spacing 1.5–3.0 m (2.0–2.5 m standard)",
+        "altura_m": "Fence height 0.5–3.0 m above ground"
+      },
+      "result_context": "For a {longitud_m}m fence you need {postes_ud} posts, {paneles_ud} panels, {hormigon_L}L of concrete for footings and {tornillos_ud} screws/fixings. Each post should be {longitud_poste_m}m long (buried 50cm).",
+      "formula_display": "Posts = ceil(length ÷ spacing) + 1; Panels = ceil(length ÷ spacing)",
+      "steps": [
+        "Divide total fence length by post spacing: {longitud_m}m ÷ {separacion_m}m = {paneles_ud} panels",
+        "Calculate number of posts (always +1): {paneles_ud} + 1 = {postes_ud} posts",
+        "Calculate concrete per footing: {postes_ud} posts × 25L = {hormigon_L}L of concrete",
+        "Calculate post length above ground + buried: {altura_m}m + 0.50m = {longitud_poste_m}m per post",
+        "Calculate fixings: {paneles_ud} panels × 8 = {tornillos_ud} screws"
+      ],
+      "mistakes": [
+        "Forgetting to add one extra post (you always need one more post than panels)",
+        "Not burying posts deep enough (minimum 50cm or 1/3 of total height)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "longitud_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "separacion_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Clôture – Poteaux et Panneaux",
+      "desc": "Calculez les poteaux, panneaux et béton pour installer une clôture.",
+      "seo_title": "Calculateur Clôture – Poteaux et Panneaux",
+      "inputs": {
+        "longitud_m": "Longueur totale (m)",
+        "separacion_m": "Espacement entre poteaux (m)",
+        "altura_m": "Hauteur de la clôture (m)"
+      },
+      "outputs": {
+        "postes_ud": "Poteaux",
+        "paneles_ud": "Panneaux/travées",
+        "hormigon_L": "Béton pour dés (L)",
+        "tornillos_ud": "Vis/fixations",
+        "longitud_poste_m": "Longueur poteau (m)"
+      },
+      "seo_description": "Calculez combien de poteaux, panneaux et litres de béton vous faut-il pour installer une clôture. Entrez vos valeurs pour des resultats precis.",
+      "example_label": "Calculer postes valla pour mur avec 10 m especificadas.",
+      "range_hints": {
+        "longitud_m": "Valor entre 2 et 500 m.",
+        "separacion_m": "Valor entre 1 et 4 m.",
+        "altura_m": "Valor entre 0.5 et 3 m."
+      },
+      "result_context": "le resultado principal es {postes_ud} postes. Este valor sirve como referencia pour tu proyecto.",
+      "formula_display": "Postes = longueur Á· Separación + 1",
+      "steps": [
+        "Introduce longueur m: 10 m",
+        "Introduce separacion m: 2 m",
+        "Introduce hauteur m: 3 m",
+        "Pulsa Calculer pour obtener resultados",
+        "Interpreta resultado: {postes_ud}"
+      ],
+      "mistakes": [
+        "No descontar huecos de portes et fenêtres",
+        "Oublier merma par cortes et roturas",
+        "Ne pas considérer tipo de aparejo dans consumo"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "longitud_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        },
+        {
+          "field_id": "separacion_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        },
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Postes e Painéis de Cerca",
+      "desc": "Calcule postes, painéis e concreto para instalar uma cerca.",
+      "seo_title": "Calculadora de Cerca – Postes e Painéis",
+      "inputs": {
+        "longitud_m": "Comprimento total da cerca (m)",
+        "separacion_m": "Espaçamento entre postes (m)",
+        "altura_m": "Altura da cerca (m)"
+      },
+      "outputs": {
+        "postes_ud": "Postes",
+        "paneles_ud": "Painéis/vãos",
+        "hormigon_L": "Concreto para dados (L)",
+        "tornillos_ud": "Parafusos/fixações",
+        "longitud_poste_m": "Comprimento do poste (m)"
+      },
+      "seo_description": "Calcule quantos postes, painéis e litros de concreto você precisa para instalar uma cerca ou fechamento Usado por profissionais e estudantes em todo o.",
+      "example_label": "Calcular postes valla para muro com 10 m especificadas.",
+      "range_hints": {
+        "longitud_m": "Valor entre 2 e 500 m.",
+        "separacion_m": "Valor entre 1 e 4 m.",
+        "altura_m": "Valor entre 0.5 e 3 m."
+      },
+      "result_context": "El resultado principal é {postes_ud} postes. Este valor sirve como referencia para tu proyecto.",
+      "formula_display": "Postes = Longitud ÷ Separación + 1",
+      "steps": [
+        "Introduce comprimento m: 10 m",
+        "Introduce separacion m: 2 m",
+        "Introduce altura m: 3 m",
+        "Pulsa calcular para obter resultados",
+        "Interpreta resultado: {postes_ud}"
+      ],
+      "mistakes": [
+        "Não descontar huecos de portas e janelas",
+        "Esquecer merma por cortes e roturas",
+        "Não considerar tipo de aparejo em consumo"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "longitud_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        },
+        {
+          "field_id": "separacion_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        },
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        }
+      ]
+    },
+    "de": {
+      "name": "Postes valla",
+      "desc": "Berechnen Sie postes valla online. Geben Sie longitud m, separacion m, altura m ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Postes valla | CalcToWork",
+      "seo_desc": "Postes valla online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Postes valla online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "longitud_m": "Longitud M",
+        "separacion_m": "Separacion M",
+        "altura_m": "Altura M"
+      },
+      "outputs": {
+        "postes_ud": "Postes Ud",
+        "paneles_ud": "Paneles Ud",
+        "hormigon_L": "Hormigon L",
+        "tornillos_ud": "Tornillos Ud",
+        "longitud_poste_m": "Longitud Poste M"
+      },
+      "example_label": "Ejemplo para postes valla: valores 20m, 2m, 1.5m",
+      "range_hints": {
+        "longitud_m": "Medida lineal en m según plano",
+        "separacion_m": "Medida lineal en m según plano",
+        "altura_m": "Medida lineal en m según plano"
+      },
+      "result_context": "Resultados: {postes_ud} postes, {paneles_ud} paneles, {hormigon_L} L de hormigón (dados), {tornillos_ud} tornillos/anclajes, {longitud_poste_m} m por poste.",
+      "formula_display": "L ÷ S → postes_ud, paneles_ud",
+      "steps": [
+        "Introducir los valores de longitud_m, separacion_m y altura_m",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m, cm, mm)",
+        "Calcular los valores de postes ud y paneles ud",
+        "El resultado se expresa en postes. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Introducir valores con unidades incorrectas sin verificar la conversión",
+        "Redondear resultados intermedios en lugar del resultado final",
+        "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "longitud_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "separacion_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Recinzione – Pali e Pannelli",
+      "desc": "Calcola pali, pannelli e calcestruzzo per installare una recinzione.",
+      "seo_title": "Calcolatore Recinzione – Pali e Pannelli",
+      "inputs": {
+        "longitud_m": "Lunghezza totale recinzione (m)",
+        "separacion_m": "Interasse tra i pali (m)",
+        "altura_m": "Altezza recinzione (m)"
+      },
+      "outputs": {
+        "postes_ud": "Pali",
+        "paneles_ud": "Pannelli/campate",
+        "hormigon_L": "Calcestruzzo per basi (L)",
+        "tornillos_ud": "Viti/fissaggi",
+        "longitud_poste_m": "Lunghezza palo (m)"
+      },
+      "seo_description": "Calcola quanti pali, pannelli e litri di calcestruzzo ti servono per installare una recinzione Usato da professionisti e studenti in tutto il mondo.",
+      "example_label": "Calcolare postes valla per muro con 10 m especificadas.",
+      "range_hints": {
+        "longitud_m": "Valor intre 2 e 500 m.",
+        "separacion_m": "Valor intre 1 e 4 m.",
+        "altura_m": "Valor intre 0.5 e 3 m."
+      },
+      "result_context": "El risultato principal es {postes_ud} postes. Este valore serve come referincia per tu progetto.",
+      "formula_display": "Postes = Longitud ÷ Seperción + 1",
+      "steps": [
+        "Introduce lunghezza m: 10 m",
+        "Introduce sepercion m: 2 m",
+        "Introduce altezza m: 3 m",
+        "Pulsa calcolare per obtiner risultati",
+        "Interpreta risultato: {postes_ud}"
+      ],
+      "mistakes": [
+        "No discontar huecos di perte e finestre",
+        "Diminticare merma per taglios e roturas",
+        "Non consedirare tipo di aparejo in consumo"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "longitud_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        },
+        {
+          "field_id": "separacion_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        },
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        }
+      ]
+    }
+  }
+}

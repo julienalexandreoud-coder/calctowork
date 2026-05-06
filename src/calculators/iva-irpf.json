@@ -1,0 +1,482 @@
+{
+  "id": "093",
+  "slug": "iva-irpf",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "base_imponible_eur",
+      "type": "number",
+      "min": 1,
+      "max": 1000000,
+      "step": 1,
+      "default": 5000,
+      "unit": "â‚¬"
+    },
+    {
+      "id": "tipo_iva_pct",
+      "type": "number",
+      "min": 0,
+      "max": 21,
+      "step": 0.5,
+      "default": 21,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    },
+    {
+      "id": "tipo_irpf_pct",
+      "type": "number",
+      "min": 0,
+      "max": 21,
+      "step": 0.5,
+      "default": 15,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    }
+  ],
+  "formula": "var B=parseFloat(inputs.base_imponible_eur)||0,iva=parseFloat(inputs.tipo_iva_pct)||21,irpf=parseFloat(inputs.tipo_irpf_pct)||15;if(!B)return{error:true};var iva_eur=+(B*iva/100).toFixed(2),irpf_eur=+(B*irpf/100).toFixed(2),total_factura=+(B+iva_eur).toFixed(2),liquido=+(B-irpf_eur).toFixed(2);return{iva_eur:iva_eur,irpf_retencion_eur:irpf_eur,total_factura_eur:total_factura,liquido_percibir_eur:liquido};",
+  "outputs": [
+    {
+      "id": "iva_eur",
+      "unit": "â‚¬ IVA"
+    },
+    {
+      "id": "irpf_retencion_eur",
+      "unit": "â‚¬ IRPF retención"
+    },
+    {
+      "id": "total_factura_eur",
+      "unit": "â‚¬ total factura",
+      "highlight": true
+    },
+    {
+      "id": "liquido_percibir_eur",
+      "unit": "â‚¬ líquido a percibir"
+    }
+  ],
+  "related": [
+    "079",
+    "092",
+    "095",
+    "078"
+  ],
+  "example_inputs": {
+    "base_imponible_eur": 5000,
+    "tipo_iva_pct": 21,
+    "tipo_irpf_pct": 15
+  },
+  "example_label": "Calcular IVA e IRPF para una factura de 5000 € con IVA al 21% y retención del 15%.",
+  "range_hints": {
+    "base_imponible_eur": "Importe de la factura antes de impuestos (mano de obra y/o materiales según el caso) (€)",
+    "tipo_iva_pct": "Tipo de IVA aplicable: 21% general, 10% reducido (rehabilitación vivienda), 4% superreducido (%)",
+    "tipo_irpf_pct": "Porcentaje de retención de IRPF: 15% nuevos autónomos (primeros 3 años), 7% resto de autónomos (%)"
+  },
+  "result_context": "Resultados: {iva_eur} € de IVA, {irpf_retencion_eur} € de retención de IRPF, {total_factura_eur} € total de factura, {liquido_percibir_eur} € líquido a percibir.",
+  "formula_display": "IVA = base × tipo%. IRPF = base × retención%. Líquido = base − IRPF. Total factura = base + IVA",
+  "steps": [
+    "Introduce la base imponible de la factura (mano de obra, materiales o ambos según el caso)",
+    "Aplica el tipo de IVA: 21% general para construcción (10% reducido para rehabilitación de vivienda habitual)",
+    "Calcula la retención de IRPF: 15% para autónomos en alta durante los primeros 3 años, 7% a partir del 4º año",
+    "Para facturas entre empresas (constructor subcontratista): se aplica inversión del sujeto pasivo (sin IVA en factura)",
+    "El líquido a percibir es la base menos la retención de IRPF (la retención la ingresa el pagador a Hacienda)",
+    "El IVA repercutido se liquida trimestralmente (modelo 303) y la retención se deduce en la declaración anual de IRPF"
+  ],
+  "mistakes": [
+    "Aplicar el IVA equivocado: obra nueva = 21%, rehabilitación vivienda habitual = 10%, no aplicar IVA si el cliente es empresa",
+    "Olvidar aplicar retención de IRPF en facturas de autónomos profesionales (excepto alta inicial exenta)",
+    "Confundir IVA repercutido (cobrado al cliente) con IVA soportado (pagado en compras de materiales)",
+    "No emitir factura con todos los requisitos legales: fecha, número, NIF, base, IVA desglosado, retención",
+    "Calcular la retención de IRPF sobre la base + IVA en vez de solo sobre la base imponible"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "base_imponible_eur",
+      "reason": "Tipo correcto: numérico para la base imponible antes de impuestos en €."
+    },
+    {
+      "field_id": "tipo_iva_pct",
+      "reason": "Tipo correcto: numérico porcentual para el tipo de IVA aplicable según naturaleza de la obra."
+    },
+    {
+      "field_id": "tipo_irpf_pct",
+      "reason": "Tipo correcto: numérico porcentual para la retención de IRPF según antigüedad como autónomo."
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Factura pequeña (materiales)",
+      "base_imponible_eur": 500,
+      "tipo_iva_pct": 21,
+      "tipo_irpf_pct": 7
+    },
+    {
+      "_label": "Factura autónomo primer año",
+      "base_imponible_eur": 2000,
+      "tipo_iva_pct": 21,
+      "tipo_irpf_pct": 15
+    },
+    {
+      "_label": "Factura rehabilitación vivienda",
+      "base_imponible_eur": 8000,
+      "tipo_iva_pct": 10,
+      "tipo_irpf_pct": 7
+    },
+    {
+      "_label": "Factura obra nueva (empresa)",
+      "base_imponible_eur": 15000,
+      "tipo_iva_pct": 21,
+      "tipo_irpf_pct": 7
+    },
+    {
+      "_label": "Factura con inversión sujeto pasivo",
+      "base_imponible_eur": 25000,
+      "tipo_iva_pct": 0,
+      "tipo_irpf_pct": 7
+    }
+  ],
+  "units": {
+    "tipo_iva_pct": "%",
+    "tipo_irpf_pct": "%"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de IVA e IRPF",
+      "desc": "Calcula el IVA, la retención de IRPF, el total de factura y el líquido a percibir para autónomos Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora IVA IRPF Construcción – Facturas de Obra",
+      "seo_desc": "Calcula el IVA y la retención de IRPF de tus facturas de construcción. Introduce la base imponible, tipo de IVA y % de retención. Gratis.",
+      "inputs": {
+        "base_imponible_eur": "Base imponible (€)",
+        "tipo_iva_pct": "Tipo IVA (%)",
+        "tipo_irpf_pct": "Tipo IRPF retención (%)"
+      },
+      "outputs": {
+        "iva_eur": "IVA (€)",
+        "irpf_retencion_eur": "IRPF retención (€)",
+        "total_factura_eur": "Total factura (€)",
+        "liquido_percibir_eur": "Líquido a percibir (€)"
+      },
+      "seo_description": "Calcula el desglose fiscal de facturas de construcción: IVA repercutido (21% o 10%), retención de IRPF (15% o 7%), total de factura y líquido a percibir. Ideal para autónomos y empresas constructoras.",
+      "example_label": "Calcular IVA e IRPF para una factura de 5000 € con IVA al 21% y retención del 15%.",
+      "range_hints": {
+        "base_imponible_eur": "Valor entre 1 y 1000000 €.",
+        "tipo_iva_pct": "Valor entre 0 y 21 %.",
+        "tipo_irpf_pct": "Valor entre 0 y 21 %."
+      },
+      "result_context": "Resultados: {iva_eur} € de IVA, {irpf_retencion_eur} € de retención de IRPF, {total_factura_eur} € total de factura, {liquido_percibir_eur} € líquido a percibir.",
+      "formula_display": "IVA = base × tipo%. IRPF = base × retención%. Líquido = base − IRPF. Total factura = base + IVA",
+      "steps": [
+        "Introduce la base imponible de la factura (mano de obra, materiales o ambos según el caso)",
+        "Aplica el tipo de IVA: 21% general para construcción (10% reducido para rehabilitación de vivienda habitual)",
+        "Calcula la retención de IRPF: 15% para autónomos en alta durante los primeros 3 años, 7% a partir del 4º año",
+        "Para facturas entre empresas (constructor subcontratista): se aplica inversión del sujeto pasivo (sin IVA en factura)",
+        "El líquido a percibir es la base menos la retención de IRPF (la retención la ingresa el pagador a Hacienda)",
+        "El IVA repercutido se liquida trimestralmente (modelo 303) y la retención se deduce en la declaración anual de IRPF"
+      ],
+      "mistakes": [
+        "Aplicar el IVA equivocado: obra nueva = 21%, rehabilitación vivienda habitual = 10%, no aplicar IVA si el cliente es empresa",
+        "Olvidar aplicar retención de IRPF en facturas de autónomos profesionales (excepto alta inicial exenta)",
+        "Confundir IVA repercutido (cobrado al cliente) con IVA soportado (pagado en compras de materiales)",
+        "No emitir factura con todos los requisitos legales: fecha, número, NIF, base, IVA desglosado, retención",
+        "Calcular la retención de IRPF sobre la base + IVA en vez de solo sobre la base imponible"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "base_imponible_eur",
+          "reason": "Tipo correcto: numérico para la base imponible antes de impuestos en €."
+        },
+        {
+          "field_id": "tipo_iva_pct",
+          "reason": "Tipo correcto: numérico porcentual para el tipo de IVA aplicable según naturaleza de la obra."
+        },
+        {
+          "field_id": "tipo_irpf_pct",
+          "reason": "Tipo correcto: numérico porcentual para la retención de IRPF según antigüedad como autónomo."
+        }
+      ]
+    },
+    "en": {
+      "name": "VAT and Income Tax Calculator",
+      "desc": "VAT and Income Tax Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "VAT IRPF Calculator – Construction Invoices",
+      "seo_desc": "Calculate VAT and income tax withholding for your construction invoices. Enter taxable base, VAT rate, and withholding %. Free.",
+      "inputs": {
+        "base_imponible_eur": "Net amount (â‚¬)",
+        "tipo_iva_pct": "VAT rate (%)",
+        "tipo_irpf_pct": "Withholding tax (%)"
+      },
+      "outputs": {
+        "iva_eur": "VAT (â‚¬)",
+        "irpf_retencion_eur": "Tax withholding (â‚¬)",
+        "total_factura_eur": "Invoice total (â‚¬)",
+        "liquido_percibir_eur": "Amount receivable (â‚¬)"
+      },
+      "seo_description": "Calculate the tax breakdown of construction invoices: VAT (21% or 10%), IRPF withholding (15% or 7%), total invoice, and net payable. Ideal for self-employed and construction companies.",
+      "example_label": "Calcular IVA e IRPF para una factura de 5000 € con IVA al 21% y retención del 15%.",
+      "range_hints": {
+        "base_imponible_eur": "Valor entre 1 y 1000000 â‚¬.",
+        "tipo_iva_pct": "Valor entre 0 y 21 %.",
+        "tipo_irpf_pct": "Valor entre 0 y 21 %."
+      },
+      "result_context": "Resultados: {iva_eur} € de IVA, {irpf_retencion_eur} € de retención de IRPF, {total_factura_eur} € total de factura, {liquido_percibir_eur} € líquido a percibir.",
+      "formula_display": "IVA = base × tipo%. IRPF = base × retención%. Líquido = base − IRPF. Total factura = base + IVA",
+      "steps": [
+        "Introduce la base imponible de la factura (mano de obra, materiales o ambos según el caso)",
+        "Aplica el tipo de IVA: 21% general para construcción (10% reducido para rehabilitación de vivienda habitual)",
+        "Calcula la retención de IRPF: 15% para autónomos en alta durante los primeros 3 años, 7% a partir del 4º año",
+        "Para facturas entre empresas (constructor subcontratista): se aplica inversión del sujeto pasivo (sin IVA en factura)",
+        "El líquido a percibir es la base menos la retención de IRPF (la retención la ingresa el pagador a Hacienda)",
+        "El IVA repercutido se liquida trimestralmente (modelo 303) y la retención se deduce en la declaración anual de IRPF"
+      ],
+      "mistakes": [
+        "Aplicar el IVA equivocado: obra nueva = 21%, rehabilitación vivienda habitual = 10%, no aplicar IVA si el cliente es empresa",
+        "Olvidar aplicar retención de IRPF en facturas de autónomos profesionales (excepto alta inicial exenta)",
+        "Confundir IVA repercutido (cobrado al cliente) con IVA soportado (pagado en compras de materiales)",
+        "No emitir factura con todos los requisitos legales: fecha, número, NIF, base, IVA desglosado, retención",
+        "Calcular la retención de IRPF sobre la base + IVA en vez de solo sobre la base imponible"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "base_imponible_eur",
+          "reason": "Tipo correcto: numérico para la base imponible antes de impuestos en €."
+        },
+        {
+          "field_id": "tipo_iva_pct",
+          "reason": "Tipo correcto: numérico porcentual para el tipo de IVA aplicable según naturaleza de la obra."
+        },
+        {
+          "field_id": "tipo_irpf_pct",
+          "reason": "Tipo correcto: numérico porcentual para la retención de IRPF según antigüedad como autónomo."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur TVA et Retenue à la Source",
+      "desc": "Calculez TVA, retenue à la source, total facture et net à percevoir Utilise par des professionnels et etudiants dans le monde entier.",
+      "seo_title": "Calculateur TVA Auto-Entrepreneur",
+      "inputs": {
+        "base_imponible_eur": "Montant HT (€)",
+        "tipo_iva_pct": "Taux TVA (%)",
+        "tipo_irpf_pct": "Taux retenue à la source (%)"
+      },
+      "outputs": {
+        "iva_eur": "TVA (€)",
+        "irpf_retencion_eur": "Retenue à la source (€)",
+        "total_factura_eur": "Total facture (€)",
+        "liquido_percibir_eur": "Net à percevoir (€)"
+      },
+      "seo_description": "Calculez TVA, retenue à la source, total facture et net à percevoir Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calcular IVA e IRPF para una factura de 5000 € con IVA al 21% y retención del 15%.",
+      "range_hints": {
+        "base_imponible_eur": "Valor entre 1 et 1000000 €.",
+        "tipo_iva_pct": "Valor entre 0 et 21 %.",
+        "tipo_irpf_pct": "Valor entre 0 et 21 %."
+      },
+      "result_context": "Resultados: {iva_eur} € de IVA, {irpf_retencion_eur} € de retención de IRPF, {total_factura_eur} € total de factura, {liquido_percibir_eur} € líquido a percibir.",
+      "formula_display": "IVA = base × tipo%. IRPF = base × retención%. Líquido = base − IRPF. Total factura = base + IVA",
+      "steps": [
+        "Introduce la base imponible de la factura (mano de obra, materiales o ambos según el caso)",
+        "Aplica el tipo de IVA: 21% general para construcción (10% reducido para rehabilitación de vivienda habitual)",
+        "Calcula la retención de IRPF: 15% para autónomos en alta durante los primeros 3 años, 7% a partir del 4º año",
+        "Para facturas entre empresas (constructor subcontratista): se aplica inversión del sujeto pasivo (sin IVA en factura)",
+        "El líquido a percibir es la base menos la retención de IRPF (la retención la ingresa el pagador a Hacienda)",
+        "El IVA repercutido se liquida trimestralmente (modelo 303) y la retención se deduce en la declaración anual de IRPF"
+      ],
+      "mistakes": [
+        "Aplicar el IVA equivocado: obra nueva = 21%, rehabilitación vivienda habitual = 10%, no aplicar IVA si el cliente es empresa",
+        "Olvidar aplicar retención de IRPF en facturas de autónomos profesionales (excepto alta inicial exenta)",
+        "Confundir IVA repercutido (cobrado al cliente) con IVA soportado (pagado en compras de materiales)",
+        "No emitir factura con todos los requisitos legales: fecha, número, NIF, base, IVA desglosado, retención",
+        "Calcular la retención de IRPF sobre la base + IVA en vez de solo sobre la base imponible"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "base_imponible_eur",
+          "reason": "Tipo correcto: numérico para la base imponible antes de impuestos en €."
+        },
+        {
+          "field_id": "tipo_iva_pct",
+          "reason": "Tipo correcto: numérico porcentual para el tipo de IVA aplicable según naturaleza de la obra."
+        },
+        {
+          "field_id": "tipo_irpf_pct",
+          "reason": "Tipo correcto: numérico porcentual para la retención de IRPF según antigüedad como autónomo."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Impostos (ISS e IRPF)",
+      "desc": "Calcule ISS, retenção de imposto, total da nota e valor a receber Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora de Impostos (ISS e IRPF)",
+      "inputs": {
+        "base_imponible_eur": "Valor bruto (R$)",
+        "tipo_iva_pct": "Alíquota ISS (%)",
+        "tipo_irpf_pct": "Alíquota retenção (%)"
+      },
+      "outputs": {
+        "iva_eur": "ISS (R$)",
+        "irpf_retencion_eur": "Retenção IR (R$)",
+        "total_factura_eur": "Total nota (R$)",
+        "liquido_percibir_eur": "Valor a receber (R$)"
+      },
+      "seo_description": "Calcule ISS, retenção de imposto, total da nota e valor a receber. Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular IVA e IRPF para una factura de 5000 € con IVA al 21% y retención del 15%.",
+      "range_hints": {
+        "base_imponible_eur": "Valor entre 1 e 1000000 €.",
+        "tipo_iva_pct": "Valor entre 0 e 21 %.",
+        "tipo_irpf_pct": "Valor entre 0 e 21 %."
+      },
+      "result_context": "Resultados: {iva_eur} € de IVA, {irpf_retencion_eur} € de retención de IRPF, {total_factura_eur} € total de factura, {liquido_percibir_eur} € líquido a percibir.",
+      "formula_display": "IVA = base × tipo%. IRPF = base × retención%. Líquido = base − IRPF. Total factura = base + IVA",
+      "steps": [
+        "Introduce la base imponible de la factura (mano de obra, materiales o ambos según el caso)",
+        "Aplica el tipo de IVA: 21% general para construcción (10% reducido para rehabilitación de vivienda habitual)",
+        "Calcula la retención de IRPF: 15% para autónomos en alta durante los primeros 3 años, 7% a partir del 4º año",
+        "Para facturas entre empresas (constructor subcontratista): se aplica inversión del sujeto pasivo (sin IVA en factura)",
+        "El líquido a percibir es la base menos la retención de IRPF (la retención la ingresa el pagador a Hacienda)",
+        "El IVA repercutido se liquida trimestralmente (modelo 303) y la retención se deduce en la declaración anual de IRPF"
+      ],
+      "mistakes": [
+        "Aplicar el IVA equivocado: obra nueva = 21%, rehabilitación vivienda habitual = 10%, no aplicar IVA si el cliente es empresa",
+        "Olvidar aplicar retención de IRPF en facturas de autónomos profesionales (excepto alta inicial exenta)",
+        "Confundir IVA repercutido (cobrado al cliente) con IVA soportado (pagado en compras de materiales)",
+        "No emitir factura con todos los requisitos legales: fecha, número, NIF, base, IVA desglosado, retención",
+        "Calcular la retención de IRPF sobre la base + IVA en vez de solo sobre la base imponible"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "base_imponible_eur",
+          "reason": "Tipo correcto: numérico para la base imponible antes de impuestos en €."
+        },
+        {
+          "field_id": "tipo_iva_pct",
+          "reason": "Tipo correcto: numérico porcentual para el tipo de IVA aplicable según naturaleza de la obra."
+        },
+        {
+          "field_id": "tipo_irpf_pct",
+          "reason": "Tipo correcto: numérico porcentual para la retención de IRPF según antigüedad como autónomo."
+        }
+      ]
+    },
+    "de": {
+      "name": "MwSt Einkommensteuer",
+      "desc": "Berechnen Sie mwSt Einkommensteuer online. Geben Sie base imponible eur, tipo iva pct, tipo irpf pct ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "MwSt Einkommensteuer | CalcToWork",
+      "seo_desc": "MwSt Einkommensteuer online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "MwSt Einkommensteuer online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "base_imponible_eur": "Base Imponible Eur",
+        "tipo_iva_pct": "Tipo Iva Pct",
+        "tipo_irpf_pct": "Tipo Irpf Pct"
+      },
+      "outputs": {
+        "iva_eur": "Iva Eur",
+        "irpf_retencion_eur": "Irpf Retencion Eur",
+        "total_factura_eur": "Total Factura Eur",
+        "liquido_percibir_eur": "Liquido Percibir Eur"
+      },
+      "example_label": "Calcular IVA e IRPF para una factura de 5000 € con IVA al 21% y retención del 15%.",
+      "range_hints": {
+        "base_imponible_eur": "Importe de la factura antes de impuestos (mano de obra y/o materiales según el caso) (€)",
+        "tipo_iva_pct": "Tipo de IVA aplicable: 21% general, 10% reducido (rehabilitación vivienda), 4% superreducido (%)",
+        "tipo_irpf_pct": "Porcentaje de retención de IRPF: 15% nuevos autónomos (primeros 3 años), 7% resto de autónomos (%)"
+      },
+      "result_context": "Resultados: {iva_eur} € de IVA, {irpf_retencion_eur} € de retención de IRPF, {total_factura_eur} € total de factura, {liquido_percibir_eur} € líquido a percibir.",
+      "formula_display": "IVA = base × tipo%. IRPF = base × retención%. Líquido = base − IRPF. Total factura = base + IVA",
+      "steps": [
+        "Introduce la base imponible de la factura (mano de obra, materiales o ambos según el caso)",
+        "Aplica el tipo de IVA: 21% general para construcción (10% reducido para rehabilitación de vivienda habitual)",
+        "Calcula la retención de IRPF: 15% para autónomos en alta durante los primeros 3 años, 7% a partir del 4º año",
+        "Para facturas entre empresas (constructor subcontratista): se aplica inversión del sujeto pasivo (sin IVA en factura)",
+        "El líquido a percibir es la base menos la retención de IRPF (la retención la ingresa el pagador a Hacienda)",
+        "El IVA repercutido se liquida trimestralmente (modelo 303) y la retención se deduce en la declaración anual de IRPF"
+      ],
+      "mistakes": [
+        "Aplicar el IVA equivocado: obra nueva = 21%, rehabilitación vivienda habitual = 10%, no aplicar IVA si el cliente es empresa",
+        "Olvidar aplicar retención de IRPF en facturas de autónomos profesionales (excepto alta inicial exenta)",
+        "Confundir IVA repercutido (cobrado al cliente) con IVA soportado (pagado en compras de materiales)",
+        "No emitir factura con todos los requisitos legales: fecha, número, NIF, base, IVA desglosado, retención",
+        "Calcular la retención de IRPF sobre la base + IVA en vez de solo sobre la base imponible"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "base_imponible_eur",
+          "reason": "Tipo correcto: numérico para la base imponible antes de impuestos en €."
+        },
+        {
+          "field_id": "tipo_iva_pct",
+          "reason": "Tipo correcto: numérico porcentual para el tipo de IVA aplicable según naturaleza de la obra."
+        },
+        {
+          "field_id": "tipo_irpf_pct",
+          "reason": "Tipo correcto: numérico porcentual para la retención de IRPF según antigüedad como autónomo."
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Indice di Produttività",
+      "description": "Calcola l'indice di produttività di un cantiere.",
+      "seo_title": "Calcolatore IRPEF IVA Autonomo",
+      "seo_description": "Misura la produttività del cantiere rispetto al preventivo Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo.",
+      "inputs": {
+        "horas_planificadas": "Ore pianificate",
+        "horas_reales": "Ore reali",
+        "avance_pct": "Avanzamento (%)",
+        "base_imponible_eur": "base imponible eur (â‚¬)",
+        "tipo_iva_pct": "tipo iva pct (%)",
+        "tipo_irpf_pct": "tipo irpf pct (%)"
+      },
+      "outputs": {
+        "ipi": "Indice di Produttività",
+        "estado": "Stato cantiere",
+        "iva_eur": "iva eur (â‚¬ IVA)",
+        "irpf_retencion_eur": "irpf retencion eur (â‚¬ IRPF retención)",
+        "total_factura_eur": "total factura eur (â‚¬ total factura)",
+        "liquido_percibir_eur": "liquido percibir eur (â‚¬ líquido a percibir)"
+      },
+      "example_label": "Calcular IVA e IRPF para una factura de 5000 € con IVA al 21% y retención del 15%.",
+      "range_hints": {
+        "base_imponible_eur": "Valor intre 1 e 1000000 €.",
+        "tipo_iva_pct": "Valor intre 0 e 21 %.",
+        "tipo_irpf_pct": "Valor intre 0 e 21 %."
+      },
+      "result_context": "Resultados: {iva_eur} € de IVA, {irpf_retencion_eur} € de retención de IRPF, {total_factura_eur} € total de factura, {liquido_percibir_eur} € líquido a percibir.",
+      "formula_display": "IVA = base × tipo%. IRPF = base × retención%. Líquido = base − IRPF. Total factura = base + IVA",
+      "steps": [
+        "Introduce la base imponible de la factura (mano de obra, materiales o ambos según el caso)",
+        "Aplica el tipo de IVA: 21% general para construcción (10% reducido para rehabilitación de vivienda habitual)",
+        "Calcula la retención de IRPF: 15% para autónomos en alta durante los primeros 3 años, 7% a partir del 4º año",
+        "Para facturas entre empresas (constructor subcontratista): se aplica inversión del sujeto pasivo (sin IVA en factura)",
+        "El líquido a percibir es la base menos la retención de IRPF (la retención la ingresa el pagador a Hacienda)",
+        "El IVA repercutido se liquida trimestralmente (modelo 303) y la retención se deduce en la declaración anual de IRPF"
+      ],
+      "mistakes": [
+        "Aplicar el IVA equivocado: obra nueva = 21%, rehabilitación vivienda habitual = 10%, no aplicar IVA si el cliente es empresa",
+        "Olvidar aplicar retención de IRPF en facturas de autónomos profesionales (excepto alta inicial exenta)",
+        "Confundir IVA repercutido (cobrado al cliente) con IVA soportado (pagado en compras de materiales)",
+        "No emitir factura con todos los requisitos legales: fecha, número, NIF, base, IVA desglosado, retención",
+        "Calcular la retención de IRPF sobre la base + IVA en vez de solo sobre la base imponible"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "base_imponible_eur",
+          "reason": "Tipo correcto: numérico para la base imponible antes de impuestos en €."
+        },
+        {
+          "field_id": "tipo_iva_pct",
+          "reason": "Tipo correcto: numérico porcentual para el tipo de IVA aplicable según naturaleza de la obra."
+        },
+        {
+          "field_id": "tipo_irpf_pct",
+          "reason": "Tipo correcto: numérico porcentual para la retención de IRPF según antigüedad como autónomo."
+        }
+      ],
+      "desc": "Calcola l'IVA e la ritenuta IRPF per le fatture di costruzione e ristrutturazione."
+    }
+  }
+}

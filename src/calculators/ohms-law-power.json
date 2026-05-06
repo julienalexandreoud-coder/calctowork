@@ -1,0 +1,573 @@
+{
+  "id": "949",
+  "slug": "ohms-law-power",
+  "block": 15,
+  "block_slug": "ciencia",
+  "inputs": [
+    {
+      "id": "voltaje",
+      "type": "number",
+      "min": 0,
+      "max": 999999,
+      "step": 0.1,
+      "default": 0,
+      "unit": "V",
+      "unit_options": [
+        "V",
+        "kV"
+      ],
+      "unit_category": "voltage"
+    },
+    {
+      "id": "corriente",
+      "type": "number",
+      "min": 0,
+      "max": 999999,
+      "step": 0.01,
+      "default": 0,
+      "unit": "A",
+      "unit_options": [
+        "A",
+        "mA"
+      ],
+      "unit_category": "current"
+    },
+    {
+      "id": "resistencia",
+      "type": "number",
+      "min": 0,
+      "max": 999999,
+      "step": 0.1,
+      "default": 0,
+      "unit": "Ohm"
+    },
+    {
+      "id": "potencia",
+      "type": "number",
+      "min": 0,
+      "max": 999999,
+      "step": 0.1,
+      "default": 0,
+      "unit": "W",
+      "unit_options": [
+        "W",
+        "kW"
+      ],
+      "unit_category": "power"
+    }
+  ],
+  "formula": "var v=parseFloat(inputs.voltaje)||0,i=parseFloat(inputs.corriente)||0,r=parseFloat(inputs.resistencia)||0,p=parseFloat(inputs.potencia)||0;var count=0;if(v>0)count++;if(i>0)count++;if(r>0)count++;if(p>0)count++;if(count<2)return{error:true};if(v&&i){r=+(v/i).toFixed(2);p=+(v*i).toFixed(2);}else if(v&&r){i=+(v/r).toFixed(2);p=+(v*v/r).toFixed(2);}else if(i&&r){v=+(i*r).toFixed(2);p=+(i*i*r).toFixed(2);}else if(v&&p){i=+(p/v).toFixed(2);r=+(v*v/p).toFixed(2);}else if(i&&p){v=+(p/i).toFixed(2);r=+(p/(i*i)).toFixed(2);}else if(r&&p){v=+(Math.sqrt(p*r)).toFixed(2);i=+(Math.sqrt(p/r)).toFixed(2);}return{voltage:v,current:i,resistance:r,power:p};",
+  "outputs": [
+    {
+      "id": "voltage",
+      "unit": "V",
+      "highlight": true
+    },
+    {
+      "id": "current",
+      "unit": "A",
+      "highlight": false
+    },
+    {
+      "id": "resistance",
+      "unit": "Ohm",
+      "highlight": false
+    },
+    {
+      "id": "power",
+      "unit": "W",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "950",
+    "951",
+    "948",
+    "707"
+  ],
+  "example_inputs": {
+    "corriente": 0,
+    "resistencia": 0,
+    "voltaje": 0,
+    "potencia": 0
+  },
+  "example_label": "Ejemplo para ohms law power: valores 0V, 0A, 0Ohm, 0W",
+  "range_hints": {
+    "voltaje": "Introducir un valor numérico en V.",
+    "corriente": "Introducir un valor numérico en A.",
+    "resistencia": "Introducir un valor numérico en Ohm.",
+    "potencia": "Introducir un valor numérico en W."
+  },
+  "result_context": "According to Ohm's Law: voltage is {voltage} V, current is {current} A, resistance is {resistance} Ω, and power is {power} W.",
+  "result_context_en": "According to Ohm's Law: voltage is {voltage} V, current is {current} A, resistance is {resistance} Ω, and power is {power} W.",
+  "result_context_fr": "Selon la loi d'Ohm : la tension est de {voltage} V, le courant est de {current} A, la résistance est de {resistance} Ω et la puissance est de {power} W.",
+  "result_context_pt": "Segundo a Lei de Ohm: a tensão é {voltage} V, a corrente é {current} A, a resistência é {resistance} Ω e a potência é {power} W.",
+  "result_context_de": "Nach dem Ohmschen Gesetz: die Spannung beträgt {voltage} V, der Strom beträgt {current} A, der Widerstand beträgt {resistance} Ω und die Leistung beträgt {power} W.",
+  "result_context_it": "Secondo la legge di Ohm: la tensione è {voltage} V, la corrente è {current} A, la resistenza è {resistance} Ω e la potenza è {power} W.",
+  "formula_display": "i × i × r → voltage, current",
+  "steps": [
+    "Introducir los valores de voltaje, corriente, resistencia y potencia",
+    "Verificar que las unidades sean correctas y convertir si es necesario (V, kV)",
+    "Calcular los valores de voltage y current",
+    "El resultado se expresa en V. Verificar que la magnitud es coherente",
+    "Documentar el resultado con sus unidades para usarlo en cálculos de ingeniería posteriores"
+  ],
+  "mistakes": [
+    "Mezclar unidades de diferentes sistemas (métrico con imperial) sin convertir",
+    "Usar la temperatura en Celsius en fórmulas que requieren Kelvin (sumar 273.15)",
+    "Confundir masa (kg) con peso (N) en cálculos de física"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "voltaje",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "corriente",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "resistencia",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "potencia",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Escala laboratorio",
+      "voltaje": 0.4,
+      "corriente": 0.4,
+      "resistencia": 0.4,
+      "potencia": 0.4
+    },
+    {
+      "_label": "Uso domestico",
+      "voltaje": 0.7,
+      "corriente": 0.7,
+      "resistencia": 0.7,
+      "potencia": 0.7
+    },
+    {
+      "_label": "Aplicacion industrial",
+      "voltaje": 1.0,
+      "corriente": 1.0,
+      "resistencia": 1.0,
+      "potencia": 1.0
+    },
+    {
+      "_label": "Ingenieria civil",
+      "voltaje": 1.5,
+      "corriente": 1.5,
+      "resistencia": 1.5,
+      "potencia": 1.5
+    },
+    {
+      "_label": "Escala cientifica",
+      "voltaje": 2.5,
+      "corriente": 2.5,
+      "resistencia": 2.5,
+      "potencia": 2.5
+    }
+  ],
+  "units": {
+    "voltaje": "V",
+    "corriente": "A",
+    "potencia": "W"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Ley de Ohm y Potencia",
+      "desc": "Calcula voltaje, corriente, resistencia y potencia usando la Ley de Ohm. Con conversion de unidades integrada. Usado por profesionales y estudiantes en.",
+      "description": "Calculadora de Ley de Ohm y Potencia.",
+      "seo_title": "Calculadora de Ley de Ohm y Potencia Gratuita",
+      "seo_description": "Calcula voltaje, corriente, resistencia y potencia usando la Ley de Ohm. Con conversion de unidades integrada. Usado por profesionales y estudiantes en.",
+      "inputs": {
+        "voltaje": "Voltaje (V)",
+        "corriente": "Corriente (A)",
+        "resistencia": "Resistencia (Ω)",
+        "potencia": "potencia"
+      },
+      "outputs": {
+        "voltage": "Voltaje",
+        "current": "Corriente",
+        "resistance": "Resistencia",
+        "power": "Potencia"
+      },
+      "example_label": "Calculate ohms law power with voltaje 0, corriente 0, resistencia 0, potencia 0.",
+      "range_hints": {
+        "corriente": "Typical range: 0-999999 in A units.",
+        "resistencia": "Typical range: 0-999999 in Ohm units.",
+        "voltaje": "Typical range: 0-999999 in V units.",
+        "potencia": "Typical range: 0-999999 in W units."
+      },
+      "result_context": "Your calculated voltage is {voltage}.",
+      "formula_display": "Calculate ohms law power based on input values.",
+      "steps": [
+        "Enter input values: voltaje: 0, corriente: 0, resistencia: 0, potencia: 0",
+        "Calculate and display the voltage result",
+        "Calculate and display the current result",
+        "Calculate and display the resistance result",
+        "Calculate and display the power result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "voltaje",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "corriente",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "resistencia",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "potencia",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "en": {
+      "name": "Ohm's Law & Power Calculator",
+      "desc": "Ohm's Law & Power Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Ohm's Law & Power Calculator.",
+      "seo_title": "Ohm's Law & Power Calculator – Free Online Tool",
+      "seo_description": "Ohm's Law & Power Calculator. Ohm's Law & Power Calculator = f(Voltage (V), Current (A), Resistance (Ω), potencia) — Voltage (V), Current (A), Resistance.",
+      "inputs": {
+        "voltaje": "Voltage (V)",
+        "corriente": "Current (A)",
+        "resistencia": "Resistance (Ω)",
+        "potencia": "potencia"
+      },
+      "outputs": {
+        "voltage": "Voltage",
+        "current": "Current",
+        "resistance": "Resistance",
+        "power": "Power"
+      },
+      "example_label": "Calculate ohms law power with voltaje 0, corriente 0, resistencia 0, potencia 0.",
+      "range_hints": {
+        "corriente": "Typical range: 0-999999 in A units.",
+        "resistencia": "Typical range: 0-999999 in Ohm units.",
+        "voltaje": "Typical range: 0-999999 in V units.",
+        "potencia": "Typical range: 0-999999 in W units."
+      },
+      "result_context": "Your calculated voltage is {voltage}.",
+      "formula_display": "Calculate ohms law power based on input values.",
+      "steps": [
+        "Enter input values: voltaje: 0, corriente: 0, resistencia: 0, potencia: 0",
+        "Calculate and display the voltage result",
+        "Calculate and display the current result",
+        "Calculate and display the resistance result",
+        "Calculate and display the power result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "voltaje",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "corriente",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "resistencia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "potencia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculatrice de Loi d'Ohm et Puissance",
+      "desc": "Calculez tension, courant, resistance et puissance avec la loi d'Ohm. Avec conversion d'unites integree. Utilise par des professionnels et etudiants.",
+      "description": "Calculatrice de Loi d'Ohm et Puissance.",
+      "seo_title": "Calculatrice de Loi d'Ohm et Puissance en Ligne",
+      "seo_description": "Calculez tension, courant, resistance et puissance avec la loi d'Ohm. Avec conversion d'unites integree. Utilise par des professionnels et etudiants.",
+      "inputs": {
+        "voltaje": "Tension (V)",
+        "corriente": "Courant (A)",
+        "resistencia": "Résistance (Ω)",
+        "potencia": "potencia"
+      },
+      "outputs": {
+        "voltage": "Voltage",
+        "current": "Current",
+        "resistance": "Resistance",
+        "power": "Power"
+      },
+      "example_label": "Calculate ohms law power with voltaje 0, corriente 0, resistencia 0, potencia 0.",
+      "range_hints": {
+        "corriente": "Typical range: 0-999999 in A units.",
+        "resistencia": "Typical range: 0-999999 in Ohm units.",
+        "voltaje": "Typical range: 0-999999 in V units.",
+        "potencia": "Typical range: 0-999999 in W units."
+      },
+      "result_context": "Your calculated voltage is {voltage}.",
+      "formula_display": "Calculate ohms law power based on input values.",
+      "steps": [
+        "Enter input values: voltaje: 0, corriente: 0, resistencia: 0, potencia: 0",
+        "Calculate and display the voltage result",
+        "Calculate and display the current result",
+        "Calculate and display the resistance result",
+        "Calculate and display the power result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "voltaje",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "corriente",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "resistencia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "potencia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Lei de Ohm e Potência",
+      "desc": "Calcule voltagem, corrente, resistencia e potencia com a Lei de Ohm. Com conversao de unidades integrada. Usado por profissionais e estudantes em todo o.",
+      "description": "Calculadora de Lei de Ohm e Potência.",
+      "seo_title": "Calculadora de Lei de Ohm e Potência",
+      "seo_description": "Calcule voltagem, corrente, resistencia e potencia com a Lei de Ohm. Com conversao de unidades integrada. Usado por profissionais e estudantes em todo o.",
+      "inputs": {
+        "voltaje": "Voltagem (V)",
+        "corriente": "Corrente (A)",
+        "resistencia": "Resistência (Ω)",
+        "potencia": "potencia"
+      },
+      "outputs": {
+        "voltage": "Voltage",
+        "current": "Current",
+        "resistance": "Resistance",
+        "power": "Power"
+      },
+      "example_label": "Calculate ohms law power with voltaje 0, corrente 0, resistência 0, potencia 0.",
+      "range_hints": {
+        "corriente": "Typical range: 0-999999 in A units.",
+        "resistencia": "Typical range: 0-999999 in Ohm units.",
+        "voltaje": "Typical range: 0-999999 in V units.",
+        "potencia": "Typical range: 0-999999 in W units."
+      },
+      "result_context": "Your calculated voltage is {voltage}.",
+      "formula_display": "Calculate ohms law power based on input values.",
+      "steps": [
+        "Enter input values: voltaje: 0, corrente: 0, resistência: 0, potencia: 0",
+        "Calculate and display the voltage result",
+        "Calculate and display the current result",
+        "Calculate and display the resistance result",
+        "Calculate and display the power result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "voltaje",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "corriente",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "resistencia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "potencia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "de": {
+      "name": "Ohms law power",
+      "desc": "Berechnen Sie ohms law power online. Geben Sie voltaje, corriente, resistencia ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Ohms law power | CalcToWork",
+      "seo_desc": "Ohms law power online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Ohms law power online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "voltaje": "Voltaje",
+        "corriente": "Corriente",
+        "resistencia": "Resistencia",
+        "potencia": "Potencia"
+      },
+      "outputs": {
+        "voltage": "Voltage",
+        "current": "Current",
+        "resistance": "Resistance",
+        "power": "Power"
+      },
+      "example_label": "Ejemplo para ohms law power: valores 0V, 0A, 0Ohm, 0W",
+      "range_hints": {
+        "voltaje": "Introducir un valor numérico en V.",
+        "corriente": "Introducir un valor numérico en A.",
+        "resistencia": "Introducir un valor numérico en Ohm.",
+        "potencia": "Introducir un valor numérico en W."
+      },
+      "result_context": "Nach dem Ohmschen Gesetz: die Spannung beträgt {voltage} V, der Strom beträgt {current} A, der Widerstand beträgt {resistance} Ω und die Leistung beträgt {power} W.",
+      "formula_display": "i × i × r → voltage, current",
+      "steps": [
+        "Introducir los valores de voltaje, corriente, resistencia y potencia",
+        "Verificar que las unidades sean correctas y convertir si es necesario (V, kV)",
+        "Calcular los valores de voltage y current",
+        "El resultado se expresa en V. Verificar que la magnitud es coherente",
+        "Documentar el resultado con sus unidades para usarlo en cálculos de ingeniería posteriores"
+      ],
+      "mistakes": [
+        "Mezclar unidades de diferentes sistemas (métrico con imperial) sin convertir",
+        "Usar la temperatura en Celsius en fórmulas que requieren Kelvin (sumar 273.15)",
+        "Confundir masa (kg) con peso (N) en cálculos de física"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "voltaje",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "corriente",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "resistencia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "potencia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatrice di Legge di Ohm e Potenza",
+      "desc": "Calcola voltaggio, corrente, resistenza e potenza con la legge di Ohm. Con conversione di unita integrata. Usato da professionisti e studenti in tutto.",
+      "description": "Calcolatrice di Legge di Ohm e Potenza.",
+      "seo_title": "Calcolatrice di Legge di Ohm e Potenza",
+      "seo_description": "Calcola voltaggio, corrente, resistenza e potenza con la legge di Ohm. Con conversione di unita integrata. Usato da professionisti e studenti in tutto.",
+      "inputs": {
+        "voltaje": "Voltaggio (V)",
+        "corriente": "Corrente (A)",
+        "resistencia": "Resistenza (Ω)",
+        "potencia": "potencia"
+      },
+      "outputs": {
+        "voltage": "Voltage",
+        "current": "Current",
+        "resistance": "Resistance",
+        "power": "Power"
+      },
+      "example_label": "Calculate ohms law power with voltaje 0, corrinte 0, resestinza 0, potincia 0.",
+      "range_hints": {
+        "corriente": "Tepical range: 0-999999 in A units.",
+        "resistencia": "Tepical range: 0-999999 in Ohm units.",
+        "voltaje": "Tepical range: 0-999999 in V units.",
+        "potencia": "Tepical range: 0-999999 in W units."
+      },
+      "result_context": "Your calculated voltage is {voltage}.",
+      "formula_display": "Calculate ohms law power based on input values.",
+      "steps": [
+        "Enter input values: voltaje: 0, corrinte: 0, resestinza: 0, potincia: 0",
+        "Calculate and displae the voltage result",
+        "Calculate and displae the currint result",
+        "Calculate and displae the resescosìce result",
+        "Calculate and displae the power result"
+      ],
+      "mistakes": [
+        "Confusenzag unit options whin intering values",
+        "Usenzag incorrect input values outsedi recommindid range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "voltaje",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "corriente",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "resistencia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "potencia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        }
+      ]
+    }
+  }
+}

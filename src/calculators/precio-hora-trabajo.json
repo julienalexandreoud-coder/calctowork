@@ -1,0 +1,524 @@
+{
+  "id": "079",
+  "slug": "precio-hora-trabajo",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "costes_fijos_mes",
+      "type": "number",
+      "min": 500,
+      "max": 10000,
+      "step": 100,
+      "default": 2000,
+      "unit": "â‚¬/mes"
+    },
+    {
+      "id": "costes_variables_mes",
+      "type": "number",
+      "min": 200,
+      "max": 5000,
+      "step": 100,
+      "default": 800,
+      "unit": "â‚¬/mes"
+    },
+    {
+      "id": "horas_facturables_mes",
+      "type": "number",
+      "min": 50,
+      "max": 220,
+      "step": 5,
+      "default": 150,
+      "unit": "h/mes"
+    },
+    {
+      "id": "beneficio_deseado_pct",
+      "type": "number",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "default": 20,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    }
+  ],
+  "formula": "var Cf=parseFloat(inputs.costes_fijos_mes)||0,Cv=parseFloat(inputs.costes_variables_mes)||0,H=parseFloat(inputs.horas_facturables_mes)||150,Bp=parseFloat(inputs.beneficio_deseado_pct)||20;if(!H)return{error:true};var coste_h=+(( Cf+Cv)/H).toFixed(2),precio_h=+(coste_h*(1+Bp/100)).toFixed(2);return{coste_hora_eur:coste_h,precio_hora_sin_iva_eur:precio_h,precio_hora_con_iva_eur:+(precio_h*1.21).toFixed(2)};",
+  "outputs": [
+    {
+      "id": "coste_hora_eur",
+      "unit": "â‚¬/h (coste)"
+    },
+    {
+      "id": "precio_hora_sin_iva_eur",
+      "unit": "â‚¬/h (sin IVA)",
+      "highlight": true
+    },
+    {
+      "id": "precio_hora_con_iva_eur",
+      "unit": "â‚¬/h (con IVA 21%)"
+    }
+  ],
+  "related": [
+    "095",
+    "096",
+    "099",
+    "078"
+  ],
+  "example_inputs": {
+    "costes_fijos_mes": 2000,
+    "costes_variables_mes": 800,
+    "horas_facturables_mes": 150,
+    "beneficio_deseado_pct": 20
+  },
+  "example_label": "Calcular precio hora con costes fijos de 2000 €/mes, 150 h facturables y 20% de beneficio.",
+  "range_hints": {
+    "costes_fijos_mes": "Suma de alquiler, seguros, gestoría, software, teléfono y cuota de autónomos (€/mes)",
+    "costes_variables_mes": "Combustible, dietas, material fungible, reparaciones y otros gastos variables (€/mes)",
+    "horas_facturables_mes": "Horas reales que facturas al cliente, descontando administración y desplazamientos (h/mes)",
+    "beneficio_deseado_pct": "Margen de beneficio sobre el coste (15-30% recomendado)"
+  },
+  "result_context": "Resultados: coste de {coste_hora_eur} €/h, precio de {precio_hora_sin_iva_eur} €/h sin IVA, precio de {precio_hora_con_iva_eur} €/h con IVA del 21 %.",
+  "formula_display": "Precio/hora = (costes_fijos + costes_variables) ÷ horas_facturables × (1 + beneficio%)",
+  "steps": [
+    "Suma todos los costes fijos mensuales: alquiler de nave/oficina, seguros, teléfono, software, gestoría",
+    "Suma los costes variables: combustible, dietas, consumibles, reparaciones de herramientas",
+    "Calcula las horas facturables reales al mes (descarta horas de administración, presupuestos, desplazamientos no facturables)",
+    "Divide el coste total mensual entre las horas facturables para obtener el coste hora real",
+    "Añade el margen de beneficio deseado (20-30% para autónomos, 15-20% para empresas consolidadas)",
+    "Aplica el IVA (21%) si vendes a cliente final; no aplica IVA si facturas a empresa (inversión del sujeto pasivo)"
+  ],
+  "mistakes": [
+    "Calcular sobre 160 h/mes sin descontar horas no productivas (20-30% del tiempo)",
+    "No incluir la cuota de autónomos (seguridad social) como coste fijo",
+    "Confundir coste hora con precio hora: el precio debe cubrir costes + beneficio + imprevistos",
+    "Olvidar los costes de formación y actualización de certificaciones obligatorias",
+    "No revisar la tarifa periódicamente según inflación y evolución del mercado"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "costes_fijos_mes",
+      "reason": "Tipo correcto: numérico en € para sumar costes estructurales mensuales."
+    },
+    {
+      "field_id": "costes_variables_mes",
+      "reason": "Tipo correcto: numérico en € para costes operativos que varían cada mes."
+    },
+    {
+      "field_id": "horas_facturables_mes",
+      "reason": "Tipo correcto: numérico entero para horas realmente cobradas al cliente."
+    },
+    {
+      "field_id": "beneficio_deseado_pct",
+      "reason": "Tipo correcto: numérico porcentual para margen de beneficio sobre coste."
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Autónomo principiante",
+      "costes_fijos_mes": 1200,
+      "costes_variables_mes": 400,
+      "horas_facturables_mes": 100,
+      "beneficio_deseado_pct": 15
+    },
+    {
+      "_label": "Autónomo consolidado",
+      "costes_fijos_mes": 2000,
+      "costes_variables_mes": 800,
+      "horas_facturables_mes": 130,
+      "beneficio_deseado_pct": 20
+    },
+    {
+      "_label": "Pequeña empresa (2-3 operarios)",
+      "costes_fijos_mes": 4000,
+      "costes_variables_mes": 1500,
+      "horas_facturables_mes": 150,
+      "beneficio_deseado_pct": 25
+    },
+    {
+      "_label": "Empresa mediana (5-10 operarios)",
+      "costes_fijos_mes": 8000,
+      "costes_variables_mes": 3000,
+      "horas_facturables_mes": 160,
+      "beneficio_deseado_pct": 20
+    },
+    {
+      "_label": "Especialista técnico (alta demanda)",
+      "costes_fijos_mes": 3000,
+      "costes_variables_mes": 1000,
+      "horas_facturables_mes": 120,
+      "beneficio_deseado_pct": 30
+    }
+  ],
+  "units": {
+    "beneficio_deseado_pct": "%"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Precio por Hora de Trabajo",
+      "desc": "Calcula el precio óptimo por hora de trabajo como autónomo incluyendo costes fijos, variables y margen de beneficio. Calculo preciso y rapido con.",
+      "seo_title": "Calculadora Precio Hora Trabajo – Construcción y Reformas",
+      "seo_desc": "Calcula tu precio hora en construcción: suma costes fijos y variables, divide por horas facturables y añade beneficio. Gratis y sin registro.",
+      "inputs": {
+        "costes_fijos_mes": "Costes fijos mensuales",
+        "costes_variables_mes": "Costes variables mensuales",
+        "horas_facturables_mes": "Horas facturables al mes",
+        "beneficio_deseado_pct": "Beneficio deseado (%)"
+      },
+      "outputs": {
+        "coste_hora_eur": "Coste por hora",
+        "precio_hora_sin_iva_eur": "Precio hora (sin IVA)",
+        "precio_hora_con_iva_eur": "Precio hora (con IVA 21%)"
+      },
+      "seo_description": "Calcula el precio por hora de trabajo para autónomos y empresas de construcción. Introduce costes fijos mensuales, costes variables, horas facturables y el margen de beneficio deseado para obtener tu tarifa óptima.",
+      "example_label": "Calcular precio hora con costes fijos de 2000 €/mes, 150 h facturables y 20% de beneficio.",
+      "range_hints": {
+        "costes_fijos_mes": "Valor entre 500 y 10000 €/mes.",
+        "costes_variables_mes": "Valor entre 200 y 5000 €/mes.",
+        "horas_facturables_mes": "Valor entre 50 y 220 h/mes.",
+        "beneficio_deseado_pct": "Valor entre 0 y 50 %."
+      },
+      "result_context": "Resultados: coste de {coste_hora_eur} €/h, precio de {precio_hora_sin_iva_eur} €/h sin IVA, precio de {precio_hora_con_iva_eur} €/h con IVA del 21 %.",
+      "formula_display": "Precio/hora = (costes_fijos + costes_variables) ÷ horas_facturables × (1 + beneficio%)",
+      "steps": [
+        "Suma todos los costes fijos mensuales: alquiler de nave/oficina, seguros, teléfono, software, gestoría",
+        "Suma los costes variables: combustible, dietas, consumibles, reparaciones de herramientas",
+        "Calcula las horas facturables reales al mes (descarta horas de administración, presupuestos, desplazamientos no facturables)",
+        "Divide el coste total mensual entre las horas facturables para obtener el coste hora real",
+        "Añade el margen de beneficio deseado (20-30% para autónomos, 15-20% para empresas consolidadas)",
+        "Aplica el IVA (21%) si vendes a cliente final; no aplica IVA si facturas a empresa (inversión del sujeto pasivo)"
+      ],
+      "mistakes": [
+        "Calcular sobre 160 h/mes sin descontar horas no productivas (20-30% del tiempo)",
+        "No incluir la cuota de autónomos (seguridad social) como coste fijo",
+        "Confundir coste hora con precio hora: el precio debe cubrir costes + beneficio + imprevistos",
+        "Olvidar los costes de formación y actualización de certificaciones obligatorias",
+        "No revisar la tarifa periódicamente según inflación y evolución del mercado"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "costes_fijos_mes",
+          "reason": "Tipo correcto: numérico en € para sumar costes estructurales mensuales."
+        },
+        {
+          "field_id": "costes_variables_mes",
+          "reason": "Tipo correcto: numérico en € para costes operativos que varían cada mes."
+        },
+        {
+          "field_id": "horas_facturables_mes",
+          "reason": "Tipo correcto: numérico entero para horas realmente cobradas al cliente."
+        },
+        {
+          "field_id": "beneficio_deseado_pct",
+          "reason": "Tipo correcto: numérico porcentual para margen de beneficio sobre coste."
+        }
+      ]
+    },
+    "en": {
+      "name": "Hourly Rate Calculator",
+      "desc": "Calculate your optimal hourly rate as a contractor.",
+      "seo_title": "Hourly Rate Calculator – Construction & Renovation",
+      "seo_desc": "Calculate your construction hourly rate: add fixed and variable costs, divide by billable hours, add profit margin. Free, no registration.",
+      "inputs": {
+        "costes_fijos_mes": "Monthly fixed costs",
+        "costes_variables_mes": "Monthly variable costs",
+        "horas_facturables_mes": "Billable hours per month",
+        "beneficio_deseado_pct": "Desired profit (%)"
+      },
+      "outputs": {
+        "coste_hora_eur": "Cost per hour",
+        "precio_hora_sin_iva_eur": "Hourly rate (ex VAT)",
+        "precio_hora_con_iva_eur": "Hourly rate (inc VAT 21%)"
+      },
+      "seo_description": "Calculate the hourly rate for self-employed contractors and construction companies. Enter monthly fixed costs, variable costs, billable hours, and desired profit margin.",
+      "example_label": "Calcular precio hora con costes fijos de 2000 €/mes, 150 h facturables y 20% de beneficio.",
+      "range_hints": {
+        "costes_fijos_mes": "Valor entre 500 y 10000 â‚¬/mes.",
+        "costes_variables_mes": "Valor entre 200 y 5000 â‚¬/mes.",
+        "horas_facturables_mes": "Valor entre 50 y 220 h/mes.",
+        "beneficio_deseado_pct": "Valor entre 0 y 50 %."
+      },
+      "result_context": "Resultados: coste de {coste_hora_eur} €/h, precio de {precio_hora_sin_iva_eur} €/h sin IVA, precio de {precio_hora_con_iva_eur} €/h con IVA del 21 %.",
+      "formula_display": "Precio/hora = (costes_fijos + costes_variables) ÷ horas_facturables × (1 + beneficio%)",
+      "steps": [
+        "Suma todos los costes fijos mensuales: alquiler de nave/oficina, seguros, teléfono, software, gestoría",
+        "Suma los costes variables: combustible, dietas, consumibles, reparaciones de herramientas",
+        "Calcula las horas facturables reales al mes (descarta horas de administración, presupuestos, desplazamientos no facturables)",
+        "Divide el coste total mensual entre las horas facturables para obtener el coste hora real",
+        "Añade el margen de beneficio deseado (20-30% para autónomos, 15-20% para empresas consolidadas)",
+        "Aplica el IVA (21%) si vendes a cliente final; no aplica IVA si facturas a empresa (inversión del sujeto pasivo)"
+      ],
+      "mistakes": [
+        "Calcular sobre 160 h/mes sin descontar horas no productivas (20-30% del tiempo)",
+        "No incluir la cuota de autónomos (seguridad social) como coste fijo",
+        "Confundir coste hora con precio hora: el precio debe cubrir costes + beneficio + imprevistos",
+        "Olvidar los costes de formación y actualización de certificaciones obligatorias",
+        "No revisar la tarifa periódicamente según inflación y evolución del mercado"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "costes_fijos_mes",
+          "reason": "Tipo correcto: numérico en € para sumar costes estructurales mensuales."
+        },
+        {
+          "field_id": "costes_variables_mes",
+          "reason": "Tipo correcto: numérico en € para costes operativos que varían cada mes."
+        },
+        {
+          "field_id": "horas_facturables_mes",
+          "reason": "Tipo correcto: numérico entero para horas realmente cobradas al cliente."
+        },
+        {
+          "field_id": "beneficio_deseado_pct",
+          "reason": "Tipo correcto: numérico porcentual para margen de beneficio sobre coste."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Taux Horaire",
+      "desc": "Calculez votre taux horaire optimal en tant qu'artisan.",
+      "seo_title": "Calculateur Taux Horaire – Construction et Rénovation",
+      "seo_desc": "Calculez votre taux horaire en construction : additionnez coûts fixes et variables, divisez par heures facturables, ajoutez la marge. Gratuit sans inscription.",
+      "inputs": {
+        "costes_fijos_mes": "Charges fixes mensuelles",
+        "costes_variables_mes": "Charges variables mensuelles",
+        "horas_facturables_mes": "Heures facturables par mois",
+        "beneficio_deseado_pct": "Bénéfice souhaité (%)"
+      },
+      "outputs": {
+        "coste_hora_eur": "Coût par heure",
+        "precio_hora_sin_iva_eur": "Taux horaire (HT)",
+        "precio_hora_con_iva_eur": "Taux horaire (TTC 20%)"
+      },
+      "seo_description": "Calculez le taux horaire pour les indépendants et entreprises du bâtiment. Entrez coûts fixes mensuels, coûts variables, heures facturables et marge bénéficiaire souhaitée.",
+      "example_label": "Calcular precio hora con costes fijos de 2000 €/mes, 150 h facturables y 20% de beneficio.",
+      "range_hints": {
+        "costes_fijos_mes": "Valor entre 500 et 10000 €/mes.",
+        "costes_variables_mes": "Valor entre 200 et 5000 €/mes.",
+        "horas_facturables_mes": "Valor entre 50 et 220 h/mes.",
+        "beneficio_deseado_pct": "Valor entre 0 et 50 %."
+      },
+      "result_context": "Resultados: coste de {coste_hora_eur} €/h, precio de {precio_hora_sin_iva_eur} €/h sin IVA, precio de {precio_hora_con_iva_eur} €/h con IVA del 21 %.",
+      "formula_display": "Precio/hora = (costes_fijos + costes_variables) ÷ horas_facturables × (1 + beneficio%)",
+      "steps": [
+        "Suma todos los costes fijos mensuales: alquiler de nave/oficina, seguros, teléfono, software, gestoría",
+        "Suma los costes variables: combustible, dietas, consumibles, reparaciones de herramientas",
+        "Calcula las horas facturables reales al mes (descarta horas de administración, presupuestos, desplazamientos no facturables)",
+        "Divide el coste total mensual entre las horas facturables para obtener el coste hora real",
+        "Añade el margen de beneficio deseado (20-30% para autónomos, 15-20% para empresas consolidadas)",
+        "Aplica el IVA (21%) si vendes a cliente final; no aplica IVA si facturas a empresa (inversión del sujeto pasivo)"
+      ],
+      "mistakes": [
+        "Calcular sobre 160 h/mes sin descontar horas no productivas (20-30% del tiempo)",
+        "No incluir la cuota de autónomos (seguridad social) como coste fijo",
+        "Confundir coste hora con precio hora: el precio debe cubrir costes + beneficio + imprevistos",
+        "Olvidar los costes de formación y actualización de certificaciones obligatorias",
+        "No revisar la tarifa periódicamente según inflación y evolución del mercado"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "costes_fijos_mes",
+          "reason": "Tipo correcto: numérico en € para sumar costes estructurales mensuales."
+        },
+        {
+          "field_id": "costes_variables_mes",
+          "reason": "Tipo correcto: numérico en € para costes operativos que varían cada mes."
+        },
+        {
+          "field_id": "horas_facturables_mes",
+          "reason": "Tipo correcto: numérico entero para horas realmente cobradas al cliente."
+        },
+        {
+          "field_id": "beneficio_deseado_pct",
+          "reason": "Tipo correcto: numérico porcentual para margen de beneficio sobre coste."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Preço por Hora de Trabalho",
+      "desc": "Calcule o preço ótimo por hora de trabalho como autônomo incluindo custos fixos, variáveis e margem. Calculo preciso e rapido com metodologia clara.",
+      "seo_title": "Calculadora Preço Hora Autônomo",
+      "inputs": {
+        "costes_fijos_mes": "Custos fixos mensais",
+        "costes_variables_mes": "Custos variáveis mensais",
+        "horas_facturables_mes": "Horas faturáveis por mês",
+        "beneficio_deseado_pct": "Lucro desejado (%)"
+      },
+      "outputs": {
+        "coste_hora_eur": "Custo por hora",
+        "precio_hora_sin_iva_eur": "Preço hora (sem impostos)",
+        "precio_hora_con_iva_eur": "Preço hora (com ISS/impostos)"
+      },
+      "seo_description": "Calcule o preço ótimo por hora de trabalho como autônomo incluindo custos fixos, variáveis e margem. Calculo preciso e rapido com metodologia clara.",
+      "example_label": "Calcular precio hora con costes fijos de 2000 €/mes, 150 h facturables y 20% de beneficio.",
+      "range_hints": {
+        "costes_fijos_mes": "Valor entre 500 e 10000 €/mes.",
+        "costes_variables_mes": "Valor entre 200 e 5000 €/mes.",
+        "horas_facturables_mes": "Valor entre 50 e 220 h/mes.",
+        "beneficio_deseado_pct": "Valor entre 0 e 50 %."
+      },
+      "result_context": "Resultados: coste de {coste_hora_eur} €/h, precio de {precio_hora_sin_iva_eur} €/h sin IVA, precio de {precio_hora_con_iva_eur} €/h con IVA del 21 %.",
+      "formula_display": "Precio/hora = (costes_fijos + costes_variables) ÷ horas_facturables × (1 + beneficio%)",
+      "steps": [
+        "Suma todos los costes fijos mensuales: alquiler de nave/oficina, seguros, teléfono, software, gestoría",
+        "Suma los costes variables: combustible, dietas, consumibles, reparaciones de herramientas",
+        "Calcula las horas facturables reales al mes (descarta horas de administración, presupuestos, desplazamientos no facturables)",
+        "Divide el coste total mensual entre las horas facturables para obtener el coste hora real",
+        "Añade el margen de beneficio deseado (20-30% para autónomos, 15-20% para empresas consolidadas)",
+        "Aplica el IVA (21%) si vendes a cliente final; no aplica IVA si facturas a empresa (inversión del sujeto pasivo)"
+      ],
+      "mistakes": [
+        "Calcular sobre 160 h/mes sin descontar horas no productivas (20-30% del tiempo)",
+        "No incluir la cuota de autónomos (seguridad social) como coste fijo",
+        "Confundir coste hora con precio hora: el precio debe cubrir costes + beneficio + imprevistos",
+        "Olvidar los costes de formación y actualización de certificaciones obligatorias",
+        "No revisar la tarifa periódicamente según inflación y evolución del mercado"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "costes_fijos_mes",
+          "reason": "Tipo correcto: numérico en € para sumar costes estructurales mensuales."
+        },
+        {
+          "field_id": "costes_variables_mes",
+          "reason": "Tipo correcto: numérico en € para costes operativos que varían cada mes."
+        },
+        {
+          "field_id": "horas_facturables_mes",
+          "reason": "Tipo correcto: numérico entero para horas realmente cobradas al cliente."
+        },
+        {
+          "field_id": "beneficio_deseado_pct",
+          "reason": "Tipo correcto: numérico porcentual para margen de beneficio sobre coste."
+        }
+      ]
+    },
+    "de": {
+      "name": "Stundensatz hora Arbeit",
+      "desc": "Berechnen Sie stundensatz hora Arbeit online. Geben Sie costes fijos mes, costes variables mes, horas facturables mes ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Stundensatz hora Arbeit | CalcToWork",
+      "seo_desc": "Stundensatz hora Arbeit online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Stundensatz hora Arbeit online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "costes_fijos_mes": "Costes Fijos Mes",
+        "costes_variables_mes": "Costes Variables Mes",
+        "horas_facturables_mes": "Horas Facturables Mes",
+        "beneficio_deseado_pct": "Beneficio Deseado Pct"
+      },
+      "outputs": {
+        "coste_hora_eur": "Coste Hora Eur",
+        "precio_hora_sin_iva_eur": "Precio Hora Sin Iva Eur",
+        "precio_hora_con_iva_eur": "Precio Hora Con Iva Eur"
+      },
+      "example_label": "Calcular precio hora con costes fijos de 2000 €/mes, 150 h facturables y 20% de beneficio.",
+      "range_hints": {
+        "costes_fijos_mes": "Suma de alquiler, seguros, gestoría, software, teléfono y cuota de autónomos (€/mes)",
+        "costes_variables_mes": "Combustible, dietas, material fungible, reparaciones y otros gastos variables (€/mes)",
+        "horas_facturables_mes": "Horas reales que facturas al cliente, descontando administración y desplazamientos (h/mes)",
+        "beneficio_deseado_pct": "Margen de beneficio sobre el coste (15-30% recomendado)"
+      },
+      "result_context": "Resultados: coste de {coste_hora_eur} €/h, precio de {precio_hora_sin_iva_eur} €/h sin IVA, precio de {precio_hora_con_iva_eur} €/h con IVA del 21 %.",
+      "formula_display": "Precio/hora = (costes_fijos + costes_variables) ÷ horas_facturables × (1 + beneficio%)",
+      "steps": [
+        "Suma todos los costes fijos mensuales: alquiler de nave/oficina, seguros, teléfono, software, gestoría",
+        "Suma los costes variables: combustible, dietas, consumibles, reparaciones de herramientas",
+        "Calcula las horas facturables reales al mes (descarta horas de administración, presupuestos, desplazamientos no facturables)",
+        "Divide el coste total mensual entre las horas facturables para obtener el coste hora real",
+        "Añade el margen de beneficio deseado (20-30% para autónomos, 15-20% para empresas consolidadas)",
+        "Aplica el IVA (21%) si vendes a cliente final; no aplica IVA si facturas a empresa (inversión del sujeto pasivo)"
+      ],
+      "mistakes": [
+        "Calcular sobre 160 h/mes sin descontar horas no productivas (20-30% del tiempo)",
+        "No incluir la cuota de autónomos (seguridad social) como coste fijo",
+        "Confundir coste hora con precio hora: el precio debe cubrir costes + beneficio + imprevistos",
+        "Olvidar los costes de formación y actualización de certificaciones obligatorias",
+        "No revisar la tarifa periódicamente según inflación y evolución del mercado"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "costes_fijos_mes",
+          "reason": "Tipo correcto: numérico en € para sumar costes estructurales mensuales."
+        },
+        {
+          "field_id": "costes_variables_mes",
+          "reason": "Tipo correcto: numérico en € para costes operativos que varían cada mes."
+        },
+        {
+          "field_id": "horas_facturables_mes",
+          "reason": "Tipo correcto: numérico entero para horas realmente cobradas al cliente."
+        },
+        {
+          "field_id": "beneficio_deseado_pct",
+          "reason": "Tipo correcto: numérico porcentual para margen de beneficio sobre coste."
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Cronoprogramma",
+      "description": "Stima la durata dei lavori di costruzione.",
+      "seo_title": "Calcolatore Cronoprogramma – Calcolo Facile",
+      "seo_description": "Stima la durata del cantiere in funzione della superficie e della tipologia Usato da professionisti e studenti in tutto il mondo.",
+      "inputs": {
+        "area": "Superficie (m²)",
+        "tipo_obra": "Tipo (1-3)",
+        "num_trabajadores": "Operai",
+        "costes_fijos_mes": "costes fijos mes (â‚¬/mes)",
+        "costes_variables_mes": "costes variables mes (â‚¬/mes)",
+        "horas_facturables_mes": "horas facturables mes (h/mes)",
+        "beneficio_deseado_pct": "beneficio deseado pct (%)"
+      },
+      "outputs": {
+        "semanas": "Settimane stimate",
+        "meses": "Mesi stimati",
+        "coste_hora_eur": "coste hora eur (â‚¬/h (coste))",
+        "precio_hora_sin_iva_eur": "precio hora sin iva eur (â‚¬/h (sin IVA))",
+        "precio_hora_con_iva_eur": "precio hora con iva eur (â‚¬/h (con IVA 21%))"
+      },
+      "example_label": "Calcular precio hora con costes fijos de 2000 €/mes, 150 h facturables y 20% de beneficio.",
+      "range_hints": {
+        "costes_fijos_mes": "Valor intre 500 e 10000 €/mese.",
+        "costes_variables_mes": "Valor intre 200 e 5000 €/mese.",
+        "horas_facturables_mes": "Valor intre 50 e 220 h/mese.",
+        "beneficio_deseado_pct": "Valor intre 0 e 50 %."
+      },
+      "result_context": "Resultados: coste de {coste_hora_eur} €/h, precio de {precio_hora_sin_iva_eur} €/h sin IVA, precio de {precio_hora_con_iva_eur} €/h con IVA del 21 %.",
+      "formula_display": "Precio/hora = (costes_fijos + costes_variables) ÷ horas_facturables × (1 + beneficio%)",
+      "steps": [
+        "Suma todos los costes fijos mensuales: alquiler de nave/oficina, seguros, teléfono, software, gestoría",
+        "Suma los costes variables: combustible, dietas, consumibles, reparaciones de herramientas",
+        "Calcula las horas facturables reales al mes (descarta horas de administración, presupuestos, desplazamientos no facturables)",
+        "Divide el coste total mensual entre las horas facturables para obtener el coste hora real",
+        "Añade el margen de beneficio deseado (20-30% para autónomos, 15-20% para empresas consolidadas)",
+        "Aplica el IVA (21%) si vendes a cliente final; no aplica IVA si facturas a empresa (inversión del sujeto pasivo)"
+      ],
+      "mistakes": [
+        "Calcular sobre 160 h/mes sin descontar horas no productivas (20-30% del tiempo)",
+        "No incluir la cuota de autónomos (seguridad social) como coste fijo",
+        "Confundir coste hora con precio hora: el precio debe cubrir costes + beneficio + imprevistos",
+        "Olvidar los costes de formación y actualización de certificaciones obligatorias",
+        "No revisar la tarifa periódicamente según inflación y evolución del mercado"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "costes_fijos_mes",
+          "reason": "Tipo correcto: numérico en € para sumar costes estructurales mensuales."
+        },
+        {
+          "field_id": "costes_variables_mes",
+          "reason": "Tipo correcto: numérico en € para costes operativos que varían cada mes."
+        },
+        {
+          "field_id": "horas_facturables_mes",
+          "reason": "Tipo correcto: numérico entero para horas realmente cobradas al cliente."
+        },
+        {
+          "field_id": "beneficio_deseado_pct",
+          "reason": "Tipo correcto: numérico porcentual para margen de beneficio sobre coste."
+        }
+      ],
+      "desc": "Calcola la tariffa oraria ottimale per il tuo lavoro edile con costi fissi, variabili e margine di profitto."
+    }
+  }
+}

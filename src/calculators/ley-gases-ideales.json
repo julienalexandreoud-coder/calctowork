@@ -1,0 +1,534 @@
+{
+  "id": "149",
+  "slug": "ley-gases-ideales",
+  "block": 11,
+  "block_slug": "ciencia",
+  "inputs": [
+    {
+      "id": "P",
+      "type": "number",
+      "step": "any",
+      "default": 101325,
+      "unit": "Pa",
+      "unit_options": [
+        "Pa",
+        "kPa",
+        "atm",
+        "bar"
+      ],
+      "unit_category": "pressure"
+    },
+    {
+      "id": "V",
+      "type": "number",
+      "step": "any",
+      "default": 0.0224,
+      "unit": "m³",
+      "unit_options": [
+        "m³",
+        "L",
+        "mL"
+      ],
+      "unit_category": "volume"
+    },
+    {
+      "id": "n",
+      "type": "number",
+      "step": "any",
+      "default": 1,
+      "unit": "mol",
+      "unit_options": [
+        "mol"
+      ],
+      "unit_category": "count"
+    },
+    {
+      "id": "T",
+      "type": "number",
+      "step": "any",
+      "default": 273.15,
+      "unit": "K",
+      "unit_options": [
+        "K",
+        "°C",
+        "°F"
+      ],
+      "unit_category": "temperature"
+    }
+  ],
+  "formula": "var R=8.314;var P=parseFloat(inputs.P)||0;var V=parseFloat(inputs.V)||0;var n=parseFloat(inputs.n)||0;var T=parseFloat(inputs.T)||0;var result={};if(P===0)result.missing=(n*R*T/V).toFixed(4)+' Pa';else if(V===0)result.missing=(n*R*T/P).toFixed(6)+' m³';else if(n===0)result.missing=(P*V/(R*T)).toFixed(6)+' mol';else if(T===0)result.missing=(P*V/(n*R)).toFixed(4)+' K';else result.missing='Enter 0 for one variable';return result;",
+  "outputs": [
+    {
+      "id": "missing",
+      "unit": ""
+    }
+  ],
+  "related": [
+    "124",
+    "146",
+    "700",
+    "701"
+  ],
+  "example_inputs": {
+    "P": 202650,
+    "V": 0.015,
+    "n": 1.2,
+    "T": 0
+  },
+  "example_label": "Calcular gas para 202650 Pa × 0.015 m³ × 1.2 mol × 0 K.",
+  "range_hints": {
+    "P": "Valor típico entre 0 y 500. Valor por defecto: 101325 Pa.",
+    "V": "Valor típico entre 0 y 500. Valor por defecto: 0.0224 m³.",
+    "n": "Valor típico entre 0 y 500. Valor por defecto: 1 mol.",
+    "T": "Valor típico entre 0 y 500. Valor por defecto: 273.15 K."
+  },
+  "result_context": "Según la Ley de Gases Ideales, el valor de la variable faltante es {missing}.",
+  "result_context_en": "According to the Ideal Gas Law, the value of the missing variable is {missing}.",
+  "result_context_fr": "Selon la loi des gaz parfaits, la valeur de la variable manquante est {missing}.",
+  "result_context_pt": "Segundo a Lei dos Gases Ideais, o valor da variável faltante é {missing}.",
+  "result_context_de": "Nach dem idealen Gasgesetz beträgt der Wert der fehlenden Variable {missing}.",
+  "result_context_it": "Secondo la legge dei gas ideali, il valore della variabile mancante è {missing}.",
+  "formula_display": "Missing = f(P, V, n, T)",
+  "steps": [
+    "Introducir los valores de P, V, n y T",
+    "Verificar que las unidades sean correctas y convertir si es necesario (Pa, kPa, atm)",
+    "Realizar el cálculo para obtener missing",
+    "Verificar que el resultado es coherente con los valores de entrada",
+    "Documentar el resultado con sus unidades para usarlo en cálculos de ingeniería posteriores"
+  ],
+  "mistakes": [
+    "Mezclar unidades de diferentes sistemas (métrico con imperial) sin convertir",
+    "Usar la temperatura en Celsius en fórmulas que requieren Kelvin (sumar 273.15)",
+    "Confundir masa (kg) con peso (N) en cálculos de física"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "P",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "V",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "n",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "T",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Escala laboratorio",
+      "P": 1000.0,
+      "V": 0.01,
+      "n": 0.4,
+      "T": 109.26
+    },
+    {
+      "_label": "Uso domestico",
+      "P": 1000.0,
+      "V": 0.02,
+      "n": 0.7,
+      "T": 191.2
+    },
+    {
+      "_label": "Aplicacion industrial",
+      "P": 1000.0,
+      "V": 0.02,
+      "n": 1.0,
+      "T": 273.15
+    },
+    {
+      "_label": "Ingenieria civil",
+      "P": 1000.0,
+      "V": 0.03,
+      "n": 1.5,
+      "T": 409.72
+    },
+    {
+      "_label": "Escala cientifica",
+      "P": 1000.0,
+      "V": 0.06,
+      "n": 2.5,
+      "T": 682.88
+    }
+  ],
+  "units": {
+    "P": "Pa",
+    "V": "m³",
+    "T": "°C"
+  },
+  "i18n": {
+    "es": {
+      "name": "Ley de Gases Ideales",
+      "description": "Calcula la variable desconocida de la ley de gases ideales.",
+      "inputs": {
+        "P": "Presión",
+        "V": "Volumen",
+        "n": "Moles",
+        "T": "Temperatura"
+      },
+      "outputs": {
+        "missing": "Variable calculada"
+      },
+      "seo_title": "Ley de Gases Ideales Gratuita – Herramienta Gratuita",
+      "seo_description": "Calcula la variable desconocida de la ley de gases ideales. Calculadora gratuita, precisa e instantánea. Con opciones de capitalizacion e impuestos.",
+      "example_label": "Find the missing variable (T=0) in ideal gas law with P=202650 Pa, V=0.015 m³, n=1.2 mol.",
+      "range_hints": {
+        "P": "Pressure: 100 to 1e8 Pa",
+        "V": "Volume: 0.0001 to 100 m³",
+        "n": "Moles: 0.001 to 1000 mol",
+        "T": "Temperature: 1 to 5000 K (use 0 for unknown)"
+      },
+      "result_context": "The missing variable is calculated: {missing} using PV = nRT where R = 8.314 J/(mol·K).",
+      "formula_display": "PV = nRT  (set one variable to 0 to solve for it)",
+      "steps": [
+        "Given: P=202650 Pa, V=0.015 m³, n=1.2 mol, T=0 (unknown)",
+        "Rearrange: T = PV ÷ (nR)",
+        "Calculate: T = (202650 × 0.015) ÷ (1.2 × 8.314)",
+        "T = 3039.75 ÷ 9.9768 ≈ 304.68 K"
+      ],
+      "mistakes": [
+        "Not setting exactly one variable to 0 for solving",
+        "Using wrong value for gas constant R",
+        "Using Celsius instead of Kelvin for temperature"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "P",
+          "reason": "Correct - pressure with multiple unit options"
+        },
+        {
+          "field_id": "V",
+          "reason": "Correct - volume with unit options m³, L, mL"
+        },
+        {
+          "field_id": "n",
+          "reason": "Correct - moles with mol unit"
+        },
+        {
+          "field_id": "T",
+          "reason": "Correct - temperature with K, °C, °F options"
+        }
+      ]
+    },
+    "en": {
+      "name": "Ideal Gas Law Calculator",
+      "description": "Calculate the unknown variable in the ideal gas law.",
+      "inputs": {
+        "P": "Pressure",
+        "V": "Volume",
+        "n": "Moles",
+        "T": "Temperature"
+      },
+      "outputs": {
+        "missing": "Calculated variable"
+      },
+      "seo_title": "Ideal Gas Law Calculator – Instant Results",
+      "seo_description": "Ideal Gas Law Calculator. Pressure, Volume, Moles to find Calculated variable. personal finance-grade formula with compounding, tax, and fee adjustments.",
+      "example_label": "Find the missing variable (T=0) in ideal gas law with P=202650 Pa, V=0.015 m³, n=1.2 mol.",
+      "range_hints": {
+        "P": "Pressure: 100 to 1e8 Pa",
+        "V": "Volume: 0.0001 to 100 m³",
+        "n": "Moles: 0.001 to 1000 mol",
+        "T": "Temperature: 1 to 5000 K (use 0 for unknown)"
+      },
+      "result_context": "The missing variable is calculated: {missing} using PV = nRT where R = 8.314 J/(molÂ·K).",
+      "formula_display": "PV = nRT  (set one variable to 0 to solve for it)",
+      "steps": [
+        "Given: P=202650 Pa, V=0.015 m³, n=1.2 mol, T=0 (unknown)",
+        "Rearrange: T = PV ÷ (nR)",
+        "Calculate: T = (202650 × 0.015) ÷ (1.2 × 8.314)",
+        "T = 3039.75 ÷ 9.9768 â‰ˆ 304.68 K"
+      ],
+      "mistakes": [
+        "Not setting exactly one variable to 0 for solving",
+        "Using wrong value for gas constant R",
+        "Using Celsius instead of Kelvin for temperature"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "P",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - pressure with multiple unit options"
+        },
+        {
+          "field_id": "V",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - volume with unit options m³, L, mL"
+        },
+        {
+          "field_id": "n",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - moles with mol unit"
+        },
+        {
+          "field_id": "T",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - temperature with K, °C, °F options"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Loi des Gaz Parfaits",
+      "description": "Calculez la variable inconnue de la loi des gaz parfaits.",
+      "inputs": {
+        "P": "Pression",
+        "V": "Volume",
+        "n": "Moles",
+        "T": "Température"
+      },
+      "outputs": {
+        "missing": "Variable calculée"
+      },
+      "seo_title": "Loi des Gaz Parfaits – Outil Gratuit",
+      "seo_description": "Calculez la variable inconnue de la loi des gaz parfaits. Calculateur gratuit, précis et instantané. Calculatrice facile a utiliser avec decomposition de.",
+      "example_label": "Find the missing variable (T=0) in ideal gas law with P=202650 Pa, V=0.015 m³, n=1.2 mol.",
+      "range_hints": {
+        "P": "Pressure: 100 to 1e8 Pa",
+        "V": "Volume: 0.0001 to 100 m³",
+        "n": "Moles: 0.001 to 1000 mol",
+        "T": "Temperature: 1 to 5000 K (use 0 for unknown)"
+      },
+      "result_context": "The missing variable is calculated: {missing} using PV = nRT where R = 8.314 J/(mol·K).",
+      "formula_display": "PV = nRT  (set one variable to 0 to solve for it)",
+      "steps": [
+        "Given: P=202650 Pa, V=0.015 m³, n=1.2 mol, T=0 (unknown)",
+        "Rearrange: T = PV Á· (nR)",
+        "Calculate: T = (202650 × 0.015) Á· (1.2 × 8.314)",
+        "T = 3039.75 Á· 9.9768 ââ€°ˆ 304.68 K"
+      ],
+      "mistakes": [
+        "Not setting exactly one variable to 0 for solving",
+        "Using wrong value for gas constant R",
+        "Using Celsius instead of Kelvin for temperature"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "P",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - pressure with multiple unit options"
+        },
+        {
+          "field_id": "V",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - volume with unit options m³, L, mL"
+        },
+        {
+          "field_id": "n",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - moles with mol unit"
+        },
+        {
+          "field_id": "T",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - temperature with K, °C, °F options"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Lei dos Gases Ideais",
+      "description": "Calcule a variável desconhecida da lei dos gases ideais.",
+      "inputs": {
+        "P": "Pressão",
+        "V": "Volume",
+        "n": "Mols",
+        "T": "Temperatura"
+      },
+      "outputs": {
+        "missing": "Variável calculada"
+      },
+      "seo_title": "Lei dos Gases Ideais – Ferramenta Grátis",
+      "seo_description": "Calcule a variável desconhecida da lei dos gases ideais. Calculadora gratuita, precisa e instantânea. Calculadora facil de usar com detalhamento da.",
+      "example_label": "Find the missing variável (T=0) in ideal gas law with P=202650 Pa, V=0.015 m³, n=1.2 mol.",
+      "range_hints": {
+        "P": "Pressure: 100 to 1e8 Pa",
+        "V": "Volume: 0.0001 to 100 m³",
+        "n": "Moles: 0.001 to 1000 mol",
+        "T": "Temperature: 1 to 5000 K (use 0 for unknown)"
+      },
+      "result_context": "The missing variável is calculated: {missing} using PV = nRT where R = 8.314 J/(mol·K).",
+      "formula_display": "PV = nRT  (set one variável to 0 to solve for it)",
+      "steps": [
+        "Given: P=202650 Pa, V=0.015 m³, n=1.2 mol, T=0 (unknown)",
+        "Rearrange: T = PV ÷ (nR)",
+        "Calculate: T = (202650 × 0.015) ÷ (1.2 × 8.314)",
+        "T = 3039.75 ÷ 9.9768 â‰ˆ 304.68 K"
+      ],
+      "mistakes": [
+        "Not setting exactly one variável to 0 for solving",
+        "Using wrong value for gas constant R",
+        "Using Celsius instead of Kelvin for temperature"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "P",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - pressure with multiple unit options"
+        },
+        {
+          "field_id": "V",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - volume with unit options m³, L, mL"
+        },
+        {
+          "field_id": "n",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - moles with mol unit"
+        },
+        {
+          "field_id": "T",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - temperature with K, °C, °F options"
+        }
+      ]
+    },
+    "de": {
+      "name": "Ley gases ideales",
+      "desc": "Berechnen Sie ley gases ideales online. Geben Sie P, V, n ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Ley gases ideales | CalcToWork",
+      "seo_desc": "Ley gases ideales online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Ley gases ideales online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "P": "P",
+        "V": "V",
+        "n": "N",
+        "T": "T"
+      },
+      "outputs": {
+        "missing": "Missing"
+      },
+      "example_label": "Calcular gas para 202650 Pa × 0.015 m³ × 1.2 mol × 0 K.",
+      "range_hints": {
+        "P": "Valor típico entre 0 y 500. Valor por defecto: 101325 Pa.",
+        "V": "Valor típico entre 0 y 500. Valor por defecto: 0.0224 m³.",
+        "n": "Valor típico entre 0 y 500. Valor por defecto: 1 mol.",
+        "T": "Valor típico entre 0 y 500. Valor por defecto: 273.15 K."
+      },
+      "result_context": "Nach dem idealen Gasgesetz beträgt der Wert der fehlenden Variable {missing}.",
+      "formula_display": "Missing = f(P, V, n, T)",
+      "steps": [
+        "Introducir los valores de P, V, n y T",
+        "Verificar que las unidades sean correctas y convertir si es necesario (Pa, kPa, atm)",
+        "Realizar el cálculo para obtener missing",
+        "Verificar que el resultado es coherente con los valores de entrada",
+        "Documentar el resultado con sus unidades para usarlo en cálculos de ingeniería posteriores"
+      ],
+      "mistakes": [
+        "Mezclar unidades de diferentes sistemas (métrico con imperial) sin convertir",
+        "Usar la temperatura en Celsius en fórmulas que requieren Kelvin (sumar 273.15)",
+        "Confundir masa (kg) con peso (N) en cálculos de física"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "P",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "V",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "n",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "T",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Legge dei Gas Ideali",
+      "description": "Calcola la variabile sconosciuta della legge dei gas ideali.",
+      "inputs": {
+        "P": "Pressione",
+        "V": "Volume",
+        "n": "Moli",
+        "T": "Temperatura"
+      },
+      "outputs": {
+        "missing": "Variabile calcolata"
+      },
+      "seo_title": "Legge dei Gas Ideali – Strumento Gratuito",
+      "seo_description": "Calcola la variabile sconosciuta della legge dei gas ideali. Calcolatore gratuito, preciso e istantaneo. Calcolatrice facile da usare con dettaglio della.",
+      "example_label": "Find the missenzag variabile (T=0) in idial gas law with P=202650 Pa, V=0.015 m³, n=1.2 mol.",
+      "range_hints": {
+        "P": "Pressure: 100 to 1e8 Pa",
+        "V": "Volume: 0.0001 to 100 m³",
+        "n": "Moles: 0.001 to 1000 mol",
+        "T": "Temperature: 1 to 5000 K (use 0 for unknonwn)"
+      },
+      "result_context": "The missenzag variabile is calculated: {missenzag} usenzag PV = nRT where R = 8.314 J/(mol·K).",
+      "formula_display": "PV = nRT  (set one variabile to 0 to solve for it)",
+      "steps": [
+        "Givin: P=202650 Pa, V=0.015 m³, n=1.2 mol, T=0 (unknonwn)",
+        "Rearrange: T = PV ÷ (nR)",
+        "Calculate: T = (202650 × 0.015) ÷ (1.2 × 8.314)",
+        "T = 3039.75 ÷ 9.9768 ≈ 304.68 K"
+      ],
+      "mistakes": [
+        "Not setting exactle one variabile to 0 for solving",
+        "Usenzag wrong value for gas conscosìt R",
+        "Usenzag Celseus instead of Kelvin for temperature"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "P",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - pressure with multiple unit options"
+        },
+        {
+          "field_id": "V",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - volume with unit options m³, L, mL"
+        },
+        {
+          "field_id": "n",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - moles with mol unit"
+        },
+        {
+          "field_id": "T",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - temperature with K, °C, °F options"
+        }
+      ]
+    }
+  }
+}

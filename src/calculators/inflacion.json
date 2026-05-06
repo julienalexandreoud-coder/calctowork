@@ -1,0 +1,537 @@
+{
+  "id": "312",
+  "slug": "inflacion",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "valor_actual",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 1000,
+      "unit": ""
+    },
+    {
+      "id": "tasa_inflacion",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "step": "any",
+      "default": 3,
+      "unit": ""
+    },
+    {
+      "id": "anos",
+      "type": "number",
+      "min": 1,
+      "max": 50,
+      "step": "any",
+      "default": 10,
+      "unit": ""
+    }
+  ],
+  "formula": "var v=parseFloat(inputs.valor_actual)||0,r=parseFloat(inputs.tasa_inflacion)||0,n=parseFloat(inputs.anos)||0;return{valor_futuro:+(v*Math.pow(1+r/100,n)).toFixed(2),poder_adquisitivo:+(v/Math.pow(1+r/100,n)).toFixed(2)};",
+  "outputs": [
+    {
+      "id": "valor_futuro",
+      "unit": "â‚¬",
+      "highlight": true
+    },
+    {
+      "id": "poder_adquisitivo",
+      "unit": "â‚¬"
+    }
+  ],
+  "related": [
+    "310",
+    "300",
+    "302",
+    "303"
+  ],
+  "example_inputs": {
+    "valor_actual": 1000,
+    "tasa_inflacion": 2.8,
+    "anos": 15
+  },
+  "example_label": "Proyecta el impacto de la inflacion: 1.000eur al 2,8% anual durante 15 anos",
+  "range_hints": {
+    "valor_actual": "Introduce el valor de valor actual. Valor sugerido: 1000",
+    "tasa_inflacion": "Introduce el valor de tasa inflacion. Valor sugerido: 3",
+    "anos": "Introduce el valor de anos. Valor sugerido: 10"
+  },
+  "result_context": "Resultados: {valor_futuro} € de valor futuro, {poder_adquisitivo} € de poder adquisitivo.",
+  "formula_display": "VF = VA x (1 + i)^n donde i = tasa de inflacion, n = anos",
+  "steps": [
+    "Introduce la cantidad actual de dinero cuyo poder adquisitivo futuro quieres proyectar en el tiempo",
+    "Define la tasa de inflacion anual esperada (consulta el IPC oficial del INE, BCE u organismo de tu pais)",
+    "Establece el numero de anos para realizar la proyeccion a largo plazo",
+    "Aplica la formula de crecimiento compuesto para estimar cuanto dinero necesitaras en el futuro",
+    "Interpreta: si hoy necesitas 1.000eur, con un 3% de inflacion en 20 anos necesitaras aproximadamente 1.806eur para igual poder de compra"
+  ],
+  "mistakes": [
+    "Usar la inflacion general cuando tu cesta de consumo personal puede variar mucho del IPC promedio ponderado",
+    "No considerar que la inflacion no es constante: puede haber periodos con picos inflacionarios que distorsionen proyecciones",
+    "Confundir inflacion con deflacion: en escenarios deflacionarios el poder adquisitivo del dinero aumenta con el tiempo"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "valor_actual",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "tasa_inflacion",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "anos",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "valor_actual": 500,
+      "tasa_inflacion": 1,
+      "anos": 15
+    },
+    {
+      "_label": "Average",
+      "valor_actual": 750,
+      "tasa_inflacion": 2,
+      "anos": 15
+    },
+    {
+      "_label": "High",
+      "valor_actual": 1000,
+      "tasa_inflacion": 3,
+      "anos": 15
+    },
+    {
+      "_label": "Premium",
+      "valor_actual": 1500,
+      "tasa_inflacion": 4,
+      "anos": 15
+    },
+    {
+      "_label": "Enterprise",
+      "valor_actual": 2000,
+      "tasa_inflacion": 6,
+      "anos": 15
+    }
+  ],
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Inflación",
+      "desc": "Calcula Valor real = Valor nominal / (1 + Inflación%)â¿. Ejemplo: 1.000 â€ con 3 % anual durante 10 años = Poder adquisitivo real ââ€°ˆ 744 â€....",
+      "description": "Calculadora Inflacion",
+      "seo_title": "Calculadora Inflacion Online Gratis",
+      "seo_description": "Calcula Valor real = Valor nominal / (1 + Inflación%)â¿. Ejemplo: 1.000 â€ con 3 % anual durante 10 años = Poder adquisitivo real ââ€°ˆ 744 â€....",
+      "inputs": {
+        "valor_actual": "Valor actual",
+        "tasa_inflacion": "Tasa de inflación (%)",
+        "anos": "Años"
+      },
+      "outputs": {
+        "valor_futuro": "Valor futuro",
+        "poder_adquisitivo": "Poder adquisitivo"
+      },
+      "example_label": "Calculating how €1,000 today will be affected by 2.8% annual inflation over 15 years.",
+      "range_hints": {
+        "valor_actual": "€100 - €1,000,000+ current values",
+        "tasa_inflacion": "0-15% inflation rates",
+        "anos": "1-50 years time horizon"
+      },
+      "result_context": "The valor_futuro of {valor_futuro} shows nominal future value. The poder_adquisitivo of {poder_adquisitivo} shows real purchasing power in today's euros.",
+      "formula_display": "Future Value = Present × (1 + inflation)^years",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert inflation rate to decimal",
+          "calculation": "2.8% ÷ 100 = 0.028"
+        },
+        {
+          "step": 2,
+          "description": "Calculate inflation factor",
+          "calculation": "(1.028)^15 = 1.513"
+        },
+        {
+          "step": 3,
+          "description": "Calculate future nominal value",
+          "calculation": "€1,000 × 1.513 = €1,513"
+        },
+        {
+          "step": 4,
+          "description": "Calculate purchasing power",
+          "calculation": "€1,000 ÷ 1.513 = €661"
+        }
+      ],
+      "mistakes": [
+        "Assuming inflation remains constant over long periods",
+        "Confusing nominal returns with real (inflation-adjusted) returns",
+        "Not accounting for inflation when planning retirement needs"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "valor_actual",
+          "reason": "Correct type for present value"
+        },
+        {
+          "field_id": "tasa_inflacion",
+          "reason": "Correct type for inflation rate"
+        },
+        {
+          "field_id": "anos",
+          "reason": "Correct type for time period"
+        }
+      ]
+    },
+    "en": {
+      "name": "Inflation Calculator",
+      "desc": "Inflation Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Inflation Calculator",
+      "seo_title": "Inflation Calculator – Free Online Tool",
+      "seo_description": "Calculate Real value = Nominal value / (1 + Inflation%)â¿. Example: â‚¬1,000 at 3% annual for 10 years = Real purchasing power â‰ˆ â‚¬744. Free and accurate calculator, no...",
+      "inputs": {
+        "valor_actual": "Current value",
+        "tasa_inflacion": "Inflation rate (%)",
+        "anos": "Years"
+      },
+      "outputs": {
+        "valor_futuro": "Future value",
+        "poder_adquisitivo": "Purchasing power"
+      },
+      "example_label": "Calculating how â‚¬1,000 today will be affected by 2.8% annual inflation over 15 years.",
+      "range_hints": {
+        "valor_actual": "â‚¬100 - â‚¬1,000,000+ current values",
+        "tasa_inflacion": "0-15% inflation rates",
+        "anos": "1-50 years time horizon"
+      },
+      "result_context": "The valor_futuro of {valor_futuro} shows nominal future value. The poder_adquisitivo of {poder_adquisitivo} shows real purchasing power in today's euros.",
+      "formula_display": "Future Value = Present × (1 + inflation)^years",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert inflation rate to decimal",
+          "calculation": "2.8% ÷ 100 = 0.028"
+        },
+        {
+          "step": 2,
+          "description": "Calculate inflation factor",
+          "calculation": "(1.028)^15 = 1.513"
+        },
+        {
+          "step": 3,
+          "description": "Calculate future nominal value",
+          "calculation": "â‚¬1,000 × 1.513 = â‚¬1,513"
+        },
+        {
+          "step": 4,
+          "description": "Calculate purchasing power",
+          "calculation": "â‚¬1,000 ÷ 1.513 = â‚¬661"
+        }
+      ],
+      "mistakes": [
+        "Assuming inflation remains constant over long periods",
+        "Confusing nominal returns with real (inflation-adjusted) returns",
+        "Not accounting for inflation when planning retirement needs"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "valor_actual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for present value"
+        },
+        {
+          "field_id": "tasa_inflacion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for inflation rate"
+        },
+        {
+          "field_id": "anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for time period"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Inflation",
+      "desc": "Calculez Real value = Nominal value / (1 + Inflation%)â¿. Exemple: â€1,000 at 3% annual for 10 years = Real purchasing power ââ€°ˆ â€744. Calculateur...",
+      "description": "Calculateur Inflation",
+      "seo_title": "Calculateur Inflation – Outil Gratuit",
+      "seo_description": "Calculez Real value = Nominal value / (1 + Inflation%)â¿. Exemple: â€1,000 at 3% annual for 10 years = Real purchasing power ââ€°ˆ â€744. Calculateur...",
+      "inputs": {
+        "valor_actual": "Valeur actuelle",
+        "tasa_inflacion": "Taux d'inflation (%)",
+        "anos": "Années"
+      },
+      "outputs": {
+        "valor_futuro": "Valeur future",
+        "poder_adquisitivo": "Pouvoir d'achat"
+      },
+      "example_label": "Calculating how €1,000 today will be affected by 2.8% annual inflation over 15 years.",
+      "range_hints": {
+        "valor_actual": "€100 - €1,000,000+ current values",
+        "tasa_inflacion": "0-15% inflation rates",
+        "anos": "1-50 years time horizon"
+      },
+      "result_context": "The valor_futuro of {valor_futuro} shows nominal future value. The poder_adquisitivo of {poder_adquisitivo} shows real purchasing power in today's euros.",
+      "formula_display": "Future Value = Present × (1 + inflation)^years",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert inflation rate to decimal",
+          "calculation": "2.8% Á· 100 = 0.028"
+        },
+        {
+          "step": 2,
+          "description": "Calculate inflation factor",
+          "calculation": "(1.028)^15 = 1.513"
+        },
+        {
+          "step": 3,
+          "description": "Calculate future nominal value",
+          "calculation": "â‚¬1,000 × 1.513 = â‚¬1,513"
+        },
+        {
+          "step": 4,
+          "description": "Calculate purchasing power",
+          "calculation": "â€1,000 Á· 1.513 = â€661"
+        }
+      ],
+      "mistakes": [
+        "Assuming inflation remains constant over long periods",
+        "Confusing nominal returns with real (inflation-adjusted) returns",
+        "Not accounting for inflation when planning retirement needs"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "valor_actual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for present value"
+        },
+        {
+          "field_id": "tasa_inflacion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for inflation rate"
+        },
+        {
+          "field_id": "anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for time period"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora Inflacao",
+      "desc": "Calcule Real value = Nominal value / (1 + Inflation%)â¿. Exemplo: â€1,000 at 3% annual for 10 years = Real purchasing power ââ€°ˆ â€744. Calculadora...",
+      "description": "Calculadora Inflacao",
+      "seo_title": "Calculadora Inflacao – Ferramenta Grátis",
+      "seo_description": "Calcule Real value = Nominal value / (1 + Inflation%)â¿. Exemplo: â€1,000 at 3% annual for 10 years = Real purchasing power ââ€°ˆ â€744. Calculadora...",
+      "inputs": {
+        "valor_actual": "Valor atual",
+        "tasa_inflacion": "Taxa de inflação (%)",
+        "anos": "Anos"
+      },
+      "outputs": {
+        "valor_futuro": "Valor futuro",
+        "poder_adquisitivo": "Poder de compra"
+      },
+      "example_label": "Calculating how €1,000 today will be affected by 2.8% annual inflation over 15 years.",
+      "range_hints": {
+        "valor_actual": "€100 - €1,000,000+ current values",
+        "tasa_inflacion": "0-15% inflation rates",
+        "anos": "1-50 years time horizon"
+      },
+      "result_context": "The valor_futuro of {valor_futuro} shows nominal future value. The poder_adquisitivo of {poder_adquisitivo} shows real purchasing power in today's euros.",
+      "formula_display": "Future Value = Present × (1 + inflation)^years",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert inflation rate to decimal",
+          "calculation": "2.8% ÷ 100 = 0.028"
+        },
+        {
+          "step": 2,
+          "description": "Calculate inflation factor",
+          "calculation": "(1.028)^15 = 1.513"
+        },
+        {
+          "step": 3,
+          "description": "Calculate future nominal value",
+          "calculation": "â‚¬1,000 × 1.513 = â‚¬1,513"
+        },
+        {
+          "step": 4,
+          "description": "Calculate purchasing power",
+          "calculation": "â‚¬1,000 ÷ 1.513 = â‚¬661"
+        }
+      ],
+      "mistakes": [
+        "Assuming inflation remains constant over long periods",
+        "Confusing nominal returns with real (inflation-adjusted) returns",
+        "Not accounting for inflation when planning retirement needs"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "valor_actual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for present value"
+        },
+        {
+          "field_id": "tasa_inflacion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for inflation rate"
+        },
+        {
+          "field_id": "anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for time period"
+        }
+      ]
+    },
+    "de": {
+      "name": "Inflation",
+      "desc": "Berechnen Sie inflation online. Geben Sie valor actual, tasa inflacion, anos ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Inflation | CalcToWork",
+      "seo_desc": "Inflation online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Inflation online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "valor_actual": "Valor Actual",
+        "tasa_inflacion": "Tasa Inflacion",
+        "anos": "Anos"
+      },
+      "outputs": {
+        "valor_futuro": "Valor Futuro",
+        "poder_adquisitivo": "Poder Adquisitivo"
+      },
+      "example_label": "Proyecta el impacto de la inflacion: 1.000eur al 2,8% anual durante 15 anos",
+      "range_hints": {
+        "valor_actual": "Introduce el valor de valor actual. Valor sugerido: 1000",
+        "tasa_inflacion": "Introduce el valor de tasa inflacion. Valor sugerido: 3",
+        "anos": "Introduce el valor de anos. Valor sugerido: 10"
+      },
+      "result_context": "Resultados: {valor_futuro} € de valor futuro, {poder_adquisitivo} € de poder adquisitivo.",
+      "formula_display": "VF = VA x (1 + i)^n donde i = tasa de inflacion, n = anos",
+      "steps": [
+        "Introduce la cantidad actual de dinero cuyo poder adquisitivo futuro quieres proyectar en el tiempo",
+        "Define la tasa de inflacion anual esperada (consulta el IPC oficial del INE, BCE u organismo de tu pais)",
+        "Establece el numero de anos para realizar la proyeccion a largo plazo",
+        "Aplica la formula de crecimiento compuesto para estimar cuanto dinero necesitaras en el futuro",
+        "Interpreta: si hoy necesitas 1.000eur, con un 3% de inflacion en 20 anos necesitaras aproximadamente 1.806eur para igual poder de compra"
+      ],
+      "mistakes": [
+        "Usar la inflacion general cuando tu cesta de consumo personal puede variar mucho del IPC promedio ponderado",
+        "No considerar que la inflacion no es constante: puede haber periodos con picos inflacionarios que distorsionen proyecciones",
+        "Confundir inflacion con deflacion: en escenarios deflacionarios el poder adquisitivo del dinero aumenta con el tiempo"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "valor_actual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "tasa_inflacion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Inflazione",
+      "desc": "Calcola Real value = Nominal value / (1 + Inflation%)â¿. Esempio: â€1,000 at 3% annual for 10 years = Real purchasing power ââ€°ˆ â€744. Calcolatore...",
+      "description": "Calcolatore Inflazione",
+      "seo_title": "Calcolatore Inflazione – Strumento Gratuito",
+      "seo_description": "Calcola Real value = Nominal value / (1 + Inflation%)â¿. Esempio: â€1,000 at 3% annual for 10 years = Real purchasing power ââ€°ˆ â€744. Calcolatore...",
+      "inputs": {
+        "valor_actual": "Valore attuale",
+        "tasa_inflacion": "Tasso di inflazione (%)",
+        "anos": "Anni"
+      },
+      "outputs": {
+        "valor_futuro": "Valore futuro",
+        "poder_adquisitivo": "Potere d'acquisto"
+      },
+      "example_label": "Calculating how €1,000 todae will be affected be 2.8% annual inflation over 15 eears.",
+      "range_hints": {
+        "valor_actual": "€100 - €1,000,000+ currint values",
+        "tasa_inflacion": "0-15% inflation rates",
+        "anos": "1-50 eears time horizon"
+      },
+      "result_context": "The valore_futuro of {valore_futuro} shows nonminal future value. The podir_adquisetivo of {podir_adquisetivo} shows real purchasenzag power in todae's euros.",
+      "formula_display": "Future Value = Present × (1 + inflation)^eears",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert inflation rate to decimal",
+          "calculation": "2.8% ÷ 100 = 0.028"
+        },
+        {
+          "step": 2,
+          "description": "Calculate inflation factor",
+          "calculation": "(1.028)^15 = 1.513"
+        },
+        {
+          "step": 3,
+          "description": "Calculate future nominal value",
+          "calculation": "€1,000 × 1.513 = €1,513"
+        },
+        {
+          "step": 4,
+          "description": "Calculate purchasing power",
+          "calculation": "€1,000 ÷ 1.513 = €661"
+        }
+      ],
+      "mistakes": [
+        "Assuming inflation remains conscosìt over long periods",
+        "Confusenzag nonminal returns with real (inflation-adjusted) returns",
+        "Not accounting for inflation whin pianonning retiremint needs"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "valor_actual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for present value"
+        },
+        {
+          "field_id": "tasa_inflacion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for inflation rate"
+        },
+        {
+          "field_id": "anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for time period"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,568 @@
+{
+  "id": "041",
+  "slug": "depuradora-piscina",
+  "block": 4,
+  "block_slug": "fontaneria",
+  "inputs": [
+    {
+      "id": "largo_m",
+      "type": "number",
+      "min": 2,
+      "max": 50,
+      "step": 0.5,
+      "default": 8,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "ancho_m",
+      "type": "number",
+      "min": 2,
+      "max": 20,
+      "step": 0.5,
+      "default": 4,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "profundidad_media_m",
+      "type": "number",
+      "min": 0.8,
+      "max": 3,
+      "step": 0.1,
+      "default": 1.5,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "turnos_dia",
+      "type": "number",
+      "min": 1,
+      "max": 4,
+      "step": 0.5,
+      "default": 2,
+      "unit": "turnos/día"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.largo_m)||0,W=parseFloat(inputs.ancho_m)||0,H=parseFloat(inputs.profundidad_media_m)||1.5,T=parseFloat(inputs.turnos_dia)||2;if(!L||!W)return{error:true};var vol=+(L*W*H).toFixed(1),caudal=+(vol/T/8).toFixed(2),filtro_m2=+(caudal/20).toFixed(2),cloro_sem=+(vol*0.003).toFixed(2);return{vol_m3:vol,caudal_m3h:caudal,filtro_area_m2:filtro_m2,cloro_semanal_kg:cloro_sem};",
+  "outputs": [
+    {
+      "id": "vol_m3",
+      "unit": "m³",
+      "highlight": true
+    },
+    {
+      "id": "caudal_m3h",
+      "unit": "m³/h"
+    },
+    {
+      "id": "filtro_area_m2",
+      "unit": "m² filtro"
+    },
+    {
+      "id": "cloro_semanal_kg",
+      "unit": "kg cloro/semana"
+    }
+  ],
+  "related": [
+    "034",
+    "033",
+    "039",
+    "101"
+  ],
+  "example_inputs": {
+    "largo_m": 8,
+    "ancho_m": 4,
+    "profundidad_media_m": 1.5,
+    "turnos_dia": 2
+  },
+  "example_label": "Calcular volumen y materiales para piscina de 8 m × 4 m × 1.5 m × 2 turnos/día.",
+  "range_hints": {
+    "largo_m": "Valor típico entre 2 y 50. Valor por defecto: 8 m.",
+    "ancho_m": "Valor típico entre 2 y 20. Valor por defecto: 4 m.",
+    "profundidad_media_m": "Valor típico entre 0.8 y 3. Valor por defecto: 1.5 m.",
+    "turnos_dia": "Valor típico entre 1 y 4. Valor por defecto: 2 turnos/día."
+  },
+  "result_context": "Resultados: {vol_m3} m³ de volumen, {caudal_m3h} m³/h de caudal, {filtro_area_m2} m² de filtro, {cloro_semanal_kg} kg de cloro semanal.",
+  "formula_display": "Volumen = largo × ancho × profundidad",
+  "steps": [
+    "Introducir los valores de largo_m, ancho_m, profundidad_media_m y turnos_dia",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m, cm, mm)",
+    "Aplicar la fórmula: Volumen = largo × ancho × profundidad",
+    "El resultado se expresa en m³. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "No considerar profundidad promedio en piscinas irregulares",
+    "Olvidar margen de llenado (no llenar al borde)",
+    "No calcular sistema de filtrado adecuado"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "largo_m",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "ancho_m",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "profundidad_media_m",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "turnos_dia",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small bathroom",
+      "largo_m": 4,
+      "ancho_m": 2,
+      "turnos_dia": 2,
+      "profundidad_media_m": 1.5
+    },
+    {
+      "_label": "Medium bathroom",
+      "largo_m": 6,
+      "ancho_m": 3,
+      "turnos_dia": 2,
+      "profundidad_media_m": 1.5
+    },
+    {
+      "_label": "Large bathroom",
+      "largo_m": 8,
+      "ancho_m": 4,
+      "turnos_dia": 2,
+      "profundidad_media_m": 1.5
+    },
+    {
+      "_label": "Apartment",
+      "largo_m": 12,
+      "ancho_m": 6,
+      "turnos_dia": 2,
+      "profundidad_media_m": 1.5
+    },
+    {
+      "_label": "House",
+      "largo_m": 16,
+      "ancho_m": 8,
+      "turnos_dia": 2,
+      "profundidad_media_m": 1.5
+    }
+  ],
+  "units": {
+    "largo_m": "m",
+    "ancho_m": "m",
+    "profundidad_media_m": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Depuradora de Piscina",
+      "desc": "Calcula el caudal de bomba, tamaño de filtro y consumo de cloro para tu piscina Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora Filtro Piscina – Bomba",
+      "seo_desc": "Calcula el caudal de bomba, tamaño de filtro y consumo de cloro para tu piscina Usado por profesionales y estudiantes en todo el mundo.",
+      "inputs": {
+        "largo_m": "Longitud piscina",
+        "ancho_m": "Ancho piscina",
+        "profundidad_media_m": "Profundidad media",
+        "turnos_dia": "Turnos diarios de filtrado"
+      },
+      "outputs": {
+        "vol_m3": "Volumen piscina",
+        "caudal_m3h": "Caudal bomba",
+        "filtro_area_m2": "Área filtro",
+        "cloro_semanal_kg": "Cloro semanal"
+      },
+      "seo_description": "Calcula el volumen de tu piscina, el caudal de la depuradora, el tamaño del filtro de arena y el cloro semanal necesario. Configurable con turnos de recirculación según uso privado o comunitario.",
+      "example_label": "Calcular depuradora para piscina de 8×4m con profundidad media 1.5m y 2 turnos de filtrado por día.",
+      "range_hints": {
+        "largo_m": "Longitud de la piscina",
+        "ancho_m": "Ancho de la piscina",
+        "profundidad_media_m": "Promedio entre profundidad mínima y máxima",
+        "turnos_dia": "Veces que se filtra el volumen total por día (2-4 turnos)"
+      },
+      "result_context": "Piscina de {volumen_m3} m³ ({volumen_litros} L) requiere depuradora de {caudal_m3h} m³/h para {turnos_dia} turnos/día. Tiempo de filtrado: {tiempo_horas} horas.",
+      "formula_display": "Volumen = largo × ancho × profundidad; Caudal = volumen × turnos ÷ 24h",
+      "steps": [
+        "Calcular volumen: 8m × 4m × 1.5m = 48m³ = 48000 L",
+        "Filtrar 2 veces por día: 48m³ × 2 = 96m³/día",
+        "Calcular caudal: 96m³ ÷ 24h = 4m³/h",
+        "Seleccionar bomba: 4-5 m³/h (margen de seguridad)"
+      ],
+      "mistakes": [
+        "Dimensionar depuradora insuficiente (agua turbia)",
+        "No calcular tiempo de filtrado según temporada (más en verano)",
+        "No prever limpieza de filtros cuando manómetro indica saturación"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo_m",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "ancho_m",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "profundidad_media_m",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "turnos_dia",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Pool Filtration Calculator",
+      "desc": "Pool Filtration Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Pool Filter Calculator – Pump & Filter",
+      "seo_desc": "Pool Filtration Calculator. Pool length, Pool width, Average depth — get Pool volume, Pump flow rate, Filter area instantly for your plumbing and water.",
+      "inputs": {
+        "largo_m": "Pool length",
+        "ancho_m": "Pool width",
+        "profundidad_media_m": "Average depth",
+        "turnos_dia": "Daily filtration cycles"
+      },
+      "outputs": {
+        "vol_m3": "Pool volume",
+        "caudal_m3h": "Pump flow rate",
+        "filtro_area_m2": "Filter area",
+        "cloro_semanal_kg": "Weekly chlorine"
+      },
+      "seo_description": "Calculate your pool volume, filter pump flow rate, sand filter size and weekly chlorine dosage. Configurable turnover cycles for private or communal pools.",
+      "example_label": "Calcular depuradora para piscina de 8×4m con profundidad media 1.5m y 2 turnos de filtrado por día.",
+      "range_hints": {
+        "largo_m": "Longitud de la piscina",
+        "ancho_m": "Ancho de la piscina",
+        "profundidad_media_m": "Promedio entre profundidad mínima y máxima",
+        "turnos_dia": "Veces que se filtra el volumen total por día (2-4 turnos)"
+      },
+      "result_context": "Piscina de {volumen_m3} m³ ({volumen_litros} L) requiere depuradora de {caudal_m3h} m³/h para {turnos_dia} turnos/día. Tiempo de filtrado: {tiempo_horas} horas.",
+      "formula_display": "Volumen = largo × ancho × profundidad; Caudal = volumen × turnos ÷ 24h",
+      "steps": [
+        "Calcular volumen: 8m × 4m × 1.5m = 48m³ = 48000 L",
+        "Filtrar 2 veces por día: 48m³ × 2 = 96m³/día",
+        "Calcular caudal: 96m³ ÷ 24h = 4m³/h",
+        "Seleccionar bomba: 4-5 m³/h (margen de seguridad)"
+      ],
+      "mistakes": [
+        "Dimensionar depuradora insuficiente (agua turbia)",
+        "No calcular tiempo de filtrado según temporada (más en verano)",
+        "No prever limpieza de filtros cuando manómetro indica saturación"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "ancho_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "profundidad_media_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "turnos_dia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Filtration Piscine",
+      "desc": "Calculez le débit de pompe, surface de filtre et consommation de chlore pour votre piscine. Calculatrice facile a utiliser avec decomposition de la.",
+      "seo_title": "Calculateur Filtre Piscine – Pompe",
+      "inputs": {
+        "largo_m": "Longueur piscine",
+        "ancho_m": "Largeur piscine",
+        "profundidad_media_m": "Profondeur moyenne",
+        "turnos_dia": "Cycles de filtration/jour"
+      },
+      "outputs": {
+        "vol_m3": "Volume piscine",
+        "caudal_m3h": "Débit pompe",
+        "filtro_area_m2": "Surface filtre",
+        "cloro_semanal_kg": "Chlore hebdomadaire"
+      },
+      "seo_description": "Calculez le débit de pompe, surface de filtre et consommation de chlore pour votre piscine. Calculatrice facile a utiliser avec decomposition de la.",
+      "example_label": "Calculer depuradora pour piscina de 8×4m avec profondeur media 1.5m et 2 turnos de filtrado par día.",
+      "range_hints": {
+        "largo_m": "longueur de la piscina",
+        "ancho_m": "largeur de la piscina",
+        "profundidad_media_m": "Promedio entre profondeur mínima et máxima",
+        "turnos_dia": "Veces que se filtra le volume total par día (2-4 turnos)"
+      },
+      "result_context": "Piscina de {volumen_m3} m³ ({volumen_litros} L) nécessite depuradora de {caudal_m3h} m³/h pour {turnos_dia} turnos/día. Tiempo de filtrado: {tiempo_horas} horas.",
+      "formula_display": "volume = longueur × largeur × profondeur; Caudal = volume × turnos Á· 24h",
+      "steps": [
+        "Calculer le volume: 8m × 4m × 1.5m = 48m³ = 48000 L",
+        "Filtrar 2 veces par día: 48m³ × 2 = 96m³/día",
+        "Calculer caudal: 96m³ Á· 24h = 4m³/h",
+        "Seleccionar bomba: 4-5 m³/h (margen de seguridad)"
+      ],
+      "mistakes": [
+        "Dimensionar depuradora insuffisante (eau turbia)",
+        "No Calculer tiempo de filtrado selon temporada (plus dans verano)",
+        "No prever limpieza de filtros cuando manómetro indica saturación"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "ancho_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "profundidad_media_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "turnos_dia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Filtração de Piscina",
+      "desc": "Calcule a vazão da bomba, área do filtro e consumo de cloro para sua piscina. Calculadora facil de usar com detalhamento da formula.",
+      "seo_title": "Calculadora Filtro Piscina – Bomba",
+      "inputs": {
+        "largo_m": "Comprimento piscina",
+        "ancho_m": "Largura piscina",
+        "profundidad_media_m": "Profundidade média",
+        "turnos_dia": "Ciclos diários de filtração"
+      },
+      "outputs": {
+        "vol_m3": "Volume piscina",
+        "caudal_m3h": "Vazão bomba",
+        "filtro_area_m2": "Área filtro",
+        "cloro_semanal_kg": "Cloro semanal"
+      },
+      "seo_description": "Calcule a vazão da bomba, área do filtro e consumo de cloro para sua piscina. Calculadora facil de usar com detalhamento da formula.",
+      "example_label": "Calcular depuradora para piscina de 8×4m com profundidade media 1.5m e 2 turnos de filtrado por día.",
+      "range_hints": {
+        "largo_m": "Longitud da piscina",
+        "ancho_m": "Ancho da piscina",
+        "profundidad_media_m": "Promedio entre profundidade mínima e máxima",
+        "turnos_dia": "Veces que se filtra o volume total por día (2-4 turnos)"
+      },
+      "result_context": "Piscina de {volumen_m3} m³ ({volumen_litros} L) requer depuradora de {caudal_m3h} m³/h para {turnos_dia} turnos/día. Tiempo de filtrado: {tiempo_horas} horas.",
+      "formula_display": "Volumen = comprimento × largura × profundidade; Caudal = volume × turnos ÷ 24h",
+      "steps": [
+        "Calcular volume: 8m × 4m × 1.5m = 48m³ = 48000 L",
+        "Filtrar 2 veces por día: 48m³ × 2 = 96m³/día",
+        "Calcular caudal: 96m³ ÷ 24h = 4m³/h",
+        "Seleccionar bomba: 4-5 m³/h (margen de segurança)"
+      ],
+      "mistakes": [
+        "Dimensionar depuradora insuficiente (água turbia)",
+        "Não calcular tiempo de filtrado segundo temporada (mais em verano)",
+        "Não prever limpeza de filtros cuando manómetro indica saturación"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "ancho_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "profundidad_media_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "turnos_dia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Poolfilter piscina",
+      "desc": "Berechnen Sie poolfilter piscina online. Geben Sie largo m, ancho m, profundidad media m ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Poolfilter piscina | CalcToWork",
+      "seo_desc": "Poolfilter piscina online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Poolfilter piscina online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "largo_m": "Largo M",
+        "ancho_m": "Ancho M",
+        "profundidad_media_m": "Profundidad Media M",
+        "turnos_dia": "Turnos Dia"
+      },
+      "outputs": {
+        "vol_m3": "Vol M3",
+        "caudal_m3h": "Caudal M3h",
+        "filtro_area_m2": "Filtro Area M2",
+        "cloro_semanal_kg": "Cloro Semanal Kg"
+      },
+      "example_label": "Calcular volumen y materiales para piscina de 8 m × 4 m × 1.5 m × 2 turnos/día.",
+      "range_hints": {
+        "largo_m": "Valor típico entre 2 y 50. Valor por defecto: 8 m.",
+        "ancho_m": "Valor típico entre 2 y 20. Valor por defecto: 4 m.",
+        "profundidad_media_m": "Valor típico entre 0.8 y 3. Valor por defecto: 1.5 m.",
+        "turnos_dia": "Valor típico entre 1 y 4. Valor por defecto: 2 turnos/día."
+      },
+      "result_context": "Resultados: {vol_m3} m³ de volumen, {caudal_m3h} m³/h de caudal, {filtro_area_m2} m² de filtro, {cloro_semanal_kg} kg de cloro semanal.",
+      "formula_display": "Volumen = largo × ancho × profundidad",
+      "steps": [
+        "Introducir los valores de largo_m, ancho_m, profundidad_media_m y turnos_dia",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m, cm, mm)",
+        "Aplicar la fórmula: Volumen = largo × ancho × profundidad",
+        "El resultado se expresa en m³. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "No considerar profundidad promedio en piscinas irregulares",
+        "Olvidar margen de llenado (no llenar al borde)",
+        "No calcular sistema de filtrado adecuado"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "ancho_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "profundidad_media_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "turnos_dia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Solare Termico",
+      "description": "Calcola la superficie di pannelli solari termici per ACS.",
+      "seo_title": "Calcolatore Solare Termico – Passo dopo Passo",
+      "seo_description": "Stima la superficie di collettori solari per acqua calda sanitaria Usato da professionisti e studenti in tutto il mondo.",
+      "inputs": {
+        "demanda_dia": "Fabbisogno giornaliero (L)",
+        "irradiacion": "Irraggiamento (kWh/m²/d)",
+        "rendimiento": "Rendimento collettore (%)"
+      },
+      "outputs": {
+        "area_paneles": "Superficie collettori (m²)",
+        "num_paneles": "Numero pannelli (2 m² cad.)"
+      },
+      "example_label": "Calcolare dipuradora per piscina di 8×4m con profondità media 1.5m e 2 turnons di filtrado per día.",
+      "range_hints": {
+        "largo_m": "Longitud dilla piscina",
+        "ancho_m": "Ancho dilla piscina",
+        "profundidad_media_m": "Promedio intre profondità mínima e máxima",
+        "turnos_dia": "Veces que se filtra el volume totale per día (2-4 turnons)"
+      },
+      "result_context": "Piscina di {volume_m3} m³ ({volume_litros} L) richiedi dipuradora di {pertata_m3h} m³/h per {turnons_dia} turnons/día. Tiempo di filtrado: {tempo_ore} ore.",
+      "formula_display": "Volumin = lunghezza × larghezza × profondità; Caudal = volume × turnons ÷ 24h",
+      "steps": [
+        "Calcolare volume: 8m × 4m × 1.5m = 48m³ = 48000 L",
+        "Filtrar 2 veces per día: 48m³ × 2 = 96m³/día",
+        "Calcolare pertata: 96m³ ÷ 24h = 4m³/h",
+        "Seleccionar bomba: 4-5 m³/h (margin di securezza)"
+      ],
+      "mistakes": [
+        "Diminseonar dipuradora insufficiinte (acqua turbia)",
+        "No calcolare tempo di filtrado según temperada (más in veranon)",
+        "No prever limpieza di filtri quando manómetro indica saturación"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "ancho_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "profundidad_media_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "turnos_dia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        }
+      ]
+    }
+  }
+}

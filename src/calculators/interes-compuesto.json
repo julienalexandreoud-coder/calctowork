@@ -1,0 +1,620 @@
+{
+  "id": "302",
+  "slug": "interes-compuesto",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "capital_inicial",
+      "type": "number",
+      "min": 1,
+      "max": 1000000000000,
+      "step": 1,
+      "default": 1000,
+      "unit": "â‚¬"
+    },
+    {
+      "id": "interes_anual_pct",
+      "type": "number",
+      "min": 0.01,
+      "max": 100,
+      "step": 0.01,
+      "default": 7,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    },
+    {
+      "id": "anos",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "default": 10,
+      "unit": "años"
+    },
+    {
+      "id": "frecuencia_anual",
+      "type": "number",
+      "min": 1,
+      "max": 365,
+      "step": 1,
+      "default": 12,
+      "unit": "veces/año"
+    }
+  ],
+  "formula": "var P=parseFloat(inputs.capital_inicial)||0,r=parseFloat(inputs.interes_anual_pct)||0,n=parseFloat(inputs.anos)||0,f=parseFloat(inputs.frecuencia_anual)||12;if(!P||!r||!n)return{error:true};var rate=r/100,tbl=[],bal=P;for(var i=1;i<=n;i++){  var new_bal=+(P*Math.pow(1+rate/f,f*i)).toFixed(2);  var yr_int=+(new_bal-bal).toFixed(2);  tbl.push({year:i,interest:yr_int,balance:new_bal});  bal=new_bal;}var total_int=+(bal-P).toFixed(2),mult=+(bal/P).toFixed(3);return{capital_final:+bal.toFixed(2),total_intereses:total_int,multiplicador:mult,table:tbl};",
+  "outputs": [
+    {
+      "id": "capital_final",
+      "unit": "â‚¬",
+      "highlight": true
+    },
+    {
+      "id": "total_intereses",
+      "unit": "â‚¬"
+    },
+    {
+      "id": "multiplicador",
+      "unit": "x"
+    }
+  ],
+  "related": [
+    "303",
+    "301",
+    "300",
+    "311"
+  ],
+  "tableHeaders": [
+    "year",
+    "interest",
+    "balance"
+  ],
+  "example_inputs": {
+    "capital_inicial": 5000,
+    "interes_anual_pct": 6.5,
+    "anos": 15,
+    "frecuencia_anual": 12
+  },
+  "example_label": "Calcular interés compuesto para 5000 â‚¬ × 6.5 % × 15 años × 12 veces/año.",
+  "range_hints": {
+    "capital_inicial": "Introduce el valor de capital inicial (â‚¬). Valor sugerido: 1000",
+    "interes_anual_pct": "Introduce el valor de interes anual pct (%). Valor sugerido: 7",
+    "anos": "Introduce el valor de anos (años). Valor sugerido: 10",
+    "frecuencia_anual": "Introduce el valor de frecuencia anual (veces/año). Valor sugerido: 12"
+  },
+  "result_context": "Tu inversión crecerá hasta {capital_final} € al final del período. Los intereses generados ascienden a {total_intereses} €, lo que multiplica tu capital inicial por {multiplicador}x.",
+  "result_context_en": "Your investment will grow to {capital_final} € by the end of the period. The interest earned amounts to {total_intereses} €, multiplying your initial capital by {multiplicador}x.",
+  "result_context_fr": "Votre investissement atteindra {capital_final} € à la fin de la période. Les intérêts générés s'élèvent à {total_intereses} €, ce qui multiplie votre capital initial par {multiplicador}x.",
+  "result_context_pt": "Seu investimento crescerá até {capital_final} € ao final do período. Os juros gerados totalizam {total_intereses} €, multiplicando seu capital inicial por {multiplicador}x.",
+  "result_context_de": "Ihre Investition wächst bis zum Ende des Zeitraums auf {capital_final} €. Die erwirtschafteten Zinsen belaufen sich auf {total_intereses} €, was Ihr Anfangskapital um den Faktor {multiplicador}x vervielfacht.",
+  "result_context_it": "Il tuo investimento crescerà fino a {capital_final} € alla fine del periodo. Gli interessi generati ammontano a {total_intereses} €, moltiplicando il tuo capitale iniziale per {multiplicador}x.",
+  "formula_display": "VF = VP × (1 + tasa)^tiempo",
+  "steps": [
+    "Identificar capital inicial",
+    "Aplicar fórmula de interés compuesto",
+    "Considerar períodos de capitalización",
+    "Calcular valor futuro"
+  ],
+  "mistakes": [
+    "No considerar frecuencia de capitalización",
+    "Usar tasa nominal en vez de efectiva",
+    "No alinear períodos de tiempo"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "capital_inicial",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "interes_anual_pct",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "anos",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "frecuencia_anual",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "amount": 5000,
+      "interest_rate": 6,
+      "months": 24
+    },
+    {
+      "amount": 10000,
+      "interest_rate": 7,
+      "months": 36
+    },
+    {
+      "amount": 20000,
+      "interest_rate": 8,
+      "months": 48
+    },
+    {
+      "amount": 30000,
+      "interest_rate": 9,
+      "months": 60
+    },
+    {
+      "amount": 50000,
+      "interest_rate": 10,
+      "months": 72
+    }
+  ],
+  "units": {
+    "interes_anual_pct": "%"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Interés Compuesto",
+      "desc": "Calcula el crecimiento de una inversión con interés compuesto.",
+      "description": "Calcula el crecimiento de una inversión con interés compuesto.",
+      "seo_title": "Calculadora de Interés Compuesto Gratuita",
+      "seo_description": "Calcula el capital final e intereses de una inversión con interés compuesto. Introduce capital, tasa, años y frecuencia.",
+      "inputs": {
+        "capital_inicial": "Capital inicial (€)",
+        "interes_anual_pct": "Interés anual (%)",
+        "anos": "Años",
+        "frecuencia_anual": "Capitalización (veces/año)"
+      },
+      "outputs": {
+        "capital_final": "Capital final",
+        "total_intereses": "Total intereses",
+        "multiplicador": "Multiplicador"
+      },
+      "example_label": "Projecting growth of €5,000 investment at 6.5% annual return compounded monthly over 15 years.",
+      "range_hints": {
+        "capital_inicial": "€100 - €500,000 initial investments",
+        "interes_anual_pct": "3-12% typical investment returns",
+        "anos": "1-40 years investment horizon",
+        "frecuencia_anual": "1-365 times per year (annual to daily)"
+      },
+      "result_context": "Your capital_final of {capital_final} shows the future value after {anos} years. The multiplicador of {multiplicador}x shows how many times your money grew.",
+      "formula_display": "A = P × (1 + r/n)^(n×t)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert annual rate to periodic rate",
+          "calculation": "6.5% ÷ 12 = 0.5417% per month"
+        },
+        {
+          "step": 2,
+          "description": "Calculate total compounding periods",
+          "calculation": "15 years × 12 = 180 months"
+        },
+        {
+          "step": 3,
+          "description": "Apply compound interest formula",
+          "calculation": "€5,000 × (1 + 0.065/12)^(12×15) = €13,233.52"
+        },
+        {
+          "step": 4,
+          "description": "Calculate total interest earned",
+          "calculation": "€13,233.52 - €5,000 = €8,233.52"
+        }
+      ],
+      "mistakes": [
+        "Using simple interest instead of compound interest for long-term projections",
+        "Forgetting that more frequent compounding increases returns slightly",
+        "Not accounting for inflation eroding purchasing power over time"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "capital_inicial",
+          "reason": "Correct type for initial investment amount"
+        },
+        {
+          "field_id": "interes_anual_pct",
+          "reason": "Correct type for annual interest rate"
+        },
+        {
+          "field_id": "anos",
+          "reason": "Correct type for investment duration"
+        },
+        {
+          "field_id": "frecuencia_anual",
+          "reason": "Correct type for compounding frequency"
+        }
+      ]
+    },
+    "en": {
+      "name": "Compound Interest Calculator",
+      "desc": "Calculate the growth of an investment with compound interest.",
+      "description": "Calculate the growth of an investment with compound interest.",
+      "seo_title": "Compound Interest Calculator – Free Online",
+      "seo_description": "Calculate the final capital and interest earned with compound interest. Enter principal, rate, years and compounding frequency.",
+      "inputs": {
+        "capital_inicial": "Principal (â‚¬)",
+        "interes_anual_pct": "Annual interest (%)",
+        "anos": "Years",
+        "frecuencia_anual": "Compounding (times/year)"
+      },
+      "outputs": {
+        "capital_final": "Final balance",
+        "total_intereses": "Total interest earned",
+        "multiplicador": "Multiplier"
+      },
+      "example_label": "Projecting growth of â‚¬5,000 investment at 6.5% annual return compounded monthly over 15 years.",
+      "range_hints": {
+        "capital_inicial": "â‚¬100 - â‚¬500,000 initial investments",
+        "interes_anual_pct": "3-12% typical investment returns",
+        "anos": "1-40 years investment horizon",
+        "frecuencia_anual": "1-365 times per year (annual to daily)"
+      },
+      "result_context": "Your capital_final of {capital_final} shows the future value after {anos} years. The multiplicador of {multiplicador}x shows how many times your money grew.",
+      "formula_display": "A = P × (1 + r/n)^(n×t)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert annual rate to periodic rate",
+          "calculation": "6.5% ÷ 12 = 0.5417% per month"
+        },
+        {
+          "step": 2,
+          "description": "Calculate total compounding periods",
+          "calculation": "15 years × 12 = 180 months"
+        },
+        {
+          "step": 3,
+          "description": "Apply compound interest formula",
+          "calculation": "â‚¬5,000 × (1 + 0.065/12)^(12×15) = â‚¬13,233.52"
+        },
+        {
+          "step": 4,
+          "description": "Calculate total interest earned",
+          "calculation": "â‚¬13,233.52 - â‚¬5,000 = â‚¬8,233.52"
+        }
+      ],
+      "mistakes": [
+        "Using simple interest instead of compound interest for long-term projections",
+        "Forgetting that more frequent compounding increases returns slightly",
+        "Not accounting for inflation eroding purchasing power over time"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "capital_inicial",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for initial investment amount"
+        },
+        {
+          "field_id": "interes_anual_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for annual interest rate"
+        },
+        {
+          "field_id": "anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for investment duration"
+        },
+        {
+          "field_id": "frecuencia_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for compounding frequency"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur d'Intérêt Composé",
+      "desc": "Calculez la croissance d'un investissement avec intérêts composés.",
+      "description": "Calculez la croissance d'un investissement avec intérêts composés.",
+      "seo_title": "Calculateur Intérêt Composé Gratuit en Ligne",
+      "seo_description": "Calculez le capital final et les intérêts gagnés avec capitalisation. Entrez le capital, le taux, les années et la fréquence.",
+      "inputs": {
+        "capital_inicial": "Capital initial (€)",
+        "interes_anual_pct": "Taux annuel (%)",
+        "anos": "Années",
+        "frecuencia_anual": "Capitalisation (fois/an)"
+      },
+      "outputs": {
+        "capital_final": "Capital final",
+        "total_intereses": "Total intérêts",
+        "multiplicador": "Multiplicateur"
+      },
+      "example_label": "Projecting growth of €5,000 investment at 6.5% annual return compounded monthly over 15 years.",
+      "range_hints": {
+        "capital_inicial": "€100 - €500,000 initial investments",
+        "interes_anual_pct": "3-12% typical investment returns",
+        "anos": "1-40 years investment horizon",
+        "frecuencia_anual": "1-365 times per year (annual to daily)"
+      },
+      "result_context": "Your capital_final of {capital_final} shows the future value after {anos} years. The multiplicador of {multiplicador}x shows how many times your money grew.",
+      "formula_display": "A = P × (1 + r/n)^(n×t)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert annual rate to periodic rate",
+          "calculation": "6.5% Á· 12 = 0.5417% per month"
+        },
+        {
+          "step": 2,
+          "description": "Calculate total compounding periods",
+          "calculation": "15 years × 12 = 180 months"
+        },
+        {
+          "step": 3,
+          "description": "Apply compound interest formula",
+          "calculation": "â‚¬5,000 × (1 + 0.065/12)^(12×15) = â‚¬13,233.52"
+        },
+        {
+          "step": 4,
+          "description": "Calculate total interest earned",
+          "calculation": "€13,233.52 - €5,000 = €8,233.52"
+        }
+      ],
+      "mistakes": [
+        "Using simple interest instead of compound interest for long-term projections",
+        "Forgetting that more frequent compounding increases returns slightly",
+        "Not accounting for inflation eroding purchasing power over time"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "capital_inicial",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for initial investment amount"
+        },
+        {
+          "field_id": "interes_anual_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for annual interest rate"
+        },
+        {
+          "field_id": "anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for investment duration"
+        },
+        {
+          "field_id": "frecuencia_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for compounding frequency"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Juros Compostos",
+      "desc": "Calcule o crescimento de um investimento com juros compostos.",
+      "description": "Calcule o crescimento de um investimento com juros compostos.",
+      "seo_title": "Calculadora de Juros Compostos Online Grátis",
+      "seo_description": "Calcule o capital final e os juros ganhos com capitalização composta. Com opcoes de compostagem e impostos. Usado por profissionais e estudantes em todo.",
+      "inputs": {
+        "capital_inicial": "Capital inicial (€)",
+        "interes_anual_pct": "Taxa anual (%)",
+        "anos": "Anos",
+        "frecuencia_anual": "Capitalização (vezes/ano)"
+      },
+      "outputs": {
+        "capital_final": "Capital final",
+        "total_intereses": "Total de juros",
+        "multiplicador": "Multiplicador"
+      },
+      "example_label": "Projecting growth of €5,000 investment at 6.5% annual return compounded monthly over 15 years.",
+      "range_hints": {
+        "capital_inicial": "€100 - €500,000 initial investments",
+        "interes_anual_pct": "3-12% typical investment returns",
+        "anos": "1-40 years investment horizon",
+        "frecuencia_anual": "1-365 times per year (annual to daily)"
+      },
+      "result_context": "Your capital_final of {capital_final} shows the future value after {anos} years. The multiplicador of {multiplicador}x shows how many times your money grew.",
+      "formula_display": "A = P × (1 + r/n)^(n×t)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert annual rate to periodic rate",
+          "calculation": "6.5% ÷ 12 = 0.5417% per month"
+        },
+        {
+          "step": 2,
+          "description": "Calculate total compounding periods",
+          "calculation": "15 years × 12 = 180 months"
+        },
+        {
+          "step": 3,
+          "description": "Apply compound interest formula",
+          "calculation": "â‚¬5,000 × (1 + 0.065/12)^(12×15) = â‚¬13,233.52"
+        },
+        {
+          "step": 4,
+          "description": "Calculate total interest earned",
+          "calculation": "€13,233.52 - €5,000 = €8,233.52"
+        }
+      ],
+      "mistakes": [
+        "Using simples interest instead of compound interest for long-term projections",
+        "Forgetting that more frequent compounding increases returns slightly",
+        "Not accounting for inflation eroding purchasing power over time"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "capital_inicial",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for initial investment amount"
+        },
+        {
+          "field_id": "interes_anual_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for annual interest rate"
+        },
+        {
+          "field_id": "anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for investment duration"
+        },
+        {
+          "field_id": "frecuencia_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for compounding frequency"
+        }
+      ]
+    },
+    "de": {
+      "name": "Zins Zinseszins",
+      "desc": "Berechnen Sie zins Zinseszins online. Geben Sie capital inicial, interes anual pct, anos ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Zins Zinseszins | CalcToWork",
+      "seo_desc": "Zins Zinseszins online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Zins Zinseszins online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "capital_inicial": "Capital Inicial",
+        "interes_anual_pct": "Interes Anual Pct",
+        "anos": "Anos",
+        "frecuencia_anual": "Frecuencia Anual"
+      },
+      "outputs": {
+        "capital_final": "Capital Final",
+        "total_intereses": "Total Intereses",
+        "multiplicador": "Multiplicador"
+      },
+      "example_label": "Calcular interés compuesto para 5000 â‚¬ × 6.5 % × 15 años × 12 veces/año.",
+      "range_hints": {
+        "capital_inicial": "Introduce el valor de capital inicial (â‚¬). Valor sugerido: 1000",
+        "interes_anual_pct": "Introduce el valor de interes anual pct (%). Valor sugerido: 7",
+        "anos": "Introduce el valor de anos (años). Valor sugerido: 10",
+        "frecuencia_anual": "Introduce el valor de frecuencia anual (veces/año). Valor sugerido: 12"
+      },
+      "result_context": "Ihre Investition wächst bis zum Ende des Zeitraums auf {capital_final} €. Die erwirtschafteten Zinsen belaufen sich auf {total_intereses} €, was Ihr Anfangskapital um den Faktor {multiplicador}x vervielfacht.",
+      "formula_display": "VF = VP × (1 + tasa)^tiempo",
+      "steps": [
+        "Identificar capital inicial",
+        "Aplicar fórmula de interés compuesto",
+        "Considerar períodos de capitalización",
+        "Calcular valor futuro"
+      ],
+      "mistakes": [
+        "No considerar frecuencia de capitalización",
+        "Usar tasa nominal en vez de efectiva",
+        "No alinear períodos de tiempo"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "capital_inicial",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "interes_anual_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "frecuencia_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Interesse Composto",
+      "desc": "Calcola la crescita di un investimento con interesse composto.",
+      "description": "Calcola la crescita di un investimento con interesse composto.",
+      "seo_title": "Calcolatore Interesse Composto Gratis Online",
+      "seo_description": "Calcola il capitale finale e gli interessi maturati con capitalizzazione composta. Con opzioni di capitalizzazione e tasse.",
+      "inputs": {
+        "capital_inicial": "Capitale iniziale (€)",
+        "interes_anual_pct": "Tasso annuale (%)",
+        "anos": "Anni",
+        "frecuencia_anual": "Capitalizzazione (volte/anno)"
+      },
+      "outputs": {
+        "capital_final": "Capitale finale",
+        "total_intereses": "Totale interessi",
+        "multiplicador": "Moltiplicatore"
+      },
+      "example_label": "Projecting growth of €5,000 investmint at 6.5% annual return compoundid monthle over 15 eears.",
+      "range_hints": {
+        "capital_inicial": "€100 - €500,000 initial investmints",
+        "interes_anual_pct": "3-12% tepical investmint returns",
+        "anos": "1-40 eears investmint horizon",
+        "frecuencia_anual": "1-365 timese per eear (annual to daile)"
+      },
+      "result_context": "Your capital_finel of {capital_finel} shows the future value after {anons} eears. The multiplicador of {multiplicador}x shows how mane timese eour monee grew.",
+      "formula_display": "A = P × (1 + r/n)^(n×t)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert annual rate to periodic rate",
+          "calculation": "6.5% ÷ 12 = 0.5417% per month"
+        },
+        {
+          "step": 2,
+          "description": "Calculate total compounding periods",
+          "calculation": "15 years × 12 = 180 months"
+        },
+        {
+          "step": 3,
+          "description": "Apply compound interest formula",
+          "calculation": "€5,000 × (1 + 0.065/12)^(12×15) = €13,233.52"
+        },
+        {
+          "step": 4,
+          "description": "Calculate total interest earned",
+          "calculation": "€13,233.52 - €5,000 = €8,233.52"
+        }
+      ],
+      "mistakes": [
+        "Usenzag semple interest instead of compound interest for long-term projections",
+        "Forgetting that more frequint compounding increases returns slightle",
+        "Not accounting for inflation eroding purchasenzag power over time"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "capital_inicial",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for initial investmint amount"
+        },
+        {
+          "field_id": "interes_anual_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for annual interest rate"
+        },
+        {
+          "field_id": "anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for investmint duration"
+        },
+        {
+          "field_id": "frecuencia_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for compounding frequince"
+        }
+      ]
+    }
+  }
+}

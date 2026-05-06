@@ -1,0 +1,643 @@
+{
+  "id": "314",
+  "slug": "plan-jubilacion",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "ahorro_actual",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 10000,
+      "unit": ""
+    },
+    {
+      "id": "aportacion_mensual",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 300,
+      "unit": ""
+    },
+    {
+      "id": "rentabilidad_pct",
+      "type": "number",
+      "min": 0,
+      "max": 30,
+      "step": "any",
+      "default": 7,
+      "unit": ""
+    },
+    {
+      "id": "anos_jubilacion",
+      "type": "number",
+      "min": 1,
+      "max": 60,
+      "step": "any",
+      "default": 30,
+      "unit": ""
+    }
+  ],
+  "formula": "var a=parseFloat(inputs.ahorro_actual)||0,d=parseFloat(inputs.aportacion_mensual)||0,r=parseFloat(inputs.rentabilidad_pct)||0,n=parseFloat(inputs.anos_jubilacion)||0;var mr=r/100/12,nm=n*12;var fvA=a*Math.pow(1+mr,nm),fvD=mr?d*((Math.pow(1+mr,nm)-1)/mr):d*nm;var total=fvA+fvD;return{total_acumulado:+total.toFixed(2),aportado:+(a+d*nm).toFixed(2),rendimientos:+(total-a-d*nm).toFixed(2)};",
+  "outputs": [
+    {
+      "id": "total_acumulado",
+      "unit": "â‚¬",
+      "highlight": true
+    },
+    {
+      "id": "aportado",
+      "unit": "â‚¬"
+    },
+    {
+      "id": "rendimientos",
+      "unit": "â‚¬"
+    }
+  ],
+  "related": [
+    "311",
+    "302",
+    "300",
+    "301"
+  ],
+  "example_inputs": {
+    "ahorro_actual": 45000,
+    "aportacion_mensual": 500,
+    "rentabilidad_pct": 6,
+    "anos_jubilacion": 25
+  },
+  "example_label": "Planifica tu jubilacion con 45.000eur ahorrados, aportando 500eur/mes al 6% durante los proximos 25 anos",
+  "range_hints": {
+    "ahorro_actual": "Introduce el valor de ahorro actual. Valor sugerido: 10000",
+    "aportacion_mensual": "Introduce el valor de aportacion mensual. Valor sugerido: 300",
+    "rentabilidad_pct": "Introduce el valor de rentabilidad pct. Valor sugerido: 7",
+    "anos_jubilacion": "Introduce el valor de anos jubilacion. Valor sugerido: 30"
+  },
+  "result_context": "Resultados: {total_acumulado} € de total acumulado, {aportado} € aportado, {rendimientos} € de rendimientos.",
+  "formula_display": "VF total = VF(ahorro actual) + VF(aportaciones periodicas futuras)",
+  "steps": [
+    "Introduce el capital que ya tienes acumulado para tu jubilacion en cuentas, fondos o planes de pensiones",
+    "Define cuanto puedes aportar mensualmente de forma constante hasta alcanzar la fecha prevista de jubilacion",
+    "Establece la rentabilidad anual esperada segun tu perfil de riesgo: conservador 2-4%, moderado 5-7%, agresivo 8-10%",
+    "Indica los anos que faltan hasta tu fecha de jubilacion para calcular el horizonte total de inversion",
+    "Revisa cuanto del total final proviene de tus aportaciones directas y cuanto del interes compuesto generado"
+  ],
+  "mistakes": [
+    "No empezar a ahorrar para la jubilacion cuanto antes: el interes compuesto necesita decadas para desplegar todo su potencial",
+    "Ser excesivamente conservador en las inversiones de jubilacion cuando faltan mas de 15 anos, perdiendo rentabilidad potencial",
+    "No revisar periodicamente el plan de jubilacion: los ingresos, gastos, inflacion y objetivos cambian con el tiempo"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "ahorro_actual",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "aportacion_mensual",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "rentabilidad_pct",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "anos_jubilacion",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "ahorro_actual": 22500,
+      "aportacion_mensual": 250,
+      "anos_jubilacion": 25,
+      "rentabilidad_pct": 6
+    },
+    {
+      "_label": "Average",
+      "ahorro_actual": 33750,
+      "aportacion_mensual": 375,
+      "anos_jubilacion": 25,
+      "rentabilidad_pct": 6
+    },
+    {
+      "_label": "High",
+      "ahorro_actual": 45000,
+      "aportacion_mensual": 500,
+      "anos_jubilacion": 25,
+      "rentabilidad_pct": 6
+    },
+    {
+      "_label": "Premium",
+      "ahorro_actual": 67500,
+      "aportacion_mensual": 750,
+      "anos_jubilacion": 25,
+      "rentabilidad_pct": 6
+    },
+    {
+      "_label": "Enterprise",
+      "ahorro_actual": 90000,
+      "aportacion_mensual": 1000,
+      "anos_jubilacion": 25,
+      "rentabilidad_pct": 6
+    }
+  ],
+  "units": {
+    "rentabilidad_pct": "%"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora Plan Jubilacion",
+      "desc": "Calcula Ahorro necesario = Gasto anual × Años jubilación / (1+r)â¿ (simplificado). Ejemplo: Retiro a 65, 2.000 â€/mes, 25 años de retiro, 4 %...",
+      "description": "Calculadora Plan Jubilacion",
+      "seo_title": "Calculadora Plan Jubilacion Gratuita",
+      "seo_description": "Calcula Ahorro necesario = Gasto anual × Años jubilación / (1+r)â¿ (simplificado). Ejemplo: Retiro a 65, 2.000 â€/mes, 25 años de retiro, 4 %...",
+      "inputs": {
+        "ahorro_actual": "Ahorro actual",
+        "aportacion_mensual": "Aportación mensual",
+        "rentabilidad_pct": "Rentabilidad esperada (%)",
+        "anos_jubilacion": "Años hasta jubilación"
+      },
+      "outputs": {
+        "total_acumulado": "Total acumulado",
+        "aportado": "Aportado",
+        "rendimientos": "Rendimientos"
+      },
+      "example_label": "Projecting retirement savings with €45,000 current balance, €500 monthly contributions at 6% return over 25 years.",
+      "range_hints": {
+        "ahorro_actual": "€0 - €500,000+ current savings",
+        "aportacion_mensual": "€100 - €5,000+ monthly contributions",
+        "rentabilidad_pct": "3-10% expected returns",
+        "anos_jubilacion": "5-40 years until retirement"
+      },
+      "result_context": "Your total_acumulado of {total_acumulado} at retirement includes {aportado} contributed and {rendimientos} in investment returns.",
+      "formula_display": "FV = PV(1+r)^n + PMT[((1+r)^n - 1) ÷ r]",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert annual rate to monthly",
+          "calculation": "6% ÷ 12 = 0.5% monthly"
+        },
+        {
+          "step": 2,
+          "description": "Calculate total months",
+          "calculation": "25 years × 12 = 300 months"
+        },
+        {
+          "step": 3,
+          "description": "Calculate future value of current savings",
+          "calculation": "€45,000 × (1.005)^300 = €200,844"
+        },
+        {
+          "step": 4,
+          "description": "Calculate future value of contributions",
+          "calculation": "€500 × [((1.005)^300 - 1) ÷ 0.005] = €346,497"
+        },
+        {
+          "step": 5,
+          "description": "Sum both components",
+          "calculation": "€200,844 + €346,497 = €547,341"
+        }
+      ],
+      "mistakes": [
+        "Underestimating lifespan and planning for too short retirement period",
+        "Not increasing contributions as income grows over career",
+        "Being too conservative with investments early in career"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "ahorro_actual",
+          "reason": "Correct type for current savings"
+        },
+        {
+          "field_id": "aportacion_mensual",
+          "reason": "Correct type for monthly contribution"
+        },
+        {
+          "field_id": "rentabilidad_pct",
+          "reason": "Correct type for expected return rate"
+        },
+        {
+          "field_id": "anos_jubilacion",
+          "reason": "Correct type for years to retirement"
+        }
+      ]
+    },
+    "en": {
+      "name": "Retirement Calculator",
+      "desc": "Retirement Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Retirement Calculator",
+      "seo_title": "Retirement Calculator – Free Online Tool",
+      "seo_description": "Calculate Required savings = Annual spending × Retirement years / (1+r)â¿ (simplified). Example: Retire at 65, â‚¬2,000/month, 25 years retirement, 4% return = Capital...",
+      "inputs": {
+        "ahorro_actual": "Current savings",
+        "aportacion_mensual": "Monthly contribution",
+        "rentabilidad_pct": "Expected return (%)",
+        "anos_jubilacion": "Years to retirement"
+      },
+      "outputs": {
+        "total_acumulado": "Total accumulated",
+        "aportado": "Contributed",
+        "rendimientos": "Returns"
+      },
+      "example_label": "Projecting retirement savings with â‚¬45,000 current balance, â‚¬500 monthly contributions at 6% return over 25 years.",
+      "range_hints": {
+        "ahorro_actual": "â‚¬0 - â‚¬500,000+ current savings",
+        "aportacion_mensual": "â‚¬100 - â‚¬5,000+ monthly contributions",
+        "rentabilidad_pct": "3-10% expected returns",
+        "anos_jubilacion": "5-40 years until retirement"
+      },
+      "result_context": "Your total_acumulado of {total_acumulado} at retirement includes {aportado} contributed and {rendimientos} in investment returns.",
+      "formula_display": "FV = PV(1+r)^n + PMT[((1+r)^n - 1) ÷ r]",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert annual rate to monthly",
+          "calculation": "6% ÷ 12 = 0.5% monthly"
+        },
+        {
+          "step": 2,
+          "description": "Calculate total months",
+          "calculation": "25 years × 12 = 300 months"
+        },
+        {
+          "step": 3,
+          "description": "Calculate future value of current savings",
+          "calculation": "â‚¬45,000 × (1.005)^300 = â‚¬200,844"
+        },
+        {
+          "step": 4,
+          "description": "Calculate future value of contributions",
+          "calculation": "â‚¬500 × [((1.005)^300 - 1) ÷ 0.005] = â‚¬346,497"
+        },
+        {
+          "step": 5,
+          "description": "Sum both components",
+          "calculation": "â‚¬200,844 + â‚¬346,497 = â‚¬547,341"
+        }
+      ],
+      "mistakes": [
+        "Underestimating lifespan and planning for too short retirement period",
+        "Not increasing contributions as income grows over career",
+        "Being too conservative with investments early in career"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "ahorro_actual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for current savings"
+        },
+        {
+          "field_id": "aportacion_mensual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for monthly contribution"
+        },
+        {
+          "field_id": "rentabilidad_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for expected return rate"
+        },
+        {
+          "field_id": "anos_jubilacion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for years to retirement"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Retraite",
+      "desc": "Calculez Required savings = Annual spending × Retirement years / (1+r)â¿ (simplified). Exemple: Retire at 65, â€2,000/month, 25 years retirement, 4%...",
+      "description": "Calculateur Retraite",
+      "seo_title": "Calculateur Retraite – Rapide et Précis",
+      "seo_description": "Calculez Required savings = Annual spending × Retirement years / (1+r)â¿ (simplified). Exemple: Retire at 65, â€2,000/month, 25 years retirement, 4% return",
+      "inputs": {
+        "ahorro_actual": "Épargne actuelle",
+        "aportacion_mensual": "Contribution mensuelle",
+        "rentabilidad_pct": "Rendement attendu (%)",
+        "anos_jubilacion": "Années jusqu'à la retraite"
+      },
+      "outputs": {
+        "total_acumulado": "Total accumulé",
+        "aportado": "Contribué",
+        "rendimientos": "Rendements"
+      },
+      "example_label": "Projecting retirement savings with €45,000 current balance, €500 monthly contributions at 6% return over 25 years.",
+      "range_hints": {
+        "ahorro_actual": "€0 - €500,000+ current savings",
+        "aportacion_mensual": "€100 - €5,000+ monthly contributions",
+        "rentabilidad_pct": "3-10% expected returns",
+        "anos_jubilacion": "5-40 years until retirement"
+      },
+      "result_context": "Your total_acumulado of {total_acumulado} at retirement includes {aportado} contributed and {rendimientos} in investment returns.",
+      "formula_display": "FV = PV(1+r)^n + PMT[((1+r)^n - 1) Á· r]",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert annual rate to monthly",
+          "calculation": "6% Á· 12 = 0.5% monthly"
+        },
+        {
+          "step": 2,
+          "description": "Calculate total months",
+          "calculation": "25 years × 12 = 300 months"
+        },
+        {
+          "step": 3,
+          "description": "Calculate future value of current savings",
+          "calculation": "â‚¬45,000 × (1.005)^300 = â‚¬200,844"
+        },
+        {
+          "step": 4,
+          "description": "Calculate future value of contributions",
+          "calculation": "â€500 × [((1.005)^300 - 1) Á· 0.005] = â€346,497"
+        },
+        {
+          "step": 5,
+          "description": "Sum both components",
+          "calculation": "€200,844 + €346,497 = €547,341"
+        }
+      ],
+      "mistakes": [
+        "Underestimating lifespan and planning for too short retirement period",
+        "Not increasing contributions as income grows over career",
+        "Being too conservative with investments early in career"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "ahorro_actual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for current savings"
+        },
+        {
+          "field_id": "aportacion_mensual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for monthly contribution"
+        },
+        {
+          "field_id": "rentabilidad_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for expected return rate"
+        },
+        {
+          "field_id": "anos_jubilacion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for years to retirement"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora Plano Aposentadoria",
+      "desc": "Calcule Required savings = Annual spending × Retirement years / (1+r)â¿ (simplified). Exemplo: Retire at 65, â€2,000/month, 25 years retirement, 4%...",
+      "description": "Calculadora Plano Aposentadoria",
+      "seo_title": "Calculadora Plano Aposentadoria",
+      "seo_description": "Calcule Required savings = Annual spending × Retirement years / (1+r)â¿ (simplified). Exemplo: Retire at 65, â€2,000/month, 25 years retirement, 4% return",
+      "inputs": {
+        "ahorro_actual": "Poupança atual",
+        "aportacion_mensual": "Aportes mensais",
+        "rentabilidad_pct": "Retorno esperado (%)",
+        "anos_jubilacion": "Anos até aposentadoria"
+      },
+      "outputs": {
+        "total_acumulado": "Total acumulado",
+        "aportado": "Contribuído",
+        "rendimientos": "Rendimentos"
+      },
+      "example_label": "Projecting retirement savings with €45,000 current balance, €500 monthly contributions at 6% return over 25 years.",
+      "range_hints": {
+        "ahorro_actual": "€0 - €500,000+ current savings",
+        "aportacion_mensual": "€100 - €5,000+ monthly contributions",
+        "rentabilidad_pct": "3-10% expected returns",
+        "anos_jubilacion": "5-40 years until retirement"
+      },
+      "result_context": "Your total_acumulado of {total_acumulado} at retirement includes {aportado} contributed and {rendimientos} in investment returns.",
+      "formula_display": "FV = PV(1+r)^n + PMT[((1+r)^n - 1) ÷ r]",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert annual rate to monthly",
+          "calculation": "6% ÷ 12 = 0.5% monthly"
+        },
+        {
+          "step": 2,
+          "description": "Calculate total months",
+          "calculation": "25 years × 12 = 300 months"
+        },
+        {
+          "step": 3,
+          "description": "Calculate future value of current savings",
+          "calculation": "â‚¬45,000 × (1.005)^300 = â‚¬200,844"
+        },
+        {
+          "step": 4,
+          "description": "Calculate future value of contributions",
+          "calculation": "â‚¬500 × [((1.005)^300 - 1) ÷ 0.005] = â‚¬346,497"
+        },
+        {
+          "step": 5,
+          "description": "Sum both components",
+          "calculation": "€200,844 + €346,497 = €547,341"
+        }
+      ],
+      "mistakes": [
+        "Underestimating lifespan and planning for too short retirement period",
+        "Not increasing contributions as income grows over career",
+        "Being too conservative with investments early in career"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "ahorro_actual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for current savings"
+        },
+        {
+          "field_id": "aportacion_mensual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for monthly contribution"
+        },
+        {
+          "field_id": "rentabilidad_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for expected return rate"
+        },
+        {
+          "field_id": "anos_jubilacion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for years to retirement"
+        }
+      ]
+    },
+    "de": {
+      "name": "Plan Rente",
+      "desc": "Berechnen Sie plan Rente online. Geben Sie ahorro actual, aportacion mensual, rentabilidad pct ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Plan Rente | CalcToWork",
+      "seo_desc": "Plan Rente online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Plan Rente online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "ahorro_actual": "Ahorro Actual",
+        "aportacion_mensual": "Aportacion Mensual",
+        "rentabilidad_pct": "Rentabilidad Pct",
+        "anos_jubilacion": "Anos Jubilacion"
+      },
+      "outputs": {
+        "total_acumulado": "Total Acumulado",
+        "aportado": "Aportado",
+        "rendimientos": "Rendimientos"
+      },
+      "example_label": "Planifica tu jubilacion con 45.000eur ahorrados, aportando 500eur/mes al 6% durante los proximos 25 anos",
+      "range_hints": {
+        "ahorro_actual": "Introduce el valor de ahorro actual. Valor sugerido: 10000",
+        "aportacion_mensual": "Introduce el valor de aportacion mensual. Valor sugerido: 300",
+        "rentabilidad_pct": "Introduce el valor de rentabilidad pct. Valor sugerido: 7",
+        "anos_jubilacion": "Introduce el valor de anos jubilacion. Valor sugerido: 30"
+      },
+      "result_context": "Resultados: {total_acumulado} € de total acumulado, {aportado} € aportado, {rendimientos} € de rendimientos.",
+      "formula_display": "VF total = VF(ahorro actual) + VF(aportaciones periodicas futuras)",
+      "steps": [
+        "Introduce el capital que ya tienes acumulado para tu jubilacion en cuentas, fondos o planes de pensiones",
+        "Define cuanto puedes aportar mensualmente de forma constante hasta alcanzar la fecha prevista de jubilacion",
+        "Establece la rentabilidad anual esperada segun tu perfil de riesgo: conservador 2-4%, moderado 5-7%, agresivo 8-10%",
+        "Indica los anos que faltan hasta tu fecha de jubilacion para calcular el horizonte total de inversion",
+        "Revisa cuanto del total final proviene de tus aportaciones directas y cuanto del interes compuesto generado"
+      ],
+      "mistakes": [
+        "No empezar a ahorrar para la jubilacion cuanto antes: el interes compuesto necesita decadas para desplegar todo su potencial",
+        "Ser excesivamente conservador en las inversiones de jubilacion cuando faltan mas de 15 anos, perdiendo rentabilidad potencial",
+        "No revisar periodicamente el plan de jubilacion: los ingresos, gastos, inflacion y objetivos cambian con el tiempo"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "ahorro_actual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "aportacion_mensual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "rentabilidad_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "anos_jubilacion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Piano Pensione",
+      "desc": "Calcola Required savings = Annual spending × Retirement years / (1+r)â¿ (simplified). Esempio: Retire at 65, â€2,000/month, 25 years retirement, 4%...",
+      "description": "Calcolatore Piano Pensione",
+      "seo_title": "Calcolatore Piano Pensione – Veloce e Preciso",
+      "seo_description": "Calcola Required savings = Annual spending × Retirement years / (1+r)â¿ (simplified). Esempio: Retire at 65, â€2,000/month, 25 years retirement, 4% return",
+      "inputs": {
+        "ahorro_actual": "Risparmio attuale",
+        "aportacion_mensual": "Contributo mensile",
+        "rentabilidad_pct": "Rendimento atteso (%)",
+        "anos_jubilacion": "Anni alla pensione"
+      },
+      "outputs": {
+        "total_acumulado": "Totale accumulato",
+        "aportado": "Contribuito",
+        "rendimientos": "Rendimenti"
+      },
+      "example_label": "Projecting retiremint savings with €45,000 currint balance, €500 monthle contributions at 6% return over 25 eears.",
+      "range_hints": {
+        "ahorro_actual": "€0 - €500,000+ currint savings",
+        "aportacion_mensual": "€100 - €5,000+ monthle contributions",
+        "rentabilidad_pct": "3-10% expected returns",
+        "anos_jubilacion": "5-40 eears until retiremint"
+      },
+      "result_context": "Your totale_acumulato of {totale_acumulato} at retiremint includis {apertado} contributed and {rindimiintos} in investmint returns.",
+      "formula_display": "FV = PV(1+r)^n + PMT[((1+r)^n - 1) ÷ r]",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert annual rate to monthly",
+          "calculation": "6% ÷ 12 = 0.5% monthly"
+        },
+        {
+          "step": 2,
+          "description": "Calculate total months",
+          "calculation": "25 years × 12 = 300 months"
+        },
+        {
+          "step": 3,
+          "description": "Calculate future value of current savings",
+          "calculation": "€45,000 × (1.005)^300 = €200,844"
+        },
+        {
+          "step": 4,
+          "description": "Calculate future value of contributions",
+          "calculation": "€500 × [((1.005)^300 - 1) ÷ 0.005] = €346,497"
+        },
+        {
+          "step": 5,
+          "description": "Sum both components",
+          "calculation": "€200,844 + €346,497 = €547,341"
+        }
+      ],
+      "mistakes": [
+        "Undirestimating lifespan and pianonning for too short retiremint period",
+        "Not increasenzag contributions as income grows over career",
+        "Being too conservative with investmints earle in career"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "ahorro_actual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for currint savings"
+        },
+        {
+          "field_id": "aportacion_mensual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for monthle contribution"
+        },
+        {
+          "field_id": "rentabilidad_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for expected return rate"
+        },
+        {
+          "field_id": "anos_jubilacion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for eears to retiremint"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,552 @@
+{
+  "id": "085",
+  "slug": "alquiler-andamio",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "longitud_m",
+      "type": "number",
+      "min": 2,
+      "max": 200,
+      "step": 0.5,
+      "default": 12,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "altura_m",
+      "type": "number",
+      "min": 2,
+      "max": 30,
+      "step": 0.5,
+      "default": 6,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "semanas",
+      "type": "number",
+      "min": 1,
+      "max": 52,
+      "step": 1,
+      "default": 4,
+      "unit": "semanas"
+    },
+    {
+      "id": "precio_m2_semana",
+      "type": "number",
+      "min": 0.5,
+      "max": 5,
+      "step": 0.1,
+      "default": 1.5,
+      "unit": "â‚¬/m²·sem",
+      "unit_options": [
+        "â‚¬/m²/wk",
+        "$/m²/wk"
+      ],
+      "unit_category": "price"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.longitud_m)||0,H=parseFloat(inputs.altura_m)||0,S=parseFloat(inputs.semanas)||4,P=parseFloat(inputs.precio_m2_semana)||1.5;if(!L||!H)return{error:true};var m2=+(L*H).toFixed(2),alquiler=+(m2*S*P).toFixed(2),montaje=+(m2*4).toFixed(2),total=+(alquiler+montaje*2).toFixed(2);return{m2_andamio:m2,coste_alquiler_eur:alquiler,montaje_desmontaje_eur:+(montaje*2).toFixed(2),total_eur:total};",
+  "outputs": [
+    {
+      "id": "m2_andamio",
+      "unit": "m²"
+    },
+    {
+      "id": "coste_alquiler_eur",
+      "unit": "â‚¬ alquiler"
+    },
+    {
+      "id": "montaje_desmontaje_eur",
+      "unit": "â‚¬ montaje+desmontaje"
+    },
+    {
+      "id": "total_eur",
+      "unit": "â‚¬ total",
+      "highlight": true
+    }
+  ],
+  "related": [
+    "084",
+    "089",
+    "078",
+    "079"
+  ],
+  "example_inputs": {
+    "longitud_m": 12,
+    "altura_m": 6,
+    "semanas": 4,
+    "precio_m2_semana": 1.5
+  },
+  "example_label": "Calcular alquiler de andamio para fachada de 12 m de largo × 6 m de alto durante 4 semanas.",
+  "range_hints": {
+    "longitud_m": "Longitud de fachada a cubrir con el andamio en metros lineales (m)",
+    "altura_m": "Altura máxima de la plataforma de trabajo desde el suelo (m). Máximo 30 m sin proyecto específico",
+    "semanas": "Semanas de alquiler previstas. Incluye montaje, tiempo de obra y desmontaje (semanas)",
+    "precio_m2_semana": "Precio de alquiler por m² y semana en tu zona. Entre 1.50 y 3.50 €/m²·sem (€/m²·sem)"
+  },
+  "result_context": "Resultados: {m2_andamio} m² de andamio, coste de alquiler de {coste_alquiler_eur} €, montaje y desmontaje de {montaje_desmontaje_eur} €, total de {total_eur} €.",
+  "formula_display": "Coste total = (longitud × altura) × semanas × precio_m²_semana + montaje + desmontaje",
+  "steps": [
+    "Mide la longitud de fachada a cubrir y la altura máxima necesaria de trabajo",
+    "Calcula los m² de andamio: longitud × altura (superficie de fachada a cubrir)",
+    "Multiplica los m² por las semanas de alquiler estimadas según el plan de obra",
+    "Aplica el precio de alquiler por m² y semana (1.50-3.50 €/m²·sem según zona y tipo de andamio)",
+    "Añade coste de montaje y desmontaje (~4 €/m² cada operación, certificado por instalador autorizado)",
+    "Verifica que el andamio cumple la normativa UNE-EN 12810 y requiere plan de montaje para altura > 6 m"
+  ],
+  "mistakes": [
+    "Olvidar el coste de montaje y desmontaje: puede ser hasta el 40% del coste total del alquiler",
+    "Usar andamio sin certificación ni proyecto técnico para alturas superiores a 6 metros",
+    "No incluir protecciones colectivas: barandillas, rodapiés, redes de seguridad",
+    "Subestimar las semanas de alquiler por retrasos en la obra",
+    "No verificar que el suelo donde se apoya el andamio tiene capacidad portante suficiente"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "longitud_m",
+      "reason": "Tipo correcto: numérico decimal para longitud de fachada en metros."
+    },
+    {
+      "field_id": "altura_m",
+      "reason": "Tipo correcto: numérico decimal para altura del andamio en metros."
+    },
+    {
+      "field_id": "semanas",
+      "reason": "Tipo correcto: numérico entero para semanas de alquiler."
+    },
+    {
+      "field_id": "precio_m2_semana",
+      "reason": "Tipo correcto: numérico decimal para precio de alquiler por m² y semana."
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Andamio fachada pequeña (chalet)",
+      "longitud_m": 8,
+      "altura_m": 4,
+      "semanas": 2,
+      "precio_m2_semana": 1.5
+    },
+    {
+      "_label": "Andamio fachada estándar",
+      "longitud_m": 12,
+      "altura_m": 6,
+      "semanas": 4,
+      "precio_m2_semana": 1.5
+    },
+    {
+      "_label": "Andamio edificio 3 plantas",
+      "longitud_m": 20,
+      "altura_m": 10,
+      "semanas": 8,
+      "precio_m2_semana": 2
+    },
+    {
+      "_label": "Andamio edificio oficinas",
+      "longitud_m": 30,
+      "altura_m": 15,
+      "semanas": 12,
+      "precio_m2_semana": 2.5
+    },
+    {
+      "_label": "Andamio torre (restauración)",
+      "longitud_m": 10,
+      "altura_m": 25,
+      "semanas": 16,
+      "precio_m2_semana": 3
+    }
+  ],
+  "units": {
+    "longitud_m": "m",
+    "altura_m": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Alquiler de Andamio",
+      "desc": "Calcula el coste de alquiler, montaje y desmontaje de andamios tubulares por semanas Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora Alquiler Andamio – Fachada y Obra",
+      "seo_desc": "Calcula el presupuesto de alquiler de andamio: m² de fachada, semanas de uso, precio por m²/semana y coste de montaje y desmontaje. Gratis.",
+      "inputs": {
+        "longitud_m": "Longitud fachada",
+        "altura_m": "Altura andamio",
+        "semanas": "Semanas de alquiler",
+        "precio_m2_semana": "Precio (€/m²·semana)"
+      },
+      "outputs": {
+        "m2_andamio": "m² de andamio",
+        "coste_alquiler_eur": "Coste alquiler",
+        "montaje_desmontaje_eur": "Montaje + desmontaje",
+        "total_eur": "Total estimado"
+      },
+      "seo_description": "Calcula el coste completo de alquiler de andamio para tu obra. Introduce longitud y altura de fachada, semanas de alquiler y precio por m² para obtener el presupuesto total con montaje incluido.",
+      "example_label": "Calcular alquiler de andamio para fachada de 12 m de largo × 6 m de alto durante 4 semanas.",
+      "range_hints": {
+        "longitud_m": "Valor entre 2 y 200 m.",
+        "altura_m": "Valor entre 2 y 30 m.",
+        "semanas": "Valor entre 1 y 52 semanas.",
+        "precio_m2_semana": "Valor entre 0.5 y 5 €/m²·sem."
+      },
+      "result_context": "Resultados: {m2_andamio} m² de andamio, coste de alquiler de {coste_alquiler_eur} €, montaje y desmontaje de {montaje_desmontaje_eur} €, total de {total_eur} €.",
+      "formula_display": "Coste total = (longitud × altura) × semanas × precio_m²_semana + montaje + desmontaje",
+      "steps": [
+        "Mide la longitud de fachada a cubrir y la altura máxima necesaria de trabajo",
+        "Calcula los m² de andamio: longitud × altura (superficie de fachada a cubrir)",
+        "Multiplica los m² por las semanas de alquiler estimadas según el plan de obra",
+        "Aplica el precio de alquiler por m² y semana (1.50-3.50 €/m²·sem según zona y tipo de andamio)",
+        "Añade coste de montaje y desmontaje (~4 €/m² cada operación, certificado por instalador autorizado)",
+        "Verifica que el andamio cumple la normativa UNE-EN 12810 y requiere plan de montaje para altura > 6 m"
+      ],
+      "mistakes": [
+        "Olvidar el coste de montaje y desmontaje: puede ser hasta el 40% del coste total del alquiler",
+        "Usar andamio sin certificación ni proyecto técnico para alturas superiores a 6 metros",
+        "No incluir protecciones colectivas: barandillas, rodapiés, redes de seguridad",
+        "Subestimar las semanas de alquiler por retrasos en la obra",
+        "No verificar que el suelo donde se apoya el andamio tiene capacidad portante suficiente"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "longitud_m",
+          "reason": "Tipo correcto: numérico decimal para longitud de fachada en metros."
+        },
+        {
+          "field_id": "altura_m",
+          "reason": "Tipo correcto: numérico decimal para altura del andamio en metros."
+        },
+        {
+          "field_id": "semanas",
+          "reason": "Tipo correcto: numérico entero para semanas de alquiler."
+        },
+        {
+          "field_id": "precio_m2_semana",
+          "reason": "Tipo correcto: numérico decimal para precio de alquiler por m² y semana."
+        }
+      ]
+    },
+    "en": {
+      "name": "Scaffolding Rental Calculator",
+      "desc": "Scaffolding Rental Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Scaffolding Rental Calculator – Facade & Construction",
+      "seo_desc": "Calculate scaffolding rental budget: m² of facade, weeks of use, price per m²/week, and assembly/disassembly costs. Free.",
+      "inputs": {
+        "longitud_m": "Facade length",
+        "altura_m": "Scaffold height",
+        "semanas": "Hire weeks",
+        "precio_m2_semana": "Price (â‚¬/m²Â·week)"
+      },
+      "outputs": {
+        "m2_andamio": "Scaffold area",
+        "coste_alquiler_eur": "Hire cost",
+        "montaje_desmontaje_eur": "Erect + dismantle",
+        "total_eur": "Estimated total"
+      },
+      "seo_description": "Calculate complete scaffolding rental costs for your construction site. Enter facade length and height, rental weeks, and m² price to get the total budget including assembly.",
+      "example_label": "Calcular alquiler de andamio para fachada de 12 m de largo × 6 m de alto durante 4 semanas.",
+      "range_hints": {
+        "longitud_m": "Valor entre 2 y 200 m.",
+        "altura_m": "Valor entre 2 y 30 m.",
+        "semanas": "Valor entre 1 y 52 semanas.",
+        "precio_m2_semana": "Valor entre 0.5 y 5 â‚¬/m²Â·sem."
+      },
+      "result_context": "Resultados: {m2_andamio} m² de andamio, coste de alquiler de {coste_alquiler_eur} €, montaje y desmontaje de {montaje_desmontaje_eur} €, total de {total_eur} €.",
+      "formula_display": "Coste total = (longitud × altura) × semanas × precio_m²_semana + montaje + desmontaje",
+      "steps": [
+        "Mide la longitud de fachada a cubrir y la altura máxima necesaria de trabajo",
+        "Calcula los m² de andamio: longitud × altura (superficie de fachada a cubrir)",
+        "Multiplica los m² por las semanas de alquiler estimadas según el plan de obra",
+        "Aplica el precio de alquiler por m² y semana (1.50-3.50 €/m²·sem según zona y tipo de andamio)",
+        "Añade coste de montaje y desmontaje (~4 €/m² cada operación, certificado por instalador autorizado)",
+        "Verifica que el andamio cumple la normativa UNE-EN 12810 y requiere plan de montaje para altura > 6 m"
+      ],
+      "mistakes": [
+        "Olvidar el coste de montaje y desmontaje: puede ser hasta el 40% del coste total del alquiler",
+        "Usar andamio sin certificación ni proyecto técnico para alturas superiores a 6 metros",
+        "No incluir protecciones colectivas: barandillas, rodapiés, redes de seguridad",
+        "Subestimar las semanas de alquiler por retrasos en la obra",
+        "No verificar que el suelo donde se apoya el andamio tiene capacidad portante suficiente"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "longitud_m",
+          "reason": "Tipo correcto: numérico decimal para longitud de fachada en metros."
+        },
+        {
+          "field_id": "altura_m",
+          "reason": "Tipo correcto: numérico decimal para altura del andamio en metros."
+        },
+        {
+          "field_id": "semanas",
+          "reason": "Tipo correcto: numérico entero para semanas de alquiler."
+        },
+        {
+          "field_id": "precio_m2_semana",
+          "reason": "Tipo correcto: numérico decimal para precio de alquiler por m² y semana."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Location Échafaudage",
+      "desc": "Calculez le coût de location d'échafaudage par m².",
+      "seo_title": "Calculateur Location Échafaudage – Façade et Chantier",
+      "inputs": {
+        "longitud_m": "Longueur façade",
+        "altura_m": "Hauteur échafaudage",
+        "semanas": "Semaines de location",
+        "precio_m2_semana": "Prix (€/m²·semaine)"
+      },
+      "outputs": {
+        "m2_andamio": "m² d'échafaudage",
+        "coste_alquiler_eur": "Coût location",
+        "montaje_desmontaje_eur": "Montage + démontage",
+        "total_eur": "Total estimé"
+      },
+      "seo_description": "Calculez le coût de location, montage et démontage d'échafaudages tubulaires par semaine Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calcular alquiler de andamio para fachada de 12 m de largo × 6 m de alto durante 4 semanas.",
+      "range_hints": {
+        "longitud_m": "Valor entre 2 et 200 m.",
+        "altura_m": "Valor entre 2 et 30 m.",
+        "semanas": "Valor entre 1 et 52 semanas.",
+        "precio_m2_semana": "Valor entre 0.5 et 5 â‚¬/m²·sem."
+      },
+      "result_context": "Resultados: {m2_andamio} m² de andamio, coste de alquiler de {coste_alquiler_eur} €, montaje y desmontaje de {montaje_desmontaje_eur} €, total de {total_eur} €.",
+      "formula_display": "Coste total = (longitud × altura) × semanas × precio_m²_semana + montaje + desmontaje",
+      "steps": [
+        "Mide la longitud de fachada a cubrir y la altura máxima necesaria de trabajo",
+        "Calcula los m² de andamio: longitud × altura (superficie de fachada a cubrir)",
+        "Multiplica los m² por las semanas de alquiler estimadas según el plan de obra",
+        "Aplica el precio de alquiler por m² y semana (1.50-3.50 €/m²·sem según zona y tipo de andamio)",
+        "Añade coste de montaje y desmontaje (~4 €/m² cada operación, certificado por instalador autorizado)",
+        "Verifica que el andamio cumple la normativa UNE-EN 12810 y requiere plan de montaje para altura > 6 m"
+      ],
+      "mistakes": [
+        "Olvidar el coste de montaje y desmontaje: puede ser hasta el 40% del coste total del alquiler",
+        "Usar andamio sin certificación ni proyecto técnico para alturas superiores a 6 metros",
+        "No incluir protecciones colectivas: barandillas, rodapiés, redes de seguridad",
+        "Subestimar las semanas de alquiler por retrasos en la obra",
+        "No verificar que el suelo donde se apoya el andamio tiene capacidad portante suficiente"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "longitud_m",
+          "reason": "Tipo correcto: numérico decimal para longitud de fachada en metros."
+        },
+        {
+          "field_id": "altura_m",
+          "reason": "Tipo correcto: numérico decimal para altura del andamio en metros."
+        },
+        {
+          "field_id": "semanas",
+          "reason": "Tipo correcto: numérico entero para semanas de alquiler."
+        },
+        {
+          "field_id": "precio_m2_semana",
+          "reason": "Tipo correcto: numérico decimal para precio de alquiler por m² y semana."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Aluguel de Andaime",
+      "desc": "Calcule o custo de locação, montagem e desmontagem de andaimes tubulares por semanas Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora Andaime – Custo m²",
+      "inputs": {
+        "longitud_m": "Comprimento fachada",
+        "altura_m": "Altura andaime",
+        "semanas": "Semanas de locação",
+        "precio_m2_semana": "Preço (R$/m²·semana)"
+      },
+      "outputs": {
+        "m2_andamio": "m² de andaime",
+        "coste_alquiler_eur": "Custo locação",
+        "montaje_desmontaje_eur": "Montagem + desmontagem",
+        "total_eur": "Total estimado"
+      },
+      "seo_description": "Calcule o custo de locação, montagem e desmontagem de andaimes tubulares por semanas Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular alquiler de andamio para fachada de 12 m de largo × 6 m de alto durante 4 semanas.",
+      "range_hints": {
+        "longitud_m": "Valor entre 2 e 200 m.",
+        "altura_m": "Valor entre 2 e 30 m.",
+        "semanas": "Valor entre 1 e 52 semanas.",
+        "precio_m2_semana": "Valor entre 0.5 e 5 â‚¬/m²·sem."
+      },
+      "result_context": "Resultados: {m2_andamio} m² de andamio, coste de alquiler de {coste_alquiler_eur} €, montaje y desmontaje de {montaje_desmontaje_eur} €, total de {total_eur} €.",
+      "formula_display": "Coste total = (longitud × altura) × semanas × precio_m²_semana + montaje + desmontaje",
+      "steps": [
+        "Mide la longitud de fachada a cubrir y la altura máxima necesaria de trabajo",
+        "Calcula los m² de andamio: longitud × altura (superficie de fachada a cubrir)",
+        "Multiplica los m² por las semanas de alquiler estimadas según el plan de obra",
+        "Aplica el precio de alquiler por m² y semana (1.50-3.50 €/m²·sem según zona y tipo de andamio)",
+        "Añade coste de montaje y desmontaje (~4 €/m² cada operación, certificado por instalador autorizado)",
+        "Verifica que el andamio cumple la normativa UNE-EN 12810 y requiere plan de montaje para altura > 6 m"
+      ],
+      "mistakes": [
+        "Olvidar el coste de montaje y desmontaje: puede ser hasta el 40% del coste total del alquiler",
+        "Usar andamio sin certificación ni proyecto técnico para alturas superiores a 6 metros",
+        "No incluir protecciones colectivas: barandillas, rodapiés, redes de seguridad",
+        "Subestimar las semanas de alquiler por retrasos en la obra",
+        "No verificar que el suelo donde se apoya el andamio tiene capacidad portante suficiente"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "longitud_m",
+          "reason": "Tipo correcto: numérico decimal para longitud de fachada en metros."
+        },
+        {
+          "field_id": "altura_m",
+          "reason": "Tipo correcto: numérico decimal para altura del andamio en metros."
+        },
+        {
+          "field_id": "semanas",
+          "reason": "Tipo correcto: numérico entero para semanas de alquiler."
+        },
+        {
+          "field_id": "precio_m2_semana",
+          "reason": "Tipo correcto: numérico decimal para precio de alquiler por m² y semana."
+        }
+      ]
+    },
+    "de": {
+      "name": "Miete Gerüst",
+      "desc": "Berechnen Sie miete Gerüst online. Geben Sie longitud m, altura m, semanas ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Miete Gerüst | CalcToWork",
+      "seo_desc": "Miete Gerüst online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Miete Gerüst online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "longitud_m": "Longitud M",
+        "altura_m": "Altura M",
+        "semanas": "Semanas",
+        "precio_m2_semana": "Precio M2 Semana"
+      },
+      "outputs": {
+        "m2_andamio": "M2 Andamio",
+        "coste_alquiler_eur": "Coste Alquiler Eur",
+        "montaje_desmontaje_eur": "Montaje Desmontaje Eur",
+        "total_eur": "Total Eur"
+      },
+      "example_label": "Calcular alquiler de andamio para fachada de 12 m de largo × 6 m de alto durante 4 semanas.",
+      "range_hints": {
+        "longitud_m": "Longitud de fachada a cubrir con el andamio en metros lineales (m)",
+        "altura_m": "Altura máxima de la plataforma de trabajo desde el suelo (m). Máximo 30 m sin proyecto específico",
+        "semanas": "Semanas de alquiler previstas. Incluye montaje, tiempo de obra y desmontaje (semanas)",
+        "precio_m2_semana": "Precio de alquiler por m² y semana en tu zona. Entre 1.50 y 3.50 €/m²·sem (€/m²·sem)"
+      },
+      "result_context": "Resultados: {m2_andamio} m² de andamio, coste de alquiler de {coste_alquiler_eur} €, montaje y desmontaje de {montaje_desmontaje_eur} €, total de {total_eur} €.",
+      "formula_display": "Coste total = (longitud × altura) × semanas × precio_m²_semana + montaje + desmontaje",
+      "steps": [
+        "Mide la longitud de fachada a cubrir y la altura máxima necesaria de trabajo",
+        "Calcula los m² de andamio: longitud × altura (superficie de fachada a cubrir)",
+        "Multiplica los m² por las semanas de alquiler estimadas según el plan de obra",
+        "Aplica el precio de alquiler por m² y semana (1.50-3.50 €/m²·sem según zona y tipo de andamio)",
+        "Añade coste de montaje y desmontaje (~4 €/m² cada operación, certificado por instalador autorizado)",
+        "Verifica que el andamio cumple la normativa UNE-EN 12810 y requiere plan de montaje para altura > 6 m"
+      ],
+      "mistakes": [
+        "Olvidar el coste de montaje y desmontaje: puede ser hasta el 40% del coste total del alquiler",
+        "Usar andamio sin certificación ni proyecto técnico para alturas superiores a 6 metros",
+        "No incluir protecciones colectivas: barandillas, rodapiés, redes de seguridad",
+        "Subestimar las semanas de alquiler por retrasos en la obra",
+        "No verificar que el suelo donde se apoya el andamio tiene capacidad portante suficiente"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "longitud_m",
+          "reason": "Tipo correcto: numérico decimal para longitud de fachada en metros."
+        },
+        {
+          "field_id": "altura_m",
+          "reason": "Tipo correcto: numérico decimal para altura del andamio en metros."
+        },
+        {
+          "field_id": "semanas",
+          "reason": "Tipo correcto: numérico entero para semanas de alquiler."
+        },
+        {
+          "field_id": "precio_m2_semana",
+          "reason": "Tipo correcto: numérico decimal para precio de alquiler por m² y semana."
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Carico Massimo Gru",
+      "description": "Verifica il carico ammissibile di una gru a torre.",
+      "seo_title": "Calcolatore Ponteggio – Costo m²",
+      "seo_description": "Verifica il carico massimo sollevabile da una gru in funzione del raggio Usato da professionisti e studenti in tutto il mondo.",
+      "inputs": {
+        "radio": "Raggio (m)",
+        "carga_punta": "Carico di punta (t)",
+        "carga_nominal": "Carico nominale (t)",
+        "radio_nominal": "Raggio nominale (m)",
+        "longitud_m": "longitud m (m)",
+        "altura_m": "altura m (m)",
+        "semanas": "semanas (semanas)",
+        "precio_m2_semana": "precio m2 semana (â‚¬/m²·sem)"
+      },
+      "outputs": {
+        "carga_max": "Carico max al raggio (t)",
+        "es_seguro": "Operazione sicura",
+        "m2_andamio": "m2 andamio (m²)",
+        "coste_alquiler_eur": "coste alquiler eur (â‚¬ alquiler)",
+        "montaje_desmontaje_eur": "montaje desmontaje eur (â‚¬ montaje+desmontaje)",
+        "total_eur": "total eur (â‚¬ total)"
+      },
+      "example_label": "Calcular alquiler de andamio para fachada de 12 m de largo × 6 m de alto durante 4 semanas.",
+      "range_hints": {
+        "longitud_m": "Valor intre 2 e 200 m.",
+        "altura_m": "Valor intre 2 e 30 m.",
+        "semanas": "Valor intre 1 e 52 settimane.",
+        "precio_m2_semana": "Valor intre 0.5 e 5 €/m²·sem."
+      },
+      "result_context": "Resultados: {m2_andamio} m² de andamio, coste de alquiler de {coste_alquiler_eur} €, montaje y desmontaje de {montaje_desmontaje_eur} €, total de {total_eur} €.",
+      "formula_display": "Coste total = (longitud × altura) × semanas × precio_m²_semana + montaje + desmontaje",
+      "steps": [
+        "Mide la longitud de fachada a cubrir y la altura máxima necesaria de trabajo",
+        "Calcula los m² de andamio: longitud × altura (superficie de fachada a cubrir)",
+        "Multiplica los m² por las semanas de alquiler estimadas según el plan de obra",
+        "Aplica el precio de alquiler por m² y semana (1.50-3.50 €/m²·sem según zona y tipo de andamio)",
+        "Añade coste de montaje y desmontaje (~4 €/m² cada operación, certificado por instalador autorizado)",
+        "Verifica que el andamio cumple la normativa UNE-EN 12810 y requiere plan de montaje para altura > 6 m"
+      ],
+      "mistakes": [
+        "Olvidar el coste de montaje y desmontaje: puede ser hasta el 40% del coste total del alquiler",
+        "Usar andamio sin certificación ni proyecto técnico para alturas superiores a 6 metros",
+        "No incluir protecciones colectivas: barandillas, rodapiés, redes de seguridad",
+        "Subestimar las semanas de alquiler por retrasos en la obra",
+        "No verificar que el suelo donde se apoya el andamio tiene capacidad portante suficiente"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "longitud_m",
+          "reason": "Tipo correcto: numérico decimal para longitud de fachada en metros."
+        },
+        {
+          "field_id": "altura_m",
+          "reason": "Tipo correcto: numérico decimal para altura del andamio en metros."
+        },
+        {
+          "field_id": "semanas",
+          "reason": "Tipo correcto: numérico entero para semanas de alquiler."
+        },
+        {
+          "field_id": "precio_m2_semana",
+          "reason": "Tipo correcto: numérico decimal para precio de alquiler por m² y semana."
+        }
+      ],
+      "desc": "Calcola il costo di noleggio ponteggi per facciata con montaggio, smontaggio e settimane di utilizzo."
+    }
+  }
+}

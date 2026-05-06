@@ -1,0 +1,480 @@
+{
+  "id": "013",
+  "slug": "bloque-hormigon",
+  "block": 2,
+  "block_slug": "mamposteria",
+  "inputs": [
+    {
+      "id": "largo",
+      "type": "number",
+      "min": 0.5,
+      "max": 300,
+      "step": 0.1,
+      "default": 10,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "alto",
+      "type": "number",
+      "min": 0.5,
+      "max": 10,
+      "step": 0.1,
+      "default": 3,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "descontar_huecos",
+      "type": "number",
+      "min": 0,
+      "max": 50,
+      "step": 0.1,
+      "default": 3,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.largo)||0,H=parseFloat(inputs.alto)||0,huecos=parseFloat(inputs.descontar_huecos)||0;if(!L||!H)return{error:true};var area_neta=Math.max(0,L*H-huecos),bloques=Math.ceil(area_neta*12.5*1.05),mortero=+(area_neta*12).toFixed(1);return{area_neta:+area_neta.toFixed(2),bloques_ud:bloques,mortero_kg:mortero};",
+  "outputs": [
+    {
+      "id": "area_neta",
+      "unit": "m²",
+      "highlight": true
+    },
+    {
+      "id": "bloques_ud",
+      "unit": "uds (+5% merma)"
+    },
+    {
+      "id": "mortero_kg",
+      "unit": "kg"
+    }
+  ],
+  "related": [
+    "011",
+    "012",
+    "017",
+    "014"
+  ],
+  "example_inputs": {
+    "largo": 10,
+    "alto": 3,
+    "descontar_huecos": 3
+  },
+  "example_label": "Calcular hormigón para 10 m × 3 m × 3 m².",
+  "range_hints": {
+    "largo": "Valor típico entre 0.5 y 300. Valor por defecto: 10 m.",
+    "alto": "Valor típico entre 0.5 y 10. Valor por defecto: 3 m.",
+    "descontar_huecos": "Valor típico entre 0 y 50. Valor por defecto: 3 m²."
+  },
+  "result_context": "Resultados: {area_neta} m² de área neta, {bloques_ud} bloques, {mortero_kg} kg de mortero.",
+  "formula_display": "Volumen = largo × ancho × espesor",
+  "steps": [
+    "Multiplicar 10m × 1m = 10.00m² de área",
+    "Multiplicar 10.00m² × 1m = 10.00m³ de volumen",
+    "Calcular cemento: 10.00m³ × 7 = 70 sacos",
+    "Calcular arena: 6.50m³",
+    "Calcular grava: 9.00m³"
+  ],
+  "mistakes": [
+    "Usar espesor insuficiente que puede causar grietas",
+    "No considerar el 5-10% de desperdicio",
+    "Confundir metros cúbicos con metros cuadrados"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "largo",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "alto",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "descontar_huecos",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "diagram": "wall",
+  "standard": "EN 1996-1-1",
+  "comparison_presets": [
+    {
+      "largo": 5,
+      "alto": 2.5,
+      "descontar_huecos": 0
+    },
+    {
+      "largo": 8,
+      "alto": 2.5,
+      "descontar_huecos": 0
+    },
+    {
+      "largo": 10,
+      "alto": 2.7,
+      "descontar_huecos": 2
+    },
+    {
+      "largo": 15,
+      "alto": 3,
+      "descontar_huecos": 4
+    }
+  ],
+  "units": {
+    "largo": "m",
+    "alto": "m",
+    "descontar_huecos": "m²"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Bloque de Hormigón",
+      "desc": "Calcula el número de bloques de hormigón y mortero para muros y cerramientos Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora Bloque Hormigón – Bloques",
+      "inputs": {
+        "largo": "Longitud",
+        "alto": "Altura",
+        "descontar_huecos": "Descontar huecos"
+      },
+      "outputs": {
+        "area_neta": "Área neta",
+        "bloques_ud": "Bloques",
+        "mortero_kg": "Mortero"
+      },
+      "seo_description": "Calcula el número de bloques de hormigón y mortero para muros y cerramientos Usado por profesionales y estudiantes en todo el mundo.",
+      "example_label": "Calcular bloques de hormigón para un muro de 10m × 3m descontando 3m² de huecos.",
+      "range_hints": {
+        "largo": "Longitud total del muro de bloques",
+        "alto": "Altura del muro",
+        "descontar_huecos": "Suma de áreas de aberturas"
+      },
+      "result_context": "Muro de {area_neta} m² requiere {bloques_ud} bloques de hormigón (40×20×20cm) y {mortero_kg} kg de mortero de agarre.",
+      "formula_display": "Área_neta = (largo × alto) - huecos; Bloques = área_neta × 12.5 ud/m²",
+      "steps": [
+        "Calcular área bruta: 10m × 3m = 30m²",
+        "Descontar huecos: 30m² - 3m² = 27m² netos",
+        "Calcular bloques: 27m² × 12.5 ud/m² × 1.05 (merma) = 354 bloques",
+        "Calcular mortero: 27m² × 12 kg/m² = 324 kg de mortero"
+      ],
+      "mistakes": [
+        "No considerar merma por cortes en esquinas y encuentros",
+        "Usar rendimiento incorrecto (bloque 40×20cm ≈ 12.5 ud/m²)",
+        "No prever bloques especiales para esquinas y dinteles"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "alto",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "descontar_huecos",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Concrete Block Calculator",
+      "desc": "Concrete Block Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Concrete Block Calculator – Blocks",
+      "seo_desc": "Concrete Block Calculator. Length, Height, Deduct openings — get Net area, Blocks, Mortar instantly for your masonry and enclosures project. Includes.",
+      "inputs": {
+        "largo": "Length",
+        "alto": "Height",
+        "descontar_huecos": "Deduct openings"
+      },
+      "outputs": {
+        "area_neta": "Net area",
+        "bloques_ud": "Blocks",
+        "mortero_kg": "Mortar"
+      },
+      "seo_description": "Calculate how many concrete blocks and mortar bags you need for wall construction. For 40×20cm hollow blocks with 5% waste. Enter wall length and height.",
+      "example_label": "Calcular bloques de hormigón para un muro de 10m × 3m descontando 3m² de huecos.",
+      "range_hints": {
+        "largo": "Longitud total del muro de bloques",
+        "alto": "Altura del muro",
+        "descontar_huecos": "Suma de áreas de aberturas"
+      },
+      "result_context": "Muro de {area_neta} m² requiere {bloques_ud} bloques de hormigón (40×20×20cm) y {mortero_kg} kg de mortero de agarre.",
+      "formula_display": "Área_neta = (largo × alto) - huecos; Bloques = área_neta × 12.5 ud/m²",
+      "steps": [
+        "Calcular área bruta: 10m × 3m = 30m²",
+        "Descontar huecos: 30m² - 3m² = 27m² netos",
+        "Calcular bloques: 27m² × 12.5 ud/m² × 1.05 (merma) = 354 bloques",
+        "Calcular mortero: 27m² × 12 kg/m² = 324 kg de mortero"
+      ],
+      "mistakes": [
+        "No considerar merma por cortes en esquinas y encuentros",
+        "Usar rendimiento incorrecto (bloque 40×20cm â‰ˆ 12.5 ud/m²)",
+        "No prever bloques especiales para esquinas y dinteles"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "descontar_huecos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Parpaing Béton",
+      "desc": "Calculez le nombre de parpaings en béton et de mortier pour murs et cloisonnements Utilise par des professionnels et etudiants dans le monde entier.",
+      "seo_title": "Calculateur Bloc Béton – Mortier",
+      "inputs": {
+        "largo": "Longueur",
+        "alto": "Hauteur",
+        "descontar_huecos": "Déduire ouvertures"
+      },
+      "outputs": {
+        "area_neta": "Surface nette",
+        "bloques_ud": "Parpaings",
+        "mortero_kg": "Mortier"
+      },
+      "seo_description": "Calculez le nombre de parpaings en béton et de mortier pour murs et cloisonnements Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calculer blocs de béton pour un mur de 10m × 3m descontando 3m² de huecos.",
+      "range_hints": {
+        "largo": "Longueur totale du mur de blocs",
+        "alto": "hauteur du mur",
+        "descontar_huecos": "Suma de surfaces de aberturas"
+      },
+      "result_context": "mur de {area_neta} m² nécessite {bloques_ud} blocs de béton (40×20×20cm) et {mortero_kg} kg de mortier de agarre.",
+      "formula_display": "Área_neta = (longueur × alto) - huecos; blocs = área_neta × 12.5 ud/m²",
+      "steps": [
+        "Calculer área bruta: 10m × 3m = 30m²",
+        "Descontar huecos: 30m² - 3m² = 27m² netos",
+        "Calculer blocs: 27m² × 12.5 ud/m² × 1.05 (merma) = 354 blocs",
+        "Calculer mortier: 27m² × 12 kg/m² = 324 kg de mortier"
+      ],
+      "mistakes": [
+        "Ne pas considérer merma par cortes dans esquinas et encuentros",
+        "Utiliser rendimiento incorrecto (bloc 40×20cm â‰ˆ 12.5 ud/m²)",
+        "No prever blocs especiales pour esquinas et dinteles"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "descontar_huecos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Bloco de Concreto",
+      "desc": "Calcule o número de blocos de concreto e argamassa para muros e divisórias Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora de Bloco de Concreto",
+      "inputs": {
+        "largo": "Comprimento",
+        "alto": "Altura",
+        "descontar_huecos": "Descontar vãos"
+      },
+      "outputs": {
+        "area_neta": "Área líquida",
+        "bloques_ud": "Blocos",
+        "mortero_kg": "Argamassa"
+      },
+      "seo_description": "Calcule o número de blocos de concreto e argamassa para muros e divisórias Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular blocos de betão para um muro de 10m × 3m descontando 3m² de huecos.",
+      "range_hints": {
+        "largo": "Longitud total do muro de blocos",
+        "alto": "Altura do muro",
+        "descontar_huecos": "Suma de áreas de aberturas"
+      },
+      "result_context": "Muro de {area_neta} m² requer {bloques_ud} blocos de betão (40×20×20cm) e {mortero_kg} kg de argamassa de agarre.",
+      "formula_display": "Área_neta = (comprimento × alto) - huecos; Bloques = área_neta × 12.5 ud/m²",
+      "steps": [
+        "Calcular área bruta: 10m × 3m = 30m²",
+        "Descontar huecos: 30m² - 3m² = 27m² netos",
+        "Calcular blocos: 27m² × 12.5 ud/m² × 1.05 (merma) = 354 blocos",
+        "Calcular argamassa: 27m² × 12 kg/m² = 324 kg de argamassa"
+      ],
+      "mistakes": [
+        "Não considerar merma por cortes em esquinas e encuentros",
+        "Usar desempenho incorrecto (bloco 40×20cm â‰ˆ 12.5 ud/m²)",
+        "Não prever blocos especiais para esquinas e dinteles"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "descontar_huecos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Hohlblocksteine Beton",
+      "desc": "Berechnen Sie hohlblocksteine Beton online. Geben Sie largo, alto, descontar huecos ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Hohlblocksteine Beton | CalcToWork",
+      "seo_desc": "Hohlblocksteine Beton online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Hohlblocksteine Beton online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "largo": "Largo",
+        "alto": "Alto",
+        "descontar_huecos": "Descontar Huecos"
+      },
+      "outputs": {
+        "area_neta": "Area Neta",
+        "bloques_ud": "Bloques Ud",
+        "mortero_kg": "Mortero Kg"
+      },
+      "example_label": "Calcular hormigón para 10 m × 3 m × 3 m².",
+      "range_hints": {
+        "largo": "Valor típico entre 0.5 y 300. Valor por defecto: 10 m.",
+        "alto": "Valor típico entre 0.5 y 10. Valor por defecto: 3 m.",
+        "descontar_huecos": "Valor típico entre 0 y 50. Valor por defecto: 3 m²."
+      },
+      "result_context": "Resultados: {area_neta} m² de área neta, {bloques_ud} bloques, {mortero_kg} kg de mortero.",
+      "formula_display": "Volumen = largo × ancho × espesor",
+      "steps": [
+        "Multiplicar 10m × 1m = 10.00m² de área",
+        "Multiplicar 10.00m² × 1m = 10.00m³ de volumen",
+        "Calcular cemento: 10.00m³ × 7 = 70 sacos",
+        "Calcular arena: 6.50m³",
+        "Calcular grava: 9.00m³"
+      ],
+      "mistakes": [
+        "Usar espesor insuficiente que puede causar grietas",
+        "No considerar el 5-10% de desperdicio",
+        "Confundir metros cúbicos con metros cuadrados"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "descontar_huecos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Intonaco",
+      "description": "Calcola cemento e sabbia per intonacare superfici.",
+      "seo_title": "Calcolatore Intonaco – Strumento Gratuito",
+      "seo_description": "Calcolatore Intonaco. Superficie (m²), Spessore intonaco (cm) ââ‚¬” ottieni Sacchi cemento, Sabbia (m³), Acqua (L) istantaneamente per il tuo progetto di.",
+      "inputs": {
+        "area": "Superficie (m²)",
+        "espesor": "Spessore intonaco (cm)"
+      },
+      "outputs": {
+        "cemento_sacos": "Sacchi cemento",
+        "arena_m3": "Sabbia (m³)",
+        "agua_litros": "Acqua (L)"
+      },
+      "example_label": "Calcolare blocchi di hormigón per un muro di 10m × 3m disconcosìdo 3m² di huecos.",
+      "range_hints": {
+        "largo": "Longitud totale dil muro di blocchi",
+        "alto": "Altura dil muro",
+        "descontar_huecos": "Suma di áreas di aberturas"
+      },
+      "result_context": "Muro di {area_neta} m² richiedi {blocchi_ud} blocchi di hormigón (40×20×20cm) e {mortero_kg} kg di mortero di agarre.",
+      "formula_display": "Área_neta = (lunghezza × alto) - huecos; Bloques = área_neta × 12.5 ud/m²",
+      "steps": [
+        "Calcolare área bruta: 10m × 3m = 30m²",
+        "Descontar huecos: 30m² - 3m² = 27m² netos",
+        "Calcolare blocchi: 27m² × 12.5 ud/m² × 1.05 (merma) = 354 blocchi",
+        "Calcolare mortero: 27m² × 12 kg/m² = 324 kg di mortero"
+      ],
+      "mistakes": [
+        "Non consedirare merma per taglios in angoli e incuintros",
+        "Usare rindimiinto incorrecto (blocco 40×20cm ≈ 12.5 ud/m²)",
+        "No prever blocchi especiales per angoli e architravees"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "descontar_huecos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        }
+      ]
+    }
+  }
+}

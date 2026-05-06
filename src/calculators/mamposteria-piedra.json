@@ -1,0 +1,500 @@
+{
+  "id": "019",
+  "slug": "mamposteria-piedra",
+  "block": 2,
+  "block_slug": "mamposteria",
+  "inputs": [
+    {
+      "id": "largo",
+      "type": "number",
+      "min": 0.5,
+      "max": 200,
+      "step": 0.1,
+      "default": 6,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "alto",
+      "type": "number",
+      "min": 0.3,
+      "max": 10,
+      "step": 0.1,
+      "default": 2,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "espesor",
+      "type": "number",
+      "min": 0.2,
+      "max": 2,
+      "step": 0.05,
+      "default": 0.4,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.largo)||0,H=parseFloat(inputs.alto)||0,E=parseFloat(inputs.espesor)||0;if(!L||!H||!E)return{error:true};var vol=L*H*E,piedra=+(vol*1.1*1800).toFixed(0),mortero=+(vol*0.35).toFixed(3),sacos=Math.ceil(mortero*350/50);return{vol_m3:+vol.toFixed(3),piedra_kg:piedra,mortero_m3:mortero,cemento_sacos:sacos};",
+  "outputs": [
+    {
+      "id": "vol_m3",
+      "unit": "m³",
+      "highlight": true
+    },
+    {
+      "id": "piedra_kg",
+      "unit": "kg"
+    },
+    {
+      "id": "mortero_m3",
+      "unit": "m³"
+    },
+    {
+      "id": "cemento_sacos",
+      "unit": "sacos 50kg"
+    }
+  ],
+  "related": [
+    "017",
+    "012",
+    "004",
+    "011"
+  ],
+  "example_inputs": {
+    "largo": 6,
+    "alto": 2,
+    "espesor": 0.4
+  },
+  "example_label": "Ejemplo para mamposteria piedra: valores 6m, 2m, 0.4m",
+  "range_hints": {
+    "largo": "Medida típica según el proyecto",
+    "alto": "Altura estándar según uso",
+    "espesor": "Espesor según resistencia requerida"
+  },
+  "result_context": "Resultados: {vol_m3} m³ de volumen, {piedra_kg} kg de piedra, {mortero_m3} m³ de mortero, {cemento_sacos} sacos de cemento.",
+  "formula_display": "L × H × E → vol_m3, piedra_kg",
+  "steps": [
+    "Introducir los valores de largo, alto y espesor",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m, cm, mm)",
+    "Calcular los valores de vol m3 y piedra kg",
+    "El resultado se expresa en m³. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Introducir valores con unidades incorrectas sin verificar la conversión",
+    "Redondear resultados intermedios en lugar del resultado final",
+    "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "largo",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "alto",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "espesor",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small wall",
+      "largo": 3,
+      "alto": 1,
+      "espesor": 0.4
+    },
+    {
+      "_label": "Medium wall",
+      "largo": 4.5,
+      "alto": 1.5,
+      "espesor": 0.4
+    },
+    {
+      "_label": "Large wall",
+      "largo": 6,
+      "alto": 2,
+      "espesor": 0.4
+    },
+    {
+      "_label": "Room",
+      "largo": 9,
+      "alto": 3,
+      "espesor": 0.4
+    },
+    {
+      "_label": "House perimeter",
+      "largo": 12,
+      "alto": 4,
+      "espesor": 0.4
+    }
+  ],
+  "units": {
+    "largo": "m",
+    "alto": "m",
+    "espesor": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Mampostería de Piedra",
+      "desc": "Calcula piedra y mortero para muros de mampostería.",
+      "seo_title": "Calculadora Mampostería – Piedra y Mortero",
+      "inputs": {
+        "largo": "Longitud muro",
+        "alto": "Altura muro",
+        "espesor": "Espesor muro"
+      },
+      "outputs": {
+        "vol_m3": "Volumen muro",
+        "piedra_kg": "Piedra (kg)",
+        "mortero_m3": "Mortero",
+        "cemento_sacos": "Sacos cemento"
+      },
+      "seo_description": "Calcula la cantidad de piedra natural y mortero para muros de mampostería Usado por profesionales y estudiantes en todo el mundo.",
+      "example_label": "Calcular materiales para un muro de mampostería de piedra de 5m × 2m con 40cm de espesor.",
+      "range_hints": {
+        "largo": "Longitud total del muro de piedra",
+        "alto": "Altura del muro",
+        "espesor": "Muros de piedra: 0.30-0.60m según altura y función"
+      },
+      "result_context": "Muro de {volumen} m³ requiere {piedra_m3} m³ de piedra, {mortero_kg} kg de mortero de agarre y {juntas_kg} kg de mortero para juntas.",
+      "formula_display": "Volumen = largo × alto × espesor; Piedra = volumen × 0.75; Mortero = volumen × 0.35",
+      "steps": [
+        "Calcular volumen del muro: 5m × 2m × 0.40m = 4m³",
+        "Calcular piedra: 4m³ × 0.75 = 3m³ de piedra aproximadamente",
+        "Calcular mortero: 4m³ × 350 kg/m³ = 1400 kg de mortero",
+        "Considerar 15-20% de mortero para relleno de juntas"
+      ],
+      "mistakes": [
+        "No seleccionar piedras de tamaño adecuado (deben trabar entre sí)",
+        "Usar exceso de mortero (la piedra debe apoyarse sobre piedra)",
+        "No colocar piedras de mayor tamaño en esquinas y bases"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "alto",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "espesor",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Stone Masonry Calculator",
+      "desc": "Stone Masonry Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Stone Masonry Calculator – Stone & Mortar",
+      "seo_desc": "Stone Masonry Calculator. Wall length, Wall height, Wall thickness — get Wall volume, Stone (kg), Mortar instantly for your masonry and enclosures.",
+      "inputs": {
+        "largo": "Wall length",
+        "alto": "Wall height",
+        "espesor": "Wall thickness"
+      },
+      "outputs": {
+        "vol_m3": "Wall volume",
+        "piedra_kg": "Stone (kg)",
+        "mortero_m3": "Mortar",
+        "cemento_sacos": "Cement bags"
+      },
+      "seo_description": "Calculate natural stone and mortar quantities for rubble masonry walls. Enter wall dimensions to get kg of stone, m³ of mortar and cement bags.",
+      "example_label": "Calcular materiales para un muro de mampostería de piedra de 5m × 2m con 40cm de espesor.",
+      "range_hints": {
+        "largo": "Longitud total del muro de piedra",
+        "alto": "Altura del muro",
+        "espesor": "Muros de piedra: 0.30-0.60m según altura y función"
+      },
+      "result_context": "Muro de {volumen} m³ requiere {piedra_m3} m³ de piedra, {mortero_kg} kg de mortero de agarre y {juntas_kg} kg de mortero para juntas.",
+      "formula_display": "Volumen = largo × alto × espesor; Piedra = volumen × 0.75; Mortero = volumen × 0.35",
+      "steps": [
+        "Calcular volumen del muro: 5m × 2m × 0.40m = 4m³",
+        "Calcular piedra: 4m³ × 0.75 = 3m³ de piedra aproximadamente",
+        "Calcular mortero: 4m³ × 350 kg/m³ = 1400 kg de mortero",
+        "Considerar 15-20% de mortero para relleno de juntas"
+      ],
+      "mistakes": [
+        "No seleccionar piedras de tamaño adecuado (deben trabar entre sí)",
+        "Usar exceso de mortero (la piedra debe apoyarse sobre piedra)",
+        "No colocar piedras de mayor tamaño en esquinas y bases"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "espesor",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Maçonnerie Pierre",
+      "desc": "Calculez pierre et mortier pour murs en maçonnerie.",
+      "seo_title": "Calculateur Maçonnerie Pierre – Étape par Étape",
+      "inputs": {
+        "largo": "Longueur mur",
+        "alto": "Hauteur mur",
+        "espesor": "Épaisseur mur"
+      },
+      "outputs": {
+        "vol_m3": "Volume mur",
+        "piedra_kg": "Pierre (kg)",
+        "mortero_m3": "Mortier",
+        "cemento_sacos": "Sacs ciment"
+      },
+      "seo_description": "Calculez la quantité de pierre naturelle et de mortier pour murs en maçonnerie Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calculer les matériaux pour un mur de mampostería de piedra de 5m × 2m avec 40cm d'épaisseur.",
+      "range_hints": {
+        "largo": "Longueur totale du mur de piedra",
+        "alto": "hauteur du mur",
+        "espesor": "murs de piedra: 0.30-0.60m selon hauteur et función"
+      },
+      "result_context": "mur de {volume} m³ nécessite {piedra_m3} m³ de piedra, {mortero_kg} kg de mortier de agarre et {juntas_kg} kg de mortier pour juntas.",
+      "formula_display": "volume = longueur × alto × épaisseur; Piedra = volume × 0.75; mortier = volume × 0.35",
+      "steps": [
+        "Calculer le volume du mur: 5m × 2m × 0.40m = 4m³",
+        "Calculer piedra: 4m³ × 0.75 = 3m³ de piedra aproximadamente",
+        "Calculer mortier: 4m³ × 350 kg/m³ = 1400 kg de mortier",
+        "Considerar 15-20% de mortier pour relleno de juntas"
+      ],
+      "mistakes": [
+        "No seleccionar piedras de tamaño adéquat (deben trabar entre sí)",
+        "Utiliser exceso de mortier (la piedra debe apoyarse sur piedra)",
+        "No colocar piedras de mayor tamaño dans esquinas et bases"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "espesor",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Alvenaria de Pedra",
+      "desc": "Calcule a quantidade de pedra natural e argamassa para muros de alvenaria Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora Alvenaria de Pedra",
+      "inputs": {
+        "largo": "Comprimento muro",
+        "alto": "Altura muro",
+        "espesor": "Espessura muro"
+      },
+      "outputs": {
+        "vol_m3": "Volume muro",
+        "piedra_kg": "Pedra (kg)",
+        "mortero_m3": "Argamassa",
+        "cemento_sacos": "Sacos cimento"
+      },
+      "seo_description": "Calcule a quantidade de pedra natural e argamassa para muros de alvenaria Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular materiais para um muro de mampostería de pedra de 5m × 2m com 40cm de espesor.",
+      "range_hints": {
+        "largo": "Longitud total do muro de pedra",
+        "alto": "Altura do muro",
+        "espesor": "Muros de pedra: 0.30-0.60m segundo altura e função"
+      },
+      "result_context": "Muro de {volume} m³ requer {piedra_m3} m³ de pedra, {mortero_kg} kg de argamassa de agarre e {juntas_kg} kg de argamassa para juntas.",
+      "formula_display": "Volumen = comprimento × alto × espessura; Piedra = volume × 0.75; Mortero = volume × 0.35",
+      "steps": [
+        "Calcular volume do muro: 5m × 2m × 0.40m = 4m³",
+        "Calcular pedra: 4m³ × 0.75 = 3m³ de pedra aproximadamente",
+        "Calcular argamassa: 4m³ × 350 kg/m³ = 1400 kg de argamassa",
+        "Considerar 15-20% de argamassa para aterro de juntas"
+      ],
+      "mistakes": [
+        "Não selecionar piedras de tamaño adequado (devem trabar entre sí)",
+        "Usar exceso de argamassa (a pedra deve apoyarse sobre pedra)",
+        "Não colocar piedras de mayor tamaño em esquinas e bases"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "espesor",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Naturstein Bruchstein",
+      "desc": "Berechnen Sie naturstein Bruchstein online. Geben Sie largo, alto, espesor ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Naturstein Bruchstein | CalcToWork",
+      "seo_desc": "Naturstein Bruchstein online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Naturstein Bruchstein online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "largo": "Largo",
+        "alto": "Alto",
+        "espesor": "Espesor"
+      },
+      "outputs": {
+        "vol_m3": "Vol M3",
+        "piedra_kg": "Piedra Kg",
+        "mortero_m3": "Mortero M3",
+        "cemento_sacos": "Cemento Sacos"
+      },
+      "example_label": "Ejemplo para mamposteria piedra: valores 6m, 2m, 0.4m",
+      "range_hints": {
+        "largo": "Medida típica según el proyecto",
+        "alto": "Altura estándar según uso",
+        "espesor": "Espesor según resistencia requerida"
+      },
+      "result_context": "Resultados: {vol_m3} m³ de volumen, {piedra_kg} kg de piedra, {mortero_m3} m³ de mortero, {cemento_sacos} sacos de cemento.",
+      "formula_display": "L × H × E → vol_m3, piedra_kg",
+      "steps": [
+        "Introducir los valores de largo, alto y espesor",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m, cm, mm)",
+        "Calcular los valores de vol m3 y piedra kg",
+        "El resultado se expresa en m³. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Introducir valores con unidades incorrectas sin verificar la conversión",
+        "Redondear resultados intermedios en lugar del resultado final",
+        "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "espesor",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Divisorio in Blocchi",
+      "description": "Calcola i blocchi per pareti divisorie interne.",
+      "seo_title": "Calcolatore Muratura in Pietra",
+      "seo_description": "Calcola i blocchi forati e la malta per divisori interni Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo rapido,.",
+      "inputs": {
+        "largo": "Lunghezza (m)",
+        "alto": "Altezza (m)"
+      },
+      "outputs": {
+        "bloques": "Blocchi forati",
+        "mortero_m3": "Malta (m³)",
+        "cemento_sacos": "Sacchi cemento"
+      },
+      "example_label": "Calcolare opacoriales per un muro di mampostería di pietra di 5m × 2m con 40cm di spessore.",
+      "range_hints": {
+        "largo": "Longitud totale dil muro di pietra",
+        "alto": "Altura dil muro",
+        "espesor": "Muros di pietra: 0.30-0.60m según altezza e función"
+      },
+      "result_context": "Muro di {volume} m³ richiedi {pietra_m3} m³ di pietra, {mortero_kg} kg di mortero di agarre e {guarnizioni_kg} kg di mortero per guarnizioni.",
+      "formula_display": "Volumin = lunghezza × alto × spessore; Piedra = volume × 0.75; Mortero = volume × 0.35",
+      "steps": [
+        "Calcolare volume dil muro: 5m × 2m × 0.40m = 4m³",
+        "Calcolare pietra: 4m³ × 0.75 = 3m³ di pietra approssemativaminte",
+        "Calcolare mortero: 4m³ × 350 kg/m³ = 1400 kg di mortero",
+        "Consedirare 15-20% di mortero per riempiminto di guarnizioni"
+      ],
+      "mistakes": [
+        "No seleccionar pietre di tamaño adiguato (dibin trabar intre sí)",
+        "Usare exceso di mortero (la pietra dibe apoearse su pietra)",
+        "No colocar pietre di maggiore tamaño in angoli e bases"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "espesor",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        }
+      ]
+    }
+  }
+}

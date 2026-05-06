@@ -1,0 +1,418 @@
+{
+  "id": "023",
+  "slug": "laminado-flotante",
+  "block": 3,
+  "block_slug": "pavimentos",
+  "inputs": [
+    {
+      "id": "area",
+      "type": "number",
+      "min": 1,
+      "max": 500,
+      "step": 0.5,
+      "default": 20,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "m2_por_caja",
+      "type": "number",
+      "min": 1,
+      "max": 5,
+      "step": 0.1,
+      "default": 2.5,
+      "unit": "m²/caja",
+      "unit_options": [
+        "m²/box"
+      ],
+      "unit_category": "area"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area)||0,mxc=parseFloat(inputs.m2_por_caja)||2.5;if(!A)return{error:true};var area_merma=+(A*1.08).toFixed(2),cajas=Math.ceil(area_merma/mxc),sotobanda=+(area_merma*1.05).toFixed(2),rodc=Math.ceil(area_merma/15);return{area_merma_m2:area_merma,cajas_ud:cajas,sotobanda_m2:sotobanda,rodapie_ml:+(Math.sqrt(A)*4).toFixed(1)};",
+  "outputs": [
+    {
+      "id": "area_merma_m2",
+      "unit": "m² (+8% merma)",
+      "highlight": true
+    },
+    {
+      "id": "cajas_ud",
+      "unit": "cajas"
+    },
+    {
+      "id": "sotobanda_m2",
+      "unit": "m²"
+    },
+    {
+      "id": "rodapie_ml",
+      "unit": "m.l. (aprox)"
+    }
+  ],
+  "related": [
+    "024",
+    "021",
+    "025",
+    "022"
+  ],
+  "example_inputs": {
+    "area": 20,
+    "m2_por_caja": 2.5
+  },
+  "example_label": "Ejemplo para laminado flotante: valores 20m², 2.5m²/caja",
+  "range_hints": {
+    "area": "Valor típico entre 1 y 500. Valor por defecto: 20 m².",
+    "m2_por_caja": "Valor típico entre 1 y 5. Valor por defecto: 2.5 m²/caja."
+  },
+  "result_context": "Resultados: {area_merma_m2} m² de superficie, {cajas_ud} cajas, {sotobanda_m2} m² de sotobanda, {rodapie_ml} m.l. de rodapié.",
+  "formula_display": "area_merma ÷ mxc → area_merma_m2, cajas_ud",
+  "steps": [
+    "Introducir los valores de area y m2_por_caja",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+    "Calcular los valores de area merma m2 y cajas ud",
+    "El resultado se expresa en m² (+8% merma). Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Introducir valores con unidades incorrectas sin verificar la conversión",
+    "Redondear resultados intermedios en lugar del resultado final",
+    "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "area",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "m2_por_caja",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small room",
+      "area": 10,
+      "m2_por_caja": 1.25
+    },
+    {
+      "_label": "Medium patio",
+      "area": 15,
+      "m2_por_caja": 1.875
+    },
+    {
+      "_label": "Large patio",
+      "area": 20,
+      "m2_por_caja": 2.5
+    },
+    {
+      "_label": "Driveway",
+      "area": 30,
+      "m2_por_caja": 3.75
+    },
+    {
+      "_label": "Parking lot",
+      "area": 40,
+      "m2_por_caja": 5
+    }
+  ],
+  "units": {
+    "area": "m²",
+    "m2_por_caja": "m²"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Suelo Laminado Flotante",
+      "desc": "Calcula cuántas cajas de suelo laminado flotante y metros de sotobanda y rodapié necesitas Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora Suelo Laminado – Cajas",
+      "seo_desc": "Calcula cuántas cajas de suelo laminado flotante y metros de sotobanda y rodapié necesitas Usado por profesionales y estudiantes en todo el mundo.",
+      "inputs": {
+        "area": "Área a cubrir",
+        "m2_por_caja": "m² por caja"
+      },
+      "outputs": {
+        "area_merma_m2": "Área con merma (+8%)",
+        "cajas_ud": "Cajas",
+        "sotobanda_m2": "Sotobanda / Underlay",
+        "rodapie_ml": "Rodapié estimado"
+      },
+      "seo_description": "Calcula las cajas de suelo laminado, espuma aislante y rodapié necesarios. Incluye merma del 8% para juntas machihembradas y es compatible con cualquier formato de caja.",
+      "example_label": "Calcular cajas de piso laminado flotante para 35m² (cajas de 2.1m²).",
+      "range_hints": {
+        "area": "Superficie del piso a cubrir",
+        "m2_por_caja": "Laminado estándar: 1.5-2.5m²/caja según dimensiones de tabla"
+      },
+      "result_context": "Para {area} m² se necesitan {cajas_ud} cajas de piso laminado ({m2_total} m²). Incluye {subpisaje_m2} m² de subpisaje y {zocalos_ud} metros lineales de zócalos.",
+      "formula_display": "Cajas = área ÷ m2_por_caja; Zócalos = perímetro - ancho_puerta",
+      "steps": [
+        "Calcular cajas: 35m² ÷ 2.1m²/caja = 16.67 → 17 cajas",
+        "Aplicar merma 5%: 17 × 1.05 = 17.85 → 18 cajas",
+        "Calcular subpisaje: 35m² × 1.05 = 36.75m² de subpisaje",
+        "Estimar zócalos: perímetro de habitación menos 1m de puerta"
+      ],
+      "mistakes": [
+        "No dejar junta de dilatación perimetral (10-15mm)",
+        "No instalar barrera de vapor sobre contrapisos húmedos",
+        "No aclimatar el material 48h en el ambiente antes de instalar"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "m2_por_caja",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Laminate Flooring Calculator",
+      "desc": "Calculate boxes of laminate, underlay and skirting.",
+      "seo_title": "Laminate Flooring Calculator – Boxes",
+      "seo_desc": "Laminate Flooring Calculator. Area to cover, m² per box — get Area with waste (+8%), Boxes, Underlay instantly for your flooring and tiling project.",
+      "inputs": {
+        "area": "Area to cover",
+        "m2_por_caja": "m² per box"
+      },
+      "outputs": {
+        "area_merma_m2": "Area with waste (+8%)",
+        "cajas_ud": "Boxes",
+        "sotobanda_m2": "Underlay",
+        "rodapie_ml": "Skirting board (est.)"
+      },
+      "seo_description": "Calculate laminate flooring boxes, underlay and skirting boards needed. Includes 8% waste for tongue-and-groove joints and supports any box format.",
+      "example_label": "Calcular cajas de piso laminado flotante para 35m² (cajas de 2.1m²).",
+      "range_hints": {
+        "area": "Superficie del piso a cubrir",
+        "m2_por_caja": "Laminado estándar: 1.5-2.5m²/caja según dimensiones de tabla"
+      },
+      "result_context": "Para {area} m² se necesitan {cajas_ud} cajas de piso laminado ({m2_total} m²). Incluye {subpisaje_m2} m² de subpisaje y {zocalos_ud} metros lineales de zócalos.",
+      "formula_display": "Cajas = área ÷ m2_por_caja; Zócalos = perímetro - ancho_puerta",
+      "steps": [
+        "Calcular cajas: 35m² ÷ 2.1m²/caja = 16.67 â†’ 17 cajas",
+        "Aplicar merma 5%: 17 × 1.05 = 17.85 â†’ 18 cajas",
+        "Calcular subpisaje: 35m² × 1.05 = 36.75m² de subpisaje",
+        "Estimar zócalos: perímetro de habitación menos 1m de puerta"
+      ],
+      "mistakes": [
+        "No dejar junta de dilatación perimetral (10-15mm)",
+        "No instalar barrera de vapor sobre contrapisos húmedos",
+        "No aclimatar el material 48h en el ambiente antes de instalar"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "m2_por_caja",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Parquet Stratifié Flottant",
+      "desc": "Calculez boîtes de stratifié, sous-couche et plinthes.",
+      "seo_title": "Calculateur Parquet Laminé – Boîtes",
+      "inputs": {
+        "area": "Surface à couvrir",
+        "m2_por_caja": "m² par boîte"
+      },
+      "outputs": {
+        "area_merma_m2": "Surface avec chute (+8%)",
+        "cajas_ud": "Boîtes",
+        "sotobanda_m2": "Sous-couche",
+        "rodapie_ml": "Plinthes (estimées)"
+      },
+      "seo_description": "Calculez le nombre de boîtes de sol stratifié flottant et mètres de sous-couche et plinthes Utilise par des professionnels et etudiants dans le monde.",
+      "example_label": "Calculer cajas de sol laminado flotante pour 35m² (cajas de 2.1m²).",
+      "range_hints": {
+        "area": "surface du sol a cubrir",
+        "m2_por_caja": "Laminado standard: 1.5-2.5m²/caja selon dimensiones de tabla"
+      },
+      "result_context": "pour {area} m² se necesitan {cajas_ud} cajas de sol laminado ({m2_total} m²). Incluye {subpisaje_m2} m² de subpisaje et {zocalos_ud} metros lineales de zócalos.",
+      "formula_display": "Cajas = área Á· m2_por_caja; Zócalos = périmètre - ancho_puerta",
+      "steps": [
+        "Calculer cajas: 35m² Á· 2.1m²/caja = 16.67 ââ€ ’ 17 cajas",
+        "Aplicar merma 5%: 17 × 1.05 = 17.85 â†’ 18 cajas",
+        "Calculer subpisaje: 35m² × 1.05 = 36.75m² de subpisaje",
+        "Estimar zócalos: périmètre de habitación moins 1m de porte"
+      ],
+      "mistakes": [
+        "No dejar junta de dilatación perimetral (10-15mm)",
+        "No instalar barrera de vapor sur contrapisos húmedos",
+        "No aclimatar le material 48h dans le ambiente antes de instalar"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "m2_por_caja",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Piso Laminado Flutuante",
+      "desc": "Calcule quantas caixas de piso laminado flutuante e metros de manta e rodapé você precisa Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora Piso Laminado – Caixas",
+      "inputs": {
+        "area": "Área a cobrir",
+        "m2_por_caja": "m² por caixa"
+      },
+      "outputs": {
+        "area_merma_m2": "Área com perda (+8%)",
+        "cajas_ud": "Caixas",
+        "sotobanda_m2": "Manta / Underlayment",
+        "rodapie_ml": "Rodapé (estimado)"
+      },
+      "seo_description": "Calcule quantas caixas de piso laminado flutuante e metros de manta e rodapé você precisa Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular cajas de piso laminado flotante para 35m² (cajas de 2.1m²).",
+      "range_hints": {
+        "area": "Superficie do piso a cubrir",
+        "m2_por_caja": "Laminado padrão: 1.5-2.5m²/caja segundo dimensões de tabla"
+      },
+      "result_context": "Para {area} m² são necessários {cajas_ud} cajas de piso laminado ({m2_total} m²). Incluye {subpisaje_m2} m² de subpisaje e {zocalos_ud} metros lineales de zócalos.",
+      "formula_display": "Cajas = área ÷ m2_por_caja; Zócalos = perímetro - ancho_puerta",
+      "steps": [
+        "Calcular cajas: 35m² ÷ 2.1m²/caja = 16.67 â†’ 17 cajas",
+        "Aplicar merma 5%: 17 × 1.05 = 17.85 â†’ 18 cajas",
+        "Calcular subpisaje: 35m² × 1.05 = 36.75m² de subpisaje",
+        "Estimar zócalos: perímetro de habitación menos 1m de porta"
+      ],
+      "mistakes": [
+        "Não dejar junta de dilatação perimetral (10-15mm)",
+        "Não instalar barrera de vapor sobre contrapisos húmedos",
+        "Não aclimatar o material 48h não ambiente antes de instalar"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "m2_por_caja",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Laminat schwimmend",
+      "desc": "Berechnen Sie laminat schwimmend online. Geben Sie area, m2 por caja ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Laminat schwimmend | CalcToWork",
+      "seo_desc": "Laminat schwimmend online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Laminat schwimmend online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "area": "Area",
+        "m2_por_caja": "M2 Por Caja"
+      },
+      "outputs": {
+        "area_merma_m2": "Area Merma M2",
+        "cajas_ud": "Cajas Ud",
+        "sotobanda_m2": "Sotobanda M2",
+        "rodapie_ml": "Rodapie Ml"
+      },
+      "example_label": "Ejemplo para laminado flotante: valores 20m², 2.5m²/caja",
+      "range_hints": {
+        "area": "Valor típico entre 1 y 500. Valor por defecto: 20 m².",
+        "m2_por_caja": "Valor típico entre 1 y 5. Valor por defecto: 2.5 m²/caja."
+      },
+      "result_context": "Resultados: {area_merma_m2} m² de superficie, {cajas_ud} cajas, {sotobanda_m2} m² de sotobanda, {rodapie_ml} m.l. de rodapié.",
+      "formula_display": "area_merma ÷ mxc → area_merma_m2, cajas_ud",
+      "steps": [
+        "Introducir los valores de area y m2_por_caja",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+        "Calcular los valores de area merma m2 y cajas ud",
+        "El resultado se expresa en m² (+8% merma). Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Introducir valores con unidades incorrectas sin verificar la conversión",
+        "Redondear resultados intermedios en lugar del resultado final",
+        "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "m2_por_caja",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Massetto Galleggiante",
+      "description": "Calcola i materiali per massetti galleggianti su isolante.",
+      "seo_title": "Calcolatore Pavimento Laminato",
+      "seo_description": "Stima i materiali per massetti galleggianti su pannelli isolanti Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo.",
+      "inputs": {
+        "area": "Superficie (m²)",
+        "espesor": "Spessore massetto (cm)"
+      },
+      "outputs": {
+        "cemento_sacos": "Sacchi cemento",
+        "arena_m3": "Sabbia (m³)",
+        "aislante_m2": "Isolante (m²)"
+      },
+      "example_label": "Calcolare cajas di paviminto laminatoto flocosìte per 35m² (cajas di 2.1m²).",
+      "range_hints": {
+        "area": "Superficie dil paviminto a cubrir",
+        "m2_por_caja": "Laminado estándar: 1.5-2.5m²/caja según diminseones di tavola"
+      },
+      "result_context": "Per {area} m² sonon necessari {cajas_ud} cajas di paviminto laminatoto ({m2_totale} m²). Incluee {subpisaje_m2} m² di subpisaje e {zocai_ud} metros lineales di zócai.",
+      "formula_display": "Cajas = área ÷ m2_per_caja; Zócai = perímetro - larghezza_perta",
+      "steps": [
+        "Calcolare cajas: 35m² ÷ 2.1m²/caja = 16.67 → 17 cajas",
+        "Applicare merma 5%: 17 × 1.05 = 17.85 → 18 cajas",
+        "Calcolare subpisaje: 35m² × 1.05 = 36.75m² di subpisaje",
+        "Stimare zócai: perímetro di habitación minon 1m di perta"
+      ],
+      "mistakes": [
+        "No dijar junta di dilatación perimetral (10-15mm)",
+        "No installare barrera di vaper su massettos húmedos",
+        "No aclimatar el opacorial 48h in el ambiinte prima di installare"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "m2_por_caja",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        }
+      ]
+    }
+  }
+}

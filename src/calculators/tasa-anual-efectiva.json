@@ -1,0 +1,458 @@
+{
+  "id": "321",
+  "slug": "tasa-anual-efectiva",
+  "block": 3,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "nominal",
+      "type": "number",
+      "step": "any",
+      "default": 12,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "percentage"
+    },
+    {
+      "id": "n",
+      "type": "number",
+      "step": 1,
+      "default": 12,
+      "unit": "",
+      "unit_options": [],
+      "unit_category": ""
+    }
+  ],
+  "formula": "var r=parseFloat(inputs.nominal)||0;var n=parseFloat(inputs.n)||1;var apr=(Math.pow(1+r/(100*n),n)-1)*100;return{apr:apr.toFixed(4)};",
+  "outputs": [
+    {
+      "id": "apr",
+      "unit": "%"
+    }
+  ],
+  "related": [
+    "300",
+    "320",
+    "327",
+    "328"
+  ],
+  "example_inputs": {
+    "nominal": 9,
+    "n": 12
+  },
+  "example_label": "Calcular IVA de 9 % × 12.",
+  "range_hints": {
+    "nominal": "Valor típico entre 0 y 500. Valor por defecto: 12 %.",
+    "n": "Valor típico entre 0 y 500. Valor por defecto: 12."
+  },
+  "result_context": "Resultados: {apr} % de tasa anual equivalente.",
+  "formula_display": "IVA = base × tasa%",
+  "steps": [
+    "Introducir los valores de nominal y n",
+    "Verificar que las unidades sean correctas y convertir si es necesario (%)",
+    "Aplicar la fórmula: IVA = base × tasa%",
+    "El resultado se expresa en %. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para tomar decisiones informadas sobre tu planificación financiera"
+  ],
+  "mistakes": [
+    "No comparar la TAE entre distintas ofertas antes de contratar",
+    "Confundir interés simple con interés compuesto en inversiones a largo plazo",
+    "Olvidar incluir comisiones y gastos en el cálculo del coste total"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "nominal",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "n",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "nominal": 4,
+      "n": 6
+    },
+    {
+      "_label": "Average",
+      "nominal": 7,
+      "n": 9
+    },
+    {
+      "_label": "High",
+      "nominal": 9,
+      "n": 12
+    },
+    {
+      "_label": "Premium",
+      "nominal": 14,
+      "n": 18
+    },
+    {
+      "_label": "Enterprise",
+      "nominal": 18,
+      "n": 24
+    }
+  ],
+  "units": {
+    "nominal": "%"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de TAE (APR)",
+      "description": "Convierte una tasa nominal en la tasa anual equivalente.",
+      "inputs": {
+        "nominal": "Tasa nominal %",
+        "n": "Periodos por año"
+      },
+      "outputs": {
+        "apr": "TAE %"
+      },
+      "seo_title": "Calculadora de TAE (APR) Gratuita",
+      "seo_description": "Convierte una tasa nominal en la tasa anual equivalente. Calculadora gratuita, precisa e instantánea. Herramienta gratuita con formula y ejemplos.",
+      "example_label": "Converting 9% nominal annual rate compounded monthly to effective annual rate (EAR/APR).",
+      "range_hints": {
+        "nominal": "1-30% nominal annual rates",
+        "n": "1-365 compounding periods per year"
+      },
+      "result_context": "The apr of {apr}% is the effective annual rate, showing true cost including compounding effects.",
+      "formula_display": "EAR = (1 + r/n)^n - 1",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert nominal rate to decimal",
+          "calculation": "9% ÷ 100 = 0.09"
+        },
+        {
+          "step": 2,
+          "description": "Calculate periodic rate",
+          "calculation": "0.09 ÷ 12 = 0.0075 per month"
+        },
+        {
+          "step": 3,
+          "description": "Apply EAR formula",
+          "calculation": "(1 + 0.0075)^12 - 1 = 0.0938"
+        },
+        {
+          "step": 4,
+          "description": "Convert to percentage",
+          "calculation": "0.0938 × 100 = 9.38%"
+        }
+      ],
+      "mistakes": [
+        "Comparing loans using nominal rates instead of effective rates",
+        "Not considering fees that increase true borrowing cost",
+        "Confusing APR with APY (APY includes compounding)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "nominal",
+          "reason": "Correct type for nominal rate"
+        },
+        {
+          "field_id": "n",
+          "reason": "Correct type for compounding frequency"
+        }
+      ]
+    },
+    "en": {
+      "name": "APR Calculator",
+      "description": "Convert a nominal interest rate into the effective annual percentage rate.",
+      "inputs": {
+        "nominal": "Nominal rate %",
+        "n": "Periods per year"
+      },
+      "outputs": {
+        "apr": "APR %"
+      },
+      "seo_title": "APR Calculator – Real Interest Rate",
+      "seo_description": "Convert a nominal interest rate into the effective annual percentage rate. Free, accurate and instant calculator. Free online tool.",
+      "example_label": "Converting 9% nominal annual rate compounded monthly to effective annual rate (EAR/APR).",
+      "range_hints": {
+        "nominal": "1-30% nominal annual rates",
+        "n": "1-365 compounding periods per year"
+      },
+      "result_context": "The apr of {apr}% is the effective annual rate, showing true cost including compounding effects.",
+      "formula_display": "EAR = (1 + r/n)^n - 1",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert nominal rate to decimal",
+          "calculation": "9% ÷ 100 = 0.09"
+        },
+        {
+          "step": 2,
+          "description": "Calculate periodic rate",
+          "calculation": "0.09 ÷ 12 = 0.0075 per month"
+        },
+        {
+          "step": 3,
+          "description": "Apply EAR formula",
+          "calculation": "(1 + 0.0075)^12 - 1 = 0.0938"
+        },
+        {
+          "step": 4,
+          "description": "Convert to percentage",
+          "calculation": "0.0938 × 100 = 9.38%"
+        }
+      ],
+      "mistakes": [
+        "Comparing loans using nominal rates instead of effective rates",
+        "Not considering fees that increase true borrowing cost",
+        "Confusing APR with APY (APY includes compounding)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "nominal",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for nominal rate"
+        },
+        {
+          "field_id": "n",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for compounding frequency"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur TAEG",
+      "description": "Convertissez un taux nominal en taux annuel effectif global.",
+      "inputs": {
+        "nominal": "Taux nominal %",
+        "n": "Périodes par an"
+      },
+      "outputs": {
+        "apr": "TAEG %"
+      },
+      "seo_title": "Calculateur TAEG – Rapide et Précis",
+      "seo_description": "Convertissez un taux nominal en taux annuel effectif global. Calculateur gratuit, précis et instantané Utilise par des professionnels et etudiants dans.",
+      "example_label": "Converting 9% nominal annual rate compounded monthly to effective annual rate (EAR/APR).",
+      "range_hints": {
+        "nominal": "1-30% nominal annual rates",
+        "n": "1-365 compounding periods per year"
+      },
+      "result_context": "The apr of {apr}% is the effective annual rate, showing true cost including compounding effects.",
+      "formula_display": "EAR = (1 + r/n)^n - 1",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert nominal rate to decimal",
+          "calculation": "9% Á· 100 = 0.09"
+        },
+        {
+          "step": 2,
+          "description": "Calculate periodic rate",
+          "calculation": "0.09 Á· 12 = 0.0075 per month"
+        },
+        {
+          "step": 3,
+          "description": "Apply EAR formula",
+          "calculation": "(1 + 0.0075)^12 - 1 = 0.0938"
+        },
+        {
+          "step": 4,
+          "description": "Convert to percentage",
+          "calculation": "0.0938 × 100 = 9.38%"
+        }
+      ],
+      "mistakes": [
+        "Comparing loans using nominal rates instead of effective rates",
+        "Not considering fees that increase true borrowing cost",
+        "Confusing APR with APY (APY includes compounding)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "nominal",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for nominal rate"
+        },
+        {
+          "field_id": "n",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for compounding frequency"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora TAE",
+      "description": "Converta uma taxa nominal na taxa anual efetiva.",
+      "inputs": {
+        "nominal": "Taxa nominal %",
+        "n": "Períodos por ano"
+      },
+      "outputs": {
+        "apr": "TAE %"
+      },
+      "seo_title": "Calculadora TAE – Rápido e Preciso",
+      "seo_description": "Converta uma taxa nominal na taxa anual efetiva. Calculadora gratuita, precisa e instantânea Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Converting 9% nominal annual rate compounded monthly to effective annual rate (EAR/APR).",
+      "range_hints": {
+        "nominal": "1-30% nominal annual rates",
+        "n": "1-365 compounding periods per year"
+      },
+      "result_context": "The apr of {apr}% is the effective annual rate, showing true cost including compounding effects.",
+      "formula_display": "EAR = (1 + r/n)^n - 1",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert nominal rate to decimal",
+          "calculation": "9% ÷ 100 = 0.09"
+        },
+        {
+          "step": 2,
+          "description": "Calculate periodic rate",
+          "calculation": "0.09 ÷ 12 = 0.0075 per month"
+        },
+        {
+          "step": 3,
+          "description": "Apply EAR formula",
+          "calculation": "(1 + 0.0075)^12 - 1 = 0.0938"
+        },
+        {
+          "step": 4,
+          "description": "Convert to percentage",
+          "calculation": "0.0938 × 100 = 9.38%"
+        }
+      ],
+      "mistakes": [
+        "Comparing loans using nominal rates instead of effective rates",
+        "Not considering fees that increase true borrowing cost",
+        "Confusing APR with APY (APY includes compounding)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "nominal",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for nominal rate"
+        },
+        {
+          "field_id": "n",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for compounding frequency"
+        }
+      ]
+    },
+    "de": {
+      "name": "Tasa anual efectiva",
+      "desc": "Berechnen Sie tasa anual efectiva online. Geben Sie nominal, n ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Tasa anual efectiva | CalcToWork",
+      "seo_desc": "Tasa anual efectiva online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Tasa anual efectiva online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "nominal": "Nominal",
+        "n": "N"
+      },
+      "outputs": {
+        "apr": "Apr"
+      },
+      "example_label": "Calcular IVA de 9 % × 12.",
+      "range_hints": {
+        "nominal": "Valor típico entre 0 y 500. Valor por defecto: 12 %.",
+        "n": "Valor típico entre 0 y 500. Valor por defecto: 12."
+      },
+      "result_context": "Resultados: {apr} % de tasa anual equivalente.",
+      "formula_display": "IVA = base × tasa%",
+      "steps": [
+        "Introducir los valores de nominal y n",
+        "Verificar que las unidades sean correctas y convertir si es necesario (%)",
+        "Aplicar la fórmula: IVA = base × tasa%",
+        "El resultado se expresa en %. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para tomar decisiones informadas sobre tu planificación financiera"
+      ],
+      "mistakes": [
+        "No comparar la TAE entre distintas ofertas antes de contratar",
+        "Confundir interés simple con interés compuesto en inversiones a largo plazo",
+        "Olvidar incluir comisiones y gastos en el cálculo del coste total"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "nominal",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "n",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore TAEG",
+      "description": "Converti un tasso nominale nel tasso annuo effettivo globale.",
+      "inputs": {
+        "nominal": "Tasso nominale %",
+        "n": "Periodi per anno"
+      },
+      "outputs": {
+        "apr": "TAEG %"
+      },
+      "seo_title": "Calcolatore TAEG – Veloce e Preciso",
+      "seo_description": "Converti un tasso nominale nel tasso annuo effettivo globale. Calcolatore gratuito, preciso e istantaneo Usato da professionisti e studenti in tutto il.",
+      "example_label": "Converting 9% nonminal annual rate compoundid monthle to effective annual rate (EAR/APR).",
+      "range_hints": {
+        "nominal": "1-30% nonminal annual rates",
+        "n": "1-365 compounding periods per eear"
+      },
+      "result_context": "The apr of {apr}% is the effective annual rate, showing true cost including compounding effects.",
+      "formula_display": "EAR = (1 + r/n)^n - 1",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert nominal rate to decimal",
+          "calculation": "9% ÷ 100 = 0.09"
+        },
+        {
+          "step": 2,
+          "description": "Calculate periodic rate",
+          "calculation": "0.09 ÷ 12 = 0.0075 per month"
+        },
+        {
+          "step": 3,
+          "description": "Apply EAR formula",
+          "calculation": "(1 + 0.0075)^12 - 1 = 0.0938"
+        },
+        {
+          "step": 4,
+          "description": "Convert to percentage",
+          "calculation": "0.0938 × 100 = 9.38%"
+        }
+      ],
+      "mistakes": [
+        "Comparing loans usenzag nonminal rates instead of effective rates",
+        "Not consediring fees that increase true borrowing cost",
+        "Confusenzag APR with APY (APY includis compounding)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "nominal",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for nonminal rate"
+        },
+        {
+          "field_id": "n",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for compounding frequince"
+        }
+      ]
+    }
+  }
+}

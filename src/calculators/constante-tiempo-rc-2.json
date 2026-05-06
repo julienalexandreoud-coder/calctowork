@@ -1,0 +1,324 @@
+{
+  "id": "1016",
+  "slug": "constante-tiempo-rc-2",
+  "block": 3,
+  "block_slug": "electronica",
+  "inputs": [
+    {
+      "id": "r",
+      "type": "number",
+      "step": "any",
+      "default": 1000,
+      "unit": "Ω",
+      "unit_options": [
+        "Ω",
+        "kΩ",
+        "MΩ"
+      ],
+      "unit_category": "resistance"
+    },
+    {
+      "id": "c",
+      "type": "number",
+      "step": "any",
+      "default": 1,
+      "unit": "µF",
+      "unit_options": [
+        "µF",
+        "nF",
+        "F"
+      ],
+      "unit_category": "capacitance"
+    }
+  ],
+  "formula": "var r=parseFloat(inputs.r)||0;var c=parseFloat(inputs.c)||0;var tau=r*c*1e-6;var cutoff=1/(2*Math.PI*tau);return{tau:tau.toFixed(6),cutoff:cutoff.toFixed(4)};",
+  "outputs": [
+    {
+      "id": "tau",
+      "unit": "s"
+    },
+    {
+      "id": "cutoff",
+      "unit": "Hz"
+    }
+  ],
+  "related": [
+    "1013",
+    "1017",
+    "1010",
+    "1011"
+  ],
+  "example_inputs": {
+    "r": 1000,
+    "c": 1
+  },
+  "example_label": "Ejemplo para constante tiempo rc 2: valores 1000Ω, 1µF",
+  "range_hints": {
+    "r": "Valor típico entre 0 y 500. Valor por defecto: 1000 Ω.",
+    "c": "Valor típico entre 0 y 500. Valor por defecto: 1 µF."
+  },
+  "result_context": "La constante de tiempo RC es {tau} s y la frecuencia de corte es {cutoff} Hz.",
+  "result_context_en": "The RC time constant is {tau} s and the cutoff frequency is {cutoff} Hz.",
+  "result_context_fr": "La constante de temps RC est de {tau} s et la fréquence de coupure est de {cutoff} Hz.",
+  "result_context_pt": "A constante de tempo RC é {tau} s e a frequência de corte é {cutoff} Hz.",
+  "result_context_de": "Die RC-Zeitkonstante beträgt {tau} s und die Grenzfrequenz beträgt {cutoff} Hz.",
+  "result_context_it": "La costante di tempo RC è {tau} s e la frequenza di taglio è {cutoff} Hz.",
+  "formula_display": "r × c × 1e → tau, cutoff",
+  "steps": [
+    "Introducir los valores de r y c",
+    "Verificar que las unidades sean correctas y convertir si es necesario (Ω, kΩ, MΩ)",
+    "Calcular los valores de tau y cutoff",
+    "El resultado se expresa en s. Verificar que la magnitud es coherente",
+    "Documentar el resultado con sus unidades para usarlo en cálculos de ingeniería posteriores"
+  ],
+  "mistakes": [
+    "Confundir resistencia en serie (suma) con resistencia en paralelo (inversa de sumas de inversas)",
+    "No verificar la potencia máxima que puede disipar un componente",
+    "Usar el código de colores de 4 bandas para resistencias de 5 bandas"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "r",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "c",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small circuit",
+      "r": 500,
+      "c": 0
+    },
+    {
+      "_label": "Medium circuit",
+      "r": 750,
+      "c": 1
+    },
+    {
+      "_label": "Large circuit",
+      "r": 1000,
+      "c": 1
+    },
+    {
+      "_label": "Board",
+      "r": 1500,
+      "c": 2
+    },
+    {
+      "_label": "System",
+      "r": 2000,
+      "c": 2
+    }
+  ],
+  "units": {
+    "r": "ohm",
+    "c": "F"
+  },
+  "i18n": {
+    "es": {
+      "name": "Constante de Tiempo RC",
+      "description": "Calcula la constante de tiempo RC (τ = R × C) con frecuencia de corte. Encuentra el tiempo de carga y descarga de un circuito RC.",
+      "inputs": {
+        "r": "Resistencia",
+        "c": "Capacitancia"
+      },
+      "outputs": {
+        "tau": "Tau",
+        "cutoff": "Frec corte"
+      },
+      "seo_title": "Constante de Tiempo RC ââ‚¬“ Ïâ€ž = R×C Gratuita",
+      "seo_description": "Calcula la constante de tiempo de un circuito RC. Fórmula: Ïâ€ž = R × C. Ejemplo: R=10kΩ, C=100µF ââ€ ’ Ïâ€ž=1 s. Calculadora gratuita e instantánea.",
+      "example_label": "Ejemplo de circuito electrónico",
+      "range_hints": {},
+      "result_context": "Ïâ€ž = RC. Tiempo para cargar al 63.2% del voltaje final.",
+      "formula_display": "Ïâ€ž = R × C",
+      "steps": [
+        "Identificar los valores de entrada",
+        "Aplicar la fórmula correspondiente",
+        "Realizar el cálculo",
+        "Obtener los 2 resultados"
+      ],
+      "mistakes": [
+        "No convertir µF a F",
+        "Confundir Ïâ€ž con tiempo de carga total",
+        "No usar 5Ïâ€ž para carga completa"
+      ],
+      "input_type_review": []
+    },
+    "en": {
+      "name": "RC Time Constant Calculator",
+      "description": "Calculate the RC time constant (τ = R × C) with cutoff frequency. Find the charge and discharge time for RC circuits.",
+      "inputs": {
+        "r": "Resistance",
+        "c": "Capacitance"
+      },
+      "outputs": {
+        "tau": "Tau",
+        "cutoff": "Cutoff freq"
+      },
+      "seo_title": "RC Time Constant Calculator – Ï„ = R×C",
+      "seo_description": "Calculate the time constant of an RC circuit. Formula: Ï„ = R × C. Example: R=10kΩ, C=100ÂµF â†’ Ï„=1 s. Free and instant calculator.",
+      "example_label": "Ejemplo de circuito electrónico",
+      "range_hints": {},
+      "result_context": "Ï„ = RC. Tiempo para cargar al 63.2% del voltaje final.",
+      "formula_display": "Ï„ = R × C",
+      "steps": [
+        "Identificar los valores de entrada",
+        "Aplicar la fórmula correspondiente",
+        "Realizar el cálculo",
+        "Obtener los 2 resultados"
+      ],
+      "mistakes": [
+        "No convertir ÂµF a F",
+        "Confundir Ï„ con tiempo de carga total",
+        "No usar 5Ï„ para carga completa"
+      ],
+      "input_type_review": "2 entrada(s) de tipo number"
+    },
+    "fr": {
+      "name": "Constante de Temps RC",
+      "description": "Calculez la constante de temps RC (τ = R × C) avec la fréquence de coupure. Trouvez le temps de charge et décharge d'un circuit RC.",
+      "inputs": {
+        "r": "Résistance",
+        "c": "Capacité"
+      },
+      "outputs": {
+        "tau": "Tau",
+        "cutoff": "Fréq coupure"
+      },
+      "seo_title": "Constante de Temps RC",
+      "seo_description": "Calculez la constante de temps d'un circuit RC. Formule: Ïâ€ž = R × C. Exemple: R=10kΩ, C=100µF ââ€ ’ Ïâ€ž=1 s. Calculateur gratuit et instantané.",
+      "example_label": "Ejemplo de circuito electrónico",
+      "range_hints": {},
+      "result_context": "Ïâ€ž = RC. Tiempo pour cargar al 63.2% du voltaje final.",
+      "formula_display": "Ïâ€ž = R × C",
+      "steps": [
+        "Identificar les valores de entrada",
+        "Aplicar la fórmula correspondiente",
+        "Realizar le cálculo",
+        "Obtener les 2 resultados"
+      ],
+      "mistakes": [
+        "No convertir µF a F",
+        "Confondre Ïâ€ž avec tiempo de carga total",
+        "No Utiliser 5Ïâ€ž pour carga completa"
+      ],
+      "input_type_review": []
+    },
+    "pt": {
+      "name": "Constante de Tempo RC",
+      "description": "Calcule a constante de tempo RC (τ = R × C) com frequência de corte. Encontre o tempo de carga e descarga de um circuito RC.",
+      "inputs": {
+        "r": "Resistência",
+        "c": "Capacitância"
+      },
+      "outputs": {
+        "tau": "Tau",
+        "cutoff": "Freq corte"
+      },
+      "seo_title": "Constante de Tempo RC ââ‚¬“ Ïâ€ž = R×C",
+      "seo_description": "Calcule a constante de tempo de um circuito RC. Fórmula: Ïâ€ž = R × C. Exemplo: R=10kΩ, C=100µF ââ€ ’ Ïâ€ž=1 s. Calculadora gratuita e instantânea.",
+      "example_label": "Ejemplo de circuito electrónico",
+      "range_hints": {},
+      "result_context": "Ïâ€ž = RC. Tiempo para cargar ao 63.2% do voltaje final.",
+      "formula_display": "Ïâ€ž = R × C",
+      "steps": [
+        "Identificar os valores de entrada",
+        "Aplicar a fórmula correspondiente",
+        "Realizar o cálculo",
+        "Obtener os 2 resultados"
+      ],
+      "mistakes": [
+        "Não convertir µF a F",
+        "Confundir Ïâ€ž com tiempo de carga total",
+        "Não usar 5Ïâ€ž para carga completa"
+      ],
+      "input_type_review": []
+    },
+    "de": {
+      "name": "Constante tiempo rc 2",
+      "desc": "Berechnen Sie constante tiempo rc 2 online. Geben Sie r, c ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Constante tiempo rc 2 | CalcToWork",
+      "seo_desc": "Constante tiempo rc 2 online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Constante tiempo rc 2 online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "r": "R",
+        "c": "C"
+      },
+      "outputs": {
+        "tau": "Tau",
+        "cutoff": "Cutoff"
+      },
+      "example_label": "Ejemplo para constante tiempo rc 2: valores 1000Ω, 1µF",
+      "range_hints": {
+        "r": "Valor típico entre 0 y 500. Valor por defecto: 1000 Ω.",
+        "c": "Valor típico entre 0 y 500. Valor por defecto: 1 µF."
+      },
+      "result_context": "Die RC-Zeitkonstante beträgt {tau} s und die Grenzfrequenz beträgt {cutoff} Hz.",
+      "formula_display": "r × c × 1e → tau, cutoff",
+      "steps": [
+        "Introducir los valores de r y c",
+        "Verificar que las unidades sean correctas y convertir si es necesario (Ω, kΩ, MΩ)",
+        "Calcular los valores de tau y cutoff",
+        "El resultado se expresa en s. Verificar que la magnitud es coherente",
+        "Documentar el resultado con sus unidades para usarlo en cálculos de ingeniería posteriores"
+      ],
+      "mistakes": [
+        "Confundir resistencia en serie (suma) con resistencia en paralelo (inversa de sumas de inversas)",
+        "No verificar la potencia máxima que puede disipar un componente",
+        "Usar el código de colores de 4 bandas para resistencias de 5 bandas"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "r",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "c",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Costante di Tempo RC",
+      "description": "Calcola la costante di tempo RC (τ = R × C) con frequenza di taglio. Trova il tempo di carica e scarica di un circuito RC.",
+      "inputs": {
+        "r": "Resistenza",
+        "c": "Capacità"
+      },
+      "outputs": {
+        "tau": "Tau",
+        "cutoff": "Freq taglio"
+      },
+      "seo_title": "Costante di Tempo RC ââ‚¬“ Ïâ€ž = R×C",
+      "seo_description": "Calcola la costante di tempo di un circuito RC. Formula: Ïâ€ž = R × C. Esempio: R=10kΩ, C=100µF ââ€ ’ Ïâ€ž=1 s. Calcolatore gratuito e immediato.",
+      "example_label": "Ejemplo di circuito electrónico",
+      "range_hints": {},
+      "result_context": "Ïâ€ž = RC. Tiempo per caricor al 63.2% dil voltaje finel.",
+      "formula_display": "Ïâ€ž = R × C",
+      "steps": [
+        "Idintificar i valorei di intrada",
+        "Applicare la fórmula correspondiinte",
+        "Realizar el cálculo",
+        "Obtiner i 2 risultati"
+      ],
+      "mistakes": [
+        "No convertir µF a F",
+        "Confondire Ïâ€ž con tempo di carico totale",
+        "No usar 5Ïâ€ž per carico completa"
+      ],
+      "input_type_review": null
+    }
+  }
+}

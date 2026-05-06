@@ -1,0 +1,557 @@
+{
+  "id": "030",
+  "slug": "lechada-junta",
+  "block": 3,
+  "block_slug": "pavimentos",
+  "inputs": [
+    {
+      "id": "area",
+      "type": "number",
+      "min": 0.5,
+      "max": 2000,
+      "step": 0.5,
+      "default": 25,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "tam_pieza_cm",
+      "type": "number",
+      "min": 10,
+      "max": 120,
+      "step": 5,
+      "default": 60,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "ancho_junta_mm",
+      "type": "number",
+      "min": 2,
+      "max": 15,
+      "step": 1,
+      "default": 3,
+      "unit": "mm",
+      "unit_options": [
+        "mm",
+        "cm"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "grosor_pieza_mm",
+      "type": "number",
+      "min": 6,
+      "max": 25,
+      "step": 1,
+      "default": 10,
+      "unit": "mm",
+      "unit_options": [
+        "mm",
+        "cm"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area)||0,T=parseFloat(inputs.tam_pieza_cm)||60,J=parseFloat(inputs.ancho_junta_mm)||3,G=parseFloat(inputs.grosor_pieza_mm)||10;if(!A)return{error:true};var kg_m2=(2*J*G)/(T*10)*1.7*1.6,total=+(A*kg_m2*1.1).toFixed(2),sacos=Math.ceil(total/5);return{kg_m2:+kg_m2.toFixed(3),total_kg:total,sacos_5kg:sacos};",
+  "outputs": [
+    {
+      "id": "kg_m2",
+      "unit": "kg/m²"
+    },
+    {
+      "id": "total_kg",
+      "unit": "kg (+10%)",
+      "highlight": true
+    },
+    {
+      "id": "sacos_5kg",
+      "unit": "sacos 5kg"
+    }
+  ],
+  "related": [
+    "021",
+    "029",
+    "027",
+    "026"
+  ],
+  "example_inputs": {
+    "area": 25,
+    "tam_pieza_cm": 60,
+    "ancho_junta_mm": 3,
+    "grosor_pieza_mm": 10
+  },
+  "example_label": "Ejemplo para lechada junta: valores 25m², 60cm, 3mm, 10mm",
+  "range_hints": {
+    "area": "Valor típico entre 0.5 y 2000. Valor por defecto: 25 m².",
+    "tam_pieza_cm": "Valor típico entre 10 y 120. Valor por defecto: 60 cm.",
+    "ancho_junta_mm": "Valor típico entre 2 y 15. Valor por defecto: 3 mm.",
+    "grosor_pieza_mm": "Valor típico entre 6 y 25. Valor por defecto: 10 mm."
+  },
+  "result_context": "Resultados: {kg_m2} kg/m² de rendimiento, {total_kg} kg de lechada, {sacos_5kg} sacos de 5 kg.",
+  "steps": [
+    "Introducir los valores de area, tam_pieza_cm, ancho_junta_mm y grosor_pieza_mm",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+    "Aplicar la fórmula: Consumo (kg/m²) = (Ancho junta x Profundidad) / (Largo pieza x Ancho) x Densidad x 10000",
+    "El resultado se expresa en kg/m². Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Introducir valores con unidades incorrectas sin verificar la conversión",
+    "Redondear resultados intermedios en lugar del resultado final",
+    "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "area",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "tam_pieza_cm",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "ancho_junta_mm",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "grosor_pieza_mm",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small patio",
+      "area": 12.5,
+      "tam_pieza_cm": 30,
+      "grosor_pieza_mm": 10,
+      "ancho_junta_mm": 3
+    },
+    {
+      "_label": "Medium patio",
+      "area": 18.75,
+      "tam_pieza_cm": 45,
+      "grosor_pieza_mm": 10,
+      "ancho_junta_mm": 3
+    },
+    {
+      "_label": "Large patio",
+      "area": 25,
+      "tam_pieza_cm": 60,
+      "grosor_pieza_mm": 10,
+      "ancho_junta_mm": 3
+    },
+    {
+      "_label": "Driveway",
+      "area": 37.5,
+      "tam_pieza_cm": 90,
+      "grosor_pieza_mm": 10,
+      "ancho_junta_mm": 3
+    },
+    {
+      "_label": "Parking lot",
+      "area": 50,
+      "tam_pieza_cm": 120,
+      "grosor_pieza_mm": 10,
+      "ancho_junta_mm": 3
+    }
+  ],
+  "units": {
+    "area": "m²",
+    "tam_pieza_cm": "m",
+    "ancho_junta_mm": "m",
+    "grosor_pieza_mm": "m"
+  },
+  "formula_display": "Consumo (kg/m²) = (Ancho junta x Profundidad) / (Largo pieza x Ancho) x Densidad x 10000",
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Lechada y Junta",
+      "desc": "Calcula kg de lechada según tamaño de pieza y junta.",
+      "seo_title": "Calculadora Lechada – kg por m²",
+      "seo_desc": "Calcula con precisión los kg de lechada o rejuntado necesarios en función del tamaño de pieza y la junta. Introduce tus valores y obtiene resultados.",
+      "inputs": {
+        "area": "Área total",
+        "tam_pieza_cm": "Tamaño pieza (lado)",
+        "ancho_junta_mm": "Ancho junta",
+        "grosor_pieza_mm": "Grosor pieza"
+      },
+      "outputs": {
+        "kg_m2": "kg por m²",
+        "total_kg": "Total kg (+10%)",
+        "sacos_5kg": "Sacos de 5 kg"
+      },
+      "seo_description": "Calcula los kilos y sacos de lechada para juntas de baldosas según el área, formato, ancho de junta y grosor de la pieza. Compatible con lechada cementosa y epoxi.",
+      "example_label": "Calcular fragüe/lechada para 40m² de cerámica de 30×30cm con junta de 3mm y espesor de pieza 10mm.",
+      "range_hints": {
+        "area": "Superficie total colocada",
+        "tam_pieza_cm": "Tamaño de la pieza cerámica",
+        "ancho_junta_mm": "Juntas estándar: 2-5mm según tipo de piso",
+        "grosor_pieza_mm": "Espesor de la baldosa (afecta volumen de junta)"
+      },
+      "result_context": "Para {area} m² de {tam_pieza_cm}×{tam_pieza_cm}cm con junta de {ancho_junta_mm}mm se necesitan {fragüe_kg} kg de fragüe ({sacos_ud} sacos). Longitud total de juntas: {long_juntas_ml} ml.",
+      "formula_display": "Long_juntas = área ÷ lado_m × 2; Vol_junta = long × ancho × grosor; Peso = vol × 1.6 kg/m³",
+      "steps": [
+        "Calcular longitud de juntas: 40m² ÷ 0.30m × 2 = 266.67 ml",
+        "Calcular volumen de junta: 266.67m × 0.003m × 0.01m = 0.008 m³",
+        "Calcular peso: 0.008m³ × 1600 kg/m³ = 12.8 kg",
+        "Aplicar factor desperdicio: 12.8 kg × 1.15 = 14.72 kg de fragüe"
+      ],
+      "mistakes": [
+        "Usar fragüe incorrecto para el tipo de junta (epóxico para zonas húmedas)",
+        "No limpiar el exceso de fragüe antes de que seque",
+        "Aplicar fragüe en juntas muy anchas sin usar fragüe especial"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "tam_pieza_cm",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "ancho_junta_mm",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "grosor_pieza_mm",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Grout Calculator",
+      "desc": "Calculate kg of grout based on tile size and joint width.",
+      "seo_title": "Tile Grout Calculator – kg per m²",
+      "seo_desc": "Grout Calculator. Total area, Tile size (side), Joint width — get kg per m², Total kg (+10%), 5 kg bags instantly for your flooring and tiling project.",
+      "inputs": {
+        "area": "Total area",
+        "tam_pieza_cm": "Tile size (side)",
+        "ancho_junta_mm": "Joint width",
+        "grosor_pieza_mm": "Tile thickness"
+      },
+      "outputs": {
+        "kg_m2": "kg per m²",
+        "total_kg": "Total kg (+10%)",
+        "sacos_5kg": "5 kg bags"
+      },
+      "seo_description": "Calculate kg and bags of tile grout based on area, tile format, joint width and tile thickness. Compatible with cement-based and epoxy grouts.",
+      "example_label": "Calcular fragüe/lechada para 40m² de cerámica de 30×30cm con junta de 3mm y espesor de pieza 10mm.",
+      "range_hints": {
+        "area": "Superficie total colocada",
+        "tam_pieza_cm": "Tamaño de la pieza cerámica",
+        "ancho_junta_mm": "Juntas estándar: 2-5mm según tipo de piso",
+        "grosor_pieza_mm": "Espesor de la baldosa (afecta volumen de junta)"
+      },
+      "result_context": "Para {area} m² de {tam_pieza_cm}×{tam_pieza_cm}cm con junta de {ancho_junta_mm}mm se necesitan {fragüe_kg} kg de fragüe ({sacos_ud} sacos). Longitud total de juntas: {long_juntas_ml} ml.",
+      "formula_display": "Long_juntas = área ÷ lado_m × 2; Vol_junta = long × ancho × grosor; Peso = vol × 1.6 kg/m³",
+      "steps": [
+        "Calcular longitud de juntas: 40m² ÷ 0.30m × 2 = 266.67 ml",
+        "Calcular volumen de junta: 266.67m × 0.003m × 0.01m = 0.008 m³",
+        "Calcular peso: 0.008m³ × 1600 kg/m³ = 12.8 kg",
+        "Aplicar factor desperdicio: 12.8 kg × 1.15 = 14.72 kg de fragüe"
+      ],
+      "mistakes": [
+        "Usar fragüe incorrecto para el tipo de junta (epóxico para zonas húmedas)",
+        "No limpiar el exceso de fragüe antes de que seque",
+        "Aplicar fragüe en juntas muy anchas sin usar fragüe especial"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "tam_pieza_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "ancho_junta_mm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "grosor_pieza_mm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Coulis de Joint",
+      "desc": "Calculez les kg de coulis selon taille carreau et joint.",
+      "seo_title": "Calculateur Joint Carrelage – kg",
+      "inputs": {
+        "area": "Surface totale",
+        "tam_pieza_cm": "Taille carreau (côté)",
+        "ancho_junta_mm": "Largeur joint",
+        "grosor_pieza_mm": "Épaisseur carreau"
+      },
+      "outputs": {
+        "kg_m2": "kg par m²",
+        "total_kg": "Total kg (+10%)",
+        "sacos_5kg": "Sacs de 5 kg"
+      },
+      "seo_description": "Calculez précisément les kg de coulis en fonction de la taille du carreau et de la largeur du joint. Entrez vos valeurs pour des resultats precis.",
+      "example_label": "Calculer fragüe/lechada pour 40m² de céramique de 30×30cm avec junta de 3mm et épaisseur de pieza 10mm.",
+      "range_hints": {
+        "area": "surface total colocada",
+        "tam_pieza_cm": "Tamaño de la pieza céramique",
+        "ancho_junta_mm": "Juntas standard: 2-5mm selon tipo de sol",
+        "grosor_pieza_mm": "épaisseur de la carrelage (afecta volume de junta)"
+      },
+      "result_context": "pour {area} m² de {tam_pieza_cm}×{tam_pieza_cm}cm avec junta de {ancho_junta_mm}mm se necesitan {fragüe_kg} kg de fragüe ({sacos_ud} sacs). Longueur totale de juntas: {long_juntas_ml} ml.",
+      "formula_display": "Long_juntas = área Á· lado_m × 2; Vol_junta = long × largeur × grosor; Peso = vol × 1.6 kg/m³",
+      "steps": [
+        "Calculer longueur de juntas: 40m² Á· 0.30m × 2 = 266.67 ml",
+        "Calculer le volume de junta: 266.67m × 0.003m × 0.01m = 0.008 m³",
+        "Calculer peso: 0.008m³ × 1600 kg/m³ = 12.8 kg",
+        "Aplicar factor gaspillage: 12.8 kg × 1.15 = 14.72 kg de fragüe"
+      ],
+      "mistakes": [
+        "Utiliser fragüe incorrecto pour le tipo de junta (epóxico pour zonas húmedas)",
+        "No limpiar le exceso de fragüe antes de que seque",
+        "Aplicar fragüe dans juntas muy anchas sans Utiliser fragüe especial"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "tam_pieza_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "ancho_junta_mm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "grosor_pieza_mm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Rejunte",
+      "desc": "Calcule kg de rejunte pelo tamanho da peça e junta.",
+      "seo_title": "Calculadora Rejunte – kg por m²",
+      "inputs": {
+        "area": "Área total",
+        "tam_pieza_cm": "Tamanho peça (lado)",
+        "ancho_junta_mm": "Largura junta",
+        "grosor_pieza_mm": "Espessura peça"
+      },
+      "outputs": {
+        "kg_m2": "kg por m²",
+        "total_kg": "Total kg (+10%)",
+        "sacos_5kg": "Sacos de 5 kg"
+      },
+      "seo_description": "Calcule com precisão os kg de rejunte em função do tamanho da peça e da junta Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular fragüe/lechada para 40m² de cerámica de 30×30cm com junta de 3mm e espessura de pieza 10mm.",
+      "range_hints": {
+        "area": "Superficie total colocada",
+        "tam_pieza_cm": "Tamaño da pieza cerámica",
+        "ancho_junta_mm": "Juntas padrão: 2-5mm segundo tipo de piso",
+        "grosor_pieza_mm": "Espesor da baldosa (afecta volume de junta)"
+      },
+      "result_context": "Para {area} m² de {tam_pieza_cm}×{tam_pieza_cm}cm com junta de {ancho_junta_mm}mm são necessários {fragüe_kg} kg de fragüe ({sacos_ud} sacos). Longitud total de juntas: {long_juntas_ml} ml.",
+      "formula_display": "Long_juntas = área ÷ lado_m × 2; Vol_junta = long × largura × grosor; Peso = vol × 1.6 kg/m³",
+      "steps": [
+        "Calcular comprimento de juntas: 40m² ÷ 0.30m × 2 = 266.67 ml",
+        "Calcular volume de junta: 266.67m × 0.003m × 0.01m = 0.008 m³",
+        "Calcular peso: 0.008m³ × 1600 kg/m³ = 12.8 kg",
+        "Aplicar factor desperdício: 12.8 kg × 1.15 = 14.72 kg de fragüe"
+      ],
+      "mistakes": [
+        "Usar fragüe incorrecto para o tipo de junta (epóxico para zonas húmedas)",
+        "Não limpiar o exceso de fragüe antes de que seque",
+        "Aplicar fragüe em juntas muy anchas sem usar fragüe especial"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "tam_pieza_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "ancho_junta_mm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "grosor_pieza_mm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Fugenmörtel Fuge",
+      "desc": "Berechnen Sie fugenmörtel Fuge online. Geben Sie area, tam pieza cm, ancho junta mm ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Fugenmörtel Fuge | CalcToWork",
+      "seo_desc": "Fugenmörtel Fuge online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Fugenmörtel Fuge online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "area": "Area",
+        "tam_pieza_cm": "Tam Pieza Cm",
+        "ancho_junta_mm": "Ancho Junta Mm",
+        "grosor_pieza_mm": "Grosor Pieza Mm"
+      },
+      "outputs": {
+        "kg_m2": "Kg M2",
+        "total_kg": "Total Kg",
+        "sacos_5kg": "Sacos 5kg"
+      },
+      "example_label": "Ejemplo para lechada junta: valores 25m², 60cm, 3mm, 10mm",
+      "range_hints": {
+        "area": "Valor típico entre 0.5 y 2000. Valor por defecto: 25 m².",
+        "tam_pieza_cm": "Valor típico entre 10 y 120. Valor por defecto: 60 cm.",
+        "ancho_junta_mm": "Valor típico entre 2 y 15. Valor por defecto: 3 mm.",
+        "grosor_pieza_mm": "Valor típico entre 6 y 25. Valor por defecto: 10 mm."
+      },
+      "result_context": "Resultados: {kg_m2} kg/m² de rendimiento, {total_kg} kg de lechada, {sacos_5kg} sacos de 5 kg.",
+      "formula_display": "Consumo (kg/m²) = (Ancho junta x Profundidad) / (Largo pieza x Ancho) x Densidad x 10000",
+      "steps": [
+        "Introducir los valores de area, tam_pieza_cm, ancho_junta_mm y grosor_pieza_mm",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+        "Aplicar la fórmula: Consumo (kg/m²) = (Ancho junta x Profundidad) / (Largo pieza x Ancho) x Densidad x 10000",
+        "El resultado se expresa en kg/m². Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Introducir valores con unidades incorrectas sin verificar la conversión",
+        "Redondear resultados intermedios en lugar del resultado final",
+        "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "tam_pieza_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "ancho_junta_mm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "grosor_pieza_mm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Sottopavimento Radiante",
+      "description": "Calcola la tubazione per il riscaldamento a pavimento.",
+      "seo_title": "Calcolatore Stucco – kg per m²",
+      "seo_description": "Stima i metri di tubo per un sistema di riscaldamento a pavimento Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in.",
+      "inputs": {
+        "area": "Superficie (m²)",
+        "separacion": "Interasse tubi (cm)"
+      },
+      "outputs": {
+        "metros_tubo": "Metri di tubo",
+        "rollos_50m": "Rotoli da 50 m"
+      },
+      "example_label": "Calcolare fragüe/lechada per 40m² di cerámica di 30×30cm con junta di 3mm e spessore di pieza 10mm.",
+      "range_hints": {
+        "area": "Superficie totale colocada",
+        "tam_pieza_cm": "Tamaño dilla pieza cerámica",
+        "ancho_junta_mm": "Juntas estándar: 2-5mm según tipo di paviminto",
+        "grosor_pieza_mm": "Espesor dilla piastrella (afecta volume di junta)"
+      },
+      "result_context": "Per {area} m² di {tam_pieza_cm}×{tam_pieza_cm}cm con junta di {larghezza_junta_mm}mm sonon necessari {fragüe_kg} kg di fragüe ({sacos_ud} sacos). Longitud totale di guarnizioni: {long_guarnizioni_ml} ml.",
+      "formula_display": "Long_guarnizioni = área ÷ lato_m × 2; Vol_junta = long × larghezza × grosor; Peso = vol × 1.6 kg/m³",
+      "steps": [
+        "Calcolare lunghezza di guarnizioni: 40m² ÷ 0.30m × 2 = 266.67 ml",
+        "Calcolare volume di junta: 266.67m × 0.003m × 0.01m = 0.008 m³",
+        "Calcolare peso: 0.008m³ × 1600 kg/m³ = 12.8 kg",
+        "Applicare factor spreco: 12.8 kg × 1.15 = 14.72 kg di fragüe"
+      ],
+      "mistakes": [
+        "Usare fragüe incorrecto per el tipo di junta (epóxico per zonas húmedas)",
+        "No limpiar el exceso di fragüe prima di que seque",
+        "Applicare fragüe in guarnizioni molto anchas senza usar fragüe especial"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "tam_pieza_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "ancho_junta_mm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "grosor_pieza_mm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        }
+      ]
+    }
+  }
+}

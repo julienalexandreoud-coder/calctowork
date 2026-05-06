@@ -1,0 +1,466 @@
+{
+  "id": "083",
+  "slug": "dietas-desplazamiento",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "dias_obra",
+      "type": "number",
+      "min": 1,
+      "max": 365,
+      "step": 1,
+      "default": 20,
+      "unit": "días",
+      "unit_options": [
+        "days"
+      ],
+      "unit_category": "time"
+    },
+    {
+      "id": "tipo_dieta",
+      "type": "select",
+      "default": "media_dieta",
+      "options": [
+        "media_dieta",
+        "dieta_completa",
+        "con_pernocta"
+      ]
+    },
+    {
+      "id": "km_diarios",
+      "type": "number",
+      "min": 0,
+      "max": 500,
+      "step": 5,
+      "default": 80,
+      "unit": "km/día"
+    }
+  ],
+  "formula": "var D=parseFloat(inputs.dias_obra)||0,km=parseFloat(inputs.km_diarios)||0,dieta={'media_dieta':11.36,'dieta_completa':26.67,'con_pernocta':53.34};if(!D)return{error:true};var dieta_eur=+(D*dieta[inputs.tipo_dieta]).toFixed(2),km_eur=+(D*km*0.19).toFixed(2),total=+(dieta_eur+km_eur).toFixed(2);return{dieta_total_eur:dieta_eur,km_total_eur:km_eur,total_eur:total};",
+  "outputs": [
+    {
+      "id": "dieta_total_eur",
+      "unit": "â‚¬ dietas"
+    },
+    {
+      "id": "km_total_eur",
+      "unit": "â‚¬ km (0.19â‚¬/km)"
+    },
+    {
+      "id": "total_eur",
+      "unit": "â‚¬ total",
+      "highlight": true
+    }
+  ],
+  "related": [
+    "082",
+    "099",
+    "079",
+    "097"
+  ],
+  "example_inputs": {
+    "dias_obra": 20,
+    "tipo_dieta": "media_dieta",
+    "km_diarios": 80
+  },
+  "example_label": "Calcular dietas para 20 días de obra con media dieta y 80 km diarios.",
+  "range_hints": {
+    "dias_obra": "Número de días laborables que el trabajador se desplaza a la obra (días)",
+    "tipo_dieta": "Tipo de manutención: media dieta (sin pernocta), dieta completa (con pernocta en España), con pernocta internacional",
+    "km_diarios": "Kilómetros diarios recorridos con vehículo propio para ir y volver de la obra (km/día)"
+  },
+  "result_context": "Resultados: {dieta_total_eur} € en dietas, {km_total_eur} € en kilometraje, {total_eur} € totales.",
+  "formula_display": "Coste total = días × (dieta_diaria + km_diarios × 0.19€/km)",
+  "steps": [
+    "Determina el número de días de desplazamiento a obra fuera del centro de trabajo habitual",
+    "Selecciona el tipo de dieta: media dieta (no pernocta), dieta completa (pernocta en España) o con pernocta internacional",
+    "Consulta los importes exentos de IRPF vigentes: 26.67 €/día dieta completa España, 53.34 €/día con pernocta",
+    "Añade el kilometraje: 0.19 €/km exento de tributación para desplazamientos en vehículo propio",
+    "Suma los gastos de peaje y aparcamiento si los hubiera (justificables con factura)",
+    "Diferencia entre dietas a empleados (exentas hasta cierto límite) y facturación de dietas a clientes"
+  ],
+  "mistakes": [
+    "Aplicar mal los límites exentos de IRPF: el exceso sobre 26.67 €/día tributa como rendimiento de trabajo",
+    "No conservar los justificantes de desplazamiento (facturas de peaje, parking, hotel) para una posible inspección",
+    "Olvidar que las dietas por desplazamiento a distinto centro de trabajo son obligatorias según convenio de construcción",
+    "Calcular kilometraje a 0.19 €/km cuando el convenio provincial puede establecer una cantidad superior",
+    "No diferenciar entre dietas nacionales e internacionales (los importes exentos cambian según el país)"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "dias_obra",
+      "reason": "Tipo correcto: numérico entero para días de desplazamiento efectivo."
+    },
+    {
+      "field_id": "tipo_dieta",
+      "reason": "Tipo correcto: selector discreto para tipo de manutención según pernocta."
+    },
+    {
+      "field_id": "km_diarios",
+      "reason": "Tipo correcto: numérico para kilometraje diario en vehículo propio."
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Desplazamiento corto (1 semana)",
+      "dias_obra": 5,
+      "km_diarios": 30
+    },
+    {
+      "_label": "Obra urbana (2 semanas)",
+      "dias_obra": 10,
+      "km_diarios": 50
+    },
+    {
+      "_label": "Obra provincial (1 mes)",
+      "dias_obra": 22,
+      "km_diarios": 80
+    },
+    {
+      "_label": "Obra en otra comunidad (2 meses)",
+      "dias_obra": 44,
+      "km_diarios": 120
+    },
+    {
+      "_label": "Gran obra con pernocta (3 meses)",
+      "dias_obra": 66,
+      "km_diarios": 150
+    }
+  ],
+  "units": {
+    "dias_obra": "s"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Dietas y Desplazamiento",
+      "desc": "Calcula el importe de dietas de manutención y kilometraje deducible para autónomos de la construcción Usado por profesionales y estudiantes en todo el.",
+      "seo_title": "Calculadora Dietas Desplazamiento – Construcción",
+      "seo_desc": "Calcula las dietas de tus trabajadores desplazados: manutención, kilometraje a 0.19 €/km y pernoctas. Según importes exentos de IRPF vigentes.",
+      "inputs": {
+        "dias_obra": "Días de obra fuera de casa",
+        "tipo_dieta": "Tipo de dieta",
+        "km_diarios": "Km diarios recorridos"
+      },
+      "outputs": {
+        "dieta_total_eur": "Total dietas (€)",
+        "km_total_eur": "Total km (€)",
+        "total_eur": "Total deducible"
+      },
+      "seo_description": "Calcula las dietas por desplazamiento a obra según la normativa fiscal española. Incluye media dieta, dieta completa, pernocta y kilometraje con los importes exentos de IRPF actualizados.",
+      "example_label": "Calcular dietas para 20 días de obra con media dieta y 80 km diarios.",
+      "range_hints": {
+        "dias_obra": "Valor entre 1 y 365 días.",
+        "km_diarios": "Valor entre 0 y 500 km/día.",
+        "tipo_dieta": "Tipo de manutención: media dieta (sin pernocta), dieta completa (con pernocta en España), con pernocta internacional"
+      },
+      "result_context": "Resultados: {dieta_total_eur} € en dietas, {km_total_eur} € en kilometraje, {total_eur} € totales.",
+      "formula_display": "Coste total = días × (dieta_diaria + km_diarios × 0.19€/km)",
+      "steps": [
+        "Determina el número de días de desplazamiento a obra fuera del centro de trabajo habitual",
+        "Selecciona el tipo de dieta: media dieta (no pernocta), dieta completa (pernocta en España) o con pernocta internacional",
+        "Consulta los importes exentos de IRPF vigentes: 26.67 €/día dieta completa España, 53.34 €/día con pernocta",
+        "Añade el kilometraje: 0.19 €/km exento de tributación para desplazamientos en vehículo propio",
+        "Suma los gastos de peaje y aparcamiento si los hubiera (justificables con factura)",
+        "Diferencia entre dietas a empleados (exentas hasta cierto límite) y facturación de dietas a clientes"
+      ],
+      "mistakes": [
+        "Aplicar mal los límites exentos de IRPF: el exceso sobre 26.67 €/día tributa como rendimiento de trabajo",
+        "No conservar los justificantes de desplazamiento (facturas de peaje, parking, hotel) para una posible inspección",
+        "Olvidar que las dietas por desplazamiento a distinto centro de trabajo son obligatorias según convenio de construcción",
+        "Calcular kilometraje a 0.19 €/km cuando el convenio provincial puede establecer una cantidad superior",
+        "No diferenciar entre dietas nacionales e internacionales (los importes exentos cambian según el país)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "dias_obra",
+          "reason": "Tipo correcto: numérico entero para días de desplazamiento efectivo."
+        },
+        {
+          "field_id": "tipo_dieta",
+          "reason": "Tipo correcto: selector discreto para tipo de manutención según pernocta."
+        },
+        {
+          "field_id": "km_diarios",
+          "reason": "Tipo correcto: numérico para kilometraje diario en vehículo propio."
+        }
+      ]
+    },
+    "en": {
+      "name": "Travel and Subsistence Calculator",
+      "desc": "Calculate subsistence allowances and mileage for tax.",
+      "seo_title": "Per Diem Calculator – Construction Travel Allowances",
+      "seo_desc": "Calculate per diem for your traveling workers: meals, mileage at €0.19/km, and overnight stays. Based on current tax-exempt amounts.",
+      "inputs": {
+        "dias_obra": "Days working away",
+        "tipo_dieta": "Subsistence type",
+        "km_diarios": "Daily km"
+      },
+      "outputs": {
+        "dieta_total_eur": "Total subsistence (â‚¬)",
+        "km_total_eur": "Total mileage (â‚¬)",
+        "total_eur": "Total deductible"
+      },
+      "seo_description": "Calculate construction travel per diems according to Spanish tax regulations. Includes partial per diem, full per diem, overnight stays, and mileage with updated tax-exempt amounts.",
+      "example_label": "Calcular dietas para 20 días de obra con media dieta y 80 km diarios.",
+      "range_hints": {
+        "dias_obra": "Valor entre 1 y 365 días.",
+        "km_diarios": "Valor entre 0 y 500 km/día.",
+        "tipo_dieta": "Tipo de manutención: media dieta (sin pernocta), dieta completa (con pernocta en España), con pernocta internacional"
+      },
+      "result_context": "Resultados: {dieta_total_eur} € en dietas, {km_total_eur} € en kilometraje, {total_eur} € totales.",
+      "formula_display": "Coste total = días × (dieta_diaria + km_diarios × 0.19€/km)",
+      "steps": [
+        "Determina el número de días de desplazamiento a obra fuera del centro de trabajo habitual",
+        "Selecciona el tipo de dieta: media dieta (no pernocta), dieta completa (pernocta en España) o con pernocta internacional",
+        "Consulta los importes exentos de IRPF vigentes: 26.67 €/día dieta completa España, 53.34 €/día con pernocta",
+        "Añade el kilometraje: 0.19 €/km exento de tributación para desplazamientos en vehículo propio",
+        "Suma los gastos de peaje y aparcamiento si los hubiera (justificables con factura)",
+        "Diferencia entre dietas a empleados (exentas hasta cierto límite) y facturación de dietas a clientes"
+      ],
+      "mistakes": [
+        "Aplicar mal los límites exentos de IRPF: el exceso sobre 26.67 €/día tributa como rendimiento de trabajo",
+        "No conservar los justificantes de desplazamiento (facturas de peaje, parking, hotel) para una posible inspección",
+        "Olvidar que las dietas por desplazamiento a distinto centro de trabajo son obligatorias según convenio de construcción",
+        "Calcular kilometraje a 0.19 €/km cuando el convenio provincial puede establecer una cantidad superior",
+        "No diferenciar entre dietas nacionales e internacionales (los importes exentos cambian según el país)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "dias_obra",
+          "reason": "Tipo correcto: numérico entero para días de desplazamiento efectivo."
+        },
+        {
+          "field_id": "tipo_dieta",
+          "reason": "Tipo correcto: selector discreto para tipo de manutención según pernocta."
+        },
+        {
+          "field_id": "km_diarios",
+          "reason": "Tipo correcto: numérico para kilometraje diario en vehículo propio."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Frais de Déplacement",
+      "desc": "Calculez les indemnités de déplacement et kilométriques.",
+      "seo_title": "Calculateur Indemnités Déplacement – Construction",
+      "seo_desc": "Calculez les indemnités de vos ouvriers déplacés : repas, kilométrage et nuitées. Selon les montants exonérés d'impôt en vigueur.",
+      "inputs": {
+        "dias_obra": "Jours de travail déplacé",
+        "tipo_dieta": "Type d'indemnité",
+        "km_diarios": "Km journaliers"
+      },
+      "outputs": {
+        "dieta_total_eur": "Total indemnités (€)",
+        "km_total_eur": "Total kilométrique (€)",
+        "total_eur": "Total déductible"
+      },
+      "seo_description": "Calculez les indemnités de repas et kilométriques déductibles pour artisans et auto-entrepreneurs. Calculatrice facile a utiliser avec decomposition de.",
+      "example_label": "Calcular dietas para 20 días de obra con media dieta y 80 km diarios.",
+      "range_hints": {
+        "dias_obra": "Valor entre 1 et 365 días.",
+        "km_diarios": "Valor entre 0 et 500 km/día.",
+        "tipo_dieta": "Tipo de manutención: media dieta (sin pernocta), dieta completa (con pernocta en España), con pernocta internacional"
+      },
+      "result_context": "Resultados: {dieta_total_eur} € en dietas, {km_total_eur} € en kilometraje, {total_eur} € totales.",
+      "formula_display": "Coste total = días × (dieta_diaria + km_diarios × 0.19€/km)",
+      "steps": [
+        "Determina el número de días de desplazamiento a obra fuera del centro de trabajo habitual",
+        "Selecciona el tipo de dieta: media dieta (no pernocta), dieta completa (pernocta en España) o con pernocta internacional",
+        "Consulta los importes exentos de IRPF vigentes: 26.67 €/día dieta completa España, 53.34 €/día con pernocta",
+        "Añade el kilometraje: 0.19 €/km exento de tributación para desplazamientos en vehículo propio",
+        "Suma los gastos de peaje y aparcamiento si los hubiera (justificables con factura)",
+        "Diferencia entre dietas a empleados (exentas hasta cierto límite) y facturación de dietas a clientes"
+      ],
+      "mistakes": [
+        "Aplicar mal los límites exentos de IRPF: el exceso sobre 26.67 €/día tributa como rendimiento de trabajo",
+        "No conservar los justificantes de desplazamiento (facturas de peaje, parking, hotel) para una posible inspección",
+        "Olvidar que las dietas por desplazamiento a distinto centro de trabajo son obligatorias según convenio de construcción",
+        "Calcular kilometraje a 0.19 €/km cuando el convenio provincial puede establecer una cantidad superior",
+        "No diferenciar entre dietas nacionales e internacionales (los importes exentos cambian según el país)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "dias_obra",
+          "reason": "Tipo correcto: numérico entero para días de desplazamiento efectivo."
+        },
+        {
+          "field_id": "tipo_dieta",
+          "reason": "Tipo correcto: selector discreto para tipo de manutención según pernocta."
+        },
+        {
+          "field_id": "km_diarios",
+          "reason": "Tipo correcto: numérico para kilometraje diario en vehículo propio."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Diárias e Deslocamento",
+      "desc": "Calcule o valor de diárias e quilometragem dedutível para autônomos da construção. Calculadora facil de usar com detalhamento da formula.",
+      "seo_title": "Calculadora de Diárias e Deslocamento",
+      "inputs": {
+        "dias_obra": "Dias de obra fora de casa",
+        "tipo_dieta": "Tipo de diária",
+        "km_diarios": "Km diários percorridos"
+      },
+      "outputs": {
+        "dieta_total_eur": "Total diárias (R$)",
+        "km_total_eur": "Total quilometragem (R$)",
+        "total_eur": "Total dedutível"
+      },
+      "seo_description": "Calcule o valor de diárias e quilometragem dedutível para autônomos da construção. Calculadora facil de usar com detalhamento da formula.",
+      "example_label": "Calcular dietas para 20 días de obra con media dieta y 80 km diarios.",
+      "range_hints": {
+        "dias_obra": "Valor entre 1 e 365 días.",
+        "km_diarios": "Valor entre 0 e 500 km/día.",
+        "tipo_dieta": "Tipo de manutención: media dieta (sin pernocta), dieta completa (con pernocta en España), con pernocta internacional"
+      },
+      "result_context": "Resultados: {dieta_total_eur} € en dietas, {km_total_eur} € en kilometraje, {total_eur} € totales.",
+      "formula_display": "Coste total = días × (dieta_diaria + km_diarios × 0.19€/km)",
+      "steps": [
+        "Determina el número de días de desplazamiento a obra fuera del centro de trabajo habitual",
+        "Selecciona el tipo de dieta: media dieta (no pernocta), dieta completa (pernocta en España) o con pernocta internacional",
+        "Consulta los importes exentos de IRPF vigentes: 26.67 €/día dieta completa España, 53.34 €/día con pernocta",
+        "Añade el kilometraje: 0.19 €/km exento de tributación para desplazamientos en vehículo propio",
+        "Suma los gastos de peaje y aparcamiento si los hubiera (justificables con factura)",
+        "Diferencia entre dietas a empleados (exentas hasta cierto límite) y facturación de dietas a clientes"
+      ],
+      "mistakes": [
+        "Aplicar mal los límites exentos de IRPF: el exceso sobre 26.67 €/día tributa como rendimiento de trabajo",
+        "No conservar los justificantes de desplazamiento (facturas de peaje, parking, hotel) para una posible inspección",
+        "Olvidar que las dietas por desplazamiento a distinto centro de trabajo son obligatorias según convenio de construcción",
+        "Calcular kilometraje a 0.19 €/km cuando el convenio provincial puede establecer una cantidad superior",
+        "No diferenciar entre dietas nacionales e internacionales (los importes exentos cambian según el país)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "dias_obra",
+          "reason": "Tipo correcto: numérico entero para días de desplazamiento efectivo."
+        },
+        {
+          "field_id": "tipo_dieta",
+          "reason": "Tipo correcto: selector discreto para tipo de manutención según pernocta."
+        },
+        {
+          "field_id": "km_diarios",
+          "reason": "Tipo correcto: numérico para kilometraje diario en vehículo propio."
+        }
+      ]
+    },
+    "de": {
+      "name": "Reisekosten desplazamiento",
+      "desc": "Berechnen Sie reisekosten desplazamiento online. Geben Sie dias obra, tipo dieta, km diarios ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Reisekosten desplazamiento | CalcToWork",
+      "seo_desc": "Reisekosten desplazamiento online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Reisekosten desplazamiento online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "dias_obra": "Dias Obra",
+        "tipo_dieta": "Tipo Dieta",
+        "km_diarios": "Km Diarios"
+      },
+      "outputs": {
+        "dieta_total_eur": "Dieta Total Eur",
+        "km_total_eur": "Km Total Eur",
+        "total_eur": "Total Eur"
+      },
+      "example_label": "Calcular dietas para 20 días de obra con media dieta y 80 km diarios.",
+      "range_hints": {
+        "dias_obra": "Número de días laborables que el trabajador se desplaza a la obra (días)",
+        "tipo_dieta": "Tipo de manutención: media dieta (sin pernocta), dieta completa (con pernocta en España), con pernocta internacional",
+        "km_diarios": "Kilómetros diarios recorridos con vehículo propio para ir y volver de la obra (km/día)"
+      },
+      "result_context": "Resultados: {dieta_total_eur} € en dietas, {km_total_eur} € en kilometraje, {total_eur} € totales.",
+      "formula_display": "Coste total = días × (dieta_diaria + km_diarios × 0.19€/km)",
+      "steps": [
+        "Determina el número de días de desplazamiento a obra fuera del centro de trabajo habitual",
+        "Selecciona el tipo de dieta: media dieta (no pernocta), dieta completa (pernocta en España) o con pernocta internacional",
+        "Consulta los importes exentos de IRPF vigentes: 26.67 €/día dieta completa España, 53.34 €/día con pernocta",
+        "Añade el kilometraje: 0.19 €/km exento de tributación para desplazamientos en vehículo propio",
+        "Suma los gastos de peaje y aparcamiento si los hubiera (justificables con factura)",
+        "Diferencia entre dietas a empleados (exentas hasta cierto límite) y facturación de dietas a clientes"
+      ],
+      "mistakes": [
+        "Aplicar mal los límites exentos de IRPF: el exceso sobre 26.67 €/día tributa como rendimiento de trabajo",
+        "No conservar los justificantes de desplazamiento (facturas de peaje, parking, hotel) para una posible inspección",
+        "Olvidar que las dietas por desplazamiento a distinto centro de trabajo son obligatorias según convenio de construcción",
+        "Calcular kilometraje a 0.19 €/km cuando el convenio provincial puede establecer una cantidad superior",
+        "No diferenciar entre dietas nacionales e internacionales (los importes exentos cambian según el país)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "dias_obra",
+          "reason": "Tipo correcto: numérico entero para días de desplazamiento efectivo."
+        },
+        {
+          "field_id": "tipo_dieta",
+          "reason": "Tipo correcto: selector discreto para tipo de manutención según pernocta."
+        },
+        {
+          "field_id": "km_diarios",
+          "reason": "Tipo correcto: numérico para kilometraje diario en vehículo propio."
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Cubatura Terra",
+      "description": "Calcola il volume di scavo e riporto terra.",
+      "seo_title": "Calcolatore Cubatura Terra – Passo dopo Passo",
+      "seo_description": "Calcola il volume di terra da scavare e i camion necessari Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo.",
+      "inputs": {
+        "largo": "Lunghezza (m)",
+        "ancho": "Larghezza (m)",
+        "profundidad": "Profondità (m)",
+        "esponjamiento": "Rigonfiamento (%)",
+        "dias_obra": "dias obra (días)",
+        "tipo_dieta": "tipo dieta ()",
+        "km_diarios": "km diarios (km/día)"
+      },
+      "outputs": {
+        "volumen_neto": "Volume netto (m³)",
+        "volumen_esponjado": "Volume rigonfiato (m³)",
+        "camiones": "Camion (10 m³)",
+        "dieta_total_eur": "dieta total eur (â‚¬ dietas)",
+        "km_total_eur": "km total eur (â‚¬ km (0.19â‚¬/km))",
+        "total_eur": "total eur (â‚¬ total)"
+      },
+      "example_label": "Calcular dietas para 20 días de obra con media dieta y 80 km diarios.",
+      "range_hints": {
+        "dias_obra": "Valor intre 1 e 365 días.",
+        "km_diarios": "Valor intre 0 e 500 km/día.",
+        "tipo_dieta": "Tipo de manutención: media dieta (sin pernocta), dieta completa (con pernocta en España), con pernocta internacional"
+      },
+      "result_context": "Resultados: {dieta_total_eur} € en dietas, {km_total_eur} € en kilometraje, {total_eur} € totales.",
+      "formula_display": "Coste total = días × (dieta_diaria + km_diarios × 0.19€/km)",
+      "steps": [
+        "Determina el número de días de desplazamiento a obra fuera del centro de trabajo habitual",
+        "Selecciona el tipo de dieta: media dieta (no pernocta), dieta completa (pernocta en España) o con pernocta internacional",
+        "Consulta los importes exentos de IRPF vigentes: 26.67 €/día dieta completa España, 53.34 €/día con pernocta",
+        "Añade el kilometraje: 0.19 €/km exento de tributación para desplazamientos en vehículo propio",
+        "Suma los gastos de peaje y aparcamiento si los hubiera (justificables con factura)",
+        "Diferencia entre dietas a empleados (exentas hasta cierto límite) y facturación de dietas a clientes"
+      ],
+      "mistakes": [
+        "Aplicar mal los límites exentos de IRPF: el exceso sobre 26.67 €/día tributa como rendimiento de trabajo",
+        "No conservar los justificantes de desplazamiento (facturas de peaje, parking, hotel) para una posible inspección",
+        "Olvidar que las dietas por desplazamiento a distinto centro de trabajo son obligatorias según convenio de construcción",
+        "Calcular kilometraje a 0.19 €/km cuando el convenio provincial puede establecer una cantidad superior",
+        "No diferenciar entre dietas nacionales e internacionales (los importes exentos cambian según el país)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "dias_obra",
+          "reason": "Tipo correcto: numérico entero para días de desplazamiento efectivo."
+        },
+        {
+          "field_id": "tipo_dieta",
+          "reason": "Tipo correcto: selector discreto para tipo de manutención según pernocta."
+        },
+        {
+          "field_id": "km_diarios",
+          "reason": "Tipo correcto: numérico para kilometraje diario en vehículo propio."
+        }
+      ],
+      "desc": "Calcola le indennità di trasferta e il chilometraggio per i lavoratori in trasferta."
+    }
+  }
+}

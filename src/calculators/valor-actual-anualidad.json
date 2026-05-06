@@ -1,0 +1,510 @@
+{
+  "id": "328",
+  "slug": "valor-actual-anualidad",
+  "block": 7,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "pmt",
+      "type": "number",
+      "step": "any",
+      "default": 100,
+      "unit": "USD",
+      "unit_options": [
+        "USD",
+        "EUR",
+        "GBP"
+      ],
+      "unit_category": "currency"
+    },
+    {
+      "id": "rate",
+      "type": "number",
+      "step": "any",
+      "default": 5,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "percentage"
+    },
+    {
+      "id": "n",
+      "type": "number",
+      "step": 1,
+      "default": 10,
+      "unit": "yr",
+      "unit_options": [
+        "yr",
+        "mo"
+      ],
+      "unit_category": "time"
+    }
+  ],
+  "formula": "var pmt=parseFloat(inputs.pmt)||0;var r=(parseFloat(inputs.rate)||0)/100;var n=parseFloat(inputs.n)||0;var pv=r>0?pmt*((1-Math.pow(1+r,-n))/r):pmt*n;return{pv:pv.toFixed(2)};",
+  "outputs": [
+    {
+      "id": "pv",
+      "unit": "USD"
+    }
+  ],
+  "related": [
+    "327",
+    "301",
+    "321",
+    "322"
+  ],
+  "example_inputs": {
+    "pmt": 1000,
+    "rate": 5,
+    "n": 15
+  },
+  "example_label": "Ejemplo para valor actual anualidad: valores 100USD, 5%, 10yr",
+  "range_hints": {
+    "pmt": "Valor típico entre 0 y 500. Valor por defecto: 100 USD.",
+    "rate": "Valor típico entre 0 y 500. Valor por defecto: 5 %.",
+    "n": "Valor típico entre 0 y 500. Valor por defecto: 10 yr."
+  },
+  "result_context": "Resultados: {pv} USD de valor presente.",
+  "formula_display": "Pv (USD) = f(pmt, rate, n)",
+  "steps": [
+    "Introducir los valores de pmt, rate y n",
+    "Verificar que las unidades sean correctas y convertir si es necesario (USD, EUR, GBP)",
+    "Realizar el cálculo para obtener pv",
+    "El resultado se expresa en USD. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para tomar decisiones informadas sobre tu planificación financiera"
+  ],
+  "mistakes": [
+    "No comparar la TAE entre distintas ofertas antes de contratar",
+    "Confundir interés simple con interés compuesto en inversiones a largo plazo",
+    "Olvidar incluir comisiones y gastos en el cálculo del coste total"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "pmt",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "rate",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "n",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "pmt": 500,
+      "rate": 2,
+      "n": 15
+    },
+    {
+      "_label": "Average",
+      "pmt": 750,
+      "rate": 4,
+      "n": 15
+    },
+    {
+      "_label": "High",
+      "pmt": 1000,
+      "rate": 5,
+      "n": 15
+    },
+    {
+      "_label": "Premium",
+      "pmt": 1500,
+      "rate": 8,
+      "n": 15
+    },
+    {
+      "_label": "Enterprise",
+      "pmt": 2000,
+      "rate": 10,
+      "n": 15
+    }
+  ],
+  "units": {
+    "pmt": "USD",
+    "rate": "%",
+    "n": "s"
+  },
+  "i18n": {
+    "es": {
+      "name": "Valor Actual de Anualidad",
+      "description": "Calcula el valor presente de una serie de pagos futuros iguales.",
+      "inputs": {
+        "pmt": "Pago periódico",
+        "rate": "Tasa %",
+        "n": "Número de períodos"
+      },
+      "outputs": {
+        "pv": "Valor presente"
+      },
+      "seo_title": "Valor Actual de Anualidad Gratuita",
+      "seo_description": "Calcula el valor presente de una serie de pagos futuros iguales. Calculadora gratuita, precisa e instantánea. Obten resultados al instante con.",
+      "example_label": "Calculating present value of receiving $1,000 annually for 15 years at 5% discount rate.",
+      "range_hints": {
+        "pmt": "$100 - $100,000+ periodic payments",
+        "rate": "1-20% discount rates",
+        "n": "3-50 periods"
+      },
+      "result_context": "The pv of {pv} is what those future payments are worth in today's dollars.",
+      "formula_display": "PV = PMT × [(1 - (1 + r)^-n) ÷ r]",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert rate to decimal",
+          "calculation": "5% ÷ 100 = 0.05"
+        },
+        {
+          "step": 2,
+          "description": "Calculate discount factor",
+          "calculation": "(1.05)^-15 = 0.4810"
+        },
+        {
+          "step": 3,
+          "description": "Apply present value formula",
+          "calculation": "$1,000 × [(1 - 0.4810) ÷ 0.05] = $10,379.66"
+        }
+      ],
+      "mistakes": [
+        "Using wrong discount rate that doesn't reflect opportunity cost",
+        "Not adjusting for payment timing (beginning vs end of period)",
+        "Ignoring tax implications on annuity income"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "pmt",
+          "reason": "Correct type for payment amount"
+        },
+        {
+          "field_id": "rate",
+          "reason": "Correct type for discount rate"
+        },
+        {
+          "field_id": "n",
+          "reason": "Correct type for number of periods"
+        }
+      ]
+    },
+    "en": {
+      "name": "Present Value of Annuity Calculator",
+      "description": "Calculate the present value of a series of equal future payments.",
+      "inputs": {
+        "pmt": "Periodic payment",
+        "rate": "Interest rate %",
+        "n": "Number of periods"
+      },
+      "outputs": {
+        "pv": "Present value"
+      },
+      "seo_title": "Present Value of Annuity Calculator",
+      "seo_description": "Present Value of Annuity Calculator. Periodic payment, Interest rate %, Number of periods — get Present value instantly for your carpentry and metalwork.",
+      "example_label": "Calculating present value of receiving $1,000 annually for 15 years at 5% discount rate.",
+      "range_hints": {
+        "pmt": "$100 - $100,000+ periodic payments",
+        "rate": "1-20% discount rates",
+        "n": "3-50 periods"
+      },
+      "result_context": "The pv of {pv} is what those future payments are worth in today's dollars.",
+      "formula_display": "PV = PMT × [(1 - (1 + r)^-n) ÷ r]",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert rate to decimal",
+          "calculation": "5% ÷ 100 = 0.05"
+        },
+        {
+          "step": 2,
+          "description": "Calculate discount factor",
+          "calculation": "(1.05)^-15 = 0.4810"
+        },
+        {
+          "step": 3,
+          "description": "Apply present value formula",
+          "calculation": "$1,000 × [(1 - 0.4810) ÷ 0.05] = $10,379.66"
+        }
+      ],
+      "mistakes": [
+        "Using wrong discount rate that doesn't reflect opportunity cost",
+        "Not adjusting for payment timing (beginning vs end of period)",
+        "Ignoring tax implications on annuity income"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "pmt",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for payment amount"
+        },
+        {
+          "field_id": "rate",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for discount rate"
+        },
+        {
+          "field_id": "n",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for number of periods"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Valeur Actuelle d'une Rente",
+      "description": "Calculez la valeur actuelle d'une série de paiements futurs égaux.",
+      "inputs": {
+        "pmt": "Paiement périodique",
+        "rate": "Taux %",
+        "n": "Nombre de périodes"
+      },
+      "outputs": {
+        "pv": "Valeur actuelle"
+      },
+      "seo_title": "Valeur Actuelle d'une Rente – Étape par Étape",
+      "seo_description": "Calculez la valeur actuelle d'une série de paiements futurs égaux. Calculateur gratuit, précis et instantané. Obtenez des resultats instantanes avec.",
+      "example_label": "Calculating present value of receiving $1,000 annually for 15 years at 5% discount rate.",
+      "range_hints": {
+        "pmt": "$100 - $100,000+ periodic payments",
+        "rate": "1-20% discount rates",
+        "n": "3-50 periods"
+      },
+      "result_context": "The pv of {pv} is what those future payments are worth in today's dollars.",
+      "formula_display": "PV = PMT × [(1 - (1 + r)^-n) Á· r]",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert rate to decimal",
+          "calculation": "5% Á· 100 = 0.05"
+        },
+        {
+          "step": 2,
+          "description": "Calculate discount factor",
+          "calculation": "(1.05)^-15 = 0.4810"
+        },
+        {
+          "step": 3,
+          "description": "Apply present value formula",
+          "calculation": "$1,000 × [(1 - 0.4810) Á· 0.05] = $10,379.66"
+        }
+      ],
+      "mistakes": [
+        "Using wrong discount rate that doesn't reflect opportunity cost",
+        "Not adjusting for payment timing (beginning vs end of period)",
+        "Ignoring tax implications on annuity income"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "pmt",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for payment amount"
+        },
+        {
+          "field_id": "rate",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for discount rate"
+        },
+        {
+          "field_id": "n",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for number of periods"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Valor Presente de Anuidade",
+      "description": "Calcule o valor presente de uma série de pagamentos futuros iguais.",
+      "inputs": {
+        "pmt": "Pagamento periódico",
+        "rate": "Taxa %",
+        "n": "Número de períodos"
+      },
+      "outputs": {
+        "pv": "Valor presente"
+      },
+      "seo_title": "Valor Presente de Anuidade – Passo a Passo",
+      "seo_description": "Calcule o valor presente de uma série de pagamentos futuros iguais. Calculadora gratuita, precisa e instantânea. Obtenha resultados instantaneos com.",
+      "example_label": "Calculating present value of receiving $1,000 annually for 15 years at 5% discount rate.",
+      "range_hints": {
+        "pmt": "$100 - $100,000+ periodic payments",
+        "rate": "1-20% discount rates",
+        "n": "3-50 periods"
+      },
+      "result_context": "The pv of {pv} is what those future payments are worth in today's dollars.",
+      "formula_display": "PV = PMT × [(1 - (1 + r)^-n) ÷ r]",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert rate to decimal",
+          "calculation": "5% ÷ 100 = 0.05"
+        },
+        {
+          "step": 2,
+          "description": "Calculate discount factor",
+          "calculation": "(1.05)^-15 = 0.4810"
+        },
+        {
+          "step": 3,
+          "description": "Apply present value formula",
+          "calculation": "$1,000 × [(1 - 0.4810) ÷ 0.05] = $10,379.66"
+        }
+      ],
+      "mistakes": [
+        "Using wrong discount rate that doesn't reflect opportunity cost",
+        "Not adjusting for payment timing (beginning vs end of period)",
+        "Ignoring tax implications on annuity income"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "pmt",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for payment amount"
+        },
+        {
+          "field_id": "rate",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for discount rate"
+        },
+        {
+          "field_id": "n",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for number of periods"
+        }
+      ]
+    },
+    "de": {
+      "name": "Valor actual anualidad",
+      "desc": "Berechnen Sie valor actual anualidad online. Geben Sie pmt, rate, n ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Valor actual anualidad | CalcToWork",
+      "seo_desc": "Valor actual anualidad online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Valor actual anualidad online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "pmt": "Pmt",
+        "rate": "Rate",
+        "n": "N"
+      },
+      "outputs": {
+        "pv": "Pv"
+      },
+      "example_label": "Ejemplo para valor actual anualidad: valores 100USD, 5%, 10yr",
+      "range_hints": {
+        "pmt": "Valor típico entre 0 y 500. Valor por defecto: 100 USD.",
+        "rate": "Valor típico entre 0 y 500. Valor por defecto: 5 %.",
+        "n": "Valor típico entre 0 y 500. Valor por defecto: 10 yr."
+      },
+      "result_context": "Resultados: {pv} USD de valor presente.",
+      "formula_display": "Pv (USD) = f(pmt, rate, n)",
+      "steps": [
+        "Introducir los valores de pmt, rate y n",
+        "Verificar que las unidades sean correctas y convertir si es necesario (USD, EUR, GBP)",
+        "Realizar el cálculo para obtener pv",
+        "El resultado se expresa en USD. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para tomar decisiones informadas sobre tu planificación financiera"
+      ],
+      "mistakes": [
+        "No comparar la TAE entre distintas ofertas antes de contratar",
+        "Confundir interés simple con interés compuesto en inversiones a largo plazo",
+        "Olvidar incluir comisiones y gastos en el cálculo del coste total"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "pmt",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "rate",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "n",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Valore Attuale di una Rendita",
+      "description": "Calcola il valore attuale di una serie di pagamenti futuri uguali.",
+      "inputs": {
+        "pmt": "Pagamento periodico",
+        "rate": "Tasso %",
+        "n": "Numero di periodi"
+      },
+      "outputs": {
+        "pv": "Valore attuale"
+      },
+      "seo_title": "Valore Attuale di una Rendita – Passo dopo Passo",
+      "seo_description": "Calcola il valore attuale di una serie di pagamenti futuri uguali. Calcolatore gratuito, preciso e istantaneo. Ottieni risultati istantanei con.",
+      "example_label": "Calculating present value of receiving $1,000 annualle for 15 eears at 5% discount rate.",
+      "range_hints": {
+        "pmt": "$100 - $100,000+ periodic paemints",
+        "rate": "1-20% discount rates",
+        "n": "3-50 periods"
+      },
+      "result_context": "The pv of {pv} is what those future paemints are worth in todae's dollars.",
+      "formula_display": "PV = PMT × [(1 - (1 + r)^-n) ÷ r]",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert rate to decimal",
+          "calculation": "5% ÷ 100 = 0.05"
+        },
+        {
+          "step": 2,
+          "description": "Calculate discount factor",
+          "calculation": "(1.05)^-15 = 0.4810"
+        },
+        {
+          "step": 3,
+          "description": "Apply present value formula",
+          "calculation": "$1,000 × [(1 - 0.4810) ÷ 0.05] = $10,379.66"
+        }
+      ],
+      "mistakes": [
+        "Usenzag wrong discount rate that doesn't reflect oppertunite cost",
+        "Not adjusting for paemint timing (beginning vs ind of period)",
+        "Ignonring tax implications on annuite income"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "pmt",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for paemint amount"
+        },
+        {
+          "field_id": "rate",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for discount rate"
+        },
+        {
+          "field_id": "n",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for number of periods"
+        }
+      ]
+    }
+  }
+}

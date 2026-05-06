@@ -1,0 +1,599 @@
+{
+  "id": "004",
+  "slug": "muro-contencion",
+  "block": 1,
+  "block_slug": "estructuras",
+  "inputs": [
+    {
+      "id": "largo",
+      "type": "number",
+      "min": 0.5,
+      "max": 200,
+      "step": 0.1,
+      "default": 10,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "altura",
+      "type": "number",
+      "min": 0.5,
+      "max": 10,
+      "step": 0.1,
+      "default": 2,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "espesor_base",
+      "type": "number",
+      "min": 0.2,
+      "max": 2,
+      "step": 0.05,
+      "default": 0.4,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "espesor_corona",
+      "type": "number",
+      "min": 0.15,
+      "max": 1,
+      "step": 0.05,
+      "default": 0.3,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.largo)||0,H=parseFloat(inputs.altura)||0,Eb=parseFloat(inputs.espesor_base)||0,Ec=parseFloat(inputs.espesor_corona)||0;if(!L||!H||!Eb||!Ec)return{error:true};var vol=L*H*(Eb+Ec)/2,c=Math.ceil(vol*7),acero=+(vol*90).toFixed(0),enc=+(L*H*2).toFixed(2),losa=+(L*(H*0.4)).toFixed(2);return{vol_muro:+vol.toFixed(3),cemento_sacos:c,acero_kg:acero,encofrado_m2:enc,vol_losa_cim:+losa.toFixed(3)};",
+  "outputs": [
+    {
+      "id": "vol_muro",
+      "unit": "m³",
+      "highlight": true
+    },
+    {
+      "id": "cemento_sacos",
+      "unit": "sacos 50kg"
+    },
+    {
+      "id": "acero_kg",
+      "unit": "kg"
+    },
+    {
+      "id": "encofrado_m2",
+      "unit": "m²"
+    },
+    {
+      "id": "vol_losa_cim",
+      "unit": "m³"
+    }
+  ],
+  "related": [
+    "002",
+    "003",
+    "010",
+    "001"
+  ],
+  "example_inputs": {
+    "largo": 10,
+    "altura": 2,
+    "espesor_base": 0.4,
+    "espesor_corona": 0.3
+  },
+  "example_label": "Calcular materiales para muro de contención de 10 m × 2 m × 0.4 m × 0.3 m.",
+  "range_hints": {
+    "largo": "Medida típica según el proyecto",
+    "altura": "Altura según requerimientos",
+    "espesor_base": "Medida lineal en m según plano",
+    "espesor_corona": "Medida lineal en m según plano"
+  },
+  "result_context": "Resultados: {vol_muro}, {cemento_sacos} sacos de cemento, {acero_kg} kg de acero, {encofrado_m2} m² de encofrado, {vol_losa_cim}.",
+  "formula_display": "Volumen = largo × altura × espesor",
+  "steps": [
+    "Introducir los valores de largo, altura, espesor_base y espesor_corona",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m, cm, mm)",
+    "Aplicar la fórmula: Volumen = largo × altura × espesor",
+    "El resultado se expresa en m³. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Introducir valores con unidades incorrectas sin verificar la conversión",
+    "Redondear resultados intermedios en lugar del resultado final",
+    "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "largo",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "altura",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "espesor_base",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "espesor_corona",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "area": 20,
+      "coats": 1
+    },
+    {
+      "area": 30,
+      "coats": 2
+    },
+    {
+      "area": 40,
+      "coats": 2
+    },
+    {
+      "area": 60,
+      "coats": 2
+    },
+    {
+      "area": 80,
+      "coats": 3
+    }
+  ],
+  "buying_units": {
+    "litros": [
+      {
+        "label": "Cans (1 L)",
+        "factor": 1,
+        "round": "ceil",
+        "unit_suffix": "cans"
+      },
+      {
+        "label": "Cans (5 L)",
+        "factor": 0.2,
+        "round": "ceil",
+        "unit_suffix": "cans"
+      },
+      {
+        "label": "Cans (10 L)",
+        "factor": 0.1,
+        "round": "ceil",
+        "unit_suffix": "cans"
+      }
+    ]
+  },
+  "units": {
+    "largo": "m",
+    "altura": "m",
+    "espesor_base": "m",
+    "espesor_corona": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Muro de Contención",
+      "desc": "Calcula hormigón y acero para muros de contención.",
+      "seo_title": "Calculadora Muro de Contención",
+      "inputs": {
+        "largo": "Longitud",
+        "altura": "Altura",
+        "espesor_base": "Espesor en base",
+        "espesor_corona": "Espesor en coronación"
+      },
+      "outputs": {
+        "vol_muro": "Volumen muro",
+        "cemento_sacos": "Sacos cemento",
+        "acero_kg": "Acero",
+        "encofrado_m2": "Encofrado",
+        "vol_losa_cim": "Vol. losa cimentación"
+      },
+      "seo_description": "Dimensiona muros de contención calculando volumen de hormigón, acero y encofrado. Incluye factor de desperdicio para pedidos.",
+      "example_label": "Calcular materiales para un muro de contención de gravedad de 10m de longitud, 2m de altura, 40cm en la base y 30cm en la corona.",
+      "range_hints": {
+        "largo": "Longitud total del muro a construir",
+        "altura": "Muros residenciales: 1-3m, Muros estructurales: hasta 6m",
+        "espesor_base": "Generalmente 0.4-0.6 × altura para muros de gravedad",
+        "espesor_corona": "Mínimo 0.25-0.30m para resistencia estructural"
+      },
+      "result_context": "El muro de {vol_muro} m³ requiere {cemento_sacos} sacos de cemento, {acero_kg} kg de acero, {encofrado_m2} m² de encofrado. Volumen estimado de losa de cimentación: {vol_losa_cim} m³.",
+      "formula_display": "Volumen = largo × altura × (espesor_base + espesor_corona) ÷ 2",
+      "steps": [
+        "Calcular espesor promedio: (0.4m + 0.3m) ÷ 2 = 0.35m",
+        "Calcular volumen del muro: 10m × 2m × 0.35m = 7m³",
+        "Calcular cemento: 7m³ × 7 = 49 sacos",
+        "Calcular acero: 7m³ × 90 kg/m³ = 630 kg",
+        "Calcular encofrado (doble cara): 10m × 2m × 2 = 40m²"
+      ],
+      "mistakes": [
+        "No inclinar el muro hacia el terreno (debería tener ligera inclinación)",
+        "Omitir drenajes y filtros detrás del muro para evitar presión hidrostática",
+        "Usar espesor de corona insuficiente que reduce la estabilidad"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "altura",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "espesor_base",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "espesor_corona",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Retaining Wall Calculator",
+      "desc": "Retaining Wall Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Retaining Wall Concrete Calculator ? Trapezoidal Volume",
+      "seo_desc": "Need concrete quantities for your retaining wall project? Enter wall length, height, base and crown thickness to get the exact trapezoidal volume plus foundation footing.",
+      "inputs": {
+        "largo": "Length",
+        "altura": "Height",
+        "espesor_base": "Base thickness",
+        "espesor_corona": "Top thickness"
+      },
+      "outputs": {
+        "vol_muro": "Wall volume",
+        "cemento_sacos": "Cement bags",
+        "acero_kg": "Steel",
+        "encofrado_m2": "Formwork",
+        "vol_losa_cim": "Foundation slab vol."
+      },
+      "seo_description": "Work out concrete volume for a retaining wall. Enter length, height, base and crown thickness for accurate material ordering.",
+      "example_label": "Calcular materiales para un muro de contención de gravedad de 10m de longitud, 2m de altura, 40cm en la base y 30cm en la corona.",
+      "range_hints": {
+        "largo": "Longitud total del muro a construir",
+        "altura": "Muros residenciales: 1-3m, Muros estructurales: hasta 6m",
+        "espesor_base": "Generalmente 0.4-0.6 × altura para muros de gravedad",
+        "espesor_corona": "Mínimo 0.25-0.30m para resistencia estructural"
+      },
+      "result_context": "El muro de {vol_muro} m³ requiere {cemento_sacos} sacos de cemento, {acero_kg} kg de acero, {encofrado_m2} m² de encofrado. Volumen estimado de losa de cimentación: {vol_losa_cim} m³.",
+      "formula_display": "Volumen = largo × altura × (espesor_base + espesor_corona) ÷ 2",
+      "steps": [
+        "Calcular espesor promedio: (0.4m + 0.3m) ÷ 2 = 0.35m",
+        "Calcular volumen del muro: 10m × 2m × 0.35m = 7m³",
+        "Calcular cemento: 7m³ × 7 = 49 sacos",
+        "Calcular acero: 7m³ × 90 kg/m³ = 630 kg",
+        "Calcular encofrado (doble cara): 10m × 2m × 2 = 40m²"
+      ],
+      "mistakes": [
+        "No inclinar el muro hacia el terreno (debería tener ligera inclinación)",
+        "Omitir drenajes y filtros detrás del muro para evitar presión hidrostática",
+        "Usar espesor de corona insuficiente que reduce la estabilidad"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "altura",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "espesor_base",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "espesor_corona",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Mur de Soutènement",
+      "desc": "Calculez le béton et l'acier pour murs de soutènement.",
+      "seo_title": "Calculateur Mur de Soutènement",
+      "inputs": {
+        "largo": "Longueur",
+        "altura": "Hauteur",
+        "espesor_base": "Épaisseur en base",
+        "espesor_corona": "Épaisseur en couronne"
+      },
+      "outputs": {
+        "vol_muro": "Volume mur",
+        "cemento_sacos": "Sacs ciment",
+        "acero_kg": "Acier",
+        "encofrado_m2": "Coffrage",
+        "vol_losa_cim": "Vol. radier fondation"
+      },
+      "seo_description": "Dimensionnez les murs de soutènement en calculant volume béton, acier et coffrage. Inclut le facteur de perte pour les commandes.",
+      "example_label": "Calculer les matériaux pour un mur de soutènement de gravité de 10m de longueur, 2m de hauteur, 40cm dans la base et 30cm dans la couronne.",
+      "range_hints": {
+        "largo": "Longueur totale du mur à construire",
+        "altura": "Murs résidentiels: 1-3m, Murs structurels: jusqu'à 6m",
+        "espesor_base": "Generalmente 0.4-0.6 × hauteur pour murs de gravité",
+        "espesor_corona": "Minimum 0.25-0.30m pour résistance structurel"
+      },
+      "result_context": "le mur de {vol_muro} m³ nécessite {cemento_sacos} sacs de ciment, {acero_kg} kg de acier, {encofrado_m2} m² de coffrage. volume estimado de dalle de fondation: {vol_losa_cim} m³.",
+      "formula_display": "volume = longueur × hauteur × (espesor_base + espesor_corona) Á· 2",
+      "steps": [
+        "Calculer épaisseur promedio: (0.4m + 0.3m) Á· 2 = 0.35m",
+        "Calculer le volume du mur: 10m × 2m × 0.35m = 7m³",
+        "Calculer le ciment: 7m³ × 7 = 49 sacs",
+        "Calculer l'acier: 7m³ × 90 kg/m³ = 630 kg",
+        "Calculer coffrage (double cara): 10m × 2m × 2 = 40m²"
+      ],
+      "mistakes": [
+        "No inclinar le mur vers le terrain (debería tener légère inclinaison)",
+        "Omettre drainages et filtres derrière le mur pour éviter pression hydrostatique",
+        "Utiliser une épaisseur de couronne insuffisant qui réduit la stabilité"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "altura",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "espesor_base",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "espesor_corona",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Muro de Arrimo",
+      "desc": "Dimensione muros de arrimo calculando volume de concreto, aço e forma. Inclui fator de desperdicio para pedidos. Usado por profissionais e estudantes em.",
+      "seo_title": "Calculadora de Muro de Arrimo – Ferramenta Grátis",
+      "inputs": {
+        "largo": "Comprimento",
+        "altura": "Altura",
+        "espesor_base": "Espessura na base",
+        "espesor_corona": "Espessura no topo"
+      },
+      "outputs": {
+        "vol_muro": "Volume muro",
+        "cemento_sacos": "Sacos cimento",
+        "acero_kg": "Aço",
+        "encofrado_m2": "Forma",
+        "vol_losa_cim": "Vol. laje de fundação"
+      },
+      "seo_description": "Dimensione muros de arrimo calculando volume de concreto, aço e forma. Inclui fator de desperdicio para pedidos. Usado por profissionais e estudantes em.",
+      "example_label": "Calcular materiais para um muro de contenção de gravidade de 10m de comprimento, 2m de altura, 40cm na base e 30cm na corona.",
+      "range_hints": {
+        "largo": "Longitud total do muro a construir",
+        "altura": "Muros residenciais: 1-3m, Muros estruturais: hasta 6m",
+        "espesor_base": "Generalmente 0.4-0.6 × altura para muros de gravidade",
+        "espesor_corona": "Mínimo 0.25-0.30m para resistência estrutural"
+      },
+      "result_context": "El muro de {vol_muro} m³ requer {cemento_sacos} sacos de cimento, {acero_kg} kg de aço, {encofrado_m2} m² de encofrado. Volumen estimado de laje de fundação: {vol_losa_cim} m³.",
+      "formula_display": "Volumen = comprimento × altura × (espesor_base + espesor_corona) ÷ 2",
+      "steps": [
+        "Calcular espessura média: (0.4m + 0.3m) ÷ 2 = 0.35m",
+        "Calcular volume do muro: 10m × 2m × 0.35m = 7m³",
+        "Calcular cimento: 7m³ × 7 = 49 sacos",
+        "Calcular aço: 7m³ × 90 kg/m³ = 630 kg",
+        "Calcular cofragem (duplo cara): 10m × 2m × 2 = 40m²"
+      ],
+      "mistakes": [
+        "Não inclinar o muro hacia o terreno (debería tener ligeira inclinación)",
+        "Omitir drenagens e filtros detrás do muro para evitar presión hidrostática",
+        "Usar espessura de topo insuficiente que reduce a estabilidade"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "altura",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "espesor_base",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "espesor_corona",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Stützmauer contencion",
+      "desc": "Berechnen Sie stützmauer contencion online. Geben Sie largo, altura, espesor base ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Stützmauer contencion | CalcToWork",
+      "seo_desc": "Stützmauer contencion online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Stützmauer contencion online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "largo": "Largo",
+        "altura": "Altura",
+        "espesor_base": "Espesor Base",
+        "espesor_corona": "Espesor Corona"
+      },
+      "outputs": {
+        "vol_muro": "Vol Muro",
+        "cemento_sacos": "Cemento Sacos",
+        "acero_kg": "Acero Kg",
+        "encofrado_m2": "Encofrado M2",
+        "vol_losa_cim": "Vol Losa Cim"
+      },
+      "example_label": "Calcular materiales para muro de contención de 10 m × 2 m × 0.4 m × 0.3 m.",
+      "range_hints": {
+        "largo": "Medida típica según el proyecto",
+        "altura": "Altura según requerimientos",
+        "espesor_base": "Medida lineal en m según plano",
+        "espesor_corona": "Medida lineal en m según plano"
+      },
+      "result_context": "Resultados: {vol_muro}, {cemento_sacos} sacos de cemento, {acero_kg} kg de acero, {encofrado_m2} m² de encofrado, {vol_losa_cim}.",
+      "formula_display": "Volumen = largo × altura × espesor",
+      "steps": [
+        "Introducir los valores de largo, altura, espesor_base y espesor_corona",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m, cm, mm)",
+        "Aplicar la fórmula: Volumen = largo × altura × espesor",
+        "El resultado se expresa en m³. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Introducir valores con unidades incorrectas sin verificar la conversión",
+        "Redondear resultados intermedios en lugar del resultado final",
+        "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "altura",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "espesor_base",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "espesor_corona",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Pilastro in Cemento Armato",
+      "description": "Calcola materiali per pilastri in cemento armato.",
+      "seo_title": "Calcolatore Muro di Contenimento",
+      "seo_description": "Stima calcestruzzo e acciaio necessari per pilastri strutturali. Include fattore di scarto per gli ordini. Usato da professionisti e studenti in tutto.",
+      "inputs": {
+        "alto": "Altezza (m)",
+        "base": "Lato 1 (m)",
+        "ancho": "Lato 2 (m)",
+        "cuantia": "Percentuale armatura (%)"
+      },
+      "outputs": {
+        "volumen": "Volume (m³)",
+        "cemento_sacos": "Sacchi cemento",
+        "acero_kg": "Acciaio (kg)"
+      },
+      "example_label": "Calcolare opacoriales per un muro di continción di gravedad di 10m di lunghezza, 2m di altezza, 40cm in la base e 30cm in la corona.",
+      "range_hints": {
+        "largo": "Longitud totale dil muro a costruire",
+        "altura": "Muros resedinziali: 1-3m, Muros strutturali: hasta 6m",
+        "espesor_base": "Gineralminte 0.4-0.6 × altezza per muros di gravedad",
+        "espesor_corona": "Mínimo 0.25-0.30m per resestinza strutturale"
+      },
+      "result_context": "El muro di {vol_muro} m³ richiedi {ceminto_sacos} sacos di ceminto, {acciaio_kg} kg di acciaio, {cassero_m2} m² di cassero. Volumin estimado di letra di cimintación: {vol_letra_cim} m³.",
+      "formula_display": "Volumin = lunghezza × altezza × (spessore_base + spessore_corona) ÷ 2",
+      "steps": [
+        "Calcolare spessore medio: (0.4m + 0.3m) ÷ 2 = 0.35m",
+        "Calcolare volume dil muro: 10m × 2m × 0.35m = 7m³",
+        "Calcolare ceminto: 7m³ × 7 = 49 sacos",
+        "Calcolare acciaio: 7m³ × 90 kg/m³ = 630 kg",
+        "Calcolare cassero (doppia faccia): 10m × 2m × 2 = 40m²"
+      ],
+      "mistakes": [
+        "No inclinare el muro hacia el terrinon (dibería tiner leggera inclinación)",
+        "Omettere drinaggi e filtri ditrás dil muro per evitar preseón hidrostática",
+        "Usare spessore di corona insufficiinte que riduce la stabilità"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "altura",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "espesor_base",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "espesor_corona",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        }
+      ]
+    }
+  }
+}

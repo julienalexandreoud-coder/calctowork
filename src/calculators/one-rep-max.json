@@ -1,0 +1,431 @@
+{
+  "id": "951",
+  "slug": "one-rep-max",
+  "block": 16,
+  "block_slug": "deportes",
+  "inputs": [
+    {
+      "id": "peso_kg",
+      "type": "number",
+      "min": 0.1,
+      "max": 500,
+      "step": 0.1,
+      "default": 80,
+      "unit": "kg",
+      "unit_options": [
+        "kg",
+        "g",
+        "lb"
+      ],
+      "unit_category": "mass"
+    },
+    {
+      "id": "repeticiones",
+      "type": "number",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 5,
+      "unit": ""
+    }
+  ],
+  "formula": "var peso=parseFloat(inputs.peso_kg)||0,reps=parseInt(inputs.repeticiones)||0;if(!peso||!reps||reps<1||reps>20)return{error:true};var orm=+(peso*(1+reps/30)).toFixed(1);return{one_rep_max:orm,at_90pct:+(orm*0.9).toFixed(1),at_80pct:+(orm*0.8).toFixed(1),at_70pct:+(orm*0.7).toFixed(1)};",
+  "outputs": [
+    {
+      "id": "one_rep_max",
+      "unit": "kg",
+      "highlight": true
+    },
+    {
+      "id": "at_90pct",
+      "unit": "kg",
+      "highlight": false
+    },
+    {
+      "id": "at_80pct",
+      "unit": "kg",
+      "highlight": false
+    },
+    {
+      "id": "at_70pct",
+      "unit": "kg",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "950",
+    "954",
+    "956",
+    "901"
+  ],
+  "example_inputs": {
+    "peso_kg": 80,
+    "repeticiones": 5
+  },
+  "example_label": "Ejemplo para one rep max: valores 80kg, 5",
+  "range_hints": {
+    "peso_kg": "Valor típico entre 0.1 y 500. Valor por defecto: 80 kg.",
+    "repeticiones": "Valor típico entre 1 y 20. Valor por defecto: 5."
+  },
+  "result_context": "Tu repetición máxima estimada es {one_rep_max} kg. Al 90%: {at_90pct} kg, al 80%: {at_80pct} kg, al 70%: {at_70pct} kg.",
+  "result_context_en": "Your estimated one-rep max is {one_rep_max} kg. At 90%: {at_90pct} kg, at 80%: {at_80pct} kg, at 70%: {at_70pct} kg.",
+  "result_context_fr": "Votre répétition maximale estimée est de {one_rep_max} kg. À 90 % : {at_90pct} kg, à 80 % : {at_80pct} kg, à 70 % : {at_70pct} kg.",
+  "result_context_pt": "Sua repetição máxima estimada é {one_rep_max} kg. A 90%: {at_90pct} kg, a 80%: {at_80pct} kg, a 70%: {at_70pct} kg.",
+  "result_context_de": "Ihr geschätztes One-Rep-Max beträgt {one_rep_max} kg. Bei 90 %: {at_90pct} kg, bei 80 %: {at_80pct} kg, bei 70 %: {at_70pct} kg.",
+  "result_context_it": "La tua ripetizione massima stimata è {one_rep_max} kg. Al 90%: {at_90pct} kg, al 80%: {at_80pct} kg, al 70%: {at_70pct} kg.",
+  "formula_display": "reps ÷ 30 → one_rep_max, at_90pct",
+  "steps": [
+    "Introducir los valores de peso_kg y repeticiones",
+    "Verificar que las unidades sean correctas y convertir si es necesario (kg, g, lb)",
+    "Calcular los valores de one rep max y at 90pct",
+    "El resultado se expresa en kg. Verificar que la magnitud es coherente",
+    "Comparar el resultado con los valores de referencia para interpretar su significado"
+  ],
+  "mistakes": [
+    "Confundir ritmo (min/km) con velocidad (km/h)",
+    "No considerar el desnivel del terreno en el cálculo de ritmo",
+    "Usar el peso corporal total en lugar de la masa magra para calcular gasto calórico"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "peso_kg",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "repeticiones",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Beginner",
+      "peso_kg": 40,
+      "repeticiones": 2
+    },
+    {
+      "_label": "Intermediate",
+      "peso_kg": 60,
+      "repeticiones": 4
+    },
+    {
+      "_label": "Advanced",
+      "peso_kg": 80,
+      "repeticiones": 5
+    },
+    {
+      "_label": "Elite",
+      "peso_kg": 120,
+      "repeticiones": 8
+    },
+    {
+      "_label": "Pro",
+      "peso_kg": 160,
+      "repeticiones": 10
+    }
+  ],
+  "units": {
+    "peso_kg": "kg"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Repetición Máxima",
+      "desc": "Estima tu repeticion maxima (1RM) usando la formula de Brzycki. Esencial para progresar en pesas. Con precision de 10+ decimales.",
+      "description": "Calculadora de Repetición Máxima.",
+      "seo_title": "Calculadora de Repetición Máxima Gratuita",
+      "seo_description": "Estima tu repeticion maxima (1RM) usando la formula de Brzycki. Esencial para progresar en pesas. Con precision de 10+ decimales.",
+      "inputs": {
+        "peso_kg": "Peso (kg)",
+        "repeticiones": "Repeticiones"
+      },
+      "outputs": {
+        "one_rep_max": "1RM",
+        "at_90pct": "90%",
+        "at_80pct": "80%",
+        "at_70pct": "70%"
+      },
+      "example_label": "Calculate one rep max with peso_kg 80, repeticiones 5.",
+      "range_hints": {
+        "peso_kg": "Typical range: 0.1-500 in kg units.",
+        "repeticiones": "Typical range: 1-20."
+      },
+      "result_context": "Your calculated one rep max is {one_rep_max}.",
+      "formula_display": "Calculate one rep max based on input values.",
+      "steps": [
+        "Enter input values: peso_kg: 80, repeticiones: 5",
+        "Calculate and display the one_rep_max result",
+        "Calculate and display the at_90pct result",
+        "Calculate and display the at_80pct result",
+        "Calculate and display the at_70pct result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "repeticiones",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "en": {
+      "name": "One Rep Max Calculator",
+      "desc": "One Rep Max Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "One Rep Max Calculator.",
+      "seo_title": "One Rep Max Calculator – Easy Calculator",
+      "seo_description": "One Rep Max Calculator. Convert Weight (kg), Repetitions to 1RM, 90%, 80% instantly with precise conversion factors. Covers unit conversion and less.",
+      "inputs": {
+        "peso_kg": "Weight (kg)",
+        "repeticiones": "Repetitions"
+      },
+      "outputs": {
+        "one_rep_max": "1RM",
+        "at_90pct": "90%",
+        "at_80pct": "80%",
+        "at_70pct": "70%"
+      },
+      "example_label": "Calculate one rep max with peso_kg 80, repeticiones 5.",
+      "range_hints": {
+        "peso_kg": "Typical range: 0.1-500 in kg units.",
+        "repeticiones": "Typical range: 1-20."
+      },
+      "result_context": "Your calculated one rep max is {one_rep_max}.",
+      "formula_display": "Calculate one rep max based on input values.",
+      "steps": [
+        "Enter input values: peso_kg: 80, repeticiones: 5",
+        "Calculate and display the one_rep_max result",
+        "Calculate and display the at_90pct result",
+        "Calculate and display the at_80pct result",
+        "Calculate and display the at_70pct result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "repeticiones",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculatrice de Maximum sur une Répétition",
+      "desc": "Estimez votre maximum sur une repetition (1RM) avec la formule de Brzycki. Avec precision a 10+ decimales. Utilise par des professionnels et etudiants.",
+      "description": "Calculatrice de Maximum sur une Répétition.",
+      "seo_title": "Calculatrice de Maximum sur une Répétition en Ligne",
+      "seo_description": "Estimez votre maximum sur une repetition (1RM) avec la formule de Brzycki. Avec precision a 10+ decimales. Utilise par des professionnels et etudiants.",
+      "inputs": {
+        "peso_kg": "Poids (kg)",
+        "repeticiones": "Répétitions"
+      },
+      "outputs": {
+        "one_rep_max": "1RM",
+        "at_90pct": "90%",
+        "at_80pct": "80%",
+        "at_70pct": "70%"
+      },
+      "example_label": "Calculate one rep max with peso_kg 80, repeticiones 5.",
+      "range_hints": {
+        "peso_kg": "Typical range: 0.1-500 in kg units.",
+        "repeticiones": "Typical range: 1-20."
+      },
+      "result_context": "Your calculated one rep max is {one_rep_max}.",
+      "formula_display": "Calculate one rep max based on input values.",
+      "steps": [
+        "Enter input values: peso_kg: 80, repeticiones: 5",
+        "Calculate and display the one_rep_max result",
+        "Calculate and display the at_90pct result",
+        "Calculate and display the at_80pct result",
+        "Calculate and display the at_70pct result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "repeticiones",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Uma Repetição Máxima",
+      "desc": "Estime sua repeticao maxima (1RM) com a formula de Brzycki. Com precisao de 10+ decimais. Usado por profissionais e estudantes em todo o mundo.",
+      "description": "Calculadora de Uma Repetição Máxima.",
+      "seo_title": "Calculadora de Uma Repetição Máxima",
+      "seo_description": "Estime sua repeticao maxima (1RM) com a formula de Brzycki. Com precisao de 10+ decimais. Usado por profissionais e estudantes em todo o mundo.",
+      "inputs": {
+        "peso_kg": "Peso (kg)",
+        "repeticiones": "Repetições"
+      },
+      "outputs": {
+        "one_rep_max": "1RM",
+        "at_90pct": "90%",
+        "at_80pct": "80%",
+        "at_70pct": "70%"
+      },
+      "example_label": "Calculate one rep max with peso_kg 80, repeticiones 5.",
+      "range_hints": {
+        "peso_kg": "Typical range: 0.1-500 in kg units.",
+        "repeticiones": "Typical range: 1-20."
+      },
+      "result_context": "Your calculated one rep max is {one_rep_max}.",
+      "formula_display": "Calculate one rep max based on input values.",
+      "steps": [
+        "Enter input values: peso_kg: 80, repeticiones: 5",
+        "Calculate and display the one_rep_max result",
+        "Calculate and display the at_90pct result",
+        "Calculate and display the at_80pct result",
+        "Calculate and display the at_70pct result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "repeticiones",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "de": {
+      "name": "One rep max",
+      "desc": "Berechnen Sie one rep max online. Geben Sie peso kg, repeticiones ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "One rep max | CalcToWork",
+      "seo_desc": "One rep max online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "One rep max online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "peso_kg": "Peso Kg",
+        "repeticiones": "Repeticiones"
+      },
+      "outputs": {
+        "one_rep_max": "One Rep Max",
+        "at_90pct": "At 90pct",
+        "at_80pct": "At 80pct",
+        "at_70pct": "At 70pct"
+      },
+      "example_label": "Ejemplo para one rep max: valores 80kg, 5",
+      "range_hints": {
+        "peso_kg": "Valor típico entre 0.1 y 500. Valor por defecto: 80 kg.",
+        "repeticiones": "Valor típico entre 1 y 20. Valor por defecto: 5."
+      },
+      "result_context": "Ihr geschätztes One-Rep-Max beträgt {one_rep_max} kg. Bei 90 %: {at_90pct} kg, bei 80 %: {at_80pct} kg, bei 70 %: {at_70pct} kg.",
+      "formula_display": "reps ÷ 30 → one_rep_max, at_90pct",
+      "steps": [
+        "Introducir los valores de peso_kg y repeticiones",
+        "Verificar que las unidades sean correctas y convertir si es necesario (kg, g, lb)",
+        "Calcular los valores de one rep max y at 90pct",
+        "El resultado se expresa en kg. Verificar que la magnitud es coherente",
+        "Comparar el resultado con los valores de referencia para interpretar su significado"
+      ],
+      "mistakes": [
+        "Confundir ritmo (min/km) con velocidad (km/h)",
+        "No considerar el desnivel del terreno en el cálculo de ritmo",
+        "Usar el peso corporal total en lugar de la masa magra para calcular gasto calórico"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "repeticiones",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatrice di Massimale",
+      "desc": "Stima il tuo massimale (1RM) con la formula di Brzycki. Con precisione a 10+ decimali. Usato da professionisti e studenti in tutto il mondo.",
+      "description": "Calcolatrice di Massimale.",
+      "seo_title": "Calcolatrice di Massimale – Calcolo Facile",
+      "seo_description": "Stima il tuo massimale (1RM) con la formula di Brzycki. Con precisione a 10+ decimali. Usato da professionisti e studenti in tutto il mondo.",
+      "inputs": {
+        "peso_kg": "Peso (kg)",
+        "repeticiones": "Ripetizioni"
+      },
+      "outputs": {
+        "one_rep_max": "1RM",
+        "at_90pct": "90%",
+        "at_80pct": "80%",
+        "at_70pct": "70%"
+      },
+      "example_label": "Calculate one rep max with peso_kg 80, repeticiones 5.",
+      "range_hints": {
+        "peso_kg": "Tepical range: 0.1-500 in kg units.",
+        "repeticiones": "Tepical range: 1-20."
+      },
+      "result_context": "Your calculated one rep max is {one_rep_max}.",
+      "formula_display": "Calculate one rep max based on input values.",
+      "steps": [
+        "Enter input values: peso_kg: 80, repeticiones: 5",
+        "Calculate and displae the one_rep_max result",
+        "Calculate and displae the at_90pct result",
+        "Calculate and displae the at_80pct result",
+        "Calculate and displae the at_70pct result"
+      ],
+      "mistakes": [
+        "Confusenzag unit options whin intering values",
+        "Entering zero or negative values where posetive required",
+        "Usenzag incorrect input values outsedi recommindid range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "repeticiones",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        }
+      ]
+    }
+  }
+}

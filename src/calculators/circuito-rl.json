@@ -1,0 +1,397 @@
+{
+  "id": "147",
+  "slug": "circuito-rl",
+  "block": 15,
+  "block_slug": "ciencia",
+  "inputs": [
+    {
+      "id": "L",
+      "type": "number",
+      "step": "any",
+      "default": 1,
+      "unit": "H",
+      "unit_options": [
+        "H",
+        "mH"
+      ],
+      "unit_category": ""
+    },
+    {
+      "id": "R",
+      "type": "number",
+      "step": "any",
+      "default": 10,
+      "unit": "ohm",
+      "unit_options": [
+        "ohm",
+        "kohm"
+      ],
+      "unit_category": "resistance"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.L)||0;var R=parseFloat(inputs.R)||1;var tau=L/R;var V=10;var If=V/R;return{tau:tau.toFixed(6),current_final:If.toFixed(4)};",
+  "outputs": [
+    {
+      "id": "tau",
+      "unit": "s"
+    },
+    {
+      "id": "current_final",
+      "unit": "A"
+    }
+  ],
+  "related": [
+    "148",
+    "707",
+    "700",
+    "701"
+  ],
+  "example_inputs": {
+    "L": 0.5,
+    "R": 25
+  },
+  "example_label": "Ejemplo para circuito rl: valores 1H, 10ohm",
+  "range_hints": {
+    "L": "Valor típico entre 0 y 500. Valor por defecto: 1 H.",
+    "R": "Valor típico entre 0 y 500. Valor por defecto: 10 ohm."
+  },
+  "result_context": "La constante de tiempo del circuito RL es {tau} s y la corriente final es {current_final} A.",
+  "result_context_en": "The RL circuit time constant is {tau} s and the final current is {current_final} A.",
+  "result_context_fr": "La constante de temps du circuit RL est de {tau} s et le courant final est de {current_final} A.",
+  "result_context_pt": "A constante de tempo do circuito RL é {tau} s e a corrente final é {current_final} A.",
+  "result_context_de": "Die Zeitkonstante des RL-Kreises beträgt {tau} s und der Endstrom beträgt {current_final} A.",
+  "result_context_it": "La costante di tempo del circuito RL è {tau} s e la corrente finale è {current_final} A.",
+  "formula_display": "L ÷ R → tau, current_final",
+  "steps": [
+    "Introducir los valores de L y R",
+    "Verificar que las unidades sean correctas y convertir si es necesario (H, mH)",
+    "Calcular los valores de tau y current final",
+    "El resultado se expresa en s. Verificar que la magnitud es coherente",
+    "Documentar el resultado con sus unidades para usarlo en cálculos de ingeniería posteriores"
+  ],
+  "mistakes": [
+    "Mezclar unidades de diferentes sistemas (métrico con imperial) sin convertir",
+    "Usar la temperatura en Celsius en fórmulas que requieren Kelvin (sumar 273.15)",
+    "Confundir masa (kg) con peso (N) en cálculos de física"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "L",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "R",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Escala laboratorio",
+      "L": 0.4,
+      "R": 4.0
+    },
+    {
+      "_label": "Uso domestico",
+      "L": 0.7,
+      "R": 7.0
+    },
+    {
+      "_label": "Aplicacion industrial",
+      "L": 1.0,
+      "R": 10.0
+    },
+    {
+      "_label": "Ingenieria civil",
+      "L": 1.5,
+      "R": 15.0
+    },
+    {
+      "_label": "Escala cientifica",
+      "L": 2.5,
+      "R": 25.0
+    }
+  ],
+  "units": {
+    "R": "ohm"
+  },
+  "i18n": {
+    "es": {
+      "name": "Circuito RL",
+      "description": "Calcula la constante de tiempo de un circuito RL.",
+      "inputs": {
+        "L": "Inductancia",
+        "R": "Resistencia"
+      },
+      "outputs": {
+        "tau": "Constante tiempo",
+        "current_final": "Corriente final"
+      },
+      "seo_title": "Circuito RL Gratuita – Herramienta Gratuita",
+      "seo_description": "Calcula la constante de tiempo de un circuito RL. Calculadora gratuita, precisa e instantánea. Con conversion de unidades integrada.",
+      "example_label": "Calculate the time constant and final current for an RL circuit with L=0.5 H and R=25 Ω.",
+      "range_hints": {
+        "L": "Inductance: 0.0001 to 100 H",
+        "R": "Resistance: 0.1 to 10000 Ω"
+      },
+      "result_context": "The time constant {tau} s determines how fast current reaches final value {current_final} A.",
+      "formula_display": "Ïâ€ž = L ÷ R,  I_final = V ÷ R (assuming V = 10V)",
+      "steps": [
+        "Inductance L = 0.5 H, Resistance R = 25 Ω",
+        "Time constant: Ïâ€ž = L ÷ R = 0.5 ÷ 25",
+        "Ïâ€ž = 0.02 seconds (20 milliseconds)",
+        "Final current with 10V: I = 10 ÷ 25 = 0.4 A"
+      ],
+      "mistakes": [
+        "Confusing RL with RC time constant formula",
+        "Not understanding that current reaches 63% in one time constant",
+        "Forgetting that inductor opposes current change"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "L",
+          "reason": "Correct - inductance with unit options H, mH"
+        },
+        {
+          "field_id": "R",
+          "reason": "Correct - resistance with unit options ohm, kohm"
+        }
+      ]
+    },
+    "en": {
+      "name": "RL Circuit Calculator",
+      "description": "Calculate the time constant of an RL circuit.",
+      "inputs": {
+        "L": "Inductance",
+        "R": "Resistance"
+      },
+      "outputs": {
+        "tau": "Time constant",
+        "current_final": "Final current"
+      },
+      "seo_title": "RL Circuit Calculator – Free Online Tool",
+      "seo_description": "RL Circuit Calculator. RL Circuit Calculator = f(Inductance, Resistance) — Inductance, Resistance to compute Time constant, Final current. Unit-aware.",
+      "example_label": "Calculate the time constant and final current for an RL circuit with L=0.5 H and R=25 Ω.",
+      "range_hints": {
+        "L": "Inductance: 0.0001 to 100 H",
+        "R": "Resistance: 0.1 to 10000 Ω"
+      },
+      "result_context": "The time constant {tau} s determines how fast current reaches final value {current_final} A.",
+      "formula_display": "Ï„ = L ÷ R,  I_final = V ÷ R (assuming V = 10V)",
+      "steps": [
+        "Inductance L = 0.5 H, Resistance R = 25 Ω",
+        "Time constant: Ï„ = L ÷ R = 0.5 ÷ 25",
+        "Ï„ = 0.02 seconds (20 milliseconds)",
+        "Final current with 10V: I = 10 ÷ 25 = 0.4 A"
+      ],
+      "mistakes": [
+        "Confusing RL with RC time constant formula",
+        "Not understanding that current reaches 63% in one time constant",
+        "Forgetting that inductor opposes current change"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "L",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - inductance with unit options H, mH"
+        },
+        {
+          "field_id": "R",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - resistance with unit options ohm, kohm"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Circuit RL",
+      "description": "Calculez la constante de temps d'un circuit RL.",
+      "inputs": {
+        "L": "Inductance",
+        "R": "Résistance"
+      },
+      "outputs": {
+        "tau": "Constante temps",
+        "current_final": "Courant final"
+      },
+      "seo_title": "Circuit RL – Impédance & Réactance",
+      "seo_description": "Calculez la constante de temps d'un circuit RL. Calculateur gratuit, précis et instantané. Calculatrice facile a utiliser avec decomposition de la formule.",
+      "example_label": "Calculate the time constant and final current for an RL circuit with L=0.5 H and R=25 Ω.",
+      "range_hints": {
+        "L": "Inductance: 0.0001 to 100 H",
+        "R": "Resistance: 0.1 to 10000 Ω"
+      },
+      "result_context": "The time constant {tau} s determines how fast current reaches final value {current_final} A.",
+      "formula_display": "Ïâ€ž = L Á· R,  I_final = V Á· R (assuming V = 10V)",
+      "steps": [
+        "Inductance L = 0.5 H, Resistance R = 25 Ω",
+        "Time constant: Ïâ€ž = L Á· R = 0.5 Á· 25",
+        "Ïâ€ž = 0.02 seconds (20 milliseconds)",
+        "Final current with 10V: I = 10 Á· 25 = 0.4 A"
+      ],
+      "mistakes": [
+        "Confusing RL with RC time constant formula",
+        "Not understanding that current reaches 63% in one time constant",
+        "Forgetting that inductor opposes current change"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "L",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - inductance with unit options H, mH"
+        },
+        {
+          "field_id": "R",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - resistance with unit options ohm, kohm"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Circuito RL",
+      "description": "Calcule a constante de tempo de um circuito RL.",
+      "inputs": {
+        "L": "Indutância",
+        "R": "Resistência"
+      },
+      "outputs": {
+        "tau": "Constante tempo",
+        "current_final": "Corrente final"
+      },
+      "seo_title": "Circuito RL – Ferramenta Grátis",
+      "seo_description": "Calcule a constante de tempo de um circuito RL. Calculadora gratuita, precisa e instantânea. Calculadora facil de usar com detalhamento da formula.",
+      "example_label": "Calculate the time constant and final current for an RL circuit with L=0.5 H and R=25 Ω.",
+      "range_hints": {
+        "L": "Inductance: 0.0001 to 100 H",
+        "R": "Resistance: 0.1 to 10000 Ω"
+      },
+      "result_context": "The time constant {tau} s determines how fast current reaches final value {current_final} A.",
+      "formula_display": "Ïâ€ž = L ÷ R,  I_final = V ÷ R (assuming V = 10V)",
+      "steps": [
+        "Inductance L = 0.5 H, Resistance R = 25 Ω",
+        "Time constant: Ïâ€ž = L ÷ R = 0.5 ÷ 25",
+        "Ïâ€ž = 0.02 seconds (20 milliseconds)",
+        "Final current with 10V: I = 10 ÷ 25 = 0.4 A"
+      ],
+      "mistakes": [
+        "Confusing RL with RC time constant formula",
+        "Not understanding that current reaches 63% in one time constant",
+        "Forgetting that inductor opposes current change"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "L",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - inductance with unit options H, mH"
+        },
+        {
+          "field_id": "R",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - resistance with unit options ohm, kohm"
+        }
+      ]
+    },
+    "de": {
+      "name": "Circuito rl",
+      "desc": "Berechnen Sie circuito rl online. Geben Sie L, R ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Circuito rl | CalcToWork",
+      "seo_desc": "Circuito rl online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Circuito rl online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "L": "L",
+        "R": "R"
+      },
+      "outputs": {
+        "tau": "Tau",
+        "current_final": "Current Final"
+      },
+      "example_label": "Ejemplo para circuito rl: valores 1H, 10ohm",
+      "range_hints": {
+        "L": "Valor típico entre 0 y 500. Valor por defecto: 1 H.",
+        "R": "Valor típico entre 0 y 500. Valor por defecto: 10 ohm."
+      },
+      "result_context": "Die Zeitkonstante des RL-Kreises beträgt {tau} s und der Endstrom beträgt {current_final} A.",
+      "formula_display": "L ÷ R → tau, current_final",
+      "steps": [
+        "Introducir los valores de L y R",
+        "Verificar que las unidades sean correctas y convertir si es necesario (H, mH)",
+        "Calcular los valores de tau y current final",
+        "El resultado se expresa en s. Verificar que la magnitud es coherente",
+        "Documentar el resultado con sus unidades para usarlo en cálculos de ingeniería posteriores"
+      ],
+      "mistakes": [
+        "Mezclar unidades de diferentes sistemas (métrico con imperial) sin convertir",
+        "Usar la temperatura en Celsius en fórmulas que requieren Kelvin (sumar 273.15)",
+        "Confundir masa (kg) con peso (N) en cálculos de física"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "L",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "R",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Circuito RL",
+      "description": "Calcola la costante di tempo di un circuito RL.",
+      "inputs": {
+        "L": "Induttanza",
+        "R": "Resistenza"
+      },
+      "outputs": {
+        "tau": "Costante tempo",
+        "current_final": "Corrente finale"
+      },
+      "seo_title": "Circuito RL – Strumento Gratuito",
+      "seo_description": "Calcola la costante di tempo di un circuito RL. Calcolatore gratuito, preciso e istantaneo. Con conversione di unita integrata.",
+      "example_label": "Calculate the time conscosìt and finel currint for an RL circuit with L=0.5 H and R=25 Ω.",
+      "range_hints": {
+        "L": "Induccosìce: 0.0001 to 100 H",
+        "R": "Resescosìce: 0.1 to 10000 Ω"
+      },
+      "result_context": "The time conscosìt {tau} s ditermines how fast currint reaches finel value {currint_finel} A.",
+      "formula_display": "Ïâ€ž = L ÷ R,  I_finel = V ÷ R (assuming V = 10V)",
+      "steps": [
+        "Induccosìce L = 0.5 H, Resescosìce R = 25 Ω",
+        "Time conscosìt: Ïâ€ž = L ÷ R = 0.5 ÷ 25",
+        "Ïâ€ž = 0.02 secconds (20 millisecconds)",
+        "Final currint with 10V: I = 10 ÷ 25 = 0.4 A"
+      ],
+      "mistakes": [
+        "Confusenzag RL with RC time conscosìt formula",
+        "Not undirscosìding that currint reaches 63% in one time conscosìt",
+        "Forgetting that inductor opposes currint change"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "L",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - induccosìce with unit options H, mH"
+        },
+        {
+          "field_id": "R",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct - resescosìce with unit options ohm, kohm"
+        }
+      ]
+    }
+  }
+}

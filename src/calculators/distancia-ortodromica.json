@@ -1,0 +1,386 @@
+{
+  "id": "1049",
+  "slug": "distancia-ortodromica",
+  "block": 17,
+  "block_slug": "transporte",
+  "inputs": [
+    {
+      "id": "lat1",
+      "type": "number",
+      "step": "any",
+      "default": 40,
+      "unit": "deg",
+      "unit_options": [
+        "deg"
+      ],
+      "unit_category": "angle"
+    },
+    {
+      "id": "lon1",
+      "type": "number",
+      "step": "any",
+      "default": -74,
+      "unit": "deg",
+      "unit_options": [
+        "deg"
+      ],
+      "unit_category": "angle"
+    },
+    {
+      "id": "lat2",
+      "type": "number",
+      "step": "any",
+      "default": 51,
+      "unit": "deg",
+      "unit_options": [
+        "deg"
+      ],
+      "unit_category": "angle"
+    },
+    {
+      "id": "lon2",
+      "type": "number",
+      "step": "any",
+      "default": -0.1,
+      "unit": "deg",
+      "unit_options": [
+        "deg"
+      ],
+      "unit_category": "angle"
+    }
+  ],
+  "formula": "var lat1=parseFloat(inputs.lat1)||0;var lon1=parseFloat(inputs.lon1)||0;var lat2=parseFloat(inputs.lat2)||0;var lon2=parseFloat(inputs.lon2)||0;var R=6371;var dLat=(lat2-lat1)*Math.PI/180;var dLon=(lon2-lon1)*Math.PI/180;var a=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)*Math.sin(dLon/2);var c=2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));return{dist:(R*c).toFixed(2)};",
+  "outputs": [
+    {
+      "id": "dist",
+      "unit": "km"
+    }
+  ],
+  "related": [
+    "1045",
+    "1047",
+    "1046",
+    "1048"
+  ],
+  "example_inputs": {
+    "lat1": 40,
+    "lon1": -74,
+    "lat2": 51,
+    "lon2": -0.1
+  },
+  "example_label": "Ejemplo para distancia ortodromica: valores 40deg, -74deg, 51deg, -0.1deg",
+  "range_hints": {
+    "lat1": "Valor típico entre 0 y 500. Valor por defecto: 40 deg.",
+    "lon1": "Valor típico entre 0 y 500. Valor por defecto: -74 deg.",
+    "lat2": "Valor típico entre 0 y 500. Valor por defecto: 51 deg.",
+    "lon2": "Valor típico entre 0 y 500. Valor por defecto: -0.1 deg."
+  },
+  "result_context": "La distancia ortodrómica entre los dos puntos es de {dist} km.",
+  "result_context_en": "The great-circle distance between the two points is {dist} km.",
+  "result_context_fr": "La distance orthodromique entre les deux points est de {dist} km.",
+  "result_context_pt": "A distância ortodrômica entre os dois pontos é de {dist} km.",
+  "result_context_de": "Die Großkreisentfernung zwischen den beiden Punkten beträgt {dist} km.",
+  "result_context_it": "La distanza ortodromica tra i due punti è di {dist} km.",
+  "formula_display": "Dist (km) = f(lat1, lon1, lat2, lon2)",
+  "steps": [
+    "Introducir los valores de lat1, lon1, lat2 y lon2",
+    "Verificar que las unidades sean correctas y convertir si es necesario (deg)",
+    "Realizar el cálculo para obtener dist",
+    "El resultado se expresa en km. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Usar litros y millas sin convertir unidades (1 galón US = 3.785 L)",
+    "No considerar que el consumo urbano puede ser hasta un 50% mayor que el extraurbano",
+    "Olvidar que la presión de neumáticos debe medirse en frío"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "lat1",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "lon1",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "lat2",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "lon2",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "City",
+      "lat1": 20,
+      "lon1": -37,
+      "lat2": 51,
+      "lon2": -0.1
+    },
+    {
+      "_label": "Suburban",
+      "lat1": 30,
+      "lon1": -56,
+      "lat2": 51,
+      "lon2": -0.1
+    },
+    {
+      "_label": "Highway",
+      "lat1": 40,
+      "lon1": -74,
+      "lat2": 51,
+      "lon2": -0.1
+    },
+    {
+      "_label": "Long haul",
+      "lat1": 60,
+      "lon1": -111,
+      "lat2": 51,
+      "lon2": -0.1
+    },
+    {
+      "_label": "International",
+      "lat1": 80,
+      "lon1": -148,
+      "lat2": 51,
+      "lon2": -0.1
+    }
+  ],
+  "units": {
+    "lat1": "deg",
+    "lon1": "deg",
+    "lat2": "deg",
+    "lon2": "deg"
+  },
+  "i18n": {
+    "es": {
+      "name": "Distancia Ortodrómica",
+      "description": "Calcula la distancia más corta entre dos puntos en la Tierra.",
+      "inputs": {
+        "lat1": "Latitud 1",
+        "lon1": "Longitud 1",
+        "lat2": "Latitud 2",
+        "lon2": "Longitud 2"
+      },
+      "outputs": {
+        "dist": "Distancia"
+      },
+      "seo_title": "Distancia Ortodrómica – Calculadora de Gran Círculo Gratuita",
+      "seo_description": "Calcula la distancia más corta entre dos puntos en la Tierra (gran círculo). Fórmula de Haversine. Ejemplo: Madrid–Nueva York ≈ 5,770 km. Gratis.",
+      "example_label": "Ejemplo de cálculo de transporte",
+      "range_hints": {},
+      "result_context": "Distancia mínima entre dos puntos en esfera.",
+      "formula_display": "d = R × arccos(sinÏâ€ ââ€šsinÏâ€ ââ€šâ€š + cosÏâ€ ââ€šcosÏâ€ ââ€šâ€šcosÎ”λ)",
+      "steps": [
+        "Identificar los valores de entrada",
+        "Aplicar la fórmula correspondiente",
+        "Realizar el cálculo",
+        "Obtener los 1 resultados"
+      ],
+      "mistakes": [
+        "Usar grados en lugar de radianes",
+        "No convertir coordenadas",
+        "Confundir ortodrómica con loxodrómica"
+      ],
+      "input_type_review": []
+    },
+    "en": {
+      "name": "Great Circle Distance Calculator",
+      "description": "Calculate the shortest distance between two points on Earth.",
+      "inputs": {
+        "lat1": "Latitude 1",
+        "lon1": "Longitude 1",
+        "lat2": "Latitude 2",
+        "lon2": "Longitude 2"
+      },
+      "outputs": {
+        "dist": "Distance"
+      },
+      "seo_title": "Great-Circle Distance Calculator – Haversine Formula",
+      "seo_description": "Calculate the shortest distance between two points on Earth (great circle). Haversine formula. Example: Madrid to New York â‰ˆ 5,770 km. Free.",
+      "example_label": "Ejemplo de cálculo de transporte",
+      "range_hints": {},
+      "result_context": "Distancia mínima entre dos puntos en esfera.",
+      "formula_display": "d = R × arccos(sinÏ†Ã¢â€šÂsinÏ†Ã¢â€šâ€š + cosÏ†Ã¢â€šÂcosÏ†Ã¢â€šâ€šcosÎ”λ)",
+      "steps": [
+        "Identificar los valores de entrada",
+        "Aplicar la fórmula correspondiente",
+        "Realizar el cálculo",
+        "Obtener los 1 resultados"
+      ],
+      "mistakes": [
+        "Usar grados en lugar de radianes",
+        "No convertir coordenadas",
+        "Confundir ortodrómica con loxodrómica"
+      ],
+      "input_type_review": "4 entrada(s) de tipo number"
+    },
+    "fr": {
+      "name": "Distance Orthodromique",
+      "description": "Calculez la distance la plus courte entre deux points sur Terre.",
+      "inputs": {
+        "lat1": "Latitude 1",
+        "lon1": "Longitude 1",
+        "lat2": "Latitude 2",
+        "lon2": "Longitude 2"
+      },
+      "outputs": {
+        "dist": "Distance"
+      },
+      "seo_title": "Distance Orthodromique – Calculateur de Grand Cercle en",
+      "seo_description": "Calculez la distance la plus courte entre deux points sur Terre (grand cercle). Formule Haversine. Exemple: Paris–New York ≈ 5,850 km. Gratuit.",
+      "example_label": "Ejemplo de cálculo de transporte",
+      "range_hints": {},
+      "result_context": "Distancia mínima entre dos puntos dans esfera.",
+      "formula_display": "d = R × arccos(sansÏâ€ ââ€šsansÏâ€ ââ€šâ€š + cosÏâ€ ââ€šcosÏâ€ ââ€šâ€šcosÎ”λ)",
+      "steps": [
+        "Identificar les valores de entrada",
+        "Aplicar la fórmula correspondiente",
+        "Realizar le cálculo",
+        "Obtener les 1 resultados"
+      ],
+      "mistakes": [
+        "Utiliser grados dans lugar de radianes",
+        "No convertir coordenadas",
+        "Confondre ortodrómica avec loxodrómica"
+      ],
+      "input_type_review": []
+    },
+    "pt": {
+      "name": "Distância Ortodrómica",
+      "description": "Calcule a distância mais curta entre dois pontos na Terra.",
+      "inputs": {
+        "lat1": "Latitude 1",
+        "lon1": "Longitude 1",
+        "lat2": "Latitude 2",
+        "lon2": "Longitude 2"
+      },
+      "outputs": {
+        "dist": "Distância"
+      },
+      "seo_title": "Distância Ortodrômica – Calculadora de Grande Círculo",
+      "seo_description": "Calcule a distância mais curta entre dois pontos na Terra (grande círculo). Fórmula Haversine. Exemplo: Lisboa–Nova Iorque ≈ 5,430 km. Grátis.",
+      "example_label": "Ejemplo de cálculo de transporte",
+      "range_hints": {},
+      "result_context": "Distancia mínima entre dos puntos em esfera.",
+      "formula_display": "d = R × arccos(sinÏâ€ ââ€šsinÏâ€ ââ€šâ€š + cosÏâ€ ââ€šcosÏâ€ ââ€šâ€šcosÎ”λ)",
+      "steps": [
+        "Identificar os valores de entrada",
+        "Aplicar a fórmula correspondiente",
+        "Realizar o cálculo",
+        "Obtener os 1 resultados"
+      ],
+      "mistakes": [
+        "Usar grados em lugar de radianes",
+        "Não convertir coordenadas",
+        "Confundir ortodrómica com loxodrómica"
+      ],
+      "input_type_review": []
+    },
+    "de": {
+      "name": "Distancia ortodromica",
+      "desc": "Berechnen Sie distancia ortodromica online. Geben Sie lat1, lon1, lat2 ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Distancia ortodromica | CalcToWork",
+      "seo_desc": "Distancia ortodromica online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Distancia ortodromica online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "lat1": "Lat1",
+        "lon1": "Lon1",
+        "lat2": "Lat2",
+        "lon2": "Lon2"
+      },
+      "outputs": {
+        "dist": "Dist"
+      },
+      "example_label": "Ejemplo para distancia ortodromica: valores 40deg, -74deg, 51deg, -0.1deg",
+      "range_hints": {
+        "lat1": "Valor típico entre 0 y 500. Valor por defecto: 40 deg.",
+        "lon1": "Valor típico entre 0 y 500. Valor por defecto: -74 deg.",
+        "lat2": "Valor típico entre 0 y 500. Valor por defecto: 51 deg.",
+        "lon2": "Valor típico entre 0 y 500. Valor por defecto: -0.1 deg."
+      },
+      "result_context": "Die Großkreisentfernung zwischen den beiden Punkten beträgt {dist} km.",
+      "formula_display": "Dist (km) = f(lat1, lon1, lat2, lon2)",
+      "steps": [
+        "Introducir los valores de lat1, lon1, lat2 y lon2",
+        "Verificar que las unidades sean correctas y convertir si es necesario (deg)",
+        "Realizar el cálculo para obtener dist",
+        "El resultado se expresa en km. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Usar litros y millas sin convertir unidades (1 galón US = 3.785 L)",
+        "No considerar que el consumo urbano puede ser hasta un 50% mayor que el extraurbano",
+        "Olvidar que la presión de neumáticos debe medirse en frío"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "lat1",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "lon1",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "lat2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "lon2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Distanza Ortodromica",
+      "description": "Calcola la distanza più breve tra due punti sulla Terra.",
+      "inputs": {
+        "lat1": "Latitudine 1",
+        "lon1": "Longitudine 1",
+        "lat2": "Latitudine 2",
+        "lon2": "Longitudine 2"
+      },
+      "outputs": {
+        "dist": "Distanza"
+      },
+      "seo_title": "Distanza Ortodromica – Calcolatore del Grande Cerchio",
+      "seo_description": "Calcola la distanza più breve tra due punti sulla Terra. Formula Haversine. Esempio: Roma–New York ≈ 8,230 km. Calcolatore gratuito e immediato.",
+      "example_label": "Ejemplo di cálculo di transperte",
+      "range_hints": {},
+      "result_context": "Discosìcia mínima intre dos puntos in esfera.",
+      "formula_display": "d = R × arccos(senzaÏâ€ ââ€šsenzaÏâ€ ââ€šâ€š + cosÏâ€ ââ€šcosÏâ€ ââ€šâ€šcosÎ”λ)",
+      "steps": [
+        "Idintificar i valorei di intrada",
+        "Applicare la fórmula correspondiinte",
+        "Realizar el cálculo",
+        "Obtiner i 1 risultati"
+      ],
+      "mistakes": [
+        "Usare grados in lugar di radianes",
+        "No convertir coordinadas",
+        "Confondire ortodrómica con loxodrómica"
+      ],
+      "input_type_review": null
+    }
+  }
+}

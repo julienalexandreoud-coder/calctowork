@@ -1,0 +1,491 @@
+{
+  "id": "015",
+  "slug": "aislamiento-termico",
+  "block": 2,
+  "block_slug": "mamposteria",
+  "inputs": [
+    {
+      "id": "largo",
+      "type": "number",
+      "min": 0.5,
+      "max": 300,
+      "step": 0.1,
+      "default": 10,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "alto",
+      "type": "number",
+      "min": 0.5,
+      "max": 10,
+      "step": 0.1,
+      "default": 3,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "espesor_cm",
+      "type": "number",
+      "min": 2,
+      "max": 25,
+      "step": 1,
+      "default": 6,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.largo)||0,H=parseFloat(inputs.alto)||0,E=parseFloat(inputs.espesor_cm)||6;if(!L||!H)return{error:true};var area=L*H,plancha_m2=+(area*1.05).toFixed(2),vol_m3=+(area*E/100*1.05).toFixed(3);return{area_m2:+area.toFixed(2),plancha_m2:plancha_m2,vol_m3:vol_m3};",
+  "outputs": [
+    {
+      "id": "area_m2",
+      "unit": "m²",
+      "highlight": true
+    },
+    {
+      "id": "plancha_m2",
+      "unit": "m² (+5% merma)"
+    },
+    {
+      "id": "vol_m3",
+      "unit": "m³"
+    }
+  ],
+  "related": [
+    "014",
+    "053",
+    "055",
+    "011"
+  ],
+  "example_inputs": {
+    "largo": 10,
+    "alto": 3,
+    "espesor_cm": 6
+  },
+  "example_label": "Calcular aislante térmico para 10 m × 3 m × 6 cm.",
+  "range_hints": {
+    "largo": "Medida típica según el proyecto",
+    "alto": "Altura estándar según uso",
+    "espesor_cm": "Medida lineal en cm según plano"
+  },
+  "result_context": "Resultados: {area_m2} m² de superficie, {plancha_m2} m² de plancha, {vol_m3} m³ de volumen.",
+  "formula_display": "E ÷ 100 → area_m2, plancha_m2",
+  "steps": [
+    "Introducir los valores de largo, alto y espesor_cm",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m, cm, mm)",
+    "Calcular los valores de area m2 y plancha m2",
+    "El resultado se expresa en m². Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Introducir valores con unidades incorrectas sin verificar la conversión",
+    "Redondear resultados intermedios en lugar del resultado final",
+    "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "largo",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "alto",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "espesor_cm",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small wall",
+      "largo": 5,
+      "espesor_cm": 3,
+      "alto": 3
+    },
+    {
+      "_label": "Medium wall",
+      "largo": 7.5,
+      "espesor_cm": 4,
+      "alto": 3
+    },
+    {
+      "_label": "Large wall",
+      "largo": 10,
+      "espesor_cm": 6,
+      "alto": 3
+    },
+    {
+      "_label": "Room",
+      "largo": 15,
+      "espesor_cm": 9,
+      "alto": 3
+    },
+    {
+      "_label": "House perimeter",
+      "largo": 20,
+      "espesor_cm": 12,
+      "alto": 3
+    }
+  ],
+  "units": {
+    "largo": "m",
+    "alto": "m",
+    "espesor_cm": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Aislamiento Térmico",
+      "desc": "Calcula la cantidad de aislamiento térmico (poliestireno expandido o lana de roca) para paredes y cubiertas. Introduce tus valores y obtiene resultados.",
+      "seo_title": "Calculadora Aislamiento – EPS y Lana",
+      "inputs": {
+        "largo": "Longitud",
+        "alto": "Altura / Longitud",
+        "espesor_cm": "Espesor"
+      },
+      "outputs": {
+        "area_m2": "Área",
+        "plancha_m2": "Planchas aislamiento (+5%)",
+        "vol_m3": "Volumen total"
+      },
+      "seo_description": "Calcula la cantidad de aislamiento térmico (poliestireno expandido o lana de roca) para paredes y cubiertas. Introduce tus valores y obtiene resultados.",
+      "example_label": "Calcular planchas de aislamiento térmico para una fachada de 10m × 3m con espesor de 6cm.",
+      "range_hints": {
+        "largo": "Longitud del paramento a aislar",
+        "alto": "Altura del paramento",
+        "espesor_cm": "Aislamiento típico: 4-8cm fachadas, 10-20cm cubiertas"
+      },
+      "result_context": "Para {area_m2} m² de superficie se necesitan {plancha_m2} m² de planchas de aislamiento (con 5% de merma), equivalentes a {vol_m3} m³ de material.",
+      "formula_display": "Área = largo × alto; Planchas = área × 1.05; Volumen = área × espesor_m",
+      "steps": [
+        "Calcular área: 10m × 3m = 30m²",
+        "Aplicar merma: 30m² × 1.05 = 31.5m² de planchas",
+        "Convertir espesor: 6cm = 0.06m",
+        "Calcular volumen: 30m² × 0.06m = 1.8m³ de aislamiento"
+      ],
+      "mistakes": [
+        "No considerar puentes térmicos en encuentros con forjados y pilares",
+        "Usar espesor insuficiente para la zona climática",
+        "No prever barrera de vapor cuando el aislamiento va en cara interior"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "alto",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "espesor_cm",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Thermal Insulation Calculator",
+      "desc": "Thermal Insulation Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Insulation Calculator – EPS & Rockwool",
+      "seo_desc": "Thermal Insulation Calculator. Length, Height, Thickness — get Area, Insulation boards (+5%), Total volume instantly for your masonry and enclosures.",
+      "inputs": {
+        "largo": "Length",
+        "alto": "Height",
+        "espesor_cm": "Thickness"
+      },
+      "outputs": {
+        "area_m2": "Area",
+        "plancha_m2": "Insulation boards (+5%)",
+        "vol_m3": "Total volume"
+      },
+      "seo_description": "Calculate how many m² of EPS, rockwool or PIR insulation boards you need for external walls and roofs. Enter length, height and thickness in cm.",
+      "example_label": "Calcular planchas de aislamiento térmico para una fachada de 10m × 3m con espesor de 6cm.",
+      "range_hints": {
+        "largo": "Longitud del paramento a aislar",
+        "alto": "Altura del paramento",
+        "espesor_cm": "Aislamiento típico: 4-8cm fachadas, 10-20cm cubiertas"
+      },
+      "result_context": "Para {area_m2} m² de superficie se necesitan {plancha_m2} m² de planchas de aislamiento (con 5% de merma), equivalentes a {vol_m3} m³ de material.",
+      "formula_display": "Área = largo × alto; Planchas = área × 1.05; Volumen = área × espesor_m",
+      "steps": [
+        "Calcular área: 10m × 3m = 30m²",
+        "Aplicar merma: 30m² × 1.05 = 31.5m² de planchas",
+        "Convertir espesor: 6cm = 0.06m",
+        "Calcular volumen: 30m² × 0.06m = 1.8m³ de aislamiento"
+      ],
+      "mistakes": [
+        "No considerar puentes térmicos en encuentros con forjados y pilares",
+        "Usar espesor insuficiente para la zona climática",
+        "No prever barrera de vapor cuando el aislamiento va en cara interior"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "espesor_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Isolation Thermique",
+      "desc": "Calculez les m² d'isolation thermique nécessaires.",
+      "seo_title": "Calculateur Isolation – EPS et Laine",
+      "inputs": {
+        "largo": "Longueur",
+        "alto": "Hauteur",
+        "espesor_cm": "Épaisseur"
+      },
+      "outputs": {
+        "area_m2": "Surface",
+        "plancha_m2": "Panneaux isolation (+5%)",
+        "vol_m3": "Volume total"
+      },
+      "seo_description": "Calculez la quantité d'isolation thermique pour murs et toitures Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calculer planchas de isolation thermique pour une fachada de 10m × 3m avec épaisseur de 6cm.",
+      "range_hints": {
+        "largo": "longueur du paramento a aislar",
+        "alto": "hauteur du paramento",
+        "espesor_cm": "isolation typique: 4-8cm fachadas, 10-20cm couvertures"
+      },
+      "result_context": "pour {area_m2} m² de surface se necesitan {plancha_m2} m² de planchas de isolation (avec 5% de merma), equivalentes a {vol_m3} m³ de material.",
+      "formula_display": "Área = longueur × alto; Planchas = área × 1.05; volume = área × espesor_m",
+      "steps": [
+        "Calculer área: 10m × 3m = 30m²",
+        "Aplicar merma: 30m² × 1.05 = 31.5m² de planchas",
+        "Convertir épaisseur: 6cm = 0.06m",
+        "Calculer le volume: 30m² × 0.06m = 1.8m³ de isolation"
+      ],
+      "mistakes": [
+        "Ne pas considérer puentes térmicos dans encuentros avec forjados et piliers",
+        "Utiliser une épaisseur insuffisant pour la zona climática",
+        "No prever barrera de vapor cuando le isolation va dans cara interior"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "espesor_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Isolamento Térmico",
+      "desc": "Calcule a quantidade de isolamento térmico para paredes e coberturas Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora Isolamento – EPS e Lã",
+      "inputs": {
+        "largo": "Comprimento",
+        "alto": "Altura",
+        "espesor_cm": "Espessura"
+      },
+      "outputs": {
+        "area_m2": "Área",
+        "plancha_m2": "Painéis isolamento (+5%)",
+        "vol_m3": "Volume total"
+      },
+      "seo_description": "Calcule a quantidade de isolamento térmico para paredes e coberturas Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular planchas de isolamento térmico para uma fachada de 10m × 3m com espessura de 6cm.",
+      "range_hints": {
+        "largo": "Longitud do paramento a aislar",
+        "alto": "Altura do paramento",
+        "espesor_cm": "Aislamiento típico: 4-8cm fachadas, 10-20cm coberturas"
+      },
+      "result_context": "Para {area_m2} m² de superfície são necessários {plancha_m2} m² de planchas de isolamento (com 5% de merma), equivalentes a {vol_m3} m³ de material.",
+      "formula_display": "Área = comprimento × alto; Planchas = área × 1.05; Volumen = área × espesor_m",
+      "steps": [
+        "Calcular área: 10m × 3m = 30m²",
+        "Aplicar merma: 30m² × 1.05 = 31.5m² de planchas",
+        "Convertir espessura: 6cm = 0.06m",
+        "Calcular volume: 30m² × 0.06m = 1.8m³ de isolamento"
+      ],
+      "mistakes": [
+        "Não considerar puentes térmicos em encuentros com forjados e pilares",
+        "Usar espessura insuficiente para a zona climática",
+        "Não prever barrera de vapor cuando o isolamento va em cara interior"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "espesor_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Wärmedämmung termico",
+      "desc": "Berechnen Sie wärmedämmung termico online. Geben Sie largo, alto, espesor cm ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Wärmedämmung termico | CalcToWork",
+      "seo_desc": "Wärmedämmung termico online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Wärmedämmung termico online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "largo": "Largo",
+        "alto": "Alto",
+        "espesor_cm": "Espesor Cm"
+      },
+      "outputs": {
+        "area_m2": "Area M2",
+        "plancha_m2": "Plancha M2",
+        "vol_m3": "Vol M3"
+      },
+      "example_label": "Calcular aislante térmico para 10 m × 3 m × 6 cm.",
+      "range_hints": {
+        "largo": "Medida típica según el proyecto",
+        "alto": "Altura estándar según uso",
+        "espesor_cm": "Medida lineal en cm según plano"
+      },
+      "result_context": "Resultados: {area_m2} m² de superficie, {plancha_m2} m² de plancha, {vol_m3} m³ de volumen.",
+      "formula_display": "E ÷ 100 → area_m2, plancha_m2",
+      "steps": [
+        "Introducir los valores de largo, alto y espesor_cm",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m, cm, mm)",
+        "Calcular los valores de area m2 y plancha m2",
+        "El resultado se expresa en m². Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Introducir valores con unidades incorrectas sin verificar la conversión",
+        "Redondear resultados intermedios en lugar del resultado final",
+        "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "espesor_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Muratura in Pietra",
+      "description": "Calcola pietra e malta per muratura in pietra naturale.",
+      "seo_title": "Calcolatore Isolamento – EPS e Lana",
+      "seo_description": "Calcolatore Muratura in Pietra. Lunghezza (m), Altezza (m), Spessore (m) ââ‚¬” ottieni Pietra (m³), Malta (m³), Sacchi cemento istantaneamente per il tuo.",
+      "inputs": {
+        "largo": "Lunghezza (m)",
+        "alto": "Altezza (m)",
+        "espesor": "Spessore (m)"
+      },
+      "outputs": {
+        "piedra_m3": "Pietra (m³)",
+        "mortero_m3": "Malta (m³)",
+        "cemento_sacos": "Sacchi cemento"
+      },
+      "example_label": "Calcolare pianonchas di isolaminto térmico per una fachada di 10m × 3m con spessore di 6cm.",
+      "range_hints": {
+        "largo": "Longitud dil perminto a isolare",
+        "alto": "Altura dil perminto",
+        "espesor_cm": "Aislamiinto típico: 4-8cm fachadas, 10-20cm coperturas"
+      },
+      "result_context": "Per {area_m2} m² di superficie sonon necessari {pianoncha_m2} m² di pianonchas di isolaminto (con 5% di merma), equivalintes a {vol_m3} m³ di opacorial.",
+      "formula_display": "Área = lunghezza × alto; Planchas = área × 1.05; Volumin = área × spessore_m",
+      "steps": [
+        "Calcolare área: 10m × 3m = 30m²",
+        "Applicare merma: 30m² × 1.05 = 31.5m² di pianonchas",
+        "Convertire spessore: 6cm = 0.06m",
+        "Calcolare volume: 30m² × 0.06m = 1.8m³ di isolaminto"
+      ],
+      "mistakes": [
+        "Non consedirare puintes térmicos in incuintros con forjados e piletri",
+        "Usare spessore insufficiinte per la zona climática",
+        "No prever barrera di vaper quando el isolaminto va in cara internon"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "espesor_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        }
+      ]
+    }
+  }
+}

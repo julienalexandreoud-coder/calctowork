@@ -1,0 +1,423 @@
+{
+  "id": "403",
+  "slug": "agua-diaria-2",
+  "block": 12,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "peso_kg",
+      "type": "number",
+      "min": 10,
+      "max": 300,
+      "step": 0.5,
+      "default": 70,
+      "unit": "kg",
+      "unit_options": [
+        "kg",
+        "lb"
+      ],
+      "unit_category": "mass",
+      "unit_default": "kg"
+    },
+    {
+      "id": "ejercicio_min",
+      "type": "number",
+      "min": 0,
+      "max": 480,
+      "step": 5,
+      "default": 30,
+      "unit": "min/día"
+    }
+  ],
+  "formula": "var P=parseFloat(inputs.peso_kg)||0,E=parseFloat(inputs.ejercicio_min)||0;if(!P)return{error:true};var base=P*0.033,extra=E*0.5/60,total=+(base+extra).toFixed(2),vasos=Math.ceil(total/0.25);return{agua_total_litros:total,agua_base_litros:+base.toFixed(2),agua_extra_litros:+extra.toFixed(2),vasos_250ml:vasos};",
+  "outputs": [
+    {
+      "id": "agua_total_litros",
+      "unit": "L/día",
+      "highlight": true
+    },
+    {
+      "id": "agua_base_litros",
+      "unit": "L/día"
+    },
+    {
+      "id": "agua_extra_litros",
+      "unit": "L/día"
+    },
+    {
+      "id": "vasos_250ml",
+      "unit": "vasos"
+    }
+  ],
+  "related": [
+    "400",
+    "401",
+    "402",
+    "410"
+  ],
+  "example_inputs": {
+    "peso_kg": 70,
+    "ejercicio_min": 30
+  },
+  "example_label": "Calcular agua diaria recomendada para 70 kg × 30 min/día.",
+  "range_hints": {
+    "peso_kg": "Valor típico entre 10 y 300. Valor por defecto: 70 kg.",
+    "ejercicio_min": "Valor típico entre 0 y 480. Valor por defecto: 30 min/día."
+  },
+  "result_context": "Tu ingesta diaria de agua recomendada es de {agua_total_litros} L, equivalentes a {vasos_250ml} vasos de 250 ml ({agua_base_litros} L base + {agua_extra_litros} L extra por actividad).",
+  "result_context_en": "Your recommended daily water intake is {agua_total_litros} L, equivalent to {vasos_250ml} glasses of 250 ml ({agua_base_litros} L base + {agua_extra_litros} L extra for activity).",
+  "result_context_fr": "Votre apport quotidien en eau recommandé est de {agua_total_litros} L, soit {vasos_250ml} verres de 250 ml ({agua_base_litros} L de base + {agua_extra_litros} L supplémentaires pour l'activité).",
+  "result_context_pt": "Sua ingestão diária de água recomendada é de {agua_total_litros} L, equivalentes a {vasos_250ml} copos de 250 ml ({agua_base_litros} L base + {agua_extra_litros} L extra por atividade).",
+  "result_context_de": "Ihre empfohlene tägliche Wasseraufnahme beträgt {agua_total_litros} L, das entspricht {vasos_250ml} Gläsern à 250 ml ({agua_base_litros} L Grundbedarf + {agua_extra_litros} L extra für Aktivität).",
+  "result_context_it": "L'assunzione giornaliera di acqua raccomandata è di {agua_total_litros} L, equivalenti a {vasos_250ml} bicchieri da 250 ml ({agua_base_litros} L base + {agua_extra_litros} L extra per attività).",
+  "formula_display": "5 ÷ 60 → agua_total_litros, agua_base_litros",
+  "steps": [
+    "Introducir los valores de peso_kg y ejercicio_min",
+    "Verificar que las unidades sean correctas y convertir si es necesario (kg, lb)",
+    "Calcular los valores de agua total litros y agua base litros",
+    "El resultado se expresa en L/día. Verificar que la magnitud es coherente",
+    "Comparar el resultado con los valores de referencia para interpretar su significado"
+  ],
+  "mistakes": [
+    "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+    "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+    "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "peso_kg",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "ejercicio_min",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "ejercicio_min": 15,
+      "peso_kg": 35
+    },
+    {
+      "_label": "Teen",
+      "ejercicio_min": 20,
+      "peso_kg": 52.5
+    },
+    {
+      "_label": "Adult (F)",
+      "ejercicio_min": 30,
+      "peso_kg": 70
+    },
+    {
+      "_label": "Adult (M)",
+      "ejercicio_min": 45,
+      "peso_kg": 105
+    },
+    {
+      "_label": "Elderly",
+      "ejercicio_min": 60,
+      "peso_kg": 140
+    }
+  ],
+  "units": {
+    "peso_kg": "kg"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Agua Diaria",
+      "desc": "Calcula cuántos litros de agua necesitas beber al día según tu peso y ejercicio.",
+      "description": "Calcula cuántos litros de agua necesitas beber al día según tu peso y ejercicio.",
+      "seo_title": "Calculadora de Agua Diaria – Cuánta Agua Beber",
+      "seo_description": "¿Cuánta agua necesitas beber al día? Calcula tu ingesta diaria de agua según peso y minutos de ejercicio. Introduce tus valores y obtiene resultados.",
+      "inputs": {
+        "peso_kg": "Peso (kg)",
+        "ejercicio_min": "Ejercicio diario (min)"
+      },
+      "outputs": {
+        "agua_total_litros": "Agua total (L/día)",
+        "agua_base_litros": "Agua base",
+        "agua_extra_litros": "Extra por ejercicio",
+        "vasos_250ml": "Vasos de 250ml"
+      },
+      "example_label": "Calcular ingesta de agua diaria para persona de 70kg con 30min de ejercicio",
+      "range_hints": {
+        "peso_kg": "Peso común: 45-120 kg",
+        "ejercicio_min": "Actividad: 0-120 min/día"
+      },
+      "result_context": "El agua total incluye base metabólica más hidratación por ejercicio; un vaso típico contiene 250ml.",
+      "formula_display": "Agua (L) = peso (kg) × 0.033 + ejercicio (min) × 0.5 ÷ 60",
+      "steps": [
+        "Multiplica peso en kg por 0.033 para agua base",
+        "Calcula agua extra: minutos ejercicio × 0.5 ÷ 60",
+        "Suma agua base + agua extra para total diario",
+        "Divide entre 0.25 para obtener vasos de 250ml"
+      ],
+      "mistakes": [
+        "Beber toda el agua de una vez (mejor distribuir durante el día)",
+        "No aumentar agua en climas calurosos o por altitud",
+        "Contar café/alcohol como hidratación (son diuréticos, deshidratan)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "ejercicio_min",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "en": {
+      "name": "Daily Water Intake Calculator",
+      "desc": "Calculate how many litres of water you should drink per day based on weight and exercise.",
+      "description": "Calculate how many litres of water you should drink per day based on weight and exercise.",
+      "seo_title": "Daily Water Intake Calculator – How Much Water to Drink",
+      "seo_description": "How much water should you drink per day? Calculate your daily water intake based on weight and exercise minutes. Enter your values and get precise.",
+      "inputs": {
+        "peso_kg": "Weight (kg)",
+        "ejercicio_min": "Daily exercise (min)"
+      },
+      "outputs": {
+        "agua_total_litros": "Total water (L/day)",
+        "agua_base_litros": "Base intake",
+        "agua_extra_litros": "Extra for exercise",
+        "vasos_250ml": "250ml glasses"
+      },
+      "example_label": "Calcular ingesta de agua diaria para persona de 70kg con 30min de ejercicio",
+      "range_hints": {
+        "peso_kg": "Peso común: 45-120 kg",
+        "ejercicio_min": "Actividad: 0-120 min/día"
+      },
+      "result_context": "El agua total incluye base metabólica más hidratación por ejercicio; un vaso típico contiene 250ml.",
+      "formula_display": "Agua (L) = peso (kg) × 0.033 + ejercicio (min) × 0.5 ÷ 60",
+      "steps": [
+        "Multiplica peso en kg por 0.033 para agua base",
+        "Calcula agua extra: minutos ejercicio × 0.5 ÷ 60",
+        "Suma agua base + agua extra para total diario",
+        "Divide entre 0.25 para obtener vasos de 250ml"
+      ],
+      "mistakes": [
+        "Beber toda el agua de una vez (mejor distribuir durante el día)",
+        "No aumentar agua en climas calurosos o por altitud",
+        "Contar café/alcohol como hidratación (son diuréticos, deshidratan)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "ejercicio_min",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur d'Eau Quotidienne",
+      "desc": "Calculez combien de litres d'eau vous devez boire par jour selon votre poids et votre activité.",
+      "description": "Calculez combien de litres d'eau vous devez boire par jour selon votre poids et votre activité.",
+      "seo_title": "Calculateur Eau Quotidienne – Combien d'Eau Boire",
+      "seo_description": "Combien d'eau boire par jour ? Calculez votre apport hydrique selon votre poids et votre activité physique. Entrez vos valeurs pour des resultats precis.",
+      "inputs": {
+        "peso_kg": "Poids (kg)",
+        "ejercicio_min": "Exercice quotidien (min)"
+      },
+      "outputs": {
+        "agua_total_litros": "Eau totale (L/jour)",
+        "agua_base_litros": "Apport de base",
+        "agua_extra_litros": "Extra exercice",
+        "vasos_250ml": "Verres de 250ml"
+      },
+      "example_label": "Calculer ingesta de eau diaria pour persona de 70kg avec 30min de ejercicio",
+      "range_hints": {
+        "peso_kg": "Peso común: 45-120 kg",
+        "ejercicio_min": "Actividad: 0-120 min/día"
+      },
+      "result_context": "le eau total incluye base metabólica plus hidratación par ejercicio; un vaso typique contiene 250ml.",
+      "formula_display": "eau (L) = peso (kg) × 0.033 + ejercicio (min) × 0.5 Á· 60",
+      "steps": [
+        "Multiplica peso dans kg par 0.033 pour eau base",
+        "Calcula eau extra: minutos ejercicio × 0.5 Á· 60",
+        "Suma eau base + eau extra pour total diario",
+        "Divide entre 0.25 pour obtener vasos de 250ml"
+      ],
+      "mistakes": [
+        "Beber toda le eau de une vez (mejor distribuir durante le día)",
+        "No aumentar eau dans climas calurosos o par altitud",
+        "Contar café/alcohol como hidratación (son diuréticos, deshidratan)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "ejercicio_min",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Água Diária",
+      "desc": "Calcule quantos litros de água deve beber por dia segundo o seu peso e exercício.",
+      "description": "Calcule quantos litros de água deve beber por dia segundo o seu peso e exercício.",
+      "seo_title": "Calculadora de Água Diária ââ‚¬“ Quanto Água Beber",
+      "seo_description": "Quanta água deve beber por dia? Calcule a sua ingestão diária de água com base no peso e exercício. Com intervalos de referencia e contexto de saude.",
+      "inputs": {
+        "peso_kg": "Peso (kg)",
+        "ejercicio_min": "Exercício diário (min)"
+      },
+      "outputs": {
+        "agua_total_litros": "Água total (L/dia)",
+        "agua_base_litros": "Ingestão base",
+        "agua_extra_litros": "Extra exercício",
+        "vasos_250ml": "Copos de 250ml"
+      },
+      "example_label": "Calcular ingesta de água diaria para persona de 70kg com 30min de ejercicio",
+      "range_hints": {
+        "peso_kg": "Peso comum: 45-120 kg",
+        "ejercicio_min": "Actividad: 0-120 min/día"
+      },
+      "result_context": "El água total incluye base metabólica mais hidratación por ejercicio; um vaso típico contiene 250ml.",
+      "formula_display": "Agua (L) = peso (kg) × 0.033 + ejercicio (min) × 0.5 ÷ 60",
+      "steps": [
+        "Multiplica peso em kg por 0.033 para água base",
+        "Calcula água extra: minutos ejercicio × 0.5 ÷ 60",
+        "Suma água base + água extra para total diario",
+        "Divide entre 0.25 para obter vasos de 250ml"
+      ],
+      "mistakes": [
+        "Beber toda o água de uma vez (mejor distribuir durante o día)",
+        "Não aumentar água em climas calurosos o por altitud",
+        "Contar café/alcohol como hidratación (são diuréticos, deshidratan)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        },
+        {
+          "field_id": "ejercicio_min",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        }
+      ]
+    },
+    "de": {
+      "name": "Wasser diaria 2",
+      "desc": "Berechnen Sie wasser diaria 2 online. Geben Sie peso kg, ejercicio min ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Wasser diaria 2 | CalcToWork",
+      "seo_desc": "Wasser diaria 2 online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Wasser diaria 2 online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "peso_kg": "Peso Kg",
+        "ejercicio_min": "Ejercicio Min"
+      },
+      "outputs": {
+        "agua_total_litros": "Agua Total Litros",
+        "agua_base_litros": "Agua Base Litros",
+        "agua_extra_litros": "Agua Extra Litros",
+        "vasos_250ml": "Vasos 250ml"
+      },
+      "example_label": "Calcular agua diaria recomendada para 70 kg × 30 min/día.",
+      "range_hints": {
+        "peso_kg": "Valor típico entre 10 y 300. Valor por defecto: 70 kg.",
+        "ejercicio_min": "Valor típico entre 0 y 480. Valor por defecto: 30 min/día."
+      },
+      "result_context": "Ihre empfohlene tägliche Wasseraufnahme beträgt {agua_total_litros} L, das entspricht {vasos_250ml} Gläsern à 250 ml ({agua_base_litros} L Grundbedarf + {agua_extra_litros} L extra für Aktivität).",
+      "formula_display": "5 ÷ 60 → agua_total_litros, agua_base_litros",
+      "steps": [
+        "Introducir los valores de peso_kg y ejercicio_min",
+        "Verificar que las unidades sean correctas y convertir si es necesario (kg, lb)",
+        "Calcular los valores de agua total litros y agua base litros",
+        "El resultado se expresa en L/día. Verificar que la magnitud es coherente",
+        "Comparar el resultado con los valores de referencia para interpretar su significado"
+      ],
+      "mistakes": [
+        "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+        "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+        "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "ejercicio_min",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Acqua Giornaliera",
+      "desc": "Calcola quanti litri di acqua dovresti bere al giorno in base al tuo peso e all'esercizio.",
+      "description": "Calcola quanti litri di acqua dovresti bere al giorno in base al tuo peso e all'esercizio.",
+      "seo_title": "Calcolatore Fabbisogno Idrico Giornaliero Online",
+      "seo_description": "Quanta acqua bere al giorno? Calcola il fabbisogno idrico in base al peso e ai minuti di esercizio. Con intervalli di riferimento e contesto sanitario.",
+      "inputs": {
+        "peso_kg": "Peso (kg)",
+        "ejercicio_min": "Esercizio quotidiano (min)"
+      },
+      "outputs": {
+        "agua_total_litros": "Acqua totale (L/giorno)",
+        "agua_base_litros": "Fabbisogno base",
+        "agua_extra_litros": "Extra esercizio",
+        "vasos_250ml": "Bicchieri da 250ml"
+      },
+      "example_label": "Calcolare ingesta di acqua diaria per persona di 70kg con 30min di ejercicio",
+      "range_hints": {
+        "peso_kg": "Peso común: 45-120 kg",
+        "ejercicio_min": "Actividad: 0-120 min/día"
+      },
+      "result_context": "El acqua totale incluee base metabólica más hidratación per ejercicio; un vaso típico contiine 250ml.",
+      "formula_display": "Agua (L) = peso (kg) × 0.033 + ejercicio (min) × 0.5 ÷ 60",
+      "steps": [
+        "Multiplica peso in kg per 0.033 per acqua base",
+        "Calcula acqua extra: minuti ejercicio × 0.5 ÷ 60",
+        "Suma acqua base + acqua extra per totale diario",
+        "Dividi intre 0.25 per obtiner vasos di 250ml"
+      ],
+      "mistakes": [
+        "Beber toda el acqua di una vez (mejor distribuir durante el día)",
+        "No aumintar acqua in climas calurosos o per altitud",
+        "Contar café/alcohol come hidratación (son diuréticos, dishidracosì)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        },
+        {
+          "field_id": "ejercicio_min",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        }
+      ]
+    }
+  }
+}

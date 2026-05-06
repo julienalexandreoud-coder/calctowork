@@ -1,0 +1,547 @@
+{
+  "id": "319",
+  "slug": "punto-equilibrio-unidades",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "costos_fijos",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 5000,
+      "unit": ""
+    },
+    {
+      "id": "precio_unitario",
+      "type": "number",
+      "min": 0.01,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 50,
+      "unit": ""
+    },
+    {
+      "id": "costo_variable",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 30,
+      "unit": ""
+    }
+  ],
+  "formula": "var cf=parseFloat(inputs.costos_fijos)||0,p=parseFloat(inputs.precio_unitario)||0,cv=parseFloat(inputs.costo_variable)||0;var m=p-cv;if(m<=0)return{error:true};var u=Math.ceil(cf/m);return{unidades:u,facturacion:+(u*p).toFixed(2),margen_contribucion:+m.toFixed(2)};",
+  "outputs": [
+    {
+      "id": "unidades",
+      "unit": "uds",
+      "highlight": true
+    },
+    {
+      "id": "facturacion",
+      "unit": "â‚¬"
+    },
+    {
+      "id": "margen_contribucion",
+      "unit": "â‚¬/ud"
+    }
+  ],
+  "related": [
+    "307",
+    "310",
+    "300",
+    "301"
+  ],
+  "example_inputs": {
+    "costos_fijos": 12000,
+    "precio_unitario": 85,
+    "costo_variable": 52
+  },
+  "example_label": "Calcula el punto de equilibrio de tu negocio: 12.000eur de costes fijos, precio 85eur/ud, coste variable 52eur/ud",
+  "range_hints": {
+    "costos_fijos": "Introduce el valor de costos fijos. Valor sugerido: 5000",
+    "precio_unitario": "Introduce el valor de precio unitario. Valor sugerido: 50",
+    "costo_variable": "Introduce el valor de costo variable. Valor sugerido: 30"
+  },
+  "result_context": "Resultados: {unidades} unidades, {facturacion}, {margen_contribucion}.",
+  "formula_display": "PE (unidades) = Costes Fijos / (Precio unitario - Coste variable unitario)",
+  "steps": [
+    "Introduce los costes fijos totales: alquiler, salarios del personal fijo, suministros, seguros, licencias y servicios",
+    "Indica el precio de venta unitario de tu producto o servicio sin incluir impuestos indirectos como IVA",
+    "Especifica el coste variable por unidad: materias primas, comisiones por venta, embalaje y gastos de envio por unidad",
+    "Calcula el margen de contribucion unitario restando el coste variable del precio de venta unitario",
+    "Divide los costes fijos entre el margen de contribucion para obtener el numero exacto de unidades necesarias para no tener perdidas"
+  ],
+  "mistakes": [
+    "Clasificar erroneamente un gasto como fijo cuando es variable o viceversa, distorsionando completamente el resultado del calculo",
+    "No considerar que tanto el precio como los costes pueden variar significativamente con el volumen (economias de escala, descuentos)",
+    "Olvidar que alcanzar el punto de equilibrio solo significa no perder dinero, no que el negocio genere beneficios suficientes"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "costos_fijos",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "precio_unitario",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "costo_variable",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "costos_fijos": 6000,
+      "costo_variable": 26,
+      "precio_unitario": 85
+    },
+    {
+      "_label": "Average",
+      "costos_fijos": 9000,
+      "costo_variable": 39,
+      "precio_unitario": 85
+    },
+    {
+      "_label": "High",
+      "costos_fijos": 12000,
+      "costo_variable": 52,
+      "precio_unitario": 85
+    },
+    {
+      "_label": "Premium",
+      "costos_fijos": 18000,
+      "costo_variable": 78,
+      "precio_unitario": 85
+    },
+    {
+      "_label": "Enterprise",
+      "costos_fijos": 24000,
+      "costo_variable": 104,
+      "precio_unitario": 85
+    }
+  ],
+  "i18n": {
+    "es": {
+      "name": "Calculadora Punto Equilibrio Unidades",
+      "desc": "Calcula Precio mínimo = (Costes fijos / Unidades) + Coste variable unitario. Ejemplo: Costes fijos 5.000 €, 200 unidades, coste variable 15 € = Precio mínimo = 40...",
+      "description": "Calculadora Punto Equilibrio Unidades",
+      "seo_title": "Calculadora Punto Equilibrio Unidades Gratuita",
+      "seo_description": "Calcula Precio mínimo = (Costes fijos / Unidades) + Coste variable unitario. Ejemplo: Costes fijos 5.000 €, 200 unidades, coste variable 15 € = Precio mínimo = 40...",
+      "inputs": {
+        "costos_fijos": "Costes fijos",
+        "precio_unitario": "Precio unitario",
+        "costo_variable": "Coste variable"
+      },
+      "outputs": {
+        "unidades": "Unidades",
+        "facturacion": "Facturación",
+        "margen_contribucion": "Margen de contribución"
+      },
+      "example_label": "Finding break-even units for product with €12,000 fixed costs, €85 price, and €52 variable cost.",
+      "range_hints": {
+        "costos_fijos": "€1,000 - €200,000+ fixed costs",
+        "precio_unitario": "€5 - €2,000+ per unit",
+        "costo_variable": "€1 - €1,000 per unit"
+      },
+      "result_context": "Sell unidades of {unidades} to break even, generating facturacion of {facturacion}. Each unit contributes margen_contribucion of {margen_contribucion}.",
+      "formula_display": "Break-even Units = Fixed Costs ÷ (Price - Variable Cost)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Calculate contribution margin",
+          "calculation": "€85 - €52 = €33 per unit"
+        },
+        {
+          "step": 2,
+          "description": "Divide fixed costs by margin",
+          "calculation": "€12,000 ÷ €33 = 363.6 units"
+        },
+        {
+          "step": 3,
+          "description": "Round up to whole units",
+          "calculation": "364 units needed"
+        },
+        {
+          "step": 4,
+          "description": "Calculate break-even revenue",
+          "calculation": "364 × €85 = €30,940"
+        }
+      ],
+      "mistakes": [
+        "Not accounting for step-fixed costs that change at certain volumes",
+        "Assuming variable costs remain constant at all production levels",
+        "Forgetting that break-even doesn't include desired profit margin"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "costos_fijos",
+          "reason": "Correct type for fixed costs"
+        },
+        {
+          "field_id": "precio_unitario",
+          "reason": "Correct type for unit price"
+        },
+        {
+          "field_id": "costo_variable",
+          "reason": "Correct type for variable cost"
+        }
+      ]
+    },
+    "en": {
+      "name": "Break Even Units Calculator",
+      "desc": "Break Even Units Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Break Even Units Calculator",
+      "seo_title": "Break Even Units Calculator – Free Online Tool",
+      "seo_description": "Calculate Minimum price = (Fixed costs / Units) + Variable unit cost. Example: Fixed costs â‚¬5,000, 200 units, variable cost â‚¬15 = Minimum price = â‚¬40/unit. Free and...",
+      "inputs": {
+        "costos_fijos": "Fixed costs",
+        "precio_unitario": "Unit price",
+        "costo_variable": "Variable cost"
+      },
+      "outputs": {
+        "unidades": "Units",
+        "facturacion": "Revenue",
+        "margen_contribucion": "Contribution margin"
+      },
+      "example_label": "Finding break-even units for product with â‚¬12,000 fixed costs, â‚¬85 price, and â‚¬52 variable cost.",
+      "range_hints": {
+        "costos_fijos": "â‚¬1,000 - â‚¬200,000+ fixed costs",
+        "precio_unitario": "â‚¬5 - â‚¬2,000+ per unit",
+        "costo_variable": "â‚¬1 - â‚¬1,000 per unit"
+      },
+      "result_context": "Sell unidades of {unidades} to break even, generating facturacion of {facturacion}. Each unit contributes margen_contribucion of {margen_contribucion}.",
+      "formula_display": "Break-even Units = Fixed Costs ÷ (Price - Variable Cost)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Calculate contribution margin",
+          "calculation": "â‚¬85 - â‚¬52 = â‚¬33 per unit"
+        },
+        {
+          "step": 2,
+          "description": "Divide fixed costs by margin",
+          "calculation": "â‚¬12,000 ÷ â‚¬33 = 363.6 units"
+        },
+        {
+          "step": 3,
+          "description": "Round up to whole units",
+          "calculation": "364 units needed"
+        },
+        {
+          "step": 4,
+          "description": "Calculate break-even revenue",
+          "calculation": "364 × â‚¬85 = â‚¬30,940"
+        }
+      ],
+      "mistakes": [
+        "Not accounting for step-fixed costs that change at certain volumes",
+        "Assuming variable costs remain constant at all production levels",
+        "Forgetting that break-even doesn't include desired profit margin"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "costos_fijos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for fixed costs"
+        },
+        {
+          "field_id": "precio_unitario",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for unit price"
+        },
+        {
+          "field_id": "costo_variable",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for variable cost"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Seuil Rentabilite",
+      "desc": "Calculez Minimum price = (Fixed costs / Units) + Variable unit cost. Exemple: Fixed costs €5,000, 200 units, variable cost €15 = Minimum price = €40/unit. Calculateur...",
+      "description": "Calculateur Seuil Rentabilite",
+      "seo_title": "Calculateur Seuil Rentabilite – Outil Gratuit",
+      "seo_description": "Calculez Minimum price = (Fixed costs / Units) + Variable unit cost. Exemple: Fixed costs €5,000, 200 units, variable cost €15 = Minimum price = €40/unit. Calculateur...",
+      "inputs": {
+        "costos_fijos": "Coûts fixes",
+        "precio_unitario": "Prix unitaire",
+        "costo_variable": "Coût variable"
+      },
+      "outputs": {
+        "unidades": "Unités",
+        "facturacion": "Chiffre d'affaires",
+        "margen_contribucion": "Marge sur coûts variables"
+      },
+      "example_label": "Finding break-even units for product with €12,000 fixed costs, €85 price, and €52 variable cost.",
+      "range_hints": {
+        "costos_fijos": "€1,000 - €200,000+ fixed costs",
+        "precio_unitario": "€5 - €2,000+ per unit",
+        "costo_variable": "€1 - €1,000 per unit"
+      },
+      "result_context": "Sell unités of {unités} to break even, generating facturacion of {facturacion}. Each unit contributes margen_contribucion of {margen_contribucion}.",
+      "formula_display": "Break-even Units = Fixed Costs Á· (Price - Variable Cost)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Calculate contribution margin",
+          "calculation": "€85 - €52 = €33 per unit"
+        },
+        {
+          "step": 2,
+          "description": "Divide fixed costs by margin",
+          "calculation": "â€12,000 Á· â€33 = 363.6 units"
+        },
+        {
+          "step": 3,
+          "description": "Round up to whole units",
+          "calculation": "364 units needed"
+        },
+        {
+          "step": 4,
+          "description": "Calculate break-even revenue",
+          "calculation": "364 × â‚¬85 = â‚¬30,940"
+        }
+      ],
+      "mistakes": [
+        "Not accounting for step-fixed costs that change at certain volumes",
+        "Assuming variable costs remain constant at all production levels",
+        "Forgetting that break-even doesn't include desired profit margin"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "costos_fijos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for fixed costs"
+        },
+        {
+          "field_id": "precio_unitario",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for unit price"
+        },
+        {
+          "field_id": "costo_variable",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for variable cost"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora Ponto Equilibrio Unidades",
+      "desc": "Calcule Minimum price = (Fixed costs / Units) + Variable unit cost. Exemplo: Fixed costs €5,000, 200 units, variable cost €15 = Minimum price = €40/unit. Calculadora...",
+      "description": "Calculadora Ponto Equilibrio Unidades",
+      "seo_title": "Calculadora Ponto Equilibrio Unidades",
+      "seo_description": "Calcule Minimum price = (Fixed costs / Units) + Variable unit cost. Exemplo: Fixed costs €5,000, 200 units, variable cost €15 = Minimum price = €40/unit. Calculadora...",
+      "inputs": {
+        "costos_fijos": "Custos fixos",
+        "precio_unitario": "Preço unitário",
+        "costo_variable": "Custo variável"
+      },
+      "outputs": {
+        "unidades": "Unidades",
+        "facturacion": "Faturamento",
+        "margen_contribucion": "Margem de contribuição"
+      },
+      "example_label": "Finding break-even units for product with â‚¬12,000 fixed costs, â‚¬85 price, and â‚¬52 variável cost.",
+      "range_hints": {
+        "costos_fijos": "€1,000 - €200,000+ fixed costs",
+        "precio_unitario": "€5 - €2,000+ per unit",
+        "costo_variable": "€1 - €1,000 per unit"
+      },
+      "result_context": "Sell unidades of {unidades} to break even, generating facturacion of {facturacion}. Each unit contributes margen_contribucion of {margen_contribucion}.",
+      "formula_display": "Break-even Units = Fixed Costs ÷ (Price - Variable Cost)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Calculate contribution margin",
+          "calculation": "€85 - €52 = €33 per unit"
+        },
+        {
+          "step": 2,
+          "description": "Divide fixed costs by margin",
+          "calculation": "â‚¬12,000 ÷ â‚¬33 = 363.6 units"
+        },
+        {
+          "step": 3,
+          "description": "Round up to whole units",
+          "calculation": "364 units needed"
+        },
+        {
+          "step": 4,
+          "description": "Calculate break-even revenue",
+          "calculation": "364 × â‚¬85 = â‚¬30,940"
+        }
+      ],
+      "mistakes": [
+        "Not accounting for step-fixed costs that change at certain volumes",
+        "Assuming variável costs remain constant at all production levels",
+        "Forgetting that break-even doesn't include desired profit margin"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "costos_fijos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for fixed costs"
+        },
+        {
+          "field_id": "precio_unitario",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for unit price"
+        },
+        {
+          "field_id": "costo_variable",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for variável cost"
+        }
+      ]
+    },
+    "de": {
+      "name": "Break-Even-Point equilibrio Einheiten",
+      "desc": "Berechnen Sie break-Even-Point equilibrio Einheiten online. Geben Sie costos fijos, precio unitario, costo variable ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Break-Even-Point equilibrio Einheiten | CalcToWork",
+      "seo_desc": "Break-Even-Point equilibrio Einheiten online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Break-Even-Point equilibrio Einheiten online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "costos_fijos": "Costos Fijos",
+        "precio_unitario": "Precio Unitario",
+        "costo_variable": "Costo Variable"
+      },
+      "outputs": {
+        "unidades": "Unidades",
+        "facturacion": "Facturacion",
+        "margen_contribucion": "Margen Contribucion"
+      },
+      "example_label": "Calcula el punto de equilibrio de tu negocio: 12.000eur de costes fijos, precio 85eur/ud, coste variable 52eur/ud",
+      "range_hints": {
+        "costos_fijos": "Introduce el valor de costos fijos. Valor sugerido: 5000",
+        "precio_unitario": "Introduce el valor de precio unitario. Valor sugerido: 50",
+        "costo_variable": "Introduce el valor de costo variable. Valor sugerido: 30"
+      },
+      "result_context": "Resultados: {unidades} unidades, {facturacion}, {margen_contribucion}.",
+      "formula_display": "PE (unidades) = Costes Fijos / (Precio unitario - Coste variable unitario)",
+      "steps": [
+        "Introduce los costes fijos totales: alquiler, salarios del personal fijo, suministros, seguros, licencias y servicios",
+        "Indica el precio de venta unitario de tu producto o servicio sin incluir impuestos indirectos como IVA",
+        "Especifica el coste variable por unidad: materias primas, comisiones por venta, embalaje y gastos de envio por unidad",
+        "Calcula el margen de contribucion unitario restando el coste variable del precio de venta unitario",
+        "Divide los costes fijos entre el margen de contribucion para obtener el numero exacto de unidades necesarias para no tener perdidas"
+      ],
+      "mistakes": [
+        "Clasificar erroneamente un gasto como fijo cuando es variable o viceversa, distorsionando completamente el resultado del calculo",
+        "No considerar que tanto el precio como los costes pueden variar significativamente con el volumen (economias de escala, descuentos)",
+        "Olvidar que alcanzar el punto de equilibrio solo significa no perder dinero, no que el negocio genere beneficios suficientes"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "costos_fijos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "precio_unitario",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "costo_variable",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Punto Pareggio",
+      "desc": "Calcola Minimum price = (Fixed costs / Units) + Variable unit cost. Esempio: Fixed costs €5,000, 200 units, variable cost €15 = Minimum price = €40/unit. Calcolatore...",
+      "description": "Calcolatore Punto Pareggio",
+      "seo_title": "Calcolatore Punto Pareggio – Strumento Gratuito",
+      "seo_description": "Calcola Minimum price = (Fixed costs / Units) + Variable unit cost. Esempio: Fixed costs €5,000, 200 units, variable cost €15 = Minimum price = €40/unit. Calcolatore...",
+      "inputs": {
+        "costos_fijos": "Costi fissi",
+        "precio_unitario": "Prezzo unitario",
+        "costo_variable": "Costo variabile"
+      },
+      "outputs": {
+        "unidades": "Unità",
+        "facturacion": "Fatturato",
+        "margen_contribucion": "Margine di contribuzione"
+      },
+      "example_label": "Finding break-evin units for product with €12,000 fixed costs, €85 price, and €52 variabile cost.",
+      "range_hints": {
+        "costos_fijos": "€1,000 - €200,000+ fixed costs",
+        "precio_unitario": "€5 - €2,000+ per unit",
+        "costo_variable": "€1 - €1,000 per unit"
+      },
+      "result_context": "Sell unità of {unità} to break evin, ginerating facturacion of {facturacion}. Each unit contributes margin_contribucion of {margin_contribucion}.",
+      "formula_display": "Break-evin Units = Fixed Costs ÷ (Price - Variable Cost)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Calculate contribution margin",
+          "calculation": "€85 - €52 = €33 per unit"
+        },
+        {
+          "step": 2,
+          "description": "Divide fixed costs by margin",
+          "calculation": "€12,000 ÷ €33 = 363.6 units"
+        },
+        {
+          "step": 3,
+          "description": "Round up to whole units",
+          "calculation": "364 units needed"
+        },
+        {
+          "step": 4,
+          "description": "Calculate break-even revenue",
+          "calculation": "364 × €85 = €30,940"
+        }
+      ],
+      "mistakes": [
+        "Not accounting for step-fixed costs that change at certain volumese",
+        "Assuming variabile costs remain conscosìt at all production levels",
+        "Forgetting that break-evin doesn't includi disered profit margin"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "costos_fijos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for fixed costs"
+        },
+        {
+          "field_id": "precio_unitario",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for unit price"
+        },
+        {
+          "field_id": "costo_variable",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for variabile cost"
+        }
+      ]
+    }
+  }
+}

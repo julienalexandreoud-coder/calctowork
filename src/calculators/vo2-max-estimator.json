@@ -1,0 +1,559 @@
+{
+  "id": "953",
+  "slug": "vo2-max-estimator",
+  "block": 16,
+  "block_slug": "deportes",
+  "inputs": [
+    {
+      "id": "edad",
+      "type": "number",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "default": 30,
+      "unit": "years"
+    },
+    {
+      "id": "peso_kg",
+      "type": "number",
+      "min": 10,
+      "max": 200,
+      "step": 0.1,
+      "default": 70,
+      "unit": "kg",
+      "unit_options": [
+        "kg",
+        "g",
+        "lb"
+      ],
+      "unit_category": "mass"
+    },
+    {
+      "id": "fc_reposo",
+      "type": "number",
+      "min": 30,
+      "max": 120,
+      "step": 1,
+      "default": 60,
+      "unit": "bpm"
+    },
+    {
+      "id": "duracion_min",
+      "type": "number",
+      "min": 1,
+      "max": 300,
+      "step": 1,
+      "default": 30,
+      "unit": "min",
+      "unit_options": [
+        "min",
+        "s",
+        "h"
+      ],
+      "unit_category": "time"
+    }
+  ],
+  "formula": "var edad=parseFloat(inputs.edad)||30,peso=parseFloat(inputs.peso_kg)||70,fc_reposo=parseFloat(inputs.fc_reposo)||60,duracion=parseFloat(inputs.duracion_min)||30;if(!edad||!peso)return{error:true};var fc_max=220-edad;var vo2=+(15.3*(fc_max/fc_reposo)).toFixed(1);var cal=+(0.0175*vo2*peso*duracion).toFixed(0);return{vo2_max:vo2,calories_burned:cal,fitness_level:vo2>50?'Excellent':vo2>40?'Good':vo2>30?'Average':'Below average'};",
+  "outputs": [
+    {
+      "id": "vo2_max",
+      "unit": "ml/kg/min",
+      "highlight": true
+    },
+    {
+      "id": "calories_burned",
+      "unit": "cal",
+      "highlight": false
+    },
+    {
+      "id": "fitness_level",
+      "unit": "",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "426",
+    "928",
+    "429",
+    "901"
+  ],
+  "example_inputs": {
+    "peso_kg": 70,
+    "fc_reposo": 60,
+    "duracion_min": 30,
+    "edad": 30
+  },
+  "example_label": "Ejemplo para vo2 max estimator: valores 30years, 70kg, 60bpm, 30min",
+  "range_hints": {
+    "edad": "Valor típico entre 10 y 100. Valor por defecto: 30 years.",
+    "peso_kg": "Valor típico entre 10 y 200. Valor por defecto: 70 kg.",
+    "fc_reposo": "Valor típico entre 30 y 120. Valor por defecto: 60 bpm.",
+    "duracion_min": "Valor típico entre 1 y 300. Valor por defecto: 30 min."
+  },
+  "result_context": "Tu VO₂ max es {vo2_max} ml/kg/min con {calories_burned} cal quemadas. Nivel de forma física: {fitness_level}.",
+  "result_context_en": "Your VO₂ max is {vo2_max} ml/kg/min with {calories_burned} cal burned. Fitness level: {fitness_level}.",
+  "result_context_fr": "Votre VO₂ max est de {vo2_max} ml/kg/min avec {calories_burned} cal brûlées. Niveau de forme physique : {fitness_level}.",
+  "result_context_pt": "Seu VO₂ max é {vo2_max} ml/kg/min com {calories_burned} cal queimadas. Nível de condicionamento físico: {fitness_level}.",
+  "result_context_de": "Ihr VO₂max beträgt {vo2_max} ml/kg/min mit {calories_burned} verbrannten Kalorien. Fitnesslevel: {fitness_level}.",
+  "result_context_it": "Il tuo VO₂ max è {vo2_max} ml/kg/min con {calories_burned} cal bruciate. Livello di forma fisica: {fitness_level}.",
+  "formula_display": "0175 × vo2 × peso → vo2_max, calories_burned",
+  "steps": [
+    "Introducir los valores de edad, peso_kg, fc_reposo y duracion_min",
+    "Verificar que las unidades sean correctas y convertir si es necesario (kg, g, lb)",
+    "Calcular los valores de vo2 max y calories burned",
+    "El resultado se expresa en ml/kg/min. Verificar que la magnitud es coherente",
+    "Comparar el resultado con los valores de referencia para interpretar su significado"
+  ],
+  "mistakes": [
+    "Confundir ritmo (min/km) con velocidad (km/h)",
+    "No considerar el desnivel del terreno en el cálculo de ritmo",
+    "Usar el peso corporal total en lugar de la masa magra para calcular gasto calórico"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "edad",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "peso_kg",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "fc_reposo",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "duracion_min",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Beginner",
+      "duracion_min": 15,
+      "peso_kg": 35,
+      "edad": 30,
+      "fc_reposo": 60
+    },
+    {
+      "_label": "Intermediate",
+      "duracion_min": 22,
+      "peso_kg": 52.5,
+      "edad": 30,
+      "fc_reposo": 60
+    },
+    {
+      "_label": "Advanced",
+      "duracion_min": 30,
+      "peso_kg": 70,
+      "edad": 30,
+      "fc_reposo": 60
+    },
+    {
+      "_label": "Elite",
+      "duracion_min": 45,
+      "peso_kg": 105,
+      "edad": 30,
+      "fc_reposo": 60
+    },
+    {
+      "_label": "Pro",
+      "duracion_min": 60,
+      "peso_kg": 140,
+      "edad": 30,
+      "fc_reposo": 60
+    }
+  ],
+  "units": {
+    "peso_kg": "kg",
+    "duracion_min": "s"
+  },
+  "i18n": {
+    "es": {
+      "name": "Estimador de VO₂ Máximo",
+      "desc": "Estima tu VO2 max desde un tiempo de carrera reciente. Mide tu aptitud aerobica. Con precision de 10+ decimales. Usado por profesionales y estudiantes.",
+      "description": "Estimador de VO₂ Máximo.",
+      "seo_title": "Estimador de VO₂ Máximo Gratuita",
+      "seo_description": "Estima tu VO2 max desde un tiempo de carrera reciente. Mide tu aptitud aerobica. Con precision de 10+ decimales. Usado por profesionales y estudiantes.",
+      "inputs": {
+        "edad": "Edad",
+        "peso_kg": "Peso (kg)",
+        "fc_reposo": "fc_reposo",
+        "duracion_min": "duracion_min"
+      },
+      "outputs": {
+        "vo2_max": "VO2 max",
+        "calories_burned": "Calorias quemadas",
+        "fitness_level": "Nivel fitness"
+      },
+      "example_label": "Calculate vo2 max estimator with edad 30, peso_kg 70, fc_reposo 60, duracion_min 30.",
+      "range_hints": {
+        "peso_kg": "Typical range: 10-200 in kg units.",
+        "fc_reposo": "Typical range: 30-120 in bpm units.",
+        "duracion_min": "Typical range: 1-300 in min units.",
+        "edad": "Typical range: 10-100 in years units."
+      },
+      "result_context": "Your calculated vo2 max is {vo2_max}.",
+      "formula_display": "Calculate vo2 max estimator based on input values.",
+      "steps": [
+        "Enter input values: edad: 30, peso_kg: 70, fc_reposo: 60, duracion_min: 30",
+        "Calculate and display the vo2_max result",
+        "Calculate and display the calories_burned result",
+        "Calculate and display the fitness_level result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "edad",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "peso_kg",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "fc_reposo",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "duracion_min",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "en": {
+      "name": "VOâ‚‚ Max Estimator",
+      "desc": "VOâ‚‚ Max Estimator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "VOâ‚‚ Max Estimator.",
+      "seo_title": "VO2 Max Estimator – Fitness Level",
+      "seo_description": "VOâ‚‚ Max Estimator. Convert Age, Weight (kg), fc_reposo to VO2 max, Calories burned, Fitness level instantly with precise conversion factors. Covers unit.",
+      "inputs": {
+        "edad": "Age",
+        "peso_kg": "Weight (kg)",
+        "fc_reposo": "fc_reposo",
+        "duracion_min": "duracion_min"
+      },
+      "outputs": {
+        "vo2_max": "VO2 max",
+        "calories_burned": "Calories burned",
+        "fitness_level": "Fitness level"
+      },
+      "example_label": "Calculate vo2 max estimator with edad 30, peso_kg 70, fc_reposo 60, duracion_min 30.",
+      "range_hints": {
+        "peso_kg": "Typical range: 10-200 in kg units.",
+        "fc_reposo": "Typical range: 30-120 in bpm units.",
+        "duracion_min": "Typical range: 1-300 in min units.",
+        "edad": "Typical range: 10-100 in years units."
+      },
+      "result_context": "Your calculated vo2 max is {vo2_max}.",
+      "formula_display": "Calculate vo2 max estimator based on input values.",
+      "steps": [
+        "Enter input values: edad: 30, peso_kg: 70, fc_reposo: 60, duracion_min: 30",
+        "Calculate and display the vo2_max result",
+        "Calculate and display the calories_burned result",
+        "Calculate and display the fitness_level result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "fc_reposo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "duracion_min",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Estimateur de VO₂ Max",
+      "desc": "Estimez votre VO2 max a partir d'un temps de course recent. Calculatrice facile a utiliser avec decomposition de la formule.",
+      "description": "Estimateur de VO₂ Max.",
+      "seo_title": "Estimateur de VO₂ Max en Ligne",
+      "seo_description": "Estimez votre VO2 max a partir d'un temps de course recent. Calculatrice facile a utiliser avec decomposition de la formule.",
+      "inputs": {
+        "edad": "Âge",
+        "peso_kg": "Poids (kg)",
+        "fc_reposo": "fc_reposo",
+        "duracion_min": "duracion_min"
+      },
+      "outputs": {
+        "vo2_max": "VO2 max",
+        "calories_burned": "Calories burned",
+        "fitness_level": "Fitness level"
+      },
+      "example_label": "Calculate vo2 max estimator with edad 30, peso_kg 70, fc_reposo 60, duracion_min 30.",
+      "range_hints": {
+        "peso_kg": "Typical range: 10-200 in kg units.",
+        "fc_reposo": "Typical range: 30-120 in bpm units.",
+        "duracion_min": "Typical range: 1-300 in min units.",
+        "edad": "Typical range: 10-100 in years units."
+      },
+      "result_context": "Your calculated vo2 max is {vo2_max}.",
+      "formula_display": "Calculate vo2 max estimator based on input values.",
+      "steps": [
+        "Enter input values: edad: 30, peso_kg: 70, fc_reposo: 60, duracion_min: 30",
+        "Calculate and display the vo2_max result",
+        "Calculate and display the calories_burned result",
+        "Calculate and display the fitness_level result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "fc_reposo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "duracion_min",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Estimador de VO₂ Máximo",
+      "desc": "Estime seu VO2 max a partir de um tempo de corrida recenteCalculadora facil de usar com detalhamento da formula.",
+      "description": "Estimador de VO₂ Máximo.",
+      "seo_title": "Estimador de VO₂ Máximo – Fácil e Grátis",
+      "seo_description": "Estime seu VO₂ máximo a partir de um tempo de corrida recente. Calculadora fácil e gratuita com resultados precisos. Cálculo gratuito online.",
+      "inputs": {
+        "edad": "Idade",
+        "peso_kg": "Peso (kg)",
+        "fc_reposo": "fc_reposo",
+        "duracion_min": "duracion_min"
+      },
+      "outputs": {
+        "vo2_max": "VO2 max",
+        "calories_burned": "Calories burned",
+        "fitness_level": "Fitness level"
+      },
+      "seo_desc": "Estime seu VO2 max a partir de um tempo de corrida recenteCalculadora facil de usar com detalhamento da formula.",
+      "example_label": "Calculate vo2 max estimator with edad 30, peso_kg 70, fc_reposo 60, duracion_min 30.",
+      "range_hints": {
+        "peso_kg": "Typical range: 10-200 in kg units.",
+        "fc_reposo": "Typical range: 30-120 in bpm units.",
+        "duracion_min": "Typical range: 1-300 in min units.",
+        "edad": "Typical range: 10-100 in years units."
+      },
+      "result_context": "Your calculated vo2 max is {vo2_max}.",
+      "formula_display": "Calculate vo2 max estimator based on input values.",
+      "steps": [
+        "Enter input values: edad: 30, peso_kg: 70, fc_reposo: 60, duracion_min: 30",
+        "Calculate and display the vo2_max result",
+        "Calculate and display the calories_burned result",
+        "Calculate and display the fitness_level result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "fc_reposo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "duracion_min",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "de": {
+      "name": "Vo2 max estimator",
+      "desc": "Berechnen Sie vo2 max estimator online. Geben Sie edad, peso kg, fc reposo ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Vo2 max estimator | CalcToWork",
+      "seo_desc": "Vo2 max estimator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Vo2 max estimator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "edad": "Edad",
+        "peso_kg": "Peso Kg",
+        "fc_reposo": "Fc Reposo",
+        "duracion_min": "Duracion Min"
+      },
+      "outputs": {
+        "vo2_max": "Vo2 Max",
+        "calories_burned": "Calories Burned",
+        "fitness_level": "Fitness Level"
+      },
+      "example_label": "Ejemplo para vo2 max estimator: valores 30years, 70kg, 60bpm, 30min",
+      "range_hints": {
+        "edad": "Valor típico entre 10 y 100. Valor por defecto: 30 years.",
+        "peso_kg": "Valor típico entre 10 y 200. Valor por defecto: 70 kg.",
+        "fc_reposo": "Valor típico entre 30 y 120. Valor por defecto: 60 bpm.",
+        "duracion_min": "Valor típico entre 1 y 300. Valor por defecto: 30 min."
+      },
+      "result_context": "Ihr VO₂max beträgt {vo2_max} ml/kg/min mit {calories_burned} verbrannten Kalorien. Fitnesslevel: {fitness_level}.",
+      "formula_display": "0175 × vo2 × peso → vo2_max, calories_burned",
+      "steps": [
+        "Introducir los valores de edad, peso_kg, fc_reposo y duracion_min",
+        "Verificar que las unidades sean correctas y convertir si es necesario (kg, g, lb)",
+        "Calcular los valores de vo2 max y calories burned",
+        "El resultado se expresa en ml/kg/min. Verificar que la magnitud es coherente",
+        "Comparar el resultado con los valores de referencia para interpretar su significado"
+      ],
+      "mistakes": [
+        "Confundir ritmo (min/km) con velocidad (km/h)",
+        "No considerar el desnivel del terreno en el cálculo de ritmo",
+        "Usar el peso corporal total en lugar de la masa magra para calcular gasto calórico"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "fc_reposo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "duracion_min",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Stima del VO₂ Max",
+      "desc": "Stima il tuo VO2 max da un tempo di corsa recente. Con precisione a 10+ decimali. Usato da professionisti e studenti in tutto il mondo.",
+      "description": "Stima del VO₂ Max.",
+      "seo_title": "Stima del VO₂ Max – Calcolo Facile",
+      "seo_description": "Stima il tuo VO2 max da un tempo di corsa recente. Con precisione a 10+ decimali. Usato da professionisti e studenti in tutto il mondo.",
+      "inputs": {
+        "edad": "Età",
+        "peso_kg": "Peso (kg)",
+        "fc_reposo": "fc_reposo",
+        "duracion_min": "duracion_min"
+      },
+      "outputs": {
+        "vo2_max": "VO2 max",
+        "calories_burned": "Calories burned",
+        "fitness_level": "Fitness level"
+      },
+      "example_label": "Calculate vo2 max estimator with edad 30, peso_kg 70, fc_reposo 60, duracion_min 30.",
+      "range_hints": {
+        "peso_kg": "Tepical range: 10-200 in kg units.",
+        "fc_reposo": "Tepical range: 30-120 in bpm units.",
+        "duracion_min": "Tepical range: 1-300 in min units.",
+        "edad": "Tepical range: 10-100 in eears units."
+      },
+      "result_context": "Your calculated vo2 max is {vo2_max}.",
+      "formula_display": "Calculate vo2 max estimator based on input values.",
+      "steps": [
+        "Enter input values: edad: 30, peso_kg: 70, fc_reposo: 60, duracion_min: 30",
+        "Calculate and displae the vo2_max result",
+        "Calculate and displae the calories_burned result",
+        "Calculate and displae the fitness_level result"
+      ],
+      "mistakes": [
+        "Confusenzag unit options whin intering values",
+        "Entering zero or negative values where posetive required",
+        "Usenzag incorrect input values outsedi recommindid range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "fc_reposo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "duracion_min",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        }
+      ]
+    }
+  }
+}

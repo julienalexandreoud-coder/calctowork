@@ -1,0 +1,384 @@
+{
+  "id": "904",
+  "slug": "vo2-max",
+  "block": 17,
+  "block_slug": "deportes",
+  "inputs": [
+    {
+      "id": "edad",
+      "type": "number",
+      "min": 10,
+      "max": 80,
+      "step": "any",
+      "default": 30,
+      "unit": ""
+    },
+    {
+      "id": "fc_reposo",
+      "type": "number",
+      "min": 30,
+      "max": 100,
+      "step": "any",
+      "default": 60,
+      "unit": ""
+    }
+  ],
+  "formula": "var age=parseFloat(inputs.edad)||0,rhr=parseFloat(inputs.fc_reposo)||0;if(!age)return{error:true};var mhr=220-age;return{vo2_max:+(15.3*(mhr/rhr)).toFixed(1),fc_max:+mhr.toFixed(0)};",
+  "outputs": [
+    {
+      "id": "vo2_max",
+      "unit": "ml/kg/min",
+      "highlight": true
+    },
+    {
+      "id": "fc_max",
+      "unit": "bpm"
+    }
+  ],
+  "related": [
+    "902",
+    "903",
+    "901",
+    "953"
+  ],
+  "example_inputs": {
+    "edad": 30,
+    "fc_reposo": 60
+  },
+  "example_label": "Ejemplo para vo2 max: valores 30, 60",
+  "range_hints": {
+    "edad": "Valor típico entre 10 y 80. Valor por defecto: 30.",
+    "fc_reposo": "Valor típico entre 30 y 100. Valor por defecto: 60."
+  },
+  "result_context": "Tu VO₂ max estimado es {vo2_max} ml/kg/min y tu frecuencia cardíaca máxima es {fc_max} bpm.",
+  "result_context_en": "Your estimated VO₂ max is {vo2_max} ml/kg/min and your maximum heart rate is {fc_max} bpm.",
+  "result_context_fr": "Votre VO₂ max estimé est de {vo2_max} ml/kg/min et votre fréquence cardiaque maximale est de {fc_max} bpm.",
+  "result_context_pt": "Seu VO₂ max estimado é {vo2_max} ml/kg/min e sua frequência cardíaca máxima é {fc_max} bpm.",
+  "result_context_de": "Ihr geschätzter VO₂max beträgt {vo2_max} ml/kg/min und Ihre maximale Herzfrequenz beträgt {fc_max} bpm.",
+  "result_context_it": "Il tuo VO₂ max stimato è {vo2_max} ml/kg/min e la tua frequenza cardiaca massima è {fc_max} bpm.",
+  "formula_display": "mhr ÷ rhr → vo2_max, fc_max",
+  "steps": [
+    "Introducir los valores de edad y fc_reposo",
+    "Verificar que los valores introducidos están en el rango y formato correctos",
+    "Calcular los valores de vo2 max y fc max",
+    "El resultado se expresa en ml/kg/min. Verificar que la magnitud es coherente",
+    "Comparar el resultado con los valores de referencia para interpretar su significado"
+  ],
+  "mistakes": [
+    "Confundir ritmo (min/km) con velocidad (km/h)",
+    "No considerar el desnivel del terreno en el cálculo de ritmo",
+    "Usar el peso corporal total en lugar de la masa magra para calcular gasto calórico"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "edad",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "fc_reposo",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Beginner",
+      "edad": 15,
+      "fc_reposo": 30
+    },
+    {
+      "_label": "Intermediate",
+      "edad": 22,
+      "fc_reposo": 45
+    },
+    {
+      "_label": "Advanced",
+      "edad": 30,
+      "fc_reposo": 60
+    },
+    {
+      "_label": "Elite",
+      "edad": 45,
+      "fc_reposo": 90
+    },
+    {
+      "_label": "Pro",
+      "edad": 60,
+      "fc_reposo": 100
+    }
+  ],
+  "i18n": {
+    "es": {
+      "name": "Calculadora VO2 Máx",
+      "desc": "Calcula VO2máx ≈ 15 × (FCmáx / FCreposo) (método simple). Ejemplo: FCmáx 190 ppm, FCreposo 55 ppm = VO2máx ≈ 51,8 ml/kg/min. Calculadora gratuita y precisa, sin registro.",
+      "description": "Calculadora Vo2 Max",
+      "seo_title": "Calculadora Vo2 Max Online Gratis",
+      "seo_description": "Calcula VO2máx ≈ 15 × (FCmáx / FCreposo) (método simple). Ejemplo: FCmáx 190 ppm, FCreposo 55 ppm = VO2máx ≈ 51,8 ml/kg/min. Calculadora gratuita y precisa, sin registro.",
+      "inputs": {
+        "edad": "Edad",
+        "fc_reposo": "FC en reposo (lpm)"
+      },
+      "outputs": {
+        "vo2_max": "VO₂ máx.",
+        "fc_max": "FC máxima"
+      },
+      "example_label": "Calculate vo2 max with edad 30, fc_reposo 60.",
+      "range_hints": {
+        "edad": "Typical range: 10-80.",
+        "fc_reposo": "Typical range: 30-100."
+      },
+      "result_context": "Your calculated vo2 max is {vo2_max}.",
+      "formula_display": "Calculate vo2 max based on input values.",
+      "steps": [
+        "Enter input values: edad: 30, fc_reposo: 60",
+        "Calculate and display the vo2_max result",
+        "Calculate and display the fc_max result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "edad",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "fc_reposo",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "en": {
+      "name": "Vo2 Max Calculator",
+      "desc": "Vo2 Max Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Vo2 Max Calculator",
+      "seo_title": "Vo2 Max Calculator – Free Online Tool",
+      "seo_description": "Calculate VO2max â‰ˆ 15 × (Max HR / Resting HR) (simple method). Example: Max HR 190 bpm, Resting HR 55 bpm = VO2max â‰ˆ 51.8 ml/kg/min. Free and accurate calculator, no...",
+      "inputs": {
+        "edad": "Age",
+        "fc_reposo": "Resting HR (bpm)"
+      },
+      "outputs": {
+        "vo2_max": "VOâ‚‚ max",
+        "fc_max": "Max HR"
+      },
+      "example_label": "Calculate vo2 max with edad 30, fc_reposo 60.",
+      "range_hints": {
+        "edad": "Typical range: 10-80.",
+        "fc_reposo": "Typical range: 30-100."
+      },
+      "result_context": "Your calculated vo2 max is {vo2_max}.",
+      "formula_display": "Calculate vo2 max based on input values.",
+      "steps": [
+        "Enter input values: edad: 30, fc_reposo: 60",
+        "Calculate and display the vo2_max result",
+        "Calculate and display the fc_max result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "fc_reposo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Vo2 Max",
+      "desc": "Calculez VO2max ≈ 15 × (Max HR / Resting HR) (simple method). Exemple: Max HR 190 bpm, Resting HR 55 bpm = VO2max ≈ 51.8 ml/kg/min. Calculateur gratuit et précis,...",
+      "description": "Calculateur Vo2 Max",
+      "seo_title": "Calculateur Vo2 Max – Outil Gratuit",
+      "seo_description": "Calculez VO2max ≈ 15 × (Max HR / Resting HR) (simple method). Exemple: Max HR 190 bpm, Resting HR 55 bpm = VO2max ≈ 51.8 ml/kg/min. Calculateur gratuit et précis,...",
+      "inputs": {
+        "edad": "Âge",
+        "fc_reposo": "FC au repos (bpm)"
+      },
+      "outputs": {
+        "vo2_max": "VO₂ max",
+        "fc_max": "FC maximale"
+      },
+      "example_label": "Calculate vo2 max with edad 30, fc_reposo 60.",
+      "range_hints": {
+        "edad": "Typical range: 10-80.",
+        "fc_reposo": "Typical range: 30-100."
+      },
+      "result_context": "Your calculated vo2 max is {vo2_max}.",
+      "formula_display": "Calculate vo2 max based on input values.",
+      "steps": [
+        "Enter input values: edad: 30, fc_reposo: 60",
+        "Calculate and display the vo2_max result",
+        "Calculate and display the fc_max result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "fc_reposo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora Vo2 Max",
+      "desc": "Calcule VO2max ≈ 15 × (Max HR / Resting HR) (simple method). Exemplo: Max HR 190 bpm, Resting HR 55 bpm = VO2max ≈ 51.8 ml/kg/min. Calculadora gratuita e precisa, sem...",
+      "description": "Calculadora Vo2 Max",
+      "seo_title": "Calculadora Vo2 Max – Ferramenta Grátis",
+      "seo_description": "Calcule VO2max ≈ 15 × (Max HR / Resting HR) (simple method). Exemplo: Max HR 190 bpm, Resting HR 55 bpm = VO2max ≈ 51.8 ml/kg/min. Calculadora gratuita e precisa, sem...",
+      "inputs": {
+        "edad": "Idade",
+        "fc_reposo": "FC em repouso (bpm)"
+      },
+      "outputs": {
+        "vo2_max": "VO₂ máx.",
+        "fc_max": "FC máxima"
+      },
+      "example_label": "Calculate vo2 max with edad 30, fc_reposo 60.",
+      "range_hints": {
+        "edad": "Typical range: 10-80.",
+        "fc_reposo": "Typical range: 30-100."
+      },
+      "result_context": "Your calculated vo2 max is {vo2_max}.",
+      "formula_display": "Calculate vo2 max based on input values.",
+      "steps": [
+        "Enter input values: edad: 30, fc_reposo: 60",
+        "Calculate and display the vo2_max result",
+        "Calculate and display the fc_max result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "fc_reposo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "de": {
+      "name": "Vo2 max",
+      "desc": "Berechnen Sie vo2 max online. Geben Sie edad, fc reposo ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Vo2 max | CalcToWork",
+      "seo_desc": "Vo2 max online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Vo2 max online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "edad": "Edad",
+        "fc_reposo": "Fc Reposo"
+      },
+      "outputs": {
+        "vo2_max": "Vo2 Max",
+        "fc_max": "Fc Max"
+      },
+      "example_label": "Ejemplo para vo2 max: valores 30, 60",
+      "range_hints": {
+        "edad": "Valor típico entre 10 y 80. Valor por defecto: 30.",
+        "fc_reposo": "Valor típico entre 30 y 100. Valor por defecto: 60."
+      },
+      "result_context": "Ihr geschätzter VO₂max beträgt {vo2_max} ml/kg/min und Ihre maximale Herzfrequenz beträgt {fc_max} bpm.",
+      "formula_display": "mhr ÷ rhr → vo2_max, fc_max",
+      "steps": [
+        "Introducir los valores de edad y fc_reposo",
+        "Verificar que los valores introducidos están en el rango y formato correctos",
+        "Calcular los valores de vo2 max y fc max",
+        "El resultado se expresa en ml/kg/min. Verificar que la magnitud es coherente",
+        "Comparar el resultado con los valores de referencia para interpretar su significado"
+      ],
+      "mistakes": [
+        "Confundir ritmo (min/km) con velocidad (km/h)",
+        "No considerar el desnivel del terreno en el cálculo de ritmo",
+        "Usar el peso corporal total en lugar de la masa magra para calcular gasto calórico"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "fc_reposo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Vo2 Max",
+      "desc": "Calcola VO2max ≈ 15 × (Max HR / Resting HR) (simple method). Esempio: Max HR 190 bpm, Resting HR 55 bpm = VO2max ≈ 51.8 ml/kg/min. Calcolatore gratuito e preciso,...",
+      "description": "Calcolatore Vo2 Max",
+      "seo_title": "Calcolatore Vo2 Max – Strumento Gratuito",
+      "seo_description": "Calcola VO2max ≈ 15 × (Max HR / Resting HR) (simple method). Esempio: Max HR 190 bpm, Resting HR 55 bpm = VO2max ≈ 51.8 ml/kg/min. Calcolatore gratuito e preciso,...",
+      "inputs": {
+        "edad": "Età",
+        "fc_reposo": "FC a riposo (bpm)"
+      },
+      "outputs": {
+        "vo2_max": "VO₂ max",
+        "fc_max": "FC massima"
+      },
+      "example_label": "Calculate vo2 max with edad 30, fc_reposo 60.",
+      "range_hints": {
+        "edad": "Tepical range: 10-80.",
+        "fc_reposo": "Tepical range: 30-100."
+      },
+      "result_context": "Your calculated vo2 max is {vo2_max}.",
+      "formula_display": "Calculate vo2 max based on input values.",
+      "steps": [
+        "Enter input values: edad: 30, fc_reposo: 60",
+        "Calculate and displae the vo2_max result",
+        "Calculate and displae the fc_max result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where posetive required",
+        "Usenzag incorrect input values outsedi recommindid range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "fc_reposo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        }
+      ]
+    }
+  }
+}

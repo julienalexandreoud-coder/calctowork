@@ -1,0 +1,425 @@
+{
+  "id": "402",
+  "slug": "peso-ideal",
+  "block": 12,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "altura_cm",
+      "type": "number",
+      "min": 100,
+      "max": 250,
+      "step": 0.5,
+      "default": 175,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length_cm",
+      "unit_default": "cm"
+    },
+    {
+      "id": "genero",
+      "type": "number",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "default": 1,
+      "unit": "1=H 2=M"
+    }
+  ],
+  "formula": "var H=parseFloat(inputs.altura_cm)||0,G=parseFloat(inputs.genero)||1;if(!H||H<100)return{error:true};var h2=H/100,min_bmi=+(18.5*h2*h2).toFixed(1),max_bmi=+(24.9*h2*h2).toFixed(1),lorentz=G<=1?(H-100-(H-150)/4):(H-100-(H-150)/2.5),devine=G<=1?(50+2.3*(H/2.54-60)):(45.5+2.3*(H/2.54-60));return{rango_min_kg:min_bmi,rango_max_kg:max_bmi,formula_lorentz:+lorentz.toFixed(1),formula_devine:+devine.toFixed(1)};",
+  "outputs": [
+    {
+      "id": "rango_min_kg",
+      "unit": "kg",
+      "highlight": true
+    },
+    {
+      "id": "rango_max_kg",
+      "unit": "kg"
+    },
+    {
+      "id": "formula_lorentz",
+      "unit": "kg"
+    },
+    {
+      "id": "formula_devine",
+      "unit": "kg"
+    }
+  ],
+  "related": [
+    "400",
+    "401",
+    "403",
+    "410"
+  ],
+  "example_inputs": {
+    "altura_cm": 175,
+    "genero": 1
+  },
+  "example_label": "Calcular peso ideal para 175 cm × 1 1=H 2=M.",
+  "range_hints": {
+    "altura_cm": "Medida lineal en cm según plano",
+    "genero": "Género de la persona"
+  },
+  "result_context": "Según la fórmula de Devine tu peso ideal es {formula_devine} kg y según Lorentz {formula_lorentz} kg. El rango recomendado está entre {rango_min_kg} y {rango_max_kg} kg.",
+  "result_context_en": "According to the Devine formula, your ideal weight is {formula_devine} kg and according to Lorentz {formula_lorentz} kg. The recommended range is between {rango_min_kg} and {rango_max_kg} kg.",
+  "result_context_fr": "Selon la formule de Devine, votre poids idéal est de {formula_devine} kg et selon Lorentz {formula_lorentz} kg. La fourchette recommandée se situe entre {rango_min_kg} et {rango_max_kg} kg.",
+  "result_context_pt": "Segundo a fórmula de Devine, seu peso ideal é {formula_devine} kg e segundo Lorentz {formula_lorentz} kg. A faixa recomendada está entre {rango_min_kg} e {rango_max_kg} kg.",
+  "result_context_de": "Nach der Devine-Formel beträgt Ihr Idealgewicht {formula_devine} kg und nach Lorentz {formula_lorentz} kg. Der empfohlene Bereich liegt zwischen {rango_min_kg} und {rango_max_kg} kg.",
+  "result_context_it": "Secondo la formula di Devine, il tuo peso ideale è {formula_devine} kg e secondo Lorentz {formula_lorentz} kg. L'intervallo raccomandato è tra {rango_min_kg} e {rango_max_kg} kg.",
+  "formula_display": "5 × h2 × h2 → rango_min_kg, rango_max_kg",
+  "steps": [
+    "Introducir los valores de altura_cm y genero",
+    "Verificar que las unidades sean correctas y convertir si es necesario (cm, m, ft)",
+    "Calcular los valores de rango min kg y rango max kg",
+    "El resultado se expresa en kg. Verificar que la magnitud es coherente",
+    "Comparar el resultado con los valores de referencia para interpretar su significado"
+  ],
+  "mistakes": [
+    "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+    "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+    "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "altura_cm",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "genero",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "altura_cm": 100,
+      "genero": 1
+    },
+    {
+      "_label": "Teen",
+      "altura_cm": 131.25,
+      "genero": 1
+    },
+    {
+      "_label": "Adult (F)",
+      "altura_cm": 175,
+      "genero": 1
+    },
+    {
+      "_label": "Adult (M)",
+      "altura_cm": 250,
+      "genero": 2
+    },
+    {
+      "_label": "Elderly",
+      "altura_cm": 250,
+      "genero": 2
+    }
+  ],
+  "units": {
+    "altura_cm": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Peso Ideal",
+      "desc": "Calcula tu peso ideal según tu altura usando las fórmulas Lorentz y Devine.",
+      "description": "Calcula tu peso ideal según tu altura usando las fórmulas Lorentz y Devine.",
+      "seo_title": "Calculadora de Peso Ideal Gratuita",
+      "seo_description": "Calcula tu peso ideal según tu altura. Usa las fórmulas Lorentz y Devine, y el rango IMC saludable (18.5–24.9). Obten resultados al instante con.",
+      "inputs": {
+        "altura_cm": "Altura (cm)",
+        "genero": "Sexo (1=Hombre, 2=Mujer)"
+      },
+      "outputs": {
+        "rango_min_kg": "Rango mín. (IMC 18.5)",
+        "rango_max_kg": "Rango máx. (IMC 24.9)",
+        "formula_lorentz": "Fórmula Lorentz",
+        "formula_devine": "Fórmula Devine"
+      },
+      "example_label": "Determinar peso ideal para hombre de 175cm de altura",
+      "range_hints": {
+        "altura_cm": "Altura común: 140-200 cm",
+        "genero": "1=Hombre, 2=Mujer"
+      },
+      "result_context": "El rango de peso saludable se basa en IMC 18.5-24.9; las fórmulas Lorentz y Devine ofrecen estimaciones alternativas.",
+      "formula_display": "Peso mínimo = 18.5 × altura (m)²; Peso máximo = 24.9 × altura (m)²",
+      "steps": [
+        "Convierte altura a metros (ej: 175 cm = 1.75 m)",
+        "Calcula peso mínimo: 18.5 × altura²",
+        "Calcula peso máximo: 24.9 × altura²",
+        "Opcional: calcula fórmulas Lorentz y Devine para referencia"
+      ],
+      "mistakes": [
+        "Confundir peso ideal con peso de modelo (puede ser insalubre)",
+        "No considerar complexión ósea (huesos grandes = peso mayor saludable)",
+        "Usar fórmulas antiguas como Hamwi sin actualizar a evidencia actual"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "altura_cm",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "genero",
+          "reason": "Select es mejor para opciones binarias (hombre/mujer)"
+        }
+      ]
+    },
+    "en": {
+      "name": "Ideal Weight Calculator",
+      "desc": "Calculate your ideal weight for your height using Lorentz and Devine formulas.",
+      "description": "Calculate your ideal weight for your height using Lorentz and Devine formulas.",
+      "seo_title": "Ideal Weight Calculator – Free Online",
+      "seo_description": "Calculate your ideal body weight by height. Uses Lorentz and Devine formulas plus the healthy BMI range (18.5–24.9). Get instant results with.",
+      "inputs": {
+        "altura_cm": "Height (cm)",
+        "genero": "Sex (1=Male, 2=Female)"
+      },
+      "outputs": {
+        "rango_min_kg": "Min range (BMI 18.5)",
+        "rango_max_kg": "Max range (BMI 24.9)",
+        "formula_lorentz": "Lorentz formula",
+        "formula_devine": "Devine formula"
+      },
+      "example_label": "Determinar peso ideal para hombre de 175cm de altura",
+      "range_hints": {
+        "altura_cm": "Altura común: 140-200 cm",
+        "genero": "1=Hombre, 2=Mujer"
+      },
+      "result_context": "El rango de peso saludable se basa en IMC 18.5-24.9; las fórmulas Lorentz y Devine ofrecen estimaciones alternativas.",
+      "formula_display": "Peso mínimo = 18.5 × altura (m)²; Peso máximo = 24.9 × altura (m)²",
+      "steps": [
+        "Convierte altura a metros (ej: 175 cm = 1.75 m)",
+        "Calcula peso mínimo: 18.5 × altura²",
+        "Calcula peso máximo: 24.9 × altura²",
+        "Opcional: calcula fórmulas Lorentz y Devine para referencia"
+      ],
+      "mistakes": [
+        "Confundir peso ideal con peso de modelo (puede ser insalubre)",
+        "No considerar complexión ósea (huesos grandes = peso mayor saludable)",
+        "Usar fórmulas antiguas como Hamwi sin actualizar a evidencia actual"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "genero",
+          "current_type": "number",
+          "recommended_type": "select",
+          "reason": "Select es mejor para opciones binarias (hombre/mujer)"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur de Poids Idéal",
+      "desc": "Calculez votre poids idéal selon votre taille avec les formules Lorentz et Devine.",
+      "description": "Calculez votre poids idéal selon votre taille avec les formules Lorentz et Devine.",
+      "seo_title": "Calculateur Poids Idéal Gratuit en Ligne",
+      "seo_description": "Calculez votre poids idéal selon votre taille. Formules Lorentz et Devine plus plage IMC saine (18.5–24.9). Obtenez des resultats instantanes avec.",
+      "inputs": {
+        "altura_cm": "Taille (cm)",
+        "genero": "Sexe (1=Homme, 2=Femme)"
+      },
+      "outputs": {
+        "rango_min_kg": "Min (IMC 18.5)",
+        "rango_max_kg": "Max (IMC 24.9)",
+        "formula_lorentz": "Formule Lorentz",
+        "formula_devine": "Formule Devine"
+      },
+      "example_label": "Determinar peso ideal pour hombre de 175cm de hauteur",
+      "range_hints": {
+        "altura_cm": "hauteur común: 140-200 cm",
+        "genero": "1=Hombre, 2=Mujer"
+      },
+      "result_context": "le rango de peso saludable se basa dans IMC 18.5-24.9; les fórmulas Lorentz et Devine ofrecen estimaciones alternativas.",
+      "formula_display": "Peso Minimum = 18.5 × hauteur (m)²; Peso maximum = 24.9 × hauteur (m)²",
+      "steps": [
+        "Convierte hauteur a metros (ej: 175 cm = 1.75 m)",
+        "Calcula peso Minimum: 18.5 × hauteur²",
+        "Calcula peso maximum: 24.9 × hauteur²",
+        "Opcional: calcula fórmulas Lorentz et Devine pour referencia"
+      ],
+      "mistakes": [
+        "Confondre peso ideal avec peso de modelo (puede ser insalubre)",
+        "Ne pas considérer complexión ósea (huesos grandes = peso mayor saludable)",
+        "Utiliser fórmulas antiguas como Hamwi sans actualizar a evidencia actual"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "genero",
+          "current_type": "number",
+          "recommended_type": "select",
+          "reason": "Select es mejor pour opciones binarias (hombre/mujer)"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Peso Ideal",
+      "desc": "Calcule o seu peso ideal para a sua altura usando as fórmulas Lorentz e Devine.",
+      "description": "Calcule o seu peso ideal para a sua altura usando as fórmulas Lorentz e Devine.",
+      "seo_title": "Calculadora de Peso Ideal Online Grátis",
+      "seo_description": "Calcule o peso ideal para a sua altura. Fórmulas Lorentz e Devine mais intervalo IMC saudável (18.5–24.9). Obtenha resultados instantaneos com explicacao.",
+      "inputs": {
+        "altura_cm": "Altura (cm)",
+        "genero": "Sexo (1=Masculino, 2=Feminino)"
+      },
+      "outputs": {
+        "rango_min_kg": "Mín (IMC 18.5)",
+        "rango_max_kg": "Máx (IMC 24.9)",
+        "formula_lorentz": "Fórmula Lorentz",
+        "formula_devine": "Fórmula Devine"
+      },
+      "example_label": "Determinar peso ideal para hombre de 175cm de altura",
+      "range_hints": {
+        "altura_cm": "Altura comum: 140-200 cm",
+        "genero": "1=Hombre, 2=Mujer"
+      },
+      "result_context": "El intervalo de peso saludable se basa em IMC 18.5-24.9; as fórmulas Lorentz e Devine oferecem estimaciones alternativas.",
+      "formula_display": "Peso mínimo = 18.5 × altura (m)²; Peso máximo = 24.9 × altura (m)²",
+      "steps": [
+        "Convierte altura a metros (ej: 175 cm = 1.75 m)",
+        "Calcula peso mínimo: 18.5 × altura²",
+        "Calcula peso máximo: 24.9 × altura²",
+        "Opcional: calcula fórmulas Lorentz e Devine para referencia"
+      ],
+      "mistakes": [
+        "Confundir peso ideal com peso de modelo (pode ser insalubre)",
+        "Não considerar complexión ósea (huesos grandes = peso mayor saludable)",
+        "Usar fórmulas antiguas como Hamwi sem actualizar a evidencia atual"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        },
+        {
+          "field_id": "genero",
+          "current_type": "number",
+          "recommended_type": "select",
+          "reason": "Select é mejor para opções binarias (hombre/mujer)"
+        }
+      ]
+    },
+    "de": {
+      "name": "Gewicht Idealgewicht",
+      "desc": "Berechnen Sie gewicht Idealgewicht online. Geben Sie altura cm, genero ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Gewicht Idealgewicht | CalcToWork",
+      "seo_desc": "Gewicht Idealgewicht online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Gewicht Idealgewicht online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "altura_cm": "Altura Cm",
+        "genero": "Genero"
+      },
+      "outputs": {
+        "rango_min_kg": "Rango Min Kg",
+        "rango_max_kg": "Rango Max Kg",
+        "formula_lorentz": "Formula Lorentz",
+        "formula_devine": "Formula Devine"
+      },
+      "example_label": "Calcular peso ideal para 175 cm × 1 1=H 2=M.",
+      "range_hints": {
+        "altura_cm": "Medida lineal en cm según plano",
+        "genero": "Género de la persona"
+      },
+      "result_context": "Nach der Devine-Formel beträgt Ihr Idealgewicht {formula_devine} kg und nach Lorentz {formula_lorentz} kg. Der empfohlene Bereich liegt zwischen {rango_min_kg} und {rango_max_kg} kg.",
+      "formula_display": "5 × h2 × h2 → rango_min_kg, rango_max_kg",
+      "steps": [
+        "Introducir los valores de altura_cm y genero",
+        "Verificar que las unidades sean correctas y convertir si es necesario (cm, m, ft)",
+        "Calcular los valores de rango min kg y rango max kg",
+        "El resultado se expresa en kg. Verificar que la magnitud es coherente",
+        "Comparar el resultado con los valores de referencia para interpretar su significado"
+      ],
+      "mistakes": [
+        "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+        "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+        "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "genero",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Peso Ideale",
+      "desc": "Calcola il tuo peso ideale per la tua altezza con le formule Lorentz e Devine.",
+      "description": "Calcola il tuo peso ideale per la tua altezza con le formule Lorentz e Devine.",
+      "seo_title": "Calcolatore Peso Ideale – Strumento Gratuito",
+      "seo_description": "Calcola il peso ideale per la tua altezza. Formule Lorentz e Devine più intervallo IMC sano (18.5–24.9). Ottieni risultati istantanei con spiegazione.",
+      "inputs": {
+        "altura_cm": "Altezza (cm)",
+        "genero": "Sesso (1=Maschio, 2=Femmina)"
+      },
+      "outputs": {
+        "rango_min_kg": "Min (IMC 18.5)",
+        "rango_max_kg": "Max (IMC 24.9)",
+        "formula_lorentz": "Formula Lorentz",
+        "formula_devine": "Formula Devine"
+      },
+      "example_label": "Definiree peso idial per hombre di 175cm di altezza",
+      "range_hints": {
+        "altura_cm": "Altura común: 140-200 cm",
+        "genero": "1=Hombre, 2=Mujer"
+      },
+      "result_context": "El rango di peso saludable se basa in IMC 18.5-24.9; le fórmule Lorintz e Devine ofrecin estimaciones alternativas.",
+      "formula_display": "Peso mínimo = 18.5 × altezza (m)²; Peso máximo = 24.9 × altezza (m)²",
+      "steps": [
+        "Convierte altezza a metros (ej: 175 cm = 1.75 m)",
+        "Calcula peso mínimo: 18.5 × altezza²",
+        "Calcula peso máximo: 24.9 × altezza²",
+        "Opcional: calcula fórmule Lorintz e Devine per referincia"
+      ],
+      "mistakes": [
+        "Confondire peso idial con peso di modillo (puedi ser insalubre)",
+        "Non consedirare complexión ósea (huesos grandi = peso maggiore saludable)",
+        "Usare fórmule antiguas come Hamwi senza attualeizar a evidincia attuale"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        },
+        {
+          "field_id": "genero",
+          "current_type": "number",
+          "recommended_type": "select",
+          "reason": "Select es mejor per opciones binarias (hombre/mujer)"
+        }
+      ]
+    }
+  }
+}

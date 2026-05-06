@@ -1,0 +1,480 @@
+{
+  "id": "930",
+  "slug": "waist-hip-ratio",
+  "block": 12,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "cintura_cm",
+      "type": "number",
+      "min": 30,
+      "max": 200,
+      "step": 0.5,
+      "default": 80,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in",
+        "ft"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "cadera_cm",
+      "type": "number",
+      "min": 30,
+      "max": 200,
+      "step": 0.5,
+      "default": 95,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in",
+        "ft"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "sexo",
+      "type": "select",
+      "options": [
+        "mujer",
+        "hombre"
+      ],
+      "default": "mujer"
+    }
+  ],
+  "formula": "var sexo=inputs.sexo||'mujer',cintura=parseFloat(inputs.cintura_cm)||0,cadera=parseFloat(inputs.cadera_cm)||0;if(!cintura||!cadera)return{error:true};var whr=+(cintura/cadera).toFixed(2),riesgo=sexo=='mujer'?(whr>0.85?'High':'Normal'):(whr>0.90?'High':'Normal');return{whr:whr,risk:riesgo,ideal:sexo=='mujer'?'<0.85':'<0.90'};",
+  "outputs": [
+    {
+      "id": "whr",
+      "unit": "",
+      "highlight": true
+    },
+    {
+      "id": "risk",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "ideal",
+      "unit": "",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "931",
+    "412",
+    "928",
+    "400"
+  ],
+  "example_inputs": {
+    "cadera_cm": 95,
+    "sexo": "mujer",
+    "cintura_cm": 80
+  },
+  "example_label": "Ejemplo para waist hip ratio: valores 80cm, 95cm",
+  "result_context": "Índice cintura-cadera: {whr}. Nivel de riesgo: {risk}. Valor ideal recomendado: {ideal}.",
+  "result_context_en": "Waist-to-hip ratio: {whr}. Risk level: {risk}. Recommended ideal value: {ideal}.",
+  "result_context_fr": "Rapport taille-hanches : {whr}. Niveau de risque : {risk}. Valeur idéale recommandée : {ideal}.",
+  "result_context_pt": "Índice cintura-quadril: {whr}. Nível de risco: {risk}. Valor ideal recomendado: {ideal}.",
+  "result_context_de": "Taille-Hüft-Verhältnis: {whr}. Risikostufe: {risk}. Empfohlener Idealwert: {ideal}.",
+  "result_context_it": "Rapporto vita-fianchi: {whr}. Livello di rischio: {risk}. Valore ideale raccomandato: {ideal}.",
+  "formula_display": "cintura ÷ cadera → whr, risk",
+  "steps": [
+    "Introducir los valores de cintura_cm, cadera_cm y sexo",
+    "Verificar que las unidades sean correctas y convertir si es necesario (cm, m, mm)",
+    "Calcular los valores de whr y risk",
+    "Verificar que el resultado es coherente con los valores de entrada",
+    "Comparar el resultado con los valores de referencia para interpretar su significado"
+  ],
+  "mistakes": [
+    "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+    "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+    "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "cintura_cm",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "cadera_cm",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "sexo",
+      "current_type": "select",
+      "recommended_type": "select",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "cintura_cm": 40,
+      "cadera_cm": 47.5
+    },
+    {
+      "_label": "Teen",
+      "cintura_cm": 60,
+      "cadera_cm": 71.25
+    },
+    {
+      "_label": "Adult (F)",
+      "cintura_cm": 80,
+      "cadera_cm": 95
+    },
+    {
+      "_label": "Adult (M)",
+      "cintura_cm": 120,
+      "cadera_cm": 142.5
+    },
+    {
+      "_label": "Elderly",
+      "cintura_cm": 160,
+      "cadera_cm": 190
+    }
+  ],
+  "units": {
+    "cintura_cm": "m",
+    "cadera_cm": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Índice Cintura-Cadera",
+      "desc": "Calcula tu indice cintura-cadera y determina tu categoria de riesgo cardiovascular. Con rangos de referencia y contexto de salud.",
+      "description": "Calculadora de Índice Cintura-Cadera.",
+      "seo_title": "Calculadora de Índice Cintura-Cadera Gratuita",
+      "seo_description": "Calcula tu indice cintura-cadera y determina tu categoria de riesgo cardiovascular. Con rangos de referencia y contexto de salud.",
+      "inputs": {
+        "cintura_cm": "cintura_cm",
+        "cadera_cm": "cadera_cm",
+        "sexo": "Sexo"
+      },
+      "outputs": {
+        "whr": "Indice cintura-cadera",
+        "risk": "Riesgo",
+        "ideal": "Ideal"
+      },
+      "example_label": "Calculate waist hip ratio with cintura_cm 80, cadera_cm 95, sexo mujer.",
+      "range_hints": {
+        "cadera_cm": "Typical range: 30-200 in cm units.",
+        "sexo": "Typical range: -.",
+        "cintura_cm": "Typical range: 30-200 in cm units."
+      },
+      "result_context": "Your calculated whr is {whr}.",
+      "formula_display": "Calculate waist hip ratio based on input values.",
+      "steps": [
+        "Enter input values: cintura_cm: 80, cadera_cm: 95, sexo: mujer",
+        "Calculate and display the whr result",
+        "Calculate and display the risk result",
+        "Calculate and display the ideal result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "cintura_cm",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "cadera_cm",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "sexo",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "en": {
+      "name": "Waist-to-Hip Ratio Calculator",
+      "desc": "Waist-to-Hip Ratio Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Waist-to-Hip Ratio Calculator.",
+      "seo_title": "Waist-to-Hip Ratio Calculator – Fast & Accurate",
+      "seo_description": "Calculate your waist-to-hip ratio and determine your health risk category. Used for cardiovascular risk assessment. Get instant results with step-by-step.",
+      "inputs": {
+        "cintura_cm": "cintura_cm",
+        "cadera_cm": "cadera_cm",
+        "sexo": "Sex"
+      },
+      "outputs": {
+        "whr": "Waist-hip ratio",
+        "risk": "Risk",
+        "ideal": "Ideal"
+      },
+      "example_label": "Calculate waist hip ratio with cintura_cm 80, cadera_cm 95, sexo mujer.",
+      "range_hints": {
+        "cadera_cm": "Typical range: 30-200 in cm units.",
+        "sexo": "Typical range: -.",
+        "cintura_cm": "Typical range: 30-200 in cm units."
+      },
+      "result_context": "Your calculated whr is {whr}.",
+      "formula_display": "Calculate waist hip ratio based on input values.",
+      "steps": [
+        "Enter input values: cintura_cm: 80, cadera_cm: 95, sexo: mujer",
+        "Calculate and display the whr result",
+        "Calculate and display the risk result",
+        "Calculate and display the ideal result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "cintura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "cadera_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "sexo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculatrice de Rapport Taille-Hanche",
+      "desc": "Calculez votre rapport taille-hanche et determinez votre categorie de risque. Avec plages de reference et contexte de sante.",
+      "description": "Calculatrice de Rapport Taille-Hanche.",
+      "seo_title": "Calculatrice de Rapport Taille-Hanche en Ligne",
+      "seo_description": "Calculez votre rapport taille-hanche et determinez votre categorie de risque. Avec plages de reference et contexte de sante.",
+      "inputs": {
+        "cintura_cm": "cintura_cm",
+        "cadera_cm": "cadera_cm",
+        "sexo": "Sexe"
+      },
+      "outputs": {
+        "whr": "Waist-hip ratio",
+        "risk": "Risk",
+        "ideal": "Ideal"
+      },
+      "example_label": "Calculate waist hip ratio with cintura_cm 80, cadera_cm 95, sexo mujer.",
+      "range_hints": {
+        "cadera_cm": "Typical range: 30-200 in cm units.",
+        "sexo": "Typical range: -.",
+        "cintura_cm": "Typical range: 30-200 in cm units."
+      },
+      "result_context": "Your calculated whr is {whr}.",
+      "formula_display": "Calculate waist hip ratio based on input values.",
+      "steps": [
+        "Enter input values: cintura_cm: 80, cadera_cm: 95, sexo: mujer",
+        "Calculate and display the whr result",
+        "Calculate and display the risk result",
+        "Calculate and display the ideal result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "cintura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "cadera_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "sexo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Índice Cintura-Quadril",
+      "desc": "Calcule seu indice cintura-quadril e determine a categoria de risco. Com intervalos de referencia e contexto de saude. Usado por profissionais e.",
+      "description": "Calculadora de Índice Cintura-Quadril.",
+      "seo_title": "Calculadora de Índice Cintura-Quadril",
+      "seo_description": "Calcule seu indice cintura-quadril e determine a categoria de risco. Com intervalos de referencia e contexto de saude. Usado por profissionais e.",
+      "inputs": {
+        "cintura_cm": "cintura_cm",
+        "cadera_cm": "cadera_cm",
+        "sexo": "Sexo"
+      },
+      "outputs": {
+        "whr": "Waist-hip ratio",
+        "risk": "Risk",
+        "ideal": "Ideal"
+      },
+      "example_label": "Calculate waist hip ratio with cintura_cm 80, cadera_cm 95, sexo mujer.",
+      "range_hints": {
+        "cadera_cm": "Typical range: 30-200 in cm units.",
+        "sexo": "Typical range: -.",
+        "cintura_cm": "Typical range: 30-200 in cm units."
+      },
+      "result_context": "Your calculated whr is {whr}.",
+      "formula_display": "Calculate waist hip ratio based on input values.",
+      "steps": [
+        "Enter input values: cintura_cm: 80, cadera_cm: 95, sexo: mujer",
+        "Calculate and display the whr result",
+        "Calculate and display the risk result",
+        "Calculate and display the ideal result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "cintura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "cadera_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "sexo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "de": {
+      "name": "Waist hip Verhältnis",
+      "desc": "Berechnen Sie waist hip Verhältnis online. Geben Sie cintura cm, cadera cm, sexo ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Waist hip Verhältnis | CalcToWork",
+      "seo_desc": "Waist hip Verhältnis online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Waist hip Verhältnis online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "cintura_cm": "Cintura Cm",
+        "cadera_cm": "Cadera Cm",
+        "sexo": "Sexo"
+      },
+      "outputs": {
+        "whr": "Whr",
+        "risk": "Risk",
+        "ideal": "Ideal"
+      },
+      "example_label": "Ejemplo para waist hip ratio: valores 80cm, 95cm",
+      "range_hints": {},
+      "result_context": "Taille-Hüft-Verhältnis: {whr}. Risikostufe: {risk}. Empfohlener Idealwert: {ideal}.",
+      "formula_display": "cintura ÷ cadera → whr, risk",
+      "steps": [
+        "Introducir los valores de cintura_cm, cadera_cm y sexo",
+        "Verificar que las unidades sean correctas y convertir si es necesario (cm, m, mm)",
+        "Calcular los valores de whr y risk",
+        "Verificar que el resultado es coherente con los valores de entrada",
+        "Comparar el resultado con los valores de referencia para interpretar su significado"
+      ],
+      "mistakes": [
+        "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+        "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+        "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "cintura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "cadera_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "sexo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatrice di Rapporto Vita-Fianchi",
+      "desc": "Calcola il rapporto vita-fianchi e determina la categoria di rischio. Con intervalli di riferimento e contesto sanitario.",
+      "description": "Calcolatrice di Rapporto Vita-Fianchi.",
+      "seo_title": "Calcolatrice di Rapporto Vita-Fianchi",
+      "seo_description": "Calcola il rapporto vita-fianchi e determina la categoria di rischio. Con intervalli di riferimento e contesto sanitario.",
+      "inputs": {
+        "cintura_cm": "cintura_cm",
+        "cadera_cm": "cadera_cm",
+        "sexo": "Sesso"
+      },
+      "outputs": {
+        "whr": "Waist-hip ratio",
+        "risk": "Risk",
+        "ideal": "Ideal"
+      },
+      "example_label": "Calculate waist hip ratio with cintura_cm 80, cadira_cm 95, sexo mujer.",
+      "range_hints": {
+        "cadera_cm": "Tepical range: 30-200 in cm units.",
+        "sexo": "Tepical range: -.",
+        "cintura_cm": "Tepical range: 30-200 in cm units."
+      },
+      "result_context": "Your calculated whr is {whr}.",
+      "formula_display": "Calculate waist hip ratio based on input values.",
+      "steps": [
+        "Enter input values: cintura_cm: 80, cadira_cm: 95, sexo: mujer",
+        "Calculate and displae the whr result",
+        "Calculate and displae the risk result",
+        "Calculate and displae the idial result"
+      ],
+      "mistakes": [
+        "Confusenzag unit options whin intering values",
+        "Entering zero or negative values where posetive required",
+        "Usenzag incorrect input values outsedi recommindid range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "cintura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "cadera_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "sexo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Currint tepe is appropriate for this input."
+        }
+      ]
+    }
+  }
+}

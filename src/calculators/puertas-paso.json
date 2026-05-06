@@ -1,0 +1,480 @@
+{
+  "id": "062",
+  "slug": "puertas-paso",
+  "block": 7,
+  "block_slug": "carpinteria",
+  "inputs": [
+    {
+      "id": "num_puertas",
+      "type": "number",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "default": 8,
+      "unit": "ud",
+      "unit_options": [
+        "ud"
+      ],
+      "unit_category": "count"
+    },
+    {
+      "id": "ancho_m",
+      "type": "number",
+      "min": 0.6,
+      "max": 1.2,
+      "step": 0.05,
+      "default": 0.82,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "alto_m",
+      "type": "number",
+      "min": 1.8,
+      "max": 2.5,
+      "step": 0.05,
+      "default": 2.03,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var n=parseFloat(inputs.num_puertas)||0,W=parseFloat(inputs.ancho_m)||0.825,H=parseFloat(inputs.alto_m)||2.03;if(!n)return{error:true};var m2_ud=+(W*H).toFixed(2),m2_tot=+(m2_ud*n).toFixed(2),marcos=n,tiradores=n*2,bisagras=+(Math.ceil(H/0.3)*n).toFixed(0),perimetro=+(2*(W+H)*1.05*n).toFixed(1),cerco=+(perimetro*0.07).toFixed(2);return{m2_hoja:m2_ud,m2_total_hojas:m2_tot,marcos_ud:marcos,tiradores_ud:tiradores,bisagras_ud:bisagras,perimetro_ml:perimetro,cerco_m2:+cerco.toFixed(2)};",
+  "outputs": [
+    {
+      "id": "m2_hoja",
+      "unit": "m²/hoja"
+    },
+    {
+      "id": "m2_total_hojas",
+      "unit": "m² total",
+      "highlight": true
+    },
+    {
+      "id": "marcos_ud",
+      "unit": "marcos"
+    },
+    {
+      "id": "tiradores_ud",
+      "unit": "tiradores"
+    },
+    {
+      "id": "bisagras_ud",
+      "unit": "bisagras"
+    },
+    {
+      "id": "perimetro_ml",
+      "unit": "m.l. cerco"
+    },
+    {
+      "id": "cerco_m2",
+      "unit": "m² cerco"
+    }
+  ],
+  "related": [
+    "061",
+    "063",
+    "066",
+    "067"
+  ],
+  "example_inputs": {
+    "num_puertas": 5,
+    "ancho_m": 0.825,
+    "alto_m": 2.03
+  },
+  "example_label": "Calcular materiales para 5 puertas de paso de 82,5 × 203 cm.",
+  "range_hints": {
+    "num_puertas": "Cantidad de puertas de paso iguales a instalar.",
+    "ancho_m": "Ancho estándar de hoja: 62,5 / 72,5 / 82,5 / 92,5 cm.",
+    "alto_m": "Altura de hoja estándar: 203 cm con cerco de 7 cm."
+  },
+  "result_context": "{m2_total_hojas} m² de hojas, {bisagras_ud} bisagras (cada 30 cm), {perimetro_ml} m.l. de cerco perimetral con 5 % de merma.",
+  "formula_display": "Bisagras = techo(alto ÷ 0,30). Cerco = perímetro × 1,05. Tiradores = 2 por puerta.",
+  "steps": [
+    "Medir el hueco de obra (ancho libre entre paredes terminadas) para elegir ancho de hoja estándar.",
+    "Seleccionar el ancho de hoja normalizado: 62,5 – 72,5 – 82,5 – 92,5 cm según el hueco disponible.",
+    "Decidir sentido de apertura (izquierda/derecha) según la distribución de la estancia y los muebles.",
+    "Calcular bisagras necesarias colocando una cada 30 cm de altura de hoja (mínimo 3 por puerta).",
+    "Presupuestar cerco perimetral de 7 cm de ancho más un 5 % de recorte y despunte."
+  ],
+  "mistakes": [
+    "No comprobar la nivelación del suelo antes de instalar; una diferencia de 5 mm desnivela la hoja.",
+    "Elegir el sentido de apertura incorrecto que bloquea el paso o choca con interruptores y radiadores.",
+    "Pedir la hoja sin considerar el espesor del cerco (7 cm) y que el hueco total sea mayor que la hoja."
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Paso estrecho (62,5 cm)",
+      "num_puertas": 3,
+      "ancho_m": 0.625,
+      "alto_m": 2.03
+    },
+    {
+      "_label": "Paso estándar (72,5 cm)",
+      "num_puertas": 4,
+      "ancho_m": 0.725,
+      "alto_m": 2.03
+    },
+    {
+      "_label": "Paso cómodo (82,5 cm)",
+      "num_puertas": 5,
+      "ancho_m": 0.825,
+      "alto_m": 2.03
+    },
+    {
+      "_label": "Paso ancho (92,5 cm)",
+      "num_puertas": 2,
+      "ancho_m": 0.925,
+      "alto_m": 2.03
+    },
+    {
+      "_label": "Vivienda completa (7 ud)",
+      "num_puertas": 7,
+      "ancho_m": 0.725,
+      "alto_m": 2.03
+    }
+  ],
+  "units": {
+    "ancho_m": "m",
+    "alto_m": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Puertas de Paso",
+      "desc": "Calcula el número de hojas, marcos, tiradores y bisagras para puertas de paso interiores Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora de Puertas de Paso Gratuita",
+      "inputs": {
+        "num_puertas": "Número de puertas",
+        "ancho_m": "Ancho hoja",
+        "alto_m": "Alto hoja"
+      },
+      "outputs": {
+        "m2_hoja": "m² por hoja",
+        "m2_total_hojas": "m² total",
+        "marcos_ud": "Marcos",
+        "tiradores_ud": "Tiradores",
+        "bisagras_ud": "Bisagras"
+      },
+      "seo_description": "Calcula el número de hojas, marcos, tiradores y bisagras para puertas de paso interiores Usado por profesionales y estudiantes en todo el mundo.",
+      "example_label": "Calcular materiales para puertas paso con 4 ud de ejemplo.",
+      "range_hints": {
+        "num_puertas": "Valor entre 1 y 50 ud.",
+        "ancho_m": "Valor entre 0.6 y 1.2 m.",
+        "alto_m": "Valor entre 1.8 y 2.5 m."
+      },
+      "result_context": "El resultado {m2_total_hojas} m² total representa el material necesario. Verifica medidas antes de cortar.",
+      "formula_display": "Área = Ancho × Alto × Cantidad",
+      "steps": [
+        "Introduce num puertas: 4 ud",
+        "Introduce ancho m: 5 m",
+        "Introduce alto m: 3 m",
+        "Pulsa calcular para obtener resultados",
+        "Interpreta resultado: {m2_hoja}"
+      ],
+      "mistakes": [
+        "Medir hueco en lugar de elemento fabricado",
+        "No considerar tolerancias de montaje",
+        "Olvidar herrajes y accesorios en presupuesto"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "num_puertas",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "ancho_m",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "alto_m",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        }
+      ]
+    },
+    "en": {
+      "name": "Interior Door Calculator",
+      "desc": "Interior Door Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Interior Door Calculator – Frames & Hinges",
+      "inputs": {
+        "num_puertas": "Number of doors",
+        "ancho_m": "Leaf width",
+        "alto_m": "Leaf height"
+      },
+      "outputs": {
+        "m2_hoja": "m² per leaf",
+        "m2_total_hojas": "Total m²",
+        "marcos_ud": "Frames",
+        "tiradores_ud": "Handles",
+        "bisagras_ud": "Hinges"
+      },
+      "seo_description": "Interior Door Calculator. Number of doors, Leaf width, Leaf height — get m² per leaf, Total m², Frames instantly for your carpentry and metalwork project.",
+      "example_label": "Calcular materiales para puertas paso con 4 ud de ejemplo.",
+      "range_hints": {
+        "num_puertas": "Valor entre 1 y 50 ud.",
+        "ancho_m": "Valor entre 0.6 y 1.2 m.",
+        "alto_m": "Valor entre 1.8 y 2.5 m."
+      },
+      "result_context": "El resultado {m2_total_hojas} m² total representa el material necesario. Verifica medidas antes de cortar.",
+      "formula_display": "Área = Ancho × Alto × Cantidad",
+      "steps": [
+        "Introduce num puertas: 4 ud",
+        "Introduce ancho m: 5 m",
+        "Introduce alto m: 3 m",
+        "Pulsa calcular para obtener resultados",
+        "Interpreta resultado: {m2_hoja}"
+      ],
+      "mistakes": [
+        "Medir hueco en lugar de elemento fabricado",
+        "No considerar tolerancias de montaje",
+        "Olvidar herrajes y accesorios en presupuesto"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "num_puertas",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "ancho_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "alto_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Portes Intérieures",
+      "desc": "Calculez le nombre de vantaux, cadres, poignées et charnières pour portes intérieures Utilise par des professionnels et etudiants dans le monde entier.",
+      "seo_title": "Calculateur Portes Intérieures",
+      "inputs": {
+        "num_puertas": "Nombre de portes",
+        "ancho_m": "Largeur vantail",
+        "alto_m": "Hauteur vantail"
+      },
+      "outputs": {
+        "m2_hoja": "m² par vantail",
+        "m2_total_hojas": "m² total",
+        "marcos_ud": "Cadres",
+        "tiradores_ud": "Poignées",
+        "bisagras_ud": "Charnières"
+      },
+      "seo_description": "Calculez le nombre de vantaux, cadres, poignées et charnières pour portes intérieures Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calculer les matériaux pour portes paso avec 4 ud de ejemplo.",
+      "range_hints": {
+        "num_puertas": "Valor entre 1 et 50 ud.",
+        "ancho_m": "Valor entre 0.6 et 1.2 m.",
+        "alto_m": "Valor entre 1.8 et 2.5 m."
+      },
+      "result_context": "le resultado {m2_total_hojas} m² total representa le material nécessaire. Verifica medidas antes de cortar.",
+      "formula_display": "Área = largeur × Alto × quantité",
+      "steps": [
+        "Introduce num portes: 4 ud",
+        "Introduce largeur m: 5 m",
+        "Introduce alto m: 3 m",
+        "Pulsa Calculer pour obtener resultados",
+        "Interpreta resultado: {m2_hoja}"
+      ],
+      "mistakes": [
+        "Medir hueco dans lugar de elemento fabricado",
+        "Ne pas considérer tolerancias de montaje",
+        "Oublier herrajes et accesorios dans presupuesto"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "num_puertas",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        },
+        {
+          "field_id": "ancho_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        },
+        {
+          "field_id": "alto_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Portas de Passagem",
+      "desc": "Calcule o número de folhas, marcos, puxadores e dobradiças para portas internas. Calculo preciso e rapido com metodologia clara.",
+      "seo_title": "Calculadora de Portas de Passagem",
+      "inputs": {
+        "num_puertas": "Número de portas",
+        "ancho_m": "Largura folha",
+        "alto_m": "Altura folha"
+      },
+      "outputs": {
+        "m2_hoja": "m² por folha",
+        "m2_total_hojas": "m² total",
+        "marcos_ud": "Marcos",
+        "tiradores_ud": "Puxadores",
+        "bisagras_ud": "Dobradiças"
+      },
+      "seo_description": "Calcule o número de folhas, marcos, puxadores e dobradiças para portas internas. Calculo preciso e rapido com metodologia clara.",
+      "example_label": "Calcular materiais para portas passo com 4 um de ejemplo.",
+      "range_hints": {
+        "num_puertas": "Valor entre 1 e 50 ud.",
+        "ancho_m": "Valor entre 0.6 e 1.2 m.",
+        "alto_m": "Valor entre 1.8 e 2.5 m."
+      },
+      "result_context": "El resultado {m2_total_hojas} m² total representa o material necesario. Verifica medidas antes de cortar.",
+      "formula_display": "Área = Ancho × Alto × Cantidad",
+      "steps": [
+        "Introduce num portas: 4 um",
+        "Introduce largura m: 5 m",
+        "Introduce alto m: 3 m",
+        "Pulsa calcular para obter resultados",
+        "Interpreta resultado: {m2_hoja}"
+      ],
+      "mistakes": [
+        "Medir hueco em lugar de elemento fabricado",
+        "Não considerar tolerancias de montagem",
+        "Esquecer herrajes e accesorios em presupuesto"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "num_puertas",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        },
+        {
+          "field_id": "ancho_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        },
+        {
+          "field_id": "alto_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        }
+      ]
+    },
+    "de": {
+      "name": "Türen Durchgang",
+      "desc": "Berechnen Sie türen Durchgang online. Geben Sie num puertas, ancho m, alto m ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Türen Durchgang | CalcToWork",
+      "seo_desc": "Türen Durchgang online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Türen Durchgang online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "num_puertas": "Num Puertas",
+        "ancho_m": "Ancho M",
+        "alto_m": "Alto M"
+      },
+      "outputs": {
+        "m2_hoja": "M2 Hoja",
+        "m2_total_hojas": "M2 Total Hojas",
+        "marcos_ud": "Marcos Ud",
+        "tiradores_ud": "Tiradores Ud",
+        "bisagras_ud": "Bisagras Ud",
+        "perimetro_ml": "Perimetro Ml",
+        "cerco_m2": "Cerco M2"
+      },
+      "example_label": "Calcular materiales para 5 puertas de paso de 82,5 × 203 cm.",
+      "range_hints": {
+        "num_puertas": "Cantidad de puertas de paso iguales a instalar.",
+        "ancho_m": "Ancho estándar de hoja: 62,5 / 72,5 / 82,5 / 92,5 cm.",
+        "alto_m": "Altura de hoja estándar: 203 cm con cerco de 7 cm."
+      },
+      "result_context": "{m2_total_hojas} m² de hojas, {bisagras_ud} bisagras (cada 30 cm), {perimetro_ml} m.l. de cerco perimetral con 5 % de merma.",
+      "formula_display": "Bisagras = techo(alto ÷ 0,30). Cerco = perímetro × 1,05. Tiradores = 2 por puerta.",
+      "steps": [
+        "Medir el hueco de obra (ancho libre entre paredes terminadas) para elegir ancho de hoja estándar.",
+        "Seleccionar el ancho de hoja normalizado: 62,5 – 72,5 – 82,5 – 92,5 cm según el hueco disponible.",
+        "Decidir sentido de apertura (izquierda/derecha) según la distribución de la estancia y los muebles.",
+        "Calcular bisagras necesarias colocando una cada 30 cm de altura de hoja (mínimo 3 por puerta).",
+        "Presupuestar cerco perimetral de 7 cm de ancho más un 5 % de recorte y despunte."
+      ],
+      "mistakes": [
+        "No comprobar la nivelación del suelo antes de instalar; una diferencia de 5 mm desnivela la hoja.",
+        "Elegir el sentido de apertura incorrecto que bloquea el paso o choca con interruptores y radiadores.",
+        "Pedir la hoja sin considerar el espesor del cerco (7 cm) y que el hueco total sea mayor que la hoja."
+      ],
+      "input_type_review": []
+    },
+    "it": {
+      "name": "Calcolatore Perline/Perlinato",
+      "description": "Calcola le tavole di perlinato per rivestimenti.",
+      "seo_title": "Calcolatore Perline/Perlinato – Passo dopo Passo",
+      "seo_description": "Stima le tavole di perlinato per rivestimenti di soffitti e pareti Usato da professionisti e studenti in tutto il mondo.",
+      "inputs": {
+        "area": "Superficie (m²)",
+        "ancho_tabla": "Larghezza tavola (cm)",
+        "desperdicio": "Scarto (%)"
+      },
+      "outputs": {
+        "area_total": "Superficie totale (m²)",
+        "tablas": "Numero tavole (2,4 m)",
+        "ml_total": "Metri lineari"
+      },
+      "example_label": "Calcolare opacoriales per perte passo con 4 ud di ejemplo.",
+      "range_hints": {
+        "num_puertas": "Valor intre 1 e 50 ud.",
+        "ancho_m": "Valor intre 0.6 e 1.2 m.",
+        "alto_m": "Valor intre 1.8 e 2.5 m."
+      },
+      "result_context": "El risultato {m2_totale_ante} m² totale representa el opacorial necessario. Verifica misure prima di cortar.",
+      "formula_display": "Área = Ancho × Alto × Cantidad",
+      "steps": [
+        "Introduce num perte: 4 ud",
+        "Introduce larghezza m: 5 m",
+        "Introduce alto m: 3 m",
+        "Pulsa calcolare per obtiner risultati",
+        "Interpreta risultato: {m2_anta}"
+      ],
+      "mistakes": [
+        "Medir hueco in lugar di eleminto fabricado",
+        "Non consedirare tolerancias di montaje",
+        "Diminticare herrajes e accesorios in presupuesto"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "num_puertas",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        },
+        {
+          "field_id": "ancho_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        },
+        {
+          "field_id": "alto_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        }
+      ]
+    }
+  }
+}

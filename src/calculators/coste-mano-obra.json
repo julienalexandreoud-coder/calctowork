@@ -1,0 +1,531 @@
+{
+  "id": "099",
+  "slug": "coste-mano-obra",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "operarios",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "default": 3,
+      "unit": "operarios"
+    },
+    {
+      "id": "horas_jornada",
+      "type": "number",
+      "min": 4,
+      "max": 10,
+      "step": 0.5,
+      "default": 8,
+      "unit": "h/día"
+    },
+    {
+      "id": "dias_obra",
+      "type": "number",
+      "min": 1,
+      "max": 365,
+      "step": 1,
+      "default": 15,
+      "unit": "días",
+      "unit_options": [
+        "days"
+      ],
+      "unit_category": "time"
+    },
+    {
+      "id": "coste_hora_eur",
+      "type": "number",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "default": 25,
+      "unit": "â‚¬/h"
+    }
+  ],
+  "formula": "var N=parseFloat(inputs.operarios)||0,H=parseFloat(inputs.horas_jornada)||8,D=parseFloat(inputs.dias_obra)||15,Ch=parseFloat(inputs.coste_hora_eur)||25;if(!N||!D)return{error:true};var total_h=+(N*H*D).toFixed(0),total=+(total_h*Ch).toFixed(2),dia=+(N*H*Ch).toFixed(2),semana=+(dia*5).toFixed(2);return{total_horas:total_h,coste_dia_eur:dia,coste_semana_eur:semana,coste_total_eur:total};",
+  "outputs": [
+    {
+      "id": "total_horas",
+      "unit": "horas"
+    },
+    {
+      "id": "coste_dia_eur",
+      "unit": "â‚¬/día"
+    },
+    {
+      "id": "coste_semana_eur",
+      "unit": "â‚¬/semana"
+    },
+    {
+      "id": "coste_total_eur",
+      "unit": "â‚¬ total",
+      "highlight": true
+    }
+  ],
+  "related": [
+    "079",
+    "090",
+    "078",
+    "097"
+  ],
+  "example_inputs": {
+    "operarios": 4,
+    "horas_jornada": 8,
+    "dias_obra": 20,
+    "coste_hora_eur": 25
+  },
+  "example_label": "Calcular coste de mano de obra para 4 operarios a 8 h/día durante 20 días a 25 €/h.",
+  "range_hints": {
+    "operarios": "Número de trabajadores asignados a la obra. Considera las distintas categorías profesionales (operarios)",
+    "horas_jornada": "Horas de trabajo efectivas por jornada. Típicamente 8 h en construcción (h/día)",
+    "dias_obra": "Días laborables totales de la obra según el cronograma del proyecto (días)",
+    "coste_hora_eur": "Coste hora real del operario incluyendo SS, pagas extra prorrateadas y dietas (€/h)"
+  },
+  "result_context": "Resultados: {total_horas} horas totales, coste de {coste_dia_eur} €/día, coste de {coste_semana_eur} €/semana, coste total de {coste_total_eur} €.",
+  "formula_display": "Coste total = operarios × horas_jornada × días_obra × coste_hora",
+  "steps": [
+    "Determina el número de operarios que trabajan en la obra (oficiales, peones, aprendices)",
+    "Establece las horas de jornada diaria (8 h estándar en construcción, convenio provincial puede variar)",
+    "Calcula los días totales de obra según el plan de trabajo o cronograma",
+    "Asigna el coste hora real de cada operario (no el precio de venta): salario base + SS a cargo de la empresa + dietas + parte proporcional de pagas extra",
+    "Multiplica operarios × horas/día × días × coste/hora para obtener el coste total de mano de obra",
+    "Desglosa por día, semana y total para comparar con el presupuesto de licitación"
+  ],
+  "mistakes": [
+    "Usar el salario base del convenio sin añadir la Seguridad Social a cargo de la empresa (~33% adicional)",
+    "No incluir las pagas extras prorrateadas, vacaciones, festivos y posibles horas extra",
+    "Olvidar costes indirectos de personal: formación PRL, reconocimientos médicos, EPIs, herramientas personales",
+    "Usar el mismo coste/hora para un oficial de 1ª que para un peón: las categorías profesionales tienen costes distintos",
+    "No verificar el convenio colectivo provincial de construcción: los salarios y pluses varían por provincia"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "operarios",
+      "reason": "Tipo correcto: numérico entero para el número de trabajadores en obra."
+    },
+    {
+      "field_id": "horas_jornada",
+      "reason": "Tipo correcto: numérico para las horas efectivas de trabajo por día."
+    },
+    {
+      "field_id": "dias_obra",
+      "reason": "Tipo correcto: numérico para los días laborables totales de la obra."
+    },
+    {
+      "field_id": "coste_hora_eur",
+      "reason": "Tipo correcto: numérico para el coste real por hora trabajada en €."
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Peón (obra pequeña)",
+      "operarios": 1,
+      "horas_jornada": 8,
+      "dias_obra": 5,
+      "coste_hora_eur": 18
+    },
+    {
+      "_label": "Pareja oficial+peón (1 semana)",
+      "operarios": 2,
+      "horas_jornada": 8,
+      "dias_obra": 5,
+      "coste_hora_eur": 22
+    },
+    {
+      "_label": "Cuadrilla estándar (3 semanas)",
+      "operarios": 3,
+      "horas_jornada": 8,
+      "dias_obra": 15,
+      "coste_hora_eur": 25
+    },
+    {
+      "_label": "Cuadrilla completa (2 meses)",
+      "operarios": 5,
+      "horas_jornada": 8,
+      "dias_obra": 44,
+      "coste_hora_eur": 28
+    },
+    {
+      "_label": "Gran cuadrilla (6 meses)",
+      "operarios": 8,
+      "horas_jornada": 8,
+      "dias_obra": 132,
+      "coste_hora_eur": 25
+    }
+  ],
+  "units": {
+    "dias_obra": "días"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Coste de Mano de Obra",
+      "desc": "Calcula el coste total de mano de obra de una obra.",
+      "seo_title": "Calculadora Coste Mano de Obra – Construcción",
+      "seo_desc": "Calcula el coste total de mano de obra: horas totales, coste por día, por semana y total. Introduce operarios, jornada, días de obra y coste hora. Gratis.",
+      "inputs": {
+        "operarios": "Número de operarios",
+        "horas_jornada": "Horas por jornada",
+        "dias_obra": "Días de obra",
+        "coste_hora_eur": "Coste por hora (€)"
+      },
+      "outputs": {
+        "total_horas": "Horas totales",
+        "coste_dia_eur": "Coste diario (€)",
+        "coste_semana_eur": "Coste semanal (€)",
+        "coste_total_eur": "Coste total (€)"
+      },
+      "seo_description": "Calcula el coste completo de la mano de obra para tu proyecto de construcción. Incluye salario base, Seguridad Social, pagas extras prorrateadas y dietas. Desglose por día, semana y total de obra.",
+      "example_label": "Calcular coste de mano de obra para 4 operarios a 8 h/día durante 20 días a 25 €/h.",
+      "range_hints": {
+        "operarios": "Valor entre 1 y 100 operarios.",
+        "horas_jornada": "Valor entre 4 y 10 h/día.",
+        "dias_obra": "Valor entre 1 y 365 días.",
+        "coste_hora_eur": "Valor entre 10 y 100 €/h."
+      },
+      "result_context": "Resultados: {total_horas} horas totales, coste de {coste_dia_eur} €/día, coste de {coste_semana_eur} €/semana, coste total de {coste_total_eur} €.",
+      "formula_display": "Coste total = operarios × horas_jornada × días_obra × coste_hora",
+      "steps": [
+        "Determina el número de operarios que trabajan en la obra (oficiales, peones, aprendices)",
+        "Establece las horas de jornada diaria (8 h estándar en construcción, convenio provincial puede variar)",
+        "Calcula los días totales de obra según el plan de trabajo o cronograma",
+        "Asigna el coste hora real de cada operario (no el precio de venta): salario base + SS a cargo de la empresa + dietas + parte proporcional de pagas extra",
+        "Multiplica operarios × horas/día × días × coste/hora para obtener el coste total de mano de obra",
+        "Desglosa por día, semana y total para comparar con el presupuesto de licitación"
+      ],
+      "mistakes": [
+        "Usar el salario base del convenio sin añadir la Seguridad Social a cargo de la empresa (~33% adicional)",
+        "No incluir las pagas extras prorrateadas, vacaciones, festivos y posibles horas extra",
+        "Olvidar costes indirectos de personal: formación PRL, reconocimientos médicos, EPIs, herramientas personales",
+        "Usar el mismo coste/hora para un oficial de 1ª que para un peón: las categorías profesionales tienen costes distintos",
+        "No verificar el convenio colectivo provincial de construcción: los salarios y pluses varían por provincia"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "operarios",
+          "reason": "Tipo correcto: numérico entero para el número de trabajadores en obra."
+        },
+        {
+          "field_id": "horas_jornada",
+          "reason": "Tipo correcto: numérico para las horas efectivas de trabajo por día."
+        },
+        {
+          "field_id": "dias_obra",
+          "reason": "Tipo correcto: numérico para los días laborables totales de la obra."
+        },
+        {
+          "field_id": "coste_hora_eur",
+          "reason": "Tipo correcto: numérico para el coste real por hora trabajada en €."
+        }
+      ]
+    },
+    "en": {
+      "name": "Workforce Cost Calculator",
+      "desc": "Workforce Cost Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Labor Cost Calculator – Construction Workforce",
+      "seo_desc": "Calculate total labor cost: total hours, daily cost, weekly cost, and total project cost. Enter workers, daily hours, work days, and hourly rate. Free.",
+      "inputs": {
+        "operarios": "Number of workers",
+        "horas_jornada": "Hours per shift",
+        "dias_obra": "Working days",
+        "coste_hora_eur": "Hourly rate (â‚¬)"
+      },
+      "outputs": {
+        "total_horas": "Total hours",
+        "coste_dia_eur": "Daily cost (â‚¬)",
+        "coste_semana_eur": "Weekly cost (â‚¬)",
+        "coste_total_eur": "Total cost (â‚¬)"
+      },
+      "seo_description": "Calculate the complete labor cost for your construction project. Includes base salary, Social Security contributions, prorated bonuses, and per diems. Breakdown by day, week, and project total.",
+      "example_label": "Calcular coste de mano de obra para 4 operarios a 8 h/día durante 20 días a 25 €/h.",
+      "range_hints": {
+        "operarios": "Valor entre 1 y 100 operarios.",
+        "horas_jornada": "Valor entre 4 y 10 h/día.",
+        "dias_obra": "Valor entre 1 y 365 días.",
+        "coste_hora_eur": "Valor entre 10 y 100 â‚¬/h."
+      },
+      "result_context": "Resultados: {total_horas} horas totales, coste de {coste_dia_eur} €/día, coste de {coste_semana_eur} €/semana, coste total de {coste_total_eur} €.",
+      "formula_display": "Coste total = operarios × horas_jornada × días_obra × coste_hora",
+      "steps": [
+        "Determina el número de operarios que trabajan en la obra (oficiales, peones, aprendices)",
+        "Establece las horas de jornada diaria (8 h estándar en construcción, convenio provincial puede variar)",
+        "Calcula los días totales de obra según el plan de trabajo o cronograma",
+        "Asigna el coste hora real de cada operario (no el precio de venta): salario base + SS a cargo de la empresa + dietas + parte proporcional de pagas extra",
+        "Multiplica operarios × horas/día × días × coste/hora para obtener el coste total de mano de obra",
+        "Desglosa por día, semana y total para comparar con el presupuesto de licitación"
+      ],
+      "mistakes": [
+        "Usar el salario base del convenio sin añadir la Seguridad Social a cargo de la empresa (~33% adicional)",
+        "No incluir las pagas extras prorrateadas, vacaciones, festivos y posibles horas extra",
+        "Olvidar costes indirectos de personal: formación PRL, reconocimientos médicos, EPIs, herramientas personales",
+        "Usar el mismo coste/hora para un oficial de 1ª que para un peón: las categorías profesionales tienen costes distintos",
+        "No verificar el convenio colectivo provincial de construcción: los salarios y pluses varían por provincia"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "operarios",
+          "reason": "Tipo correcto: numérico entero para el número de trabajadores en obra."
+        },
+        {
+          "field_id": "horas_jornada",
+          "reason": "Tipo correcto: numérico para las horas efectivas de trabajo por día."
+        },
+        {
+          "field_id": "dias_obra",
+          "reason": "Tipo correcto: numérico para los días laborables totales de la obra."
+        },
+        {
+          "field_id": "coste_hora_eur",
+          "reason": "Tipo correcto: numérico para el coste real por hora trabajada en €."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Coût de Main d'Œuvre",
+      "desc": "Calculez le coût total de main d'œuvre d'un chantier.",
+      "seo_title": "Calculateur Coût de Main d'Œuvre",
+      "inputs": {
+        "operarios": "Nombre d'ouvriers",
+        "horas_jornada": "Heures par journée",
+        "dias_obra": "Jours de chantier",
+        "coste_hora_eur": "Taux horaire (€)"
+      },
+      "outputs": {
+        "total_horas": "Heures totales",
+        "coste_dia_eur": "Coût journalier (€)",
+        "coste_semana_eur": "Coût hebdomadaire (€)",
+        "coste_total_eur": "Coût total (€)"
+      },
+      "seo_description": "Calculez le coût total de main d'œuvre selon ouvriers, journée, jours et taux horaire Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calcular coste de mano de obra para 4 operarios a 8 h/día durante 20 días a 25 €/h.",
+      "range_hints": {
+        "operarios": "Valor entre 1 et 100 operarios.",
+        "horas_jornada": "Valor entre 4 et 10 h/día.",
+        "dias_obra": "Valor entre 1 et 365 días.",
+        "coste_hora_eur": "Valor entre 10 et 100 €/h."
+      },
+      "result_context": "Resultados: {total_horas} horas totales, coste de {coste_dia_eur} €/día, coste de {coste_semana_eur} €/semana, coste total de {coste_total_eur} €.",
+      "formula_display": "Coste total = operarios × horas_jornada × días_obra × coste_hora",
+      "steps": [
+        "Determina el número de operarios que trabajan en la obra (oficiales, peones, aprendices)",
+        "Establece las horas de jornada diaria (8 h estándar en construcción, convenio provincial puede variar)",
+        "Calcula los días totales de obra según el plan de trabajo o cronograma",
+        "Asigna el coste hora real de cada operario (no el precio de venta): salario base + SS a cargo de la empresa + dietas + parte proporcional de pagas extra",
+        "Multiplica operarios × horas/día × días × coste/hora para obtener el coste total de mano de obra",
+        "Desglosa por día, semana y total para comparar con el presupuesto de licitación"
+      ],
+      "mistakes": [
+        "Usar el salario base del convenio sin añadir la Seguridad Social a cargo de la empresa (~33% adicional)",
+        "No incluir las pagas extras prorrateadas, vacaciones, festivos y posibles horas extra",
+        "Olvidar costes indirectos de personal: formación PRL, reconocimientos médicos, EPIs, herramientas personales",
+        "Usar el mismo coste/hora para un oficial de 1ª que para un peón: las categorías profesionales tienen costes distintos",
+        "No verificar el convenio colectivo provincial de construcción: los salarios y pluses varían por provincia"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "operarios",
+          "reason": "Tipo correcto: numérico entero para el número de trabajadores en obra."
+        },
+        {
+          "field_id": "horas_jornada",
+          "reason": "Tipo correcto: numérico para las horas efectivas de trabajo por día."
+        },
+        {
+          "field_id": "dias_obra",
+          "reason": "Tipo correcto: numérico para los días laborables totales de la obra."
+        },
+        {
+          "field_id": "coste_hora_eur",
+          "reason": "Tipo correcto: numérico para el coste real por hora trabajada en €."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Custo de Mão de Obra",
+      "desc": "Calcule o custo total de mão de obra para uma obra segundo operários, jornada, dias e valor hora Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora de Custo de Mão de Obra",
+      "inputs": {
+        "operarios": "Número de operários",
+        "horas_jornada": "Horas por jornada",
+        "dias_obra": "Dias de obra",
+        "coste_hora_eur": "Valor hora (R$)"
+      },
+      "outputs": {
+        "total_horas": "Horas totais",
+        "coste_dia_eur": "Custo diário (R$)",
+        "coste_semana_eur": "Custo semanal (R$)",
+        "coste_total_eur": "Custo total (R$)"
+      },
+      "seo_description": "Calcule o custo total de mão de obra para uma obra segundo operários, jornada, dias e valor hora Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular coste de mano de obra para 4 operarios a 8 h/día durante 20 días a 25 €/h.",
+      "range_hints": {
+        "operarios": "Valor entre 1 e 100 operarios.",
+        "horas_jornada": "Valor entre 4 e 10 h/día.",
+        "dias_obra": "Valor entre 1 e 365 días.",
+        "coste_hora_eur": "Valor entre 10 e 100 €/h."
+      },
+      "result_context": "Resultados: {total_horas} horas totales, coste de {coste_dia_eur} €/día, coste de {coste_semana_eur} €/semana, coste total de {coste_total_eur} €.",
+      "formula_display": "Coste total = operarios × horas_jornada × días_obra × coste_hora",
+      "steps": [
+        "Determina el número de operarios que trabajan en la obra (oficiales, peones, aprendices)",
+        "Establece las horas de jornada diaria (8 h estándar en construcción, convenio provincial puede variar)",
+        "Calcula los días totales de obra según el plan de trabajo o cronograma",
+        "Asigna el coste hora real de cada operario (no el precio de venta): salario base + SS a cargo de la empresa + dietas + parte proporcional de pagas extra",
+        "Multiplica operarios × horas/día × días × coste/hora para obtener el coste total de mano de obra",
+        "Desglosa por día, semana y total para comparar con el presupuesto de licitación"
+      ],
+      "mistakes": [
+        "Usar el salario base del convenio sin añadir la Seguridad Social a cargo de la empresa (~33% adicional)",
+        "No incluir las pagas extras prorrateadas, vacaciones, festivos y posibles horas extra",
+        "Olvidar costes indirectos de personal: formación PRL, reconocimientos médicos, EPIs, herramientas personales",
+        "Usar el mismo coste/hora para un oficial de 1ª que para un peón: las categorías profesionales tienen costes distintos",
+        "No verificar el convenio colectivo provincial de construcción: los salarios y pluses varían por provincia"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "operarios",
+          "reason": "Tipo correcto: numérico entero para el número de trabajadores en obra."
+        },
+        {
+          "field_id": "horas_jornada",
+          "reason": "Tipo correcto: numérico para las horas efectivas de trabajo por día."
+        },
+        {
+          "field_id": "dias_obra",
+          "reason": "Tipo correcto: numérico para los días laborables totales de la obra."
+        },
+        {
+          "field_id": "coste_hora_eur",
+          "reason": "Tipo correcto: numérico para el coste real por hora trabajada en €."
+        }
+      ]
+    },
+    "de": {
+      "name": "Kosten mano Baustelle",
+      "desc": "Berechnen Sie kosten mano Baustelle online. Geben Sie operarios, horas jornada, dias obra ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Kosten mano Baustelle | CalcToWork",
+      "seo_desc": "Kosten mano Baustelle online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Kosten mano Baustelle online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "operarios": "Operarios",
+        "horas_jornada": "Horas Jornada",
+        "dias_obra": "Dias Obra",
+        "coste_hora_eur": "Coste Hora Eur"
+      },
+      "outputs": {
+        "total_horas": "Total Horas",
+        "coste_dia_eur": "Coste Dia Eur",
+        "coste_semana_eur": "Coste Semana Eur",
+        "coste_total_eur": "Coste Total Eur"
+      },
+      "example_label": "Calcular coste de mano de obra para 4 operarios a 8 h/día durante 20 días a 25 €/h.",
+      "range_hints": {
+        "operarios": "Número de trabajadores asignados a la obra. Considera las distintas categorías profesionales (operarios)",
+        "horas_jornada": "Horas de trabajo efectivas por jornada. Típicamente 8 h en construcción (h/día)",
+        "dias_obra": "Días laborables totales de la obra según el cronograma del proyecto (días)",
+        "coste_hora_eur": "Coste hora real del operario incluyendo SS, pagas extra prorrateadas y dietas (€/h)"
+      },
+      "result_context": "Resultados: {total_horas} horas totales, coste de {coste_dia_eur} €/día, coste de {coste_semana_eur} €/semana, coste total de {coste_total_eur} €.",
+      "formula_display": "Coste total = operarios × horas_jornada × días_obra × coste_hora",
+      "steps": [
+        "Determina el número de operarios que trabajan en la obra (oficiales, peones, aprendices)",
+        "Establece las horas de jornada diaria (8 h estándar en construcción, convenio provincial puede variar)",
+        "Calcula los días totales de obra según el plan de trabajo o cronograma",
+        "Asigna el coste hora real de cada operario (no el precio de venta): salario base + SS a cargo de la empresa + dietas + parte proporcional de pagas extra",
+        "Multiplica operarios × horas/día × días × coste/hora para obtener el coste total de mano de obra",
+        "Desglosa por día, semana y total para comparar con el presupuesto de licitación"
+      ],
+      "mistakes": [
+        "Usar el salario base del convenio sin añadir la Seguridad Social a cargo de la empresa (~33% adicional)",
+        "No incluir las pagas extras prorrateadas, vacaciones, festivos y posibles horas extra",
+        "Olvidar costes indirectos de personal: formación PRL, reconocimientos médicos, EPIs, herramientas personales",
+        "Usar el mismo coste/hora para un oficial de 1ª que para un peón: las categorías profesionales tienen costes distintos",
+        "No verificar el convenio colectivo provincial de construcción: los salarios y pluses varían por provincia"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "operarios",
+          "reason": "Tipo correcto: numérico entero para el número de trabajadores en obra."
+        },
+        {
+          "field_id": "horas_jornada",
+          "reason": "Tipo correcto: numérico para las horas efectivas de trabajo por día."
+        },
+        {
+          "field_id": "dias_obra",
+          "reason": "Tipo correcto: numérico para los días laborables totales de la obra."
+        },
+        {
+          "field_id": "coste_hora_eur",
+          "reason": "Tipo correcto: numérico para el coste real por hora trabajada en €."
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Efficienza Energetica",
+      "description": "Calcola la classe energetica di un edificio.",
+      "seo_title": "Calcolatore Efficienza Energetica",
+      "seo_description": "Stima la classe di efficienza energetica di un edificio residenziale Usato da professionisti e studenti in tutto il mondo.",
+      "inputs": {
+        "consumo_kwh_m2": "Consumo (kWh/m²/anno)",
+        "operarios": "operarios (operarios)",
+        "horas_jornada": "horas jornada (h/día)",
+        "dias_obra": "dias obra (días)",
+        "coste_hora_eur": "coste hora eur (â‚¬/h)"
+      },
+      "outputs": {
+        "clase_energetica": "Classe energetica",
+        "calificacion": "Valutazione",
+        "total_horas": "total horas (horas)",
+        "coste_dia_eur": "coste dia eur (â‚¬/día)",
+        "coste_semana_eur": "coste semana eur (â‚¬/semana)",
+        "coste_total_eur": "coste total eur (â‚¬ total)"
+      },
+      "example_label": "Calcular coste de mano de obra para 4 operarios a 8 h/día durante 20 días a 25 €/h.",
+      "range_hints": {
+        "operarios": "Valor intre 1 e 100 operarios.",
+        "horas_jornada": "Valor intre 4 e 10 h/día.",
+        "dias_obra": "Valor intre 1 e 365 días.",
+        "coste_hora_eur": "Valor intre 10 e 100 €/h."
+      },
+      "result_context": "Resultados: {total_horas} horas totales, coste de {coste_dia_eur} €/día, coste de {coste_semana_eur} €/semana, coste total de {coste_total_eur} €.",
+      "formula_display": "Coste total = operarios × horas_jornada × días_obra × coste_hora",
+      "steps": [
+        "Determina el número de operarios que trabajan en la obra (oficiales, peones, aprendices)",
+        "Establece las horas de jornada diaria (8 h estándar en construcción, convenio provincial puede variar)",
+        "Calcula los días totales de obra según el plan de trabajo o cronograma",
+        "Asigna el coste hora real de cada operario (no el precio de venta): salario base + SS a cargo de la empresa + dietas + parte proporcional de pagas extra",
+        "Multiplica operarios × horas/día × días × coste/hora para obtener el coste total de mano de obra",
+        "Desglosa por día, semana y total para comparar con el presupuesto de licitación"
+      ],
+      "mistakes": [
+        "Usar el salario base del convenio sin añadir la Seguridad Social a cargo de la empresa (~33% adicional)",
+        "No incluir las pagas extras prorrateadas, vacaciones, festivos y posibles horas extra",
+        "Olvidar costes indirectos de personal: formación PRL, reconocimientos médicos, EPIs, herramientas personales",
+        "Usar el mismo coste/hora para un oficial de 1ª que para un peón: las categorías profesionales tienen costes distintos",
+        "No verificar el convenio colectivo provincial de construcción: los salarios y pluses varían por provincia"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "operarios",
+          "reason": "Tipo correcto: numérico entero para el número de trabajadores en obra."
+        },
+        {
+          "field_id": "horas_jornada",
+          "reason": "Tipo correcto: numérico para las horas efectivas de trabajo por día."
+        },
+        {
+          "field_id": "dias_obra",
+          "reason": "Tipo correcto: numérico para los días laborables totales de la obra."
+        },
+        {
+          "field_id": "coste_hora_eur",
+          "reason": "Tipo correcto: numérico para el coste real por hora trabajada en €."
+        }
+      ],
+      "desc": "Calcola il costo totale della manodopera per il tuo progetto edile."
+    }
+  }
+}

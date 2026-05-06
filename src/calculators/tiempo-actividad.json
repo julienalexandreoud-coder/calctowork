@@ -1,0 +1,333 @@
+{
+  "id": "516",
+  "slug": "tiempo-actividad",
+  "block": 4,
+  "block_slug": "cotidiano",
+  "inputs": [
+    {
+      "id": "downtime_min",
+      "type": "number",
+      "step": "any",
+      "default": 60,
+      "unit": "min",
+      "unit_options": [
+        "min",
+        "h"
+      ],
+      "unit_category": "time"
+    },
+    {
+      "id": "period",
+      "type": "number",
+      "step": "any",
+      "default": 30,
+      "unit": "days",
+      "unit_options": [
+        "days",
+        "mo",
+        "yr"
+      ],
+      "unit_category": "time"
+    }
+  ],
+  "formula": "var dt=parseFloat(inputs.downtime_min)||0;var p=parseFloat(inputs.period)||30;var total_min=p*24*60;var up=(1-dt/total_min)*100;var sla=up>=99.999?'Five nines':up>=99.99?'Four nines':up>=99.9?'Three nines':up>=99?'Two nines':'Below 99%';return{uptime_pct:up.toFixed(4),sla:sla};",
+  "outputs": [
+    {
+      "id": "uptime_pct",
+      "unit": "%"
+    },
+    {
+      "id": "sla",
+      "unit": ""
+    }
+  ],
+  "related": [
+    "517",
+    "510",
+    "500",
+    "501"
+  ],
+  "example_inputs": {
+    "downtime_min": 60,
+    "period": 30
+  },
+  "example_label": "Ejemplo para tiempo actividad: valores 60min, 30days",
+  "range_hints": {
+    "downtime_min": "Valor típico entre 0 y 500. Valor por defecto: 60 min.",
+    "period": "Valor típico entre 0 y 500. Valor por defecto: 30 days."
+  },
+  "result_context": "El uptime estimado es del {uptime_pct}%. Nivel SLA: {sla}.",
+  "result_context_en": "The estimated uptime is {uptime_pct}%. SLA level: {sla}.",
+  "result_context_fr": "La disponibilité estimée est de {uptime_pct} %. Niveau SLA : {sla}.",
+  "result_context_pt": "O uptime estimado é de {uptime_pct}%. Nível SLA: {sla}.",
+  "result_context_de": "Die geschätzte Betriebszeit beträgt {uptime_pct} %. SLA-Stufe: {sla}.",
+  "result_context_it": "L'uptime stimato è del {uptime_pct}%. Livello SLA: {sla}.",
+  "formula_display": "p × 24 × 60 → uptime_pct, sla",
+  "steps": [
+    "Introducir los valores de downtime_min y period",
+    "Verificar que las unidades sean correctas y convertir si es necesario (min, h)",
+    "Calcular los valores de uptime pct y sla",
+    "El resultado se expresa en %. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "No considerar si la propina se calcula antes o después de impuestos",
+    "Olvidar que los meses tienen diferente número de días",
+    "Usar el formato de fecha incorrecto (MM/DD vs DD/MM) al introducir datos"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "downtime_min",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "period",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Escenario minimo",
+      "downtime_min": 24.0,
+      "period": 12.0
+    },
+    {
+      "_label": "Uso habitual",
+      "downtime_min": 42.0,
+      "period": 21.0
+    },
+    {
+      "_label": "Uso frecuente",
+      "downtime_min": 60.0,
+      "period": 30.0
+    },
+    {
+      "_label": "Uso intensivo",
+      "downtime_min": 90.0,
+      "period": 45.0
+    },
+    {
+      "_label": "Caso maximo",
+      "downtime_min": 150.0,
+      "period": 75.0
+    }
+  ],
+  "units": {
+    "downtime_min": "s",
+    "period": "s"
+  },
+  "i18n": {
+    "es": {
+      "name": "Tiempo de Actividad",
+      "description": "Calcula el porcentaje de disponibilidad de un servidor.",
+      "inputs": {
+        "downtime_min": "Tiempo caída min",
+        "period": "Período días"
+      },
+      "outputs": {
+        "uptime_pct": "Uptime %",
+        "sla": "Nivel SLA"
+      },
+      "seo_title": "Tiempo de Actividad Gratuita – Rápido y Preciso",
+      "seo_description": "Calcula el porcentaje de disponibilidad de un servidor. Calculadora gratuita, precisa e instantánea Usado por profesionales y estudiantes en todo el.",
+      "example_label": "60 min inactivo en 30 días",
+      "range_hints": {
+        "downtime_min": "0 - varias horas",
+        "period": "1 día - 365 días"
+      },
+      "result_context": "Porcentaje de uptime y clasificación SLA",
+      "formula_display": "Uptime % = (1 - Tiempo inactivo / Tiempo total) × 100",
+      "steps": [
+        "Calcular tiempo total en minutos del período",
+        "Dividir downtime entre total",
+        "Restar de 1 y multiplicar por 100",
+        "Clasificar según nines"
+      ],
+      "mistakes": [
+        "No usar mismas unidades de tiempo",
+        "Confundir uptime con downtime"
+      ],
+      "input_type_review": []
+    },
+    "en": {
+      "name": "Server Uptime Calculator",
+      "description": "Calculate server availability percentage.",
+      "inputs": {
+        "downtime_min": "Downtime min",
+        "period": "Period days"
+      },
+      "outputs": {
+        "uptime_pct": "Uptime %",
+        "sla": "SLA level"
+      },
+      "seo_title": "Server Uptime Calculator – Fast & Accurate",
+      "seo_description": "Server Uptime Calculator. Downtime min, Period days — get Uptime %, SLA level instantly for your plumbing and water systems project. Includes waste factor.",
+      "example_label": "60 min inactivo en 30 días",
+      "range_hints": {
+        "downtime_min": "0 - varias horas",
+        "period": "1 día - 365 días"
+      },
+      "result_context": "Porcentaje de uptime y clasificación SLA",
+      "formula_display": "Uptime % = (1 - Tiempo inactivo / Tiempo total) × 100",
+      "steps": [
+        "Calcular tiempo total en minutos del período",
+        "Dividir downtime entre total",
+        "Restar de 1 y multiplicar por 100",
+        "Clasificar según nines"
+      ],
+      "mistakes": [
+        "No usar mismas unidades de tiempo",
+        "Confundir uptime con downtime"
+      ],
+      "input_type_review": "Ambos inputs son tiempo"
+    },
+    "fr": {
+      "name": "Disponibilité Serveur",
+      "description": "Calculez le pourcentage de disponibilité d'un serveur.",
+      "inputs": {
+        "downtime_min": "Indisponibilité min",
+        "period": "Période jours"
+      },
+      "outputs": {
+        "uptime_pct": "Disponibilité %",
+        "sla": "Niveau SLA"
+      },
+      "seo_title": "Disponibilité Serveur – Rapide et Précis",
+      "seo_description": "Calculez le pourcentage de disponibilité d'un serveur. Calculateur gratuit, précis et instantané Utilise par des professionnels et etudiants dans le.",
+      "example_label": "60 min inactivo dans 30 días",
+      "range_hints": {
+        "downtime_min": "0 - varias horas",
+        "period": "1 día - 365 días"
+      },
+      "result_context": "Porcentaje de uptime et clasificación SLA",
+      "formula_display": "Uptime % = (1 - Tiempo inactivo / Tiempo total) × 100",
+      "steps": [
+        "Calculer tiempo total dans minutos du período",
+        "diviser downtime entre total",
+        "Restar de 1 et Multiplier par 100",
+        "Clasificar selon nines"
+      ],
+      "mistakes": [
+        "No Utiliser mismas unités de tiempo",
+        "Confondre uptime avec downtime"
+      ],
+      "input_type_review": []
+    },
+    "pt": {
+      "name": "Uptime do Servidor",
+      "description": "Calcule a porcentagem de disponibilidade de um servidor.",
+      "inputs": {
+        "downtime_min": "Tempo inativo min",
+        "period": "Período dias"
+      },
+      "outputs": {
+        "uptime_pct": "Uptime %",
+        "sla": "Nível SLA"
+      },
+      "seo_title": "Uptime do Servidor – Rápido e Preciso",
+      "seo_description": "Calcule a porcentagem de disponibilidade de um servidor. Calculadora gratuita, precisa e instantânea. Calculo preciso e rapido com metodologia clara.",
+      "example_label": "60 min inactivo em 30 días",
+      "range_hints": {
+        "downtime_min": "0 - varias horas",
+        "period": "1 día - 365 días"
+      },
+      "result_context": "Porcentaje de uptime e clasificación SLA",
+      "formula_display": "Uptime % = (1 - Tiempo inactivo / Tiempo total) × 100",
+      "steps": [
+        "Calcular tiempo total em minutos do período",
+        "Dividir downtime entre total",
+        "Restar de 1 e multiplicar por 100",
+        "Clasificar segundo nines"
+      ],
+      "mistakes": [
+        "Não usar mismas unidades de tiempo",
+        "Confundir uptime com downtime"
+      ],
+      "input_type_review": []
+    },
+    "de": {
+      "name": "Tiempo actividad",
+      "desc": "Berechnen Sie tiempo actividad online. Geben Sie downtime min, period ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Tiempo actividad | CalcToWork",
+      "seo_desc": "Tiempo actividad online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Tiempo actividad online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "downtime_min": "Downtime Min",
+        "period": "Period"
+      },
+      "outputs": {
+        "uptime_pct": "Uptime Pct",
+        "sla": "Sla"
+      },
+      "example_label": "Ejemplo para tiempo actividad: valores 60min, 30days",
+      "range_hints": {
+        "downtime_min": "Valor típico entre 0 y 500. Valor por defecto: 60 min.",
+        "period": "Valor típico entre 0 y 500. Valor por defecto: 30 days."
+      },
+      "result_context": "Die geschätzte Betriebszeit beträgt {uptime_pct} %. SLA-Stufe: {sla}.",
+      "formula_display": "p × 24 × 60 → uptime_pct, sla",
+      "steps": [
+        "Introducir los valores de downtime_min y period",
+        "Verificar que las unidades sean correctas y convertir si es necesario (min, h)",
+        "Calcular los valores de uptime pct y sla",
+        "El resultado se expresa en %. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "No considerar si la propina se calcula antes o después de impuestos",
+        "Olvidar que los meses tienen diferente número de días",
+        "Usar el formato de fecha incorrecto (MM/DD vs DD/MM) al introducir datos"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "downtime_min",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "period",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Uptime Server",
+      "description": "Calcola la percentuale di disponibilità di un server.",
+      "inputs": {
+        "downtime_min": "Downtime min",
+        "period": "Periodo giorni"
+      },
+      "outputs": {
+        "uptime_pct": "Uptime %",
+        "sla": "Livello SLA"
+      },
+      "seo_title": "Uptime Server – Veloce e Preciso",
+      "seo_description": "Calcola la percentuale di disponibilità di un server. Calcolatore gratuito, preciso e istantaneo Usato da professionisti e studenti in tutto il mondo.",
+      "example_label": "60 min inactivo in 30 días",
+      "range_hints": {
+        "downtime_min": "0 - varias ore",
+        "period": "1 día - 365 días"
+      },
+      "result_context": "Porcintaje di uptime e cleificación SLA",
+      "formula_display": "Uptime % = (1 - Tiempo inactivo / Tiempo totale) × 100",
+      "steps": [
+        "Calcolare tempo totale in minuti dil período",
+        "Dividire downtime intre totale",
+        "Sottrarre di 1 e moltiplicare per 100",
+        "Cleificar según nines"
+      ],
+      "mistakes": [
+        "No usar mismas unità di tempo",
+        "Confondire uptime con downtime"
+      ],
+      "input_type_review": null
+    }
+  }
+}

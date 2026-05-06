@@ -1,0 +1,468 @@
+{
+  "id": "026",
+  "slug": "terrazo",
+  "block": 3,
+  "block_slug": "pavimentos",
+  "inputs": [
+    {
+      "id": "area",
+      "type": "number",
+      "min": 1,
+      "max": 1000,
+      "step": 0.5,
+      "default": 30,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "tam_pieza_cm",
+      "type": "number",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "default": 40,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "incluye_mortero",
+      "type": "select",
+      "default": "si",
+      "options": [
+        "si",
+        "no"
+      ]
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area)||0,tam=parseFloat(inputs.tam_pieza_cm)||40;if(!A)return{error:true};var area_merma=+(A*1.08).toFixed(2),pieza_m2=(tam/100)*(tam/100),piezas=Math.ceil(area_merma/pieza_m2),mortero_kg=inputs.incluye_mortero==='si'?+(A*30).toFixed(0):0;return{area_merma_m2:area_merma,piezas_ud:piezas,mortero_base_kg:mortero_kg};",
+  "outputs": [
+    {
+      "id": "area_merma_m2",
+      "unit": "m² (+8% merma)",
+      "highlight": true
+    },
+    {
+      "id": "piezas_ud",
+      "unit": "piezas"
+    },
+    {
+      "id": "mortero_base_kg",
+      "unit": "kg"
+    }
+  ],
+  "related": [
+    "021",
+    "025",
+    "030",
+    "027"
+  ],
+  "example_inputs": {
+    "area": 30,
+    "tam_pieza_cm": 40,
+    "incluye_mortero": "si"
+  },
+  "example_label": "Ejemplo para terrazo: valores 30m², 40cm",
+  "range_hints": {
+    "area": "Valor típico entre 1 y 1000. Valor por defecto: 30 m².",
+    "tam_pieza_cm": "Valor típico entre 20 y 60. Valor por defecto: 40 cm.",
+    "incluye_mortero": "Seleccionar entre las opciones: si, no"
+  },
+  "result_context": "Resultados: {area_merma_m2} m² de superficie, {piezas_ud} piezas, {mortero_base_kg} kg de mortero base.",
+  "formula_display": "tam ÷ 100 → area_merma_m2, piezas_ud",
+  "steps": [
+    "Introducir los valores de area, tam_pieza_cm y incluye_mortero",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+    "Calcular los valores de area merma m2 y piezas ud",
+    "El resultado se expresa en m² (+8% merma). Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Introducir valores con unidades incorrectas sin verificar la conversión",
+    "Redondear resultados intermedios en lugar del resultado final",
+    "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "area",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "tam_pieza_cm",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "incluye_mortero",
+      "current_type": "select",
+      "recommended_type": "select",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small patio",
+      "area": 15,
+      "tam_pieza_cm": 20
+    },
+    {
+      "_label": "Medium patio",
+      "area": 22.5,
+      "tam_pieza_cm": 30
+    },
+    {
+      "_label": "Large patio",
+      "area": 30,
+      "tam_pieza_cm": 40
+    },
+    {
+      "_label": "Driveway",
+      "area": 45,
+      "tam_pieza_cm": 60
+    },
+    {
+      "_label": "Parking lot",
+      "area": 60,
+      "tam_pieza_cm": 60
+    }
+  ],
+  "units": {
+    "area": "m²",
+    "tam_pieza_cm": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Terrazo",
+      "desc": "Calcula el número de piezas de terrazo y la base de mortero para colocación en capa gruesa Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora Terrazo – Piezas y Mortero",
+      "seo_desc": "Calcula el número de piezas de terrazo y la base de mortero para colocación en capa gruesa Usado por profesionales y estudiantes en todo el mundo.",
+      "inputs": {
+        "area": "Área",
+        "tam_pieza_cm": "Tamaño pieza",
+        "incluye_mortero": "Calcular mortero base"
+      },
+      "outputs": {
+        "area_merma_m2": "Área con merma (+8%)",
+        "piezas_ud": "Piezas",
+        "mortero_base_kg": "Mortero base"
+      },
+      "seo_description": "Calcula las baldosas de terrazo y el mortero de agarre necesarios para tu pavimento. Introduce la superficie y el formato de pieza (30×30, 40×40 o 60×60 cm) con merma del 8%.",
+      "example_label": "Calcular baldosas de terrazo de 40×40cm para 45m² incluyendo mortero de colocación.",
+      "range_hints": {
+        "area": "Superficie a cubrir con terrazo",
+        "tam_pieza_cm": "Formatos comunes: 30×30, 40×40, 50×50 cm"
+      },
+      "result_context": "Para {area} m² con baldosas de {tam_pieza_cm}×{tam_pieza_cm}cm se necesitan {baldosas_ud} baldosas ({baldosas_cajas} cajas), {mortero_kg} kg de mortero y {juntas_kg} kg de fragüe.",
+      "formula_display": "Baldosas = área ÷ (lado_m × lado_m); Mortero = área × 15 kg/m²",
+      "steps": [
+        "Calcular área por baldosa: 0.40m × 0.40m = 0.16m²",
+        "Calcular baldosas: 45m² ÷ 0.16m² = 281.25 → 282 baldosas",
+        "Aplicar merma 5%: 282 × 1.05 = 296 baldosas",
+        "Calcular mortero: 45m² × 15 kg/m² = 675 kg"
+      ],
+      "mistakes": [
+        "No remojar las baldosas de terrazo antes de colocar (absorben agua)",
+        "No dejar juntas uniformes (usar separadores/cruces)",
+        "No pulir y sellar después de colocado si es terrazo continuo"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "tam_pieza_cm",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "incluye_mortero",
+          "reason": "Correcto: opción discreta"
+        }
+      ]
+    },
+    "en": {
+      "name": "Terrazzo Calculator",
+      "desc": "Terrazzo Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Terrazzo Calculator – Pieces & Mortar",
+      "seo_desc": "Terrazzo Calculator. Area, Piece size, Calculate base mortar — get Area with waste (+8%), Pieces, Base mortar instantly for your flooring and tiling.",
+      "inputs": {
+        "area": "Area",
+        "tam_pieza_cm": "Piece size",
+        "incluye_mortero": "Calculate base mortar"
+      },
+      "outputs": {
+        "area_merma_m2": "Area with waste (+8%)",
+        "piezas_ud": "Pieces",
+        "mortero_base_kg": "Base mortar"
+      },
+      "seo_description": "Calculate terrazzo tiles and bedding mortar for your floor. Enter surface area and tile format (30×30, 40×40 or 60×60 cm) with 8% waste allowance.",
+      "example_label": "Calcular baldosas de terrazo de 40×40cm para 45m² incluyendo mortero de colocación.",
+      "range_hints": {
+        "area": "Superficie a cubrir con terrazo",
+        "tam_pieza_cm": "Formatos comunes: 30×30, 40×40, 50×50 cm"
+      },
+      "result_context": "Para {area} m² con baldosas de {tam_pieza_cm}×{tam_pieza_cm}cm se necesitan {baldosas_ud} baldosas ({baldosas_cajas} cajas), {mortero_kg} kg de mortero y {juntas_kg} kg de fragüe.",
+      "formula_display": "Baldosas = área ÷ (lado_m × lado_m); Mortero = área × 15 kg/m²",
+      "steps": [
+        "Calcular área por baldosa: 0.40m × 0.40m = 0.16m²",
+        "Calcular baldosas: 45m² ÷ 0.16m² = 281.25 â†’ 282 baldosas",
+        "Aplicar merma 5%: 282 × 1.05 = 296 baldosas",
+        "Calcular mortero: 45m² × 15 kg/m² = 675 kg"
+      ],
+      "mistakes": [
+        "No remojar las baldosas de terrazo antes de colocar (absorben agua)",
+        "No dejar juntas uniformes (usar separadores/cruces)",
+        "No pulir y sellar después de colocado si es terrazo continuo"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "tam_pieza_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "incluye_mortero",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: opción discreta"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Terrazzo",
+      "desc": "Calculez le nombre de pièces de terrazzo et le mortier de pose en couche épaisse Utilise par des professionnels et etudiants dans le monde entier.",
+      "seo_title": "Calculateur Terrazzo – Outil Gratuit",
+      "inputs": {
+        "area": "Surface",
+        "tam_pieza_cm": "Taille pièce",
+        "incluye_mortero": "Calculer mortier base"
+      },
+      "outputs": {
+        "area_merma_m2": "Surface avec chute (+8%)",
+        "piezas_ud": "Pièces",
+        "mortero_base_kg": "Mortier base"
+      },
+      "seo_description": "Calculez le nombre de pièces de terrazzo et le mortier de pose en couche épaisse Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calculer carrelages de terrazo de 40×40cm pour 45m² incluyendo mortier de colocación.",
+      "range_hints": {
+        "area": "surface a cubrir avec terrazo",
+        "tam_pieza_cm": "Formatos comunes: 30×30, 40×40, 50×50 cm"
+      },
+      "result_context": "pour {area} m² avec carrelages de {tam_pieza_cm}×{tam_pieza_cm}cm se necesitan {baldosas_ud} carrelages ({baldosas_cajas} cajas), {mortero_kg} kg de mortier et {juntas_kg} kg de fragüe.",
+      "formula_display": "carrelages = área Á· (lado_m × lado_m); mortier = área × 15 kg/m²",
+      "steps": [
+        "Calculer área par carrelage: 0.40m × 0.40m = 0.16m²",
+        "Calculer carrelages: 45m² Á· 0.16m² = 281.25 ââ€ ’ 282 carrelages",
+        "Aplicar merma 5%: 282 × 1.05 = 296 carrelages",
+        "Calculer mortier: 45m² × 15 kg/m² = 675 kg"
+      ],
+      "mistakes": [
+        "No remojar les carrelages de terrazo antes de colocar (absorben eau)",
+        "No dejar juntas uniformes (Utiliser separadores/cruces)",
+        "No pulir et sellar después de colocado si es terrazo continue"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "tam_pieza_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "incluye_mortero",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correct : opción discreta"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Granilite e Pastilha",
+      "desc": "Calcule o número de peças e argamassa de base para assentamento em camada grossa Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora de Granilite e Pastilha",
+      "inputs": {
+        "area": "Área",
+        "tam_pieza_cm": "Tamanho peça",
+        "incluye_mortero": "Calcular argamassa base"
+      },
+      "outputs": {
+        "area_merma_m2": "Área com perda (+8%)",
+        "piezas_ud": "Peças",
+        "mortero_base_kg": "Argamassa base"
+      },
+      "seo_description": "Calcule o número de peças e argamassa de base para assentamento em camada grossa Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular baldosas de terrazo de 40×40cm para 45m² incluyendo argamassa de colocación.",
+      "range_hints": {
+        "area": "Superficie a cubrir com terrazo",
+        "tam_pieza_cm": "Formatos comuns: 30×30, 40×40, 50×50 cm"
+      },
+      "result_context": "Para {area} m² com baldosas de {tam_pieza_cm}×{tam_pieza_cm}cm são necessários {baldosas_ud} baldosas ({baldosas_cajas} cajas), {mortero_kg} kg de argamassa e {juntas_kg} kg de fragüe.",
+      "formula_display": "Baldosas = área ÷ (lado_m × lado_m); Mortero = área × 15 kg/m²",
+      "steps": [
+        "Calcular área por baldosa: 0.40m × 0.40m = 0.16m²",
+        "Calcular baldosas: 45m² ÷ 0.16m² = 281.25 â†’ 282 baldosas",
+        "Aplicar merma 5%: 282 × 1.05 = 296 baldosas",
+        "Calcular argamassa: 45m² × 15 kg/m² = 675 kg"
+      ],
+      "mistakes": [
+        "Não remojar as baldosas de terrazo antes de colocar (absorben água)",
+        "Não dejar juntas uniformes (usar separadores/cruces)",
+        "Não pulir e sellar después de colocado si é terrazo contínuo"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "tam_pieza_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "incluye_mortero",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correto: opção discreta"
+        }
+      ]
+    },
+    "de": {
+      "name": "Terrazzo",
+      "desc": "Berechnen Sie terrazzo online. Geben Sie area, tam pieza cm, incluye mortero ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Terrazzo | CalcToWork",
+      "seo_desc": "Terrazzo online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Terrazzo online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "area": "Area",
+        "tam_pieza_cm": "Tam Pieza Cm",
+        "incluye_mortero": "Incluye Mortero"
+      },
+      "outputs": {
+        "area_merma_m2": "Area Merma M2",
+        "piezas_ud": "Piezas Ud",
+        "mortero_base_kg": "Mortero Base Kg"
+      },
+      "example_label": "Ejemplo para terrazo: valores 30m², 40cm",
+      "range_hints": {
+        "area": "Valor típico entre 1 y 1000. Valor por defecto: 30 m².",
+        "tam_pieza_cm": "Valor típico entre 20 y 60. Valor por defecto: 40 cm.",
+        "incluye_mortero": "Seleccionar entre las opciones: si, no"
+      },
+      "result_context": "Resultados: {area_merma_m2} m² de superficie, {piezas_ud} piezas, {mortero_base_kg} kg de mortero base.",
+      "formula_display": "tam ÷ 100 → area_merma_m2, piezas_ud",
+      "steps": [
+        "Introducir los valores de area, tam_pieza_cm y incluye_mortero",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+        "Calcular los valores de area merma m2 y piezas ud",
+        "El resultado se expresa en m² (+8% merma). Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Introducir valores con unidades incorrectas sin verificar la conversión",
+        "Redondear resultados intermedios en lugar del resultado final",
+        "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "tam_pieza_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "incluye_mortero",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Manto Impermeabilizzante",
+      "description": "Calcola il guaina bituminosa per impermeabilizzazioni.",
+      "seo_title": "Calcolatore Manto Impermeabilizzante",
+      "seo_description": "Stima i m² di guaina bituminosa per tetti e terrazze Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo rapido,.",
+      "inputs": {
+        "area": "Superficie (m²)",
+        "solapes": "Sovrapposizione (%)"
+      },
+      "outputs": {
+        "lamina_m2": "Guaina (m²)",
+        "rollos": "Rotoli da 10 m²"
+      },
+      "example_label": "Calcolare piastrelle di terrazzo di 40×40cm per 45m² inclueindo mortero di colocación.",
+      "range_hints": {
+        "area": "Superficie a cubrir con terrazzo",
+        "tam_pieza_cm": "Formatos comuni: 30×30, 40×40, 50×50 cm"
+      },
+      "result_context": "Per {area} m² con piastrelle di {tam_pieza_cm}×{tam_pieza_cm}cm sonon necessari {piastrelle_ud} piastrelle ({piastrelle_cajas} cajas), {mortero_kg} kg di mortero e {guarnizioni_kg} kg di fragüe.",
+      "formula_display": "Baldosas = área ÷ (lato_m × lato_m); Mortero = área × 15 kg/m²",
+      "steps": [
+        "Calcolare área per piastrella: 0.40m × 0.40m = 0.16m²",
+        "Calcolare piastrelle: 45m² ÷ 0.16m² = 281.25 → 282 piastrelle",
+        "Applicare merma 5%: 282 × 1.05 = 296 piastrelle",
+        "Calcolare mortero: 45m² × 15 kg/m² = 675 kg"
+      ],
+      "mistakes": [
+        "No remojar le piastrelle di terrazzo prima di colocar (absorbin acqua)",
+        "No dijar guarnizioni uniformi (usar seperdores/cruces)",
+        "No lucidare e sellar dispués di colocado se es terrazzo continuo"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "tam_pieza_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "incluye_mortero",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Corretto: opción discreta"
+        }
+      ]
+    }
+  }
+}

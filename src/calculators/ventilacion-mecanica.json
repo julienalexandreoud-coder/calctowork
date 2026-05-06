@@ -1,0 +1,488 @@
+{
+  "id": "055",
+  "slug": "ventilacion-mecanica",
+  "block": 6,
+  "block_slug": "climatizacion",
+  "inputs": [
+    {
+      "id": "area_m2",
+      "type": "number",
+      "min": 5,
+      "max": 1000,
+      "step": 0.5,
+      "default": 100,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "altura_m",
+      "type": "number",
+      "min": 2.2,
+      "max": 5,
+      "step": 0.1,
+      "default": 2.7,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "renovaciones_hora",
+      "type": "number",
+      "min": 0.5,
+      "max": 10,
+      "step": 0.5,
+      "default": 0.8,
+      "unit": "ren/h"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area_m2)||0,H=parseFloat(inputs.altura_m)||2.7,R=parseFloat(inputs.renovaciones_hora)||0.8;if(!A)return{error:true};var vol=A*H,m3h=+(vol*R).toFixed(1),ls=+(m3h/3.6).toFixed(1),kw_fan=+(m3h*0.0003).toFixed(2);return{vol_m3:+vol.toFixed(1),caudal_m3h:m3h,caudal_ls:ls,potencia_kw:kw_fan};",
+  "outputs": [
+    {
+      "id": "vol_m3",
+      "unit": "m³"
+    },
+    {
+      "id": "caudal_m3h",
+      "unit": "m³/h",
+      "highlight": true
+    },
+    {
+      "id": "caudal_ls",
+      "unit": "L/s"
+    },
+    {
+      "id": "potencia_kw",
+      "unit": "kW ventilador"
+    }
+  ],
+  "related": [
+    "053",
+    "054",
+    "058",
+    "056"
+  ],
+  "example_inputs": {
+    "area_m2": 100,
+    "altura_m": 2.7,
+    "renovaciones_hora": 0.8
+  },
+  "example_label": "Ejemplo para ventilacion mecanica: valores 100m², 2.7m, 0.8ren/h",
+  "range_hints": {
+    "area_m2": "Valor típico entre 5 y 1000. Valor por defecto: 100 m².",
+    "altura_m": "Valor típico entre 2.2 y 5. Valor por defecto: 2.7 m.",
+    "renovaciones_hora": "Valor típico entre 0.5 y 10. Valor por defecto: 0.8 ren/h."
+  },
+  "result_context": "Resultados: volumen de {vol_m3} m³, caudal de {caudal_m3h} m³/h, {caudal_ls} L/s, potencia del ventilador de {potencia_kw} kW.",
+  "formula_display": "m3h ÷ 3 → vol_m3, caudal_m3h",
+  "steps": [
+    "Introducir los valores de area_m2, altura_m y renovaciones_hora",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+    "Calcular los valores de vol m3 y caudal m3h",
+    "El resultado se expresa en m³. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Sobredimensionar el equipo (provoca ciclos cortos que reducen la eficiencia)",
+    "No limpiar los filtros regularmente (reduce el caudal hasta un 30%)",
+    "Instalar la unidad exterior en un lugar sin ventilación adecuada"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "area_m2",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "altura_m",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "renovaciones_hora",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small room",
+      "area_m2": 50,
+      "renovaciones_hora": 0.5,
+      "altura_m": 2.7
+    },
+    {
+      "_label": "Medium room",
+      "area_m2": 75,
+      "renovaciones_hora": 0.6,
+      "altura_m": 2.7
+    },
+    {
+      "_label": "Large room",
+      "area_m2": 100,
+      "renovaciones_hora": 0.8,
+      "altura_m": 2.7
+    },
+    {
+      "_label": "Office",
+      "area_m2": 150,
+      "renovaciones_hora": 1.2,
+      "altura_m": 2.7
+    },
+    {
+      "_label": "Warehouse",
+      "area_m2": 200,
+      "renovaciones_hora": 1.6,
+      "altura_m": 2.7
+    }
+  ],
+  "units": {
+    "area_m2": "m²",
+    "altura_m": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Ventilación Mecánica",
+      "desc": "Calcula el caudal necesario para ventilar un espacio.",
+      "seo_title": "Calculadora Ventilación Mecánica – m³/h",
+      "inputs": {
+        "area_m2": "Área local",
+        "altura_m": "Altura techo",
+        "renovaciones_hora": "Renovaciones por hora"
+      },
+      "outputs": {
+        "vol_m3": "Volumen local",
+        "caudal_m3h": "Caudal necesario (m³/h)",
+        "caudal_ls": "Caudal (L/s)",
+        "potencia_kw": "Potencia ventilador estimada"
+      },
+      "seo_description": "Calcula el caudal de ventilación necesario en m³/h para garantizar las renovaciones de aire requeridas Usado por profesionales y estudiantes en todo el.",
+      "example_label": "Calcular ventilación mecánica para vivienda de 90m² con 2.5m de altura y 0.5 renovaciones/hora.",
+      "range_hints": {
+        "area_m2": "Superficie útil de la vivienda",
+        "altura_m": "Altura libre de techos",
+        "renovaciones_hora": "Vivienda: 0.5-1 ren/h, Oficinas: 2-4 ren/h, Gimnasios: 6-8 ren/h"
+      },
+      "result_context": "Vivienda de {area_m2}m² con {altura_m}m de altura requiere ventilador de {caudal_m3h} m³/h ({caudal_ls} L/s) para {renovaciones_hora} renovaciones/hora.",
+      "formula_display": "Volumen = área × altura; Caudal = volumen × renovaciones_hora",
+      "steps": [
+        "Calcular volumen: 90m² × 2.5m = 225m³",
+        "Calcular caudal: 225m³ × 0.5 ren/h = 112.5 m³/h",
+        "Convertir a L/s: 112.5 ÷ 3.6 = 31.25 L/s",
+        "Seleccionar ventilador: 120-150 m³/h (con margen)"
+      ],
+      "mistakes": [
+        "No considerar renovación mínima según normativa (CTE DB-HS3)",
+        "Instalar ventilador sin recuperación de calor (pérdida energética)",
+        "No prever entrada de aire desde exteriores (ventanas, rejillas)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "altura_m",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "renovaciones_hora",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Mechanical Ventilation Calculator",
+      "desc": "Calculate required airflow for ventilating a space.",
+      "seo_title": "Mechanical Ventilation Calculator – m³/h",
+      "inputs": {
+        "area_m2": "Room area",
+        "altura_m": "Ceiling height",
+        "renovaciones_hora": "Air changes per hour"
+      },
+      "outputs": {
+        "vol_m3": "Room volume",
+        "caudal_m3h": "Required airflow (m³/h)",
+        "caudal_ls": "Airflow (L/s)",
+        "potencia_kw": "Estimated fan power"
+      },
+      "seo_description": "Mechanical Ventilation Calculator. Room area, Ceiling height, Air changes per hour — get Room volume, Required airflow (m³/h), Airflow (L/s) instantly for.",
+      "example_label": "Calculate mechanical ventilation for a 100 m² commercial space per ASHRAE 62.1 with 0.8 air changes per hour.",
+      "range_hints": {
+        "area_m2": "Floor area to ventilate. Residential: 50-150 m², Office: 100-500 m², Commercial: 200-1000 m²",
+        "altura_m": "Ceiling height. Residential: 2.5-2.7 m, Commercial/Industrial: 3-5 m",
+        "renovaciones_hora": "Homes: 0.5-0.8 ACH, Offices: 1-2 ACH, Kitchens: 2-3 ACH, Garages: 4-6 ACH"
+      },
+      "result_context": "Space of {vol_m3} m³. Required ventilation airflow: {caudal_m3h} m³/h ({caudal_ls} L/s). Estimated fan power: {potencia_kw} kW.",
+      "formula_display": "Q(m³/h) = Volume(m³) × Air_changes/hour  |  Q(L/s) = Q(m³/h) ÷ 3.6",
+      "steps": [
+        "Calculate space volume: 100 m² × 2.7 m = 270.0 m³",
+        "Apply air changes per ASHRAE 62.1: 270.0 × 0.8 = 216.0 m³/h",
+        "Convert to L/s (standard unit): 216.0 ÷ 3.6 = 60.0 L/s",
+        "Check minimum per occupant: 12.5 L/s × person",
+        "Estimate fan power: 216.0 × 0.0003 = 0.06 kW"
+      ],
+      "mistakes": [
+        "Not distinguishing residential ventilation (ASHRAE 62.2) from commercial (ASHRAE 62.1) — different criteria apply",
+        "Forgetting additional kitchen exhaust (50 L/s extra) and garage ventilation (much higher ACH)",
+        "Sizing ducts without considering pressure drop — a poorly matched fan cannot overcome system resistance"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "renovaciones_hora",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Ventilation Mécanique",
+      "desc": "Calculez le débit nécessaire pour ventiler un espace.",
+      "seo_title": "Calculateur Ventilation – m³/h",
+      "inputs": {
+        "area_m2": "Surface local",
+        "altura_m": "Hauteur plafond",
+        "renovaciones_hora": "Renouvellements par heure"
+      },
+      "outputs": {
+        "vol_m3": "Volume local",
+        "caudal_m3h": "Débit nécessaire (m³/h)",
+        "caudal_ls": "Débit (L/s)",
+        "potencia_kw": "Puissance ventilateur estimée"
+      },
+      "seo_description": "Calculez le débit de ventilation en m³/h pour garantir les renouvellements d'air requis. Calculatrice facile a utiliser avec decomposition de la formule.",
+      "example_label": "Calculer ventilación mecánica pour vivienda de 90m² avec 2.5m de hauteur et 0.5 renovaciones/hora.",
+      "range_hints": {
+        "area_m2": "surface útil de la vivienda",
+        "altura_m": "hauteur libre de toits",
+        "renovaciones_hora": "Vivienda: 0.5-1 ren/h, Oficinas: 2-4 ren/h, Gimnasios: 6-8 ren/h"
+      },
+      "result_context": "Vivienda de {area_m2}m² avec {altura_m}m de hauteur nécessite ventilador de {caudal_m3h} m³/h ({caudal_ls} L/s) pour {renovaciones_hora} renovaciones/hora.",
+      "formula_display": "volume = área × hauteur; Caudal = volume × renovaciones_hora",
+      "steps": [
+        "Calculer le volume: 90m² × 2.5m = 225m³",
+        "Calculer caudal: 225m³ × 0.5 ren/h = 112.5 m³/h",
+        "Convertir a L/s: 112.5 Á· 3.6 = 31.25 L/s",
+        "Seleccionar ventilador: 120-150 m³/h (avec margen)"
+      ],
+      "mistakes": [
+        "Ne pas considérer renovación mínima selon normativa (CTE DB-HS3)",
+        "Instalar ventilador sans recuperación de calor (pérdida energética)",
+        "No prever entrada de aire de exteriores (fenêtres, rejillas)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "renovaciones_hora",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Ventilação Mecânica",
+      "desc": "Calcule a vazão necessária para ventilar um espaço.",
+      "seo_title": "Calculadora Ventilação Mecânica – m³/h",
+      "inputs": {
+        "area_m2": "Área do local",
+        "altura_m": "Altura do teto",
+        "renovaciones_hora": "Renovações por hora"
+      },
+      "outputs": {
+        "vol_m3": "Volume do local",
+        "caudal_m3h": "Vazão necessária (m³/h)",
+        "caudal_ls": "Vazão (L/s)",
+        "potencia_kw": "Potência ventilador estimada"
+      },
+      "seo_description": "Calcule a vazão de ventilação em m³/h para garantir as renovações de ar necessárias. Calculadora facil de usar com detalhamento da formula.",
+      "example_label": "Calcular ventilación mecánica para vivienda de 90m² com 2.5m de altura e 0.5 renovaciones/hora.",
+      "range_hints": {
+        "area_m2": "Superficie útil da vivienda",
+        "altura_m": "Altura libre de telhados",
+        "renovaciones_hora": "Vivienda: 0.5-1 ren/h, Oficinas: 2-4 ren/h, Gimnasios: 6-8 ren/h"
+      },
+      "result_context": "Vivienda de {area_m2}m² com {altura_m}m de altura requer ventilador de {caudal_m3h} m³/h ({caudal_ls} L/s) para {renovaciones_hora} renovaciones/hora.",
+      "formula_display": "Volumen = área × altura; Caudal = volume × renovaciones_hora",
+      "steps": [
+        "Calcular volume: 90m² × 2.5m = 225m³",
+        "Calcular caudal: 225m³ × 0.5 ren/h = 112.5 m³/h",
+        "Convertir a L/s: 112.5 ÷ 3.6 = 31.25 L/s",
+        "Seleccionar ventilador: 120-150 m³/h (com margen)"
+      ],
+      "mistakes": [
+        "Não considerar renovación mínima segundo normativa (CTE DB-HS3)",
+        "Instalar ventilador sem recuperación de calor (pérdida energética)",
+        "Não prever entrada de aire desde exteriores (janelas, rejillas)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "renovaciones_hora",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Lüftungsanlage mechanisch",
+      "desc": "Berechnen Sie lüftungsanlage mechanisch online. Geben Sie area m2, altura m, renovaciones hora ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Lüftungsanlage mechanisch | CalcToWork",
+      "seo_desc": "Lüftungsanlage mechanisch online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Lüftungsanlage mechanisch online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "area_m2": "Area M2",
+        "altura_m": "Altura M",
+        "renovaciones_hora": "Renovaciones Hora"
+      },
+      "outputs": {
+        "vol_m3": "Vol M3",
+        "caudal_m3h": "Caudal M3h",
+        "caudal_ls": "Caudal Ls",
+        "potencia_kw": "Potencia Kw"
+      },
+      "example_label": "Ejemplo para ventilacion mecanica: valores 100m², 2.7m, 0.8ren/h",
+      "range_hints": {
+        "area_m2": "Valor típico entre 5 y 1000. Valor por defecto: 100 m².",
+        "altura_m": "Valor típico entre 2.2 y 5. Valor por defecto: 2.7 m.",
+        "renovaciones_hora": "Valor típico entre 0.5 y 10. Valor por defecto: 0.8 ren/h."
+      },
+      "result_context": "Resultados: volumen de {vol_m3} m³, caudal de {caudal_m3h} m³/h, {caudal_ls} L/s, potencia del ventilador de {potencia_kw} kW.",
+      "formula_display": "m3h ÷ 3 → vol_m3, caudal_m3h",
+      "steps": [
+        "Introducir los valores de area_m2, altura_m y renovaciones_hora",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+        "Calcular los valores de vol m3 y caudal m3h",
+        "El resultado se expresa en m³. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Sobredimensionar el equipo (provoca ciclos cortos que reducen la eficiencia)",
+        "No limpiar los filtros regularmente (reduce el caudal hasta un 30%)",
+        "Instalar la unidad exterior en un lugar sin ventilación adecuada"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "renovaciones_hora",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Condotto HVAC",
+      "description": "Dimensiona i condotti di mandata e ripresa aria.",
+      "seo_title": "Calcolatore Ventilazione – m³/h",
+      "seo_description": "Calcola la sezione dei condotti in funzione della portata d'aria Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo.",
+      "inputs": {
+        "caudal_m3h": "Portata (m³/h)",
+        "velocidad": "Velocità (m/s)"
+      },
+      "outputs": {
+        "area_m2": "Sezione (m²)",
+        "diametro_equiv": "Diametro equivalente (mm)",
+        "ancho_alto": "Dimensioni rettangolari (mm)"
+      },
+      "example_label": "Calcolare vintilación mecánica per viviinda di 90m² con 2.5m di altezza e 0.5 rinonvaciones/ora.",
+      "range_hints": {
+        "area_m2": "Superficie útil dilla viviinda",
+        "altura_m": "Altura libre di tetti",
+        "renovaciones_hora": "Viviinda: 0.5-1 rin/h, Oficinas: 2-4 rin/h, Gimnaseos: 6-8 rin/h"
+      },
+      "result_context": "Viviinda di {area_m2}m² con {altezza_m}m di altezza richiedi vintilator di {pertata_m3h} m³/h ({pertata_ls} L/s) per {rinonvaciones_ora} rinonvaciones/ora.",
+      "formula_display": "Volumin = área × altezza; Caudal = volume × rinonvaciones_ora",
+      "steps": [
+        "Calcolare volume: 90m² × 2.5m = 225m³",
+        "Calcolare pertata: 225m³ × 0.5 rin/h = 112.5 m³/h",
+        "Convertire a L/s: 112.5 ÷ 3.6 = 31.25 L/s",
+        "Seleccionar vintilator: 120-150 m³/h (con margin)"
+      ],
+      "mistakes": [
+        "Non consedirare rinonvación mínima según nonrmativa (CTE DB-HS3)",
+        "Instalar vintilator senza recuperación di calor (pérdida inergética)",
+        "No prever intrada di aire disdi esterni (finestre, rejille)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "renovaciones_hora",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        }
+      ]
+    }
+  }
+}

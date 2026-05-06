@@ -1,0 +1,434 @@
+{
+  "id": "433",
+  "slug": "percentil-crecimiento-infantil",
+  "block": 3,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "age_months",
+      "type": "number",
+      "step": 1,
+      "default": 24,
+      "unit": "mo",
+      "unit_options": [
+        "mo",
+        "yr"
+      ],
+      "unit_category": "time"
+    },
+    {
+      "id": "height",
+      "type": "number",
+      "step": "any",
+      "default": 85,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "ft"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "gender",
+      "type": "select",
+      "options": [
+        "male",
+        "female"
+      ],
+      "default": "male",
+      "unit": "",
+      "unit_options": [],
+      "unit_category": ""
+    }
+  ],
+  "formula": "var age=parseFloat(inputs.age_months)||0;var h=parseFloat(inputs.height)||0;var g=inputs.gender||'male';var median=g==='male'?(49.9+2.4*age):(49.1+2.3*age);var sd=3.5;var z=(h-median)/sd;var p=Math.round((1+erf(z/Math.sqrt(2)))/2*100);return{percentile:p};",
+  "outputs": [
+    {
+      "id": "percentile",
+      "unit": "%"
+    }
+  ],
+  "related": [
+    "431",
+    "400",
+    "415",
+    "416"
+  ],
+  "example_inputs": {
+    "age_months": 175,
+    "height": 175,
+    "gender": "male"
+  },
+  "example_label": "Ejemplo para percentil crecimiento infantil: valores 24mo, 85cm",
+  "range_hints": {
+    "age_months": "Valor típico entre 0 y 500. Valor por defecto: 24 mo.",
+    "height": "Valor típico entre 0 y 500. Valor por defecto: 85 cm.",
+    "gender": "Seleccionar entre las opciones: male, female"
+  },
+  "result_context": "El niño se encuentra aproximadamente en el percentil {percentile} de crecimiento.",
+  "result_context_en": "The child is approximately at the {percentile} percentile of growth.",
+  "result_context_fr": "L'enfant se situe approximativement au {percentile} percentile de croissance.",
+  "result_context_pt": "A criança está aproximadamente no percentil {percentile} de crescimento.",
+  "result_context_de": "Das Kind befindet sich ungefähr im {percentile} Perzentil des Wachstums.",
+  "result_context_it": "Il bambino si trova approssimativamente al {percentile} percentile di crescita.",
+  "formula_display": "Percentile (%) = f(age_months, height, gender)",
+  "steps": [
+    "Introducir los valores de age_months, height y gender",
+    "Verificar que las unidades sean correctas y convertir si es necesario (mo, yr)",
+    "Realizar el cálculo para obtener percentile",
+    "El resultado se expresa en %. Verificar que la magnitud es coherente",
+    "Comparar el resultado con los valores de referencia para interpretar su significado"
+  ],
+  "mistakes": [
+    "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+    "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+    "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "age_months",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "height",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "gender",
+      "current_type": "select",
+      "recommended_type": "select",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "age_months": 88,
+      "height": 88
+    },
+    {
+      "_label": "Teen",
+      "age_months": 131,
+      "height": 131
+    },
+    {
+      "_label": "Adult (F)",
+      "age_months": 175,
+      "height": 175
+    },
+    {
+      "_label": "Adult (M)",
+      "age_months": 262,
+      "height": 262
+    },
+    {
+      "_label": "Elderly",
+      "age_months": 350,
+      "height": 350
+    }
+  ],
+  "units": {
+    "age_months": "s",
+    "height": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Percentil de Crecimiento Infantil",
+      "description": "Estima el percentil de talla de un niño.",
+      "inputs": {
+        "age_months": "Edad meses",
+        "height": "Altura",
+        "gender": "Sexo"
+      },
+      "outputs": {
+        "percentile": "Percentil %"
+      },
+      "seo_title": "Percentil de Crecimiento Infantil Gratuita",
+      "seo_description": "Percentil de Crecimiento Infantil. Edad meses, Altura, Sexo ââ‚¬” obtén Percentil % al instante para tu proyecto de suelos y pavimentos. Incluye factor de.",
+      "example_label": "Calcular percentil de crecimiento para niño de 24 meses, 85cm",
+      "range_hints": {
+        "age_months": "Edad típica: 18-80 mo",
+        "height": "Altura común: 140-200 cm"
+      },
+      "result_context": "Percentil 50 es promedio; rango normal es percentil 3-97 según OMS para crecimiento infantil.",
+      "formula_display": "Percentil = (1 + erf((altura - mediana) ÷ (DE × √2))) ÷ 2 × 100",
+      "steps": [
+        "El calculador aplica la fórmula automáticamente y muestra resultados"
+      ],
+      "mistakes": [
+        "No verificar que age_months estén en unidades correctas antes de calcular",
+        "Redondear valores intermedios antes del cálculo final (pierde precisión)",
+        "Aplicar resultados sin considerar contexto individual o condiciones especiales"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "age_months",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "height",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "gender",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "en": {
+      "name": "Child Growth Percentile",
+      "description": "Estimate a child's height percentile.",
+      "inputs": {
+        "age_months": "Age months",
+        "height": "Height",
+        "gender": "Gender"
+      },
+      "outputs": {
+        "percentile": "Percentile %"
+      },
+      "seo_title": "Child Growth Percentile – Fast & Accurate",
+      "seo_description": "Child Growth Percentile. Age months, Height, Gender — get Percentile % instantly for your flooring and tiling project. Includes waste factor andMaterial.",
+      "example_label": "Calcular percentil de crecimiento para niño de 24 meses, 85cm",
+      "range_hints": {
+        "age_months": "Edad típica: 18-80 mo",
+        "height": "Altura común: 140-200 cm"
+      },
+      "result_context": "Percentil 50 es promedio; rango normal es percentil 3-97 según OMS para crecimiento infantil.",
+      "formula_display": "Percentil = (1 + erf((altura - mediana) ÷ (DE × √2))) ÷ 2 × 100",
+      "steps": [
+        "El calculador aplica la fórmula automáticamente y muestra resultados"
+      ],
+      "mistakes": [
+        "No verificar que age_months estén en unidades correctas antes de calcular",
+        "Redondear valores intermedios antes del cálculo final (pierde precisión)",
+        "Aplicar resultados sin considerar contexto individual o condiciones especiales"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "age_months",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "height",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "gender",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Percentile Croissance Enfant",
+      "description": "Estimez le percentile de taille d'un enfant.",
+      "inputs": {
+        "age_months": "Âge mois",
+        "height": "Taille",
+        "gender": "Sexe"
+      },
+      "outputs": {
+        "percentile": "Percentile %"
+      },
+      "seo_title": "Percentile Croissance Enfant – Étape par Étape",
+      "seo_description": "Estimez le percentile de taille d'un enfant. Calculateur gratuit, précis et instantané Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calculer percentil de crecimiento pour niño de 24 meses, 85cm",
+      "range_hints": {
+        "age_months": "Edad typique: 18-80 mo",
+        "height": "hauteur común: 140-200 cm"
+      },
+      "result_context": "Percentil 50 es promedio; rango normal es percentil 3-97 selon OMS pour crecimiento infantil.",
+      "formula_display": "Percentil = (1 + erf((hauteur - mediana) Á· (de × √2))) Á· 2 × 100",
+      "steps": [
+        "le calculador aplica la fórmula automáticamente et muestra resultados"
+      ],
+      "mistakes": [
+        "Ne pas vérifier que age_months estén dans unités correctas antes de Calculer",
+        "Redondear valores intermedios antes du cálculo final (pierde precisión)",
+        "Aplicar resultados sans considerar contexto individuel o condiciones especiales"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "age_months",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "height",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "gender",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Percentil de Crescimento Infantil",
+      "description": "Estime o percentil de altura de uma criança.",
+      "inputs": {
+        "age_months": "Idade meses",
+        "height": "Altura",
+        "gender": "Sexo"
+      },
+      "outputs": {
+        "percentile": "Percentil %"
+      },
+      "seo_title": "Percentil de Crescimento Infantil",
+      "seo_description": "Estime o percentil de altura de uma criança. Calculadora gratuita, precisa e instantânea Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular percentil de crecimiento para niño de 24 meses, 85cm",
+      "range_hints": {
+        "age_months": "Edad típica: 18-80 mo",
+        "height": "Altura comum: 140-200 cm"
+      },
+      "result_context": "Percentil 50 é média; intervalo normal é percentil 3-97 segundo OMS para crecimiento infantil.",
+      "formula_display": "Percentil = (1 + erf((altura - mediana) ÷ (DE × √2))) ÷ 2 × 100",
+      "steps": [
+        "El calculador aplica a fórmula automáticamente e muestra resultados"
+      ],
+      "mistakes": [
+        "Não verificar que age_months estén em unidades correctas antes de calcular",
+        "Redondear valores intermedios antes do cálculo final (pierde precisión)",
+        "Aplicar resultados sem considerar contexto individual o condiciones especiais"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "age_months",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        },
+        {
+          "field_id": "height",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        },
+        {
+          "field_id": "gender",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Tipo atual é apropiado"
+        }
+      ]
+    },
+    "de": {
+      "name": "Percentil crecimiento infantil",
+      "desc": "Berechnen Sie percentil crecimiento infantil online. Geben Sie age months, height, gender ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Percentil crecimiento infantil | CalcToWork",
+      "seo_desc": "Percentil crecimiento infantil online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Percentil crecimiento infantil online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "age_months": "Age Months",
+        "height": "Height",
+        "gender": "Gender"
+      },
+      "outputs": {
+        "percentile": "Percentile"
+      },
+      "example_label": "Ejemplo para percentil crecimiento infantil: valores 24mo, 85cm",
+      "range_hints": {
+        "age_months": "Valor típico entre 0 y 500. Valor por defecto: 24 mo.",
+        "height": "Valor típico entre 0 y 500. Valor por defecto: 85 cm.",
+        "gender": "Seleccionar entre las opciones: male, female"
+      },
+      "result_context": "Das Kind befindet sich ungefähr im {percentile} Perzentil des Wachstums.",
+      "formula_display": "Percentile (%) = f(age_months, height, gender)",
+      "steps": [
+        "Introducir los valores de age_months, height y gender",
+        "Verificar que las unidades sean correctas y convertir si es necesario (mo, yr)",
+        "Realizar el cálculo para obtener percentile",
+        "El resultado se expresa en %. Verificar que la magnitud es coherente",
+        "Comparar el resultado con los valores de referencia para interpretar su significado"
+      ],
+      "mistakes": [
+        "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+        "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+        "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "age_months",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "height",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "gender",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Percentile Crescita Bambino",
+      "description": "Stima il percentile di altezza di un bambino.",
+      "inputs": {
+        "age_months": "Età mesi",
+        "height": "Altezza",
+        "gender": "Sesso"
+      },
+      "outputs": {
+        "percentile": "Percentile %"
+      },
+      "seo_title": "Percentile Crescita Bambino – Passo dopo Passo",
+      "seo_description": "Stima il percentile di altezza di un bambino. Calcolatore gratuito, preciso e istantaneo Usato da professionisti e studenti in tutto il mondo.",
+      "example_label": "Calcolare percintil di crefondazione per niño di 24 mesei, 85cm",
+      "range_hints": {
+        "age_months": "Edad típica: 18-80 mo",
+        "height": "Altura común: 140-200 cm"
+      },
+      "result_context": "Percintil 50 es medio; rango nonrmal es percintil 3-97 según OMS per crefondazione infantil.",
+      "formula_display": "Percintil = (1 + erf((altezza - mediana) ÷ (DE × √2))) ÷ 2 × 100",
+      "steps": [
+        "El calculator aplica la fórmula automáticaminte e muestra risultati"
+      ],
+      "mistakes": [
+        "Non verificare que age_months estén in unità correctas prima di calcolare",
+        "Redovear valorei intermedi prima dil cálculo finel (pierdi preciseón)",
+        "Applicare risultati senza consedirar contesto individual o condiciones especiales"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "age_months",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        },
+        {
+          "field_id": "height",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        },
+        {
+          "field_id": "gender",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Tipo attuale es apropiado"
+        }
+      ]
+    }
+  }
+}

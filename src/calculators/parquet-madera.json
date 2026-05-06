@@ -1,0 +1,476 @@
+{
+  "id": "024",
+  "slug": "parquet-madera",
+  "block": 3,
+  "block_slug": "pavimentos",
+  "inputs": [
+    {
+      "id": "area",
+      "type": "number",
+      "min": 1,
+      "max": 500,
+      "step": 0.5,
+      "default": 25,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "m2_por_caja",
+      "type": "number",
+      "min": 0.5,
+      "max": 5,
+      "step": 0.1,
+      "default": 2.2,
+      "unit": "m²/caja",
+      "unit_options": [
+        "m²/box"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "colocacion",
+      "type": "select",
+      "default": "recto",
+      "options": [
+        "recto",
+        "diagonal",
+        "espiga"
+      ]
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area)||0,mxc=parseFloat(inputs.m2_por_caja)||2.2,diag=inputs.colocacion!=='recto';if(!A)return{error:true};var merma=diag?0.12:0.07,area_merma=+(A*(1+merma)).toFixed(2),cajas=Math.ceil(area_merma/mxc),barniz=+(A/10).toFixed(1),rodapie=+(Math.sqrt(A)*4).toFixed(1);return{area_merma_m2:area_merma,cajas_ud:cajas,barniz_litros:barniz,rodapie_ml:rodapie};",
+  "outputs": [
+    {
+      "id": "area_merma_m2",
+      "unit": "m² (con merma)",
+      "highlight": true
+    },
+    {
+      "id": "cajas_ud",
+      "unit": "cajas"
+    },
+    {
+      "id": "barniz_litros",
+      "unit": "litros"
+    },
+    {
+      "id": "rodapie_ml",
+      "unit": "m.l."
+    }
+  ],
+  "related": [
+    "023",
+    "025",
+    "072",
+    "022"
+  ],
+  "example_inputs": {
+    "area": 25,
+    "m2_por_caja": 2.2,
+    "colocacion": "recto"
+  },
+  "example_label": "Calcular madera para 25 m² × 2.2 m²/caja × recto.",
+  "range_hints": {
+    "area": "Valor típico entre 1 y 500. Valor por defecto: 25 m².",
+    "m2_por_caja": "Valor típico entre 0.5 y 5. Valor por defecto: 2.2 m²/caja.",
+    "colocacion": "Seleccionar entre las opciones: recto, diagonal, espiga"
+  },
+  "result_context": "Resultados: {area_merma_m2} m² de superficie, {cajas_ud} cajas, {barniz_litros} litros de barniz, {rodapie_ml} m.l. de rodapié.",
+  "formula_display": "area_merma ÷ mxc → area_merma_m2, cajas_ud",
+  "steps": [
+    "Introducir los valores de area, m2_por_caja y colocacion",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+    "Calcular los valores de area merma m2 y cajas ud",
+    "El resultado se expresa en m² (con merma). Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Introducir valores con unidades incorrectas sin verificar la conversión",
+    "Redondear resultados intermedios en lugar del resultado final",
+    "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "area",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "m2_por_caja",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "colocacion",
+      "current_type": "select",
+      "recommended_type": "select",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small patio",
+      "area": 12.5,
+      "m2_por_caja": 1.1
+    },
+    {
+      "_label": "Medium patio",
+      "area": 18.75,
+      "m2_por_caja": 1.65
+    },
+    {
+      "_label": "Large patio",
+      "area": 25,
+      "m2_por_caja": 2.2
+    },
+    {
+      "_label": "Driveway",
+      "area": 37.5,
+      "m2_por_caja": 3.3
+    },
+    {
+      "_label": "Parking lot",
+      "area": 50,
+      "m2_por_caja": 4.4
+    }
+  ],
+  "units": {
+    "area": "m²",
+    "m2_por_caja": "m²"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Parquet de Madera",
+      "desc": "Calcula el número de cajas de parquet, litros de barniz y metros de rodapié para tu suelo de madera. Obten resultados al instante con explicacion paso a.",
+      "seo_title": "Calculadora Parquet – Cajas y Barniz",
+      "seo_desc": "Calcula el número de cajas de parquet, litros de barniz y metros de rodapié para tu suelo de madera. Obten resultados al instante con explicacion paso a.",
+      "inputs": {
+        "area": "Área a cubrir",
+        "m2_por_caja": "m² por caja",
+        "colocacion": "Tipo de colocación"
+      },
+      "outputs": {
+        "area_merma_m2": "Área con merma",
+        "cajas_ud": "Cajas",
+        "barniz_litros": "Barniz (litros)",
+        "rodapie_ml": "Rodapié"
+      },
+      "seo_description": "Calcula las cajas de parquet de madera maciza o multicapa, barniz y rodapié para tu proyecto. Elige entre colocación recta (7% merma), diagonal o espiga (12% merma).",
+      "example_label": "Calcular parquet de madera para 40m² con colocación pegada (cajas de 1.8m²).",
+      "range_hints": {
+        "area": "Superficie a cubrir con parquet",
+        "m2_por_caja": "Parquet multilamina: 1.5-2.5m²/caja, Madera maciza: 0.8-1.5m²/caja"
+      },
+      "result_context": "Para {area} m² con colocación {colocacion} se necesitan {cajas_ud} cajas de parquet ({m2_total} m²), {adhesivo_kg} kg de adhesivo y {zocalos_ml} ml de zócalos.",
+      "formula_display": "Cajas = área ÷ m2_por_caja; Adhesivo = área × 1.2 kg/m² (pegado)",
+      "steps": [
+        "Calcular cajas: 40m² ÷ 1.8m²/caja = 22.22 → 23 cajas",
+        "Aplicar merma 8% (parquet requiere más cortes): 23 × 1.08 = 24.84 → 25 cajas",
+        "Calcular adhesivo (pegado): 40m² × 1.2 kg/m² = 48 kg",
+        "Calcular zócalos: perímetro de la habitación"
+      ],
+      "mistakes": [
+        "No nivelar perfectamente el contrapiso antes de pegar",
+        "No respetar tiempo de curado del adhesivo antes de transitar",
+        "No considerar la dirección de colocación (luz natural vs. veta)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "m2_por_caja",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "colocacion",
+          "reason": "Correcto: opción discreta"
+        }
+      ]
+    },
+    "en": {
+      "name": "Wood Parquet Calculator",
+      "desc": "Wood Parquet Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Parquet Calculator – Boxes & Varnish",
+      "seo_desc": "Wood Parquet Calculator. Area to cover, m² per box, Laying pattern — get Area with waste, Boxes, Varnish (litres) instantly for your flooring and tiling.",
+      "inputs": {
+        "area": "Area to cover",
+        "m2_por_caja": "m² per box",
+        "colocacion": "Laying pattern"
+      },
+      "outputs": {
+        "area_merma_m2": "Area with waste",
+        "cajas_ud": "Boxes",
+        "barniz_litros": "Varnish (litres)",
+        "rodapie_ml": "Skirting board"
+      },
+      "seo_description": "Calculate solid or engineered wood parquet boxes, varnish and skirting boards. Choose between straight (7% waste), diagonal and herringbone (12% waste) laying patterns.",
+      "example_label": "Calcular parquet de madera para 40m² con colocación pegada (cajas de 1.8m²).",
+      "range_hints": {
+        "area": "Superficie a cubrir con parquet",
+        "m2_por_caja": "Parquet multilamina: 1.5-2.5m²/caja, Madera maciza: 0.8-1.5m²/caja"
+      },
+      "result_context": "Para {area} m² con colocación {colocacion} se necesitan {cajas_ud} cajas de parquet ({m2_total} m²), {adhesivo_kg} kg de adhesivo y {zocalos_ml} ml de zócalos.",
+      "formula_display": "Cajas = área ÷ m2_por_caja; Adhesivo = área × 1.2 kg/m² (pegado)",
+      "steps": [
+        "Calcular cajas: 40m² ÷ 1.8m²/caja = 22.22 â†’ 23 cajas",
+        "Aplicar merma 8% (parquet requiere más cortes): 23 × 1.08 = 24.84 â†’ 25 cajas",
+        "Calcular adhesivo (pegado): 40m² × 1.2 kg/m² = 48 kg",
+        "Calcular zócalos: perímetro de la habitación"
+      ],
+      "mistakes": [
+        "No nivelar perfectamente el contrapiso antes de pegar",
+        "No respetar tiempo de curado del adhesivo antes de transitar",
+        "No considerar la dirección de colocación (luz natural vs. veta)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "m2_por_caja",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "colocacion",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: opción discreta"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Parquet Bois",
+      "desc": "Calculez le nombre de boîtes de parquet, litres de vernis et plinthes pour votre sol en bois Utilise par des professionnels et etudiants dans le monde.",
+      "seo_title": "Calculateur Parquet Massif – Boîtes",
+      "inputs": {
+        "area": "Surface à couvrir",
+        "m2_por_caja": "m² par boîte",
+        "colocacion": "Type de pose"
+      },
+      "outputs": {
+        "area_merma_m2": "Surface avec chute",
+        "cajas_ud": "Boîtes",
+        "barniz_litros": "Vernis (litres)",
+        "rodapie_ml": "Plinthes"
+      },
+      "seo_description": "Calculez le nombre de boîtes de parquet, litres de vernis et plinthes pour votre sol en bois Utilise par des professionnels et etudiants dans le monde.",
+      "example_label": "Calculer parquet de bois pour 40m² avec colocación pegada (cajas de 1.8m²).",
+      "range_hints": {
+        "area": "surface a cubrir avec parquet",
+        "m2_por_caja": "parquet multilamina: 1.5-2.5m²/caja, bois maciza: 0.8-1.5m²/caja"
+      },
+      "result_context": "pour {area} m² avec colocación {colocacion} se necesitan {cajas_ud} cajas de parquet ({m2_total} m²), {adhesivo_kg} kg de adhesivo et {zocalos_ml} ml de zócalos.",
+      "formula_display": "Cajas = área Á· m2_por_caja; Adhesivo = área × 1.2 kg/m² (pegado)",
+      "steps": [
+        "Calculer cajas: 40m² Á· 1.8m²/caja = 22.22 ââ€ ’ 23 cajas",
+        "Aplicar merma 8% (parquet nécessite plus cortes): 23 × 1.08 = 24.84 â†’ 25 cajas",
+        "Calculer adhesivo (pegado): 40m² × 1.2 kg/m² = 48 kg",
+        "Calculer zócalos: périmètre de la habitación"
+      ],
+      "mistakes": [
+        "No nivelar perfectamente le contrapiso antes de pegar",
+        "No respetar tiempo de curado du adhesivo antes de transitar",
+        "Ne pas considérer la dirección de colocación (luz natural vs. veta)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "m2_por_caja",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "colocacion",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correct : opción discreta"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Piso de Madeira (Parquet)",
+      "desc": "Calcule o número de caixas de parquet, litros de verniz e rodapé para seu piso de madeira Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora Piso de Madeira – Caixas",
+      "inputs": {
+        "area": "Área a cobrir",
+        "m2_por_caja": "m² por caixa",
+        "colocacion": "Tipo de assentamento"
+      },
+      "outputs": {
+        "area_merma_m2": "Área com perda",
+        "cajas_ud": "Caixas",
+        "barniz_litros": "Verniz (litros)",
+        "rodapie_ml": "Rodapé"
+      },
+      "seo_description": "Calcule o número de caixas de parquet, litros de verniz e rodapé para seu piso de madeira Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular parquet de madeira para 40m² com colocação pegada (cajas de 1.8m²).",
+      "range_hints": {
+        "area": "Superficie a cubrir com parquet",
+        "m2_por_caja": "Parquet multilamina: 1.5-2.5m²/caja, Madera maciça: 0.8-1.5m²/caja"
+      },
+      "result_context": "Para {area} m² com colocação {colocacion} são necessários {cajas_ud} cajas de parquet ({m2_total} m²), {adhesivo_kg} kg de adesivo e {zocalos_ml} ml de zócalos.",
+      "formula_display": "Cajas = área ÷ m2_por_caja; Adhesivo = área × 1.2 kg/m² (pegado)",
+      "steps": [
+        "Calcular cajas: 40m² ÷ 1.8m²/caja = 22.22 â†’ 23 cajas",
+        "Aplicar merma 8% (parquet requer mais cortes): 23 × 1.08 = 24.84 â†’ 25 cajas",
+        "Calcular adesivo (pegado): 40m² × 1.2 kg/m² = 48 kg",
+        "Calcular zócalos: perímetro da habitación"
+      ],
+      "mistakes": [
+        "Não nivelar perfectamente o contrapiso antes de pegar",
+        "Não respeitar tiempo de cura do adesivo antes de transitar",
+        "Não considerar a dirección de colocação (vão natural vs. veta)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "m2_por_caja",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "colocacion",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correto: opção discreta"
+        }
+      ]
+    },
+    "de": {
+      "name": "Parkett Massivholz",
+      "desc": "Berechnen Sie parkett Massivholz online. Geben Sie area, m2 por caja, colocacion ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Parkett Massivholz | CalcToWork",
+      "seo_desc": "Parkett Massivholz online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Parkett Massivholz online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "area": "Area",
+        "m2_por_caja": "M2 Por Caja",
+        "colocacion": "Colocacion"
+      },
+      "outputs": {
+        "area_merma_m2": "Area Merma M2",
+        "cajas_ud": "Cajas Ud",
+        "barniz_litros": "Barniz Litros",
+        "rodapie_ml": "Rodapie Ml"
+      },
+      "example_label": "Calcular madera para 25 m² × 2.2 m²/caja × recto.",
+      "range_hints": {
+        "area": "Valor típico entre 1 y 500. Valor por defecto: 25 m².",
+        "m2_por_caja": "Valor típico entre 0.5 y 5. Valor por defecto: 2.2 m²/caja.",
+        "colocacion": "Seleccionar entre las opciones: recto, diagonal, espiga"
+      },
+      "result_context": "Resultados: {area_merma_m2} m² de superficie, {cajas_ud} cajas, {barniz_litros} litros de barniz, {rodapie_ml} m.l. de rodapié.",
+      "formula_display": "area_merma ÷ mxc → area_merma_m2, cajas_ud",
+      "steps": [
+        "Introducir los valores de area, m2_por_caja y colocacion",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+        "Calcular los valores de area merma m2 y cajas ud",
+        "El resultado se expresa en m² (con merma). Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Introducir valores con unidades incorrectas sin verificar la conversión",
+        "Redondear resultados intermedios en lugar del resultado final",
+        "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "m2_por_caja",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "colocacion",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Pavimento in Pietra Naturale",
+      "description": "Calcola le lastre di pietra naturale per pavimenti esterni.",
+      "seo_title": "Calcolatore Parquet – Confezioni",
+      "seo_description": "Stima le lastre di pietra naturale e la malta per pavimentazioni Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo.",
+      "inputs": {
+        "area": "Superficie (m²)",
+        "desperdicio": "Scarto (%)"
+      },
+      "outputs": {
+        "piedra_m2": "Pietra (m²)",
+        "mortero_m3": "Malta (m³)",
+        "cemento_sacos": "Sacchi cemento"
+      },
+      "example_label": "Calcolare parquet di legnon per 40m² con colocación pegada (cajas di 1.8m²).",
+      "range_hints": {
+        "area": "Superficie a cubrir con parquet",
+        "m2_por_caja": "Parquet multilaminato: 1.5-2.5m²/caja, Madira maciza: 0.8-1.5m²/caja"
+      },
+      "result_context": "Per {area} m² con colocación {colocacion} sonon necessari {cajas_ud} cajas di parquet ({m2_totale} m²), {adhesevo_kg} kg di adhesevo e {zocai_ml} ml di zócai.",
+      "formula_display": "Cajas = área ÷ m2_per_caja; Adhesevo = área × 1.2 kg/m² (pegado)",
+      "steps": [
+        "Calcolare cajas: 40m² ÷ 1.8m²/caja = 22.22 → 23 cajas",
+        "Applicare merma 8% (parquet richiedi más taglios): 23 × 1.08 = 24.84 → 25 cajas",
+        "Calcolare adhesevo (pegado): 40m² × 1.2 kg/m² = 48 kg",
+        "Calcolare zócai: perímetro dilla habitación"
+      ],
+      "mistakes": [
+        "No nivelar perfectaminte el massetto prima di pegar",
+        "No respetar tempo di stagionatura dil adhesevo prima di transetar",
+        "Non consedirare la dirección di colocación (luz naturale vs. veta)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "m2_por_caja",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "colocacion",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Corretto: opción discreta"
+        }
+      ]
+    }
+  }
+}

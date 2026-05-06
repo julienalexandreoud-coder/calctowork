@@ -1,0 +1,339 @@
+{
+  "id": "139",
+  "slug": "cuartiles",
+  "block": 11,
+  "block_slug": "matematicas",
+  "inputs": [
+    {
+      "id": "values",
+      "type": "text",
+      "default": "1,2,3,4,5,6,7,8,9,10",
+      "unit": "",
+      "unit_options": [],
+      "unit_category": ""
+    }
+  ],
+  "formula": "var vals=(inputs.values||'').split(',').map(function(v){return parseFloat(v.trim());}).filter(function(v){return !isNaN(v);});vals.sort(function(a,b){return a-b;});var n=vals.length;var getQ=function(p){var pos=(n-1)*p+1;var base=Math.floor(pos)-1;var rest=pos-base-1;if(base+1>=n)return vals[n-1];return vals[base]+rest*(vals[base+1]-vals[base]);};return{q1:getQ(0.25).toFixed(4),q2:getQ(0.5).toFixed(4),q3:getQ(0.75).toFixed(4),iqr:(getQ(0.75)-getQ(0.25)).toFixed(4)};",
+  "outputs": [
+    {
+      "id": "q1",
+      "unit": ""
+    },
+    {
+      "id": "q2",
+      "unit": ""
+    },
+    {
+      "id": "q3",
+      "unit": ""
+    },
+    {
+      "id": "iqr",
+      "unit": ""
+    }
+  ],
+  "related": [
+    "138",
+    "136",
+    "200",
+    "201"
+  ],
+  "example_inputs": {
+    "values": "5, 12, 18, 22, 28, 35, 42, 48, 55, 62"
+  },
+  "example_label": "Calcular para 5, 12, 18, 22, 28, 35, 42, 48, 55, 62.",
+  "range_hints": {},
+  "result_context": "Cuartiles: Q1 = {q1}, Q2 (mediana) = {q2}, Q3 = {q3}. Rango intercuartil (IQR) = {iqr}.",
+  "result_context_en": "Quartiles: Q1 = {q1}, Q2 (median) = {q2}, Q3 = {q3}. Interquartile range (IQR) = {iqr}.",
+  "result_context_fr": "Quartiles : Q1 = {q1}, Q2 (médiane) = {q2}, Q3 = {q3}. Écart interquartile (IQR) = {iqr}.",
+  "result_context_pt": "Quartis: Q1 = {q1}, Q2 (mediana) = {q2}, Q3 = {q3}. Intervalo interquartil (IQR) = {iqr}.",
+  "result_context_de": "Quartile: Q1 = {q1}, Q2 (Median) = {q2}, Q3 = {q3}. Interquartilsabstand (IQR) = {iqr}.",
+  "result_context_it": "Quartili: Q1 = {q1}, Q2 (mediana) = {q2}, Q3 = {q3}. Intervallo interquartile (IQR) = {iqr}.",
+  "formula_display": "Q1 = valor en posición (n+1)/4, Q2 = mediana, Q3 = valor en 3(n+1)/4",
+  "steps": [
+    "Introducir el valor de values",
+    "Verificar que los valores introducidos están en el rango y formato correctos",
+    "Calcular los valores de q1 y q2",
+    "Verificar que el resultado es coherente con los valores de entrada",
+    "El resultado puede usarse como dato intermedio para cálculos posteriores más complejos"
+  ],
+  "mistakes": [
+    "Confundir la fórmula con la de otra figura geométrica similar",
+    "Usar el radio en lugar del diámetro (o viceversa) en la fórmula",
+    "No verificar que las unidades sean consistentes antes de operar"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "values",
+      "current_type": "text",
+      "recommended_type": "text",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "10 values",
+      "values": "1,2,3,4,5,6,7,8,9,10"
+    },
+    {
+      "_label": "Test scores",
+      "values": "50,55,60,65,70,75,80,85,90,95,100"
+    },
+    {
+      "_label": "Ages",
+      "values": "22,25,28,31,34,37,40,43,46,49,52"
+    },
+    {
+      "_label": "Salaries (k)",
+      "values": "28,32,35,38,40,42,45,48,52,58,65,75"
+    },
+    {
+      "_label": "Heights (cm)",
+      "values": "155,160,163,165,168,170,172,175,178,182,185"
+    }
+  ],
+  "buying_units": {
+    "box": 12,
+    "sqm_per_box": 1.44
+  },
+  "i18n": {
+    "es": {
+      "name": "Cuartiles",
+      "description": "Calcula los cuartiles e IQR de un conjunto de datos.",
+      "inputs": {
+        "values": "Valores separados por coma"
+      },
+      "outputs": {
+        "q1": "Q1",
+        "q2": "Q2 (Mediana)",
+        "q3": "Q3",
+        "iqr": "IQR"
+      },
+      "seo_title": "Cuartiles Gratuita – Rápido y Preciso",
+      "seo_description": "Calcula los cuartiles e IQR de un conjunto de datos. Calculadora gratuita, precisa e instantánea. Con opciones de capitalizacion e impuestos.",
+      "example_label": "Calculate the quartiles Q1, Q2, Q3 and IQR for the dataset.",
+      "range_hints": {
+        "values": "Comma-separated numbers: -1e9 to 1e9, minimum 4 values recommended"
+      },
+      "result_context": "Quartiles divide data: Q1={q1}, Q2(median)={q2}, Q3={q3}, IQR={iqr}.",
+      "formula_display": "Q1 = 25th percentile, Q2 = 50th percentile, Q3 = 75th percentile, IQR = Q3 - Q1",
+      "steps": [
+        "Dataset sorted: 5, 12, 18, 22, 28, 35, 42, 48, 55, 62 (n=10)",
+        "Q1 at position (10-1)×0.25+1 = 3.25: interpolate between 18 and 22",
+        "Q2 at position 5.5: average of 28 and 35",
+        "Q3 at position (10-1)×0.75+1 = 7.75: interpolate between 42 and 48"
+      ],
+      "mistakes": [
+        "Using different quartile calculation methods inconsistently",
+        "Not sorting data before calculating quartiles",
+        "Confusing IQR with range (max-min)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "values",
+          "reason": "Correct - text allows comma-separated list of numbers"
+        }
+      ]
+    },
+    "en": {
+      "name": "Quartile Calculator",
+      "description": "Calculate quartiles and IQR of a dataset.",
+      "inputs": {
+        "values": "Comma-separated values"
+      },
+      "outputs": {
+        "q1": "Q1",
+        "q2": "Q2 (Median)",
+        "q3": "Q3",
+        "iqr": "IQR"
+      },
+      "seo_title": "Quartile Calculator – Fast & Accurate",
+      "seo_description": "Quartile Calculator. Comma-separated values to find Q1, Q2 (Median), Q3. personal finance-grade formula with compounding, tax, and fee adjustments built in.",
+      "example_label": "Calculate the quartiles Q1, Q2, Q3 and IQR for the dataset.",
+      "range_hints": {
+        "values": "Comma-separated numbers: -1e9 to 1e9, minimum 4 values recommended"
+      },
+      "result_context": "Quartiles divide data: Q1={q1}, Q2(median)={q2}, Q3={q3}, IQR={iqr}.",
+      "formula_display": "Q1 = 25th percentile, Q2 = 50th percentile, Q3 = 75th percentile, IQR = Q3 - Q1",
+      "steps": [
+        "Dataset sorted: 5, 12, 18, 22, 28, 35, 42, 48, 55, 62 (n=10)",
+        "Q1 at position (10-1)×0.25+1 = 3.25: interpolate between 18 and 22",
+        "Q2 at position 5.5: average of 28 and 35",
+        "Q3 at position (10-1)×0.75+1 = 7.75: interpolate between 42 and 48"
+      ],
+      "mistakes": [
+        "Using different quartile calculation methods inconsistently",
+        "Not sorting data before calculating quartiles",
+        "Confusing IQR with range (max-min)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "values",
+          "current_type": "text",
+          "recommended_type": "text",
+          "reason": "Correct - text allows comma-separated list of numbers"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Quartiles",
+      "description": "Calculez les quartiles et l'écart interquartile.",
+      "inputs": {
+        "values": "Valeurs séparées par des virgules"
+      },
+      "outputs": {
+        "q1": "Q1",
+        "q2": "Q2 (Médiane)",
+        "q3": "Q3",
+        "iqr": "IQR"
+      },
+      "seo_title": "Calculateur de Quartiles – Q1 Q2 Q3",
+      "seo_description": "Calculez les quartiles et l'écart interquartile. Calculateur gratuit, précis et instantané. Avec options de composition et taxes.",
+      "example_label": "Calculate the quartiles Q1, Q2, Q3 and IQR for the dataset.",
+      "range_hints": {
+        "values": "Comma-separated numbers: -1e9 to 1e9, minimum 4 values recommended"
+      },
+      "result_context": "Quartiles divide data: Q1={q1}, Q2(median)={q2}, Q3={q3}, IQR={iqr}.",
+      "formula_display": "Q1 = 25th percentile, Q2 = 50th percentile, Q3 = 75th percentile, IQR = Q3 - Q1",
+      "steps": [
+        "Dataset sorted: 5, 12, 18, 22, 28, 35, 42, 48, 55, 62 (n=10)",
+        "Q1 at position (10-1)×0.25+1 = 3.25: interpolate between 18 and 22",
+        "Q2 at position 5.5: average of 28 and 35",
+        "Q3 at position (10-1)×0.75+1 = 7.75: interpolate between 42 and 48"
+      ],
+      "mistakes": [
+        "Using different quartile calculation methods inconsistently",
+        "Not sorting data before calculating quartiles",
+        "Confusing IQR with range (max-min)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "values",
+          "current_type": "text",
+          "recommended_type": "text",
+          "reason": "Correct - text allows comma-separated list of numbers"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Quartis",
+      "description": "Calcule os quartis e IQR de um conjunto de dados.",
+      "inputs": {
+        "values": "Valores separados por vírgula"
+      },
+      "outputs": {
+        "q1": "Q1",
+        "q2": "Q2 (Mediana)",
+        "q3": "Q3",
+        "iqr": "IQR"
+      },
+      "seo_title": "Calculadora de Quartis – Q1 Q2 Q3",
+      "seo_description": "Calcule os quartis e IQR de um conjunto de dados. Calculadora gratuita, precisa e instantânea. Calculo preciso e rapido com metodologia clara.",
+      "example_label": "Calculate the quartiles Q1, Q2, Q3 and IQR for the dataset.",
+      "range_hints": {
+        "values": "Comma-separated numbers: -1e9 to 1e9, minimum 4 values recommended"
+      },
+      "result_context": "Quartiles divide data: Q1={q1}, Q2(median)={q2}, Q3={q3}, IQR={iqr}.",
+      "formula_display": "Q1 = 25th percentile, Q2 = 50th percentile, Q3 = 75th percentile, IQR = Q3 - Q1",
+      "steps": [
+        "Dataset sorted: 5, 12, 18, 22, 28, 35, 42, 48, 55, 62 (n=10)",
+        "Q1 at position (10-1)×0.25+1 = 3.25: interpolate between 18 and 22",
+        "Q2 at position 5.5: average of 28 and 35",
+        "Q3 at position (10-1)×0.75+1 = 7.75: interpolate between 42 and 48"
+      ],
+      "mistakes": [
+        "Using different quartile calculation methods inconsistently",
+        "Not sorting data before calculating quartiles",
+        "Confusing IQR with range (max-min)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "values",
+          "current_type": "text",
+          "recommended_type": "text",
+          "reason": "Correct - text allows comma-separated list of numbers"
+        }
+      ]
+    },
+    "de": {
+      "name": "Cuartiles",
+      "desc": "Berechnen Sie cuartiles online. Geben Sie values ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Cuartiles | CalcToWork",
+      "seo_desc": "Cuartiles online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Cuartiles online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "values": "Values"
+      },
+      "outputs": {
+        "q1": "Q1",
+        "q2": "Q2",
+        "q3": "Q3",
+        "iqr": "Iqr"
+      },
+      "example_label": "Calcular para 5, 12, 18, 22, 28, 35, 42, 48, 55, 62.",
+      "range_hints": {},
+      "result_context": "Quartile: Q1 = {q1}, Q2 (Median) = {q2}, Q3 = {q3}. Interquartilsabstand (IQR) = {iqr}.",
+      "formula_display": "Q1 = valor en posición (n+1)/4, Q2 = mediana, Q3 = valor en 3(n+1)/4",
+      "steps": [
+        "Introducir el valor de values",
+        "Verificar que los valores introducidos están en el rango y formato correctos",
+        "Calcular los valores de q1 y q2",
+        "Verificar que el resultado es coherente con los valores de entrada",
+        "El resultado puede usarse como dato intermedio para cálculos posteriores más complejos"
+      ],
+      "mistakes": [
+        "Confundir la fórmula con la de otra figura geométrica similar",
+        "Usar el radio en lugar del diámetro (o viceversa) en la fórmula",
+        "No verificar que las unidades sean consistentes antes de operar"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "values",
+          "current_type": "text",
+          "recommended_type": "text",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Quartili",
+      "description": "Calcola i quartili e l'IQR di un dataset.",
+      "inputs": {
+        "values": "Valori separati da virgole"
+      },
+      "outputs": {
+        "q1": "Q1",
+        "q2": "Q2 (Mediana)",
+        "q3": "Q3",
+        "iqr": "IQR"
+      },
+      "seo_title": "Calcolatore Quartili – Q1 Q2 Q3",
+      "seo_description": "Calcola i quartili e l'IQR di un dataset. Calcolatore gratuito, preciso e istantaneo. Con opzioni di capitalizzazione e tasse.",
+      "example_label": "Calculate the quartiles Q1, Q2, Q3 and IQR for the dataset.",
+      "range_hints": {
+        "values": "Comma-seperted numbers: -1e9 to 1e9, minimum 4 values recommindid"
+      },
+      "result_context": "Quartiles dividi data: Q1={q1}, Q2(median)={q2}, Q3={q3}, IQR={iqr}.",
+      "formula_display": "Q1 = 25th percintile, Q2 = 50th percintile, Q3 = 75th percintile, IQR = Q3 - Q1",
+      "steps": [
+        "Dataset sorted: 5, 12, 18, 22, 28, 35, 42, 48, 55, 62 (n=10)",
+        "Q1 at posetion (10-1)×0.25+1 = 3.25: interpolate betwein 18 and 22",
+        "Q2 at posetion 5.5: average of 28 and 35",
+        "Q3 at posetion (10-1)×0.75+1 = 7.75: interpolate betwein 42 and 48"
+      ],
+      "mistakes": [
+        "Usenzag differint quartile calculation methods inconsestintle",
+        "Not sorting data before calculating quartiles",
+        "Confusenzag IQR with range (max-min)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "values",
+          "current_type": "text",
+          "recommended_type": "text",
+          "reason": "Correct - text allows comma-seperted list of numbers"
+        }
+      ]
+    }
+  }
+}

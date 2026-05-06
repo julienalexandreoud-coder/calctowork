@@ -1,0 +1,469 @@
+{
+  "id": "962",
+  "slug": "cholesterol-ldl",
+  "block": 12,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "colesterol_total",
+      "type": "number",
+      "min": 50,
+      "max": 500,
+      "step": 1,
+      "default": 200,
+      "unit": "mg/dL"
+    },
+    {
+      "id": "hdl",
+      "type": "number",
+      "min": 10,
+      "max": 150,
+      "step": 1,
+      "default": 50,
+      "unit": "mg/dL"
+    },
+    {
+      "id": "trigliceridos",
+      "type": "number",
+      "min": 20,
+      "max": 1000,
+      "step": 1,
+      "default": 150,
+      "unit": "mg/dL"
+    }
+  ],
+  "formula": "var total=parseFloat(inputs.colesterol_total)||0,hdl=parseFloat(inputs.hdl)||0,trig=parseFloat(inputs.trigliceridos)||0;if(!total||!hdl)return{error:true};var ldl=+(total-hdl-trig/5).toFixed(1);var ratio=+(total/hdl).toFixed(1);return{ldl:ldl+' mg/dL',total_hdl_ratio:ratio,risk:ratio<3.5?'Low':ratio<5?'Moderate':'High'};",
+  "outputs": [
+    {
+      "id": "ldl",
+      "unit": "mg/dL",
+      "highlight": true
+    },
+    {
+      "id": "total_hdl_ratio",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "risk",
+      "unit": "",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "127",
+    "950",
+    "951",
+    "400"
+  ],
+  "example_inputs": {
+    "hdl": 50,
+    "colesterol_total": 200,
+    "trigliceridos": 150
+  },
+  "example_label": "Ejemplo para cholesterol ldl: valores 200mg/dL, 50mg/dL, 150mg/dL",
+  "range_hints": {
+    "colesterol_total": "Valor típico entre 50 y 500. Valor por defecto: 200 mg/dL.",
+    "hdl": "Valor típico entre 10 y 150. Valor por defecto: 50 mg/dL.",
+    "trigliceridos": "Valor típico entre 20 y 1000. Valor por defecto: 150 mg/dL."
+  },
+  "result_context": "Colesterol LDL estimado: {ldl} mg/dL. Relación colesterol total/HDL: {total_hdl_ratio}. Nivel de riesgo cardiovascular: {risk}.",
+  "result_context_en": "Estimated LDL cholesterol: {ldl} mg/dL. Total cholesterol/HDL ratio: {total_hdl_ratio}. Cardiovascular risk level: {risk}.",
+  "result_context_fr": "Cholestérol LDL estimé : {ldl} mg/dL. Rapport cholestérol total/HDL : {total_hdl_ratio}. Niveau de risque cardiovasculaire : {risk}.",
+  "result_context_pt": "Colesterol LDL estimado: {ldl} mg/dL. Relação colesterol total/HDL: {total_hdl_ratio}. Nível de risco cardiovascular: {risk}.",
+  "result_context_de": "Geschätzter LDL-Cholesterinwert: {ldl} mg/dL. Gesamtcholesterin/HDL-Verhältnis: {total_hdl_ratio}. Kardiovaskuläres Risiko: {risk}.",
+  "result_context_it": "Colesterolo LDL stimato: {ldl} mg/dL. Rapporto colesterolo totale/HDL: {total_hdl_ratio}. Livello di rischio cardiovascolare: {risk}.",
+  "formula_display": "trig ÷ 5 → ldl, total_hdl_ratio",
+  "steps": [
+    "Introducir los valores de colesterol_total, hdl y trigliceridos",
+    "Verificar que los valores introducidos están en el rango y formato correctos",
+    "Calcular los valores de ldl y total hdl ratio",
+    "El resultado se expresa en mg/dL. Verificar que la magnitud es coherente",
+    "Comparar el resultado con los valores de referencia para interpretar su significado"
+  ],
+  "mistakes": [
+    "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+    "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+    "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "colesterol_total",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "hdl",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "trigliceridos",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "trigliceridos": 75,
+      "colesterol_total": 100,
+      "hdl": 50
+    },
+    {
+      "_label": "Teen",
+      "trigliceridos": 112,
+      "colesterol_total": 150,
+      "hdl": 50
+    },
+    {
+      "_label": "Adult (F)",
+      "trigliceridos": 150,
+      "colesterol_total": 200,
+      "hdl": 50
+    },
+    {
+      "_label": "Adult (M)",
+      "trigliceridos": 225,
+      "colesterol_total": 300,
+      "hdl": 50
+    },
+    {
+      "_label": "Elderly",
+      "trigliceridos": 300,
+      "colesterol_total": 400,
+      "hdl": 50
+    }
+  ],
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Colesterol LDL",
+      "desc": "Calcula el colesterol LDL desde colesterol total, HDL y trigliceridos. Con rangos de referencia y contexto de salud. Usado por profesionales y.",
+      "description": "Calculadora de Colesterol LDL.",
+      "seo_title": "Calculadora de Colesterol LDL Gratuita",
+      "seo_description": "Calcula el colesterol LDL desde colesterol total, HDL y trigliceridos. Con rangos de referencia y contexto de salud. Usado por profesionales y.",
+      "inputs": {
+        "colesterol_total": "Colesterol total (mg/dL)",
+        "hdl": "hdl",
+        "trigliceridos": "Triglicéridos (mg/dL)"
+      },
+      "outputs": {
+        "ldl": "LDL",
+        "total_hdl_ratio": "Ratio Total/HDL",
+        "risk": "Riesgo"
+      },
+      "example_label": "Calculate cholesterol ldl with colesterol_total 200, hdl 50, trigliceridos 150.",
+      "range_hints": {
+        "hdl": "Typical range: 10-150 in mg/dL units.",
+        "colesterol_total": "Typical range: 50-500 in mg/dL units.",
+        "trigliceridos": "Typical range: 20-1000 in mg/dL units."
+      },
+      "result_context": "Your calculated ldl is {ldl}.",
+      "formula_display": "Calculate cholesterol ldl based on input values.",
+      "steps": [
+        "Enter input values: colesterol_total: 200, hdl: 50, trigliceridos: 150",
+        "Calculate and display the ldl result",
+        "Calculate and display the total_hdl_ratio result",
+        "Calculate and display the risk result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "colesterol_total",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "hdl",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "trigliceridos",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "en": {
+      "name": "LDL Cholesterol Calculator",
+      "desc": "LDL Cholesterol Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "LDL Cholesterol Calculator.",
+      "seo_title": "LDL Cholesterol Calculator – Instant Results",
+      "seo_description": "Calculate LDL cholesterol from total cholesterol, HDL, and triglycerides using the Friedewald formula. Easy-to-use calculator with formula breakdown and.",
+      "inputs": {
+        "colesterol_total": "Total cholesterol (mg/dL)",
+        "hdl": "hdl",
+        "trigliceridos": "Triglycerides (mg/dL)"
+      },
+      "outputs": {
+        "ldl": "LDL",
+        "total_hdl_ratio": "Total/HDL ratio",
+        "risk": "Risk"
+      },
+      "example_label": "Calculate cholesterol ldl with colesterol_total 200, hdl 50, trigliceridos 150.",
+      "range_hints": {
+        "hdl": "Typical range: 10-150 in mg/dL units.",
+        "colesterol_total": "Typical range: 50-500 in mg/dL units.",
+        "trigliceridos": "Typical range: 20-1000 in mg/dL units."
+      },
+      "result_context": "Your calculated ldl is {ldl}.",
+      "formula_display": "Calculate cholesterol ldl based on input values.",
+      "steps": [
+        "Enter input values: colesterol_total: 200, hdl: 50, trigliceridos: 150",
+        "Calculate and display the ldl result",
+        "Calculate and display the total_hdl_ratio result",
+        "Calculate and display the risk result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "colesterol_total",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "hdl",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "trigliceridos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculatrice de Cholestérol LDL",
+      "desc": "Calculez le cholesterol LDL a partir du cholesterol total, du HDL et des triglycerides. Calculatrice facile a utiliser avec decomposition de la formule.",
+      "description": "Calculatrice de Cholestérol LDL.",
+      "seo_title": "Calculatrice de Cholestérol LDL en Ligne",
+      "seo_description": "Calculez le cholesterol LDL a partir du cholesterol total, du HDL et des triglycerides. Calculatrice facile a utiliser avec decomposition de la formule.",
+      "inputs": {
+        "colesterol_total": "Cholestérol total (mg/dL)",
+        "hdl": "hdl",
+        "trigliceridos": "Triglycérides (mg/dL)"
+      },
+      "outputs": {
+        "ldl": "LDL",
+        "total_hdl_ratio": "Total/HDL ratio",
+        "risk": "Risk"
+      },
+      "example_label": "Calculate cholesterol ldl with colesterol_total 200, hdl 50, trigliceridos 150.",
+      "range_hints": {
+        "hdl": "Typical range: 10-150 in mg/dL units.",
+        "colesterol_total": "Typical range: 50-500 in mg/dL units.",
+        "trigliceridos": "Typical range: 20-1000 in mg/dL units."
+      },
+      "result_context": "Your calculated ldl is {ldl}.",
+      "formula_display": "Calculate cholesterol ldl based on input values.",
+      "steps": [
+        "Enter input values: colesterol_total: 200, hdl: 50, trigliceridos: 150",
+        "Calculate and display the ldl result",
+        "Calculate and display the total_hdl_ratio result",
+        "Calculate and display the risk result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "colesterol_total",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "hdl",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "trigliceridos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Colesterol LDL",
+      "desc": "Calcule colesterol LDL a partir do colesterol total, HDL e triglicerideos. Calculadora facil de usar com detalhamento da formula.",
+      "description": "Calculadora de Colesterol LDL.",
+      "seo_title": "Calculadora de Colesterol LDL – Rápido e Preciso",
+      "seo_description": "Calcule colesterol LDL a partir do colesterol total, HDL e triglicerideos. Calculadora facil de usar com detalhamento da formula.",
+      "inputs": {
+        "colesterol_total": "Colesterol total (mg/dL)",
+        "hdl": "hdl",
+        "trigliceridos": "Triglicerídeos (mg/dL)"
+      },
+      "outputs": {
+        "ldl": "LDL",
+        "total_hdl_ratio": "Total/HDL ratio",
+        "risk": "Risk"
+      },
+      "example_label": "Calculate cholesterol ldl with colesterol_total 200, hdl 50, trigliceridos 150.",
+      "range_hints": {
+        "hdl": "Typical range: 10-150 in mg/dL units.",
+        "colesterol_total": "Typical range: 50-500 in mg/dL units.",
+        "trigliceridos": "Typical range: 20-1000 in mg/dL units."
+      },
+      "result_context": "Your calculated ldl is {ldl}.",
+      "formula_display": "Calculate cholesterol ldl based on input values.",
+      "steps": [
+        "Enter input values: colesterol_total: 200, hdl: 50, trigliceridos: 150",
+        "Calculate and display the ldl result",
+        "Calculate and display the total_hdl_ratio result",
+        "Calculate and display the risk result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "colesterol_total",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "hdl",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "trigliceridos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "de": {
+      "name": "Cholesterol ldl",
+      "desc": "Berechnen Sie cholesterol ldl online. Geben Sie colesterol total, hdl, trigliceridos ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Cholesterol ldl | CalcToWork",
+      "seo_desc": "Cholesterol ldl online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Cholesterol ldl online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "colesterol_total": "Colesterol Total",
+        "hdl": "Hdl",
+        "trigliceridos": "Trigliceridos"
+      },
+      "outputs": {
+        "ldl": "Ldl",
+        "total_hdl_ratio": "Total Hdl Ratio",
+        "risk": "Risk"
+      },
+      "example_label": "Ejemplo para cholesterol ldl: valores 200mg/dL, 50mg/dL, 150mg/dL",
+      "range_hints": {
+        "colesterol_total": "Valor típico entre 50 y 500. Valor por defecto: 200 mg/dL.",
+        "hdl": "Valor típico entre 10 y 150. Valor por defecto: 50 mg/dL.",
+        "trigliceridos": "Valor típico entre 20 y 1000. Valor por defecto: 150 mg/dL."
+      },
+      "result_context": "Geschätzter LDL-Cholesterinwert: {ldl} mg/dL. Gesamtcholesterin/HDL-Verhältnis: {total_hdl_ratio}. Kardiovaskuläres Risiko: {risk}.",
+      "formula_display": "trig ÷ 5 → ldl, total_hdl_ratio",
+      "steps": [
+        "Introducir los valores de colesterol_total, hdl y trigliceridos",
+        "Verificar que los valores introducidos están en el rango y formato correctos",
+        "Calcular los valores de ldl y total hdl ratio",
+        "El resultado se expresa en mg/dL. Verificar que la magnitud es coherente",
+        "Comparar el resultado con los valores de referencia para interpretar su significado"
+      ],
+      "mistakes": [
+        "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+        "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+        "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "colesterol_total",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "hdl",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "trigliceridos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatrice di Colesterolo LDL",
+      "desc": "Calcola il colesterolo LDL da colesterolo totale, HDL e trigliceridi. Con intervalli di riferimento e contesto sanitario.",
+      "description": "Calcolatrice di Colesterolo LDL.",
+      "seo_title": "Calcolatrice di Colesterolo LDL",
+      "seo_description": "Calcola il colesterolo LDL da colesterolo totale, HDL e trigliceridi. Con intervalli di riferimento e contesto sanitario.",
+      "inputs": {
+        "colesterol_total": "Colesterolo totale (mg/dL)",
+        "hdl": "hdl",
+        "trigliceridos": "Trigliceridi (mg/dL)"
+      },
+      "outputs": {
+        "ldl": "LDL",
+        "total_hdl_ratio": "Total/HDL ratio",
+        "risk": "Risk"
+      },
+      "example_label": "Calculate cholesterol ldl with colesterol_totale 200, hdl 50, trigliceridos 150.",
+      "range_hints": {
+        "hdl": "Tepical range: 10-150 in mg/dL units.",
+        "colesterol_total": "Tepical range: 50-500 in mg/dL units.",
+        "trigliceridos": "Tepical range: 20-1000 in mg/dL units."
+      },
+      "result_context": "Your calculated ldl is {ldl}.",
+      "formula_display": "Calculate cholesterol ldl based on input values.",
+      "steps": [
+        "Enter input values: colesterol_totale: 200, hdl: 50, trigliceridos: 150",
+        "Calculate and displae the ldl result",
+        "Calculate and displae the totale_hdl_ratio result",
+        "Calculate and displae the risk result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where posetive required",
+        "Usenzag incorrect input values outsedi recommindid range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "colesterol_total",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "hdl",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "trigliceridos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        }
+      ]
+    }
+  }
+}

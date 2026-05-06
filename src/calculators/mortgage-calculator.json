@@ -1,0 +1,586 @@
+{
+  "id": "936",
+  "slug": "mortgage-calculator",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "precio_casa",
+      "type": "number",
+      "min": 0,
+      "max": 9999999,
+      "step": 1000,
+      "default": 300000,
+      "unit": "EUR"
+    },
+    {
+      "id": "entrada_pct",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    },
+    {
+      "id": "tasa_anual",
+      "type": "number",
+      "min": 0,
+      "max": 20,
+      "step": 0.01,
+      "default": 3.5,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    },
+    {
+      "id": "anos",
+      "type": "number",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "default": 30,
+      "unit": "yr",
+      "unit_options": [
+        "yr",
+        "mo"
+      ],
+      "unit_category": "time"
+    }
+  ],
+  "formula": "var precio=parseFloat(inputs.precio_casa)||0,entrada=parseFloat(inputs.entrada_pct)||20,tasa=parseFloat(inputs.tasa_anual)||0,anos=parseFloat(inputs.anos)||30;if(!precio||!tasa||!anos)return{error:true};var prestamo=precio*(1-entrada/100),r=tasa/1200,n=anos*12,pmt=prestamo*r/(1-Math.pow(1+r,-n));var total=+(pmt*n).toFixed(2),interes=+(total-prestamo).toFixed(2);return{monthly_payment:+(pmt).toFixed(2),loan_amount:+(prestamo).toFixed(2),total_paid:total,total_interest:interes,interest_ratio:+(interes/total*100).toFixed(1)};",
+  "outputs": [
+    {
+      "id": "monthly_payment",
+      "unit": "EUR",
+      "highlight": true
+    },
+    {
+      "id": "loan_amount",
+      "unit": "EUR",
+      "highlight": false
+    },
+    {
+      "id": "total_paid",
+      "unit": "EUR",
+      "highlight": false
+    },
+    {
+      "id": "total_interest",
+      "unit": "EUR",
+      "highlight": false
+    },
+    {
+      "id": "interest_ratio",
+      "unit": "%",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "938",
+    "934",
+    "314",
+    "311"
+  ],
+  "example_inputs": {
+    "anos": 30,
+    "tasa_anual": 3.5,
+    "precio_casa": 300000,
+    "entrada_pct": 20
+  },
+  "example_label": "Calcula la cuota mensual de tu hipoteca: vivienda 300.000eur, entrada 20%, interes 3,5%, plazo 30 anos",
+  "range_hints": {
+    "precio_casa": "Valor monetario",
+    "entrada_pct": "Porcentaje según especificación",
+    "tasa_anual": "Porcentaje según especificación",
+    "anos": "Años del período"
+  },
+  "result_context": "Resultados: {monthly_payment} EUR/mes de pago mensual, {loan_amount} EUR de préstamo, {total_paid} EUR pagado en total, {total_interest} EUR de intereses, {interest_ratio} % de ratio de intereses.",
+  "formula_display": "Cuota mensual = P x [r(1+r)^n] / [(1+r)^n - 1] (sistema de amortizacion frances)",
+  "steps": [
+    "Introduce el precio total de la vivienda incluyendo los gastos de compraventa si los financias con la hipoteca",
+    "Define el porcentaje de entrada que puedes aportar (los bancos suelen exigir al menos un 20% del valor de tasacion)",
+    "Indica la tasa de interes anual fija o inicial si es variable, normalmente referenciada al Euribor mas el diferencial del banco",
+    "Establece el plazo de amortizacion en anos (plazos habituales: 15, 20, 25 o 30 anos segun tu edad y capacidad economica)",
+    "El sistema aplica la formula francesa y te muestra la cuota fija mensual y el coste total en intereses durante toda la vida del prestamo"
+  ],
+  "mistakes": [
+    "No considerar los gastos adicionales obligatorios: comision de apertura, tasacion, notaria, registro, gestoria e impuestos",
+    "Olvidar que las hipotecas a tipo variable pueden encarecerse drasticamente si el Euribor sube varios puntos porcentuales",
+    "Fijarse solo en la cuota mensual ignorando que alargar el plazo baja la cuota pero multiplica los intereses totales a pagar"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "precio_casa",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "entrada_pct",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "tasa_anual",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "anos",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "precio_casa": 150000,
+      "entrada_pct": 10,
+      "anos": 30,
+      "tasa_anual": 3.5
+    },
+    {
+      "_label": "Average",
+      "precio_casa": 225000,
+      "entrada_pct": 15,
+      "anos": 30,
+      "tasa_anual": 3.5
+    },
+    {
+      "_label": "High",
+      "precio_casa": 300000,
+      "entrada_pct": 20,
+      "anos": 30,
+      "tasa_anual": 3.5
+    },
+    {
+      "_label": "Premium",
+      "precio_casa": 450000,
+      "entrada_pct": 30,
+      "anos": 30,
+      "tasa_anual": 3.5
+    },
+    {
+      "_label": "Enterprise",
+      "precio_casa": 600000,
+      "entrada_pct": 40,
+      "anos": 30,
+      "tasa_anual": 3.5
+    }
+  ],
+  "units": {
+    "entrada_pct": "%",
+    "anos": "s"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Hipoteca",
+      "desc": "Calcula la cuota mensual de la hipoteca, intereses totales y amortizacion. Con opciones de capitalizacion e impuestos. Usado por profesionales y.",
+      "description": "Calculadora de Hipoteca.",
+      "seo_title": "Calculadora de Hipoteca Gratuita",
+      "seo_description": "Calcula la cuota mensual de la hipoteca, intereses totales y amortizacion. Con opciones de capitalizacion e impuestos. Usado por profesionales y.",
+      "inputs": {
+        "precio_casa": "Precio de la casa",
+        "entrada_pct": "Entrada %",
+        "tasa_anual": "Tasa anual %",
+        "anos": "Años"
+      },
+      "outputs": {
+        "monthly_payment": "Pago mensual",
+        "loan_amount": "Monto del préstamo",
+        "total_paid": "Total pagado",
+        "total_interest": "Total de intereses",
+        "interest_ratio": "Proporción de intereses"
+      },
+      "example_label": "Calculate mortgage calculator with precio_casa 300000, entrada_pct 20, tasa_anual 3.5, anos 30.",
+      "range_hints": {
+        "anos": "Typical range: 1-50 in yr units.",
+        "tasa_anual": "Typical range: 0-20 in % units.",
+        "precio_casa": "Typical range: 0-9999999 in EUR units.",
+        "entrada_pct": "Typical range: 0-100 in % units."
+      },
+      "result_context": "Your calculated monthly payment is {monthly_payment}.",
+      "formula_display": "Calculate mortgage calculator based on input values.",
+      "steps": [
+        "Enter input values: precio_casa: 300000, entrada_pct: 20, tasa_anual: 3.5, anos: 30",
+        "Calculate and display the monthly_payment result",
+        "Calculate and display the loan_amount result",
+        "Calculate and display the total_paid result",
+        "Calculate and display the total_interest result",
+        "Calculate and display the interest_ratio result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_casa",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "entrada_pct",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "tasa_anual",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "anos",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "en": {
+      "name": "Mortgage Calculator",
+      "desc": "Mortgage Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Mortgage Calculator.",
+      "seo_title": "Mortgage Calculator – Monthly Payment",
+      "seo_description": "Calculate monthly mortgage payments, total interest, and amortization. See how down payment affects your loan. Accurate, fast calculation with clear.",
+      "inputs": {
+        "precio_casa": "Home price",
+        "entrada_pct": "Down payment %",
+        "tasa_anual": "Annual rate %",
+        "anos": "Years"
+      },
+      "outputs": {
+        "monthly_payment": "Monthly payment",
+        "loan_amount": "Loan amount",
+        "total_paid": "Total paid",
+        "total_interest": "Total interest",
+        "interest_ratio": "Interest ratio"
+      },
+      "example_label": "Calculate mortgage calculator with precio_casa 300000, entrada_pct 20, tasa_anual 3.5, anos 30.",
+      "range_hints": {
+        "anos": "Typical range: 1-50 in yr units.",
+        "tasa_anual": "Typical range: 0-20 in % units.",
+        "precio_casa": "Typical range: 0-9999999 in EUR units.",
+        "entrada_pct": "Typical range: 0-100 in % units."
+      },
+      "result_context": "Your calculated monthly payment is {monthly_payment}.",
+      "formula_display": "Calculate mortgage calculator based on input values.",
+      "steps": [
+        "Enter input values: precio_casa: 300000, entrada_pct: 20, tasa_anual: 3.5, anos: 30",
+        "Calculate and display the monthly_payment result",
+        "Calculate and display the loan_amount result",
+        "Calculate and display the total_paid result",
+        "Calculate and display the total_interest result",
+        "Calculate and display the interest_ratio result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_casa",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "entrada_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "tasa_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculatrice d'Hypothèque",
+      "desc": "Calculez vos mensualites d'hypotheque, les interets totaux et l'amortissement. Avec options de composition et taxes. Utilise par des professionnels et.",
+      "description": "Calculatrice d'Hypothèque.",
+      "seo_title": "Calculatrice d'Hypothèque en Ligne",
+      "seo_description": "Calculez vos mensualites d'hypotheque, les interets totaux et l'amortissement. Avec options de composition et taxes. Utilise par des professionnels et.",
+      "inputs": {
+        "precio_casa": "Prix de la maison",
+        "entrada_pct": "Apport %",
+        "tasa_anual": "Taux annuel %",
+        "anos": "Années"
+      },
+      "outputs": {
+        "monthly_payment": "Mensualité",
+        "loan_amount": "Montant du prêt",
+        "total_paid": "Total payé",
+        "total_interest": "Total des intérêts",
+        "interest_ratio": "Ratio d'intérêt"
+      },
+      "example_label": "Calculate mortgage calculator with precio_casa 300000, entrada_pct 20, tasa_anual 3.5, anos 30.",
+      "range_hints": {
+        "anos": "Typical range: 1-50 in yr units.",
+        "tasa_anual": "Typical range: 0-20 in % units.",
+        "precio_casa": "Typical range: 0-9999999 in EUR units.",
+        "entrada_pct": "Typical range: 0-100 in % units."
+      },
+      "result_context": "Your calculated monthly payment is {monthly_payment}.",
+      "formula_display": "Calculate mortgage calculator based on input values.",
+      "steps": [
+        "Enter input values: precio_casa: 300000, entrada_pct: 20, tasa_anual: 3.5, anos: 30",
+        "Calculate and display the monthly_payment result",
+        "Calculate and display the loan_amount result",
+        "Calculate and display the total_paid result",
+        "Calculate and display the total_interest result",
+        "Calculate and display the interest_ratio result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_casa",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "entrada_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "tasa_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Hipoteca",
+      "desc": "Calcule as parcelas mensais da hipoteca, juros totais e amortizacaoCalculo preciso e rapido com metodologia clara.",
+      "description": "Calculadora de Hipoteca.",
+      "seo_title": "Calculadora de Hipoteca – Rápido e Preciso",
+      "seo_description": "Calcule as parcelas mensais da hipoteca, juros totais e amortização. Cálculo preciso e gratuito com gráfico detalhado. Cálculo gratuito online.",
+      "inputs": {
+        "precio_casa": "Preço da casa",
+        "entrada_pct": "Entrada %",
+        "tasa_anual": "Taxa anual %",
+        "anos": "Anos"
+      },
+      "outputs": {
+        "monthly_payment": "Pagamento mensal",
+        "loan_amount": "Valor do empréstimo",
+        "total_paid": "Total pago",
+        "total_interest": "Total de juros",
+        "interest_ratio": "Proporção de juros"
+      },
+      "example_label": "Calculate mortgage calculator with precio_casa 300000, entrada_pct 20, tasa_anual 3.5, anos 30.",
+      "range_hints": {
+        "anos": "Typical range: 1-50 in yr units.",
+        "tasa_anual": "Typical range: 0-20 in % units.",
+        "precio_casa": "Typical range: 0-9999999 in EUR units.",
+        "entrada_pct": "Typical range: 0-100 in % units."
+      },
+      "result_context": "Your calculated monthly payment is {monthly_payment}.",
+      "formula_display": "Calculate mortgage calculator based on input values.",
+      "steps": [
+        "Enter input values: precio_casa: 300000, entrada_pct: 20, tasa_anual: 3.5, anos: 30",
+        "Calculate and display the monthly_payment result",
+        "Calculate and display the loan_amount result",
+        "Calculate and display the total_paid result",
+        "Calculate and display the total_interest result",
+        "Calculate and display the interest_ratio result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_casa",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "entrada_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "tasa_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "de": {
+      "name": "Mortgage calculator",
+      "desc": "Berechnen Sie mortgage calculator online. Geben Sie precio casa, entrada pct, tasa anual ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Mortgage calculator | CalcToWork",
+      "seo_desc": "Mortgage calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Mortgage calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "precio_casa": "Precio Casa",
+        "entrada_pct": "Entrada Pct",
+        "tasa_anual": "Tasa Anual",
+        "anos": "Anos"
+      },
+      "outputs": {
+        "monthly_payment": "Monthly Payment",
+        "loan_amount": "Loan Amount",
+        "total_paid": "Total Paid",
+        "total_interest": "Total Interest",
+        "interest_ratio": "Interest Ratio"
+      },
+      "example_label": "Calcula la cuota mensual de tu hipoteca: vivienda 300.000eur, entrada 20%, interes 3,5%, plazo 30 anos",
+      "range_hints": {
+        "precio_casa": "Valor monetario",
+        "entrada_pct": "Porcentaje según especificación",
+        "tasa_anual": "Porcentaje según especificación",
+        "anos": "Años del período"
+      },
+      "result_context": "Resultados: {monthly_payment} EUR/mes de pago mensual, {loan_amount} EUR de préstamo, {total_paid} EUR pagado en total, {total_interest} EUR de intereses, {interest_ratio} % de ratio de intereses.",
+      "formula_display": "Cuota mensual = P x [r(1+r)^n] / [(1+r)^n - 1] (sistema de amortizacion frances)",
+      "steps": [
+        "Introduce el precio total de la vivienda incluyendo los gastos de compraventa si los financias con la hipoteca",
+        "Define el porcentaje de entrada que puedes aportar (los bancos suelen exigir al menos un 20% del valor de tasacion)",
+        "Indica la tasa de interes anual fija o inicial si es variable, normalmente referenciada al Euribor mas el diferencial del banco",
+        "Establece el plazo de amortizacion en anos (plazos habituales: 15, 20, 25 o 30 anos segun tu edad y capacidad economica)",
+        "El sistema aplica la formula francesa y te muestra la cuota fija mensual y el coste total en intereses durante toda la vida del prestamo"
+      ],
+      "mistakes": [
+        "No considerar los gastos adicionales obligatorios: comision de apertura, tasacion, notaria, registro, gestoria e impuestos",
+        "Olvidar que las hipotecas a tipo variable pueden encarecerse drasticamente si el Euribor sube varios puntos porcentuales",
+        "Fijarse solo en la cuota mensual ignorando que alargar el plazo baja la cuota pero multiplica los intereses totales a pagar"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_casa",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "entrada_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "tasa_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatrice di Mutuo",
+      "desc": "Calcola la rata mensile del mutuo, gli interessi totali e l'ammortamento. Con opzioni di capitalizzazione e tasse. Usato da professionisti e studenti in.",
+      "description": "Calcolatrice di Mutuo.",
+      "seo_title": "Calcolatrice di Mutuo – Veloce e Preciso",
+      "seo_description": "Calcola la rata mensile del mutuo, gli interessi totali e l'ammortamento. Con opzioni di capitalizzazione e tasse. Usato da professionisti e studenti in.",
+      "inputs": {
+        "precio_casa": "Prezzo della casa",
+        "entrada_pct": "Acconto %",
+        "tasa_anual": "Tasso annuale %",
+        "anos": "Anni"
+      },
+      "outputs": {
+        "monthly_payment": "Pagamento mensile",
+        "loan_amount": "Importo del prestito",
+        "total_paid": "Totale pagato",
+        "total_interest": "Interessi totali",
+        "interest_ratio": "Rapporto interessi"
+      },
+      "example_label": "Calculate mortgage calculator with prezzo_casa 300000, intrada_pct 20, tasa_anual 3.5, anons 30.",
+      "range_hints": {
+        "anos": "Tepical range: 1-50 in er units.",
+        "tasa_anual": "Tepical range: 0-20 in % units.",
+        "precio_casa": "Tepical range: 0-9999999 in EUR units.",
+        "entrada_pct": "Tepical range: 0-100 in % units."
+      },
+      "result_context": "Your calculated monthle paemint is {monthle_paemint}.",
+      "formula_display": "Calculate mortgage calculator based on input values.",
+      "steps": [
+        "Enter input values: prezzo_casa: 300000, intrada_pct: 20, tasa_anual: 3.5, anons: 30",
+        "Calculate and displae the monthle_paemint result",
+        "Calculate and displae the loan_amount result",
+        "Calculate and displae the totale_paid result",
+        "Calculate and displae the totale_interest result",
+        "Calculate and displae the interest_ratio result"
+      ],
+      "mistakes": [
+        "Confusenzag unit options whin intering values",
+        "Entering zero or negative values where posetive required",
+        "Usenzag incorrect input values outsedi recommindid range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_casa",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "entrada_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "tasa_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        }
+      ]
+    }
+  }
+}

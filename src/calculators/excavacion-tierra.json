@@ -1,0 +1,562 @@
+{
+  "id": "010",
+  "slug": "excavacion-tierra",
+  "block": 1,
+  "block_slug": "estructuras",
+  "inputs": [
+    {
+      "id": "largo",
+      "type": "number",
+      "min": 0.5,
+      "max": 500,
+      "step": 0.1,
+      "default": 10,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "ancho",
+      "type": "number",
+      "min": 0.5,
+      "max": 500,
+      "step": 0.1,
+      "default": 6,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "profundidad",
+      "type": "number",
+      "min": 0.2,
+      "max": 20,
+      "step": 0.1,
+      "default": 1.5,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "esponjamiento",
+      "type": "number",
+      "min": 1,
+      "max": 1.5,
+      "step": 0.05,
+      "default": 1.25,
+      "unit": "factor",
+      "unit_options": [
+        "factor"
+      ],
+      "unit_category": "ratio"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.largo)||0,W=parseFloat(inputs.ancho)||0,H=parseFloat(inputs.profundidad)||0,fe=parseFloat(inputs.esponjamiento)||1.25;if(!L||!W||!H)return{error:true};var vol_neto=L*W*H,vol_esp=+(vol_neto*fe).toFixed(2),camiones=Math.ceil(vol_esp/8),perim=+(2*(L+W)*H).toFixed(2);return{vol_neto_m3:+vol_neto.toFixed(2),vol_esponjado_m3:vol_esp,camiones_8m3:camiones,perimetro_talud_m2:perim};",
+  "outputs": [
+    {
+      "id": "vol_neto_m3",
+      "unit": "m³",
+      "highlight": true
+    },
+    {
+      "id": "vol_esponjado_m3",
+      "unit": "m³"
+    },
+    {
+      "id": "camiones_8m3",
+      "unit": "camiones"
+    },
+    {
+      "id": "perimetro_talud_m2",
+      "unit": "m²"
+    }
+  ],
+  "related": [
+    "003",
+    "009",
+    "001",
+    "002"
+  ],
+  "example_inputs": {
+    "largo": 10,
+    "ancho": 6,
+    "profundidad": 1.5,
+    "esponjamiento": 1.25
+  },
+  "example_label": "Calcular volumen de excavación para 10 m × 6 m × 1.5 m × 1.25 factor.",
+  "range_hints": {
+    "largo": "Valor típico entre 0.5 y 500. Valor por defecto: 10 m.",
+    "ancho": "Valor típico entre 0.5 y 500. Valor por defecto: 6 m.",
+    "profundidad": "Valor típico entre 0.2 y 20. Valor por defecto: 1.5 m.",
+    "esponjamiento": "Valor típico entre 1 y 1.5. Valor por defecto: 1.25 factor."
+  },
+  "result_context": "Resultados: {vol_neto_m3} m³ de volumen neto, {vol_esponjado_m3} m³ de volumen esponjado, {camiones_8m3} camiones de 8 m³, {perimetro_talud_m2} m² de perímetro de talud.",
+  "formula_display": "L × W × H → vol_neto_m3, vol_esponjado_m3",
+  "steps": [
+    "Introducir los valores de largo, ancho, profundidad y esponjamiento",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m, cm, mm)",
+    "Calcular los valores de vol neto m3 y vol esponjado m3",
+    "El resultado se expresa en m³. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Introducir valores con unidades incorrectas sin verificar la conversión",
+    "Redondear resultados intermedios en lugar del resultado final",
+    "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "largo",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "ancho",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "profundidad",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "esponjamiento",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "length": 3,
+      "width": 2,
+      "height": 0.1
+    },
+    {
+      "length": 4,
+      "width": 3,
+      "height": 0.1
+    },
+    {
+      "length": 5,
+      "width": 4,
+      "height": 0.12
+    },
+    {
+      "length": 6,
+      "width": 4,
+      "height": 0.12
+    },
+    {
+      "length": 8,
+      "width": 5,
+      "height": 0.15
+    }
+  ],
+  "units": {
+    "largo": "m",
+    "ancho": "m",
+    "profundidad": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Excavación de Tierra",
+      "desc": "Calcula el volumen de tierra y camiones necesarios.",
+      "seo_title": "Calculadora Excavación – Volumen",
+      "inputs": {
+        "largo": "Longitud",
+        "ancho": "Ancho",
+        "profundidad": "Profundidad",
+        "esponjamiento": "Factor esponjamiento"
+      },
+      "outputs": {
+        "vol_neto_m3": "Volumen neto",
+        "vol_esponjado_m3": "Volumen esponjado",
+        "camiones_8m3": "Camiones (8m³)",
+        "perimetro_talud_m2": "Perímetro talud"
+      },
+      "seo_description": "Calcula el volumen neto y esponjado de excavación y el número de camiones necesarios para el transporte. Introduce tus valores y obtiene resultados.",
+      "example_label": "Calcular volumen de excavación para un sótano de 10m × 6m × 1.5m considerando factor de esponjamiento de 1.25.",
+      "range_hints": {
+        "largo": "Dimensión mayor de la excavación",
+        "ancho": "Dimensión menor de la excavación",
+        "profundidad": "Profundidad desde nivel del terreno",
+        "esponjamiento": "Tierra: 1.20-1.40, Arena: 1.10-1.20, Arcilla: 1.30-1.50"
+      },
+      "result_context": "Volumen neto excavado: {vol_neto_m3} m³. Volumen esponjado (para transporte): {vol_esponjado_m3} m³. Se necesitan {camiones_8m3} camiones de 8m³.",
+      "formula_display": "Vol_neto = largo × ancho × profundidad; Vol_esponjado = vol_neto × factor_esponjamiento",
+      "steps": [
+        "Calcular volumen neto: 10m × 6m × 1.5m = 90m³",
+        "Aplicar factor de esponjamiento: 90m³ × 1.25 = 112.5m³",
+        "Calcular camiones necesarios: 112.5m³ ÷ 8m³ = 14.06 → 15 camiones",
+        "Calcular perímetro de taludes: 2(10+6)×1.5 = 48m² (para estimar entibación)"
+      ],
+      "mistakes": [
+        "No considerar el factor de esponjamiento al calcular transporte de tierra",
+        "No prever taludes adecuados o entibación en excavaciones profundas",
+        "Olvidar espacio adicional para encofrado de muros perimetrales"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "ancho",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "profundidad",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "esponjamiento",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Excavation Volume Calculator",
+      "desc": "Excavation Volume Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Excavation Volume Calculator ? m? & Truck Loads",
+      "seo_desc": "Planning an excavation? Enter length, width and depth to calculate net volume, bulked volume for disposal, and number of truck loads needed to remove spoil.",
+      "inputs": {
+        "largo": "Length",
+        "ancho": "Width",
+        "profundidad": "Depth",
+        "esponjamiento": "Bulking factor"
+      },
+      "outputs": {
+        "vol_neto_m3": "Net volume",
+        "vol_esponjado_m3": "Bulked volume",
+        "camiones_8m3": "Trucks (8m³)",
+        "perimetro_talud_m2": "Slope perimeter"
+      },
+      "seo_description": "Calculate excavation volume for foundations and trenches. Get net volume, bulked volume and truck loads for spoil removal.",
+      "example_label": "Calcular volumen de excavación para un sótano de 10m × 6m × 1.5m considerando factor de esponjamiento de 1.25.",
+      "range_hints": {
+        "largo": "Dimensión mayor de la excavación",
+        "ancho": "Dimensión menor de la excavación",
+        "profundidad": "Profundidad desde nivel del terreno",
+        "esponjamiento": "Tierra: 1.20-1.40, Arena: 1.10-1.20, Arcilla: 1.30-1.50"
+      },
+      "result_context": "Volumen neto excavado: {vol_neto_m3} m³. Volumen esponjado (para transporte): {vol_esponjado_m3} m³. Se necesitan {camiones_8m3} camiones de 8m³.",
+      "formula_display": "Vol_neto = largo × ancho × profundidad; Vol_esponjado = vol_neto × factor_esponjamiento",
+      "steps": [
+        "Calcular volumen neto: 10m × 6m × 1.5m = 90m³",
+        "Aplicar factor de esponjamiento: 90m³ × 1.25 = 112.5m³",
+        "Calcular camiones necesarios: 112.5m³ ÷ 8m³ = 14.06 â†’ 15 camiones",
+        "Calcular perímetro de taludes: 2(10+6)×1.5 = 48m² (para estimar entibación)"
+      ],
+      "mistakes": [
+        "No considerar el factor de esponjamiento al calcular transporte de tierra",
+        "No prever taludes adecuados o entibación en excavaciones profundas",
+        "Olvidar espacio adicional para encofrado de muros perimetrales"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "profundidad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "esponjamiento",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Volume de Terrassement",
+      "desc": "Calculez le volume de terrassement et les camions.",
+      "seo_title": "Calculateur Terrassement – Volume",
+      "inputs": {
+        "largo": "Longueur",
+        "ancho": "Largeur",
+        "profundidad": "Profondeur",
+        "esponjamiento": "Coefficient de foisonnement"
+      },
+      "outputs": {
+        "vol_neto_m3": "Volume net",
+        "vol_esponjado_m3": "Volume foisonné",
+        "camiones_8m3": "Camions (8m³)",
+        "perimetro_talud_m2": "Périmètre talus"
+      },
+      "seo_description": "Calculez le volume net et foisonné de terrassement et le nombre de camions nécessaires. Inclut le facteur de perte pour les commandes.",
+      "example_label": "Calculer le volume de excavation pour un sótano de 10m × 6m × 1.5m considerando factor de esponjamiento de 1.25.",
+      "range_hints": {
+        "largo": "Dimensión mayor de la excavation",
+        "ancho": "Dimensión menor de la excavation",
+        "profundidad": "profondeur de nivel du terrain",
+        "esponjamiento": "Tierra: 1.20-1.40, sable: 1.10-1.20, Arcilla: 1.30-1.50"
+      },
+      "result_context": "volume neto excavado: {vol_neto_m3} m³. volume esponjado (pour transporte): {vol_esponjado_m3} m³. Se necesitan {camiones_8m3} camiones de 8m³.",
+      "formula_display": "Vol_neto = longueur × largeur × profondeur; Vol_esponjado = vol_neto × factor_esponjamiento",
+      "steps": [
+        "Calculer le volume neto: 10m × 6m × 1.5m = 90m³",
+        "Aplicar factor de esponjamiento: 90m³ × 1.25 = 112.5m³",
+        "Calculer camiones necesarios: 112.5m³ Á· 8m³ = 14.06 ââ€ ’ 15 camiones",
+        "Calculer périmètre de taludes: 2(10+6)×1.5 = 48m² (pour estimar entibación)"
+      ],
+      "mistakes": [
+        "Ne pas considérer le factor de esponjamiento al Calculer transporte de tierra",
+        "No prever taludes adecuados o entibación dans excavaciones profundas",
+        "Oublier espacio adicional pour coffrage de murs perimetrales"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "profundidad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "esponjamiento",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Escavação",
+      "desc": "Calcule o volume de terra e caminhões necessários.",
+      "seo_title": "Calculadora Escavação – Volume",
+      "inputs": {
+        "largo": "Comprimento",
+        "ancho": "Largura",
+        "profundidad": "Profundidade",
+        "esponjamiento": "Fator de embaulamento"
+      },
+      "outputs": {
+        "vol_neto_m3": "Volume neto",
+        "vol_esponjado_m3": "Volume embaulado",
+        "camiones_8m3": "Caminhões (8m³)",
+        "perimetro_talud_m2": "Perímetro talude"
+      },
+      "seo_description": "Calcule o volume neto e embaulado de escavação e o número de caminhões necessários. Inclui fator de desperdicio para pedidos.",
+      "example_label": "Calcular volume de escavação para um sótão de 10m × 6m × 1.5m considerando factor de esponjamiento de 1.25.",
+      "range_hints": {
+        "largo": "Dimensión mayor da escavação",
+        "ancho": "Dimensión menor da escavação",
+        "profundidad": "Profundidad desde nivel do terreno",
+        "esponjamiento": "Tierra: 1.20-1.40, Arena: 1.10-1.20, Arcilla: 1.30-1.50"
+      },
+      "result_context": "Volumen neto excavado: {vol_neto_m3} m³. Volumen esponjado (para transporte): {vol_esponjado_m3} m³. Se necessitam {camiones_8m3} camiones de 8m³.",
+      "formula_display": "Vol_neto = comprimento × largura × profundidade; Vol_esponjado = vol_neto × factor_esponjamiento",
+      "steps": [
+        "Calcular volume neto: 10m × 6m × 1.5m = 90m³",
+        "Aplicar factor de esponjamiento: 90m³ × 1.25 = 112.5m³",
+        "Calcular camiones necessários: 112.5m³ ÷ 8m³ = 14.06 â†’ 15 camiones",
+        "Calcular perímetro de taludes: 2(10+6)×1.5 = 48m² (para estimar entibación)"
+      ],
+      "mistakes": [
+        "Não considerar o factor de esponjamiento ao calcular transporte de terra",
+        "Não prever taludes adequados o entibación em excavaciones profundas",
+        "Esquecer espacio adicional para cofragem de muros perimetrales"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "profundidad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "esponjamiento",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Erdaushub tierra",
+      "desc": "Berechnen Sie erdaushub tierra online. Geben Sie largo, ancho, profundidad ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Erdaushub tierra | CalcToWork",
+      "seo_desc": "Erdaushub tierra online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Erdaushub tierra online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "largo": "Largo",
+        "ancho": "Ancho",
+        "profundidad": "Profundidad",
+        "esponjamiento": "Esponjamiento"
+      },
+      "outputs": {
+        "vol_neto_m3": "Vol Neto M3",
+        "vol_esponjado_m3": "Vol Esponjado M3",
+        "camiones_8m3": "Camiones 8m3",
+        "perimetro_talud_m2": "Perimetro Talud M2"
+      },
+      "example_label": "Calcular volumen de excavación para 10 m × 6 m × 1.5 m × 1.25 factor.",
+      "range_hints": {
+        "largo": "Valor típico entre 0.5 y 500. Valor por defecto: 10 m.",
+        "ancho": "Valor típico entre 0.5 y 500. Valor por defecto: 6 m.",
+        "profundidad": "Valor típico entre 0.2 y 20. Valor por defecto: 1.5 m.",
+        "esponjamiento": "Valor típico entre 1 y 1.5. Valor por defecto: 1.25 factor."
+      },
+      "result_context": "Resultados: {vol_neto_m3} m³ de volumen neto, {vol_esponjado_m3} m³ de volumen esponjado, {camiones_8m3} camiones de 8 m³, {perimetro_talud_m2} m² de perímetro de talud.",
+      "formula_display": "L × W × H → vol_neto_m3, vol_esponjado_m3",
+      "steps": [
+        "Introducir los valores de largo, ancho, profundidad y esponjamiento",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m, cm, mm)",
+        "Calcular los valores de vol neto m3 y vol esponjado m3",
+        "El resultado se expresa en m³. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Introducir valores con unidades incorrectas sin verificar la conversión",
+        "Redondear resultados intermedios en lugar del resultado final",
+        "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "profundidad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "esponjamiento",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Micropalo",
+      "description": "Calcola calcestruzzo e armatura per micropali di fondazione.",
+      "seo_title": "Calcolatore Micropalo – Passo dopo Passo",
+      "seo_description": "Calcolatore Micropalo. Diametro (m), Lunghezza (m), Numero di pali ââ‚¬” ottieni Volume totale (m³), Sacchi cemento, Acciaio (kg) istantaneamente per il tuo.",
+      "inputs": {
+        "diametro": "Diametro (m)",
+        "longitud": "Lunghezza (m)",
+        "numero": "Numero di pali"
+      },
+      "outputs": {
+        "volumen_total": "Volume totale (m³)",
+        "cemento_sacos": "Sacchi cemento",
+        "acero_kg": "Acciaio (kg)"
+      },
+      "example_label": "Calcolare volume di excavación per un sócosìo di 10m × 6m × 1.5m consedirando factor di esponjamiinto di 1.25.",
+      "range_hints": {
+        "largo": "Diminseón maggiore dilla excavación",
+        "ancho": "Diminseón minonre dilla excavación",
+        "profundidad": "Profundidad disdi nivel dil terrinon",
+        "esponjamiento": "Tierra: 1.20-1.40, Arina: 1.10-1.20, Arcilla: 1.30-1.50"
+      },
+      "result_context": "Volumin neto excavado: {vol_neto_m3} m³. Volumin esponjado (per transperte): {vol_esponjado_m3} m³. Se necesecosì {camiones_8m3} camiones di 8m³.",
+      "formula_display": "Vol_neto = lunghezza × larghezza × profondità; Vol_esponjado = vol_neto × factor_esponjamiinto",
+      "steps": [
+        "Calcolare volume neto: 10m × 6m × 1.5m = 90m³",
+        "Applicare factor di esponjamiinto: 90m³ × 1.25 = 112.5m³",
+        "Calcolare camionè necessarios: 112.5m³ ÷ 8m³ = 14.06 â†’ 15 camiones",
+        "Calcolare perímetro di taludis: 2(10+6)×1.5 = 48m² (per estimar intibación)"
+      ],
+      "mistakes": [
+        "Non consedirare el factor di esponjamiinto al calcolare transperte di terra",
+        "No prever taludis adiguati o intibación in excavaciones profundas",
+        "Diminticare espacio adicional per cassero di muros perimetrales"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "profundidad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "esponjamiento",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        }
+      ]
+    }
+  }
+}

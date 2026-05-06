@@ -1,0 +1,468 @@
+{
+  "id": "081",
+  "slug": "amortizacion-vehiculo",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "coste_eur",
+      "type": "number",
+      "min": 5000,
+      "max": 100000,
+      "step": 500,
+      "default": 25000,
+      "unit": "â‚¬",
+      "unit_options": [
+        "â‚¬",
+        "$"
+      ],
+      "unit_category": "currency"
+    },
+    {
+      "id": "anos_vida_util",
+      "type": "number",
+      "min": 3,
+      "max": 15,
+      "step": 1,
+      "default": 7,
+      "unit": "años"
+    },
+    {
+      "id": "km_anuales",
+      "type": "number",
+      "min": 5000,
+      "max": 100000,
+      "step": 1000,
+      "default": 30000,
+      "unit": "km/año"
+    }
+  ],
+  "formula": "var C=parseFloat(inputs.coste_eur)||0,Y=parseFloat(inputs.anos_vida_util)||7,Km=parseFloat(inputs.km_anuales)||30000;if(!C)return{error:true};var residual=+(C*0.10).toFixed(0),anual=+((C-residual)/Y).toFixed(2),mensual=+(anual/12).toFixed(2),coste_km=+(anual/Km).toFixed(4);return{amort_anual_eur:anual,amort_mensual_eur:mensual,coste_km_eur:coste_km};",
+  "outputs": [
+    {
+      "id": "amort_anual_eur",
+      "unit": "â‚¬/año",
+      "highlight": true
+    },
+    {
+      "id": "amort_mensual_eur",
+      "unit": "â‚¬/mes"
+    },
+    {
+      "id": "coste_km_eur",
+      "unit": "â‚¬/km"
+    }
+  ],
+  "related": [
+    "080",
+    "082",
+    "079",
+    "078"
+  ],
+  "example_inputs": {
+    "coste_eur": 25000,
+    "anos_vida_util": 7,
+    "km_anuales": 30000
+  },
+  "example_label": "Calcular amortización de furgoneta de 25000 € con 30000 km/año durante 7 años.",
+  "range_hints": {
+    "coste_eur": "Precio de compra del vehículo incluyendo impuestos de matriculación (€)",
+    "anos_vida_util": "Años de uso previsto antes de sustituir el vehículo (entre 3 y 15 años)",
+    "km_anuales": "Kilómetros recorridos al año para desplazamientos a obra y gestión (km/año)"
+  },
+  "result_context": "Resultados: amortización anual de {amort_anual_eur} €/año, amortización mensual de {amort_mensual_eur} €/mes, coste de {coste_km_eur} €/km.",
+  "formula_display": "Amort. anual = (coste − residual) ÷ años. Coste/km = cuota_anual ÷ km_anuales",
+  "steps": [
+    "Determina el precio de adquisición del vehículo (incluye impuesto de matriculación si aplica)",
+    "Estima el valor residual a los X años (10% del valor de compra es un estándar conservador)",
+    "Define la vida útil: 5-8 años para furgonetas de obra, 4-6 años para turismos comerciales",
+    "Aplica amortización lineal: (coste − residual) ÷ años = cuota anual",
+    "Divide la cuota anual entre los kilómetros recorridos al año para obtener el coste por km",
+    "Suma el coste/km de amortización al coste/km de combustible para el coste total por desplazamiento"
+  ],
+  "mistakes": [
+    "Usar la misma vida útil para un vehículo de obra (más desgaste) que para uno de carretera",
+    "Olvidar que Hacienda tiene tablas específicas de amortización para vehículos (16% anual = 6.25 años)",
+    "No considerar que un vehículo con más km anuales se deprecia más rápido en valor de mercado",
+    "Confundir amortización fiscal (deducible) con depreciación real de mercado",
+    "No incluir el coste de amortización al calcular presupuestos de desplazamiento a obra"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "coste_eur",
+      "reason": "Tipo correcto: numérico en € para el precio de adquisición del vehículo."
+    },
+    {
+      "field_id": "anos_vida_util",
+      "reason": "Tipo correcto: numérico entero para años de uso previstos."
+    },
+    {
+      "field_id": "km_anuales",
+      "reason": "Tipo correcto: numérico entero para kilómetros anuales estimados."
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Turismo comercial (bajo kilometraje)",
+      "coste_eur": 18000,
+      "anos_vida_util": 5,
+      "km_anuales": 15000
+    },
+    {
+      "_label": "Furgoneta pequeña (estándar)",
+      "coste_eur": 25000,
+      "anos_vida_util": 7,
+      "km_anuales": 25000
+    },
+    {
+      "_label": "Furgón grande de obra",
+      "coste_eur": 35000,
+      "anos_vida_util": 8,
+      "km_anuales": 35000
+    },
+    {
+      "_label": "Camión ligero (3.5t)",
+      "coste_eur": 45000,
+      "anos_vida_util": 10,
+      "km_anuales": 40000
+    },
+    {
+      "_label": "Pick-up todoterreno obra",
+      "coste_eur": 32000,
+      "anos_vida_util": 6,
+      "km_anuales": 30000
+    }
+  ],
+  "units": {
+    "coste_eur": "USD"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Amortización de Vehículo",
+      "desc": "Calcula la amortización de la furgoneta de trabajo.",
+      "seo_title": "Calculadora Amortización Vehículo – Obra y Transporte",
+      "seo_desc": "Calcula la amortización de tu furgoneta o vehículo de obra: cuota anual, mensual y coste por km. Introduce precio, vida útil y km anuales. Gratis.",
+      "inputs": {
+        "coste_eur": "Coste vehículo",
+        "anos_vida_util": "Años de vida útil",
+        "km_anuales": "Km anuales recorridos"
+      },
+      "outputs": {
+        "amort_anual_eur": "Amortización anual",
+        "amort_mensual_eur": "Amortización mensual",
+        "coste_km_eur": "Coste por km"
+      },
+      "seo_description": "Calcula la amortización fiscal y real de vehículos de construcción. Incluye coste por kilómetro para imputar a presupuestos de desplazamiento a obra.",
+      "example_label": "Calcular amortización de furgoneta de 25000 € con 30000 km/año durante 7 años.",
+      "range_hints": {
+        "coste_eur": "Valor entre 5000 y 100000 €.",
+        "anos_vida_util": "Valor entre 3 y 15 años.",
+        "km_anuales": "Valor entre 5000 y 100000 km/año."
+      },
+      "result_context": "Resultados: amortización anual de {amort_anual_eur} €/año, amortización mensual de {amort_mensual_eur} €/mes, coste de {coste_km_eur} €/km.",
+      "formula_display": "Amort. anual = (coste − residual) ÷ años. Coste/km = cuota_anual ÷ km_anuales",
+      "steps": [
+        "Determina el precio de adquisición del vehículo (incluye impuesto de matriculación si aplica)",
+        "Estima el valor residual a los X años (10% del valor de compra es un estándar conservador)",
+        "Define la vida útil: 5-8 años para furgonetas de obra, 4-6 años para turismos comerciales",
+        "Aplica amortización lineal: (coste − residual) ÷ años = cuota anual",
+        "Divide la cuota anual entre los kilómetros recorridos al año para obtener el coste por km",
+        "Suma el coste/km de amortización al coste/km de combustible para el coste total por desplazamiento"
+      ],
+      "mistakes": [
+        "Usar la misma vida útil para un vehículo de obra (más desgaste) que para uno de carretera",
+        "Olvidar que Hacienda tiene tablas específicas de amortización para vehículos (16% anual = 6.25 años)",
+        "No considerar que un vehículo con más km anuales se deprecia más rápido en valor de mercado",
+        "Confundir amortización fiscal (deducible) con depreciación real de mercado",
+        "No incluir el coste de amortización al calcular presupuestos de desplazamiento a obra"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "coste_eur",
+          "reason": "Tipo correcto: numérico en € para el precio de adquisición del vehículo."
+        },
+        {
+          "field_id": "anos_vida_util",
+          "reason": "Tipo correcto: numérico entero para años de uso previstos."
+        },
+        {
+          "field_id": "km_anuales",
+          "reason": "Tipo correcto: numérico entero para kilómetros anuales estimados."
+        }
+      ]
+    },
+    "en": {
+      "name": "Vehicle Amortisation Calculator",
+      "desc": "Vehicle Amortisation Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Vehicle Depreciation Calculator – Construction & Transport",
+      "seo_desc": "Calculate depreciation of your work van or vehicle: annual and monthly cost, plus cost per km. Enter price, useful life, and annual km. Free.",
+      "inputs": {
+        "coste_eur": "Vehicle cost",
+        "anos_vida_util": "Useful life (years)",
+        "km_anuales": "Annual km"
+      },
+      "outputs": {
+        "amort_anual_eur": "Annual depreciation",
+        "amort_mensual_eur": "Monthly depreciation",
+        "coste_km_eur": "Cost per km"
+      },
+      "seo_description": "Calculate tax and actual depreciation for construction vehicles. Includes cost per kilometer to allocate to project travel budgets.",
+      "example_label": "Calcular amortización de furgoneta de 25000 € con 30000 km/año durante 7 años.",
+      "range_hints": {
+        "coste_eur": "Valor entre 5000 y 100000 â‚¬.",
+        "anos_vida_util": "Valor entre 3 y 15 años.",
+        "km_anuales": "Valor entre 5000 y 100000 km/año."
+      },
+      "result_context": "Resultados: amortización anual de {amort_anual_eur} €/año, amortización mensual de {amort_mensual_eur} €/mes, coste de {coste_km_eur} €/km.",
+      "formula_display": "Amort. anual = (coste − residual) ÷ años. Coste/km = cuota_anual ÷ km_anuales",
+      "steps": [
+        "Determina el precio de adquisición del vehículo (incluye impuesto de matriculación si aplica)",
+        "Estima el valor residual a los X años (10% del valor de compra es un estándar conservador)",
+        "Define la vida útil: 5-8 años para furgonetas de obra, 4-6 años para turismos comerciales",
+        "Aplica amortización lineal: (coste − residual) ÷ años = cuota anual",
+        "Divide la cuota anual entre los kilómetros recorridos al año para obtener el coste por km",
+        "Suma el coste/km de amortización al coste/km de combustible para el coste total por desplazamiento"
+      ],
+      "mistakes": [
+        "Usar la misma vida útil para un vehículo de obra (más desgaste) que para uno de carretera",
+        "Olvidar que Hacienda tiene tablas específicas de amortización para vehículos (16% anual = 6.25 años)",
+        "No considerar que un vehículo con más km anuales se deprecia más rápido en valor de mercado",
+        "Confundir amortización fiscal (deducible) con depreciación real de mercado",
+        "No incluir el coste de amortización al calcular presupuestos de desplazamiento a obra"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "coste_eur",
+          "reason": "Tipo correcto: numérico en € para el precio de adquisición del vehículo."
+        },
+        {
+          "field_id": "anos_vida_util",
+          "reason": "Tipo correcto: numérico entero para años de uso previstos."
+        },
+        {
+          "field_id": "km_anuales",
+          "reason": "Tipo correcto: numérico entero para kilómetros anuales estimados."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Amortissement Véhicule",
+      "desc": "Calculez l'amortissement annuel, mensuel et au kilomètre du véhicule utilitaire Utilise par des professionnels et etudiants dans le monde entier.",
+      "seo_title": "Calculateur Amortissement Véhicule – Chantier et Transport",
+      "seo_desc": "Calculez l'amortissement de votre fourgonnette ou véhicule de chantier : coût annuel, mensuel et par km. Entrez prix, durée de vie et km annuels. Gratuit.",
+      "inputs": {
+        "coste_eur": "Coût véhicule",
+        "anos_vida_util": "Durée de vie (ans)",
+        "km_anuales": "Km annuels"
+      },
+      "outputs": {
+        "amort_anual_eur": "Amortissement annuel",
+        "amort_mensual_eur": "Amortissement mensuel",
+        "coste_km_eur": "Coût par km"
+      },
+      "seo_description": "Calculez l'amortissement annuel, mensuel et au kilomètre du véhicule utilitaire Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calcular amortización de furgoneta de 25000 € con 30000 km/año durante 7 años.",
+      "range_hints": {
+        "coste_eur": "Valor entre 5000 et 100000 €.",
+        "anos_vida_util": "Valor entre 3 et 15 años.",
+        "km_anuales": "Valor entre 5000 et 100000 km/año."
+      },
+      "result_context": "Resultados: amortización anual de {amort_anual_eur} €/año, amortización mensual de {amort_mensual_eur} €/mes, coste de {coste_km_eur} €/km.",
+      "formula_display": "Amort. anual = (coste − residual) ÷ años. Coste/km = cuota_anual ÷ km_anuales",
+      "steps": [
+        "Determina el precio de adquisición del vehículo (incluye impuesto de matriculación si aplica)",
+        "Estima el valor residual a los X años (10% del valor de compra es un estándar conservador)",
+        "Define la vida útil: 5-8 años para furgonetas de obra, 4-6 años para turismos comerciales",
+        "Aplica amortización lineal: (coste − residual) ÷ años = cuota anual",
+        "Divide la cuota anual entre los kilómetros recorridos al año para obtener el coste por km",
+        "Suma el coste/km de amortización al coste/km de combustible para el coste total por desplazamiento"
+      ],
+      "mistakes": [
+        "Usar la misma vida útil para un vehículo de obra (más desgaste) que para uno de carretera",
+        "Olvidar que Hacienda tiene tablas específicas de amortización para vehículos (16% anual = 6.25 años)",
+        "No considerar que un vehículo con más km anuales se deprecia más rápido en valor de mercado",
+        "Confundir amortización fiscal (deducible) con depreciación real de mercado",
+        "No incluir el coste de amortización al calcular presupuestos de desplazamiento a obra"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "coste_eur",
+          "reason": "Tipo correcto: numérico en € para el precio de adquisición del vehículo."
+        },
+        {
+          "field_id": "anos_vida_util",
+          "reason": "Tipo correcto: numérico entero para años de uso previstos."
+        },
+        {
+          "field_id": "km_anuales",
+          "reason": "Tipo correcto: numérico entero para kilómetros anuales estimados."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Depreciação de Veículo",
+      "desc": "Calcule a depreciação anual, mensal e por quilômetro do veículo de trabalho Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora Depreciação Veículo",
+      "inputs": {
+        "coste_eur": "Custo do veículo",
+        "anos_vida_util": "Anos de vida útil",
+        "km_anuales": "Km anuais"
+      },
+      "outputs": {
+        "amort_anual_eur": "Depreciação anual",
+        "amort_mensual_eur": "Depreciação mensal",
+        "coste_km_eur": "Custo por km"
+      },
+      "seo_description": "Calcule a depreciação anual, mensal e por quilômetro do veículo de trabalho Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular amortización de furgoneta de 25000 € con 30000 km/año durante 7 años.",
+      "range_hints": {
+        "coste_eur": "Valor entre 5000 e 100000 €.",
+        "anos_vida_util": "Valor entre 3 e 15 años.",
+        "km_anuales": "Valor entre 5000 e 100000 km/año."
+      },
+      "result_context": "Resultados: amortización anual de {amort_anual_eur} €/año, amortización mensual de {amort_mensual_eur} €/mes, coste de {coste_km_eur} €/km.",
+      "formula_display": "Amort. anual = (coste − residual) ÷ años. Coste/km = cuota_anual ÷ km_anuales",
+      "steps": [
+        "Determina el precio de adquisición del vehículo (incluye impuesto de matriculación si aplica)",
+        "Estima el valor residual a los X años (10% del valor de compra es un estándar conservador)",
+        "Define la vida útil: 5-8 años para furgonetas de obra, 4-6 años para turismos comerciales",
+        "Aplica amortización lineal: (coste − residual) ÷ años = cuota anual",
+        "Divide la cuota anual entre los kilómetros recorridos al año para obtener el coste por km",
+        "Suma el coste/km de amortización al coste/km de combustible para el coste total por desplazamiento"
+      ],
+      "mistakes": [
+        "Usar la misma vida útil para un vehículo de obra (más desgaste) que para uno de carretera",
+        "Olvidar que Hacienda tiene tablas específicas de amortización para vehículos (16% anual = 6.25 años)",
+        "No considerar que un vehículo con más km anuales se deprecia más rápido en valor de mercado",
+        "Confundir amortización fiscal (deducible) con depreciación real de mercado",
+        "No incluir el coste de amortización al calcular presupuestos de desplazamiento a obra"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "coste_eur",
+          "reason": "Tipo correcto: numérico en € para el precio de adquisición del vehículo."
+        },
+        {
+          "field_id": "anos_vida_util",
+          "reason": "Tipo correcto: numérico entero para años de uso previstos."
+        },
+        {
+          "field_id": "km_anuales",
+          "reason": "Tipo correcto: numérico entero para kilómetros anuales estimados."
+        }
+      ]
+    },
+    "de": {
+      "name": "Abschreibung Fahrzeug",
+      "desc": "Berechnen Sie abschreibung Fahrzeug online. Geben Sie coste eur, anos vida util, km anuales ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Abschreibung Fahrzeug | CalcToWork",
+      "seo_desc": "Abschreibung Fahrzeug online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Abschreibung Fahrzeug online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "coste_eur": "Coste Eur",
+        "anos_vida_util": "Anos Vida Util",
+        "km_anuales": "Km Anuales"
+      },
+      "outputs": {
+        "amort_anual_eur": "Amort Anual Eur",
+        "amort_mensual_eur": "Amort Mensual Eur",
+        "coste_km_eur": "Coste Km Eur"
+      },
+      "example_label": "Calcular amortización de furgoneta de 25000 € con 30000 km/año durante 7 años.",
+      "range_hints": {
+        "coste_eur": "Precio de compra del vehículo incluyendo impuestos de matriculación (€)",
+        "anos_vida_util": "Años de uso previsto antes de sustituir el vehículo (entre 3 y 15 años)",
+        "km_anuales": "Kilómetros recorridos al año para desplazamientos a obra y gestión (km/año)"
+      },
+      "result_context": "Resultados: amortización anual de {amort_anual_eur} €/año, amortización mensual de {amort_mensual_eur} €/mes, coste de {coste_km_eur} €/km.",
+      "formula_display": "Amort. anual = (coste − residual) ÷ años. Coste/km = cuota_anual ÷ km_anuales",
+      "steps": [
+        "Determina el precio de adquisición del vehículo (incluye impuesto de matriculación si aplica)",
+        "Estima el valor residual a los X años (10% del valor de compra es un estándar conservador)",
+        "Define la vida útil: 5-8 años para furgonetas de obra, 4-6 años para turismos comerciales",
+        "Aplica amortización lineal: (coste − residual) ÷ años = cuota anual",
+        "Divide la cuota anual entre los kilómetros recorridos al año para obtener el coste por km",
+        "Suma el coste/km de amortización al coste/km de combustible para el coste total por desplazamiento"
+      ],
+      "mistakes": [
+        "Usar la misma vida útil para un vehículo de obra (más desgaste) que para uno de carretera",
+        "Olvidar que Hacienda tiene tablas específicas de amortización para vehículos (16% anual = 6.25 años)",
+        "No considerar que un vehículo con más km anuales se deprecia más rápido en valor de mercado",
+        "Confundir amortización fiscal (deducible) con depreciación real de mercado",
+        "No incluir el coste de amortización al calcular presupuestos de desplazamiento a obra"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "coste_eur",
+          "reason": "Tipo correcto: numérico en € para el precio de adquisición del vehículo."
+        },
+        {
+          "field_id": "anos_vida_util",
+          "reason": "Tipo correcto: numérico entero para años de uso previstos."
+        },
+        {
+          "field_id": "km_anuales",
+          "reason": "Tipo correcto: numérico entero para kilómetros anuales estimados."
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Noleggio Macchinari",
+      "description": "Calcola il costo di noleggio macchinari per un cantiere.",
+      "seo_title": "Calcolatore Ammortamento Veicolo",
+      "seo_description": "Stima il costo di noleggio escavatori, gru e altri macchinari Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo.",
+      "inputs": {
+        "costo_dia": "Costo giornaliero (€/d)",
+        "dias": "Giorni",
+        "num_maquinas": "Numero macchine",
+        "coste_eur": "coste eur (â‚¬)",
+        "anos_vida_util": "anos vida util (años)",
+        "km_anuales": "km anuales (km/año)"
+      },
+      "outputs": {
+        "costo_total": "Costo totale (€)",
+        "amort_anual_eur": "amort anual eur (â‚¬/año)",
+        "amort_mensual_eur": "amort mensual eur (â‚¬/mes)",
+        "coste_km_eur": "coste km eur (â‚¬/km)"
+      },
+      "example_label": "Calcular amortización de furgoneta de 25000 € con 30000 km/año durante 7 años.",
+      "range_hints": {
+        "coste_eur": "Valor intre 5000 e 100000 €.",
+        "anos_vida_util": "Valor intre 3 e 15 años.",
+        "km_anuales": "Valor intre 5000 e 100000 km/año."
+      },
+      "result_context": "Resultados: amortización anual de {amort_anual_eur} €/año, amortización mensual de {amort_mensual_eur} €/mes, coste de {coste_km_eur} €/km.",
+      "formula_display": "Amort. anual = (coste − residual) ÷ años. Coste/km = cuota_anual ÷ km_anuales",
+      "steps": [
+        "Determina el precio de adquisición del vehículo (incluye impuesto de matriculación si aplica)",
+        "Estima el valor residual a los X años (10% del valor de compra es un estándar conservador)",
+        "Define la vida útil: 5-8 años para furgonetas de obra, 4-6 años para turismos comerciales",
+        "Aplica amortización lineal: (coste − residual) ÷ años = cuota anual",
+        "Divide la cuota anual entre los kilómetros recorridos al año para obtener el coste por km",
+        "Suma el coste/km de amortización al coste/km de combustible para el coste total por desplazamiento"
+      ],
+      "mistakes": [
+        "Usar la misma vida útil para un vehículo de obra (más desgaste) que para uno de carretera",
+        "Olvidar que Hacienda tiene tablas específicas de amortización para vehículos (16% anual = 6.25 años)",
+        "No considerar que un vehículo con más km anuales se deprecia más rápido en valor de mercado",
+        "Confundir amortización fiscal (deducible) con depreciación real de mercado",
+        "No incluir el coste de amortización al calcular presupuestos de desplazamiento a obra"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "coste_eur",
+          "reason": "Tipo correcto: numérico en € para el precio de adquisición del vehículo."
+        },
+        {
+          "field_id": "anos_vida_util",
+          "reason": "Tipo correcto: numérico entero para años de uso previstos."
+        },
+        {
+          "field_id": "km_anuales",
+          "reason": "Tipo correcto: numérico entero para kilómetros anuales estimados."
+        }
+      ],
+      "desc": "Calcola l'ammortamento annuale del tuo veicolo da cantiere e il costo al chilometro."
+    }
+  }
+}

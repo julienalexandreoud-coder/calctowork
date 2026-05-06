@@ -1,0 +1,484 @@
+{
+  "id": "064",
+  "slug": "escalera-madera",
+  "block": 7,
+  "block_slug": "carpinteria",
+  "inputs": [
+    {
+      "id": "altura_total_m",
+      "type": "number",
+      "min": 0.5,
+      "max": 10,
+      "step": 0.05,
+      "default": 2.8,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "ancho_m",
+      "type": "number",
+      "min": 0.6,
+      "max": 2,
+      "step": 0.05,
+      "default": 0.9,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "contrahuella_cm",
+      "type": "number",
+      "min": 16,
+      "max": 22,
+      "step": 0.5,
+      "default": 18,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in",
+        "ft"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var H=parseFloat(inputs.altura_total_m)||0,W=parseFloat(inputs.ancho_m)||0.9,ch=parseFloat(inputs.contrahuella_cm)||18;if(!H)return{error:true};var peldanos=Math.ceil(H*100/ch),huella=+(63-ch).toFixed(0),zanca=+(Math.sqrt(H*H+Math.pow(peldanos*huella/100,2))).toFixed(2),m2_peldano=+(W*(huella/100)).toFixed(3),m2_total=+(m2_peldano*peldanos).toFixed(2),contrah_final=+(H*100/peldanos).toFixed(1),cabezada=+(H-2.1>0).toFixed(0);return{num_peldanos:peldanos,huella_cm:huella,contrahuella_real_cm:contrah_final,zanca_ml:zanca,m2_peldano:m2_peldano,m2_total_tablas:m2_total,altura_libre_ok:cabezada};",
+  "outputs": [
+    {
+      "id": "num_peldanos",
+      "unit": "peldaños",
+      "highlight": true
+    },
+    {
+      "id": "huella_cm",
+      "unit": "cm huella"
+    },
+    {
+      "id": "contrahuella_real_cm",
+      "unit": "cm contrahuella real"
+    },
+    {
+      "id": "zanca_ml",
+      "unit": "m.l. zanca"
+    },
+    {
+      "id": "m2_peldano",
+      "unit": "m²/peldaño"
+    },
+    {
+      "id": "m2_total_tablas",
+      "unit": "m² madera total"
+    },
+    {
+      "id": "altura_libre_ok",
+      "unit": "altura libre > 2,10 m"
+    }
+  ],
+  "related": [
+    "065",
+    "066",
+    "062",
+    "061"
+  ],
+  "example_inputs": {
+    "altura_total_m": 2.8,
+    "ancho_m": 0.9,
+    "contrahuella_cm": 18
+  },
+  "example_label": "Dimensionar escalera de madera para salvar 2,80 m de altura con contrahuella de 18 cm.",
+  "range_hints": {
+    "altura_total_m": "Altura de suelo a suelo terminado (floor-to-floor).",
+    "ancho_m": "Ancho útil de la escalera (mínimo 80 cm en vivienda).",
+    "contrahuella_cm": "Altura de contrahuella deseada (ideal 17–18 cm, máximo 20 cm por CTE)."
+  },
+  "result_context": "{num_peldanos} peldaños de {contrahuella_real_cm} cm contrahuella y {huella_cm} cm huella. Zanca: {zanca_ml} m.l. Madera: {m2_total_tablas} m².",
+  "formula_display": "2×contrahuella + huella = 63 cm (fórmula de comodidad). Peldaños = altura ÷ contrahuella.",
+  "steps": [
+    "Medir la altura exacta de suelo a suelo terminado (incluyendo pavimentos de ambas plantas).",
+    "Definir contrahuella objetivo entre 17 y 18 cm; dividir altura total entre contrahuella para obtener número de peldaños.",
+    "Aplicar fórmula de comodidad: 2 × contrahuella + huella = 63 cm para calcular la profundidad de huella (27–30 cm).",
+    "Verificar que la altura libre (headroom) en el punto más bajo de la escalera supera los 2,10 m.",
+    "Calcular longitud de zanca con Pitágoras: √(altura² + desarrollo²) y presupuestar madera para huellas y contrahuellas."
+  ],
+  "mistakes": [
+    "No repartir la altura uniformemente: la diferencia máxima entre contrahuellas consecutivas debe ser < 1 cm.",
+    "Altura libre inferior a 2,10 m en el punto más bajo de la escalera; riesgo de golpe en la cabeza.",
+    "No considerar el espesor del pavimento de ambas plantas al medir la altura total a salvar."
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Planta baja-buhardilla (2,50 m)",
+      "altura_total_m": 2.5,
+      "ancho_m": 0.8,
+      "contrahuella_cm": 17
+    },
+    {
+      "_label": "Vivienda estándar (2,80 m)",
+      "altura_total_m": 2.8,
+      "ancho_m": 0.9,
+      "contrahuella_cm": 18
+    },
+    {
+      "_label": "Doble altura (3,20 m)",
+      "altura_total_m": 3.2,
+      "ancho_m": 1,
+      "contrahuella_cm": 18
+    },
+    {
+      "_label": "Local comercial (3,60 m)",
+      "altura_total_m": 3.6,
+      "ancho_m": 1.2,
+      "contrahuella_cm": 19
+    },
+    {
+      "_label": "Gran altura (4,50 m)",
+      "altura_total_m": 4.5,
+      "ancho_m": 1,
+      "contrahuella_cm": 20
+    }
+  ],
+  "units": {
+    "altura_total_m": "m",
+    "ancho_m": "m",
+    "contrahuella_cm": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Escalera de Madera",
+      "desc": "Calcula peldaños, huellas y zancas para escaleras.",
+      "seo_title": "Calculadora Escalera de Madera",
+      "inputs": {
+        "altura_total_m": "Altura total a salvar",
+        "ancho_m": "Ancho de escalera",
+        "contrahuella_cm": "Contrahuella deseada"
+      },
+      "outputs": {
+        "num_peldanos": "Número de peldaños",
+        "huella_cm": "Huella (cm)",
+        "zanca_ml": "Longitud de zanca",
+        "m2_peldano": "m² por peldaño",
+        "m2_total_tablas": "m² de madera total"
+      },
+      "seo_description": "Calcula el número de peldaños, la medida de huella y contrahuella y la longitud de zanca para escaleras de madera. Introduce tus valores y obtiene.",
+      "example_label": "Calcular materiales para escalera madera con 3 m de ejemplo.",
+      "range_hints": {
+        "altura_total_m": "Valor entre 0.5 y 10 m.",
+        "ancho_m": "Valor entre 0.6 y 2 m.",
+        "contrahuella_cm": "Valor entre 16 y 22 cm."
+      },
+      "result_context": "El resultado {num_peldanos} peldaños representa el material necesario. Verifica medidas antes de cortar.",
+      "formula_display": "Peldaños = Altura total ÷ Contrahuella",
+      "steps": [
+        "Introduce altura total m: 3 m",
+        "Introduce ancho m: 5 m",
+        "Introduce contrahuella cm: 18 cm",
+        "Pulsa calcular para obtener resultados",
+        "Interpreta resultado: {num_peldanos}"
+      ],
+      "mistakes": [
+        "Medir hueco en lugar de elemento fabricado",
+        "No considerar tolerancias de montaje",
+        "Olvidar herrajes y accesorios en presupuesto"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "altura_total_m",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "ancho_m",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "contrahuella_cm",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        }
+      ]
+    },
+    "en": {
+      "name": "Wooden Staircase Calculator",
+      "desc": "Wooden Staircase Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Wooden Stair Calculator – Treads & Risers",
+      "inputs": {
+        "altura_total_m": "Total rise height",
+        "ancho_m": "Stair width",
+        "contrahuella_cm": "Desired riser height"
+      },
+      "outputs": {
+        "num_peldanos": "Number of steps",
+        "huella_cm": "Going (cm)",
+        "zanca_ml": "Stringer length",
+        "m2_peldano": "m² per tread",
+        "m2_total_tablas": "Total timber area"
+      },
+      "seo_description": "Wooden Staircase Calculator. Total rise height, Stair width, Desired riser height — get Number of steps, Going (cm), Stringer length instantly for your.",
+      "example_label": "Calcular materiales para escalera madera con 3 m de ejemplo.",
+      "range_hints": {
+        "altura_total_m": "Valor entre 0.5 y 10 m.",
+        "ancho_m": "Valor entre 0.6 y 2 m.",
+        "contrahuella_cm": "Valor entre 16 y 22 cm."
+      },
+      "result_context": "El resultado {num_peldanos} peldaños representa el material necesario. Verifica medidas antes de cortar.",
+      "formula_display": "Peldaños = Altura total ÷ Contrahuella",
+      "steps": [
+        "Introduce altura total m: 3 m",
+        "Introduce ancho m: 5 m",
+        "Introduce contrahuella cm: 18 cm",
+        "Pulsa calcular para obtener resultados",
+        "Interpreta resultado: {num_peldanos}"
+      ],
+      "mistakes": [
+        "Medir hueco en lugar de elemento fabricado",
+        "No considerar tolerancias de montaje",
+        "Olvidar herrajes y accesorios en presupuesto"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "altura_total_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "ancho_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "contrahuella_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Escalier Bois",
+      "desc": "Calculez marches, girons et limons pour escaliers.",
+      "seo_title": "Calculateur Escalier Bois – Calcul Facile",
+      "inputs": {
+        "altura_total_m": "Hauteur totale à gravir",
+        "ancho_m": "Largeur escalier",
+        "contrahuella_cm": "Hauteur contremarche souhaitée"
+      },
+      "outputs": {
+        "num_peldanos": "Nombre de marches",
+        "huella_cm": "Giron (cm)",
+        "zanca_ml": "Longueur limon",
+        "m2_peldano": "m² par marche",
+        "m2_total_tablas": "m² bois total"
+      },
+      "seo_description": "Calculez le nombre de marches, giron, contremarche et longueur de limon pour escaliers en bois Utilise par des professionnels et etudiants dans le monde.",
+      "example_label": "Calculer les matériaux pour escalier bois avec 3 m de ejemplo.",
+      "range_hints": {
+        "altura_total_m": "Valor entre 0.5 et 10 m.",
+        "ancho_m": "Valor entre 0.6 et 2 m.",
+        "contrahuella_cm": "Valor entre 16 et 22 cm."
+      },
+      "result_context": "le resultado {num_peldanos} marches representa le material nécessaire. Verifica medidas antes de cortar.",
+      "formula_display": "marches = hauteur total Á· Contrahuella",
+      "steps": [
+        "Introduce hauteur total m: 3 m",
+        "Introduce largeur m: 5 m",
+        "Introduce contrahuella cm: 18 cm",
+        "Pulsa Calculer pour obtener resultados",
+        "Interpreta resultado: {num_peldanos}"
+      ],
+      "mistakes": [
+        "Medir hueco dans lugar de elemento fabricado",
+        "Ne pas considérer tolerancias de montaje",
+        "Oublier herrajes et accesorios dans presupuesto"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "altura_total_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        },
+        {
+          "field_id": "ancho_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        },
+        {
+          "field_id": "contrahuella_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Escada de Madeira",
+      "desc": "Calcule degraus, espelhos e longarinas para escadas.",
+      "seo_title": "Calculadora de Escada de Madeira",
+      "inputs": {
+        "altura_total_m": "Altura total a vencer",
+        "ancho_m": "Largura da escada",
+        "contrahuella_cm": "Altura do espelho desejada"
+      },
+      "outputs": {
+        "num_peldanos": "Número de degraus",
+        "huella_cm": "Piso (cm)",
+        "zanca_ml": "Comprimento longarina",
+        "m2_peldano": "m² por degrau",
+        "m2_total_tablas": "m² madeira total"
+      },
+      "seo_description": "Calcule o número de degraus, piso, espelho e comprimento da longarina para escadas de madeira Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular materiais para escada madeira com 3 m de ejemplo.",
+      "range_hints": {
+        "altura_total_m": "Valor entre 0.5 e 10 m.",
+        "ancho_m": "Valor entre 0.6 e 2 m.",
+        "contrahuella_cm": "Valor entre 16 e 22 cm."
+      },
+      "result_context": "El resultado {num_peldanos} degraus representa o material necesario. Verifica medidas antes de cortar.",
+      "formula_display": "Peldaños = Altura total ÷ Contrahuella",
+      "steps": [
+        "Introduce altura total m: 3 m",
+        "Introduce largura m: 5 m",
+        "Introduce contrahuella cm: 18 cm",
+        "Pulsa calcular para obter resultados",
+        "Interpreta resultado: {num_peldanos}"
+      ],
+      "mistakes": [
+        "Medir hueco em lugar de elemento fabricado",
+        "Não considerar tolerancias de montagem",
+        "Esquecer herrajes e accesorios em presupuesto"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "altura_total_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        },
+        {
+          "field_id": "ancho_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        },
+        {
+          "field_id": "contrahuella_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        }
+      ]
+    },
+    "de": {
+      "name": "Holztreppe Massivholz",
+      "desc": "Berechnen Sie holztreppe Massivholz online. Geben Sie altura total m, ancho m, contrahuella cm ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Holztreppe Massivholz | CalcToWork",
+      "seo_desc": "Holztreppe Massivholz online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Holztreppe Massivholz online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "altura_total_m": "Altura Total M",
+        "ancho_m": "Ancho M",
+        "contrahuella_cm": "Contrahuella Cm"
+      },
+      "outputs": {
+        "num_peldanos": "Num Peldanos",
+        "huella_cm": "Huella Cm",
+        "contrahuella_real_cm": "Contrahuella Real Cm",
+        "zanca_ml": "Zanca Ml",
+        "m2_peldano": "M2 Peldano",
+        "m2_total_tablas": "M2 Total Tablas",
+        "altura_libre_ok": "Altura Libre Ok"
+      },
+      "example_label": "Dimensionar escalera de madera para salvar 2,80 m de altura con contrahuella de 18 cm.",
+      "range_hints": {
+        "altura_total_m": "Altura de suelo a suelo terminado (floor-to-floor).",
+        "ancho_m": "Ancho útil de la escalera (mínimo 80 cm en vivienda).",
+        "contrahuella_cm": "Altura de contrahuella deseada (ideal 17–18 cm, máximo 20 cm por CTE)."
+      },
+      "result_context": "{num_peldanos} peldaños de {contrahuella_real_cm} cm contrahuella y {huella_cm} cm huella. Zanca: {zanca_ml} m.l. Madera: {m2_total_tablas} m².",
+      "formula_display": "2×contrahuella + huella = 63 cm (fórmula de comodidad). Peldaños = altura ÷ contrahuella.",
+      "steps": [
+        "Medir la altura exacta de suelo a suelo terminado (incluyendo pavimentos de ambas plantas).",
+        "Definir contrahuella objetivo entre 17 y 18 cm; dividir altura total entre contrahuella para obtener número de peldaños.",
+        "Aplicar fórmula de comodidad: 2 × contrahuella + huella = 63 cm para calcular la profundidad de huella (27–30 cm).",
+        "Verificar que la altura libre (headroom) en el punto más bajo de la escalera supera los 2,10 m.",
+        "Calcular longitud de zanca con Pitágoras: √(altura² + desarrollo²) y presupuestar madera para huellas y contrahuellas."
+      ],
+      "mistakes": [
+        "No repartir la altura uniformemente: la diferencia máxima entre contrahuellas consecutivas debe ser < 1 cm.",
+        "Altura libre inferior a 2,10 m en el punto más bajo de la escalera; riesgo de golpe en la cabeza.",
+        "No considerar el espesor del pavimento de ambas plantas al medir la altura total a salvar."
+      ],
+      "input_type_review": []
+    },
+    "it": {
+      "name": "Calcolatore Porte e Telai",
+      "description": "Stima i materiali per la posa di porte e telai.",
+      "seo_title": "Calcolatore Porte e Telai – Calcolo Facile",
+      "seo_description": "Calcola il legname e le guarnizioni per porte e telai Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo rapido,.",
+      "inputs": {
+        "num_puertas": "Numero porte",
+        "ancho": "Larghezza (m)",
+        "alto": "Altezza (m)"
+      },
+      "outputs": {
+        "ml_marco": "Telai (m)",
+        "area_puerta": "Superficie porte (m²)"
+      },
+      "example_label": "Calcolare opacoriales per escalera legnon con 3 m di ejemplo.",
+      "range_hints": {
+        "altura_total_m": "Valor intre 0.5 e 10 m.",
+        "ancho_m": "Valor intre 0.6 e 2 m.",
+        "contrahuella_cm": "Valor intre 16 e 22 cm."
+      },
+      "result_context": "El risultato {num_peldanons} peldaños representa el opacorial necessario. Verifica misure prima di cortar.",
+      "formula_display": "Peldaños = Altura totale ÷ Contrahuella",
+      "steps": [
+        "Introduce altezza totale m: 3 m",
+        "Introduce larghezza m: 5 m",
+        "Introduce contrahuella cm: 18 cm",
+        "Pulsa calcolare per obtiner risultati",
+        "Interpreta risultato: {num_peldanons}"
+      ],
+      "mistakes": [
+        "Medir hueco in lugar di eleminto fabricado",
+        "Non consedirare tolerancias di montaje",
+        "Diminticare herrajes e accesorios in presupuesto"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "altura_total_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        },
+        {
+          "field_id": "ancho_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        },
+        {
+          "field_id": "contrahuella_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        }
+      ]
+    }
+  }
+}

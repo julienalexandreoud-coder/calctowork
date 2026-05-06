@@ -1,0 +1,410 @@
+{
+  "id": "059",
+  "slug": "rejillas-difusores",
+  "block": 6,
+  "block_slug": "climatizacion",
+  "inputs": [
+    {
+      "id": "caudal_m3h",
+      "type": "number",
+      "min": 10,
+      "max": 5000,
+      "step": 10,
+      "default": 200,
+      "unit": "m³/h"
+    },
+    {
+      "id": "velocidad_cara_ms",
+      "type": "number",
+      "min": 1,
+      "max": 4,
+      "step": 0.1,
+      "default": 2,
+      "unit": "m/s",
+      "unit_options": [
+        "m/s",
+        "km/h",
+        "ft/s"
+      ],
+      "unit_category": "speed"
+    }
+  ],
+  "formula": "var Q=parseFloat(inputs.caudal_m3h)||0,v=parseFloat(inputs.velocidad_cara_ms)||2;if(!Q)return{error:true};var A_m2=Q/3600/v,lado_cm=+(Math.sqrt(A_m2)*100).toFixed(0),norm=lado_cm<=20?'20x20':lado_cm<=30?'30x30':lado_cm<=40?'40x40':'50x50',alcance_m=+(Math.sqrt(A_m2)*10).toFixed(1);return{area_libre_m2:+A_m2.toFixed(4),tamano_rejilla_cm:norm,alcance_m:alcance_m};",
+  "outputs": [
+    {
+      "id": "area_libre_m2",
+      "unit": "m² sección libre"
+    },
+    {
+      "id": "tamano_rejilla_cm",
+      "unit": "cm (normalizado)",
+      "highlight": true
+    },
+    {
+      "id": "alcance_m",
+      "unit": "m alcance chorro"
+    }
+  ],
+  "related": [
+    "054",
+    "058",
+    "055",
+    "053"
+  ],
+  "example_inputs": {
+    "caudal_m3h": 100,
+    "velocidad_cara_ms": 2
+  },
+  "example_label": "Ejemplo para rejillas difusores: valores 200m³/h, 2m/s",
+  "range_hints": {
+    "caudal_m3h": "Valor típico entre 10 y 5000. Valor por defecto: 200 m³/h.",
+    "velocidad_cara_ms": "Valor típico entre 1 y 4. Valor por defecto: 2 m/s."
+  },
+  "result_context": "Resultados: área libre de {area_libre_m2} m², tamaño de rejilla normalizado de {tamano_rejilla_cm} cm, alcance del chorro de {alcance_m} m.",
+  "formula_display": "Q ÷ 3600 → area_libre_m2, tamano_rejilla_cm",
+  "steps": [
+    "Introducir los valores de caudal_m3h y velocidad_cara_ms",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m/s, km/h, ft/s)",
+    "Calcular los valores de area libre m2 y tamano rejilla cm",
+    "El resultado se expresa en m² sección libre. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Sobredimensionar el equipo (provoca ciclos cortos que reducen la eficiencia)",
+    "No limpiar los filtros regularmente (reduce el caudal hasta un 30%)",
+    "Instalar la unidad exterior en un lugar sin ventilación adecuada"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "caudal_m3h",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "velocidad_cara_ms",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small room",
+      "caudal_m3h": 50,
+      "velocidad_cara_ms": 1
+    },
+    {
+      "_label": "Medium room",
+      "caudal_m3h": 80,
+      "velocidad_cara_ms": 1.5
+    },
+    {
+      "_label": "Large room",
+      "caudal_m3h": 100,
+      "velocidad_cara_ms": 2
+    },
+    {
+      "_label": "Office",
+      "caudal_m3h": 150,
+      "velocidad_cara_ms": 3
+    },
+    {
+      "_label": "Warehouse",
+      "caudal_m3h": 200,
+      "velocidad_cara_ms": 4
+    }
+  ],
+  "units": {
+    "velocidad_cara_ms": "m/s"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Rejillas y Difusores",
+      "desc": "Calcula el tamaño de rejillas y difusores de ventilación y climatización según el caudal de aire Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora de Rejillas y Difusores – HVAC",
+      "inputs": {
+        "caudal_m3h": "Caudal de aire (m³/h)",
+        "velocidad_cara_ms": "Velocidad de cara (m/s)"
+      },
+      "outputs": {
+        "area_libre_m2": "Área libre necesaria",
+        "tamano_rejilla_cm": "Rejilla normalizada",
+        "alcance_m": "Alcance del chorro"
+      },
+      "seo_description": "Dimensiona rejillas y difusores de aire acondicionado. Calcula el número necesario según el caudal de aire y tamaño de la habitación.",
+      "example_label": "Dimensionar rejilla de impulsión para 200 m³/h con velocidad de cara recomendada de 2 m/s.",
+      "range_hints": {
+        "caudal_m3h": "Caudal por rejilla. Residencial: 50-200 m³/h, Comercial: 200-1000 m³/h",
+        "velocidad_cara_ms": "Impulsión: 1-2.5 m/s, Retorno: 2-3 m/s. >2.5 m/s genera ruido perceptible"
+      },
+      "result_context": "Sección libre: {area_libre_m2} m². Rejilla normalizada: {tamano_rejilla_cm} cm. Alcance del chorro: {alcance_m} m.",
+      "formula_display": "A_libre = Q(m³/h) ÷ (3600 × v_cara(m/s))  |  Tamaño normalizado según catálogo comercial",
+      "steps": [
+        "Convertir caudal: 200 m³/h ÷ 3600 = 0.0556 m³/s",
+        "Calcular sección libre: 0.0556 ÷ 2.0 = 0.0278 m²",
+        "Determinar lado cuadrado: √(0.0278) × 100 = 16.7 cm",
+        "Normalizar a medidas comerciales: 20×20 cm",
+        "Estimar alcance del chorro: √(0.0278) × 10 = 1.7 m"
+      ],
+      "mistakes": [
+        "Velocidad de cara excesiva en impulsión — >2.5 m/s genera ruido y corrientes molestas",
+        "Confundir área libre con área total — el área libre es ~70-80% del área frontal",
+        "No considerar el alcance del chorro — en techos altos se necesitan difusores ajustables"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "caudal_m3h",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "velocidad_cara_ms",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        }
+      ]
+    },
+    "en": {
+      "name": "Grilles and Diffusers Calculator",
+      "desc": "Grilles and Diffusers Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Air Grille Calculator – Size & Airflow",
+      "inputs": {
+        "caudal_m3h": "Airflow (m³/h)",
+        "velocidad_cara_ms": "Face velocity (m/s)"
+      },
+      "outputs": {
+        "area_libre_m2": "Required free area",
+        "tamano_rejilla_cm": "Standard grille size",
+        "alcance_m": "Throw distance"
+      },
+      "seo_description": "Grilles and Diffusers Calculator. Airflow (m³/h), Face velocity (m/s) — get Required free area, Standard grille size, Throw distance instantly for your.",
+      "example_label": "Size supply grille for 200 m³/h with recommended face velocity of 2 m/s.",
+      "range_hints": {
+        "caudal_m3h": "Airflow per grille. Residential: 50-200 m³/h, Commercial: 200-1000 m³/h",
+        "velocidad_cara_ms": "Supply: 1-2.5 m/s, Return: 2-3 m/s. >2.5 m/s causes perceptible noise"
+      },
+      "result_context": "Free area: {area_libre_m2} m². Standard grille: {tamano_rejilla_cm} cm. Air throw: {alcance_m} m.",
+      "formula_display": "A_free = Q(m³/h) ÷ (3600 × v_face(m/s))  |  Standard size per commercial catalog",
+      "steps": [
+        "Convert airflow: 200 m³/h ÷ 3600 = 0.0556 m³/s",
+        "Calculate free area: 0.0556 ÷ 2.0 = 0.0278 m²",
+        "Determine square side: √(0.0278) × 100 = 16.7 cm",
+        "Standardize to commercial sizes: 20×20 cm",
+        "Estimate air throw: √(0.0278) × 10 = 1.7 m"
+      ],
+      "mistakes": [
+        "Excessive face velocity at supply — >2.5 m/s causes noise and uncomfortable drafts",
+        "Confusing free area with total grille area — free area is ~70-80% of the frontal area",
+        "Not considering throw distance — high ceilings (>3 m) need adjustable or long-throw diffusers"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "caudal_m3h",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "velocidad_cara_ms",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Grilles et Diffuseurs",
+      "desc": "Calculez la taille des grilles et diffuseurs de ventilation et climatisation selon le débit d'air. Obtenez des resultats instantanes avec explication.",
+      "seo_title": "Calculateur Grilles de Ventilation",
+      "inputs": {
+        "caudal_m3h": "Débit d'air (m³/h)",
+        "velocidad_cara_ms": "Vitesse de face (m/s)"
+      },
+      "outputs": {
+        "area_libre_m2": "Section libre nécessaire",
+        "tamano_rejilla_cm": "Grille normalisée",
+        "alcance_m": "Portée du jet"
+      },
+      "seo_description": "Calculez la taille des grilles et diffuseurs de ventilation et climatisation selon le débit d'air. Obtenez des resultats instantanes avec explication.",
+      "example_label": "Dimensionar sistema de rejillas difusores pour vivienda avec 100 m³/h de referencia.",
+      "range_hints": {
+        "caudal_m3h": "Valor entre 10 et 5000 m³/h.",
+        "velocidad_cara_ms": "Valor entre 1 et 4 m/s."
+      },
+      "result_context": "le resultado principal es {tamano_rejilla_cm} cm (normalizado). Este valor sirve como referencia pour tu proyecto.",
+      "formula_display": "Formula especifica pour rejillas-difusores - consulta documentacion tecnica.",
+      "steps": [
+        "Introduce caudal m3h: 100 m³/h",
+        "Introduce velocidad cara ms: 2 m/s",
+        "Revisa les valores introducidos",
+        "Pulsa Calculer pour obtener resultados",
+        "Interpreta resultado: {area_libre_m2}"
+      ],
+      "mistakes": [
+        "Dimensionar sans considerar orientacion et zona climatica",
+        "Ne pas inclure carga termica par ocupantes",
+        "Ignorar perdidas par distribucion de conduits"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "caudal_m3h",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        },
+        {
+          "field_id": "velocidad_cara_ms",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Grelhas e Difusores",
+      "desc": "Calcule o tamanho de grelhas e difusores de ventilação segundo a vazão de ar Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora Grelhas Ventilação",
+      "inputs": {
+        "caudal_m3h": "Vazão de ar (m³/h)",
+        "velocidad_cara_ms": "Velocidade frontal (m/s)"
+      },
+      "outputs": {
+        "area_libre_m2": "Área livre necessária",
+        "tamano_rejilla_cm": "Grelha normalizada",
+        "alcance_m": "Alcance do jato"
+      },
+      "seo_description": "Calcule o tamanho de grelhas e difusores de ventilação segundo a vazão de ar Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Dimensionar grelha de insuflação para 200 m³/h com velocidade frontal recomendada de 2 m/s.",
+      "range_hints": {
+        "caudal_m3h": "Vazão por grelha. Residencial: 50-200 m³/h, Comercial: 200-1000 m³/h",
+        "velocidad_cara_ms": "Insuflação: 1-2,5 m/s, Retorno: 2-3 m/s. >2,5 m/s gera ruído perceptível"
+      },
+      "result_context": "Área livre: {area_libre_m2} m². Grelha normalizada: {tamano_rejilla_cm} cm. Alcance do jato: {alcance_m} m.",
+      "formula_display": "A_livre = Q(m³/h) ÷ (3600 × v_frontal(m/s))  |  Tamanho normalizado por catálogo comercial",
+      "steps": [
+        "Converter vazão: 200 m³/h ÷ 3600 = 0,0556 m³/s",
+        "Calcular área livre: 0,0556 ÷ 2,0 = 0,0278 m²",
+        "Determinar lado quadrado: √(0,0278) × 100 = 16,7 cm",
+        "Normalizar para medidas comerciais: 20×20 cm",
+        "Estimar alcance do jato: √(0,0278) × 10 = 1,7 m"
+      ],
+      "mistakes": [
+        "Velocidade frontal excessiva na insuflação — >2,5 m/s gera ruído e correntes de ar incómodas",
+        "Confundir área livre com área total — a área livre é ~70-80% da área frontal",
+        "Não considerar o alcance do jato — em tetos altos são necessários difusores ajustáveis"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "caudal_m3h",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        },
+        {
+          "field_id": "velocidad_cara_ms",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        }
+      ]
+    },
+    "de": {
+      "name": "Luftauslass Diffusor",
+      "desc": "Berechnen Sie luftauslass Diffusor online. Geben Sie caudal m3h, velocidad cara ms ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Luftauslass Diffusor | CalcToWork",
+      "seo_desc": "Luftauslass Diffusor online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Luftauslass Diffusor online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "caudal_m3h": "Caudal M3h",
+        "velocidad_cara_ms": "Velocidad Cara Ms"
+      },
+      "outputs": {
+        "area_libre_m2": "Area Libre M2",
+        "tamano_rejilla_cm": "Tamano Rejilla Cm",
+        "alcance_m": "Alcance M"
+      },
+      "example_label": "Ejemplo para rejillas difusores: valores 200m³/h, 2m/s",
+      "range_hints": {
+        "caudal_m3h": "Valor típico entre 10 y 5000. Valor por defecto: 200 m³/h.",
+        "velocidad_cara_ms": "Valor típico entre 1 y 4. Valor por defecto: 2 m/s."
+      },
+      "result_context": "Resultados: área libre de {area_libre_m2} m², tamaño de rejilla normalizado de {tamano_rejilla_cm} cm, alcance del chorro de {alcance_m} m.",
+      "formula_display": "Q ÷ 3600 → area_libre_m2, tamano_rejilla_cm",
+      "steps": [
+        "Introducir los valores de caudal_m3h y velocidad_cara_ms",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m/s, km/h, ft/s)",
+        "Calcular los valores de area libre m2 y tamano rejilla cm",
+        "El resultado se expresa en m² sección libre. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Sobredimensionar el equipo (provoca ciclos cortos que reducen la eficiencia)",
+        "No limpiar los filtros regularmente (reduce el caudal hasta un 30%)",
+        "Instalar la unidad exterior en un lugar sin ventilación adecuada"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "caudal_m3h",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "velocidad_cara_ms",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Pompa di Calore",
+      "description": "Calcola il COP e il risparmio della pompa di calore.",
+      "seo_title": "Calcolatore Griglie Ventilazione",
+      "seo_description": "Calcola il rendimento e il risparmio energetico di una pompa di calore Usato da professionisti e studenti in tutto il mondo.",
+      "inputs": {
+        "carga_kw": "Carico (kW)",
+        "cop": "COP",
+        "horas_año": "Ore/anno",
+        "precio_kwh": "Prezzo kWh (€)"
+      },
+      "outputs": {
+        "consumo_kw": "Consumo elettrico (kW)",
+        "ahorro_vs_electrico": "Risparmio vs. el. diretto (%)",
+        "ahorro_anual_eur": "Risparmio annuo (€)"
+      },
+      "example_label": "Diminseonar sestema di rejille difusores per viviinda con 100 m³/h di referincia.",
+      "range_hints": {
+        "caudal_m3h": "Valor intre 10 e 5000 m³/h.",
+        "velocidad_cara_ms": "Valor intre 1 e 4 m/s."
+      },
+      "result_context": "El risultato principal es {tamanon_rejilla_cm} cm (nonrmalizado). Este valore serve come referincia per tu progetto.",
+      "formula_display": "Formula especifica per rejille-difusores - consulta documintacion tecnica.",
+      "steps": [
+        "Introduce pertata m3h: 100 m³/h",
+        "Introduce velocità cara ms: 2 m/s",
+        "Revisa i valorei introducidos",
+        "Pulsa calcolare per obtiner risultati",
+        "Interpreta risultato: {area_libre_m2}"
+      ],
+      "mistakes": [
+        "Diminseonar senza consedirar oriintacion e zona climatica",
+        "Non includire carico termica per ocupprima",
+        "Ignonrare perdidas per distribucion di conductos"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "caudal_m3h",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        },
+        {
+          "field_id": "velocidad_cara_ms",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        }
+      ]
+    }
+  }
+}

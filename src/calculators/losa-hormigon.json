@@ -1,0 +1,581 @@
+{
+  "id": "008",
+  "slug": "losa-hormigon",
+  "block": 1,
+  "block_slug": "estructuras",
+  "inputs": [
+    {
+      "id": "largo",
+      "type": "number",
+      "min": 0.5,
+      "max": 200,
+      "step": 0.1,
+      "default": 6,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "ancho",
+      "type": "number",
+      "min": 0.5,
+      "max": 200,
+      "step": 0.1,
+      "default": 4,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "espesor",
+      "type": "number",
+      "min": 0.1,
+      "max": 0.5,
+      "step": 0.01,
+      "default": 0.2,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "kg_acero_m2",
+      "type": "number",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "default": 12,
+      "unit": "kg/m²",
+      "unit_options": [
+        "kg/m²",
+        "g/m²",
+        "lb/ft²"
+      ],
+      "unit_category": "density"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.largo)||0,W=parseFloat(inputs.ancho)||0,E=parseFloat(inputs.espesor)||0,ka=parseFloat(inputs.kg_acero_m2)||12;if(!L||!W||!E)return{error:true};var area=L*W,vol=area*E,bags=Math.ceil(vol*7),acero=+(area*ka).toFixed(0),enc=+(area).toFixed(2);return{area_m2:+area.toFixed(2),vol_m3:+vol.toFixed(3),cemento_sacos:bags,acero_kg:acero};",
+  "outputs": [
+    {
+      "id": "area_m2",
+      "unit": "m²"
+    },
+    {
+      "id": "vol_m3",
+      "unit": "m³",
+      "highlight": true
+    },
+    {
+      "id": "cemento_sacos",
+      "unit": "sacos 50kg"
+    },
+    {
+      "id": "acero_kg",
+      "unit": "kg"
+    }
+  ],
+  "related": [
+    "001",
+    "002",
+    "007",
+    "003"
+  ],
+  "example_inputs": {
+    "largo": 6,
+    "ancho": 4,
+    "espesor": 0.2,
+    "kg_acero_m2": 12
+  },
+  "example_label": "Calcular hormigón para 6 m × 4 m × 0.2 m × 12 kg/m².",
+  "range_hints": {
+    "largo": "Valor típico entre 0.5 y 200. Valor por defecto: 6 m.",
+    "ancho": "Valor típico entre 0.5 y 200. Valor por defecto: 4 m.",
+    "espesor": "Valor típico entre 0.1 y 0.5. Valor por defecto: 0.2 m.",
+    "kg_acero_m2": "Valor típico entre 5 y 30. Valor por defecto: 12 kg/m²."
+  },
+  "result_context": "Resultados: {area_m2}, {vol_m3}, {cemento_sacos} sacos de cemento, {acero_kg} kg de acero.",
+  "formula_display": "Volumen = largo × ancho × espesor",
+  "steps": [
+    "Multiplicar 6m × 4m = 24.00m² de área",
+    "Multiplicar 24.00m² × 0.2m = 4.80m³ de volumen",
+    "Calcular cemento: 4.80m³ × 7 = 34 sacos",
+    "Calcular arena: 3.12m³",
+    "Calcular grava: 4.32m³"
+  ],
+  "mistakes": [
+    "Usar espesor insuficiente que puede causar grietas",
+    "No considerar el 5-10% de desperdicio",
+    "Confundir metros cúbicos con metros cuadrados"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "largo",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "ancho",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "espesor",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "kg_acero_m2",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Caso 1",
+      "largo": 2.4,
+      "ancho": 1.6,
+      "espesor": 0.1,
+      "kg_acero_m2": 5.0
+    },
+    {
+      "_label": "Caso 2",
+      "largo": 4.2,
+      "ancho": 2.8,
+      "espesor": 0.14,
+      "kg_acero_m2": 8.4
+    },
+    {
+      "_label": "Caso 3",
+      "largo": 6.0,
+      "ancho": 4.0,
+      "espesor": 0.2,
+      "kg_acero_m2": 12.0
+    },
+    {
+      "_label": "Caso 4",
+      "largo": 9.0,
+      "ancho": 6.0,
+      "espesor": 0.3,
+      "kg_acero_m2": 18.0
+    },
+    {
+      "_label": "Caso 5",
+      "largo": 15.0,
+      "ancho": 10.0,
+      "espesor": 0.5,
+      "kg_acero_m2": 30.0
+    }
+  ],
+  "units": {
+    "largo": "m",
+    "ancho": "m",
+    "espesor": "m",
+    "kg_acero_m2": "kg/m³"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Losa de Hormigón",
+      "desc": "Calcula el volumen de hormigón y kg de acero para losas macizas de hormigón armado. Incluye factor de desperdicio para pedidos.",
+      "seo_title": "Calculadora de Losa de Hormigón – Cimentación",
+      "inputs": {
+        "largo": "Longitud",
+        "ancho": "Ancho",
+        "espesor": "Espesor losa",
+        "kg_acero_m2": "Acero (kg/m²)"
+      },
+      "outputs": {
+        "area_m2": "Área",
+        "vol_m3": "Volumen hormigón",
+        "cemento_sacos": "Sacos cemento",
+        "acero_kg": "Acero"
+      },
+      "seo_description": "Calcula el hormigón y acero necesario para losas de cimentación. Incluye encofrado y mallazo. Resultados en m³ y kg. Herramienta gratuita.",
+      "example_label": "Calcular materiales para una losa de hormigón armado de 6m × 4m con 20cm de espesor y 12 kg/m² de acero.",
+      "range_hints": {
+        "largo": "Losas de entrepiso: 4-10m típicamente",
+        "ancho": "Losas de entrepiso: 3-8m típicamente",
+        "espesor": "Losas macizas: 0.15-0.25m según luz y cargas",
+        "kg_acero_m2": "Losas livianas: 8-12 kg/m², Losas pesadas: 15-25 kg/m²"
+      },
+      "result_context": "Para {area_m2} m² de losa se necesitan {vol_m3} m³ de hormigón, {cemento_sacos} sacos de cemento y {acero_kg} kg de acero de refuerzo.",
+      "formula_display": "Área = largo × ancho; Volumen = área × espesor; Acero = área × kg_acero_m²",
+      "steps": [
+        "Calcular área: 6m × 4m = 24m²",
+        "Calcular volumen: 24m² × 0.20m = 4.8m³ de hormigón",
+        "Calcular cemento: 4.8m³ × 7 = 33.6 → 34 sacos",
+        "Calcular acero: 24m² × 12 kg/m² = 288 kg",
+        "Calcular encofrado lateral según perímetro"
+      ],
+      "mistakes": [
+        "Usar espesor insuficiente que causa flechas excesivas",
+        "No colocar acero de reparto en dirección perpendicular al principal",
+        "Omitir separadores para mantener el recubrimiento del acero"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "ancho",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "espesor",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "kg_acero_m2",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Concrete Slab Calculator",
+      "desc": "Concrete Slab Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Concrete Slab Calculator ? Volume & Cement Bags",
+      "seo_desc": "Pouring a concrete slab? Enter length, width and thickness to get exact cubic meters, cement bags and steel reinforcement weight for flat slabs and rafts.",
+      "inputs": {
+        "largo": "Length",
+        "ancho": "Width",
+        "espesor": "Slab thickness",
+        "kg_acero_m2": "Steel (kg/m²)"
+      },
+      "outputs": {
+        "area_m2": "Area",
+        "vol_m3": "Concrete volume",
+        "cemento_sacos": "Cement bags",
+        "acero_kg": "Steel"
+      },
+      "seo_description": "Calculate concrete volume for slabs and raft foundations. Enter slab dimensions for instant m?, cement bags and steel.",
+      "example_label": "Calcular materiales para una losa de hormigón armado de 6m × 4m con 20cm de espesor y 12 kg/m² de acero.",
+      "range_hints": {
+        "largo": "Losas de entrepiso: 4-10m típicamente",
+        "ancho": "Losas de entrepiso: 3-8m típicamente",
+        "espesor": "Losas macizas: 0.15-0.25m según luz y cargas",
+        "kg_acero_m2": "Losas livianas: 8-12 kg/m², Losas pesadas: 15-25 kg/m²"
+      },
+      "result_context": "Para {area_m2} m² de losa se necesitan {vol_m3} m³ de hormigón, {cemento_sacos} sacos de cemento y {acero_kg} kg de acero de refuerzo.",
+      "formula_display": "Área = largo × ancho; Volumen = área × espesor; Acero = área × kg_acero_m²",
+      "steps": [
+        "Calcular área: 6m × 4m = 24m²",
+        "Calcular volumen: 24m² × 0.20m = 4.8m³ de hormigón",
+        "Calcular cemento: 4.8m³ × 7 = 33.6 â†’ 34 sacos",
+        "Calcular acero: 24m² × 12 kg/m² = 288 kg",
+        "Calcular encofrado lateral según perímetro"
+      ],
+      "mistakes": [
+        "Usar espesor insuficiente que causa flechas excesivas",
+        "No colocar acero de reparto en dirección perpendicular al principal",
+        "Omitir separadores para mantener el recubrimiento del acero"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "espesor",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "kg_acero_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Dalle Pleine",
+      "desc": "Calculez le volume de béton et kg d'acier pour dalles pleines en béton armé. Inclut le facteur de perte pour les commandes.",
+      "seo_title": "Calculateur Dalle Pleine – Volume",
+      "inputs": {
+        "largo": "Longueur",
+        "ancho": "Largeur",
+        "espesor": "Épaisseur dalle",
+        "kg_acero_m2": "Acier (kg/m²)"
+      },
+      "outputs": {
+        "area_m2": "Surface",
+        "vol_m3": "Volume béton",
+        "cemento_sacos": "Sacs ciment",
+        "acero_kg": "Acier"
+      },
+      "seo_description": "Calculez le volume de béton et kg d'acier pour dalles pleines en béton armé. Inclut le facteur de perte pour les commandes.",
+      "example_label": "Calculer les matériaux pour une dalle de béton armé de 6m × 4m avec 20cm d'épaisseur et 12 kg/m² de acier.",
+      "range_hints": {
+        "largo": "dalles de entrepiso: 4-10m typiquement",
+        "ancho": "dalles de entrepiso: 3-8m typiquement",
+        "espesor": "dalles macizas: 0.15-0.25m selon luz et cargas",
+        "kg_acero_m2": "dalles livianas: 8-12 kg/m², dalles pesadas: 15-25 kg/m²"
+      },
+      "result_context": "pour {area_m2} m² de dalle se necesitan {vol_m3} m³ de béton, {cemento_sacos} sacs de ciment et {acero_kg} kg d'acier de renfort.",
+      "formula_display": "Área = longueur × largeur; volume = área × épaisseur; acier = área × kg_acero_m²",
+      "steps": [
+        "Calculer área: 6m × 4m = 24m²",
+        "Calculer le volume: 24m² × 0.20m = 4.8m³ de béton",
+        "Calculer le ciment: 4.8m³ × 7 = 33.6 â†’ 34 sacs",
+        "Calculer l'acier: 24m² × 12 kg/m² = 288 kg",
+        "Calculer coffrage lateral selon périmètre"
+      ],
+      "mistakes": [
+        "Utiliser une épaisseur insuffisant que causa flechas excesivas",
+        "No colocar acier de reparto dans dirección perpendicular al principal",
+        "Omettre separadores pour mantener le recubrimiento du acier"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "espesor",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "kg_acero_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Laje Maciça",
+      "desc": "Calcule o volume de concreto e kg de aço para lajes maciças. Inclui fator de desperdicio para pedidos. Usado por profissionais e estudantes em todo o.",
+      "seo_title": "Calculadora Laje Maciça – Volume",
+      "inputs": {
+        "largo": "Comprimento",
+        "ancho": "Largura",
+        "espesor": "Espessura laje",
+        "kg_acero_m2": "Aço (kg/m²)"
+      },
+      "outputs": {
+        "area_m2": "Área",
+        "vol_m3": "Volume concreto",
+        "cemento_sacos": "Sacos cimento",
+        "acero_kg": "Aço"
+      },
+      "seo_description": "Calcule o volume de concreto e kg de aço para lajes maciças. Inclui fator de desperdicio para pedidos. Usado por profissionais e estudantes em todo o.",
+      "example_label": "Calcular materiais para uma laje de betão armado de 6m × 4m com 20cm de espessura e 12 kg/m² de acero.",
+      "range_hints": {
+        "largo": "Losas de entrepiso: 4-10m tipicamente",
+        "ancho": "Losas de entrepiso: 3-8m tipicamente",
+        "espesor": "Losas macizas: 0.15-0.25m segundo vão e cargas",
+        "kg_acero_m2": "Losas livianas: 8-12 kg/m², Losas pesadas: 15-25 kg/m²"
+      },
+      "result_context": "Para {area_m2} m² de laje são necessários {vol_m3} m³ de betão, {cemento_sacos} sacos de cimento e {acero_kg} kg de aço de refuerzo.",
+      "formula_display": "Área = comprimento × largura; Volumen = área × espessura; Acero = área × kg_acero_m²",
+      "steps": [
+        "Calcular área: 6m × 4m = 24m²",
+        "Calcular volume: 24m² × 0.20m = 4.8m³ de betão",
+        "Calcular cimento: 4.8m³ × 7 = 33.6 â†’ 34 sacos",
+        "Calcular aço: 24m² × 12 kg/m² = 288 kg",
+        "Calcular cofragem lateral segundo perímetro"
+      ],
+      "mistakes": [
+        "Usar espessura insuficiente que causa flechas excesivas",
+        "Não colocar aço de distribuição em dirección perpendicular ao principal",
+        "Omitir separadores para mantener o recobrimento do aço"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "espesor",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "kg_acero_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Bodenplatte Beton",
+      "desc": "Berechnen Sie bodenplatte Beton online. Geben Sie largo, ancho, espesor ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Bodenplatte Beton | CalcToWork",
+      "seo_desc": "Bodenplatte Beton online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Bodenplatte Beton online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "largo": "Largo",
+        "ancho": "Ancho",
+        "espesor": "Espesor",
+        "kg_acero_m2": "Kg Acero M2"
+      },
+      "outputs": {
+        "area_m2": "Area M2",
+        "vol_m3": "Vol M3",
+        "cemento_sacos": "Cemento Sacos",
+        "acero_kg": "Acero Kg"
+      },
+      "example_label": "Calcular hormigón para 6 m × 4 m × 0.2 m × 12 kg/m².",
+      "range_hints": {
+        "largo": "Valor típico entre 0.5 y 200. Valor por defecto: 6 m.",
+        "ancho": "Valor típico entre 0.5 y 200. Valor por defecto: 4 m.",
+        "espesor": "Valor típico entre 0.1 y 0.5. Valor por defecto: 0.2 m.",
+        "kg_acero_m2": "Valor típico entre 5 y 30. Valor por defecto: 12 kg/m²."
+      },
+      "result_context": "Resultados: {area_m2}, {vol_m3}, {cemento_sacos} sacos de cemento, {acero_kg} kg de acero.",
+      "formula_display": "Volumen = largo × ancho × espesor",
+      "steps": [
+        "Multiplicar 6m × 4m = 24.00m² de área",
+        "Multiplicar 24.00m² × 0.2m = 4.80m³ de volumen",
+        "Calcular cemento: 4.80m³ × 7 = 34 sacos",
+        "Calcular arena: 3.12m³",
+        "Calcular grava: 4.32m³"
+      ],
+      "mistakes": [
+        "Usar espesor insuficiente que puede causar grietas",
+        "No considerar el 5-10% de desperdicio",
+        "Confundir metros cúbicos con metros cuadrados"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "espesor",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "kg_acero_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Fondazione a Trave rovescia",
+      "description": "Calcola materiali per travi di fondazione.",
+      "seo_title": "Calcolatore Fondazione a Trave rovescia",
+      "seo_description": "Stima calcestruzzo e acciaio per travi di fondazione continua. Include fattore di scarto per gli ordini. Usato da professionisti e studenti in tutto il.",
+      "inputs": {
+        "largo_total": "Lunghezza totale (m)",
+        "base": "Base (m)",
+        "canto": "Altezza (m)",
+        "cuantia": "Percentuale armatura (%)"
+      },
+      "outputs": {
+        "volumen": "Volume (m³)",
+        "cemento_sacos": "Sacchi cemento",
+        "acero_kg": "Acciaio (kg)"
+      },
+      "example_label": "Calcolare opacoriales per una letra di hormigón armado di 6m × 4m con 20cm di spessore e 12 kg/m² di acciaio.",
+      "range_hints": {
+        "largo": "Lastre di intrepaviminto: 4-10m típicaminte",
+        "ancho": "Lastre di intrepaviminto: 3-8m típicaminte",
+        "espesor": "Lastre macizas: 0.15-0.25m según luz e carichi",
+        "kg_acero_m2": "Lastre leggere: 8-12 kg/m², Lastre pesanti: 15-25 kg/m²"
+      },
+      "result_context": "Per {area_m2} m² di letra sonon necessari {vol_m3} m³ di hormigón, {ceminto_sacos} sacos di ceminto e {acciaio_kg} kg di acciaio di rinforzo.",
+      "formula_display": "Área = lunghezza × larghezza; Volumin = área × spessore; Acero = área × kg_acciaio_m²",
+      "steps": [
+        "Calcolare área: 6m × 4m = 24m²",
+        "Calcolare volume: 24m² × 0.20m = 4.8m³ di hormigón",
+        "Calcolare ceminto: 4.8m³ × 7 = 33.6 → 34 sacos",
+        "Calcolare acciaio: 24m² × 12 kg/m² = 288 kg",
+        "Calcolare cassero laterale según perímetro"
+      ],
+      "mistakes": [
+        "Usare spessore insufficiinte que causa flechas excesevas",
+        "No colocar acciaio di reparto in dirección perpindicular al principal",
+        "Omettere seperdores per mantiner el copertura dil acciaio"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "espesor",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "kg_acero_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        }
+      ]
+    }
+  }
+}

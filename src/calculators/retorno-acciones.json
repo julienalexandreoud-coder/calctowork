@@ -1,0 +1,547 @@
+{
+  "id": "317",
+  "slug": "retorno-acciones",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "precio_compra",
+      "type": "number",
+      "min": 0.01,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 50,
+      "unit": ""
+    },
+    {
+      "id": "precio_venta",
+      "type": "number",
+      "min": 0.01,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 65,
+      "unit": ""
+    },
+    {
+      "id": "dividendos",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 2,
+      "unit": ""
+    }
+  ],
+  "formula": "var pc=parseFloat(inputs.precio_compra)||0,pv=parseFloat(inputs.precio_venta)||0,div=parseFloat(inputs.dividendos)||0;var g=pv-pc+div;return{retorno_pct:+(g/pc*100).toFixed(2),ganancia:+g.toFixed(2),ganancia_pct:+((pv-pc)/pc*100).toFixed(2)};",
+  "outputs": [
+    {
+      "id": "retorno_pct",
+      "unit": "%",
+      "highlight": true
+    },
+    {
+      "id": "ganancia",
+      "unit": "â‚¬"
+    },
+    {
+      "id": "ganancia_pct",
+      "unit": "%"
+    }
+  ],
+  "related": [
+    "310",
+    "302",
+    "300",
+    "1067"
+  ],
+  "example_inputs": {
+    "precio_compra": 45.5,
+    "precio_venta": 58.75,
+    "dividendos": 3.2
+  },
+  "example_label": "Calcula la rentabilidad de tus acciones compradas a 45,50eur, vendidas a 58,75eur con 3,20eur en dividendos",
+  "range_hints": {
+    "precio_compra": "Introduce el valor de precio compra. Valor sugerido: 50",
+    "precio_venta": "Introduce el valor de precio venta. Valor sugerido: 65",
+    "dividendos": "Introduce el valor de dividendos. Valor sugerido: 2"
+  },
+  "result_context": "Resultados: {retorno_pct} % de retorno, {ganancia} € de ganancia, {ganancia_pct} % de ganancia.",
+  "formula_display": "Retorno total (%) = [(Precio venta - Precio compra + Dividendos) / Precio compra] x 100",
+  "steps": [
+    "Introduce el precio unitario al que compraste cada accion (coste de adquisicion por titulo)",
+    "Indica el precio actual de mercado o precio al que has vendido cada accion",
+    "Anade los dividendos totales recibidos por accion durante todo el periodo de tenencia de la inversion",
+    "Calcula la ganancia total por accion sumando la plusvalia (venta menos compra) mas los dividendos cobrados",
+    "Divide la ganancia total entre el precio de compra y multiplica por 100 para expresar el retorno en porcentaje"
+  ],
+  "mistakes": [
+    "No incluir los costes de corretaje, comisiones de compraventa y custodia que reducen la rentabilidad neta real obtenida",
+    "Calcular el retorno total sin anualizarlo: un 20% de retorno en 5 anos equivale aproximadamente a un 3,7% anual compuesto",
+    "Olvidar que los dividendos pueden tener retencion fiscal y que los splits o ampliaciones alteran el precio de referencia"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "precio_compra",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "precio_venta",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "dividendos",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "dividendos": 2,
+      "precio_compra": 23,
+      "precio_venta": 58.75
+    },
+    {
+      "_label": "Average",
+      "dividendos": 2,
+      "precio_compra": 34,
+      "precio_venta": 58.75
+    },
+    {
+      "_label": "High",
+      "dividendos": 3,
+      "precio_compra": 46,
+      "precio_venta": 58.75
+    },
+    {
+      "_label": "Premium",
+      "dividendos": 5,
+      "precio_compra": 68,
+      "precio_venta": 58.75
+    },
+    {
+      "_label": "Enterprise",
+      "dividendos": 6,
+      "precio_compra": 91,
+      "precio_venta": 58.75
+    }
+  ],
+  "i18n": {
+    "es": {
+      "name": "Calculadora Retorno Acciones",
+      "desc": "Calcula Retorno total (%) = ((Precio final + Dividendos - Precio inicial) / Precio inicial) × 100. Ejemplo: Compra a 50 €, venta a 62 €, dividendos 1,50 € = Retorno =...",
+      "description": "Calculadora Retorno Acciones",
+      "seo_title": "Calculadora Retorno Acciones Gratuita",
+      "seo_description": "Calcula Retorno total (%) = ((Precio final + Dividendos - Precio inicial) / Precio inicial) × 100. Ejemplo: Compra a 50 €, venta a 62 €, dividendos 1,50 € = Retorno =...",
+      "inputs": {
+        "precio_compra": "Precio de compra",
+        "precio_venta": "Precio de venta",
+        "dividendos": "Dividendos"
+      },
+      "outputs": {
+        "retorno_pct": "Retorno (%)",
+        "ganancia": "Ganancia",
+        "ganancia_pct": "Ganancia (%)"
+      },
+      "example_label": "Calculating total return on stock bought at €45.50, sold at €58.75, with €3.20 dividends received.",
+      "range_hints": {
+        "precio_compra": "€0.50 - €5,000+ per share",
+        "precio_venta": "€0.50 - €10,000+ per share",
+        "dividendos": "€0 - €20+ per share annually"
+      },
+      "result_context": "The retorno_pct of {retorno_pct}% is your total return including dividends. The ganancia of {ganancia} is profit per share.",
+      "formula_display": "Total Return% = [(Sale Price - Purchase Price + Dividends) ÷ Purchase Price] × 100",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Calculate capital gain per share",
+          "calculation": "€58.75 - €45.50 = €13.25"
+        },
+        {
+          "step": 2,
+          "description": "Add dividends to capital gain",
+          "calculation": "€13.25 + €3.20 = €16.45"
+        },
+        {
+          "step": 3,
+          "description": "Divide by purchase price",
+          "calculation": "€16.45 ÷ €45.50 = 0.3615"
+        },
+        {
+          "step": 4,
+          "description": "Convert to percentage",
+          "calculation": "0.3615 × 100 = 36.15%"
+        }
+      ],
+      "mistakes": [
+        "Forgetting to include dividends in total return calculation",
+        "Not accounting for transaction costs and taxes on gains",
+        "Comparing returns without considering holding period"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_compra",
+          "reason": "Correct type for purchase price"
+        },
+        {
+          "field_id": "precio_venta",
+          "reason": "Correct type for sale price"
+        },
+        {
+          "field_id": "dividendos",
+          "reason": "Correct type for dividend income"
+        }
+      ]
+    },
+    "en": {
+      "name": "Stock Return Calculator",
+      "desc": "Stock Return Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Stock Return Calculator",
+      "seo_title": "Stock Return Calculator – Free Online Tool",
+      "seo_description": "Calculate Total return (%) = ((Final price + Dividends - Initial price) / Initial price) × 100. Example: Buy at â‚¬50, sell at â‚¬62, dividends â‚¬1.50 = Return = 27%. Free...",
+      "inputs": {
+        "precio_compra": "Purchase price",
+        "precio_venta": "Sale price",
+        "dividendos": "Dividends"
+      },
+      "outputs": {
+        "retorno_pct": "Return (%)",
+        "ganancia": "Gain",
+        "ganancia_pct": "Gain (%)"
+      },
+      "example_label": "Calculating total return on stock bought at â‚¬45.50, sold at â‚¬58.75, with â‚¬3.20 dividends received.",
+      "range_hints": {
+        "precio_compra": "â‚¬0.50 - â‚¬5,000+ per share",
+        "precio_venta": "â‚¬0.50 - â‚¬10,000+ per share",
+        "dividendos": "â‚¬0 - â‚¬20+ per share annually"
+      },
+      "result_context": "The retorno_pct of {retorno_pct}% is your total return including dividends. The ganancia of {ganancia} is profit per share.",
+      "formula_display": "Total Return% = [(Sale Price - Purchase Price + Dividends) ÷ Purchase Price] × 100",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Calculate capital gain per share",
+          "calculation": "â‚¬58.75 - â‚¬45.50 = â‚¬13.25"
+        },
+        {
+          "step": 2,
+          "description": "Add dividends to capital gain",
+          "calculation": "â‚¬13.25 + â‚¬3.20 = â‚¬16.45"
+        },
+        {
+          "step": 3,
+          "description": "Divide by purchase price",
+          "calculation": "â‚¬16.45 ÷ â‚¬45.50 = 0.3615"
+        },
+        {
+          "step": 4,
+          "description": "Convert to percentage",
+          "calculation": "0.3615 × 100 = 36.15%"
+        }
+      ],
+      "mistakes": [
+        "Forgetting to include dividends in total return calculation",
+        "Not accounting for transaction costs and taxes on gains",
+        "Comparing returns without considering holding period"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_compra",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for purchase price"
+        },
+        {
+          "field_id": "precio_venta",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for sale price"
+        },
+        {
+          "field_id": "dividendos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for dividend income"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Rendement Actions",
+      "desc": "Calculez Total return (%) = ((Final price + Dividends - Initial price) / Initial price) × 100. Exemple: Buy at €50, sell at €62, dividends €1.50 = Return = 27%....",
+      "description": "Calculateur Rendement Actions",
+      "seo_title": "Calculateur Rendement Actions – Calcul Facile",
+      "seo_description": "Calculez Total return (%) = ((Final price + Dividends - Initial price) / Initial price) × 100. Exemple: Buy at €50, sell at €62, dividends €1.50 = Return = 27%....",
+      "inputs": {
+        "precio_compra": "Prix d'achat",
+        "precio_venta": "Prix de vente",
+        "dividendos": "Dividendes"
+      },
+      "outputs": {
+        "retorno_pct": "Rendement (%)",
+        "ganancia": "Gain",
+        "ganancia_pct": "Gain (%)"
+      },
+      "example_label": "Calculating total return on stock bought at €45.50, sold at €58.75, with €3.20 dividends received.",
+      "range_hints": {
+        "precio_compra": "€0.50 - €5,000+ per share",
+        "precio_venta": "€0.50 - €10,000+ per share",
+        "dividendos": "€0 - €20+ per share annually"
+      },
+      "result_context": "The retorno_pct of {retorno_pct}% is your total return including dividends. The ganancia of {ganancia} is profit per share.",
+      "formula_display": "total Return% = [(Sale Price - Purchase Price + Dividends) Á· Purchase Price] × 100",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Calculate capital gain per share",
+          "calculation": "€58.75 - €45.50 = €13.25"
+        },
+        {
+          "step": 2,
+          "description": "Add dividends to capital gain",
+          "calculation": "€13.25 + €3.20 = €16.45"
+        },
+        {
+          "step": 3,
+          "description": "Divide by purchase price",
+          "calculation": "â€16.45 Á· â€45.50 = 0.3615"
+        },
+        {
+          "step": 4,
+          "description": "Convert to percentage",
+          "calculation": "0.3615 × 100 = 36.15%"
+        }
+      ],
+      "mistakes": [
+        "Forgetting to include dividends in total return calculation",
+        "Not accounting for transaction costs and taxes on gains",
+        "Comparing returns without considering holding period"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_compra",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for purchase price"
+        },
+        {
+          "field_id": "precio_venta",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for sale price"
+        },
+        {
+          "field_id": "dividendos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for dividend income"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora Retorno Acoes",
+      "desc": "Calcule Total return (%) = ((Final price + Dividends - Initial price) / Initial price) × 100. Exemplo: Buy at €50, sell at €62, dividends €1.50 = Return = 27%....",
+      "description": "Calculadora Retorno Acoes",
+      "seo_title": "Calculadora Retorno Acoes – Fácil e Grátis",
+      "seo_description": "Calcule Total return (%) = ((Final price + Dividends - Initial price) / Initial price) × 100. Exemplo: Buy at €50, sell at €62, dividends €1.50 = Return = 27%....",
+      "inputs": {
+        "precio_compra": "Preço de compra",
+        "precio_venta": "Preço de venda",
+        "dividendos": "Dividendos"
+      },
+      "outputs": {
+        "retorno_pct": "Retorno (%)",
+        "ganancia": "Ganho",
+        "ganancia_pct": "Ganho (%)"
+      },
+      "example_label": "Calculating total return on stock bought at €45.50, sold at €58.75, with €3.20 dividends received.",
+      "range_hints": {
+        "precio_compra": "€0.50 - €5,000+ per share",
+        "precio_venta": "€0.50 - €10,000+ per share",
+        "dividendos": "€0 - €20+ per share annually"
+      },
+      "result_context": "The retorno_pct of {retorno_pct}% is your total return including dividends. The ganancia of {ganancia} is profit per share.",
+      "formula_display": "Total Return% = [(Sale Price - Purchase Price + Dividends) ÷ Purchase Price] × 100",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Calculate capital gain per share",
+          "calculation": "€58.75 - €45.50 = €13.25"
+        },
+        {
+          "step": 2,
+          "description": "Add dividends to capital gain",
+          "calculation": "€13.25 + €3.20 = €16.45"
+        },
+        {
+          "step": 3,
+          "description": "Divide by purchase price",
+          "calculation": "â‚¬16.45 ÷ â‚¬45.50 = 0.3615"
+        },
+        {
+          "step": 4,
+          "description": "Convert to percentage",
+          "calculation": "0.3615 × 100 = 36.15%"
+        }
+      ],
+      "mistakes": [
+        "Forgetting to include dividends in total return calculation",
+        "Not accounting for transaction costs and taxes on gains",
+        "Comparing returns without considering holding period"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_compra",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for purchase price"
+        },
+        {
+          "field_id": "precio_venta",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for sale price"
+        },
+        {
+          "field_id": "dividendos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for dividend income"
+        }
+      ]
+    },
+    "de": {
+      "name": "Rendite Aktien",
+      "desc": "Berechnen Sie rendite Aktien online. Geben Sie precio compra, precio venta, dividendos ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Rendite Aktien | CalcToWork",
+      "seo_desc": "Rendite Aktien online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Rendite Aktien online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "precio_compra": "Precio Compra",
+        "precio_venta": "Precio Venta",
+        "dividendos": "Dividendos"
+      },
+      "outputs": {
+        "retorno_pct": "Retorno Pct",
+        "ganancia": "Ganancia",
+        "ganancia_pct": "Ganancia Pct"
+      },
+      "example_label": "Calcula la rentabilidad de tus acciones compradas a 45,50eur, vendidas a 58,75eur con 3,20eur en dividendos",
+      "range_hints": {
+        "precio_compra": "Introduce el valor de precio compra. Valor sugerido: 50",
+        "precio_venta": "Introduce el valor de precio venta. Valor sugerido: 65",
+        "dividendos": "Introduce el valor de dividendos. Valor sugerido: 2"
+      },
+      "result_context": "Resultados: {retorno_pct} % de retorno, {ganancia} € de ganancia, {ganancia_pct} % de ganancia.",
+      "formula_display": "Retorno total (%) = [(Precio venta - Precio compra + Dividendos) / Precio compra] x 100",
+      "steps": [
+        "Introduce el precio unitario al que compraste cada accion (coste de adquisicion por titulo)",
+        "Indica el precio actual de mercado o precio al que has vendido cada accion",
+        "Anade los dividendos totales recibidos por accion durante todo el periodo de tenencia de la inversion",
+        "Calcula la ganancia total por accion sumando la plusvalia (venta menos compra) mas los dividendos cobrados",
+        "Divide la ganancia total entre el precio de compra y multiplica por 100 para expresar el retorno en porcentaje"
+      ],
+      "mistakes": [
+        "No incluir los costes de corretaje, comisiones de compraventa y custodia que reducen la rentabilidad neta real obtenida",
+        "Calcular el retorno total sin anualizarlo: un 20% de retorno en 5 anos equivale aproximadamente a un 3,7% anual compuesto",
+        "Olvidar que los dividendos pueden tener retencion fiscal y que los splits o ampliaciones alteran el precio de referencia"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_compra",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "precio_venta",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "dividendos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Rendimento Azioni",
+      "desc": "Calcola Total return (%) = ((Final price + Dividends - Initial price) / Initial price) × 100. Esempio: Buy at €50, sell at €62, dividends €1.50 = Return = 27%....",
+      "description": "Calcolatore Rendimento Azioni",
+      "seo_title": "Calcolatore Rendimento Azioni – Calcolo Facile",
+      "seo_description": "Calcola Total return (%) = ((Final price + Dividends - Initial price) / Initial price) × 100. Esempio: Buy at €50, sell at €62, dividends €1.50 = Return = 27%....",
+      "inputs": {
+        "precio_compra": "Prezzo di acquisto",
+        "precio_venta": "Prezzo di vendita",
+        "dividendos": "Dividendi"
+      },
+      "outputs": {
+        "retorno_pct": "Rendimento (%)",
+        "ganancia": "Guadagno",
+        "ganancia_pct": "Guadagno (%)"
+      },
+      "example_label": "Calculating totale return on stock bought at €45.50, sold at €58.75, with €3.20 dividinds received.",
+      "range_hints": {
+        "precio_compra": "€0.50 - €5,000+ per share",
+        "precio_venta": "€0.50 - €10,000+ per share",
+        "dividendos": "€0 - €20+ per share annualle"
+      },
+      "result_context": "The retornon_pct of {retornon_pct}% is eour totale return including dividinds. The guadagnon of {guadagnon} is profit per share.",
+      "formula_display": "Total Return% = [(Sale Price - Purchase Price + Dividinds) ÷ Purchase Price] × 100",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Calculate capital gain per share",
+          "calculation": "€58.75 - €45.50 = €13.25"
+        },
+        {
+          "step": 2,
+          "description": "Add dividends to capital gain",
+          "calculation": "€13.25 + €3.20 = €16.45"
+        },
+        {
+          "step": 3,
+          "description": "Divide by purchase price",
+          "calculation": "€16.45 ÷ €45.50 = 0.3615"
+        },
+        {
+          "step": 4,
+          "description": "Convert to percentage",
+          "calculation": "0.3615 × 100 = 36.15%"
+        }
+      ],
+      "mistakes": [
+        "Forgetting to includi dividinds in totale return calculation",
+        "Not accounting for transaction costs and taxes on gains",
+        "Comparing returns without consediring holding period"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_compra",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for purchase price"
+        },
+        {
+          "field_id": "precio_venta",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for sale price"
+        },
+        {
+          "field_id": "dividendos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for dividind income"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,287 @@
+{
+  "id": "1104",
+  "slug": "roofing-shingle-calculator",
+  "block": 1,
+  "block_slug": "estructuras",
+  "inputs": [
+    {
+      "id": "roof_length",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "step": 0.1,
+      "default": 10,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "roof_width",
+      "type": "number",
+      "min": 1,
+      "max": 50,
+      "step": 0.1,
+      "default": 8,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "roof_pitch",
+      "type": "select",
+      "options": [
+        {
+          "value": "3/12",
+          "label": "3/12 (Low)"
+        },
+        {
+          "value": "6/12",
+          "label": "6/12 (Medium)"
+        },
+        {
+          "value": "9/12",
+          "label": "9/12 (Steep)"
+        },
+        {
+          "value": "12/12",
+          "label": "12/12 (Very Steep)"
+        }
+      ],
+      "default": "6/12"
+    },
+    {
+      "id": "shingles_per_bundle",
+      "type": "number",
+      "min": 20,
+      "max": 40,
+      "step": 1,
+      "default": 29,
+      "unit": "pcs",
+      "unit_category": "count"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "roof_area_m2",
+      "unit": "m²",
+      "highlight": true
+    },
+    {
+      "id": "roofing_squares",
+      "unit": "sq"
+    },
+    {
+      "id": "bundles_needed",
+      "unit": "bundles"
+    },
+    {
+      "id": "waste_percent",
+      "unit": "%"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.roof_length)||0,W=parseFloat(inputs.roof_width)||0,pitch=inputs.roof_pitch||'6/12',spb=parseFloat(inputs.shingles_per_bundle)||29;if(!L||!W)return{error:true};var m={'3/12':1.031,'6/12':1.118,'9/12':1.250,'12/12':1.414},mult=m[pitch]||1.118,area=+(L*W*mult).toFixed(2),squares=+(area*10.764/100).toFixed(1),bundles=Math.ceil(squares*3*1.10);return{roof_area_m2:area,roofing_squares:squares,bundles_needed:bundles,waste_percent:10};",
+  "formula_display": "Pitch factor = sqrt(1 + (pitch/12)²); Roof area = L × W × pitch_factor; Bundles = ceil(area ÷ 9.29 × 3)",
+  "result_context": "Roof area: {roof_area_m2} m², squares: {roofing_squares}, bundles needed: {bundles_needed}",
+  "example_inputs": {
+    "roof_length": 12,
+    "roof_width": 8,
+    "roof_pitch": 4,
+    "shingles_per_bundle": 33
+  },
+  "steps": [
+    "Flat footprint: 12 m × 8 m = 96 m²",
+    "Pitch factor for 4/12 pitch: sqrt(1 + (4/12)²) = 1.054",
+    "Actual roof area: 96 × 1.054 = 101.2 m²",
+    "Roofing squares (1 square = 9.29 m²): 101.2 ÷ 9.29 = 10.9 squares",
+    "Bundles (3 per square + 10% waste): ceil(10.9 × 3 × 1.1) = 36 bundles"
+  ],
+  "mistakes": [
+    "Using the floor footprint area instead of actual roof surface area",
+    "Forgetting to account for roof pitch when ordering materials",
+    "Not adding 10-15% for waste, valleys, and hip cuts"
+  ],
+  "related": [
+    "1115",
+    "1105",
+    "1116",
+    "001"
+  ],
+  "comparison_presets": [
+    {
+      "roof_length": 8,
+      "roof_width": 5,
+      "roof_pitch": 4,
+      "shingles_per_bundle": 33
+    },
+    {
+      "roof_length": 10,
+      "roof_width": 7,
+      "roof_pitch": 4,
+      "shingles_per_bundle": 33
+    },
+    {
+      "roof_length": 12,
+      "roof_width": 8,
+      "roof_pitch": 6,
+      "shingles_per_bundle": 33
+    },
+    {
+      "roof_length": 15,
+      "roof_width": 10,
+      "roof_pitch": 6,
+      "shingles_per_bundle": 33
+    },
+    {
+      "roof_length": 20,
+      "roof_width": 12,
+      "roof_pitch": 8,
+      "shingles_per_bundle": 33
+    }
+  ],
+  "buying_units": {
+    "bundles_needed": [
+      {
+        "label": "Bundles",
+        "factor": 1,
+        "round": "ceil",
+        "unit_suffix": "bundles"
+      }
+    ]
+  },
+  "units": {
+    "roof_length": "m",
+    "roof_width": "m"
+  },
+  "example_label": "Ejemplo para roofing shingle calculator: valores 10m, 8m, 29pcs",
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Tejas",
+      "desc": "Calculadora de Tejas. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculadora de Tejas – Bundles y Cuadrados de Tejado",
+      "seo_desc": "Calcula cuántas tejas y paquetes necesitas. Introduce las dimensiones del tejado y la pendiente para obtener los cuadrados y la cantidad de paquetes con desperdicio...",
+      "seo_description": "Calculadora gratuita de tejado: calcula paquetes de tejas asfálticas por área e inclinación. Incluye desperdicio, tiras de inicio y caballete.",
+      "inputs": {
+        "roof_length": "Largo del tejado",
+        "roof_width": "Ancho del tejado",
+        "roof_pitch": "Pendiente del tejado",
+        "shingles_per_bundle": "Tejas por paquete"
+      },
+      "outputs": {
+        "roof_area_m2": "Área del tejado",
+        "roofing_squares": "Cuadrados de tejado",
+        "bundles_needed": "Paquetes necesarios",
+        "waste_percent": "Factor de desperdicio"
+      }
+    },
+    "en": {
+      "name": "Roofing Shingle Calculator",
+      "desc": "Roofing Shingle Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Roofing Shingle Calculator ? Bundles & Squares",
+      "seo_desc": "Re-roofing your home? Enter roof dimensions and pitch to calculate roofing squares, number of shingle bundles, and waste allowance for cuts and ridge caps.",
+      "seo_description": "Calculate how many roofing shingles and bundles you need. Enter roof dimensions and pitch for accurate material ordering.",
+      "inputs": {
+        "roof_length": "Roof length",
+        "roof_width": "Roof width",
+        "roof_pitch": "Roof pitch",
+        "shingles_per_bundle": "Shingles per bundle"
+      },
+      "outputs": {
+        "roof_area_m2": "Roof area",
+        "roofing_squares": "Roofing squares",
+        "bundles_needed": "Bundles needed",
+        "waste_percent": "Waste factor"
+      }
+    },
+    "fr": {
+      "name": "Calculatrice de Bardeaux",
+      "desc": "Calculateur de Toiture. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculatrice Bardeaux – Bottes et Carrés de Toiture",
+      "seo_desc": "Calculez le nombre de bardeaux et bottes nécessaires. Entrez les dimensions du toit et la pente pour obtenir les carrés de toiture et le nombre de bottes.",
+      "seo_description": "Calculateur gratuit de toiture: calculez paquets de bardeaux d'asphalte par surface et pente. Inclut déchet, bandeau de départ et faîtage.",
+      "inputs": {
+        "roof_length": "Longueur du toit",
+        "roof_width": "Largeur du toit",
+        "roof_pitch": "Pente du toit",
+        "shingles_per_bundle": "Bardeaux par botte"
+      },
+      "outputs": {
+        "roof_area_m2": "Surface du toit",
+        "roofing_squares": "Carrés de toiture",
+        "bundles_needed": "Bottes nécessaires",
+        "waste_percent": "Facteur de perte"
+      }
+    },
+    "pt": {
+      "name": "Calculadora de Telhas",
+      "desc": "Calculadora de Telhado. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculadora de Telhas – Pacotes e Metros Quadrados",
+      "seo_desc": "Calcule quantas telhas e pacotes você precisa. Insira as dimensões do telhado e a inclinação para obter metros quadrados e a contagem de pacotes com 10% de desperdício.",
+      "seo_description": "Calculadora gratuita de telhado: calcule pacotes de telhas de asfalto por área e inclinação. Inclui desperdício e cumeeira.",
+      "inputs": {
+        "roof_length": "Comprimento do telhado",
+        "roof_width": "Largura do telhado",
+        "roof_pitch": "Inclinação do telhado",
+        "shingles_per_bundle": "Telhas por pacote"
+      },
+      "outputs": {
+        "roof_area_m2": "Área do telhado",
+        "roofing_squares": "Metros quadrados de cobertura",
+        "bundles_needed": "Pacotes necessários",
+        "waste_percent": "Fator de desperdício"
+      }
+    },
+    "de": {
+      "name": "Roofing shingle calculator",
+      "desc": "Berechnen Sie roofing shingle calculator online. Geben Sie roof length, roof width, roof pitch ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Roofing shingle calculator | CalcToWork",
+      "seo_desc": "Roofing shingle calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Roofing shingle calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "roof_length": "Roof Length",
+        "roof_width": "Roof Width",
+        "roof_pitch": "Roof Pitch",
+        "shingles_per_bundle": "Shingles Per Bundle"
+      },
+      "outputs": {
+        "roof_area_m2": "Roof Area M2",
+        "roofing_squares": "Roofing Squares",
+        "bundles_needed": "Bundles Needed",
+        "waste_percent": "Waste Percent"
+      },
+      "example_label": "Ejemplo para roofing shingle calculator: valores 10m, 8m, 29pcs",
+      "range_hints": {},
+      "result_context": "Roof area: {roof_area_m2} m², squares: {roofing_squares}, bundles needed: {bundles_needed}",
+      "formula_display": "Pitch factor = sqrt(1 + (pitch/12)²); Roof area = L × W × pitch_factor; Bundles = ceil(area ÷ 9.29 × 3)",
+      "steps": [
+        "Flat footprint: 12 m × 8 m = 96 m²",
+        "Pitch factor for 4/12 pitch: sqrt(1 + (4/12)²) = 1.054",
+        "Actual roof area: 96 × 1.054 = 101.2 m²",
+        "Roofing squares (1 square = 9.29 m²): 101.2 ÷ 9.29 = 10.9 squares",
+        "Bundles (3 per square + 10% waste): ceil(10.9 × 3 × 1.1) = 36 bundles"
+      ],
+      "mistakes": [
+        "Using the floor footprint area instead of actual roof surface area",
+        "Forgetting to account for roof pitch when ordering materials",
+        "Not adding 10-15% for waste, valleys, and hip cuts"
+      ],
+      "input_type_review": []
+    },
+    "it": {
+      "name": "Calcolatore di Tegole",
+      "desc": "Calcolatore Tetto. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calcolatore Tegole – Pacchi e Quadrati di Copertura",
+      "seo_desc": "Calcola quante tegole e pacchi ti servono. Inserisci le dimensioni del tetto e la pendenza per ottenere i quadrati di copertura e il numero di pacchi con il 10% di...",
+      "seo_description": "Calcolatore gratuito tetto: calcola pacchetti di tegole di asfalto per area e pendenza. Include spreco, strisce di partenza e colmo.",
+      "inputs": {
+        "roof_length": "Lunghezza del tetto",
+        "roof_width": "Larghezza del tetto",
+        "roof_pitch": "Pendenza del tetto",
+        "shingles_per_bundle": "Tegole per pacco"
+      },
+      "outputs": {
+        "roof_area_m2": "Area del tetto",
+        "roofing_squares": "Quadrati di copertura",
+        "bundles_needed": "Pacchi necessari",
+        "waste_percent": "Fattore di scarto"
+      }
+    }
+  }
+}

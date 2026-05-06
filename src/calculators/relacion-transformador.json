@@ -1,0 +1,322 @@
+{
+  "id": "1015",
+  "slug": "relacion-transformador",
+  "block": 3,
+  "block_slug": "electronica",
+  "inputs": [
+    {
+      "id": "vp",
+      "type": "number",
+      "step": "any",
+      "default": 230,
+      "unit": "V",
+      "unit_options": [
+        "V",
+        "kV"
+      ],
+      "unit_category": "voltage"
+    },
+    {
+      "id": "vs",
+      "type": "number",
+      "step": "any",
+      "default": 12,
+      "unit": "V",
+      "unit_options": [
+        "V",
+        "kV"
+      ],
+      "unit_category": "voltage"
+    }
+  ],
+  "formula": "var vp=parseFloat(inputs.vp)||1;var vs=parseFloat(inputs.vs)||1;var r=vp/vs;return{ratio:r.toFixed(4),np_ns:r.toFixed(4)};",
+  "outputs": [
+    {
+      "id": "ratio",
+      "unit": ""
+    },
+    {
+      "id": "np_ns",
+      "unit": ""
+    }
+  ],
+  "related": [
+    "1010",
+    "708",
+    "1011",
+    "1012"
+  ],
+  "example_inputs": {
+    "vp": 230,
+    "vs": 12
+  },
+  "example_label": "Ejemplo para relacion transformador: valores 230V, 12V",
+  "range_hints": {
+    "vp": "Valor típico entre 0 y 500. Valor por defecto: 230 V.",
+    "vs": "Valor típico entre 0 y 500. Valor por defecto: 12 V."
+  },
+  "result_context": "La relación de transformación es {ratio} y la relación de espiras primario/secundario es {np_ns}.",
+  "result_context_en": "The transformation ratio is {ratio} and the primary/secondary turns ratio is {np_ns}.",
+  "result_context_fr": "Le rapport de transformation est de {ratio} et le rapport de spires primaire/secondaire est de {np_ns}.",
+  "result_context_pt": "A relação de transformação é {ratio} e a relação de espiras primário/secundário é {np_ns}.",
+  "result_context_de": "Das Übersetzungsverhältnis beträgt {ratio} und das Windungsverhältnis Primär/Sekundär beträgt {np_ns}.",
+  "result_context_it": "Il rapporto di trasformazione è {ratio} e il rapporto spire primario/secondario è {np_ns}.",
+  "formula_display": "vp ÷ vs → ratio, np_ns",
+  "steps": [
+    "Introducir los valores de vp y vs",
+    "Verificar que las unidades sean correctas y convertir si es necesario (V, kV)",
+    "Calcular los valores de ratio y np ns",
+    "Verificar que el resultado es coherente con los valores de entrada",
+    "Documentar el resultado con sus unidades para usarlo en cálculos de ingeniería posteriores"
+  ],
+  "mistakes": [
+    "Confundir resistencia en serie (suma) con resistencia en paralelo (inversa de sumas de inversas)",
+    "No verificar la potencia máxima que puede disipar un componente",
+    "Usar el código de colores de 4 bandas para resistencias de 5 bandas"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "vp",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "vs",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small circuit",
+      "vp": 115,
+      "vs": 6
+    },
+    {
+      "_label": "Medium circuit",
+      "vp": 172,
+      "vs": 9
+    },
+    {
+      "_label": "Large circuit",
+      "vp": 230,
+      "vs": 12
+    },
+    {
+      "_label": "Board",
+      "vp": 345,
+      "vs": 18
+    },
+    {
+      "_label": "System",
+      "vp": 460,
+      "vs": 24
+    }
+  ],
+  "units": {
+    "vp": "V",
+    "vs": "V"
+  },
+  "i18n": {
+    "es": {
+      "name": "Relación de Transformador",
+      "description": "Calcula la relación de espiras de un transformador.",
+      "inputs": {
+        "vp": "V primario",
+        "vs": "V secundario"
+      },
+      "outputs": {
+        "ratio": "Relación",
+        "np_ns": "Np/Ns"
+      },
+      "seo_title": "Relación de Transformador",
+      "seo_description": "Calcula la tensión secundaria o la relación de espiras de un transformador. Fórmula: Vââ€š/Vââ€šâ€š = Nââ€š/Nââ€šâ€š. Ejemplo: 230V, 1000:100 espiras...",
+      "example_label": "Ejemplo de circuito electrónico",
+      "range_hints": {},
+      "result_context": "Relación de vueltas determina la relación de voltajes.",
+      "formula_display": "Np/Ns = Vp/Vs",
+      "steps": [
+        "Identificar los valores de entrada",
+        "Aplicar la fórmula correspondiente",
+        "Realizar el cálculo",
+        "Obtener los 2 resultados"
+      ],
+      "mistakes": [
+        "No verificar polaridad de componentes",
+        "Usar unidades inconsistentes",
+        "No considerar tolerancias"
+      ],
+      "input_type_review": []
+    },
+    "en": {
+      "name": "Transformer Turns Ratio",
+      "description": "Calculate the turns ratio of a transformer.",
+      "inputs": {
+        "vp": "Primary V",
+        "vs": "Secondary V"
+      },
+      "outputs": {
+        "ratio": "Ratio",
+        "np_ns": "Np/Ns"
+      },
+      "seo_title": "Transformer Ratio Calculator – Vâ‚/Vâ‚‚ = Nâ‚/Nâ‚‚",
+      "seo_description": "Calculate secondary voltage or turns ratio of a transformer. Formula: Vâ‚/Vâ‚‚ = Nâ‚/Nâ‚‚. Example: 230V, 1000:100 turns â†’ Vâ‚‚=23V. Free.",
+      "example_label": "Ejemplo de circuito electrónico",
+      "range_hints": {},
+      "result_context": "Relación de vueltas determina la relación de voltajes.",
+      "formula_display": "Np/Ns = Vp/Vs",
+      "steps": [
+        "Identificar los valores de entrada",
+        "Aplicar la fórmula correspondiente",
+        "Realizar el cálculo",
+        "Obtener los 2 resultados"
+      ],
+      "mistakes": [
+        "No verificar polaridad de componentes",
+        "Usar unidades inconsistentes",
+        "No considerar tolerancias"
+      ],
+      "input_type_review": "2 entrada(s) de tipo number"
+    },
+    "fr": {
+      "name": "Rapport de Transformateur",
+      "description": "Calculez le rapport de transformation.",
+      "inputs": {
+        "vp": "V primaire",
+        "vs": "V secondaire"
+      },
+      "outputs": {
+        "ratio": "Rapport",
+        "np_ns": "Np/Ns"
+      },
+      "seo_title": "Rapport de Transformateur",
+      "seo_description": "Calculez la tension secondaire ou le rapport de spires d'un transformateur. Formule: Vââ€š/Vââ€šâ€š = Nââ€š/Nââ€šâ€š. Exemple: 230V, 1000:100 ââ€ ’...",
+      "example_label": "Ejemplo de circuito electrónico",
+      "range_hints": {},
+      "result_context": "Relación de vueltas determina la relación de voltajes.",
+      "formula_display": "Np/Ns = Vp/Vs",
+      "steps": [
+        "Identificar les valores de entrada",
+        "Aplicar la fórmula correspondiente",
+        "Realizar le cálculo",
+        "Obtener les 2 resultados"
+      ],
+      "mistakes": [
+        "Ne pas vérifier polaridad de componentes",
+        "Utiliser unités inconsistentes",
+        "Ne pas considérer tolerancias"
+      ],
+      "input_type_review": []
+    },
+    "pt": {
+      "name": "Relação do Transformador",
+      "description": "Calcule a relação de espiras de um transformador.",
+      "inputs": {
+        "vp": "V primário",
+        "vs": "V secundário"
+      },
+      "outputs": {
+        "ratio": "Relação",
+        "np_ns": "Np/Ns"
+      },
+      "seo_title": "Relação do Transformador",
+      "seo_description": "Calcule a tensão secundária ou relação de espiras de um transformador. Fórmula: Vââ€š/Vââ€šâ€š = Nââ€š/Nââ€šâ€š. Exemplo: 230V, 1000:100...",
+      "example_label": "Ejemplo de circuito electrónico",
+      "range_hints": {},
+      "result_context": "Relación de vueltas determina a relação de voltajes.",
+      "formula_display": "Np/Ns = Vp/Vs",
+      "steps": [
+        "Identificar os valores de entrada",
+        "Aplicar a fórmula correspondiente",
+        "Realizar o cálculo",
+        "Obtener os 2 resultados"
+      ],
+      "mistakes": [
+        "Não verificar polaridad de componentes",
+        "Usar unidades inconsistentes",
+        "Não considerar tolerancias"
+      ],
+      "input_type_review": []
+    },
+    "de": {
+      "name": "Relacion transformador",
+      "desc": "Berechnen Sie relacion transformador online. Geben Sie vp, vs ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Relacion transformador | CalcToWork",
+      "seo_desc": "Relacion transformador online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Relacion transformador online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "vp": "Vp",
+        "vs": "Vs"
+      },
+      "outputs": {
+        "ratio": "Ratio",
+        "np_ns": "Np Ns"
+      },
+      "example_label": "Ejemplo para relacion transformador: valores 230V, 12V",
+      "range_hints": {
+        "vp": "Valor típico entre 0 y 500. Valor por defecto: 230 V.",
+        "vs": "Valor típico entre 0 y 500. Valor por defecto: 12 V."
+      },
+      "result_context": "Das Übersetzungsverhältnis beträgt {ratio} und das Windungsverhältnis Primär/Sekundär beträgt {np_ns}.",
+      "formula_display": "vp ÷ vs → ratio, np_ns",
+      "steps": [
+        "Introducir los valores de vp y vs",
+        "Verificar que las unidades sean correctas y convertir si es necesario (V, kV)",
+        "Calcular los valores de ratio y np ns",
+        "Verificar que el resultado es coherente con los valores de entrada",
+        "Documentar el resultado con sus unidades para usarlo en cálculos de ingeniería posteriores"
+      ],
+      "mistakes": [
+        "Confundir resistencia en serie (suma) con resistencia en paralelo (inversa de sumas de inversas)",
+        "No verificar la potencia máxima que puede disipar un componente",
+        "Usar el código de colores de 4 bandas para resistencias de 5 bandas"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "vp",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "vs",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Rapporto di Trasformazione",
+      "description": "Calcola il rapporto di trasformazione.",
+      "inputs": {
+        "vp": "V primario",
+        "vs": "V secondario"
+      },
+      "outputs": {
+        "ratio": "Rapporto",
+        "np_ns": "Np/Ns"
+      },
+      "seo_title": "Rapporto di Trasformazione",
+      "seo_description": "Calcola la tensione secondaria o il rapporto spire di un trasformatore. Formula: Vââ€š/Vââ€šâ€š = Nââ€š/Nââ€šâ€š. Esempio: 230V, 1000:100 ââ€ ’...",
+      "example_label": "Ejemplo di circuito electrónico",
+      "range_hints": {},
+      "result_context": "Relación di vueltas ditermina la relación di voltajes.",
+      "formula_display": "Np/Ns = Vp/Vs",
+      "steps": [
+        "Idintificar i valorei di intrada",
+        "Applicare la fórmula correspondiinte",
+        "Realizar el cálculo",
+        "Obtiner i 2 risultati"
+      ],
+      "mistakes": [
+        "Non verificare polaridad di componinti",
+        "Usare unità inconsestintes",
+        "Non consedirare tolerancias"
+      ],
+      "input_type_review": null
+    }
+  }
+}

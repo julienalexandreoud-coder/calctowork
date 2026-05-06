@@ -1,0 +1,592 @@
+{
+  "id": "007",
+  "slug": "forjado-vigueta",
+  "block": 1,
+  "block_slug": "estructuras",
+  "inputs": [
+    {
+      "id": "largo",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "step": 0.1,
+      "default": 8,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "ancho",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "step": 0.1,
+      "default": 6,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "intereje",
+      "type": "number",
+      "min": 0.5,
+      "max": 1,
+      "step": 0.05,
+      "default": 0.7,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "canto_forjado",
+      "type": "number",
+      "min": 0.2,
+      "max": 0.5,
+      "step": 0.01,
+      "default": 0.25,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.largo)||0,W=parseFloat(inputs.ancho)||0,ie=parseFloat(inputs.intereje)||0.7,cf=parseFloat(inputs.canto_forjado)||0.25;if(!L||!W)return{error:true};var area=L*W,viguetas=Math.ceil(W/ie)+1,vol_comp=+(area*0.04).toFixed(3),bovedillas=Math.ceil(area/(ie*0.25)),sacos=Math.ceil(vol_comp*7);return{area_m2:+area.toFixed(2),viguetas:viguetas,bovedillas_ud:bovedillas,vol_capa_comp:vol_comp,cemento_sacos:sacos};",
+  "outputs": [
+    {
+      "id": "area_m2",
+      "unit": "m²",
+      "highlight": true
+    },
+    {
+      "id": "viguetas",
+      "unit": "ud"
+    },
+    {
+      "id": "bovedillas_ud",
+      "unit": "ud"
+    },
+    {
+      "id": "vol_capa_comp",
+      "unit": "m³"
+    },
+    {
+      "id": "cemento_sacos",
+      "unit": "sacos 50kg"
+    }
+  ],
+  "related": [
+    "006",
+    "008",
+    "005",
+    "001"
+  ],
+  "example_inputs": {
+    "largo": 8,
+    "ancho": 6,
+    "intereje": 0.7,
+    "canto_forjado": 0.25
+  },
+  "example_label": "Ejemplo para forjado vigueta: valores 8m, 6m, 0.7m, 0.25m",
+  "range_hints": {
+    "largo": "Medida típica según el proyecto",
+    "ancho": "Medida típica según el proyecto",
+    "intereje": "Medida lineal en m según plano",
+    "canto_forjado": "Medida lineal en m según plano"
+  },
+  "result_context": "Resultados: {area_m2}, {viguetas}, {bovedillas_ud}, {vol_capa_comp}, {cemento_sacos} sacos de cemento.",
+  "formula_display": "W ÷ ie → area_m2, viguetas",
+  "steps": [
+    "Introducir los valores de largo, ancho, intereje y canto_forjado",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m, cm, mm)",
+    "Calcular los valores de area m2 y viguetas",
+    "El resultado se expresa en m². Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Introducir valores con unidades incorrectas sin verificar la conversión",
+    "Redondear resultados intermedios en lugar del resultado final",
+    "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "largo",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "ancho",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "intereje",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "canto_forjado",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Caso 1",
+      "largo": 3.2,
+      "ancho": 2.4,
+      "intereje": 0.5,
+      "canto_forjado": 0.2
+    },
+    {
+      "_label": "Caso 2",
+      "largo": 5.6,
+      "ancho": 4.2,
+      "intereje": 0.5,
+      "canto_forjado": 0.2
+    },
+    {
+      "_label": "Caso 3",
+      "largo": 8.0,
+      "ancho": 6.0,
+      "intereje": 0.7,
+      "canto_forjado": 0.25
+    },
+    {
+      "_label": "Caso 4",
+      "largo": 12.0,
+      "ancho": 9.0,
+      "intereje": 1.0,
+      "canto_forjado": 0.38
+    },
+    {
+      "_label": "Caso 5",
+      "largo": 20.0,
+      "ancho": 15.0,
+      "intereje": 1.0,
+      "canto_forjado": 0.5
+    }
+  ],
+  "units": {
+    "largo": "m",
+    "ancho": "m",
+    "intereje": "m",
+    "canto_forjado": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Forjado de Vigueta",
+      "desc": "Calcula viguetas, bovedillas y capa de compresión.",
+      "seo_title": "Calculadora Forjado Vigueta y Bovedilla",
+      "inputs": {
+        "largo": "Longitud forjado",
+        "ancho": "Ancho forjado",
+        "intereje": "Intereje viguetas",
+        "canto_forjado": "Canto forjado"
+      },
+      "outputs": {
+        "area_m2": "Área forjado",
+        "viguetas": "Viguetas",
+        "bovedillas_ud": "Bovedillas",
+        "vol_capa_comp": "Vol. capa compresión",
+        "cemento_sacos": "Sacos cemento"
+      },
+      "seo_description": "Calcula el número de viguetas, bovedillas y volumen de capa de compresión para forjados unidireccionales. Incluye factor de desperdicio para pedidos.",
+      "example_label": "Calcular viguetas y bovedillas para un forjado de 8m × 6m con intereje de 70cm y canto de 25cm.",
+      "range_hints": {
+        "largo": "Luz del forjado en dirección de viguetas",
+        "ancho": "Ancho del forjado perpendicular a viguetas",
+        "intereje": "Estándar: 0.60-0.80m entre ejes de viguetas",
+        "canto_forjado": "Forjados unidireccionales: 0.20-0.30m según luz"
+      },
+      "result_context": "Para {area_m2} m² de forjado se necesitan {viguetas} viguetas, {bovedillas_ud} bovedillas, {vol_capa_comp} m³ de capa de compresión y {cemento_sacos} sacos de cemento.",
+      "formula_display": "Viguetas = ancho ÷ intereje + 1; Área = largo × ancho",
+      "steps": [
+        "Calcular área del forjado: 8m × 6m = 48m²",
+        "Calcular número de viguetas: 6m ÷ 0.70m + 1 = 9.57 → 10 viguetas",
+        "Calcular bovedillas: 48m² ÷ (0.70m × 0.25m) ≈ 274 unidades",
+        "Calcular volumen capa de compresión: 48m² × 0.04m = 1.92m³ (aprox)",
+        "Calcular cemento para capa: 1.92m³ × 7 ≈ 14 sacos"
+      ],
+      "mistakes": [
+        "No considerar vigueta adicional en extremos y bordes",
+        "Colocar mal la malla de reparto sobre la capa de compresión",
+        "No prever apuntalamiento adecuado durante el fraguado"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "ancho",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "intereje",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "canto_forjado",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Joist and Slab Calculator",
+      "desc": "Joist and Slab Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Joist and Slab Concrete Calculator ? Hollow Block Floor",
+      "seo_desc": "Estimating materials for a ribbed slab floor? Enter slab area, joist spacing and depth to get concrete volume, hollow blocks needed and steel weight.",
+      "inputs": {
+        "largo": "Slab length",
+        "ancho": "Slab width",
+        "intereje": "Joist spacing",
+        "canto_forjado": "Slab depth"
+      },
+      "outputs": {
+        "area_m2": "Floor area",
+        "viguetas": "Joists",
+        "bovedillas_ud": "Hollow blocks",
+        "vol_capa_comp": "Compression layer vol.",
+        "cemento_sacos": "Cement bags"
+      },
+      "seo_description": "Calculate materials for joist and slab (forjado unidireccional) concrete floors. Volume, blocks and steel for ribbed slab construction.",
+      "example_label": "Calcular viguetas y bovedillas para un forjado de 8m × 6m con intereje de 70cm y canto de 25cm.",
+      "range_hints": {
+        "largo": "Luz del forjado en dirección de viguetas",
+        "ancho": "Ancho del forjado perpendicular a viguetas",
+        "intereje": "Estándar: 0.60-0.80m entre ejes de viguetas",
+        "canto_forjado": "Forjados unidireccionales: 0.20-0.30m según luz"
+      },
+      "result_context": "Para {area_m2} m² de forjado se necesitan {viguetas} viguetas, {bovedillas_ud} bovedillas, {vol_capa_comp} m³ de capa de compresión y {cemento_sacos} sacos de cemento.",
+      "formula_display": "Viguetas = ancho ÷ intereje + 1; Área = largo × ancho",
+      "steps": [
+        "Calcular área del forjado: 8m × 6m = 48m²",
+        "Calcular número de viguetas: 6m ÷ 0.70m + 1 = 9.57 â†’ 10 viguetas",
+        "Calcular bovedillas: 48m² ÷ (0.70m × 0.25m) â‰ˆ 274 unidades",
+        "Calcular volumen capa de compresión: 48m² × 0.04m = 1.92m³ (aprox)",
+        "Calcular cemento para capa: 1.92m³ × 7 â‰ˆ 14 sacos"
+      ],
+      "mistakes": [
+        "No considerar vigueta adicional en extremos y bordes",
+        "Colocar mal la malla de reparto sobre la capa de compresión",
+        "No prever apuntalamiento adecuado durante el fraguado"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "intereje",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "canto_forjado",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Plancher Hourdis",
+      "desc": "Calculez poutrelles, hourdis et dalle de compression.",
+      "seo_title": "Calculateur Plancher Hourdis – Étape par Étape",
+      "inputs": {
+        "largo": "Longueur plancher",
+        "ancho": "Largeur plancher",
+        "intereje": "Entraxe poutrelles",
+        "canto_forjado": "Hauteur plancher"
+      },
+      "outputs": {
+        "area_m2": "Surface plancher",
+        "viguetas": "Poutrelles",
+        "bovedillas_ud": "Hourdis",
+        "vol_capa_comp": "Vol. dalle compression",
+        "cemento_sacos": "Sacs ciment"
+      },
+      "seo_description": "Calculez le nombre de poutrelles, hourdis et volume de dalle de compression. Inclut le facteur de perte pour les commandes.",
+      "example_label": "Calculer viguetas et bovedillas pour un forjado de 8m × 6m avec intereje de 70cm et hauteur de 25cm.",
+      "range_hints": {
+        "largo": "Luz du forjado dans dirección de viguetas",
+        "ancho": "largeur du forjado perpendicular a viguetas",
+        "intereje": "standard: 0.60-0.80m entre ejes de viguetas",
+        "canto_forjado": "Forjados unidireccionales: 0.20-0.30m selon luz"
+      },
+      "result_context": "pour {area_m2} m² de forjado se necesitan {viguetas} viguetas, {bovedillas_ud} bovedillas, {vol_capa_comp} m³ de capa de compresión et {cemento_sacos} sacs de ciment.",
+      "formula_display": "Viguetas = largeur Á· intereje + 1; Área = longueur × largeur",
+      "steps": [
+        "Calculer área du forjado: 8m × 6m = 48m²",
+        "Calculer número de viguetas: 6m Á· 0.70m + 1 = 9.57 ââ€ ’ 10 viguetas",
+        "Calculer bovedillas: 48m² Á· (0.70m × 0.25m) ââ€°ˆ 274 unités",
+        "Calculer le volume capa de compresión: 48m² × 0.04m = 1.92m³ (aprox)",
+        "Calculer le ciment pour capa: 1.92m³ × 7 â‰ˆ 14 sacs"
+      ],
+      "mistakes": [
+        "Ne pas considérer vigueta adicional aux extrémités et bordes",
+        "Colocar mal la malla de reparto sur la capa de compresión",
+        "No prever apuntalamiento adéquat durante le fraguado"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "intereje",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "canto_forjado",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Laje Nervurada",
+      "desc": "Calcule o número de vigotes, lajotas e volume de capa de concreto para lajes nervuradas. Calculo preciso e rapido com metodologia clara.",
+      "seo_title": "Calculadora de Laje Nervurada – Passo a Passo",
+      "inputs": {
+        "largo": "Comprimento laje",
+        "ancho": "Largura laje",
+        "intereje": "Espaçamento vigotes",
+        "canto_forjado": "Altura laje"
+      },
+      "outputs": {
+        "area_m2": "Área laje",
+        "viguetas": "Vigotes",
+        "bovedillas_ud": "Lajotas",
+        "vol_capa_comp": "Vol. capa compressão",
+        "cemento_sacos": "Sacos cimento"
+      },
+      "seo_description": "Calcule o número de vigotes, lajotas e volume de capa de concreto para lajes nervuradas. Calculo preciso e rapido com metodologia clara.",
+      "example_label": "Calcular viguetas e bovedillas para um forjado de 8m × 6m com intereje de 70cm e altura de 25cm.",
+      "range_hints": {
+        "largo": "Luz do forjado em dirección de viguetas",
+        "ancho": "Ancho do forjado perpendicular a viguetas",
+        "intereje": "Estándar: 0.60-0.80m entre ejes de viguetas",
+        "canto_forjado": "Forjados unidireccionales: 0.20-0.30m segundo vão"
+      },
+      "result_context": "Para {area_m2} m² de forjado são necessários {viguetas} viguetas, {bovedillas_ud} bovedillas, {vol_capa_comp} m³ de capa de compressão e {cemento_sacos} sacos de cemento.",
+      "formula_display": "Viguetas = largura ÷ intereje + 1; Área = comprimento × largura",
+      "steps": [
+        "Calcular área do forjado: 8m × 6m = 48m²",
+        "Calcular número de viguetas: 6m ÷ 0.70m + 1 = 9.57 â†’ 10 viguetas",
+        "Calcular bovedillas: 48m² ÷ (0.70m × 0.25m) â‰ˆ 274 unidades",
+        "Calcular volume capa de compressão: 48m² × 0.04m = 1.92m³ (aprox)",
+        "Calcular cimento para capa: 1.92m³ × 7 â‰ˆ 14 sacos"
+      ],
+      "mistakes": [
+        "Não considerar vigueta adicional em extremos e bordes",
+        "Colocar mal a malha de distribuição sobre a capa de compressão",
+        "Não prever apuntalamiento adequado durante o pega"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "intereje",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "canto_forjado",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Decke Fertigteilträger",
+      "desc": "Berechnen Sie decke Fertigteilträger online. Geben Sie largo, ancho, intereje ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Decke Fertigteilträger | CalcToWork",
+      "seo_desc": "Decke Fertigteilträger online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Decke Fertigteilträger online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "largo": "Largo",
+        "ancho": "Ancho",
+        "intereje": "Intereje",
+        "canto_forjado": "Canto Forjado"
+      },
+      "outputs": {
+        "area_m2": "Area M2",
+        "viguetas": "Viguetas",
+        "bovedillas_ud": "Bovedillas Ud",
+        "vol_capa_comp": "Vol Capa Comp",
+        "cemento_sacos": "Cemento Sacos"
+      },
+      "example_label": "Ejemplo para forjado vigueta: valores 8m, 6m, 0.7m, 0.25m",
+      "range_hints": {
+        "largo": "Medida típica según el proyecto",
+        "ancho": "Medida típica según el proyecto",
+        "intereje": "Medida lineal en m según plano",
+        "canto_forjado": "Medida lineal en m según plano"
+      },
+      "result_context": "Resultados: {area_m2}, {viguetas}, {bovedillas_ud}, {vol_capa_comp}, {cemento_sacos} sacos de cemento.",
+      "formula_display": "W ÷ ie → area_m2, viguetas",
+      "steps": [
+        "Introducir los valores de largo, ancho, intereje y canto_forjado",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m, cm, mm)",
+        "Calcular los valores de area m2 y viguetas",
+        "El resultado se expresa en m². Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Introducir valores con unidades incorrectas sin verificar la conversión",
+        "Redondear resultados intermedios en lugar del resultado final",
+        "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "intereje",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "canto_forjado",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Fondazione a Platea",
+      "description": "Calcola il calcestruzzo per fondazioni a platea.",
+      "seo_title": "Calcolatore Fondazione a Platea",
+      "seo_description": "Calcola il volume di calcestruzzo per platee di fondazione. Include fattore di scarto per gli ordini. Usato da professionisti e studenti in tutto il.",
+      "inputs": {
+        "largo": "Lunghezza (m)",
+        "ancho": "Larghezza (m)",
+        "espesor": "Spessore (m)",
+        "cuantia": "Percentuale armatura (%)"
+      },
+      "outputs": {
+        "volumen": "Volume (m³)",
+        "cemento_sacos": "Sacchi cemento",
+        "acero_kg": "Acciaio (kg)"
+      },
+      "example_label": "Calcolare viguetas e bovedille per un forjado di 8m × 6m con intereje di 70cm e canto di 25cm.",
+      "range_hints": {
+        "largo": "Luz dil forjado in dirección di viguetas",
+        "ancho": "Ancho dil forjado perpindicular a viguetas",
+        "intereje": "Estándar: 0.60-0.80m intre ejes di viguetas",
+        "canto_forjado": "Forjados unidireccionales: 0.20-0.30m según luz"
+      },
+      "result_context": "Per {area_m2} m² di forjado sonon necessari {viguetas} viguetas, {bovedille_ud} bovedille, {vol_strato_comp} m³ di strato di compreseón e {ceminto_sacos} sacos di ceminto.",
+      "formula_display": "Viguetas = larghezza ÷ intereje + 1; Área = lunghezza × larghezza",
+      "steps": [
+        "Calcolare área dil forjado: 8m × 6m = 48m²",
+        "Calcolare número di viguetas: 6m ÷ 0.70m + 1 = 9.57 → 10 viguetas",
+        "Calcolare bovedille: 48m² ÷ (0.70m × 0.25m) â‰ˆ 274 unità",
+        "Calcolare volume strato di compreseón: 48m² × 0.04m = 1.92m³ (aprox)",
+        "Calcolare ceminto per strato: 1.92m³ × 7 ≈ 14 sacos"
+      ],
+      "mistakes": [
+        "Non consedirare vigueta adicional in estremità e bordi",
+        "Colocar mal la malla di reparto su la strato di compreseón",
+        "No prever apuntalamiinto adiguato durante el fracquado"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "intereje",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "canto_forjado",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        }
+      ]
+    }
+  }
+}

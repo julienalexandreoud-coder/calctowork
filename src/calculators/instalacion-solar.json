@@ -1,0 +1,470 @@
+{
+  "id": "048",
+  "slug": "instalacion-solar",
+  "block": 5,
+  "block_slug": "electricidad",
+  "inputs": [
+    {
+      "id": "consumo_diario_kwh",
+      "type": "number",
+      "min": 1,
+      "max": 200,
+      "step": 0.5,
+      "default": 15,
+      "unit": "kWh/día"
+    },
+    {
+      "id": "hsp_dia",
+      "type": "number",
+      "min": 2,
+      "max": 7,
+      "step": 0.5,
+      "default": 4.5,
+      "unit": "HSP/día"
+    },
+    {
+      "id": "potencia_panel_w",
+      "type": "number",
+      "min": 200,
+      "max": 600,
+      "step": 25,
+      "default": 400,
+      "unit": "W/panel"
+    }
+  ],
+  "formula": "var C=parseFloat(inputs.consumo_diario_kwh)||0,HSP=parseFloat(inputs.hsp_dia)||4.5,Wp=parseFloat(inputs.potencia_panel_w)||400;if(!C)return{error:true};var kwp_nec=+(C/HSP/0.8).toFixed(2),paneles=Math.ceil(kwp_nec*1000/Wp),kwp_inst=+(paneles*Wp/1000).toFixed(2),prod_anual=+(kwp_inst*HSP*365*0.8).toFixed(0);return{kwp_necesario:kwp_nec,paneles_ud:paneles,kwp_instalado:kwp_inst,produccion_anual_kwh:prod_anual};",
+  "outputs": [
+    {
+      "id": "kwp_necesario",
+      "unit": "kWp"
+    },
+    {
+      "id": "paneles_ud",
+      "unit": "paneles",
+      "highlight": true
+    },
+    {
+      "id": "kwp_instalado",
+      "unit": "kWp instalado"
+    },
+    {
+      "id": "produccion_anual_kwh",
+      "unit": "kWh/año estimado"
+    }
+  ],
+  "related": [
+    "049",
+    "052",
+    "047",
+    "043"
+  ],
+  "example_inputs": {
+    "consumo_diario_kwh": 15,
+    "hsp_dia": 4.5,
+    "potencia_panel_w": 400
+  },
+  "example_label": "Dimensionar sistema solar para consumo de 15 kWh/día con 4.5 HSP y paneles de 450 W.",
+  "range_hints": {
+    "consumo_diario_kwh": "Consumo medio diario en kWh según factura eléctrica. Dividir consumo mensual entre 30. Vivienda tipo en España: 8-15 kWh/día (sin calefacción eléctrica)",
+    "hsp_dia": "Horas Sol Pico según ubicación: sur de España 5-6 HSP, centro 4.5-5 HSP, norte 3.5-4 HSP. Consultar PVGIS (re.jrc.ec.europa.eu) o mapa CENSOLAR",
+    "potencia_panel_w": "Potencia nominal del panel: residencial 400-450 W, gran formato 500-600 W. Paneles bifaciales añaden 5-15 % extra por cara trasera"
+  },
+  "result_context": "Para {consumo_diario_kwh} kWh/día con {hsp_dia} HSP: se necesitan {kwp_necesario} kWp, equivalente a {paneles_ud} paneles de {potencia_panel_w} W. Potencia instalada: {kwp_instalado} kWp. Producción anual estimada: {produccion_anual_kwh} kWh/año.",
+  "formula_display": "kWp = consumo_diario(kWh) / (HSP × η_sistema).  Nº paneles = ceil(kWp × 1000 / W_panel).  η_sistema ≈ 0.80 (inversor 0.95 × cableado 0.98 × temp. 0.95 × suciedad 0.95).  Producción anual = kWp × HSP × 365 × 0.78.",
+  "steps": [
+    "Determinar el consumo diario medio en kWh: revisar facturas del último año o sumar consumos de electrodomésticos principales",
+    "Consultar las Horas Sol Pico (HSP) de la ubicación exacta en PVGIS (re.jrc.ec.europa.eu/pvg_tools) o mapas solares del IDAE",
+    "Calcular la potencia pico necesaria: kWp = consumo_diario / (HSP × 0.80). El factor 0.80 cubre pérdidas del inversor (~5 %), cableado (~2 %), temperatura (~5 %) y suciedad (~3 %)",
+    "Dividir la potencia pico entre la potencia unitaria del panel para obtener el número de paneles. Redondear al alza",
+    "Verificar producción anual: kWh/año = kWp_instalado × HSP × 365 × 0.78. Comparar con el consumo anual real para validar el dimensionamiento"
+  ],
+  "mistakes": [
+    "Dimensionar solo con consumo medio sin considerar picos estacionales: en invierno el consumo sube (calefacción, iluminación) y las HSP bajan a la mitad, creando déficit justo cuando más se necesita",
+    "Olvidar las pérdidas por temperatura: un panel a 65 °C (común en verano español) produce un 15-20 % menos que su potencia nominal a 25 °C (coeficiente -0.35 %/°C típico)",
+    "No considerar sombras parciales: una chimenea, árbol o edificio sombreando el 5 % de un string puede reducir la producción >50 % por el efecto del diodo de bypass",
+    "Instalar con orientación/ángulo incorrectos: en hemisferio norte la orientación óptima es SUR con inclinación = latitud (36°-42° en España). Desviación >30° reduce >15 %"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "consumo_diario_kwh",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "hsp_dia",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "potencia_panel_w",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Vivienda pequeña (8 kWh/d)",
+      "consumo_diario_kwh": 8,
+      "hsp_dia": 4.5,
+      "potencia_panel_w": 400
+    },
+    {
+      "_label": "Vivienda media (12 kWh/d)",
+      "consumo_diario_kwh": 12,
+      "hsp_dia": 4.5,
+      "potencia_panel_w": 450
+    },
+    {
+      "_label": "Vivienda grande (15 kWh/d)",
+      "consumo_diario_kwh": 15,
+      "hsp_dia": 5,
+      "potencia_panel_w": 450
+    },
+    {
+      "_label": "Casa con bomba calor (25 kWh)",
+      "consumo_diario_kwh": 25,
+      "hsp_dia": 5,
+      "potencia_panel_w": 500
+    },
+    {
+      "_label": "Pequeña industria (50 kWh)",
+      "consumo_diario_kwh": 50,
+      "hsp_dia": 5.5,
+      "potencia_panel_w": 550
+    }
+  ],
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Instalación Solar Fotovoltaica",
+      "desc": "Calcula el número de paneles solares y los kWp instalados necesarios para autoconsumo fotovoltaico Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora Paneles Solares – kWp",
+      "inputs": {
+        "consumo_diario_kwh": "Consumo diario (kWh)",
+        "hsp_dia": "Horas solar pico (HSP)",
+        "potencia_panel_w": "Potencia panel (W)"
+      },
+      "outputs": {
+        "kwp_necesario": "kWp necesario",
+        "paneles_ud": "Paneles solares",
+        "kwp_instalado": "kWp instalado",
+        "produccion_anual_kwh": "Producción anual estimada"
+      },
+      "seo_description": "Calcula el número de paneles solares y los kWp instalados necesarios para autoconsumo fotovoltaico Usado por profesionales y estudiantes en todo el mundo.",
+      "example_label": "Calcular instalación solar para consumo de 15 kWh/día con 4.5 HSP y paneles de 450W.",
+      "range_hints": {
+        "consumo_diario_kwh": "Consumo promedio diario de la vivienda",
+        "hsp_dia": "Horas Sol Pico según ubicación: 3-6 HSP/día",
+        "potencia_panel_w": "Paneles comerciales: 350-550W"
+      },
+      "result_context": "Para {consumo_diario_kwh} kWh/día con {hsp_dia} HSP se necesitan {potencia_total_w}W de paneles ({paneles_ud} paneles de {potencia_panel_w}W). Baterías: {capacidad_kwh} kWh para 1 día.",
+      "formula_display": "Potencia = consumo ÷ HSP; Paneles = potencia ÷ W_panel; Baterías = consumo × días",
+      "steps": [
+        "Calcular potencia necesaria: 15 kWh ÷ 4.5 HSP = 3.33 kW = 3333W",
+        "Considerar pérdidas 20%: 3333W × 1.20 = 4000W",
+        "Calcular paneles: 4000W ÷ 450W = 8.89 → 9 paneles",
+        "Baterías 1 día: 15 kWh × 1.20 = 18 kWh (considerar profundidad descarga 50%: 36 kWh)"
+      ],
+      "mistakes": [
+        "No considerar pérdidas del sistema (inversor, cables, temperatura)",
+        "Dimensionar baterías sin considerar profundidad de descarga",
+        "No orientar paneles correctamente (sur en hemisferio norte)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "consumo_diario_kwh",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "hsp_dia",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "potencia_panel_w",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Solar Panel Installation Calculator",
+      "desc": "Solar Panel Installation Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Solar Panel Calculator – kWp & Panels",
+      "inputs": {
+        "consumo_diario_kwh": "Daily consumption (kWh)",
+        "hsp_dia": "Peak sun hours (PSH)",
+        "potencia_panel_w": "Panel power (W)"
+      },
+      "outputs": {
+        "kwp_necesario": "kWp needed",
+        "paneles_ud": "Solar panels",
+        "kwp_instalado": "Installed kWp",
+        "produccion_anual_kwh": "Estimated annual output"
+      },
+      "seo_description": "Solar Panel Installation Calculator. Daily consumption (kWh), Peak sun hours (PSH), Panel power (W) — get kWp needed, Solar panels, Installed kWp.",
+      "example_label": "Calcular instalación solar para consumo de 15 kWh/día con 4.5 HSP y paneles de 450W.",
+      "range_hints": {
+        "consumo_diario_kwh": "Consumo promedio diario de la vivienda",
+        "hsp_dia": "Horas Sol Pico según ubicación: 3-6 HSP/día",
+        "potencia_panel_w": "Paneles comerciales: 350-550W"
+      },
+      "result_context": "Para {consumo_diario_kwh} kWh/día con {hsp_dia} HSP se necesitan {potencia_total_w}W de paneles ({paneles_ud} paneles de {potencia_panel_w}W). Baterías: {capacidad_kwh} kWh para 1 día.",
+      "formula_display": "Potencia = consumo ÷ HSP; Paneles = potencia ÷ W_panel; Baterías = consumo × días",
+      "steps": [
+        "Calcular potencia necesaria: 15 kWh ÷ 4.5 HSP = 3.33 kW = 3333W",
+        "Considerar pérdidas 20%: 3333W × 1.20 = 4000W",
+        "Calcular paneles: 4000W ÷ 450W = 8.89 â†’ 9 paneles",
+        "Baterías 1 día: 15 kWh × 1.20 = 18 kWh (considerar profundidad descarga 50%: 36 kWh)"
+      ],
+      "mistakes": [
+        "No considerar pérdidas del sistema (inversor, cables, temperatura)",
+        "Dimensionar baterías sin considerar profundidad de descarga",
+        "No orientar paneles correctamente (sur en hemisferio norte)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "consumo_diario_kwh",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "hsp_dia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "potencia_panel_w",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Installation Solaire Photovoltaïque",
+      "desc": "Calculez le nombre de panneaux solaires et les kWc installés pour l'autoconsommation Utilise par des professionnels et etudiants dans le monde entier.",
+      "seo_title": "Calculateur Panneaux Solaires – kWp",
+      "inputs": {
+        "consumo_diario_kwh": "Consommation journalière (kWh)",
+        "hsp_dia": "Heures solaires de pointe (HSP)",
+        "potencia_panel_w": "Puissance panneau (W)"
+      },
+      "outputs": {
+        "kwp_necesario": "kWc nécessaire",
+        "paneles_ud": "Panneaux solaires",
+        "kwp_instalado": "kWc installé",
+        "produccion_anual_kwh": "Production annuelle estimée"
+      },
+      "seo_description": "Calculez le nombre de panneaux solaires et les kWc installés pour l'autoconsommation Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calculer instalación solar pour consumo de 15 kWh/día avec 4.5 HSP et paneles de 450W.",
+      "range_hints": {
+        "consumo_diario_kwh": "Consumo promedio diario de la vivienda",
+        "hsp_dia": "Horas Sol Pico selon ubicación: 3-6 HSP/día",
+        "potencia_panel_w": "Paneles comerciales: 350-550W"
+      },
+      "result_context": "pour {consumo_diario_kwh} kWh/día avec {hsp_dia} HSP se necesitan {potencia_total_w}W de paneles ({paneles_ud} paneles de {potencia_panel_w}W). Baterías: {capacidad_kwh} kWh pour 1 día.",
+      "formula_display": "Potencia = consumo Á· HSP; Paneles = potencia Á· W_panel; Baterías = consumo × días",
+      "steps": [
+        "Calculer potencia nécessaire: 15 kWh Á· 4.5 HSP = 3.33 kW = 3333W",
+        "Considerar pérdidas 20%: 3333W × 1.20 = 4000W",
+        "Calculer paneles: 4000W Á· 450W = 8.89 ââ€ ’ 9 paneles",
+        "Baterías 1 día: 15 kWh × 1.20 = 18 kWh (considerar profondeur descarga 50%: 36 kWh)"
+      ],
+      "mistakes": [
+        "Ne pas considérer pérdidas du sistema (inversor, câbles, temperatura)",
+        "Dimensionar baterías sans considerar profondeur de descarga",
+        "No orientar paneles correctamente (sur dans hemisferio norte)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "consumo_diario_kwh",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "hsp_dia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "potencia_panel_w",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Instalação Solar Fotovoltaica",
+      "desc": "Calcule o número de painéis solares e kWp instalados para autoconsumo fotovoltaico Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora Painéis Solares – kWp",
+      "inputs": {
+        "consumo_diario_kwh": "Consumo diário (kWh)",
+        "hsp_dia": "Horas de sol pleno (HSP)",
+        "potencia_panel_w": "Potência painel (W)"
+      },
+      "outputs": {
+        "kwp_necesario": "kWp necessário",
+        "paneles_ud": "Painéis solares",
+        "kwp_instalado": "kWp instalado",
+        "produccion_anual_kwh": "Produção anual estimada"
+      },
+      "seo_description": "Calcule o número de painéis solares e kWp instalados para autoconsumo fotovoltaico Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular instalação solar para consumo de 15 kWh/día com 4.5 HSP e paneles de 450W.",
+      "range_hints": {
+        "consumo_diario_kwh": "Consumo média diario da vivienda",
+        "hsp_dia": "Horas Sol Pico segundo ubicación: 3-6 HSP/día",
+        "potencia_panel_w": "Paneles comerciais: 350-550W"
+      },
+      "result_context": "Para {consumo_diario_kwh} kWh/día com {hsp_dia} HSP são necessários {potencia_total_w}W de paneles ({paneles_ud} paneles de {potencia_panel_w}W). Baterías: {capacidad_kwh} kWh para 1 día.",
+      "formula_display": "Potencia = consumo ÷ HSP; Paneles = potencia ÷ W_panel; Baterías = consumo × días",
+      "steps": [
+        "Calcular potencia necessária: 15 kWh ÷ 4.5 HSP = 3.33 kW = 3333W",
+        "Considerar pérdidas 20%: 3333W × 1.20 = 4000W",
+        "Calcular paneles: 4000W ÷ 450W = 8.89 â†’ 9 paneles",
+        "Baterías 1 día: 15 kWh × 1.20 = 18 kWh (considerar profundidade descarga 50%: 36 kWh)"
+      ],
+      "mistakes": [
+        "Não considerar pérdidas do sistema (inversor, cabos, temperatura)",
+        "Dimensionar baterías sem considerar profundidade de descarga",
+        "Não orientar paneles correctamente (sur em hemisferio norte)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "consumo_diario_kwh",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "hsp_dia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "potencia_panel_w",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Photovoltaik solar",
+      "desc": "Berechnen Sie photovoltaik solar online. Geben Sie consumo diario kwh, hsp dia, potencia panel w ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Photovoltaik solar | CalcToWork",
+      "seo_desc": "Photovoltaik solar online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Photovoltaik solar online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "consumo_diario_kwh": "Consumo Diario Kwh",
+        "hsp_dia": "Hsp Dia",
+        "potencia_panel_w": "Potencia Panel W"
+      },
+      "outputs": {
+        "kwp_necesario": "Kwp Necesario",
+        "paneles_ud": "Paneles Ud",
+        "kwp_instalado": "Kwp Instalado",
+        "produccion_anual_kwh": "Produccion Anual Kwh"
+      },
+      "example_label": "Dimensionar sistema solar para consumo de 15 kWh/día con 4.5 HSP y paneles de 450 W.",
+      "range_hints": {
+        "consumo_diario_kwh": "Consumo medio diario en kWh según factura eléctrica. Dividir consumo mensual entre 30. Vivienda tipo en España: 8-15 kWh/día (sin calefacción eléctrica)",
+        "hsp_dia": "Horas Sol Pico según ubicación: sur de España 5-6 HSP, centro 4.5-5 HSP, norte 3.5-4 HSP. Consultar PVGIS (re.jrc.ec.europa.eu) o mapa CENSOLAR",
+        "potencia_panel_w": "Potencia nominal del panel: residencial 400-450 W, gran formato 500-600 W. Paneles bifaciales añaden 5-15 % extra por cara trasera"
+      },
+      "result_context": "Para {consumo_diario_kwh} kWh/día con {hsp_dia} HSP: se necesitan {kwp_necesario} kWp, equivalente a {paneles_ud} paneles de {potencia_panel_w} W. Potencia instalada: {kwp_instalado} kWp. Producción anual estimada: {produccion_anual_kwh} kWh/año.",
+      "formula_display": "kWp = consumo_diario(kWh) / (HSP × η_sistema).  Nº paneles = ceil(kWp × 1000 / W_panel).  η_sistema ≈ 0.80 (inversor 0.95 × cableado 0.98 × temp. 0.95 × suciedad 0.95).  Producción anual = kWp × HSP × 365 × 0.78.",
+      "steps": [
+        "Determinar el consumo diario medio en kWh: revisar facturas del último año o sumar consumos de electrodomésticos principales",
+        "Consultar las Horas Sol Pico (HSP) de la ubicación exacta en PVGIS (re.jrc.ec.europa.eu/pvg_tools) o mapas solares del IDAE",
+        "Calcular la potencia pico necesaria: kWp = consumo_diario / (HSP × 0.80). El factor 0.80 cubre pérdidas del inversor (~5 %), cableado (~2 %), temperatura (~5 %) y suciedad (~3 %)",
+        "Dividir la potencia pico entre la potencia unitaria del panel para obtener el número de paneles. Redondear al alza",
+        "Verificar producción anual: kWh/año = kWp_instalado × HSP × 365 × 0.78. Comparar con el consumo anual real para validar el dimensionamiento"
+      ],
+      "mistakes": [
+        "Dimensionar solo con consumo medio sin considerar picos estacionales: en invierno el consumo sube (calefacción, iluminación) y las HSP bajan a la mitad, creando déficit justo cuando más se necesita",
+        "Olvidar las pérdidas por temperatura: un panel a 65 °C (común en verano español) produce un 15-20 % menos que su potencia nominal a 25 °C (coeficiente -0.35 %/°C típico)",
+        "No considerar sombras parciales: una chimenea, árbol o edificio sombreando el 5 % de un string puede reducir la producción >50 % por el efecto del diodo de bypass",
+        "Instalar con orientación/ángulo incorrectos: en hemisferio norte la orientación óptima es SUR con inclinación = latitud (36°-42° en España). Desviación >30° reduce >15 %"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "consumo_diario_kwh",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "hsp_dia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "potencia_panel_w",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Impianto Solare Fotovoltaico",
+      "desc": "Calcola il numero di pannelli solari e i kWp installati necessari per l'autoconsumo fotovoltaico. Gratuito, con formula e guida passo passo.",
+      "seo_title": "Calcolatore Pannelli Solari – kWp e Moduli",
+      "inputs": {
+        "consumo_diario_kwh": "Consumo giornaliero (kWh)",
+        "hsp_dia": "Ore di sole equivalente (HSP)",
+        "potencia_panel_w": "Potenza pannello (W)"
+      },
+      "outputs": {
+        "kwp_necesario": "kWp necessari",
+        "paneles_ud": "Pannelli solari",
+        "kwp_instalado": "kWp installati",
+        "produccion_anual_kwh": "Produzione annua stimata"
+      },
+      "seo_description": "Calcola il numero di pannelli solari e i kWp necessari in base al consumo giornaliero, ore di sole equivalente e potenza dei pannelli. Gratuito e immediato.",
+      "example_label": "Dimensionare l'impianto solare per un consumo di 15 kWh/giorno con 4.5 HSP e pannelli da 450 W.",
+      "range_hints": {
+        "consumo_diario_kwh": "Consumo medio giornaliero da bolletta elettrica. Dividere il consumo mensile per 30. Abitazione tipo in Italia: 8-15 kWh/giorno (senza riscaldamento elettrico)",
+        "hsp_dia": "Ore di Sole Equivalenti della località: sud Italia 5-6 HSP, centro 4.5-5 HSP, nord 3.5-4 HSP. Consultare PVGIS (re.jrc.ec.europa.eu)",
+        "potencia_panel_w": "Potenza nominale pannello: residenziale 400-450 W, grande formato 500-600 W. Pannelli bifacciali +5-15 % extra dal lato posteriore"
+      },
+      "result_context": "Per un consumo di {consumo_diario_kwh} kWh/giorno con {hsp_dia} HSP: servono {kwp_necesario} kWp, pari a {paneles_ud} pannelli da {potencia_panel_w} W. Potenza installata: {kwp_instalado} kWp. Produzione annua stimata: {produccion_anual_kwh} kWh/anno.",
+      "formula_display": "kWp = consumo_giornaliero(kWh) / (HSP × η_sistema). N° pannelli = ceil(kWp × 1000 / W_pannello). η_sistema ≈ 0.80 (inverter 0.95 × cavi 0.98 × temp. 0.95 × sporco 0.95). Produzione annua = kWp × HSP × 365 × 0.78.",
+      "steps": [
+        "Determinare il consumo medio giornaliero in kWh: consultare le bollette dell'ultimo anno o sommare i consumi degli elettrodomestici principali",
+        "Consultare le Ore di Sole Equivalenti (HSP) della località su PVGIS (re.jrc.ec.europa.eu/pvg_tools) o atlanti solari GSE",
+        "Calcolare la potenza di picco necessaria: kWp = consumo_giornaliero / (HSP × 0.80). Il fattore 0.80 copre le perdite di inverter (~5 %), cavi (~2 %), temperatura (~5 %) e sporco (~3 %)",
+        "Dividere la potenza di picco per la potenza unitaria del pannello per ottenere il numero di pannelli. Arrotondare all'intero superiore",
+        "Verificare la produzione annua stimata: kWh/anno = kWp_installato × HSP × 365 × 0.78. Confrontare con il consumo annuo reale"
+      ],
+      "mistakes": [
+        "Dimensionare solo sul consumo medio senza considerare i picchi stagionali: in inverno il consumo aumenta (riscaldamento, illuminazione) e le HSP si dimezzano, creando deficit proprio quando serve di più",
+        "Dimenticare le perdite per temperatura: un pannello a 65 °C (comune in estate in Italia) produce il 15-20 % in meno della potenza nominale misurata a 25 °C (coefficiente -0.35 %/°C tipico)",
+        "Non considerare gli ombreggiamenti parziali: un camino, albero o edificio che ombreggia il 5 % di una stringa può ridurre la produzione totale di oltre il 50 % per l'effetto del diodo di bypass",
+        "Installare i pannelli con orientamento e inclinazione errati: nell'emisfero nord l'orientamento ottimale è SUD con inclinazione = latitudine (37°-46° in Italia). Deviazioni >30° riducono >15 %"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "consumo_diario_kwh",
+          "reason": "Corretto: valore numerico continuo"
+        },
+        {
+          "field_id": "hsp_dia",
+          "reason": "Corretto: valore numerico continuo"
+        },
+        {
+          "field_id": "potencia_panel_w",
+          "reason": "Corretto: valore numerico continuo"
+        }
+      ]
+    }
+  }
+}

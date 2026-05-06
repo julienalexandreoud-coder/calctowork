@@ -1,0 +1,449 @@
+{
+  "id": "933",
+  "slug": "heart-rate-zones",
+  "block": 12,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "edad",
+      "type": "number",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "default": 30,
+      "unit": "years"
+    },
+    {
+      "id": "fc_reposo",
+      "type": "number",
+      "min": 30,
+      "max": 120,
+      "step": 1,
+      "default": 60,
+      "unit": "bpm"
+    }
+  ],
+  "formula": "var edad=parseFloat(inputs.edad)||30,fc_reposo=parseFloat(inputs.fc_reposo)||60;if(!edad||!fc_reposo)return{error:true};var fc_max=220-edad;var z1_min=Math.round(fc_reposo+(fc_max-fc_reposo)*0.5),z1_max=Math.round(fc_reposo+(fc_max-fc_reposo)*0.6);var z2_min=Math.round(fc_reposo+(fc_max-fc_reposo)*0.6),z2_max=Math.round(fc_reposo+(fc_max-fc_reposo)*0.7);var z3_min=Math.round(fc_reposo+(fc_max-fc_reposo)*0.7),z3_max=Math.round(fc_reposo+(fc_max-fc_reposo)*0.8);var z4_min=Math.round(fc_reposo+(fc_max-fc_reposo)*0.8),z4_max=Math.round(fc_reposo+(fc_max-fc_reposo)*0.9);var z5_min=Math.round(fc_reposo+(fc_max-fc_reposo)*0.9),z5_max=fc_max;return{fc_max:fc_max,z1_recovery:z1_min+'-'+z1_max,z2_fat_burn:z2_min+'-'+z2_max,z3_aerobic:z3_min+'-'+z3_max,z4_threshold:z4_min+'-'+z4_max,z5_maximum:z5_min+'-'+z5_max};",
+  "outputs": [
+    {
+      "id": "fc_max",
+      "unit": "bpm",
+      "highlight": true
+    },
+    {
+      "id": "z1_recovery",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "z2_fat_burn",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "z3_aerobic",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "z4_threshold",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "z5_maximum",
+      "unit": "",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "422",
+    "930",
+    "932",
+    "400"
+  ],
+  "example_inputs": {
+    "edad": 30,
+    "fc_reposo": 60
+  },
+  "example_label": "Ejemplo para heart rate zones: valores 30years, 60bpm",
+  "range_hints": {
+    "edad": "Valor típico entre 10 y 100. Valor por defecto: 30 years.",
+    "fc_reposo": "Valor típico entre 30 y 120. Valor por defecto: 60 bpm."
+  },
+  "result_context": "FC máxima: {fc_max} lpm. Zonas: Z1 recuperación {z1_recovery}, Z2 quema grasa {z2_fat_burn}, Z3 aeróbica {z3_aerobic}, Z4 umbral {z4_threshold}, Z5 máxima {z5_maximum} lpm.",
+  "result_context_en": "Max HR: {fc_max} bpm. Zones: Z1 recovery {z1_recovery}, Z2 fat burn {z2_fat_burn}, Z3 aerobic {z3_aerobic}, Z4 threshold {z4_threshold}, Z5 maximum {z5_maximum} bpm.",
+  "result_context_fr": "FC max : {fc_max} bpm. Zones : Z1 récupération {z1_recovery}, Z2 combustion des graisses {z2_fat_burn}, Z3 aérobie {z3_aerobic}, Z4 seuil {z4_threshold}, Z5 maximale {z5_maximum} bpm.",
+  "result_context_pt": "FC máxima: {fc_max} bpm. Zonas: Z1 recuperação {z1_recovery}, Z2 queima de gordura {z2_fat_burn}, Z3 aeróbica {z3_aerobic}, Z4 limiar {z4_threshold}, Z5 máxima {z5_maximum} bpm.",
+  "result_context_de": "HF max: {fc_max} bpm. Zonen: Z1 Regeneration {z1_recovery}, Z2 Fettverbrennung {z2_fat_burn}, Z3 aerob {z3_aerobic}, Z4 Schwelle {z4_threshold}, Z5 Maximum {z5_maximum} bpm.",
+  "result_context_it": "FC max: {fc_max} bpm. Zone: Z1 recupero {z1_recovery}, Z2 brucia grassi {z2_fat_burn}, Z3 aerobica {z3_aerobic}, Z4 soglia {z4_threshold}, Z5 massima {z5_maximum} bpm.",
+  "formula_display": "FC_zona = ((FC_max − FC_reposo) × %) + FC_reposo",
+  "steps": [
+    "Introducir los valores de edad y fc_reposo",
+    "Verificar que los valores introducidos están en el rango y formato correctos",
+    "Calcular los valores de fc max y z1 recovery",
+    "El resultado se expresa en bpm. Verificar que la magnitud es coherente",
+    "Comparar el resultado con los valores de referencia para interpretar su significado"
+  ],
+  "mistakes": [
+    "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+    "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+    "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "edad",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "fc_reposo",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "edad": 15,
+      "fc_reposo": 30
+    },
+    {
+      "_label": "Teen",
+      "edad": 22,
+      "fc_reposo": 45
+    },
+    {
+      "_label": "Adult (F)",
+      "edad": 30,
+      "fc_reposo": 60
+    },
+    {
+      "_label": "Adult (M)",
+      "edad": 45,
+      "fc_reposo": 90
+    },
+    {
+      "_label": "Elderly",
+      "edad": 60,
+      "fc_reposo": 120
+    }
+  ],
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Zonas de Frecuencia Cardíaca",
+      "desc": "Encuentra tus zonas de entrenamiento por frecuencia cardiaca. Optimiza quema de grasa y rendimiento. Con rangos de referencia y contexto de salud.",
+      "description": "Calculadora de Zonas de Frecuencia Cardíaca.",
+      "seo_title": "Calculadora de Zonas de Frecuencia Cardíaca Gratuita",
+      "seo_description": "Encuentra tus zonas de entrenamiento por frecuencia cardiaca. Optimiza quema de grasa y rendimiento. Con rangos de referencia y contexto de salud.",
+      "inputs": {
+        "edad": "Edad",
+        "fc_reposo": "fc_reposo"
+      },
+      "outputs": {
+        "fc_max": "FC max",
+        "z1_recovery": "Z1 Recuperacion",
+        "z2_fat_burn": "Z2 Quema grasa",
+        "z3_aerobic": "Z3 Aerobica",
+        "z4_threshold": "Z4 Umbral",
+        "z5_maximum": "Z5 Maxima"
+      },
+      "example_label": "Calculate heart rate zones with edad 30, fc_reposo 60.",
+      "range_hints": {
+        "edad": "Typical range: 10-100 in years units.",
+        "fc_reposo": "Typical range: 30-120 in bpm units."
+      },
+      "result_context": "Your calculated fc max is {fc_max}.",
+      "formula_display": "Calculate heart rate zones based on input values.",
+      "steps": [
+        "Enter input values: edad: 30, fc_reposo: 60",
+        "Calculate and display the fc_max result",
+        "Calculate and display the z1_recovery result",
+        "Calculate and display the z2_fat_burn result",
+        "Calculate and display the z3_aerobic result",
+        "Calculate and display the z4_threshold result",
+        "Calculate and display the z5_maximum result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "edad",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "fc_reposo",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "en": {
+      "name": "Heart Rate Zones Calculator",
+      "desc": "Heart Rate Zones Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Heart Rate Zones Calculator.",
+      "seo_title": "Heart Rate Zones Calculator – Free Online Tool",
+      "seo_description": "Find your heart rate training zones based on maximum heart rate. Optimize fat burn, cardio, and peak performance. Enter your values and get precise.",
+      "inputs": {
+        "edad": "Age",
+        "fc_reposo": "fc_reposo"
+      },
+      "outputs": {
+        "fc_max": "Max HR",
+        "z1_recovery": "Z1 Recovery",
+        "z2_fat_burn": "Z2 Fat burn",
+        "z3_aerobic": "Z3 Aerobic",
+        "z4_threshold": "Z4 Threshold",
+        "z5_maximum": "Z5 Maximum"
+      },
+      "example_label": "Calculate heart rate zones with edad 30, fc_reposo 60.",
+      "range_hints": {
+        "edad": "Typical range: 10-100 in years units.",
+        "fc_reposo": "Typical range: 30-120 in bpm units."
+      },
+      "result_context": "Your calculated fc max is {fc_max}.",
+      "formula_display": "Calculate heart rate zones based on input values.",
+      "steps": [
+        "Enter input values: edad: 30, fc_reposo: 60",
+        "Calculate and display the fc_max result",
+        "Calculate and display the z1_recovery result",
+        "Calculate and display the z2_fat_burn result",
+        "Calculate and display the z3_aerobic result",
+        "Calculate and display the z4_threshold result",
+        "Calculate and display the z5_maximum result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "fc_reposo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculatrice de Zones de Fréquence Cardiaque",
+      "desc": "Trouvez vos zones d'entrainement cardiaque pour optimiser la combustion des graisses. Avec plages de reference et contexte de sante.",
+      "description": "Calculatrice de Zones de Fréquence Cardiaque.",
+      "seo_title": "Calculatrice de Zones de Fréquence Cardiaque en Ligne",
+      "seo_description": "Trouvez vos zones d'entrainement cardiaque pour optimiser la combustion des graisses. Avec plages de reference et contexte de sante.",
+      "inputs": {
+        "edad": "Âge",
+        "fc_reposo": "fc_reposo"
+      },
+      "outputs": {
+        "fc_max": "Max HR",
+        "z1_recovery": "Z1 Recovery",
+        "z2_fat_burn": "Z2 Fat burn",
+        "z3_aerobic": "Z3 Aerobic",
+        "z4_threshold": "Z4 Threshold",
+        "z5_maximum": "Z5 Maximum"
+      },
+      "example_label": "Calculate heart rate zones with edad 30, fc_reposo 60.",
+      "range_hints": {
+        "edad": "Typical range: 10-100 in years units.",
+        "fc_reposo": "Typical range: 30-120 in bpm units."
+      },
+      "result_context": "Your calculated fc max is {fc_max}.",
+      "formula_display": "Calculate heart rate zones based on input values.",
+      "steps": [
+        "Enter input values: edad: 30, fc_reposo: 60",
+        "Calculate and display the fc_max result",
+        "Calculate and display the z1_recovery result",
+        "Calculate and display the z2_fat_burn result",
+        "Calculate and display the z3_aerobic result",
+        "Calculate and display the z4_threshold result",
+        "Calculate and display the z5_maximum result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "fc_reposo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Zonas de Frequência Cardíaca",
+      "desc": "Encontre suas zonas de treinamento por frequencia cardiaca. Com intervalos de referencia e contexto de saude. Usado por profissionais e estudantes em.",
+      "description": "Calculadora de Zonas de Frequência Cardíaca.",
+      "seo_title": "Calculadora de Zonas de Frequência Cardíaca",
+      "seo_description": "Encontre suas zonas de treinamento por frequencia cardiaca. Com intervalos de referencia e contexto de saude. Usado por profissionais e estudantes em.",
+      "inputs": {
+        "edad": "Idade",
+        "fc_reposo": "fc_reposo"
+      },
+      "outputs": {
+        "fc_max": "Max HR",
+        "z1_recovery": "Z1 Recovery",
+        "z2_fat_burn": "Z2 Fat burn",
+        "z3_aerobic": "Z3 Aerobic",
+        "z4_threshold": "Z4 Threshold",
+        "z5_maximum": "Z5 Maximum"
+      },
+      "example_label": "Calculate heart rate zones with edad 30, fc_reposo 60.",
+      "range_hints": {
+        "edad": "Typical range: 10-100 in years units.",
+        "fc_reposo": "Typical range: 30-120 in bpm units."
+      },
+      "result_context": "Your calculated fc max is {fc_max}.",
+      "formula_display": "Calculate heart rate zones based on input values.",
+      "steps": [
+        "Enter input values: edad: 30, fc_reposo: 60",
+        "Calculate and display the fc_max result",
+        "Calculate and display the z1_recovery result",
+        "Calculate and display the z2_fat_burn result",
+        "Calculate and display the z3_aerobic result",
+        "Calculate and display the z4_threshold result",
+        "Calculate and display the z5_maximum result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "fc_reposo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "de": {
+      "name": "Heart rate zones",
+      "desc": "Berechnen Sie heart rate zones online. Geben Sie edad, fc reposo ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Heart rate zones | CalcToWork",
+      "seo_desc": "Heart rate zones online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Heart rate zones online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "edad": "Edad",
+        "fc_reposo": "Fc Reposo"
+      },
+      "outputs": {
+        "fc_max": "Fc Max",
+        "z1_recovery": "Z1 Recovery",
+        "z2_fat_burn": "Z2 Fat Burn",
+        "z3_aerobic": "Z3 Aerobic",
+        "z4_threshold": "Z4 Threshold",
+        "z5_maximum": "Z5 Maximum"
+      },
+      "example_label": "Ejemplo para heart rate zones: valores 30years, 60bpm",
+      "range_hints": {
+        "edad": "Valor típico entre 10 y 100. Valor por defecto: 30 years.",
+        "fc_reposo": "Valor típico entre 30 y 120. Valor por defecto: 60 bpm."
+      },
+      "result_context": "HF max: {fc_max} bpm. Zonen: Z1 Regeneration {z1_recovery}, Z2 Fettverbrennung {z2_fat_burn}, Z3 aerob {z3_aerobic}, Z4 Schwelle {z4_threshold}, Z5 Maximum {z5_maximum} bpm.",
+      "formula_display": "FC_zona = ((FC_max − FC_reposo) × %) + FC_reposo",
+      "steps": [
+        "Introducir los valores de edad y fc_reposo",
+        "Verificar que los valores introducidos están en el rango y formato correctos",
+        "Calcular los valores de fc max y z1 recovery",
+        "El resultado se expresa en bpm. Verificar que la magnitud es coherente",
+        "Comparar el resultado con los valores de referencia para interpretar su significado"
+      ],
+      "mistakes": [
+        "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+        "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+        "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "fc_reposo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatrice di Zone di Frequenza Cardiaca",
+      "desc": "Trova le tue zone di allenamento della frequenza cardiaca. Con intervalli di riferimento e contesto sanitario. Usato da professionisti e studenti in.",
+      "description": "Calcolatrice di Zone di Frequenza Cardiaca.",
+      "seo_title": "Calcolatrice di Zone di Frequenza Cardiaca",
+      "seo_description": "Trova le tue zone di allenamento della frequenza cardiaca. Con intervalli di riferimento e contesto sanitario. Usato da professionisti e studenti in.",
+      "inputs": {
+        "edad": "Età",
+        "fc_reposo": "fc_reposo"
+      },
+      "outputs": {
+        "fc_max": "Max HR",
+        "z1_recovery": "Z1 Recovery",
+        "z2_fat_burn": "Z2 Fat burn",
+        "z3_aerobic": "Z3 Aerobic",
+        "z4_threshold": "Z4 Threshold",
+        "z5_maximum": "Z5 Maximum"
+      },
+      "example_label": "Calculate heart rate zones with edad 30, fc_reposo 60.",
+      "range_hints": {
+        "edad": "Tepical range: 10-100 in eears units.",
+        "fc_reposo": "Tepical range: 30-120 in bpm units."
+      },
+      "result_context": "Your calculated fc max is {fc_max}.",
+      "formula_display": "Calculate heart rate zones based on input values.",
+      "steps": [
+        "Enter input values: edad: 30, fc_reposo: 60",
+        "Calculate and displae the fc_max result",
+        "Calculate and displae the z1_recovere result",
+        "Calculate and displae the z2_fat_burn result",
+        "Calculate and displae the z3_aerobic result",
+        "Calculate and displae the z4_threshold result",
+        "Calculate and displae the z5_maximum result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where posetive required",
+        "Usenzag incorrect input values outsedi recommindid range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "fc_reposo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,493 @@
+{
+  "id": "084",
+  "slug": "alquiler-contenedor",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "m3_escombros",
+      "type": "number",
+      "min": 1,
+      "max": 200,
+      "step": 1,
+      "default": 8,
+      "unit": "m³",
+      "unit_options": [
+        "m³",
+        "ft³"
+      ],
+      "unit_category": "volume"
+    },
+    {
+      "id": "dias_alquiler",
+      "type": "number",
+      "min": 1,
+      "max": 90,
+      "step": 1,
+      "default": 7,
+      "unit": "días"
+    },
+    {
+      "id": "precio_dia_eur",
+      "type": "number",
+      "min": 2,
+      "max": 30,
+      "step": 0.5,
+      "default": 6,
+      "unit": "â‚¬/día",
+      "unit_options": [
+        "â‚¬/day",
+        "$/day"
+      ],
+      "unit_category": "price"
+    }
+  ],
+  "formula": "var V=parseFloat(inputs.m3_escombros)||0,D=parseFloat(inputs.dias_alquiler)||7,P=parseFloat(inputs.precio_dia_eur)||6;if(!V)return{error:true};var tam=V<=7?7:V<=12?12:20,alq=+(D*P).toFixed(2),transporte=+(80+tam*5).toFixed(2),gestion_residuos=+(V*15).toFixed(2),total=+(alq+transporte+gestion_residuos).toFixed(2);return{tam_contenedor_m3:tam,alquiler_eur:alq,transporte_eur:transporte,gestion_residuos_eur:gestion_residuos,total_eur:total};",
+  "outputs": [
+    {
+      "id": "tam_contenedor_m3",
+      "unit": "m³ contenedor"
+    },
+    {
+      "id": "alquiler_eur",
+      "unit": "â‚¬ alquiler"
+    },
+    {
+      "id": "transporte_eur",
+      "unit": "â‚¬ transporte"
+    },
+    {
+      "id": "gestion_residuos_eur",
+      "unit": "â‚¬ gestión residuos"
+    },
+    {
+      "id": "total_eur",
+      "unit": "â‚¬ total estimado",
+      "highlight": true
+    }
+  ],
+  "related": [
+    "085",
+    "086",
+    "098",
+    "078"
+  ],
+  "example_inputs": {
+    "m3_escombros": 8,
+    "dias_alquiler": 7,
+    "precio_dia_eur": 6
+  },
+  "example_label": "Calcular alquiler de contenedor para 8 m³ de escombros durante 7 días a 6 €/día.",
+  "range_hints": {
+    "m3_escombros": "Volumen estimado de escombros a retirar. Calcula m² demolidos × 0.12 m³/m² como referencia (m³)",
+    "dias_alquiler": "Días que necesitas el contenedor en obra. Mínimo 7 días para reformas (días)",
+    "precio_dia_eur": "Precio diario de alquiler del contenedor en tu zona. Entre 5 y 12 €/día según tamaño (€/día)"
+  },
+  "result_context": "Resultados: contenedor de {tam_contenedor_m3} m³, alquiler de {alquiler_eur} €, gestión de residuos de {gestion_residuos_eur} €, total estimado de {total_eur} €.",
+  "formula_display": "Coste total = alquiler_días × precio_día + transporte + gestión_residuos",
+  "steps": [
+    "Estima el volumen de escombros: mide m² de demolición × espesor medio (típicamente 0.10-0.15 m³ por m² demolido)",
+    "Selecciona el tamaño de contenedor: 7 m³ para reformas pequeñas, 12 m³ para reformas medias, 20 m³ para obra nueva",
+    "Calcula los días de alquiler necesarios según el ritmo de generación de escombros",
+    "Multiplica días de alquiler × precio diario del contenedor (5-12 €/día según zona y tamaño)",
+    "Añade el coste de transporte (entrega + recogida): 80-150 € según distancia al vertedero autorizado",
+    "Suma la gestión de residuos RCD: 10-20 €/m³ según planta de tratamiento (obligatorio por ley)"
+  ],
+  "mistakes": [
+    "Alquilar un contenedor demasiado pequeño y pagar doble transporte por necesitar uno adicional",
+    "No verificar que la empresa gestora tiene autorización para residuos de construcción (RCD)",
+    "Olvidar que depositar escombros sin contenedor en vía pública conlleva multas de hasta 3000 €",
+    "No separar residuos peligrosos (amianto, pinturas, disolventes): requieren gestor especial",
+    "Calcular volumen de escombros sin factor de esponjamiento (los materiales demolidos ocupan ~30% más)"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "m3_escombros",
+      "reason": "Tipo correcto: numérico para volumen de escombros a gestionar en m³."
+    },
+    {
+      "field_id": "dias_alquiler",
+      "reason": "Tipo correcto: numérico entero para días de alquiler del contenedor."
+    },
+    {
+      "field_id": "precio_dia_eur",
+      "reason": "Tipo correcto: numérico decimal para el precio diario del contenedor en €."
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Reforma baño/cocina",
+      "m3_escombros": 3,
+      "dias_alquiler": 5,
+      "precio_dia_eur": 5
+    },
+    {
+      "_label": "Reforma integral piso",
+      "m3_escombros": 8,
+      "dias_alquiler": 7,
+      "precio_dia_eur": 6
+    },
+    {
+      "_label": "Reforma local comercial",
+      "m3_escombros": 15,
+      "dias_alquiler": 14,
+      "precio_dia_eur": 7
+    },
+    {
+      "_label": "Demolición vivienda unifamiliar",
+      "m3_escombros": 30,
+      "dias_alquiler": 21,
+      "precio_dia_eur": 8
+    },
+    {
+      "_label": "Obra nueva edificio pequeño",
+      "m3_escombros": 60,
+      "dias_alquiler": 30,
+      "precio_dia_eur": 10
+    }
+  ],
+  "units": {
+    "m3_escombros": "m³"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Alquiler de Contenedor",
+      "desc": "Estima el coste de alquiler de contenedor de escombros.",
+      "seo_title": "Calculadora Alquiler Contenedor Escombros – Obra",
+      "seo_desc": "Calcula el coste de alquiler de contenedor para tu obra: alquiler diario, transporte de entrega y recogida, y canon de gestión de residuos. Gratis.",
+      "inputs": {
+        "m3_escombros": "m³ de escombros",
+        "dias_alquiler": "Días de alquiler",
+        "precio_dia_eur": "Precio por día (€)"
+      },
+      "outputs": {
+        "tam_contenedor_m3": "Tamaño contenedor",
+        "alquiler_eur": "Coste alquiler",
+        "gestion_residuos_eur": "Gestión residuos",
+        "total_eur": "Total estimado",
+        "transporte_eur": "transporte eur (â‚¬ transporte)"
+      },
+      "seo_description": "Calcula el coste total de gestión de escombros con contenedor. Estima el tamaño necesario según m³ de residuos y obtén el presupuesto completo con alquiler, transporte y canon de vertedero.",
+      "example_label": "Calcular alquiler de contenedor para 8 m³ de escombros durante 7 días a 6 €/día.",
+      "range_hints": {
+        "m3_escombros": "Valor entre 1 y 200 m³.",
+        "dias_alquiler": "Valor entre 1 y 90 días.",
+        "precio_dia_eur": "Valor entre 2 y 30 €/día."
+      },
+      "result_context": "Resultados: contenedor de {tam_contenedor_m3} m³, alquiler de {alquiler_eur} €, gestión de residuos de {gestion_residuos_eur} €, total estimado de {total_eur} €.",
+      "formula_display": "Coste total = alquiler_días × precio_día + transporte + gestión_residuos",
+      "steps": [
+        "Estima el volumen de escombros: mide m² de demolición × espesor medio (típicamente 0.10-0.15 m³ por m² demolido)",
+        "Selecciona el tamaño de contenedor: 7 m³ para reformas pequeñas, 12 m³ para reformas medias, 20 m³ para obra nueva",
+        "Calcula los días de alquiler necesarios según el ritmo de generación de escombros",
+        "Multiplica días de alquiler × precio diario del contenedor (5-12 €/día según zona y tamaño)",
+        "Añade el coste de transporte (entrega + recogida): 80-150 € según distancia al vertedero autorizado",
+        "Suma la gestión de residuos RCD: 10-20 €/m³ según planta de tratamiento (obligatorio por ley)"
+      ],
+      "mistakes": [
+        "Alquilar un contenedor demasiado pequeño y pagar doble transporte por necesitar uno adicional",
+        "No verificar que la empresa gestora tiene autorización para residuos de construcción (RCD)",
+        "Olvidar que depositar escombros sin contenedor en vía pública conlleva multas de hasta 3000 €",
+        "No separar residuos peligrosos (amianto, pinturas, disolventes): requieren gestor especial",
+        "Calcular volumen de escombros sin factor de esponjamiento (los materiales demolidos ocupan ~30% más)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "m3_escombros",
+          "reason": "Tipo correcto: numérico para volumen de escombros a gestionar en m³."
+        },
+        {
+          "field_id": "dias_alquiler",
+          "reason": "Tipo correcto: numérico entero para días de alquiler del contenedor."
+        },
+        {
+          "field_id": "precio_dia_eur",
+          "reason": "Tipo correcto: numérico decimal para el precio diario del contenedor en €."
+        }
+      ]
+    },
+    "en": {
+      "name": "Skip Rental Calculator",
+      "desc": "Skip Rental Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Debris Container Rental Calculator – Construction Site",
+      "seo_desc": "Calculate container rental for your site: daily rental, delivery and pickup transport, and waste management fees. Free.",
+      "inputs": {
+        "m3_escombros": "m³ of rubble",
+        "dias_alquiler": "Hire days",
+        "precio_dia_eur": "Price per day (â‚¬)"
+      },
+      "outputs": {
+        "tam_contenedor_m3": "Skip size",
+        "alquiler_eur": "Hire cost",
+        "gestion_residuos_eur": "Waste management",
+        "total_eur": "Estimated total",
+        "transporte_eur": "transporte eur (â‚¬ transporte)"
+      },
+      "seo_description": "Calculate total debris management costs with container. Estimate required container size based on m³ of waste and get a complete budget with rental, transport, and landfill fees.",
+      "example_label": "Calcular alquiler de contenedor para 8 m³ de escombros durante 7 días a 6 €/día.",
+      "range_hints": {
+        "m3_escombros": "Valor entre 1 y 200 m³.",
+        "dias_alquiler": "Valor entre 1 y 90 días.",
+        "precio_dia_eur": "Valor entre 2 y 30 â‚¬/día."
+      },
+      "result_context": "Resultados: contenedor de {tam_contenedor_m3} m³, alquiler de {alquiler_eur} €, gestión de residuos de {gestion_residuos_eur} €, total estimado de {total_eur} €.",
+      "formula_display": "Coste total = alquiler_días × precio_día + transporte + gestión_residuos",
+      "steps": [
+        "Estima el volumen de escombros: mide m² de demolición × espesor medio (típicamente 0.10-0.15 m³ por m² demolido)",
+        "Selecciona el tamaño de contenedor: 7 m³ para reformas pequeñas, 12 m³ para reformas medias, 20 m³ para obra nueva",
+        "Calcula los días de alquiler necesarios según el ritmo de generación de escombros",
+        "Multiplica días de alquiler × precio diario del contenedor (5-12 €/día según zona y tamaño)",
+        "Añade el coste de transporte (entrega + recogida): 80-150 € según distancia al vertedero autorizado",
+        "Suma la gestión de residuos RCD: 10-20 €/m³ según planta de tratamiento (obligatorio por ley)"
+      ],
+      "mistakes": [
+        "Alquilar un contenedor demasiado pequeño y pagar doble transporte por necesitar uno adicional",
+        "No verificar que la empresa gestora tiene autorización para residuos de construcción (RCD)",
+        "Olvidar que depositar escombros sin contenedor en vía pública conlleva multas de hasta 3000 €",
+        "No separar residuos peligrosos (amianto, pinturas, disolventes): requieren gestor especial",
+        "Calcular volumen de escombros sin factor de esponjamiento (los materiales demolidos ocupan ~30% más)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "m3_escombros",
+          "reason": "Tipo correcto: numérico para volumen de escombros a gestionar en m³."
+        },
+        {
+          "field_id": "dias_alquiler",
+          "reason": "Tipo correcto: numérico entero para días de alquiler del contenedor."
+        },
+        {
+          "field_id": "precio_dia_eur",
+          "reason": "Tipo correcto: numérico decimal para el precio diario del contenedor en €."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Location Benne",
+      "desc": "Estimez le coût de location, transport et gestion des déchets pour bennes à gravats Utilise par des professionnels et etudiants dans le monde entier.",
+      "seo_title": "Calculateur Location Benne Gravats – Chantier",
+      "seo_desc": "Calculez le coût de location de benne pour votre chantier : location journalière, transport livraison/reprise et taxe de gestion des déchets. Gratuit.",
+      "inputs": {
+        "m3_escombros": "m³ de gravats",
+        "dias_alquiler": "Jours de location",
+        "precio_dia_eur": "Prix par jour (€)"
+      },
+      "outputs": {
+        "tam_contenedor_m3": "Taille benne",
+        "alquiler_eur": "Coût location",
+        "gestion_residuos_eur": "Gestion déchets",
+        "total_eur": "Total estimé",
+        "transporte_eur": "transporte eur (â‚¬ transporte)"
+      },
+      "seo_description": "Estimez le coût de location, transport et gestion des déchets pour bennes à gravats Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calcular alquiler de contenedor para 8 m³ de escombros durante 7 días a 6 €/día.",
+      "range_hints": {
+        "m3_escombros": "Valor entre 1 et 200 m³.",
+        "dias_alquiler": "Valor entre 1 et 90 días.",
+        "precio_dia_eur": "Valor entre 2 et 30 â‚¬/día."
+      },
+      "result_context": "Resultados: contenedor de {tam_contenedor_m3} m³, alquiler de {alquiler_eur} €, gestión de residuos de {gestion_residuos_eur} €, total estimado de {total_eur} €.",
+      "formula_display": "Coste total = alquiler_días × precio_día + transporte + gestión_residuos",
+      "steps": [
+        "Estima el volumen de escombros: mide m² de demolición × espesor medio (típicamente 0.10-0.15 m³ por m² demolido)",
+        "Selecciona el tamaño de contenedor: 7 m³ para reformas pequeñas, 12 m³ para reformas medias, 20 m³ para obra nueva",
+        "Calcula los días de alquiler necesarios según el ritmo de generación de escombros",
+        "Multiplica días de alquiler × precio diario del contenedor (5-12 €/día según zona y tamaño)",
+        "Añade el coste de transporte (entrega + recogida): 80-150 € según distancia al vertedero autorizado",
+        "Suma la gestión de residuos RCD: 10-20 €/m³ según planta de tratamiento (obligatorio por ley)"
+      ],
+      "mistakes": [
+        "Alquilar un contenedor demasiado pequeño y pagar doble transporte por necesitar uno adicional",
+        "No verificar que la empresa gestora tiene autorización para residuos de construcción (RCD)",
+        "Olvidar que depositar escombros sin contenedor en vía pública conlleva multas de hasta 3000 €",
+        "No separar residuos peligrosos (amianto, pinturas, disolventes): requieren gestor especial",
+        "Calcular volumen de escombros sin factor de esponjamiento (los materiales demolidos ocupan ~30% más)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "m3_escombros",
+          "reason": "Tipo correcto: numérico para volumen de escombros a gestionar en m³."
+        },
+        {
+          "field_id": "dias_alquiler",
+          "reason": "Tipo correcto: numérico entero para días de alquiler del contenedor."
+        },
+        {
+          "field_id": "precio_dia_eur",
+          "reason": "Tipo correcto: numérico decimal para el precio diario del contenedor en €."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Aluguel de Caçamba",
+      "desc": "Estime o custo de aluguel de caçamba para entulho.",
+      "seo_title": "Calculadora de Aluguel de Caçamba",
+      "inputs": {
+        "m3_escombros": "m³ de entulho",
+        "dias_alquiler": "Dias de locação",
+        "precio_dia_eur": "Preço por dia (R$)"
+      },
+      "outputs": {
+        "tam_contenedor_m3": "Tamanho caçamba",
+        "alquiler_eur": "Custo locação",
+        "gestion_residuos_eur": "Gestão resíduos",
+        "total_eur": "Total estimado",
+        "transporte_eur": "transporte eur (â‚¬ transporte)"
+      },
+      "seo_description": "Estime o custo de locação, transporte e gestão de resíduos para caçambas de entulho Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular alquiler de contenedor para 8 m³ de escombros durante 7 días a 6 €/día.",
+      "range_hints": {
+        "m3_escombros": "Valor entre 1 e 200 m³.",
+        "dias_alquiler": "Valor entre 1 e 90 días.",
+        "precio_dia_eur": "Valor entre 2 e 30 â‚¬/día."
+      },
+      "result_context": "Resultados: contenedor de {tam_contenedor_m3} m³, alquiler de {alquiler_eur} €, gestión de residuos de {gestion_residuos_eur} €, total estimado de {total_eur} €.",
+      "formula_display": "Coste total = alquiler_días × precio_día + transporte + gestión_residuos",
+      "steps": [
+        "Estima el volumen de escombros: mide m² de demolición × espesor medio (típicamente 0.10-0.15 m³ por m² demolido)",
+        "Selecciona el tamaño de contenedor: 7 m³ para reformas pequeñas, 12 m³ para reformas medias, 20 m³ para obra nueva",
+        "Calcula los días de alquiler necesarios según el ritmo de generación de escombros",
+        "Multiplica días de alquiler × precio diario del contenedor (5-12 €/día según zona y tamaño)",
+        "Añade el coste de transporte (entrega + recogida): 80-150 € según distancia al vertedero autorizado",
+        "Suma la gestión de residuos RCD: 10-20 €/m³ según planta de tratamiento (obligatorio por ley)"
+      ],
+      "mistakes": [
+        "Alquilar un contenedor demasiado pequeño y pagar doble transporte por necesitar uno adicional",
+        "No verificar que la empresa gestora tiene autorización para residuos de construcción (RCD)",
+        "Olvidar que depositar escombros sin contenedor en vía pública conlleva multas de hasta 3000 €",
+        "No separar residuos peligrosos (amianto, pinturas, disolventes): requieren gestor especial",
+        "Calcular volumen de escombros sin factor de esponjamiento (los materiales demolidos ocupan ~30% más)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "m3_escombros",
+          "reason": "Tipo correcto: numérico para volumen de escombros a gestionar en m³."
+        },
+        {
+          "field_id": "dias_alquiler",
+          "reason": "Tipo correcto: numérico entero para días de alquiler del contenedor."
+        },
+        {
+          "field_id": "precio_dia_eur",
+          "reason": "Tipo correcto: numérico decimal para el precio diario del contenedor en €."
+        }
+      ]
+    },
+    "de": {
+      "name": "Miete Container",
+      "desc": "Berechnen Sie miete Container online. Geben Sie m3 escombros, dias alquiler, precio dia eur ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Miete Container | CalcToWork",
+      "seo_desc": "Miete Container online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Miete Container online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "m3_escombros": "M3 Escombros",
+        "dias_alquiler": "Dias Alquiler",
+        "precio_dia_eur": "Precio Dia Eur"
+      },
+      "outputs": {
+        "tam_contenedor_m3": "Tam Contenedor M3",
+        "alquiler_eur": "Alquiler Eur",
+        "transporte_eur": "Transporte Eur",
+        "gestion_residuos_eur": "Gestion Residuos Eur",
+        "total_eur": "Total Eur"
+      },
+      "example_label": "Calcular alquiler de contenedor para 8 m³ de escombros durante 7 días a 6 €/día.",
+      "range_hints": {
+        "m3_escombros": "Volumen estimado de escombros a retirar. Calcula m² demolidos × 0.12 m³/m² como referencia (m³)",
+        "dias_alquiler": "Días que necesitas el contenedor en obra. Mínimo 7 días para reformas (días)",
+        "precio_dia_eur": "Precio diario de alquiler del contenedor en tu zona. Entre 5 y 12 €/día según tamaño (€/día)"
+      },
+      "result_context": "Resultados: contenedor de {tam_contenedor_m3} m³, alquiler de {alquiler_eur} €, gestión de residuos de {gestion_residuos_eur} €, total estimado de {total_eur} €.",
+      "formula_display": "Coste total = alquiler_días × precio_día + transporte + gestión_residuos",
+      "steps": [
+        "Estima el volumen de escombros: mide m² de demolición × espesor medio (típicamente 0.10-0.15 m³ por m² demolido)",
+        "Selecciona el tamaño de contenedor: 7 m³ para reformas pequeñas, 12 m³ para reformas medias, 20 m³ para obra nueva",
+        "Calcula los días de alquiler necesarios según el ritmo de generación de escombros",
+        "Multiplica días de alquiler × precio diario del contenedor (5-12 €/día según zona y tamaño)",
+        "Añade el coste de transporte (entrega + recogida): 80-150 € según distancia al vertedero autorizado",
+        "Suma la gestión de residuos RCD: 10-20 €/m³ según planta de tratamiento (obligatorio por ley)"
+      ],
+      "mistakes": [
+        "Alquilar un contenedor demasiado pequeño y pagar doble transporte por necesitar uno adicional",
+        "No verificar que la empresa gestora tiene autorización para residuos de construcción (RCD)",
+        "Olvidar que depositar escombros sin contenedor en vía pública conlleva multas de hasta 3000 €",
+        "No separar residuos peligrosos (amianto, pinturas, disolventes): requieren gestor especial",
+        "Calcular volumen de escombros sin factor de esponjamiento (los materiales demolidos ocupan ~30% más)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "m3_escombros",
+          "reason": "Tipo correcto: numérico para volumen de escombros a gestionar en m³."
+        },
+        {
+          "field_id": "dias_alquiler",
+          "reason": "Tipo correcto: numérico entero para días de alquiler del contenedor."
+        },
+        {
+          "field_id": "precio_dia_eur",
+          "reason": "Tipo correcto: numérico decimal para el precio diario del contenedor en €."
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Indice di Calore",
+      "description": "Calcola le condizioni di lavoro sicure in cantiere.",
+      "seo_title": "Calcolatore Noleggio Container",
+      "seo_description": "Calcola l'indice di calore per la sicurezza dei lavoratori in estate Usato da professionisti e studenti in tutto il mondo.",
+      "inputs": {
+        "temperatura": "Temperatura (°C)",
+        "humedad": "Umidità relativa (%)",
+        "m3_escombros": "m3 escombros (m³)",
+        "dias_alquiler": "dias alquiler (días)",
+        "precio_dia_eur": "precio dia eur (â‚¬/día)"
+      },
+      "outputs": {
+        "indice_calor": "Indice calore (°C)",
+        "nivel_riesgo": "Livello di rischio",
+        "tam_contenedor_m3": "tam contenedor m3 (m³ contenedor)",
+        "alquiler_eur": "alquiler eur (â‚¬ alquiler)",
+        "transporte_eur": "transporte eur (â‚¬ transporte)",
+        "gestion_residuos_eur": "gestion residuos eur (â‚¬ gestión residuos)",
+        "total_eur": "total eur (â‚¬ total estimado)"
+      },
+      "example_label": "Calcular alquiler de contenedor para 8 m³ de escombros durante 7 días a 6 €/día.",
+      "range_hints": {
+        "m3_escombros": "Valor intre 1 e 200 m³.",
+        "dias_alquiler": "Valor intre 1 e 90 días.",
+        "precio_dia_eur": "Valor intre 2 e 30 €/día."
+      },
+      "result_context": "Resultados: contenedor de {tam_contenedor_m3} m³, alquiler de {alquiler_eur} €, gestión de residuos de {gestion_residuos_eur} €, total estimado de {total_eur} €.",
+      "formula_display": "Coste total = alquiler_días × precio_día + transporte + gestión_residuos",
+      "steps": [
+        "Estima el volumen de escombros: mide m² de demolición × espesor medio (típicamente 0.10-0.15 m³ por m² demolido)",
+        "Selecciona el tamaño de contenedor: 7 m³ para reformas pequeñas, 12 m³ para reformas medias, 20 m³ para obra nueva",
+        "Calcula los días de alquiler necesarios según el ritmo de generación de escombros",
+        "Multiplica días de alquiler × precio diario del contenedor (5-12 €/día según zona y tamaño)",
+        "Añade el coste de transporte (entrega + recogida): 80-150 € según distancia al vertedero autorizado",
+        "Suma la gestión de residuos RCD: 10-20 €/m³ según planta de tratamiento (obligatorio por ley)"
+      ],
+      "mistakes": [
+        "Alquilar un contenedor demasiado pequeño y pagar doble transporte por necesitar uno adicional",
+        "No verificar que la empresa gestora tiene autorización para residuos de construcción (RCD)",
+        "Olvidar que depositar escombros sin contenedor en vía pública conlleva multas de hasta 3000 €",
+        "No separar residuos peligrosos (amianto, pinturas, disolventes): requieren gestor especial",
+        "Calcular volumen de escombros sin factor de esponjamiento (los materiales demolidos ocupan ~30% más)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "m3_escombros",
+          "reason": "Tipo correcto: numérico para volumen de escombros a gestionar en m³."
+        },
+        {
+          "field_id": "dias_alquiler",
+          "reason": "Tipo correcto: numérico entero para días de alquiler del contenedor."
+        },
+        {
+          "field_id": "precio_dia_eur",
+          "reason": "Tipo correcto: numérico decimal para el precio diario del contenedor en €."
+        }
+      ],
+      "desc": "Calcola il costo totale di noleggio container per macerie con trasporto e gestione rifiuti."
+    }
+  }
+}

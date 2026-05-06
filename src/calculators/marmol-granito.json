@@ -1,0 +1,470 @@
+{
+  "id": "025",
+  "slug": "marmol-granito",
+  "block": 3,
+  "block_slug": "pavimentos",
+  "inputs": [
+    {
+      "id": "area",
+      "type": "number",
+      "min": 0.5,
+      "max": 500,
+      "step": 0.5,
+      "default": 15,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "espesor_cm",
+      "type": "number",
+      "min": 1,
+      "max": 5,
+      "step": 0.5,
+      "default": 2,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "tipo",
+      "type": "select",
+      "default": "marmol",
+      "options": [
+        "marmol",
+        "granito",
+        "cuarcita"
+      ]
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area)||0,E=parseFloat(inputs.espesor_cm)||2;if(!A)return{error:true};var area_merma=+(A*1.08).toFixed(2),densidad=inputs.tipo==='granito'?2700:2700,peso=+(area_merma*E/100*densidad).toFixed(0),adhesivo=+(area_merma*6).toFixed(1);return{area_merma_m2:area_merma,peso_total_kg:peso,adhesivo_kg:adhesivo};",
+  "outputs": [
+    {
+      "id": "area_merma_m2",
+      "unit": "m² (+8% merma)",
+      "highlight": true
+    },
+    {
+      "id": "peso_total_kg",
+      "unit": "kg"
+    },
+    {
+      "id": "adhesivo_kg",
+      "unit": "kg"
+    }
+  ],
+  "related": [
+    "021",
+    "022",
+    "029",
+    "023"
+  ],
+  "example_inputs": {
+    "area": 15,
+    "espesor_cm": 2,
+    "tipo": "marmol"
+  },
+  "example_label": "Ejemplo para marmol granito: valores 15m², 2cm",
+  "range_hints": {
+    "area": "Valor típico entre 0.5 y 500. Valor por defecto: 15 m².",
+    "espesor_cm": "Valor típico entre 1 y 5. Valor por defecto: 2 cm.",
+    "tipo": "Seleccionar entre las opciones: marmol, granito, cuarcita"
+  },
+  "result_context": "Resultados: {area_merma_m2} m² de superficie, {peso_total_kg} kg de peso total, {adhesivo_kg} kg de adhesivo.",
+  "formula_display": "E ÷ 100 → area_merma_m2, peso_total_kg",
+  "steps": [
+    "Introducir los valores de area, espesor_cm y tipo",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+    "Calcular los valores de area merma m2 y peso total kg",
+    "El resultado se expresa en m² (+8% merma). Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Introducir valores con unidades incorrectas sin verificar la conversión",
+    "Redondear resultados intermedios en lugar del resultado final",
+    "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "area",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "espesor_cm",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "tipo",
+      "current_type": "select",
+      "recommended_type": "select",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small patio",
+      "area": 7.5,
+      "espesor_cm": 1
+    },
+    {
+      "_label": "Medium patio",
+      "area": 11.25,
+      "espesor_cm": 1.5
+    },
+    {
+      "_label": "Large patio",
+      "area": 15,
+      "espesor_cm": 2
+    },
+    {
+      "_label": "Driveway",
+      "area": 22.5,
+      "espesor_cm": 3
+    },
+    {
+      "_label": "Parking lot",
+      "area": 30,
+      "espesor_cm": 4
+    }
+  ],
+  "units": {
+    "area": "m²",
+    "espesor_cm": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Mármol y Granito",
+      "desc": "Calcula la cantidad de mármol o granito con merma, el peso total y el adhesivo necesario Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora Mármol y Granito – m²",
+      "seo_desc": "Calcula la cantidad de mármol o granito con merma, el peso total y el adhesivo necesario Usado por profesionales y estudiantes en todo el mundo.",
+      "inputs": {
+        "area": "Área a cubrir",
+        "espesor_cm": "Espesor pieza",
+        "tipo": "Tipo de piedra"
+      },
+      "outputs": {
+        "area_merma_m2": "Área con merma (+8%)",
+        "peso_total_kg": "Peso total",
+        "adhesivo_kg": "Adhesivo"
+      },
+      "seo_description": "Calcula el peso total y el adhesivo necesario para instalar suelo de mármol, granito o cuarcita. Introduce el área, el espesor de la losa y el tipo de piedra natural.",
+      "example_label": "Calcular losas de granito de 2cm de espesor para 20m² de superficie.",
+      "range_hints": {
+        "area": "Superficie a revestir con piedra natural",
+        "espesor_cm": "Pisos: 2-3cm, Revestimientos: 1.5-2cm, Encimeras: 3cm"
+      },
+      "result_context": "Para {area} m² de {tipo} de {espesor_cm}cm se necesitan {m2_total} m² de losas (con merma), {adhesivo_kg} kg de adhesivo y {juntas_ml} ml de junta.",
+      "formula_display": "M2_total = área × 1.10 (merma); Adhesivo = área × 4 kg/m²",
+      "steps": [
+        "Calcular merma 10%: 20m² × 1.10 = 22m² de losas",
+        "Calcular volumen de piedra: 20m² × 0.02m = 0.4m³",
+        "Calcular peso aproximado: 0.4m³ × 2700 kg/m³ = 1080 kg (granito)",
+        "Calcular adhesivo: 20m² × 4 kg/m² = 80 kg de adhesivo flexible"
+      ],
+      "mistakes": [
+        "No sellar el mármol (es poroso y mancha fácilmente)",
+        "Usar adhesivo común en lugar de adhesivo flexible para piedra",
+        "No verificar que la estructura soporte el peso (piedra es muy pesada)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "espesor_cm",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "tipo",
+          "reason": "Correcto: opción discreta"
+        }
+      ]
+    },
+    "en": {
+      "name": "Marble and Granite Calculator",
+      "desc": "Marble and Granite Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Marble & Granite Calculator – m² & Adhesive",
+      "seo_desc": "Marble and Granite Calculator. Area to cover, Piece thickness, Stone type — get Area with waste (+8%), Total weight, Adhesive instantly for your flooring.",
+      "inputs": {
+        "area": "Area to cover",
+        "espesor_cm": "Piece thickness",
+        "tipo": "Stone type"
+      },
+      "outputs": {
+        "area_merma_m2": "Area with waste (+8%)",
+        "peso_total_kg": "Total weight",
+        "adhesivo_kg": "Adhesive"
+      },
+      "seo_description": "Calculate total weight and adhesive needed to install natural stone flooring: marble, granite or quartzite. Enter area, slab thickness and stone type.",
+      "example_label": "Calcular losas de granito de 2cm de espesor para 20m² de superficie.",
+      "range_hints": {
+        "area": "Superficie a revestir con piedra natural",
+        "espesor_cm": "Pisos: 2-3cm, Revestimientos: 1.5-2cm, Encimeras: 3cm"
+      },
+      "result_context": "Para {area} m² de {tipo} de {espesor_cm}cm se necesitan {m2_total} m² de losas (con merma), {adhesivo_kg} kg de adhesivo y {juntas_ml} ml de junta.",
+      "formula_display": "M2_total = área × 1.10 (merma); Adhesivo = área × 4 kg/m²",
+      "steps": [
+        "Calcular merma 10%: 20m² × 1.10 = 22m² de losas",
+        "Calcular volumen de piedra: 20m² × 0.02m = 0.4m³",
+        "Calcular peso aproximado: 0.4m³ × 2700 kg/m³ = 1080 kg (granito)",
+        "Calcular adhesivo: 20m² × 4 kg/m² = 80 kg de adhesivo flexible"
+      ],
+      "mistakes": [
+        "No sellar el mármol (es poroso y mancha fácilmente)",
+        "Usar adhesivo común en lugar de adhesivo flexible para piedra",
+        "No verificar que la estructura soporte el peso (piedra es muy pesada)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "espesor_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "tipo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: opción discreta"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Marbre et Granit",
+      "desc": "Calculez m² et poids pour sols en pierre naturelle.",
+      "seo_title": "Calculateur Marbre Granit – m²",
+      "inputs": {
+        "area": "Surface à couvrir",
+        "espesor_cm": "Épaisseur pièce",
+        "tipo": "Type de pierre"
+      },
+      "outputs": {
+        "area_merma_m2": "Surface avec chute (+8%)",
+        "peso_total_kg": "Poids total",
+        "adhesivo_kg": "Colle"
+      },
+      "seo_description": "Calculez la quantité de marbre ou granit avec chute, poids total et colle nécessaire Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calculer dalles de granito de 2cm d'épaisseur pour 20m² de surface.",
+      "range_hints": {
+        "area": "surface a revestir avec piedra natural",
+        "espesor_cm": "sols: 2-3cm, Revestimientos: 1.5-2cm, Encimeras: 3cm"
+      },
+      "result_context": "pour {area} m² de {tipo} de {espesor_cm}cm se necesitan {m2_total} m² de dalles (avec merma), {adhesivo_kg} kg de adhesivo et {juntas_ml} ml de junta.",
+      "formula_display": "M2_total = área × 1.10 (merma); Adhesivo = área × 4 kg/m²",
+      "steps": [
+        "Calculer merma 10%: 20m² × 1.10 = 22m² de dalles",
+        "Calculer le volume de piedra: 20m² × 0.02m = 0.4m³",
+        "Calculer peso aproximado: 0.4m³ × 2700 kg/m³ = 1080 kg (granito)",
+        "Calculer adhesivo: 20m² × 4 kg/m² = 80 kg de adhesivo flexible"
+      ],
+      "mistakes": [
+        "No sellar le mármol (es poroso et mancha fácilmente)",
+        "Utiliser adhesivo común dans lugar de adhesivo flexible pour piedra",
+        "Ne pas vérifier que la estructura soporte le peso (piedra es muy pesada)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "espesor_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "tipo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correct : opción discreta"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Mármore e Granito",
+      "desc": "Calcule a quantidade de mármore ou granito com perda, peso total e cola necessária. Calculo preciso e rapido com metodologia clara.",
+      "seo_title": "Calculadora Mármore e Granito – m²",
+      "inputs": {
+        "area": "Área a cobrir",
+        "espesor_cm": "Espessura peça",
+        "tipo": "Tipo de pedra"
+      },
+      "outputs": {
+        "area_merma_m2": "Área com perda (+8%)",
+        "peso_total_kg": "Peso total",
+        "adhesivo_kg": "Cola"
+      },
+      "seo_description": "Calcule a quantidade de mármore ou granito com perda, peso total e cola necessária. Calculo preciso e rapido com metodologia clara.",
+      "example_label": "Calcular lajes de granito de 2cm de espessura para 20m² de superficie.",
+      "range_hints": {
+        "area": "Superficie a revestir com pedra natural",
+        "espesor_cm": "Pisos: 2-3cm, Revestimientos: 1.5-2cm, Encimeras: 3cm"
+      },
+      "result_context": "Para {area} m² de {tipo} de {espesor_cm}cm são necessários {m2_total} m² de lajes (com merma), {adhesivo_kg} kg de adesivo e {juntas_ml} ml de junta.",
+      "formula_display": "M2_total = área × 1.10 (merma); Adhesivo = área × 4 kg/m²",
+      "steps": [
+        "Calcular merma 10%: 20m² × 1.10 = 22m² de lajes",
+        "Calcular volume de pedra: 20m² × 0.02m = 0.4m³",
+        "Calcular peso aproximado: 0.4m³ × 2700 kg/m³ = 1080 kg (granito)",
+        "Calcular adesivo: 20m² × 4 kg/m² = 80 kg de adesivo flexível"
+      ],
+      "mistakes": [
+        "Não sellar o mármol (é poroso e mancha fácilmente)",
+        "Usar adesivo comum em lugar de adesivo flexível para pedra",
+        "Não verificar que a estrutura soporte o peso (pedra é muy pesada)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "espesor_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "tipo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correto: opção discreta"
+        }
+      ]
+    },
+    "de": {
+      "name": "Marmor Granit",
+      "desc": "Berechnen Sie marmor Granit online. Geben Sie area, espesor cm, tipo ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Marmor Granit | CalcToWork",
+      "seo_desc": "Marmor Granit online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Marmor Granit online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "area": "Area",
+        "espesor_cm": "Espesor Cm",
+        "tipo": "Tipo"
+      },
+      "outputs": {
+        "area_merma_m2": "Area Merma M2",
+        "peso_total_kg": "Peso Total Kg",
+        "adhesivo_kg": "Adhesivo Kg"
+      },
+      "example_label": "Ejemplo para marmol granito: valores 15m², 2cm",
+      "range_hints": {
+        "area": "Valor típico entre 0.5 y 500. Valor por defecto: 15 m².",
+        "espesor_cm": "Valor típico entre 1 y 5. Valor por defecto: 2 cm.",
+        "tipo": "Seleccionar entre las opciones: marmol, granito, cuarcita"
+      },
+      "result_context": "Resultados: {area_merma_m2} m² de superficie, {peso_total_kg} kg de peso total, {adhesivo_kg} kg de adhesivo.",
+      "formula_display": "E ÷ 100 → area_merma_m2, peso_total_kg",
+      "steps": [
+        "Introducir los valores de area, espesor_cm y tipo",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+        "Calcular los valores de area merma m2 y peso total kg",
+        "El resultado se expresa en m² (+8% merma). Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Introducir valores con unidades incorrectas sin verificar la conversión",
+        "Redondear resultados intermedios en lugar del resultado final",
+        "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "espesor_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "tipo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Pavimento in Resina",
+      "description": "Calcola la resina epossidica per pavimenti industriali.",
+      "seo_title": "Calcolatore Marmo e Granito – m²",
+      "seo_description": "Calcola la quantità di resina epossidica per rivestimenti pavimento Usato da professionisti e studenti in tutto il mondo.",
+      "inputs": {
+        "area": "Superficie (m²)",
+        "capas": "Numero di mani",
+        "rendimiento": "Resa (m²/kg)"
+      },
+      "outputs": {
+        "resina_kg": "Resina (kg)",
+        "botes": "Confezioni da 4 kg"
+      },
+      "example_label": "Calcolare letras di granito di 2cm di spessore per 20m² di superficie.",
+      "range_hints": {
+        "area": "Superficie a rivestire con pietra naturalee",
+        "espesor_cm": "Pisos: 2-3cm, Revestimiintos: 1.5-2cm, Encimeras: 3cm"
+      },
+      "result_context": "Per {area} m² di {tipo} di {spessore_cm}cm sonon necessari {m2_totale} m² di letras (con merma), {adhesevo_kg} kg di adhesevo e {guarnizioni_ml} ml di junta.",
+      "formula_display": "M2_totale = área × 1.10 (merma); Adhesevo = área × 4 kg/m²",
+      "steps": [
+        "Calcolare merma 10%: 20m² × 1.10 = 22m² di letras",
+        "Calcolare volume di pietra: 20m² × 0.02m = 0.4m³",
+        "Calcolare peso approssemativo: 0.4m³ × 2700 kg/m³ = 1080 kg (granito)",
+        "Calcolare adhesevo: 20m² × 4 kg/m² = 80 kg di adhesevo flessebile"
+      ],
+      "mistakes": [
+        "No sellar el mármol (es peroso e mancha fácilminte)",
+        "Usare adhesevo común in lugar di adhesevo flessebile per pietra",
+        "Non verificare que la struttura supperto el peso (pietra es molto pesante)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "espesor_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "tipo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Corretto: opción discreta"
+        }
+      ]
+    }
+  }
+}

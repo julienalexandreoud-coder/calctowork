@@ -1,0 +1,485 @@
+{
+  "id": "052",
+  "slug": "consumo-electrico-mensual",
+  "block": 5,
+  "block_slug": "electricidad",
+  "inputs": [
+    {
+      "id": "potencia_w",
+      "type": "number",
+      "min": 10,
+      "max": 50000,
+      "step": 10,
+      "default": 2000,
+      "unit": "W",
+      "unit_options": [
+        "W",
+        "kW"
+      ],
+      "unit_category": "power"
+    },
+    {
+      "id": "horas_dia",
+      "type": "number",
+      "min": 0.1,
+      "max": 24,
+      "step": 0.1,
+      "default": 4,
+      "unit": "h/día",
+      "unit_options": [
+        "h/day"
+      ],
+      "unit_category": "time"
+    },
+    {
+      "id": "precio_kwh",
+      "type": "number",
+      "min": 0.05,
+      "max": 1,
+      "step": 0.01,
+      "default": 0.18,
+      "unit": "â‚¬/kWh",
+      "unit_options": [
+        "â‚¬/kWh",
+        "$/kWh"
+      ],
+      "unit_category": "price"
+    }
+  ],
+  "formula": "var P=parseFloat(inputs.potencia_w)||0,H=parseFloat(inputs.horas_dia)||0,precio=parseFloat(inputs.precio_kwh)||0.18;if(!P||!H)return{error:true};var kwh_dia=+(P*H/1000).toFixed(3),kwh_mes=+(kwh_dia*30).toFixed(2),coste_mes=+(kwh_mes*precio).toFixed(2),coste_ano=+(kwh_mes*12*precio).toFixed(2);return{kwh_dia:kwh_dia,kwh_mes:kwh_mes,coste_mes_eur:coste_mes,coste_ano_eur:coste_ano};",
+  "outputs": [
+    {
+      "id": "kwh_dia",
+      "unit": "kWh/día"
+    },
+    {
+      "id": "kwh_mes",
+      "unit": "kWh/mes",
+      "highlight": true
+    },
+    {
+      "id": "coste_mes_eur",
+      "unit": "â‚¬/mes"
+    },
+    {
+      "id": "coste_ano_eur",
+      "unit": "â‚¬/año"
+    }
+  ],
+  "related": [
+    "048",
+    "045",
+    "047",
+    "043"
+  ],
+  "example_inputs": {
+    "potencia_w": 2000,
+    "horas_dia": 4,
+    "precio_kwh": 0.18
+  },
+  "example_label": "Calcular consumo mensual de termo eléctrico de 2000 W usado 4 h/día con tarifa de 0.18 €/kWh.",
+  "range_hints": {
+    "potencia_w": "Potencia nominal en vatios (W). Consultar placa: lavadora 2000-2500 W, termo 1200-2000 W, nevera 150-400 W, TV LED 40-100 W, aire acondicionado 1000-3500 W",
+    "horas_dia": "Horas reales diarias de funcionamiento. Nevera: 8-12 h/día (compresor cicla). Lavadora: 1-2 h/día. Aire acond.: 4-8 h/día en verano. TV: 3-6 h/día",
+    "precio_kwh": "Precio del kWh según tarifa: PVPC regulado ~0.10-0.20 €/kWh (variable por horas). Mercado libre ~0.12-0.25 €/kWh. Consultar factura o comparador CNMC"
+  },
+  "result_context": "Aparato de {potencia_w} W funcionando {horas_dia} h/día: consumo {kwh_dia} kWh/día, {kwh_mes} kWh/mes, coste mensual {coste_mes_eur} € y coste anual {coste_ano_eur} €.",
+  "formula_display": "kWh_día = (W × horas) / 1000.  kWh_mes = kWh_día × 30.  Coste_mes = kWh_mes × precio_kWh.  Coste_año = coste_mes × 12.  El standby suma 5-10 % adicional al cálculo.",
+  "steps": [
+    "Identificar la potencia nominal del aparato en vatios (W) en su placa de características o manual de instrucciones",
+    "Estimar las horas reales de funcionamiento al día. Para electrodomésticos con termostato (nevera, termo), las horas reales son menores que las horas enchufado",
+    "Calcular consumo diario: kWh_día = (W × horas) / 1000. Ejemplo con termo de 2000 W y 4 h: 2000 × 4 / 1000 = 8 kWh/día",
+    "Extrapolar a consumo mensual: kWh_mes = kWh_día × 30. Ejemplo: 8 × 30 = 240 kWh/mes. Multiplicar por precio €/kWh para obtener el coste",
+    "Sumar el consumo de todos los aparatos para estimar el consumo total de la vivienda. Identificar los de mayor consumo para priorizar medidas de ahorro"
+  ],
+  "mistakes": [
+    "Olvidar el consumo en standby: muchos aparatos consumen incluso apagados. Un TV en standby consume 5-15 W las 24 h (43-131 kWh/año). Cargadores sin dispositivo: 0.5-2 W constantes",
+    "Usar la potencia máxima en vez del consumo real: un aire acondicionado inverter de 3500 W de capacidad frigorífica consume solo 800-1200 W eléctricos en régimen normal. Consultar potencia eléctrica absorbida, no capacidad térmica",
+    "No considerar las diferencias de tarifa por horas: con discriminación horaria el kWh nocturno cuesta hasta un 50 % menos. Pasar termo y lavadora a horario valle reduce la factura un 15-25 %"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "potencia_w",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "horas_dia",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "precio_kwh",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "TV LED (100W × 4h)",
+      "potencia_w": 100,
+      "horas_dia": 4,
+      "precio_kwh": 0.18
+    },
+    {
+      "_label": "Nevera A++ (200W × 10h)",
+      "potencia_w": 200,
+      "horas_dia": 10,
+      "precio_kwh": 0.18
+    },
+    {
+      "_label": "Termo eléctrico (2000W × 4h)",
+      "potencia_w": 2000,
+      "horas_dia": 4,
+      "precio_kwh": 0.18
+    },
+    {
+      "_label": "Lavadora (2500W × 1.5h)",
+      "potencia_w": 2500,
+      "horas_dia": 1.5,
+      "precio_kwh": 0.18
+    },
+    {
+      "_label": "Aire acond. (1500W × 8h)",
+      "potencia_w": 1500,
+      "horas_dia": 8,
+      "precio_kwh": 0.18
+    }
+  ],
+  "units": {
+    "potencia_w": "W",
+    "horas_dia": "s"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Consumo Eléctrico Mensual",
+      "desc": "Calcula el consumo en kWh y el coste mensual y anual de cualquier aparato eléctrico Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora Consumo Eléctrico – kWh",
+      "inputs": {
+        "potencia_w": "Potencia (W)",
+        "horas_dia": "Horas de uso al día",
+        "precio_kwh": "Precio kWh (€)"
+      },
+      "outputs": {
+        "kwh_dia": "kWh/día",
+        "kwh_mes": "kWh/mes",
+        "coste_mes_eur": "Coste mensual (€)",
+        "coste_ano_eur": "Coste anual (€)"
+      },
+      "seo_description": "Calcula el consumo en kWh y el coste mensual y anual de cualquier aparato eléctrico Usado por profesionales y estudiantes en todo el mundo.",
+      "example_label": "Calcular consumo mensual de un aparato de 1000W usado 5 horas/día con precio de 0.15 €/kWh.",
+      "range_hints": {
+        "potencia_w": "Potencia del aparato en watts",
+        "horas_dia": "Horas de uso diario",
+        "precio_kwh": "Precio de la electricidad (varía por contrato y país)"
+      },
+      "result_context": "Aparato de {potencia_w}W usado {horas_dia}h/día consume {consumo_diario_kwh} kWh/día, {consumo_mensual_kwh} kWh/mes. Costo mensual: {costo_mensual}€.",
+      "formula_display": "Consumo_diario = potencia_W × horas ÷ 1000; Costo = consumo × precio × 30",
+      "steps": [
+        "Calcular consumo diario: 1000W × 5h ÷ 1000 = 5 kWh/día",
+        "Calcular consumo mensual: 5 kWh × 30 días = 150 kWh/mes",
+        "Calcular costo: 150 kWh × 0.15 €/kWh = 22.50€/mes",
+        "Comparar con otros aparatos para identificar mayores consumidores"
+      ],
+      "mistakes": [
+        "No considerar consumo en standby (puede ser 5-10% del total)",
+        "Usar potencia nominal en lugar de consumo real medido",
+        "No considerar variación de precio por horas punta/valle"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "potencia_w",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "horas_dia",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "precio_kwh",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Monthly Electricity Consumption Calculator",
+      "desc": "Calculate monthly consumption and cost of an appliance.",
+      "seo_title": "Electricity Cost Calculator – kWh & Cost",
+      "inputs": {
+        "potencia_w": "Power (W)",
+        "horas_dia": "Daily usage hours",
+        "precio_kwh": "Electricity price (â‚¬/kWh)"
+      },
+      "outputs": {
+        "kwh_dia": "kWh/day",
+        "kwh_mes": "kWh/month",
+        "coste_mes_eur": "Monthly cost (â‚¬)",
+        "coste_ano_eur": "Annual cost (â‚¬)"
+      },
+      "seo_description": "Monthly Electricity Consumption Calculator. Power (W), Daily usage hours, Electricity price (â‚¬/kWh) — get kWh/day, kWh/month, Monthly cost (â‚¬) instantly.",
+      "example_label": "Calcular consumo mensual de un aparato de 1000W usado 5 horas/día con precio de 0.15 â‚¬/kWh.",
+      "range_hints": {
+        "potencia_w": "Potencia del aparato en watts",
+        "horas_dia": "Horas de uso diario",
+        "precio_kwh": "Precio de la electricidad (varía por contrato y país)"
+      },
+      "result_context": "Aparato de {potencia_w}W usado {horas_dia}h/día consume {consumo_diario_kwh} kWh/día, {consumo_mensual_kwh} kWh/mes. Costo mensual: {costo_mensual}â‚¬.",
+      "formula_display": "Consumo_diario = potencia_W × horas ÷ 1000; Costo = consumo × precio × 30",
+      "steps": [
+        "Calcular consumo diario: 1000W × 5h ÷ 1000 = 5 kWh/día",
+        "Calcular consumo mensual: 5 kWh × 30 días = 150 kWh/mes",
+        "Calcular costo: 150 kWh × 0.15 â‚¬/kWh = 22.50â‚¬/mes",
+        "Comparar con otros aparatos para identificar mayores consumidores"
+      ],
+      "mistakes": [
+        "No considerar consumo en standby (puede ser 5-10% del total)",
+        "Usar potencia nominal en lugar de consumo real medido",
+        "No considerar variación de precio por horas punta/valle"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "potencia_w",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "horas_dia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "precio_kwh",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Consommation Électrique Mensuelle",
+      "desc": "Calculez la consommation et le coût mensuel d'un appareil.",
+      "seo_title": "Calculateur Consommation Électrique",
+      "inputs": {
+        "potencia_w": "Puissance (W)",
+        "horas_dia": "Heures d'utilisation par jour",
+        "precio_kwh": "Prix kWh (€)"
+      },
+      "outputs": {
+        "kwh_dia": "kWh/jour",
+        "kwh_mes": "kWh/mois",
+        "coste_mes_eur": "Coût mensuel (€)",
+        "coste_ano_eur": "Coût annuel (€)"
+      },
+      "seo_description": "Calculez la consommation en kWh et le coût mensuel et annuel de tout appareil électrique Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calculer consumo mensual de un aparato de 1000W usado 5 horas/día avec precio de 0.15 â‚¬/kWh.",
+      "range_hints": {
+        "potencia_w": "Potencia du aparato dans watts",
+        "horas_dia": "Horas de uso diario",
+        "precio_kwh": "Precio de la électricité (varía par contrato et país)"
+      },
+      "result_context": "Aparato de {potencia_w}W usado {horas_dia}h/día consume {consumo_diario_kwh} kWh/día, {consumo_mensual_kwh} kWh/mes. Costo mensual: {costo_mensual}â‚¬.",
+      "formula_display": "Consumo_diario = potencia_W × horas Á· 1000; Costo = consumo × precio × 30",
+      "steps": [
+        "Calculer consumo diario: 1000W × 5h Á· 1000 = 5 kWh/día",
+        "Calculer consumo mensual: 5 kWh × 30 días = 150 kWh/mes",
+        "Calculer costo: 150 kWh × 0.15 â‚¬/kWh = 22.50â‚¬/mes",
+        "Comparar avec otros aparatos pour identificar mayores consumidores"
+      ],
+      "mistakes": [
+        "Ne pas considérer consumo dans standby (puede ser 5-10% du total)",
+        "Utiliser potencia nominal dans lugar de consumo real medido",
+        "Ne pas considérer variación de precio par horas punta/valle"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "potencia_w",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "horas_dia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "precio_kwh",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Consumo Elétrico Mensal",
+      "desc": "Calcule o consumo em kWh e o custo mensal e anual de qualquer aparelho elétrico Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora Consumo Elétrico – kWh",
+      "inputs": {
+        "potencia_w": "Potência (W)",
+        "horas_dia": "Horas de uso por dia",
+        "precio_kwh": "Preço kWh (R$)"
+      },
+      "outputs": {
+        "kwh_dia": "kWh/dia",
+        "kwh_mes": "kWh/mês",
+        "coste_mes_eur": "Custo mensal (R$)",
+        "coste_ano_eur": "Custo anual (R$)"
+      },
+      "seo_description": "Calcule o consumo em kWh e o custo mensal e anual de qualquer aparelho elétrico Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular consumo mensual de um aparato de 1000W usado 5 horas/día com precio de 0.15 â‚¬/kWh.",
+      "range_hints": {
+        "potencia_w": "Potencia do aparato em watts",
+        "horas_dia": "Horas de uso diario",
+        "precio_kwh": "Precio da electricidad (varía por contrato e país)"
+      },
+      "result_context": "Aparato de {potencia_w}W usado {horas_dia}h/día consume {consumo_diario_kwh} kWh/día, {consumo_mensual_kwh} kWh/mes. Costo mensual: {costo_mensual}â‚¬.",
+      "formula_display": "Consumo_diario = potencia_W × horas ÷ 1000; Costo = consumo × precio × 30",
+      "steps": [
+        "Calcular consumo diario: 1000W × 5h ÷ 1000 = 5 kWh/día",
+        "Calcular consumo mensual: 5 kWh × 30 días = 150 kWh/mes",
+        "Calcular costo: 150 kWh × 0.15 â‚¬/kWh = 22.50â‚¬/mes",
+        "Comparar com otros aparatos para identificar mayores consumidores"
+      ],
+      "mistakes": [
+        "Não considerar consumo em standby (pode ser 5-10% do total)",
+        "Usar potencia nominal em lugar de consumo real medido",
+        "Não considerar variação de precio por horas punta/valle"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "potencia_w",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "horas_dia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "precio_kwh",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Stromverbrauch electrico monatlich",
+      "desc": "Berechnen Sie stromverbrauch electrico monatlich online. Geben Sie potencia w, horas dia, precio kwh ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Stromverbrauch electrico monatlich | CalcToWork",
+      "seo_desc": "Stromverbrauch electrico monatlich online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Stromverbrauch electrico monatlich online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "potencia_w": "Potencia W",
+        "horas_dia": "Horas Dia",
+        "precio_kwh": "Precio Kwh"
+      },
+      "outputs": {
+        "kwh_dia": "Kwh Dia",
+        "kwh_mes": "Kwh Mes",
+        "coste_mes_eur": "Coste Mes Eur",
+        "coste_ano_eur": "Coste Ano Eur"
+      },
+      "example_label": "Calcular consumo mensual de termo eléctrico de 2000 W usado 4 h/día con tarifa de 0.18 €/kWh.",
+      "range_hints": {
+        "potencia_w": "Potencia nominal en vatios (W). Consultar placa: lavadora 2000-2500 W, termo 1200-2000 W, nevera 150-400 W, TV LED 40-100 W, aire acondicionado 1000-3500 W",
+        "horas_dia": "Horas reales diarias de funcionamiento. Nevera: 8-12 h/día (compresor cicla). Lavadora: 1-2 h/día. Aire acond.: 4-8 h/día en verano. TV: 3-6 h/día",
+        "precio_kwh": "Precio del kWh según tarifa: PVPC regulado ~0.10-0.20 €/kWh (variable por horas). Mercado libre ~0.12-0.25 €/kWh. Consultar factura o comparador CNMC"
+      },
+      "result_context": "Aparato de {potencia_w} W funcionando {horas_dia} h/día: consumo {kwh_dia} kWh/día, {kwh_mes} kWh/mes, coste mensual {coste_mes_eur} € y coste anual {coste_ano_eur} €.",
+      "formula_display": "kWh_día = (W × horas) / 1000.  kWh_mes = kWh_día × 30.  Coste_mes = kWh_mes × precio_kWh.  Coste_año = coste_mes × 12.  El standby suma 5-10 % adicional al cálculo.",
+      "steps": [
+        "Identificar la potencia nominal del aparato en vatios (W) en su placa de características o manual de instrucciones",
+        "Estimar las horas reales de funcionamiento al día. Para electrodomésticos con termostato (nevera, termo), las horas reales son menores que las horas enchufado",
+        "Calcular consumo diario: kWh_día = (W × horas) / 1000. Ejemplo con termo de 2000 W y 4 h: 2000 × 4 / 1000 = 8 kWh/día",
+        "Extrapolar a consumo mensual: kWh_mes = kWh_día × 30. Ejemplo: 8 × 30 = 240 kWh/mes. Multiplicar por precio €/kWh para obtener el coste",
+        "Sumar el consumo de todos los aparatos para estimar el consumo total de la vivienda. Identificar los de mayor consumo para priorizar medidas de ahorro"
+      ],
+      "mistakes": [
+        "Olvidar el consumo en standby: muchos aparatos consumen incluso apagados. Un TV en standby consume 5-15 W las 24 h (43-131 kWh/año). Cargadores sin dispositivo: 0.5-2 W constantes",
+        "Usar la potencia máxima en vez del consumo real: un aire acondicionado inverter de 3500 W de capacidad frigorífica consume solo 800-1200 W eléctricos en régimen normal. Consultar potencia eléctrica absorbida, no capacidad térmica",
+        "No considerar las diferencias de tarifa por horas: con discriminación horaria el kWh nocturno cuesta hasta un 50 % menos. Pasar termo y lavadora a horario valle reduce la factura un 15-25 %"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "potencia_w",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "horas_dia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "precio_kwh",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Consumo Elettrico Mensile",
+      "desc": "Calcola il consumo in kWh e il costo mensile e annuale di qualsiasi elettrodomestico. Gratuito, con formula, esempi e guida dettagliata.",
+      "seo_title": "Calcolatore Consumo Elettrico – kWh e Costo",
+      "inputs": {
+        "potencia_w": "Potenza (W)",
+        "horas_dia": "Ore di utilizzo al giorno",
+        "precio_kwh": "Prezzo energia (€/kWh)"
+      },
+      "outputs": {
+        "kwh_dia": "kWh/giorno",
+        "kwh_mes": "kWh/mese",
+        "coste_mes_eur": "Costo mensile (€)",
+        "coste_ano_eur": "Costo annuale (€)"
+      },
+      "seo_description": "Calcola il consumo in kWh e il costo in euro di qualsiasi apparecchio elettrico. Inserisci potenza, ore di utilizzo e prezzo dell'energia.",
+      "example_label": "Calcolare il consumo mensile di uno scaldabagno elettrico da 2000 W usato 4 ore al giorno con tariffa di 0.18 €/kWh.",
+      "range_hints": {
+        "potencia_w": "Potenza nominale in watt (W). Consultare la targa: lavatrice 2000-2500 W, scaldabagno 1200-2000 W, frigorifero 150-400 W, TV LED 40-100 W, climatizzatore 1000-3500 W",
+        "horas_dia": "Ore effettive di funzionamento al giorno. Frigorifero: 8-12 h/giorno (compressore cicla). Lavatrice: 1-2 h/giorno. Climatizzatore: 4-8 h/giorno in estate. TV: 3-6 h/giorno",
+        "precio_kwh": "Prezzo del kWh secondo la tariffa: mercato tutelato ~0.10-0.20 €/kWh. Mercato libero ~0.12-0.25 €/kWh. Consultare la bolletta o il Portale Offerte ARERA"
+      },
+      "result_context": "Apparecchio da {potencia_w} W acceso {horas_dia} h/giorno: consumo {kwh_dia} kWh/giorno, {kwh_mes} kWh/mese, costo mensile {coste_mes_eur} € e costo annuale {coste_ano_eur} €.",
+      "formula_display": "kWh_giorno = (W × ore) / 1000. kWh_mese = kWh_giorno × 30. Costo_mese = kWh_mese × prezzo_kWh. Costo_anno = costo_mese × 12. Il consumo in standby aggiunge il 5-10 %.",
+      "steps": [
+        "Identificare la potenza nominale dell'apparecchio in watt (W) dalla targa dati o dal manuale di istruzioni",
+        "Stimare le ore effettive di funzionamento al giorno. Per elettrodomestici con termostato (frigo, scaldabagno), le ore reali sono inferiori alle ore di collegamento",
+        "Calcolare il consumo giornaliero: kWh_giorno = (W × ore) / 1000. Esempio con scaldabagno 2000 W × 4 h: 2000 × 4 / 1000 = 8 kWh/giorno",
+        "Calcolare il consumo mensile: kWh_mese = kWh_giorno × 30. Esempio: 8 × 30 = 240 kWh/mese. Moltiplicare per il prezzo €/kWh per il costo",
+        "Sommare i consumi di tutti gli apparecchi per stimare il consumo totale dell'abitazione. Identificare quelli a maggior consumo per prioritizzare le misure di risparmio"
+      ],
+      "mistakes": [
+        "Dimenticare il consumo in standby: molti apparecchi consumano anche da spenti. Un TV in standby consuma 5-15 W 24 h su 24 (43-131 kWh/anno). Caricabatterie collegati senza dispositivo: 0.5-2 W costanti",
+        "Usare la potenza massima invece del consumo reale: un climatizzatore inverter da 3500 W di capacità frigorifera assorbe solo 800-1200 W elettrici a regime. Consultare la potenza elettrica assorbita, non la capacità termica",
+        "Non considerare le fasce orarie: con tariffa bioraria l'energia notturna costa fino al 50 % in meno. Spostare lavatrice e scaldabagno in fascia F23 riduce la bolletta del 15-25 %"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "potencia_w",
+          "reason": "Corretto: valore numerico continuo"
+        },
+        {
+          "field_id": "horas_dia",
+          "reason": "Corretto: valore numerico continuo"
+        },
+        {
+          "field_id": "precio_kwh",
+          "reason": "Corretto: valore numerico continuo"
+        }
+      ]
+    }
+  }
+}

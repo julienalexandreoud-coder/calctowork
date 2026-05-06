@@ -1,0 +1,456 @@
+{
+  "id": "034",
+  "slug": "deposito-agua",
+  "block": 4,
+  "block_slug": "fontaneria",
+  "inputs": [
+    {
+      "id": "personas",
+      "type": "number",
+      "min": 1,
+      "max": 200,
+      "step": 1,
+      "default": 4,
+      "unit": "personas"
+    },
+    {
+      "id": "litros_persona_dia",
+      "type": "number",
+      "min": 50,
+      "max": 400,
+      "step": 10,
+      "default": 150,
+      "unit": "L/p/día"
+    },
+    {
+      "id": "dias_autonomia",
+      "type": "number",
+      "min": 0.5,
+      "max": 7,
+      "step": 0.5,
+      "default": 1,
+      "unit": "días"
+    }
+  ],
+  "formula": "var P=parseFloat(inputs.personas)||0,L=parseFloat(inputs.litros_persona_dia)||150,D=parseFloat(inputs.dias_autonomia)||1;if(!P)return{error:true};var total=+(P*L*D).toFixed(0),deposito_norm=total<=500?500:total<=1000?1000:total<=2000?2000:5000;return{litros_necesarios:total,deposito_recomendado_L:deposito_norm,m3_dia:+(P*L/1000).toFixed(2)};",
+  "outputs": [
+    {
+      "id": "litros_necesarios",
+      "unit": "litros",
+      "highlight": true
+    },
+    {
+      "id": "deposito_recomendado_L",
+      "unit": "L (talla estándar)"
+    },
+    {
+      "id": "m3_dia",
+      "unit": "m³/día"
+    }
+  ],
+  "related": [
+    "033",
+    "035",
+    "041",
+    "031"
+  ],
+  "example_inputs": {
+    "personas": 4,
+    "litros_persona_dia": 150,
+    "dias_autonomia": 1
+  },
+  "example_label": "Calcular agua para 4 personas × 150 L/p/día × 1 días.",
+  "range_hints": {
+    "personas": "Valor típico entre 1 y 200. Valor por defecto: 4 personas.",
+    "litros_persona_dia": "Valor típico entre 50 y 400. Valor por defecto: 150 L/p/día.",
+    "dias_autonomia": "Valor típico entre 0.5 y 7. Valor por defecto: 1 días."
+  },
+  "result_context": "Resultados: {litros_necesarios} litros necesarios, {deposito_recomendado_L} litros de depósito recomendado, {m3_dia} m³/día de consumo.",
+  "formula_display": "P × L × D → litros_necesarios, deposito_recomendado_L",
+  "steps": [
+    "Introducir los valores de personas, litros_persona_dia y dias_autonomia",
+    "Verificar que los valores introducidos están en el rango y formato correctos",
+    "Calcular los valores de litros necesarios y deposito recomendado L",
+    "El resultado se expresa en litros. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "No respetar la pendiente mínima del 2% en tuberías de saneamiento",
+    "Usar tubería de pared delgada para instalaciones enterradas",
+    "No instalar válvulas de corte en puntos clave de la instalación"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "personas",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "litros_persona_dia",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "dias_autonomia",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small bathroom",
+      "litros_persona_dia": 80,
+      "personas": 2,
+      "dias_autonomia": 1
+    },
+    {
+      "_label": "Medium bathroom",
+      "litros_persona_dia": 110,
+      "personas": 3,
+      "dias_autonomia": 1
+    },
+    {
+      "_label": "Large bathroom",
+      "litros_persona_dia": 150,
+      "personas": 4,
+      "dias_autonomia": 1
+    },
+    {
+      "_label": "Apartment",
+      "litros_persona_dia": 220,
+      "personas": 6,
+      "dias_autonomia": 1
+    },
+    {
+      "_label": "House",
+      "litros_persona_dia": 300,
+      "personas": 8,
+      "dias_autonomia": 1
+    }
+  ],
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Depósito de Agua",
+      "desc": "Calcula la capacidad del depósito de agua necesaria según el número de personas y días de autonomía Usado por profesionales y estudiantes en todo el.",
+      "seo_title": "Calculadora Depósito de Agua – Litros",
+      "seo_desc": "Calcula la capacidad del depósito de agua necesaria según el número de personas y días de autonomía Usado por profesionales y estudiantes en todo el.",
+      "inputs": {
+        "personas": "Número de personas",
+        "litros_persona_dia": "Litros por persona/día",
+        "dias_autonomia": "Días de autonomía"
+      },
+      "outputs": {
+        "litros_necesarios": "Litros necesarios",
+        "deposito_recomendado_L": "Depósito recomendado",
+        "m3_dia": "Consumo diario"
+      },
+      "seo_description": "Calcula el tamaño de depósito de agua necesario para tu vivienda según el número de personas, consumo diario y días de autonomía. Elige entre tallas comerciales de 500 a 5,000 litros.",
+      "example_label": "Calcular capacidad de depósito de agua para 4 personas con consumo de 150 L/persona/día y 2 días de autonomía.",
+      "range_hints": {
+        "personas": "Número de habitantes de la vivienda",
+        "litros_persona_dia": "Consumo típico: 100-200 L/persona/día según hábitos",
+        "dias_autonomia": "Recomendado: 1-3 días según frecuencia de suministro"
+      },
+      "result_context": "Para {personas} personas con {litros_persona_dia} L/día se necesitan {consumo_diario} L/día. Con {dias_autonomia} días de autonomía: {capacidad_total} L de depósito ({capacidad_m3} m³).",
+      "formula_display": "Consumo_diario = personas × litros_persona_día; Capacidad = consumo × días_autonomía",
+      "steps": [
+        "Calcular consumo diario: 4 personas × 150 L = 600 L/día",
+        "Calcular capacidad: 600 L/día × 2 días = 1200 L",
+        "Convertir a m³: 1200 L ÷ 1000 = 1.2 m³",
+        "Considerar volumen muerto: agregar 10% = 1320 L (depósito comercial: 1500 L)"
+      ],
+      "mistakes": [
+        "No considerar volumen muerto del depósito (fondo no utilizable)",
+        "Dimensionar sin margen para visitas o consumo excepcional",
+        "No prever sistema de rebose y limpieza del depósito"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "personas",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "litros_persona_dia",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "dias_autonomia",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Water Tank Size Calculator",
+      "desc": "Water Tank Size Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Water Tank Calculator – Litres Required",
+      "seo_desc": "Water Tank Size Calculator. Number of people, Litres per person/day, Days of autonomy — get Litres needed, Recommended tank, Daily consumption instantly.",
+      "inputs": {
+        "personas": "Number of people",
+        "litros_persona_dia": "Litres per person/day",
+        "dias_autonomia": "Days of autonomy"
+      },
+      "outputs": {
+        "litros_necesarios": "Litres needed",
+        "deposito_recomendado_L": "Recommended tank",
+        "m3_dia": "Daily consumption"
+      },
+      "seo_description": "Calculate the water storage tank size for your home based on number of occupants, daily consumption and autonomy days. Choose from standard sizes: 500 to 5,000 litres.",
+      "example_label": "Calcular capacidad de depósito de agua para 4 personas con consumo de 150 L/persona/día y 2 días de autonomía.",
+      "range_hints": {
+        "personas": "Número de habitantes de la vivienda",
+        "litros_persona_dia": "Consumo típico: 100-200 L/persona/día según hábitos",
+        "dias_autonomia": "Recomendado: 1-3 días según frecuencia de suministro"
+      },
+      "result_context": "Para {personas} personas con {litros_persona_dia} L/día se necesitan {consumo_diario} L/día. Con {dias_autonomia} días de autonomía: {capacidad_total} L de depósito ({capacidad_m3} m³).",
+      "formula_display": "Consumo_diario = personas × litros_persona_día; Capacidad = consumo × días_autonomía",
+      "steps": [
+        "Calcular consumo diario: 4 personas × 150 L = 600 L/día",
+        "Calcular capacidad: 600 L/día × 2 días = 1200 L",
+        "Convertir a m³: 1200 L ÷ 1000 = 1.2 m³",
+        "Considerar volumen muerto: agregar 10% = 1320 L (depósito comercial: 1500 L)"
+      ],
+      "mistakes": [
+        "No considerar volumen muerto del depósito (fondo no utilizable)",
+        "Dimensionar sin margen para visitas o consumo excepcional",
+        "No prever sistema de rebose y limpieza del depósito"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "personas",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "litros_persona_dia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "dias_autonomia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Cuve à Eau",
+      "desc": "Calculez le volume de la cuve à eau nécessaire selon le nombre de personnes, la consommation quotidienne et les jours de réserve.",
+      "seo_title": "Calculateur Cuve à Eau – Volume en Litres et m³",
+      "seo_desc": "Calculez la capacité de stockage d'eau pour maisons, bureaux et hôtels. Entrez le nombre de personnes, la consommation quotidienne et les jours de réserve. Utilisé par les professionnels.",
+      "inputs": {
+        "personas": "Nombre de personnes",
+        "consumo_diario_por_persona": "Consommation journalière par personne",
+        "dias_reserva": "Jours de réserve"
+      },
+      "outputs": {
+        "volumen_total_L": "Volume total",
+        "volumen_m3": "Volume en m³",
+        "deposito_recomendado_L": "Cuve standard"
+      },
+      "seo_description": "Calculez la taille de la cuve à eau pour votre logement selon le nombre d'occupants, la consommation quotidienne par personne et les jours d'autonomie. Recommande les tailles standard : 500, 1000, 2000, 5000 ou 10000 litres.",
+      "example_label": "Calculer la cuve pour une famille de 4 personnes, 180 L/jour/personne et 2 jours de réserve.",
+      "range_hints": {
+        "personas": "1 personne=50-80 L (minimum), famille 4 pers=600-800 L/jour, immeuble 20 logements=12,000-16,000 L/jour.",
+        "consumo_diario_por_persona": "Logement : 150-200 L/pers/jour. Bureau : 80-100 L. Hôtel : 200-300 L. Hôpital : 300-500 L.",
+        "dias_reserva": "Zone urbaine : 1 jour. Zone semi-rurale : 2-3 jours. Zone rurale sans alimentation continue : 5-7 jours."
+      },
+      "result_context": "Pour {personas} personnes avec consommation de {consumo_diario_por_persona} L/p/j et {dias_reserva} jours de réserve : volume total {volumen_total_L} L ({volumen_m3} m³). Cuve standard recommandée : {deposito_recomendado_L} L.",
+      "formula_display": "Volume (L) = Personnes × Consommation journalière (L) × Jours de réserve",
+      "steps": [
+        "Compter le nombre de personnes dans le logement ou le bâtiment",
+        "Estimer la consommation quotidienne : 150-200 L en logement, 80-100 L en bureau",
+        "Définir les jours de réserve : 1 jour en zone urbaine fiable, 3-5 jours en zone rurale",
+        "Calculer le volume utile : V = personnes × consommation × jours_réserve",
+        "Ajouter 5-10% pour sédiments et volume mort. Cuves standard : 500, 750, 1000, 2000, 5000 L"
+      ],
+      "mistakes": [
+        "Ne pas compter tous les occupants (visiteurs fréquents, personnel de service)",
+        "Installer une cuve sans by-pass ni système de nettoyage",
+        "Oublier que l'eau stagnante plus de 3 jours sans chloration perd sa potabilité"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "personas",
+          "reason": "Correct : valeur entière pour comptage"
+        },
+        {
+          "field_id": "consumo_diario_por_persona",
+          "reason": "Correct : consommation journalière en litres"
+        },
+        {
+          "field_id": "dias_reserva",
+          "reason": "Correct : jours de réserve avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Reservatório de Água",
+      "desc": "Calcule a capacidade da caixa d'água necessária pelo número de pessoas e dias de autonomia Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora Caixa d'Água ââ‚¬“ Litros",
+      "inputs": {
+        "personas": "Número de pessoas",
+        "litros_persona_dia": "Litros por pessoa/dia",
+        "dias_autonomia": "Dias de autonomia"
+      },
+      "outputs": {
+        "litros_necesarios": "Litros necessários",
+        "deposito_recomendado_L": "Reservatório recomendado",
+        "m3_dia": "Consumo diário"
+      },
+      "seo_description": "Calcule a capacidade da caixa d'água necessária pelo número de pessoas e dias de autonomia Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular capacidade de depósito de água para 4 personas com consumo de 150 L/persona/día e 2 días de autonomía.",
+      "range_hints": {
+        "personas": "Número de habitantes da vivienda",
+        "litros_persona_dia": "Consumo típico: 100-200 L/persona/día segundo hábitos",
+        "dias_autonomia": "Recomendado: 1-3 días segundo frecuencia de fornecimento"
+      },
+      "result_context": "Para {personas} personas com {litros_persona_dia} L/día são necessários {consumo_diario} L/día. Con {dias_autonomia} días de autonomía: {capacidad_total} L de depósito ({capacidad_m3} m³).",
+      "formula_display": "Consumo_diario = personas × litros_persona_día; Capacidad = consumo × días_autonomía",
+      "steps": [
+        "Calcular consumo diario: 4 personas × 150 L = 600 L/día",
+        "Calcular capacidade: 600 L/día × 2 días = 1200 L",
+        "Convertir a m³: 1200 L ÷ 1000 = 1.2 m³",
+        "Considerar volume muerto: agregar 10% = 1320 L (depósito comercial: 1500 L)"
+      ],
+      "mistakes": [
+        "Não considerar volume muerto do depósito (fondo não utilizable)",
+        "Dimensionar sem margen para visitas o consumo excepcional",
+        "Não prever sistema de rebose e limpeza do depósito"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "personas",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "litros_persona_dia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "dias_autonomia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Festgeld Wasser",
+      "desc": "Berechnen Sie festgeld Wasser online. Geben Sie personas, litros persona dia, dias autonomia ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Festgeld Wasser | CalcToWork",
+      "seo_desc": "Festgeld Wasser online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Festgeld Wasser online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "personas": "Personas",
+        "litros_persona_dia": "Litros Persona Dia",
+        "dias_autonomia": "Dias Autonomia"
+      },
+      "outputs": {
+        "litros_necesarios": "Litros Necesarios",
+        "deposito_recomendado_L": "Deposito Recomendado L",
+        "m3_dia": "M3 Dia"
+      },
+      "example_label": "Calcular agua para 4 personas × 150 L/p/día × 1 días.",
+      "range_hints": {
+        "personas": "Valor típico entre 1 y 200. Valor por defecto: 4 personas.",
+        "litros_persona_dia": "Valor típico entre 50 y 400. Valor por defecto: 150 L/p/día.",
+        "dias_autonomia": "Valor típico entre 0.5 y 7. Valor por defecto: 1 días."
+      },
+      "result_context": "Resultados: {litros_necesarios} litros necesarios, {deposito_recomendado_L} litros de depósito recomendado, {m3_dia} m³/día de consumo.",
+      "formula_display": "P × L × D → litros_necesarios, deposito_recomendado_L",
+      "steps": [
+        "Introducir los valores de personas, litros_persona_dia y dias_autonomia",
+        "Verificar que los valores introducidos están en el rango y formato correctos",
+        "Calcular los valores de litros necesarios y deposito recomendado L",
+        "El resultado se expresa en litros. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "No respetar la pendiente mínima del 2% en tuberías de saneamiento",
+        "Usar tubería de pared delgada para instalaciones enterradas",
+        "No instalar válvulas de corte en puntos clave de la instalación"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "personas",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "litros_persona_dia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "dias_autonomia",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Serbatoio Acqua",
+      "desc": "Calcola il volume del serbatoio d'acqua necessario in base al numero di persone, consumo giornaliero e giorni di riserva.",
+      "seo_title": "Calcolatore Serbatoio Acqua – Volume in Litri e m³",
+      "seo_desc": "Calcola la capacità di accumulo idrico per case, uffici e hotel. Inserisci numero persone, consumo giornaliero e giorni di riserva. Usato da professionisti in tutto il mondo.",
+      "inputs": {
+        "personas": "Numero di persone",
+        "consumo_diario_por_persona": "Consumo giornaliero per persona",
+        "dias_reserva": "Giorni di riserva"
+      },
+      "outputs": {
+        "volumen_total_L": "Volume totale",
+        "volumen_m3": "Volume in m³",
+        "deposito_recomendado_L": "Serbatoio standard"
+      },
+      "seo_description": "Calcola la dimensione del serbatoio d'acqua per la tua abitazione in base al numero di occupanti, consumo giornaliero per persona e giorni di autonomia. Consiglia taglie standard: 500, 1000, 2000, 5000 o 10000 litri.",
+      "example_label": "Calcolare serbatoio per famiglia di 4 persone, 180 L/giorno/persona e 2 giorni di riserva.",
+      "range_hints": {
+        "personas": "1 persona=50-80 L (minimo), famiglia 4 persone=600-800 L/giorno, condominio 20 appartamenti=12,000-16,000 L/giorno.",
+        "consumo_diario_por_persona": "Abitazione: 150-200 L/persona/giorno. Ufficio: 80-100 L. Hotel: 200-300 L. Ospedale: 300-500 L.",
+        "dias_reserva": "Zona urbana: 1 giorno. Zona semi-rurale: 2-3 giorni. Zona rurale senza fornitura continua: 5-7 giorni."
+      },
+      "result_context": "Per {personas} persone con consumo di {consumo_diario_por_persona} L/p/giorno e {dias_reserva} giorni di riserva: volume totale {volumen_total_L} L ({volumen_m3} m³). Serbatoio standard consigliato: {deposito_recomendado_L} L.",
+      "formula_display": "Volume (L) = Persone × Consumo giornaliero (L) × Giorni di riserva",
+      "steps": [
+        "Contare il numero di persone nell'abitazione o edificio",
+        "Stimare il consumo giornaliero per persona: 150-200 L in abitazione, 80-100 L in ufficio",
+        "Definire i giorni di riserva: 1 giorno per zona urbana con fornitura affidabile, 3-5 giorni per zona rurale",
+        "Calcolare il volume utile: V = persone × consumo × giorni_riserva",
+        "Aggiungere 5-10% per sedimenti e volume morto. Serbatoi commerciali: 500, 750, 1000, 2000, 5000 L"
+      ],
+      "mistakes": [
+        "Non contare tutti gli occupanti (visitatori frequenti, personale di servizio)",
+        "Installare serbatoio senza by-pass né sistema di pulizia",
+        "Dimenticare che l'acqua stagnante oltre 3 giorni senza clorazione perde potabilità"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "personas",
+          "reason": "Corretto: valore intero per conteggio"
+        },
+        {
+          "field_id": "consumo_diario_por_persona",
+          "reason": "Corretto: consumo giornaliero in litri"
+        },
+        {
+          "field_id": "dias_reserva",
+          "reason": "Corretto: giorni di riserva con decimali"
+        }
+      ]
+    }
+  }
+}

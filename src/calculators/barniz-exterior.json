@@ -1,0 +1,414 @@
+{
+  "id": "072",
+  "slug": "barniz-exterior",
+  "block": 8,
+  "block_slug": "pintura",
+  "inputs": [
+    {
+      "id": "area_m2",
+      "type": "number",
+      "min": 0.5,
+      "max": 500,
+      "step": 0.5,
+      "default": 15,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "manos",
+      "type": "number",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "unit": "manos",
+      "unit_options": [
+        "coats"
+      ],
+      "unit_category": "count"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area_m2)||0,M=parseFloat(inputs.manos)||3;if(!A)return{error:true};var R=10,litros=+(A*M/R*1.1).toFixed(2),lija_sheets=Math.ceil(A*0.5);return{litros_barniz:litros,lija_hojas:lija_sheets,manos_recomendadas:M};",
+  "outputs": [
+    {
+      "id": "litros_barniz",
+      "unit": "L (+10%)",
+      "highlight": true
+    },
+    {
+      "id": "lija_hojas",
+      "unit": "hojas lija"
+    },
+    {
+      "id": "manos_recomendadas",
+      "unit": "manos"
+    }
+  ],
+  "related": [
+    "071",
+    "077",
+    "024",
+    "069"
+  ],
+  "example_inputs": {
+    "area_m2": 50,
+    "manos": 30
+  },
+  "example_label": "Ejemplo para barniz exterior: valores 15m², 3manos",
+  "range_hints": {
+    "area_m2": "Valor típico entre 0.5 y 500. Valor por defecto: 15 m².",
+    "manos": "Valor típico entre 2 y 4. Valor por defecto: 3 manos."
+  },
+  "result_context": "Resultados: {litros_barniz} L de barniz con merma, {lija_hojas} hojas de lija, {manos_recomendadas} manos recomendadas.",
+  "formula_display": "M ÷ R → litros_barniz, lija_hojas",
+  "steps": [
+    "Introducir los valores de area_m2 y manos",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+    "Calcular los valores de litros barniz y lija hojas",
+    "El resultado se expresa en L (+10%). Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Introducir valores con unidades incorrectas sin verificar la conversión",
+    "Redondear resultados intermedios en lugar del resultado final",
+    "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "area_m2",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "manos",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small room",
+      "area_m2": 25,
+      "manos": 4
+    },
+    {
+      "_label": "Medium room",
+      "area_m2": 37.5,
+      "manos": 4
+    },
+    {
+      "_label": "Large room",
+      "area_m2": 50,
+      "manos": 4
+    },
+    {
+      "_label": "Office",
+      "area_m2": 75,
+      "manos": 4
+    },
+    {
+      "_label": "Hall",
+      "area_m2": 100,
+      "manos": 4
+    }
+  ],
+  "units": {
+    "area_m2": "m²"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Barniz Exterior y Marino",
+      "desc": "Calcula los litros de barniz marino o exterior y hojas de lija necesarias para proteger madera Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora Barniz Exterior – Litros",
+      "inputs": {
+        "area_m2": "Área a barnizar",
+        "manos": "Número de manos",
+        "tipo_madera": "Tipo de madera"
+      },
+      "outputs": {
+        "litros_barniz": "Litros barniz (+10%)",
+        "lija_hojas": "Hojas de lija",
+        "manos_recomendadas": "Manos recomendadas"
+      },
+      "seo_description": "Calcula los litros de barniz marino o exterior y hojas de lija necesarias para proteger madera Usado por profesionales y estudiantes en todo el mundo.",
+      "example_label": "Estimar barniz exterior necesario para superficie de 50 m².",
+      "range_hints": {
+        "area_m2": "Valor entre 0.5 y 500 m².",
+        "manos": "Valor entre 2 y 4 manos."
+      },
+      "result_context": "La cantidad calculada de {litros_barniz} L (+10%) incluye 10% de merma. Ajusta segun porosidad del soporte.",
+      "formula_display": "Formula especifica para barniz-exterior - consulta documentacion tecnica.",
+      "steps": [
+        "Introduce area m2: 50 m²",
+        "Introduce manos: 30 manos",
+        "Revisa los valores introducidos",
+        "Pulsa calcular para obtener resultados",
+        "Interpreta resultado: {litros_barniz}"
+      ],
+      "mistakes": [
+        "No considerar absorcion del soporte en consumo",
+        "Olvidar aplicar imprimacion antes del acabado",
+        "No añadir merma por herramientas (10-15%)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "manos",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        }
+      ]
+    },
+    "en": {
+      "name": "Exterior Varnish Calculator",
+      "desc": "Exterior Varnish Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Wood Varnish Calculator – Litres",
+      "inputs": {
+        "area_m2": "Area to varnish",
+        "manos": "Number of coats",
+        "tipo_madera": "Wood type"
+      },
+      "outputs": {
+        "litros_barniz": "Varnish litres (+10%)",
+        "lija_hojas": "Sandpaper sheets",
+        "manos_recomendadas": "Recommended coats"
+      },
+      "seo_description": "Exterior Varnish Calculator. Area to varnish, Number of coats, Wood type — get Varnish litres (+10%), Sandpaper sheets, Recommended coats instantly for.",
+      "example_label": "Estimar barniz exterior necesario para superficie de 50 m².",
+      "range_hints": {
+        "area_m2": "Valor entre 0.5 y 500 m².",
+        "manos": "Valor entre 2 y 4 manos."
+      },
+      "result_context": "La cantidad calculada de {litros_barniz} L (+10%) incluye 10% de merma. Ajusta segun porosidad del soporte.",
+      "formula_display": "Formula especifica para barniz-exterior - consulta documentacion tecnica.",
+      "steps": [
+        "Introduce area m2: 50 m²",
+        "Introduce manos: 30 manos",
+        "Revisa los valores introducidos",
+        "Pulsa calcular para obtener resultados",
+        "Interpreta resultado: {litros_barniz}"
+      ],
+      "mistakes": [
+        "No considerar absorcion del soporte en consumo",
+        "Olvidar aplicar imprimacion antes del acabado",
+        "No añadir merma por herramientas (10-15%)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "manos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Vernis Extérieur",
+      "desc": "Calculez les litres de vernis pour bois extérieur.",
+      "seo_title": "Calculateur Vernis Bois – Litres",
+      "inputs": {
+        "area_m2": "Surface à vernir",
+        "manos": "Nombre de couches",
+        "tipo_madera": "Type de bois"
+      },
+      "outputs": {
+        "litros_barniz": "Litres vernis (+10%)",
+        "lija_hojas": "Feuilles abrasif",
+        "manos_recomendadas": "Couches recommandées"
+      },
+      "seo_description": "Calculez les litres de vernis marin ou extérieur et feuilles de papier de verre nécessaires Utilise par des professionnels et etudiants dans le monde.",
+      "example_label": "Estimar barniz exterior nécessaire pour surface de 50 m².",
+      "range_hints": {
+        "area_m2": "Valor entre 0.5 et 500 m².",
+        "manos": "Valor entre 2 et 4 manos."
+      },
+      "result_context": "la quantité calculée de {litros_barniz} L (+10%) incluye 10% de merma. Ajusta segun porosidad du soporte.",
+      "formula_display": "Formula especifica pour barniz-exterior - consulta documentacion tecnica.",
+      "steps": [
+        "Introduce area m2: 50 m²",
+        "Introduce manos: 30 manos",
+        "Revisa les valores introducidos",
+        "Pulsa Calculer pour obtener resultados",
+        "Interpreta resultado: {litros_barniz}"
+      ],
+      "mistakes": [
+        "Ne pas considérer absorcion du soporte dans consumo",
+        "Oublier aplicar imprimacion antes du acabado",
+        "No añadir merma par herramientas (10-15%)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        },
+        {
+          "field_id": "manos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Verniz Externo",
+      "desc": "Calcule litros de verniz marítimo ou externo e lixas para proteger madeira. Calculo preciso e rapido com metodologia clara.",
+      "seo_title": "Calculadora Verniz Externo – Litros",
+      "inputs": {
+        "area_m2": "Área a envernizar",
+        "manos": "Número de demãos",
+        "tipo_madera": "Tipo de madeira"
+      },
+      "outputs": {
+        "litros_barniz": "Litros verniz (+10%)",
+        "lija_hojas": "Folhas de lixa",
+        "manos_recomendadas": "Demãos recomendadas"
+      },
+      "seo_description": "Calcule litros de verniz marítimo ou externo e lixas para proteger madeira. Calculo preciso e rapido com metodologia clara.",
+      "example_label": "Estimar verniz exterior necessário para superfície de 50 m².",
+      "range_hints": {
+        "area_m2": "Valor entre 0.5 e 500 m².",
+        "manos": "Valor entre 2 e 4 manos."
+      },
+      "result_context": "La quantidade calculada de {litros_barniz} L (+10%) incluye 10% de merma. Ajusta segun porosidad do soporte.",
+      "formula_display": "Formula especifica para barniz-exterior - consulta documentacion tecnica.",
+      "steps": [
+        "Introduce area m2: 50 m²",
+        "Introduce manos: 30 manos",
+        "Revisa os valores introducidos",
+        "Pulsa calcular para obter resultados",
+        "Interpreta resultado: {litros_barniz}"
+      ],
+      "mistakes": [
+        "Não considerar absorcion do soporte em consumo",
+        "Esquecer aplicar imprimacion antes do acabamento",
+        "Não adicionar merma por herramientas (10-15%)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        },
+        {
+          "field_id": "manos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        }
+      ]
+    },
+    "de": {
+      "name": "Klarlack Außen",
+      "desc": "Berechnen Sie klarlack Außen online. Geben Sie area m2, manos ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Klarlack Außen | CalcToWork",
+      "seo_desc": "Klarlack Außen online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Klarlack Außen online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "area_m2": "Area M2",
+        "manos": "Manos"
+      },
+      "outputs": {
+        "litros_barniz": "Litros Barniz",
+        "lija_hojas": "Lija Hojas",
+        "manos_recomendadas": "Manos Recomendadas"
+      },
+      "example_label": "Ejemplo para barniz exterior: valores 15m², 3manos",
+      "range_hints": {
+        "area_m2": "Valor típico entre 0.5 y 500. Valor por defecto: 15 m².",
+        "manos": "Valor típico entre 2 y 4. Valor por defecto: 3 manos."
+      },
+      "result_context": "Resultados: {litros_barniz} L de barniz con merma, {lija_hojas} hojas de lija, {manos_recomendadas} manos recomendadas.",
+      "formula_display": "M ÷ R → litros_barniz, lija_hojas",
+      "steps": [
+        "Introducir los valores de area_m2 y manos",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+        "Calcular los valores de litros barniz y lija hojas",
+        "El resultado se expresa en L (+10%). Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Introducir valores con unidades incorrectas sin verificar la conversión",
+        "Redondear resultados intermedios en lugar del resultado final",
+        "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "manos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Primer / Fondo",
+      "description": "Calcola il primer per preparare le superfici alla verniciatura.",
+      "seo_title": "Calcolatore Verniciatura Legno",
+      "seo_description": "Stima il primer necessario prima della verniciatura di pareti e soffitti Usato da professionisti e studenti in tutto il mondo.",
+      "inputs": {
+        "area": "Superficie (m²)",
+        "rendimiento": "Resa (m²/L)"
+      },
+      "outputs": {
+        "litros": "Litri necessari",
+        "botes_4l": "Latte da 4 L"
+      },
+      "example_label": "Stimare barniz esternon necessario per superficie di 50 m².",
+      "range_hints": {
+        "area_m2": "Valor intre 0.5 e 500 m².",
+        "manos": "Valor intre 2 e 4 manons."
+      },
+      "result_context": "La quantità calculada di {litros_barniz} L (+10%) incluee 10% di merma. Ajusta segun perosedad dil supperto.",
+      "formula_display": "Formula especifica per barniz-esternon - consulta documintacion tecnica.",
+      "steps": [
+        "Introduce area m2: 50 m²",
+        "Introduce manons: 30 manons",
+        "Revisa i valorei introducidos",
+        "Pulsa calcolare per obtiner risultati",
+        "Interpreta risultato: {litros_barniz}"
+      ],
+      "mistakes": [
+        "Non consedirare absorcion dil supperto in consumo",
+        "Diminticare aplicar imprimacion prima dil finitura",
+        "No añadir merma per herramiintas (10-15%)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        },
+        {
+          "field_id": "manos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        }
+      ]
+    }
+  }
+}

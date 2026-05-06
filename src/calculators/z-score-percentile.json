@@ -1,0 +1,473 @@
+{
+  "id": "958",
+  "slug": "z-score-percentile",
+  "block": 18,
+  "block_slug": "estadistica",
+  "inputs": [
+    {
+      "id": "valor",
+      "type": "number",
+      "min": -99999,
+      "max": 99999,
+      "step": 0.01,
+      "default": 85,
+      "unit": ""
+    },
+    {
+      "id": "media",
+      "type": "number",
+      "min": -99999,
+      "max": 99999,
+      "step": 0.01,
+      "default": 75,
+      "unit": ""
+    },
+    {
+      "id": "desviacion",
+      "type": "number",
+      "min": 0.001,
+      "max": 99999,
+      "step": 0.001,
+      "default": 10,
+      "unit": ""
+    }
+  ],
+  "formula": "var x=parseFloat(inputs.valor)||0,m=parseFloat(inputs.media)||0,s=parseFloat(inputs.desviacion)||1;if(!s)return{error:true};var z=+((x-m)/s).toFixed(4);var percentile=+(0.5*(1+Math.erf(z/Math.sqrt(2)))*100).toFixed(2);return{z_score:z,percentile:percentile,classification:z>2?'Far above average':z>1?'Above average':z>-1?'Average':z>-2?'Below average':'Far below average'};",
+  "outputs": [
+    {
+      "id": "z_score",
+      "unit": "",
+      "highlight": true
+    },
+    {
+      "id": "percentile",
+      "unit": "%",
+      "highlight": false
+    },
+    {
+      "id": "classification",
+      "unit": "",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "961",
+    "959",
+    "957",
+    "609"
+  ],
+  "example_inputs": {
+    "media": 75,
+    "desviacion": 10,
+    "valor": 85
+  },
+  "example_label": "Ejemplo para z score percentile: valores 85, 75, 10",
+  "range_hints": {
+    "valor": "Valor típico entre -99999 y 99999. Valor por defecto: 85.",
+    "media": "Valor típico entre -99999 y 99999. Valor por defecto: 75.",
+    "desviacion": "Valor típico entre 0.001 y 99999. Valor por defecto: 10."
+  },
+  "result_context": "La puntuación Z es {z_score}, el percentil es {percentile} y la clasificación es {classification}.",
+  "result_context_en": "The Z-score is {z_score}, the percentile is {percentile}, and the classification is {classification}.",
+  "result_context_fr": "Le score Z est de {z_score}, le percentile est {percentile} et la classification est {classification}.",
+  "result_context_pt": "A pontuação Z é {z_score}, o percentil é {percentile} e a classificação é {classification}.",
+  "result_context_de": "Der Z-Wert beträgt {z_score}, das Perzentil ist {percentile} und die Klassifizierung lautet {classification}.",
+  "result_context_it": "Il punteggio Z è {z_score}, il percentile è {percentile} e la classificazione è {classification}.",
+  "formula_display": "z ÷ Math → z_score, percentile",
+  "steps": [
+    "Introducir los valores de valor, media y desviacion",
+    "Verificar que los valores introducidos están en el rango y formato correctos",
+    "Calcular los valores de z score y percentile",
+    "Verificar que el resultado es coherente con los valores de entrada",
+    "El resultado puede usarse como dato intermedio para cálculos posteriores más complejos"
+  ],
+  "mistakes": [
+    "Confundir media con mediana en distribuciones asimétricas",
+    "Usar la desviación estándar de la muestra (n-1) para datos de población (n)",
+    "Interpretar correlación como causalidad"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "valor",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "media",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "desviacion",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Muestra pequena",
+      "valor": 34.0,
+      "media": 30.0,
+      "desviacion": 4.0
+    },
+    {
+      "_label": "Datos uniformes",
+      "valor": 59.5,
+      "media": 52.5,
+      "desviacion": 7.0
+    },
+    {
+      "_label": "Datos dispersos",
+      "valor": 85.0,
+      "media": 75.0,
+      "desviacion": 10.0
+    },
+    {
+      "_label": "Muestra grande",
+      "valor": 127.5,
+      "media": 112.5,
+      "desviacion": 15.0
+    },
+    {
+      "_label": "Valores atipicos",
+      "valor": 212.5,
+      "media": 187.5,
+      "desviacion": 25.0
+    }
+  ],
+  "buying_units": {
+    "box": 12,
+    "sqm_per_box": 1.44
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Puntuación Z y Percentil",
+      "desc": "Calcula la puntuacion Z y encuentra el percentil correspondiente Usado por profesionales y estudiantes en todo el mundo.",
+      "description": "Calculadora de Puntuación Z y Percentil.",
+      "seo_title": "Calculadora de Puntuación Z y Percentil Gratuita",
+      "seo_description": "Calcula la puntuacion Z y encuentra el percentil correspondiente Usado por profesionales y estudiantes en todo el mundo.",
+      "inputs": {
+        "valor": "valor",
+        "media": "Media",
+        "desviacion": "Desviación estándar"
+      },
+      "outputs": {
+        "z_score": "Z-score",
+        "percentile": "Percentil",
+        "classification": "Clasificacion"
+      },
+      "example_label": "Calculate z score percentile with valor 85, media 75, desviacion 10.",
+      "range_hints": {
+        "media": "Typical range: -99999-99999.",
+        "desviacion": "Typical range: 0.001-99999.",
+        "valor": "Typical range: -99999-99999."
+      },
+      "result_context": "Your calculated z score is {z_score}.",
+      "formula_display": "Calculate z score percentile based on input values.",
+      "steps": [
+        "Enter input values: valor: 85, media: 75, desviacion: 10",
+        "Calculate and display the z_score result",
+        "Calculate and display the percentile result",
+        "Calculate and display the classification result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "valor",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "media",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "desviacion",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "en": {
+      "name": "Z-Score & Percentile Calculator",
+      "desc": "Z-Score & Percentile Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Z-Score & Percentile Calculator.",
+      "seo_title": "Z-Score & Percentile Calculator",
+      "seo_description": "Calculate Z-score and find the corresponding percentile. Convert between standard deviations and percentages. Easy-to-use calculator with formula.",
+      "inputs": {
+        "valor": "valor",
+        "media": "Mean",
+        "desviacion": "Std deviation"
+      },
+      "outputs": {
+        "z_score": "Z-score",
+        "percentile": "Percentile",
+        "classification": "Classification"
+      },
+      "example_label": "Calculate z score percentile with valor 85, media 75, desviacion 10.",
+      "range_hints": {
+        "media": "Typical range: -99999-99999.",
+        "desviacion": "Typical range: 0.001-99999.",
+        "valor": "Typical range: -99999-99999."
+      },
+      "result_context": "Your calculated z score is {z_score}.",
+      "formula_display": "Calculate z score percentile based on input values.",
+      "steps": [
+        "Enter input values: valor: 85, media: 75, desviacion: 10",
+        "Calculate and display the z_score result",
+        "Calculate and display the percentile result",
+        "Calculate and display the classification result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "valor",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "media",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "desviacion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculatrice de Score Z et Percentile",
+      "desc": "Calculez le score Z et trouvez le percentile correspondant. Calculatrice facile a utiliser avec decomposition de la formule.",
+      "description": "Calculatrice de Score Z et Percentile.",
+      "seo_title": "Calculatrice de Score Z et Percentile en Ligne",
+      "seo_description": "Calculez le score Z et trouvez le percentile correspondant. Calculatrice facile a utiliser avec decomposition de la formule.",
+      "inputs": {
+        "valor": "valor",
+        "media": "Moyenne",
+        "desviacion": "Écart type"
+      },
+      "outputs": {
+        "z_score": "Z-score",
+        "percentile": "Percentile",
+        "classification": "Classification"
+      },
+      "example_label": "Calculate z score percentile with valor 85, media 75, desviacion 10.",
+      "range_hints": {
+        "media": "Typical range: -99999-99999.",
+        "desviacion": "Typical range: 0.001-99999.",
+        "valor": "Typical range: -99999-99999."
+      },
+      "result_context": "Your calculated z score is {z_score}.",
+      "formula_display": "Calculate z score percentile based on input values.",
+      "steps": [
+        "Enter input values: valor: 85, media: 75, desviacion: 10",
+        "Calculate and display the z_score result",
+        "Calculate and display the percentile result",
+        "Calculate and display the classification result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "valor",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "media",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "desviacion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Escore Z e Percentil",
+      "desc": "Calcule o escore Z e encontre o percentil correspondenteCalculadora facil de usar com detalhamento da formula.",
+      "description": "Calculadora de Escore Z e Percentil.",
+      "seo_title": "Calculadora de Escore Z e Percentil",
+      "seo_description": "Calcule o escore Z e encontre o percentil correspondente. Calculadora fácil e gratuita com resultados rápidos e precisos.",
+      "inputs": {
+        "valor": "valor",
+        "media": "Média",
+        "desviacion": "Desvio padrão"
+      },
+      "outputs": {
+        "z_score": "Z-score",
+        "percentile": "Percentile",
+        "classification": "Classification"
+      },
+      "example_label": "Calculate z score percentile with valor 85, media 75, desviacion 10.",
+      "range_hints": {
+        "media": "Typical range: -99999-99999.",
+        "desviacion": "Typical range: 0.001-99999.",
+        "valor": "Typical range: -99999-99999."
+      },
+      "result_context": "Your calculated z score is {z_score}.",
+      "formula_display": "Calculate z score percentile based on input values.",
+      "steps": [
+        "Enter input values: valor: 85, media: 75, desviacion: 10",
+        "Calculate and display the z_score result",
+        "Calculate and display the percentile result",
+        "Calculate and display the classification result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "valor",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "media",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "desviacion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "de": {
+      "name": "Z score percentile",
+      "desc": "Berechnen Sie z score percentile online. Geben Sie valor, media, desviacion ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Z score percentile | CalcToWork",
+      "seo_desc": "Z score percentile online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Z score percentile online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "valor": "Valor",
+        "media": "Media",
+        "desviacion": "Desviacion"
+      },
+      "outputs": {
+        "z_score": "Z Score",
+        "percentile": "Percentile",
+        "classification": "Classification"
+      },
+      "example_label": "Ejemplo para z score percentile: valores 85, 75, 10",
+      "range_hints": {
+        "valor": "Valor típico entre -99999 y 99999. Valor por defecto: 85.",
+        "media": "Valor típico entre -99999 y 99999. Valor por defecto: 75.",
+        "desviacion": "Valor típico entre 0.001 y 99999. Valor por defecto: 10."
+      },
+      "result_context": "Der Z-Wert beträgt {z_score}, das Perzentil ist {percentile} und die Klassifizierung lautet {classification}.",
+      "formula_display": "z ÷ Math → z_score, percentile",
+      "steps": [
+        "Introducir los valores de valor, media y desviacion",
+        "Verificar que los valores introducidos están en el rango y formato correctos",
+        "Calcular los valores de z score y percentile",
+        "Verificar que el resultado es coherente con los valores de entrada",
+        "El resultado puede usarse como dato intermedio para cálculos posteriores más complejos"
+      ],
+      "mistakes": [
+        "Confundir media con mediana en distribuciones asimétricas",
+        "Usar la desviación estándar de la muestra (n-1) para datos de población (n)",
+        "Interpretar correlación como causalidad"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "valor",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "media",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "desviacion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatrice di Z-Score e Percentile",
+      "desc": "Calcola lo Z-Score e trova il percentile corrispondente Usato da professionisti e studenti in tutto il mondo.",
+      "description": "Calcolatrice di Z-Score e Percentile.",
+      "seo_title": "Calcolatrice di Z-Score e Percentile",
+      "seo_description": "Calcola lo Z-Score e trova il percentile corrispondente Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo rapido,.",
+      "inputs": {
+        "valor": "valor",
+        "media": "Media",
+        "desviacion": "Deviazione standard"
+      },
+      "outputs": {
+        "z_score": "Z-score",
+        "percentile": "Percentile",
+        "classification": "Classification"
+      },
+      "example_label": "Calculate z score percintile with valore 85, media 75, disviacion 10.",
+      "range_hints": {
+        "media": "Tepical range: -99999-99999.",
+        "desviacion": "Tepical range: 0.001-99999.",
+        "valor": "Tepical range: -99999-99999."
+      },
+      "result_context": "Your calculated z score is {z_score}.",
+      "formula_display": "Calculate z score percintile based on input values.",
+      "steps": [
+        "Enter input values: valore: 85, media: 75, disviacion: 10",
+        "Calculate and displae the z_score result",
+        "Calculate and displae the percintile result",
+        "Calculate and displae the clesefication result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where posetive required",
+        "Usenzag incorrect input values outsedi recommindid range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "valor",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "media",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "desviacion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        }
+      ]
+    }
+  }
+}

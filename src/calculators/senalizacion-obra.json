@@ -1,0 +1,421 @@
+{
+  "id": "089",
+  "slug": "senalizacion-obra",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "perimetro_m",
+      "type": "number",
+      "min": 5,
+      "max": 1000,
+      "step": 5,
+      "default": 60,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "altura_riesgo",
+      "type": "select",
+      "default": "medio",
+      "options": [
+        "bajo",
+        "medio",
+        "alto"
+      ]
+    }
+  ],
+  "formula": "var P=parseFloat(inputs.perimetro_m)||0,coef={'bajo':1,'medio':1.3,'alto':1.6};if(!P)return{error:true};var vallas=Math.ceil(P/2),senales_oblig=Math.ceil(P/15)*coef[inputs.altura_riesgo],senales_pelig=Math.ceil(P/20),coste=+(vallas*3+senales_oblig*12+senales_pelig*10).toFixed(2);return{vallas_2m_ud:vallas,senales_obligacion_ud:Math.ceil(senales_oblig),senales_peligro_ud:senales_pelig,coste_estimado_eur:coste};",
+  "outputs": [
+    {
+      "id": "vallas_2m_ud",
+      "unit": "vallas 2m"
+    },
+    {
+      "id": "senales_obligacion_ud",
+      "unit": "señales obligación"
+    },
+    {
+      "id": "senales_peligro_ud",
+      "unit": "señales peligro"
+    },
+    {
+      "id": "coste_estimado_eur",
+      "unit": "â‚¬ estimado",
+      "highlight": true
+    }
+  ],
+  "related": [
+    "088",
+    "085",
+    "086",
+    "078"
+  ],
+  "example_inputs": {
+    "perimetro_m": 60,
+    "altura_riesgo": "medio"
+  },
+  "example_label": "Calcular señalización para perímetro de obra de 60 m con nivel de riesgo medio.",
+  "range_hints": {
+    "perimetro_m": "Perímetro total de la obra a señalizar en metros lineales (m)",
+    "altura_riesgo": "Nivel de riesgo de la obra: bajo (obra interior), medio (reforma con andamios), alto (obra en altura > 6 m)"
+  },
+  "result_context": "Resultados: {vallas_2m_ud} vallas de 2 m, {senales_obligacion_ud} señales de obligación, {senales_peligro_ud} señales de peligro, coste estimado de {coste_estimado_eur} €.",
+  "formula_display": "Señalización = vallas_perimetrales + señales_obligación + señales_peligro",
+  "steps": [
+    "Mide el perímetro de la obra en metros lineales para determinar el vallado necesario",
+    "Calcula las vallas de 2 m necesarias: perímetro ÷ 2 m por valla. Las vallas delimitan la zona de obra",
+    "Determina las señales de obligación: perímetro ÷ 15 m × factor de riesgo (EPI obligatorio, uso de arnés, casco)",
+    "Calcula las señales de peligro: perímetro ÷ 20 m (caída de objetos, riesgo eléctrico, maquinaria pesada)",
+    "Asigna costes unitarios: ~3 €/valla, ~12 €/señal de obligación, ~10 €/señal de peligro",
+    "Añade señalización horizontal: cinta balizadora, conos reflectantes y pintura de marcas viales temporales"
+  ],
+  "mistakes": [
+    "No señalizar el perímetro completo: cualquier acceso no vallado es responsabilidad del constructor en caso de accidente",
+    "Usar señalización no normalizada: las señales deben cumplir el RD 485/1997 sobre señalización de seguridad",
+    "Olvidar la señalización nocturna: las vallas deben llevar luces ámbar intermitentes si la obra afecta a la vía pública",
+    "No colocar el cartel de obra obligatorio con datos del promotor, constructor, dirección facultativa y licencia municipal",
+    "Reutilizar señalización deteriorada que no es visible o legible a distancia"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "perimetro_m",
+      "reason": "Tipo correcto: numérico para el perímetro de obra a señalizar en metros."
+    },
+    {
+      "field_id": "altura_riesgo",
+      "reason": "Tipo correcto: selector discreto para el nivel de riesgo de la obra."
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Obra interior pequeña",
+      "perimetro_m": 20
+    },
+    {
+      "_label": "Reforma local comercial",
+      "perimetro_m": 40
+    },
+    {
+      "_label": "Obra fachada edificio viviendas",
+      "perimetro_m": 80
+    },
+    {
+      "_label": "Solar edificio viviendas",
+      "perimetro_m": 150
+    },
+    {
+      "_label": "Nave industrial (gran perímetro)",
+      "perimetro_m": 300
+    }
+  ],
+  "units": {
+    "perimetro_m": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Señalización de Obra",
+      "desc": "Calcula señales y vallas para el perímetro de obra.",
+      "seo_title": "Calculadora Señalización de Obra – Vallas, Señales y Coste",
+      "seo_desc": "Calcula cuántas vallas y señales de obligación y peligro necesita tu obra. Introduce el perímetro y nivel de riesgo. Gratis.",
+      "inputs": {
+        "perimetro_m": "Perímetro de obra (m)",
+        "altura_riesgo": "Nivel de riesgo"
+      },
+      "outputs": {
+        "vallas_2m_ud": "Vallas 2m",
+        "senales_obligacion_ud": "Señales de obligación",
+        "senales_peligro_ud": "Señales de peligro",
+        "coste_estimado_eur": "Coste estimado"
+      },
+      "seo_description": "Calcula la señalización de seguridad necesaria para tu obra según el RD 485/1997. Obtén el número de vallas de 2 m, señales de obligación, señales de peligro y coste estimado total.",
+      "example_label": "Calcular señalización para perímetro de obra de 60 m con nivel de riesgo medio.",
+      "range_hints": {
+        "perimetro_m": "Valor entre 5 y 1000 m.",
+        "altura_riesgo": "Nivel de riesgo de la obra: bajo (obra interior), medio (reforma con andamios), alto (obra en altura > 6 m)"
+      },
+      "result_context": "Resultados: {vallas_2m_ud} vallas de 2 m, {senales_obligacion_ud} señales de obligación, {senales_peligro_ud} señales de peligro, coste estimado de {coste_estimado_eur} €.",
+      "formula_display": "Señalización = vallas_perimetrales + señales_obligación + señales_peligro",
+      "steps": [
+        "Mide el perímetro de la obra en metros lineales para determinar el vallado necesario",
+        "Calcula las vallas de 2 m necesarias: perímetro ÷ 2 m por valla. Las vallas delimitan la zona de obra",
+        "Determina las señales de obligación: perímetro ÷ 15 m × factor de riesgo (EPI obligatorio, uso de arnés, casco)",
+        "Calcula las señales de peligro: perímetro ÷ 20 m (caída de objetos, riesgo eléctrico, maquinaria pesada)",
+        "Asigna costes unitarios: ~3 €/valla, ~12 €/señal de obligación, ~10 €/señal de peligro",
+        "Añade señalización horizontal: cinta balizadora, conos reflectantes y pintura de marcas viales temporales"
+      ],
+      "mistakes": [
+        "No señalizar el perímetro completo: cualquier acceso no vallado es responsabilidad del constructor en caso de accidente",
+        "Usar señalización no normalizada: las señales deben cumplir el RD 485/1997 sobre señalización de seguridad",
+        "Olvidar la señalización nocturna: las vallas deben llevar luces ámbar intermitentes si la obra afecta a la vía pública",
+        "No colocar el cartel de obra obligatorio con datos del promotor, constructor, dirección facultativa y licencia municipal",
+        "Reutilizar señalización deteriorada que no es visible o legible a distancia"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "perimetro_m",
+          "reason": "Tipo correcto: numérico para el perímetro de obra a señalizar en metros."
+        },
+        {
+          "field_id": "altura_riesgo",
+          "reason": "Tipo correcto: selector discreto para el nivel de riesgo de la obra."
+        }
+      ]
+    },
+    "en": {
+      "name": "Construction Signage Calculator",
+      "desc": "Construction Signage Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Site Signage Calculator – Barriers, Signs & Cost",
+      "seo_desc": "Calculate how many barriers and mandatory/danger signs your site needs. Enter perimeter and risk level. Free.",
+      "inputs": {
+        "perimetro_m": "Site perimeter (m)",
+        "altura_riesgo": "Risk level"
+      },
+      "outputs": {
+        "vallas_2m_ud": "2m barriers",
+        "senales_obligacion_ud": "Mandatory signs",
+        "senales_peligro_ud": "Hazard signs",
+        "coste_estimado_eur": "Estimated cost"
+      },
+      "seo_description": "Calculate required safety signage for your construction site according to Spanish RD 485/1997 regulations. Get the number of 2m barriers, mandatory signs, danger signs, and estimated total cost.",
+      "example_label": "Calcular señalización para perímetro de obra de 60 m con nivel de riesgo medio.",
+      "range_hints": {
+        "perimetro_m": "Valor entre 5 y 1000 m.",
+        "altura_riesgo": "Nivel de riesgo de la obra: bajo (obra interior), medio (reforma con andamios), alto (obra en altura > 6 m)"
+      },
+      "result_context": "Resultados: {vallas_2m_ud} vallas de 2 m, {senales_obligacion_ud} señales de obligación, {senales_peligro_ud} señales de peligro, coste estimado de {coste_estimado_eur} €.",
+      "formula_display": "Señalización = vallas_perimetrales + señales_obligación + señales_peligro",
+      "steps": [
+        "Mide el perímetro de la obra en metros lineales para determinar el vallado necesario",
+        "Calcula las vallas de 2 m necesarias: perímetro ÷ 2 m por valla. Las vallas delimitan la zona de obra",
+        "Determina las señales de obligación: perímetro ÷ 15 m × factor de riesgo (EPI obligatorio, uso de arnés, casco)",
+        "Calcula las señales de peligro: perímetro ÷ 20 m (caída de objetos, riesgo eléctrico, maquinaria pesada)",
+        "Asigna costes unitarios: ~3 €/valla, ~12 €/señal de obligación, ~10 €/señal de peligro",
+        "Añade señalización horizontal: cinta balizadora, conos reflectantes y pintura de marcas viales temporales"
+      ],
+      "mistakes": [
+        "No señalizar el perímetro completo: cualquier acceso no vallado es responsabilidad del constructor en caso de accidente",
+        "Usar señalización no normalizada: las señales deben cumplir el RD 485/1997 sobre señalización de seguridad",
+        "Olvidar la señalización nocturna: las vallas deben llevar luces ámbar intermitentes si la obra afecta a la vía pública",
+        "No colocar el cartel de obra obligatorio con datos del promotor, constructor, dirección facultativa y licencia municipal",
+        "Reutilizar señalización deteriorada que no es visible o legible a distancia"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "perimetro_m",
+          "reason": "Tipo correcto: numérico para el perímetro de obra a señalizar en metros."
+        },
+        {
+          "field_id": "altura_riesgo",
+          "reason": "Tipo correcto: selector discreto para el nivel de riesgo de la obra."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Signalisation Chantier",
+      "desc": "Calculez panneaux et barrières pour périmètre de chantier.",
+      "seo_title": "Calculateur Signalisation Chantier",
+      "inputs": {
+        "perimetro_m": "Périmètre chantier (m)",
+        "altura_riesgo": "Niveau de risque"
+      },
+      "outputs": {
+        "vallas_2m_ud": "Barrières 2m",
+        "senales_obligacion_ud": "Panneaux obligation",
+        "senales_peligro_ud": "Panneaux danger",
+        "coste_estimado_eur": "Coût estimé"
+      },
+      "seo_description": "Calculez le nombre de barrières, panneaux obligatoires et de danger et leur coût estimé Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calcular señalización para perímetro de obra de 60 m con nivel de riesgo medio.",
+      "range_hints": {
+        "perimetro_m": "Valor entre 5 et 1000 m.",
+        "altura_riesgo": "Nivel de riesgo de la obra: bajo (obra interior), medio (reforma con andamios), alto (obra en altura > 6 m)"
+      },
+      "result_context": "Resultados: {vallas_2m_ud} vallas de 2 m, {senales_obligacion_ud} señales de obligación, {senales_peligro_ud} señales de peligro, coste estimado de {coste_estimado_eur} €.",
+      "formula_display": "Señalización = vallas_perimetrales + señales_obligación + señales_peligro",
+      "steps": [
+        "Mide el perímetro de la obra en metros lineales para determinar el vallado necesario",
+        "Calcula las vallas de 2 m necesarias: perímetro ÷ 2 m por valla. Las vallas delimitan la zona de obra",
+        "Determina las señales de obligación: perímetro ÷ 15 m × factor de riesgo (EPI obligatorio, uso de arnés, casco)",
+        "Calcula las señales de peligro: perímetro ÷ 20 m (caída de objetos, riesgo eléctrico, maquinaria pesada)",
+        "Asigna costes unitarios: ~3 €/valla, ~12 €/señal de obligación, ~10 €/señal de peligro",
+        "Añade señalización horizontal: cinta balizadora, conos reflectantes y pintura de marcas viales temporales"
+      ],
+      "mistakes": [
+        "No señalizar el perímetro completo: cualquier acceso no vallado es responsabilidad del constructor en caso de accidente",
+        "Usar señalización no normalizada: las señales deben cumplir el RD 485/1997 sobre señalización de seguridad",
+        "Olvidar la señalización nocturna: las vallas deben llevar luces ámbar intermitentes si la obra afecta a la vía pública",
+        "No colocar el cartel de obra obligatorio con datos del promotor, constructor, dirección facultativa y licencia municipal",
+        "Reutilizar señalización deteriorada que no es visible o legible a distancia"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "perimetro_m",
+          "reason": "Tipo correcto: numérico para el perímetro de obra a señalizar en metros."
+        },
+        {
+          "field_id": "altura_riesgo",
+          "reason": "Tipo correcto: selector discreto para el nivel de riesgo de la obra."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Sinalização de Obra",
+      "desc": "Calcule o número de tapumes, placas de obrigação e perigo e seu custo estimado Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora Sinalização de Obra",
+      "inputs": {
+        "perimetro_m": "Perímetro da obra (m)",
+        "altura_riesgo": "Nível de risco"
+      },
+      "outputs": {
+        "vallas_2m_ud": "Tapumes 2m",
+        "senales_obligacion_ud": "Placas obrigação",
+        "senales_peligro_ud": "Placas perigo",
+        "coste_estimado_eur": "Custo estimado"
+      },
+      "seo_description": "Calcule o número de tapumes, placas de obrigação e perigo e seu custo estimado Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular señalización para perímetro de obra de 60 m con nivel de riesgo medio.",
+      "range_hints": {
+        "perimetro_m": "Valor entre 5 e 1000 m.",
+        "altura_riesgo": "Nivel de riesgo de la obra: bajo (obra interior), medio (reforma con andamios), alto (obra en altura > 6 m)"
+      },
+      "result_context": "Resultados: {vallas_2m_ud} vallas de 2 m, {senales_obligacion_ud} señales de obligación, {senales_peligro_ud} señales de peligro, coste estimado de {coste_estimado_eur} €.",
+      "formula_display": "Señalización = vallas_perimetrales + señales_obligación + señales_peligro",
+      "steps": [
+        "Mide el perímetro de la obra en metros lineales para determinar el vallado necesario",
+        "Calcula las vallas de 2 m necesarias: perímetro ÷ 2 m por valla. Las vallas delimitan la zona de obra",
+        "Determina las señales de obligación: perímetro ÷ 15 m × factor de riesgo (EPI obligatorio, uso de arnés, casco)",
+        "Calcula las señales de peligro: perímetro ÷ 20 m (caída de objetos, riesgo eléctrico, maquinaria pesada)",
+        "Asigna costes unitarios: ~3 €/valla, ~12 €/señal de obligación, ~10 €/señal de peligro",
+        "Añade señalización horizontal: cinta balizadora, conos reflectantes y pintura de marcas viales temporales"
+      ],
+      "mistakes": [
+        "No señalizar el perímetro completo: cualquier acceso no vallado es responsabilidad del constructor en caso de accidente",
+        "Usar señalización no normalizada: las señales deben cumplir el RD 485/1997 sobre señalización de seguridad",
+        "Olvidar la señalización nocturna: las vallas deben llevar luces ámbar intermitentes si la obra afecta a la vía pública",
+        "No colocar el cartel de obra obligatorio con datos del promotor, constructor, dirección facultativa y licencia municipal",
+        "Reutilizar señalización deteriorada que no es visible o legible a distancia"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "perimetro_m",
+          "reason": "Tipo correcto: numérico para el perímetro de obra a señalizar en metros."
+        },
+        {
+          "field_id": "altura_riesgo",
+          "reason": "Tipo correcto: selector discreto para el nivel de riesgo de la obra."
+        }
+      ]
+    },
+    "de": {
+      "name": "Beschilderung Baustelle",
+      "desc": "Berechnen Sie beschilderung Baustelle online. Geben Sie perimetro m, altura riesgo ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Beschilderung Baustelle | CalcToWork",
+      "seo_desc": "Beschilderung Baustelle online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Beschilderung Baustelle online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "perimetro_m": "Perimetro M",
+        "altura_riesgo": "Altura Riesgo"
+      },
+      "outputs": {
+        "vallas_2m_ud": "Vallas 2m Ud",
+        "senales_obligacion_ud": "Senales Obligacion Ud",
+        "senales_peligro_ud": "Senales Peligro Ud",
+        "coste_estimado_eur": "Coste Estimado Eur"
+      },
+      "example_label": "Calcular señalización para perímetro de obra de 60 m con nivel de riesgo medio.",
+      "range_hints": {
+        "perimetro_m": "Perímetro total de la obra a señalizar en metros lineales (m)",
+        "altura_riesgo": "Nivel de riesgo de la obra: bajo (obra interior), medio (reforma con andamios), alto (obra en altura > 6 m)"
+      },
+      "result_context": "Resultados: {vallas_2m_ud} vallas de 2 m, {senales_obligacion_ud} señales de obligación, {senales_peligro_ud} señales de peligro, coste estimado de {coste_estimado_eur} €.",
+      "formula_display": "Señalización = vallas_perimetrales + señales_obligación + señales_peligro",
+      "steps": [
+        "Mide el perímetro de la obra en metros lineales para determinar el vallado necesario",
+        "Calcula las vallas de 2 m necesarias: perímetro ÷ 2 m por valla. Las vallas delimitan la zona de obra",
+        "Determina las señales de obligación: perímetro ÷ 15 m × factor de riesgo (EPI obligatorio, uso de arnés, casco)",
+        "Calcula las señales de peligro: perímetro ÷ 20 m (caída de objetos, riesgo eléctrico, maquinaria pesada)",
+        "Asigna costes unitarios: ~3 €/valla, ~12 €/señal de obligación, ~10 €/señal de peligro",
+        "Añade señalización horizontal: cinta balizadora, conos reflectantes y pintura de marcas viales temporales"
+      ],
+      "mistakes": [
+        "No señalizar el perímetro completo: cualquier acceso no vallado es responsabilidad del constructor en caso de accidente",
+        "Usar señalización no normalizada: las señales deben cumplir el RD 485/1997 sobre señalización de seguridad",
+        "Olvidar la señalización nocturna: las vallas deben llevar luces ámbar intermitentes si la obra afecta a la vía pública",
+        "No colocar el cartel de obra obligatorio con datos del promotor, constructor, dirección facultativa y licencia municipal",
+        "Reutilizar señalización deteriorada que no es visible o legible a distancia"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "perimetro_m",
+          "reason": "Tipo correcto: numérico para el perímetro de obra a señalizar en metros."
+        },
+        {
+          "field_id": "altura_riesgo",
+          "reason": "Tipo correcto: selector discreto para el nivel de riesgo de la obra."
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Rendimento Lavoratori",
+      "description": "Calcola il rendimento e la produttività della squadra.",
+      "seo_title": "Calcolatore Segnaletica Cantiere",
+      "seo_description": "Calcola i giorni necessari in base alla produttività degli operai Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in.",
+      "inputs": {
+        "cantidad_total": "Quantità totale (m² o m³)",
+        "rendimiento_operario": "Rendimento operaio/giorno",
+        "num_operarios": "Operai",
+        "perimetro_m": "perimetro m (m)",
+        "altura_riesgo": "altura riesgo ()"
+      },
+      "outputs": {
+        "dias": "Giorni necessari",
+        "semanas": "Settimane",
+        "vallas_2m_ud": "vallas 2m ud (vallas 2m)",
+        "senales_obligacion_ud": "senales obligacion ud (señales obligación)",
+        "senales_peligro_ud": "senales peligro ud (señales peligro)",
+        "coste_estimado_eur": "coste estimado eur (â‚¬ estimado)"
+      },
+      "example_label": "Calcular señalización para perímetro de obra de 60 m con nivel de riesgo medio.",
+      "range_hints": {
+        "perimetro_m": "Valor intre 5 e 1000 m.",
+        "altura_riesgo": "Nivel de riesgo de la obra: bajo (obra interior), medio (reforma con andamios), alto (obra en altura > 6 m)"
+      },
+      "result_context": "Resultados: {vallas_2m_ud} vallas de 2 m, {senales_obligacion_ud} señales de obligación, {senales_peligro_ud} señales de peligro, coste estimado de {coste_estimado_eur} €.",
+      "formula_display": "Señalización = vallas_perimetrales + señales_obligación + señales_peligro",
+      "steps": [
+        "Mide el perímetro de la obra en metros lineales para determinar el vallado necesario",
+        "Calcula las vallas de 2 m necesarias: perímetro ÷ 2 m por valla. Las vallas delimitan la zona de obra",
+        "Determina las señales de obligación: perímetro ÷ 15 m × factor de riesgo (EPI obligatorio, uso de arnés, casco)",
+        "Calcula las señales de peligro: perímetro ÷ 20 m (caída de objetos, riesgo eléctrico, maquinaria pesada)",
+        "Asigna costes unitarios: ~3 €/valla, ~12 €/señal de obligación, ~10 €/señal de peligro",
+        "Añade señalización horizontal: cinta balizadora, conos reflectantes y pintura de marcas viales temporales"
+      ],
+      "mistakes": [
+        "No señalizar el perímetro completo: cualquier acceso no vallado es responsabilidad del constructor en caso de accidente",
+        "Usar señalización no normalizada: las señales deben cumplir el RD 485/1997 sobre señalización de seguridad",
+        "Olvidar la señalización nocturna: las vallas deben llevar luces ámbar intermitentes si la obra afecta a la vía pública",
+        "No colocar el cartel de obra obligatorio con datos del promotor, constructor, dirección facultativa y licencia municipal",
+        "Reutilizar señalización deteriorada que no es visible o legible a distancia"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "perimetro_m",
+          "reason": "Tipo correcto: numérico para el perímetro de obra a señalizar en metros."
+        },
+        {
+          "field_id": "altura_riesgo",
+          "reason": "Tipo correcto: selector discreto para el nivel de riesgo de la obra."
+        }
+      ],
+      "desc": "Calcola le barriere e la segnaletica necessarie per il tuo cantiere."
+    }
+  }
+}

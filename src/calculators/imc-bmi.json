@@ -1,0 +1,587 @@
+{
+  "id": "400",
+  "slug": "imc-bmi",
+  "block": 12,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "sexo",
+      "type": "select",
+      "default": "mujer",
+      "options": [
+        {
+          "value": "mujer",
+          "label": "Mujer"
+        },
+        {
+          "value": "hombre",
+          "label": "Hombre"
+        }
+      ]
+    },
+    {
+      "id": "edad",
+      "type": "number",
+      "min": 18,
+      "max": 100,
+      "step": 1,
+      "default": 35,
+      "unit": "años"
+    },
+    {
+      "id": "peso_kg",
+      "type": "number",
+      "min": 10,
+      "max": 500,
+      "step": 0.1,
+      "default": 70,
+      "unit": "kg",
+      "unit_options": [
+        "kg",
+        "lb"
+      ],
+      "unit_category": "mass",
+      "unit_default": "kg"
+    },
+    {
+      "id": "altura_cm",
+      "type": "number",
+      "min": 50,
+      "max": 250,
+      "step": 0.5,
+      "default": 175,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length_cm",
+      "unit_default": "cm"
+    }
+  ],
+  "formula": "var P=parseFloat(inputs.peso_kg)||0,H=parseFloat(inputs.altura_cm)||0,edad=parseFloat(inputs.edad)||0,sexo=inputs.sexo||'mujer';if(!P||!H||H<50)return{error:true};var h=H/100,imc=+(P/(h*h)).toFixed(1),cat,cat_en,note='';if(imc<18.5){cat='Bajo peso';cat_en='Underweight';}else if(imc<25){cat='Normal';cat_en='Healthy';}else if(imc<30){cat='Sobrepeso';cat_en='Overweight';}else if(imc<35){cat='Obesidad I';cat_en='Obese I';}else{cat='Obesidad II+';cat_en='Obese II+';}var pmin=+(18.5*h*h).toFixed(1),pmax=+(24.9*h*h).toFixed(1);if(edad>=65){note='Adulto mayor';cat_en+=' (65+)';}if(sexo==='mujer'&&edad>=20&&edad<=40&&imc>24){note+='Riesgo moderado';}return{imc:imc,categoria:cat,peso_saludable_min:pmin,peso_saludable_max:pmax,edad:edad,sexo:sexo,nota:note};",
+  "outputs": [
+    {
+      "id": "imc",
+      "unit": "kg/m²",
+      "highlight": true
+    },
+    {
+      "id": "categoria",
+      "unit": ""
+    },
+    {
+      "id": "peso_saludable_min",
+      "unit": "kg"
+    },
+    {
+      "id": "peso_saludable_max",
+      "unit": "kg"
+    },
+    {
+      "id": "edad",
+      "unit": "años"
+    },
+    {
+      "id": "sexo",
+      "unit": ""
+    },
+    {
+      "id": "nota",
+      "unit": ""
+    }
+  ],
+  "related": [
+    "401",
+    "402",
+    "403",
+    "410"
+  ],
+  "example_inputs": {
+    "sexo": "mujer",
+    "edad": 30,
+    "peso_kg": 70,
+    "altura_cm": 175
+  },
+  "example_label": "Calcular índice de masa corporal para mujer × 30 años × 70 kg × 175 cm.",
+  "range_hints": {
+    "sexo": "Seleccionar entre las opciones: mujer, hombre",
+    "edad": "Valor típico entre 18 y 100. Valor por defecto: 35 años.",
+    "peso_kg": "Valor típico entre 10 y 500. Valor por defecto: 70 kg.",
+    "altura_cm": "Valor típico entre 50 y 250. Valor por defecto: 175 cm."
+  },
+  "result_context": "Tu IMC es {imc} kg/m² ({categoria}). Tu peso saludable está entre {peso_saludable_min} y {peso_saludable_max} kg.",
+  "result_context_en": "Your BMI is {imc} kg/m² ({categoria}). Your healthy weight range is {peso_saludable_min} to {peso_saludable_max} kg.",
+  "result_context_fr": "Votre IMC est de {imc} kg/m² ({categoria}). Votre poids santé se situe entre {peso_saludable_min} et {peso_saludable_max} kg.",
+  "result_context_pt": "Seu IMC é {imc} kg/m² ({categoria}). Seu peso saudável está entre {peso_saludable_min} e {peso_saludable_max} kg.",
+  "result_context_de": "Ihr BMI beträgt {imc} kg/m² ({categoria}). Ihr gesundes Gewicht liegt zwischen {peso_saludable_min} und {peso_saludable_max} kg.",
+  "result_context_it": "Il tuo IMC è {imc} kg/m² ({categoria}). Il tuo peso sano è tra {peso_saludable_min} e {peso_saludable_max} kg.",
+  "formula_display": "IMC = peso ÷ altura²",
+  "steps": [
+    "Medir altura en metros",
+    "Elevar altura al cuadrado",
+    "Dividir peso por altura²",
+    "Interpretar resultado según tabla OMS"
+  ],
+  "mistakes": [
+    "No convertir altura a metros",
+    "Interpretar sin considerar masa muscular",
+    "Usar para niños sin ajustes"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "sexo",
+      "current_type": "select",
+      "recommended_type": "select",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "edad",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "peso_kg",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "altura_cm",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "weight": 60,
+      "height": 165
+    },
+    {
+      "weight": 70,
+      "height": 170
+    },
+    {
+      "weight": 80,
+      "height": 175
+    },
+    {
+      "weight": 90,
+      "height": 180
+    },
+    {
+      "weight": 100,
+      "height": 185
+    }
+  ],
+  "units": {
+    "peso_kg": "kg",
+    "altura_cm": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de IMC (Índice de Masa Corporal)",
+      "desc": "Calcula tu IMC y descubre si tu peso es saludable según tu altura.",
+      "description": "Calcula tu IMC y descubre si tu peso es saludable según tu altura.",
+      "seo_title": "Calculadora de IMC (Índice de Masa Corporal)",
+      "seo_description": "Calcula tu IMC (Índice de Masa Corporal) gratis. Introduce tu peso en kg y altura en cm para saber si estás en tu peso ideal.",
+      "inputs": {
+        "peso_kg": "Peso (kg)",
+        "altura_cm": "Altura (cm)",
+        "sexo": "Sexo",
+        "edad": "Edad (años)"
+      },
+      "outputs": {
+        "imc": "IMC",
+        "categoria": "Categoría",
+        "peso_saludable_min": "Peso mínimo saludable",
+        "peso_saludable_max": "Peso máximo saludable",
+        "edad": "Edad",
+        "sexo": "Sexo",
+        "nota": "Nota"
+      },
+      "example_label": "Calcular IMC para una mujer de 35 años, 70kg y 175cm de altura",
+      "range_hints": {
+        "edad": "Edad típica: 18-80 años",
+        "peso_kg": "Peso común: 45-120 kg",
+        "altura_cm": "Altura común: 140-200 cm"
+      },
+      "result_context": "El IMC calculado indica la categoría de peso; un valor entre 18.5-25 se considera saludable para la mayoría de adultos.",
+      "formula_display": "IMC = peso (kg) ÷ altura (m)²",
+      "steps": [
+        "Mide tu peso en kilogramos (ej: 70 kg)",
+        "Mide tu altura en centímetros y convierte a metros (ej: 175 cm = 1.75 m)",
+        "Eleva la altura al cuadrado (1.75² = 3.0625)",
+        "Divide el peso entre la altura al cuadrado (70 ÷ 3.0625 = 22.8)",
+        "Compara con rangos: <18.5 bajo peso, 18.5-25 normal, 25-30 sobrepeso, >30 obesidad"
+      ],
+      "mistakes": [
+        "Usar altura en cm sin convertir a metros (da IMC 10000× mayor)",
+        "No considerar que IMC no distingue músculo de grasa (atletas salen como sobrepeso)",
+        "Aplicar rangos adultos a niños o adolescentes (usan percentiles por edad)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "sexo",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "edad",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "peso_kg",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "altura_cm",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "en": {
+      "name": "BMI Calculator (Body Mass Index)",
+      "desc": "Calculate your BMI and find out if your weight is healthy for your height.",
+      "description": "Calculate your BMI and find out if your weight is healthy for your height.",
+      "seo_title": "BMI Calculator – Body Mass Index Online Free",
+      "seo_description": "Calculate your BMI (Body Mass Index) for free. Enter your weight in kg and height in cm to check if you're at a healthy weight.",
+      "inputs": {
+        "peso_kg": "Weight (kg)",
+        "altura_cm": "Height (cm)",
+        "sexo": "Sex",
+        "edad": "Age (years)"
+      },
+      "outputs": {
+        "imc": "BMI",
+        "categoria": "Category",
+        "peso_saludable_min": "Minimum healthy weight",
+        "peso_saludable_max": "Maximum healthy weight",
+        "edad": "Age",
+        "sexo": "Sex",
+        "nota": "Note"
+      },
+      "example_label": "Calcular IMC para una mujer de 35 años, 70kg y 175cm de altura",
+      "range_hints": {
+        "edad": "Edad típica: 18-80 años",
+        "peso_kg": "Peso común: 45-120 kg",
+        "altura_cm": "Altura común: 140-200 cm"
+      },
+      "result_context": "El IMC calculado indica la categoría de peso; un valor entre 18.5-25 se considera saludable para la mayoría de adultos.",
+      "formula_display": "IMC = peso (kg) ÷ altura (m)²",
+      "steps": [
+        "Weigh yourself in kilograms (e.g., 70 kg)",
+        "Measure your height in centimeters and convert to meters (e.g., 175 cm = 1.75 m)",
+        "Square the height (1.75² = 3.0625)",
+        "Divide weight by height squared (70 ÷ 3.0625 = 22.8)",
+        "Compare with ranges: <18.5 underweight, 18.5-25 normal, 25-30 overweight, >30 obese"
+      ],
+      "mistakes": [
+        "Usar altura en cm sin convertir a metros (da IMC 10000× mayor)",
+        "No considerar que IMC no distingue músculo de grasa (atletas salen como sobrepeso)",
+        "Aplicar rangos adultos a niños o adolescentes (usan percentiles por edad)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "sexo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur IMC (Indice de Masse Corporelle)",
+      "desc": "Calculez votre IMC et découvrez si votre poids est sain pour votre taille.",
+      "description": "Calculez votre IMC et découvrez si votre poids est sain pour votre taille.",
+      "seo_title": "Calculateur IMC Gratuit en Ligne – Indice de Masse",
+      "seo_description": "Calculez votre IMC gratuitement. Entrez votre poids en kg et votre taille en cm. Avec plages de reference et contexte de sante.",
+      "inputs": {
+        "peso_kg": "Poids (kg)",
+        "altura_cm": "Taille (cm)",
+        "sexo": "Sexe",
+        "edad": "Âge (ans)"
+      },
+      "outputs": {
+        "imc": "IMC",
+        "categoria": "Catégorie",
+        "peso_saludable_min": "Poids sain minimum",
+        "peso_saludable_max": "Poids sain maximum",
+        "edad": "Âge",
+        "sexo": "Sexe",
+        "nota": "Note"
+      },
+      "example_label": "Calculer IMC pour une femme de 35 ans, 70kg et 175cm de hauteur",
+      "range_hints": {
+        "edad": "Âge typique: 18-80 ans",
+        "peso_kg": "Poids commun: 45-120 kg",
+        "altura_cm": "Taille commune: 140-200 cm"
+      },
+      "result_context": "L'IMC calculé indique la catégorie de poids; une valeur entre 18.5-25 est considérée saine pour la plupart des adultes.",
+      "formula_display": "IMC = poids (kg) ÷ taille (m)²",
+      "steps": [
+        "Pesez-vous en kilogrammes (ex: 70 kg)",
+        "Mesurez votre taille en centimètres et convertissez en mètres (ex: 175 cm = 1,75 m)",
+        "Élevez la taille au carré (1,75² = 3,0625)",
+        "Divisez le poids par la taille au carré (70 ÷ 3,0625 = 22,8)",
+        "Comparez avec les fourchettes: <18,5 insuffisance pondérale, 18,5-25 normal, 25-30 surpoids, >30 obésité"
+      ],
+      "mistakes": [
+        "Utiliser la taille en cm sans convertir en mètres (donne un IMC 10000× trop grand)",
+        "Ne pas considérer que l'IMC ne distingue pas muscle et graisse (les athlètes apparaissent en surpoids)",
+        "Appliquer les seuils adultes aux enfants ou adolescents (ils utilisent des percentiles selon l'âge)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "sexo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora IMC (Índice de Massa Corporal)",
+      "desc": "Calcule o seu IMC e descubra se o seu peso é saudável para a sua altura.",
+      "description": "Calcule o seu IMC e descubra se o seu peso é saudável para a sua altura.",
+      "seo_title": "Calculadora IMC (Índice de Massa Corporal)",
+      "seo_description": "Calcule o seu IMC gratuitamente. Insira o peso em kg e a altura em cm. Com intervalos de referencia e contexto de saude.",
+      "inputs": {
+        "peso_kg": "Peso (kg)",
+        "altura_cm": "Altura (cm)",
+        "sexo": "Sexo",
+        "edad": "Idade (anos)"
+      },
+      "outputs": {
+        "imc": "IMC",
+        "categoria": "Categoria",
+        "peso_saludable_min": "Peso saudável mínimo",
+        "peso_saludable_max": "Peso saudável máximo",
+        "edad": "Idade",
+        "sexo": "Sexo",
+        "nota": "Nota"
+      },
+      "example_label": "Calcular IMC para uma mulher de 35 anos, 70kg e 175cm de altura",
+      "range_hints": {
+        "edad": "Idade típica: 18-80 anos",
+        "peso_kg": "Peso comum: 45-120 kg",
+        "altura_cm": "Altura comum: 140-200 cm"
+      },
+      "result_context": "O IMC calculado indica a categoria de peso; um valor entre 18.5-25 é considerado saudável para a maioria dos adultos.",
+      "formula_display": "IMC = peso (kg) ÷ altura (m)²",
+      "steps": [
+        "Pese-se em quilogramas (ex: 70 kg)",
+        "Meça a sua altura em centímetros e converta para metros (ex: 175 cm = 1,75 m)",
+        "Eleve a altura ao quadrado (1,75² = 3,0625)",
+        "Divida o peso pela altura ao quadrado (70 ÷ 3,0625 = 22,8)",
+        "Compare com as faixas: <18,5 baixo peso, 18,5-25 normal, 25-30 sobrepeso, >30 obesidade"
+      ],
+      "mistakes": [
+        "Usar altura em cm sem converter para metros (dá IMC 10000× maior)",
+        "Não considerar que o IMC não distingue músculo de gordura (atletas aparecem como sobrepeso)",
+        "Aplicar faixas adultas a crianças ou adolescentes (usam percentis por idade)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "sexo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Tipo atual é apropiado"
+        },
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        },
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        },
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        }
+      ]
+    },
+    "de": {
+      "name": "BMI bmi",
+      "desc": "Berechnen Sie bMI bmi online. Geben Sie sexo, edad, peso kg ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "BMI bmi | CalcToWork",
+      "seo_desc": "BMI bmi online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "BMI bmi online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "sexo": "Sexo",
+        "edad": "Edad",
+        "peso_kg": "Peso Kg",
+        "altura_cm": "Altura Cm"
+      },
+      "outputs": {
+        "imc": "Imc",
+        "categoria": "Categoria",
+        "peso_saludable_min": "Peso Saludable Min",
+        "peso_saludable_max": "Peso Saludable Max",
+        "edad": "Edad",
+        "sexo": "Sexo",
+        "nota": "Nota"
+      },
+      "example_label": "Calcular índice de masa corporal para mujer × 30 años × 70 kg × 175 cm.",
+      "range_hints": {
+        "sexo": "Seleccionar entre las opciones: mujer, hombre",
+        "edad": "Valor típico entre 18 y 100. Valor por defecto: 35 años.",
+        "peso_kg": "Valor típico entre 10 y 500. Valor por defecto: 70 kg.",
+        "altura_cm": "Valor típico entre 50 y 250. Valor por defecto: 175 cm."
+      },
+      "result_context": "Ihr BMI beträgt {imc} kg/m² ({categoria}). Ihr gesundes Gewicht liegt zwischen {peso_saludable_min} und {peso_saludable_max} kg.",
+      "formula_display": "IMC = peso ÷ altura²",
+      "steps": [
+        "Medir altura en metros",
+        "Elevar altura al cuadrado",
+        "Dividir peso por altura²",
+        "Interpretar resultado según tabla OMS"
+      ],
+      "mistakes": [
+        "No convertir altura a metros",
+        "Interpretar sin considerar masa muscular",
+        "Usar para niños sin ajustes"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "sexo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore IMC (Indice di Massa Corporea)",
+      "desc": "Calcola il tuo IMC e scopri se il tuo peso è sano per la tua altezza.",
+      "description": "Calcola il tuo IMC e scopri se il tuo peso è sano per la tua altezza.",
+      "seo_title": "Calcolatore IMC Online Gratis – Indice di Massa Corporea",
+      "seo_description": "Calcola il tuo IMC gratuitamente. Inserisci peso in kg e altezza in cm. Con intervalli di riferimento e contesto sanitario.",
+      "inputs": {
+        "peso_kg": "Peso (kg)",
+        "altura_cm": "Altezza (cm)",
+        "sexo": "Sesso",
+        "edad": "Età (anni)"
+      },
+      "outputs": {
+        "imc": "IMC",
+        "categoria": "Categoria",
+        "peso_saludable_min": "Peso minimo sano",
+        "peso_saludable_max": "Peso massimo sano",
+        "edad": "Età",
+        "sexo": "Sesso",
+        "nota": "Nota"
+      },
+      "example_label": "Calcolare IMC per una mujer di 35 años, 70kg e 175cm di altezza",
+      "range_hints": {
+        "edad": "Edad típica: 18-80 años",
+        "peso_kg": "Peso común: 45-120 kg",
+        "altura_cm": "Altura común: 140-200 cm"
+      },
+      "result_context": "El IMC calculato indica la categoría di peso; un valore intre 18.5-25 se consedira saludable per la maggioreía di adultos.",
+      "formula_display": "IMC = peso (kg) ÷ altezza (m)²",
+      "steps": [
+        "Midi tu peso in kilogramos (ej: 70 kg)",
+        "Midi tu altezza in cintímetros e convierte a metros (ej: 175 cm = 1.75 m)",
+        "Eleva la altezza al quadrato (1.75² = 3.0625)",
+        "Dividi el peso intre la altezza al quadrato (70 ÷ 3.0625 = 22.8)",
+        "Comper con rangos: <18.5 basso peso, 18.5-25 nonrmal, 25-30 supeso, >30 obesedad"
+      ],
+      "mistakes": [
+        "Usare altezza in cm senza convertir a metros (da IMC 10000× maggiore)",
+        "Non consedirare que IMC non distingue músculo di grasa (atletas salin come supeso)",
+        "Applicare rangos adultos a niños o adolescintes (usan percintiles per edad)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "sexo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Tipo attuale es apropiado"
+        },
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        },
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        },
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        }
+      ]
+    }
+  }
+}

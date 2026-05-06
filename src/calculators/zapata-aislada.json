@@ -1,0 +1,532 @@
+{
+  "id": "003",
+  "slug": "zapata-aislada",
+  "block": 1,
+  "block_slug": "estructuras",
+  "inputs": [
+    {
+      "id": "largo",
+      "type": "number",
+      "min": 0.3,
+      "max": 10,
+      "step": 0.05,
+      "default": 1.5,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "ancho",
+      "type": "number",
+      "min": 0.3,
+      "max": 10,
+      "step": 0.05,
+      "default": 1.5,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "canto",
+      "type": "number",
+      "min": 0.2,
+      "max": 2,
+      "step": 0.05,
+      "default": 0.5,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "cantidad",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "default": 4,
+      "unit": "ud",
+      "unit_options": [
+        "ud"
+      ],
+      "unit_category": "count"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.largo)||0,W=parseFloat(inputs.ancho)||0,H=parseFloat(inputs.canto)||0,n=parseFloat(inputs.cantidad)||1;if(!L||!W||!H)return{error:true};var vol1=L*W*H,volT=vol1*n,c=Math.ceil(volT*7),acero=+(volT*120).toFixed(0),encofrado=+(2*(L+W)*H*n).toFixed(2);return{vol_unitario:+vol1.toFixed(3),vol_total:+volT.toFixed(3),cemento_sacos:c,acero_kg:acero,encofrado_m2:encofrado};",
+  "outputs": [
+    {
+      "id": "vol_unitario",
+      "unit": "m³/ud"
+    },
+    {
+      "id": "vol_total",
+      "unit": "m³",
+      "highlight": true
+    },
+    {
+      "id": "cemento_sacos",
+      "unit": "sacos 50kg"
+    },
+    {
+      "id": "acero_kg",
+      "unit": "kg"
+    },
+    {
+      "id": "encofrado_m2",
+      "unit": "m²"
+    }
+  ],
+  "related": [
+    "002",
+    "009",
+    "010",
+    "006"
+  ],
+  "example_inputs": {
+    "largo": 1.5,
+    "ancho": 1.5,
+    "canto": 0.5,
+    "cantidad": 4
+  },
+  "example_label": "Calcular hormigón y encofrado para zapatas aisladas de 1.5 m × 1.5 m × 0.5 m × 4 ud.",
+  "range_hints": {
+    "largo": "Medida típica según el proyecto",
+    "ancho": "Medida típica según el proyecto",
+    "canto": "Medida lineal en m según plano",
+    "cantidad": "Número de unidades necesarias"
+  },
+  "result_context": "Resultados: {vol_unitario} m³ por unidad, {vol_total} m³, {cemento_sacos} sacos de cemento, {acero_kg} kg de acero, {encofrado_m2} m² de encofrado.",
+  "formula_display": "Vol = largo × ancho × canto × cantidad",
+  "steps": [
+    "Calcular volumen unitario: 1.5 × 1.5 × 0.5 = 1.125m³",
+    "Calcular volumen total: 1.125 × 4 = 4.50m³",
+    "Calcular cemento según dosificación",
+    "Calcular acero de refuerzo",
+    "Calcular encofrado lateral"
+  ],
+  "mistakes": [
+    "No aumentar tamaño con suelo de baja capacidad",
+    "Omitir acero de espera para el pilar",
+    "No considerar solado de limpieza"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "largo",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "ancho",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "canto",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "cantidad",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "diagram": "slab",
+  "standard": "EN 1997-1 / ACI 336",
+  "comparison_presets": [
+    {
+      "largo": 0.8,
+      "ancho": 0.8,
+      "canto": 0.4,
+      "cantidad": 4
+    },
+    {
+      "largo": 1,
+      "ancho": 1,
+      "canto": 0.5,
+      "cantidad": 6
+    },
+    {
+      "largo": 1.2,
+      "ancho": 1.2,
+      "canto": 0.6,
+      "cantidad": 8
+    },
+    {
+      "largo": 1.5,
+      "ancho": 1.5,
+      "canto": 0.6,
+      "cantidad": 10
+    }
+  ],
+  "units": {
+    "largo": "m",
+    "ancho": "m",
+    "canto": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Zapata Aislada",
+      "desc": "Calcula materiales para zapatas aisladas de cimentación.",
+      "seo_title": "Calculadora Zapata Aislada – Hormigón",
+      "inputs": {
+        "largo": "Longitud",
+        "ancho": "Ancho",
+        "canto": "Canto (altura)",
+        "cantidad": "Número de zapatas"
+      },
+      "outputs": {
+        "vol_unitario": "Volumen unitario",
+        "vol_total": "Volumen total",
+        "cemento_sacos": "Sacos cemento",
+        "acero_kg": "Acero",
+        "encofrado_m2": "Encofrado"
+      },
+      "seo_description": "Calcula el hormigón, encofrado y acero necesario para zapatas aisladas. Herramienta para estructuras y cimentaciones. Introduce tus valores y obtiene.",
+      "example_label": "Calcular hormigón y encofrado para 4 zapatas aisladas de 1.5m × 1.5m con 50cm de canto (altura).",
+      "range_hints": {
+        "largo": "Zapatas típicas: 1.0-2.5m según carga del pilar",
+        "ancho": "Zapatas cuadradas o rectangulares: 1.0-2.5m",
+        "canto": "Altura típica: 0.40-0.80m según capacidad portante del suelo",
+        "cantidad": "Número de pilares a cimentar en la estructura"
+      },
+      "result_context": "Cada zapata requiere {vol_unitario} m³ de hormigón. Para {cantidad} zapatas: {vol_total} m³ total, {cemento_sacos} sacos de cemento, {acero_kg} kg de acero y {encofrado_m2} m² de encofrado.",
+      "formula_display": "Vol_unitario = largo × ancho × canto; Vol_total = vol_unitario × cantidad",
+      "steps": [
+        "Calcular volumen unitario: 1.5m × 1.5m × 0.5m = 1.125 m³ por zapata",
+        "Calcular volumen total: 1.125m³ × 4 = 4.5m³ de hormigón",
+        "Calcular cemento: 4.5m³ × 7 = 31.5 → 32 sacos",
+        "Calcular acero de refuerzo: 4.5m³ × 120 kg/m³ = 540 kg",
+        "Calcular encofrado: perímetro × altura × cantidad = 2(1.5+0.5)×0.5×4 = 8m²"
+      ],
+      "mistakes": [
+        "No aumentar el tamaño de la zapata cuando el suelo tiene baja capacidad portante",
+        "Omitir el acero de espera para conectar con el pilar",
+        "No considerar el solado de limpieza de 10cm debajo de la zapata"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "ancho",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "canto",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "cantidad",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Isolated Footing Calculator",
+      "desc": "Isolated Footing Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Isolated Footing Calculator ? Concrete per Column Base",
+      "seo_desc": "Building foundations? Enter your footing dimensions and quantity to calculate total concrete volume. Includes cement bags, blinding layer advice, and waste factor for accurate ordering.",
+      "inputs": {
+        "largo": "Length",
+        "ancho": "Width",
+        "canto": "Depth",
+        "cantidad": "Number of footings"
+      },
+      "outputs": {
+        "vol_unitario": "Unit volume",
+        "vol_total": "Total volume",
+        "cemento_sacos": "Cement bags",
+        "acero_kg": "Steel",
+        "encofrado_m2": "Formwork"
+      },
+      "seo_description": "Calculate concrete volume for isolated footings. Enter dimensions and quantity for cement bags and total volume.",
+      "example_label": "Calcular hormigón y encofrado para 4 zapatas aisladas de 1.5m × 1.5m con 50cm de canto (altura).",
+      "range_hints": {
+        "largo": "Zapatas típicas: 1.0-2.5m según carga del pilar",
+        "ancho": "Zapatas cuadradas o rectangulares: 1.0-2.5m",
+        "canto": "Altura típica: 0.40-0.80m según capacidad portante del suelo",
+        "cantidad": "Número de pilares a cimentar en la estructura"
+      },
+      "result_context": "Cada zapata requiere {vol_unitario} m³ de hormigón. Para {cantidad} zapatas: {vol_total} m³ total, {cemento_sacos} sacos de cemento, {acero_kg} kg de acero y {encofrado_m2} m² de encofrado.",
+      "formula_display": "Vol_unitario = largo × ancho × canto; Vol_total = vol_unitario × cantidad",
+      "steps": [
+        "Calcular volumen unitario: 1.5m × 1.5m × 0.5m = 1.125 m³ por zapata",
+        "Calcular volumen total: 1.125m³ × 4 = 4.5m³ de hormigón",
+        "Calcular cemento: 4.5m³ × 7 = 31.5 â†’ 32 sacos",
+        "Calcular acero de refuerzo: 4.5m³ × 120 kg/m³ = 540 kg",
+        "Calcular encofrado: perímetro × altura × cantidad = 2(1.5+0.5)×0.5×4 = 8m²"
+      ],
+      "mistakes": [
+        "No aumentar el tamaño de la zapata cuando el suelo tiene baja capacidad portante",
+        "Omitir el acero de espera para conectar con el pilar",
+        "No considerar el solado de limpieza de 10cm debajo de la zapata"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "canto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "cantidad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Semelle Isolée",
+      "desc": "Calculez le béton, coffrage et acier pour semelles isolées. Inclut le facteur de perte pour les commandes. Utilise par des professionnels et etudiants.",
+      "seo_title": "Calculateur Semelle Isolée – Béton",
+      "inputs": {
+        "largo": "Longueur",
+        "ancho": "Largeur",
+        "canto": "Hauteur",
+        "cantidad": "Nombre de semelles"
+      },
+      "outputs": {
+        "vol_unitario": "Volume unitaire",
+        "vol_total": "Volume total",
+        "cemento_sacos": "Sacs ciment",
+        "acero_kg": "Acier",
+        "encofrado_m2": "Coffrage"
+      },
+      "seo_description": "Calculez le béton, coffrage et acier pour semelles isolées. Inclut le facteur de perte pour les commandes. Utilise par des professionnels et etudiants.",
+      "example_label": "Calculer le béton et coffrage pour 4 semelles isolées de 1.5m × 1.5m avec 50cm de hauteur (hauteur).",
+      "range_hints": {
+        "largo": "semelles típicas: 1.0-2.5m selon charge du pilier",
+        "ancho": "Semelles carrées o rectangulaires: 1.0-2.5m",
+        "canto": "Hauteur typique: 0.40-0.80m selon capacité portante du sol",
+        "cantidad": "Nombre de piliers à fonder dans la structure"
+      },
+      "result_context": "Chaque semelle nécessite {vol_unitario} m³ de béton. pour {quantité} semelles: {vol_total} m³ total, {cemento_sacos} sacs de ciment, {acero_kg} kg de acier et {encofrado_m2} m² de coffrage.",
+      "formula_display": "Vol_unitario = longueur × largeur × hauteur; Vol_total = vol_unitario × quantité",
+      "steps": [
+        "Calculer le volume unitaire: 1.5m × 1.5m × 0.5m = 1.125 m³ par semelle",
+        "Calculer le volume total: 1.125m³ × 4 = 4.5m³ de béton",
+        "Calculer le ciment: 4.5m³ × 7 = 31.5 â†’ 32 sacs",
+        "Calculer l'acier de refuerzo: 4.5m³ × 120 kg/m³ = 540 kg",
+        "Calculer coffrage: périmètre × hauteur × quantité = 2(1.5+0.5)×0.5×4 = 8m²"
+      ],
+      "mistakes": [
+        "No aumentar le tamaño de la semelle cuando le sol tiene baja capacité portante",
+        "Omettre le acier de espera pour conectar avec le pilier",
+        "Ne pas considérer le solado de limpieza de 10cm debajo de la semelle"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "canto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "cantidad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Sapata Isolada",
+      "desc": "Calcule concreto, forma e aço para sapatas isoladas de fundação. Inclui fator de desperdicio para pedidos. Usado por profissionais e estudantes em todo.",
+      "seo_title": "Calculadora de Sapata Isolada – Passo a Passo",
+      "inputs": {
+        "largo": "Comprimento",
+        "ancho": "Largura",
+        "canto": "Altura",
+        "cantidad": "Número de sapatas"
+      },
+      "outputs": {
+        "vol_unitario": "Volume unitário",
+        "vol_total": "Volume total",
+        "cemento_sacos": "Sacos cimento",
+        "acero_kg": "Aço",
+        "encofrado_m2": "Forma"
+      },
+      "seo_description": "Calcule concreto, forma e aço para sapatas isoladas de fundação. Inclui fator de desperdicio para pedidos. Usado por profissionais e estudantes em todo.",
+      "example_label": "Calcular betão e cofragem para 4 sapatas isoladas de 1.5m × 1.5m com 50cm de altura (altura).",
+      "range_hints": {
+        "largo": "Zapatas típicas: 1.0-2.5m segundo carga do pilar",
+        "ancho": "Zapatas quadradas o retangulares: 1.0-2.5m",
+        "canto": "Altura típica: 0.40-0.80m segundo capacidade de carga do solo",
+        "cantidad": "Número de pilares a cimentar na estrutura"
+      },
+      "result_context": "Cada sapata requer {vol_unitario} m³ de hormigón. Para {quantidade} sapatas: {vol_total} m³ total, {cemento_sacos} sacos de cimento, {acero_kg} kg de aço e {encofrado_m2} m² de encofrado.",
+      "formula_display": "Vol_unitario = comprimento × largura × altura; Vol_total = vol_unitario × quantidade",
+      "steps": [
+        "Calcular volume unitário: 1.5m × 1.5m × 0.5m = 1.125 m³ por sapata",
+        "Calcular volume total: 1.125m³ × 4 = 4.5m³ de betão",
+        "Calcular cimento: 4.5m³ × 7 = 31.5 â†’ 32 sacos",
+        "Calcular aço de reforço: 4.5m³ × 120 kg/m³ = 540 kg",
+        "Calcular cofragem: perímetro × altura × quantidade = 2(1.5+0.5)×0.5×4 = 8m²"
+      ],
+      "mistakes": [
+        "Não aumentar o tamaño da sapata cuando o solo tiene baja capacidade de carga",
+        "Omitir o aço de espera para conectar com o pilar",
+        "Não considerar o camada de regularização de 10cm debajo da sapata"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "canto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "cantidad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Einzelfundament isoliert",
+      "desc": "Berechnen Sie einzelfundament isoliert online. Geben Sie largo, ancho, canto ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Einzelfundament isoliert | CalcToWork",
+      "seo_desc": "Einzelfundament isoliert online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Einzelfundament isoliert online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "largo": "Largo",
+        "ancho": "Ancho",
+        "canto": "Canto",
+        "cantidad": "Cantidad"
+      },
+      "outputs": {
+        "vol_unitario": "Vol Unitario",
+        "vol_total": "Vol Total",
+        "cemento_sacos": "Cemento Sacos",
+        "acero_kg": "Acero Kg",
+        "encofrado_m2": "Encofrado M2"
+      },
+      "example_label": "Calcular hormigón y encofrado para zapatas aisladas de 1.5 m × 1.5 m × 0.5 m × 4 ud.",
+      "range_hints": {
+        "largo": "Medida típica según el proyecto",
+        "ancho": "Medida típica según el proyecto",
+        "canto": "Medida lineal en m según plano",
+        "cantidad": "Número de unidades necesarias"
+      },
+      "result_context": "Resultados: {vol_unitario} m³ por unidad, {vol_total} m³, {cemento_sacos} sacos de cemento, {acero_kg} kg de acero, {encofrado_m2} m² de encofrado.",
+      "formula_display": "Vol = largo × ancho × canto × cantidad",
+      "steps": [
+        "Calcular volumen unitario: 1.5 × 1.5 × 0.5 = 1.125m³",
+        "Calcular volumen total: 1.125 × 4 = 4.50m³",
+        "Calcular cemento según dosificación",
+        "Calcular acero de refuerzo",
+        "Calcular encofrado lateral"
+      ],
+      "mistakes": [
+        "No aumentar tamaño con suelo de baja capacidad",
+        "Omitir acero de espera para el pilar",
+        "No considerar solado de limpieza"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "canto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "cantidad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Plinto Isolato",
+      "description": "Calcola volume di calcestruzzo e armatura per plinti di fondazione isolati.",
+      "desc": "Calcolatore Plinto Isolato. Calcolatore online gratuito con formula, esempi e guida passo passo.",
+      "seo_title": "Calcolatore Plinto Isolato ? Calcestruzzo e Acciaio",
+      "seo_description": "Calcola volume calcestruzzo per plinti isolati. Inserisci lunghezza, larghezza e altezza per risultato immediato.",
+      "seo_desc": "Devi calcolare il calcestruzzo per plinti di fondazione? Inserisci dimensioni e quantit? per ottenere volume totale, sacchi di cemento e acciaio.",
+      "example_label": "Calcola calcestruzzo e casseratura per 4 plinti isolati di 1,5m × 1,5m con altezza 50cm.",
+      "result_context": "Ogni plinto richiede {vol_unitario} m³ di calcestruzzo. Per {cantidad} plinti: {vol_total} m³ totale, {cemento_sacos} sacchi di cemento, {acero_kg} kg di acciaio.",
+      "formula_display": "Vol_unitario = lunghezza × larghezza × spessore; Vol_totale = vol_unitario × quantità",
+      "outputs": {
+        "vol_unitario": "Volume per Plinto",
+        "vol_total": "Volume Totale",
+        "cemento_sacos": "Sacchi Cemento",
+        "acero_kg": "Acciaio (kg)",
+        "encofrado_m2": "Casseratura (m²)"
+      }
+    }
+  }
+}

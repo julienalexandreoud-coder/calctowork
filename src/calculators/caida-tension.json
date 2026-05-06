@@ -1,0 +1,519 @@
+{
+  "id": "044",
+  "slug": "caida-tension",
+  "block": 5,
+  "block_slug": "electricidad",
+  "inputs": [
+    {
+      "id": "seccion_mm2",
+      "type": "number",
+      "min": 1.5,
+      "max": 240,
+      "step": 0.5,
+      "default": 2.5,
+      "unit": "mm²"
+    },
+    {
+      "id": "longitud_m",
+      "type": "number",
+      "min": 1,
+      "max": 500,
+      "step": 1,
+      "default": 30,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "corriente_a",
+      "type": "number",
+      "min": 1,
+      "max": 200,
+      "step": 1,
+      "default": 16,
+      "unit": "A",
+      "unit_options": [
+        "A",
+        "mA"
+      ],
+      "unit_category": "current"
+    },
+    {
+      "id": "tension_v",
+      "type": "select",
+      "default": "230",
+      "options": [
+        "230",
+        "400"
+      ]
+    }
+  ],
+  "formula": "var S=parseFloat(inputs.seccion_mm2)||0,L=parseFloat(inputs.longitud_m)||0,I=parseFloat(inputs.corriente_a)||0,V=parseFloat(inputs.tension_v)||230;if(!S||!L||!I)return{error:true};var sigma=56,dV=+(2*L*I/(sigma*S)).toFixed(3),dV_pct=+(dV/V*100).toFixed(2),ok=dV_pct<=3;return{caida_v:dV,caida_pct:dV_pct,cumple_rebt:ok?'SI':'NO (>3%)'};",
+  "outputs": [
+    {
+      "id": "caida_v",
+      "unit": "V"
+    },
+    {
+      "id": "caida_pct",
+      "unit": "%",
+      "highlight": true
+    },
+    {
+      "id": "cumple_rebt",
+      "unit": "Cumple REBT"
+    }
+  ],
+  "related": [
+    "043",
+    "047",
+    "050",
+    "045"
+  ],
+  "example_inputs": {
+    "seccion_mm2": 2.5,
+    "longitud_m": 30,
+    "corriente_a": 16,
+    "tension_v": "230"
+  },
+  "example_label": "Verificar caída para cable de 2.5 mm², 30 m, 16 A a 230 V monofásico.",
+  "range_hints": {
+    "seccion_mm2": "Sección del conductor instalado: 1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120 mm² según UNE 60228. La sección real va marcada en la cubierta",
+    "longitud_m": "Longitud real del trazado del cable desde el origen de la instalación hasta el punto de consumo más alejado, no la distancia en línea recta",
+    "corriente_a": "Corriente de funcionamiento en régimen permanente. No confundir con la corriente de cortocircuito ni con la de arranque de motores",
+    "tension_v": "230 V monofásico (fase-neutro) o 400 V trifásico (fase-fase). Para trifásica la fórmula usa √3 en lugar de 2"
+  },
+  "result_context": "Con cable de {seccion_mm2} mm², {longitud_m} m de longitud y {corriente_a} A a {tension_v} V, la caída es de {caida_v} V ({caida_pct} %). Cumplimiento REBT: {cumple_rebt}. Límite: 3 % alumbrado, 5 % fuerza.",
+  "formula_display": "ΔU = (2 × L × I) / (σ × S) para monofásico.  ΔU% = (ΔU / V) × 100.  σ(Cu)=56 m/(Ω×mm²) a 20 °C. Límite REBT: 3 % alumbrado, 5 % fuerza.",
+  "steps": [
+    "Identificar la sección real del conductor en mm² (marcada en cubierta o placa del cuadro eléctrico)",
+    "Medir la longitud real del cable desde la protección en origen hasta el receptor más alejado, incluyendo curvas y recorrido de la canalización",
+    "Calcular la caída monofásica: ΔU = (2 × L × I) / (56 × S). Ejemplo con 2.5 mm², 30 m, 16 A: ΔU = (2×30×16)/(56×2.5) = 960/140 = 6.86 V",
+    "Obtener el porcentaje: ΔU% = (ΔU / V) × 100 = (6.86/230) × 100 = 2.98 %",
+    "Verificar según ITC-BT-19: alumbrado máx 3 % (cumple 2.98 %), fuerza máx 5 %. Si no cumple, aumentar sección o reducir longitud"
+  ],
+  "mistakes": [
+    "Usar distancia en línea recta en vez de la longitud real: las curvas y desvíos añaden un 15-30 % de cable extra, invalidando el cálculo de caída",
+    "Aplicar fórmula monofásica a circuito trifásico: para trifásica ΔU = (√3 × L × I)/(σ × S), que da una caída un 13 % menor",
+    "Olvidar que la conductividad del cobre disminuye con la temperatura: a 20 °C σ=56, pero a 70 °C (funcionamiento normal) baja a 47 m/(Ω×mm²), un 16 % menos",
+    "No comprobar la caída acumulada desde el contador: el REBT limita la caída total desde el origen, no por tramos individuales"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "seccion_mm2",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "longitud_m",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "corriente_a",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "tension_v",
+      "current_type": "select",
+      "recommended_type": "select",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Alumbrado (1.5 mm²)",
+      "longitud_m": 15,
+      "seccion_mm2": 1.5,
+      "corriente_a": 8
+    },
+    {
+      "_label": "Tomas salón (2.5 mm²)",
+      "longitud_m": 25,
+      "seccion_mm2": 2.5,
+      "corriente_a": 16
+    },
+    {
+      "_label": "Electrodomésticos (4 mm²)",
+      "longitud_m": 30,
+      "seccion_mm2": 4,
+      "corriente_a": 25
+    },
+    {
+      "_label": "Climatización (6 mm²)",
+      "longitud_m": 40,
+      "seccion_mm2": 6,
+      "corriente_a": 32
+    },
+    {
+      "_label": "Subcuadro exterior (10 mm²)",
+      "longitud_m": 55,
+      "seccion_mm2": 10,
+      "corriente_a": 40
+    }
+  ],
+  "units": {
+    "longitud_m": "m",
+    "corriente_a": "A"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Caída de Tensión",
+      "desc": "Calcula la caída de tensión en voltios y porcentaje para verificar el cumplimiento del REBT Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora Caída de Tensión – %",
+      "inputs": {
+        "seccion_mm2": "Sección cable (mm²)",
+        "longitud_m": "Longitud circuito",
+        "corriente_a": "Intensidad (A)",
+        "tension_v": "Tensión (V)"
+      },
+      "outputs": {
+        "caida_v": "Caída en voltios",
+        "caida_pct": "Caída (%)",
+        "cumple_rebt": "¿Cumple REBT?"
+      },
+      "seo_description": "Calcula la caída de tensión en voltios y porcentaje para verificar el cumplimiento del REBT Usado por profesionales y estudiantes en todo el mundo.",
+      "example_label": "Calcular caída de tensión en cable de 6mm² para 32A a 40m en 230V.",
+      "range_hints": {
+        "seccion_mm2": "Sección del cable: 1.5, 2.5, 4, 6, 10, 16mm²...",
+        "longitud_m": "Longitud del circuito",
+        "corriente_a": "Corriente que circulará"
+      },
+      "result_context": "Cable de {seccion_mm2}mm² a {longitud_m}m con {corriente_a}A tiene caída de {caida_v}V ({caida_pct}%). ¿Cumple? {cumple}. Caída máxima permitida: {caida_max_v}V.",
+      "formula_display": "Caída_V = (2 × longitud × corriente) ÷ (sección × conductividad); Caída_% = (caída_V ÷ tensión) × 100",
+      "steps": [
+        "Conductividad cobre: 56 m/(Ω·mm²)",
+        "Calcular caída: (2 × 40 × 32) ÷ (6 × 56) = 2560 ÷ 336 = 7.62V",
+        "Calcular porcentaje: (7.62V ÷ 230V) × 100 = 3.31%",
+        "Verificar: 3.31% > 3% (iluminación) ✗, pero < 5% (fuerza) ✓"
+      ],
+      "mistakes": [
+        "Aceptar caída > 3% en circuitos de iluminación",
+        "No considerar que cables agrupados disipan menos calor",
+        "Confundir conductividad del cobre (56) con aluminio (35)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "seccion_mm2",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "longitud_m",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "corriente_a",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "tension_v",
+          "reason": "Correcto: opción discreta"
+        }
+      ]
+    },
+    "en": {
+      "name": "Voltage Drop Calculator",
+      "desc": "Check if your cable's voltage drop meets IEC 60364 limits. Enter section, length, current and voltage. Free, no sign-up, instant results.",
+      "seo_title": "Voltage Drop Calculator – % and Volts – IEC 60364",
+      "inputs": {
+        "seccion_mm2": "Cable section (mm²)",
+        "longitud_m": "Circuit length (m)",
+        "corriente_a": "Load current (A)",
+        "tension_v": "Nominal voltage (V)"
+      },
+      "outputs": {
+        "caida_v": "Voltage drop (V)",
+        "caida_pct": "Voltage drop (%)",
+        "cumple_rebt": "Within limits?"
+      },
+      "seo_description": "Check if your cable's voltage drop meets IEC 60364 limits. Enter section, length, current and voltage. Free, no sign-up, instant results.",
+      "example_label": "Check voltage drop in a 2.5 mm² copper cable, 30 m long, carrying 16 A at 230 V single-phase.",
+      "range_hints": {
+        "seccion_mm2": "Installed conductor section: 1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95 or 120 mm² per IEC 60228",
+        "longitud_m": "One-way cable length from supply to load. For single-phase circuits consider both outbound and return path",
+        "corriente_a": "Steady-state load current. Do not confuse with short-circuit current"
+      },
+      "result_context": "With a {seccion_mm2} mm² cable, {longitud_m} m long, carrying {corriente_a} A at {tension_v} V, the drop is {caida_v} V ({caida_pct} %). Compliance: {cumple_rebt}. Limit is 3 % for lighting, 5 % for power circuits.",
+      "formula_display": "ΔU = (2 × L × I) ÷ (σ × S) for single-phase; ΔU% = (ΔU ÷ V) × 100. With σ = 56 m/(Ω·mm²) for copper at 20 °C. If the result exceeds the limit, increase conductor section.",
+      "steps": [
+        "Identify installed cable section in mm² (marking on cable jacket or rating plate)",
+        "Measure actual cable length from panel to farthest load; do not use straight-line distance",
+        "Calculate drop: ΔU = (2 × L × I) ÷ (56 × S). Example: (2 × 30 × 16) ÷ (56 × 2.5) = 960 ÷ 140 = 6.86 V",
+        "Calculate percentage: ΔU% = (6.86 ÷ 230) × 100 = 2.98 %. Compare: 3 % for lighting, 5 % for power"
+      ],
+      "mistakes": [
+        "Using straight-line distance instead of actual cable length: a routed cable with bends adds 15-30 % extra length, invalidating the calculation",
+        "Applying single-phase formula to three-phase: for three-phase ΔU = (√3 × L × I) ÷ (σ × S), which reduces drop by 13 %",
+        "Forgetting that copper conductivity decreases with temperature: at 70 °C σ drops to 47 m/(Ω·mm²), 16 % less than at 20 °C",
+        "Not checking cumulative voltage drop across the entire installation: IEC limits apply from the supply origin to any utilization point"
+      ],
+      "trust_note": "Calculation based on annealed electrolytic copper conductivity at 20 °C (σ = 56 m/(Ω·mm²), 100 % IACS). For aluminum use σ = 35 m/(Ω·mm²). At elevated operating temperatures the actual σ value decreases, increasing voltage drop.",
+      "standard": "IEC 60364-5-52: 3 % for lighting circuits, 5 % for power circuits. NEC Article 210.19(A) limits combined feeder and branch circuit drop to 5 % in North America. Measurement from installation origin to the farthest utilization point.",
+      "input_type_review": [
+        {
+          "field_id": "seccion_mm2",
+          "reason": "Correct: continuous numeric value"
+        },
+        {
+          "field_id": "longitud_m",
+          "reason": "Correct: continuous numeric value"
+        },
+        {
+          "field_id": "corriente_a",
+          "reason": "Correct: continuous numeric value"
+        },
+        {
+          "field_id": "tension_v",
+          "reason": "Correct: discrete option"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Chute de Tension",
+      "desc": "Vérifiez si la chute de tension de votre câble respecte la NF C 15-100. Saisissez section, longueur, courant et tension. Gratuit, sans inscription.",
+      "seo_title": "Calculateur Chute de Tension – % et Volts – NF C 15-100",
+      "inputs": {
+        "seccion_mm2": "Section du câble (mm²)",
+        "longitud_m": "Longueur du circuit (m)",
+        "corriente_a": "Courant de charge (A)",
+        "tension_v": "Tension nominale (V)"
+      },
+      "outputs": {
+        "caida_v": "Chute de tension (V)",
+        "caida_pct": "Chute de tension (%)",
+        "cumple_rebt": "Conforme à la norme ?"
+      },
+      "seo_description": "Vérifiez si la chute de tension de votre câble respecte la NF C 15-100. Saisissez section, longueur, courant et tension. Gratuit, sans inscription.",
+      "example_label": "Vérifier la chute de tension dans un câble cuivre de 2.5 mm², 30 m de long, avec 16 A en 230 V monophasé.",
+      "range_hints": {
+        "seccion_mm2": "Section du conducteur installé : 1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95 ou 120 mm² selon NF EN 60228",
+        "longitud_m": "Longueur aller du câble de l'alimentation à la charge. Pour le monophasé, tenir compte de l'aller et du retour",
+        "corriente_a": "Courant en régime permanent. Ne pas confondre avec le courant de court-circuit"
+      },
+      "result_context": "Avec un câble de {seccion_mm2} mm², {longitud_m} m de long, transportant {corriente_a} A sous {tension_v} V, la chute est de {caida_v} V ({caida_pct} %). Conformité : {cumple_rebt}. Limite : 3 % pour l'éclairage, 5 % pour la force.",
+      "formula_display": "ΔU = (2 × L × I) ÷ (σ × S) pour monophasé ; ΔU% = (ΔU ÷ V) × 100. Avec σ = 56 m/(Ω·mm²) pour le cuivre à 20 °C. Si le résultat dépasse la limite, augmenter la section.",
+      "steps": [
+        "Identifiez la section du câble installé en mm² (marquage sur la gaine ou plaque signalétique)",
+        "Mesurez la longueur réelle du câble du tableau à la charge la plus éloignée ; n'utilisez pas la distance à vol d'oiseau",
+        "Calculez la chute : ΔU = (2 × L × I) ÷ (56 × S). Exemple : (2 × 30 × 16) ÷ (56 × 2.5) = 960 ÷ 140 = 6.86 V",
+        "Calculez le pourcentage : ΔU% = (6.86 ÷ 230) × 100 = 2.98 %. Comparez : 3 % éclairage, 5 % force"
+      ],
+      "mistakes": [
+        "Utiliser la distance à vol d'oiseau au lieu de la longueur réelle : un câble posé avec des courbes ajoute 15-30 % de longueur supplémentaire",
+        "Appliquer la formule monophasée en triphasé : pour le triphasé ΔU = (√3 × L × I) ÷ (σ × S), soit 13 % de moins",
+        "Oublier que la conductivité du cuivre diminue avec la température : à 70 °C σ tombe à 47 m/(Ω·mm²), soit 16 % de moins qu'à 20 °C",
+        "Ne pas vérifier la chute cumulée sur toute l'installation : la norme limite la chute totale de l'origine à tout point d'utilisation"
+      ],
+      "trust_note": "Calcul basé sur la conductivité du cuivre électrolytique recuit à 20 °C (σ = 56 m/(Ω·mm²), 100 % IACS). Pour l'aluminium, utiliser σ = 35 m/(Ω·mm²). À température de service élevée, la valeur réelle de σ diminue, ce qui augmente la chute de tension.",
+      "standard": "NF C 15-100 (France) : 3 % pour l'éclairage, 5 % pour les circuits de force. IEC 60364-5-52 au niveau international. La chute se mesure de l'origine de l'installation jusqu'au point d'utilisation le plus éloigné.",
+      "input_type_review": [
+        {
+          "field_id": "seccion_mm2",
+          "reason": "Correct : valeur numérique continue"
+        },
+        {
+          "field_id": "longitud_m",
+          "reason": "Correct : valeur numérique continue"
+        },
+        {
+          "field_id": "corriente_a",
+          "reason": "Correct : valeur numérique continue"
+        },
+        {
+          "field_id": "tension_v",
+          "reason": "Correct : option discrète"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Queda de Tensão",
+      "desc": "Verifique se a queda de tensão do seu cabo atende à NBR 5410. Insira seção, comprimento, corrente e tensão. Grátis, sem cadastro, resultado imediato.",
+      "seo_title": "Calculadora Queda de Tensão – % e Volts – NBR 5410",
+      "inputs": {
+        "seccion_mm2": "Seção do cabo (mm²)",
+        "longitud_m": "Comprimento do circuito (m)",
+        "corriente_a": "Corrente de carga (A)",
+        "tension_v": "Tensão nominal (V)"
+      },
+      "outputs": {
+        "caida_v": "Queda de tensão (V)",
+        "caida_pct": "Queda de tensão (%)",
+        "cumple_rebt": "Dentro dos limites?"
+      },
+      "seo_description": "Verifique se a queda de tensão do seu cabo atende à NBR 5410. Insira seção, comprimento, corrente e tensão. Grátis, sem cadastro, resultado imediato.",
+      "example_label": "Verificar a queda de tensão em um cabo de cobre de 2.5 mm², 30 m de comprimento, com 16 A em 230 V monofásico.",
+      "range_hints": {
+        "seccion_mm2": "Seção do condutor instalado: 1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95 ou 120 mm² conforme NBR NM 280",
+        "longitud_m": "Comprimento real do cabo da alimentação até a carga. Para circuitos monofásicos, considerar ida e volta",
+        "corriente_a": "Corrente em regime permanente. Não confundir com corrente de curto-circuito"
+      },
+      "result_context": "Com cabo de {seccion_mm2} mm², {longitud_m} m de comprimento, {corriente_a} A em {tension_v} V, a queda é de {caida_v} V ({caida_pct} %). Conformidade: {cumple_rebt}. Limite: 3 % para iluminação, 5 % para força.",
+      "formula_display": "ΔV = (2 × L × I) ÷ (σ × S) para monofásico; ΔV% = (ΔV ÷ V) × 100. Com σ = 56 m/(Ω·mm²) para cobre a 20 °C. Se o resultado exceder o limite, aumente a seção do condutor.",
+      "steps": [
+        "Identifique a seção do cabo instalado em mm² (marcação na capa do cabo ou placa de dados)",
+        "Meça o comprimento real do cabo do quadro até a carga mais distante; não use a distância em linha reta",
+        "Calcule a queda: ΔV = (2 × L × I) ÷ (56 × S). Exemplo: (2 × 30 × 16) ÷ (56 × 2.5) = 960 ÷ 140 = 6.86 V",
+        "Calcule a porcentagem: ΔV% = (6.86 ÷ 230) × 100 = 2.98 %. Compare: 3 % iluminação, 5 % força"
+      ],
+      "mistakes": [
+        "Usar distância em linha reta em vez do comprimento real: um cabo instalado com curvas adiciona 15-30 % de comprimento extra, falseando o cálculo",
+        "Aplicar fórmula monofásica em trifásico: para trifásico ΔV = (√3 × L × I) ÷ (σ × S), com queda 13 % menor",
+        "Esquecer que a condutividade do cobre diminui com a temperatura: a 70 °C σ cai para 47 m/(Ω·mm²), 16 % menos que a 20 °C",
+        "Não verificar a queda acumulada em toda a instalação: a norma limita a queda total da origem até qualquer ponto de utilização"
+      ],
+      "trust_note": "Cálculo baseado na condutividade do cobre eletrolítico recozido a 20 °C (σ = 56 m/(Ω·mm²), 100 % IACS). Para alumínio use σ = 35 m/(Ω·mm²). Em temperaturas de operação elevadas, o valor real de σ diminui, aumentando a queda de tensão.",
+      "standard": "NBR 5410 (Brasil): 3 % para iluminação, 5 % para circuitos de força. IEC 60364-5-52 a nível internacional. A queda é medida da origem da instalação até o ponto de utilização mais distante.",
+      "input_type_review": [
+        {
+          "field_id": "seccion_mm2",
+          "reason": "Correto: valor numérico contínuo"
+        },
+        {
+          "field_id": "longitud_m",
+          "reason": "Correto: valor numérico contínuo"
+        },
+        {
+          "field_id": "corriente_a",
+          "reason": "Correto: valor numérico contínuo"
+        },
+        {
+          "field_id": "tension_v",
+          "reason": "Correto: opção discreta"
+        }
+      ]
+    },
+    "de": {
+      "name": "Spannungsfall tension",
+      "desc": "Berechnen Sie spannungsfall tension online. Geben Sie seccion mm2, longitud m, corriente a ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Spannungsfall tension | CalcToWork",
+      "seo_desc": "Spannungsfall tension online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Spannungsfall tension online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "seccion_mm2": "Seccion Mm2",
+        "longitud_m": "Longitud M",
+        "corriente_a": "Corriente A",
+        "tension_v": "Tension V"
+      },
+      "outputs": {
+        "caida_v": "Caida V",
+        "caida_pct": "Caida Pct",
+        "cumple_rebt": "Cumple Rebt"
+      },
+      "example_label": "Verificar caída para cable de 2.5 mm², 30 m, 16 A a 230 V monofásico.",
+      "range_hints": {
+        "seccion_mm2": "Sección del conductor instalado: 1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120 mm² según UNE 60228. La sección real va marcada en la cubierta",
+        "longitud_m": "Longitud real del trazado del cable desde el origen de la instalación hasta el punto de consumo más alejado, no la distancia en línea recta",
+        "corriente_a": "Corriente de funcionamiento en régimen permanente. No confundir con la corriente de cortocircuito ni con la de arranque de motores",
+        "tension_v": "230 V monofásico (fase-neutro) o 400 V trifásico (fase-fase). Para trifásica la fórmula usa √3 en lugar de 2"
+      },
+      "result_context": "Con cable de {seccion_mm2} mm², {longitud_m} m de longitud y {corriente_a} A a {tension_v} V, la caída es de {caida_v} V ({caida_pct} %). Cumplimiento REBT: {cumple_rebt}. Límite: 3 % alumbrado, 5 % fuerza.",
+      "formula_display": "ΔU = (2 × L × I) / (σ × S) para monofásico.  ΔU% = (ΔU / V) × 100.  σ(Cu)=56 m/(Ω×mm²) a 20 °C. Límite REBT: 3 % alumbrado, 5 % fuerza.",
+      "steps": [
+        "Identificar la sección real del conductor en mm² (marcada en cubierta o placa del cuadro eléctrico)",
+        "Medir la longitud real del cable desde la protección en origen hasta el receptor más alejado, incluyendo curvas y recorrido de la canalización",
+        "Calcular la caída monofásica: ΔU = (2 × L × I) / (56 × S). Ejemplo con 2.5 mm², 30 m, 16 A: ΔU = (2×30×16)/(56×2.5) = 960/140 = 6.86 V",
+        "Obtener el porcentaje: ΔU% = (ΔU / V) × 100 = (6.86/230) × 100 = 2.98 %",
+        "Verificar según ITC-BT-19: alumbrado máx 3 % (cumple 2.98 %), fuerza máx 5 %. Si no cumple, aumentar sección o reducir longitud"
+      ],
+      "mistakes": [
+        "Usar distancia en línea recta en vez de la longitud real: las curvas y desvíos añaden un 15-30 % de cable extra, invalidando el cálculo de caída",
+        "Aplicar fórmula monofásica a circuito trifásico: para trifásica ΔU = (√3 × L × I)/(σ × S), que da una caída un 13 % menor",
+        "Olvidar que la conductividad del cobre disminuye con la temperatura: a 20 °C σ=56, pero a 70 °C (funcionamiento normal) baja a 47 m/(Ω×mm²), un 16 % menos",
+        "No comprobar la caída acumulada desde el contador: el REBT limita la caída total desde el origen, no por tramos individuales"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "seccion_mm2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "longitud_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "corriente_a",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "tension_v",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Caduta di Tensione",
+      "desc": "Verifica se la caduta di tensione del tuo cavo rispetta la norma CEI 64-8. Inserisci sezione, lunghezza, corrente e tensione. Gratuito, senza registrazione.",
+      "seo_title": "Calcolatore Caduta di Tensione – % e Volt – CEI 64-8",
+      "inputs": {
+        "seccion_mm2": "Sezione cavo (mm²)",
+        "longitud_m": "Lunghezza circuito (m)",
+        "corriente_a": "Corrente di carico (A)",
+        "tension_v": "Tensione nominale (V)"
+      },
+      "outputs": {
+        "caida_v": "Caduta di tensione (V)",
+        "caida_pct": "Caduta di tensione (%)",
+        "cumple_rebt": "Entro i limiti?"
+      },
+      "seo_description": "Verifica se la caduta di tensione del tuo cavo rispetta la norma CEI 64-8. Inserisci sezione, lunghezza, corrente e tensione. Gratuito, senza registrazione, risultati immediati.",
+      "example_label": "Verificare la caduta di tensione in un cavo in rame da 2.5 mm², lungo 30 m, con 16 A a 230 V monofase.",
+      "range_hints": {
+        "seccion_mm2": "Sezione del conduttore installato: 1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95 o 120 mm² secondo CEI EN 60228",
+        "longitud_m": "Lunghezza effettiva del cavo dall'alimentazione al carico. Per circuiti monofase considerare sia andata che ritorno",
+        "corriente_a": "Corrente di carico a regime. Non confondere con la corrente di cortocircuito"
+      },
+      "result_context": "Con un cavo da {seccion_mm2} mm², lungo {longitud_m} m, con {corriente_a} A a {tension_v} V, la caduta è di {caida_v} V ({caida_pct} %). Conformità: {cumple_rebt}. Il limite è 3 % per illuminazione, 5 % per circuiti di potenza.",
+      "formula_display": "ΔU = (2 × L × I) ÷ (σ × S) per monofase; ΔU% = (ΔU ÷ V) × 100. Con σ = 56 m/(Ω·mm²) per il rame a 20 °C. Se il risultato supera il limite, aumentare la sezione del conduttore.",
+      "steps": [
+        "Identificare la sezione del cavo installato in mm² (marcatura sulla guaina o targa dati)",
+        "Misurare la lunghezza effettiva del cavo dal quadro al carico più lontano; non usare la distanza in linea d'aria",
+        "Calcolare la caduta: ΔU = (2 × L × I) ÷ (56 × S). Esempio: (2 × 30 × 16) ÷ (56 × 2.5) = 960 ÷ 140 = 6.86 V",
+        "Calcolare la percentuale: ΔU% = (6.86 ÷ 230) × 100 = 2.98 %. Confrontare: 3 % per illuminazione, 5 % per potenza"
+      ],
+      "mistakes": [
+        "Usare la distanza in linea d'aria invece della lunghezza effettiva: un cavo posato con curve aggiunge il 15-30 % di lunghezza extra, invalidando il calcolo",
+        "Applicare la formula monofase a un circuito trifase: per trifase ΔU = (√3 × L × I) ÷ (σ × S), che riduce la caduta del 13 %",
+        "Dimenticare che la conduttività del rame diminuisce con la temperatura: a 70 °C σ scende a 47 m/(Ω·mm²), il 16 % in meno rispetto a 20 °C",
+        "Non verificare la caduta di tensione cumulativa su tutta l'installazione: le norme CEI si applicano dall'origine dell'impianto fino a qualsiasi punto di utilizzo"
+      ],
+      "trust_note": "Calcolo basato sulla conduttività del rame elettrolitico ricotto a 20 °C (σ = 56 m/(Ω·mm²), 100 % IACS). Per alluminio usare σ = 35 m/(Ω·mm²). A temperature di esercizio elevate il valore effettivo di σ diminuisce, aumentando la caduta di tensione.",
+      "standard": "CEI 64-8: 3 % per circuiti illuminazione, 5 % per circuiti di potenza. Misurazione dall'origine dell'installazione fino al punto di utilizzo più lontano.",
+      "input_type_review": [
+        {
+          "field_id": "seccion_mm2",
+          "reason": "Corretto: valore numerico continuo"
+        },
+        {
+          "field_id": "longitud_m",
+          "reason": "Corretto: valore numerico continuo"
+        },
+        {
+          "field_id": "corriente_a",
+          "reason": "Corretto: valore numerico continuo"
+        },
+        {
+          "field_id": "tension_v",
+          "reason": "Corretto: opzione discreta"
+        }
+      ]
+    }
+  }
+}

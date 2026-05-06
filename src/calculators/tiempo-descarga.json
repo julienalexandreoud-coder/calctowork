@@ -1,0 +1,329 @@
+{
+  "id": "506",
+  "slug": "tiempo-descarga",
+  "block": 4,
+  "block_slug": "cotidiano",
+  "inputs": [
+    {
+      "id": "file_size",
+      "type": "number",
+      "step": "any",
+      "default": 1,
+      "unit": "GB",
+      "unit_options": [
+        "GB",
+        "MB",
+        "TB"
+      ],
+      "unit_category": "digital_storage"
+    },
+    {
+      "id": "speed",
+      "type": "number",
+      "step": "any",
+      "default": 50,
+      "unit": "Mbps",
+      "unit_options": [
+        "Mbps",
+        "MB/s",
+        "Kbps"
+      ],
+      "unit_category": "data_rate"
+    }
+  ],
+  "formula": "var size_gb=parseFloat(inputs.file_size)||0;var speed_mbps=parseFloat(inputs.speed)||1;var size_mb=size_gb*1024;var time_sec=(size_mb*8)/speed_mbps;var time_min=time_sec/60;return{time_sec:Math.round(time_sec),time_min:time_min.toFixed(2)};",
+  "outputs": [
+    {
+      "id": "time_sec",
+      "unit": "s"
+    },
+    {
+      "id": "time_min",
+      "unit": "min"
+    }
+  ],
+  "related": [
+    "504",
+    "510",
+    "500",
+    "501"
+  ],
+  "example_inputs": {
+    "file_size": 1,
+    "speed": 50
+  },
+  "example_label": "Ejemplo para tiempo descarga: valores 1GB, 50Mbps",
+  "range_hints": {
+    "file_size": "Valor típico entre 0 y 500. Valor por defecto: 1 GB.",
+    "speed": "Valor típico entre 0 y 500. Valor por defecto: 50 Mbps."
+  },
+  "result_context": "La transferencia de archivo tardará {time_sec} segundos ({time_min} minutos).",
+  "result_context_en": "The file transfer will take {time_sec} seconds ({time_min} minutes).",
+  "result_context_fr": "Le transfert de fichier prendra {time_sec} secondes ({time_min} minutes).",
+  "result_context_pt": "A transferência de arquivo levará {time_sec} segundos ({time_min} minutos).",
+  "result_context_de": "Die Dateiübertragung dauert {time_sec} Sekunden ({time_min} Minuten).",
+  "result_context_it": "Il trasferimento del file richiederà {time_sec} secondi ({time_min} minuti).",
+  "formula_display": "time_sec ÷ 60 → time_sec, time_min",
+  "steps": [
+    "Introducir los valores de file_size y speed",
+    "Verificar que las unidades sean correctas y convertir si es necesario (GB, MB, TB)",
+    "Calcular los valores de time sec y time min",
+    "El resultado se expresa en s. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "No considerar si la propina se calcula antes o después de impuestos",
+    "Olvidar que los meses tienen diferente número de días",
+    "Usar el formato de fecha incorrecto (MM/DD vs DD/MM) al introducir datos"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "file_size",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "speed",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Escenario minimo",
+      "file_size": 0.4,
+      "speed": 20.0
+    },
+    {
+      "_label": "Uso habitual",
+      "file_size": 0.7,
+      "speed": 35.0
+    },
+    {
+      "_label": "Uso frecuente",
+      "file_size": 1.0,
+      "speed": 50.0
+    },
+    {
+      "_label": "Uso intensivo",
+      "file_size": 1.5,
+      "speed": 75.0
+    },
+    {
+      "_label": "Caso maximo",
+      "file_size": 2.5,
+      "speed": 125.0
+    }
+  ],
+  "units": {
+    "file_size": "MB",
+    "speed": "Mbps"
+  },
+  "i18n": {
+    "es": {
+      "name": "Tiempo de Descarga",
+      "description": "Calcula cuánto tarda descargar un archivo a una velocidad dada.",
+      "inputs": {
+        "file_size": "Tamaño",
+        "speed": "Velocidad"
+      },
+      "outputs": {
+        "time_sec": "Segundos",
+        "time_min": "Minutos"
+      },
+      "seo_title": "Tiempo de Descarga Gratuita – Herramienta Gratuita",
+      "seo_description": "Calcula cuánto tarda descargar un archivo a una velocidad dada. Calculadora gratuita, precisa e instantánea. Obten resultados al instante con explicacion.",
+      "example_label": "Archivo 1 GB a 50 Mbps",
+      "range_hints": {
+        "file_size": "1 MB - 100 GB",
+        "speed": "1 Mbps - 1 Gbps"
+      },
+      "result_context": "Tiempo estimado de descarga",
+      "formula_display": "Tiempo = (Tamaño archivo × 8) / Velocidad",
+      "steps": [
+        "Convertir tamaño a megabytes",
+        "Convertir a megabits",
+        "Dividir por velocidad"
+      ],
+      "mistakes": [
+        "Confundir MB/s con Mbps",
+        "No considerar sobrecarga de protocolo"
+      ],
+      "input_type_review": []
+    },
+    "en": {
+      "name": "Download Time Calculator",
+      "description": "Calculate how long a file takes to download at a given speed.",
+      "inputs": {
+        "file_size": "File size",
+        "speed": "Download speed"
+      },
+      "outputs": {
+        "time_sec": "Seconds",
+        "time_min": "Minutes"
+      },
+      "seo_title": "Download Time – Speed Estimator",
+      "seo_description": "Download Time Calculator. File size, Download speed — get Seconds, Minutes instantly for your plumbing and water systems project. Includes waste factor.",
+      "example_label": "Archivo 1 GB a 50 Mbps",
+      "range_hints": {
+        "file_size": "1 MB - 100 GB",
+        "speed": "1 Mbps - 1 Gbps"
+      },
+      "result_context": "Tiempo estimado de descarga",
+      "formula_display": "Tiempo = (Tamaño archivo × 8) / Velocidad",
+      "steps": [
+        "Convertir tamaño a megabytes",
+        "Convertir a megabits",
+        "Dividir por velocidad"
+      ],
+      "mistakes": [
+        "Confundir MB/s con Mbps",
+        "No considerar sobrecarga de protocolo"
+      ],
+      "input_type_review": "file_size es almacenamiento digital, speed es tasa de datos"
+    },
+    "fr": {
+      "name": "Temps de Téléchargement",
+      "description": "Calculez le temps nécessaire pour télécharger un fichier à une vitesse donnée.",
+      "inputs": {
+        "file_size": "Taille",
+        "speed": "Vitesse"
+      },
+      "outputs": {
+        "time_sec": "Secondes",
+        "time_min": "Minutes"
+      },
+      "seo_title": "Temps de Téléchargement – Outil Gratuit",
+      "seo_description": "Calculez le temps nécessaire pour télécharger un fichier à une vitesse donnée. Calculateur gratuit, précis et instantané.",
+      "example_label": "Archivo 1 GB a 50 Mbps",
+      "range_hints": {
+        "file_size": "1 MB - 100 GB",
+        "speed": "1 Mbps - 1 Gbps"
+      },
+      "result_context": "Tiempo estimado de descarga",
+      "formula_display": "Tiempo = (Tamaño archivo × 8) / Velocidad",
+      "steps": [
+        "Convertir tamaño a megabytes",
+        "Convertir a megabits",
+        "diviser par velocidad"
+      ],
+      "mistakes": [
+        "Confondre MB/s avec Mbps",
+        "Ne pas considérer sobrecarga de protocolo"
+      ],
+      "input_type_review": []
+    },
+    "pt": {
+      "name": "Tempo de Download",
+      "description": "Calcule quanto tempo leva para baixar um arquivo a uma velocidade dada.",
+      "inputs": {
+        "file_size": "Tamanho",
+        "speed": "Velocidade"
+      },
+      "outputs": {
+        "time_sec": "Segundos",
+        "time_min": "Minutos"
+      },
+      "seo_title": "Tempo de Download – Ferramenta Grátis",
+      "seo_description": "Calcule quanto tempo leva para baixar um arquivo a uma velocidade dada. Calculadora gratuita, precisa e instantânea. Obtenha resultados instantaneos com.",
+      "example_label": "Archivo 1 GB a 50 Mbps",
+      "range_hints": {
+        "file_size": "1 MB - 100 GB",
+        "speed": "1 Mbps - 1 Gbps"
+      },
+      "result_context": "Tiempo estimado de descarga",
+      "formula_display": "Tiempo = (Tamaño archivo × 8) / Velocidad",
+      "steps": [
+        "Convertir tamaño a megabytes",
+        "Convertir a megabits",
+        "Dividir por velocidad"
+      ],
+      "mistakes": [
+        "Confundir MB/s com Mbps",
+        "Não considerar sobrecarga de protocolo"
+      ],
+      "input_type_review": []
+    },
+    "de": {
+      "name": "Tiempo descarga",
+      "desc": "Berechnen Sie tiempo descarga online. Geben Sie file size, speed ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Tiempo descarga | CalcToWork",
+      "seo_desc": "Tiempo descarga online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Tiempo descarga online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "file_size": "File Size",
+        "speed": "Speed"
+      },
+      "outputs": {
+        "time_sec": "Time Sec",
+        "time_min": "Time Min"
+      },
+      "example_label": "Ejemplo para tiempo descarga: valores 1GB, 50Mbps",
+      "range_hints": {
+        "file_size": "Valor típico entre 0 y 500. Valor por defecto: 1 GB.",
+        "speed": "Valor típico entre 0 y 500. Valor por defecto: 50 Mbps."
+      },
+      "result_context": "Die Dateiübertragung dauert {time_sec} Sekunden ({time_min} Minuten).",
+      "formula_display": "time_sec ÷ 60 → time_sec, time_min",
+      "steps": [
+        "Introducir los valores de file_size y speed",
+        "Verificar que las unidades sean correctas y convertir si es necesario (GB, MB, TB)",
+        "Calcular los valores de time sec y time min",
+        "El resultado se expresa en s. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "No considerar si la propina se calcula antes o después de impuestos",
+        "Olvidar que los meses tienen diferente número de días",
+        "Usar el formato de fecha incorrecto (MM/DD vs DD/MM) al introducir datos"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "file_size",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "speed",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Tempo di Download",
+      "description": "Calcola quanto tempo ci vuole per scaricare un file a una data velocità.",
+      "inputs": {
+        "file_size": "Dimensione",
+        "speed": "Velocità"
+      },
+      "outputs": {
+        "time_sec": "Secondi",
+        "time_min": "Minuti"
+      },
+      "seo_title": "Tempo di Download – Strumento Gratuito",
+      "seo_description": "Calcola quanto tempo ci vuole per scaricare un file a una data velocità. Calcolatore gratuito, preciso e istantaneo. Ottieni risultati istantanei con.",
+      "example_label": "Archivo 1 GB a 50 Mbps",
+      "range_hints": {
+        "file_size": "1 MB - 100 GB",
+        "speed": "1 Mbps - 1 Gbps"
+      },
+      "result_context": "Tiempo estimado di discarico",
+      "formula_display": "Tiempo = (Tamaño archivo × 8) / Velocidad",
+      "steps": [
+        "Convertire tamaño a megabetes",
+        "Convertire a megabits",
+        "Dividire per velocità"
+      ],
+      "mistakes": [
+        "Confondire MB/s con Mbps",
+        "Non consedirare sovraccarico di protocolo"
+      ],
+      "input_type_review": null
+    }
+  }
+}

@@ -1,0 +1,574 @@
+{
+  "id": "305",
+  "slug": "salario-neto",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "salario_bruto_anual",
+      "type": "number",
+      "min": 1000,
+      "max": 100000000,
+      "step": 100,
+      "default": 30000,
+      "unit": "â‚¬"
+    },
+    {
+      "id": "irpf_pct",
+      "type": "number",
+      "min": 0,
+      "max": 60,
+      "step": 0.5,
+      "default": 19,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    },
+    {
+      "id": "seg_social_pct",
+      "type": "number",
+      "min": 0,
+      "max": 20,
+      "step": 0.01,
+      "default": 6.35,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    }
+  ],
+  "formula": "var B=parseFloat(inputs.salario_bruto_anual)||0,irpf=parseFloat(inputs.irpf_pct)||19,ss=parseFloat(inputs.seg_social_pct)||6.35;if(!B)return{error:true};var ret_irpf=+(B*irpf/100).toFixed(0),ret_ss=+(B*ss/100).toFixed(0),neto=+(B-ret_irpf-ret_ss).toFixed(0),neto_mes=+(neto/12).toFixed(0);return{neto_anual:neto,neto_mensual:neto_mes,retencion_irpf:ret_irpf,cotizacion_ss:ret_ss};",
+  "outputs": [
+    {
+      "id": "neto_anual",
+      "unit": "â‚¬/año",
+      "highlight": true
+    },
+    {
+      "id": "neto_mensual",
+      "unit": "â‚¬/mes"
+    },
+    {
+      "id": "retencion_irpf",
+      "unit": "â‚¬"
+    },
+    {
+      "id": "cotizacion_ss",
+      "unit": "â‚¬"
+    }
+  ],
+  "related": [
+    "304",
+    "306",
+    "303",
+    "300"
+  ],
+  "example_inputs": {
+    "salario_bruto_anual": 42000,
+    "irpf_pct": 22,
+    "seg_social_pct": 6.35
+  },
+  "example_label": "Calcula tu salario neto a partir de 42.000eur brutos anuales con IRPF del 22% y SS del 6,35%",
+  "range_hints": {
+    "salario_bruto_anual": "Valor típico entre 1000 y 100000000. Valor por defecto: 30000 â‚¬.",
+    "irpf_pct": "Valor típico entre 0 y 60. Valor por defecto: 19 %.",
+    "seg_social_pct": "Valor típico entre 0 y 20. Valor por defecto: 6.35 %."
+  },
+  "result_context": "Tu salario neto anual será de {neto_anual} €/año, lo que equivale a {neto_mensual} €/mes. Se te retienen {retencion_irpf} € de IRPF y {cotizacion_ss} € de Seguridad Social.",
+  "result_context_en": "Your annual net salary will be {neto_anual} €/year, which equals {neto_mensual} €/month. You are withheld {retencion_irpf} € in income tax and {cotizacion_ss} € in Social Security contributions.",
+  "result_context_fr": "Votre salaire net annuel sera de {neto_anual} €/an, soit {neto_mensual} €/mois. Vous êtes prélevé de {retencion_irpf} € d'impôt sur le revenu et de {cotizacion_ss} € de cotisations sociales.",
+  "result_context_pt": "Seu salário líquido anual será de {neto_anual} €/ano, o que equivale a {neto_mensual} €/mês. São retidos {retencion_irpf} € de IRPF e {cotizacion_ss} € de Segurança Social.",
+  "result_context_de": "Ihr jährliches Nettogehalt beträgt {neto_anual} €/Jahr, das sind {neto_mensual} €/Monat. Ihnen werden {retencion_irpf} € Einkommensteuer und {cotizacion_ss} € Sozialversicherungsbeiträge einbehalten.",
+  "result_context_it": "Il tuo stipendio netto annuale sarà di {neto_anual} €/anno, pari a {neto_mensual} €/mese. Ti vengono trattenuti {retencion_irpf} € di IRPEF e {cotizacion_ss} € di contributi previdenziali.",
+  "formula_display": "Salario neto = Bruto - Retencion IRPF - Cotizacion Seguridad Social",
+  "steps": [
+    "Introduce tu salario bruto anual que figura en tu contrato de trabajo o en tu nomina",
+    "Indica el porcentaje de retencion de IRPF segun tu situacion personal, familiar y nivel de ingresos",
+    "Especifica el porcentaje de cotizacion a la Seguridad Social (6,35% para trabajadores por cuenta ajena en Espana)",
+    "Resta ambas retenciones del salario bruto para obtener el salario neto anual disponible",
+    "Divide el neto anual entre 12 pagas para conocer tu ingreso mensual real (o entre 14 si tienes pagas extra prorrateadas)"
+  ],
+  "mistakes": [
+    "No actualizar el porcentaje de IRPF tras cambios personales como matrimonio, hijos o adquisicion de vivienda habitual",
+    "Olvidar otras deducciones como aportaciones a planes de pensiones, cuotas sindicales o gastos profesionales que reducen la base",
+    "Confundir salario bruto con coste laboral total: la empresa paga ademas un 30% adicional en cotizaciones patronales"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "salario_bruto_anual",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "irpf_pct",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "seg_social_pct",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "salario_bruto_anual": 21000,
+      "irpf_pct": 11,
+      "seg_social_pct": 6.35
+    },
+    {
+      "_label": "Average",
+      "salario_bruto_anual": 31500,
+      "irpf_pct": 16.5,
+      "seg_social_pct": 6.35
+    },
+    {
+      "_label": "High",
+      "salario_bruto_anual": 42000,
+      "irpf_pct": 22,
+      "seg_social_pct": 6.35
+    },
+    {
+      "_label": "Premium",
+      "salario_bruto_anual": 63000,
+      "irpf_pct": 33,
+      "seg_social_pct": 6.35
+    },
+    {
+      "_label": "Enterprise",
+      "salario_bruto_anual": 84000,
+      "irpf_pct": 44,
+      "seg_social_pct": 6.35
+    }
+  ],
+  "units": {
+    "irpf_pct": "%",
+    "seg_social_pct": "%"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Salario Neto",
+      "desc": "Calcula tu salario neto anual y mensual tras IRPF y Seguridad Social.",
+      "description": "Calcula tu salario neto anual y mensual tras IRPF y Seguridad Social.",
+      "seo_title": "Calculadora de Salario Neto – IRPF y SS Online",
+      "seo_description": "Calcula tu salario neto en España. Introduce el bruto anual, el IRPF y la cotización SS para obtener el neto mensual. Introduce tus valores y obtiene.",
+      "inputs": {
+        "salario_bruto_anual": "Salario bruto anual (€)",
+        "irpf_pct": "IRPF (%)",
+        "seg_social_pct": "Seg. Social trabajador (%)"
+      },
+      "outputs": {
+        "neto_anual": "Neto anual",
+        "neto_mensual": "Neto mensual",
+        "retencion_irpf": "Retención IRPF",
+        "cotizacion_ss": "Cotización SS"
+      },
+      "example_label": "Calculating take-home pay for €42,000 gross annual salary with 22% IRPF and 6.35% social security.",
+      "range_hints": {
+        "salario_bruto_anual": "€15,000 - €200,000+ annual salaries",
+        "irpf_pct": "8-45% tax rates based on income",
+        "seg_social_pct": "4-7% employee social security"
+      },
+      "result_context": "Your neto_anual of {neto_anual} is annual take-home pay. The neto_mensual of {neto_mensual} shows monthly income after deductions.",
+      "formula_display": "Net Salary = Gross - (Gross × IRPF%) - (Gross × SS%)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Calculate IRPF tax deduction",
+          "calculation": "€42,000 × 22% = €9,240"
+        },
+        {
+          "step": 2,
+          "description": "Calculate social security deduction",
+          "calculation": "€42,000 × 6.35% = €2,667"
+        },
+        {
+          "step": 3,
+          "description": "Subtract deductions from gross",
+          "calculation": "€42,000 - €9,240 - €2,667 = €30,093"
+        },
+        {
+          "step": 4,
+          "description": "Divide by 12 for monthly net",
+          "calculation": "€30,093 ÷ 12 = €2,508"
+        }
+      ],
+      "mistakes": [
+        "Using flat tax rate instead of progressive tax brackets",
+        "Forgetting additional deductions like union fees or insurance",
+        "Not accounting for tax credits or allowances that reduce IRPF"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "salario_bruto_anual",
+          "reason": "Correct type for annual salary"
+        },
+        {
+          "field_id": "irpf_pct",
+          "reason": "Correct type for tax percentage"
+        },
+        {
+          "field_id": "seg_social_pct",
+          "reason": "Correct type for social security rate"
+        }
+      ]
+    },
+    "en": {
+      "name": "Net Salary Calculator",
+      "desc": "Calculate your annual and monthly net salary after income tax and social security.",
+      "description": "Calculate your annual and monthly net salary after income tax and social security.",
+      "seo_title": "Net Salary Calculator – After Tax Online",
+      "seo_description": "Calculate your net salary after income tax and social security deductions. Enter gross salary and rates for instant result.",
+      "inputs": {
+        "salario_bruto_anual": "Annual gross salary (â‚¬)",
+        "irpf_pct": "Income tax (%)",
+        "seg_social_pct": "Social security (%)"
+      },
+      "outputs": {
+        "neto_anual": "Annual net",
+        "neto_mensual": "Monthly net",
+        "retencion_irpf": "Income tax",
+        "cotizacion_ss": "Social security"
+      },
+      "example_label": "Calculating take-home pay for â‚¬42,000 gross annual salary with 22% IRPF and 6.35% social security.",
+      "range_hints": {
+        "salario_bruto_anual": "â‚¬15,000 - â‚¬200,000+ annual salaries",
+        "irpf_pct": "8-45% tax rates based on income",
+        "seg_social_pct": "4-7% employee social security"
+      },
+      "result_context": "Your neto_anual of {neto_anual} is annual take-home pay. The neto_mensual of {neto_mensual} shows monthly income after deductions.",
+      "formula_display": "Net Salary = Gross - (Gross × IRPF%) - (Gross × SS%)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Calculate IRPF tax deduction",
+          "calculation": "â‚¬42,000 × 22% = â‚¬9,240"
+        },
+        {
+          "step": 2,
+          "description": "Calculate social security deduction",
+          "calculation": "â‚¬42,000 × 6.35% = â‚¬2,667"
+        },
+        {
+          "step": 3,
+          "description": "Subtract deductions from gross",
+          "calculation": "â‚¬42,000 - â‚¬9,240 - â‚¬2,667 = â‚¬30,093"
+        },
+        {
+          "step": 4,
+          "description": "Divide by 12 for monthly net",
+          "calculation": "â‚¬30,093 ÷ 12 = â‚¬2,508"
+        }
+      ],
+      "mistakes": [
+        "Using flat tax rate instead of progressive tax brackets",
+        "Forgetting additional deductions like union fees or insurance",
+        "Not accounting for tax credits or allowances that reduce IRPF"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "salario_bruto_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for annual salary"
+        },
+        {
+          "field_id": "irpf_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for tax percentage"
+        },
+        {
+          "field_id": "seg_social_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for social security rate"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur de Salaire Net",
+      "desc": "Calculez votre salaire net annuel et mensuel après impôts et cotisations.",
+      "description": "Calculez votre salaire net annuel et mensuel après impôts et cotisations.",
+      "seo_title": "Calculateur Salaire Net – Après Impôts en Ligne",
+      "seo_description": "Calculez votre salaire net après impôts et cotisations sociales. Entrez le brut annuel. Avec options de composition et taxes.",
+      "inputs": {
+        "salario_bruto_anual": "Salaire brut annuel (€)",
+        "irpf_pct": "Impôt sur le revenu (%)",
+        "seg_social_pct": "Cotisations sociales (%)"
+      },
+      "outputs": {
+        "neto_anual": "Net annuel",
+        "neto_mensual": "Net mensuel",
+        "retencion_irpf": "Impôt sur le revenu",
+        "cotizacion_ss": "Cotisations sociales"
+      },
+      "example_label": "Calculating take-home pay for €42,000 gross annual salary with 22% IRPF and 6.35% social security.",
+      "range_hints": {
+        "salario_bruto_anual": "€15,000 - €200,000+ annual salaries",
+        "irpf_pct": "8-45% tax rates based on income",
+        "seg_social_pct": "4-7% employee social security"
+      },
+      "result_context": "Your neto_anual of {neto_anual} is annual take-home pay. The neto_mensual of {neto_mensual} shows monthly income after deductions.",
+      "formula_display": "Net Salary = Gross - (Gross × IRPF%) - (Gross × SS%)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Calculate IRPF tax deduction",
+          "calculation": "â‚¬42,000 × 22% = â‚¬9,240"
+        },
+        {
+          "step": 2,
+          "description": "Calculate social security deduction",
+          "calculation": "â‚¬42,000 × 6.35% = â‚¬2,667"
+        },
+        {
+          "step": 3,
+          "description": "Subtract deductions from gross",
+          "calculation": "€42,000 - €9,240 - €2,667 = €30,093"
+        },
+        {
+          "step": 4,
+          "description": "Divide by 12 for monthly net",
+          "calculation": "â€30,093 Á· 12 = â€2,508"
+        }
+      ],
+      "mistakes": [
+        "Using flat tax rate instead of progressive tax brackets",
+        "Forgetting additional deductions like union fees or insurance",
+        "Not accounting for tax credits or allowances that reduce IRPF"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "salario_bruto_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for annual salary"
+        },
+        {
+          "field_id": "irpf_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for tax percentage"
+        },
+        {
+          "field_id": "seg_social_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for social security rate"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Salário Líquido",
+      "desc": "Calcule o seu salário líquido anual e mensal após IRS e Segurança Social.",
+      "description": "Calcule o seu salário líquido anual e mensal após IRS e Segurança Social.",
+      "seo_title": "Calculadora Salário Líquido – Após Impostos",
+      "seo_description": "Calcule o salário líquido após IRS e Segurança Social. Insira o bruto anual e as taxas. Com opcoes de compostagem e impostos.",
+      "inputs": {
+        "salario_bruto_anual": "Salário bruto anual (€)",
+        "irpf_pct": "IRS (%)",
+        "seg_social_pct": "Seg. Social (%)"
+      },
+      "outputs": {
+        "neto_anual": "Líquido anual",
+        "neto_mensual": "Líquido mensal",
+        "retencion_irpf": "IRS",
+        "cotizacion_ss": "Segurança Social"
+      },
+      "example_label": "Calculating take-home pay for €42,000 gross annual salary with 22% IRPF and 6.35% social security.",
+      "range_hints": {
+        "salario_bruto_anual": "€15,000 - €200,000+ annual salaries",
+        "irpf_pct": "8-45% tax rates based on income",
+        "seg_social_pct": "4-7% employee social security"
+      },
+      "result_context": "Your neto_anual of {neto_anual} is annual take-home pay. The neto_mensual of {neto_mensual} shows monthly income after deductions.",
+      "formula_display": "Net Salary = Gross - (Gross × IRPF%) - (Gross × SS%)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Calculate IRPF tax deduction",
+          "calculation": "â‚¬42,000 × 22% = â‚¬9,240"
+        },
+        {
+          "step": 2,
+          "description": "Calculate social security deduction",
+          "calculation": "â‚¬42,000 × 6.35% = â‚¬2,667"
+        },
+        {
+          "step": 3,
+          "description": "Subtract deductions from gross",
+          "calculation": "€42,000 - €9,240 - €2,667 = €30,093"
+        },
+        {
+          "step": 4,
+          "description": "Divide by 12 for monthly net",
+          "calculation": "â‚¬30,093 ÷ 12 = â‚¬2,508"
+        }
+      ],
+      "mistakes": [
+        "Using flat tax rate instead of progressive tax brackets",
+        "Forgetting additional deductions like union fees or insurance",
+        "Not accounting for tax credits or allowances that reduce IRPF"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "salario_bruto_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for annual salary"
+        },
+        {
+          "field_id": "irpf_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for tax percentage"
+        },
+        {
+          "field_id": "seg_social_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for social security rate"
+        }
+      ]
+    },
+    "de": {
+      "name": "Gehaltsrechner Netto",
+      "desc": "Berechnen Sie gehaltsrechner Netto online. Geben Sie salario bruto anual, irpf pct, seg social pct ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Gehaltsrechner Netto | CalcToWork",
+      "seo_desc": "Gehaltsrechner Netto online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Gehaltsrechner Netto online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "salario_bruto_anual": "Salario Bruto Anual",
+        "irpf_pct": "Irpf Pct",
+        "seg_social_pct": "Seg Social Pct"
+      },
+      "outputs": {
+        "neto_anual": "Neto Anual",
+        "neto_mensual": "Neto Mensual",
+        "retencion_irpf": "Retencion Irpf",
+        "cotizacion_ss": "Cotizacion Ss"
+      },
+      "example_label": "Calcula tu salario neto a partir de 42.000eur brutos anuales con IRPF del 22% y SS del 6,35%",
+      "range_hints": {
+        "salario_bruto_anual": "Valor típico entre 1000 y 100000000. Valor por defecto: 30000 â‚¬.",
+        "irpf_pct": "Valor típico entre 0 y 60. Valor por defecto: 19 %.",
+        "seg_social_pct": "Valor típico entre 0 y 20. Valor por defecto: 6.35 %."
+      },
+      "result_context": "Ihr jährliches Nettogehalt beträgt {neto_anual} €/Jahr, das sind {neto_mensual} €/Monat. Ihnen werden {retencion_irpf} € Einkommensteuer und {cotizacion_ss} € Sozialversicherungsbeiträge einbehalten.",
+      "formula_display": "Salario neto = Bruto - Retencion IRPF - Cotizacion Seguridad Social",
+      "steps": [
+        "Introduce tu salario bruto anual que figura en tu contrato de trabajo o en tu nomina",
+        "Indica el porcentaje de retencion de IRPF segun tu situacion personal, familiar y nivel de ingresos",
+        "Especifica el porcentaje de cotizacion a la Seguridad Social (6,35% para trabajadores por cuenta ajena en Espana)",
+        "Resta ambas retenciones del salario bruto para obtener el salario neto anual disponible",
+        "Divide el neto anual entre 12 pagas para conocer tu ingreso mensual real (o entre 14 si tienes pagas extra prorrateadas)"
+      ],
+      "mistakes": [
+        "No actualizar el porcentaje de IRPF tras cambios personales como matrimonio, hijos o adquisicion de vivienda habitual",
+        "Olvidar otras deducciones como aportaciones a planes de pensiones, cuotas sindicales o gastos profesionales que reducen la base",
+        "Confundir salario bruto con coste laboral total: la empresa paga ademas un 30% adicional en cotizaciones patronales"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "salario_bruto_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "irpf_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "seg_social_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Stipendio Netto",
+      "desc": "Calcola il tuo stipendio netto annuale e mensile dopo IRPEF e contributi.",
+      "description": "Calcola il tuo stipendio netto annuale e mensile dopo IRPEF e contributi.",
+      "seo_title": "Calcolatore Stipendio Netto – Dopo Tasse Online",
+      "seo_description": "Calcola lo stipendio netto dopo IRPEF e contributi previdenziali. Inserisci il lordo annuale. Con opzioni di capitalizzazione e tasse.",
+      "inputs": {
+        "salario_bruto_anual": "Stipendio lordo annuale (€)",
+        "irpf_pct": "IRPEF (%)",
+        "seg_social_pct": "Contributi previdenziali (%)"
+      },
+      "outputs": {
+        "neto_anual": "Netto annuale",
+        "neto_mensual": "Netto mensile",
+        "retencion_irpf": "IRPEF",
+        "cotizacion_ss": "Contributi"
+      },
+      "example_label": "Calculating take-home pae for €42,000 gross annual salare with 22% IRPF and 6.35% social securite.",
+      "range_hints": {
+        "salario_bruto_anual": "€15,000 - €200,000+ annual salaries",
+        "irpf_pct": "8-45% tax rates based on income",
+        "seg_social_pct": "4-7% emploeee social securite"
+      },
+      "result_context": "Your neto_anual of {neto_anual} is annual take-home pae. The neto_minsual of {neto_minsual} shows monthle income after diductions.",
+      "formula_display": "Net Salare = Gross - (Gross × IRPF%) - (Gross × SS%)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Calculate IRPF tax deduction",
+          "calculation": "€42,000 × 22% = €9,240"
+        },
+        {
+          "step": 2,
+          "description": "Calculate social security deduction",
+          "calculation": "€42,000 × 6.35% = €2,667"
+        },
+        {
+          "step": 3,
+          "description": "Subtract deductions from gross",
+          "calculation": "€42,000 - €9,240 - €2,667 = €30,093"
+        },
+        {
+          "step": 4,
+          "description": "Divide by 12 for monthly net",
+          "calculation": "€30,093 ÷ 12 = €2,508"
+        }
+      ],
+      "mistakes": [
+        "Usenzag flat tax rate instead of progresseve tax brackets",
+        "Forgetting additional diductions like union fees or insurance",
+        "Not accounting for tax credits or allowances that riduce IRPF"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "salario_bruto_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for annual salare"
+        },
+        {
+          "field_id": "irpf_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for tax percintage"
+        },
+        {
+          "field_id": "seg_social_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for social securite rate"
+        }
+      ]
+    }
+  }
+}

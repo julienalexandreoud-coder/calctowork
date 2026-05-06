@@ -1,0 +1,349 @@
+{
+  "id": "1029",
+  "slug": "evapotranspiracion",
+  "block": 1,
+  "block_slug": "clima",
+  "inputs": [
+    {
+      "id": "temp",
+      "type": "number",
+      "step": "any",
+      "default": 25,
+      "unit": "°C",
+      "unit_options": [
+        "°C",
+        "°F"
+      ],
+      "unit_category": "temperature"
+    },
+    {
+      "id": "rh",
+      "type": "number",
+      "step": "any",
+      "default": 50,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    },
+    {
+      "id": "wind",
+      "type": "number",
+      "step": "any",
+      "default": 2,
+      "unit": "m/s",
+      "unit_options": [
+        "m/s",
+        "km/h"
+      ],
+      "unit_category": "speed"
+    }
+  ],
+  "formula": "var t=parseFloat(inputs.temp)||0;var rh=parseFloat(inputs.rh)||0;var w=parseFloat(inputs.wind)||0;var et=0.0023*(t+17.8)*Math.pow(rh,0.5)*w;return{et:et.toFixed(2)};",
+  "outputs": [
+    {
+      "id": "et",
+      "unit": "mm/d"
+    }
+  ],
+  "related": [
+    "1020",
+    "1028",
+    "1021",
+    "1022"
+  ],
+  "example_inputs": {
+    "temp": 25,
+    "rh": 50,
+    "wind": 2
+  },
+  "example_label": "Ejemplo para evapotranspiracion: valores 25°C, 50%, 2m/s",
+  "range_hints": {
+    "temp": "Valor típico entre 0 y 500. Valor por defecto: 25 °C.",
+    "rh": "Valor típico entre 0 y 500. Valor por defecto: 50 %.",
+    "wind": "Valor típico entre 0 y 500. Valor por defecto: 2 m/s."
+  },
+  "result_context": "La evapotranspiración es de {et} mm/día.",
+  "result_context_en": "The evapotranspiration is {et} mm/day.",
+  "result_context_fr": "L'évapotranspiration est de {et} mm/jour.",
+  "result_context_pt": "A evapotranspiração é de {et} mm/dia.",
+  "result_context_de": "Die Evapotranspiration beträgt {et} mm/Tag.",
+  "result_context_it": "L'evapotraspirazione è di {et} mm/giorno.",
+  "formula_display": "Et (mm/d) = f(temp, rh, wind)",
+  "steps": [
+    "Introducir los valores de temp, rh y wind",
+    "Verificar que las unidades sean correctas y convertir si es necesario (°C, °F)",
+    "Realizar el cálculo para obtener et",
+    "El resultado se expresa en mm/d. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Introducir valores con unidades incorrectas sin verificar la conversión",
+    "Redondear resultados intermedios en lugar del resultado final",
+    "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "temp",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "rh",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "wind",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Light",
+      "temp": 12,
+      "rh": 25,
+      "wind": 2
+    },
+    {
+      "_label": "Moderate",
+      "temp": 19,
+      "rh": 38,
+      "wind": 2
+    },
+    {
+      "_label": "Strong",
+      "temp": 25,
+      "rh": 50,
+      "wind": 2
+    },
+    {
+      "_label": "Severe",
+      "temp": 38,
+      "rh": 75,
+      "wind": 2
+    },
+    {
+      "_label": "Extreme",
+      "temp": 50,
+      "rh": 100,
+      "wind": 2
+    }
+  ],
+  "units": {
+    "temp": "°C",
+    "wind": "m/s"
+  },
+  "i18n": {
+    "es": {
+      "name": "Evapotranspiración",
+      "description": "Estima la evapotranspiración de referencia.",
+      "inputs": {
+        "temp": "Temperatura",
+        "rh": "Humedad",
+        "wind": "Viento"
+      },
+      "outputs": {
+        "et": "ET₀"
+      },
+      "seo_title": "Evapotranspiración – Calculadora de Agua para Riego Gratuita",
+      "seo_description": "Calcula la evapotranspiración de referencia (ETo) para planificar el riego. Método Hargreaves simplificado. Gratis e instantáneo para ingenieros agrícolas.",
+      "example_label": "Ejemplo de cálculo",
+      "range_hints": {},
+      "result_context": "Pérdida de agua por evaporación y transpiración.",
+      "formula_display": "Ver fórmula en el cálculo",
+      "steps": [
+        "Identificar los valores de entrada",
+        "Aplicar la fórmula correspondiente",
+        "Realizar el cálculo",
+        "Obtener los 1 resultados"
+      ],
+      "mistakes": [
+        "No verificar las unidades de entrada",
+        "Redondear resultados intermedios",
+        "No verificar el rango de validez"
+      ],
+      "input_type_review": []
+    },
+    "en": {
+      "name": "Evapotranspiration Calculator",
+      "description": "Estimate reference evapotranspiration.",
+      "inputs": {
+        "temp": "Temperature",
+        "rh": "Humidity",
+        "wind": "Wind"
+      },
+      "outputs": {
+        "et": "ETâ‚€"
+      },
+      "seo_title": "Evapotranspiration Calculator – Irrigation Water Demand",
+      "seo_description": "Calculate reference evapotranspiration (ETo) to plan irrigation needs. Simplified Hargreaves method. Free and instant for agronomists and farmers.",
+      "example_label": "Ejemplo de cálculo",
+      "range_hints": {},
+      "result_context": "Pérdida de agua por evaporación y transpiración.",
+      "formula_display": "Ver fórmula en el cálculo",
+      "steps": [
+        "Identificar los valores de entrada",
+        "Aplicar la fórmula correspondiente",
+        "Realizar el cálculo",
+        "Obtener los 1 resultados"
+      ],
+      "mistakes": [
+        "No verificar las unidades de entrada",
+        "Redondear resultados intermedios",
+        "No verificar el rango de validez"
+      ],
+      "input_type_review": "3 entrada(s) de tipo number"
+    },
+    "fr": {
+      "name": "Évapotranspiration",
+      "description": "Estimez l'évapotranspiration de référence.",
+      "inputs": {
+        "temp": "Température",
+        "rh": "Humidité",
+        "wind": "Vent"
+      },
+      "outputs": {
+        "et": "ET₀"
+      },
+      "seo_title": "Évapotranspiration – Calculateur de Besoins en Irrigation",
+      "seo_description": "Calculez l'évapotranspiration de référence (ETo) pour planifier l'irrigation. Méthode Hargreaves simplifiée. Gratuit et instantané.",
+      "example_label": "Ejemplo de cálculo",
+      "range_hints": {},
+      "result_context": "Pérdida de eau par evaporación et transpiración.",
+      "formula_display": "Ver fórmula dans le cálculo",
+      "steps": [
+        "Identificar les valores de entrada",
+        "Aplicar la fórmula correspondiente",
+        "Realizar le cálculo",
+        "Obtener les 1 resultados"
+      ],
+      "mistakes": [
+        "Ne pas vérifier les unités de entrada",
+        "Redondear resultados intermedios",
+        "Ne pas vérifier le rango de validez"
+      ],
+      "input_type_review": []
+    },
+    "pt": {
+      "name": "Evapotranspiração",
+      "description": "Estime a evapotranspiração de referência.",
+      "inputs": {
+        "temp": "Temperatura",
+        "rh": "Umidade",
+        "wind": "Vento"
+      },
+      "outputs": {
+        "et": "ET₀"
+      },
+      "seo_title": "Evapotranspiração – Calculadora de Necessidades de Rega",
+      "seo_description": "Calcule a evapotranspiração de referência (ETo) para planear a rega. Método Hargreaves simplificado. Grátis e instantâneo.",
+      "example_label": "Ejemplo de cálculo",
+      "range_hints": {},
+      "result_context": "Pérdida de água por evaporación e transpiración.",
+      "formula_display": "Ver fórmula não cálculo",
+      "steps": [
+        "Identificar os valores de entrada",
+        "Aplicar a fórmula correspondiente",
+        "Realizar o cálculo",
+        "Obtener os 1 resultados"
+      ],
+      "mistakes": [
+        "Não verificar as unidades de entrada",
+        "Redondear resultados intermedios",
+        "Não verificar o intervalo de validez"
+      ],
+      "input_type_review": []
+    },
+    "de": {
+      "name": "Evapotranspiracion",
+      "desc": "Berechnen Sie evapotranspiracion online. Geben Sie temp, rh, wind ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Evapotranspiracion | CalcToWork",
+      "seo_desc": "Evapotranspiracion online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Evapotranspiracion online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "temp": "Temp",
+        "rh": "Rh",
+        "wind": "Wind"
+      },
+      "outputs": {
+        "et": "Et"
+      },
+      "example_label": "Ejemplo para evapotranspiracion: valores 25°C, 50%, 2m/s",
+      "range_hints": {
+        "temp": "Valor típico entre 0 y 500. Valor por defecto: 25 °C.",
+        "rh": "Valor típico entre 0 y 500. Valor por defecto: 50 %.",
+        "wind": "Valor típico entre 0 y 500. Valor por defecto: 2 m/s."
+      },
+      "result_context": "Die Evapotranspiration beträgt {et} mm/Tag.",
+      "formula_display": "Et (mm/d) = f(temp, rh, wind)",
+      "steps": [
+        "Introducir los valores de temp, rh y wind",
+        "Verificar que las unidades sean correctas y convertir si es necesario (°C, °F)",
+        "Realizar el cálculo para obtener et",
+        "El resultado se expresa en mm/d. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Introducir valores con unidades incorrectas sin verificar la conversión",
+        "Redondear resultados intermedios en lugar del resultado final",
+        "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "temp",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "rh",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "wind",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Evapotraspirazione",
+      "description": "Stima l'evapotraspirazione di riferimento.",
+      "inputs": {
+        "temp": "Temperatura",
+        "rh": "Umidità",
+        "wind": "Vento"
+      },
+      "outputs": {
+        "et": "ET₀"
+      },
+      "seo_title": "Evapotraspirazione – Calcolatore di Fabbisogno Irriguo",
+      "seo_description": "Calcola l'evapotraspirazione di riferimento (ETo) per pianificare l'irrigazione. Metodo Hargreaves semplificato. Gratuito e immediato.",
+      "example_label": "Ejemplo di cálculo",
+      "range_hints": {},
+      "result_context": "Pérdida di acqua per evaperación e transpiración.",
+      "formula_display": "Ver fórmula in el cálculo",
+      "steps": [
+        "Idintificar i valorei di intrada",
+        "Applicare la fórmula correspondiinte",
+        "Realizar el cálculo",
+        "Obtiner i 1 risultati"
+      ],
+      "mistakes": [
+        "Non verificare le unità di intrada",
+        "Redovear risultati intermedi",
+        "Non verificare el rango di validiz"
+      ],
+      "input_type_review": null
+    }
+  }
+}

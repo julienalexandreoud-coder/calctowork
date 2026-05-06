@@ -1,0 +1,482 @@
+{
+  "id": "037",
+  "slug": "radiador-aluminio",
+  "block": 4,
+  "block_slug": "fontaneria",
+  "inputs": [
+    {
+      "id": "area_m2",
+      "type": "number",
+      "min": 5,
+      "max": 100,
+      "step": 0.5,
+      "default": 15,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "altura_m",
+      "type": "number",
+      "min": 2.2,
+      "max": 5,
+      "step": 0.1,
+      "default": 2.7,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "orientacion",
+      "type": "select",
+      "default": "interior",
+      "options": [
+        "interior",
+        "exterior_norte",
+        "exterior_sur",
+        "sotano"
+      ]
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area_m2)||0,H=parseFloat(inputs.altura_m)||2.7,coef={'interior':0.04,'exterior_norte':0.065,'exterior_sur':0.05,'sotano':0.07};if(!A)return{error:true};var vol=A*H,w_necesarios=+(vol*coef[inputs.orientacion]*1000).toFixed(0),elementos=Math.ceil(w_necesarios/175),radiadores=Math.ceil(elementos/12);return{vol_m3:+vol.toFixed(1),w_necesarios:w_necesarios,elementos_ud:elementos,radiadores_ud:radiadores};",
+  "outputs": [
+    {
+      "id": "vol_m3",
+      "unit": "m³"
+    },
+    {
+      "id": "w_necesarios",
+      "unit": "W"
+    },
+    {
+      "id": "elementos_ud",
+      "unit": "elementos (175W/elem)",
+      "highlight": true
+    },
+    {
+      "id": "radiadores_ud",
+      "unit": "radiadores (12 elem/rad)"
+    }
+  ],
+  "related": [
+    "036",
+    "038",
+    "053",
+    "033"
+  ],
+  "example_inputs": {
+    "area_m2": 15,
+    "altura_m": 2.7,
+    "orientacion": "interior"
+  },
+  "example_label": "Ejemplo para radiador aluminio: valores 15m², 2.7m",
+  "range_hints": {
+    "area_m2": "Valor típico entre 5 y 100. Valor por defecto: 15 m².",
+    "altura_m": "Valor típico entre 2.2 y 5. Valor por defecto: 2.7 m.",
+    "orientacion": "Seleccionar entre las opciones: interior, exterior_norte, exterior_sur, sotano"
+  },
+  "result_context": "Resultados: {vol_m3} m³ de volumen, {w_necesarios} W necesarios, {elementos_ud} elementos, {radiadores_ud} radiadores.",
+  "formula_display": "w_necesarios ÷ 175 → vol_m3, w_necesarios",
+  "steps": [
+    "Introducir los valores de area_m2, altura_m y orientacion",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+    "Calcular los valores de vol m3 y w necesarios",
+    "El resultado se expresa en m³. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "No respetar la pendiente mínima del 2% en tuberías de saneamiento",
+    "Usar tubería de pared delgada para instalaciones enterradas",
+    "No instalar válvulas de corte en puntos clave de la instalación"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "area_m2",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "altura_m",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "orientacion",
+      "current_type": "select",
+      "recommended_type": "select",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small bathroom",
+      "area_m2": 7.5,
+      "altura_m": 2.2
+    },
+    {
+      "_label": "Medium bathroom",
+      "area_m2": 11.25,
+      "altura_m": 2.2
+    },
+    {
+      "_label": "Large bathroom",
+      "area_m2": 15,
+      "altura_m": 2.7
+    },
+    {
+      "_label": "Apartment",
+      "area_m2": 22.5,
+      "altura_m": 4.05
+    },
+    {
+      "_label": "House",
+      "area_m2": 30,
+      "altura_m": 5
+    }
+  ],
+  "units": {
+    "area_m2": "m²",
+    "altura_m": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Radiador de Aluminio",
+      "desc": "Calcula elementos de radiador para calefactar una habitación.",
+      "seo_title": "¿Cuántos Elementos de Radiador Necesito?",
+      "seo_desc": "Calcula el número de elementos de radiador de aluminio necesarios para calefactar una habitación Usado por profesionales y estudiantes en todo el mundo.",
+      "inputs": {
+        "area_m2": "Área habitación",
+        "altura_m": "Altura techo",
+        "orientacion": "Orientación"
+      },
+      "outputs": {
+        "vol_m3": "Volumen",
+        "w_necesarios": "Vatios necesarios",
+        "elementos_ud": "Elementos de radiador",
+        "radiadores_ud": "Radiadores"
+      },
+      "seo_description": "Calcula cuántos elementos y radiadores de aluminio necesitas por habitación. Introduce m², altura de techo y orientación (interior, exterior norte/sur, sótano). Emisión estándar: 175 W/elemento.",
+      "example_label": "Calcular radiador de aluminio para habitación de 20m² con 2.5m de altura y orientación norte.",
+      "range_hints": {
+        "area_m2": "Superficie de la habitación",
+        "altura_m": "Altura del techo"
+      },
+      "result_context": "Habitación de {area_m2}m² con orientación {orientacion} requiere radiador de {potencia_w} W ({elementos_ud} elementos de aluminio). Volumen: {volumen_m3} m³.",
+      "formula_display": "Volumen = área × altura; Potencia = volumen × factor_orientación (35-50 W/m³)",
+      "steps": [
+        "Calcular volumen: 20m² × 2.5m = 50m³",
+        "Factor orientación norte: 50 W/m³ (más potencia por menor sol)",
+        "Calcular potencia: 50m³ × 50 W/m³ = 2500 W",
+        "Elementos de aluminio: 2500W ÷ 180W/elemento = 13.89 → 14 elementos"
+      ],
+      "mistakes": [
+        "No considerar orientación (norte requiere 15-20% más potencia)",
+        "No prever válvulas termostáticas para control individual",
+        "Ubicar radiador en lugar incorrecto (debe ir bajo ventana)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "altura_m",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "orientacion",
+          "reason": "Correcto: opción discreta"
+        }
+      ]
+    },
+    "en": {
+      "name": "Aluminium Radiator Calculator",
+      "desc": "Aluminium Radiator Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "How Many Radiator Elements Do I Need?",
+      "seo_desc": "Aluminium Radiator Calculator. Room area, Ceiling height, Orientation — get Volume, Watts needed, Radiator elements instantly for your plumbing and water.",
+      "inputs": {
+        "area_m2": "Room area",
+        "altura_m": "Ceiling height",
+        "orientacion": "Orientation"
+      },
+      "outputs": {
+        "vol_m3": "Volume",
+        "w_necesarios": "Watts needed",
+        "elementos_ud": "Radiator elements",
+        "radiadores_ud": "Radiators"
+      },
+      "seo_description": "Calculate how many aluminium radiator elements and panels you need per room. Enter m², ceiling height and orientation (interior, north/south exterior, basement). Standard output: 175W/element.",
+      "example_label": "Calcular radiador de aluminio para habitación de 20m² con 2.5m de altura y orientación norte.",
+      "range_hints": {
+        "area_m2": "Superficie de la habitación",
+        "altura_m": "Altura del techo"
+      },
+      "result_context": "Habitación de {area_m2}m² con orientación {orientacion} requiere radiador de {potencia_w} W ({elementos_ud} elementos de aluminio). Volumen: {volumen_m3} m³.",
+      "formula_display": "Volumen = área × altura; Potencia = volumen × factor_orientación (35-50 W/m³)",
+      "steps": [
+        "Calcular volumen: 20m² × 2.5m = 50m³",
+        "Factor orientación norte: 50 W/m³ (más potencia por menor sol)",
+        "Calcular potencia: 50m³ × 50 W/m³ = 2500 W",
+        "Elementos de aluminio: 2500W ÷ 180W/elemento = 13.89 â†’ 14 elementos"
+      ],
+      "mistakes": [
+        "No considerar orientación (norte requiere 15-20% más potencia)",
+        "No prever válvulas termostáticas para control individual",
+        "Ubicar radiador en lugar incorrecto (debe ir bajo ventana)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "orientacion",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: opción discreta"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Radiateur Aluminium",
+      "desc": "Calculez les éléments de radiateur pour une pièce.",
+      "seo_title": "Combien d'Éléments de Radiateur?",
+      "inputs": {
+        "area_m2": "Surface pièce",
+        "altura_m": "Hauteur plafond",
+        "orientacion": "Orientation"
+      },
+      "outputs": {
+        "vol_m3": "Volume",
+        "w_necesarios": "Watts nécessaires",
+        "elementos_ud": "Éléments radiateur",
+        "radiadores_ud": "Radiateurs"
+      },
+      "seo_description": "Calculez le nombre d'éléments de radiateur aluminium pour chauffer une pièce Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calculer radiador de aluminio pour habitación de 20m² avec 2.5m de hauteur et orientación norte.",
+      "range_hints": {
+        "area_m2": "surface de la habitación",
+        "altura_m": "hauteur du toit"
+      },
+      "result_context": "Habitación de {area_m2}m² avec orientación {orientacion} nécessite radiador de {potencia_w} W ({elementos_ud} elementos de aluminio). volume: {volumen_m3} m³.",
+      "formula_display": "volume = área × hauteur; Potencia = volume × factor_orientación (35-50 W/m³)",
+      "steps": [
+        "Calculer le volume: 20m² × 2.5m = 50m³",
+        "Factor orientación norte: 50 W/m³ (plus potencia par menor sol)",
+        "Calculer potencia: 50m³ × 50 W/m³ = 2500 W",
+        "Elementos de aluminio: 2500W Á· 180W/elemento = 13.89 ââ€ ’ 14 elementos"
+      ],
+      "mistakes": [
+        "Ne pas considérer orientación (norte nécessite 15-20% plus potencia)",
+        "No prever válvulas termostáticas pour control individuel",
+        "Ubicar radiador dans lugar incorrecto (debe ir sous fenêtre)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "orientacion",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correct : opción discreta"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Radiadores",
+      "desc": "Calcule os elementos de radiador para aquecimento.",
+      "seo_title": "Quantos Elementos de Radiador? Online",
+      "inputs": {
+        "area_m2": "Área do ambiente",
+        "altura_m": "Altura do teto",
+        "orientacion": "Orientação"
+      },
+      "outputs": {
+        "vol_m3": "Volume",
+        "w_necesarios": "Watts necessários",
+        "elementos_ud": "Elementos de radiador",
+        "radiadores_ud": "Radiadores"
+      },
+      "seo_description": "Calcule o número de elementos de radiador de alumínio para aquecer um ambiente Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular radiador de alumínio para habitación de 20m² com 2.5m de altura e orientación norte.",
+      "range_hints": {
+        "area_m2": "Superficie da habitación",
+        "altura_m": "Altura do telhado"
+      },
+      "result_context": "Habitación de {area_m2}m² com orientación {orientacion} requer radiador de {potencia_w} W ({elementos_ud} elementos de alumínio). Volumen: {volumen_m3} m³.",
+      "formula_display": "Volumen = área × altura; Potencia = volume × factor_orientación (35-50 W/m³)",
+      "steps": [
+        "Calcular volume: 20m² × 2.5m = 50m³",
+        "Factor orientación norte: 50 W/m³ (mais potencia por menor sol)",
+        "Calcular potencia: 50m³ × 50 W/m³ = 2500 W",
+        "Elementos de alumínio: 2500W ÷ 180W/elemento = 13.89 â†’ 14 elementos"
+      ],
+      "mistakes": [
+        "Não considerar orientación (norte requer 15-20% mais potencia)",
+        "Não prever válvulas termostáticas para controle individual",
+        "Ubicar radiador em lugar incorrecto (deve ir sob janela)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "orientacion",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correto: opção discreta"
+        }
+      ]
+    },
+    "de": {
+      "name": "Heizkörper Aluminium",
+      "desc": "Berechnen Sie heizkörper Aluminium online. Geben Sie area m2, altura m, orientacion ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Heizkörper Aluminium | CalcToWork",
+      "seo_desc": "Heizkörper Aluminium online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Heizkörper Aluminium online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "area_m2": "Area M2",
+        "altura_m": "Altura M",
+        "orientacion": "Orientacion"
+      },
+      "outputs": {
+        "vol_m3": "Vol M3",
+        "w_necesarios": "W Necesarios",
+        "elementos_ud": "Elementos Ud",
+        "radiadores_ud": "Radiadores Ud"
+      },
+      "example_label": "Ejemplo para radiador aluminio: valores 15m², 2.7m",
+      "range_hints": {
+        "area_m2": "Valor típico entre 5 y 100. Valor por defecto: 15 m².",
+        "altura_m": "Valor típico entre 2.2 y 5. Valor por defecto: 2.7 m.",
+        "orientacion": "Seleccionar entre las opciones: interior, exterior_norte, exterior_sur, sotano"
+      },
+      "result_context": "Resultados: {vol_m3} m³ de volumen, {w_necesarios} W necesarios, {elementos_ud} elementos, {radiadores_ud} radiadores.",
+      "formula_display": "w_necesarios ÷ 175 → vol_m3, w_necesarios",
+      "steps": [
+        "Introducir los valores de area_m2, altura_m y orientacion",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+        "Calcular los valores de vol m3 y w necesarios",
+        "El resultado se expresa en m³. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "No respetar la pendiente mínima del 2% en tuberías de saneamiento",
+        "Usar tubería de pared delgada para instalaciones enterradas",
+        "No instalar válvulas de corte en puntos clave de la instalación"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "orientacion",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Perdite Condotta",
+      "description": "Calcola le perdite di carico distribuite in condotte.",
+      "seo_title": "Quanti Elementi Radiatore? Online",
+      "seo_description": "Calcola le perdite di pressione in condotte idriche Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo rapido,.",
+      "inputs": {
+        "caudal": "Portata (L/s)",
+        "diametro": "Diametro (mm)",
+        "longitud": "Lunghezza (m)",
+        "c_hw": "Coefficiente Hazen-Williams"
+      },
+      "outputs": {
+        "perdida_m": "Perdita di carico (m)",
+        "velocidad": "Velocità (m/s)"
+      },
+      "example_label": "Calcolare radiador di alluminio per habitación di 20m² con 2.5m di altezza e oriintación nonrte.",
+      "range_hints": {
+        "area_m2": "Superficie dilla habitación",
+        "altura_m": "Altura dil soffitto"
+      },
+      "result_context": "Habitación di {area_m2}m² con oriintación {oriintacion} richiedi radiador di {potincia_w} W ({eleminti_ud} eleminti di alluminio). Volumin: {volume_m3} m³.",
+      "formula_display": "Volumin = área × altezza; Potincia = volume × factor_oriintación (35-50 W/m³)",
+      "steps": [
+        "Calcolare volume: 20m² × 2.5m = 50m³",
+        "Factor oriintación nonrte: 50 W/m³ (más potincia per minonre sol)",
+        "Calcolare potincia: 50m³ × 50 W/m³ = 2500 W",
+        "Elemintos di alluminio: 2500W ÷ 180W/eleminto = 13.89 → 14 eleminti"
+      ],
+      "mistakes": [
+        "Non consedirare oriintación (nonrte richiedi 15-20% más potincia)",
+        "No prever válvule termostáticas per control individual",
+        "Ubicar radiador in lugar incorrecto (dibe ir basso finestra)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "orientacion",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Corretto: opción discreta"
+        }
+      ]
+    }
+  }
+}

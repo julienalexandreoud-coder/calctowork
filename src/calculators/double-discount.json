@@ -1,0 +1,477 @@
+{
+  "id": "945",
+  "slug": "double-discount",
+  "block": 14,
+  "block_slug": "cotidiano",
+  "inputs": [
+    {
+      "id": "precio_original",
+      "type": "number",
+      "min": 0,
+      "max": 99999,
+      "step": 0.01,
+      "default": 100,
+      "unit": "EUR"
+    },
+    {
+      "id": "descuento1",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "step": 0.1,
+      "default": 20,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    },
+    {
+      "id": "descuento2",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "step": 0.1,
+      "default": 10,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    }
+  ],
+  "formula": "var original=parseFloat(inputs.precio_original)||0,d1=parseFloat(inputs.descuento1)||0,d2=parseFloat(inputs.descuento2)||0;if(!original)return{error:true};var p1=original*(1-d1/100);var final=p1*(1-d2/100);var ahorro=original-final;return{final_price:+(final).toFixed(2),total_savings:+(ahorro).toFixed(2),savings_pct:+(ahorro/original*100).toFixed(1)};",
+  "outputs": [
+    {
+      "id": "final_price",
+      "unit": "EUR",
+      "highlight": true
+    },
+    {
+      "id": "total_savings",
+      "unit": "EUR",
+      "highlight": false
+    },
+    {
+      "id": "savings_pct",
+      "unit": "%",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "320",
+    "936",
+    "934",
+    "500"
+  ],
+  "example_inputs": {
+    "descuento2": 10,
+    "precio_original": 100,
+    "descuento1": 20
+  },
+  "example_label": "Ejemplo para double discount: valores 100EUR, 20%, 10%",
+  "range_hints": {
+    "precio_original": "Valor monetario",
+    "descuento1": "Porcentaje según especificación",
+    "descuento2": "Porcentaje según especificación"
+  },
+  "result_context": "Tras el descuento doble, el precio final es {final_price} €, con un ahorro de {total_savings} € ({savings_pct}% del precio original).",
+  "result_context_en": "After the double discount, the final price is {final_price} €, with a saving of {total_savings} € ({savings_pct}% of the original price).",
+  "result_context_fr": "Après la double remise, le prix final est de {final_price} €, avec une économie de {total_savings} € ({savings_pct} % du prix initial).",
+  "result_context_pt": "Após o desconto duplo, o preço final é {final_price} €, com uma economia de {total_savings} € ({savings_pct}% do preço original).",
+  "result_context_de": "Nach dem Doppelrabatt beträgt der Endpreis {final_price} €, mit einer Ersparnis von {total_savings} € ({savings_pct} % des ursprünglichen Preises).",
+  "result_context_it": "Dopo il doppio sconto, il prezzo finale è {final_price} €, con un risparmio di {total_savings} € ({savings_pct}% del prezzo originale).",
+  "formula_display": "d1 ÷ 100 → final_price, total_savings",
+  "steps": [
+    "Introducir los valores de precio_original, descuento1 y descuento2",
+    "Verificar que las unidades sean correctas y convertir si es necesario (%)",
+    "Calcular los valores de final price y total savings",
+    "El resultado se expresa en EUR. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "No considerar si la propina se calcula antes o después de impuestos",
+    "Olvidar que los meses tienen diferente número de días",
+    "Usar el formato de fecha incorrecto (MM/DD vs DD/MM) al introducir datos"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "precio_original",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "descuento1",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "descuento2",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Escenario minimo",
+      "precio_original": 40.0,
+      "descuento1": 8.0,
+      "descuento2": 4.0
+    },
+    {
+      "_label": "Uso habitual",
+      "precio_original": 70.0,
+      "descuento1": 14.0,
+      "descuento2": 7.0
+    },
+    {
+      "_label": "Uso frecuente",
+      "precio_original": 100.0,
+      "descuento1": 20.0,
+      "descuento2": 10.0
+    },
+    {
+      "_label": "Uso intensivo",
+      "precio_original": 150.0,
+      "descuento1": 30.0,
+      "descuento2": 15.0
+    },
+    {
+      "_label": "Caso maximo",
+      "precio_original": 250.0,
+      "descuento1": 50.0,
+      "descuento2": 25.0
+    }
+  ],
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Doble Descuento",
+      "desc": "Calcula el precio final despues de dos descuentos consecutivos. Ve el ahorro real. Con explicacion de estadisticas. Usado por profesionales y.",
+      "description": "Calculadora de Doble Descuento.",
+      "seo_title": "Calculadora de Doble Descuento Gratuita",
+      "seo_description": "Calcula el precio final despues de dos descuentos consecutivos. Ve el ahorro real. Con explicacion de estadisticas. Usado por profesionales y.",
+      "inputs": {
+        "precio_original": "precio_original",
+        "descuento1": "Primer descuento %",
+        "descuento2": "Segundo descuento %"
+      },
+      "outputs": {
+        "final_price": "Precio final",
+        "total_savings": "Ahorro total",
+        "savings_pct": "Ahorro %"
+      },
+      "example_label": "Calculate double discount with precio_original 100, descuento1 20, descuento2 10.",
+      "range_hints": {
+        "descuento2": "Typical range: 0-100 in % units.",
+        "precio_original": "Typical range: 0-99999 in EUR units.",
+        "descuento1": "Typical range: 0-100 in % units."
+      },
+      "result_context": "Your calculated final price is {final_price}.",
+      "formula_display": "Calculate double discount based on input values.",
+      "steps": [
+        "Enter input values: precio_original: 100, descuento1: 20, descuento2: 10",
+        "Calculate and display the final_price result",
+        "Calculate and display the total_savings result",
+        "Calculate and display the savings_pct result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_original",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "descuento1",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "descuento2",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "en": {
+      "name": "Double Discount Calculator",
+      "desc": "Double Discount Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Double Discount Calculator.",
+      "seo_title": "Double Discount Calculator – Easy Calculator",
+      "seo_description": "Calculate the final price after two consecutive discounts. See the true savings percentage vs. combined rate. Enter your values and get precise results.",
+      "inputs": {
+        "precio_original": "precio_original",
+        "descuento1": "First discount %",
+        "descuento2": "Second discount %"
+      },
+      "outputs": {
+        "final_price": "Final price",
+        "total_savings": "Total savings",
+        "savings_pct": "Savings %"
+      },
+      "example_label": "Calculate double discount with precio_original 100, descuento1 20, descuento2 10.",
+      "range_hints": {
+        "descuento2": "Typical range: 0-100 in % units.",
+        "precio_original": "Typical range: 0-99999 in EUR units.",
+        "descuento1": "Typical range: 0-100 in % units."
+      },
+      "result_context": "Your calculated final price is {final_price}.",
+      "formula_display": "Calculate double discount based on input values.",
+      "steps": [
+        "Enter input values: precio_original: 100, descuento1: 20, descuento2: 10",
+        "Calculate and display the final_price result",
+        "Calculate and display the total_savings result",
+        "Calculate and display the savings_pct result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_original",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "descuento1",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "descuento2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculatrice de Double Remise",
+      "desc": "Calculez le prix final apres deux remises consecutives. Avec explication des statistiques. Utilise par des professionnels et etudiants dans le monde.",
+      "description": "Calculatrice de Double Remise.",
+      "seo_title": "Calculatrice de Double Remise en Ligne",
+      "seo_description": "Calculez le prix final apres deux remises consecutives. Avec explication des statistiques. Utilise par des professionnels et etudiants dans le monde.",
+      "inputs": {
+        "precio_original": "precio_original",
+        "descuento1": "Première remise %",
+        "descuento2": "Deuxième remise %"
+      },
+      "outputs": {
+        "final_price": "Final price",
+        "total_savings": "Total savings",
+        "savings_pct": "Savings %"
+      },
+      "example_label": "Calculate double discount with precio_original 100, descuento1 20, descuento2 10.",
+      "range_hints": {
+        "descuento2": "Typical range: 0-100 in % units.",
+        "precio_original": "Typical range: 0-99999 in EUR units.",
+        "descuento1": "Typical range: 0-100 in % units."
+      },
+      "result_context": "Your calculated final price is {final_price}.",
+      "formula_display": "Calculate double discount based on input values.",
+      "steps": [
+        "Enter input values: precio_original: 100, descuento1: 20, descuento2: 10",
+        "Calculate and display the final_price result",
+        "Calculate and display the total_savings result",
+        "Calculate and display the savings_pct result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_original",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "descuento1",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "descuento2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Desconto Duplo",
+      "desc": "Calcule o preco final apos dois descontos consecutivos. Com explicacao de estatisticas. Usado por profissionais e estudantes em todo o mundo.",
+      "description": "Calculadora de Desconto Duplo.",
+      "seo_title": "Calculadora de Desconto Duplo – Fácil e Grátis",
+      "seo_description": "Calcule o preco final apos dois descontos consecutivos. Com explicacao de estatisticas. Usado por profissionais e estudantes em todo o mundo.",
+      "inputs": {
+        "precio_original": "precio_original",
+        "descuento1": "Primeiro desconto %",
+        "descuento2": "Segundo desconto %"
+      },
+      "outputs": {
+        "final_price": "Final price",
+        "total_savings": "Total savings",
+        "savings_pct": "Savings %"
+      },
+      "example_label": "Calculate double discount with precio_original 100, descuento1 20, descuento2 10.",
+      "range_hints": {
+        "descuento2": "Typical range: 0-100 in % units.",
+        "precio_original": "Typical range: 0-99999 in EUR units.",
+        "descuento1": "Typical range: 0-100 in % units."
+      },
+      "result_context": "Your calculated final price is {final_price}.",
+      "formula_display": "Calculate double discount based on input values.",
+      "steps": [
+        "Enter input values: precio_original: 100, descuento1: 20, descuento2: 10",
+        "Calculate and display the final_price result",
+        "Calculate and display the total_savings result",
+        "Calculate and display the savings_pct result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_original",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "descuento1",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "descuento2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "de": {
+      "name": "Double discount",
+      "desc": "Berechnen Sie double discount online. Geben Sie precio original, descuento1, descuento2 ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Double discount | CalcToWork",
+      "seo_desc": "Double discount online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Double discount online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "precio_original": "Precio Original",
+        "descuento1": "Descuento1",
+        "descuento2": "Descuento2"
+      },
+      "outputs": {
+        "final_price": "Final Price",
+        "total_savings": "Total Savings",
+        "savings_pct": "Savings Pct"
+      },
+      "example_label": "Ejemplo para double discount: valores 100EUR, 20%, 10%",
+      "range_hints": {
+        "precio_original": "Valor monetario",
+        "descuento1": "Porcentaje según especificación",
+        "descuento2": "Porcentaje según especificación"
+      },
+      "result_context": "Nach dem Doppelrabatt beträgt der Endpreis {final_price} €, mit einer Ersparnis von {total_savings} € ({savings_pct} % des ursprünglichen Preises).",
+      "formula_display": "d1 ÷ 100 → final_price, total_savings",
+      "steps": [
+        "Introducir los valores de precio_original, descuento1 y descuento2",
+        "Verificar que las unidades sean correctas y convertir si es necesario (%)",
+        "Calcular los valores de final price y total savings",
+        "El resultado se expresa en EUR. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "No considerar si la propina se calcula antes o después de impuestos",
+        "Olvidar que los meses tienen diferente número de días",
+        "Usar el formato de fecha incorrecto (MM/DD vs DD/MM) al introducir datos"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_original",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "descuento1",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "descuento2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatrice di Doppio Sconto",
+      "desc": "Calcola il prezzo finale dopo due sconti consecutivi. Con spiegazione delle statistiche. Usato da professionisti e studenti in tutto il mondo.",
+      "description": "Calcolatrice di Doppio Sconto.",
+      "seo_title": "Calcolatrice di Doppio Sconto – Calcolo Facile",
+      "seo_description": "Calcola il prezzo finale dopo due sconti consecutivi. Con spiegazione delle statistiche. Usato da professionisti e studenti in tutto il mondo.",
+      "inputs": {
+        "precio_original": "precio_original",
+        "descuento1": "Primo sconto %",
+        "descuento2": "Secondo sconto %"
+      },
+      "outputs": {
+        "final_price": "Final price",
+        "total_savings": "Total savings",
+        "savings_pct": "Savings %"
+      },
+      "example_label": "Calculate double discount with prezzo_original 100, discuinto1 20, discuinto2 10.",
+      "range_hints": {
+        "descuento2": "Tepical range: 0-100 in % units.",
+        "precio_original": "Tepical range: 0-99999 in EUR units.",
+        "descuento1": "Tepical range: 0-100 in % units."
+      },
+      "result_context": "Your calculated finel price is {finel_price}.",
+      "formula_display": "Calculate double discount based on input values.",
+      "steps": [
+        "Enter input values: prezzo_original: 100, discuinto1: 20, discuinto2: 10",
+        "Calculate and displae the finel_price result",
+        "Calculate and displae the totale_savings result",
+        "Calculate and displae the savings_pct result"
+      ],
+      "mistakes": [
+        "Confusenzag unit options whin intering values",
+        "Usenzag incorrect input values outsedi recommindid range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_original",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "descuento1",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "descuento2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        }
+      ]
+    }
+  }
+}

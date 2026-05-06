@@ -1,0 +1,464 @@
+{
+  "id": "092",
+  "slug": "licencias-municipales",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "presupuesto_obra_eur",
+      "type": "number",
+      "min": 1000,
+      "max": 5000000,
+      "step": 1000,
+      "default": 50000,
+      "unit": "â‚¬"
+    },
+    {
+      "id": "tipo_licencia",
+      "type": "select",
+      "default": "obra_menor",
+      "options": [
+        "comunicacion",
+        "obra_menor",
+        "obra_mayor",
+        "actividad"
+      ]
+    },
+    {
+      "id": "tasa_municipal_pct",
+      "type": "number",
+      "min": 0.5,
+      "max": 5,
+      "step": 0.1,
+      "default": 2,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    }
+  ],
+  "formula": "var P=parseFloat(inputs.presupuesto_obra_eur)||0,tp=parseFloat(inputs.tasa_municipal_pct)||2,base={'comunicacion':0,'obra_menor':150,'obra_mayor':300,'actividad':500};if(!P)return{error:true};var tasa=+(P*tp/100).toFixed(2),icio=+(P*0.04).toFixed(2),min=base[inputs.tipo_licencia],total=+(Math.max(tasa,min)+icio).toFixed(2);return{tasa_licencia_eur:+(Math.max(tasa,min)).toFixed(2),icio_eur:icio,total_estimado_eur:total};",
+  "outputs": [
+    {
+      "id": "tasa_licencia_eur",
+      "unit": "â‚¬ tasa licencia"
+    },
+    {
+      "id": "icio_eur",
+      "unit": "â‚¬ ICIO (4%)"
+    },
+    {
+      "id": "total_estimado_eur",
+      "unit": "â‚¬ total estimado",
+      "highlight": true
+    }
+  ],
+  "related": [
+    "078",
+    "093",
+    "087",
+    "079"
+  ],
+  "example_inputs": {
+    "presupuesto_obra_eur": 50000,
+    "tipo_licencia": "obra_menor",
+    "tasa_municipal_pct": 2
+  },
+  "example_label": "Calcular licencias para obra de 50000 € de PEM como obra menor con tasa municipal del 2%.",
+  "range_hints": {
+    "presupuesto_obra_eur": "Presupuesto de Ejecución Material (PEM) de la obra, sin gastos generales ni IVA (€)",
+    "tipo_licencia": "Tipo de licencia: comunicación previa (sin coste), obra menor, obra mayor, o licencia de actividad",
+    "tasa_municipal_pct": "Tipo impositivo municipal sobre el PEM. Consulta la ordenanza fiscal de tu ayuntamiento (%)"
+  },
+  "result_context": "Resultados: tasa de licencia de {tasa_licencia_eur} €, ICIO del 4 % de {icio_eur} €, total estimado de {total_estimado_eur} €.",
+  "formula_display": "Total = tasa_licencia + ICIO. Tasa = máx(PEM × tipo_impositivo, tasa_mínima_municipal)",
+  "steps": [
+    "Determina el presupuesto de ejecución material (PEM) de la obra, base para el cálculo de tasas",
+    "Selecciona el tipo de licencia: comunicación previa (obras menores), obra menor, obra mayor, o licencia de actividad",
+    "Aplica el tipo impositivo municipal sobre el PEM (entre 0.5% y 5% según el municipio y el tipo de obra)",
+    "Suma el ICIO (Impuesto sobre Construcciones, Instalaciones y Obras): 4% del PEM como tasa estatal estándar",
+    "Verifica la tasa mínima municipal: cada ayuntamiento establece un mínimo (150-500 € según tipo de licencia)",
+    "Añade tasas adicionales: ocupación de vía pública, contenedores, grúas, vados temporales"
+  ],
+  "mistakes": [
+    "No solicitar licencia municipal: todas las obras que requieren proyecto técnico necesitan licencia (Ley del Suelo)",
+    "Confundir comunicación previa (obras menores sin proyecto) con licencia de obra mayor (requiere proyecto visado)",
+    "No consultar las ordenanzas fiscales del municipio: cada ayuntamiento tiene tipos impositivos y tasas diferentes",
+    "Olvidar el ICIO: es un impuesto obligatorio que se liquida al solicitar la licencia de obras",
+    "Presupuestar solo la tasa sin contar los honorarios de visado de proyecto ni la dirección facultativa"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "presupuesto_obra_eur",
+      "reason": "Tipo correcto: numérico para el Presupuesto de Ejecución Material en €."
+    },
+    {
+      "field_id": "tipo_licencia",
+      "reason": "Tipo correcto: selector discreto para el tipo de licencia municipal requerida."
+    },
+    {
+      "field_id": "tasa_municipal_pct",
+      "reason": "Tipo correcto: numérico porcentual para el tipo impositivo de la ordenanza municipal."
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Obra menor (reforma interior)",
+      "presupuesto_obra_eur": 15000,
+      "tasa_municipal_pct": 2
+    },
+    {
+      "_label": "Obra mayor (vivienda unifamiliar)",
+      "presupuesto_obra_eur": 150000,
+      "tasa_municipal_pct": 3
+    },
+    {
+      "_label": "Obra mayor (edificio viviendas)",
+      "presupuesto_obra_eur": 500000,
+      "tasa_municipal_pct": 3.5
+    },
+    {
+      "_label": "Nave industrial",
+      "presupuesto_obra_eur": 300000,
+      "tasa_municipal_pct": 4
+    },
+    {
+      "_label": "Actividad (local comercial)",
+      "presupuesto_obra_eur": 80000,
+      "tasa_municipal_pct": 2.5
+    }
+  ],
+  "units": {
+    "tasa_municipal_pct": "%"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Licencias Municipales",
+      "desc": "Estima las tasas de licencias de obras municipales.",
+      "seo_title": "Calculadora Licencias Municipales Obra – Tasas e ICIO",
+      "seo_desc": "Calcula las tasas de licencia de obras y el ICIO (4%). Introduce el PEM, tipo de licencia y tasa municipal. Resultados al instante sin registro.",
+      "inputs": {
+        "presupuesto_obra_eur": "Presupuesto de obra (€)",
+        "tipo_licencia": "Tipo de licencia",
+        "tasa_municipal_pct": "Tasa municipal (%)"
+      },
+      "outputs": {
+        "tasa_licencia_eur": "Tasa licencia",
+        "icio_eur": "ICIO (4%)",
+        "total_estimado_eur": "Total estimado"
+      },
+      "seo_description": "Calcula el coste total de licencias municipales para tu proyecto de construcción. Incluye la tasa de licencia (según ordenanza municipal) y el ICIO (Impuesto sobre Construcciones, Instalaciones y Obras).",
+      "example_label": "Calcular licencias para obra de 50000 € de PEM como obra menor con tasa municipal del 2%.",
+      "range_hints": {
+        "presupuesto_obra_eur": "Valor entre 1000 y 5000000 €.",
+        "tasa_municipal_pct": "Valor entre 0.5 y 5 %.",
+        "tipo_licencia": "Tipo de licencia: comunicación previa (sin coste), obra menor, obra mayor, o licencia de actividad"
+      },
+      "result_context": "Resultados: tasa de licencia de {tasa_licencia_eur} €, ICIO del 4 % de {icio_eur} €, total estimado de {total_estimado_eur} €.",
+      "formula_display": "Total = tasa_licencia + ICIO. Tasa = máx(PEM × tipo_impositivo, tasa_mínima_municipal)",
+      "steps": [
+        "Determina el presupuesto de ejecución material (PEM) de la obra, base para el cálculo de tasas",
+        "Selecciona el tipo de licencia: comunicación previa (obras menores), obra menor, obra mayor, o licencia de actividad",
+        "Aplica el tipo impositivo municipal sobre el PEM (entre 0.5% y 5% según el municipio y el tipo de obra)",
+        "Suma el ICIO (Impuesto sobre Construcciones, Instalaciones y Obras): 4% del PEM como tasa estatal estándar",
+        "Verifica la tasa mínima municipal: cada ayuntamiento establece un mínimo (150-500 € según tipo de licencia)",
+        "Añade tasas adicionales: ocupación de vía pública, contenedores, grúas, vados temporales"
+      ],
+      "mistakes": [
+        "No solicitar licencia municipal: todas las obras que requieren proyecto técnico necesitan licencia (Ley del Suelo)",
+        "Confundir comunicación previa (obras menores sin proyecto) con licencia de obra mayor (requiere proyecto visado)",
+        "No consultar las ordenanzas fiscales del municipio: cada ayuntamiento tiene tipos impositivos y tasas diferentes",
+        "Olvidar el ICIO: es un impuesto obligatorio que se liquida al solicitar la licencia de obras",
+        "Presupuestar solo la tasa sin contar los honorarios de visado de proyecto ni la dirección facultativa"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "presupuesto_obra_eur",
+          "reason": "Tipo correcto: numérico para el Presupuesto de Ejecución Material en €."
+        },
+        {
+          "field_id": "tipo_licencia",
+          "reason": "Tipo correcto: selector discreto para el tipo de licencia municipal requerida."
+        },
+        {
+          "field_id": "tasa_municipal_pct",
+          "reason": "Tipo correcto: numérico porcentual para el tipo impositivo de la ordenanza municipal."
+        }
+      ]
+    },
+    "en": {
+      "name": "Building Permits and Fees Calculator",
+      "desc": "Building Permits and Fees Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Building Permits Calculator – Municipal Fees & ICIO Tax",
+      "seo_desc": "Calculate building permit fees and ICIO tax (4%). Enter material execution budget, permit type, and municipal rate. Instant results, no registration.",
+      "inputs": {
+        "presupuesto_obra_eur": "Project budget (â‚¬)",
+        "tipo_licencia": "Permit type",
+        "tasa_municipal_pct": "Municipal rate (%)"
+      },
+      "outputs": {
+        "tasa_licencia_eur": "Permit fee",
+        "icio_eur": "Construction tax (4%)",
+        "total_estimado_eur": "Estimated total"
+      },
+      "seo_description": "Calculate total municipal permit costs for your construction project. Includes license fee (according to municipal ordinance) and ICIO (Tax on Construction, Installations and Works).",
+      "example_label": "Calcular licencias para obra de 50000 € de PEM como obra menor con tasa municipal del 2%.",
+      "range_hints": {
+        "presupuesto_obra_eur": "Valor entre 1000 y 5000000 â‚¬.",
+        "tasa_municipal_pct": "Valor entre 0.5 y 5 %.",
+        "tipo_licencia": "Tipo de licencia: comunicación previa (sin coste), obra menor, obra mayor, o licencia de actividad"
+      },
+      "result_context": "Resultados: tasa de licencia de {tasa_licencia_eur} €, ICIO del 4 % de {icio_eur} €, total estimado de {total_estimado_eur} €.",
+      "formula_display": "Total = tasa_licencia + ICIO. Tasa = máx(PEM × tipo_impositivo, tasa_mínima_municipal)",
+      "steps": [
+        "Determina el presupuesto de ejecución material (PEM) de la obra, base para el cálculo de tasas",
+        "Selecciona el tipo de licencia: comunicación previa (obras menores), obra menor, obra mayor, o licencia de actividad",
+        "Aplica el tipo impositivo municipal sobre el PEM (entre 0.5% y 5% según el municipio y el tipo de obra)",
+        "Suma el ICIO (Impuesto sobre Construcciones, Instalaciones y Obras): 4% del PEM como tasa estatal estándar",
+        "Verifica la tasa mínima municipal: cada ayuntamiento establece un mínimo (150-500 € según tipo de licencia)",
+        "Añade tasas adicionales: ocupación de vía pública, contenedores, grúas, vados temporales"
+      ],
+      "mistakes": [
+        "No solicitar licencia municipal: todas las obras que requieren proyecto técnico necesitan licencia (Ley del Suelo)",
+        "Confundir comunicación previa (obras menores sin proyecto) con licencia de obra mayor (requiere proyecto visado)",
+        "No consultar las ordenanzas fiscales del municipio: cada ayuntamiento tiene tipos impositivos y tasas diferentes",
+        "Olvidar el ICIO: es un impuesto obligatorio que se liquida al solicitar la licencia de obras",
+        "Presupuestar solo la tasa sin contar los honorarios de visado de proyecto ni la dirección facultativa"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "presupuesto_obra_eur",
+          "reason": "Tipo correcto: numérico para el Presupuesto de Ejecución Material en €."
+        },
+        {
+          "field_id": "tipo_licencia",
+          "reason": "Tipo correcto: selector discreto para el tipo de licencia municipal requerida."
+        },
+        {
+          "field_id": "tasa_municipal_pct",
+          "reason": "Tipo correcto: numérico porcentual para el tipo impositivo de la ordenanza municipal."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Permis de Construire",
+      "desc": "Estimez le montant des taxes et redevances pour permis de construire selon le budget des travaux. Calculatrice facile a utiliser avec decomposition de la.",
+      "seo_title": "Calculateur Permis de Construire",
+      "inputs": {
+        "presupuesto_obra_eur": "Budget travaux (€)",
+        "tipo_licencia": "Type de permis",
+        "tasa_municipal_pct": "Taux municipal (%)"
+      },
+      "outputs": {
+        "tasa_licencia_eur": "Taxe permis",
+        "icio_eur": "Taxe construction (4%)",
+        "total_estimado_eur": "Total estimé"
+      },
+      "seo_description": "Estimez le montant des taxes et redevances pour permis de construire selon le budget des travaux. Calculatrice facile a utiliser avec decomposition de la.",
+      "example_label": "Calcular licencias para obra de 50000 € de PEM como obra menor con tasa municipal del 2%.",
+      "range_hints": {
+        "presupuesto_obra_eur": "Valor entre 1000 et 5000000 €.",
+        "tasa_municipal_pct": "Valor entre 0.5 et 5 %.",
+        "tipo_licencia": "Tipo de licencia: comunicación previa (sin coste), obra menor, obra mayor, o licencia de actividad"
+      },
+      "result_context": "Resultados: tasa de licencia de {tasa_licencia_eur} €, ICIO del 4 % de {icio_eur} €, total estimado de {total_estimado_eur} €.",
+      "formula_display": "Total = tasa_licencia + ICIO. Tasa = máx(PEM × tipo_impositivo, tasa_mínima_municipal)",
+      "steps": [
+        "Determina el presupuesto de ejecución material (PEM) de la obra, base para el cálculo de tasas",
+        "Selecciona el tipo de licencia: comunicación previa (obras menores), obra menor, obra mayor, o licencia de actividad",
+        "Aplica el tipo impositivo municipal sobre el PEM (entre 0.5% y 5% según el municipio y el tipo de obra)",
+        "Suma el ICIO (Impuesto sobre Construcciones, Instalaciones y Obras): 4% del PEM como tasa estatal estándar",
+        "Verifica la tasa mínima municipal: cada ayuntamiento establece un mínimo (150-500 € según tipo de licencia)",
+        "Añade tasas adicionales: ocupación de vía pública, contenedores, grúas, vados temporales"
+      ],
+      "mistakes": [
+        "No solicitar licencia municipal: todas las obras que requieren proyecto técnico necesitan licencia (Ley del Suelo)",
+        "Confundir comunicación previa (obras menores sin proyecto) con licencia de obra mayor (requiere proyecto visado)",
+        "No consultar las ordenanzas fiscales del municipio: cada ayuntamiento tiene tipos impositivos y tasas diferentes",
+        "Olvidar el ICIO: es un impuesto obligatorio que se liquida al solicitar la licencia de obras",
+        "Presupuestar solo la tasa sin contar los honorarios de visado de proyecto ni la dirección facultativa"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "presupuesto_obra_eur",
+          "reason": "Tipo correcto: numérico para el Presupuesto de Ejecución Material en €."
+        },
+        {
+          "field_id": "tipo_licencia",
+          "reason": "Tipo correcto: selector discreto para el tipo de licencia municipal requerida."
+        },
+        {
+          "field_id": "tasa_municipal_pct",
+          "reason": "Tipo correcto: numérico porcentual para el tipo impositivo de la ordenanza municipal."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Alvarás e Taxas Municipais",
+      "desc": "Estime o valor das taxas e do alvará de obras municipal pelo orçamento da obra. Calculadora facil de usar com detalhamento da formula.",
+      "seo_title": "Calculadora de Alvarás e Taxas Municipais",
+      "inputs": {
+        "presupuesto_obra_eur": "Orçamento da obra (R$)",
+        "tipo_licencia": "Tipo de alvará",
+        "tasa_municipal_pct": "Taxa municipal (%)"
+      },
+      "outputs": {
+        "tasa_licencia_eur": "Taxa alvará",
+        "icio_eur": "ISS/Imposto construção (4%)",
+        "total_estimado_eur": "Total estimado"
+      },
+      "seo_description": "Estime o valor das taxas e do alvará de obras municipal pelo orçamento da obra. Calculadora facil de usar com detalhamento da formula.",
+      "example_label": "Calcular licencias para obra de 50000 € de PEM como obra menor con tasa municipal del 2%.",
+      "range_hints": {
+        "presupuesto_obra_eur": "Valor entre 1000 e 5000000 €.",
+        "tasa_municipal_pct": "Valor entre 0.5 e 5 %.",
+        "tipo_licencia": "Tipo de licencia: comunicación previa (sin coste), obra menor, obra mayor, o licencia de actividad"
+      },
+      "result_context": "Resultados: tasa de licencia de {tasa_licencia_eur} €, ICIO del 4 % de {icio_eur} €, total estimado de {total_estimado_eur} €.",
+      "formula_display": "Total = tasa_licencia + ICIO. Tasa = máx(PEM × tipo_impositivo, tasa_mínima_municipal)",
+      "steps": [
+        "Determina el presupuesto de ejecución material (PEM) de la obra, base para el cálculo de tasas",
+        "Selecciona el tipo de licencia: comunicación previa (obras menores), obra menor, obra mayor, o licencia de actividad",
+        "Aplica el tipo impositivo municipal sobre el PEM (entre 0.5% y 5% según el municipio y el tipo de obra)",
+        "Suma el ICIO (Impuesto sobre Construcciones, Instalaciones y Obras): 4% del PEM como tasa estatal estándar",
+        "Verifica la tasa mínima municipal: cada ayuntamiento establece un mínimo (150-500 € según tipo de licencia)",
+        "Añade tasas adicionales: ocupación de vía pública, contenedores, grúas, vados temporales"
+      ],
+      "mistakes": [
+        "No solicitar licencia municipal: todas las obras que requieren proyecto técnico necesitan licencia (Ley del Suelo)",
+        "Confundir comunicación previa (obras menores sin proyecto) con licencia de obra mayor (requiere proyecto visado)",
+        "No consultar las ordenanzas fiscales del municipio: cada ayuntamiento tiene tipos impositivos y tasas diferentes",
+        "Olvidar el ICIO: es un impuesto obligatorio que se liquida al solicitar la licencia de obras",
+        "Presupuestar solo la tasa sin contar los honorarios de visado de proyecto ni la dirección facultativa"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "presupuesto_obra_eur",
+          "reason": "Tipo correcto: numérico para el Presupuesto de Ejecución Material en €."
+        },
+        {
+          "field_id": "tipo_licencia",
+          "reason": "Tipo correcto: selector discreto para el tipo de licencia municipal requerida."
+        },
+        {
+          "field_id": "tasa_municipal_pct",
+          "reason": "Tipo correcto: numérico porcentual para el tipo impositivo de la ordenanza municipal."
+        }
+      ]
+    },
+    "de": {
+      "name": "Baugenehmigungen municipales",
+      "desc": "Berechnen Sie baugenehmigungen municipales online. Geben Sie presupuesto obra eur, tipo licencia, tasa municipal pct ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Baugenehmigungen municipales | CalcToWork",
+      "seo_desc": "Baugenehmigungen municipales online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Baugenehmigungen municipales online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "presupuesto_obra_eur": "Presupuesto Obra Eur",
+        "tipo_licencia": "Tipo Licencia",
+        "tasa_municipal_pct": "Tasa Municipal Pct"
+      },
+      "outputs": {
+        "tasa_licencia_eur": "Tasa Licencia Eur",
+        "icio_eur": "Icio Eur",
+        "total_estimado_eur": "Total Estimado Eur"
+      },
+      "example_label": "Calcular licencias para obra de 50000 € de PEM como obra menor con tasa municipal del 2%.",
+      "range_hints": {
+        "presupuesto_obra_eur": "Presupuesto de Ejecución Material (PEM) de la obra, sin gastos generales ni IVA (€)",
+        "tipo_licencia": "Tipo de licencia: comunicación previa (sin coste), obra menor, obra mayor, o licencia de actividad",
+        "tasa_municipal_pct": "Tipo impositivo municipal sobre el PEM. Consulta la ordenanza fiscal de tu ayuntamiento (%)"
+      },
+      "result_context": "Resultados: tasa de licencia de {tasa_licencia_eur} €, ICIO del 4 % de {icio_eur} €, total estimado de {total_estimado_eur} €.",
+      "formula_display": "Total = tasa_licencia + ICIO. Tasa = máx(PEM × tipo_impositivo, tasa_mínima_municipal)",
+      "steps": [
+        "Determina el presupuesto de ejecución material (PEM) de la obra, base para el cálculo de tasas",
+        "Selecciona el tipo de licencia: comunicación previa (obras menores), obra menor, obra mayor, o licencia de actividad",
+        "Aplica el tipo impositivo municipal sobre el PEM (entre 0.5% y 5% según el municipio y el tipo de obra)",
+        "Suma el ICIO (Impuesto sobre Construcciones, Instalaciones y Obras): 4% del PEM como tasa estatal estándar",
+        "Verifica la tasa mínima municipal: cada ayuntamiento establece un mínimo (150-500 € según tipo de licencia)",
+        "Añade tasas adicionales: ocupación de vía pública, contenedores, grúas, vados temporales"
+      ],
+      "mistakes": [
+        "No solicitar licencia municipal: todas las obras que requieren proyecto técnico necesitan licencia (Ley del Suelo)",
+        "Confundir comunicación previa (obras menores sin proyecto) con licencia de obra mayor (requiere proyecto visado)",
+        "No consultar las ordenanzas fiscales del municipio: cada ayuntamiento tiene tipos impositivos y tasas diferentes",
+        "Olvidar el ICIO: es un impuesto obligatorio que se liquida al solicitar la licencia de obras",
+        "Presupuestar solo la tasa sin contar los honorarios de visado de proyecto ni la dirección facultativa"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "presupuesto_obra_eur",
+          "reason": "Tipo correcto: numérico para el Presupuesto de Ejecución Material en €."
+        },
+        {
+          "field_id": "tipo_licencia",
+          "reason": "Tipo correcto: selector discreto para el tipo de licencia municipal requerida."
+        },
+        {
+          "field_id": "tasa_municipal_pct",
+          "reason": "Tipo correcto: numérico porcentual para el tipo impositivo de la ordenanza municipal."
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Ammortamento Macchinari",
+      "description": "Calcola l'ammortamento annuo dei macchinari da cantiere.",
+      "seo_title": "Calcolatore Permesso di Costruire",
+      "seo_description": "Calcola l'ammortamento lineare per macchinari da cantiere Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo.",
+      "inputs": {
+        "costo_inicial": "Costo iniziale (€)",
+        "valor_residual": "Valore residuo (€)",
+        "vida_util": "Vita utile (anni)",
+        "presupuesto_obra_eur": "presupuesto obra eur (â‚¬)",
+        "tipo_licencia": "tipo licencia ()",
+        "tasa_municipal_pct": "tasa municipal pct (%)"
+      },
+      "outputs": {
+        "amortizacion_anual": "Ammortamento annuo (€)",
+        "amortizacion_mensual": "Ammortamento mensile (€)",
+        "tasa_licencia_eur": "tasa licencia eur (â‚¬ tasa licencia)",
+        "icio_eur": "icio eur (â‚¬ ICIO (4%))",
+        "total_estimado_eur": "total estimado eur (â‚¬ total estimado)"
+      },
+      "example_label": "Calcular licencias para obra de 50000 € de PEM como obra menor con tasa municipal del 2%.",
+      "range_hints": {
+        "presupuesto_obra_eur": "Valor intre 1000 e 5000000 €.",
+        "tasa_municipal_pct": "Valor intre 0.5 e 5 %.",
+        "tipo_licencia": "Tipo de licencia: comunicación previa (sin coste), obra menor, obra mayor, o licencia de actividad"
+      },
+      "result_context": "Resultados: tasa de licencia de {tasa_licencia_eur} €, ICIO del 4 % de {icio_eur} €, total estimado de {total_estimado_eur} €.",
+      "formula_display": "Total = tasa_licencia + ICIO. Tasa = máx(PEM × tipo_impositivo, tasa_mínima_municipal)",
+      "steps": [
+        "Determina el presupuesto de ejecución material (PEM) de la obra, base para el cálculo de tasas",
+        "Selecciona el tipo de licencia: comunicación previa (obras menores), obra menor, obra mayor, o licencia de actividad",
+        "Aplica el tipo impositivo municipal sobre el PEM (entre 0.5% y 5% según el municipio y el tipo de obra)",
+        "Suma el ICIO (Impuesto sobre Construcciones, Instalaciones y Obras): 4% del PEM como tasa estatal estándar",
+        "Verifica la tasa mínima municipal: cada ayuntamiento establece un mínimo (150-500 € según tipo de licencia)",
+        "Añade tasas adicionales: ocupación de vía pública, contenedores, grúas, vados temporales"
+      ],
+      "mistakes": [
+        "No solicitar licencia municipal: todas las obras que requieren proyecto técnico necesitan licencia (Ley del Suelo)",
+        "Confundir comunicación previa (obras menores sin proyecto) con licencia de obra mayor (requiere proyecto visado)",
+        "No consultar las ordenanzas fiscales del municipio: cada ayuntamiento tiene tipos impositivos y tasas diferentes",
+        "Olvidar el ICIO: es un impuesto obligatorio que se liquida al solicitar la licencia de obras",
+        "Presupuestar solo la tasa sin contar los honorarios de visado de proyecto ni la dirección facultativa"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "presupuesto_obra_eur",
+          "reason": "Tipo correcto: numérico para el Presupuesto de Ejecución Material en €."
+        },
+        {
+          "field_id": "tipo_licencia",
+          "reason": "Tipo correcto: selector discreto para el tipo de licencia municipal requerida."
+        },
+        {
+          "field_id": "tasa_municipal_pct",
+          "reason": "Tipo correcto: numérico porcentual para el tipo impositivo de la ordenanza municipal."
+        }
+      ],
+      "desc": "Calcola il costo dei permessi comunali e dell'imposta ICIO per il tuo progetto edile."
+    }
+  }
+}

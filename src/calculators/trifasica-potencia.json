@@ -1,0 +1,474 @@
+{
+  "id": "050",
+  "slug": "trifasica-potencia",
+  "block": 5,
+  "block_slug": "electricidad",
+  "inputs": [
+    {
+      "id": "corriente_a",
+      "type": "number",
+      "min": 1,
+      "max": 400,
+      "step": 1,
+      "default": 63,
+      "unit": "A",
+      "unit_options": [
+        "A",
+        "mA"
+      ],
+      "unit_category": "current"
+    },
+    {
+      "id": "tension_v",
+      "type": "number",
+      "min": 380,
+      "max": 415,
+      "step": 5,
+      "default": 400,
+      "unit": "V",
+      "unit_options": [
+        "V",
+        "kV"
+      ],
+      "unit_category": "voltage"
+    },
+    {
+      "id": "fp",
+      "type": "number",
+      "min": 0.7,
+      "max": 1,
+      "step": 0.05,
+      "default": 0.9,
+      "unit": "cos Ï†"
+    }
+  ],
+  "formula": "var I=parseFloat(inputs.corriente_a)||0,V=parseFloat(inputs.tension_v)||400,fp=parseFloat(inputs.fp)||0.9;if(!I)return{error:true};var kva=+(Math.sqrt(3)*V*I/1000).toFixed(2),kw=+(kva*fp).toFixed(2),kvar=+(Math.sqrt(kva*kva-kw*kw)).toFixed(2);return{potencia_kva:kva,potencia_kw:kw,potencia_reactiva_kvar:kvar};",
+  "outputs": [
+    {
+      "id": "potencia_kva",
+      "unit": "kVA"
+    },
+    {
+      "id": "potencia_kw",
+      "unit": "kW",
+      "highlight": true
+    },
+    {
+      "id": "potencia_reactiva_kvar",
+      "unit": "kVAr"
+    }
+  ],
+  "related": [
+    "043",
+    "047",
+    "044",
+    "045"
+  ],
+  "example_inputs": {
+    "corriente_a": 63,
+    "tension_v": 400,
+    "fp": 0.9
+  },
+  "example_label": "Calcular potencia activa y aparente para motor trifásico de 63 A a 400 V con cos φ = 0.9.",
+  "range_hints": {
+    "corriente_a": "Corriente de línea por fase: pequeños talleres 16-63 A, industria media 63-200 A, gran industria 200-400 A. Medir con pinza amperimétrica en carga",
+    "tension_v": "Tensión compuesta (fase-fase): 400 V estándar Europa, 380 V instalaciones antiguas, 415 V Reino Unido. No confundir con tensión simple fase-neutro (230 V)",
+    "fp": "Factor de potencia (cos φ): motores asíncronos 0.75-0.85 sin corregir, 0.90-0.95 con batería de condensadores. Cargas resistivas puras (estufas, hornos) cos φ = 1.0"
+  },
+  "result_context": "Sistema trifásico de {corriente_a} A a {tension_v} V con cos φ = {fp}: potencia activa {potencia_kw} kW, potencia aparente {potencia_kva} kVA, potencia reactiva {potencia_reactiva_kvar} kVAr. Si Q > 30 % de P, considerar batería de condensadores.",
+  "formula_display": "P(kW) = √3 × V_línea × I_línea × cos φ / 1000.  S(kVA) = √3 × V_línea × I_línea / 1000.  Q(kVAr) = √(S² - P²).  cos φ típico: motores 0.80-0.90, resistencias 1.0, LED 0.95.",
+  "steps": [
+    "Identificar la corriente de línea: medir con pinza amperimétrica en cada fase en condiciones normales de funcionamiento, o tomar de la placa del equipo",
+    "Calcular potencia aparente trifásica: S(kVA) = √3 × V_línea × I_línea / 1000. Con 400 V y 63 A: S = 1.732 × 400 × 63 / 1000 = 43.65 kVA",
+    "Calcular potencia activa: P(kW) = S × cos φ = 43.65 × 0.9 = 39.29 kW. Es la potencia que realmente se convierte en trabajo útil",
+    "Calcular potencia reactiva: Q(kVAr) = √(S² - P²) = √(1905.3 - 1543.7) = √361.6 = 19.0 kVAr. Esta energía circula sin producir trabajo",
+    "Verificar si conviene instalar condensadores: si Q > 0.3 × P, la penalización en factura puede justificar la inversión en batería de condensadores automática"
+  ],
+  "mistakes": [
+    "Olvidar el factor √3 en la fórmula trifásica: usar P = V × I como monofásico infravalora la potencia un 42 %. La corriente en trifásica es menor para la misma potencia",
+    "Confundir tensión de línea (fase-fase = 400 V) con tensión de fase (fase-neutro = 230 V): la relación es V_línea = √3 × V_fase. Usar 230 V infravalora la potencia un 42 %",
+    "No considerar el factor de potencia en la facturación: las compañías penalizan exceso de reactiva (cos φ < 0.95). Una planta con cos φ = 0.7 paga hasta un 20 % más",
+    "Dimensionar el transformador solo con potencia activa: el trafo se dimensiona por kVA (aparentes), no por kW. Un motor de 50 kW con cos φ = 0.8 consume 62.5 kVA"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "corriente_a",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "tension_v",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "fp",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Taller pequeño (16 A)",
+      "corriente_a": 16,
+      "tension_v": 400,
+      "fp": 0.85
+    },
+    {
+      "_label": "Bomba industrial (32 A)",
+      "corriente_a": 32,
+      "tension_v": 400,
+      "fp": 0.82
+    },
+    {
+      "_label": "Compresor trifásico (63 A)",
+      "corriente_a": 63,
+      "tension_v": 400,
+      "fp": 0.9
+    },
+    {
+      "_label": "Frigorífico industrial (125 A)",
+      "corriente_a": 125,
+      "tension_v": 400,
+      "fp": 0.88
+    },
+    {
+      "_label": "Horno trifásico (200 A)",
+      "corriente_a": 200,
+      "tension_v": 400,
+      "fp": 1
+    }
+  ],
+  "units": {
+    "corriente_a": "A",
+    "tension_v": "V"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Potencia Trifásica",
+      "desc": "Calcula kW, kVA y kVAr en instalaciones trifásicas.",
+      "seo_title": "Calculadora Trifásica – kW y kVA",
+      "inputs": {
+        "corriente_a": "Intensidad (A)",
+        "tension_v": "Tensión de línea (V)",
+        "fp": "Factor de potencia (cos Ïâ€ )"
+      },
+      "outputs": {
+        "potencia_kva": "Potencia aparente (kVA)",
+        "potencia_kw": "Potencia activa (kW)",
+        "potencia_reactiva_kvar": "Potencia reactiva (kVAr)"
+      },
+      "seo_description": "Calcula la potencia activa, aparente y reactiva en instalaciones eléctricas trifásicas Usado por profesionales y estudiantes en todo el mundo.",
+      "example_label": "Calcular potencia trifásica para 32A a 400V con factor de potencia 0.85.",
+      "range_hints": {
+        "corriente_a": "Corriente por fase",
+        "tension_v": "Tensión entre fases (400V estándar Europa)",
+        "fp": "Factor de potencia: 0.8-1.0 (1.0 resistivo puro)"
+      },
+      "result_context": "Sistema trifásico de {corriente_a}A a {tension_v}V con FP={fp} tiene potencia activa de {potencia_kw} kW ({potencia_hp} HP). Potencia aparente: {potencia_kva} kVA.",
+      "formula_display": "P = √3 × V × I × FP; S = √3 × V × I",
+      "steps": [
+        "Calcular potencia activa: √3 × 400V × 32A × 0.85 = 1.732 × 400 × 32 × 0.85",
+        "P = 18881W = 18.88 kW",
+        "Calcular potencia aparente: √3 × 400V × 32A = 22170 VA = 22.17 kVA",
+        "Convertir a HP: 18.88 kW ÷ 0.746 = 25.3 HP"
+      ],
+      "mistakes": [
+        "Olvidar factor √3 en fórmula trifásica (usa fórmula monofásica)",
+        "No considerar factor de potencia en cálculos de potencia activa",
+        "Confundir tensión fase-neutro (230V) con fase-fase (400V)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "corriente_a",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "tension_v",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "fp",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Three-Phase Power Calculator",
+      "desc": "Calculate kW, kVA and kVAr in three-phase systems.",
+      "seo_title": "Three-Phase Power Calculator – kW & kVA",
+      "inputs": {
+        "corriente_a": "Current (A)",
+        "tension_v": "Line voltage (V)",
+        "fp": "Power factor (cos Ï†)"
+      },
+      "outputs": {
+        "potencia_kva": "Apparent power (kVA)",
+        "potencia_kw": "Active power (kW)",
+        "potencia_reactiva_kvar": "Reactive power (kVAr)"
+      },
+      "seo_description": "Three-Phase Power Calculator. Current (A), Line voltage (V), Power factor (cos Ï†) — get Apparent power (kVA), Active power (kW), Reactive power (kVAr).",
+      "example_label": "Calcular potencia trifásica para 32A a 400V con factor de potencia 0.85.",
+      "range_hints": {
+        "corriente_a": "Corriente por fase",
+        "tension_v": "Tensión entre fases (400V estándar Europa)",
+        "fp": "Factor de potencia: 0.8-1.0 (1.0 resistivo puro)"
+      },
+      "result_context": "Sistema trifásico de {corriente_a}A a {tension_v}V con FP={fp} tiene potencia activa de {potencia_kw} kW ({potencia_hp} HP). Potencia aparente: {potencia_kva} kVA.",
+      "formula_display": "P = √3 × V × I × FP; S = √3 × V × I",
+      "steps": [
+        "Calcular potencia activa: √3 × 400V × 32A × 0.85 = 1.732 × 400 × 32 × 0.85",
+        "P = 18881W = 18.88 kW",
+        "Calcular potencia aparente: √3 × 400V × 32A = 22170 VA = 22.17 kVA",
+        "Convertir a HP: 18.88 kW ÷ 0.746 = 25.3 HP"
+      ],
+      "mistakes": [
+        "Olvidar factor √3 en fórmula trifásica (usa fórmula monofásica)",
+        "No considerar factor de potencia en cálculos de potencia activa",
+        "Confundir tensión fase-neutro (230V) con fase-fase (400V)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "corriente_a",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "tension_v",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "fp",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Puissance Triphasée",
+      "desc": "Calculez la puissance active, apparente et réactive en installations électriques triphasées. Calculatrice facile a utiliser avec decomposition de la.",
+      "seo_title": "Calculateur Triphasé – kW et kVA",
+      "inputs": {
+        "corriente_a": "Intensité (A)",
+        "tension_v": "Tension de ligne (V)",
+        "fp": "Facteur de puissance (cos Ïâ€ )"
+      },
+      "outputs": {
+        "potencia_kva": "Puissance apparente (kVA)",
+        "potencia_kw": "Puissance active (kW)",
+        "potencia_reactiva_kvar": "Puissance réactive (kVAr)"
+      },
+      "seo_description": "Calculez la puissance active, apparente et réactive en installations électriques triphasées. Calculatrice facile a utiliser avec decomposition de la.",
+      "example_label": "Calculer potencia trifásica pour 32A a 400V avec factor de potencia 0.85.",
+      "range_hints": {
+        "corriente_a": "Corriente par fase",
+        "tension_v": "Tensión entre fases (400V standard Europa)",
+        "fp": "Factor de potencia: 0.8-1.0 (1.0 resistivo puro)"
+      },
+      "result_context": "Sistema trifásico de {corriente_a}A a {tension_v}V avec FP={fp} tiene potencia activa de {potencia_kw} kW ({potencia_hp} HP). Potencia aparente: {potencia_kva} kVA.",
+      "formula_display": "P = √3 × V × I × FP; S = √3 × V × I",
+      "steps": [
+        "Calculer potencia activa: √3 × 400V × 32A × 0.85 = 1.732 × 400 × 32 × 0.85",
+        "P = 18881W = 18.88 kW",
+        "Calculer potencia aparente: √3 × 400V × 32A = 22170 VA = 22.17 kVA",
+        "Convertir a HP: 18.88 kW Á· 0.746 = 25.3 HP"
+      ],
+      "mistakes": [
+        "Oublier factor √3 dans fórmula trifásica (usa fórmula monofásica)",
+        "Ne pas considérer factor de potencia dans cálculos de potencia activa",
+        "Confondre tensión fase-neutro (230V) avec fase-fase (400V)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "corriente_a",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "tension_v",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "fp",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Potência Trifásica",
+      "desc": "Calcule a potência ativa, aparente e reativa em instalações elétricas trifásicas. Calculadora facil de usar com detalhamento da formula.",
+      "seo_title": "Calculadora Trifásica – kW e kVA",
+      "inputs": {
+        "corriente_a": "Corrente (A)",
+        "tension_v": "Tensão de linha (V)",
+        "fp": "Fator de potência (cos Ïâ€ )"
+      },
+      "outputs": {
+        "potencia_kva": "Potência aparente (kVA)",
+        "potencia_kw": "Potência ativa (kW)",
+        "potencia_reactiva_kvar": "Potência reativa (kVAr)"
+      },
+      "seo_description": "Calcule a potência ativa, aparente e reativa em instalações elétricas trifásicas. Calculadora facil de usar com detalhamento da formula.",
+      "example_label": "Calcular potencia trifásica para 32A a 400V com factor de potencia 0.85.",
+      "range_hints": {
+        "corriente_a": "Corriente por fase",
+        "tension_v": "Tensión entre fases (400V padrão Europa)",
+        "fp": "Factor de potencia: 0.8-1.0 (1.0 resistivo puro)"
+      },
+      "result_context": "Sistema trifásico de {corriente_a}A a {tension_v}V com FP={fp} tiene potencia activa de {potencia_kw} kW ({potencia_hp} HP). Potencia aparente: {potencia_kva} kVA.",
+      "formula_display": "P = √3 × V × I × FP; S = √3 × V × I",
+      "steps": [
+        "Calcular potencia activa: √3 × 400V × 32A × 0.85 = 1.732 × 400 × 32 × 0.85",
+        "P = 18881W = 18.88 kW",
+        "Calcular potencia aparente: √3 × 400V × 32A = 22170 VA = 22.17 kVA",
+        "Convertir a HP: 18.88 kW ÷ 0.746 = 25.3 HP"
+      ],
+      "mistakes": [
+        "Esquecer factor √3 em fórmula trifásica (usa fórmula monofásica)",
+        "Não considerar factor de potencia em cálculos de potencia activa",
+        "Confundir tensão fase-neutro (230V) com fase-fase (400V)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "corriente_a",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "tension_v",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "fp",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Drehstrom Leistung",
+      "desc": "Berechnen Sie drehstrom Leistung online. Geben Sie corriente a, tension v, fp ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Drehstrom Leistung | CalcToWork",
+      "seo_desc": "Drehstrom Leistung online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Drehstrom Leistung online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "corriente_a": "Corriente A",
+        "tension_v": "Tension V",
+        "fp": "Fp"
+      },
+      "outputs": {
+        "potencia_kva": "Potencia Kva",
+        "potencia_kw": "Potencia Kw",
+        "potencia_reactiva_kvar": "Potencia Reactiva Kvar"
+      },
+      "example_label": "Calcular potencia activa y aparente para motor trifásico de 63 A a 400 V con cos φ = 0.9.",
+      "range_hints": {
+        "corriente_a": "Corriente de línea por fase: pequeños talleres 16-63 A, industria media 63-200 A, gran industria 200-400 A. Medir con pinza amperimétrica en carga",
+        "tension_v": "Tensión compuesta (fase-fase): 400 V estándar Europa, 380 V instalaciones antiguas, 415 V Reino Unido. No confundir con tensión simple fase-neutro (230 V)",
+        "fp": "Factor de potencia (cos φ): motores asíncronos 0.75-0.85 sin corregir, 0.90-0.95 con batería de condensadores. Cargas resistivas puras (estufas, hornos) cos φ = 1.0"
+      },
+      "result_context": "Sistema trifásico de {corriente_a} A a {tension_v} V con cos φ = {fp}: potencia activa {potencia_kw} kW, potencia aparente {potencia_kva} kVA, potencia reactiva {potencia_reactiva_kvar} kVAr. Si Q > 30 % de P, considerar batería de condensadores.",
+      "formula_display": "P(kW) = √3 × V_línea × I_línea × cos φ / 1000.  S(kVA) = √3 × V_línea × I_línea / 1000.  Q(kVAr) = √(S² - P²).  cos φ típico: motores 0.80-0.90, resistencias 1.0, LED 0.95.",
+      "steps": [
+        "Identificar la corriente de línea: medir con pinza amperimétrica en cada fase en condiciones normales de funcionamiento, o tomar de la placa del equipo",
+        "Calcular potencia aparente trifásica: S(kVA) = √3 × V_línea × I_línea / 1000. Con 400 V y 63 A: S = 1.732 × 400 × 63 / 1000 = 43.65 kVA",
+        "Calcular potencia activa: P(kW) = S × cos φ = 43.65 × 0.9 = 39.29 kW. Es la potencia que realmente se convierte en trabajo útil",
+        "Calcular potencia reactiva: Q(kVAr) = √(S² - P²) = √(1905.3 - 1543.7) = √361.6 = 19.0 kVAr. Esta energía circula sin producir trabajo",
+        "Verificar si conviene instalar condensadores: si Q > 0.3 × P, la penalización en factura puede justificar la inversión en batería de condensadores automática"
+      ],
+      "mistakes": [
+        "Olvidar el factor √3 en la fórmula trifásica: usar P = V × I como monofásico infravalora la potencia un 42 %. La corriente en trifásica es menor para la misma potencia",
+        "Confundir tensión de línea (fase-fase = 400 V) con tensión de fase (fase-neutro = 230 V): la relación es V_línea = √3 × V_fase. Usar 230 V infravalora la potencia un 42 %",
+        "No considerar el factor de potencia en la facturación: las compañías penalizan exceso de reactiva (cos φ < 0.95). Una planta con cos φ = 0.7 paga hasta un 20 % más",
+        "Dimensionar el transformador solo con potencia activa: el trafo se dimensiona por kVA (aparentes), no por kW. Un motor de 50 kW con cos φ = 0.8 consume 62.5 kVA"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "corriente_a",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "tension_v",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "fp",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Potenza Trifase",
+      "desc": "Calcola kW, kVA e kVAr negli impianti trifase. Inserisci corrente, tensione e fattore di potenza. Gratuito, con formula e guida dettagliata.",
+      "seo_title": "Calcolatore Potenza Trifase – kW e kVA",
+      "inputs": {
+        "corriente_a": "Corrente (A)",
+        "tension_v": "Tensione di linea (V)",
+        "fp": "Fattore di potenza (cos φ)"
+      },
+      "outputs": {
+        "potencia_kva": "Potenza apparente (kVA)",
+        "potencia_kw": "Potenza attiva (kW)",
+        "potencia_reactiva_kvar": "Potenza reattiva (kVAr)"
+      },
+      "seo_description": "Calcola la potenza attiva (kW), apparente (kVA) e reattiva (kVAr) negli impianti elettrici trifase. Inserisci corrente, tensione e cos φ.",
+      "example_label": "Calcolare la potenza attiva e apparente per un motore trifase da 63 A a 400 V con cos φ = 0.9.",
+      "range_hints": {
+        "corriente_a": "Corrente di linea per fase: piccole officine 16-63 A, industria media 63-200 A, grande industria 200-400 A. Misurare con pinza amperometrica a carico",
+        "tension_v": "Tensione concatenata (fase-fase): 400 V standard Europa/Italia, 380 V impianti datati, 415 V Regno Unito. Non confondere con tensione stellata fase-neutro (230 V)",
+        "fp": "Fattore di potenza (cos φ): motori asincroni 0.75-0.85 senza rifasamento, 0.90-0.95 con batteria di condensatori. Carichi puramente resistivi (stufe, forni) cos φ = 1.0"
+      },
+      "result_context": "Sistema trifase da {corriente_a} A a {tension_v} V con cos φ = {fp}: potenza attiva {potencia_kw} kW, potenza apparente {potencia_kva} kVA, potenza reattiva {potencia_reactiva_kvar} kVAr. Se Q > 30 % di P, valutare il rifasamento.",
+      "formula_display": "P(kW) = √3 × V_linea × I_linea × cos φ / 1000. S(kVA) = √3 × V_linea × I_linea / 1000. Q(kVAr) = √(S² - P²). cos φ tipico: motori 0.80-0.90, resistenze 1.0, LED 0.95.",
+      "steps": [
+        "Identificare la corrente di linea: misurare con pinza amperometrica su ogni fase a regime, o rilevare dalla targa del macchinario",
+        "Calcolare la potenza apparente trifase: S(kVA) = √3 × V_linea × I_linea / 1000. Con 400 V e 63 A: S = 1.732 × 400 × 63 / 1000 = 43.65 kVA",
+        "Calcolare la potenza attiva: P(kW) = S × cos φ = 43.65 × 0.9 = 39.29 kW. È la potenza effettivamente convertita in lavoro utile",
+        "Calcolare la potenza reattiva: Q(kVAr) = √(S² - P²) = √(1905.3 - 1543.7) = √361.6 = 19.0 kVAr. Questa energia circola senza produrre lavoro",
+        "Verificare se conviene il rifasamento: se Q > 0.3 × P, la penalità in bolletta può giustificare l'investimento in una batteria di condensatori automatica"
+      ],
+      "mistakes": [
+        "Dimenticare il fattore √3 nella formula trifase: usare P = V × I come in monofase sottostima la potenza del 42 %. A parità di potenza, la corrente in trifase è minore",
+        "Confondere tensione di linea (fase-fase = 400 V) con tensione di fase (fase-neutro = 230 V): la relazione è V_linea = √3 × V_fase. Usare 230 V sottostima del 42 %",
+        "Non considerare il fattore di potenza nella fatturazione: i gestori penalizzano l'eccesso di reattiva (cos φ < 0.95). Un impianto con cos φ = 0.7 paga fino al 20 % in più",
+        "Dimensionare il trasformatore solo con la potenza attiva: il trasformatore si dimensiona in kVA (apparenti), non in kW. Un motore da 50 kW con cos φ = 0.8 assorbe 62.5 kVA"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "corriente_a",
+          "reason": "Corretto: valore numerico continuo"
+        },
+        {
+          "field_id": "tension_v",
+          "reason": "Corretto: valore numerico continuo"
+        },
+        {
+          "field_id": "fp",
+          "reason": "Corretto: valore numerico continuo"
+        }
+      ]
+    }
+  }
+}

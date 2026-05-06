@@ -1,0 +1,468 @@
+{
+  "id": "937",
+  "slug": "debt-payoff",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "deuda_total",
+      "type": "number",
+      "min": 0,
+      "max": 999999,
+      "step": 100,
+      "default": 10000,
+      "unit": "EUR"
+    },
+    {
+      "id": "tasa_anual",
+      "type": "number",
+      "min": 0,
+      "max": 30,
+      "step": 0.01,
+      "default": 18,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    },
+    {
+      "id": "pago_mensual",
+      "type": "number",
+      "min": 0,
+      "max": 99999,
+      "step": 10,
+      "default": 300,
+      "unit": "EUR"
+    }
+  ],
+  "formula": "var deuda=parseFloat(inputs.deuda_total)||0,tasa=parseFloat(inputs.tasa_anual)||0,pago=parseFloat(inputs.pago_mensual)||0;if(!deuda||!tasa||!pago)return{error:true};var r=tasa/1200,balance=deuda,meses=0,total_interes=0;while(balance>0&&meses<600){var interes_mes=balance*r;total_interes+=interes_mes;var principal=pago-interes_mes;if(principal<=0)return{error:true};balance-=principal;meses++;}return{months_to_payoff:meses,total_interest:+(total_interes).toFixed(2),total_paid:+(deuda+total_interes).toFixed(2)};",
+  "outputs": [
+    {
+      "id": "months_to_payoff",
+      "unit": "",
+      "highlight": true
+    },
+    {
+      "id": "total_interest",
+      "unit": "EUR",
+      "highlight": false
+    },
+    {
+      "id": "total_paid",
+      "unit": "EUR",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "936",
+    "938",
+    "314",
+    "311"
+  ],
+  "example_inputs": {
+    "pago_mensual": 300,
+    "deuda_total": 10000,
+    "tasa_anual": 18
+  },
+  "example_label": "Averigua cuanto tardaras en liquidar una deuda de 10.000eur al 18% TAE pagando 300eur cada mes",
+  "range_hints": {
+    "deuda_total": "Valor monetario",
+    "tasa_anual": "Porcentaje según especificación",
+    "pago_mensual": "Valor monetario"
+  },
+  "result_context": "Resultados: {months_to_payoff} meses para liquidar, {total_interest} EUR de intereses totales, {total_paid} EUR pagado en total.",
+  "formula_display": "Meses para liquidar deuda = calculo iterativo hasta que el saldo pendiente llega a cero",
+  "steps": [
+    "Introduce el importe total de la deuda que arrastras actualmente (tarjeta de credito, prestamo personal, etc.)",
+    "Indica la tasa de interes anual (TAE) que te aplican sobre el saldo pendiente de la deuda",
+    "Define cuanto puedes pagar cada mes de forma constante y realista para liquidar la deuda progresivamente",
+    "El sistema simula mes a mes aplicando intereses sobre el saldo vivo y descontando tu pago mensual periodico",
+    "Analiza el resultado: comprueba cuantos meses necesitas exactamente y cuanto pagaras en intereses totales durante el proceso"
+  ],
+  "mistakes": [
+    "Pagar solo la cuota minima de la tarjeta de credito, lo que puede prolongar la deuda durante decadas con intereses altisimos",
+    "No priorizar las deudas con mayor TAE: ataca primero las mas caras (tarjetas revolving > prestamos personales > hipotecas)",
+    "Contraer nuevas deudas mientras se intenta pagar las existentes, entrando en una espiral de endeudamiento dificil de revertir"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "deuda_total",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "tasa_anual",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "pago_mensual",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "deuda_total": 5000,
+      "pago_mensual": 150,
+      "tasa_anual": 18
+    },
+    {
+      "_label": "Average",
+      "deuda_total": 7500,
+      "pago_mensual": 220,
+      "tasa_anual": 18
+    },
+    {
+      "_label": "High",
+      "deuda_total": 10000,
+      "pago_mensual": 300,
+      "tasa_anual": 18
+    },
+    {
+      "_label": "Premium",
+      "deuda_total": 15000,
+      "pago_mensual": 450,
+      "tasa_anual": 18
+    },
+    {
+      "_label": "Enterprise",
+      "deuda_total": 20000,
+      "pago_mensual": 600,
+      "tasa_anual": 18
+    }
+  ],
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Pago de Deudas",
+      "desc": "Calcula cuanto tiempo tardas en pagar tu deuda con pagos mensuales fijos. Con opciones de capitalizacion e impuestos. Usado por profesionales y.",
+      "description": "Calculadora de Pago de Deudas.",
+      "seo_title": "Calculadora de Pago de Deudas Gratuita",
+      "seo_description": "Calcula cuanto tiempo tardas en pagar tu deuda con pagos mensuales fijos. Con opciones de capitalizacion e impuestos. Usado por profesionales y.",
+      "inputs": {
+        "deuda_total": "deuda_total",
+        "tasa_anual": "Tasa anual %",
+        "pago_mensual": "Pago mensual"
+      },
+      "outputs": {
+        "months_to_payoff": "Meses para pagar",
+        "total_interest": "Total de intereses",
+        "total_paid": "Total pagado"
+      },
+      "example_label": "Calculate debt payoff with deuda_total 10000, tasa_anual 18, pago_mensual 300.",
+      "range_hints": {
+        "pago_mensual": "Typical range: 0-99999 in EUR units.",
+        "deuda_total": "Typical range: 0-999999 in EUR units.",
+        "tasa_anual": "Typical range: 0-30 in % units."
+      },
+      "result_context": "Your calculated months to payoff is {months_to_payoff}.",
+      "formula_display": "Calculate debt payoff based on input values.",
+      "steps": [
+        "Enter input values: deuda_total: 10000, tasa_anual: 18, pago_mensual: 300",
+        "Calculate and display the months_to_payoff result",
+        "Calculate and display the total_interest result",
+        "Calculate and display the total_paid result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "deuda_total",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "tasa_anual",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "pago_mensual",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "en": {
+      "name": "Debt Payoff Calculator",
+      "desc": "Debt Payoff Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Debt Payoff Calculator.",
+      "seo_title": "Debt Payoff Calculator – Step-by-Step",
+      "seo_description": "Calculate how long it takes to pay off debt with fixed monthly payments. See total interest and payment schedule. Get instant results with step-by-step.",
+      "inputs": {
+        "deuda_total": "deuda_total",
+        "tasa_anual": "Annual rate %",
+        "pago_mensual": "Monthly payment"
+      },
+      "outputs": {
+        "months_to_payoff": "Months to payoff",
+        "total_interest": "Total interest",
+        "total_paid": "Total paid"
+      },
+      "example_label": "Calculate debt payoff with deuda_total 10000, tasa_anual 18, pago_mensual 300.",
+      "range_hints": {
+        "pago_mensual": "Typical range: 0-99999 in EUR units.",
+        "deuda_total": "Typical range: 0-999999 in EUR units.",
+        "tasa_anual": "Typical range: 0-30 in % units."
+      },
+      "result_context": "Your calculated months to payoff is {months_to_payoff}.",
+      "formula_display": "Calculate debt payoff based on input values.",
+      "steps": [
+        "Enter input values: deuda_total: 10000, tasa_anual: 18, pago_mensual: 300",
+        "Calculate and display the months_to_payoff result",
+        "Calculate and display the total_interest result",
+        "Calculate and display the total_paid result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "deuda_total",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "tasa_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "pago_mensual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculatrice de Remboursement de Dette",
+      "desc": "Calculez le temps necessaire pour rembourser votre dette avec des mensualites fixes. Avec options de composition et taxes.",
+      "description": "Calculatrice de Remboursement de Dette.",
+      "seo_title": "Calculatrice de Remboursement de Dette en Ligne",
+      "seo_description": "Calculez le temps necessaire pour rembourser votre dette avec des mensualites fixes. Avec options de composition et taxes.",
+      "inputs": {
+        "deuda_total": "deuda_total",
+        "tasa_anual": "Taux annuel %",
+        "pago_mensual": "Mensualité"
+      },
+      "outputs": {
+        "months_to_payoff": "Months to payoff",
+        "total_interest": "Total des intérêts",
+        "total_paid": "Total payé"
+      },
+      "example_label": "Calculate debt payoff with deuda_total 10000, tasa_anual 18, pago_mensual 300.",
+      "range_hints": {
+        "pago_mensual": "Typical range: 0-99999 in EUR units.",
+        "deuda_total": "Typical range: 0-999999 in EUR units.",
+        "tasa_anual": "Typical range: 0-30 in % units."
+      },
+      "result_context": "Your calculated months to payoff is {months_to_payoff}.",
+      "formula_display": "Calculate debt payoff based on input values.",
+      "steps": [
+        "Enter input values: deuda_total: 10000, tasa_anual: 18, pago_mensual: 300",
+        "Calculate and display the months_to_payoff result",
+        "Calculate and display the total_interest result",
+        "Calculate and display the total_paid result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "deuda_total",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "tasa_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "pago_mensual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Quitação de Dívidas",
+      "desc": "Calcule quanto tempo leva para quitar sua divida com parcelas mensais fixas. Com opcoes de compostagem e impostos. Usado por profissionais e estudantes.",
+      "description": "Calculadora de Quitação de Dívidas.",
+      "seo_title": "Calculadora de Quitação de Dívidas",
+      "seo_description": "Calcule quanto tempo leva para quitar sua divida com parcelas mensais fixas. Com opcoes de compostagem e impostos. Usado por profissionais e estudantes.",
+      "inputs": {
+        "deuda_total": "deuda_total",
+        "tasa_anual": "Taxa anual %",
+        "pago_mensual": "Pagamento mensal"
+      },
+      "outputs": {
+        "months_to_payoff": "Months to payoff",
+        "total_interest": "Total de juros",
+        "total_paid": "Total pago"
+      },
+      "example_label": "Calculate debt payoff with deuda_total 10000, tasa_anual 18, pago_mensual 300.",
+      "range_hints": {
+        "pago_mensual": "Typical range: 0-99999 in EUR units.",
+        "deuda_total": "Typical range: 0-999999 in EUR units.",
+        "tasa_anual": "Typical range: 0-30 in % units."
+      },
+      "result_context": "Your calculated months to payoff is {months_to_payoff}.",
+      "formula_display": "Calculate debt payoff based on input values.",
+      "steps": [
+        "Enter input values: deuda_total: 10000, tasa_anual: 18, pago_mensual: 300",
+        "Calculate and display the months_to_payoff result",
+        "Calculate and display the total_interest result",
+        "Calculate and display the total_paid result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "deuda_total",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "tasa_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "pago_mensual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "de": {
+      "name": "Debt payoff",
+      "desc": "Berechnen Sie debt payoff online. Geben Sie deuda total, tasa anual, pago mensual ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Debt payoff | CalcToWork",
+      "seo_desc": "Debt payoff online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Debt payoff online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "deuda_total": "Deuda Total",
+        "tasa_anual": "Tasa Anual",
+        "pago_mensual": "Pago Mensual"
+      },
+      "outputs": {
+        "months_to_payoff": "Months To Payoff",
+        "total_interest": "Total Interest",
+        "total_paid": "Total Paid"
+      },
+      "example_label": "Averigua cuanto tardaras en liquidar una deuda de 10.000eur al 18% TAE pagando 300eur cada mes",
+      "range_hints": {
+        "deuda_total": "Valor monetario",
+        "tasa_anual": "Porcentaje según especificación",
+        "pago_mensual": "Valor monetario"
+      },
+      "result_context": "Resultados: {months_to_payoff} meses para liquidar, {total_interest} EUR de intereses totales, {total_paid} EUR pagado en total.",
+      "formula_display": "Meses para liquidar deuda = calculo iterativo hasta que el saldo pendiente llega a cero",
+      "steps": [
+        "Introduce el importe total de la deuda que arrastras actualmente (tarjeta de credito, prestamo personal, etc.)",
+        "Indica la tasa de interes anual (TAE) que te aplican sobre el saldo pendiente de la deuda",
+        "Define cuanto puedes pagar cada mes de forma constante y realista para liquidar la deuda progresivamente",
+        "El sistema simula mes a mes aplicando intereses sobre el saldo vivo y descontando tu pago mensual periodico",
+        "Analiza el resultado: comprueba cuantos meses necesitas exactamente y cuanto pagaras en intereses totales durante el proceso"
+      ],
+      "mistakes": [
+        "Pagar solo la cuota minima de la tarjeta de credito, lo que puede prolongar la deuda durante decadas con intereses altisimos",
+        "No priorizar las deudas con mayor TAE: ataca primero las mas caras (tarjetas revolving > prestamos personales > hipotecas)",
+        "Contraer nuevas deudas mientras se intenta pagar las existentes, entrando en una espiral de endeudamiento dificil de revertir"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "deuda_total",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "tasa_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "pago_mensual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatrice di Estinzione Debito",
+      "desc": "Calcola quanto tempo ci vuole per estinguere il debito con rate mensili fisse. Con opzioni di capitalizzazione e tasse. Usato da professionisti e.",
+      "description": "Calcolatrice di Estinzione Debito.",
+      "seo_title": "Calcolatrice di Estinzione Debito",
+      "seo_description": "Calcola quanto tempo ci vuole per estinguere il debito con rate mensili fisse. Con opzioni di capitalizzazione e tasse. Usato da professionisti e.",
+      "inputs": {
+        "deuda_total": "deuda_total",
+        "tasa_anual": "Tasso annuale %",
+        "pago_mensual": "Pagamento mensile"
+      },
+      "outputs": {
+        "months_to_payoff": "Months to payoff",
+        "total_interest": "Interessi totali",
+        "total_paid": "Totale pagato"
+      },
+      "example_label": "Calculate dibt paeoff with diuda_totale 10000, tasa_anual 18, pago_minsual 300.",
+      "range_hints": {
+        "pago_mensual": "Tepical range: 0-99999 in EUR units.",
+        "deuda_total": "Tepical range: 0-999999 in EUR units.",
+        "tasa_anual": "Tepical range: 0-30 in % units."
+      },
+      "result_context": "Your calculated months to paeoff is {months_to_paeoff}.",
+      "formula_display": "Calculate dibt paeoff based on input values.",
+      "steps": [
+        "Enter input values: diuda_totale: 10000, tasa_anual: 18, pago_minsual: 300",
+        "Calculate and displae the months_to_paeoff result",
+        "Calculate and displae the totale_interest result",
+        "Calculate and displae the totale_paid result"
+      ],
+      "mistakes": [
+        "Confusenzag unit options whin intering values",
+        "Usenzag incorrect input values outsedi recommindid range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "deuda_total",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "tasa_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "pago_mensual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        }
+      ]
+    }
+  }
+}

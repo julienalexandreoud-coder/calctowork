@@ -1,0 +1,559 @@
+{
+  "id": "301",
+  "slug": "prestamo",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "capital",
+      "type": "number",
+      "min": 100,
+      "max": 1000000000,
+      "step": 100,
+      "default": 10000,
+      "unit": "â‚¬"
+    },
+    {
+      "id": "interes_anual_pct",
+      "type": "number",
+      "min": 0.01,
+      "max": 50,
+      "step": 0.01,
+      "default": 5,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    },
+    {
+      "id": "plazo_meses",
+      "type": "number",
+      "min": 1,
+      "max": 600,
+      "step": 1,
+      "default": 48,
+      "unit": "meses"
+    }
+  ],
+  "formula": "var P=parseFloat(inputs.capital)||0,R=parseFloat(inputs.interes_anual_pct)||0,N=parseFloat(inputs.plazo_meses)||0;if(!P||!R||!N)return{error:true};var r=R/100/12,cuota=r?P*(r*Math.pow(1+r,N))/(Math.pow(1+r,N)-1):P/N,total=+(cuota*N).toFixed(2),intereses=+(total-P).toFixed(2);return{cuota_mensual:+cuota.toFixed(2),total_intereses:intereses,total_pagado:total};",
+  "outputs": [
+    {
+      "id": "cuota_mensual",
+      "unit": "â‚¬/mes",
+      "highlight": true
+    },
+    {
+      "id": "total_intereses",
+      "unit": "â‚¬"
+    },
+    {
+      "id": "total_pagado",
+      "unit": "â‚¬"
+    }
+  ],
+  "related": [
+    "300",
+    "302",
+    "303",
+    "316"
+  ],
+  "example_inputs": {
+    "capital": 15750,
+    "interes_anual_pct": 6.75,
+    "plazo_meses": 36
+  },
+  "example_label": "Calcula la cuota de tu prestamo personal de 15.750eur al 6,75% TAE durante 36 meses",
+  "range_hints": {
+    "capital": "Valor típico entre 100 y 1000000000. Valor por defecto: 10000 â‚¬.",
+    "interes_anual_pct": "Valor típico entre 0.01 y 50. Valor por defecto: 5 %.",
+    "plazo_meses": "Valor típico entre 1 y 600. Valor por defecto: 48 meses."
+  },
+  "result_context": "Pagarás una cuota de {cuota_mensual} € cada mes. Al final del préstamo habrás desembolsado {total_pagado} € en total, con un coste en intereses de {total_intereses} €.",
+  "result_context_en": "You will pay {cuota_mensual} € each month. By the end of the loan, you will have paid {total_pagado} € in total, with an interest cost of {total_intereses} €.",
+  "result_context_fr": "Vous paierez {cuota_mensual} € chaque mois. À la fin du prêt, vous aurez déboursé {total_pagado} € au total, dont {total_intereses} € d'intérêts.",
+  "result_context_pt": "Você pagará {cuota_mensual} € por mês. Ao final do empréstimo, terá desembolsado {total_pagado} € no total, com um custo de juros de {total_intereses} €.",
+  "result_context_de": "Sie zahlen {cuota_mensual} € pro Monat. Am Ende des Darlehens haben Sie insgesamt {total_pagado} € gezahlt, davon {total_intereses} € an Zinskosten.",
+  "result_context_it": "Pagherai {cuota_mensual} € ogni mese. Alla fine del prestito avrai sborsato {total_pagado} € in totale, con un costo di interessi di {total_intereses} €.",
+  "formula_display": "Cuota = C x [r x (1+r)^n] / [(1+r)^n - 1] donde r = interes mensual",
+  "steps": [
+    "Introduce el capital total que necesitas solicitar como prestamo personal al banco o financiera",
+    "Indica la tasa de interes anual (TAE) que te aplica la entidad financiera incluyendo comisiones",
+    "Define el plazo de devolucion en meses (plazos tipicos: 12, 24, 36, 48 o 60 meses)",
+    "El sistema calcula la cuota mensual fija usando el sistema de amortizacion frances",
+    "Compara el capital solicitado con el total a pagar para conocer el coste real del prestamo en intereses"
+  ],
+  "mistakes": [
+    "No comparar ofertas entre distintas entidades: pequenas diferencias en TAE pueden suponer cientos de euros de ahorro",
+    "Olvidar que los prestamos con TAE bajo suelen incluir comisiones de apertura, estudio o seguros obligatorios",
+    "Solicitar un plazo demasiado largo sin calcular el sobrecoste total en intereses acumulados durante todo el periodo"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "capital",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "interes_anual_pct",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "plazo_meses",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "capital": 7900,
+      "plazo_meses": 18,
+      "interes_anual_pct": 6.75
+    },
+    {
+      "_label": "Average",
+      "capital": 11800,
+      "plazo_meses": 27,
+      "interes_anual_pct": 6.75
+    },
+    {
+      "_label": "High",
+      "capital": 15800,
+      "plazo_meses": 36,
+      "interes_anual_pct": 6.75
+    },
+    {
+      "_label": "Premium",
+      "capital": 23600,
+      "plazo_meses": 54,
+      "interes_anual_pct": 6.75
+    },
+    {
+      "_label": "Enterprise",
+      "capital": 31500,
+      "plazo_meses": 72,
+      "interes_anual_pct": 6.75
+    }
+  ],
+  "units": {
+    "interes_anual_pct": "%"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Préstamo",
+      "desc": "Calcula la cuota mensual de cualquier préstamo personal o de consumo.",
+      "description": "Calcula la cuota mensual de cualquier préstamo personal o de consumo.",
+      "seo_title": "Calculadora de Préstamo – Cuota Mensual Online",
+      "seo_description": "Calcula la cuota mensual de un préstamo personal. Introduce capital, interés y plazo para obtener el resultado. Obten resultados al instante con.",
+      "inputs": {
+        "capital": "Capital (€)",
+        "interes_anual_pct": "Interés anual (%)",
+        "plazo_meses": "Plazo (meses)"
+      },
+      "outputs": {
+        "cuota_mensual": "Cuota mensual",
+        "total_intereses": "Intereses totales",
+        "total_pagado": "Total pagado"
+      },
+      "example_label": "Calculating monthly payment for a €15,750 personal loan at 6.75% annual interest over 36 months.",
+      "range_hints": {
+        "capital": "€1,000 - €100,000 typical loan amounts",
+        "interes_anual_pct": "3-15% personal loan rates",
+        "plazo_meses": "12-84 months common terms"
+      },
+      "result_context": "The cuota_mensual of {cuota_mensual} is your fixed monthly loan payment. You will pay {total_intereses} in interest over the life of the loan.",
+      "formula_display": "Monthly Payment = P × [r(1+r)^n] ÷ [(1+r)^n - 1]",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert annual interest rate to monthly",
+          "calculation": "6.75% ÷ 12 ÷ 100 = 0.005625"
+        },
+        {
+          "step": 2,
+          "description": "Identify number of monthly payments",
+          "calculation": "36 months"
+        },
+        {
+          "step": 3,
+          "description": "Calculate payment using annuity formula",
+          "calculation": "€15,750 × [0.005625(1.005625)^36] ÷ [(1.005625)^36 - 1] = €484.92"
+        },
+        {
+          "step": 4,
+          "description": "Calculate total interest paid",
+          "calculation": "(€484.92 × 36) - €15,750 = €1,707.12"
+        }
+      ],
+      "mistakes": [
+        "Confusing annual interest rate with monthly rate in calculations",
+        "Not considering early repayment penalties that may apply",
+        "Overlooking the total cost of borrowing beyond monthly payments"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "capital",
+          "reason": "Correct type for loan amount"
+        },
+        {
+          "field_id": "interes_anual_pct",
+          "reason": "Correct type for annual percentage rate"
+        },
+        {
+          "field_id": "plazo_meses",
+          "reason": "Correct type for month count"
+        }
+      ]
+    },
+    "en": {
+      "name": "Loan Calculator",
+      "desc": "Calculate the monthly payment for any personal or consumer loan.",
+      "description": "Calculate the monthly payment for any personal or consumer loan.",
+      "seo_title": "Loan Calculator – Monthly Payment & Interest",
+      "seo_description": "Calculate the monthly payment for a personal loan. Enter principal, interest rate and term to get instant results. Get instant results with step-by-step.",
+      "inputs": {
+        "capital": "Principal (â‚¬)",
+        "interes_anual_pct": "Annual interest (%)",
+        "plazo_meses": "Term (months)"
+      },
+      "outputs": {
+        "cuota_mensual": "Monthly payment",
+        "total_intereses": "Total interest",
+        "total_pagado": "Total paid"
+      },
+      "example_label": "Calculating monthly payment for a â‚¬15,750 personal loan at 6.75% annual interest over 36 months.",
+      "range_hints": {
+        "capital": "â‚¬1,000 - â‚¬100,000 typical loan amounts",
+        "interes_anual_pct": "3-15% personal loan rates",
+        "plazo_meses": "12-84 months common terms"
+      },
+      "result_context": "The cuota_mensual of {cuota_mensual} is your fixed monthly loan payment. You will pay {total_intereses} in interest over the life of the loan.",
+      "formula_display": "Monthly Payment = P × [r(1+r)^n] ÷ [(1+r)^n - 1]",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert annual interest rate to monthly",
+          "calculation": "6.75% ÷ 12 ÷ 100 = 0.005625"
+        },
+        {
+          "step": 2,
+          "description": "Identify number of monthly payments",
+          "calculation": "36 months"
+        },
+        {
+          "step": 3,
+          "description": "Calculate payment using annuity formula",
+          "calculation": "â‚¬15,750 × [0.005625(1.005625)^36] ÷ [(1.005625)^36 - 1] = â‚¬484.92"
+        },
+        {
+          "step": 4,
+          "description": "Calculate total interest paid",
+          "calculation": "(â‚¬484.92 × 36) - â‚¬15,750 = â‚¬1,707.12"
+        }
+      ],
+      "mistakes": [
+        "Confusing annual interest rate with monthly rate in calculations",
+        "Not considering early repayment penalties that may apply",
+        "Overlooking the total cost of borrowing beyond monthly payments"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "capital",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for loan amount"
+        },
+        {
+          "field_id": "interes_anual_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for annual percentage rate"
+        },
+        {
+          "field_id": "plazo_meses",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for month count"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur de Prêt",
+      "desc": "Calculez la mensualité de n'importe quel prêt personnel ou à la consommation.",
+      "description": "Calculez la mensualité de n'importe quel prêt personnel ou à la consommation.",
+      "seo_title": "Calculateur Prêt Personnel – Mensualité en Ligne",
+      "seo_description": "Calculez la mensualité d'un prêt personnel. Entrez le capital, le taux et la durée. Avec options de composition et taxes.",
+      "inputs": {
+        "capital": "Capital (€)",
+        "interes_anual_pct": "Taux annuel (%)",
+        "plazo_meses": "Durée (mois)"
+      },
+      "outputs": {
+        "cuota_mensual": "Mensualité",
+        "total_intereses": "Intérêts totaux",
+        "total_pagado": "Total remboursé"
+      },
+      "example_label": "Calculating monthly payment for a €15,750 personal loan at 6.75% annual interest over 36 months.",
+      "range_hints": {
+        "capital": "€1,000 - €100,000 typical loan amounts",
+        "interes_anual_pct": "3-15% personal loan rates",
+        "plazo_meses": "12-84 months common terms"
+      },
+      "result_context": "The cuota_mensual of {cuota_mensual} is your fixed monthly loan payment. You will pay {total_intereses} in interest over the life of the loan.",
+      "formula_display": "Monthly Payment = P × [r(1+r)^n] Á· [(1+r)^n - 1]",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert annual interest rate to monthly",
+          "calculation": "6.75% Á· 12 Á· 100 = 0.005625"
+        },
+        {
+          "step": 2,
+          "description": "Identify number of monthly payments",
+          "calculation": "36 months"
+        },
+        {
+          "step": 3,
+          "description": "Calculate payment using annuity formula",
+          "calculation": "â€15,750 × [0.005625(1.005625)^36] Á· [(1.005625)^36 - 1] = â€484.92"
+        },
+        {
+          "step": 4,
+          "description": "Calculate total interest paid",
+          "calculation": "(â‚¬484.92 × 36) - â‚¬15,750 = â‚¬1,707.12"
+        }
+      ],
+      "mistakes": [
+        "Confusing annual interest rate with monthly rate in calculations",
+        "Not considering early repayment penalties that may apply",
+        "Overlooking the total cost of borrowing beyond monthly payments"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "capital",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for loan amount"
+        },
+        {
+          "field_id": "interes_anual_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for annual percentage rate"
+        },
+        {
+          "field_id": "plazo_meses",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for month count"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Empréstimo",
+      "desc": "Calcule a prestação mensal de qualquer empréstimo pessoal.",
+      "description": "Calcule a prestação mensal de qualquer empréstimo pessoal.",
+      "seo_title": "Calculadora de Empréstimo – Prestação Mensal",
+      "seo_description": "Calcule a prestação mensal de um empréstimo pessoal. Insira capital, taxa e prazo. Com opcoes de compostagem e impostos.",
+      "inputs": {
+        "capital": "Capital (€)",
+        "interes_anual_pct": "Taxa anual (%)",
+        "plazo_meses": "Prazo (meses)"
+      },
+      "outputs": {
+        "cuota_mensual": "Prestação mensal",
+        "total_intereses": "Juros totais",
+        "total_pagado": "Total pago"
+      },
+      "example_label": "Calculating monthly payment for a €15,750 pessoal loan at 6.75% annual interest over 36 months.",
+      "range_hints": {
+        "capital": "€1,000 - €100,000 typical loan amounts",
+        "interes_anual_pct": "3-15% pessoal loan rates",
+        "plazo_meses": "12-84 months common terms"
+      },
+      "result_context": "The cuota_mensual of {cuota_mensual} is your fixed monthly loan payment. You will pay {total_intereses} in interest over the life of the loan.",
+      "formula_display": "Monthly Payment = P × [r(1+r)^n] ÷ [(1+r)^n - 1]",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert annual interest rate to monthly",
+          "calculation": "6.75% ÷ 12 ÷ 100 = 0.005625"
+        },
+        {
+          "step": 2,
+          "description": "Identify number of monthly payments",
+          "calculation": "36 months"
+        },
+        {
+          "step": 3,
+          "description": "Calculate payment using annuity formula",
+          "calculation": "â‚¬15,750 × [0.005625(1.005625)^36] ÷ [(1.005625)^36 - 1] = â‚¬484.92"
+        },
+        {
+          "step": 4,
+          "description": "Calculate total interest paid",
+          "calculation": "(â‚¬484.92 × 36) - â‚¬15,750 = â‚¬1,707.12"
+        }
+      ],
+      "mistakes": [
+        "Confusing annual interest rate with monthly rate in calculations",
+        "Not considering early repayment penalties that may apply",
+        "Overlooking the total cost of borrowing beyond monthly payments"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "capital",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for loan amount"
+        },
+        {
+          "field_id": "interes_anual_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for annual percentage rate"
+        },
+        {
+          "field_id": "plazo_meses",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for month count"
+        }
+      ]
+    },
+    "de": {
+      "name": "Darlehensrechner",
+      "desc": "Berechnen Sie darlehensrechner online. Geben Sie capital, interes anual pct, plazo meses ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Darlehensrechner | CalcToWork",
+      "seo_desc": "Darlehensrechner online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Darlehensrechner online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "capital": "Capital",
+        "interes_anual_pct": "Interes Anual Pct",
+        "plazo_meses": "Plazo Meses"
+      },
+      "outputs": {
+        "cuota_mensual": "Cuota Mensual",
+        "total_intereses": "Total Intereses",
+        "total_pagado": "Total Pagado"
+      },
+      "example_label": "Calcula la cuota de tu prestamo personal de 15.750eur al 6,75% TAE durante 36 meses",
+      "range_hints": {
+        "capital": "Valor típico entre 100 y 1000000000. Valor por defecto: 10000 â‚¬.",
+        "interes_anual_pct": "Valor típico entre 0.01 y 50. Valor por defecto: 5 %.",
+        "plazo_meses": "Valor típico entre 1 y 600. Valor por defecto: 48 meses."
+      },
+      "result_context": "Sie zahlen {cuota_mensual} € pro Monat. Am Ende des Darlehens haben Sie insgesamt {total_pagado} € gezahlt, davon {total_intereses} € an Zinskosten.",
+      "formula_display": "Cuota = C x [r x (1+r)^n] / [(1+r)^n - 1] donde r = interes mensual",
+      "steps": [
+        "Introduce el capital total que necesitas solicitar como prestamo personal al banco o financiera",
+        "Indica la tasa de interes anual (TAE) que te aplica la entidad financiera incluyendo comisiones",
+        "Define el plazo de devolucion en meses (plazos tipicos: 12, 24, 36, 48 o 60 meses)",
+        "El sistema calcula la cuota mensual fija usando el sistema de amortizacion frances",
+        "Compara el capital solicitado con el total a pagar para conocer el coste real del prestamo en intereses"
+      ],
+      "mistakes": [
+        "No comparar ofertas entre distintas entidades: pequenas diferencias en TAE pueden suponer cientos de euros de ahorro",
+        "Olvidar que los prestamos con TAE bajo suelen incluir comisiones de apertura, estudio o seguros obligatorios",
+        "Solicitar un plazo demasiado largo sin calcular el sobrecoste total en intereses acumulados durante todo el periodo"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "capital",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "interes_anual_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "plazo_meses",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Prestito",
+      "desc": "Calcola la rata mensile di qualsiasi prestito personale.",
+      "description": "Calcola la rata mensile di qualsiasi prestito personale.",
+      "seo_title": "Calcolatore Prestito Personale – Rata Mensile",
+      "seo_description": "Calcola la rata mensile di un prestito personale. Inserisci capitale, tasso e durata. Con opzioni di capitalizzazione e tasse.",
+      "inputs": {
+        "capital": "Capitale (€)",
+        "interes_anual_pct": "Tasso annuale (%)",
+        "plazo_meses": "Durata (mesi)"
+      },
+      "outputs": {
+        "cuota_mensual": "Rata mensile",
+        "total_intereses": "Interessi totali",
+        "total_pagado": "Totale pagato"
+      },
+      "example_label": "Calculating monthle paemint for a €15,750 personal loan at 6.75% annual interest over 36 months.",
+      "range_hints": {
+        "capital": "€1,000 - €100,000 tepical loan amounts",
+        "interes_anual_pct": "3-15% personal loan rates",
+        "plazo_meses": "12-84 months common terms"
+      },
+      "result_context": "The cuota_minsual of {cuota_minsual} is eour fixed monthle loan paemint. You will pae {totale_intereses} in interest over the life of the loan.",
+      "formula_display": "Monthle Paemint = P × [r(1+r)^n] ÷ [(1+r)^n - 1]",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert annual interest rate to monthly",
+          "calculation": "6.75% ÷ 12 ÷ 100 = 0.005625"
+        },
+        {
+          "step": 2,
+          "description": "Identify number of monthly payments",
+          "calculation": "36 months"
+        },
+        {
+          "step": 3,
+          "description": "Calculate payment using annuity formula",
+          "calculation": "€15,750 × [0.005625(1.005625)^36] ÷ [(1.005625)^36 - 1] = €484.92"
+        },
+        {
+          "step": 4,
+          "description": "Calculate total interest paid",
+          "calculation": "(€484.92 × 36) - €15,750 = €1,707.12"
+        }
+      ],
+      "mistakes": [
+        "Confusenzag annual interest rate with monthle rate in calculations",
+        "Not consediring earle repaemint pinalties that mae apple",
+        "Overlooking the totale cost of borrowing beeond monthle paemints"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "capital",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for loan amount"
+        },
+        {
+          "field_id": "interes_anual_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for annual percintage rate"
+        },
+        {
+          "field_id": "plazo_meses",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for month count"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,489 @@
+{
+  "id": "038",
+  "slug": "suelo-radiante",
+  "block": 4,
+  "block_slug": "fontaneria",
+  "inputs": [
+    {
+      "id": "area_m2",
+      "type": "number",
+      "min": 5,
+      "max": 500,
+      "step": 0.5,
+      "default": 80,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "separacion_cm",
+      "type": "number",
+      "min": 10,
+      "max": 30,
+      "step": 5,
+      "default": 20,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in",
+        "ft"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "circuitos_max_m",
+      "type": "number",
+      "min": 50,
+      "max": 120,
+      "step": 10,
+      "default": 80,
+      "unit": "m/circuito"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area_m2)||0,sep=parseFloat(inputs.separacion_cm)||20,cmax=parseFloat(inputs.circuitos_max_m)||80;if(!A)return{error:true};var ml_tubo=+(A*(100/sep)*1.1).toFixed(1),circuitos=Math.ceil(ml_tubo/cmax),colectores=Math.ceil(circuitos/8),mortero_kg=+(A*80).toFixed(0);return{ml_tubo:ml_tubo,circuitos:circuitos,colectores_ud:colectores,mortero_autonivelante_kg:mortero_kg};",
+  "outputs": [
+    {
+      "id": "ml_tubo",
+      "unit": "m.l. tubo (+10%)",
+      "highlight": true
+    },
+    {
+      "id": "circuitos",
+      "unit": "circuitos"
+    },
+    {
+      "id": "colectores_ud",
+      "unit": "colectores (8 circ)"
+    },
+    {
+      "id": "mortero_autonivelante_kg",
+      "unit": "kg"
+    }
+  ],
+  "related": [
+    "037",
+    "032",
+    "036",
+    "039"
+  ],
+  "example_inputs": {
+    "area_m2": 80,
+    "separacion_cm": 20,
+    "circuitos_max_m": 80
+  },
+  "example_label": "Ejemplo para suelo radiante: valores 80m², 20cm, 80m/circuito",
+  "range_hints": {
+    "area_m2": "Valor típico entre 5 y 500. Valor por defecto: 80 m².",
+    "separacion_cm": "Valor típico entre 10 y 30. Valor por defecto: 20 cm.",
+    "circuitos_max_m": "Valor típico entre 50 y 120. Valor por defecto: 80 m/circuito."
+  },
+  "result_context": "Resultados: {ml_tubo} m.l. de tubo, {circuitos} circuitos, {colectores_ud} colectores, {mortero_autonivelante_kg} kg de mortero autonivelante.",
+  "formula_display": "100 ÷ sep → ml_tubo, circuitos",
+  "steps": [
+    "Introducir los valores de area_m2, separacion_cm y circuitos_max_m",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+    "Calcular los valores de ml tubo y circuitos",
+    "El resultado se expresa en m.l. tubo (+10%). Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "No respetar la pendiente mínima del 2% en tuberías de saneamiento",
+    "Usar tubería de pared delgada para instalaciones enterradas",
+    "No instalar válvulas de corte en puntos clave de la instalación"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "area_m2",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "separacion_cm",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "circuitos_max_m",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small bathroom",
+      "area_m2": 40,
+      "circuitos_max_m": 50,
+      "separacion_cm": 20
+    },
+    {
+      "_label": "Medium bathroom",
+      "area_m2": 60,
+      "circuitos_max_m": 60,
+      "separacion_cm": 20
+    },
+    {
+      "_label": "Large bathroom",
+      "area_m2": 80,
+      "circuitos_max_m": 80,
+      "separacion_cm": 20
+    },
+    {
+      "_label": "Apartment",
+      "area_m2": 120,
+      "circuitos_max_m": 120,
+      "separacion_cm": 20
+    },
+    {
+      "_label": "House",
+      "area_m2": 160,
+      "circuitos_max_m": 120,
+      "separacion_cm": 20
+    }
+  ],
+  "units": {
+    "area_m2": "m²",
+    "separacion_cm": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Suelo Radiante",
+      "desc": "Calcula metros de tubo y circuitos para suelo radiante.",
+      "seo_title": "Calculadora Suelo Radiante – Tubería",
+      "seo_desc": "Calcula los metros lineales de tubo, circuitos y colectores para una instalación de suelo radiante Usado por profesionales y estudiantes en todo el mundo.",
+      "inputs": {
+        "area_m2": "Área calefactada",
+        "separacion_cm": "Separación entre tubos",
+        "circuitos_max_m": "Longitud máxima por circuito"
+      },
+      "outputs": {
+        "ml_tubo": "Metros de tubo (+10%)",
+        "circuitos": "Circuitos",
+        "colectores_ud": "Colectores",
+        "mortero_autonivelante_kg": "Mortero autonivelante"
+      },
+      "seo_description": "Calcula los metros de tubo PEX, el número de circuitos, colectores y mortero autonivelante para tu instalación de suelo radiante. Configurable con separación entre tubos de 10 a 25 cm según necesidades térmicas.",
+      "example_label": "Calcular tubería para suelo radiante de 80m² con separación de 15cm entre tubos.",
+      "range_hints": {
+        "area_m2": "Superficie a calefaccionar con suelo radiante",
+        "separacion_cm": "Típico: 10-20cm (15cm estándar para viviendas)",
+        "circuitos_max_m": "Longitud máxima por circuito: 80-120m según diámetro"
+      },
+      "result_context": "Para {area_m2}m² con tubería cada {separacion_cm}cm se necesitan {tuberia_m}m de tubo PEX en {circuitos_ud} circuitos. Colector de {vias_ud} vías requerido.",
+      "formula_display": "Tubería = área × (100 ÷ separación_cm); Circuitos = tubería ÷ circuitos_max_m",
+      "steps": [
+        "Calcular metros de tubería: 80m² × (100 ÷ 15) = 80 × 6.67 = 533.33m",
+        "Aplicar factor 1.10 por bordes: 533m × 1.10 = 586m de tubo",
+        "Calcular circuitos: 586m ÷ 100m/circuito = 5.86 → 6 circuitos",
+        "Colector necesario: 6 salidas (vías)"
+      ],
+      "mistakes": [
+        "Exceder longitud máxima por circuito (pérdida de carga excesiva)",
+        "No aislar térmicamente bajo los tubos (pérdida hacia abajo)",
+        "No dejar juntas de dilatación en superficies > 40m²"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "separacion_cm",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "circuitos_max_m",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Underfloor Heating Calculator",
+      "desc": "Calculate pipe length and circuits for underfloor heating.",
+      "seo_title": "Underfloor Heating Calculator – Pipe",
+      "seo_desc": "Underfloor Heating Calculator. Heated area, Pipe spacing, Max length per circuit — get Pipe length (+10%), Circuits, Manifolds instantly for your plumbing.",
+      "inputs": {
+        "area_m2": "Heated area",
+        "separacion_cm": "Pipe spacing",
+        "circuitos_max_m": "Max length per circuit"
+      },
+      "outputs": {
+        "ml_tubo": "Pipe length (+10%)",
+        "circuitos": "Circuits",
+        "colectores_ud": "Manifolds",
+        "mortero_autonivelante_kg": "Self-levelling screed"
+      },
+      "seo_description": "Calculate PEX tubing metres, number of circuits, manifolds and self-levelling screed for underfloor heating. Configurable pipe spacing from 10 to 25 cm based on heating needs.",
+      "example_label": "Calcular tubería para suelo radiante de 80m² con separación de 15cm entre tubos.",
+      "range_hints": {
+        "area_m2": "Superficie a calefaccionar con suelo radiante",
+        "separacion_cm": "Típico: 10-20cm (15cm estándar para viviendas)",
+        "circuitos_max_m": "Longitud máxima por circuito: 80-120m según diámetro"
+      },
+      "result_context": "Para {area_m2}m² con tubería cada {separacion_cm}cm se necesitan {tuberia_m}m de tubo PEX en {circuitos_ud} circuitos. Colector de {vias_ud} vías requerido.",
+      "formula_display": "Tubería = área × (100 ÷ separación_cm); Circuitos = tubería ÷ circuitos_max_m",
+      "steps": [
+        "Calcular metros de tubería: 80m² × (100 ÷ 15) = 80 × 6.67 = 533.33m",
+        "Aplicar factor 1.10 por bordes: 533m × 1.10 = 586m de tubo",
+        "Calcular circuitos: 586m ÷ 100m/circuito = 5.86 â†’ 6 circuitos",
+        "Colector necesario: 6 salidas (vías)"
+      ],
+      "mistakes": [
+        "Exceder longitud máxima por circuito (pérdida de carga excesiva)",
+        "No aislar térmicamente bajo los tubos (pérdida hacia abajo)",
+        "No dejar juntas de dilatación en superficies > 40m²"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "separacion_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "circuitos_max_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Plancher Chauffant",
+      "desc": "Calculez mètres de tube et circuits pour plancher chauffant.",
+      "seo_title": "Calculateur Plancher Chauffant",
+      "inputs": {
+        "area_m2": "Surface chauffée",
+        "separacion_cm": "Espacement tubes",
+        "circuitos_max_m": "Longueur max par circuit"
+      },
+      "outputs": {
+        "ml_tubo": "Mètres de tube (+10%)",
+        "circuitos": "Circuits",
+        "colectores_ud": "Collecteurs",
+        "mortero_autonivelante_kg": "Chape autonivelante"
+      },
+      "seo_description": "Calculez les mètres linéaires de tube, circuits et collecteurs pour plancher chauffant Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calculer tuyau pour sol radiante de 80m² avec separación de 15cm entre tubos.",
+      "range_hints": {
+        "area_m2": "surface a calefaccionar avec sol radiante",
+        "separacion_cm": "typique: 10-20cm (15cm standard pour viviendas)",
+        "circuitos_max_m": "longueur máxima par circuito: 80-120m selon diamètre"
+      },
+      "result_context": "pour {area_m2}m² avec tuyau chaque {separacion_cm}cm se necesitan {tuberia_m}m de tubo PEX dans {circuitos_ud} circuitos. Colector de {vias_ud} vías requerido.",
+      "formula_display": "tuyau = área × (100 Á· separación_cm); Circuitos = tuyau Á· circuitos_max_m",
+      "steps": [
+        "Calculer metros de tuyau: 80m² × (100 Á· 15) = 80 × 6.67 = 533.33m",
+        "Aplicar factor 1.10 par bordes: 533m × 1.10 = 586m de tubo",
+        "Calculer circuitos: 586m Á· 100m/circuito = 5.86 ââ€ ’ 6 circuitos",
+        "Colector nécessaire: 6 salidas (vías)"
+      ],
+      "mistakes": [
+        "Exceder longueur máxima par circuito (pérdida de carga excessif)",
+        "No aislar térmicamente sous les tubos (pérdida hacia abajo)",
+        "No dejar juntas de dilatación dans superficies > 40m²"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "separacion_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "circuitos_max_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Piso Radiante",
+      "desc": "Calcule metros de tubo e circuitos para piso radiante.",
+      "seo_title": "Calculadora Piso Aquecido – Tubos",
+      "inputs": {
+        "area_m2": "Área aquecida",
+        "separacion_cm": "Espaçamento entre tubos",
+        "circuitos_max_m": "Comprimento máximo por circuito"
+      },
+      "outputs": {
+        "ml_tubo": "Metros de tubo (+10%)",
+        "circuitos": "Circuitos",
+        "colectores_ud": "Coletores",
+        "mortero_autonivelante_kg": "Argamassa autonivelante"
+      },
+      "seo_description": "Calcule metros lineares de tubo, circuitos e coletores para piso radiante Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular tubulação para solo radiante de 80m² com separação de 15cm entre tubos.",
+      "range_hints": {
+        "area_m2": "Superficie a calefaccionar com solo radiante",
+        "separacion_cm": "Típico: 10-20cm (15cm padrão para viviendas)",
+        "circuitos_max_m": "Longitud máxima por circuito: 80-120m segundo diâmetro"
+      },
+      "result_context": "Para {area_m2}m² com tubulação cada {separacion_cm}cm são necessários {tuberia_m}m de tubo PEX em {circuitos_ud} circuitos. Colector de {vias_ud} vías requerido.",
+      "formula_display": "Tubería = área × (100 ÷ separación_cm); Circuitos = tubulação ÷ circuitos_max_m",
+      "steps": [
+        "Calcular metros de tubulação: 80m² × (100 ÷ 15) = 80 × 6.67 = 533.33m",
+        "Aplicar factor 1.10 por bordes: 533m × 1.10 = 586m de tubo",
+        "Calcular circuitos: 586m ÷ 100m/circuito = 5.86 â†’ 6 circuitos",
+        "Colector necessário: 6 salidas (vías)"
+      ],
+      "mistakes": [
+        "Exceder comprimento máxima por circuito (pérdida de carga excessiva)",
+        "Não aislar térmicamente sob os tubos (pérdida hacia abajo)",
+        "Não dejar juntas de dilatação em superficies > 40m²"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "separacion_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "circuitos_max_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Fußbodenheizung radiante",
+      "desc": "Berechnen Sie fußbodenheizung radiante online. Geben Sie area m2, separacion cm, circuitos max m ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Fußbodenheizung radiante | CalcToWork",
+      "seo_desc": "Fußbodenheizung radiante online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Fußbodenheizung radiante online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "area_m2": "Area M2",
+        "separacion_cm": "Separacion Cm",
+        "circuitos_max_m": "Circuitos Max M"
+      },
+      "outputs": {
+        "ml_tubo": "Ml Tubo",
+        "circuitos": "Circuitos",
+        "colectores_ud": "Colectores Ud",
+        "mortero_autonivelante_kg": "Mortero Autonivelante Kg"
+      },
+      "example_label": "Ejemplo para suelo radiante: valores 80m², 20cm, 80m/circuito",
+      "range_hints": {
+        "area_m2": "Valor típico entre 5 y 500. Valor por defecto: 80 m².",
+        "separacion_cm": "Valor típico entre 10 y 30. Valor por defecto: 20 cm.",
+        "circuitos_max_m": "Valor típico entre 50 y 120. Valor por defecto: 80 m/circuito."
+      },
+      "result_context": "Resultados: {ml_tubo} m.l. de tubo, {circuitos} circuitos, {colectores_ud} colectores, {mortero_autonivelante_kg} kg de mortero autonivelante.",
+      "formula_display": "100 ÷ sep → ml_tubo, circuitos",
+      "steps": [
+        "Introducir los valores de area_m2, separacion_cm y circuitos_max_m",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+        "Calcular los valores de ml tubo y circuitos",
+        "El resultado se expresa en m.l. tubo (+10%). Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "No respetar la pendiente mínima del 2% en tuberías de saneamiento",
+        "Usar tubería de pared delgada para instalaciones enterradas",
+        "No instalar válvulas de corte en puntos clave de la instalación"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "separacion_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "circuitos_max_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Scatola di Ispezione",
+      "description": "Dimensiona le camere di ispezione delle fognature.",
+      "seo_title": "Calcolatore Riscaldamento a Pavimento",
+      "seo_description": "Calcola le dimensioni delle camere di ispezione fognaria Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo rapido,.",
+      "inputs": {
+        "caudal": "Portata (L/s)",
+        "num_entradas": "Numero di ingressi"
+      },
+      "outputs": {
+        "largo": "Lunghezza (m)",
+        "ancho": "Larghezza (m)",
+        "profundidad_min": "Profondità min. (m)"
+      },
+      "example_label": "Calcolare tubería per paviminto radiante di 80m² con seperción di 15cm intre tubos.",
+      "range_hints": {
+        "area_m2": "Superficie a calefaccionar con paviminto radiante",
+        "separacion_cm": "Típico: 10-20cm (15cm estándar per viviindas)",
+        "circuitos_max_m": "Longitud máxima per circuito: 80-120m según diámetro"
+      },
+      "result_context": "Per {area_m2}m² con tubería cada {sepercion_cm}cm sonon necessari {tuberia_m}m di tubo PEX in {circuitos_ud} circuitos. Colector di {vias_ud} vías richiesto.",
+      "formula_display": "Tubería = área × (100 ÷ seperción_cm); Circuitos = tubería ÷ circuitos_max_m",
+      "steps": [
+        "Calcolare metros di tubería: 80m² × (100 ÷ 15) = 80 × 6.67 = 533.33m",
+        "Applicare factor 1.10 per bordi: 533m × 1.10 = 586m di tubo",
+        "Calcolare circuitos: 586m ÷ 100m/circuito = 5.86 → 6 circuitos",
+        "Colector necessario: 6 salidas (vías)"
+      ],
+      "mistakes": [
+        "Excedir lunghezza máxima per circuito (pérdida di carico exceseva)",
+        "No isolare térmicaminte basso i tubos (pérdida hacia abasso)",
+        "No dijar guarnizioni di dilatación in superficies > 40m²"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "separacion_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "circuitos_max_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        }
+      ]
+    }
+  }
+}

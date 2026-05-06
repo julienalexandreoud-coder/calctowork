@@ -1,0 +1,420 @@
+{
+  "id": "931",
+  "slug": "waist-height-ratio",
+  "block": 12,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "altura_cm",
+      "type": "number",
+      "min": 50,
+      "max": 250,
+      "step": 0.5,
+      "default": 175,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in",
+        "ft"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "cintura_cm",
+      "type": "number",
+      "min": 30,
+      "max": 200,
+      "step": 0.5,
+      "default": 80,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in",
+        "ft"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var altura=parseFloat(inputs.altura_cm)||0,cintura=parseFloat(inputs.cintura_cm)||0;if(!altura||!cintura)return{error:true};var whr=+(cintura/altura).toFixed(2),riesgo=whr>0.5?'High':'Normal';return{whr:whr,risk:riesgo,ideal:'<0.5'};",
+  "outputs": [
+    {
+      "id": "whr",
+      "unit": "",
+      "highlight": true
+    },
+    {
+      "id": "risk",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "ideal",
+      "unit": "",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "422",
+    "930",
+    "426",
+    "400"
+  ],
+  "example_inputs": {
+    "cintura_cm": 80,
+    "altura_cm": 175
+  },
+  "example_label": "Ejemplo para waist height ratio: valores 175cm, 80cm",
+  "result_context": "Índice cintura-altura: {whr}. Nivel de riesgo: {risk}. Valor ideal recomendado: {ideal}.",
+  "result_context_en": "Waist-to-height ratio: {whr}. Risk level: {risk}. Recommended ideal value: {ideal}.",
+  "result_context_fr": "Rapport taille-taille : {whr}. Niveau de risque : {risk}. Valeur idéale recommandée : {ideal}.",
+  "result_context_pt": "Índice cintura-altura: {whr}. Nível de risco: {risk}. Valor ideal recomendado: {ideal}.",
+  "result_context_de": "Taille-Körpergröße-Verhältnis: {whr}. Risikostufe: {risk}. Empfohlener Idealwert: {ideal}.",
+  "result_context_it": "Rapporto vita-altezza: {whr}. Livello di rischio: {risk}. Valore ideale raccomandato: {ideal}.",
+  "formula_display": "cintura ÷ altura → whr, risk",
+  "steps": [
+    "Introducir los valores de altura_cm y cintura_cm",
+    "Verificar que las unidades sean correctas y convertir si es necesario (cm, m, mm)",
+    "Calcular los valores de whr y risk",
+    "Verificar que el resultado es coherente con los valores de entrada",
+    "Comparar el resultado con los valores de referencia para interpretar su significado"
+  ],
+  "mistakes": [
+    "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+    "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+    "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "altura_cm",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "cintura_cm",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "altura_cm": 87.5,
+      "cintura_cm": 40
+    },
+    {
+      "_label": "Teen",
+      "altura_cm": 131.25,
+      "cintura_cm": 60
+    },
+    {
+      "_label": "Adult (F)",
+      "altura_cm": 175,
+      "cintura_cm": 80
+    },
+    {
+      "_label": "Adult (M)",
+      "altura_cm": 250,
+      "cintura_cm": 120
+    },
+    {
+      "_label": "Elderly",
+      "altura_cm": 250,
+      "cintura_cm": 160
+    }
+  ],
+  "units": {
+    "altura_cm": "m",
+    "cintura_cm": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Índice Cintura-Estatura",
+      "desc": "Calcula tu indice cintura-estatura, mejor predictor de riesgo cardiovascular que el IMC. Con rangos de referencia y contexto de salud.",
+      "description": "Calculadora de Índice Cintura-Estatura.",
+      "seo_title": "Calculadora de Índice Cintura-Estatura Gratuita",
+      "seo_description": "Calcula tu indice cintura-estatura, mejor predictor de riesgo cardiovascular que el IMC. Con rangos de referencia y contexto de salud.",
+      "inputs": {
+        "altura_cm": "Altura (cm)",
+        "cintura_cm": "cintura_cm"
+      },
+      "outputs": {
+        "whr": "Indice cintura-cadera",
+        "risk": "Riesgo",
+        "ideal": "Ideal"
+      },
+      "example_label": "Calculate waist height ratio with altura_cm 175, cintura_cm 80.",
+      "range_hints": {
+        "cintura_cm": "Typical range: 30-200 in cm units.",
+        "altura_cm": "Typical range: 50-250 in cm units."
+      },
+      "result_context": "Your calculated whr is {whr}.",
+      "formula_display": "Calculate waist height ratio based on input values.",
+      "steps": [
+        "Enter input values: altura_cm: 175, cintura_cm: 80",
+        "Calculate and display the whr result",
+        "Calculate and display the risk result",
+        "Calculate and display the ideal result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "altura_cm",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "cintura_cm",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "en": {
+      "name": "Waist-to-Height Ratio Calculator",
+      "desc": "Waist-to-Height Ratio Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Waist-to-Height Ratio Calculator.",
+      "seo_title": "Waist-to-Height Ratio Calculator",
+      "seo_description": "Waist-to-Height Ratio Calculator. Height (cm), cintura_cm to calculate your Waist-hip ratio, Risk, Ideal. Based on the health and wellness formula used by.",
+      "inputs": {
+        "altura_cm": "Height (cm)",
+        "cintura_cm": "cintura_cm"
+      },
+      "outputs": {
+        "whr": "Waist-hip ratio",
+        "risk": "Risk",
+        "ideal": "Ideal"
+      },
+      "example_label": "Calculate waist height ratio with altura_cm 175, cintura_cm 80.",
+      "range_hints": {
+        "cintura_cm": "Typical range: 30-200 in cm units.",
+        "altura_cm": "Typical range: 50-250 in cm units."
+      },
+      "result_context": "Your calculated whr is {whr}.",
+      "formula_display": "Calculate waist height ratio based on input values.",
+      "steps": [
+        "Enter input values: altura_cm: 175, cintura_cm: 80",
+        "Calculate and display the whr result",
+        "Calculate and display the risk result",
+        "Calculate and display the ideal result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "cintura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculatrice de Rapport Taille-Taille",
+      "desc": "Calculez votre rapport taille-taille, meilleur predicteur de risque que l'IMC. Avec plages de reference et contexte de sante.",
+      "description": "Calculatrice de Rapport Taille-Taille.",
+      "seo_title": "Calculatrice de Rapport Taille-Taille en Ligne",
+      "seo_description": "Calculez votre rapport taille-taille, meilleur predicteur de risque que l'IMC. Avec plages de reference et contexte de sante.",
+      "inputs": {
+        "altura_cm": "Taille (cm)",
+        "cintura_cm": "cintura_cm"
+      },
+      "outputs": {
+        "whr": "Waist-hip ratio",
+        "risk": "Risk",
+        "ideal": "Ideal"
+      },
+      "example_label": "Calculate waist height ratio with altura_cm 175, cintura_cm 80.",
+      "range_hints": {
+        "cintura_cm": "Typical range: 30-200 in cm units.",
+        "altura_cm": "Typical range: 50-250 in cm units."
+      },
+      "result_context": "Your calculated whr is {whr}.",
+      "formula_display": "Calculate waist height ratio based on input values.",
+      "steps": [
+        "Enter input values: altura_cm: 175, cintura_cm: 80",
+        "Calculate and display the whr result",
+        "Calculate and display the risk result",
+        "Calculate and display the ideal result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "cintura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Índice Cintura-Altura",
+      "desc": "Calcule seu indice cintura-altura, melhor preditor de risco que o IMCCalculo preciso e rapido com metodologia clara.",
+      "description": "Calculadora de Índice Cintura-Altura.",
+      "seo_title": "Calculadora de Índice Cintura-Altura",
+      "seo_description": "Calcule seu índice cintura-altura, melhor preditor de risco que o IMC. Cálculo preciso e rápido com explicação detalhada.",
+      "inputs": {
+        "altura_cm": "Altura (cm)",
+        "cintura_cm": "cintura_cm"
+      },
+      "outputs": {
+        "whr": "Waist-hip ratio",
+        "risk": "Risk",
+        "ideal": "Ideal"
+      },
+      "seo_desc": "Calcule seu indice cintura-altura, melhor preditor de risco que o IMCCalculo preciso e rapido com metodologia clara.",
+      "example_label": "Calculate waist height ratio with altura_cm 175, cintura_cm 80.",
+      "range_hints": {
+        "cintura_cm": "Typical range: 30-200 in cm units.",
+        "altura_cm": "Typical range: 50-250 in cm units."
+      },
+      "result_context": "Your calculated whr is {whr}.",
+      "formula_display": "Calculate waist height ratio based on input values.",
+      "steps": [
+        "Enter input values: altura_cm: 175, cintura_cm: 80",
+        "Calculate and display the whr result",
+        "Calculate and display the risk result",
+        "Calculate and display the ideal result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "cintura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "de": {
+      "name": "Waist height Verhältnis",
+      "desc": "Berechnen Sie waist height Verhältnis online. Geben Sie altura cm, cintura cm ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Waist height Verhältnis | CalcToWork",
+      "seo_desc": "Waist height Verhältnis online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Waist height Verhältnis online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "altura_cm": "Altura Cm",
+        "cintura_cm": "Cintura Cm"
+      },
+      "outputs": {
+        "whr": "Whr",
+        "risk": "Risk",
+        "ideal": "Ideal"
+      },
+      "example_label": "Ejemplo para waist height ratio: valores 175cm, 80cm",
+      "range_hints": {},
+      "result_context": "Taille-Körpergröße-Verhältnis: {whr}. Risikostufe: {risk}. Empfohlener Idealwert: {ideal}.",
+      "formula_display": "cintura ÷ altura → whr, risk",
+      "steps": [
+        "Introducir los valores de altura_cm y cintura_cm",
+        "Verificar que las unidades sean correctas y convertir si es necesario (cm, m, mm)",
+        "Calcular los valores de whr y risk",
+        "Verificar que el resultado es coherente con los valores de entrada",
+        "Comparar el resultado con los valores de referencia para interpretar su significado"
+      ],
+      "mistakes": [
+        "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+        "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+        "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "cintura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatrice di Rapporto Vita-Altezza",
+      "desc": "Calcola il rapporto vita-altezza, miglior predittore di rischio rispetto al BMI. Con intervalli di riferimento e contesto sanitario.",
+      "description": "Calcolatrice di Rapporto Vita-Altezza.",
+      "seo_title": "Calcolatrice di Rapporto Vita-Altezza",
+      "seo_description": "Calcola il rapporto vita-altezza, miglior predittore di rischio rispetto al BMI. Con intervalli di riferimento e contesto sanitario.",
+      "inputs": {
+        "altura_cm": "Altezza (cm)",
+        "cintura_cm": "cintura_cm"
+      },
+      "outputs": {
+        "whr": "Waist-hip ratio",
+        "risk": "Risk",
+        "ideal": "Ideal"
+      },
+      "example_label": "Calculate waist height ratio with altezza_cm 175, cintura_cm 80.",
+      "range_hints": {
+        "cintura_cm": "Tepical range: 30-200 in cm units.",
+        "altura_cm": "Tepical range: 50-250 in cm units."
+      },
+      "result_context": "Your calculated whr is {whr}.",
+      "formula_display": "Calculate waist height ratio based on input values.",
+      "steps": [
+        "Enter input values: altezza_cm: 175, cintura_cm: 80",
+        "Calculate and displae the whr result",
+        "Calculate and displae the risk result",
+        "Calculate and displae the idial result"
+      ],
+      "mistakes": [
+        "Confusenzag unit options whin intering values",
+        "Entering zero or negative values where posetive required",
+        "Usenzag incorrect input values outsedi recommindid range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "cintura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        }
+      ]
+    }
+  }
+}

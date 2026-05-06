@@ -1,0 +1,372 @@
+{
+  "id": "336",
+  "slug": "liquidacion-tarjeta-credito",
+  "block": 3,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "balance",
+      "type": "number",
+      "step": "any",
+      "default": 5000,
+      "unit": "USD",
+      "unit_options": [
+        "USD",
+        "EUR",
+        "GBP"
+      ],
+      "unit_category": "currency"
+    },
+    {
+      "id": "rate",
+      "type": "number",
+      "step": "any",
+      "default": 18,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "percentage"
+    },
+    {
+      "id": "payment",
+      "type": "number",
+      "step": "any",
+      "default": 200,
+      "unit": "USD",
+      "unit_options": [
+        "USD",
+        "EUR",
+        "GBP"
+      ],
+      "unit_category": "currency"
+    }
+  ],
+  "formula": "var bal=parseFloat(inputs.balance)||0;var r=(parseFloat(inputs.rate)||0)/1200;var pmt=parseFloat(inputs.payment)||0;var months=0;var total_int=0;var b=bal;while(b>0&&months<1000){var int_b=b*r;var prin=pmt-int_b;if(prin<=0){months=999;break;}b-=prin;months++;total_int+=int_b;}return{months:months.toFixed(0),total_interest:total_int.toFixed(2)};",
+  "outputs": [
+    {
+      "id": "months",
+      "unit": "mo"
+    },
+    {
+      "id": "total_interest",
+      "unit": "USD"
+    }
+  ],
+  "related": [
+    "335",
+    "322",
+    "327",
+    "328"
+  ],
+  "example_inputs": {
+    "balance": 5000,
+    "rate": 18,
+    "payment": 200
+  },
+  "example_label": "Ejemplo para liquidacion tarjeta credito: valores 5000USD, 18%, 200USD",
+  "range_hints": {
+    "balance": "Valor monetario",
+    "rate": "Porcentaje según especificación",
+    "payment": "Valor monetario"
+  },
+  "result_context": "Resultados: {months} meses de plazo, {total_interest} USD de intereses totales.",
+  "formula_display": "b × r → months, total_interest",
+  "steps": [
+    "Introducir los valores de balance, rate y payment",
+    "Verificar que las unidades sean correctas y convertir si es necesario (USD, EUR, GBP)",
+    "Calcular los valores de months y total interest",
+    "El resultado se expresa en mo. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para tomar decisiones informadas sobre tu planificación financiera"
+  ],
+  "mistakes": [
+    "No comparar la TAE entre distintas ofertas antes de contratar",
+    "Confundir interés simple con interés compuesto en inversiones a largo plazo",
+    "Olvidar incluir comisiones y gastos en el cálculo del coste total"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "balance",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "rate",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "payment",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "balance": 2500,
+      "rate": 9,
+      "payment": 200
+    },
+    {
+      "_label": "Average",
+      "balance": 3750,
+      "rate": 14,
+      "payment": 200
+    },
+    {
+      "_label": "High",
+      "balance": 5000,
+      "rate": 18,
+      "payment": 200
+    },
+    {
+      "_label": "Premium",
+      "balance": 7500,
+      "rate": 27,
+      "payment": 200
+    },
+    {
+      "_label": "Enterprise",
+      "balance": 10000,
+      "rate": 36,
+      "payment": 200
+    }
+  ],
+  "units": {
+    "balance": "USD",
+    "rate": "%",
+    "payment": "USD"
+  },
+  "i18n": {
+    "es": {
+      "name": "Liquidación de Tarjeta de Crédito",
+      "description": "Calcula cuánto tardas en pagar una tarjeta de crédito.",
+      "inputs": {
+        "balance": "Saldo",
+        "rate": "Tasa %",
+        "payment": "Pago mensual"
+      },
+      "outputs": {
+        "months": "Meses",
+        "total_interest": "Interés total"
+      },
+      "seo_title": "Liquidación de Tarjeta de Crédito Gratuita",
+      "seo_description": "Calcula cuánto tardas en pagar una tarjeta de crédito. Calculadora gratuita, precisa e instantánea. Obten resultados al instante con explicacion paso a.",
+      "example_label": "Saldo $5,000, tasa 18%, pago mensual $200",
+      "range_hints": {
+        "balance": "Varía según deuda",
+        "rate": "Típicamente 12-30% para tarjetas",
+        "payment": "Debe ser mayor al interés mensual mínimo"
+      },
+      "result_context": "Tiempo necesario para pagar la deuda y total de intereses",
+      "formula_display": "Simulación iterativa: Balance_n+1 = Balance_n - (Pago - Interés)",
+      "steps": [
+        "Calcular interés mensual (balance × tasa/12)",
+        "Restar interés del pago para obtener abono a capital",
+        "Reducir balance por el abono a capital",
+        "Repetir hasta saldo cero"
+      ],
+      "mistakes": [
+        "Hacer solo pago mínimo (nunca se liquida)",
+        "No considerar nuevos cargos"
+      ],
+      "input_type_review": []
+    },
+    "en": {
+      "name": "Credit Card Payoff Calculator",
+      "description": "Calculate how long to pay off a credit card.",
+      "inputs": {
+        "balance": "Balance",
+        "rate": "Rate %",
+        "payment": "Monthly payment"
+      },
+      "outputs": {
+        "months": "Months",
+        "total_interest": "Total interest"
+      },
+      "seo_title": "Credit Card Payoff Calculator – Step-by-Step",
+      "seo_description": "Credit Card Payoff Calculator. Balance, Rate %, Monthly payment — get Months, Total interest instantly for your flooring and tiling project. Includes.",
+      "example_label": "Saldo $5,000, tasa 18%, pago mensual $200",
+      "range_hints": {
+        "balance": "Varía según deuda",
+        "rate": "Típicamente 12-30% para tarjetas",
+        "payment": "Debe ser mayor al interés mensual mínimo"
+      },
+      "result_context": "Tiempo necesario para pagar la deuda y total de intereses",
+      "formula_display": "Simulación iterativa: Balance_n+1 = Balance_n - (Pago - Interés)",
+      "steps": [
+        "Calcular interés mensual (balance × tasa/12)",
+        "Restar interés del pago para obtener abono a capital",
+        "Reducir balance por el abono a capital",
+        "Repetir hasta saldo cero"
+      ],
+      "mistakes": [
+        "Hacer solo pago mínimo (nunca se liquida)",
+        "No considerar nuevos cargos"
+      ],
+      "input_type_review": "Balance y payment son moneda, rate es porcentaje anual"
+    },
+    "fr": {
+      "name": "Remboursement Carte de Crédit",
+      "description": "Calculez le délai pour rembourser une carte de crédit.",
+      "inputs": {
+        "balance": "Solde",
+        "rate": "Taux %",
+        "payment": "Mensualité"
+      },
+      "outputs": {
+        "months": "Mois",
+        "total_interest": "Intérêts totaux"
+      },
+      "seo_title": "Remboursement Carte de Crédit – Outil Gratuit",
+      "seo_description": "Calculez le délai pour rembourser une carte de crédit. Calculateur gratuit, précis et instantané. Obtenez des resultats instantanes avec explication.",
+      "example_label": "Saldo $5,000, tasa 18%, pago mensual $200",
+      "range_hints": {
+        "balance": "Varía selon deuda",
+        "rate": "typiquement 12-30% pour tarjetas",
+        "payment": "Debe ser mayor al interés mensual Minimum"
+      },
+      "result_context": "Tiempo nécessaire pour pagar la deuda et total de intereses",
+      "formula_display": "Simulación iterativa: Balance_n+1 = Balance_n - (Pago - Interés)",
+      "steps": [
+        "Calculer interés mensual (balance × tasa/12)",
+        "Restar interés du pago pour obtener abono a capital",
+        "Reducir balance par le abono a capital",
+        "Repetir jusqu'à saldo cero"
+      ],
+      "mistakes": [
+        "Hacer solo pago Minimum (nunca se liquida)",
+        "Ne pas considérer nuevos cargos"
+      ],
+      "input_type_review": []
+    },
+    "pt": {
+      "name": "Quitação de Cartão de Crédito",
+      "description": "Calcule quanto tempo leva para quitar um cartão de crédito.",
+      "inputs": {
+        "balance": "Saldo",
+        "rate": "Taxa %",
+        "payment": "Pagamento mensal"
+      },
+      "outputs": {
+        "months": "Meses",
+        "total_interest": "Juros totais"
+      },
+      "seo_title": "Quitação de Cartão de Crédito – Ferramenta Grátis",
+      "seo_description": "Calcule quanto tempo leva para quitar um cartão de crédito. Calculadora gratuita, precisa e instantânea. Obtenha resultados instantaneos com explicacao.",
+      "example_label": "Saldo $5,000, tasa 18%, pago mensual $200",
+      "range_hints": {
+        "balance": "Varía segundo deuda",
+        "rate": "Típicamente 12-30% para tarjetas",
+        "payment": "Debe ser mayor ao interés mensual mínimo"
+      },
+      "result_context": "Tiempo necessário para pagar a deuda e total de intereses",
+      "formula_display": "Simulación iterativa: Balance_n+1 = Balance_n - (Pago - Interés)",
+      "steps": [
+        "Calcular interés mensual (balance × tasa/12)",
+        "Restar interés do pago para obter abono a capital",
+        "Reducir balance por o abono a capital",
+        "Repetir hasta saldo cero"
+      ],
+      "mistakes": [
+        "Hacer solo pago mínimo (nunca se liquida)",
+        "Não considerar nuevos cargos"
+      ],
+      "input_type_review": []
+    },
+    "de": {
+      "name": "Liquidacion tarjeta credito",
+      "desc": "Berechnen Sie liquidacion tarjeta credito online. Geben Sie balance, rate, payment ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Liquidacion tarjeta credito | CalcToWork",
+      "seo_desc": "Liquidacion tarjeta credito online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Liquidacion tarjeta credito online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "balance": "Balance",
+        "rate": "Rate",
+        "payment": "Payment"
+      },
+      "outputs": {
+        "months": "Months",
+        "total_interest": "Total Interest"
+      },
+      "example_label": "Ejemplo para liquidacion tarjeta credito: valores 5000USD, 18%, 200USD",
+      "range_hints": {
+        "balance": "Valor monetario",
+        "rate": "Porcentaje según especificación",
+        "payment": "Valor monetario"
+      },
+      "result_context": "Resultados: {months} meses de plazo, {total_interest} USD de intereses totales.",
+      "formula_display": "b × r → months, total_interest",
+      "steps": [
+        "Introducir los valores de balance, rate y payment",
+        "Verificar que las unidades sean correctas y convertir si es necesario (USD, EUR, GBP)",
+        "Calcular los valores de months y total interest",
+        "El resultado se expresa en mo. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para tomar decisiones informadas sobre tu planificación financiera"
+      ],
+      "mistakes": [
+        "No comparar la TAE entre distintas ofertas antes de contratar",
+        "Confundir interés simple con interés compuesto en inversiones a largo plazo",
+        "Olvidar incluir comisiones y gastos en el cálculo del coste total"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "balance",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "rate",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "payment",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Estinzione Carta di Credito",
+      "description": "Calcola quanto tempo ci vuole per estinguere una carta di credito.",
+      "inputs": {
+        "balance": "Saldo",
+        "rate": "Tasso %",
+        "payment": "Rata mensile"
+      },
+      "outputs": {
+        "months": "Mesi",
+        "total_interest": "Interessi totali"
+      },
+      "seo_title": "Estinzione Carta di Credito – Strumento Gratuito",
+      "seo_description": "Calcola quanto tempo ci vuole per estinguere una carta di credito. Calcolatore gratuito, preciso e istantaneo. Ottieni risultati istantanei con.",
+      "example_label": "Saldo $5,000, tasa 18%, pago minsual $200",
+      "range_hints": {
+        "balance": "Varía según diuda",
+        "rate": "Típicaminte 12-30% per tarjetas",
+        "payment": "Debe ser maggiore al interés minsual mínimo"
+      },
+      "result_context": "Tiempo necessario per pagar la diuda e totale di intereses",
+      "formula_display": "Simulación iterativa: Balance_n+1 = Balance_n - (Pago - Interés)",
+      "steps": [
+        "Calcolare interés minsual (balance × tasa/12)",
+        "Sottrarre interés dil pago per obtiner fertilizzante a capital",
+        "Reducir balance per el fertilizzante a capital",
+        "Repetir hasta saldo cero"
+      ],
+      "mistakes": [
+        "Hacer solo pago mínimo (mai se liquida)",
+        "Non consedirare nuovi cargos"
+      ],
+      "input_type_review": null
+    }
+  }
+}

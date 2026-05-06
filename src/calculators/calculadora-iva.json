@@ -1,0 +1,456 @@
+{
+  "id": "304",
+  "slug": "calculadora-iva",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "precio_sin_iva",
+      "type": "number",
+      "min": 0.01,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 100,
+      "unit": "â‚¬"
+    },
+    {
+      "id": "iva_pct",
+      "type": "number",
+      "min": 0,
+      "max": 50,
+      "step": 0.5,
+      "default": 21,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    }
+  ],
+  "formula": "var P=parseFloat(inputs.precio_sin_iva)||0,T=parseFloat(inputs.iva_pct)||21;if(!P)return{error:true};var iva_importe=+(P*T/100).toFixed(2),con_iva=+(P+P*T/100).toFixed(2),sin_iva_desde_con=+(con_iva/(1+T/100)).toFixed(2);return{iva_importe:iva_importe,precio_con_iva:con_iva};",
+  "outputs": [
+    {
+      "id": "iva_importe",
+      "unit": "â‚¬",
+      "highlight": true
+    },
+    {
+      "id": "precio_con_iva",
+      "unit": "â‚¬"
+    }
+  ],
+  "related": [
+    "305",
+    "306",
+    "303",
+    "300"
+  ],
+  "example_inputs": {
+    "precio_sin_iva": 249.99,
+    "iva_pct": 21
+  },
+  "example_label": "Calcula el IVA de 249,99eur al tipo general del 21% (aplicable en Espana)",
+  "range_hints": {
+    "precio_sin_iva": "Introduce el valor de precio sin iva (â‚¬). Valor sugerido: 100",
+    "iva_pct": "Introduce el valor de iva pct (%). Valor sugerido: 21"
+  },
+  "result_context": "El importe del IVA a pagar es de {iva_importe} €. El precio final con IVA incluido será de {precio_con_iva} €.",
+  "result_context_en": "The VAT amount to pay is {iva_importe} €. The final price including VAT will be {precio_con_iva} €.",
+  "result_context_fr": "Le montant de la TVA à payer est de {iva_importe} €. Le prix final TVA comprise sera de {precio_con_iva} €.",
+  "result_context_pt": "O valor do IVA a pagar é de {iva_importe} €. O preço final com IVA incluído será de {precio_con_iva} €.",
+  "result_context_de": "Der zu zahlende Mehrwertsteuerbetrag beträgt {iva_importe} €. Der Endpreis inklusive Mehrwertsteuer beträgt {precio_con_iva} €.",
+  "result_context_it": "L'importo dell'IVA da pagare è di {iva_importe} €. Il prezzo finale IVA inclusa sarà di {precio_con_iva} €.",
+  "formula_display": "Precio con IVA = Base imponible x (1 + IVA%/100)",
+  "steps": [
+    "Introduce el importe base sin IVA o precio neto del producto o servicio que deseas calcular",
+    "Selecciona el tipo de IVA aplicable segun la normativa vigente: general 21%, reducido 10%, superreducido 4%",
+    "Multiplica la base imponible por el porcentaje de IVA para calcular la cuota tributaria a repercutir",
+    "Suma la cuota de IVA a la base imponible para obtener el precio final con impuestos incluidos",
+    "Verifica que el tipo impositivo aplicado corresponde a la categoria correcta del bien o servicio"
+  ],
+  "mistakes": [
+    "Aplicar el tipo de IVA incorrecto: no todos los productos tienen el mismo tipo (general, reducido, superreducido)",
+    "Confundir base imponible con precio final: el IVA se calcula siempre sobre la base sin impuestos, no al reves",
+    "Olvidar que en operaciones entre profesionales puede aplicarse el mecanismo de inversion del sujeto pasivo"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "precio_sin_iva",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "iva_pct",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "precio_sin_iva": 125,
+      "iva_pct": 10.5
+    },
+    {
+      "_label": "Average",
+      "precio_sin_iva": 187,
+      "iva_pct": 15.75
+    },
+    {
+      "_label": "High",
+      "precio_sin_iva": 250,
+      "iva_pct": 21
+    },
+    {
+      "_label": "Premium",
+      "precio_sin_iva": 375,
+      "iva_pct": 31.5
+    },
+    {
+      "_label": "Enterprise",
+      "precio_sin_iva": 500,
+      "iva_pct": 42
+    }
+  ],
+  "units": {
+    "iva_pct": "%"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de IVA",
+      "desc": "Calcula el IVA y el precio final con IVA incluido.",
+      "description": "Calcula el IVA y el precio final con IVA incluido.",
+      "seo_title": "Calculadora de IVA Online – Precio con IVA",
+      "seo_description": "Calcula el IVA de cualquier precio al instante. Introduce el precio sin IVA y el porcentaje para obtener el precio final.",
+      "inputs": {
+        "precio_sin_iva": "Precio sin IVA (€)",
+        "iva_pct": "IVA (%)"
+      },
+      "outputs": {
+        "iva_importe": "Importe IVA",
+        "precio_con_iva": "Precio con IVA"
+      },
+      "example_label": "Adding 21% VAT to a €249.99 product price to find the final consumer price.",
+      "range_hints": {
+        "precio_sin_iva": "€0.01 - €100,000+ product prices",
+        "iva_pct": "0-27% VAT rates vary by country/product"
+      },
+      "result_context": "The iva_importe of {iva_importe} is the VAT amount. The precio_con_iva of {precio_con_iva} is the total price customers pay.",
+      "formula_display": "VAT Amount = Price × (VAT% ÷ 100)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert VAT percentage to decimal",
+          "calculation": "21% ÷ 100 = 0.21"
+        },
+        {
+          "step": 2,
+          "description": "Calculate VAT amount",
+          "calculation": "€249.99 × 0.21 = €52.50"
+        },
+        {
+          "step": 3,
+          "description": "Add VAT to base price",
+          "calculation": "€249.99 + €52.50 = €302.49"
+        }
+      ],
+      "mistakes": [
+        "Applying wrong VAT rate for the product category (reduced vs standard)",
+        "Calculating VAT from the gross price instead of net price",
+        "Forgetting that some products are VAT-exempt or have reduced rates"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_sin_iva",
+          "reason": "Correct type for price input"
+        },
+        {
+          "field_id": "iva_pct",
+          "reason": "Correct type for VAT percentage with 0.5 step"
+        }
+      ]
+    },
+    "en": {
+      "name": "VAT Calculator",
+      "desc": "VAT Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Calculate VAT and the final price including tax.",
+      "seo_title": "VAT Calculator – Price Including Tax Online",
+      "seo_description": "Calculate VAT on any price instantly. Enter the price excluding VAT and the percentage to get the final price. Easy-to-use calculator with formula.",
+      "inputs": {
+        "precio_sin_iva": "Price excl. VAT (â‚¬)",
+        "iva_pct": "VAT (%)"
+      },
+      "outputs": {
+        "iva_importe": "VAT amount",
+        "precio_con_iva": "Price incl. VAT"
+      },
+      "example_label": "Adding 21% VAT to a â‚¬249.99 product price to find the final consumer price.",
+      "range_hints": {
+        "precio_sin_iva": "â‚¬0.01 - â‚¬100,000+ product prices",
+        "iva_pct": "0-27% VAT rates vary by country/product"
+      },
+      "result_context": "The iva_importe of {iva_importe} is the VAT amount. The precio_con_iva of {precio_con_iva} is the total price customers pay.",
+      "formula_display": "VAT Amount = Price × (VAT% ÷ 100)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert VAT percentage to decimal",
+          "calculation": "21% ÷ 100 = 0.21"
+        },
+        {
+          "step": 2,
+          "description": "Calculate VAT amount",
+          "calculation": "â‚¬249.99 × 0.21 = â‚¬52.50"
+        },
+        {
+          "step": 3,
+          "description": "Add VAT to base price",
+          "calculation": "â‚¬249.99 + â‚¬52.50 = â‚¬302.49"
+        }
+      ],
+      "mistakes": [
+        "Applying wrong VAT rate for the product category (reduced vs standard)",
+        "Calculating VAT from the gross price instead of net price",
+        "Forgetting that some products are VAT-exempt or have reduced rates"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_sin_iva",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for price input"
+        },
+        {
+          "field_id": "iva_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for VAT percentage with 0.5 step"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur de TVA",
+      "desc": "Calculez la TVA de n'importe quel prix. Entrez le prix HT et le taux pour obtenir le prix TTC. Calculatrice facile a utiliser avec decomposition de la.",
+      "description": "Calculez la TVA et le prix TTC.",
+      "seo_title": "Calculateur TVA – Prix TTC en Ligne",
+      "seo_description": "Calculez la TVA de n'importe quel prix. Entrez le prix HT et le taux pour obtenir le prix TTC. Calculatrice facile a utiliser avec decomposition de la.",
+      "inputs": {
+        "precio_sin_iva": "Prix HT (€)",
+        "iva_pct": "TVA (%)"
+      },
+      "outputs": {
+        "iva_importe": "Montant TVA",
+        "precio_con_iva": "Prix TTC"
+      },
+      "example_label": "Adding 21% VAT to a €249.99 product price to find the final consumer price.",
+      "range_hints": {
+        "precio_sin_iva": "€0.01 - €100,000+ product prices",
+        "iva_pct": "0-27% VAT rates vary by country/product"
+      },
+      "result_context": "The iva_importe of {iva_importe} is the VAT amount. The precio_con_iva of {precio_con_iva} is the total price customers pay.",
+      "formula_display": "VAT Amount = Price × (VAT% Á· 100)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert VAT percentage to decimal",
+          "calculation": "21% Á· 100 = 0.21"
+        },
+        {
+          "step": 2,
+          "description": "Calculate VAT amount",
+          "calculation": "â‚¬249.99 × 0.21 = â‚¬52.50"
+        },
+        {
+          "step": 3,
+          "description": "Add VAT to base price",
+          "calculation": "€249.99 + €52.50 = €302.49"
+        }
+      ],
+      "mistakes": [
+        "Applying wrong VAT rate for the product category (reduced vs standard)",
+        "Calculating VAT from the gross price instead of net price",
+        "Forgetting that some products are VAT-exempt or have reduced rates"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_sin_iva",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for price input"
+        },
+        {
+          "field_id": "iva_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for VAT percentage with 0.5 step"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de IVA",
+      "desc": "Calcule o IVA e o preço final com imposto incluído.",
+      "description": "Calcule o IVA e o preço final com imposto incluído.",
+      "seo_title": "Calculadora de IVA Online – Preço com IVA",
+      "seo_description": "Calcule o IVA de qualquer preço. Insira o preço sem IVA e a percentagem para obter o preço final. Calculadora facil de usar com detalhamento da formula.",
+      "inputs": {
+        "precio_sin_iva": "Preço sem IVA (€)",
+        "iva_pct": "IVA (%)"
+      },
+      "outputs": {
+        "iva_importe": "Valor do IVA",
+        "precio_con_iva": "Preço com IVA"
+      },
+      "example_label": "Adding 21% VAT to a €249.99 product price to find the final consumer price.",
+      "range_hints": {
+        "precio_sin_iva": "€0.01 - €100,000+ product prices",
+        "iva_pct": "0-27% VAT rates vary by country/product"
+      },
+      "result_context": "The iva_importe of {iva_importe} is the VAT amount. The precio_con_iva of {precio_con_iva} is the total price customers pay.",
+      "formula_display": "VAT Amount = Price × (VAT% ÷ 100)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert VAT percentage to decimal",
+          "calculation": "21% ÷ 100 = 0.21"
+        },
+        {
+          "step": 2,
+          "description": "Calculate VAT amount",
+          "calculation": "â‚¬249.99 × 0.21 = â‚¬52.50"
+        },
+        {
+          "step": 3,
+          "description": "Add VAT to base price",
+          "calculation": "€249.99 + €52.50 = €302.49"
+        }
+      ],
+      "mistakes": [
+        "Applying wrong VAT rate for the product category (reduced vs standard)",
+        "Calculating VAT from the gross price instead of net price",
+        "Forgetting that some products are VAT-exempt or have reduced rates"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_sin_iva",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for price input"
+        },
+        {
+          "field_id": "iva_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for VAT percentage with 0.5 step"
+        }
+      ]
+    },
+    "de": {
+      "name": "Calculadora MwSt",
+      "desc": "Berechnen Sie calculadora MwSt online. Geben Sie precio sin iva, iva pct ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Calculadora MwSt | CalcToWork",
+      "seo_desc": "Calculadora MwSt online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Calculadora MwSt online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "precio_sin_iva": "Precio Sin Iva",
+        "iva_pct": "Iva Pct"
+      },
+      "outputs": {
+        "iva_importe": "Iva Importe",
+        "precio_con_iva": "Precio Con Iva"
+      },
+      "example_label": "Calcula el IVA de 249,99eur al tipo general del 21% (aplicable en Espana)",
+      "range_hints": {
+        "precio_sin_iva": "Introduce el valor de precio sin iva (â‚¬). Valor sugerido: 100",
+        "iva_pct": "Introduce el valor de iva pct (%). Valor sugerido: 21"
+      },
+      "result_context": "Der zu zahlende Mehrwertsteuerbetrag beträgt {iva_importe} €. Der Endpreis inklusive Mehrwertsteuer beträgt {precio_con_iva} €.",
+      "formula_display": "Precio con IVA = Base imponible x (1 + IVA%/100)",
+      "steps": [
+        "Introduce el importe base sin IVA o precio neto del producto o servicio que deseas calcular",
+        "Selecciona el tipo de IVA aplicable segun la normativa vigente: general 21%, reducido 10%, superreducido 4%",
+        "Multiplica la base imponible por el porcentaje de IVA para calcular la cuota tributaria a repercutir",
+        "Suma la cuota de IVA a la base imponible para obtener el precio final con impuestos incluidos",
+        "Verifica que el tipo impositivo aplicado corresponde a la categoria correcta del bien o servicio"
+      ],
+      "mistakes": [
+        "Aplicar el tipo de IVA incorrecto: no todos los productos tienen el mismo tipo (general, reducido, superreducido)",
+        "Confundir base imponible con precio final: el IVA se calcula siempre sobre la base sin impuestos, no al reves",
+        "Olvidar que en operaciones entre profesionales puede aplicarse el mecanismo de inversion del sujeto pasivo"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_sin_iva",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "iva_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore IVA",
+      "desc": "Calcola l'IVA di qualsiasi prezzo. Inserisci il prezzo IVA esclusa e la percentuale per ottenere il prezzo finale. Calcolatrice facile da usare con.",
+      "description": "Calcola l'IVA e il prezzo finale IVA inclusa.",
+      "seo_title": "Calcolatore IVA Online – Prezzo con IVA",
+      "seo_description": "Calcola l'IVA di qualsiasi prezzo. Inserisci il prezzo IVA esclusa e la percentuale per ottenere il prezzo finale. Calcolatrice facile da usare con.",
+      "inputs": {
+        "precio_sin_iva": "Prezzo IVA esclusa (€)",
+        "iva_pct": "IVA (%)"
+      },
+      "outputs": {
+        "iva_importe": "Importo IVA",
+        "precio_con_iva": "Prezzo IVA inclusa"
+      },
+      "example_label": "Adding 21% VAT to a €249.99 product price to find the finel consumer price.",
+      "range_hints": {
+        "precio_sin_iva": "€0.01 - €100,000+ product prices",
+        "iva_pct": "0-27% VAT rates vare be countre/product"
+      },
+      "result_context": "The iva_imperte of {iva_imperte} is the VAT amount. The prezzo_con_iva of {prezzo_con_iva} is the totale price customers pae.",
+      "formula_display": "VAT Amount = Price × (VAT% ÷ 100)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert VAT percentage to decimal",
+          "calculation": "21% ÷ 100 = 0.21"
+        },
+        {
+          "step": 2,
+          "description": "Calculate VAT amount",
+          "calculation": "€249.99 × 0.21 = €52.50"
+        },
+        {
+          "step": 3,
+          "description": "Add VAT to base price",
+          "calculation": "€249.99 + €52.50 = €302.49"
+        }
+      ],
+      "mistakes": [
+        "Appleing wrong VAT rate for the product categore (riduced vs scosìdard)",
+        "Calculating VAT from the gross price instead of net price",
+        "Forgetting that some products are VAT-exempt or have riduced rates"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "precio_sin_iva",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for price input"
+        },
+        {
+          "field_id": "iva_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for VAT percintage with 0.5 step"
+        }
+      ]
+    }
+  }
+}

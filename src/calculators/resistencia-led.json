@@ -1,0 +1,359 @@
+{
+  "id": "1011",
+  "slug": "resistencia-led",
+  "block": 8,
+  "block_slug": "electronica",
+  "inputs": [
+    {
+      "id": "v_supply",
+      "type": "number",
+      "step": "any",
+      "default": 5,
+      "unit": "V",
+      "unit_options": [
+        "V"
+      ],
+      "unit_category": "voltage"
+    },
+    {
+      "id": "v_f",
+      "type": "number",
+      "step": "any",
+      "default": 2,
+      "unit": "V",
+      "unit_options": [
+        "V"
+      ],
+      "unit_category": "voltage"
+    },
+    {
+      "id": "i_f",
+      "type": "number",
+      "step": "any",
+      "default": 20,
+      "unit": "mA",
+      "unit_options": [
+        "mA",
+        "A"
+      ],
+      "unit_category": "current"
+    }
+  ],
+  "formula": "var vs=parseFloat(inputs.v_supply)||0;var vf=parseFloat(inputs.v_f)||0;var i=parseFloat(inputs.i_f)||1;var r=(vs-vf)/(i/1000);var p=(i/1000)*(i/1000)*r;return{r:Math.round(r),p:p.toFixed(2)};",
+  "outputs": [
+    {
+      "id": "r",
+      "unit": "Ω"
+    },
+    {
+      "id": "p",
+      "unit": "mW"
+    }
+  ],
+  "related": [
+    "1010",
+    "707",
+    "1012",
+    "1013"
+  ],
+  "example_inputs": {
+    "v_supply": 5,
+    "v_f": 2,
+    "i_f": 20
+  },
+  "example_label": "Ejemplo para resistencia led: valores 5V, 2V, 20mA",
+  "range_hints": {
+    "v_supply": "Valor típico entre 0 y 500. Valor por defecto: 5 V.",
+    "v_f": "Valor típico entre 0 y 500. Valor por defecto: 2 V.",
+    "i_f": "Valor típico entre 0 y 500. Valor por defecto: 20 mA."
+  },
+  "result_context": "La resistencia necesaria para el LED es {r} Ω y la potencia disipada es {p} W.",
+  "result_context_en": "The required resistance for the LED is {r} Ω and the dissipated power is {p} W.",
+  "result_context_fr": "La résistance nécessaire pour la LED est de {r} Ω et la puissance dissipée est de {p} W.",
+  "result_context_pt": "A resistência necessária para o LED é {r} Ω e a potência dissipada é {p} W.",
+  "result_context_de": "Der erforderliche Widerstand für die LED beträgt {r} Ω und die Verlustleistung beträgt {p} W.",
+  "result_context_it": "La resistenza necessaria per il LED è {r} Ω e la potenza dissipata è {p} W.",
+  "formula_display": "i ÷ 1000 → r, p",
+  "steps": [
+    "Introducir los valores de v_supply, v_f y i_f",
+    "Verificar que las unidades sean correctas y convertir si es necesario (V)",
+    "Calcular los valores de r y p",
+    "El resultado se expresa en Ω. Verificar que la magnitud es coherente",
+    "Documentar el resultado con sus unidades para usarlo en cálculos de ingeniería posteriores"
+  ],
+  "mistakes": [
+    "Confundir resistencia en serie (suma) con resistencia en paralelo (inversa de sumas de inversas)",
+    "No verificar la potencia máxima que puede disipar un componente",
+    "Usar el código de colores de 4 bandas para resistencias de 5 bandas"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "v_supply",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "v_f",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "i_f",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small circuit",
+      "v_supply": 2,
+      "v_f": 1,
+      "i_f": 20
+    },
+    {
+      "_label": "Medium circuit",
+      "v_supply": 4,
+      "v_f": 2,
+      "i_f": 20
+    },
+    {
+      "_label": "Large circuit",
+      "v_supply": 5,
+      "v_f": 2,
+      "i_f": 20
+    },
+    {
+      "_label": "Board",
+      "v_supply": 8,
+      "v_f": 3,
+      "i_f": 20
+    },
+    {
+      "_label": "System",
+      "v_supply": 10,
+      "v_f": 4,
+      "i_f": 20
+    }
+  ],
+  "units": {
+    "v_supply": "V",
+    "v_f": "V",
+    "i_f": "A"
+  },
+  "i18n": {
+    "es": {
+      "name": "Resistencia para LED",
+      "description": "Calcula la resistencia en serie para un LED.",
+      "inputs": {
+        "v_supply": "V fuente",
+        "v_f": "V LED",
+        "i_f": "I LED"
+      },
+      "outputs": {
+        "r": "Resistencia",
+        "p": "Potencia"
+      },
+      "seo_title": "Resistencia para LED – Calculadora y Fórmula Gratuita",
+      "seo_description": "Calcula la resistencia limitadora de corriente para un LED. Fórmula: R = (Vcc − Vled) / Iled. Ejemplo: 5V, Vled=2V, 20mA → R=150Ω. Gratis.",
+      "example_label": "Ejemplo de circuito electrónico",
+      "range_hints": {},
+      "result_context": "Resistencia limitadora para proteger el LED de sobrecorriente.",
+      "formula_display": "R = (Vsupply - Vf) / If",
+      "steps": [
+        "Identificar los valores de entrada",
+        "Aplicar la fórmula correspondiente",
+        "Realizar el cálculo",
+        "Obtener los 2 resultados"
+      ],
+      "mistakes": [
+        "No convertir mA a A",
+        "Usar voltaje de alimentación incorrecto",
+        "No verificar potencia de la resistencia"
+      ],
+      "input_type_review": []
+    },
+    "en": {
+      "name": "LED Resistor Calculator",
+      "description": "Calculate the series resistor for an LED.",
+      "inputs": {
+        "v_supply": "Supply V",
+        "v_f": "LED Vf",
+        "i_f": "LED If"
+      },
+      "outputs": {
+        "r": "Resistor",
+        "p": "Power"
+      },
+      "seo_title": "LED Resistor Calculator – Current Limiting Formula",
+      "seo_description": "Calculate the current limiting resistor for an LED. Formula: R = (Vcc âˆ’ Vled) / Iled. Example: 5V, Vled=2V, 20mA â†’ R=150Ω. Free and instant.",
+      "example_label": "Ejemplo de circuito electrónico",
+      "range_hints": {},
+      "result_context": "Resistencia limitadora para proteger el LED de sobrecorriente.",
+      "formula_display": "R = (Vsupply - Vf) / If",
+      "steps": [
+        "Identificar los valores de entrada",
+        "Aplicar la fórmula correspondiente",
+        "Realizar el cálculo",
+        "Obtener los 2 resultados"
+      ],
+      "mistakes": [
+        "No convertir mA a A",
+        "Usar voltaje de alimentación incorrecto",
+        "No verificar potencia de la resistencia"
+      ],
+      "input_type_review": "3 entrada(s) de tipo number"
+    },
+    "fr": {
+      "name": "Résistance pour LED",
+      "description": "Calculez la résistance en série pour une LED.",
+      "inputs": {
+        "v_supply": "V alim",
+        "v_f": "V LED",
+        "i_f": "I LED"
+      },
+      "outputs": {
+        "r": "Résistance",
+        "p": "Puissance"
+      },
+      "seo_title": "Résistance pour LED – Calculateur et Formule en Ligne",
+      "seo_description": "Calculez la résistance de limitation de courant pour une LED. Formule: R = (Vcc − Vled) / Iled. Exemple: 5V, Vled=2V, 20mA → R=150Ω.",
+      "example_label": "Ejemplo de circuito electrónico",
+      "range_hints": {},
+      "result_context": "Resistencia limitadora pour proteger le LED de sobrecorriente.",
+      "formula_display": "R = (Vsupply - Vf) / If",
+      "steps": [
+        "Identificar les valores de entrada",
+        "Aplicar la fórmula correspondiente",
+        "Realizar le cálculo",
+        "Obtener les 2 resultados"
+      ],
+      "mistakes": [
+        "No convertir mA a A",
+        "Utiliser voltaje de alimentación incorrecto",
+        "Ne pas vérifier potencia de la resistencia"
+      ],
+      "input_type_review": []
+    },
+    "pt": {
+      "name": "Resistência para LED",
+      "description": "Calcule a resistência em série para um LED.",
+      "inputs": {
+        "v_supply": "V fonte",
+        "v_f": "V LED",
+        "i_f": "I LED"
+      },
+      "outputs": {
+        "r": "Resistência",
+        "p": "Potência"
+      },
+      "seo_title": "Resistência para LED – Calculadora e Fórmula",
+      "seo_description": "Calcule a resistência limitadora de corrente para um LED. Fórmula: R = (Vcc − Vled) / Iled. Exemplo: 5V, Vled=2V, 20mA → R=150Ω. Grátis.",
+      "example_label": "Ejemplo de circuito electrónico",
+      "range_hints": {},
+      "result_context": "Resistencia limitadora para proteger o LED de sobrecorriente.",
+      "formula_display": "R = (Vsupply - Vf) / If",
+      "steps": [
+        "Identificar os valores de entrada",
+        "Aplicar a fórmula correspondiente",
+        "Realizar o cálculo",
+        "Obtener os 2 resultados"
+      ],
+      "mistakes": [
+        "Não convertir mA a A",
+        "Usar voltaje de alimentación incorrecto",
+        "Não verificar potencia da resistência"
+      ],
+      "input_type_review": []
+    },
+    "de": {
+      "name": "Resistencia led",
+      "desc": "Berechnen Sie resistencia led online. Geben Sie v supply, v f, i f ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Resistencia led | CalcToWork",
+      "seo_desc": "Resistencia led online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Resistencia led online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "v_supply": "V Supply",
+        "v_f": "V F",
+        "i_f": "I F"
+      },
+      "outputs": {
+        "r": "R",
+        "p": "P"
+      },
+      "example_label": "Ejemplo para resistencia led: valores 5V, 2V, 20mA",
+      "range_hints": {
+        "v_supply": "Valor típico entre 0 y 500. Valor por defecto: 5 V.",
+        "v_f": "Valor típico entre 0 y 500. Valor por defecto: 2 V.",
+        "i_f": "Valor típico entre 0 y 500. Valor por defecto: 20 mA."
+      },
+      "result_context": "Der erforderliche Widerstand für die LED beträgt {r} Ω und die Verlustleistung beträgt {p} W.",
+      "formula_display": "i ÷ 1000 → r, p",
+      "steps": [
+        "Introducir los valores de v_supply, v_f y i_f",
+        "Verificar que las unidades sean correctas y convertir si es necesario (V)",
+        "Calcular los valores de r y p",
+        "El resultado se expresa en Ω. Verificar que la magnitud es coherente",
+        "Documentar el resultado con sus unidades para usarlo en cálculos de ingeniería posteriores"
+      ],
+      "mistakes": [
+        "Confundir resistencia en serie (suma) con resistencia en paralelo (inversa de sumas de inversas)",
+        "No verificar la potencia máxima que puede disipar un componente",
+        "Usar el código de colores de 4 bandas para resistencias de 5 bandas"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "v_supply",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "v_f",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "i_f",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Resistenza LED",
+      "description": "Calcola la resistenza in serie per un LED.",
+      "inputs": {
+        "v_supply": "V alimentazione",
+        "v_f": "V LED",
+        "i_f": "I LED"
+      },
+      "outputs": {
+        "r": "Resistenza",
+        "p": "Potenza"
+      },
+      "seo_title": "Resistenza per LED – Calcolatore e Formula",
+      "seo_description": "Calcola la resistenza limitatrice di corrente per un LED. Formula: R = (Vcc − Vled) / Iled. Esempio: 5V, Vled=2V, 20mA → R=150Ω. Gratuito.",
+      "example_label": "Ejemplo di circuito electrónico",
+      "range_hints": {},
+      "result_context": "Resestincia limitadora per proteger el LED di sucorrinte.",
+      "formula_display": "R = (Vsupple - Vf) / If",
+      "steps": [
+        "Idintificar i valorei di intrada",
+        "Applicare la fórmula correspondiinte",
+        "Realizar el cálculo",
+        "Obtiner i 2 risultati"
+      ],
+      "mistakes": [
+        "No convertir mA a A",
+        "Usare voltaje di alimintación incorrecto",
+        "Non verificare potincia dilla resestinza"
+      ],
+      "input_type_review": null
+    }
+  }
+}

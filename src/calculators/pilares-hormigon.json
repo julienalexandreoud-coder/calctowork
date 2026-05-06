@@ -1,0 +1,541 @@
+{
+  "id": "005",
+  "slug": "pilares-hormigon",
+  "block": 1,
+  "block_slug": "estructuras",
+  "inputs": [
+    {
+      "id": "ancho",
+      "type": "number",
+      "min": 0.2,
+      "max": 2,
+      "step": 0.05,
+      "default": 0.3,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "profundidad",
+      "type": "number",
+      "min": 0.2,
+      "max": 2,
+      "step": 0.05,
+      "default": 0.3,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "altura",
+      "type": "number",
+      "min": 0.5,
+      "max": 20,
+      "step": 0.1,
+      "default": 3,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "cantidad",
+      "type": "number",
+      "min": 1,
+      "max": 200,
+      "step": 1,
+      "default": 6,
+      "unit": "ud",
+      "unit_options": [
+        "ud"
+      ],
+      "unit_category": "count"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.ancho)||0,P=parseFloat(inputs.profundidad)||0,H=parseFloat(inputs.altura)||0,n=parseFloat(inputs.cantidad)||1;if(!A||!P||!H)return{error:true};var v1=A*P*H,vT=v1*n,c=Math.ceil(vT*7),acero=+(vT*160).toFixed(0),enc=+(2*(A+P)*H*n).toFixed(2);return{vol_unitario:+v1.toFixed(3),vol_total:+vT.toFixed(3),cemento_sacos:c,acero_kg:acero,encofrado_m2:enc};",
+  "outputs": [
+    {
+      "id": "vol_unitario",
+      "unit": "m³/ud"
+    },
+    {
+      "id": "vol_total",
+      "unit": "m³",
+      "highlight": true
+    },
+    {
+      "id": "cemento_sacos",
+      "unit": "sacos 50kg"
+    },
+    {
+      "id": "acero_kg",
+      "unit": "kg"
+    },
+    {
+      "id": "encofrado_m2",
+      "unit": "m²"
+    }
+  ],
+  "related": [
+    "002",
+    "006",
+    "007",
+    "003"
+  ],
+  "example_inputs": {
+    "ancho": 0.3,
+    "profundidad": 0.3,
+    "altura": 3,
+    "cantidad": 6
+  },
+  "example_label": "Calcular materiales para pilares de hormigón de sección 0.3 m × 0.3 m × 3 m × 6 ud.",
+  "range_hints": {
+    "ancho": "Medida típica según el proyecto",
+    "profundidad": "Profundidad según necesidad",
+    "altura": "Altura según requerimientos",
+    "cantidad": "Número de unidades necesarias"
+  },
+  "result_context": "Resultados: {vol_unitario} m³ por unidad, {vol_total} m³, {cemento_sacos} sacos de cemento, {acero_kg} kg de acero, {encofrado_m2} m² de encofrado.",
+  "formula_display": "Volumen = largo × ancho × espesor",
+  "steps": [
+    "Multiplicar 1m × 0.3m = 0.30m² de área",
+    "Multiplicar 0.30m² × 1m = 0.30m³ de volumen",
+    "Calcular cemento: 0.30m³ × 7 = 3 sacos",
+    "Calcular arena: 0.20m³",
+    "Calcular grava: 0.27m³"
+  ],
+  "mistakes": [
+    "Usar espesor insuficiente que puede causar grietas",
+    "No considerar el 5-10% de desperdicio",
+    "Confundir metros cúbicos con metros cuadrados"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "ancho",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "profundidad",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "altura",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "cantidad",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Caso 1",
+      "ancho": 0.2,
+      "profundidad": 0.2,
+      "altura": 1.2,
+      "cantidad": 2.4
+    },
+    {
+      "_label": "Caso 2",
+      "ancho": 0.21,
+      "profundidad": 0.21,
+      "altura": 2.1,
+      "cantidad": 4.2
+    },
+    {
+      "_label": "Caso 3",
+      "ancho": 0.3,
+      "profundidad": 0.3,
+      "altura": 3.0,
+      "cantidad": 6.0
+    },
+    {
+      "_label": "Caso 4",
+      "ancho": 0.45,
+      "profundidad": 0.45,
+      "altura": 4.5,
+      "cantidad": 9.0
+    },
+    {
+      "_label": "Caso 5",
+      "ancho": 0.75,
+      "profundidad": 0.75,
+      "altura": 7.5,
+      "cantidad": 15.0
+    }
+  ],
+  "units": {
+    "ancho": "m",
+    "profundidad": "m",
+    "altura": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Pilares de Hormigón",
+      "desc": "Calcula materiales para pilares de hormigón armado.",
+      "seo_title": "Calculadora Pilares – Hormigón y Acero",
+      "inputs": {
+        "ancho": "Ancho pilar",
+        "profundidad": "Profundidad pilar",
+        "altura": "Altura pilar",
+        "cantidad": "Número de pilares"
+      },
+      "outputs": {
+        "vol_unitario": "Volumen unitario",
+        "vol_total": "Volumen total",
+        "cemento_sacos": "Sacos cemento",
+        "acero_kg": "Acero",
+        "encofrado_m2": "Encofrado"
+      },
+      "seo_description": "Calcula hormigón, acero y encofrado para pilares. Introduce las dimensiones y obtén los materiales necesarios. Obten resultados al instante con.",
+      "example_label": "Calcular materiales para 6 pilares de hormigón armado de sección 30×30cm y 3m de altura.",
+      "range_hints": {
+        "ancho": "Pilares típicos: 0.25-0.50m según cargas",
+        "profundidad": "Pilares cuadrados o rectangulares: 0.25-0.50m",
+        "altura": "Altura de planta típica: 2.5-3.5m",
+        "cantidad": "Número total de pilares en la estructura"
+      },
+      "result_context": "Cada pilar requiere {vol_unitario} m³. Total para {cantidad} pilares: {vol_total} m³ de hormigón, {cemento_sacos} sacos de cemento, {acero_kg} kg de acero y {encofrado_m2} m² de encofrado.",
+      "formula_display": "Vol_unitario = ancho × profundidad × altura; Vol_total = vol_unitario × cantidad",
+      "steps": [
+        "Calcular volumen unitario: 0.30m × 0.30m × 3m = 0.27m³ por pilar",
+        "Calcular volumen total: 0.27m³ × 6 = 1.62m³",
+        "Calcular cemento: 1.62m³ × 7 = 11.34 → 12 sacos",
+        "Calcular acero: 1.62m³ × 160 kg/m³ = 259 kg",
+        "Calcular encofrado: 4 caras × 0.30m × 3m × 6 = 21.6m²"
+      ],
+      "mistakes": [
+        "No considerar la longitud de solape de las barras verticales en empalmes",
+        "Usar estribos con separación excesiva (deberían ir más juntos en extremos)",
+        "Omitir recubrimiento mínimo de 3cm para proteger el acero"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "ancho",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "profundidad",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "altura",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "cantidad",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Concrete Column Calculator",
+      "desc": "Calculate materials for reinforced concrete columns.",
+      "seo_title": "Concrete Column Calculator ? m? per Pillar",
+      "seo_desc": "Pouring concrete columns? Enter width, depth, height and quantity to get total volume, cement bags and formwork area for your structural pillars.",
+      "inputs": {
+        "ancho": "Column width",
+        "profundidad": "Column depth",
+        "altura": "Column height",
+        "cantidad": "Number of columns"
+      },
+      "outputs": {
+        "vol_unitario": "Unit volume",
+        "vol_total": "Total volume",
+        "cemento_sacos": "Cement bags",
+        "acero_kg": "Steel",
+        "encofrado_m2": "Formwork"
+      },
+      "seo_description": "Calculate concrete volume for columns and pillars. Perfect for residential and commercial column pours ? enter width, depth and height.",
+      "example_label": "Calcular materiales para 6 pilares de hormigón armado de sección 30×30cm y 3m de altura.",
+      "range_hints": {
+        "ancho": "Pilares típicos: 0.25-0.50m según cargas",
+        "profundidad": "Pilares cuadrados o rectangulares: 0.25-0.50m",
+        "altura": "Altura de planta típica: 2.5-3.5m",
+        "cantidad": "Número total de pilares en la estructura"
+      },
+      "result_context": "Cada pilar requiere {vol_unitario} m³. Total para {cantidad} pilares: {vol_total} m³ de hormigón, {cemento_sacos} sacos de cemento, {acero_kg} kg de acero y {encofrado_m2} m² de encofrado.",
+      "formula_display": "Vol_unitario = ancho × profundidad × altura; Vol_total = vol_unitario × cantidad",
+      "steps": [
+        "Calcular volumen unitario: 0.30m × 0.30m × 3m = 0.27m³ por pilar",
+        "Calcular volumen total: 0.27m³ × 6 = 1.62m³",
+        "Calcular cemento: 1.62m³ × 7 = 11.34 â†’ 12 sacos",
+        "Calcular acero: 1.62m³ × 160 kg/m³ = 259 kg",
+        "Calcular encofrado: 4 caras × 0.30m × 3m × 6 = 21.6m²"
+      ],
+      "mistakes": [
+        "No considerar la longitud de solape de las barras verticales en empalmes",
+        "Usar estribos con separación excesiva (deberían ir más juntos en extremos)",
+        "Omitir recubrimiento mínimo de 3cm para proteger el acero"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "profundidad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "altura",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "cantidad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Poteaux en Béton",
+      "desc": "Calculez les matériaux pour poteaux en béton armé.",
+      "seo_title": "Calculateur Poteau Béton – Matériaux",
+      "inputs": {
+        "ancho": "Largeur poteau",
+        "profundidad": "Profondeur poteau",
+        "altura": "Hauteur poteau",
+        "cantidad": "Nombre de poteaux"
+      },
+      "outputs": {
+        "vol_unitario": "Volume unitaire",
+        "vol_total": "Volume total",
+        "cemento_sacos": "Sacs ciment",
+        "acero_kg": "Acier",
+        "encofrado_m2": "Coffrage"
+      },
+      "seo_description": "Calculez béton, acier et coffrage pour poteaux en béton armé. Inclut le facteur de perte pour les commandes. Utilise par des professionnels et etudiants.",
+      "example_label": "Calculer les matériaux pour 6 piliers de béton armé de sección 30×30cm et 3m de hauteur.",
+      "range_hints": {
+        "ancho": "Piliers typiques: 0.25-0.50m selon charges",
+        "profundidad": "piliers cuadrados o rectangulaires: 0.25-0.50m",
+        "altura": "Hauteur de niveau typique: 2.5-3.5m",
+        "cantidad": "Nombre total de piliers dans la structure"
+      },
+      "result_context": "Chaque pilier nécessite {vol_unitario} m³. total pour {quantité} piliers: {vol_total} m³ de béton, {cemento_sacos} sacs de ciment, {acero_kg} kg de acier et {encofrado_m2} m² de coffrage.",
+      "formula_display": "Vol_unitario = largeur × profondeur × hauteur; Vol_total = vol_unitario × quantité",
+      "steps": [
+        "Calculer le volume unitaire: 0.30m × 0.30m × 3m = 0.27m³ par pilier",
+        "Calculer le volume total: 0.27m³ × 6 = 1.62m³",
+        "Calculer le ciment: 1.62m³ × 7 = 11.34 â†’ 12 sacs",
+        "Calculer l'acier: 1.62m³ × 160 kg/m³ = 259 kg",
+        "Calculer coffrage: 4 caras × 0.30m × 3m × 6 = 21.6m²"
+      ],
+      "mistakes": [
+        "Ne pas considérer la longueur de recouvrement des barres verticales dans les épissures",
+        "Utiliser estribos avec espacement excessif (devraient aller plus rapprochés aux extrémités)",
+        "Omettre enrobage minimum de 3cm pour proteger le acier"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "profundidad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "altura",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "cantidad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Pilares de Concreto",
+      "desc": "Calcule materiais para pilares de concreto armado.",
+      "seo_title": "Calculadora de Pilares de Concreto",
+      "inputs": {
+        "ancho": "Largura pilar",
+        "profundidad": "Profundidade pilar",
+        "altura": "Altura pilar",
+        "cantidad": "Número de pilares"
+      },
+      "outputs": {
+        "vol_unitario": "Volume unitário",
+        "vol_total": "Volume total",
+        "cemento_sacos": "Sacos cimento",
+        "acero_kg": "Aço",
+        "encofrado_m2": "Forma"
+      },
+      "seo_description": "Calcule concreto, aço e forma para pilares de concreto armado. Inclui fator de desperdicio para pedidos. Usado por profissionais e estudantes em todo o.",
+      "example_label": "Calcular materiais para 6 pilares de betão armado de seção 30×30cm e 3m de altura.",
+      "range_hints": {
+        "ancho": "Pilares típicos: 0.25-0.50m segundo cargas",
+        "profundidad": "Pilares quadrados o retangulares: 0.25-0.50m",
+        "altura": "Altura de planta típica: 2.5-3.5m",
+        "cantidad": "Número total de pilares na estrutura"
+      },
+      "result_context": "Cada pilar requer {vol_unitario} m³. Total para {quantidade} pilares: {vol_total} m³ de betão, {cemento_sacos} sacos de cimento, {acero_kg} kg de aço e {encofrado_m2} m² de encofrado.",
+      "formula_display": "Vol_unitario = largura × profundidade × altura; Vol_total = vol_unitario × quantidade",
+      "steps": [
+        "Calcular volume unitário: 0.30m × 0.30m × 3m = 0.27m³ por pilar",
+        "Calcular volume total: 0.27m³ × 6 = 1.62m³",
+        "Calcular cimento: 1.62m³ × 7 = 11.34 â†’ 12 sacos",
+        "Calcular aço: 1.62m³ × 160 kg/m³ = 259 kg",
+        "Calcular cofragem: 4 caras × 0.30m × 3m × 6 = 21.6m²"
+      ],
+      "mistakes": [
+        "Não considerar a comprimento de sobreposição das barras verticais em emendas",
+        "Usar estribos com separação excessiva (devem ir mais juntos em extremos)",
+        "Omitir recobrimento mínimo de 3cm para proteger o aço"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "profundidad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "altura",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "cantidad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Stützen Beton",
+      "desc": "Berechnen Sie stützen Beton online. Geben Sie ancho, profundidad, altura ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Stützen Beton | CalcToWork",
+      "seo_desc": "Stützen Beton online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Stützen Beton online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "ancho": "Ancho",
+        "profundidad": "Profundidad",
+        "altura": "Altura",
+        "cantidad": "Cantidad"
+      },
+      "outputs": {
+        "vol_unitario": "Vol Unitario",
+        "vol_total": "Vol Total",
+        "cemento_sacos": "Cemento Sacos",
+        "acero_kg": "Acero Kg",
+        "encofrado_m2": "Encofrado M2"
+      },
+      "example_label": "Calcular materiales para pilares de hormigón de sección 0.3 m × 0.3 m × 3 m × 6 ud.",
+      "range_hints": {
+        "ancho": "Medida típica según el proyecto",
+        "profundidad": "Profundidad según necesidad",
+        "altura": "Altura según requerimientos",
+        "cantidad": "Número de unidades necesarias"
+      },
+      "result_context": "Resultados: {vol_unitario} m³ por unidad, {vol_total} m³, {cemento_sacos} sacos de cemento, {acero_kg} kg de acero, {encofrado_m2} m² de encofrado.",
+      "formula_display": "Volumen = largo × ancho × espesor",
+      "steps": [
+        "Multiplicar 1m × 0.3m = 0.30m² de área",
+        "Multiplicar 0.30m² × 1m = 0.30m³ de volumen",
+        "Calcular cemento: 0.30m³ × 7 = 3 sacos",
+        "Calcular arena: 0.20m³",
+        "Calcular grava: 0.27m³"
+      ],
+      "mistakes": [
+        "Usar espesor insuficiente que puede causar grietas",
+        "No considerar el 5-10% de desperdicio",
+        "Confundir metros cúbicos con metros cuadrados"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "profundidad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "altura",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "cantidad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Pilastri in Calcestruzzo",
+      "description": "Calcola materiali per pilastri in cemento armato: calcestruzzo, acciaio e casseratura.",
+      "desc": "Calcolatore Pilastri in Calcestruzzo. Calcolatore online gratuito con formula, esempi e guida passo passo.",
+      "seo_title": "Calcolatore Pilastri ? Calcestruzzo e Materiali",
+      "seo_description": "Calcola il volume di calcestruzzo per pilastri strutturali. Perfetto per edilizia residenziale e commerciale.",
+      "seo_desc": "Stai gettando pilastri in calcestruzzo armato? Inserisci larghezza, profondit? e altezza per calcolare volume, sacchi di cemento e area cassaforma.",
+      "example_label": "Calcola materiali per 6 pilastri in cemento armato di sezione 30×30cm e altezza 3m.",
+      "result_context": "Ogni pilastro richiede {vol_unitario} m³. Totale per {cantidad} pilastri: {vol_total} m³ di calcestruzzo, {cemento_sacos} sacchi di cemento, {acero_kg} kg di acciaio.",
+      "formula_display": "Vol_unitario = larghezza × profondità × altezza; Vol_totale = vol_unitario × quantità",
+      "outputs": {
+        "vol_unitario": "Volume per Pilastro",
+        "vol_total": "Volume Totale",
+        "cemento_sacos": "Sacchi Cemento",
+        "acero_kg": "Acciaio (kg)",
+        "encofrado_m2": "Casseratura (m²)"
+      }
+    }
+  }
+}

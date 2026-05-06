@@ -1,0 +1,615 @@
+{
+  "id": "426",
+  "slug": "gasto-energetico-total",
+  "block": 5,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "weight",
+      "type": "number",
+      "step": "any",
+      "default": 70,
+      "unit": "kg",
+      "unit_options": [
+        "kg",
+        "lb"
+      ],
+      "unit_category": "mass"
+    },
+    {
+      "id": "height",
+      "type": "number",
+      "step": "any",
+      "default": 175,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "ft"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "age",
+      "type": "number",
+      "step": 1,
+      "default": 30,
+      "unit": "yr",
+      "unit_options": [
+        "yr"
+      ],
+      "unit_category": "time"
+    },
+    {
+      "id": "gender",
+      "type": "select",
+      "options": [
+        {
+          "value": "male",
+          "label": "Male / Masculino"
+        },
+        {
+          "value": "female",
+          "label": "Female / Femenino"
+        }
+      ],
+      "default": "male",
+      "unit": "",
+      "unit_options": [],
+      "unit_category": ""
+    },
+    {
+      "id": "activity",
+      "type": "select",
+      "options": [
+        {
+          "value": "1.2",
+          "label": "Sedentary (no exercise)"
+        },
+        {
+          "value": "1.375",
+          "label": "Lightly active (1-3 days/wk)"
+        },
+        {
+          "value": "1.55",
+          "label": "Moderately active (3-5 days/wk)"
+        },
+        {
+          "value": "1.725",
+          "label": "Very active (6-7 days/wk)"
+        },
+        {
+          "value": "1.9",
+          "label": "Extra active (hard daily exercise)"
+        }
+      ],
+      "default": "1.55",
+      "unit": "",
+      "unit_options": [],
+      "unit_category": ""
+    }
+  ],
+  "formula": "var w=parseFloat(inputs.weight)||0;var h=parseFloat(inputs.height)||0;var a=parseFloat(inputs.age)||0;var g=inputs.gender||'male';var act=parseFloat(inputs.activity)||1.55;var bmr=g==='male'?(10*w+6.25*h-5*a+5):(10*w+6.25*h-5*a-161);var tdee=bmr*act;return{tdee:tdee.toFixed(0),bmr:bmr.toFixed(0)};",
+  "outputs": [
+    {
+      "id": "tdee",
+      "unit": "kcal"
+    },
+    {
+      "id": "bmr",
+      "unit": "kcal"
+    }
+  ],
+  "related": [
+    "401",
+    "417",
+    "427",
+    "428"
+  ],
+  "example_inputs": {
+    "weight": 70,
+    "height": 175,
+    "age": 30,
+    "gender": "male",
+    "activity": "1.2"
+  },
+  "example_label": "Calcular gas para 70 kg × 175 cm × 30 yr × male.",
+  "range_hints": {
+    "weight": "Valor típico entre 0 y 500. Valor por defecto: 70 kg.",
+    "height": "Valor típico entre 0 y 500. Valor por defecto: 175 cm.",
+    "age": "Valor típico entre 0 y 500. Valor por defecto: 30 yr.",
+    "gender": "Seleccionar entre las opciones: male, female",
+    "activity": "Seleccionar entre las opciones: 1.2, 1.375, 1.55, 1.725, 1.9"
+  },
+  "result_context": "Tu gasto energético total diario es de {tdee} kcal/día. Metabolismo basal: {bmr} kcal/día.",
+  "result_context_en": "Your total daily energy expenditure is {tdee} kcal/day. Basal metabolic rate: {bmr} kcal/day.",
+  "result_context_fr": "Votre dépense énergétique totale quotidienne est de {tdee} kcal/jour. Métabolisme basal : {bmr} kcal/jour.",
+  "result_context_pt": "Seu gasto energético total diário é de {tdee} kcal/dia. Metabolismo basal: {bmr} kcal/dia.",
+  "result_context_de": "Ihr täglicher Gesamtenergieverbrauch beträgt {tdee} kcal/Tag. Grundumsatz: {bmr} kcal/Tag.",
+  "result_context_it": "Il tuo dispendio energetico totale giornaliero è di {tdee} kcal/giorno. Metabolismo basale: {bmr} kcal/giorno.",
+  "formula_display": "10 × w → tdee, bmr",
+  "steps": [
+    "Introducir los valores de weight, height, age, gender y activity",
+    "Verificar que las unidades sean correctas y convertir si es necesario (kg, lb)",
+    "Calcular los valores de tdee y bmr",
+    "El resultado se expresa en kcal. Verificar que la magnitud es coherente",
+    "Comparar el resultado con los valores de referencia para interpretar su significado"
+  ],
+  "mistakes": [
+    "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+    "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+    "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "weight",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "height",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "age",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "gender",
+      "current_type": "select",
+      "recommended_type": "select",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "activity",
+      "current_type": "select",
+      "recommended_type": "select",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "weight": 35,
+      "height": 88,
+      "age": 30
+    },
+    {
+      "_label": "Teen",
+      "weight": 52,
+      "height": 131,
+      "age": 30
+    },
+    {
+      "_label": "Adult (F)",
+      "weight": 70,
+      "height": 175,
+      "age": 30
+    },
+    {
+      "_label": "Adult (M)",
+      "weight": 105,
+      "height": 262,
+      "age": 30
+    },
+    {
+      "_label": "Elderly",
+      "weight": 140,
+      "height": 350,
+      "age": 30
+    }
+  ],
+  "units": {
+    "weight": "kg",
+    "height": "m",
+    "age": "s"
+  },
+  "i18n": {
+    "es": {
+      "name": "Gasto Energético Total (TDEE)",
+      "description": "Calcula tus calorías diarias totales incluyendo actividad.",
+      "inputs": {
+        "weight": "Peso",
+        "height": "Altura",
+        "age": "Edad",
+        "gender": "Sexo",
+        "activity": "Factor actividad"
+      },
+      "outputs": {
+        "tdee": "TDEE kcal",
+        "bmr": "BMR kcal"
+      },
+      "seo_title": "Gasto Energético Total (TDEE) Gratuita",
+      "seo_description": "Calcula tus calorías diarias totales incluyendo actividad. Calculadora gratuita, precisa e instantánea Usado por profesionales y estudiantes en todo el.",
+      "example_label": "Calcular gasto energético total para hombre de 70kg, 175cm, 30 años",
+      "range_hints": {
+        "weight": "Peso común: 45-120 kg",
+        "height": "Altura común: 140-200 cm",
+        "age": "Edad típica: 18-80 yr"
+      },
+      "result_context": "El TDEE es calorías para mantener peso actual; reduce 500 kcal/día para perder ~0.5kg/semana.",
+      "formula_display": "BMR (Mifflin) → TDEE = BMR × factor actividad (1.2 a 1.9)",
+      "steps": [
+        "Ingresa peso, altura, edad y género",
+        "Selecciona nivel de actividad de la lista",
+        "Calcula BMR con fórmula Mifflin-St Jeor",
+        "Multiplica BMR por factor de actividad para TDEE"
+      ],
+      "mistakes": [
+        "Sobreestimar nivel de actividad (la mayoría es más sedentario de lo que cree)",
+        "No registrar cambios de peso semanalmente (ajustar TDEE si no cambia)",
+        "Seguir TDEE ciegamente sin escuchar señales de hambre/saciedad"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "weight",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "height",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "age",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "gender",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "activity",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "en": {
+      "name": "TDEE Calculator",
+      "description": "Calculate your total daily energy expenditure including activity.",
+      "inputs": {
+        "weight": "Weight",
+        "height": "Height",
+        "age": "Age",
+        "gender": "Gender",
+        "activity": "Activity factor"
+      },
+      "outputs": {
+        "tdee": "TDEE kcal",
+        "bmr": "BMR kcal"
+      },
+      "seo_title": "TDEE Calculator – Daily Calorie Burn",
+      "seo_description": "Calculate your total daily energy expenditure including activity. Free, accurate and instant calculator. Easy-to-use calculator with formula breakdown.",
+      "example_label": "Calcular gasto energético total para hombre de 70kg, 175cm, 30 años",
+      "range_hints": {
+        "weight": "Peso común: 45-120 kg",
+        "height": "Altura común: 140-200 cm",
+        "age": "Edad típica: 18-80 yr"
+      },
+      "result_context": "El TDEE es calorías para mantener peso actual; reduce 500 kcal/día para perder ~0.5kg/semana.",
+      "formula_display": "BMR (Mifflin) â†’ TDEE = BMR × factor actividad (1.2 a 1.9)",
+      "steps": [
+        "Ingresa peso, altura, edad y género",
+        "Selecciona nivel de actividad de la lista",
+        "Calcula BMR con fórmula Mifflin-St Jeor",
+        "Multiplica BMR por factor de actividad para TDEE"
+      ],
+      "mistakes": [
+        "Sobreestimar nivel de actividad (la mayoría es más sedentario de lo que cree)",
+        "No registrar cambios de peso semanalmente (ajustar TDEE si no cambia)",
+        "Seguir TDEE ciegamente sin escuchar señales de hambre/saciedad"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "weight",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "height",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "age",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "gender",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "activity",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Dépense Énergétique Totale",
+      "description": "Calculez votre dépense énergétique totale incluant l'activité.",
+      "inputs": {
+        "weight": "Poids",
+        "height": "Taille",
+        "age": "Âge",
+        "gender": "Sexe",
+        "activity": "Facteur activité"
+      },
+      "outputs": {
+        "tdee": "TDEE kcal",
+        "bmr": "BMR kcal"
+      },
+      "seo_title": "Dépense Énergétique Totale – Étape par Étape",
+      "seo_description": "Calculez votre dépense énergétique totale incluant l'activité. Calculateur gratuit, précis et instantané. Calculatrice facile a utiliser avec.",
+      "example_label": "Calculer gasto energético total pour hombre de 70kg, 175cm, 30 años",
+      "range_hints": {
+        "weight": "Peso común: 45-120 kg",
+        "height": "hauteur común: 140-200 cm",
+        "age": "Edad typique: 18-80 yr"
+      },
+      "result_context": "le TDEE es calorías pour mantener peso actual; reduce 500 kcal/día pour perder ~0.5kg/semana.",
+      "formula_display": "BMR (Mifflin) â†’ TDEE = BMR × factor actividad (1.2 a 1.9)",
+      "steps": [
+        "Ingresa peso, hauteur, edad et género",
+        "Selecciona nivel de actividad de la lista",
+        "Calcula BMR avec fórmula Mifflin-St Jeor",
+        "Multiplica BMR par factor de actividad pour TDEE"
+      ],
+      "mistakes": [
+        "Sobreestimar nivel de actividad (la mayoría es plus sedentario de lo que cree)",
+        "No registrar cambios de peso semanalmente (ajustar TDEE si no cambia)",
+        "Seguir TDEE ciegamente sans escuchar señales de hambre/saciedad"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "weight",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "height",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "age",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "gender",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "activity",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Gasto Energético Total",
+      "description": "Calcule seu gasto energético total diário incluindo atividade.",
+      "inputs": {
+        "weight": "Peso",
+        "height": "Altura",
+        "age": "Idade",
+        "gender": "Sexo",
+        "activity": "Fator atividade"
+      },
+      "outputs": {
+        "tdee": "TDEE kcal",
+        "bmr": "BMR kcal"
+      },
+      "seo_title": "Gasto Energético Total – Passo a Passo",
+      "seo_description": "Calcule seu gasto energético total diário incluindo atividade. Calculadora gratuita, precisa e instantânea. Calculadora facil de usar com detalhamento da.",
+      "example_label": "Calcular gasto energético total para hombre de 70kg, 175cm, 30 años",
+      "range_hints": {
+        "weight": "Peso comum: 45-120 kg",
+        "height": "Altura comum: 140-200 cm",
+        "age": "Edad típica: 18-80 yr"
+      },
+      "result_context": "El TDEE é calorías para mantener peso atual; reduce 500 kcal/día para perder ~0.5kg/semana.",
+      "formula_display": "BMR (Mifflin) â†’ TDEE = BMR × factor atividade (1.2 a 1.9)",
+      "steps": [
+        "Ingresa peso, altura, edad e género",
+        "Selecciona nivel de atividade da lista",
+        "Calcula BMR com fórmula Mifflin-St Jeor",
+        "Multiplica BMR por factor de atividade para TDEE"
+      ],
+      "mistakes": [
+        "Sobreestimar nivel de atividade (a mayoría é mais sedentario de lo que cree)",
+        "Não registrar mudanças de peso semanalmente (ajustar TDEE si não cambia)",
+        "Seguir TDEE ciegamente sem escuchar señales de hambre/saciedad"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "weight",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        },
+        {
+          "field_id": "height",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        },
+        {
+          "field_id": "age",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        },
+        {
+          "field_id": "gender",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Tipo atual é apropiado"
+        },
+        {
+          "field_id": "activity",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Tipo atual é apropiado"
+        }
+      ]
+    },
+    "de": {
+      "name": "Gasto energetico total",
+      "desc": "Berechnen Sie gasto energetico total online. Geben Sie weight, height, age ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Gasto energetico total | CalcToWork",
+      "seo_desc": "Gasto energetico total online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Gasto energetico total online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "weight": "Weight",
+        "height": "Height",
+        "age": "Age",
+        "gender": "Gender",
+        "activity": "Activity"
+      },
+      "outputs": {
+        "tdee": "Tdee",
+        "bmr": "Bmr"
+      },
+      "example_label": "Calcular gas para 70 kg × 175 cm × 30 yr × male.",
+      "range_hints": {
+        "weight": "Valor típico entre 0 y 500. Valor por defecto: 70 kg.",
+        "height": "Valor típico entre 0 y 500. Valor por defecto: 175 cm.",
+        "age": "Valor típico entre 0 y 500. Valor por defecto: 30 yr.",
+        "gender": "Seleccionar entre las opciones: male, female",
+        "activity": "Seleccionar entre las opciones: 1.2, 1.375, 1.55, 1.725, 1.9"
+      },
+      "result_context": "Ihr täglicher Gesamtenergieverbrauch beträgt {tdee} kcal/Tag. Grundumsatz: {bmr} kcal/Tag.",
+      "formula_display": "10 × w → tdee, bmr",
+      "steps": [
+        "Introducir los valores de weight, height, age, gender y activity",
+        "Verificar que las unidades sean correctas y convertir si es necesario (kg, lb)",
+        "Calcular los valores de tdee y bmr",
+        "El resultado se expresa en kcal. Verificar que la magnitud es coherente",
+        "Comparar el resultado con los valores de referencia para interpretar su significado"
+      ],
+      "mistakes": [
+        "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+        "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+        "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "weight",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "height",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "age",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "gender",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "activity",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "TDEE",
+      "description": "Calcola la tua spesa energetica giornaliera totale inclusa l'attività.",
+      "inputs": {
+        "weight": "Peso",
+        "height": "Altezza",
+        "age": "Età",
+        "gender": "Sesso",
+        "activity": "Fattore attività"
+      },
+      "outputs": {
+        "tdee": "TDEE kcal",
+        "bmr": "BMR kcal"
+      },
+      "seo_title": "TDEE Calcolatore – Calorie Giornaliere",
+      "seo_description": "Calcola la tua spesa energetica giornaliera totale inclusa l'attività. Calcolatore gratuito, preciso e istantaneo. Calcolatrice facile da usare con.",
+      "example_label": "Calcolare spesa inergético totale per hombre di 70kg, 175cm, 30 años",
+      "range_hints": {
+        "weight": "Peso común: 45-120 kg",
+        "height": "Altura común: 140-200 cm",
+        "age": "Edad típica: 18-80 er"
+      },
+      "result_context": "El TDEE es calorías per mantiner peso attuale; riduce 500 kcal/día per perdir ~0.5kg/settimana.",
+      "formula_display": "BMR (Mifflin) â†’ TDEE = BMR × factor attività (1.2 a 1.9)",
+      "steps": [
+        "Ingresa peso, altezza, edad e género",
+        "Selecciona nivel di attività dilla lista",
+        "Calcula BMR con fórmula Mifflin-St Jeor",
+        "Multiplica BMR per factor di attività per TDEE"
+      ],
+      "mistakes": [
+        "Sovrastimare nivel di attività (la maggioreía es más sedintario di lo que cree)",
+        "No registrar cambios di peso settimanalminte (ajustar TDEE se non cambia)",
+        "Seguir TDEE ciegaminte senza escuchar señales di hambre/saciedad"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "weight",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        },
+        {
+          "field_id": "height",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        },
+        {
+          "field_id": "age",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        },
+        {
+          "field_id": "gender",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Tipo attuale es apropiado"
+        },
+        {
+          "field_id": "activity",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Tipo attuale es apropiado"
+        }
+      ]
+    }
+  }
+}

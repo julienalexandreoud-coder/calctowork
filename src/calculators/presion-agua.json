@@ -1,0 +1,427 @@
+{
+  "id": "033",
+  "slug": "presion-agua",
+  "block": 4,
+  "block_slug": "fontaneria",
+  "inputs": [
+    {
+      "id": "altura_m",
+      "type": "number",
+      "min": 0.1,
+      "max": 100,
+      "step": 0.1,
+      "default": 10,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "perdidas_carga_pct",
+      "type": "number",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "default": 15,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    }
+  ],
+  "formula": "var H=parseFloat(inputs.altura_m)||0,ploss=parseFloat(inputs.perdidas_carga_pct)||15;if(!H)return{error:true};var bar_bruto=+(H*0.0981).toFixed(3),bar_neto=+(bar_bruto*(1-ploss/100)).toFixed(3),psi=+(bar_neto*14.504).toFixed(1),kpa=+(bar_neto*100).toFixed(1);return{bar_bruto:bar_bruto,bar_neto:bar_neto,psi:psi,kpa:kpa};",
+  "outputs": [
+    {
+      "id": "bar_bruto",
+      "unit": "bar (bruto)"
+    },
+    {
+      "id": "bar_neto",
+      "unit": "bar (con pérdidas)",
+      "highlight": true
+    },
+    {
+      "id": "psi",
+      "unit": "PSI"
+    },
+    {
+      "id": "kpa",
+      "unit": "kPa"
+    }
+  ],
+  "related": [
+    "034",
+    "039",
+    "031",
+    "036"
+  ],
+  "example_inputs": {
+    "altura_m": 10,
+    "perdidas_carga_pct": 15
+  },
+  "example_label": "Calcular presión de 10 m × 15 %.",
+  "range_hints": {
+    "altura_m": "Medida lineal en m según plano",
+    "perdidas_carga_pct": "Porcentaje según especificación"
+  },
+  "result_context": "Resultados: {bar_bruto} bar de presión bruta, {bar_neto} bar de presión neta, {psi} PSI, {kpa} kPa.",
+  "steps": [
+    "Introducir los valores de altura_m y perdidas_carga_pct",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m, cm, mm)",
+    "Aplicar la fórmula: Presión (bar) = Altura(m) x 0.0981 x (1 - Pérdidas%/100)",
+    "El resultado se expresa en bar (bruto). Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "No respetar la pendiente mínima del 2% en tuberías de saneamiento",
+    "Usar tubería de pared delgada para instalaciones enterradas",
+    "No instalar válvulas de corte en puntos clave de la instalación"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "altura_m",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "perdidas_carga_pct",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small bathroom",
+      "altura_m": 5,
+      "perdidas_carga_pct": 8
+    },
+    {
+      "_label": "Medium bathroom",
+      "altura_m": 7.5,
+      "perdidas_carga_pct": 11
+    },
+    {
+      "_label": "Large bathroom",
+      "altura_m": 10,
+      "perdidas_carga_pct": 15
+    },
+    {
+      "_label": "Apartment",
+      "altura_m": 15,
+      "perdidas_carga_pct": 22
+    },
+    {
+      "_label": "House",
+      "altura_m": 20,
+      "perdidas_carga_pct": 30
+    }
+  ],
+  "units": {
+    "altura_m": "m",
+    "perdidas_carga_pct": "%"
+  },
+  "formula_display": "Presión (bar) = Altura(m) x 0.0981 x (1 - Pérdidas%/100)",
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Presión de Agua",
+      "desc": "Calcula la presión de agua en bar, PSI y kPa a partir de la altura de columna y las pérdidas de carga Usado por profesionales y estudiantes en todo el.",
+      "seo_title": "Calculadora Presión de Agua – Bar y PSI",
+      "inputs": {
+        "altura_m": "Altura de columna",
+        "perdidas_carga_pct": "Pérdidas de carga (%)"
+      },
+      "outputs": {
+        "bar_bruto": "Presión bruta",
+        "bar_neto": "Presión neta",
+        "psi": "PSI",
+        "kpa": "kPa"
+      },
+      "seo_description": "Calcula la presión de agua en bar, PSI y kPa a partir de la altura de la instalación. Incluye pérdidas de carga por fricción en tuberías según CTE DB-HS4.",
+      "example_label": "Calcular presión de agua necesaria para una altura de 15m considerando 15% de pérdidas por fricción.",
+      "range_hints": {
+        "altura_m": "Altura geométrica desde bomba/tanque hasta punto más alto",
+        "perdidas_carga_pct": "Pérdidas típicas: 10-25% según longitud y diámetro de tubería"
+      },
+      "result_context": "Para altura de {altura_m}m con {perdidas_carga_pct}% de pérdidas se necesita presión de {presion_bar} bar ({presion_mca} mca). Potencia de bomba estimada: {potencia_cv} CV.",
+      "formula_display": "Presión_mca = altura + (altura × pérdidas%); Presión_bar = presión_mca ÷ 10",
+      "steps": [
+        "Convertir altura a presión: 15m = 1.5 bar (10m = 1 bar)",
+        "Calcular pérdidas: 15m × 0.15 = 2.25m adicionales",
+        "Presión total: 15m + 2.25m = 17.25m = 1.725 bar",
+        "Estimar potencia de bomba según caudal requerido"
+      ],
+      "mistakes": [
+        "No considerar pérdidas por fricción en tuberías largas",
+        "Dimensionar bomba solo por altura (ignorar caudal necesario)",
+        "No prever vaso de expansión para evitar arranques frecuentes"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "altura_m",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "perdidas_carga_pct",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Water Pressure Calculator",
+      "desc": "Water Pressure Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Water Pressure Calculator – Bar & PSI",
+      "seo_desc": "Water Pressure Calculator. Column height, Friction losses (%) — get Gross pressure, Net pressure, PSI instantly for your plumbing and water systems.",
+      "inputs": {
+        "altura_m": "Column height",
+        "perdidas_carga_pct": "Friction losses (%)"
+      },
+      "outputs": {
+        "bar_bruto": "Gross pressure",
+        "bar_neto": "Net pressure",
+        "psi": "PSI",
+        "kpa": "kPa"
+      },
+      "seo_description": "Calculate water pressure in bar, PSI and kPa from installation height. Includes friction head losses in pipes according to CTE DB-HS4.",
+      "example_label": "Calcular presión de agua necesaria para una altura de 15m considerando 15% de pérdidas por fricción.",
+      "range_hints": {
+        "altura_m": "Altura geométrica desde bomba/tanque hasta punto más alto",
+        "perdidas_carga_pct": "Pérdidas típicas: 10-25% según longitud y diámetro de tubería"
+      },
+      "result_context": "Para altura de {altura_m}m con {perdidas_carga_pct}% de pérdidas se necesita presión de {presion_bar} bar ({presion_mca} mca). Potencia de bomba estimada: {potencia_cv} CV.",
+      "formula_display": "Presión_mca = altura + (altura × pérdidas%); Presión_bar = presión_mca ÷ 10",
+      "steps": [
+        "Convertir altura a presión: 15m = 1.5 bar (10m = 1 bar)",
+        "Calcular pérdidas: 15m × 0.15 = 2.25m adicionales",
+        "Presión total: 15m + 2.25m = 17.25m = 1.725 bar",
+        "Estimar potencia de bomba según caudal requerido"
+      ],
+      "mistakes": [
+        "No considerar pérdidas por fricción en tuberías largas",
+        "Dimensionar bomba solo por altura (ignorar caudal necesario)",
+        "No prever vaso de expansión para evitar arranques frecuentes"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "perdidas_carga_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Pression d'Eau",
+      "desc": "Calculez la pression disponible en tout point en considérant la hauteur statique, les pertes de charge et la pression de réseau.",
+      "seo_title": "Calculateur Pression Eau – Pression Disponible en Bar",
+      "inputs": {
+        "altura_estatica": "Hauteur statique",
+        "perdida_carga": "Perte de charge",
+        "presion_red": "Pression de réseau"
+      },
+      "outputs": {
+        "presion_disponible_bar": "Pression disponible",
+        "presion_kpa": "Pression en kPa",
+        "presion_psi": "Pression en PSI",
+        "estado": "État"
+      },
+      "seo_description": "Calculez la pression d'eau disponible en combinant pression de réseau, hauteur statique (1 bar tous les 10.2 m) et pertes de charge. Indique si un réducteur (>5 bar) ou un surpresseur (<1 bar) est nécessaire.",
+      "example_label": "Calculer la pression disponible au 2ème étage (6m), avec 3 mCE de pertes et 3 bar de pression réseau.",
+      "range_hints": {
+        "altura_estatica": "Hauteur typique : RDC=0m, 1er étage=3m, 5ème étage=15m. Chaque 10m = +1 bar de pression statique.",
+        "perdida_carga": "Pertes typiques : 0.2-0.5 bar en installation domestique. Compteur=0.3 bar, filtre=0.1 bar, tube long=0.1-0.3 bar.",
+        "presion_red": "Pression réseau typique : 2-4 bar en ville, 1-2 bar en zone rurale. Maximum sans réducteur : 5 bar."
+      },
+      "result_context": "Avec {altura_estatica}m de hauteur, {perdida_carga} mCE de pertes et {presion_red} bar de réseau : pression disponible {presion_disponible_bar} bar ({presion_kpa} kPa). État : {estado}.",
+      "formula_display": "P (bar) = P_réseau + hauteur/10.2 − pertes/10.2",
+      "steps": [
+        "Mesurer la pression de réseau au branchement (typique 2-4 bar en réseaux urbains)",
+        "Calculer la pression statique par hauteur : 1 bar = 10.2 mCE (mètres colonne d'eau)",
+        "Estimer les pertes de charge dans tubes, coudes, vannes et compteur (<1 bar en installation correcte)",
+        "Additionner pression réseau + pression statique − pertes = pression disponible",
+        "Vérifier : pression min 1 bar au robinet le plus défavorable, max 5 bar (ou installer un réducteur)"
+      ],
+      "mistakes": [
+        "Oublier que la pression diminue de 1 bar tous les 10 m de hauteur",
+        "Ne pas compter les pertes dans les accessoires (chaque coude équivaut à ~0.5-2 m de tube droit)",
+        "Utiliser un tube de diamètre insuffisant qui augmente la perte de charge"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "altura_estatica",
+          "reason": "Correct : hauteur statique en mètres"
+        },
+        {
+          "field_id": "perdida_carga",
+          "reason": "Correct : perte de charge en mCE"
+        },
+        {
+          "field_id": "presion_red",
+          "reason": "Correct : pression de réseau en bar"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Pressão de Água",
+      "desc": "Calcule a pressão de água em bar, PSI e kPa a partir da altura de coluna Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora Pressão de Água ââ‚¬“ Bar",
+      "inputs": {
+        "altura_m": "Altura de coluna",
+        "perdidas_carga_pct": "Perdas de carga (%)"
+      },
+      "outputs": {
+        "bar_bruto": "Pressão bruta",
+        "bar_neto": "Pressão líquida",
+        "psi": "PSI",
+        "kpa": "kPa"
+      },
+      "seo_description": "Calcule a pressão de água em bar, PSI e kPa a partir da altura de coluna Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular presión de água necessária para uma altura de 15m considerando 15% de pérdidas por fricción.",
+      "range_hints": {
+        "altura_m": "Altura geométrica desde bomba/tanque hasta punto mais alto",
+        "perdidas_carga_pct": "Pérdidas típicas: 10-25% segundo comprimento e diâmetro de tubulação"
+      },
+      "result_context": "Para altura de {altura_m}m com {perdidas_carga_pct}% de pérdidas se necesita presión de {presion_bar} bar ({presion_mca} mca). Potencia de bomba estimada: {potencia_cv} CV.",
+      "formula_display": "Presión_mca = altura + (altura × pérdidas%); Presión_bar = presión_mca ÷ 10",
+      "steps": [
+        "Convertir altura a presión: 15m = 1.5 bar (10m = 1 bar)",
+        "Calcular pérdidas: 15m × 0.15 = 2.25m adicionales",
+        "Presión total: 15m + 2.25m = 17.25m = 1.725 bar",
+        "Estimar potencia de bomba segundo caudal requerido"
+      ],
+      "mistakes": [
+        "Não considerar pérdidas por fricción em tubulações largas",
+        "Dimensionar bomba solo por altura (ignorar caudal necessário)",
+        "Não prever vaso de expansión para evitar arranques frequentes"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "perdidas_carga_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Wasserdruck Wasser",
+      "desc": "Berechnen Sie wasserdruck Wasser online. Geben Sie altura m, perdidas carga pct ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Wasserdruck Wasser | CalcToWork",
+      "seo_desc": "Wasserdruck Wasser online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Wasserdruck Wasser online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "altura_m": "Altura M",
+        "perdidas_carga_pct": "Perdidas Carga Pct"
+      },
+      "outputs": {
+        "bar_bruto": "Bar Bruto",
+        "bar_neto": "Bar Neto",
+        "psi": "Psi",
+        "kpa": "Kpa"
+      },
+      "example_label": "Calcular presión de 10 m × 15 %.",
+      "range_hints": {
+        "altura_m": "Medida lineal en m según plano",
+        "perdidas_carga_pct": "Porcentaje según especificación"
+      },
+      "result_context": "Resultados: {bar_bruto} bar de presión bruta, {bar_neto} bar de presión neta, {psi} PSI, {kpa} kPa.",
+      "formula_display": "Presión (bar) = Altura(m) x 0.0981 x (1 - Pérdidas%/100)",
+      "steps": [
+        "Introducir los valores de altura_m y perdidas_carga_pct",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m, cm, mm)",
+        "Aplicar la fórmula: Presión (bar) = Altura(m) x 0.0981 x (1 - Pérdidas%/100)",
+        "El resultado se expresa en bar (bruto). Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "No respetar la pendiente mínima del 2% en tuberías de saneamiento",
+        "Usar tubería de pared delgada para instalaciones enterradas",
+        "No instalar válvulas de corte en puntos clave de la instalación"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "perdidas_carga_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Pressione Acqua",
+      "desc": "Calcola la pressione disponibile in qualsiasi punto considerando altezza statica, perdite di carico e pressione di rete.",
+      "seo_title": "Calcolatore Pressione Acqua – Pressione Disponibile in Bar",
+      "inputs": {
+        "altura_estatica": "Altezza statica",
+        "perdida_carga": "Perdita di carico",
+        "presion_red": "Pressione di rete"
+      },
+      "outputs": {
+        "presion_disponible_bar": "Pressione disponibile",
+        "presion_kpa": "Pressione in kPa",
+        "presion_psi": "Pressione in PSI",
+        "estado": "Stato"
+      },
+      "seo_description": "Calcola la pressione dell'acqua disponibile combinando pressione di rete, altezza statica (1 bar ogni 10.2 m) e perdite di carico. Indica se serve un riduttore di pressione (>5 bar) o un'autoclave (<1 bar).",
+      "example_label": "Calcolare la pressione disponibile al 2° piano (6m), con 3 mca di perdite e pressione di rete di 3 bar.",
+      "range_hints": {
+        "altura_estatica": "Altezza tipica negli edifici: piano terra=0m, 1° piano=3m, 5° piano=15m. Ogni 10m = +1 bar di pressione statica.",
+        "perdida_carga": "Perdite tipiche: 0.2-0.5 bar in impianto domestico. Contatore=0.3 bar, filtro=0.1 bar, tubo lungo=0.1-0.3 bar.",
+        "presion_red": "Pressione di rete tipica: 2-4 bar in città, 1-2 bar in zone rurali. Massima senza riduttore: 5 bar."
+      },
+      "result_context": "Con {altura_estatica}m di altezza, {perdida_carga} mca di perdite e {presion_red} bar di rete: pressione disponibile {presion_disponible_bar} bar ({presion_kpa} kPa). Stato: {estado}.",
+      "formula_display": "P (bar) = P_rete + altezza/10.2 − perdite/10.2",
+      "steps": [
+        "Misurare la pressione di rete all'allacciamento (tipico 2-4 bar in reti urbane)",
+        "Calcolare la pressione statica per altezza: 1 bar = 10.2 mca (metri colonna d'acqua)",
+        "Stimare le perdite di carico in tubi, curve, valvole e contatore (<1 bar in impianto corretto)",
+        "Sommare pressione di rete + pressione statica − perdite = pressione disponibile",
+        "Verificare: pressione minima 1 bar al rubinetto più sfavorito, massima 5 bar (o installare riduttore)"
+      ],
+      "mistakes": [
+        "Dimenticare che la pressione diminuisce di 1 bar ogni 10 m di altezza",
+        "Non contare le perdite negli accessori (ogni curva equivale a ~0.5-2 m di tubo diritto)",
+        "Usare tubo di diametro insufficiente che aumenta la perdita di carico"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "altura_estatica",
+          "reason": "Corretto: altezza statica in metri"
+        },
+        {
+          "field_id": "perdida_carga",
+          "reason": "Corretto: perdita di carico in mca"
+        },
+        {
+          "field_id": "presion_red",
+          "reason": "Corretto: pressione di rete in bar"
+        }
+      ]
+    }
+  }
+}

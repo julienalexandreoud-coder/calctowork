@@ -1,0 +1,603 @@
+{
+  "id": "926",
+  "slug": "bmr-harris-benedict",
+  "block": 12,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "peso_kg",
+      "type": "number",
+      "min": 10,
+      "max": 500,
+      "step": 0.1,
+      "default": 70,
+      "unit": "kg",
+      "unit_options": [
+        "kg",
+        "g",
+        "lb"
+      ],
+      "unit_category": "mass"
+    },
+    {
+      "id": "altura_cm",
+      "type": "number",
+      "min": 50,
+      "max": 250,
+      "step": 0.5,
+      "default": 175,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in",
+        "ft"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "edad",
+      "type": "number",
+      "min": 2,
+      "max": 120,
+      "step": 1,
+      "default": 30,
+      "unit": "years"
+    },
+    {
+      "id": "sexo",
+      "type": "select",
+      "options": [
+        "mujer",
+        "hombre"
+      ],
+      "default": "mujer"
+    }
+  ],
+  "formula": "var p=parseFloat(inputs.peso_kg)||0,h=parseFloat(inputs.altura_cm)||0,e=parseFloat(inputs.edad)||30,s=inputs.sexo||'mujer';if(!p||!h||h<50||e<10)return{error:true};var bmr=s=='hombre'?88.362+(13.397*p)+(4.799*h)-(5.677*e):447.593+(9.247*p)+(3.098*h)-(4.330*e);return{bmr_harris:Math.round(bmr),tdee_sedentary:Math.round(bmr*1.2),tdee_light:Math.round(bmr*1.375),tdee_moderate:Math.round(bmr*1.55),tdee_active:Math.round(bmr*1.725),tdee_very_active:Math.round(bmr*1.9)};",
+  "outputs": [
+    {
+      "id": "bmr_harris",
+      "unit": "",
+      "highlight": true
+    },
+    {
+      "id": "tdee_sedentary",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "tdee_light",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "tdee_moderate",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "tdee_active",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "tdee_very_active",
+      "unit": "",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "426",
+    "928",
+    "429",
+    "400"
+  ],
+  "example_inputs": {
+    "sexo": "mujer",
+    "altura_cm": 175,
+    "peso_kg": 70,
+    "edad": 30
+  },
+  "example_label": "Calcular tasa metabólica basal para mujer × 175 cm × 70 kg × 30 years.",
+  "range_hints": {
+    "peso_kg": "Valor típico entre 10 y 500. Valor por defecto: 70 kg.",
+    "altura_cm": "Valor típico entre 50 y 250. Valor por defecto: 175 cm.",
+    "edad": "Valor típico entre 2 y 120. Valor por defecto: 30 years.",
+    "sexo": "Seleccionar entre las opciones: mujer, hombre"
+  },
+  "result_context": "Tu tasa metabólica basal (Harris-Benedict) es {bmr_harris} kcal/día. Gasto calórico diario: sedentario {tdee_sedentary}, ligero {tdee_light}, moderado {tdee_moderate}, activo {tdee_active}, muy activo {tdee_very_active} kcal.",
+  "result_context_en": "Your basal metabolic rate (Harris-Benedict) is {bmr_harris} kcal/day. Daily caloric expenditure: sedentary {tdee_sedentary}, light {tdee_light}, moderate {tdee_moderate}, active {tdee_active}, very active {tdee_very_active} kcal.",
+  "result_context_fr": "Votre métabolisme basal (Harris-Benedict) est de {bmr_harris} kcal/jour. Dépense calorique quotidienne : sédentaire {tdee_sedentary}, léger {tdee_light}, modéré {tdee_moderate}, actif {tdee_active}, très actif {tdee_very_active} kcal.",
+  "result_context_pt": "Sua taxa metabólica basal (Harris-Benedict) é {bmr_harris} kcal/dia. Gasto calórico diário: sedentário {tdee_sedentary}, leve {tdee_light}, moderado {tdee_moderate}, ativo {tdee_active}, muito ativo {tdee_very_active} kcal.",
+  "result_context_de": "Ihr Grundumsatz (Harris-Benedict) beträgt {bmr_harris} kcal/Tag. Täglicher Kalorienverbrauch: sesshaft {tdee_sedentary}, leicht {tdee_light}, moderat {tdee_moderate}, aktiv {tdee_active}, sehr aktiv {tdee_very_active} kcal.",
+  "result_context_it": "Il tuo metabolismo basale (Harris-Benedict) è di {bmr_harris} kcal/giorno. Dispendio calorico giornaliero: sedentario {tdee_sedentary}, leggero {tdee_light}, moderato {tdee_moderate}, attivo {tdee_active}, molto attivo {tdee_very_active} kcal.",
+  "formula_display": "BMR = 10×peso + 6.25×altura - 5×edad ± género",
+  "steps": [
+    "Introducir los valores de peso_kg, altura_cm, edad y sexo",
+    "Verificar que las unidades sean correctas y convertir si es necesario (kg, g, lb)",
+    "Aplicar la fórmula: BMR = 10×peso + 6.25×altura - 5×edad ± género",
+    "Verificar que el resultado es coherente con los valores de entrada",
+    "Comparar el resultado con los valores de referencia para interpretar su significado"
+  ],
+  "mistakes": [
+    "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+    "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+    "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "peso_kg",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "altura_cm",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "edad",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "sexo",
+      "current_type": "select",
+      "recommended_type": "select",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "peso_kg": 35,
+      "altura_cm": 87.5,
+      "edad": 30
+    },
+    {
+      "_label": "Teen",
+      "peso_kg": 52.5,
+      "altura_cm": 131.25,
+      "edad": 30
+    },
+    {
+      "_label": "Adult (F)",
+      "peso_kg": 70,
+      "altura_cm": 175,
+      "edad": 30
+    },
+    {
+      "_label": "Adult (M)",
+      "peso_kg": 105,
+      "altura_cm": 250,
+      "edad": 30
+    },
+    {
+      "_label": "Elderly",
+      "peso_kg": 140,
+      "altura_cm": 250,
+      "edad": 30
+    }
+  ],
+  "units": {
+    "peso_kg": "kg",
+    "altura_cm": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de TMB (Harris-Benedict)",
+      "desc": "Calcula tu Tasa Metabolica Basal con la ecuacion de Harris-Benedict. Considera edad, peso, altura y sexo. Calculadora facil de usar con desglose de.",
+      "description": "Calculadora de TMB (Harris-Benedict).",
+      "seo_title": "Calculadora de TMB (Harris-Benedict) Gratuita",
+      "seo_description": "Calcula tu Tasa Metabolica Basal con la ecuacion de Harris-Benedict. Considera edad, peso, altura y sexo. Calculadora facil de usar con desglose de.",
+      "inputs": {
+        "peso_kg": "Peso (kg)",
+        "altura_cm": "Altura (cm)",
+        "edad": "Edad",
+        "sexo": "Sexo"
+      },
+      "outputs": {
+        "bmr_harris": "TMB Harris-Benedict",
+        "tdee_sedentary": "TDEE Sedentario",
+        "tdee_light": "TDEE Ligero",
+        "tdee_moderate": "TDEE Moderado",
+        "tdee_active": "TDEE Activo",
+        "tdee_very_active": "TDEE Muy activo"
+      },
+      "example_label": "Calculate bmr harris benedict with peso_kg 70, altura_cm 175, edad 30, sexo mujer.",
+      "range_hints": {
+        "sexo": "Typical range: -.",
+        "altura_cm": "Typical range: 50-250 in cm units.",
+        "peso_kg": "Typical range: 10-500 in kg units.",
+        "edad": "Typical range: 2-120 in years units."
+      },
+      "result_context": "Your calculated bmr harris is {bmr_harris}.",
+      "formula_display": "Calculate bmr harris benedict based on input values.",
+      "steps": [
+        "Enter input values: peso_kg: 70, altura_cm: 175, edad: 30, sexo: mujer",
+        "Calculate and display the bmr_harris result",
+        "Calculate and display the tdee_sedentary result",
+        "Calculate and display the tdee_light result",
+        "Calculate and display the tdee_moderate result",
+        "Calculate and display the tdee_active result",
+        "Calculate and display the tdee_very_active result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "altura_cm",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "edad",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "sexo",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "en": {
+      "name": "BMR Calculator (Harris-Benedict)",
+      "desc": "BMR Calculator (Harris-Benedict). Free online calculator with formula, examples and step-by-step guide.",
+      "description": "BMR Calculator (Harris-Benedict).",
+      "seo_title": "BMR Calculator (Harris-Benedict)",
+      "seo_description": "Calculate your Basal Metabolic Rate using the Harris-Benedict equation. Accounts for age, weight, height, and gender. Easy-to-use calculator with formula.",
+      "inputs": {
+        "peso_kg": "Weight (kg)",
+        "altura_cm": "Height (cm)",
+        "edad": "Age",
+        "sexo": "Sex"
+      },
+      "outputs": {
+        "bmr_harris": "BMR Harris-Benedict",
+        "tdee_sedentary": "TDEE Sedentary",
+        "tdee_light": "TDEE Light",
+        "tdee_moderate": "TDEE Moderate",
+        "tdee_active": "TDEE Active",
+        "tdee_very_active": "TDEE Very active"
+      },
+      "example_label": "Calculate bmr harris benedict with peso_kg 70, altura_cm 175, edad 30, sexo mujer.",
+      "range_hints": {
+        "sexo": "Typical range: -.",
+        "altura_cm": "Typical range: 50-250 in cm units.",
+        "peso_kg": "Typical range: 10-500 in kg units.",
+        "edad": "Typical range: 2-120 in years units."
+      },
+      "result_context": "Your calculated bmr harris is {bmr_harris}.",
+      "formula_display": "Calculate bmr harris benedict based on input values.",
+      "steps": [
+        "Enter input values: peso_kg: 70, altura_cm: 175, edad: 30, sexo: mujer",
+        "Calculate and display the bmr_harris result",
+        "Calculate and display the tdee_sedentary result",
+        "Calculate and display the tdee_light result",
+        "Calculate and display the tdee_moderate result",
+        "Calculate and display the tdee_active result",
+        "Calculate and display the tdee_very_active result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "sexo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculatrice de MB (Harris-Benedict)",
+      "desc": "Calculez votre metabolisme de base avec l'equation de Harris-Benedict. Calculatrice facile a utiliser avec decomposition de la formule.",
+      "description": "Calculatrice de MB (Harris-Benedict).",
+      "seo_title": "Calculatrice de MB (Harris-Benedict) en Ligne",
+      "seo_description": "Calculez votre metabolisme de base avec l'equation de Harris-Benedict. Calculatrice facile a utiliser avec decomposition de la formule.",
+      "inputs": {
+        "peso_kg": "Poids (kg)",
+        "altura_cm": "Taille (cm)",
+        "edad": "Âge",
+        "sexo": "Sexe"
+      },
+      "outputs": {
+        "bmr_harris": "BMR Harris-Benedict",
+        "tdee_sedentary": "TDEE Sedentary",
+        "tdee_light": "TDEE Light",
+        "tdee_moderate": "TDEE Moderate",
+        "tdee_active": "TDEE Active",
+        "tdee_very_active": "TDEE Very active"
+      },
+      "example_label": "Calculate bmr harris benedict with peso_kg 70, altura_cm 175, edad 30, sexo mujer.",
+      "range_hints": {
+        "sexo": "Typical range: -.",
+        "altura_cm": "Typical range: 50-250 in cm units.",
+        "peso_kg": "Typical range: 10-500 in kg units.",
+        "edad": "Typical range: 2-120 in years units."
+      },
+      "result_context": "Your calculated bmr harris is {bmr_harris}.",
+      "formula_display": "Calculate bmr harris benedict based on input values.",
+      "steps": [
+        "Enter input values: peso_kg: 70, altura_cm: 175, edad: 30, sexo: mujer",
+        "Calculate and display the bmr_harris result",
+        "Calculate and display the tdee_sedentary result",
+        "Calculate and display the tdee_light result",
+        "Calculate and display the tdee_moderate result",
+        "Calculate and display the tdee_active result",
+        "Calculate and display the tdee_very_active result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "sexo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de TMB (Harris-Benedict)",
+      "desc": "Calcule sua Taxa Metabolica Basal com a equacao de Harris-Benedict. Calculadora facil de usar com detalhamento da formula.",
+      "description": "Calculadora de TMB (Harris-Benedict).",
+      "seo_title": "Calculadora de TMB (Harris-Benedict)",
+      "seo_description": "Calcule sua Taxa Metabolica Basal com a equacao de Harris-Benedict. Calculadora facil de usar com detalhamento da formula.",
+      "inputs": {
+        "peso_kg": "Peso (kg)",
+        "altura_cm": "Altura (cm)",
+        "edad": "Idade",
+        "sexo": "Sexo"
+      },
+      "outputs": {
+        "bmr_harris": "BMR Harris-Benedict",
+        "tdee_sedentary": "TDEE Sedentary",
+        "tdee_light": "TDEE Light",
+        "tdee_moderate": "TDEE Moderate",
+        "tdee_active": "TDEE Active",
+        "tdee_very_active": "TDEE Very active"
+      },
+      "example_label": "Calculate bmr harris benedict with peso_kg 70, altura_cm 175, edad 30, sexo mujer.",
+      "range_hints": {
+        "sexo": "Typical range: -.",
+        "altura_cm": "Typical range: 50-250 in cm units.",
+        "peso_kg": "Typical range: 10-500 in kg units.",
+        "edad": "Typical range: 2-120 in years units."
+      },
+      "result_context": "Your calculated bmr harris is {bmr_harris}.",
+      "formula_display": "Calculate bmr harris benedict based on input values.",
+      "steps": [
+        "Enter input values: peso_kg: 70, altura_cm: 175, edad: 30, sexo: mujer",
+        "Calculate and display the bmr_harris result",
+        "Calculate and display the tdee_sedentary result",
+        "Calculate and display the tdee_light result",
+        "Calculate and display the tdee_moderate result",
+        "Calculate and display the tdee_active result",
+        "Calculate and display the tdee_very_active result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "sexo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "de": {
+      "name": "Bmr harris benedict",
+      "desc": "Berechnen Sie bmr harris benedict online. Geben Sie peso kg, altura cm, edad ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Bmr harris benedict | CalcToWork",
+      "seo_desc": "Bmr harris benedict online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Bmr harris benedict online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "peso_kg": "Peso Kg",
+        "altura_cm": "Altura Cm",
+        "edad": "Edad",
+        "sexo": "Sexo"
+      },
+      "outputs": {
+        "bmr_harris": "Bmr Harris",
+        "tdee_sedentary": "Tdee Sedentary",
+        "tdee_light": "Tdee Light",
+        "tdee_moderate": "Tdee Moderate",
+        "tdee_active": "Tdee Active",
+        "tdee_very_active": "Tdee Very Active"
+      },
+      "example_label": "Calcular tasa metabólica basal para mujer × 175 cm × 70 kg × 30 years.",
+      "range_hints": {
+        "peso_kg": "Valor típico entre 10 y 500. Valor por defecto: 70 kg.",
+        "altura_cm": "Valor típico entre 50 y 250. Valor por defecto: 175 cm.",
+        "edad": "Valor típico entre 2 y 120. Valor por defecto: 30 years.",
+        "sexo": "Seleccionar entre las opciones: mujer, hombre"
+      },
+      "result_context": "Ihr Grundumsatz (Harris-Benedict) beträgt {bmr_harris} kcal/Tag. Täglicher Kalorienverbrauch: sesshaft {tdee_sedentary}, leicht {tdee_light}, moderat {tdee_moderate}, aktiv {tdee_active}, sehr aktiv {tdee_very_active} kcal.",
+      "formula_display": "BMR = 10×peso + 6.25×altura - 5×edad ± género",
+      "steps": [
+        "Introducir los valores de peso_kg, altura_cm, edad y sexo",
+        "Verificar que las unidades sean correctas y convertir si es necesario (kg, g, lb)",
+        "Aplicar la fórmula: BMR = 10×peso + 6.25×altura - 5×edad ± género",
+        "Verificar que el resultado es coherente con los valores de entrada",
+        "Comparar el resultado con los valores de referencia para interpretar su significado"
+      ],
+      "mistakes": [
+        "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+        "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+        "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "sexo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatrice di BMR (Harris-Benedict)",
+      "desc": "Calcola il tuo BMR con l'equazione di Harris-Benedict. Con intervalli di riferimento e contesto sanitario. Usato da professionisti e studenti in tutto.",
+      "description": "Calcolatrice di BMR (Harris-Benedict).",
+      "seo_title": "Calcolatrice di BMR (Harris-Benedict)",
+      "seo_description": "Calcola il tuo BMR con l'equazione di Harris-Benedict. Con intervalli di riferimento e contesto sanitario. Usato da professionisti e studenti in tutto.",
+      "inputs": {
+        "peso_kg": "Peso (kg)",
+        "altura_cm": "Altezza (cm)",
+        "edad": "Età",
+        "sexo": "Sesso"
+      },
+      "outputs": {
+        "bmr_harris": "BMR Harris-Benedict",
+        "tdee_sedentary": "TDEE Sedentary",
+        "tdee_light": "TDEE Light",
+        "tdee_moderate": "TDEE Moderate",
+        "tdee_active": "TDEE Active",
+        "tdee_very_active": "TDEE Very active"
+      },
+      "example_label": "Calculate bmr harris binedict with peso_kg 70, altezza_cm 175, edad 30, sexo mujer.",
+      "range_hints": {
+        "sexo": "Tepical range: -.",
+        "altura_cm": "Tepical range: 50-250 in cm units.",
+        "peso_kg": "Tepical range: 10-500 in kg units.",
+        "edad": "Tepical range: 2-120 in eears units."
+      },
+      "result_context": "Your calculated bmr harris is {bmr_harris}.",
+      "formula_display": "Calculate bmr harris binedict based on input values.",
+      "steps": [
+        "Enter input values: peso_kg: 70, altezza_cm: 175, edad: 30, sexo: mujer",
+        "Calculate and displae the bmr_harris result",
+        "Calculate and displae the tdie_sedintare result",
+        "Calculate and displae the tdie_light result",
+        "Calculate and displae the tdie_modirate result",
+        "Calculate and displae the tdie_active result",
+        "Calculate and displae the tdie_vere_active result"
+      ],
+      "mistakes": [
+        "Confusenzag unit options whin intering values",
+        "Entering zero or negative values where posetive required",
+        "Usenzag incorrect input values outsedi recommindid range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "sexo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Currint tepe is appropriate for this input."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,482 @@
+{
+  "id": "938",
+  "slug": "savings-calculator",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "ahorro_mensual",
+      "type": "number",
+      "min": 0,
+      "max": 99999,
+      "step": 10,
+      "default": 500,
+      "unit": "EUR"
+    },
+    {
+      "id": "tasa_anual",
+      "type": "number",
+      "min": 0,
+      "max": 20,
+      "step": 0.01,
+      "default": 7,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    },
+    {
+      "id": "anos",
+      "type": "number",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "default": 20,
+      "unit": "yr",
+      "unit_options": [
+        "yr",
+        "mo"
+      ],
+      "unit_category": "time"
+    }
+  ],
+  "formula": "var ahorro=parseFloat(inputs.ahorro_mensual)||0,tasa=parseFloat(inputs.tasa_anual)||0,anos=parseFloat(inputs.anos)||20;if(!ahorro)return{error:true};var r=tasa/1200,n=anos*12;var total=ahorro*(Math.pow(1+r,n)-1)/r;var aportado=ahorro*n;var interes=total-aportado;return{final_amount:+(total).toFixed(2),total_contributed:+(aportado).toFixed(2),total_interest:+(interes).toFixed(2)};",
+  "outputs": [
+    {
+      "id": "final_amount",
+      "unit": "EUR",
+      "highlight": true
+    },
+    {
+      "id": "total_contributed",
+      "unit": "EUR",
+      "highlight": false
+    },
+    {
+      "id": "total_interest",
+      "unit": "EUR",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "936",
+    "934",
+    "314",
+    "311"
+  ],
+  "example_inputs": {
+    "ahorro_mensual": 500,
+    "tasa_anual": 7,
+    "anos": 20
+  },
+  "example_label": "Simula tu plan de ahorro futuro: 500eur al mes al 7% de rentabilidad anual durante los proximos 20 anos",
+  "range_hints": {
+    "ahorro_mensual": "Valor monetario",
+    "tasa_anual": "Porcentaje según especificación",
+    "anos": "Años del período"
+  },
+  "result_context": "Resultados: {final_amount} EUR de capital final, {total_contributed} EUR aportado, {total_interest} EUR de intereses.",
+  "formula_display": "VF = Ahorro mensual x [(1+r)^n - 1] / r (formula de anualidad de capitalizacion)",
+  "steps": [
+    "Define el importe mensual que puedes ahorrar de forma constante y disciplinada cada mes sin falta",
+    "Indica la tasa de rentabilidad anual esperada de tu vehiculo de ahorro o inversion a largo plazo",
+    "Establece el plazo total en anos durante el cual mantendras el plan de ahorro periodico sin interrupcion",
+    "El sistema capitaliza compuestamente cada aportacion durante el tiempo que permanece invertida en el producto elegido",
+    "Compara el capital total acumulado al final con el total de tus aportaciones para apreciar la magia del interes compuesto"
+  ],
+  "mistakes": [
+    "No considerar el efecto de la inflacion a largo plazo: dentro de 20 anos el poder adquisitivo de tu ahorro sera mucho menor",
+    "Suponer que la rentabilidad anual sera constante todos los anos cuando en realidad los mercados fluctuan y hay anos negativos",
+    "Olvidar los costes y comisiones del producto financiero elegido (gestion, deposito, custodia) que erosionan la rentabilidad neta"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "ahorro_mensual",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "tasa_anual",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "anos",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "ahorro_mensual": 250,
+      "anos": 10,
+      "tasa_anual": 7
+    },
+    {
+      "_label": "Average",
+      "ahorro_mensual": 380,
+      "anos": 15,
+      "tasa_anual": 7
+    },
+    {
+      "_label": "High",
+      "ahorro_mensual": 500,
+      "anos": 20,
+      "tasa_anual": 7
+    },
+    {
+      "_label": "Premium",
+      "ahorro_mensual": 750,
+      "anos": 30,
+      "tasa_anual": 7
+    },
+    {
+      "_label": "Enterprise",
+      "ahorro_mensual": 1000,
+      "anos": 40,
+      "tasa_anual": 7
+    }
+  ],
+  "units": {
+    "anos": "s"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Ahorro",
+      "desc": "Calcula tus ahorros futuros con interes compuesto. Ve como los aportes mensuales hacen crecer tu dinero. Con opciones de capitalizacion e impuestos.",
+      "description": "Calculadora de Ahorro.",
+      "seo_title": "Calculadora de Ahorro Gratuita",
+      "seo_description": "Calcula tus ahorros futuros con interes compuesto. Ve como los aportes mensuales hacen crecer tu dinero. Con opciones de capitalizacion e impuestos.",
+      "inputs": {
+        "ahorro_mensual": "ahorro_mensual",
+        "tasa_anual": "Tasa anual %",
+        "anos": "Años"
+      },
+      "outputs": {
+        "final_amount": "Monto final",
+        "total_contributed": "Total aportado",
+        "total_interest": "Total de intereses"
+      },
+      "example_label": "Calculate savings calculator with ahorro_mensual 500, tasa_anual 7, anos 20.",
+      "range_hints": {
+        "ahorro_mensual": "Typical range: 0-99999 in EUR units.",
+        "tasa_anual": "Typical range: 0-20 in % units.",
+        "anos": "Typical range: 1-50 in yr units."
+      },
+      "result_context": "Your calculated final amount is {final_amount}.",
+      "formula_display": "Calculate savings calculator based on input values.",
+      "steps": [
+        "Enter input values: ahorro_mensual: 500, tasa_anual: 7, anos: 20",
+        "Calculate and display the final_amount result",
+        "Calculate and display the total_contributed result",
+        "Calculate and display the total_interest result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "ahorro_mensual",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "tasa_anual",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "anos",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "en": {
+      "name": "Savings Calculator",
+      "desc": "Savings Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Savings Calculator.",
+      "seo_title": "Savings Calculator – Interest & Growth",
+      "seo_description": "Calculate future savings with compound interest. See how monthly contributions grow your money over time. Easy-to-use calculator with formula breakdown.",
+      "inputs": {
+        "ahorro_mensual": "ahorro_mensual",
+        "tasa_anual": "Annual rate %",
+        "anos": "Years"
+      },
+      "outputs": {
+        "final_amount": "Final amount",
+        "total_contributed": "Total contributed",
+        "total_interest": "Total interest"
+      },
+      "example_label": "Calculate savings calculator with ahorro_mensual 500, tasa_anual 7, anos 20.",
+      "range_hints": {
+        "ahorro_mensual": "Typical range: 0-99999 in EUR units.",
+        "tasa_anual": "Typical range: 0-20 in % units.",
+        "anos": "Typical range: 1-50 in yr units."
+      },
+      "result_context": "Your calculated final amount is {final_amount}.",
+      "formula_display": "Calculate savings calculator based on input values.",
+      "steps": [
+        "Enter input values: ahorro_mensual: 500, tasa_anual: 7, anos: 20",
+        "Calculate and display the final_amount result",
+        "Calculate and display the total_contributed result",
+        "Calculate and display the total_interest result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "ahorro_mensual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "tasa_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculatrice d'Épargne",
+      "desc": "Calculez vos economies futures avec interets composesCalculatrice facile a utiliser avec decomposition de la formule.",
+      "description": "Calculatrice d'Épargne.",
+      "seo_title": "Calculatrice d'Épargne en Ligne",
+      "seo_description": "Calculez vos économies futures avec intérêts composés. Simulateur gratuit avec résultats détaillés pour planifier votre épargne.",
+      "inputs": {
+        "ahorro_mensual": "ahorro_mensual",
+        "tasa_anual": "Taux annuel %",
+        "anos": "Années"
+      },
+      "outputs": {
+        "final_amount": "Final amount",
+        "total_contributed": "Total contributed",
+        "total_interest": "Total des intérêts"
+      },
+      "seo_desc": "Calculez vos economies futures avec interets composesCalculatrice facile a utiliser avec decomposition de la formule.",
+      "example_label": "Calculate savings calculator with ahorro_mensual 500, tasa_anual 7, anos 20.",
+      "range_hints": {
+        "ahorro_mensual": "Typical range: 0-99999 in EUR units.",
+        "tasa_anual": "Typical range: 0-20 in % units.",
+        "anos": "Typical range: 1-50 in yr units."
+      },
+      "result_context": "Your calculated final amount is {final_amount}.",
+      "formula_display": "Calculate savings calculator based on input values.",
+      "steps": [
+        "Enter input values: ahorro_mensual: 500, tasa_anual: 7, anos: 20",
+        "Calculate and display the final_amount result",
+        "Calculate and display the total_contributed result",
+        "Calculate and display the total_interest result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "ahorro_mensual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "tasa_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Poupança",
+      "desc": "Calcule suas economias futuras com juros compostosCalculadora facil de usar com detalhamento da formula.",
+      "description": "Calculadora de Poupança.",
+      "seo_title": "Calculadora de Poupança – Passo a Passo",
+      "seo_description": "Calcule suas economias futuras com juros compostos. Calculadora fácil de usar com gráficos e resultados detalhados. Cálculo gratuito online.",
+      "inputs": {
+        "ahorro_mensual": "ahorro_mensual",
+        "tasa_anual": "Taxa anual %",
+        "anos": "Anos"
+      },
+      "outputs": {
+        "final_amount": "Final amount",
+        "total_contributed": "Total contributed",
+        "total_interest": "Total de juros"
+      },
+      "example_label": "Calculate savings calculator with ahorro_mensual 500, tasa_anual 7, anos 20.",
+      "range_hints": {
+        "ahorro_mensual": "Typical range: 0-99999 in EUR units.",
+        "tasa_anual": "Typical range: 0-20 in % units.",
+        "anos": "Typical range: 1-50 in yr units."
+      },
+      "result_context": "Your calculated final amount is {final_amount}.",
+      "formula_display": "Calculate savings calculator based on input values.",
+      "steps": [
+        "Enter input values: ahorro_mensual: 500, tasa_anual: 7, anos: 20",
+        "Calculate and display the final_amount result",
+        "Calculate and display the total_contributed result",
+        "Calculate and display the total_interest result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "ahorro_mensual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "tasa_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "de": {
+      "name": "Savings calculator",
+      "desc": "Berechnen Sie savings calculator online. Geben Sie ahorro mensual, tasa anual, anos ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Savings calculator | CalcToWork",
+      "seo_desc": "Savings calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Savings calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "ahorro_mensual": "Ahorro Mensual",
+        "tasa_anual": "Tasa Anual",
+        "anos": "Anos"
+      },
+      "outputs": {
+        "final_amount": "Final Amount",
+        "total_contributed": "Total Contributed",
+        "total_interest": "Total Interest"
+      },
+      "example_label": "Simula tu plan de ahorro futuro: 500eur al mes al 7% de rentabilidad anual durante los proximos 20 anos",
+      "range_hints": {
+        "ahorro_mensual": "Valor monetario",
+        "tasa_anual": "Porcentaje según especificación",
+        "anos": "Años del período"
+      },
+      "result_context": "Resultados: {final_amount} EUR de capital final, {total_contributed} EUR aportado, {total_interest} EUR de intereses.",
+      "formula_display": "VF = Ahorro mensual x [(1+r)^n - 1] / r (formula de anualidad de capitalizacion)",
+      "steps": [
+        "Define el importe mensual que puedes ahorrar de forma constante y disciplinada cada mes sin falta",
+        "Indica la tasa de rentabilidad anual esperada de tu vehiculo de ahorro o inversion a largo plazo",
+        "Establece el plazo total en anos durante el cual mantendras el plan de ahorro periodico sin interrupcion",
+        "El sistema capitaliza compuestamente cada aportacion durante el tiempo que permanece invertida en el producto elegido",
+        "Compara el capital total acumulado al final con el total de tus aportaciones para apreciar la magia del interes compuesto"
+      ],
+      "mistakes": [
+        "No considerar el efecto de la inflacion a largo plazo: dentro de 20 anos el poder adquisitivo de tu ahorro sera mucho menor",
+        "Suponer que la rentabilidad anual sera constante todos los anos cuando en realidad los mercados fluctuan y hay anos negativos",
+        "Olvidar los costes y comisiones del producto financiero elegido (gestion, deposito, custodia) que erosionan la rentabilidad neta"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "ahorro_mensual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "tasa_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatrice di Risparmio",
+      "desc": "Calcola i tuoi risparmi futuri con interesse composto. Con opzioni di capitalizzazione e tasse. Usato da professionisti e studenti in tutto il mondo.",
+      "description": "Calcolatrice di Risparmio.",
+      "seo_title": "Calcolatrice di Risparmio – Passo dopo Passo",
+      "seo_description": "Calcola i tuoi risparmi futuri con interesse composto. Con opzioni di capitalizzazione e tasse. Usato da professionisti e studenti in tutto il mondo.",
+      "inputs": {
+        "ahorro_mensual": "ahorro_mensual",
+        "tasa_anual": "Tasso annuale %",
+        "anos": "Anni"
+      },
+      "outputs": {
+        "final_amount": "Final amount",
+        "total_contributed": "Total contributed",
+        "total_interest": "Interessi totali"
+      },
+      "example_label": "Calculate savings calculator with risparmio_minsual 500, tasa_anual 7, anons 20.",
+      "range_hints": {
+        "ahorro_mensual": "Tepical range: 0-99999 in EUR units.",
+        "tasa_anual": "Tepical range: 0-20 in % units.",
+        "anos": "Tepical range: 1-50 in er units."
+      },
+      "result_context": "Your calculated finel amount is {finel_amount}.",
+      "formula_display": "Calculate savings calculator based on input values.",
+      "steps": [
+        "Enter input values: risparmio_minsual: 500, tasa_anual: 7, anons: 20",
+        "Calculate and displae the finel_amount result",
+        "Calculate and displae the totale_contributed result",
+        "Calculate and displae the totale_interest result"
+      ],
+      "mistakes": [
+        "Confusenzag unit options whin intering values",
+        "Entering zero or negative values where posetive required",
+        "Usenzag incorrect input values outsedi recommindid range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "ahorro_mensual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "tasa_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        }
+      ]
+    }
+  }
+}

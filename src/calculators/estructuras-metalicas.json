@@ -1,0 +1,496 @@
+{
+  "id": "066",
+  "slug": "estructuras-metalicas",
+  "block": 7,
+  "block_slug": "carpinteria",
+  "inputs": [
+    {
+      "id": "luz_m",
+      "type": "number",
+      "min": 1,
+      "max": 30,
+      "step": 0.5,
+      "default": 6,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "carga_kn_m2",
+      "type": "number",
+      "min": 1,
+      "max": 20,
+      "step": 0.5,
+      "default": 5,
+      "unit": "kN/m²",
+      "unit_options": [
+        "kN/m²",
+        "kg/m²",
+        "lb/ft²"
+      ],
+      "unit_category": "pressure"
+    },
+    {
+      "id": "longitud_nave_m",
+      "type": "number",
+      "min": 1,
+      "max": 200,
+      "step": 1,
+      "default": 20,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "perfil_tipo",
+      "type": "select",
+      "default": "IPE",
+      "options": [
+        "IPE",
+        "HEB",
+        "UPN"
+      ]
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.luz_m)||0,q=parseFloat(inputs.carga_kn_m2)||5,Ln=parseFloat(inputs.longitud_nave_m)||20;if(!L)return{error:true};var M=+(q*L*L/8).toFixed(2),Wy=+(M*100/23.5).toFixed(0),kg_ml={IPE:+(Wy*0.035).toFixed(1),HEB:+(Wy*0.055).toFixed(1),UPN:+(Wy*0.040).toFixed(1)},pm=kg_ml[inputs.perfil_tipo]||(Wy*0.035).toFixed(1),kg_viga=+(pm*L).toFixed(1),n_vigas=Math.ceil(Ln/6)+1,kg_total=+(kg_viga*n_vigas).toFixed(0),pintura=+(kg_total*0.025).toFixed(1);return{momento_kn_m:M,modulo_resist_cm3:Wy,kg_por_viga:kg_viga,vigas_ud:n_vigas,kg_total:kg_total,pintura_m2:+pintura.toFixed(1)};",
+  "outputs": [
+    {
+      "id": "momento_kn_m",
+      "unit": "kN·m"
+    },
+    {
+      "id": "modulo_resist_cm3",
+      "unit": "cm³ Wy mín."
+    },
+    {
+      "id": "kg_por_viga",
+      "unit": "kg/viga"
+    },
+    {
+      "id": "vigas_ud",
+      "unit": "vigas"
+    },
+    {
+      "id": "kg_total",
+      "unit": "kg total",
+      "highlight": true
+    },
+    {
+      "id": "pintura_m2",
+      "unit": "m² pintura"
+    }
+  ],
+  "related": [
+    "065",
+    "002",
+    "067",
+    "061"
+  ],
+  "example_inputs": {
+    "luz_m": 6,
+    "carga_kn_m2": 5,
+    "longitud_nave_m": 20,
+    "perfil_tipo": "IPE"
+  },
+  "example_label": "Pre-dimensionar viga IPE para nave de 20 m con luz de 6 m y carga de 5 kN/m².",
+  "range_hints": {
+    "luz_m": "Luz libre entre apoyos de la viga principal (m).",
+    "carga_kn_m2": "Carga total mayorada por m² incluyendo peso propio, sobrecarga y viento/nieve.",
+    "longitud_nave_m": "Longitud total del edificio o nave en la dirección de las correas.",
+    "perfil_tipo": "Tipo de perfil: IPE (alas paralelas), HEB (ala ancha), UPN (perfil en U)."
+  },
+  "result_context": "Momento máximo: {momento_kn_m} kN·m. Wy mín: {modulo_resist_cm3} cm³. {vigas_ud} vigas de {kg_por_viga} kg c/u. Total: {kg_total} kg. Pintura: {pintura_m2} m².",
+  "formula_display": "M = q·L²/8. Wy = M/(σ·f) con σ=235 MPa. Pintura ≈ kg_total × 0,025 m²/kg.",
+  "steps": [
+    "Definir la luz de la viga entre apoyos y la carga total mayorada (peso propio + uso + nieve/viento).",
+    "Calcular el momento flector máximo: M = q × L² / 8 para viga simplemente apoyada.",
+    "Obtener el módulo resistente mínimo Wy en cm³: Wy = M / (fy / γM) con fy = 235 MPa para S235JR.",
+    "Seleccionar perfil de las tablas (IPE/HEB/UPN) cuyo Wy sea igual o superior al calculado.",
+    "Estimar kg totales de acero y superficie de pintura (≈25 m² por tonelada) para protección anticorrosión."
+  ],
+  "mistakes": [
+    "No mayorar las cargas (coeficientes de seguridad γG=1,35 y γQ=1,50 según CTE DB-SE).",
+    "Seleccionar un perfil con Wy inferior al necesario; riesgo de colapso por flexión o pandeo lateral.",
+    "Olvidar la protección contra incendios y pintura intumescente si la estructura lo requiere."
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Pequeña marquesina (3 m)",
+      "luz_m": 3,
+      "carga_kn_m2": 3,
+      "longitud_nave_m": 10,
+      "perfil_tipo": "IPE"
+    },
+    {
+      "_label": "Nave estándar (6 m)",
+      "luz_m": 6,
+      "carga_kn_m2": 5,
+      "longitud_nave_m": 20,
+      "perfil_tipo": "IPE"
+    },
+    {
+      "_label": "Nave industrial (9 m)",
+      "luz_m": 9,
+      "carga_kn_m2": 6,
+      "longitud_nave_m": 30,
+      "perfil_tipo": "HEB"
+    },
+    {
+      "_label": "Gran luz (12 m)",
+      "luz_m": 12,
+      "carga_kn_m2": 7,
+      "longitud_nave_m": 40,
+      "perfil_tipo": "HEB"
+    },
+    {
+      "_label": "Carga pesada (15 m)",
+      "luz_m": 15,
+      "carga_kn_m2": 10,
+      "longitud_nave_m": 50,
+      "perfil_tipo": "HEB"
+    }
+  ],
+  "units": {
+    "luz_m": "m",
+    "carga_kn_m2": "Pa",
+    "longitud_nave_m": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Estructura Metálica",
+      "desc": "Pre-dimensiona correas y vigas de estructura metálica.",
+      "seo_title": "Calculadora Estructura Metálica",
+      "inputs": {
+        "luz_m": "Luz entre apoyos (m)",
+        "carga_kn_m2": "Carga total (kN/m²)",
+        "longitud_nave_m": "Longitud nave (m)"
+      },
+      "outputs": {
+        "momento_kn_m": "Momento máximo (kN·m)",
+        "modulo_resist_cm3": "Módulo resistente mínimo (cm³)",
+        "kg_por_viga": "Kg por viga",
+        "vigas_ud": "Número de vigas",
+        "kg_total": "Kg acero total"
+      },
+      "seo_description": "Pre-dimensiona vigas metálicas para naves industriales y estructuras según luz y carga Usado por profesionales y estudiantes en todo el mundo.",
+      "example_label": "Calcular materiales para estructuras metalicas con 6 m de ejemplo.",
+      "range_hints": {
+        "luz_m": "Valor entre 1 y 30 m.",
+        "carga_kn_m2": "Valor entre 1 y 20 kN/m².",
+        "longitud_nave_m": "Valor entre 1 y 200 m."
+      },
+      "result_context": "El resultado {kg_total} kg total representa el material necesario. Verifica medidas antes de cortar.",
+      "formula_display": "Formula especifica para estructuras-metalicas - consulta documentacion tecnica.",
+      "steps": [
+        "Introduce luz m: 6 m",
+        "Introduce carga kn m2: 50 kN/m²",
+        "Introduce longitud nave m: 10 m",
+        "Pulsa calcular para obtener resultados",
+        "Interpreta resultado: {momento_kn_m}"
+      ],
+      "mistakes": [
+        "Medir hueco en lugar de elemento fabricado",
+        "No considerar tolerancias de montaje",
+        "Olvidar herrajes y accesorios en presupuesto"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "luz_m",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "carga_kn_m2",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "longitud_nave_m",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        }
+      ]
+    },
+    "en": {
+      "name": "Metal Structure Calculator",
+      "desc": "Metal Structure Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Steel Structure Calculator – Beams & Weight",
+      "inputs": {
+        "luz_m": "Span (m)",
+        "carga_kn_m2": "Total load (kN/m²)",
+        "longitud_nave_m": "Building length (m)"
+      },
+      "outputs": {
+        "momento_kn_m": "Max moment (kNÂ·m)",
+        "modulo_resist_cm3": "Min section modulus (cm³)",
+        "kg_por_viga": "Kg per beam",
+        "vigas_ud": "Number of beams",
+        "kg_total": "Total steel kg"
+      },
+      "seo_description": "Metal Structure Calculator. Span (m), Total load (kN/m²), Building length (m) — get Max moment (kNÂ·m), Min section modulus (cm³), Kg per beam instantly.",
+      "example_label": "Calcular materiales para estructuras metalicas con 6 m de ejemplo.",
+      "range_hints": {
+        "luz_m": "Valor entre 1 y 30 m.",
+        "carga_kn_m2": "Valor entre 1 y 20 kN/m².",
+        "longitud_nave_m": "Valor entre 1 y 200 m."
+      },
+      "result_context": "El resultado {kg_total} kg total representa el material necesario. Verifica medidas antes de cortar.",
+      "formula_display": "Formula especifica para estructuras-metalicas - consulta documentacion tecnica.",
+      "steps": [
+        "Introduce luz m: 6 m",
+        "Introduce carga kn m2: 50 kN/m²",
+        "Introduce longitud nave m: 10 m",
+        "Pulsa calcular para obtener resultados",
+        "Interpreta resultado: {momento_kn_m}"
+      ],
+      "mistakes": [
+        "Medir hueco en lugar de elemento fabricado",
+        "No considerar tolerancias de montaje",
+        "Olvidar herrajes y accesorios en presupuesto"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "luz_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "carga_kn_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "longitud_nave_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Structure Métallique",
+      "desc": "Pré-dimensionnez poutrelles et charpentes métalliques.",
+      "seo_title": "Calculateur Charpente Métallique",
+      "inputs": {
+        "luz_m": "Portée (m)",
+        "carga_kn_m2": "Charge totale (kN/m²)",
+        "longitud_nave_m": "Longueur bâtiment (m)"
+      },
+      "outputs": {
+        "momento_kn_m": "Moment max (kN·m)",
+        "modulo_resist_cm3": "Module résistant min (cm³)",
+        "kg_por_viga": "Kg par poutrelle",
+        "vigas_ud": "Nombre de poutrelles",
+        "kg_total": "Kg acier total"
+      },
+      "seo_description": "Pré-dimensionnez les poutrelles métalliques pour bâtiments industriels selon portée et charge. Calculatrice facile a utiliser avec decomposition de la.",
+      "example_label": "Calculer les matériaux pour estructuras metalicas avec 6 m de ejemplo.",
+      "range_hints": {
+        "luz_m": "Valor entre 1 et 30 m.",
+        "carga_kn_m2": "Valor entre 1 et 20 kN/m².",
+        "longitud_nave_m": "Valor entre 1 et 200 m."
+      },
+      "result_context": "le resultado {kg_total} kg total representa le material nécessaire. Verifica medidas antes de cortar.",
+      "formula_display": "Formula especifica pour estructuras-metalicas - consulta documentacion tecnica.",
+      "steps": [
+        "Introduce luz m: 6 m",
+        "Introduce carga kn m2: 50 kN/m²",
+        "Introduce longueur nave m: 10 m",
+        "Pulsa Calculer pour obtener resultados",
+        "Interpreta resultado: {momento_kn_m}"
+      ],
+      "mistakes": [
+        "Medir hueco dans lugar de elemento fabricado",
+        "Ne pas considérer tolerancias de montaje",
+        "Oublier herrajes et accesorios dans presupuesto"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "luz_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        },
+        {
+          "field_id": "carga_kn_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        },
+        {
+          "field_id": "longitud_nave_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Estrutura Metálica",
+      "desc": "Pré-dimensione vigas metálicas para galpões industriais segundo vão e carga. Calculadora facil de usar com detalhamento da formula.",
+      "seo_title": "Calculadora Estrutura Metálica",
+      "inputs": {
+        "luz_m": "Vão entre apoios (m)",
+        "carga_kn_m2": "Carga total (kN/m²)",
+        "longitud_nave_m": "Comprimento galpão (m)"
+      },
+      "outputs": {
+        "momento_kn_m": "Momento máximo (kN·m)",
+        "modulo_resist_cm3": "Módulo resistente mín. (cm³)",
+        "kg_por_viga": "Kg por viga",
+        "vigas_ud": "Número de vigas",
+        "kg_total": "Kg aço total"
+      },
+      "seo_description": "Pré-dimensione vigas metálicas para galpões industriais segundo vão e carga. Calculadora facil de usar com detalhamento da formula.",
+      "example_label": "Calcular materiais para estruturas metalicas com 6 m de ejemplo.",
+      "range_hints": {
+        "luz_m": "Valor entre 1 e 30 m.",
+        "carga_kn_m2": "Valor entre 1 e 20 kN/m².",
+        "longitud_nave_m": "Valor entre 1 e 200 m."
+      },
+      "result_context": "El resultado {kg_total} kg total representa o material necesario. Verifica medidas antes de cortar.",
+      "formula_display": "Formula especifica para estructuras-metalicas - consulta documentacion tecnica.",
+      "steps": [
+        "Introduce vão m: 6 m",
+        "Introduce carga kn m2: 50 kN/m²",
+        "Introduce comprimento nave m: 10 m",
+        "Pulsa calcular para obter resultados",
+        "Interpreta resultado: {momento_kn_m}"
+      ],
+      "mistakes": [
+        "Medir hueco em lugar de elemento fabricado",
+        "Não considerar tolerancias de montagem",
+        "Esquecer herrajes e accesorios em presupuesto"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "luz_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        },
+        {
+          "field_id": "carga_kn_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        },
+        {
+          "field_id": "longitud_nave_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        }
+      ]
+    },
+    "de": {
+      "name": "Stahlbau metalicas",
+      "desc": "Berechnen Sie stahlbau metalicas online. Geben Sie luz m, carga kn m2, longitud nave m ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Stahlbau metalicas | CalcToWork",
+      "seo_desc": "Stahlbau metalicas online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Stahlbau metalicas online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "luz_m": "Luz M",
+        "carga_kn_m2": "Carga Kn M2",
+        "longitud_nave_m": "Longitud Nave M",
+        "perfil_tipo": "Perfil Tipo"
+      },
+      "outputs": {
+        "momento_kn_m": "Momento Kn M",
+        "modulo_resist_cm3": "Modulo Resist Cm3",
+        "kg_por_viga": "Kg Por Viga",
+        "vigas_ud": "Vigas Ud",
+        "kg_total": "Kg Total",
+        "pintura_m2": "Pintura M2"
+      },
+      "example_label": "Pre-dimensionar viga IPE para nave de 20 m con luz de 6 m y carga de 5 kN/m².",
+      "range_hints": {
+        "luz_m": "Luz libre entre apoyos de la viga principal (m).",
+        "carga_kn_m2": "Carga total mayorada por m² incluyendo peso propio, sobrecarga y viento/nieve.",
+        "longitud_nave_m": "Longitud total del edificio o nave en la dirección de las correas.",
+        "perfil_tipo": "Tipo de perfil: IPE (alas paralelas), HEB (ala ancha), UPN (perfil en U)."
+      },
+      "result_context": "Momento máximo: {momento_kn_m} kN·m. Wy mín: {modulo_resist_cm3} cm³. {vigas_ud} vigas de {kg_por_viga} kg c/u. Total: {kg_total} kg. Pintura: {pintura_m2} m².",
+      "formula_display": "M = q·L²/8. Wy = M/(σ·f) con σ=235 MPa. Pintura ≈ kg_total × 0,025 m²/kg.",
+      "steps": [
+        "Definir la luz de la viga entre apoyos y la carga total mayorada (peso propio + uso + nieve/viento).",
+        "Calcular el momento flector máximo: M = q × L² / 8 para viga simplemente apoyada.",
+        "Obtener el módulo resistente mínimo Wy en cm³: Wy = M / (fy / γM) con fy = 235 MPa para S235JR.",
+        "Seleccionar perfil de las tablas (IPE/HEB/UPN) cuyo Wy sea igual o superior al calculado.",
+        "Estimar kg totales de acero y superficie de pintura (≈25 m² por tonelada) para protección anticorrosión."
+      ],
+      "mistakes": [
+        "No mayorar las cargas (coeficientes de seguridad γG=1,35 y γQ=1,50 según CTE DB-SE).",
+        "Seleccionar un perfil con Wy inferior al necesario; riesgo de colapso por flexión o pandeo lateral.",
+        "Olvidar la protección contra incendios y pintura intumescente si la estructura lo requiere."
+      ],
+      "input_type_review": []
+    },
+    "it": {
+      "name": "Calcolatore Parquet Prefinito",
+      "description": "Calcola il parquet prefinito per pavimenti.",
+      "seo_title": "Calcolatore Struttura Metallica",
+      "seo_description": "Stima le confezioni di parquet prefinito con margine di scarto Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo.",
+      "inputs": {
+        "area": "Superficie (m²)",
+        "desperdicio": "Scarto (%)",
+        "m2_caja": "m²/confezione"
+      },
+      "outputs": {
+        "area_total": "Superficie totale (m²)",
+        "cajas": "Confezioni necessarie"
+      },
+      "example_label": "Calcolare opacoriales per strutture metalloicas con 6 m di ejemplo.",
+      "range_hints": {
+        "luz_m": "Valor intre 1 e 30 m.",
+        "carga_kn_m2": "Valor intre 1 e 20 kN/m².",
+        "longitud_nave_m": "Valor intre 1 e 200 m."
+      },
+      "result_context": "El risultato {kg_totale} kg totale representa el opacorial necessario. Verifica misure prima di cortar.",
+      "formula_display": "Formula especifica per strutture-metalloicas - consulta documintacion tecnica.",
+      "steps": [
+        "Introduce luz m: 6 m",
+        "Introduce carico kn m2: 50 kN/m²",
+        "Introduce lunghezza nave m: 10 m",
+        "Pulsa calcolare per obtiner risultati",
+        "Interpreta risultato: {mominto_kn_m}"
+      ],
+      "mistakes": [
+        "Medir hueco in lugar di eleminto fabricado",
+        "Non consedirare tolerancias di montaje",
+        "Diminticare herrajes e accesorios in presupuesto"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "luz_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        },
+        {
+          "field_id": "carga_kn_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        },
+        {
+          "field_id": "longitud_nave_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        }
+      ]
+    }
+  }
+}

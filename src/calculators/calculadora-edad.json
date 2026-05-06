@@ -1,0 +1,338 @@
+{
+  "id": "501",
+  "slug": "calculadora-edad",
+  "block": 13,
+  "block_slug": "cotidiano",
+  "inputs": [
+    {
+      "id": "anio_nacimiento",
+      "type": "number",
+      "min": 1900,
+      "max": 2025,
+      "step": 1,
+      "default": 1990,
+      "unit": "año"
+    },
+    {
+      "id": "mes_nacimiento",
+      "type": "number",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "default": 6,
+      "unit": "mes"
+    }
+  ],
+  "formula": "var Y=parseFloat(inputs.anio_nacimiento)||0,M=parseFloat(inputs.mes_nacimiento)||1;if(!Y||Y<1900||Y>2025)return{error:true};var hoy=new Date(2026,3,23),nac=new Date(Y,M-1,1),edad=hoy.getFullYear()-nac.getFullYear()-(hoy.getMonth()<nac.getMonth()||hoy.getMonth()===nac.getMonth()&&hoy.getDate()<nac.getDate()?1:0),prox_mes=M-1,prox=new Date(2026,prox_mes,1);if(prox<hoy)prox.setFullYear(2027);var diff_ms=prox-hoy,dias_cumple=Math.round(diff_ms/86400000),meses_vividos=edad*12+(hoy.getMonth()-nac.getMonth()+12)%12;return{edad_anios:edad,meses_vividos:meses_vividos,dias_proximo_cumple:dias_cumple};",
+  "outputs": [
+    {
+      "id": "edad_anios",
+      "unit": "años",
+      "highlight": true
+    },
+    {
+      "id": "meses_vividos",
+      "unit": "meses"
+    },
+    {
+      "id": "dias_proximo_cumple",
+      "unit": "días"
+    }
+  ],
+  "related": [
+    "502",
+    "500",
+    "200",
+    "942"
+  ],
+  "example_inputs": {
+    "anio_nacimiento": 1990,
+    "mes_nacimiento": 6
+  },
+  "example_label": "Calcular edad de persona nacida en 1990 año × 6 mes.",
+  "range_hints": {
+    "anio_nacimiento": "Valor típico entre 1900 y 2025. Valor por defecto: 1990 año.",
+    "mes_nacimiento": "Valor típico entre 1 y 12. Valor por defecto: 6 mes."
+  },
+  "result_context": "Tienes {edad_anios} años ({meses_vividos} meses vividos) y quedan {dias_proximo_cumple} días para tu próximo cumpleaños.",
+  "result_context_en": "You are {edad_anios} years old ({meses_vividos} months lived) and there are {dias_proximo_cumple} days until your next birthday.",
+  "result_context_fr": "Vous avez {edad_anios} ans ({meses_vividos} mois vécus) et il reste {dias_proximo_cumple} jours avant votre prochain anniversaire.",
+  "result_context_pt": "Você tem {edad_anios} anos ({meses_vividos} meses vividos) e faltam {dias_proximo_cumple} dias para o seu próximo aniversário.",
+  "result_context_de": "Sie sind {edad_anios} Jahre alt ({meses_vividos} gelebte Monate) und es sind noch {dias_proximo_cumple} Tage bis zu Ihrem nächsten Geburtstag.",
+  "result_context_it": "Hai {edad_anios} anni ({meses_vividos} mesi vissuti) e mancano {dias_proximo_cumple} giorni al tuo prossimo compleanno.",
+  "formula_display": "diff_ms ÷ 86400000 → edad_anios, meses_vividos",
+  "steps": [
+    "Introducir los valores de anio_nacimiento y mes_nacimiento",
+    "Verificar que los valores introducidos están en el rango y formato correctos",
+    "Calcular los valores de edad anios y meses vividos",
+    "El resultado se expresa en años. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "No considerar si la propina se calcula antes o después de impuestos",
+    "Olvidar que los meses tienen diferente número de días",
+    "Usar el formato de fecha incorrecto (MM/DD vs DD/MM) al introducir datos"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "anio_nacimiento",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "mes_nacimiento",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Escenario minimo",
+      "anio_nacimiento": 1900.0,
+      "mes_nacimiento": 2.4
+    },
+    {
+      "_label": "Uso habitual",
+      "anio_nacimiento": 1900.0,
+      "mes_nacimiento": 4.2
+    },
+    {
+      "_label": "Uso frecuente",
+      "anio_nacimiento": 1990.0,
+      "mes_nacimiento": 6.0
+    },
+    {
+      "_label": "Uso intensivo",
+      "anio_nacimiento": 2025.0,
+      "mes_nacimiento": 9.0
+    },
+    {
+      "_label": "Caso maximo",
+      "anio_nacimiento": 2025.0,
+      "mes_nacimiento": 12.0
+    }
+  ],
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Edad",
+      "desc": "Calcula tu edad exacta en años y los días que faltan para tu próximo cumpleaños.",
+      "description": "Calcula tu edad exacta en años y los días que faltan para tu próximo cumpleaños.",
+      "seo_title": "Calculadora de Edad Online – ¿Cuántos Años Tengo?",
+      "seo_description": "Calcula tu edad exacta en años y meses. Descubre cuántos días faltan para tu próximo cumpleaños. Con manejo de fechas y zonas horarias.",
+      "inputs": {
+        "anio_nacimiento": "Año de nacimiento",
+        "mes_nacimiento": "Mes de nacimiento (1-12)"
+      },
+      "outputs": {
+        "edad_anios": "Edad (años)",
+        "meses_vividos": "Meses vividos",
+        "dias_proximo_cumple": "Días para el próximo cumpleaños"
+      },
+      "example_label": "Nacido en junio de 1990",
+      "range_hints": {
+        "anio_nacimiento": "1900-2025",
+        "mes_nacimiento": "1 (enero) a 12 (diciembre)"
+      },
+      "result_context": "Edad actual en años, meses vividos, y días para próximo cumpleaños",
+      "formula_display": "Edad = Año actual - Año nacimiento (ajustado por mes/día)",
+      "steps": [
+        "Calcular diferencia de años",
+        "Ajustar si cumpleaños no ha ocurrido este año",
+        "Calcular meses totales vividos",
+        "Calcular días para próximo cumpleaños"
+      ],
+      "mistakes": [
+        "No considerar si el cumpleaños ya pasó este año",
+        "Error en cálculo de años bisiestos"
+      ],
+      "input_type_review": []
+    },
+    "en": {
+      "name": "Age Calculator",
+      "desc": "Calculate your exact age in years and the days until your next birthday.",
+      "description": "Calculate your exact age in years and the days until your next birthday.",
+      "seo_title": "Age Calculator – How Old Am I? Online",
+      "seo_description": "Age Calculator. Birth year, Birth month (1-12) to get Age (years), Months lived, Days to next birthday — everyday practical calculator that handles edge.",
+      "inputs": {
+        "anio_nacimiento": "Birth year",
+        "mes_nacimiento": "Birth month (1-12)"
+      },
+      "outputs": {
+        "edad_anios": "Age (years)",
+        "meses_vividos": "Months lived",
+        "dias_proximo_cumple": "Days to next birthday"
+      },
+      "example_label": "Nacido en junio de 1990",
+      "range_hints": {
+        "anio_nacimiento": "1900-2025",
+        "mes_nacimiento": "1 (enero) a 12 (diciembre)"
+      },
+      "result_context": "Edad actual en años, meses vividos, y días para próximo cumpleaños",
+      "formula_display": "Edad = Año actual - Año nacimiento (ajustado por mes/día)",
+      "steps": [
+        "Calcular diferencia de años",
+        "Ajustar si cumpleaños no ha ocurrido este año",
+        "Calcular meses totales vividos",
+        "Calcular días para próximo cumpleaños"
+      ],
+      "mistakes": [
+        "No considerar si el cumpleaños ya pasó este año",
+        "Error en cálculo de años bisiestos"
+      ],
+      "input_type_review": "anio_nacimiento es año calendario, mes_nacimiento es número 1-12"
+    },
+    "fr": {
+      "name": "Calculateur d'Âge",
+      "desc": "Calculez votre âge exact en années et les jours jusqu'à votre prochain anniversaire.",
+      "description": "Calculez votre âge exact en années et les jours jusqu'à votre prochain anniversaire.",
+      "seo_title": "Calculateur d'Âge – Quel Âge Ai-Je ? En Ligne",
+      "seo_description": "Calculez votre âge exact en années et mois. Combien de jours avant votre prochain anniversaire ?. Avec gestion des dates et fuseaux horaires.",
+      "inputs": {
+        "anio_nacimiento": "Année de naissance",
+        "mes_nacimiento": "Mois de naissance (1-12)"
+      },
+      "outputs": {
+        "edad_anios": "Âge (ans)",
+        "meses_vividos": "Mois vécus",
+        "dias_proximo_cumple": "Jours avant l'anniversaire"
+      },
+      "example_label": "Nacido dans junio de 1990",
+      "range_hints": {
+        "anio_nacimiento": "1900-2025",
+        "mes_nacimiento": "1 (enero) a 12 (diciembre)"
+      },
+      "result_context": "Edad actual dans años, meses vividos, et días pour próximo cumpleaños",
+      "formula_display": "Edad = Año actual - Año nacimiento (ajustado par mes/día)",
+      "steps": [
+        "Calculer diferencia de años",
+        "Ajustar si cumpleaños no ha ocurrido este año",
+        "Calculer meses totales vividos",
+        "Calculer días pour próximo cumpleaños"
+      ],
+      "mistakes": [
+        "Ne pas considérer si le cumpleaños ya pasó este año",
+        "Error dans cálculo de años bisiestos"
+      ],
+      "input_type_review": []
+    },
+    "pt": {
+      "name": "Calculadora de Idade",
+      "desc": "Calcule a sua idade exata em anos e os dias até ao seu próximo aniversário.",
+      "description": "Calcule a sua idade exata em anos e os dias até ao seu próximo aniversário.",
+      "seo_title": "Calculadora de Idade Online – Quantos Anos Tenho?",
+      "seo_description": "Calcule a sua idade exata em anos e meses. Descubra quantos dias faltam para o seu próximo aniversário. Ferramenta gratuita com formula e exemplos.",
+      "inputs": {
+        "anio_nacimiento": "Ano de nascimento",
+        "mes_nacimiento": "Mês de nascimento (1-12)"
+      },
+      "outputs": {
+        "edad_anios": "Idade (anos)",
+        "meses_vividos": "Meses vividos",
+        "dias_proximo_cumple": "Dias para o próximo aniversário"
+      },
+      "example_label": "Nacido em junio de 1990",
+      "range_hints": {
+        "anio_nacimiento": "1900-2025",
+        "mes_nacimiento": "1 (enero) a 12 (diciembre)"
+      },
+      "result_context": "Edad atual em años, meses vividos, e días para próximo cumpleaños",
+      "formula_display": "Edad = Año atual - Año nacimiento (ajustado por mes/día)",
+      "steps": [
+        "Calcular diferencia de años",
+        "Ajustar si cumpleaños não ha ocurrido este año",
+        "Calcular meses totales vividos",
+        "Calcular días para próximo cumpleaños"
+      ],
+      "mistakes": [
+        "Não considerar si o cumpleaños ya pasó este año",
+        "Error em cálculo de años bisiestos"
+      ],
+      "input_type_review": []
+    },
+    "de": {
+      "name": "Calculadora edad",
+      "desc": "Berechnen Sie calculadora edad online. Geben Sie anio nacimiento, mes nacimiento ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Calculadora edad | CalcToWork",
+      "seo_desc": "Calculadora edad online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Calculadora edad online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "anio_nacimiento": "Anio Nacimiento",
+        "mes_nacimiento": "Mes Nacimiento"
+      },
+      "outputs": {
+        "edad_anios": "Edad Anios",
+        "meses_vividos": "Meses Vividos",
+        "dias_proximo_cumple": "Dias Proximo Cumple"
+      },
+      "example_label": "Calcular edad de persona nacida en 1990 año × 6 mes.",
+      "range_hints": {
+        "anio_nacimiento": "Valor típico entre 1900 y 2025. Valor por defecto: 1990 año.",
+        "mes_nacimiento": "Valor típico entre 1 y 12. Valor por defecto: 6 mes."
+      },
+      "result_context": "Sie sind {edad_anios} Jahre alt ({meses_vividos} gelebte Monate) und es sind noch {dias_proximo_cumple} Tage bis zu Ihrem nächsten Geburtstag.",
+      "formula_display": "diff_ms ÷ 86400000 → edad_anios, meses_vividos",
+      "steps": [
+        "Introducir los valores de anio_nacimiento y mes_nacimiento",
+        "Verificar que los valores introducidos están en el rango y formato correctos",
+        "Calcular los valores de edad anios y meses vividos",
+        "El resultado se expresa en años. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "No considerar si la propina se calcula antes o después de impuestos",
+        "Olvidar que los meses tienen diferente número de días",
+        "Usar el formato de fecha incorrecto (MM/DD vs DD/MM) al introducir datos"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "anio_nacimiento",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "mes_nacimiento",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Età",
+      "desc": "Calcola la tua età esatta in anni e i giorni al tuo prossimo compleanno.",
+      "description": "Calcola la tua età esatta in anni e i giorni al tuo prossimo compleanno.",
+      "seo_title": "Calcolatore Età Online – Quanti Anni Ho?",
+      "seo_description": "Calcola la tua età esatta in anni e mesi. Scopri quanti giorni mancano al tuo prossimo compleanno. Con gestione date e fusi orari.",
+      "inputs": {
+        "anio_nacimiento": "Anno di nascita",
+        "mes_nacimiento": "Mese di nascita (1-12)"
+      },
+      "outputs": {
+        "edad_anios": "Età (anni)",
+        "meses_vividos": "Mesi vissuti",
+        "dias_proximo_cumple": "Giorni al prossimo compleanno"
+      },
+      "example_label": "Nacido in junio di 1990",
+      "range_hints": {
+        "anio_nacimiento": "1900-2025",
+        "mes_nacimiento": "1 (inero) a 12 (diciembre)"
+      },
+      "result_context": "Edad attuale in años, mesei vividos, e días per próximo cumpleaños",
+      "formula_display": "Edad = Año attuale - Año nafondazione (ajustado per mese/día)",
+      "steps": [
+        "Calcolare diferincia di años",
+        "Ajustar se cumpleaños non ha ocurrido este año",
+        "Calcolare mesei totalees vividos",
+        "Calcolare días per próximo cumpleaños"
+      ],
+      "mistakes": [
+        "Non consedirare se el cumpleaños ea pasó este año",
+        "Error in cálculo di años biseestos"
+      ],
+      "input_type_review": null
+    }
+  }
+}

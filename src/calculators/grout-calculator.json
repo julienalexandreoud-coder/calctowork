@@ -1,0 +1,310 @@
+{
+  "id": "1110",
+  "slug": "grout-calculator",
+  "block": 3,
+  "block_slug": "pavimentos",
+  "inputs": [
+    {
+      "id": "tile_length",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "step": 0.5,
+      "default": 30,
+      "unit": "cm",
+      "unit_category": "length"
+    },
+    {
+      "id": "tile_width",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "step": 0.5,
+      "default": 30,
+      "unit": "cm",
+      "unit_category": "length"
+    },
+    {
+      "id": "tile_area",
+      "type": "number",
+      "min": 0.1,
+      "max": 100,
+      "step": 0.1,
+      "default": 10,
+      "unit": "m2",
+      "unit_category": "area"
+    },
+    {
+      "id": "grout_width",
+      "type": "number",
+      "min": 1,
+      "max": 20,
+      "step": 0.5,
+      "default": 3,
+      "unit": "mm",
+      "unit_category": "length"
+    },
+    {
+      "id": "tile_thickness",
+      "type": "number",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "default": 10,
+      "unit": "mm",
+      "unit_category": "length"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "grout_kg_needed",
+      "unit": "kg",
+      "highlight": true
+    },
+    {
+      "id": "bags_5kg",
+      "unit": "bags"
+    },
+    {
+      "id": "bags_10kg",
+      "unit": "bags"
+    },
+    {
+      "id": "coverage_m2_per_kg",
+      "unit": "m²/kg"
+    }
+  ],
+  "formula": "var tl=parseFloat(inputs.tile_length)||0,tw=parseFloat(inputs.tile_width)||0,ta=parseFloat(inputs.tile_area)||1,gw=parseFloat(inputs.grout_width)||3,tt=parseFloat(inputs.tile_thickness)||8;if(!tl||!tw)return{error:true};var tl_m=tl/100,tw_m=tw/100,cov=+(tl_m*tw_m/(gw/1000*tt/1000*(tl_m+tw_m))/1.7).toFixed(2),kg=+(ta/cov).toFixed(2),b5=Math.ceil(kg/5),b10=Math.ceil(kg/10);return{grout_kg_needed:kg,bags_5kg:b5,bags_10kg:b10,coverage_m2_per_kg:cov};",
+  "formula_display": "Grout per m² = 2 × (L+W) ÷ (L×W) × grout_width × tile_thickness × grout_density",
+  "result_context": "Grout needed: {grout_kg_needed} kg, 5 kg bags: {bags_5kg}, 10 kg bags: {bags_10kg}",
+  "example_inputs": {
+    "tile_length": 30,
+    "tile_width": 30,
+    "tile_area": 20,
+    "grout_width": 3,
+    "tile_thickness": 8
+  },
+  "steps": [
+    "Joint length per m²: 2 × (30+30) ÷ (30×30) = 0.133 linear m per cm² → 1.33 m/m²",
+    "Joint cross-section: 3 mm × 8 mm = 24 mm²",
+    "Volume per m²: 1.33 × 0.024 = 0.032 litres ≈ 0.058 kg/m² for 20 m² = 1.16 kg",
+    "Standard grout ≈ 1.7 kg/m² for 30×30 tile — total for 20 m² = 34 kg → 7 × 5 kg bags"
+  ],
+  "mistakes": [
+    "Using tile dimensions in metres instead of centimetres",
+    "Buying the same amount as tiles — grout quantity depends on joint width, not tile count",
+    "Forgetting that unsanded grout is used for joints under 3 mm, sanded for wider joints"
+  ],
+  "related": [
+    "1109",
+    "1107",
+    "1118",
+    "021"
+  ],
+  "buying_units": {
+    "bags_5kg": [
+      {
+        "label": "Bags (5 kg)",
+        "factor": 1,
+        "round": "ceil",
+        "unit_suffix": "bags"
+      }
+    ],
+    "bags_10kg": [
+      {
+        "label": "Bags (10 kg)",
+        "factor": 1,
+        "round": "ceil",
+        "unit_suffix": "bags"
+      }
+    ]
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small patio",
+      "tile_area": 10,
+      "tile_length": 15,
+      "tile_width": 30,
+      "tile_thickness": 8,
+      "grout_width": 3
+    },
+    {
+      "_label": "Medium patio",
+      "tile_area": 15,
+      "tile_length": 22.5,
+      "tile_width": 30,
+      "tile_thickness": 8,
+      "grout_width": 3
+    },
+    {
+      "_label": "Large patio",
+      "tile_area": 20,
+      "tile_length": 30,
+      "tile_width": 30,
+      "tile_thickness": 8,
+      "grout_width": 3
+    },
+    {
+      "_label": "Driveway",
+      "tile_area": 30,
+      "tile_length": 45,
+      "tile_width": 30,
+      "tile_thickness": 8,
+      "grout_width": 3
+    },
+    {
+      "_label": "Parking lot",
+      "tile_area": 40,
+      "tile_length": 60,
+      "tile_width": 30,
+      "tile_thickness": 8,
+      "grout_width": 3
+    }
+  ],
+  "units": {
+    "tile_length": "m",
+    "tile_width": "m",
+    "tile_area": "m²",
+    "grout_width": "m",
+    "tile_thickness": "m"
+  },
+  "example_label": "Ejemplo para grout calculator: valores 30cm, 30cm, 10m2, 3mm",
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Lechada",
+      "desc": "Calculadora 1110. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculadora de Lechada – kg Necesarios y Sacos",
+      "seo_desc": "Calcula cuánta lechada necesitas en kg y sacos. Introduce las dimensiones del azulejo, el ancho de la junta y el área total para obtener la cantidad exacta.",
+      "seo_description": "Calcula la lechada o borada necesaria en kg y sacos para tu alicatado. Introduce el formato del azulejo, el ancho de la junta, el área total y el grosor para una estimación fiable.",
+      "inputs": {
+        "tile_length": "Largo del azulejo",
+        "tile_width": "Ancho del azulejo",
+        "tile_area": "Área total alicatada",
+        "grout_width": "Ancho de la junta",
+        "tile_thickness": "Grosor del azulejo"
+      },
+      "outputs": {
+        "grout_kg_needed": "Lechada necesaria",
+        "bags_5kg": "Sacos de 5 kg",
+        "bags_10kg": "Sacos de 10 kg",
+        "coverage_m2_per_kg": "Rendimiento por kg"
+      }
+    },
+    "en": {
+      "name": "Grout Calculator",
+      "desc": "Calculator 1110. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Grout Calculator – kg Needed & Bag Count",
+      "seo_desc": "Calculate how much grout you need in kg and bags. Enter tile dimensions, grout joint width and total area to get exact grout quantity with coverage per kg.",
+      "seo_description": "Calculate grout needed in kg and bags for your tiling project. Enter tile size, grout joint width, total area, and tile thickness for accurate material estimates.",
+      "inputs": {
+        "tile_length": "Tile length",
+        "tile_width": "Tile width",
+        "tile_area": "Total tiled area",
+        "grout_width": "Grout joint width",
+        "tile_thickness": "Tile thickness"
+      },
+      "outputs": {
+        "grout_kg_needed": "Grout needed",
+        "bags_5kg": "5 kg bags",
+        "bags_10kg": "10 kg bags",
+        "coverage_m2_per_kg": "Coverage per kg"
+      }
+    },
+    "fr": {
+      "name": "Calculatrice de Joint",
+      "desc": "Calculateur 1110. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculatrice Joint Carrelage – kg et Sacs",
+      "seo_desc": "Calculez la quantité de joint nécessaire en kg et sacs. Entrez les dimensions du carreau, la largeur du joint et la surface totale pour obtenir la quantité exacte.",
+      "seo_description": "Déterminez la quantité de mortier-joint pour carrelage en kg et en sacs. Entrez les dimensions du carreau, la largeur du joint, la surface totale et l'épaisseur pour une estimation précise du matériau.",
+      "inputs": {
+        "tile_length": "Longueur du carreau",
+        "tile_width": "Largeur du carreau",
+        "tile_area": "Surface totale carrelée",
+        "grout_width": "Largeur du joint",
+        "tile_thickness": "Épaisseur du carreau"
+      },
+      "outputs": {
+        "grout_kg_needed": "Joint nécessaire",
+        "bags_5kg": "Sacs de 5 kg",
+        "bags_10kg": "Sacs de 10 kg",
+        "coverage_m2_per_kg": "Rendement par kg"
+      }
+    },
+    "pt": {
+      "name": "Calculadora de Rejunte",
+      "desc": "Calculadora 1110. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculadora de Rejunte – kg e Sacos Necessários",
+      "seo_desc": "Calcule quanto rejunte você precisa em kg e sacos. Insira as dimensões do azulejo, a largura da junta e a área total para obter a quantidade exata com cobertura por kg.",
+      "seo_description": "Calcule o rejunte necessário em kg e sacos para o seu revestimento cerâmico. Informe o tamanho do azulejo, a largura da junta, a área total e a espessura para obter a quantidade certa de material.",
+      "inputs": {
+        "tile_length": "Comprimento do azulejo",
+        "tile_width": "Largura do azulejo",
+        "tile_area": "Área total revestida",
+        "grout_width": "Largura da junta",
+        "tile_thickness": "Espessura do azulejo"
+      },
+      "outputs": {
+        "grout_kg_needed": "Rejunte necessário",
+        "bags_5kg": "Sacos de 5 kg",
+        "bags_10kg": "Sacos de 10 kg",
+        "coverage_m2_per_kg": "Cobertura por kg"
+      }
+    },
+    "de": {
+      "name": "Grout calculator",
+      "desc": "Berechnen Sie grout calculator online. Geben Sie tile length, tile width, tile area ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Grout calculator | CalcToWork",
+      "seo_desc": "Grout calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Grout calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "tile_length": "Tile Length",
+        "tile_width": "Tile Width",
+        "tile_area": "Tile Area",
+        "grout_width": "Grout Width",
+        "tile_thickness": "Tile Thickness"
+      },
+      "outputs": {
+        "grout_kg_needed": "Grout Kg Needed",
+        "bags_5kg": "Bags 5kg",
+        "bags_10kg": "Bags 10kg",
+        "coverage_m2_per_kg": "Coverage M2 Per Kg"
+      },
+      "example_label": "Ejemplo para grout calculator: valores 30cm, 30cm, 10m2, 3mm",
+      "range_hints": {},
+      "result_context": "Grout needed: {grout_kg_needed} kg, 5 kg bags: {bags_5kg}, 10 kg bags: {bags_10kg}",
+      "formula_display": "Grout per m² = 2 × (L+W) ÷ (L×W) × grout_width × tile_thickness × grout_density",
+      "steps": [
+        "Joint length per m²: 2 × (30+30) ÷ (30×30) = 0.133 linear m per cm² → 1.33 m/m²",
+        "Joint cross-section: 3 mm × 8 mm = 24 mm²",
+        "Volume per m²: 1.33 × 0.024 = 0.032 litres ≈ 0.058 kg/m² for 20 m² = 1.16 kg",
+        "Standard grout ≈ 1.7 kg/m² for 30×30 tile — total for 20 m² = 34 kg → 7 × 5 kg bags"
+      ],
+      "mistakes": [
+        "Using tile dimensions in metres instead of centimetres",
+        "Buying the same amount as tiles — grout quantity depends on joint width, not tile count",
+        "Forgetting that unsanded grout is used for joints under 3 mm, sanded for wider joints"
+      ],
+      "input_type_review": []
+    },
+    "it": {
+      "name": "Calcolatore di Fughe",
+      "desc": "Calcolatore 1110. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calcolatore Fughe – kg Necessari e Sacchi",
+      "seo_desc": "Calcola quanta stucco per fughe ti serve in kg e sacchi. Inserisci le dimensioni della piastrella, la larghezza della fugatura e l'area totale per ottenere la...",
+      "seo_description": "Calcola lo stucco per fughe in kg e numero di sacchi per la tua piastrellatura. Inserisci il formato della piastrella, la larghezza della fuga, l'area totale e lo spessore per una stima precisa dei materiali.",
+      "inputs": {
+        "tile_length": "Lunghezza piastrella",
+        "tile_width": "Larghezza piastrella",
+        "tile_area": "Area totale piastrellata",
+        "grout_width": "Larghezza fuga",
+        "tile_thickness": "Spessore piastrella"
+      },
+      "outputs": {
+        "grout_kg_needed": "Stucco necessario",
+        "bags_5kg": "Sacchi da 5 kg",
+        "bags_10kg": "Sacchi da 10 kg",
+        "coverage_m2_per_kg": "Resa per kg"
+      }
+    }
+  }
+}

@@ -1,0 +1,406 @@
+{
+  "id": "095",
+  "slug": "margen-beneficio",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "coste_total_eur",
+      "type": "number",
+      "min": 1,
+      "max": 10000000,
+      "step": 1,
+      "default": 8000,
+      "unit": "â‚¬"
+    },
+    {
+      "id": "precio_venta_eur",
+      "type": "number",
+      "min": 1,
+      "max": 10000000,
+      "step": 1,
+      "default": 10000,
+      "unit": "â‚¬"
+    }
+  ],
+  "formula": "var C=parseFloat(inputs.coste_total_eur)||0,V=parseFloat(inputs.precio_venta_eur)||0;if(!C||!V||V<C)return{error:true};var ben=+(V-C).toFixed(2),margen_pct=+(ben/V*100).toFixed(2),markup_pct=+(ben/C*100).toFixed(2);return{beneficio_eur:ben,margen_pct:margen_pct,markup_pct:markup_pct};",
+  "outputs": [
+    {
+      "id": "beneficio_eur",
+      "unit": "â‚¬ beneficio",
+      "highlight": true
+    },
+    {
+      "id": "margen_pct",
+      "unit": "% margen (sobre PV)"
+    },
+    {
+      "id": "markup_pct",
+      "unit": "% markup (sobre coste)"
+    }
+  ],
+  "related": [
+    "096",
+    "079",
+    "093",
+    "078"
+  ],
+  "example_inputs": {
+    "coste_total_eur": 8000,
+    "precio_venta_eur": 10000
+  },
+  "example_label": "Calcular margen de beneficio para una obra con coste de 8000 € vendida en 10000 €.",
+  "range_hints": {
+    "coste_total_eur": "Coste total real de la obra incluyendo materiales, mano de obra, gastos generales e imprevistos (€)",
+    "precio_venta_eur": "Precio final ofertado al cliente antes de IVA (€)"
+  },
+  "result_context": "Resultados: {beneficio_eur} € de beneficio, margen del {margen_pct} % sobre precio de venta, markup del {markup_pct} % sobre coste.",
+  "formula_display": "Margen = (PVP − coste) ÷ PVP × 100. Markup = (PVP − coste) ÷ coste × 100",
+  "steps": [
+    "Introduce el coste total de la obra: PEM + gastos generales + imprevistos (todos los costes imputables)",
+    "Introduce el precio de venta al cliente (presupuesto ofertado, IVA no incluido para este cálculo)",
+    "Calcula el beneficio bruto: precio de venta − coste total (en euros)",
+    "Calcula el margen sobre venta: beneficio ÷ precio de venta × 100 (lo que ganas por cada euro facturado)",
+    "Calcula el markup sobre coste: beneficio ÷ coste × 100 (incremento que aplicas sobre el coste para obtener el PVP)",
+    "Interpreta: un margen del 20% y un markup del 25% es lo mismo; el margen siempre es menor que el markup"
+  ],
+  "mistakes": [
+    "Confundir margen (sobre venta) con markup (sobre coste): un markup del 25% equivale a un margen del 20%",
+    "No incluir todos los costes indirectos: seguro, gestoría, combustible, desgaste de herramientas propias",
+    "Calcular el beneficio sin considerar los impuestos (IRPF o Impuesto de Sociedades) que reducen el beneficio neto",
+    "Olvidar que un margen bajo (5-10%) en construcción es muy arriesgado por la alta probabilidad de imprevistos",
+    "No revisar el margen objetivo según el tipo de obra: más margen en reformas pequeñas, menos en obra pública"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "coste_total_eur",
+      "reason": "Tipo correcto: numérico para el coste total de la obra en €."
+    },
+    {
+      "field_id": "precio_venta_eur",
+      "reason": "Tipo correcto: numérico para el precio de venta al cliente en €."
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Obra ajustada (margen mínimo)",
+      "coste_total_eur": 9500,
+      "precio_venta_eur": 10000
+    },
+    {
+      "_label": "Margen estándar construcción",
+      "coste_total_eur": 8000,
+      "precio_venta_eur": 10000
+    },
+    {
+      "_label": "Margen holgado (obra pequeña)",
+      "coste_total_eur": 6000,
+      "precio_venta_eur": 10000
+    },
+    {
+      "_label": "Obra especializada (margen alto)",
+      "coste_total_eur": 5000,
+      "precio_venta_eur": 10000
+    },
+    {
+      "_label": "Gran obra (economía de escala)",
+      "coste_total_eur": 800000,
+      "precio_venta_eur": 920000
+    }
+  ],
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Margen de Beneficio",
+      "desc": "Calcula el beneficio en euros, el margen sobre precio de venta y el markup sobre coste para tus obras Usado por profesionales y estudiantes en todo el.",
+      "seo_title": "Calculadora Margen Beneficio Obra – % Margen y Markup",
+      "seo_desc": "Calcula el margen sobre venta y el markup sobre coste de tu proyecto de construcción. Introduce coste total y precio de venta. Gratis.",
+      "inputs": {
+        "coste_total_eur": "Coste total (€)",
+        "precio_venta_eur": "Precio de venta (€)"
+      },
+      "outputs": {
+        "beneficio_eur": "Beneficio (€)",
+        "margen_pct": "Margen (% sobre PV)",
+        "markup_pct": "Markup (% sobre coste)"
+      },
+      "seo_description": "Calcula la rentabilidad de tu obra: margen sobre precio de venta (%) y markup sobre coste (%). Diferencia entre ambos conceptos y comprueba si tu presupuesto es viable económicamente.",
+      "example_label": "Calcular margen de beneficio para una obra con coste de 8000 € vendida en 10000 €.",
+      "range_hints": {
+        "coste_total_eur": "Valor entre 1 y 10000000 €.",
+        "precio_venta_eur": "Valor entre 1 y 10000000 €."
+      },
+      "result_context": "Resultados: {beneficio_eur} € de beneficio, margen del {margen_pct} % sobre precio de venta, markup del {markup_pct} % sobre coste.",
+      "formula_display": "Margen = (PVP − coste) ÷ PVP × 100. Markup = (PVP − coste) ÷ coste × 100",
+      "steps": [
+        "Introduce el coste total de la obra: PEM + gastos generales + imprevistos (todos los costes imputables)",
+        "Introduce el precio de venta al cliente (presupuesto ofertado, IVA no incluido para este cálculo)",
+        "Calcula el beneficio bruto: precio de venta − coste total (en euros)",
+        "Calcula el margen sobre venta: beneficio ÷ precio de venta × 100 (lo que ganas por cada euro facturado)",
+        "Calcula el markup sobre coste: beneficio ÷ coste × 100 (incremento que aplicas sobre el coste para obtener el PVP)",
+        "Interpreta: un margen del 20% y un markup del 25% es lo mismo; el margen siempre es menor que el markup"
+      ],
+      "mistakes": [
+        "Confundir margen (sobre venta) con markup (sobre coste): un markup del 25% equivale a un margen del 20%",
+        "No incluir todos los costes indirectos: seguro, gestoría, combustible, desgaste de herramientas propias",
+        "Calcular el beneficio sin considerar los impuestos (IRPF o Impuesto de Sociedades) que reducen el beneficio neto",
+        "Olvidar que un margen bajo (5-10%) en construcción es muy arriesgado por la alta probabilidad de imprevistos",
+        "No revisar el margen objetivo según el tipo de obra: más margen en reformas pequeñas, menos en obra pública"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "coste_total_eur",
+          "reason": "Tipo correcto: numérico para el coste total de la obra en €."
+        },
+        {
+          "field_id": "precio_venta_eur",
+          "reason": "Tipo correcto: numérico para el precio de venta al cliente en €."
+        }
+      ]
+    },
+    "en": {
+      "name": "Profit Margin Calculator",
+      "desc": "Profit Margin Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Profit Margin Calculator – Construction % Margin & Markup",
+      "seo_desc": "Calculate sales margin and cost markup for your construction project. Enter total cost and selling price. Free.",
+      "inputs": {
+        "coste_total_eur": "Total cost (â‚¬)",
+        "precio_venta_eur": "Selling price (â‚¬)"
+      },
+      "outputs": {
+        "beneficio_eur": "Profit (â‚¬)",
+        "margen_pct": "Margin (% on SP)",
+        "markup_pct": "Markup (% on cost)"
+      },
+      "seo_description": "Calculate your project profitability: margin on selling price (%) and markup on cost (%). Understand the difference between both concepts and verify if your quote is economically viable.",
+      "example_label": "Calcular margen de beneficio para una obra con coste de 8000 € vendida en 10000 €.",
+      "range_hints": {
+        "coste_total_eur": "Valor entre 1 y 10000000 â‚¬.",
+        "precio_venta_eur": "Valor entre 1 y 10000000 â‚¬."
+      },
+      "result_context": "Resultados: {beneficio_eur} € de beneficio, margen del {margen_pct} % sobre precio de venta, markup del {markup_pct} % sobre coste.",
+      "formula_display": "Margen = (PVP − coste) ÷ PVP × 100. Markup = (PVP − coste) ÷ coste × 100",
+      "steps": [
+        "Introduce el coste total de la obra: PEM + gastos generales + imprevistos (todos los costes imputables)",
+        "Introduce el precio de venta al cliente (presupuesto ofertado, IVA no incluido para este cálculo)",
+        "Calcula el beneficio bruto: precio de venta − coste total (en euros)",
+        "Calcula el margen sobre venta: beneficio ÷ precio de venta × 100 (lo que ganas por cada euro facturado)",
+        "Calcula el markup sobre coste: beneficio ÷ coste × 100 (incremento que aplicas sobre el coste para obtener el PVP)",
+        "Interpreta: un margen del 20% y un markup del 25% es lo mismo; el margen siempre es menor que el markup"
+      ],
+      "mistakes": [
+        "Confundir margen (sobre venta) con markup (sobre coste): un markup del 25% equivale a un margen del 20%",
+        "No incluir todos los costes indirectos: seguro, gestoría, combustible, desgaste de herramientas propias",
+        "Calcular el beneficio sin considerar los impuestos (IRPF o Impuesto de Sociedades) que reducen el beneficio neto",
+        "Olvidar que un margen bajo (5-10%) en construcción es muy arriesgado por la alta probabilidad de imprevistos",
+        "No revisar el margen objetivo según el tipo de obra: más margen en reformas pequeñas, menos en obra pública"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "coste_total_eur",
+          "reason": "Tipo correcto: numérico para el coste total de la obra en €."
+        },
+        {
+          "field_id": "precio_venta_eur",
+          "reason": "Tipo correcto: numérico para el precio de venta al cliente en €."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Marge Bénéficiaire",
+      "desc": "Calculez le bénéfice en euros, la marge sur prix de vente et le markup sur coût Utilise par des professionnels et etudiants dans le monde entier.",
+      "seo_title": "Calculateur Marge Bénéficiaire",
+      "inputs": {
+        "coste_total_eur": "Coût total (€)",
+        "precio_venta_eur": "Prix de vente (€)"
+      },
+      "outputs": {
+        "beneficio_eur": "Bénéfice (€)",
+        "margen_pct": "Marge (% sur PV)",
+        "markup_pct": "Markup (% sur coût)"
+      },
+      "seo_description": "Calculez le bénéfice en euros, la marge sur prix de vente et le markup sur coût Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calcular margen de beneficio para una obra con coste de 8000 € vendida en 10000 €.",
+      "range_hints": {
+        "coste_total_eur": "Valor entre 1 et 10000000 €.",
+        "precio_venta_eur": "Valor entre 1 et 10000000 €."
+      },
+      "result_context": "Resultados: {beneficio_eur} € de beneficio, margen del {margen_pct} % sobre precio de venta, markup del {markup_pct} % sobre coste.",
+      "formula_display": "Margen = (PVP − coste) ÷ PVP × 100. Markup = (PVP − coste) ÷ coste × 100",
+      "steps": [
+        "Introduce el coste total de la obra: PEM + gastos generales + imprevistos (todos los costes imputables)",
+        "Introduce el precio de venta al cliente (presupuesto ofertado, IVA no incluido para este cálculo)",
+        "Calcula el beneficio bruto: precio de venta − coste total (en euros)",
+        "Calcula el margen sobre venta: beneficio ÷ precio de venta × 100 (lo que ganas por cada euro facturado)",
+        "Calcula el markup sobre coste: beneficio ÷ coste × 100 (incremento que aplicas sobre el coste para obtener el PVP)",
+        "Interpreta: un margen del 20% y un markup del 25% es lo mismo; el margen siempre es menor que el markup"
+      ],
+      "mistakes": [
+        "Confundir margen (sobre venta) con markup (sobre coste): un markup del 25% equivale a un margen del 20%",
+        "No incluir todos los costes indirectos: seguro, gestoría, combustible, desgaste de herramientas propias",
+        "Calcular el beneficio sin considerar los impuestos (IRPF o Impuesto de Sociedades) que reducen el beneficio neto",
+        "Olvidar que un margen bajo (5-10%) en construcción es muy arriesgado por la alta probabilidad de imprevistos",
+        "No revisar el margen objetivo según el tipo de obra: más margen en reformas pequeñas, menos en obra pública"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "coste_total_eur",
+          "reason": "Tipo correcto: numérico para el coste total de la obra en €."
+        },
+        {
+          "field_id": "precio_venta_eur",
+          "reason": "Tipo correcto: numérico para el precio de venta al cliente en €."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Margem de Lucro",
+      "desc": "Calcule o lucro em reais, a margem sobre preço de venda e o markup sobre custo. Calculo preciso e rapido com metodologia clara.",
+      "seo_title": "Calculadora de Margem de Lucro",
+      "inputs": {
+        "coste_total_eur": "Custo total (R$)",
+        "precio_venta_eur": "Preço de venda (R$)"
+      },
+      "outputs": {
+        "beneficio_eur": "Lucro (R$)",
+        "margen_pct": "Margem (% sobre PV)",
+        "markup_pct": "Markup (% sobre custo)"
+      },
+      "seo_description": "Calcule o lucro em reais, a margem sobre preço de venda e o markup sobre custo. Calculo preciso e rapido com metodologia clara.",
+      "example_label": "Calcular margen de beneficio para una obra con coste de 8000 € vendida en 10000 €.",
+      "range_hints": {
+        "coste_total_eur": "Valor entre 1 e 10000000 €.",
+        "precio_venta_eur": "Valor entre 1 e 10000000 €."
+      },
+      "result_context": "Resultados: {beneficio_eur} € de beneficio, margen del {margen_pct} % sobre precio de venta, markup del {markup_pct} % sobre coste.",
+      "formula_display": "Margen = (PVP − coste) ÷ PVP × 100. Markup = (PVP − coste) ÷ coste × 100",
+      "steps": [
+        "Introduce el coste total de la obra: PEM + gastos generales + imprevistos (todos los costes imputables)",
+        "Introduce el precio de venta al cliente (presupuesto ofertado, IVA no incluido para este cálculo)",
+        "Calcula el beneficio bruto: precio de venta − coste total (en euros)",
+        "Calcula el margen sobre venta: beneficio ÷ precio de venta × 100 (lo que ganas por cada euro facturado)",
+        "Calcula el markup sobre coste: beneficio ÷ coste × 100 (incremento que aplicas sobre el coste para obtener el PVP)",
+        "Interpreta: un margen del 20% y un markup del 25% es lo mismo; el margen siempre es menor que el markup"
+      ],
+      "mistakes": [
+        "Confundir margen (sobre venta) con markup (sobre coste): un markup del 25% equivale a un margen del 20%",
+        "No incluir todos los costes indirectos: seguro, gestoría, combustible, desgaste de herramientas propias",
+        "Calcular el beneficio sin considerar los impuestos (IRPF o Impuesto de Sociedades) que reducen el beneficio neto",
+        "Olvidar que un margen bajo (5-10%) en construcción es muy arriesgado por la alta probabilidad de imprevistos",
+        "No revisar el margen objetivo según el tipo de obra: más margen en reformas pequeñas, menos en obra pública"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "coste_total_eur",
+          "reason": "Tipo correcto: numérico para el coste total de la obra en €."
+        },
+        {
+          "field_id": "precio_venta_eur",
+          "reason": "Tipo correcto: numérico para el precio de venta al cliente en €."
+        }
+      ]
+    },
+    "de": {
+      "name": "Gewinnspanne beneficio",
+      "desc": "Berechnen Sie gewinnspanne beneficio online. Geben Sie coste total eur, precio venta eur ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Gewinnspanne beneficio | CalcToWork",
+      "seo_desc": "Gewinnspanne beneficio online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Gewinnspanne beneficio online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "coste_total_eur": "Coste Total Eur",
+        "precio_venta_eur": "Precio Venta Eur"
+      },
+      "outputs": {
+        "beneficio_eur": "Beneficio Eur",
+        "margen_pct": "Margen Pct",
+        "markup_pct": "Markup Pct"
+      },
+      "example_label": "Calcular margen de beneficio para una obra con coste de 8000 € vendida en 10000 €.",
+      "range_hints": {
+        "coste_total_eur": "Coste total real de la obra incluyendo materiales, mano de obra, gastos generales e imprevistos (€)",
+        "precio_venta_eur": "Precio final ofertado al cliente antes de IVA (€)"
+      },
+      "result_context": "Resultados: {beneficio_eur} € de beneficio, margen del {margen_pct} % sobre precio de venta, markup del {markup_pct} % sobre coste.",
+      "formula_display": "Margen = (PVP − coste) ÷ PVP × 100. Markup = (PVP − coste) ÷ coste × 100",
+      "steps": [
+        "Introduce el coste total de la obra: PEM + gastos generales + imprevistos (todos los costes imputables)",
+        "Introduce el precio de venta al cliente (presupuesto ofertado, IVA no incluido para este cálculo)",
+        "Calcula el beneficio bruto: precio de venta − coste total (en euros)",
+        "Calcula el margen sobre venta: beneficio ÷ precio de venta × 100 (lo que ganas por cada euro facturado)",
+        "Calcula el markup sobre coste: beneficio ÷ coste × 100 (incremento que aplicas sobre el coste para obtener el PVP)",
+        "Interpreta: un margen del 20% y un markup del 25% es lo mismo; el margen siempre es menor que el markup"
+      ],
+      "mistakes": [
+        "Confundir margen (sobre venta) con markup (sobre coste): un markup del 25% equivale a un margen del 20%",
+        "No incluir todos los costes indirectos: seguro, gestoría, combustible, desgaste de herramientas propias",
+        "Calcular el beneficio sin considerar los impuestos (IRPF o Impuesto de Sociedades) que reducen el beneficio neto",
+        "Olvidar que un margen bajo (5-10%) en construcción es muy arriesgado por la alta probabilidad de imprevistos",
+        "No revisar el margen objetivo según el tipo de obra: más margen en reformas pequeñas, menos en obra pública"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "coste_total_eur",
+          "reason": "Tipo correcto: numérico para el coste total de la obra en €."
+        },
+        {
+          "field_id": "precio_venta_eur",
+          "reason": "Tipo correcto: numérico para el precio de venta al cliente en €."
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Resistenza al Fuoco",
+      "description": "Verifica la resistenza al fuoco degli elementi strutturali.",
+      "seo_title": "Calcolatore Margine di Profitto",
+      "seo_description": "Verifica la resistenza al fuoco (REI) degli elementi strutturali Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo.",
+      "inputs": {
+        "tipo_elemento": "Tipo (1-4)",
+        "espesor_cm": "Spessore (cm)",
+        "recubrimiento_cm": "Copriferro (cm)",
+        "coste_total_eur": "coste total eur (â‚¬)",
+        "precio_venta_eur": "precio venta eur (â‚¬)"
+      },
+      "outputs": {
+        "rei_minutos": "REI minimo (min)",
+        "cumple_r30": "Soddisfa R30",
+        "cumple_r60": "Soddisfa R60",
+        "cumple_r120": "Soddisfa R120",
+        "beneficio_eur": "beneficio eur (â‚¬ beneficio)",
+        "margen_pct": "margen pct (% margen (sobre PV))",
+        "markup_pct": "markup pct (% markup (sobre coste))"
+      },
+      "example_label": "Calcular margen de beneficio para una obra con coste de 8000 € vendida en 10000 €.",
+      "range_hints": {
+        "coste_total_eur": "Valor intre 1 e 10000000 €.",
+        "precio_venta_eur": "Valor intre 1 e 10000000 €."
+      },
+      "result_context": "Resultados: {beneficio_eur} € de beneficio, margen del {margen_pct} % sobre precio de venta, markup del {markup_pct} % sobre coste.",
+      "formula_display": "Margen = (PVP − coste) ÷ PVP × 100. Markup = (PVP − coste) ÷ coste × 100",
+      "steps": [
+        "Introduce el coste total de la obra: PEM + gastos generales + imprevistos (todos los costes imputables)",
+        "Introduce el precio de venta al cliente (presupuesto ofertado, IVA no incluido para este cálculo)",
+        "Calcula el beneficio bruto: precio de venta − coste total (en euros)",
+        "Calcula el margen sobre venta: beneficio ÷ precio de venta × 100 (lo que ganas por cada euro facturado)",
+        "Calcula el markup sobre coste: beneficio ÷ coste × 100 (incremento que aplicas sobre el coste para obtener el PVP)",
+        "Interpreta: un margen del 20% y un markup del 25% es lo mismo; el margen siempre es menor que el markup"
+      ],
+      "mistakes": [
+        "Confundir margen (sobre venta) con markup (sobre coste): un markup del 25% equivale a un margen del 20%",
+        "No incluir todos los costes indirectos: seguro, gestoría, combustible, desgaste de herramientas propias",
+        "Calcular el beneficio sin considerar los impuestos (IRPF o Impuesto de Sociedades) que reducen el beneficio neto",
+        "Olvidar que un margen bajo (5-10%) en construcción es muy arriesgado por la alta probabilidad de imprevistos",
+        "No revisar el margen objetivo según el tipo de obra: más margen en reformas pequeñas, menos en obra pública"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "coste_total_eur",
+          "reason": "Tipo correcto: numérico para el coste total de la obra en €."
+        },
+        {
+          "field_id": "precio_venta_eur",
+          "reason": "Tipo correcto: numérico para el precio de venta al cliente en €."
+        }
+      ],
+      "desc": "Calcola il margine di profitto e il markup del tuo cantiere confrontando costo totale e prezzo di vendita."
+    }
+  }
+}

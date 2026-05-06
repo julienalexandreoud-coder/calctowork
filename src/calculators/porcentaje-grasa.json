@@ -1,0 +1,397 @@
+{
+  "id": "413",
+  "slug": "porcentaje-grasa",
+  "block": 12,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "imc",
+      "type": "number",
+      "min": 10,
+      "max": 60,
+      "step": "any",
+      "default": 24,
+      "unit": ""
+    },
+    {
+      "id": "edad",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "step": "any",
+      "default": 30,
+      "unit": ""
+    }
+  ],
+  "formula": "var bmi=parseFloat(inputs.imc)||0,age=parseFloat(inputs.edad)||0;if(!bmi||!age)return{error:true};return{grasa_hombre:+(1.20*bmi+.23*age-16.2).toFixed(1),grasa_mujer:+(1.20*bmi+.23*age-5.4).toFixed(1)};",
+  "outputs": [
+    {
+      "id": "grasa_hombre",
+      "unit": "%",
+      "highlight": true
+    },
+    {
+      "id": "grasa_mujer",
+      "unit": "%"
+    }
+  ],
+  "related": [
+    "400",
+    "410",
+    "401",
+    "411"
+  ],
+  "example_inputs": {
+    "imc": 24,
+    "edad": 30
+  },
+  "example_label": "Calcular el porcentaje de 24 × 30.",
+  "range_hints": {
+    "imc": "Valor típico entre 10 y 60. Valor por defecto: 24.",
+    "edad": "Valor típico entre 1 y 100. Valor por defecto: 30."
+  },
+  "result_context": "Porcentaje de grasa corporal estimado según IMC y edad: hombre {grasa_hombre}%, mujer {grasa_mujer}%.",
+  "result_context_en": "Estimated body fat percentage based on BMI and age: male {grasa_hombre}%, female {grasa_mujer}%.",
+  "result_context_fr": "Pourcentage de graisse corporelle estimé selon l'IMC et l'âge : homme {grasa_hombre}%, femme {grasa_mujer}%.",
+  "result_context_pt": "Percentual de gordura corporal estimado segundo IMC e idade: homem {grasa_hombre}%, mulher {grasa_mujer}%.",
+  "result_context_de": "Geschätzter Körperfettanteil basierend auf BMI und Alter: Mann {grasa_hombre}%, Frau {grasa_mujer}%.",
+  "result_context_it": "Percentuale di grasso corporeo stimata in base a IMC ed età: uomo {grasa_hombre}%, donna {grasa_mujer}%.",
+  "formula_display": "Porcentaje = parte ÷ total × 100",
+  "steps": [
+    "Identificar parte y total",
+    "Dividir parte entre total",
+    "Multiplicar por 100",
+    "Obtener porcentaje"
+  ],
+  "mistakes": [
+    "Invertir parte y total en la división",
+    "Olvidar multiplicar por 100",
+    "No verificar que el resultado sea lógico"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "imc",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "edad",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "weight": 70,
+      "waist": 80,
+      "neck": 37,
+      "height": 175
+    },
+    {
+      "weight": 75,
+      "waist": 85,
+      "neck": 38,
+      "height": 178
+    },
+    {
+      "weight": 80,
+      "waist": 90,
+      "neck": 39,
+      "height": 180
+    },
+    {
+      "weight": 85,
+      "waist": 95,
+      "neck": 40,
+      "height": 182
+    },
+    {
+      "weight": 90,
+      "waist": 100,
+      "neck": 41,
+      "height": 185
+    }
+  ],
+  "i18n": {
+    "es": {
+      "name": "Calculadora Porcentaje Grasa",
+      "desc": "Calcula % Grasa (Marina US) = 86,010×log(abdomen-cuello) - 70,041×log(altura) + 36,76 (H). Ejemplo: Hombre: abdomen 90 cm, cuello 38 cm, altura 178 cm = % Grasa ≈...",
+      "description": "Calculadora Porcentaje Grasa",
+      "seo_title": "Calculadora Porcentaje Grasa Gratuita",
+      "seo_description": "Calcula % Grasa (Marina US) = 86,010×log(abdomen-cuello) - 70,041×log(altura) + 36,76 (H). Ejemplo: Hombre: abdomen 90 cm, cuello 38 cm, altura 178 cm = % Grasa ≈...",
+      "inputs": {
+        "imc": "IMC",
+        "edad": "Edad"
+      },
+      "outputs": {
+        "grasa_hombre": "% Grasa (hombre)",
+        "grasa_mujer": "% Grasa (mujer)"
+      },
+      "example_label": "Estimar porcentaje de grasa corporal con IMC de 24 y edad 30 años",
+      "range_hints": {
+        "imc": "IMC normal: 18.5-25 ",
+        "edad": "Edad típica: 18-80 "
+      },
+      "result_context": "El porcentaje de grasa difiere por sexo debido a diferencias biológicas; mujeres tienen esencialmente más grasa.",
+      "formula_display": "Grasa hombre = 1.20 × IMC + 0.23 × edad - 16.2; Grasa mujer = 1.20 × IMC + 0.23 × edad - 5.4",
+      "steps": [
+        "Ingresa tu IMC calculado previamente",
+        "Ingresa tu edad en años",
+        "Aplica fórmula: 1.20 × IMC + 0.23 × edad - 16.2 (hombres)",
+        "Para mujeres usa: 1.20 × IMC + 0.23 × edad - 5.4"
+      ],
+      "mistakes": [
+        "Usar IMC calculado con altura incorrecta (propaga error)",
+        "Comparar % grasa hombre con mujer (mujeres tienen 10-12% más esencial)",
+        "Confiar ciegamente sin considerar método de medición (DEXA es gold standard)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "imc",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "edad",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "en": {
+      "name": "Body Fat Calculator",
+      "desc": "Body Fat Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Body Fat Calculator",
+      "seo_title": "Body Fat Calculator – Free Online Tool",
+      "seo_description": "Calculate % Fat (US Navy) = 86.010×log(waist-neck) - 70.041×log(height) + 36.76 (M). Example: Male: waist 90 cm, neck 38 cm, height 178 cm = Body fat â‰ˆ 19.4%. Free...",
+      "inputs": {
+        "imc": "BMI",
+        "edad": "Age"
+      },
+      "outputs": {
+        "grasa_hombre": "Body fat % (male)",
+        "grasa_mujer": "Body fat % (female)"
+      },
+      "example_label": "Estimar porcentaje de grasa corporal con IMC de 24 y edad 30 años",
+      "range_hints": {
+        "imc": "IMC normal: 18.5-25 ",
+        "edad": "Edad típica: 18-80 "
+      },
+      "result_context": "El porcentaje de grasa difiere por sexo debido a diferencias biológicas; mujeres tienen esencialmente más grasa.",
+      "formula_display": "Grasa hombre = 1.20 × IMC + 0.23 × edad - 16.2; Grasa mujer = 1.20 × IMC + 0.23 × edad - 5.4",
+      "steps": [
+        "Ingresa tu IMC calculado previamente",
+        "Ingresa tu edad en años",
+        "Aplica fórmula: 1.20 × IMC + 0.23 × edad - 16.2 (hombres)",
+        "Para mujeres usa: 1.20 × IMC + 0.23 × edad - 5.4"
+      ],
+      "mistakes": [
+        "Usar IMC calculado con altura incorrecta (propaga error)",
+        "Comparar % grasa hombre con mujer (mujeres tienen 10-12% más esencial)",
+        "Confiar ciegamente sin considerar método de medición (DEXA es gold standard)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "imc",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Graisse Corporelle",
+      "desc": "Calculez % Fat (US Navy) = 86.010×log(waist-neck) - 70.041×log(height) + 36.76 (M). Exemple: Male: waist 90 cm, neck 38 cm, height 178 cm = Body fat ≈ 19.4%....",
+      "description": "Calculateur Graisse Corporelle",
+      "seo_title": "Calculateur Graisse Corporelle",
+      "seo_description": "Calculez % Fat (US Navy) = 86.010×log(waist-neck) - 70.041×log(height) + 36.76 (M). Exemple: Male: waist 90 cm, neck 38 cm, height 178 cm = Body fat ≈ 19.4%....",
+      "inputs": {
+        "imc": "IMC",
+        "edad": "Âge"
+      },
+      "outputs": {
+        "grasa_hombre": "% Graisse (homme)",
+        "grasa_mujer": "% Graisse (femme)"
+      },
+      "example_label": "Estimar porcentaje de grasa corporal avec IMC de 24 et edad 30 años",
+      "range_hints": {
+        "imc": "IMC normal: 18.5-25 ",
+        "edad": "Edad typique: 18-80 "
+      },
+      "result_context": "le porcentaje de grasa difiere par sexo debido a diferencias biológicas; mujeres tienen esencialmente plus grasa.",
+      "formula_display": "Grasa hombre = 1.20 × IMC + 0.23 × edad - 16.2; Grasa mujer = 1.20 × IMC + 0.23 × edad - 5.4",
+      "steps": [
+        "Ingresa tu IMC calculé previamente",
+        "Ingresa tu edad dans años",
+        "Aplica fórmula: 1.20 × IMC + 0.23 × edad - 16.2 (hombres)",
+        "pour mujeres usa: 1.20 × IMC + 0.23 × edad - 5.4"
+      ],
+      "mistakes": [
+        "Utiliser IMC calculé avec hauteur incorrecta (propaga error)",
+        "Comparar % grasa hombre avec mujer (mujeres tienen 10-12% plus esencial)",
+        "Confiar ciegamente sans considerar método de medición (DEXA es gold standard)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "imc",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora Porcentagem Gordura",
+      "desc": "Calcule % Fat (US Navy) = 86.010×log(waist-neck) - 70.041×log(height) + 36.76 (M). Exemplo: Male: waist 90 cm, neck 38 cm, height 178 cm = Body fat ≈ 19.4%....",
+      "description": "Calculadora Porcentagem Gordura",
+      "seo_title": "Calculadora Porcentagem Gordura",
+      "seo_description": "Calcule % Fat (US Navy) = 86.010×log(waist-neck) - 70.041×log(height) + 36.76 (M). Exemplo: Male: waist 90 cm, neck 38 cm, height 178 cm = Body fat ≈ 19.4%....",
+      "inputs": {
+        "imc": "IMC",
+        "edad": "Idade"
+      },
+      "outputs": {
+        "grasa_hombre": "% Gordura (homem)",
+        "grasa_mujer": "% Gordura (mulher)"
+      },
+      "example_label": "Estimar porcentaje de grasa corporal com IMC de 24 e edad 30 años",
+      "range_hints": {
+        "imc": "IMC normal: 18.5-25 ",
+        "edad": "Edad típica: 18-80 "
+      },
+      "result_context": "El porcentaje de grasa difiere por sexo debido a diferencias biológicas; mujeres tienen esencialmente mais grasa.",
+      "formula_display": "Grasa hombre = 1.20 × IMC + 0.23 × edad - 16.2; Grasa mujer = 1.20 × IMC + 0.23 × edad - 5.4",
+      "steps": [
+        "Ingresa tu IMC calculado previamente",
+        "Ingresa tu edad em años",
+        "Aplica fórmula: 1.20 × IMC + 0.23 × edad - 16.2 (hombres)",
+        "Para mujeres usa: 1.20 × IMC + 0.23 × edad - 5.4"
+      ],
+      "mistakes": [
+        "Usar IMC calculado com altura incorrecta (propaga error)",
+        "Comparar % grasa hombre com mujer (mujeres tienen 10-12% mais essencial)",
+        "Confiar ciegamente sem considerar método de medición (DEXA é gold standard)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "imc",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        },
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        }
+      ]
+    },
+    "de": {
+      "name": "Prozentrechner grasa",
+      "desc": "Berechnen Sie prozentrechner grasa online. Geben Sie imc, edad ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Prozentrechner grasa | CalcToWork",
+      "seo_desc": "Prozentrechner grasa online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Prozentrechner grasa online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "imc": "Imc",
+        "edad": "Edad"
+      },
+      "outputs": {
+        "grasa_hombre": "Grasa Hombre",
+        "grasa_mujer": "Grasa Mujer"
+      },
+      "example_label": "Calcular el porcentaje de 24 × 30.",
+      "range_hints": {
+        "imc": "Valor típico entre 10 y 60. Valor por defecto: 24.",
+        "edad": "Valor típico entre 1 y 100. Valor por defecto: 30."
+      },
+      "result_context": "Geschätzter Körperfettanteil basierend auf BMI und Alter: Mann {grasa_hombre}%, Frau {grasa_mujer}%.",
+      "formula_display": "Porcentaje = parte ÷ total × 100",
+      "steps": [
+        "Identificar parte y total",
+        "Dividir parte entre total",
+        "Multiplicar por 100",
+        "Obtener porcentaje"
+      ],
+      "mistakes": [
+        "Invertir parte y total en la división",
+        "Olvidar multiplicar por 100",
+        "No verificar que el resultado sea lógico"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "imc",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Percentuale Grasso",
+      "desc": "Calcola % Fat (US Navy) = 86.010×log(waist-neck) - 70.041×log(height) + 36.76 (M). Esempio: Male: waist 90 cm, neck 38 cm, height 178 cm = Body fat ≈ 19.4%....",
+      "description": "Calcolatore Percentuale Grasso",
+      "seo_title": "Calcolatore Percentuale Grasso",
+      "seo_description": "Calcola % Fat (US Navy) = 86.010×log(waist-neck) - 70.041×log(height) + 36.76 (M). Esempio: Male: waist 90 cm, neck 38 cm, height 178 cm = Body fat ≈ 19.4%....",
+      "inputs": {
+        "imc": "IMC",
+        "edad": "Età"
+      },
+      "outputs": {
+        "grasa_hombre": "% Grasso (uomo)",
+        "grasa_mujer": "% Grasso (donna)"
+      },
+      "example_label": "Stimare percintaje di grasa corperal con IMC di 24 e edad 30 años",
+      "range_hints": {
+        "imc": "IMC nonrmal: 18.5-25 ",
+        "edad": "Edad típica: 18-80 "
+      },
+      "result_context": "El percintaje di grasa difiere per sexo dibido a diferincias biológicas; mujeres tiinin essenzialeminte más grasa.",
+      "formula_display": "Grasa hombre = 1.20 × IMC + 0.23 × edad - 16.2; Grasa mujer = 1.20 × IMC + 0.23 × edad - 5.4",
+      "steps": [
+        "Ingresa tu IMC calculato previaminte",
+        "Ingresa tu edad in años",
+        "Aplica fórmula: 1.20 × IMC + 0.23 × edad - 16.2 (hombres)",
+        "Per mujeres usa: 1.20 × IMC + 0.23 × edad - 5.4"
+      ],
+      "mistakes": [
+        "Usare IMC calculato con altezza incorrecta (propaga errore)",
+        "Comperr % grasa hombre con mujer (mujeres tiinin 10-12% más essenziale)",
+        "Confiar ciegaminte senza consedirar método di medición (DEXA es gold scosìdard)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "imc",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        },
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        }
+      ]
+    }
+  }
+}

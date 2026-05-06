@@ -1,0 +1,405 @@
+{
+  "id": "939",
+  "slug": "profit-margin",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "costo",
+      "type": "number",
+      "min": 0,
+      "max": 999999,
+      "step": 0.01,
+      "default": 50,
+      "unit": "EUR"
+    },
+    {
+      "id": "precio_venta",
+      "type": "number",
+      "min": 0,
+      "max": 999999,
+      "step": 0.01,
+      "default": 100,
+      "unit": "EUR"
+    }
+  ],
+  "formula": "var costo=parseFloat(inputs.costo)||0,precio=parseFloat(inputs.precio_venta)||0;if(!costo||!precio)return{error:true};var margen=+((precio-costo)/precio*100).toFixed(2),markup=+((precio-costo)/costo*100).toFixed(2),ganancia=precio-costo;return{margin_pct:margen,markup_pct:markup,profit:ganancia};",
+  "outputs": [
+    {
+      "id": "margin_pct",
+      "unit": "%",
+      "highlight": true
+    },
+    {
+      "id": "markup_pct",
+      "unit": "%",
+      "highlight": false
+    },
+    {
+      "id": "profit",
+      "unit": "EUR",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "937",
+    "320",
+    "940",
+    "307"
+  ],
+  "example_inputs": {
+    "precio_venta": 100,
+    "costo": 50
+  },
+  "example_label": "Calcula el margen comercial de tu producto con un coste de 50eur y un precio de venta al publico de 100eur",
+  "range_hints": {
+    "costo": "Costo del proyecto",
+    "precio_venta": "Valor monetario"
+  },
+  "result_context": "Resultados: {margin_pct} % de margen, {markup_pct} % de markup, {profit} EUR de beneficio.",
+  "formula_display": "Margen de beneficio (%) = [(Precio de venta - Coste del producto) / Precio de venta] x 100",
+  "steps": [
+    "Introduce el coste total del producto o servicio incluyendo materias primas, mano de obra directa y gastos de produccion",
+    "Indica el precio de venta al que ofreces el producto en el mercado (sin incluir impuestos como el IVA)",
+    "Calcula el beneficio bruto por unidad restando el coste total del precio de venta al publico",
+    "Divide el beneficio bruto entre el precio de venta y multiplica por 100 para expresar el margen en porcentaje",
+    "Importante: no confundas margen sobre ventas con markup sobre coste: un margen del 50% equivale a un markup del 100%"
+  ],
+  "mistakes": [
+    "Confundir margen sobre ventas con margen sobre coste (markup): un 50% de margen NO significa vender al doble del coste",
+    "No incluir todos los costes indirectos: transporte, almacenamiento, mermas, devoluciones y gastos financieros reducen el margen real",
+    "Fijar los precios solo segun el margen deseado ignorando lo que cobra la competencia y lo que el mercado esta dispuesto a pagar"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "costo",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "precio_venta",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "costo": 25,
+      "precio_venta": 50
+    },
+    {
+      "_label": "Average",
+      "costo": 37.5,
+      "precio_venta": 75
+    },
+    {
+      "_label": "High",
+      "costo": 50,
+      "precio_venta": 100
+    },
+    {
+      "_label": "Premium",
+      "costo": 75,
+      "precio_venta": 150
+    },
+    {
+      "_label": "Enterprise",
+      "costo": 100,
+      "precio_venta": 200
+    }
+  ],
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Margen de Ganancia",
+      "desc": "Calcula margen de ganancia, markup y beneficio bruto desde ingresos y costos. Con opciones de capitalizacion e impuestos.",
+      "description": "Calculadora de Margen de Ganancia.",
+      "seo_title": "Calculadora de Margen de Ganancia Gratuita",
+      "seo_description": "Calcula margen de ganancia, markup y beneficio bruto desde ingresos y costos. Con opciones de capitalizacion e impuestos.",
+      "inputs": {
+        "costo": "Costo",
+        "precio_venta": "Precio de venta"
+      },
+      "outputs": {
+        "margin_pct": "Margen %",
+        "markup_pct": "Markup %",
+        "profit": "Ganancia"
+      },
+      "example_label": "Calcular margen de ganancia con costo 50 EUR y precio 100 EUR.",
+      "range_hints": {
+        "costo": "Costo del producto o servicio",
+        "precio_venta": "Precio de venta al público"
+      },
+      "result_context": "Resultados: {margin_pct}, {markup_pct}, {profit}.",
+      "formula_display": "Margen = ((Precio - Costo) / Precio) × 100",
+      "steps": [
+        "Identificar el costo y el precio de venta",
+        "Calcular la ganancia: precio - costo",
+        "Calcular el margen: (ganancia / precio) × 100",
+        "Calcular el markup: (ganancia / costo) × 100",
+        "Interpretar los resultados"
+      ],
+      "mistakes": [
+        "Confundir margen con markup",
+        "Dividir por cero si el precio es cero",
+        "No considerar todos los costos"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "costo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "precio_venta",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Profit Margin Calculator",
+      "desc": "Profit Margin Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Profit Margin Calculator.",
+      "seo_title": "Profit Margin Calculator – Free Online Tool",
+      "seo_description": "Calculate profit margin, markup, and gross profit from revenue and cost. Essential for pricing strategy. Enter your values and get precise results.",
+      "inputs": {
+        "costo": "Cost",
+        "precio_venta": "Sale price"
+      },
+      "outputs": {
+        "margin_pct": "Margin %",
+        "markup_pct": "Markup %",
+        "profit": "Profit"
+      },
+      "example_label": "Calculate profit margin with costo 50, precio_venta 100.",
+      "range_hints": {
+        "precio_venta": "Typical range: 0-999999 in EUR units.",
+        "costo": "Typical range: 0-999999 in EUR units."
+      },
+      "result_context": "Your calculated margin pct is {margin_pct}.",
+      "formula_display": "Calculate profit margin based on input values.",
+      "steps": [
+        "Enter input values: costo: 50, precio_venta: 100",
+        "Calculate and display the margin_pct result",
+        "Calculate and display the markup_pct result",
+        "Calculate and display the profit result"
+      ],
+      "mistakes": "Using incorrect input values outside recommended range",
+      "input_type_review": [
+        {
+          "field_id": "costo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "precio_venta",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculatrice de Marge Bénéficiaire",
+      "desc": "Calculez la marge beneficiaire, le markup et le profit brut. Avec options de composition et taxes. Utilise par des professionnels et etudiants dans le.",
+      "description": "Calculatrice de Marge Bénéficiaire.",
+      "seo_title": "Calculatrice de Marge Bénéficiaire en Ligne",
+      "seo_description": "Calculez la marge beneficiaire, le markup et le profit brut. Avec options de composition et taxes. Utilise par des professionnels et etudiants dans le.",
+      "inputs": {
+        "costo": "Coût",
+        "precio_venta": "Prix de vente"
+      },
+      "outputs": {
+        "margin_pct": "Margin %",
+        "markup_pct": "Markup %",
+        "profit": "Profit"
+      },
+      "example_label": "Calculer la marge bénéficiaire avec un coût de 50 EUR et un prix de 100 EUR.",
+      "range_hints": {
+        "costo": "Coût du produit ou service",
+        "precio_venta": "Prix de vente au public"
+      },
+      "result_context": "Résultats : {margin_pct}, {markup_pct}, {profit}.",
+      "formula_display": "Marge = ((Prix - Coût) / Prix) × 100",
+      "steps": [
+        "Identifier le coût et le prix de vente",
+        "Calculer le profit : prix - coût",
+        "Calculer la marge : (profit / prix) × 100",
+        "Calculer la majoration : (profit / coût) × 100",
+        "Interpréter les résultats"
+      ],
+      "mistakes": [
+        "Confondre marge et majoration",
+        "Diviser par zéro si le prix est zéro",
+        "Ne pas considérer tous les coûts"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "costo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "precio_venta",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Margem de Lucro",
+      "desc": "Calculadora de Margem de Lucro. Custo, Preço de venda para encontrar Margin %, Markup %, Profit. Formula de nivel financas pessoais com ajustes de.",
+      "description": "Calculadora de Margem de Lucro.",
+      "seo_title": "Calculadora de Margem de Lucro",
+      "seo_description": "Calculadora de Margem de Lucro. Custo, Preço de venda para encontrar Margin %, Markup %, Profit. Formula de nivel financas pessoais com ajustes de.",
+      "inputs": {
+        "costo": "Custo",
+        "precio_venta": "Preço de venda"
+      },
+      "outputs": {
+        "margin_pct": "Margin %",
+        "markup_pct": "Markup %",
+        "profit": "Profit"
+      },
+      "example_label": "Calcular margem de lucro com custo 50 EUR e preço 100 EUR.",
+      "range_hints": {
+        "costo": "Custo do produto ou serviço",
+        "precio_venta": "Preço de venda ao público"
+      },
+      "result_context": "Resultados: {margin_pct}, {markup_pct}, {profit}.",
+      "formula_display": "Margem = ((Preço - Custo) / Preço) × 100",
+      "steps": [
+        "Identificar o custo e o preço de venda",
+        "Calcular o lucro: preço - custo",
+        "Calcular a margem: (lucro / preço) × 100",
+        "Calcular o markup: (lucro / custo) × 100",
+        "Interpretar os resultados"
+      ],
+      "mistakes": [
+        "Confundir margem com markup",
+        "Dividir por zero se o preço for zero",
+        "Não considerar todos os custos"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "costo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "precio_venta",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Profit margin",
+      "desc": "Berechnen Sie profit margin online. Geben Sie costo, precio venta ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Profit margin | CalcToWork",
+      "seo_desc": "Profit margin online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Profit margin online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "costo": "Costo",
+        "precio_venta": "Precio Venta"
+      },
+      "outputs": {
+        "margin_pct": "Margin Pct",
+        "markup_pct": "Markup Pct",
+        "profit": "Profit"
+      },
+      "example_label": "Calcula el margen comercial de tu producto con un coste de 50eur y un precio de venta al publico de 100eur",
+      "range_hints": {
+        "costo": "Costo del proyecto",
+        "precio_venta": "Valor monetario"
+      },
+      "result_context": "Resultados: {margin_pct} % de margen, {markup_pct} % de markup, {profit} EUR de beneficio.",
+      "formula_display": "Margen de beneficio (%) = [(Precio de venta - Coste del producto) / Precio de venta] x 100",
+      "steps": [
+        "Introduce el coste total del producto o servicio incluyendo materias primas, mano de obra directa y gastos de produccion",
+        "Indica el precio de venta al que ofreces el producto en el mercado (sin incluir impuestos como el IVA)",
+        "Calcula el beneficio bruto por unidad restando el coste total del precio de venta al publico",
+        "Divide el beneficio bruto entre el precio de venta y multiplica por 100 para expresar el margen en porcentaje",
+        "Importante: no confundas margen sobre ventas con markup sobre coste: un margen del 50% equivale a un markup del 100%"
+      ],
+      "mistakes": [
+        "Confundir margen sobre ventas con margen sobre coste (markup): un 50% de margen NO significa vender al doble del coste",
+        "No incluir todos los costes indirectos: transporte, almacenamiento, mermas, devoluciones y gastos financieros reducen el margen real",
+        "Fijar los precios solo segun el margen deseado ignorando lo que cobra la competencia y lo que el mercado esta dispuesto a pagar"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "costo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "precio_venta",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatrice di Margine di Profitto",
+      "desc": "Calcola il margine di profitto, il markup e l'utile lordo. Con opzioni di capitalizzazione e tasse. Usato da professionisti e studenti in tutto il mondo.",
+      "description": "Calcolatrice di Margine di Profitto.",
+      "seo_title": "Calcolatrice di Margine di Profitto",
+      "seo_description": "Calcola il margine di profitto, il markup e l'utile lordo. Con opzioni di capitalizzazione e tasse. Usato da professionisti e studenti in tutto il mondo.",
+      "inputs": {
+        "costo": "Costo",
+        "precio_venta": "Prezzo di vendita"
+      },
+      "outputs": {
+        "margin_pct": "Margin %",
+        "markup_pct": "Markup %",
+        "profit": "Profit"
+      },
+      "example_label": "Calcolare il margine di profitto con costo 50 EUR e prezzo 100 EUR.",
+      "range_hints": {
+        "costo": "Costo del prodotto o servizio",
+        "precio_venta": "Prezzo di vendita al pubblico"
+      },
+      "result_context": "Risultati: {margin_pct}, {markup_pct}, {profit}.",
+      "formula_display": "Margine = ((Prezzo - Costo) / Prezzo) × 100",
+      "steps": [
+        "Identificare il costo e il prezzo di vendita",
+        "Calcolare il profitto: prezzo - costo",
+        "Calcolare il margine: (profitto / prezzo) × 100",
+        "Calcolare il markup: (profitto / costo) × 100",
+        "Interpretare i risultati"
+      ],
+      "mistakes": [
+        "Confondere margine con markup",
+        "Dividere per zero se il prezzo è zero",
+        "Non considerare tutti i costi"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "costo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con decimali"
+        },
+        {
+          "field_id": "precio_venta",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con decimali"
+        }
+      ]
+    }
+  }
+}

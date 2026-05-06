@@ -1,0 +1,482 @@
+{
+  "id": "313",
+  "slug": "subida-salarial",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "salario_actual",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 2000,
+      "unit": ""
+    },
+    {
+      "id": "porcentaje",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "step": "any",
+      "default": 5,
+      "unit": ""
+    }
+  ],
+  "formula": "var s=parseFloat(inputs.salario_actual)||0,p=parseFloat(inputs.porcentaje)||0;var n=s*(1+p/100);return{nuevo_salario:+n.toFixed(2),incremento:+(n-s).toFixed(2),nuevo_anual:+(n*12).toFixed(2)};",
+  "outputs": [
+    {
+      "id": "nuevo_salario",
+      "unit": "â‚¬/mes",
+      "highlight": true
+    },
+    {
+      "id": "incremento",
+      "unit": "â‚¬/mes"
+    },
+    {
+      "id": "nuevo_anual",
+      "unit": "â‚¬/año"
+    }
+  ],
+  "related": [
+    "305",
+    "200",
+    "310",
+    "300"
+  ],
+  "example_inputs": {
+    "salario_actual": 2450,
+    "porcentaje": 7.5
+  },
+  "example_label": "Calcula tu nuevo sueldo con una subida salarial del 7,5% sobre un salario actual de 2.450eur/mes",
+  "range_hints": {
+    "salario_actual": "Introduce el valor de salario actual. Valor sugerido: 2000",
+    "porcentaje": "Introduce el valor de porcentaje. Valor sugerido: 5"
+  },
+  "result_context": "Resultados: {nuevo_salario} €/mes de nuevo salario, {incremento} €/mes de incremento, {nuevo_anual} €/año de salario anual.",
+  "formula_display": "Nuevo salario = Salario actual x (1 + porcentaje incremento/100)",
+  "steps": [
+    "Introduce tu salario bruto mensual actual que figura en tu ultima nomina o contrato laboral",
+    "Indica el porcentaje de incremento salarial que te han comunicado, negociado o previsto por convenio colectivo",
+    "Calcula el aumento en euros multiplicando tu salario actual por el porcentaje de subida dividido entre 100",
+    "Suma el incremento a tu salario actual para obtener el nuevo salario bruto mensual tras la subida",
+    "Multiplica por 12 el nuevo salario mensual para conocer tu nuevo salario bruto anual completo"
+  ],
+  "mistakes": [
+    "Olvidar que la subida salarial puede cambiar tu tipo de retencion de IRPF, afectando al incremento neto real que percibes",
+    "No verificar si el incremento es sobre el salario base o sobre el total incluyendo complementos, pluses y antiguedad",
+    "Asumir que un incremento porcentual pequeno es irrelevante: un 2% anual sobre 2.000eur son 480eur mas al ano"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "salario_actual",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "porcentaje",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "salario_actual": 1225,
+      "porcentaje": 4
+    },
+    {
+      "_label": "Average",
+      "salario_actual": 1838,
+      "porcentaje": 6
+    },
+    {
+      "_label": "High",
+      "salario_actual": 2450,
+      "porcentaje": 8
+    },
+    {
+      "_label": "Premium",
+      "salario_actual": 3675,
+      "porcentaje": 11
+    },
+    {
+      "_label": "Enterprise",
+      "salario_actual": 4900,
+      "porcentaje": 15
+    }
+  ],
+  "units": {
+    "porcentaje": "%"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora Subida Salarial",
+      "desc": "Calcula Nuevo salario = Salario actual × (1 + Subida%/100). Ejemplo: Salario 28.000 €, subida 4,5 % = Nuevo salario = 29.260 €. Calculadora gratuita y precisa, sin...",
+      "description": "Calculadora Subida Salarial",
+      "seo_title": "Calculadora Subida Salarial Gratuita",
+      "seo_description": "Calcula Nuevo salario = Salario actual × (1 + Subida%/100). Ejemplo: Salario 28.000 €, subida 4,5 % = Nuevo salario = 29.260 €. Calculadora gratuita y precisa, sin...",
+      "inputs": {
+        "salario_actual": "Salario actual",
+        "porcentaje": "Porcentaje (%)"
+      },
+      "outputs": {
+        "nuevo_salario": "Nuevo salario",
+        "incremento": "Incremento",
+        "nuevo_anual": "Nuevo anual"
+      },
+      "example_label": "Calculating new salary after a 7.5% raise on current €2,450 monthly salary.",
+      "range_hints": {
+        "salario_actual": "€800 - €20,000+ monthly salaries",
+        "porcentaje": "1-50% raise percentages"
+      },
+      "result_context": "Your nuevo_salario of {nuevo_salario} reflects the raise. The incremento of {incremento} shows the monthly increase amount.",
+      "formula_display": "New Salary = Current × (1 + Raise% ÷ 100)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert percentage to decimal",
+          "calculation": "7.5% ÷ 100 = 0.075"
+        },
+        {
+          "step": 2,
+          "description": "Calculate raise amount",
+          "calculation": "€2,450 × 0.075 = €183.75"
+        },
+        {
+          "step": 3,
+          "description": "Add raise to current salary",
+          "calculation": "€2,450 + €183.75 = €2,633.75"
+        },
+        {
+          "step": 4,
+          "description": "Calculate new annual salary",
+          "calculation": "€2,633.75 × 12 = €31,605"
+        }
+      ],
+      "mistakes": [
+        "Not considering tax implications of higher salary bracket",
+        "Forgetting to negotiate benefits alongside salary increase",
+        "Comparing percentage raises without considering inflation"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "salario_actual",
+          "reason": "Correct type for current salary"
+        },
+        {
+          "field_id": "porcentaje",
+          "reason": "Correct type for raise percentage"
+        }
+      ]
+    },
+    "en": {
+      "name": "Salary Increase Calculator",
+      "desc": "Salary Increase Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Salary Increase Calculator",
+      "seo_title": "Salary Increase Calculator – Free Online Tool",
+      "seo_description": "Calculate New salary = Current salary × (1 + Raise%/100). Example: Salary â‚¬28,000, raise 4.5% = New salary = â‚¬29,260. Free and accurate calculator, no signup needed.",
+      "inputs": {
+        "salario_actual": "Current salary",
+        "porcentaje": "Percentage (%)"
+      },
+      "outputs": {
+        "nuevo_salario": "New salary",
+        "incremento": "Increase",
+        "nuevo_anual": "New annual"
+      },
+      "example_label": "Calculating new salary after a 7.5% raise on current â‚¬2,450 monthly salary.",
+      "range_hints": {
+        "salario_actual": "â‚¬800 - â‚¬20,000+ monthly salaries",
+        "porcentaje": "1-50% raise percentages"
+      },
+      "result_context": "Your nuevo_salario of {nuevo_salario} reflects the raise. The incremento of {incremento} shows the monthly increase amount.",
+      "formula_display": "New Salary = Current × (1 + Raise% ÷ 100)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert percentage to decimal",
+          "calculation": "7.5% ÷ 100 = 0.075"
+        },
+        {
+          "step": 2,
+          "description": "Calculate raise amount",
+          "calculation": "â‚¬2,450 × 0.075 = â‚¬183.75"
+        },
+        {
+          "step": 3,
+          "description": "Add raise to current salary",
+          "calculation": "â‚¬2,450 + â‚¬183.75 = â‚¬2,633.75"
+        },
+        {
+          "step": 4,
+          "description": "Calculate new annual salary",
+          "calculation": "â‚¬2,633.75 × 12 = â‚¬31,605"
+        }
+      ],
+      "mistakes": [
+        "Not considering tax implications of higher salary bracket",
+        "Forgetting to negotiate benefits alongside salary increase",
+        "Comparing percentage raises without considering inflation"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "salario_actual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for current salary"
+        },
+        {
+          "field_id": "porcentaje",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for raise percentage"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Augmentation Salaire",
+      "desc": "Calculez New salary = Current salary × (1 + Raise%/100). Exemple: Salary €28,000, raise 4.5% = New salary = €29,260. Calculateur gratuit et précis, sans inscription.",
+      "description": "Calculateur Augmentation Salaire",
+      "seo_title": "Calculateur Augmentation Salaire",
+      "seo_description": "Calculez New salary = Current salary × (1 + Raise%/100). Exemple: Salary €28,000, raise 4.5% = New salary = €29,260. Calculateur gratuit et précis, sans inscription.",
+      "inputs": {
+        "salario_actual": "Salaire actuel",
+        "porcentaje": "Pourcentage (%)"
+      },
+      "outputs": {
+        "nuevo_salario": "Nouveau salaire",
+        "incremento": "Augmentation",
+        "nuevo_anual": "Nouveau annuel"
+      },
+      "example_label": "Calculating new salary after a 7.5% raise on current €2,450 monthly salary.",
+      "range_hints": {
+        "salario_actual": "€800 - €20,000+ monthly salaries",
+        "porcentaje": "1-50% raise percentages"
+      },
+      "result_context": "Your nuevo_salario of {nuevo_salario} reflects the raise. The incremento of {incremento} shows the monthly increase amount.",
+      "formula_display": "New Salary = Current × (1 + Raise% Á· 100)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert percentage to decimal",
+          "calculation": "7.5% Á· 100 = 0.075"
+        },
+        {
+          "step": 2,
+          "description": "Calculate raise amount",
+          "calculation": "â‚¬2,450 × 0.075 = â‚¬183.75"
+        },
+        {
+          "step": 3,
+          "description": "Add raise to current salary",
+          "calculation": "€2,450 + €183.75 = €2,633.75"
+        },
+        {
+          "step": 4,
+          "description": "Calculate new annual salary",
+          "calculation": "â‚¬2,633.75 × 12 = â‚¬31,605"
+        }
+      ],
+      "mistakes": [
+        "Not considering tax implications of higher salary bracket",
+        "Forgetting to negotiate benefits alongside salary increase",
+        "Comparing percentage raises without considering inflation"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "salario_actual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for current salary"
+        },
+        {
+          "field_id": "porcentaje",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for raise percentage"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora Aumento Salarial",
+      "desc": "Calcule New salary = Current salary × (1 + Raise%/100). Exemplo: Salary €28,000, raise 4.5% = New salary = €29,260. Calculadora gratuita e precisa, sem registo.",
+      "description": "Calculadora Aumento Salarial",
+      "seo_title": "Calculadora Aumento Salarial – Fácil e Grátis",
+      "seo_description": "Calcule New salary = Current salary × (1 + Raise%/100). Exemplo: Salary €28,000, raise 4.5% = New salary = €29,260. Calculadora gratuita e precisa, sem registo.",
+      "inputs": {
+        "salario_actual": "Salário atual",
+        "porcentaje": "Porcentagem (%)"
+      },
+      "outputs": {
+        "nuevo_salario": "Novo salário",
+        "incremento": "Incremento",
+        "nuevo_anual": "Novo anual"
+      },
+      "example_label": "Calculating new salary after a 7.5% raise on current €2,450 monthly salary.",
+      "range_hints": {
+        "salario_actual": "€800 - €20,000+ monthly salaries",
+        "porcentaje": "1-50% raise percentages"
+      },
+      "result_context": "Your nuevo_salario of {nuevo_salario} reflects the raise. The aumento of {aumento} shows the monthly increase amount.",
+      "formula_display": "New Salary = Current × (1 + Raise% ÷ 100)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert percentage to decimal",
+          "calculation": "7.5% ÷ 100 = 0.075"
+        },
+        {
+          "step": 2,
+          "description": "Calculate raise amount",
+          "calculation": "â‚¬2,450 × 0.075 = â‚¬183.75"
+        },
+        {
+          "step": 3,
+          "description": "Add raise to current salary",
+          "calculation": "€2,450 + €183.75 = €2,633.75"
+        },
+        {
+          "step": 4,
+          "description": "Calculate new annual salary",
+          "calculation": "â‚¬2,633.75 × 12 = â‚¬31,605"
+        }
+      ],
+      "mistakes": [
+        "Not considering tax implications of higher salary bracket",
+        "Forgetting to negotiate benefits alongside salary increase",
+        "Comparing percentage raises without considering inflation"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "salario_actual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for current salary"
+        },
+        {
+          "field_id": "porcentaje",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for raise percentage"
+        }
+      ]
+    },
+    "de": {
+      "name": "Gehaltserhöhung salarial",
+      "desc": "Berechnen Sie gehaltserhöhung salarial online. Geben Sie salario actual, porcentaje ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Gehaltserhöhung salarial | CalcToWork",
+      "seo_desc": "Gehaltserhöhung salarial online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Gehaltserhöhung salarial online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "salario_actual": "Salario Actual",
+        "porcentaje": "Porcentaje"
+      },
+      "outputs": {
+        "nuevo_salario": "Nuevo Salario",
+        "incremento": "Incremento",
+        "nuevo_anual": "Nuevo Anual"
+      },
+      "example_label": "Calcula tu nuevo sueldo con una subida salarial del 7,5% sobre un salario actual de 2.450eur/mes",
+      "range_hints": {
+        "salario_actual": "Introduce el valor de salario actual. Valor sugerido: 2000",
+        "porcentaje": "Introduce el valor de porcentaje. Valor sugerido: 5"
+      },
+      "result_context": "Resultados: {nuevo_salario} €/mes de nuevo salario, {incremento} €/mes de incremento, {nuevo_anual} €/año de salario anual.",
+      "formula_display": "Nuevo salario = Salario actual x (1 + porcentaje incremento/100)",
+      "steps": [
+        "Introduce tu salario bruto mensual actual que figura en tu ultima nomina o contrato laboral",
+        "Indica el porcentaje de incremento salarial que te han comunicado, negociado o previsto por convenio colectivo",
+        "Calcula el aumento en euros multiplicando tu salario actual por el porcentaje de subida dividido entre 100",
+        "Suma el incremento a tu salario actual para obtener el nuevo salario bruto mensual tras la subida",
+        "Multiplica por 12 el nuevo salario mensual para conocer tu nuevo salario bruto anual completo"
+      ],
+      "mistakes": [
+        "Olvidar que la subida salarial puede cambiar tu tipo de retencion de IRPF, afectando al incremento neto real que percibes",
+        "No verificar si el incremento es sobre el salario base o sobre el total incluyendo complementos, pluses y antiguedad",
+        "Asumir que un incremento porcentual pequeno es irrelevante: un 2% anual sobre 2.000eur son 480eur mas al ano"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "salario_actual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "porcentaje",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Aumento Stipendio",
+      "desc": "Calcola New salary = Current salary × (1 + Raise%/100). Esempio: Salary €28,000, raise 4.5% = New salary = €29,260. Calcolatore gratuito e preciso, senza registrazione.",
+      "description": "Calcolatore Aumento Stipendio",
+      "seo_title": "Calcolatore Aumento Stipendio – Calcolo Facile",
+      "seo_description": "Calcola New salary = Current salary × (1 + Raise%/100). Esempio: Salary €28,000, raise 4.5% = New salary = €29,260. Calcolatore gratuito e preciso, senza registrazione.",
+      "inputs": {
+        "salario_actual": "Stipendio attuale",
+        "porcentaje": "Percentuale (%)"
+      },
+      "outputs": {
+        "nuevo_salario": "Nuovo stipendio",
+        "incremento": "Incremento",
+        "nuevo_anual": "Nuovo annuale"
+      },
+      "example_label": "Calculating new salare after a 7.5% raise on currint €2,450 monthle salare.",
+      "range_hints": {
+        "salario_actual": "€800 - €20,000+ monthle salaries",
+        "porcentaje": "1-50% raise percintages"
+      },
+      "result_context": "Your nuovo_salario of {nuovo_salario} reflects the raise. The increminto of {increminto} shows the monthle increase amount.",
+      "formula_display": "New Salare = Currint × (1 + Raise% ÷ 100)",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Convert percentage to decimal",
+          "calculation": "7.5% ÷ 100 = 0.075"
+        },
+        {
+          "step": 2,
+          "description": "Calculate raise amount",
+          "calculation": "€2,450 × 0.075 = €183.75"
+        },
+        {
+          "step": 3,
+          "description": "Add raise to current salary",
+          "calculation": "€2,450 + €183.75 = €2,633.75"
+        },
+        {
+          "step": 4,
+          "description": "Calculate new annual salary",
+          "calculation": "€2,633.75 × 12 = €31,605"
+        }
+      ],
+      "mistakes": [
+        "Not consediring tax implications of higher salare bracket",
+        "Forgetting to negotiate binefits alongsedi salare increase",
+        "Comparing percintage raises without consediring inflation"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "salario_actual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for currint salare"
+        },
+        {
+          "field_id": "porcentaje",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for raise percintage"
+        }
+      ]
+    }
+  }
+}

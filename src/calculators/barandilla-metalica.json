@@ -1,0 +1,490 @@
+{
+  "id": "065",
+  "slug": "barandilla-metalica",
+  "block": 7,
+  "block_slug": "carpinteria",
+  "inputs": [
+    {
+      "id": "longitud_m",
+      "type": "number",
+      "min": 0.5,
+      "max": 200,
+      "step": 0.1,
+      "default": 15,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "altura_m",
+      "type": "number",
+      "min": 0.9,
+      "max": 1.2,
+      "step": 0.05,
+      "default": 1,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "separacion_montantes_m",
+      "type": "number",
+      "min": 0.5,
+      "max": 1.5,
+      "step": 0.1,
+      "default": 1,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "uso",
+      "type": "select",
+      "default": "residencial",
+      "options": [
+        "residencial",
+        "comercial",
+        "industrial"
+      ]
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.longitud_m)||0,H=parseFloat(inputs.altura_m)||1,sep=parseFloat(inputs.separacion_montantes_m)||1;if(!L)return{error:true};var hMin=inputs.uso==='comercial'?1.1:inputs.uso==='industrial'?1.1:0.9,montantes=Math.ceil(L/sep)+1,pasamanos=+(L*1.05).toFixed(1),barrotes=Math.ceil(L/0.1),kg_acero=+(L*H*9).toFixed(1),relleno_m2=+(L*H*0.7).toFixed(2);return{montantes_ud:montantes,pasamanos_ml:pasamanos,barrotes_ud:barrotes,kg_acero:kg_acero,relleno_m2:relleno_m2};",
+  "outputs": [
+    {
+      "id": "montantes_ud",
+      "unit": "montantes",
+      "highlight": true
+    },
+    {
+      "id": "pasamanos_ml",
+      "unit": "m.l. pasamanos"
+    },
+    {
+      "id": "barrotes_ud",
+      "unit": "barrotes"
+    },
+    {
+      "id": "kg_acero",
+      "unit": "kg acero est."
+    },
+    {
+      "id": "relleno_m2",
+      "unit": "m² relleno"
+    }
+  ],
+  "related": [
+    "064",
+    "066",
+    "067",
+    "061"
+  ],
+  "example_inputs": {
+    "longitud_m": 10,
+    "altura_m": 1,
+    "separacion_montantes_m": 1.5,
+    "uso": "residencial"
+  },
+  "example_label": "Calcular barandilla metálica de 10 m para vivienda con montantes cada 1,5 m.",
+  "range_hints": {
+    "longitud_m": "Longitud total de la barandilla medida en el eje del pasamanos.",
+    "altura_m": "Altura de la barandilla: mín. 90 cm residencial, 110 cm comercial/industrial.",
+    "separacion_montantes_m": "Distancia máxima entre montantes: 2 m. Recomendado 1–1,5 m.",
+    "uso": "Tipo de uso determina altura mínima según normativa (CTE / NBE)."
+  },
+  "result_context": "{montantes_ud} montantes, {pasamanos_ml} m.l. pasamanos, {barrotes_ud} barrotes (separación < 10 cm). Relleno: {relleno_m2} m².",
+  "formula_display": "Montantes = techo(longitud ÷ separación) + 1. Barrotes = techo(longitud ÷ 0,10).",
+  "steps": [
+    "Medir la longitud total de la barandilla por el eje del pasamanos, incluyendo tramos rectos y curvos.",
+    "Determinar altura mínima según uso: residencial 90 cm, comercial/industrial 110 cm (CTE DB-SUA).",
+    "Calcular número de montantes: división de longitud entre separación máxima de 2 m, redondeando al alza más uno.",
+    "Calcular barrotes o balaustres con separación máxima de 10 cm entre ellos (no debe caber una esfera de 10 cm).",
+    "Estimar kg de acero (≈9 kg/m²) y superficie de relleno (vidrio, panel o barrotes) para presupuesto."
+  ],
+  "mistakes": [
+    "No comprobar la altura mínima según normativa: 90 cm residencial, 110 cm en zonas públicas o comerciales.",
+    "Separación entre balaustres superior a 10 cm; no cumple el código técnico y es peligroso para niños.",
+    "Anclar los montantes con tacos inadecuados o sin resina epoxi en voladizos o bordes de forjado."
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Balcón pequeño (3 m)",
+      "longitud_m": 3,
+      "altura_m": 1,
+      "separacion_montantes_m": 1,
+      "uso": "residencial"
+    },
+    {
+      "_label": "Terraza media (6 m)",
+      "longitud_m": 6,
+      "altura_m": 1,
+      "separacion_montantes_m": 1.2,
+      "uso": "residencial"
+    },
+    {
+      "_label": "Escalera (10 m)",
+      "longitud_m": 10,
+      "altura_m": 0.9,
+      "separacion_montantes_m": 1.5,
+      "uso": "residencial"
+    },
+    {
+      "_label": "Comercial (15 m)",
+      "longitud_m": 15,
+      "altura_m": 1.1,
+      "separacion_montantes_m": 1.5,
+      "uso": "comercial"
+    },
+    {
+      "_label": "Pasarela industrial (30 m)",
+      "longitud_m": 30,
+      "altura_m": 1.1,
+      "separacion_montantes_m": 2,
+      "uso": "industrial"
+    }
+  ],
+  "units": {
+    "longitud_m": "m",
+    "altura_m": "m",
+    "separacion_montantes_m": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Barandilla Metálica",
+      "desc": "Calcula el número de montantes, metros de pasamanos y barrotes para barandillas metálicas Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora Barandilla Metálica",
+      "inputs": {
+        "longitud_m": "Longitud barandilla",
+        "altura_m": "Altura barandilla",
+        "separacion_montantes_m": "Separación montantes"
+      },
+      "outputs": {
+        "montantes_ud": "Montantes",
+        "pasamanos_ml": "Pasamanos (m.l.)",
+        "barrotes_ud": "Barrotes",
+        "kg_acero": "Kg acero estimado"
+      },
+      "seo_description": "Calcula el número de montantes, metros de pasamanos y barrotes para barandillas metálicas Usado por profesionales y estudiantes en todo el mundo.",
+      "example_label": "Calcular materiales para barandilla metalica con 10 m de ejemplo.",
+      "range_hints": {
+        "longitud_m": "Valor entre 0.5 y 200 m.",
+        "altura_m": "Valor entre 0.9 y 1.2 m.",
+        "separacion_montantes_m": "Valor entre 0.5 y 1.5 m."
+      },
+      "result_context": "El resultado {montantes_ud} montantes representa el material necesario. Verifica medidas antes de cortar.",
+      "formula_display": "Postes = Longitud ÷ Separación + 1",
+      "steps": [
+        "Introduce longitud m: 10 m",
+        "Introduce altura m: 3 m",
+        "Introduce separacion montantes m: 1 m",
+        "Pulsa calcular para obtener resultados",
+        "Interpreta resultado: {montantes_ud}"
+      ],
+      "mistakes": [
+        "Medir hueco en lugar de elemento fabricado",
+        "No considerar tolerancias de montaje",
+        "Olvidar herrajes y accesorios en presupuesto"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "longitud_m",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "altura_m",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "separacion_montantes_m",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        }
+      ]
+    },
+    "en": {
+      "name": "Metal Railing Calculator",
+      "desc": "Metal Railing Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Metal Railing Calculator – Posts & Balusters",
+      "inputs": {
+        "longitud_m": "Railing length",
+        "altura_m": "Railing height",
+        "separacion_montantes_m": "Post spacing"
+      },
+      "outputs": {
+        "montantes_ud": "Posts",
+        "pasamanos_ml": "Handrail (m)",
+        "barrotes_ud": "Balusters",
+        "kg_acero": "Estimated steel kg"
+      },
+      "seo_description": "Metal Railing Calculator. Railing length, Railing height, Post spacing — get Posts, Handrail (m), Balusters instantly for your carpentry and metalwork.",
+      "example_label": "Calcular materiales para barandilla metalica con 10 m de ejemplo.",
+      "range_hints": {
+        "longitud_m": "Valor entre 0.5 y 200 m.",
+        "altura_m": "Valor entre 0.9 y 1.2 m.",
+        "separacion_montantes_m": "Valor entre 0.5 y 1.5 m."
+      },
+      "result_context": "El resultado {montantes_ud} montantes representa el material necesario. Verifica medidas antes de cortar.",
+      "formula_display": "Postes = Longitud ÷ Separación + 1",
+      "steps": [
+        "Introduce longitud m: 10 m",
+        "Introduce altura m: 3 m",
+        "Introduce separacion montantes m: 1 m",
+        "Pulsa calcular para obtener resultados",
+        "Interpreta resultado: {montantes_ud}"
+      ],
+      "mistakes": [
+        "Medir hueco en lugar de elemento fabricado",
+        "No considerar tolerancias de montaje",
+        "Olvidar herrajes y accesorios en presupuesto"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "longitud_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "separacion_montantes_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Garde-corps Métallique",
+      "desc": "Calculez le nombre de montants, mètres de main courante et barreaux pour garde-corps métalliques. Calculatrice facile a utiliser avec decomposition de la.",
+      "seo_title": "Calculateur Garde-corps Métallique",
+      "inputs": {
+        "longitud_m": "Longueur garde-corps",
+        "altura_m": "Hauteur garde-corps",
+        "separacion_montantes_m": "Espacement montants"
+      },
+      "outputs": {
+        "montantes_ud": "Montants",
+        "pasamanos_ml": "Main courante (m)",
+        "barrotes_ud": "Barreaux",
+        "kg_acero": "Kg acier estimé"
+      },
+      "seo_description": "Calculez le nombre de montants, mètres de main courante et barreaux pour garde-corps métalliques. Calculatrice facile a utiliser avec decomposition de la.",
+      "example_label": "Calculer les matériaux pour garde-corps metalica avec 10 m de ejemplo.",
+      "range_hints": {
+        "longitud_m": "Valor entre 0.5 et 200 m.",
+        "altura_m": "Valor entre 0.9 et 1.2 m.",
+        "separacion_montantes_m": "Valor entre 0.5 et 1.5 m."
+      },
+      "result_context": "le resultado {montantes_ud} montantes representa le material nécessaire. Verifica medidas antes de cortar.",
+      "formula_display": "Postes = longueur Á· Separación + 1",
+      "steps": [
+        "Introduce longueur m: 10 m",
+        "Introduce hauteur m: 3 m",
+        "Introduce separacion montantes m: 1 m",
+        "Pulsa Calculer pour obtener resultados",
+        "Interpreta resultado: {montantes_ud}"
+      ],
+      "mistakes": [
+        "Medir hueco dans lugar de elemento fabricado",
+        "Ne pas considérer tolerancias de montaje",
+        "Oublier herrajes et accesorios dans presupuesto"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "longitud_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        },
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        },
+        {
+          "field_id": "separacion_montantes_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Corrimão Metálico",
+      "desc": "Calcule o número de montantes, metros de corrimão e balaústres para guarda-corpos metálicos. Calculadora facil de usar com detalhamento da formula.",
+      "seo_title": "Calculadora de Corrimão Metálico",
+      "inputs": {
+        "longitud_m": "Comprimento guarda-corpo",
+        "altura_m": "Altura guarda-corpo",
+        "separacion_montantes_m": "Espaçamento montantes"
+      },
+      "outputs": {
+        "montantes_ud": "Montantes",
+        "pasamanos_ml": "Corrimão (m)",
+        "barrotes_ud": "Balaústres",
+        "kg_acero": "Kg aço estimado"
+      },
+      "seo_description": "Calcule o número de montantes, metros de corrimão e balaústres para guarda-corpos metálicos. Calculadora facil de usar com detalhamento da formula.",
+      "example_label": "Calcular materiais para barandilha metalica com 10 m de ejemplo.",
+      "range_hints": {
+        "longitud_m": "Valor entre 0.5 e 200 m.",
+        "altura_m": "Valor entre 0.9 e 1.2 m.",
+        "separacion_montantes_m": "Valor entre 0.5 e 1.5 m."
+      },
+      "result_context": "El resultado {montantes_ud} montantes representa o material necesario. Verifica medidas antes de cortar.",
+      "formula_display": "Postes = Longitud ÷ Separación + 1",
+      "steps": [
+        "Introduce comprimento m: 10 m",
+        "Introduce altura m: 3 m",
+        "Introduce separacion montantes m: 1 m",
+        "Pulsa calcular para obter resultados",
+        "Interpreta resultado: {montantes_ud}"
+      ],
+      "mistakes": [
+        "Medir hueco em lugar de elemento fabricado",
+        "Não considerar tolerancias de montagem",
+        "Esquecer herrajes e accesorios em presupuesto"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "longitud_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        },
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        },
+        {
+          "field_id": "separacion_montantes_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        }
+      ]
+    },
+    "de": {
+      "name": "Geländer Metall",
+      "desc": "Berechnen Sie geländer Metall online. Geben Sie longitud m, altura m, separacion montantes m ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Geländer Metall | CalcToWork",
+      "seo_desc": "Geländer Metall online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Geländer Metall online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "longitud_m": "Longitud M",
+        "altura_m": "Altura M",
+        "separacion_montantes_m": "Separacion Montantes M",
+        "uso": "Uso"
+      },
+      "outputs": {
+        "montantes_ud": "Montantes Ud",
+        "pasamanos_ml": "Pasamanos Ml",
+        "barrotes_ud": "Barrotes Ud",
+        "kg_acero": "Kg Acero",
+        "relleno_m2": "Relleno M2"
+      },
+      "example_label": "Calcular barandilla metálica de 10 m para vivienda con montantes cada 1,5 m.",
+      "range_hints": {
+        "longitud_m": "Longitud total de la barandilla medida en el eje del pasamanos.",
+        "altura_m": "Altura de la barandilla: mín. 90 cm residencial, 110 cm comercial/industrial.",
+        "separacion_montantes_m": "Distancia máxima entre montantes: 2 m. Recomendado 1–1,5 m.",
+        "uso": "Tipo de uso determina altura mínima según normativa (CTE / NBE)."
+      },
+      "result_context": "{montantes_ud} montantes, {pasamanos_ml} m.l. pasamanos, {barrotes_ud} barrotes (separación < 10 cm). Relleno: {relleno_m2} m².",
+      "formula_display": "Montantes = techo(longitud ÷ separación) + 1. Barrotes = techo(longitud ÷ 0,10).",
+      "steps": [
+        "Medir la longitud total de la barandilla por el eje del pasamanos, incluyendo tramos rectos y curvos.",
+        "Determinar altura mínima según uso: residencial 90 cm, comercial/industrial 110 cm (CTE DB-SUA).",
+        "Calcular número de montantes: división de longitud entre separación máxima de 2 m, redondeando al alza más uno.",
+        "Calcular barrotes o balaustres con separación máxima de 10 cm entre ellos (no debe caber una esfera de 10 cm).",
+        "Estimar kg de acero (≈9 kg/m²) y superficie de relleno (vidrio, panel o barrotes) para presupuesto."
+      ],
+      "mistakes": [
+        "No comprobar la altura mínima según normativa: 90 cm residencial, 110 cm en zonas públicas o comerciales.",
+        "Separación entre balaustres superior a 10 cm; no cumple el código técnico y es peligroso para niños.",
+        "Anclar los montantes con tacos inadecuados o sin resina epoxi en voladizos o bordes de forjado."
+      ],
+      "input_type_review": []
+    },
+    "it": {
+      "name": "Calcolatore Infissi e Serramenti",
+      "description": "Calcola la superficie dei serramenti per preventivi.",
+      "seo_title": "Calcolatore Ringhiera Metallica",
+      "seo_description": "Stima la superficie e il costo dei serramenti di un edificio Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo.",
+      "inputs": {
+        "num_ventanas": "Numero finestre",
+        "ancho": "Larghezza media (m)",
+        "alto": "Altezza media (m)",
+        "precio_m2": "Prezzo (€/m²)"
+      },
+      "outputs": {
+        "area_total": "Superficie totale (m²)",
+        "costo_total": "Costo totale (€)"
+      },
+      "example_label": "Calcolare opacoriales per barandilla metalloica con 10 m di ejemplo.",
+      "range_hints": {
+        "longitud_m": "Valor intre 0.5 e 200 m.",
+        "altura_m": "Valor intre 0.9 e 1.2 m.",
+        "separacion_montantes_m": "Valor intre 0.5 e 1.5 m."
+      },
+      "result_context": "El risultato {montprima_ud} montprima representa el opacorial necessario. Verifica misure prima di cortar.",
+      "formula_display": "Postes = Longitud ÷ Seperción + 1",
+      "steps": [
+        "Introduce lunghezza m: 10 m",
+        "Introduce altezza m: 3 m",
+        "Introduce sepercion montprima m: 1 m",
+        "Pulsa calcolare per obtiner risultati",
+        "Interpreta risultato: {montprima_ud}"
+      ],
+      "mistakes": [
+        "Medir hueco in lugar di eleminto fabricado",
+        "Non consedirare tolerancias di montaje",
+        "Diminticare herrajes e accesorios in presupuesto"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "longitud_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        },
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        },
+        {
+          "field_id": "separacion_montantes_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        }
+      ]
+    }
+  }
+}

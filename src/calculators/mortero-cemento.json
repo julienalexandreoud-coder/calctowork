@@ -1,0 +1,501 @@
+{
+  "id": "017",
+  "slug": "mortero-cemento",
+  "block": 2,
+  "block_slug": "mamposteria",
+  "inputs": [
+    {
+      "id": "area",
+      "type": "number",
+      "min": 0.5,
+      "max": 2000,
+      "step": 0.5,
+      "default": 30,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "espesor_cm",
+      "type": "number",
+      "min": 0.5,
+      "max": 5,
+      "step": 0.5,
+      "default": 2,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "dosificacion",
+      "type": "number",
+      "min": 200,
+      "max": 450,
+      "step": 25,
+      "default": 300,
+      "unit": "kg/m³",
+      "unit_options": [
+        "kg/m³",
+        "g/cm³",
+        "lb/ft³"
+      ],
+      "unit_category": "density"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area)||0,E=parseFloat(inputs.espesor_cm)||2,D=parseFloat(inputs.dosificacion)||300;if(!A)return{error:true};var vol=A*E/100,ckg=+(vol*D).toFixed(1),sacos=Math.ceil(ckg/50),arena=+(vol*1.3).toFixed(2),agua=+(vol*0.25).toFixed(2);return{vol_m3:+vol.toFixed(3),cemento_kg:ckg,sacos_50kg:sacos,arena_m3:arena,agua_m3:agua};",
+  "outputs": [
+    {
+      "id": "vol_m3",
+      "unit": "m³",
+      "highlight": true
+    },
+    {
+      "id": "cemento_kg",
+      "unit": "kg"
+    },
+    {
+      "id": "sacos_50kg",
+      "unit": "sacos 50kg"
+    },
+    {
+      "id": "arena_m3",
+      "unit": "m³"
+    },
+    {
+      "id": "agua_m3",
+      "unit": "m³"
+    }
+  ],
+  "related": [
+    "016",
+    "018",
+    "029",
+    "015"
+  ],
+  "example_inputs": {
+    "area": 30,
+    "espesor_cm": 2,
+    "dosificacion": 300
+  },
+  "example_label": "Calcular mortero para 30 m² × 2 cm × 300 kg/m³.",
+  "range_hints": {
+    "area": "Valor típico entre 0.5 y 2000. Valor por defecto: 30 m².",
+    "espesor_cm": "Valor típico entre 0.5 y 5. Valor por defecto: 2 cm.",
+    "dosificacion": "Valor típico entre 200 y 450. Valor por defecto: 300 kg/m³."
+  },
+  "result_context": "Resultados: {vol_m3} m³ de volumen, {cemento_kg} kg de cemento, {sacos_50kg} sacos de 50 kg, {arena_m3} m³ de arena, {agua_m3} m³ de agua.",
+  "formula_display": "E ÷ 100 → vol_m3, cemento_kg",
+  "steps": [
+    "Introducir los valores de area, espesor_cm y dosificacion",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+    "Calcular los valores de vol m3 y cemento kg",
+    "El resultado se expresa en m³. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Introducir valores con unidades incorrectas sin verificar la conversión",
+    "Redondear resultados intermedios en lugar del resultado final",
+    "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "area",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "espesor_cm",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "dosificacion",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "diagram": "wall",
+  "standard": "EN 998-2",
+  "comparison_presets": [
+    {
+      "area": 5,
+      "espesor_cm": 1,
+      "dosificacion": "1:3"
+    },
+    {
+      "area": 10,
+      "espesor_cm": 1.5,
+      "dosificacion": "1:4"
+    },
+    {
+      "area": 20,
+      "espesor_cm": 2,
+      "dosificacion": "1:4"
+    },
+    {
+      "area": 30,
+      "espesor_cm": 2,
+      "dosificacion": "1:5"
+    }
+  ],
+  "units": {
+    "area": "m²",
+    "espesor_cm": "m",
+    "dosificacion": "kg/m³"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Mortero de Cemento",
+      "desc": "Calcula la proporción de cemento, arena y agua para mortero de agarre y nivelación Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora Mortero de Cemento",
+      "inputs": {
+        "area": "Área",
+        "espesor_cm": "Espesor capa",
+        "dosificacion": "Dosificación cemento"
+      },
+      "outputs": {
+        "vol_m3": "Volumen mortero",
+        "cemento_kg": "Cemento",
+        "sacos_50kg": "Sacos 50 kg",
+        "arena_m3": "Arena",
+        "agua_m3": "Agua"
+      },
+      "seo_description": "Calcula la proporción de cemento, arena y agua para mortero de agarre y nivelación Usado por profesionales y estudiantes en todo el mundo.",
+      "example_label": "Calcular mortero para solado de 40m² con 3cm de espesor y dosificación de 350 kg/m³ de cemento.",
+      "range_hints": {
+        "area": "Superficie a cubrir con mortero",
+        "espesor_cm": "Solados: 3-5cm, Enlucidos: 1-2cm, Nivelación: 2-4cm",
+        "dosificacion": "Mortero pobre: 250 kg/m³, Estándar: 350 kg/m³, Rico: 450 kg/m³"
+      },
+      "result_context": "Para {area} m² con {espesor_cm}cm de espesor se necesitan {vol_m3} m³ de mortero, {cemento_kg} kg de cemento ({cemento_sacos} sacos) y {arena_m3} m³ de arena.",
+      "formula_display": "Volumen = área × espesor_m; Cemento = volumen × dosificación; Arena = volumen × 1.1",
+      "steps": [
+        "Convertir espesor: 3cm = 0.03m",
+        "Calcular volumen de mortero: 40m² × 0.03m = 1.2m³",
+        "Calcular cemento: 1.2m³ × 350 kg/m³ = 420 kg (8.4 sacos)",
+        "Calcular arena: 1.2m³ × 1.1 = 1.32m³ de arena",
+        "Aplicar merma del 5% si es necesario"
+      ],
+      "mistakes": [
+        "Usar dosificación incorrecta para el tipo de trabajo",
+        "No considerar la merma por compactación del mortero",
+        "Mezclar arena con demasiada agua (reduce resistencia)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "espesor_cm",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "dosificacion",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Cement Mortar Calculator",
+      "desc": "Cement Mortar Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Cement Mortar Calculator – Cement & Sand",
+      "seo_desc": "Cement Mortar Calculator. Area, Layer thickness, Cement dosage — get Mortar volume, Cement, 50 kg bags instantly for your masonry and enclosures project.",
+      "inputs": {
+        "area": "Area",
+        "espesor_cm": "Layer thickness",
+        "dosificacion": "Cement dosage"
+      },
+      "outputs": {
+        "vol_m3": "Mortar volume",
+        "cemento_kg": "Cement",
+        "sacos_50kg": "50 kg bags",
+        "arena_m3": "Sand",
+        "agua_m3": "Water"
+      },
+      "seo_description": "Calculate cement, sand and water quantities for mortar mixes. Enter area, layer thickness and cement dosage (250-450 kg/m³) for bricklaying and screeding.",
+      "example_label": "Calcular mortero para solado de 40m² con 3cm de espesor y dosificación de 350 kg/m³ de cemento.",
+      "range_hints": {
+        "area": "Superficie a cubrir con mortero",
+        "espesor_cm": "Solados: 3-5cm, Enlucidos: 1-2cm, Nivelación: 2-4cm",
+        "dosificacion": "Mortero pobre: 250 kg/m³, Estándar: 350 kg/m³, Rico: 450 kg/m³"
+      },
+      "result_context": "Para {area} m² con {espesor_cm}cm de espesor se necesitan {vol_m3} m³ de mortero, {cemento_kg} kg de cemento ({cemento_sacos} sacos) y {arena_m3} m³ de arena.",
+      "formula_display": "Volumen = área × espesor_m; Cemento = volumen × dosificación; Arena = volumen × 1.1",
+      "steps": [
+        "Convertir espesor: 3cm = 0.03m",
+        "Calcular volumen de mortero: 40m² × 0.03m = 1.2m³",
+        "Calcular cemento: 1.2m³ × 350 kg/m³ = 420 kg (8.4 sacos)",
+        "Calcular arena: 1.2m³ × 1.1 = 1.32m³ de arena",
+        "Aplicar merma del 5% si es necesario"
+      ],
+      "mistakes": [
+        "Usar dosificación incorrecta para el tipo de trabajo",
+        "No considerar la merma por compactación del mortero",
+        "Mezclar arena con demasiada agua (reduce resistencia)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "espesor_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "dosificacion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Mortier de Ciment",
+      "desc": "Calculez la proportion de ciment, sable et eau pour mortier de pose et de nivellement Utilise par des professionnels et etudiants dans le monde entier.",
+      "seo_title": "Calculateur Mortier de Ciment – Étape par Étape",
+      "inputs": {
+        "area": "Surface",
+        "espesor_cm": "Épaisseur couche",
+        "dosificacion": "Dosage ciment"
+      },
+      "outputs": {
+        "vol_m3": "Volume mortier",
+        "cemento_kg": "Ciment",
+        "sacos_50kg": "Sacs 50 kg",
+        "arena_m3": "Sable",
+        "agua_m3": "Eau"
+      },
+      "seo_description": "Calculez la proportion de ciment, sable et eau pour mortier de pose et de nivellement Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calculer mortier pour solado de 40m² avec 3cm d'épaisseur et dosificación de 350 kg/m³ de ciment.",
+      "range_hints": {
+        "area": "surface a cubrir avec mortier",
+        "espesor_cm": "Solados: 3-5cm, Enlucidos: 1-2cm, nivellement: 2-4cm",
+        "dosificacion": "mortier pobre: 250 kg/m³, standard: 350 kg/m³, Rico: 450 kg/m³"
+      },
+      "result_context": "pour {area} m² avec {espesor_cm}cm d'épaisseur se necesitan {vol_m3} m³ de mortier, {cemento_kg} kg de ciment ({cemento_sacos} sacs) et {arena_m3} m³ de sable.",
+      "formula_display": "volume = área × espesor_m; ciment = volume × dosificación; sable = volume × 1.1",
+      "steps": [
+        "Convertir épaisseur: 3cm = 0.03m",
+        "Calculer le volume de mortier: 40m² × 0.03m = 1.2m³",
+        "Calculer le ciment: 1.2m³ × 350 kg/m³ = 420 kg (8.4 sacs)",
+        "Calculer le sable: 1.2m³ × 1.1 = 1.32m³ de sable",
+        "Aplicar merma du 5% si es nécessaire"
+      ],
+      "mistakes": [
+        "Utiliser dosificación incorrecta pour le tipo de trabajo",
+        "Ne pas considérer la merma par compactación du mortier",
+        "mélanger sable avec demasiada eau (reduce resistencia)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "espesor_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "dosificacion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Argamassa de Cimento",
+      "desc": "Calcule a proporção de cimento, areia e água para argamassa de assentamento e nivelamento Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora Argamassa de Cimento",
+      "inputs": {
+        "area": "Área",
+        "espesor_cm": "Espessura camada",
+        "dosificacion": "Dosagem cimento"
+      },
+      "outputs": {
+        "vol_m3": "Volume argamassa",
+        "cemento_kg": "Cimento",
+        "sacos_50kg": "Sacos 50 kg",
+        "arena_m3": "Areia",
+        "agua_m3": "Água"
+      },
+      "seo_description": "Calcule a proporção de cimento, areia e água para argamassa de assentamento e nivelamento Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular argamassa para solado de 40m² com 3cm de espessura e dosificación de 350 kg/m³ de cemento.",
+      "range_hints": {
+        "area": "Superficie a cubrir com argamassa",
+        "espesor_cm": "Solados: 3-5cm, Enlucidos: 1-2cm, Nivelación: 2-4cm",
+        "dosificacion": "Mortero pobre: 250 kg/m³, Estándar: 350 kg/m³, Rico: 450 kg/m³"
+      },
+      "result_context": "Para {area} m² com {espesor_cm}cm de espessura são necessários {vol_m3} m³ de argamassa, {cemento_kg} kg de cimento ({cemento_sacos} sacos) e {arena_m3} m³ de arena.",
+      "formula_display": "Volumen = área × espesor_m; Cemento = volume × dosificación; Arena = volume × 1.1",
+      "steps": [
+        "Convertir espessura: 3cm = 0.03m",
+        "Calcular volume de argamassa: 40m² × 0.03m = 1.2m³",
+        "Calcular cimento: 1.2m³ × 350 kg/m³ = 420 kg (8.4 sacos)",
+        "Calcular areia: 1.2m³ × 1.1 = 1.32m³ de areia",
+        "Aplicar merma do 5% si é necessário"
+      ],
+      "mistakes": [
+        "Usar dosificación incorrecta para o tipo de trabajo",
+        "Não considerar a merma por compacção do argamassa",
+        "Mezclar areia com demasiada água (reduce resistência)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "espesor_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "dosificacion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Mörtel Zement",
+      "desc": "Berechnen Sie mörtel Zement online. Geben Sie area, espesor cm, dosificacion ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Mörtel Zement | CalcToWork",
+      "seo_desc": "Mörtel Zement online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Mörtel Zement online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "area": "Area",
+        "espesor_cm": "Espesor Cm",
+        "dosificacion": "Dosificacion"
+      },
+      "outputs": {
+        "vol_m3": "Vol M3",
+        "cemento_kg": "Cemento Kg",
+        "sacos_50kg": "Sacos 50kg",
+        "arena_m3": "Arena M3",
+        "agua_m3": "Agua M3"
+      },
+      "example_label": "Calcular mortero para 30 m² × 2 cm × 300 kg/m³.",
+      "range_hints": {
+        "area": "Valor típico entre 0.5 y 2000. Valor por defecto: 30 m².",
+        "espesor_cm": "Valor típico entre 0.5 y 5. Valor por defecto: 2 cm.",
+        "dosificacion": "Valor típico entre 200 y 450. Valor por defecto: 300 kg/m³."
+      },
+      "result_context": "Resultados: {vol_m3} m³ de volumen, {cemento_kg} kg de cemento, {sacos_50kg} sacos de 50 kg, {arena_m3} m³ de arena, {agua_m3} m³ de agua.",
+      "formula_display": "E ÷ 100 → vol_m3, cemento_kg",
+      "steps": [
+        "Introducir los valores de area, espesor_cm y dosificacion",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+        "Calcular los valores de vol m3 y cemento kg",
+        "El resultado se expresa en m³. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Introducir valores con unidades incorrectas sin verificar la conversión",
+        "Redondear resultados intermedios en lugar del resultado final",
+        "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "espesor_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "dosificacion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Ispezione Recinzione",
+      "description": "Calcola materiali per recinzioni perimetrali.",
+      "seo_title": "Calcolatore Ispezione Recinzione",
+      "seo_description": "Calcolatore Ispezione Recinzione. Perimetro (m), Altezza recinzione (m), Interasse pali (m) ââ‚¬” ottieni Pali necessari, Rete (m²), Sacchi cemento.",
+      "inputs": {
+        "perimetro": "Perimetro (m)",
+        "alto": "Altezza recinzione (m)",
+        "separacion": "Interasse pali (m)"
+      },
+      "outputs": {
+        "postes": "Pali necessari",
+        "malla_m2": "Rete (m²)",
+        "cemento_sacos": "Sacchi cemento"
+      },
+      "example_label": "Calcolare mortero per sottofondo di 40m² con 3cm di spessore e doseficación di 350 kg/m³ di ceminto.",
+      "range_hints": {
+        "area": "Superficie a cubrir con mortero",
+        "espesor_cm": "Solati: 3-5cm, Enlucidos: 1-2cm, Nivelación: 2-4cm",
+        "dosificacion": "Mortero pobre: 250 kg/m³, Estándar: 350 kg/m³, Rico: 450 kg/m³"
+      },
+      "result_context": "Per {area} m² con {spessore_cm}cm di spessore sonon necessari {vol_m3} m³ di mortero, {ceminto_kg} kg di ceminto ({ceminto_sacos} sacos) e {sabbia_m3} m³ di sabbia.",
+      "formula_display": "Volumin = área × spessore_m; Ceminto = volume × doseficación; Arina = volume × 1.1",
+      "steps": [
+        "Convertire spessore: 3cm = 0.03m",
+        "Calcolare volume di mortero: 40m² × 0.03m = 1.2m³",
+        "Calcolare ceminto: 1.2m³ × 350 kg/m³ = 420 kg (8.4 sacos)",
+        "Calcolare sabbia: 1.2m³ × 1.1 = 1.32m³ di sabbia",
+        "Applicare merma dil 5% se è necessario"
+      ],
+      "mistakes": [
+        "Usare doseficación incorrecta per el tipo dillavoro",
+        "Non consedirare la merma per compactación dil mortero",
+        "Mezclar sabbia con dimaseada acqua (riduce resestinza)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "espesor_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "dosificacion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        }
+      ]
+    }
+  }
+}

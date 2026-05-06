@@ -1,0 +1,433 @@
+{
+  "id": "606",
+  "slug": "intervalo-confianza",
+  "block": 14,
+  "block_slug": "estadistica",
+  "inputs": [
+    {
+      "id": "media",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 50,
+      "unit": ""
+    },
+    {
+      "id": "desviacion",
+      "type": "number",
+      "min": 0.001,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 10,
+      "unit": ""
+    },
+    {
+      "id": "n",
+      "type": "number",
+      "min": 2,
+      "max": 1000000000,
+      "step": "any",
+      "default": 100,
+      "unit": ""
+    },
+    {
+      "id": "confianza",
+      "type": "number",
+      "min": 1,
+      "max": 99.9,
+      "step": "any",
+      "default": 95,
+      "unit": ""
+    }
+  ],
+  "formula": "var m=parseFloat(inputs.media)||0,s=parseFloat(inputs.desviacion)||0,n=parseFloat(inputs.n)||0,c=parseFloat(inputs.confianza)||95;if(!n||!s)return{error:true};var z=c>=99?2.576:c>=98?2.326:c>=95?1.96:c>=90?1.645:1.036;var se=s/Math.sqrt(n),me=z*se;return{limite_inferior:+(m-me).toFixed(4),limite_superior:+(m+me).toFixed(4),margen_error:+me.toFixed(4),error_estandar:+se.toFixed(4)};",
+  "outputs": [
+    {
+      "id": "limite_inferior",
+      "unit": "",
+      "highlight": true
+    },
+    {
+      "id": "limite_superior",
+      "unit": ""
+    },
+    {
+      "id": "margen_error",
+      "unit": ""
+    },
+    {
+      "id": "error_estandar",
+      "unit": ""
+    }
+  ],
+  "related": [
+    "600",
+    "602",
+    "608",
+    "607"
+  ],
+  "example_inputs": {
+    "media": 50,
+    "desviacion": 10,
+    "n": 100,
+    "confianza": 95
+  },
+  "example_label": "Ejemplo para intervalo confianza: valores 50, 10, 100, 95",
+  "range_hints": {
+    "media": "Introduce el valor de media. Valor sugerido: 50",
+    "desviacion": "Introduce el valor de desviacion. Valor sugerido: 10",
+    "n": "Introduce el valor de n. Valor sugerido: 100",
+    "confianza": "Introduce el valor de confianza. Valor sugerido: 95"
+  },
+  "result_context": "El intervalo de confianza está entre {limite_inferior} y {limite_superior}, con un margen de error de {margen_error} y un error estándar de {error_estandar}.",
+  "result_context_en": "The confidence interval is between {limite_inferior} and {limite_superior}, with a margin of error of {margen_error} and a standard error of {error_estandar}.",
+  "result_context_fr": "L'intervalle de confiance se situe entre {limite_inferior} et {limite_superior}, avec une marge d'erreur de {margen_error} et une erreur type de {error_estandar}.",
+  "result_context_pt": "O intervalo de confiança está entre {limite_inferior} e {limite_superior}, com margem de erro de {margen_error} e erro padrão de {error_estandar}.",
+  "result_context_de": "Das Konfidenzintervall liegt zwischen {limite_inferior} und {limite_superior}, mit einer Fehlermarge von {margen_error} und einem Standardfehler von {error_estandar}.",
+  "result_context_it": "L'intervallo di confidenza è compreso tra {limite_inferior} e {limite_superior}, con un margine di errore di {margen_error} e un errore standard di {error_estandar}.",
+  "formula_display": "s ÷ Math → limite_inferior, limite_superior",
+  "steps": [
+    "Introducir los valores de media, desviacion, n y confianza",
+    "Verificar que los valores introducidos están en el rango y formato correctos",
+    "Calcular los valores de limite inferior y limite superior",
+    "Verificar que el resultado es coherente con los valores de entrada",
+    "El resultado puede usarse como dato intermedio para cálculos posteriores más complejos"
+  ],
+  "mistakes": [
+    "Confundir media con mediana en distribuciones asimétricas",
+    "Usar la desviación estándar de la muestra (n-1) para datos de población (n)",
+    "Interpretar correlación como causalidad"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "media",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "desviacion",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "n",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "confianza",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Muestra pequena",
+      "media": 20.0,
+      "desviacion": 4.0,
+      "n": 40.0,
+      "confianza": 38.0
+    },
+    {
+      "_label": "Datos uniformes",
+      "media": 35.0,
+      "desviacion": 7.0,
+      "n": 70.0,
+      "confianza": 66.5
+    },
+    {
+      "_label": "Datos dispersos",
+      "media": 50.0,
+      "desviacion": 10.0,
+      "n": 100.0,
+      "confianza": 95.0
+    },
+    {
+      "_label": "Muestra grande",
+      "media": 75.0,
+      "desviacion": 15.0,
+      "n": 150.0,
+      "confianza": 99.9
+    },
+    {
+      "_label": "Valores atipicos",
+      "media": 125.0,
+      "desviacion": 25.0,
+      "n": 250.0,
+      "confianza": 99.9
+    }
+  ],
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Intervalo de Confianza",
+      "desc": "Calcula IC = xÌâ€ž ± z × (σ/√n). Ejemplo: xÌâ€ž=50, σ=10, n=100, 95% confianza (z=1,96) = IC: [48,04 ; 51,96]. Calculadora gratuita y precisa, sin...",
+      "description": "Calculadora Intervalo Confianza",
+      "seo_title": "Calculadora Intervalo Confianza Online Gratis",
+      "seo_description": "Calcula IC = xÌâ€ž ± z × (σ/√n). Ejemplo: xÌâ€ž=50, σ=10, n=100, 95% confianza (z=1,96) = IC: [48,04 ; 51,96]. Calculadora gratuita y precisa, sin...",
+      "inputs": {
+        "media": "Media muestral",
+        "desviacion": "Desviación estándar",
+        "n": "Total de elementos (n)",
+        "confianza": "Nivel de confianza (%)"
+      },
+      "outputs": {
+        "limite_inferior": "Límite inferior",
+        "limite_superior": "Límite superior",
+        "margen_error": "Margen de error",
+        "error_estandar": "Error estándar"
+      },
+      "example_label": "Calcular intervalo de confianza",
+      "range_hints": {
+        "media": "0-1,000,000,000,000",
+        "desviacion": "0.001-1,000,000,000,000",
+        "n": "2-1,000,000,000",
+        "confianza": "1-99.9"
+      },
+      "result_context": "El intervalo de confianza estima dónde está el verdadero parámetro poblacional.",
+      "formula_display": "IC = media ± (z × σ/√n)",
+      "steps": [
+        "Determinar el nivel de confianza y valor z",
+        "Calcular el error estándar (σ/√n)",
+        "Multiplicar z por el error estándar",
+        "Sumar y restar a la media"
+      ],
+      "mistakes": [
+        "Muestra menor a 2",
+        "Desviación estándar en cero",
+        "Nivel de confianza fuera de rango"
+      ],
+      "input_type_review": []
+    },
+    "en": {
+      "name": "Confidence Interval Calculator",
+      "desc": "Confidence Interval Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Confidence Interval Calculator",
+      "seo_title": "Confidence Interval Calculator – Free Online Tool",
+      "seo_description": "Calculate CI = xÌ„ ± z × (Ïƒ/√n). Example: xÌ„=50, Ïƒ=10, n=100, 95% confidence (z=1.96) = CI: [48.04 ; 51.96]. Free and accurate calculator, no signup needed.",
+      "inputs": {
+        "media": "Sample mean",
+        "desviacion": "Standard deviation",
+        "n": "Total elements (n)",
+        "confianza": "Confidence level (%)"
+      },
+      "outputs": {
+        "limite_inferior": "Lower limit",
+        "limite_superior": "Upper limit",
+        "margen_error": "Margin of error",
+        "error_estandar": "Standard error"
+      },
+      "example_label": "Calcular intervalo de confianza",
+      "range_hints": {
+        "media": "0-1,000,000,000,000",
+        "desviacion": "0.001-1,000,000,000,000",
+        "n": "2-1,000,000,000",
+        "confianza": "1-99.9"
+      },
+      "result_context": "El intervalo de confianza estima dónde está el verdadero parámetro poblacional.",
+      "formula_display": "IC = media ± (z × Ïƒ/√n)",
+      "steps": [
+        "Determinar el nivel de confianza y valor z",
+        "Calcular el error estándar (Ïƒ/√n)",
+        "Multiplicar z por el error estándar",
+        "Sumar y restar a la media"
+      ],
+      "mistakes": [
+        "Muestra menor a 2",
+        "Desviación estándar en cero",
+        "Nivel de confianza fuera de rango"
+      ],
+      "input_type_review": "Todos los inputs son numéricos sin unidad. n â‰¥ 2, desviación > 0."
+    },
+    "fr": {
+      "name": "Calculateur Intervalle Confiance",
+      "desc": "Calculez CI = xÌâ€ž ± z × (σ/√n). Exemple: xÌâ€ž=50, σ=10, n=100, 95% confidence (z=1.96) = CI: [48.04 ; 51.96]. Calculateur gratuit et précis,...",
+      "description": "Calculateur Intervalle Confiance",
+      "seo_title": "Calculateur Intervalle Confiance",
+      "seo_description": "Calculez CI = xÌâ€ž ± z × (σ/√n). Exemple: xÌâ€ž=50, σ=10, n=100, 95% confidence (z=1.96) = CI: [48.04 ; 51.96]. Calculateur gratuit et précis,...",
+      "inputs": {
+        "media": "Moyenne de l'échantillon",
+        "desviacion": "Écart type",
+        "n": "Total d'éléments (n)",
+        "confianza": "Niveau de confiance (%)"
+      },
+      "outputs": {
+        "limite_inferior": "Limite inférieure",
+        "limite_superior": "Limite supérieure",
+        "margen_error": "Marge d'erreur",
+        "error_estandar": "Erreur standard"
+      },
+      "example_label": "Calculer intervalo de confianza",
+      "range_hints": {
+        "media": "0-1,000,000,000,000",
+        "desviacion": "0.001-1,000,000,000,000",
+        "n": "2-1,000,000,000",
+        "confianza": "1-99.9"
+      },
+      "result_context": "le intervalo de confianza estima dónde está le verdadero parámetro poblacional.",
+      "formula_display": "IC = media ± (z × σ/√n)",
+      "steps": [
+        "Determinar le nivel de confianza et valor z",
+        "Calculer le error standard (σ/√n)",
+        "Multiplier z par le error standard",
+        "Sumar et restar a la media"
+      ],
+      "mistakes": [
+        "Muestra menor a 2",
+        "Desviación standard dans cero",
+        "Nivel de confianza fuera de rango"
+      ],
+      "input_type_review": []
+    },
+    "pt": {
+      "name": "Calculadora Intervalo Confianca",
+      "desc": "Calcule CI = xÌâ€ž ± z × (σ/√n). Exemplo: xÌâ€ž=50, σ=10, n=100, 95% confidence (z=1.96) = CI: [48.04 ; 51.96]. Calculadora gratuita e precisa,...",
+      "description": "Calculadora Intervalo Confianca",
+      "seo_title": "Calculadora Intervalo Confianca",
+      "seo_description": "Calcule CI = xÌâ€ž ± z × (σ/√n). Exemplo: xÌâ€ž=50, σ=10, n=100, 95% confidence (z=1.96) = CI: [48.04 ; 51.96]. Calculadora gratuita e precisa,...",
+      "inputs": {
+        "media": "Média amostral",
+        "desviacion": "Desvio padrão",
+        "n": "Total de elementos (n)",
+        "confianza": "Nível de confiança (%)"
+      },
+      "outputs": {
+        "limite_inferior": "Limite inferior",
+        "limite_superior": "Limite superior",
+        "margen_error": "Margem de erro",
+        "error_estandar": "Erro padrão"
+      },
+      "example_label": "Calcular intervalo de confianza",
+      "range_hints": {
+        "media": "0-1,000,000,000,000",
+        "desviacion": "0.001-1,000,000,000,000",
+        "n": "2-1,000,000,000",
+        "confianza": "1-99.9"
+      },
+      "result_context": "El intervalo de confianza estima dónde está o verdadero parámetro poblacional.",
+      "formula_display": "IC = media ± (z × σ/√n)",
+      "steps": [
+        "Determinar o nivel de confianza e valor z",
+        "Calcular o error padrão (σ/√n)",
+        "Multiplicar z por o error padrão",
+        "Sumar e subtrair à media"
+      ],
+      "mistakes": [
+        "Muestra menor a 2",
+        "Desviación padrão em cero",
+        "Nivel de confianza fuera de intervalo"
+      ],
+      "input_type_review": []
+    },
+    "de": {
+      "name": "Intervalo confianza",
+      "desc": "Berechnen Sie intervalo confianza online. Geben Sie media, desviacion, n ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Intervalo confianza | CalcToWork",
+      "seo_desc": "Intervalo confianza online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Intervalo confianza online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "media": "Media",
+        "desviacion": "Desviacion",
+        "n": "N",
+        "confianza": "Confianza"
+      },
+      "outputs": {
+        "limite_inferior": "Limite Inferior",
+        "limite_superior": "Limite Superior",
+        "margen_error": "Margen Error",
+        "error_estandar": "Error Estandar"
+      },
+      "example_label": "Ejemplo para intervalo confianza: valores 50, 10, 100, 95",
+      "range_hints": {
+        "media": "Introduce el valor de media. Valor sugerido: 50",
+        "desviacion": "Introduce el valor de desviacion. Valor sugerido: 10",
+        "n": "Introduce el valor de n. Valor sugerido: 100",
+        "confianza": "Introduce el valor de confianza. Valor sugerido: 95"
+      },
+      "result_context": "Das Konfidenzintervall liegt zwischen {limite_inferior} und {limite_superior}, mit einer Fehlermarge von {margen_error} und einem Standardfehler von {error_estandar}.",
+      "formula_display": "s ÷ Math → limite_inferior, limite_superior",
+      "steps": [
+        "Introducir los valores de media, desviacion, n y confianza",
+        "Verificar que los valores introducidos están en el rango y formato correctos",
+        "Calcular los valores de limite inferior y limite superior",
+        "Verificar que el resultado es coherente con los valores de entrada",
+        "El resultado puede usarse como dato intermedio para cálculos posteriores más complejos"
+      ],
+      "mistakes": [
+        "Confundir media con mediana en distribuciones asimétricas",
+        "Usar la desviación estándar de la muestra (n-1) para datos de población (n)",
+        "Interpretar correlación como causalidad"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "media",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "desviacion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "n",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "confianza",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Intervallo Confidenza",
+      "desc": "Calcola CI = xÌâ€ž ± z × (σ/√n). Esempio: xÌâ€ž=50, σ=10, n=100, 95% confidence (z=1.96) = CI: [48.04 ; 51.96]. Calcolatore gratuito e preciso,...",
+      "description": "Calcolatore Intervallo Confidenza",
+      "seo_title": "Calcolatore Intervallo Confidenza",
+      "seo_description": "Calcola CI = xÌâ€ž ± z × (σ/√n). Esempio: xÌâ€ž=50, σ=10, n=100, 95% confidence (z=1.96) = CI: [48.04 ; 51.96]. Calcolatore gratuito e preciso, senza",
+      "inputs": {
+        "media": "Media campionaria",
+        "desviacion": "Deviazione standard",
+        "n": "Elementi totali (n)",
+        "confianza": "Livello di confidenza (%)"
+      },
+      "outputs": {
+        "limite_inferior": "Limite inferiore",
+        "limite_superior": "Limite superiore",
+        "margen_error": "Margine di errore",
+        "error_estandar": "Errore standard"
+      },
+      "example_label": "Calcolare intervalo di confianza",
+      "range_hints": {
+        "media": "0-1,000,000,000,000",
+        "desviacion": "0.001-1,000,000,000,000",
+        "n": "2-1,000,000,000",
+        "confianza": "1-99.9"
+      },
+      "result_context": "El intervalo di confianza estima dóndi está el verdadiro parámetro poblacional.",
+      "formula_display": "IC = media ± (z × σ/√n)",
+      "steps": [
+        "Definiree el nivel di confianza e valore z",
+        "Calcolare el errore estándar (σ/√n)",
+        "Moltiplicare z per el errore estándar",
+        "Sommmare e sottrarre alla media"
+      ],
+      "mistakes": [
+        "Muestra minonre a 2",
+        "Desviación estándar in cero",
+        "Nivel di confianza fuori di rango"
+      ],
+      "input_type_review": null
+    }
+  }
+}

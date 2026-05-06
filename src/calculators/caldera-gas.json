@@ -1,0 +1,489 @@
+{
+  "id": "036",
+  "slug": "caldera-gas",
+  "block": 4,
+  "block_slug": "fontaneria",
+  "inputs": [
+    {
+      "id": "area_m2",
+      "type": "number",
+      "min": 20,
+      "max": 2000,
+      "step": 5,
+      "default": 100,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "altura_m",
+      "type": "number",
+      "min": 2.2,
+      "max": 5,
+      "step": 0.1,
+      "default": 2.7,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "aislamiento",
+      "type": "select",
+      "default": "medio",
+      "options": [
+        "deficiente",
+        "medio",
+        "bueno",
+        "excelente"
+      ]
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area_m2)||0,H=parseFloat(inputs.altura_m)||2.7,aisl={'deficiente':100,'medio':70,'bueno':50,'excelente':35};if(!A)return{error:true};var vol=A*H,kw_cal=+(vol*aisl[inputs.aislamiento]/1000).toFixed(1),kw_acs=+(A*0.05).toFixed(1),kw_total=+(kw_cal+kw_acs).toFixed(1),modelo=kw_total<=15?'15kW':kw_total<=24?'24kW':kw_total<=35?'35kW':'50kW+';return{vol_m3:+vol.toFixed(1),kw_calefaccion:kw_cal,kw_acs:kw_acs,kw_total:kw_total,modelo_recomendado:modelo};",
+  "outputs": [
+    {
+      "id": "vol_m3",
+      "unit": "m³"
+    },
+    {
+      "id": "kw_calefaccion",
+      "unit": "kW (calef.)"
+    },
+    {
+      "id": "kw_acs",
+      "unit": "kW (ACS)"
+    },
+    {
+      "id": "kw_total",
+      "unit": "kW total",
+      "highlight": true
+    },
+    {
+      "id": "modelo_recomendado",
+      "unit": "modelo"
+    }
+  ],
+  "related": [
+    "035",
+    "037",
+    "053",
+    "033"
+  ],
+  "example_inputs": {
+    "area_m2": 100,
+    "altura_m": 2.7,
+    "aislamiento": "medio"
+  },
+  "example_label": "Calcular cal para 100 m² × 2.7 m × medio.",
+  "range_hints": {
+    "area_m2": "Valor típico entre 20 y 2000. Valor por defecto: 100 m².",
+    "altura_m": "Valor típico entre 2.2 y 5. Valor por defecto: 2.7 m.",
+    "aislamiento": "Seleccionar entre las opciones: deficiente, medio, bueno, excelente"
+  },
+  "result_context": "Resultados: {vol_m3} m³ de volumen, {kw_calefaccion} kW de calefacción, {kw_acs} kW de ACS, {kw_total} kW totales, {modelo_recomendado} modelo recomendado.",
+  "formula_display": "A × H → vol_m3, kw_calefaccion",
+  "steps": [
+    "Introducir los valores de area_m2, altura_m y aislamiento",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+    "Calcular los valores de vol m3 y kw calefaccion",
+    "El resultado se expresa en m³. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "No respetar la pendiente mínima del 2% en tuberías de saneamiento",
+    "Usar tubería de pared delgada para instalaciones enterradas",
+    "No instalar válvulas de corte en puntos clave de la instalación"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "area_m2",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "altura_m",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "aislamiento",
+      "current_type": "select",
+      "recommended_type": "select",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small bathroom",
+      "area_m2": 50,
+      "altura_m": 2.2
+    },
+    {
+      "_label": "Medium bathroom",
+      "area_m2": 75,
+      "altura_m": 2.2
+    },
+    {
+      "_label": "Large bathroom",
+      "area_m2": 100,
+      "altura_m": 2.7
+    },
+    {
+      "_label": "Apartment",
+      "area_m2": 150,
+      "altura_m": 4.05
+    },
+    {
+      "_label": "House",
+      "area_m2": 200,
+      "altura_m": 5
+    }
+  ],
+  "units": {
+    "area_m2": "m²",
+    "altura_m": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Caldera de Gas",
+      "desc": "Calcula la potencia de caldera de gas necesaria para calefacción y ACS según m², aislamiento y clima Usado por profesionales y estudiantes en todo el.",
+      "seo_title": "Calculadora de Caldera de Gas Gratuita",
+      "seo_desc": "Calcula la potencia de caldera de gas necesaria para calefacción y ACS según m², aislamiento y clima Usado por profesionales y estudiantes en todo el.",
+      "inputs": {
+        "area_m2": "Área vivienda",
+        "altura_m": "Altura techos",
+        "aislamiento": "Nivel de aislamiento"
+      },
+      "outputs": {
+        "vol_m3": "Volumen vivienda",
+        "kw_calefaccion": "kW calefacción",
+        "kw_acs": "kW ACS",
+        "kw_total": "kW total necesario",
+        "modelo_recomendado": "Modelo recomendado"
+      },
+      "seo_description": "Calcula la potencia en kW que necesita tu caldera de gas según los m², altura de techos y nivel de aislamiento térmico. Obtén el modelo comercial recomendado entre 15, 24, 35 y 50 kW.",
+      "example_label": "Calcular potencia de caldera de gas para vivienda de 100m² con 2.5m de altura y aislamiento medio.",
+      "range_hints": {
+        "area_m2": "Superficie útil de la vivienda a calefaccionar",
+        "altura_m": "Altura libre de techos (afecta volumen a calentar)"
+      },
+      "result_context": "Vivienda de {area_m2}m² con {altura_m}m de altura y aislamiento {aislamiento} requiere caldera de {potencia_kw} kW ({potencia_kcal} kcal/h). Volumen a calentar: {volumen_m3} m³.",
+      "formula_display": "Volumen = área × altura; Potencia = volumen × factor_aislamiento (30-50 W/m³)",
+      "steps": [
+        "Calcular volumen: 100m² × 2.5m = 250m³",
+        "Factor aislamiento medio: 40 W/m³",
+        "Calcular potencia: 250m³ × 40 W/m³ = 10000 W = 10 kW",
+        "Aplicar margen seguridad 20%: 10 kW × 1.20 = 12 kW"
+      ],
+      "mistakes": [
+        "Dimensionar solo por m² sin considerar altura y aislamiento",
+        "No prever potencia adicional para agua caliente sanitaria",
+        "Instalar caldera sobredimensionada (ciclos cortos, menor eficiencia)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "altura_m",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "aislamiento",
+          "reason": "Correcto: opción discreta"
+        }
+      ]
+    },
+    "en": {
+      "name": "Gas Boiler Calculator",
+      "desc": "Gas Boiler Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Gas Boiler Calculator – kW for Home",
+      "seo_desc": "Gas Boiler Calculator. Home area, Ceiling height, Insulation level — get Home volume, kW heating, kW hot water instantly for your plumbing and water.",
+      "inputs": {
+        "area_m2": "Home area",
+        "altura_m": "Ceiling height",
+        "aislamiento": "Insulation level"
+      },
+      "outputs": {
+        "vol_m3": "Home volume",
+        "kw_calefaccion": "kW heating",
+        "kw_acs": "kW hot water",
+        "kw_total": "Total kW needed",
+        "modelo_recomendado": "Recommended model"
+      },
+      "seo_description": "Calculate the kW rating needed for your gas boiler based on floor area, ceiling height and insulation level. Get the recommended commercial model: 15, 24, 35 or 50 kW.",
+      "example_label": "Calcular potencia de caldera de gas para vivienda de 100m² con 2.5m de altura y aislamiento medio.",
+      "range_hints": {
+        "area_m2": "Superficie útil de la vivienda a calefaccionar",
+        "altura_m": "Altura libre de techos (afecta volumen a calentar)"
+      },
+      "result_context": "Vivienda de {area_m2}m² con {altura_m}m de altura y aislamiento {aislamiento} requiere caldera de {potencia_kw} kW ({potencia_kcal} kcal/h). Volumen a calentar: {volumen_m3} m³.",
+      "formula_display": "Volumen = área × altura; Potencia = volumen × factor_aislamiento (30-50 W/m³)",
+      "steps": [
+        "Calcular volumen: 100m² × 2.5m = 250m³",
+        "Factor aislamiento medio: 40 W/m³",
+        "Calcular potencia: 250m³ × 40 W/m³ = 10000 W = 10 kW",
+        "Aplicar margen seguridad 20%: 10 kW × 1.20 = 12 kW"
+      ],
+      "mistakes": [
+        "Dimensionar solo por m² sin considerar altura y aislamiento",
+        "No prever potencia adicional para agua caliente sanitaria",
+        "Instalar caldera sobredimensionada (ciclos cortos, menor eficiencia)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "aislamiento",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: opción discreta"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Chaudière Gaz",
+      "desc": "Calculez la puissance de chaudière gaz pour chauffage et ECS selon m², isolation et climat Utilise par des professionnels et etudiants dans le monde.",
+      "seo_title": "Calculateur Chaudière Gaz – kW",
+      "inputs": {
+        "area_m2": "Surface habitation",
+        "altura_m": "Hauteur plafonds",
+        "aislamiento": "Niveau d'isolation"
+      },
+      "outputs": {
+        "vol_m3": "Volume habitation",
+        "kw_calefaccion": "kW chauffage",
+        "kw_acs": "kW ECS",
+        "kw_total": "kW total nécessaire",
+        "modelo_recomendado": "Modèle recommandé"
+      },
+      "seo_description": "Calculez la puissance de chaudière gaz pour chauffage et ECS selon m², isolation et climat Utilise par des professionnels et etudiants dans le monde.",
+      "example_label": "Calculer potencia de caldera de gas pour vivienda de 100m² avec 2.5m de hauteur et isolation medio.",
+      "range_hints": {
+        "area_m2": "surface útil de la vivienda a calefaccionar",
+        "altura_m": "hauteur libre de toits (afecta volume a calentar)"
+      },
+      "result_context": "Vivienda de {area_m2}m² avec {altura_m}m de hauteur et isolation {isolation} nécessite caldera de {potencia_kw} kW ({potencia_kcal} kcal/h). volume a calentar: {volumen_m3} m³.",
+      "formula_display": "volume = área × hauteur; Potencia = volume × factor_aislamiento (30-50 W/m³)",
+      "steps": [
+        "Calculer le volume: 100m² × 2.5m = 250m³",
+        "Factor isolation medio: 40 W/m³",
+        "Calculer potencia: 250m³ × 40 W/m³ = 10000 W = 10 kW",
+        "Aplicar margen seguridad 20%: 10 kW × 1.20 = 12 kW"
+      ],
+      "mistakes": [
+        "Dimensionar solo par m² sans considerar hauteur et isolation",
+        "No prever potencia adicional pour eau caliente sanitaria",
+        "Instalar caldera sobredimensionada (ciclos cortos, menor eficiencia)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "aislamiento",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correct : opción discreta"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Caldeira a Gás",
+      "desc": "Calcule a potência da caldeira a gás para aquecimento e AQS segundo m² e isolamento Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora de Caldeira a Gás – Passo a Passo",
+      "inputs": {
+        "area_m2": "Área da habitação",
+        "altura_m": "Altura de pé-direito",
+        "aislamiento": "Nível de isolamento"
+      },
+      "outputs": {
+        "vol_m3": "Volume habitation",
+        "kw_calefaccion": "kW aquecimento",
+        "kw_acs": "kW AQS",
+        "kw_total": "kW total necessário",
+        "modelo_recomendado": "Modelo recomendado"
+      },
+      "seo_description": "Calcule a potência da caldeira a gás para aquecimento e AQS segundo m² e isolamento Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular potencia de caldera de gas para vivienda de 100m² com 2.5m de altura e isolamento medio.",
+      "range_hints": {
+        "area_m2": "Superficie útil da vivienda a calefaccionar",
+        "altura_m": "Altura libre de telhados (afecta volume a calentar)"
+      },
+      "result_context": "Vivienda de {area_m2}m² com {altura_m}m de altura e isolamento {isolamento} requer caldera de {potencia_kw} kW ({potencia_kcal} kcal/h). Volumen a calentar: {volumen_m3} m³.",
+      "formula_display": "Volumen = área × altura; Potencia = volume × factor_aislamiento (30-50 W/m³)",
+      "steps": [
+        "Calcular volume: 100m² × 2.5m = 250m³",
+        "Factor isolamento médio: 40 W/m³",
+        "Calcular potencia: 250m³ × 40 W/m³ = 10000 W = 10 kW",
+        "Aplicar margen segurança 20%: 10 kW × 1.20 = 12 kW"
+      ],
+      "mistakes": [
+        "Dimensionar solo por m² sem considerar altura e isolamento",
+        "Não prever potencia adicional para água caliente sanitaria",
+        "Instalar caldera sobredimensionada (ciclos cortos, menor eficiência)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "aislamiento",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correto: opção discreta"
+        }
+      ]
+    },
+    "de": {
+      "name": "Gastherme Gas",
+      "desc": "Berechnen Sie gastherme Gas online. Geben Sie area m2, altura m, aislamiento ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Gastherme Gas | CalcToWork",
+      "seo_desc": "Gastherme Gas online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Gastherme Gas online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "area_m2": "Area M2",
+        "altura_m": "Altura M",
+        "aislamiento": "Aislamiento"
+      },
+      "outputs": {
+        "vol_m3": "Vol M3",
+        "kw_calefaccion": "Kw Calefaccion",
+        "kw_acs": "Kw Acs",
+        "kw_total": "Kw Total",
+        "modelo_recomendado": "Modelo Recomendado"
+      },
+      "example_label": "Calcular cal para 100 m² × 2.7 m × medio.",
+      "range_hints": {
+        "area_m2": "Valor típico entre 20 y 2000. Valor por defecto: 100 m².",
+        "altura_m": "Valor típico entre 2.2 y 5. Valor por defecto: 2.7 m.",
+        "aislamiento": "Seleccionar entre las opciones: deficiente, medio, bueno, excelente"
+      },
+      "result_context": "Resultados: {vol_m3} m³ de volumen, {kw_calefaccion} kW de calefacción, {kw_acs} kW de ACS, {kw_total} kW totales, {modelo_recomendado} modelo recomendado.",
+      "formula_display": "A × H → vol_m3, kw_calefaccion",
+      "steps": [
+        "Introducir los valores de area_m2, altura_m y aislamiento",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+        "Calcular los valores de vol m3 y kw calefaccion",
+        "El resultado se expresa en m³. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "No respetar la pendiente mínima del 2% en tuberías de saneamiento",
+        "Usar tubería de pared delgada para instalaciones enterradas",
+        "No instalar válvulas de corte en puntos clave de la instalación"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "aislamiento",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Canale Pluviale",
+      "description": "Dimensiona le grondaie in funzione della superficie e dell'intensità di pioggia.",
+      "seo_title": "Calcolatore Canale Pluviale – Passo dopo Passo",
+      "seo_description": "Calcola il diametro ottimale delle grondaie pluviali Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo rapido,.",
+      "inputs": {
+        "area_cubierta": "Superficie tetto (m²)",
+        "intensidad": "Intensità pioggia (mm/h)"
+      },
+      "outputs": {
+        "caudal_l_s": "Portata (L/s)",
+        "diametro_canaleta": "Diametro grondaia (mm)"
+      },
+      "example_label": "Calcolare potincia di caldira di gas per viviinda di 100m² con 2.5m di altezza e isolaminto medio.",
+      "range_hints": {
+        "area_m2": "Superficie útil dilla viviinda a calefaccionar",
+        "altura_m": "Altura libre di tetti (afecta volume a calintar)"
+      },
+      "result_context": "Viviinda di {area_m2}m² con {altezza_m}m di altezza e isolaminto {isolaminto} richiedi caldira di {potincia_kw} kW ({potincia_kcal} kcal/h). Volumin a calintar: {volume_m3} m³.",
+      "formula_display": "Volumin = área × altezza; Potincia = volume × factor_isolaminto (30-50 W/m³)",
+      "steps": [
+        "Calcolare volume: 100m² × 2.5m = 250m³",
+        "Factor isolaminto medio: 40 W/m³",
+        "Calcolare potincia: 250m³ × 40 W/m³ = 10000 W = 10 kW",
+        "Applicare margin securezza 20%: 10 kW × 1.20 = 12 kW"
+      ],
+      "mistakes": [
+        "Diminseonar solo per m² senza consedirar altezza e isolaminto",
+        "No prever potincia adicional per acqua caliinte sanitaria",
+        "Instalar caldira sudiminseonada (cici cortos, minonre efficiinza)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "altura_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "aislamiento",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Corretto: opción discreta"
+        }
+      ]
+    }
+  }
+}

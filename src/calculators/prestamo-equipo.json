@@ -1,0 +1,463 @@
+{
+  "id": "094",
+  "slug": "prestamo-equipo",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "importe_eur",
+      "type": "number",
+      "min": 500,
+      "max": 500000,
+      "step": 500,
+      "default": 20000,
+      "unit": "â‚¬"
+    },
+    {
+      "id": "tae_pct",
+      "type": "number",
+      "min": 1,
+      "max": 30,
+      "step": 0.1,
+      "default": 6.5,
+      "unit": "% TAE"
+    },
+    {
+      "id": "plazo_meses",
+      "type": "number",
+      "min": 6,
+      "max": 120,
+      "step": 6,
+      "default": 48,
+      "unit": "meses"
+    }
+  ],
+  "formula": "var P=parseFloat(inputs.importe_eur)||0,tae=parseFloat(inputs.tae_pct)||6.5,n=parseFloat(inputs.plazo_meses)||48;if(!P||!n)return{error:true};var r=tae/100/12,cuota=+(P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1)).toFixed(2),total_pag=+(cuota*n).toFixed(2),total_int=+(total_pag-P).toFixed(2);return{cuota_mensual_eur:cuota,total_pagado_eur:total_pag,total_intereses_eur:total_int};",
+  "outputs": [
+    {
+      "id": "cuota_mensual_eur",
+      "unit": "â‚¬/mes",
+      "highlight": true
+    },
+    {
+      "id": "total_pagado_eur",
+      "unit": "â‚¬ total pagado"
+    },
+    {
+      "id": "total_intereses_eur",
+      "unit": "â‚¬ intereses"
+    }
+  ],
+  "related": [
+    "080",
+    "081",
+    "079",
+    "078"
+  ],
+  "example_inputs": {
+    "importe_eur": 20000,
+    "tae_pct": 6.5,
+    "plazo_meses": 48
+  },
+  "example_label": "Calcular préstamo para comprar una miniexcavadora de 20000 € al 6.5% TAE a 48 meses.",
+  "range_hints": {
+    "importe_eur": "Importe a financiar del equipo o maquinaria (€)",
+    "tae_pct": "Tasa Anual Equivalente de la financiera. Compara entre entidades: la TAE incluye todos los gastos (% TAE)",
+    "plazo_meses": "Plazo de amortización del préstamo. Préstamos típicos de 24 a 60 meses para herramientas (meses)"
+  },
+  "result_context": "Resultados: cuota mensual de {cuota_mensual_eur} €/mes, total pagado de {total_pagado_eur} €, total de intereses de {total_intereses_eur} €.",
+  "formula_display": "Cuota = P × [r(1+r)^n] ÷ [(1+r)^n − 1]  (sistema francés)",
+  "steps": [
+    "Define el importe a financiar: coste de adquisición del equipo o maquinaria (hormigonera, miniexcavadora, furgoneta...)",
+    "Introduce la TAE (Tasa Anual Equivalente) de la financiera: entre 5-10% TAE para préstamos de equipos de construcción",
+    "Establece el plazo de financiación en meses: 24-60 meses para herramientas, 48-120 meses para maquinaria pesada",
+    "Aplica la fórmula de amortización francés (cuotas constantes): r = TAE/12, n = plazo en meses",
+    "Calcula el total pagado = cuota × plazo y los intereses totales = total pagado − importe solicitado",
+    "Compara la opción de préstamo con el renting o leasing (cuota mensual sin propiedad final del bien)"
+  ],
+  "mistakes": [
+    "Fijarse solo en la cuota mensual y no en el coste total del préstamo (intereses + comisiones)",
+    "No comparar TAE entre entidades: la TAE incluye comisiones y gastos, es la referencia real del coste",
+    "Elegir plazos demasiado largos: pagas menos al mes pero muchos más intereses totales",
+    "Olvidar que los intereses del préstamo son gasto deducible en la actividad profesional o empresarial",
+    "No considerar que la maquinaria financiada puede amortizarse fiscalmente de forma acelerada (libertad de amortización para pymes)"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "importe_eur",
+      "reason": "Tipo correcto: numérico para el importe del préstamo en €."
+    },
+    {
+      "field_id": "tae_pct",
+      "reason": "Tipo correcto: numérico decimal para la TAE del préstamo."
+    },
+    {
+      "field_id": "plazo_meses",
+      "reason": "Tipo correcto: numérico entero para el plazo de amortización en meses."
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Herramienta eléctrica (24 meses)",
+      "importe_eur": 2000,
+      "tae_pct": 8,
+      "plazo_meses": 24
+    },
+    {
+      "_label": "Furgoneta segunda mano (36 meses)",
+      "importe_eur": 15000,
+      "tae_pct": 7.5,
+      "plazo_meses": 36
+    },
+    {
+      "_label": "Miniexcavadora (48 meses)",
+      "importe_eur": 25000,
+      "tae_pct": 6.5,
+      "plazo_meses": 48
+    },
+    {
+      "_label": "Camión grúa (60 meses)",
+      "importe_eur": 45000,
+      "tae_pct": 6,
+      "plazo_meses": 60
+    },
+    {
+      "_label": "Retroexcavadora (72 meses)",
+      "importe_eur": 60000,
+      "tae_pct": 5.5,
+      "plazo_meses": 72
+    }
+  ],
+  "units": {
+    "tae_pct": "%"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Préstamo de Equipo",
+      "desc": "Calcula la cuota mensual, el total pagado y los intereses de un préstamo para equipos o maquinaria Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora Préstamo Equipo Obra – Cuotas e Intereses",
+      "seo_desc": "Calcula la cuota de tu préstamo para maquinaria de construcción. Introduce importe, TAE y plazo en meses. Sistema de amortización francés. Gratis.",
+      "inputs": {
+        "importe_eur": "Importe del préstamo (€)",
+        "tae_pct": "Tipo de interés TAE (%)",
+        "plazo_meses": "Plazo (meses)"
+      },
+      "outputs": {
+        "cuota_mensual_eur": "Cuota mensual (€)",
+        "total_pagado_eur": "Total pagado (€)",
+        "total_intereses_eur": "Total intereses (€)"
+      },
+      "seo_description": "Calcula la financiación de equipos y maquinaria de construcción. Compara cuotas mensuales, intereses totales y coste total del préstamo. Alternativa al renting y leasing de equipos.",
+      "example_label": "Calcular préstamo para comprar una miniexcavadora de 20000 € al 6.5% TAE a 48 meses.",
+      "range_hints": {
+        "importe_eur": "Valor entre 500 y 500000 €.",
+        "tae_pct": "Valor entre 1 y 30 % TAE.",
+        "plazo_meses": "Valor entre 6 y 120 meses."
+      },
+      "result_context": "Resultados: cuota mensual de {cuota_mensual_eur} €/mes, total pagado de {total_pagado_eur} €, total de intereses de {total_intereses_eur} €.",
+      "formula_display": "Cuota = P × [r(1+r)^n] ÷ [(1+r)^n − 1]  (sistema francés)",
+      "steps": [
+        "Define el importe a financiar: coste de adquisición del equipo o maquinaria (hormigonera, miniexcavadora, furgoneta...)",
+        "Introduce la TAE (Tasa Anual Equivalente) de la financiera: entre 5-10% TAE para préstamos de equipos de construcción",
+        "Establece el plazo de financiación en meses: 24-60 meses para herramientas, 48-120 meses para maquinaria pesada",
+        "Aplica la fórmula de amortización francés (cuotas constantes): r = TAE/12, n = plazo en meses",
+        "Calcula el total pagado = cuota × plazo y los intereses totales = total pagado − importe solicitado",
+        "Compara la opción de préstamo con el renting o leasing (cuota mensual sin propiedad final del bien)"
+      ],
+      "mistakes": [
+        "Fijarse solo en la cuota mensual y no en el coste total del préstamo (intereses + comisiones)",
+        "No comparar TAE entre entidades: la TAE incluye comisiones y gastos, es la referencia real del coste",
+        "Elegir plazos demasiado largos: pagas menos al mes pero muchos más intereses totales",
+        "Olvidar que los intereses del préstamo son gasto deducible en la actividad profesional o empresarial",
+        "No considerar que la maquinaria financiada puede amortizarse fiscalmente de forma acelerada (libertad de amortización para pymes)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "importe_eur",
+          "reason": "Tipo correcto: numérico para el importe del préstamo en €."
+        },
+        {
+          "field_id": "tae_pct",
+          "reason": "Tipo correcto: numérico decimal para la TAE del préstamo."
+        },
+        {
+          "field_id": "plazo_meses",
+          "reason": "Tipo correcto: numérico entero para el plazo de amortización en meses."
+        }
+      ]
+    },
+    "en": {
+      "name": "Equipment Loan Calculator",
+      "desc": "Equipment Loan Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Equipment Loan Calculator – Payments & Interest",
+      "seo_desc": "Calculate your construction equipment loan installment. Enter amount, APR, and term in months. French amortization system. Free.",
+      "inputs": {
+        "importe_eur": "Loan amount (â‚¬)",
+        "tae_pct": "APR (%)",
+        "plazo_meses": "Term (months)"
+      },
+      "outputs": {
+        "cuota_mensual_eur": "Monthly payment (â‚¬)",
+        "total_pagado_eur": "Total paid (â‚¬)",
+        "total_intereses_eur": "Total interest (â‚¬)"
+      },
+      "seo_description": "Calculate financing for construction equipment and machinery. Compare monthly payments, total interest, and total loan cost. Alternative to equipment rental and leasing.",
+      "example_label": "Calcular préstamo para comprar una miniexcavadora de 20000 € al 6.5% TAE a 48 meses.",
+      "range_hints": {
+        "importe_eur": "Valor entre 500 y 500000 â‚¬.",
+        "tae_pct": "Valor entre 1 y 30 % TAE.",
+        "plazo_meses": "Valor entre 6 y 120 meses."
+      },
+      "result_context": "Resultados: cuota mensual de {cuota_mensual_eur} €/mes, total pagado de {total_pagado_eur} €, total de intereses de {total_intereses_eur} €.",
+      "formula_display": "Cuota = P × [r(1+r)^n] ÷ [(1+r)^n − 1]  (sistema francés)",
+      "steps": [
+        "Define el importe a financiar: coste de adquisición del equipo o maquinaria (hormigonera, miniexcavadora, furgoneta...)",
+        "Introduce la TAE (Tasa Anual Equivalente) de la financiera: entre 5-10% TAE para préstamos de equipos de construcción",
+        "Establece el plazo de financiación en meses: 24-60 meses para herramientas, 48-120 meses para maquinaria pesada",
+        "Aplica la fórmula de amortización francés (cuotas constantes): r = TAE/12, n = plazo en meses",
+        "Calcula el total pagado = cuota × plazo y los intereses totales = total pagado − importe solicitado",
+        "Compara la opción de préstamo con el renting o leasing (cuota mensual sin propiedad final del bien)"
+      ],
+      "mistakes": [
+        "Fijarse solo en la cuota mensual y no en el coste total del préstamo (intereses + comisiones)",
+        "No comparar TAE entre entidades: la TAE incluye comisiones y gastos, es la referencia real del coste",
+        "Elegir plazos demasiado largos: pagas menos al mes pero muchos más intereses totales",
+        "Olvidar que los intereses del préstamo son gasto deducible en la actividad profesional o empresarial",
+        "No considerar que la maquinaria financiada puede amortizarse fiscalmente de forma acelerada (libertad de amortización para pymes)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "importe_eur",
+          "reason": "Tipo correcto: numérico para el importe del préstamo en €."
+        },
+        {
+          "field_id": "tae_pct",
+          "reason": "Tipo correcto: numérico decimal para la TAE del préstamo."
+        },
+        {
+          "field_id": "plazo_meses",
+          "reason": "Tipo correcto: numérico entero para el plazo de amortización en meses."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Crédit Équipement",
+      "desc": "Calculez la mensualité, le total payé et les intérêts d'un crédit pour équipements et matériel. Calculatrice facile a utiliser avec decomposition de la.",
+      "seo_title": "Calculateur Crédit Équipement – Calcul Facile",
+      "inputs": {
+        "importe_eur": "Montant du crédit (€)",
+        "tae_pct": "Taux annuel effectif global (%)",
+        "plazo_meses": "Durée (mois)"
+      },
+      "outputs": {
+        "cuota_mensual_eur": "Mensualité (€)",
+        "total_pagado_eur": "Total payé (€)",
+        "total_intereses_eur": "Total intérêts (€)"
+      },
+      "seo_description": "Calculez la mensualité, le total payé et les intérêts d'un crédit pour équipements et matériel. Calculatrice facile a utiliser avec decomposition de la.",
+      "example_label": "Calcular préstamo para comprar una miniexcavadora de 20000 € al 6.5% TAE a 48 meses.",
+      "range_hints": {
+        "importe_eur": "Valor entre 500 et 500000 €.",
+        "tae_pct": "Valor entre 1 et 30 % TAE.",
+        "plazo_meses": "Valor entre 6 et 120 meses."
+      },
+      "result_context": "Resultados: cuota mensual de {cuota_mensual_eur} €/mes, total pagado de {total_pagado_eur} €, total de intereses de {total_intereses_eur} €.",
+      "formula_display": "Cuota = P × [r(1+r)^n] ÷ [(1+r)^n − 1]  (sistema francés)",
+      "steps": [
+        "Define el importe a financiar: coste de adquisición del equipo o maquinaria (hormigonera, miniexcavadora, furgoneta...)",
+        "Introduce la TAE (Tasa Anual Equivalente) de la financiera: entre 5-10% TAE para préstamos de equipos de construcción",
+        "Establece el plazo de financiación en meses: 24-60 meses para herramientas, 48-120 meses para maquinaria pesada",
+        "Aplica la fórmula de amortización francés (cuotas constantes): r = TAE/12, n = plazo en meses",
+        "Calcula el total pagado = cuota × plazo y los intereses totales = total pagado − importe solicitado",
+        "Compara la opción de préstamo con el renting o leasing (cuota mensual sin propiedad final del bien)"
+      ],
+      "mistakes": [
+        "Fijarse solo en la cuota mensual y no en el coste total del préstamo (intereses + comisiones)",
+        "No comparar TAE entre entidades: la TAE incluye comisiones y gastos, es la referencia real del coste",
+        "Elegir plazos demasiado largos: pagas menos al mes pero muchos más intereses totales",
+        "Olvidar que los intereses del préstamo son gasto deducible en la actividad profesional o empresarial",
+        "No considerar que la maquinaria financiada puede amortizarse fiscalmente de forma acelerada (libertad de amortización para pymes)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "importe_eur",
+          "reason": "Tipo correcto: numérico para el importe del préstamo en €."
+        },
+        {
+          "field_id": "tae_pct",
+          "reason": "Tipo correcto: numérico decimal para la TAE del préstamo."
+        },
+        {
+          "field_id": "plazo_meses",
+          "reason": "Tipo correcto: numérico entero para el plazo de amortización en meses."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Financiamento de Equipamento",
+      "desc": "Calcule a parcela mensal, total pago e juros de um financiamento para equipamentos. Calculadora facil de usar com detalhamento da formula.",
+      "seo_title": "Calculadora Financiamento Equipamento",
+      "inputs": {
+        "importe_eur": "Valor do financiamento (R$)",
+        "tae_pct": "Taxa de juros anual (%)",
+        "plazo_meses": "Prazo (meses)"
+      },
+      "outputs": {
+        "cuota_mensual_eur": "Parcela mensal (R$)",
+        "total_pagado_eur": "Total pago (R$)",
+        "total_intereses_eur": "Total juros (R$)"
+      },
+      "seo_description": "Calcule a parcela mensal, total pago e juros de um financiamento para equipamentos. Calculadora facil de usar com detalhamento da formula.",
+      "example_label": "Calcular préstamo para comprar una miniexcavadora de 20000 € al 6.5% TAE a 48 meses.",
+      "range_hints": {
+        "importe_eur": "Valor entre 500 e 500000 €.",
+        "tae_pct": "Valor entre 1 e 30 % TAE.",
+        "plazo_meses": "Valor entre 6 e 120 meses."
+      },
+      "result_context": "Resultados: cuota mensual de {cuota_mensual_eur} €/mes, total pagado de {total_pagado_eur} €, total de intereses de {total_intereses_eur} €.",
+      "formula_display": "Cuota = P × [r(1+r)^n] ÷ [(1+r)^n − 1]  (sistema francés)",
+      "steps": [
+        "Define el importe a financiar: coste de adquisición del equipo o maquinaria (hormigonera, miniexcavadora, furgoneta...)",
+        "Introduce la TAE (Tasa Anual Equivalente) de la financiera: entre 5-10% TAE para préstamos de equipos de construcción",
+        "Establece el plazo de financiación en meses: 24-60 meses para herramientas, 48-120 meses para maquinaria pesada",
+        "Aplica la fórmula de amortización francés (cuotas constantes): r = TAE/12, n = plazo en meses",
+        "Calcula el total pagado = cuota × plazo y los intereses totales = total pagado − importe solicitado",
+        "Compara la opción de préstamo con el renting o leasing (cuota mensual sin propiedad final del bien)"
+      ],
+      "mistakes": [
+        "Fijarse solo en la cuota mensual y no en el coste total del préstamo (intereses + comisiones)",
+        "No comparar TAE entre entidades: la TAE incluye comisiones y gastos, es la referencia real del coste",
+        "Elegir plazos demasiado largos: pagas menos al mes pero muchos más intereses totales",
+        "Olvidar que los intereses del préstamo son gasto deducible en la actividad profesional o empresarial",
+        "No considerar que la maquinaria financiada puede amortizarse fiscalmente de forma acelerada (libertad de amortización para pymes)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "importe_eur",
+          "reason": "Tipo correcto: numérico para el importe del préstamo en €."
+        },
+        {
+          "field_id": "tae_pct",
+          "reason": "Tipo correcto: numérico decimal para la TAE del préstamo."
+        },
+        {
+          "field_id": "plazo_meses",
+          "reason": "Tipo correcto: numérico entero para el plazo de amortización en meses."
+        }
+      ]
+    },
+    "de": {
+      "name": "Darlehensrechner equipo",
+      "desc": "Berechnen Sie darlehensrechner equipo online. Geben Sie importe eur, tae pct, plazo meses ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Darlehensrechner equipo | CalcToWork",
+      "seo_desc": "Darlehensrechner equipo online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Darlehensrechner equipo online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "importe_eur": "Importe Eur",
+        "tae_pct": "Tae Pct",
+        "plazo_meses": "Plazo Meses"
+      },
+      "outputs": {
+        "cuota_mensual_eur": "Cuota Mensual Eur",
+        "total_pagado_eur": "Total Pagado Eur",
+        "total_intereses_eur": "Total Intereses Eur"
+      },
+      "example_label": "Calcular préstamo para comprar una miniexcavadora de 20000 € al 6.5% TAE a 48 meses.",
+      "range_hints": {
+        "importe_eur": "Importe a financiar del equipo o maquinaria (€)",
+        "tae_pct": "Tasa Anual Equivalente de la financiera. Compara entre entidades: la TAE incluye todos los gastos (% TAE)",
+        "plazo_meses": "Plazo de amortización del préstamo. Préstamos típicos de 24 a 60 meses para herramientas (meses)"
+      },
+      "result_context": "Resultados: cuota mensual de {cuota_mensual_eur} €/mes, total pagado de {total_pagado_eur} €, total de intereses de {total_intereses_eur} €.",
+      "formula_display": "Cuota = P × [r(1+r)^n] ÷ [(1+r)^n − 1]  (sistema francés)",
+      "steps": [
+        "Define el importe a financiar: coste de adquisición del equipo o maquinaria (hormigonera, miniexcavadora, furgoneta...)",
+        "Introduce la TAE (Tasa Anual Equivalente) de la financiera: entre 5-10% TAE para préstamos de equipos de construcción",
+        "Establece el plazo de financiación en meses: 24-60 meses para herramientas, 48-120 meses para maquinaria pesada",
+        "Aplica la fórmula de amortización francés (cuotas constantes): r = TAE/12, n = plazo en meses",
+        "Calcula el total pagado = cuota × plazo y los intereses totales = total pagado − importe solicitado",
+        "Compara la opción de préstamo con el renting o leasing (cuota mensual sin propiedad final del bien)"
+      ],
+      "mistakes": [
+        "Fijarse solo en la cuota mensual y no en el coste total del préstamo (intereses + comisiones)",
+        "No comparar TAE entre entidades: la TAE incluye comisiones y gastos, es la referencia real del coste",
+        "Elegir plazos demasiado largos: pagas menos al mes pero muchos más intereses totales",
+        "Olvidar que los intereses del préstamo son gasto deducible en la actividad profesional o empresarial",
+        "No considerar que la maquinaria financiada puede amortizarse fiscalmente de forma acelerada (libertad de amortización para pymes)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "importe_eur",
+          "reason": "Tipo correcto: numérico para el importe del préstamo en €."
+        },
+        {
+          "field_id": "tae_pct",
+          "reason": "Tipo correcto: numérico decimal para la TAE del préstamo."
+        },
+        {
+          "field_id": "plazo_meses",
+          "reason": "Tipo correcto: numérico entero para el plazo de amortización en meses."
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Impronta di Carbonio",
+      "description": "Stima le emissioni di CO₂ dei materiali da costruzione.",
+      "seo_title": "Calcolatore Finanziamento Attrezzatura",
+      "seo_description": "Calcola l'impronta di carbonio dei materiali da costruzione Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo.",
+      "inputs": {
+        "cemento_ton": "Cemento (t)",
+        "acero_ton": "Acciaio (t)",
+        "madera_m3": "Legno (m³)",
+        "importe_eur": "importe eur (â‚¬)",
+        "tae_pct": "tae pct (% TAE)",
+        "plazo_meses": "plazo meses (meses)"
+      },
+      "outputs": {
+        "co2_ton": "CO₂ totale (t)",
+        "co2_equivalente": "Equivalente automobili/anno",
+        "cuota_mensual_eur": "cuota mensual eur (â‚¬/mes)",
+        "total_pagado_eur": "total pagado eur (â‚¬ total pagado)",
+        "total_intereses_eur": "total intereses eur (â‚¬ intereses)"
+      },
+      "example_label": "Calcular préstamo para comprar una miniexcavadora de 20000 € al 6.5% TAE a 48 meses.",
+      "range_hints": {
+        "importe_eur": "Valor intre 500 e 500000 €.",
+        "tae_pct": "Valor intre 1 e 30 % TAE.",
+        "plazo_meses": "Valor intre 6 e 120 mesei."
+      },
+      "result_context": "Resultados: cuota mensual de {cuota_mensual_eur} €/mes, total pagado de {total_pagado_eur} €, total de intereses de {total_intereses_eur} €.",
+      "formula_display": "Cuota = P × [r(1+r)^n] ÷ [(1+r)^n − 1]  (sistema francés)",
+      "steps": [
+        "Define el importe a financiar: coste de adquisición del equipo o maquinaria (hormigonera, miniexcavadora, furgoneta...)",
+        "Introduce la TAE (Tasa Anual Equivalente) de la financiera: entre 5-10% TAE para préstamos de equipos de construcción",
+        "Establece el plazo de financiación en meses: 24-60 meses para herramientas, 48-120 meses para maquinaria pesada",
+        "Aplica la fórmula de amortización francés (cuotas constantes): r = TAE/12, n = plazo en meses",
+        "Calcula el total pagado = cuota × plazo y los intereses totales = total pagado − importe solicitado",
+        "Compara la opción de préstamo con el renting o leasing (cuota mensual sin propiedad final del bien)"
+      ],
+      "mistakes": [
+        "Fijarse solo en la cuota mensual y no en el coste total del préstamo (intereses + comisiones)",
+        "No comparar TAE entre entidades: la TAE incluye comisiones y gastos, es la referencia real del coste",
+        "Elegir plazos demasiado largos: pagas menos al mes pero muchos más intereses totales",
+        "Olvidar que los intereses del préstamo son gasto deducible en la actividad profesional o empresarial",
+        "No considerar que la maquinaria financiada puede amortizarse fiscalmente de forma acelerada (libertad de amortización para pymes)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "importe_eur",
+          "reason": "Tipo correcto: numérico para el importe del préstamo en €."
+        },
+        {
+          "field_id": "tae_pct",
+          "reason": "Tipo correcto: numérico decimal para la TAE del préstamo."
+        },
+        {
+          "field_id": "plazo_meses",
+          "reason": "Tipo correcto: numérico entero para el plazo de amortización en meses."
+        }
+      ],
+      "desc": "Calcola la rata mensile, il totale pagato e gli interessi di un prestito per acquistare macchinari edili."
+    }
+  }
+}

@@ -1,0 +1,495 @@
+{
+  "id": "011",
+  "slug": "ladrillo-hueco",
+  "block": 2,
+  "block_slug": "mamposteria",
+  "inputs": [
+    {
+      "id": "largo",
+      "type": "number",
+      "min": 0.5,
+      "max": 200,
+      "step": 0.1,
+      "default": 8,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "alto",
+      "type": "number",
+      "min": 0.5,
+      "max": 10,
+      "step": 0.1,
+      "default": 2.8,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "descontar_huecos",
+      "type": "number",
+      "min": 0,
+      "max": 50,
+      "step": 0.1,
+      "default": 2.5,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.largo)||0,H=parseFloat(inputs.alto)||0,huecos=parseFloat(inputs.descontar_huecos)||0;if(!L||!H)return{error:true};var area_bruta=L*H,area_neta=Math.max(0,area_bruta-huecos),ladrillos=Math.ceil(area_neta*32*1.05),mortero=+(area_neta*8).toFixed(1);return{area_bruta:+area_bruta.toFixed(2),area_neta:+area_neta.toFixed(2),ladrillos_ud:ladrillos,mortero_kg:mortero};",
+  "outputs": [
+    {
+      "id": "area_bruta",
+      "unit": "m²"
+    },
+    {
+      "id": "area_neta",
+      "unit": "m²",
+      "highlight": true
+    },
+    {
+      "id": "ladrillos_ud",
+      "unit": "uds (+5% merma)"
+    },
+    {
+      "id": "mortero_kg",
+      "unit": "kg"
+    }
+  ],
+  "related": [
+    "012",
+    "013",
+    "017",
+    "014"
+  ],
+  "example_inputs": {
+    "largo": 8,
+    "alto": 2.8,
+    "descontar_huecos": 2.5
+  },
+  "example_label": "Calcular ladrillos para 8 m × 2.8 m × 2.5 m².",
+  "range_hints": {
+    "largo": "Valor típico entre 0.5 y 200. Valor por defecto: 8 m.",
+    "alto": "Valor típico entre 0.5 y 10. Valor por defecto: 2.8 m.",
+    "descontar_huecos": "Valor típico entre 0 y 50. Valor por defecto: 2.5 m²."
+  },
+  "result_context": "Resultados: {area_bruta} m² de área bruta, {area_neta} m² de área neta, {ladrillos_ud} ladrillos, {mortero_kg} kg de mortero.",
+  "formula_display": "Ladrillos = área ÷ área_ladrillo × desperdicio",
+  "steps": [
+    "Calcular área del muro",
+    "Calcular área de un ladrillo con junta",
+    "Dividir área muro por área ladrillo",
+    "Agregar 5-10% de desperdicio",
+    "Calcular mortero necesario"
+  ],
+  "mistakes": [
+    "No dejar juntas de dilatación",
+    "Mortero con demasiada arena",
+    "No humedecer ladrillos en clima seco"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "largo",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "alto",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "descontar_huecos",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "diagram": "wall",
+  "standard": "EN 1996-1-1 (Eurocode 6)",
+  "comparison_presets": [
+    {
+      "largo": 5,
+      "alto": 2.5,
+      "descontar_huecos": 0
+    },
+    {
+      "largo": 8,
+      "alto": 2.5,
+      "descontar_huecos": 0
+    },
+    {
+      "largo": 10,
+      "alto": 2.7,
+      "descontar_huecos": 2
+    },
+    {
+      "largo": 15,
+      "alto": 2.7,
+      "descontar_huecos": 4
+    },
+    {
+      "largo": 20,
+      "alto": 3,
+      "descontar_huecos": 6
+    }
+  ],
+  "units": {
+    "largo": "m",
+    "alto": "m",
+    "descontar_huecos": "m²"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Ladrillo Hueco",
+      "desc": "Calcula ladrillos y mortero para tabiques y fachadas.",
+      "seo_title": "¿Cuántos Ladrillos Necesito? Online",
+      "inputs": {
+        "largo": "Longitud pared",
+        "alto": "Altura pared",
+        "descontar_huecos": "Descontar huecos (puertas/ventanas)"
+      },
+      "outputs": {
+        "area_bruta": "Área bruta",
+        "area_neta": "Área neta",
+        "ladrillos_ud": "Ladrillos",
+        "mortero_kg": "Mortero"
+      },
+      "seo_description": "Calcula el número de ladrillos huecos y mortero necesario para tabiques y cerramientos. Incluye factor de merma. Introduce tus valores y obtiene.",
+      "example_label": "Calcular ladrillos huecos para un muro de 8m × 2.8m descontando 2.5m² de huecos (puertas/ventanas).",
+      "range_hints": {
+        "largo": "Longitud total del muro",
+        "alto": "Altura libre del muro (techo o losa)",
+        "descontar_huecos": "Sumar área de todas las aberturas a descontar"
+      },
+      "result_context": "Para un muro de {area_bruta} m² brutos ({area_neta} m² netos) se necesitan {ladrillos_ud} ladrillos huecos y {mortero_kg} kg de mortero de agarre.",
+      "formula_display": "Área_bruta = largo × alto; Área_neta = área_bruta - huecos; Ladrillos = área_neta × 32 ud/m²",
+      "steps": [
+        "Calcular área bruta del muro: 8m × 2.8m = 22.4m²",
+        "Descontar huecos: 22.4m² - 2.5m² = 19.9m² de área neta",
+        "Calcular ladrillos: 19.9m² × 32 ud/m² × 1.05 (merma) = 669 ladrillos",
+        "Calcular mortero: 19.9m² × 8 kg/m² = 159 kg de mortero"
+      ],
+      "mistakes": [
+        "No descontar huecos de puertas y ventanas del cálculo",
+        "No considerar merma del 5-10% por cortes y roturas",
+        "Usar rendimiento incorrecto según tamaño del ladrillo (12×24×5cm ≈ 32 ud/m²)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "alto",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "descontar_huecos",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Hollow Brick Calculator",
+      "desc": "Hollow Brick Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "How Many Bricks Do I Need? – Calculator",
+      "inputs": {
+        "largo": "Wall length",
+        "alto": "Wall height",
+        "descontar_huecos": "Deduct openings (doors/windows)"
+      },
+      "outputs": {
+        "area_bruta": "Gross area",
+        "area_neta": "Net area",
+        "ladrillos_ud": "Bricks",
+        "mortero_kg": "Mortar"
+      },
+      "seo_description": "Calculate the number of hollow bricks and mortar needed for partition walls and facades. Includes waste factor. Enter your values and get precise results.",
+      "example_label": "Calcular ladrillos huecos para un muro de 8m × 2.8m descontando 2.5m² de huecos (puertas/ventanas).",
+      "range_hints": {
+        "largo": "Longitud total del muro",
+        "alto": "Altura libre del muro (techo o losa)",
+        "descontar_huecos": "Sumar área de todas las aberturas a descontar"
+      },
+      "result_context": "Para un muro de {area_bruta} m² brutos ({area_neta} m² netos) se necesitan {ladrillos_ud} ladrillos huecos y {mortero_kg} kg de mortero de agarre.",
+      "formula_display": "Área_bruta = largo × alto; Área_neta = área_bruta - huecos; Ladrillos = área_neta × 32 ud/m²",
+      "steps": [
+        "Calcular área bruta del muro: 8m × 2.8m = 22.4m²",
+        "Descontar huecos: 22.4m² - 2.5m² = 19.9m² de área neta",
+        "Calcular ladrillos: 19.9m² × 32 ud/m² × 1.05 (merma) = 669 ladrillos",
+        "Calcular mortero: 19.9m² × 8 kg/m² = 159 kg de mortero"
+      ],
+      "mistakes": [
+        "No descontar huecos de puertas y ventanas del cálculo",
+        "No considerar merma del 5-10% por cortes y roturas",
+        "Usar rendimiento incorrecto según tamaño del ladrillo (12×24×5cm â‰ˆ 32 ud/m²)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "descontar_huecos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Brique Creuse",
+      "desc": "Calculez le nombre de briques creuses et de mortier pour cloisons et façades Utilise par des professionnels et etudiants dans le monde entier.",
+      "seo_title": "Combien de Briques? – Calculateur",
+      "inputs": {
+        "largo": "Longueur mur",
+        "alto": "Hauteur mur",
+        "descontar_huecos": "Déduire ouvertures (portes/fenêtres)"
+      },
+      "outputs": {
+        "area_bruta": "Surface brute",
+        "area_neta": "Surface nette",
+        "ladrillos_ud": "Briques",
+        "mortero_kg": "Mortier"
+      },
+      "seo_description": "Calculez le nombre de briques creuses et de mortier pour cloisons et façades Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calculer briques huecos pour un mur de 8m × 2.8m descontando 2.5m² de huecos (portes/fenêtres).",
+      "range_hints": {
+        "largo": "Longueur totale du mur",
+        "alto": "hauteur libre du mur (toit o dalle)",
+        "descontar_huecos": "Sumar área de toutes les aberturas a descontar"
+      },
+      "result_context": "pour un mur de {area_bruta} m² brutos ({area_neta} m² netos) se necesitan {ladrillos_ud} briques huecos et {mortero_kg} kg de mortier de agarre.",
+      "formula_display": "Área_bruta = longueur × alto; Área_neta = área_bruta - huecos; briques = área_neta × 32 ud/m²",
+      "steps": [
+        "Calculer área bruta du mur: 8m × 2.8m = 22.4m²",
+        "Descontar huecos: 22.4m² - 2.5m² = 19.9m² de surface neta",
+        "Calculer briques: 19.9m² × 32 ud/m² × 1.05 (merma) = 669 briques",
+        "Calculer mortier: 19.9m² × 8 kg/m² = 159 kg de mortier"
+      ],
+      "mistakes": [
+        "No descontar huecos de portes et fenêtres du cálculo",
+        "Ne pas considérer merma du 5-10% par cortes et roturas",
+        "Utiliser rendimiento incorrecto selon tamaño du brique (12×24×5cm â‰ˆ 32 ud/m²)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "descontar_huecos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Tijolos Furados",
+      "desc": "Calcule o número de tijolos furados e argamassa para divisórias e fachadas. Inclui fator de perda Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Quantos Tijolos Preciso? Online",
+      "inputs": {
+        "largo": "Comprimento parede",
+        "alto": "Altura parede",
+        "descontar_huecos": "Descontar vãos (portas/janelas)"
+      },
+      "outputs": {
+        "area_bruta": "Área bruta",
+        "area_neta": "Área líquida",
+        "ladrillos_ud": "Tijolos",
+        "mortero_kg": "Argamassa"
+      },
+      "seo_description": "Calcule o número de tijolos furados e argamassa para divisórias e fachadas. Inclui fator de perda Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular tijolos huecos para um muro de 8m × 2.8m descontando 2.5m² de huecos (puertas/ventanas).",
+      "range_hints": {
+        "largo": "Longitud total do muro",
+        "alto": "Altura libre do muro (telhado o laje)",
+        "descontar_huecos": "Sumar área de todas as aberturas a descontar"
+      },
+      "result_context": "Para um muro de {area_bruta} m² brutos ({area_neta} m² netos) são necessários {ladrillos_ud} tijolos huecos e {mortero_kg} kg de argamassa de agarre.",
+      "formula_display": "Área_bruta = comprimento × alto; Área_neta = área_bruta - huecos; Ladrillos = área_neta × 32 ud/m²",
+      "steps": [
+        "Calcular área bruta do muro: 8m × 2.8m = 22.4m²",
+        "Descontar huecos: 22.4m² - 2.5m² = 19.9m² de área neta",
+        "Calcular tijolos: 19.9m² × 32 ud/m² × 1.05 (merma) = 669 tijolos",
+        "Calcular argamassa: 19.9m² × 8 kg/m² = 159 kg de argamassa"
+      ],
+      "mistakes": [
+        "Não descontar huecos de portas e janelas do cálculo",
+        "Não considerar merma do 5-10% por cortes e roturas",
+        "Usar desempenho incorrecto segundo tamaño do tijolo (12×24×5cm â‰ˆ 32 ud/m²)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "descontar_huecos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Ziegel Lochziegel",
+      "desc": "Berechnen Sie ziegel Lochziegel online. Geben Sie largo, alto, descontar huecos ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Ziegel Lochziegel | CalcToWork",
+      "seo_desc": "Ziegel Lochziegel online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Ziegel Lochziegel online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "largo": "Largo",
+        "alto": "Alto",
+        "descontar_huecos": "Descontar Huecos"
+      },
+      "outputs": {
+        "area_bruta": "Area Bruta",
+        "area_neta": "Area Neta",
+        "ladrillos_ud": "Ladrillos Ud",
+        "mortero_kg": "Mortero Kg"
+      },
+      "example_label": "Calcular ladrillos para 8 m × 2.8 m × 2.5 m².",
+      "range_hints": {
+        "largo": "Valor típico entre 0.5 y 200. Valor por defecto: 8 m.",
+        "alto": "Valor típico entre 0.5 y 10. Valor por defecto: 2.8 m.",
+        "descontar_huecos": "Valor típico entre 0 y 50. Valor por defecto: 2.5 m²."
+      },
+      "result_context": "Resultados: {area_bruta} m² de área bruta, {area_neta} m² de área neta, {ladrillos_ud} ladrillos, {mortero_kg} kg de mortero.",
+      "formula_display": "Ladrillos = área ÷ área_ladrillo × desperdicio",
+      "steps": [
+        "Calcular área del muro",
+        "Calcular área de un ladrillo con junta",
+        "Dividir área muro por área ladrillo",
+        "Agregar 5-10% de desperdicio",
+        "Calcular mortero necesario"
+      ],
+      "mistakes": [
+        "No dejar juntas de dilatación",
+        "Mortero con demasiada arena",
+        "No humedecer ladrillos en clima seco"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "descontar_huecos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Mattoni",
+      "description": "Calcola il numero di mattoni e la malta necessaria per muri.",
+      "seo_title": "Quanti Mattoni Servono? Online",
+      "seo_description": "Calcola quanti mattoni e quanta malta servono per costruire un muro Usato da professionisti e studenti in tutto il mondo.",
+      "inputs": {
+        "largo": "Lunghezza muro (m)",
+        "alto": "Altezza muro (m)",
+        "espesor": "Spessore muro (m)"
+      },
+      "outputs": {
+        "ladrillos": "Mattoni necessari",
+        "mortero_m3": "Malta (m³)",
+        "cemento_sacos": "Sacchi cemento",
+        "arena_m3": "Sabbia (m³)"
+      },
+      "example_label": "Calcolare mattoni huecos per un muro di 8m × 2.8m disconcosìdo 2.5m² di huecos (perte/finestre).",
+      "range_hints": {
+        "largo": "Longitud totale dil muro",
+        "alto": "Altura libre dil muro (soffitto o letra)",
+        "descontar_huecos": "Sommmare área di todas le aberturas a discontar"
+      },
+      "result_context": "Per un muro di {area_bruta} m² brutos ({area_neta} m² netos) sonon necessari {mattoni_ud} mattoni huecos e {mortero_kg} kg di mortero di agarre.",
+      "formula_display": "Área_bruta = lunghezza × alto; Área_neta = área_bruta - huecos; Ladrili = área_neta × 32 ud/m²",
+      "steps": [
+        "Calcolare área bruta dil muro: 8m × 2.8m = 22.4m²",
+        "Descontar huecos: 22.4m² - 2.5m² = 19.9m² di área neta",
+        "Calcolare mattoni: 19.9m² × 32 ud/m² × 1.05 (merma) = 669 mattoni",
+        "Calcolare mortero: 19.9m² × 8 kg/m² = 159 kg di mortero"
+      ],
+      "mistakes": [
+        "No discontar huecos di perte e finestre dil cálculo",
+        "Non consedirare merma dil 5-10% per taglios e roturas",
+        "Usare rindimiinto incorrecto según tamaño dil mattone (12×24×5cm ≈ 32 ud/m²)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "alto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "descontar_huecos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        }
+      ]
+    }
+  }
+}

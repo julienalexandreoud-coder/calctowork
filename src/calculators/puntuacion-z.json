@@ -1,0 +1,368 @@
+{
+  "id": "609",
+  "slug": "puntuacion-z",
+  "block": 14,
+  "block_slug": "estadistica",
+  "inputs": [
+    {
+      "id": "valor",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 75,
+      "unit": ""
+    },
+    {
+      "id": "media",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 70,
+      "unit": ""
+    },
+    {
+      "id": "desviacion",
+      "type": "number",
+      "min": 0.001,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 10,
+      "unit": ""
+    }
+  ],
+  "formula": "var x=parseFloat(inputs.valor)||0,m=parseFloat(inputs.media)||0,s=parseFloat(inputs.desviacion)||0;if(!s)return{error:true};var z=(x-m)/s;function erf(t){var a1=.254829592,a2=-.284496736,a3=1.421413741,a4=-1.453152027,a5=1.061405429,p=.3275911,sg=t<0?-1:1;t=Math.abs(t);var u=1/(1+p*t);return sg*(1-(((((a5*u+a4)*u)+a3)*u+a2)*u+a1)*u*Math.exp(-t*t));}return{z_score:+z.toFixed(4),porcentil:+(0.5*(1+erf(z/Math.sqrt(2)))*100).toFixed(2)};",
+  "outputs": [
+    {
+      "id": "z_score",
+      "unit": "",
+      "highlight": true
+    },
+    {
+      "id": "porcentil",
+      "unit": "%"
+    }
+  ],
+  "related": [
+    "602",
+    "606",
+    "600",
+    "958"
+  ],
+  "example_inputs": {
+    "valor": 75,
+    "media": 70,
+    "desviacion": 10
+  },
+  "example_label": "Ejemplo para puntuacion z: valores 75, 70, 10",
+  "range_hints": {
+    "valor": "Introduce el valor de valor. Valor sugerido: 75",
+    "media": "Introduce el valor de media. Valor sugerido: 70",
+    "desviacion": "Introduce el valor de desviacion. Valor sugerido: 10"
+  },
+  "result_context": "La puntuación Z es {z_score}, que corresponde al percentil {porcentil}.",
+  "result_context_en": "The Z-score is {z_score}, which corresponds to the {porcentil} percentile.",
+  "result_context_fr": "Le score Z est de {z_score}, ce qui correspond au {porcentil}e percentile.",
+  "result_context_pt": "A pontuação Z é {z_score}, que corresponde ao percentil {porcentil}.",
+  "result_context_de": "Der Z-Wert beträgt {z_score}, was dem {porcentil}. Perzentil entspricht.",
+  "result_context_it": "Il punteggio Z è {z_score}, che corrisponde al {porcentil}° percentile.",
+  "formula_display": "z ÷ Math → z_score, porcentil",
+  "steps": [
+    "Introducir los valores de valor, media y desviacion",
+    "Verificar que los valores introducidos están en el rango y formato correctos",
+    "Calcular los valores de z score y porcentil",
+    "Verificar que el resultado es coherente con los valores de entrada",
+    "El resultado puede usarse como dato intermedio para cálculos posteriores más complejos"
+  ],
+  "mistakes": [
+    "Confundir media con mediana en distribuciones asimétricas",
+    "Usar la desviación estándar de la muestra (n-1) para datos de población (n)",
+    "Interpretar correlación como causalidad"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "valor",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "media",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "desviacion",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Muestra pequena",
+      "valor": 30.0,
+      "media": 28.0,
+      "desviacion": 4.0
+    },
+    {
+      "_label": "Datos uniformes",
+      "valor": 52.5,
+      "media": 49.0,
+      "desviacion": 7.0
+    },
+    {
+      "_label": "Datos dispersos",
+      "valor": 75.0,
+      "media": 70.0,
+      "desviacion": 10.0
+    },
+    {
+      "_label": "Muestra grande",
+      "valor": 112.5,
+      "media": 105.0,
+      "desviacion": 15.0
+    },
+    {
+      "_label": "Valores atipicos",
+      "valor": 187.5,
+      "media": 175.0,
+      "desviacion": 25.0
+    }
+  ],
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Puntuación Z (Z-score)",
+      "desc": "Calcula z = (x - μ) / σ. Ejemplo: Nota 85, media de clase 70, desviación 10 = z = 1,5 (1,5 desviaciones sobre la media). Calculadora gratuita y precisa, sin...",
+      "description": "Calculadora Puntuacion Z",
+      "seo_title": "Calculadora Puntuacion Z Online Gratis",
+      "seo_description": "Calcula z = (x - μ) / σ. Ejemplo: Nota 85, media de clase 70, desviación 10 = z = 1,5 (1,5 desviaciones sobre la media). Calculadora gratuita y precisa, sin...",
+      "inputs": {
+        "valor": "Valor",
+        "media": "Media muestral",
+        "desviacion": "Desviación estándar"
+      },
+      "outputs": {
+        "z_score": "Puntuación Z",
+        "porcentil": "Percentil"
+      },
+      "example_label": "Calcular puntuación estándar Z",
+      "range_hints": {
+        "valor": "0-1,000,000,000,000",
+        "media": "0-1,000,000,000,000",
+        "desviacion": "0.001-1,000,000,000,000"
+      },
+      "result_context": "La puntuación Z indica cuántas desviaciones estándar está un valor de la media.",
+      "formula_display": "z = (x - μ) / σ",
+      "steps": [
+        "Restar la media del valor observado",
+        "Dividir entre la desviación estándar",
+        "Interpretar: positivo = sobre media, negativo = bajo media"
+      ],
+      "mistakes": [
+        "Desviación estándar en cero",
+        "No interpretar correctamente el signo",
+        "Usar con distribución no normal"
+      ],
+      "input_type_review": []
+    },
+    "en": {
+      "name": "Z Score Calculator",
+      "desc": "Z Score Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Z Score Calculator",
+      "seo_title": "Z Score Calculator – Free Online Tool",
+      "seo_description": "Calculate z = (x - μ) / Ïƒ. Example: Score 85, class mean 70, SD 10 = z = 1.5 (1.5 std deviations above mean). Free and accurate calculator, no signup needed.",
+      "inputs": {
+        "valor": "Value",
+        "media": "Sample mean",
+        "desviacion": "Standard deviation"
+      },
+      "outputs": {
+        "z_score": "Z-score",
+        "porcentil": "Percentile"
+      },
+      "example_label": "Calcular puntuación estándar Z",
+      "range_hints": {
+        "valor": "0-1,000,000,000,000",
+        "media": "0-1,000,000,000,000",
+        "desviacion": "0.001-1,000,000,000,000"
+      },
+      "result_context": "La puntuación Z indica cuántas desviaciones estándar está un valor de la media.",
+      "formula_display": "z = (x - μ) / Ïƒ",
+      "steps": [
+        "Restar la media del valor observado",
+        "Dividir entre la desviación estándar",
+        "Interpretar: positivo = sobre media, negativo = bajo media"
+      ],
+      "mistakes": [
+        "Desviación estándar en cero",
+        "No interpretar correctamente el signo",
+        "Usar con distribución no normal"
+      ],
+      "input_type_review": "Todos los inputs son numéricos sin unidad. Desviación debe ser > 0."
+    },
+    "fr": {
+      "name": "Calculateur Score Z",
+      "desc": "Calculez z = (x - μ) / σ. Exemple: Score 85, class mean 70, SD 10 = z = 1.5 (1.5 std deviations above mean). Calculateur gratuit et précis, sans inscription.",
+      "description": "Calculateur Score Z",
+      "seo_title": "Calculateur Score Z – Rapide et Précis",
+      "seo_description": "Calculez z = (x - μ) / σ. Exemple: Score 85, class mean 70, SD 10 = z = 1.5 (1.5 std deviations above mean). Calculateur gratuit et précis, sans inscription.",
+      "inputs": {
+        "valor": "Valeur",
+        "media": "Moyenne de l'échantillon",
+        "desviacion": "Écart type"
+      },
+      "outputs": {
+        "z_score": "Score Z",
+        "porcentil": "Percentile"
+      },
+      "example_label": "Calculer puntuación standard Z",
+      "range_hints": {
+        "valor": "0-1,000,000,000,000",
+        "media": "0-1,000,000,000,000",
+        "desviacion": "0.001-1,000,000,000,000"
+      },
+      "result_context": "la puntuación Z indica cuántas desviaciones standard está un valor de la media.",
+      "formula_display": "z = (x - μ) / σ",
+      "steps": [
+        "Restar la media du valor observado",
+        "diviser entre la desviación standard",
+        "Interpretar: positivo = sur media, negativo = sous media"
+      ],
+      "mistakes": [
+        "Desviación standard dans cero",
+        "No interpretar correctamente le signo",
+        "Utiliser avec distribución no normal"
+      ],
+      "input_type_review": []
+    },
+    "pt": {
+      "name": "Calculadora Escore Z",
+      "desc": "Calcule z = (x - μ) / σ. Exemplo: Score 85, class mean 70, SD 10 = z = 1.5 (1.5 std deviations above mean). Calculadora gratuita e precisa, sem registo.",
+      "description": "Calculadora Escore Z",
+      "seo_title": "Calculadora Escore Z – Rápido e Preciso",
+      "seo_description": "Calcule z = (x - μ) / σ. Exemplo: Score 85, class mean 70, SD 10 = z = 1.5 (1.5 std deviations above mean). Calculadora gratuita e precisa, sem registo.",
+      "inputs": {
+        "valor": "Valor",
+        "media": "Média amostral",
+        "desviacion": "Desvio padrão"
+      },
+      "outputs": {
+        "z_score": "Escore Z",
+        "porcentil": "Percentil"
+      },
+      "example_label": "Calcular puntuación padrão Z",
+      "range_hints": {
+        "valor": "0-1,000,000,000,000",
+        "media": "0-1,000,000,000,000",
+        "desviacion": "0.001-1,000,000,000,000"
+      },
+      "result_context": "La puntuación Z indica cuántas desviaciones padrão está um valor da media.",
+      "formula_display": "z = (x - μ) / σ",
+      "steps": [
+        "Restar a media do valor observado",
+        "Dividir entre a desviación padrão",
+        "Interpretar: positivo = sobre media, negativo = sob media"
+      ],
+      "mistakes": [
+        "Desviación padrão em cero",
+        "Não interpretar correctamente o signo",
+        "Usar com distribuição não normal"
+      ],
+      "input_type_review": []
+    },
+    "de": {
+      "name": "Puntuacion z",
+      "desc": "Berechnen Sie puntuacion z online. Geben Sie valor, media, desviacion ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Puntuacion z | CalcToWork",
+      "seo_desc": "Puntuacion z online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Puntuacion z online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "valor": "Valor",
+        "media": "Media",
+        "desviacion": "Desviacion"
+      },
+      "outputs": {
+        "z_score": "Z Score",
+        "porcentil": "Porcentil"
+      },
+      "example_label": "Ejemplo para puntuacion z: valores 75, 70, 10",
+      "range_hints": {
+        "valor": "Introduce el valor de valor. Valor sugerido: 75",
+        "media": "Introduce el valor de media. Valor sugerido: 70",
+        "desviacion": "Introduce el valor de desviacion. Valor sugerido: 10"
+      },
+      "result_context": "Der Z-Wert beträgt {z_score}, was dem {porcentil}. Perzentil entspricht.",
+      "formula_display": "z ÷ Math → z_score, porcentil",
+      "steps": [
+        "Introducir los valores de valor, media y desviacion",
+        "Verificar que los valores introducidos están en el rango y formato correctos",
+        "Calcular los valores de z score y porcentil",
+        "Verificar que el resultado es coherente con los valores de entrada",
+        "El resultado puede usarse como dato intermedio para cálculos posteriores más complejos"
+      ],
+      "mistakes": [
+        "Confundir media con mediana en distribuciones asimétricas",
+        "Usar la desviación estándar de la muestra (n-1) para datos de población (n)",
+        "Interpretar correlación como causalidad"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "valor",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "media",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "desviacion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Punteggio Z",
+      "desc": "Calcola z = (x - μ) / σ. Esempio: Score 85, class mean 70, SD 10 = z = 1.5 (1.5 std deviations above mean). Calcolatore gratuito e preciso, senza registrazione.",
+      "description": "Calcolatore Punteggio Z",
+      "seo_title": "Calcolatore Punteggio Z – Veloce e Preciso",
+      "seo_description": "Calcola z = (x - μ) / σ. Esempio: Score 85, class mean 70, SD 10 = z = 1.5 (1.5 std deviations above mean). Calcolatore gratuito e preciso, senza registrazione.",
+      "inputs": {
+        "valor": "Valore",
+        "media": "Media campionaria",
+        "desviacion": "Deviazione standard"
+      },
+      "outputs": {
+        "z_score": "Punteggio Z",
+        "porcentil": "Percentile"
+      },
+      "example_label": "Calcolare puntuación estándar Z",
+      "range_hints": {
+        "valor": "0-1,000,000,000,000",
+        "media": "0-1,000,000,000,000",
+        "desviacion": "0.001-1,000,000,000,000"
+      },
+      "result_context": "La puntuación Z indica cuántas disviaciones estándar está un valore dilla media.",
+      "formula_display": "z = (x - μ) / σ",
+      "steps": [
+        "Sottrarre la media dil valore observado",
+        "Dividire intre la disviación estándar",
+        "Interpretar: posetivo = su media, negativo = basso media"
+      ],
+      "mistakes": [
+        "Desviación estándar in cero",
+        "No interpretar correttaminte el segnon",
+        "Usare con distribución non nonrmal"
+      ],
+      "input_type_review": null
+    }
+  }
+}

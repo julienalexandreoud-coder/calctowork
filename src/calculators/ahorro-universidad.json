@@ -1,0 +1,355 @@
+{
+  "id": "337",
+  "slug": "ahorro-universidad",
+  "block": 15,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "cost",
+      "type": "number",
+      "step": "any",
+      "default": 100000,
+      "unit": "USD",
+      "unit_options": [
+        "USD",
+        "EUR",
+        "GBP"
+      ],
+      "unit_category": "currency"
+    },
+    {
+      "id": "years",
+      "type": "number",
+      "step": 1,
+      "default": 18,
+      "unit": "yr",
+      "unit_options": [
+        "yr"
+      ],
+      "unit_category": "time"
+    },
+    {
+      "id": "rate",
+      "type": "number",
+      "step": "any",
+      "default": 6,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "percentage"
+    }
+  ],
+  "formula": "var cost=parseFloat(inputs.cost)||0;var y=parseFloat(inputs.years)||1;var r=(parseFloat(inputs.rate)||0)/100;var n=y*12;var monthly=r>0?cost*r/12/(Math.pow(1+r/12,n)-1):cost/n;return{monthly:monthly.toFixed(2)};",
+  "outputs": [
+    {
+      "id": "monthly",
+      "unit": "USD"
+    }
+  ],
+  "related": [
+    "327",
+    "328",
+    "322",
+    "334"
+  ],
+  "example_inputs": {
+    "cost": 100000,
+    "years": 18,
+    "rate": 6
+  },
+  "example_label": "Calcular ahorro para 100000 USD × 18 yr × 6 %.",
+  "range_hints": {
+    "cost": "Valor típico entre 0 y 500. Valor por defecto: 100000 USD.",
+    "years": "Valor típico entre 0 y 500. Valor por defecto: 18 yr.",
+    "rate": "Valor típico entre 0 y 500. Valor por defecto: 6 %."
+  },
+  "result_context": "Resultados: {monthly} USD de ahorro mensual necesario.",
+  "formula_display": "Monthly (USD) = f(cost, years, rate)",
+  "steps": [
+    "Introducir los valores de cost, years y rate",
+    "Verificar que las unidades sean correctas y convertir si es necesario (USD, EUR, GBP)",
+    "Realizar el cálculo para obtener monthly",
+    "El resultado se expresa en USD. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para tomar decisiones informadas sobre tu planificación financiera"
+  ],
+  "mistakes": [
+    "No comparar la TAE entre distintas ofertas antes de contratar",
+    "Confundir interés simple con interés compuesto en inversiones a largo plazo",
+    "Olvidar incluir comisiones y gastos en el cálculo del coste total"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "cost",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "years",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "rate",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "cost": 50000,
+      "years": 9,
+      "rate": 6
+    },
+    {
+      "_label": "Average",
+      "cost": 75000,
+      "years": 14,
+      "rate": 6
+    },
+    {
+      "_label": "High",
+      "cost": 100000,
+      "years": 18,
+      "rate": 6
+    },
+    {
+      "_label": "Premium",
+      "cost": 150000,
+      "years": 27,
+      "rate": 6
+    },
+    {
+      "_label": "Enterprise",
+      "cost": 200000,
+      "years": 36,
+      "rate": 6
+    }
+  ],
+  "units": {
+    "cost": "USD",
+    "years": "s",
+    "rate": "%"
+  },
+  "i18n": {
+    "es": {
+      "name": "Ahorro para la Universidad",
+      "description": "Calcula cuánto ahorrar mensualmente para la universidad.",
+      "inputs": {
+        "cost": "Coste total",
+        "years": "Años",
+        "rate": "Rendimiento %"
+      },
+      "outputs": {
+        "monthly": "Ahorro mensual"
+      },
+      "seo_title": "Ahorro para la Universidad Gratuita",
+      "seo_description": "Calcula cuánto ahorrar mensualmente para la universidad. Calculadora gratuita, precisa e instantánea. Herramienta gratuita con formula y ejemplos.",
+      "example_label": "Costo $100,000, 18 años para ahorrar, 6% retorno",
+      "range_hints": {
+        "cost": "Varía según institución y país",
+        "years": "Típicamente 0-18 años (desde nacimiento)",
+        "rate": "Generalmente 3-8% en inversiones conservadoras"
+      },
+      "result_context": "Ahorro mensual necesario para alcanzar la meta educativa",
+      "formula_display": "Pago mensual = Meta × [r / ((1+r)^n - 1)]",
+      "steps": [
+        "Convertir tasa anual a mensual",
+        "Calcular número total de meses",
+        "Aplicar fórmula de valor futuro de anualidad"
+      ],
+      "mistakes": [
+        "No considerar inflación educativa",
+        "Asumir tasa de retorno constante"
+      ],
+      "input_type_review": []
+    },
+    "en": {
+      "name": "College Savings Calculator",
+      "description": "Calculate monthly savings needed for college.",
+      "inputs": {
+        "cost": "Total cost",
+        "years": "Years",
+        "rate": "Return %"
+      },
+      "outputs": {
+        "monthly": "Monthly savings"
+      },
+      "seo_title": "College Savings Calculator – Easy Calculator",
+      "seo_description": "College Savings Calculator. College Savings Calculator = f(Total cost, Years, Return %) — Total cost, Years, Return % to compute Monthly savings.",
+      "example_label": "Costo $100,000, 18 años para ahorrar, 6% retorno",
+      "range_hints": {
+        "cost": "Varía según institución y país",
+        "years": "Típicamente 0-18 años (desde nacimiento)",
+        "rate": "Generalmente 3-8% en inversiones conservadoras"
+      },
+      "result_context": "Ahorro mensual necesario para alcanzar la meta educativa",
+      "formula_display": "Pago mensual = Meta × [r / ((1+r)^n - 1)]",
+      "steps": [
+        "Convertir tasa anual a mensual",
+        "Calcular número total de meses",
+        "Aplicar fórmula de valor futuro de anualidad"
+      ],
+      "mistakes": [
+        "No considerar inflación educativa",
+        "Asumir tasa de retorno constante"
+      ],
+      "input_type_review": "Cost es moneda, years es tiempo, rate es porcentaje anual"
+    },
+    "fr": {
+      "name": "Épargne Études",
+      "description": "Calculez l'épargne mensuelle nécessaire pour les études.",
+      "inputs": {
+        "cost": "Coût total",
+        "years": "Années",
+        "rate": "Rendement %"
+      },
+      "outputs": {
+        "monthly": "Épargne mensuelle"
+      },
+      "seo_title": "Épargne Études – Calcul Facile",
+      "seo_description": "Calculez l'épargne mensuelle nécessaire pour les études. Calculateur gratuit, précis et instantané. Avec conversion d'unites integree.",
+      "example_label": "Costo $100,000, 18 años pour ahorrar, 6% retorno",
+      "range_hints": {
+        "cost": "Varía selon institución et país",
+        "years": "typiquement 0-18 años (de nacimiento)",
+        "rate": "Generalmente 3-8% dans inversiones conservadoras"
+      },
+      "result_context": "Ahorro mensual nécessaire pour alcanzar la meta educativa",
+      "formula_display": "Pago mensual = Meta × [r / ((1+r)^n - 1)]",
+      "steps": [
+        "Convertir tasa anual a mensual",
+        "Calculer Nombre total de meses",
+        "Aplicar fórmula de valor futuro de anualidad"
+      ],
+      "mistakes": [
+        "Ne pas considérer inflación educativa",
+        "Asumir tasa de retorno constante"
+      ],
+      "input_type_review": []
+    },
+    "pt": {
+      "name": "Poupança Faculdade",
+      "description": "Calcule a poupança mensal necessária para a faculdade.",
+      "inputs": {
+        "cost": "Custo total",
+        "years": "Anos",
+        "rate": "Retorno %"
+      },
+      "outputs": {
+        "monthly": "Poupança mensal"
+      },
+      "seo_title": "Poupança Faculdade – Fácil e Grátis",
+      "seo_description": "Calcule a poupança mensal necessária para a faculdade. Calculadora gratuita, precisa e instantânea. Com conversao de unidades integrada.",
+      "example_label": "Costo $100,000, 18 años para ahorrar, 6% retorno",
+      "range_hints": {
+        "cost": "Varía segundo institución e país",
+        "years": "Típicamente 0-18 años (desde nacimiento)",
+        "rate": "Generalmente 3-8% em inversiones conservadoras"
+      },
+      "result_context": "Ahorro mensual necessário para alcanzar a meta educativa",
+      "formula_display": "Pago mensual = Meta × [r / ((1+r)^n - 1)]",
+      "steps": [
+        "Convertir tasa anual a mensual",
+        "Calcular número total de meses",
+        "Aplicar fórmula de valor futuro de anualidad"
+      ],
+      "mistakes": [
+        "Não considerar inflación educativa",
+        "Asumir tasa de retorno constante"
+      ],
+      "input_type_review": []
+    },
+    "de": {
+      "name": "Sparrechner Studium",
+      "desc": "Berechnen Sie sparrechner Studium online. Geben Sie cost, years, rate ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Sparrechner Studium | CalcToWork",
+      "seo_desc": "Sparrechner Studium online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Sparrechner Studium online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "cost": "Cost",
+        "years": "Years",
+        "rate": "Rate"
+      },
+      "outputs": {
+        "monthly": "Monthly"
+      },
+      "example_label": "Calcular ahorro para 100000 USD × 18 yr × 6 %.",
+      "range_hints": {
+        "cost": "Valor típico entre 0 y 500. Valor por defecto: 100000 USD.",
+        "years": "Valor típico entre 0 y 500. Valor por defecto: 18 yr.",
+        "rate": "Valor típico entre 0 y 500. Valor por defecto: 6 %."
+      },
+      "result_context": "Resultados: {monthly} USD de ahorro mensual necesario.",
+      "formula_display": "Monthly (USD) = f(cost, years, rate)",
+      "steps": [
+        "Introducir los valores de cost, years y rate",
+        "Verificar que las unidades sean correctas y convertir si es necesario (USD, EUR, GBP)",
+        "Realizar el cálculo para obtener monthly",
+        "El resultado se expresa en USD. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para tomar decisiones informadas sobre tu planificación financiera"
+      ],
+      "mistakes": [
+        "No comparar la TAE entre distintas ofertas antes de contratar",
+        "Confundir interés simple con interés compuesto en inversiones a largo plazo",
+        "Olvidar incluir comisiones y gastos en el cálculo del coste total"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "cost",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "years",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "rate",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Risparmio Università",
+      "description": "Calcola il risparmio mensile necessario per l'università.",
+      "inputs": {
+        "cost": "Costo totale",
+        "years": "Anni",
+        "rate": "Rendimento %"
+      },
+      "outputs": {
+        "monthly": "Risparmio mensile"
+      },
+      "seo_title": "Risparmio Università – Calcolo Facile",
+      "seo_description": "Calcola il risparmio mensile necessario per l'università. Calcolatore gratuito, preciso e istantaneo. Con conversione di unita integrata.",
+      "example_label": "Costo $100,000, 18 años per ahorrar, 6% retornon",
+      "range_hints": {
+        "cost": "Varía según institución e país",
+        "years": "Típicaminte 0-18 años (disdi nafondazione)",
+        "rate": "Gineralminte 3-8% in inverseones conservadoras"
+      },
+      "result_context": "Ahorro minsual necessario per alcanzar la meta educativa",
+      "formula_display": "Pago minsual = Meta × [r / ((1+r)^n - 1)]",
+      "steps": [
+        "Convertire tasa anual a minsual",
+        "Calcolare número totale di mesei",
+        "Applicare fórmula di valore futuro di anualidad"
+      ],
+      "mistakes": [
+        "Non consedirare inflación educativa",
+        "Asumir tasa di retornon coscosìte"
+      ],
+      "input_type_review": null
+    }
+  }
+}

@@ -1,0 +1,288 @@
+{
+  "id": "1103",
+  "slug": "fence-picket-calculator",
+  "block": 7,
+  "block_slug": "carpinteria",
+  "inputs": [
+    {
+      "id": "fence_length",
+      "type": "number",
+      "min": 1,
+      "max": 500,
+      "step": 0.1,
+      "default": 30,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "picket_width",
+      "type": "number",
+      "min": 5,
+      "max": 20,
+      "step": 0.5,
+      "default": 10,
+      "unit": "cm",
+      "unit_category": "length"
+    },
+    {
+      "id": "gap_between",
+      "type": "number",
+      "min": 0,
+      "max": 15,
+      "step": 0.5,
+      "default": 5,
+      "unit": "cm",
+      "unit_category": "length"
+    },
+    {
+      "id": "post_spacing",
+      "type": "number",
+      "min": 1,
+      "max": 5,
+      "step": 0.1,
+      "default": 2.4,
+      "unit": "m",
+      "unit_category": "length"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "pickets_needed",
+      "unit": "pcs",
+      "highlight": true
+    },
+    {
+      "id": "posts_needed",
+      "unit": "posts"
+    },
+    {
+      "id": "rails_needed",
+      "unit": "rails"
+    },
+    {
+      "id": "total_linear_meters",
+      "unit": "m"
+    }
+  ],
+  "formula": "var fl=parseFloat(inputs.fence_length)||0,pw=parseFloat(inputs.picket_width)||10,gb=parseFloat(inputs.gap_between)||5,ps=parseFloat(inputs.post_spacing)||2.4;if(!fl)return{error:true};var spp=(pw+gb)/100,pickets=Math.ceil(fl/spp),posts=Math.ceil(fl/ps)+1,rails=(posts-1)*2,tlm=+(pickets*(pw/100)).toFixed(1);return{pickets_needed:pickets,posts_needed:posts,rails_needed:rails,total_linear_meters:tlm};",
+  "formula_display": "Pickets = ceil(fence_length ÷ (picket_width + gap)); Posts = ceil(fence_length ÷ post_spacing) + 1",
+  "result_context": "Pickets: {pickets_needed}, posts: {posts_needed}, rails: {rails_needed}, linear metres: {total_linear_meters}",
+  "example_inputs": {
+    "fence_length": 20,
+    "picket_width": 9,
+    "gap_between": 2,
+    "post_spacing": 2.4
+  },
+  "steps": [
+    "Picket + gap = 9 cm + 2 cm = 11 cm = 0.11 m per picket unit",
+    "Pickets: ceil(20 m ÷ 0.11 m) = 182 pickets",
+    "Posts: ceil(20 ÷ 2.4) + 1 = 10 posts",
+    "Rails (2 per span): 2 × (posts - 1) = 18 rails"
+  ],
+  "mistakes": [
+    "Forgetting the extra end post",
+    "Using picket width in metres instead of centimetres",
+    "Not accounting for gate openings"
+  ],
+  "related": [
+    "1100",
+    "1114",
+    "1113",
+    "061"
+  ],
+  "comparison_presets": [
+    {
+      "fence_length": 10,
+      "picket_width": 9,
+      "gap_between": 2,
+      "post_spacing": 2.4
+    },
+    {
+      "fence_length": 15,
+      "picket_width": 9,
+      "gap_between": 2,
+      "post_spacing": 2.4
+    },
+    {
+      "fence_length": 20,
+      "picket_width": 9,
+      "gap_between": 2,
+      "post_spacing": 2.4
+    },
+    {
+      "fence_length": 30,
+      "picket_width": 9,
+      "gap_between": 2,
+      "post_spacing": 2.4
+    },
+    {
+      "fence_length": 50,
+      "picket_width": 9,
+      "gap_between": 2,
+      "post_spacing": 2.4
+    }
+  ],
+  "buying_units": {
+    "pickets_needed": [
+      {
+        "label": "Pickets",
+        "factor": 1,
+        "round": "ceil",
+        "unit_suffix": "pickets"
+      },
+      {
+        "label": "Bundles of 10",
+        "factor": 0.1,
+        "round": "ceil",
+        "unit_suffix": "bundles"
+      }
+    ],
+    "posts_needed": [
+      {
+        "label": "Posts",
+        "factor": 1,
+        "round": "ceil",
+        "unit_suffix": "posts"
+      }
+    ]
+  },
+  "units": {
+    "fence_length": "m",
+    "picket_width": "m",
+    "gap_between": "m",
+    "post_spacing": "m"
+  },
+  "example_label": "Ejemplo para fence picket calculator: valores 30m, 10cm, 5cm, 2.4m",
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Valla",
+      "desc": "Calculadora de Valla. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculadora de Valla – Tablas, Postes y Raíles",
+      "seo_desc": "Calcula cuántas tablas, postes y raíles necesitas para tu valla. Introduce la longitud de la valla y las dimensiones de las tablas para obtener los materiales exactos.",
+      "seo_description": "Calculadora gratuita de valla: calcula materiales para valla de madera o vinilo. Obten estacas, postes, vigas y tornillos necesarios.",
+      "inputs": {
+        "fence_length": "Longitud de la valla",
+        "picket_width": "Ancho de la tabla",
+        "gap_between": "Separación entre tablas",
+        "post_spacing": "Distancia entre postes"
+      },
+      "outputs": {
+        "pickets_needed": "Tablas necesarias",
+        "posts_needed": "Postes necesarios",
+        "rails_needed": "Raíles necesarios",
+        "total_linear_meters": "Metros lineales de tablas"
+      }
+    },
+    "en": {
+      "name": "Fence Picket Calculator",
+      "desc": "Fence Picket Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Fence Picket Calculator – Pickets, Posts & Rails",
+      "seo_desc": "Calculate how many fence pickets, posts and rails you need. Enter fence length and picket dimensions to get exact material quantities with waste included.",
+      "seo_description": "Free fence picket calculator: calculate wood or vinyl fence materials. Get pickets, posts, rails, and screws needed with spacing optimization.",
+      "inputs": {
+        "fence_length": "Fence length",
+        "picket_width": "Picket width",
+        "gap_between": "Gap between pickets",
+        "post_spacing": "Post spacing"
+      },
+      "outputs": {
+        "pickets_needed": "Pickets needed",
+        "posts_needed": "Posts needed",
+        "rails_needed": "Rails needed",
+        "total_linear_meters": "Total picket material"
+      }
+    },
+    "fr": {
+      "name": "Calculatrice de Palissade",
+      "desc": "Calculateur de Clôture. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculatrice de Clôture – Piquets, Poteaux et Lisses",
+      "seo_desc": "Calculez le nombre de piquets, poteaux et lisses pour votre clôture. Entrez la longueur et les dimensions des piquets pour obtenir les matériaux exacts.",
+      "seo_description": "Calculateur gratuit de clôture: calculez matériaux pour clôture bois ou vinyl. Piquets, poteaux, lisses et vis nécessaires.",
+      "inputs": {
+        "fence_length": "Longueur de la clôture",
+        "picket_width": "Largeur du piquet",
+        "gap_between": "Espacement entre piquets",
+        "post_spacing": "Espacement des poteaux"
+      },
+      "outputs": {
+        "pickets_needed": "Piquets nécessaires",
+        "posts_needed": "Poteaux nécessaires",
+        "rails_needed": "Lisses nécessaires",
+        "total_linear_meters": "Mètres linéaires de piquets"
+      }
+    },
+    "pt": {
+      "name": "Calculadora de Cerca",
+      "desc": "Calculadora de Cerca. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculadora de Cerca – Ripas, Mourões e Trilhos",
+      "seo_desc": "Calcule quantas ripas, mourões e trilhos você precisa para sua cerca. Insira o comprimento da cerca e as dimensões das ripas para obter as quantidades exatas de...",
+      "seo_description": "Calculadora gratuita de cerca: calcule materiais para cerca de madeira ou vinil. Estacas, postes, vigas e parafusos necessários.",
+      "inputs": {
+        "fence_length": "Comprimento da cerca",
+        "picket_width": "Largura da ripa",
+        "gap_between": "Espaço entre ripas",
+        "post_spacing": "Espaçamento dos mourões"
+      },
+      "outputs": {
+        "pickets_needed": "Ripas necessárias",
+        "posts_needed": "Mourões necessários",
+        "rails_needed": "Trilhos necessários",
+        "total_linear_meters": "Metros lineares de ripas"
+      }
+    },
+    "de": {
+      "name": "Fence picket calculator",
+      "desc": "Berechnen Sie fence picket calculator online. Geben Sie fence length, picket width, gap between ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Fence picket calculator | CalcToWork",
+      "seo_desc": "Fence picket calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Fence picket calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "fence_length": "Fence Length",
+        "picket_width": "Picket Width",
+        "gap_between": "Gap Between",
+        "post_spacing": "Post Spacing"
+      },
+      "outputs": {
+        "pickets_needed": "Pickets Needed",
+        "posts_needed": "Posts Needed",
+        "rails_needed": "Rails Needed",
+        "total_linear_meters": "Total Linear Meters"
+      },
+      "example_label": "Ejemplo para fence picket calculator: valores 30m, 10cm, 5cm, 2.4m",
+      "range_hints": {},
+      "result_context": "Pickets: {pickets_needed}, posts: {posts_needed}, rails: {rails_needed}, linear metres: {total_linear_meters}",
+      "formula_display": "Pickets = ceil(fence_length ÷ (picket_width + gap)); Posts = ceil(fence_length ÷ post_spacing) + 1",
+      "steps": [
+        "Picket + gap = 9 cm + 2 cm = 11 cm = 0.11 m per picket unit",
+        "Pickets: ceil(20 m ÷ 0.11 m) = 182 pickets",
+        "Posts: ceil(20 ÷ 2.4) + 1 = 10 posts",
+        "Rails (2 per span): 2 × (posts - 1) = 18 rails"
+      ],
+      "mistakes": [
+        "Forgetting the extra end post",
+        "Using picket width in metres instead of centimetres",
+        "Not accounting for gate openings"
+      ],
+      "input_type_review": []
+    },
+    "it": {
+      "name": "Calcolatore di Recinzione",
+      "desc": "Calcolatore Recinzione. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calcolatore Recinzione – Assi, Pali e Correnti",
+      "seo_desc": "Calcola quante assi, pali e correnti ti servono per la recinzione. Inserisci la lunghezza e le dimensioni delle assi per ottenere i materiali esatti.",
+      "seo_description": "Calcolatore gratuito recinzione: calcola materiali per recinzione legno o vinile. Paletti, pali, travi e viti necessari.",
+      "inputs": {
+        "fence_length": "Lunghezza della recinzione",
+        "picket_width": "Larghezza dell'asse",
+        "gap_between": "Spazio tra le assi",
+        "post_spacing": "Distanza tra i pali"
+      },
+      "outputs": {
+        "pickets_needed": "Assi necessarie",
+        "posts_needed": "Pali necessari",
+        "rails_needed": "Correnti necessari",
+        "total_linear_meters": "Metri lineari di assi"
+      }
+    }
+  }
+}

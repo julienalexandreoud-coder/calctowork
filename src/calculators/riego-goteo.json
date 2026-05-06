@@ -1,0 +1,493 @@
+{
+  "id": "039",
+  "slug": "riego-goteo",
+  "block": 4,
+  "block_slug": "fontaneria",
+  "inputs": [
+    {
+      "id": "area_m2",
+      "type": "number",
+      "min": 5,
+      "max": 10000,
+      "step": 5,
+      "default": 200,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "separacion_goteros_cm",
+      "type": "number",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "default": 30,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in",
+        "ft"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "separacion_lineas_m",
+      "type": "number",
+      "min": 0.3,
+      "max": 2,
+      "step": 0.1,
+      "default": 0.5,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area_m2)||0,sg=parseFloat(inputs.separacion_goteros_cm)||30,sl=parseFloat(inputs.separacion_lineas_m)||0.5;if(!A)return{error:true};var lineas_m=+(A/sl).toFixed(1),goteros=Math.ceil((A/(sl*sg/100))),tuberia_m=+(lineas_m*1.15).toFixed(1),programador=1;return{lineas_tuberia_m:tuberia_m,goteros_ud:goteros,sectores:Math.ceil(A/500)};",
+  "outputs": [
+    {
+      "id": "lineas_tuberia_m",
+      "unit": "m.l. tubería (+15%)",
+      "highlight": true
+    },
+    {
+      "id": "goteros_ud",
+      "unit": "goteros"
+    },
+    {
+      "id": "sectores",
+      "unit": "sectores (500m²/sector)"
+    }
+  ],
+  "related": [
+    "031",
+    "033",
+    "034",
+    "036"
+  ],
+  "example_inputs": {
+    "area_m2": 200,
+    "separacion_goteros_cm": 30,
+    "separacion_lineas_m": 0.5
+  },
+  "example_label": "Calcular sistema de riego para área de 200 m² × 30 cm × 0.5 m.",
+  "range_hints": {
+    "area_m2": "Valor típico entre 5 y 10000. Valor por defecto: 200 m².",
+    "separacion_goteros_cm": "Valor típico entre 20 y 100. Valor por defecto: 30 cm.",
+    "separacion_lineas_m": "Valor típico entre 0.3 y 2. Valor por defecto: 0.5 m."
+  },
+  "result_context": "Resultados: {lineas_tuberia_m} m.l. de tubería, {goteros_ud} goteros, {sectores} sectores.",
+  "formula_display": "A ÷ sl → lineas_tuberia_m, goteros_ud",
+  "steps": [
+    "Introducir los valores de area_m2, separacion_goteros_cm y separacion_lineas_m",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+    "Calcular los valores de lineas tuberia m y goteros ud",
+    "El resultado se expresa en m.l. tubería (+15%). Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "No respetar la pendiente mínima del 2% en tuberías de saneamiento",
+    "Usar tubería de pared delgada para instalaciones enterradas",
+    "No instalar válvulas de corte en puntos clave de la instalación"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "area_m2",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "separacion_goteros_cm",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "separacion_lineas_m",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small bathroom",
+      "area_m2": 100,
+      "separacion_goteros_cm": 20,
+      "separacion_lineas_m": 0.5
+    },
+    {
+      "_label": "Medium bathroom",
+      "area_m2": 150,
+      "separacion_goteros_cm": 20,
+      "separacion_lineas_m": 0.5
+    },
+    {
+      "_label": "Large bathroom",
+      "area_m2": 200,
+      "separacion_goteros_cm": 30,
+      "separacion_lineas_m": 0.5
+    },
+    {
+      "_label": "Apartment",
+      "area_m2": 300,
+      "separacion_goteros_cm": 40,
+      "separacion_lineas_m": 0.5
+    },
+    {
+      "_label": "House",
+      "area_m2": 400,
+      "separacion_goteros_cm": 60,
+      "separacion_lineas_m": 0.5
+    }
+  ],
+  "units": {
+    "area_m2": "m²",
+    "separacion_goteros_cm": "m",
+    "separacion_lineas_m": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Riego por Goteo",
+      "desc": "Calcula los metros de tubería de riego, número de goteros y sectores para sistemas de riego por goteo. Herramienta gratuita con formula y ejemplos.",
+      "seo_title": "Calculadora Riego Goteo – Tuberías",
+      "seo_desc": "Calcula los metros de tubería de riego, número de goteros y sectores para sistemas de riego por goteo. Herramienta gratuita con formula y ejemplos.",
+      "inputs": {
+        "area_m2": "Área a regar",
+        "separacion_goteros_cm": "Separación goteros",
+        "separacion_lineas_m": "Separación líneas"
+      },
+      "outputs": {
+        "lineas_tuberia_m": "Tubería (+15%)",
+        "goteros_ud": "Goteros",
+        "sectores": "Sectores"
+      },
+      "seo_description": "Calcula la tubería, goteros y sectores necesarios para tu sistema de riego por goteo. Configurable con separación entre goteros y entre líneas según el tipo de cultivo o jardín.",
+      "example_label": "Calcular sistema de riego por goteo para 100m² de jardín con goteros cada 40cm y líneas separadas 1.5m.",
+      "range_hints": {
+        "area_m2": "Superficie a irrigar",
+        "separacion_goteros_cm": "Goteros: 30-50cm según tipo de cultivo",
+        "separacion_lineas_m": "Líneas: 1-2m según alcance del gotero"
+      },
+      "result_context": "Para {area_m2}m² se necesitan {lineas_ud} líneas de riego, {goteros_ud} goteros, {tuberia_m}m de tubería principal y {filtro_ud} filtro de {caudal_lph} L/h.",
+      "formula_display": "Líneas = área ÷ (largo × separación); Goteros = (largo ÷ sep_goteros) × líneas",
+      "steps": [
+        "Asumir área 10m × 10m = 100m²",
+        "Calcular líneas: 10m ÷ 1.5m = 6.67 → 7 líneas",
+        "Calcular goteros por línea: 10m ÷ 0.40m = 25 goteros",
+        "Total goteros: 25 × 7 = 175 goteros",
+        "Caudal total: 175 × 4 L/h = 700 L/h (necesita filtro y programador)"
+      ],
+      "mistakes": [
+        "No instalar filtro (los goteros se tapan fácilmente)",
+        "No considerar presión de red (puede necesitar reductor)",
+        "Espaciar demasiado las líneas (zonas sin riego)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "separacion_goteros_cm",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "separacion_lineas_m",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Drip Irrigation Calculator",
+      "desc": "Calculate pipes and drippers for irrigation systems.",
+      "seo_title": "Drip Irrigation Calculator – Pipe & Drippers",
+      "seo_desc": "Drip Irrigation Calculator. Area to irrigate, Dripper spacing, Row spacing — get Pipe (+15%), Drippers, Sectors instantly for your plumbing and water.",
+      "inputs": {
+        "area_m2": "Area to irrigate",
+        "separacion_goteros_cm": "Dripper spacing",
+        "separacion_lineas_m": "Row spacing"
+      },
+      "outputs": {
+        "lineas_tuberia_m": "Pipe (+15%)",
+        "goteros_ud": "Drippers",
+        "sectores": "Sectors"
+      },
+      "seo_description": "Calculate drip irrigation tubing, drippers and zones for your garden or crops. Adjustable dripper and line spacing for vegetables, shrubs or fruit trees.",
+      "example_label": "Calcular sistema de riego por goteo para 100m² de jardín con goteros cada 40cm y líneas separadas 1.5m.",
+      "range_hints": {
+        "area_m2": "Superficie a irrigar",
+        "separacion_goteros_cm": "Goteros: 30-50cm según tipo de cultivo",
+        "separacion_lineas_m": "Líneas: 1-2m según alcance del gotero"
+      },
+      "result_context": "Para {area_m2}m² se necesitan {lineas_ud} líneas de riego, {goteros_ud} goteros, {tuberia_m}m de tubería principal y {filtro_ud} filtro de {caudal_lph} L/h.",
+      "formula_display": "Líneas = área ÷ (largo × separación); Goteros = (largo ÷ sep_goteros) × líneas",
+      "steps": [
+        "Asumir área 10m × 10m = 100m²",
+        "Calcular líneas: 10m ÷ 1.5m = 6.67 â†’ 7 líneas",
+        "Calcular goteros por línea: 10m ÷ 0.40m = 25 goteros",
+        "Total goteros: 25 × 7 = 175 goteros",
+        "Caudal total: 175 × 4 L/h = 700 L/h (necesita filtro y programador)"
+      ],
+      "mistakes": [
+        "No instalar filtro (los goteros se tapan fácilmente)",
+        "No considerar presión de red (puede necesitar reductor)",
+        "Espaciar demasiado las líneas (zonas sin riego)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "separacion_goteros_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "separacion_lineas_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Irrigation Goutte-à-Goutte",
+      "desc": "Calculez les mètres de tuyau, nombre de goutteurs et secteurs pour systèmes d'irrigation Utilise par des professionnels et etudiants dans le monde entier.",
+      "seo_title": "Calculateur Irrigation Goutte-à-Goutte",
+      "inputs": {
+        "area_m2": "Surface à irriguer",
+        "separacion_goteros_cm": "Espacement goutteurs",
+        "separacion_lineas_m": "Espacement rangées"
+      },
+      "outputs": {
+        "lineas_tuberia_m": "Tuyaux (+15%)",
+        "goteros_ud": "Goutteurs",
+        "sectores": "Secteurs"
+      },
+      "seo_description": "Calculez les mètres de tuyau, nombre de goutteurs et secteurs pour systèmes d'irrigation Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calculer sistema de riego par goteo pour 100m² de jardín avec goteros chaque 40cm et líneas separadas 1.5m.",
+      "range_hints": {
+        "area_m2": "surface a irrigar",
+        "separacion_goteros_cm": "Goteros: 30-50cm selon tipo de cultivo",
+        "separacion_lineas_m": "Líneas: 1-2m selon alcance du gotero"
+      },
+      "result_context": "pour {area_m2}m² se necesitan {lineas_ud} líneas de riego, {goteros_ud} goteros, {tuberia_m}m de tuyau principal et {filtro_ud} filtro de {caudal_lph} L/h.",
+      "formula_display": "Líneas = área Á· (longueur × separación); Goteros = (longueur Á· sep_goteros) × líneas",
+      "steps": [
+        "Asumir área 10m × 10m = 100m²",
+        "Calculer líneas: 10m Á· 1.5m = 6.67 ââ€ ’ 7 líneas",
+        "Calculer goteros par línea: 10m Á· 0.40m = 25 goteros",
+        "total goteros: 25 × 7 = 175 goteros",
+        "Caudal total: 175 × 4 L/h = 700 L/h (necesita filtro et programador)"
+      ],
+      "mistakes": [
+        "No instalar filtro (les goteros se tapan fácilmente)",
+        "Ne pas considérer presión de red (puede necesitar reductor)",
+        "Espaciar demasiado les líneas (zonas sans riego)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "separacion_goteros_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "separacion_lineas_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Irrigação por Gotejamento",
+      "desc": "Calcule metros de tubo de irrigação, gotejadores e setores para sistemas de gotejamento Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora Irrigação Gotejamento",
+      "inputs": {
+        "area_m2": "Área a irrigar",
+        "separacion_goteros_cm": "Espaçamento gotejadores",
+        "separacion_lineas_m": "Espaçamento linhas"
+      },
+      "outputs": {
+        "lineas_tuberia_m": "Tubulação (+15%)",
+        "goteros_ud": "Gotejadores",
+        "sectores": "Setores"
+      },
+      "seo_description": "Calcule metros de tubo de irrigação, gotejadores e setores para sistemas de gotejamento Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular sistema de riego por goteo para 100m² de jardín com goteros cada 40cm e líneas separadas 1.5m.",
+      "range_hints": {
+        "area_m2": "Superficie a irrigar",
+        "separacion_goteros_cm": "Goteros: 30-50cm segundo tipo de cultivo",
+        "separacion_lineas_m": "Líneas: 1-2m segundo alcance do gotero"
+      },
+      "result_context": "Para {area_m2}m² são necessários {lineas_ud} líneas de riego, {goteros_ud} goteros, {tuberia_m}m de tubulação principal e {filtro_ud} filtro de {caudal_lph} L/h.",
+      "formula_display": "Líneas = área ÷ (comprimento × separação); Goteros = (comprimento ÷ sep_goteros) × líneas",
+      "steps": [
+        "Asumir área 10m × 10m = 100m²",
+        "Calcular líneas: 10m ÷ 1.5m = 6.67 â†’ 7 líneas",
+        "Calcular goteros por línea: 10m ÷ 0.40m = 25 goteros",
+        "Total goteros: 25 × 7 = 175 goteros",
+        "Caudal total: 175 × 4 L/h = 700 L/h (necesita filtro e programador)"
+      ],
+      "mistakes": [
+        "Não instalar filtro (os goteros se tapan fácilmente)",
+        "Não considerar presión de red (pode necesitar reductor)",
+        "Espaciar demasiado as líneas (zonas sem riego)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "separacion_goteros_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "separacion_lineas_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Tropfbewässerung goteo",
+      "desc": "Berechnen Sie tropfbewässerung goteo online. Geben Sie area m2, separacion goteros cm, separacion lineas m ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Tropfbewässerung goteo | CalcToWork",
+      "seo_desc": "Tropfbewässerung goteo online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Tropfbewässerung goteo online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "area_m2": "Area M2",
+        "separacion_goteros_cm": "Separacion Goteros Cm",
+        "separacion_lineas_m": "Separacion Lineas M"
+      },
+      "outputs": {
+        "lineas_tuberia_m": "Lineas Tuberia M",
+        "goteros_ud": "Goteros Ud",
+        "sectores": "Sectores"
+      },
+      "example_label": "Calcular sistema de riego para área de 200 m² × 30 cm × 0.5 m.",
+      "range_hints": {
+        "area_m2": "Valor típico entre 5 y 10000. Valor por defecto: 200 m².",
+        "separacion_goteros_cm": "Valor típico entre 20 y 100. Valor por defecto: 30 cm.",
+        "separacion_lineas_m": "Valor típico entre 0.3 y 2. Valor por defecto: 0.5 m."
+      },
+      "result_context": "Resultados: {lineas_tuberia_m} m.l. de tubería, {goteros_ud} goteros, {sectores} sectores.",
+      "formula_display": "A ÷ sl → lineas_tuberia_m, goteros_ud",
+      "steps": [
+        "Introducir los valores de area_m2, separacion_goteros_cm y separacion_lineas_m",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+        "Calcular los valores de lineas tuberia m y goteros ud",
+        "El resultado se expresa en m.l. tubería (+15%). Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "No respetar la pendiente mínima del 2% en tuberías de saneamiento",
+        "Usar tubería de pared delgada para instalaciones enterradas",
+        "No instalar válvulas de corte en puntos clave de la instalación"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "separacion_goteros_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "separacion_lineas_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Impianto Antincendio",
+      "description": "Calcola la portata per idranti antincendio.",
+      "seo_title": "Calcolatore Irrigazione a Goccia",
+      "seo_description": "Calcola la portata e la pressione per impianti antincendio Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo.",
+      "inputs": {
+        "num_bocas": "Numero idranti",
+        "caudal_boca": "Portata per idrante (L/min)"
+      },
+      "outputs": {
+        "caudal_total": "Portata totale (L/min)",
+        "volumen_reserva": "Riserva idrica (m³)"
+      },
+      "example_label": "Calcolare sestema di irrigazione per goccia per 100m² di jardín con gocciolatori cada 40cm e líneas seperdas 1.5m.",
+      "range_hints": {
+        "area_m2": "Superficie a irrigar",
+        "separacion_goteros_cm": "Goteros: 30-50cm según tipo di cultivo",
+        "separacion_lineas_m": "Líneas: 1-2m según alcance dil gocciolatore"
+      },
+      "result_context": "Per {area_m2}m² sonon necessari {lineas_ud} líneas di irrigazione, {gocciolatori_ud} gocciolatori, {tuberia_m}m di tubería principal e {filtro_ud} filtro di {pertata_lph} L/h.",
+      "formula_display": "Líneas = área ÷ (lunghezza × seperción); Goteros = (lunghezza ÷ sep_gocciolatori) × líneas",
+      "steps": [
+        "Asumir área 10m × 10m = 100m²",
+        "Calcolare líneas: 10m ÷ 1.5m = 6.67 → 7 líneas",
+        "Calcolare gocciolatori per línea: 10m ÷ 0.40m = 25 gocciolatori",
+        "Total gocciolatori: 25 × 7 = 175 gocciolatori",
+        "Caudal totale: 175 × 4 L/h = 700 L/h (neceseta filtro e programmatore)"
+      ],
+      "mistakes": [
+        "No installare filtro (i gocciolatori se tapan fácilminte)",
+        "Non consedirare preseón di red (puedi necesetar reductor)",
+        "Espaciar troppo le líneas (zonas senza irrigazione)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "separacion_goteros_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "separacion_lineas_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        }
+      ]
+    }
+  }
+}

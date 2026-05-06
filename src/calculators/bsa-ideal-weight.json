@@ -1,0 +1,555 @@
+{
+  "id": "960",
+  "slug": "bsa-ideal-weight",
+  "block": 12,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "edad",
+      "type": "number",
+      "min": 2,
+      "max": 120,
+      "step": 1,
+      "default": 30,
+      "unit": "years"
+    },
+    {
+      "id": "peso_kg",
+      "type": "number",
+      "min": 10,
+      "max": 500,
+      "step": 0.1,
+      "default": 70,
+      "unit": "kg",
+      "unit_options": [
+        "kg",
+        "g",
+        "lb"
+      ],
+      "unit_category": "mass"
+    },
+    {
+      "id": "altura_cm",
+      "type": "number",
+      "min": 50,
+      "max": 250,
+      "step": 0.5,
+      "default": 175,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in",
+        "ft"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "sexo",
+      "type": "select",
+      "options": [
+        "mujer",
+        "hombre"
+      ],
+      "default": "mujer"
+    }
+  ],
+  "formula": "var edad=parseFloat(inputs.edad)||30,peso=parseFloat(inputs.peso_kg)||0,altura=parseFloat(inputs.altura_cm)||0,sexo=inputs.sexo||'mujer';if(!peso||!altura||altura<50)return{error:true};var bsa=+Math.sqrt((peso*altura)/3600).toFixed(2);var ibw=sexo=='hombre'?50+0.91*(altura-152.4):45.5+0.91*(altura-152.4);var abw=+(ibw+0.4*(peso-ibw)).toFixed(1);return{bsa:bsa+' m2',ideal_weight:+(ibw).toFixed(1),adjusted_weight:abw};",
+  "outputs": [
+    {
+      "id": "bsa",
+      "unit": "m2",
+      "highlight": true
+    },
+    {
+      "id": "ideal_weight",
+      "unit": "kg",
+      "highlight": false
+    },
+    {
+      "id": "adjusted_weight",
+      "unit": "kg",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "958",
+    "430",
+    "926",
+    "400"
+  ],
+  "example_inputs": {
+    "sexo": "mujer",
+    "peso_kg": 70,
+    "altura_cm": 175,
+    "edad": 30
+  },
+  "example_label": "Ejemplo para bsa ideal weight: valores 30years, 70kg, 175cm",
+  "range_hints": {
+    "edad": "Valor típico entre 2 y 120. Valor por defecto: 30 years.",
+    "peso_kg": "Valor típico entre 10 y 500. Valor por defecto: 70 kg.",
+    "altura_cm": "Valor típico entre 50 y 250. Valor por defecto: 175 cm.",
+    "sexo": "Seleccionar entre las opciones: mujer, hombre"
+  },
+  "result_context": "Superficie corporal: {bsa} m². Peso ideal: {ideal_weight} kg. Peso ajustado: {adjusted_weight} kg.",
+  "result_context_en": "Body surface area: {bsa} m². Ideal weight: {ideal_weight} kg. Adjusted weight: {adjusted_weight} kg.",
+  "result_context_fr": "Surface corporelle : {bsa} m². Poids idéal : {ideal_weight} kg. Poids ajusté : {adjusted_weight} kg.",
+  "result_context_pt": "Superfície corporal: {bsa} m². Peso ideal: {ideal_weight} kg. Peso ajustado: {adjusted_weight} kg.",
+  "result_context_de": "Körperoberfläche: {bsa} m². Idealgewicht: {ideal_weight} kg. Angepasstes Gewicht: {adjusted_weight} kg.",
+  "result_context_it": "Superficie corporea: {bsa} m². Peso ideale: {ideal_weight} kg. Peso aggiustato: {adjusted_weight} kg.",
+  "formula_display": "peso × altura → bsa, ideal_weight",
+  "steps": [
+    "Introducir los valores de edad, peso_kg, altura_cm y sexo",
+    "Verificar que las unidades sean correctas y convertir si es necesario (kg, g, lb)",
+    "Calcular los valores de bsa y ideal weight",
+    "El resultado se expresa en m2. Verificar que la magnitud es coherente",
+    "Comparar el resultado con los valores de referencia para interpretar su significado"
+  ],
+  "mistakes": [
+    "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+    "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+    "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "edad",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "peso_kg",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "altura_cm",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "sexo",
+      "current_type": "select",
+      "recommended_type": "select",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "peso_kg": 35,
+      "altura_cm": 87.5,
+      "edad": 30
+    },
+    {
+      "_label": "Teen",
+      "peso_kg": 52.5,
+      "altura_cm": 131.25,
+      "edad": 30
+    },
+    {
+      "_label": "Adult (F)",
+      "peso_kg": 70,
+      "altura_cm": 175,
+      "edad": 30
+    },
+    {
+      "_label": "Adult (M)",
+      "peso_kg": 105,
+      "altura_cm": 250,
+      "edad": 30
+    },
+    {
+      "_label": "Elderly",
+      "peso_kg": 140,
+      "altura_cm": 250,
+      "edad": 30
+    }
+  ],
+  "units": {
+    "peso_kg": "kg",
+    "altura_cm": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de SCBcmc y Peso Ideal",
+      "desc": "Calcula superficie corporal y peso ideal usando las formulas de Du Bois y Devine. Con rangos de referencia y contexto de salud.",
+      "description": "Calculadora de SCBcmc y Peso Ideal.",
+      "seo_title": "Calculadora de SCBcmc y Peso Ideal Gratuita",
+      "seo_description": "Calcula superficie corporal y peso ideal usando las formulas de Du Bois y Devine. Con rangos de referencia y contexto de salud.",
+      "inputs": {
+        "edad": "Edad",
+        "peso_kg": "Peso (kg)",
+        "altura_cm": "Altura (cm)",
+        "sexo": "Sexo"
+      },
+      "outputs": {
+        "bsa": "ASC",
+        "ideal_weight": "Peso ideal",
+        "adjusted_weight": "Peso ajustado"
+      },
+      "example_label": "Calculate bsa ideal weight with edad 30, peso_kg 70, altura_cm 175, sexo mujer.",
+      "range_hints": {
+        "sexo": "Typical range: -.",
+        "peso_kg": "Typical range: 10-500 in kg units.",
+        "altura_cm": "Typical range: 50-250 in cm units.",
+        "edad": "Typical range: 2-120 in years units."
+      },
+      "result_context": "Your calculated bsa is {bsa}.",
+      "formula_display": "Calculate bsa ideal weight based on input values.",
+      "steps": [
+        "Enter input values: edad: 30, peso_kg: 70, altura_cm: 175, sexo: mujer",
+        "Calculate and display the bsa result",
+        "Calculate and display the ideal_weight result",
+        "Calculate and display the adjusted_weight result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "edad",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "peso_kg",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "altura_cm",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "sexo",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "en": {
+      "name": "BSA & Ideal Weight Calculator",
+      "desc": "BSA & Ideal Weight Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "BSA & Ideal Weight Calculator.",
+      "seo_title": "BSA & Ideal Weight Calculator – Free Online Tool",
+      "seo_description": "Calculate body surface area (BSA) and ideal weight using Du Bois and Devine formulas. Used for drug dosing. Free online tool with formula and worked.",
+      "inputs": {
+        "edad": "Age",
+        "peso_kg": "Weight (kg)",
+        "altura_cm": "Height (cm)",
+        "sexo": "Sex"
+      },
+      "outputs": {
+        "bsa": "BSA",
+        "ideal_weight": "Ideal weight",
+        "adjusted_weight": "Adjusted weight"
+      },
+      "example_label": "Calculate bsa ideal weight with edad 30, peso_kg 70, altura_cm 175, sexo mujer.",
+      "range_hints": {
+        "sexo": "Typical range: -.",
+        "peso_kg": "Typical range: 10-500 in kg units.",
+        "altura_cm": "Typical range: 50-250 in cm units.",
+        "edad": "Typical range: 2-120 in years units."
+      },
+      "result_context": "Your calculated bsa is {bsa}.",
+      "formula_display": "Calculate bsa ideal weight based on input values.",
+      "steps": [
+        "Enter input values: edad: 30, peso_kg: 70, altura_cm: 175, sexo: mujer",
+        "Calculate and display the bsa result",
+        "Calculate and display the ideal_weight result",
+        "Calculate and display the adjusted_weight result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "sexo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculatrice de SC et Poids Idéal",
+      "desc": "Calculez la surface corporelle et le poids ideal avec les formules de Du Bois et Devine. Avec plages de reference et contexte de sante.",
+      "description": "Calculatrice de SC et Poids Idéal.",
+      "seo_title": "Calculatrice de SC et Poids Idéal en Ligne",
+      "seo_description": "Calculez la surface corporelle et le poids ideal avec les formules de Du Bois et Devine. Avec plages de reference et contexte de sante.",
+      "inputs": {
+        "edad": "Âge",
+        "peso_kg": "Poids (kg)",
+        "altura_cm": "Taille (cm)",
+        "sexo": "Sexe"
+      },
+      "outputs": {
+        "bsa": "BSA",
+        "ideal_weight": "Ideal weight",
+        "adjusted_weight": "Adjusted weight"
+      },
+      "example_label": "Calculate bsa ideal weight with edad 30, peso_kg 70, altura_cm 175, sexo mujer.",
+      "range_hints": {
+        "sexo": "Typical range: -.",
+        "peso_kg": "Typical range: 10-500 in kg units.",
+        "altura_cm": "Typical range: 50-250 in cm units.",
+        "edad": "Typical range: 2-120 in years units."
+      },
+      "result_context": "Your calculated bsa is {bsa}.",
+      "formula_display": "Calculate bsa ideal weight based on input values.",
+      "steps": [
+        "Enter input values: edad: 30, peso_kg: 70, altura_cm: 175, sexo: mujer",
+        "Calculate and display the bsa result",
+        "Calculate and display the ideal_weight result",
+        "Calculate and display the adjusted_weight result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "sexo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de SC e Peso Ideal",
+      "desc": "Calcule area de superficie corporal e peso ideal com as formulas de Du Bois e Devine. Com intervalos de referencia e contexto de saude.",
+      "description": "Calculadora de SC e Peso Ideal.",
+      "seo_title": "Calculadora de SC e Peso Ideal",
+      "seo_description": "Calcule area de superficie corporal e peso ideal com as formulas de Du Bois e Devine. Com intervalos de referencia e contexto de saude.",
+      "inputs": {
+        "edad": "Idade",
+        "peso_kg": "Peso (kg)",
+        "altura_cm": "Altura (cm)",
+        "sexo": "Sexo"
+      },
+      "outputs": {
+        "bsa": "BSA",
+        "ideal_weight": "Ideal weight",
+        "adjusted_weight": "Adjusted weight"
+      },
+      "example_label": "Calculate bsa ideal weight with edad 30, peso_kg 70, altura_cm 175, sexo mujer.",
+      "range_hints": {
+        "sexo": "Typical range: -.",
+        "peso_kg": "Typical range: 10-500 in kg units.",
+        "altura_cm": "Typical range: 50-250 in cm units.",
+        "edad": "Typical range: 2-120 in years units."
+      },
+      "result_context": "Your calculated bsa is {bsa}.",
+      "formula_display": "Calculate bsa ideal weight based on input values.",
+      "steps": [
+        "Enter input values: edad: 30, peso_kg: 70, altura_cm: 175, sexo: mujer",
+        "Calculate and display the bsa result",
+        "Calculate and display the ideal_weight result",
+        "Calculate and display the adjusted_weight result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "sexo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "de": {
+      "name": "Bsa Idealgewicht weight",
+      "desc": "Berechnen Sie bsa Idealgewicht weight online. Geben Sie edad, peso kg, altura cm ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Bsa Idealgewicht weight | CalcToWork",
+      "seo_desc": "Bsa Idealgewicht weight online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Bsa Idealgewicht weight online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "edad": "Edad",
+        "peso_kg": "Peso Kg",
+        "altura_cm": "Altura Cm",
+        "sexo": "Sexo"
+      },
+      "outputs": {
+        "bsa": "Bsa",
+        "ideal_weight": "Ideal Weight",
+        "adjusted_weight": "Adjusted Weight"
+      },
+      "example_label": "Ejemplo para bsa ideal weight: valores 30years, 70kg, 175cm",
+      "range_hints": {
+        "edad": "Valor típico entre 2 y 120. Valor por defecto: 30 years.",
+        "peso_kg": "Valor típico entre 10 y 500. Valor por defecto: 70 kg.",
+        "altura_cm": "Valor típico entre 50 y 250. Valor por defecto: 175 cm.",
+        "sexo": "Seleccionar entre las opciones: mujer, hombre"
+      },
+      "result_context": "Körperoberfläche: {bsa} m². Idealgewicht: {ideal_weight} kg. Angepasstes Gewicht: {adjusted_weight} kg.",
+      "formula_display": "peso × altura → bsa, ideal_weight",
+      "steps": [
+        "Introducir los valores de edad, peso_kg, altura_cm y sexo",
+        "Verificar que las unidades sean correctas y convertir si es necesario (kg, g, lb)",
+        "Calcular los valores de bsa y ideal weight",
+        "El resultado se expresa en m2. Verificar que la magnitud es coherente",
+        "Comparar el resultado con los valores de referencia para interpretar su significado"
+      ],
+      "mistakes": [
+        "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+        "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+        "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "sexo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatrice di Superficie Corporea e Peso Ideale",
+      "desc": "Calcolatrice di Superficie Corporea e Peso Ideale.",
+      "description": "Calcolatrice di Superficie Corporea e Peso Ideale.",
+      "seo_title": "Calcolatrice di Superficie Corporea e Peso Ideale",
+      "seo_description": "Calcola superficie corporea e peso ideale con le formule di Du Bois e Devine. Con intervalli di riferimento e contesto sanitario.",
+      "inputs": {
+        "edad": "Età",
+        "peso_kg": "Peso (kg)",
+        "altura_cm": "Altezza (cm)",
+        "sexo": "Sesso"
+      },
+      "outputs": {
+        "bsa": "BSA",
+        "ideal_weight": "Ideal weight",
+        "adjusted_weight": "Adjusted weight"
+      },
+      "example_label": "Calculate bsa idial weight with edad 30, peso_kg 70, altezza_cm 175, sexo mujer.",
+      "range_hints": {
+        "sexo": "Tepical range: -.",
+        "peso_kg": "Tepical range: 10-500 in kg units.",
+        "altura_cm": "Tepical range: 50-250 in cm units.",
+        "edad": "Tepical range: 2-120 in eears units."
+      },
+      "result_context": "Your calculated bsa is {bsa}.",
+      "formula_display": "Calculate bsa idial weight based on input values.",
+      "steps": [
+        "Enter input values: edad: 30, peso_kg: 70, altezza_cm: 175, sexo: mujer",
+        "Calculate and displae the bsa result",
+        "Calculate and displae the idial_weight result",
+        "Calculate and displae the adjusted_weight result"
+      ],
+      "mistakes": [
+        "Confusenzag unit options whin intering values",
+        "Entering zero or negative values where posetive required",
+        "Usenzag incorrect input values outsedi recommindid range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "edad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "altura_cm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "sexo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Currint tepe is appropriate for this input."
+        }
+      ]
+    }
+  }
+}

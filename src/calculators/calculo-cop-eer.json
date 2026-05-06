@@ -1,0 +1,393 @@
+{
+  "id": "057",
+  "slug": "calculo-cop-eer",
+  "block": 6,
+  "block_slug": "climatizacion",
+  "inputs": [
+    {
+      "id": "potencia_util_kw",
+      "type": "number",
+      "min": 0.5,
+      "max": 200,
+      "step": 0.5,
+      "default": 3.5,
+      "unit": "kW útil"
+    },
+    {
+      "id": "potencia_elec_kw",
+      "type": "number",
+      "min": 0.1,
+      "max": 100,
+      "step": 0.1,
+      "default": 1,
+      "unit": "kW eléctrico"
+    }
+  ],
+  "formula": "var Qu=parseFloat(inputs.potencia_util_kw)||0,Qe=parseFloat(inputs.potencia_elec_kw)||0;if(!Qu||!Qe)return{error:true};var cop=+(Qu/Qe).toFixed(2),eer=cop,clase=cop>=5?'A+++':cop>=4?'A++':cop>=3.5?'A+':cop>=3?'A':'B';return{cop:cop,eer:eer,clase_eficiencia:clase,ahorro_vs_resistencia_pct:+((1-1/cop)*100).toFixed(1)};",
+  "outputs": [
+    {
+      "id": "cop",
+      "unit": "COP",
+      "highlight": true
+    },
+    {
+      "id": "eer",
+      "unit": "EER"
+    },
+    {
+      "id": "clase_eficiencia",
+      "unit": "Clase energética"
+    },
+    {
+      "id": "ahorro_vs_resistencia_pct",
+      "unit": "% ahorro vs eléctrico directo"
+    }
+  ],
+  "related": [
+    "056",
+    "053",
+    "036",
+    "054"
+  ],
+  "example_inputs": {
+    "potencia_util_kw": 3.5,
+    "potencia_elec_kw": 1
+  },
+  "example_label": "Calcular cal para 3.5 kW útil × 1 kW eléctrico.",
+  "range_hints": {
+    "potencia_util_kw": "Valor típico entre 0.5 y 200. Valor por defecto: 3.5 kW útil.",
+    "potencia_elec_kw": "Valor típico entre 0.1 y 100. Valor por defecto: 1 kW eléctrico."
+  },
+  "result_context": "Resultados: COP de {cop}, EER de {eer}, clase energética {clase_eficiencia}, ahorro del {ahorro_vs_resistencia_pct} % frente a resistencia eléctrica.",
+  "formula_display": "Qu ÷ Qe → cop, eer",
+  "steps": [
+    "Introducir los valores de potencia_util_kw y potencia_elec_kw",
+    "Verificar que los valores introducidos están en el rango y formato correctos",
+    "Calcular los valores de cop y eer",
+    "El resultado se expresa en COP. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Sobredimensionar el equipo (provoca ciclos cortos que reducen la eficiencia)",
+    "No limpiar los filtros regularmente (reduce el caudal hasta un 30%)",
+    "Instalar la unidad exterior en un lugar sin ventilación adecuada"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "potencia_util_kw",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "potencia_elec_kw",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small room",
+      "potencia_util_kw": 1.75,
+      "potencia_elec_kw": 0.5
+    },
+    {
+      "_label": "Medium room",
+      "potencia_util_kw": 2.625,
+      "potencia_elec_kw": 0.75
+    },
+    {
+      "_label": "Large room",
+      "potencia_util_kw": 3.5,
+      "potencia_elec_kw": 1
+    },
+    {
+      "_label": "Office",
+      "potencia_util_kw": 5.25,
+      "potencia_elec_kw": 1.5
+    },
+    {
+      "_label": "Warehouse",
+      "potencia_util_kw": 7,
+      "potencia_elec_kw": 2
+    }
+  ],
+  "i18n": {
+    "es": {
+      "name": "Calculadora de COP y EER",
+      "desc": "Calcula la eficiencia energética de equipos térmicos.",
+      "seo_title": "Calculadora COP y EER – Eficiencia",
+      "inputs": {
+        "potencia_util_kw": "Potencia útil térmica (kW)",
+        "potencia_elec_kw": "Potencia eléctrica consumida (kW)"
+      },
+      "outputs": {
+        "cop": "COP / EER",
+        "eer": "EER",
+        "clase_eficiencia": "Clase energética",
+        "ahorro_vs_resistencia_pct": "% ahorro vs eléctrico directo"
+      },
+      "seo_description": "Calcula el COP (calefacción) y EER (refrigeración) de equipos de calor para evaluar su eficiencia energética. Obten resultados al instante con.",
+      "example_label": "Calcular COP y clase energética de equipo con 3.5 kW de potencia útil y 1.0 kW de consumo eléctrico.",
+      "range_hints": {
+        "potencia_util_kw": "Potencia térmica entregada. Split residencial: 2-5 kW, Comercial: 10-50 kW",
+        "potencia_elec_kw": "Consumo eléctrico medido. Equipos eficientes consumen 3-5 veces menos que la potencia entregada"
+      },
+      "result_context": "COP: {cop}. EER: {eer}. Clase energética: {clase_eficiencia}. Ahorro del {ahorro_vs_resistencia_pct}% frente a resistencia eléctrica.",
+      "formula_display": "COP = Q_útil(kW) ÷ P_eléctrica(kW)  |  EER = Q_frío(BTU/h) ÷ P_eléctrica(W)",
+      "steps": [
+        "Identificar potencia útil (calor entregado): 3.5 kW",
+        "Identificar consumo eléctrico: 1.0 kW",
+        "Calcular COP: 3.5 ÷ 1.0 = 3.50",
+        "Clasificar: COP ≥5 = A+++, ≥4 = A++, ≥3.5 = A+, ≥3 = A, <3 = B",
+        "Calcular ahorro vs resistencia: (1 - 1/3.50) × 100 = 71.4%"
+      ],
+      "mistakes": [
+        "Confundir COP con EER — el COP es para modo calor y el EER para modo frío",
+        "Usar datos de catálogo sin verificar condiciones de ensayo — el rendimiento real puede ser inferior",
+        "Ignorar el COP estacional (SCOP) — el nominal es a carga máxima, el SCOP refleja el rendimiento anual"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "potencia_util_kw",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "potencia_elec_kw",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        }
+      ]
+    },
+    "en": {
+      "name": "COP and EER Calculator",
+      "desc": "Calculate energy efficiency of heating/cooling systems.",
+      "seo_title": "COP & EER Calculator – Efficiency Online",
+      "inputs": {
+        "potencia_util_kw": "Useful thermal output (kW)",
+        "potencia_elec_kw": "Electrical power consumed (kW)"
+      },
+      "outputs": {
+        "cop": "COP",
+        "eer": "EER",
+        "clase_eficiencia": "Energy class",
+        "ahorro_vs_resistencia_pct": "% savings vs direct electric"
+      },
+      "seo_description": "COP and EER Calculator. Useful thermal output (kW), Electrical power consumed (kW) — get COP, EER, Energy class instantly for your HVAC and climate.",
+      "example_label": "Calculate COP and energy class for a unit with 3.5 kW useful output and 1.0 kW power consumption.",
+      "range_hints": {
+        "potencia_util_kw": "Thermal output delivered. Residential split: 2-5 kW, Commercial: 10-50 kW",
+        "potencia_elec_kw": "Measured power draw. Efficient units consume 3-5 times less than thermal output delivered"
+      },
+      "result_context": "COP: {cop}. EER: {eer}. Energy class: {clase_eficiencia}. Savings of {ahorro_vs_resistencia_pct}% compared to direct electric heating.",
+      "formula_display": "COP = Q_heat(kW) ÷ P_electric(kW)  |  EER = Q_cool(BTU/h) ÷ P_electric(W)",
+      "steps": [
+        "Identify useful heat output: 3.5 kW",
+        "Identify power consumption: 1.0 kW",
+        "Calculate COP: 3.5 ÷ 1.0 = 3.50",
+        "Classify: COP ≥5 = A+++, ≥4 = A++, ≥3.5 = A+, ≥3 = A, <3 = B",
+        "Calculate savings vs resistance: (1 - 1/3.50) × 100 = 71.4%"
+      ],
+      "mistakes": [
+        "Confusing COP with EER — COP measures heating efficiency, EER measures cooling. They are not interchangeable",
+        "Using catalog data without checking test conditions — actual performance can be 20-30% below rated",
+        "Ignoring seasonal COP (SCOP) — nominal COP is at full load; SCOP reflects real annual performance"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "potencia_util_kw",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "potencia_elec_kw",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur COP et EER",
+      "desc": "Calculez l'efficacité énergétique des équipements thermiques.",
+      "seo_title": "Calculateur COP EER – Efficacité",
+      "inputs": {
+        "potencia_util_kw": "Puissance utile thermique (kW)",
+        "potencia_elec_kw": "Puissance électrique consommée (kW)"
+      },
+      "outputs": {
+        "cop": "COP / EER",
+        "eer": "EER",
+        "clase_eficiencia": "Classe énergétique",
+        "ahorro_vs_resistencia_pct": "% économie vs électrique direct"
+      },
+      "seo_description": "Calculez le COP (chauffage) et l'EER (refroidissement) pour évaluer l'efficacité énergétique Utilise par des professionnels et etudiants dans le monde.",
+      "example_label": "Calculer le COP et la classe énergétique d'un équipement de 3,5 kW utile et 1,0 kW électrique.",
+      "range_hints": {
+        "potencia_util_kw": "Puissance thermique délivrée. Split résidentiel: 2-5 kW, Commercial: 10-50 kW",
+        "potencia_elec_kw": "Consommation électrique mesurée. Les équipements efficaces consomment 3-5 fois moins"
+      },
+      "result_context": "COP: {cop}. EER: {eer}. Classe énergétique: {clase_eficiencia}. Économie de {ahorro_vs_resistencia_pct}% par rapport au chauffage électrique direct.",
+      "formula_display": "COP = Q_chaud(kW) ÷ P_électrique(kW)  |  EER = Q_froid(BTU/h) ÷ P_électrique(W)",
+      "steps": [
+        "Identifier la puissance utile: 3,5 kW",
+        "Identifier la consommation électrique: 1,0 kW",
+        "Calculer le COP: 3,5 ÷ 1,0 = 3,50",
+        "Classer: COP ≥5 = A+++, ≥4 = A++, ≥3,5 = A+, ≥3 = A, <3 = B",
+        "Calculer l'économie: (1 - 1/3,50) × 100 = 71,4%"
+      ],
+      "mistakes": [
+        "Confondre COP et EER — le COP mesure l'efficacité en chauffage, l'EER en refroidissement",
+        "Utiliser les données catalogue sans vérifier les conditions d'essai — la performance réelle peut être 20-30% inférieure",
+        "Ignorer le COP saisonnier (SCOP) — le COP nominal est à pleine charge, le SCOP reflète la performance annuelle"
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de COP e EER",
+      "desc": "Calcule a eficiência energética de equipamentos térmicos.",
+      "seo_title": "Calculadora COP e EER – Eficiência",
+      "inputs": {
+        "potencia_util_kw": "Potência útil térmica (kW)",
+        "potencia_elec_kw": "Potência elétrica consumida (kW)"
+      },
+      "outputs": {
+        "cop": "COP / EER",
+        "eer": "EER",
+        "clase_eficiencia": "Classe energética",
+        "ahorro_vs_resistencia_pct": "% economia vs elétrico direto"
+      },
+      "seo_description": "Calcule o COP e EER de equipamentos para avaliar sua eficiência energética Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular COP e classe energética de equipamento com 3,5 kW de potência útil e 1,0 kW de consumo elétrico.",
+      "range_hints": {
+        "potencia_util_kw": "Potência térmica entregue. Split residencial: 2-5 kW, Comercial: 10-50 kW",
+        "potencia_elec_kw": "Consumo elétrico medido. Equipamentos eficientes consomem 3-5 vezes menos"
+      },
+      "result_context": "COP: {cop}. EER: {eer}. Classe energética: {clase_eficiencia}. Economia de {ahorro_vs_resistencia_pct}% face ao aquecimento elétrico direto.",
+      "formula_display": "COP = Q_calor(kW) ÷ P_elétrica(kW)  |  EER = Q_frio(BTU/h) ÷ P_elétrica(W)",
+      "steps": [
+        "Identificar potência útil: 3,5 kW",
+        "Identificar consumo elétrico: 1,0 kW",
+        "Calcular COP: 3,5 ÷ 1,0 = 3,50",
+        "Classificar: COP ≥5 = A+++, ≥4 = A++, ≥3,5 = A+, ≥3 = A, <3 = B",
+        "Calcular economia: (1 - 1/3,50) × 100 = 71,4%"
+      ],
+      "mistakes": [
+        "Confundir COP com EER — o COP mede eficiência em aquecimento, o EER em refrigeração",
+        "Usar dados de catálogo sem verificar condições de ensaio — o rendimento real pode ser 20-30% inferior",
+        "Ignorar o COP sazonal (SCOP) — o nominal é à carga máxima, o SCOP reflete o rendimento anual"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "potencia_util_kw",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        },
+        {
+          "field_id": "potencia_elec_kw",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        }
+      ]
+    },
+    "de": {
+      "name": "Berechnung COP EER",
+      "desc": "Berechnen Sie berechnung COP EER online. Geben Sie potencia util kw, potencia elec kw ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Berechnung COP EER | CalcToWork",
+      "seo_desc": "Berechnung COP EER online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Berechnung COP EER online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "potencia_util_kw": "Potencia Util Kw",
+        "potencia_elec_kw": "Potencia Elec Kw"
+      },
+      "outputs": {
+        "cop": "Cop",
+        "eer": "Eer",
+        "clase_eficiencia": "Clase Eficiencia",
+        "ahorro_vs_resistencia_pct": "Ahorro Vs Resistencia Pct"
+      },
+      "example_label": "Calcular cal para 3.5 kW útil × 1 kW eléctrico.",
+      "range_hints": {
+        "potencia_util_kw": "Valor típico entre 0.5 y 200. Valor por defecto: 3.5 kW útil.",
+        "potencia_elec_kw": "Valor típico entre 0.1 y 100. Valor por defecto: 1 kW eléctrico."
+      },
+      "result_context": "Resultados: COP de {cop}, EER de {eer}, clase energética {clase_eficiencia}, ahorro del {ahorro_vs_resistencia_pct} % frente a resistencia eléctrica.",
+      "formula_display": "Qu ÷ Qe → cop, eer",
+      "steps": [
+        "Introducir los valores de potencia_util_kw y potencia_elec_kw",
+        "Verificar que los valores introducidos están en el rango y formato correctos",
+        "Calcular los valores de cop y eer",
+        "El resultado se expresa en COP. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Sobredimensionar el equipo (provoca ciclos cortos que reducen la eficiencia)",
+        "No limpiar los filtros regularmente (reduce el caudal hasta un 30%)",
+        "Instalar la unidad exterior en un lugar sin ventilación adecuada"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "potencia_util_kw",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "potencia_elec_kw",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Ventilazione",
+      "description": "Calcola i ricambi d'aria necessari per un locale.",
+      "seo_title": "Calcolatore COP EER – Efficienza",
+      "seo_description": "Calcola i ricambi d'aria orari per la ventilazione dei locali Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo.",
+      "inputs": {
+        "volumen": "Volume locale (m³)",
+        "renovaciones": "Ricambi orari (1/h)"
+      },
+      "outputs": {
+        "caudal_m3h": "Portata (m³/h)",
+        "diametro_tubo": "Diametro tubo (mm)"
+      },
+      "example_label": "Diminseonar sestema di calculo cop eer per viviinda con 3.5 kW útil di referincia.",
+      "range_hints": {
+        "potencia_util_kw": "Valor intre 0.5 e 200 kW útil.",
+        "potencia_elec_kw": "Valor intre 0.1 e 100 kW eléctrico."
+      },
+      "result_context": "El risultato principal es {cop} COP. Este valore serve come referincia per tu progetto.",
+      "formula_display": "COP = Potincia útil ÷ Potincia eléctrica",
+      "steps": [
+        "Introduce potincia util kw: 3.5 kW útil",
+        "Introduce potincia elec kw: 1 kW eléctrico",
+        "Revisa i valorei introducidos",
+        "Pulsa calcolare per obtiner risultati",
+        "Interpreta risultato: {cop}"
+      ],
+      "mistakes": [
+        "Diminseonar senza consedirar oriintacion e zona climatica",
+        "Non includire carico termica per ocupprima",
+        "Ignonrare perdidas per distribucion di conductos"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "potencia_util_kw",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        },
+        {
+          "field_id": "potencia_elec_kw",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        }
+      ]
+    }
+  }
+}

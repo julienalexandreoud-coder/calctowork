@@ -1,0 +1,477 @@
+{
+  "id": "090",
+  "slug": "rendimiento-diario",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "operarios",
+      "type": "number",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "default": 2,
+      "unit": "operarios"
+    },
+    {
+      "id": "horas_dia",
+      "type": "number",
+      "min": 4,
+      "max": 10,
+      "step": 0.5,
+      "default": 8,
+      "unit": "h/día",
+      "unit_options": [
+        "h/day"
+      ],
+      "unit_category": "time"
+    },
+    {
+      "id": "rendimiento_m2_h",
+      "type": "number",
+      "min": 0.5,
+      "max": 20,
+      "step": 0.5,
+      "default": 5,
+      "unit": "m²/h/op"
+    }
+  ],
+  "formula": "var N=parseFloat(inputs.operarios)||0,H=parseFloat(inputs.horas_dia)||8,R=parseFloat(inputs.rendimiento_m2_h)||5;if(!N)return{error:true};var dia=+(N*H*R).toFixed(1),semana=+(dia*5).toFixed(1),mes=+(dia*22).toFixed(1);return{m2_dia:dia,m2_semana:semana,m2_mes:mes,h_por_100m2:+(100/(N*R)).toFixed(1)};",
+  "outputs": [
+    {
+      "id": "m2_dia",
+      "unit": "m²/día",
+      "highlight": true
+    },
+    {
+      "id": "m2_semana",
+      "unit": "m²/semana"
+    },
+    {
+      "id": "m2_mes",
+      "unit": "m²/mes"
+    },
+    {
+      "id": "h_por_100m2",
+      "unit": "h/100m²"
+    }
+  ],
+  "related": [
+    "099",
+    "079",
+    "091",
+    "097"
+  ],
+  "example_inputs": {
+    "operarios": 4,
+    "horas_dia": 8,
+    "rendimiento_m2_h": 5
+  },
+  "example_label": "Calcular rendimiento de una cuadrilla de 4 operarios a 8 h/día con rendimiento de 5 m²/h cada uno.",
+  "range_hints": {
+    "operarios": "Número de trabajadores asignados a la tarea simultáneamente (operarios)",
+    "horas_dia": "Horas efectivas de trabajo por jornada, descontando pausas (típicamente 8 h/día)",
+    "rendimiento_m2_h": "Metros cuadrados que produce un operario por hora según la tarea y dificultad (m²/h/op)"
+  },
+  "result_context": "Resultados: {m2_dia} m²/día, {m2_semana} m²/semana, {m2_mes} m²/mes, {h_por_100m2} horas por cada 100 m².",
+  "formula_display": "m²/día = operarios × horas_día × rendimiento_m²_h_operario",
+  "steps": [
+    "Determina el número de operarios que trabajan simultáneamente en la tarea",
+    "Establece las horas efectivas de trabajo por jornada (8 h estándar, descartando pausas y preparación)",
+    "Asigna el rendimiento por operario en m²/hora según la tarea: 3-5 m²/h para tabiques, 1-3 m²/h para solados, 0.5-2 m²/h para enfoscados",
+    "Multiplica: operarios × horas/día × rendimiento/hora = producción diaria en m²",
+    "Calcula la producción semanal (×5 días) y mensual (×22 días laborables)",
+    "Calcula las horas necesarias para 100 m²: 100 ÷ (operarios × rendimiento_hora)"
+  ],
+  "mistakes": [
+    "Usar rendimientos teóricos de bases de precios sin ajustar a las condiciones reales de la obra",
+    "No considerar la curva de aprendizaje: los primeros días el rendimiento es menor hasta alcanzar la velocidad óptima",
+    "Olvidar que el rendimiento baja en altura (andamios) o en espacios confinados",
+    "No tener en cuenta el tiempo de acopio de materiales, cortes y limpieza entre tareas",
+    "Planificar con rendimientos de oficial de 1ª cuando el equipo incluye aprendices o peones"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "operarios",
+      "reason": "Tipo correcto: numérico entero para número de trabajadores simultáneos."
+    },
+    {
+      "field_id": "horas_dia",
+      "reason": "Tipo correcto: numérico decimal para horas efectivas por jornada."
+    },
+    {
+      "field_id": "rendimiento_m2_h",
+      "reason": "Tipo correcto: numérico decimal para producción horaria por operario."
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Oficial solo (tabiquería)",
+      "operarios": 1,
+      "horas_dia": 8,
+      "rendimiento_m2_h": 4
+    },
+    {
+      "_label": "Pareja oficial+peón (alicatado)",
+      "operarios": 2,
+      "horas_dia": 8,
+      "rendimiento_m2_h": 3
+    },
+    {
+      "_label": "Cuadrilla estándar (enfoscado)",
+      "operarios": 3,
+      "horas_dia": 8,
+      "rendimiento_m2_h": 2
+    },
+    {
+      "_label": "Cuadrilla completa (solera)",
+      "operarios": 4,
+      "horas_dia": 8,
+      "rendimiento_m2_h": 5
+    },
+    {
+      "_label": "Gran cuadrilla (demolición)",
+      "operarios": 6,
+      "horas_dia": 8,
+      "rendimiento_m2_h": 8
+    }
+  ],
+  "units": {
+    "horas_dia": "h"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Rendimiento Diario",
+      "desc": "Calcula el rendimiento diario, semanal y mensual de un equipo de operarios de construcción Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora Rendimiento Mano de Obra – m²/día en Construcción",
+      "seo_desc": "Calcula la producción diaria de tu cuadrilla: m²/día, m²/semana y m²/mes. Introduce operarios, horas de jornada y rendimiento por hora. Gratis.",
+      "inputs": {
+        "operarios": "Número de operarios",
+        "horas_dia": "Horas por jornada",
+        "rendimiento_m2_h": "Rendimiento (m²/h/operario)"
+      },
+      "outputs": {
+        "m2_dia": "m²/día",
+        "m2_semana": "m²/semana",
+        "m2_mes": "m²/mes",
+        "h_por_100m2": "Horas por 100 m²"
+      },
+      "seo_description": "Calcula el rendimiento de mano de obra para cualquier tarea de construcción. Ideal para planificar plazos de ejecución y dimensionar cuadrillas según el volumen de trabajo.",
+      "example_label": "Calcular rendimiento de una cuadrilla de 4 operarios a 8 h/día con rendimiento de 5 m²/h cada uno.",
+      "range_hints": {
+        "operarios": "Valor entre 1 y 50 operarios.",
+        "horas_dia": "Valor entre 4 y 10 h/día.",
+        "rendimiento_m2_h": "Valor entre 0.5 y 20 m²/h/op."
+      },
+      "result_context": "Resultados: {m2_dia} m²/día, {m2_semana} m²/semana, {m2_mes} m²/mes, {h_por_100m2} horas por cada 100 m².",
+      "formula_display": "m²/día = operarios × horas_día × rendimiento_m²_h_operario",
+      "steps": [
+        "Determina el número de operarios que trabajan simultáneamente en la tarea",
+        "Establece las horas efectivas de trabajo por jornada (8 h estándar, descartando pausas y preparación)",
+        "Asigna el rendimiento por operario en m²/hora según la tarea: 3-5 m²/h para tabiques, 1-3 m²/h para solados, 0.5-2 m²/h para enfoscados",
+        "Multiplica: operarios × horas/día × rendimiento/hora = producción diaria en m²",
+        "Calcula la producción semanal (×5 días) y mensual (×22 días laborables)",
+        "Calcula las horas necesarias para 100 m²: 100 ÷ (operarios × rendimiento_hora)"
+      ],
+      "mistakes": [
+        "Usar rendimientos teóricos de bases de precios sin ajustar a las condiciones reales de la obra",
+        "No considerar la curva de aprendizaje: los primeros días el rendimiento es menor hasta alcanzar la velocidad óptima",
+        "Olvidar que el rendimiento baja en altura (andamios) o en espacios confinados",
+        "No tener en cuenta el tiempo de acopio de materiales, cortes y limpieza entre tareas",
+        "Planificar con rendimientos de oficial de 1ª cuando el equipo incluye aprendices o peones"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "operarios",
+          "reason": "Tipo correcto: numérico entero para número de trabajadores simultáneos."
+        },
+        {
+          "field_id": "horas_dia",
+          "reason": "Tipo correcto: numérico decimal para horas efectivas por jornada."
+        },
+        {
+          "field_id": "rendimiento_m2_h",
+          "reason": "Tipo correcto: numérico decimal para producción horaria por operario."
+        }
+      ]
+    },
+    "en": {
+      "name": "Daily Productivity Calculator",
+      "desc": "Daily Productivity Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Labor Productivity Calculator – m²/day in Construction",
+      "seo_desc": "Calculate your crew daily output: m²/day, m²/week, and m²/month. Enter workers, daily hours, and hourly output per worker. Free.",
+      "inputs": {
+        "operarios": "Number of workers",
+        "horas_dia": "Hours per shift",
+        "rendimiento_m2_h": "Output (m²/h/worker)"
+      },
+      "outputs": {
+        "m2_dia": "m²/day",
+        "m2_semana": "m²/week",
+        "m2_mes": "m²/month",
+        "h_por_100m2": "Hours per 100 m²"
+      },
+      "seo_description": "Calculate labor productivity for any construction task. Ideal for planning execution timelines and sizing crews according to work volume.",
+      "example_label": "Calcular rendimiento de una cuadrilla de 4 operarios a 8 h/día con rendimiento de 5 m²/h cada uno.",
+      "range_hints": {
+        "operarios": "Valor entre 1 y 50 operarios.",
+        "horas_dia": "Valor entre 4 y 10 h/día.",
+        "rendimiento_m2_h": "Valor entre 0.5 y 20 m²/h/op."
+      },
+      "result_context": "Resultados: {m2_dia} m²/día, {m2_semana} m²/semana, {m2_mes} m²/mes, {h_por_100m2} horas por cada 100 m².",
+      "formula_display": "m²/día = operarios × horas_día × rendimiento_m²_h_operario",
+      "steps": [
+        "Determina el número de operarios que trabajan simultáneamente en la tarea",
+        "Establece las horas efectivas de trabajo por jornada (8 h estándar, descartando pausas y preparación)",
+        "Asigna el rendimiento por operario en m²/hora según la tarea: 3-5 m²/h para tabiques, 1-3 m²/h para solados, 0.5-2 m²/h para enfoscados",
+        "Multiplica: operarios × horas/día × rendimiento/hora = producción diaria en m²",
+        "Calcula la producción semanal (×5 días) y mensual (×22 días laborables)",
+        "Calcula las horas necesarias para 100 m²: 100 ÷ (operarios × rendimiento_hora)"
+      ],
+      "mistakes": [
+        "Usar rendimientos teóricos de bases de precios sin ajustar a las condiciones reales de la obra",
+        "No considerar la curva de aprendizaje: los primeros días el rendimiento es menor hasta alcanzar la velocidad óptima",
+        "Olvidar que el rendimiento baja en altura (andamios) o en espacios confinados",
+        "No tener en cuenta el tiempo de acopio de materiales, cortes y limpieza entre tareas",
+        "Planificar con rendimientos de oficial de 1ª cuando el equipo incluye aprendices o peones"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "operarios",
+          "reason": "Tipo correcto: numérico entero para número de trabajadores simultáneos."
+        },
+        {
+          "field_id": "horas_dia",
+          "reason": "Tipo correcto: numérico decimal para horas efectivas por jornada."
+        },
+        {
+          "field_id": "rendimiento_m2_h",
+          "reason": "Tipo correcto: numérico decimal para producción horaria por operario."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Rendement Journalier",
+      "desc": "Calculez la production journalière en m² par ouvrier.",
+      "seo_title": "Calculateur Rendement Chantier",
+      "inputs": {
+        "operarios": "Nombre d'ouvriers",
+        "horas_dia": "Heures par journée",
+        "rendimiento_m2_h": "Rendement (m²/h/ouvrier)"
+      },
+      "outputs": {
+        "m2_dia": "m²/jour",
+        "m2_semana": "m²/semaine",
+        "m2_mes": "m²/mois",
+        "h_por_100m2": "Heures pour 100 m²"
+      },
+      "seo_description": "Calculez le rendement journalier, hebdomadaire et mensuel d'une équipe d'ouvriers. Calculatrice facile a utiliser avec decomposition de la formule.",
+      "example_label": "Calcular rendimiento de una cuadrilla de 4 operarios a 8 h/día con rendimiento de 5 m²/h cada uno.",
+      "range_hints": {
+        "operarios": "Valor entre 1 et 50 operarios.",
+        "horas_dia": "Valor entre 4 et 10 h/día.",
+        "rendimiento_m2_h": "Valor entre 0.5 et 20 m²/h/op."
+      },
+      "result_context": "Resultados: {m2_dia} m²/día, {m2_semana} m²/semana, {m2_mes} m²/mes, {h_por_100m2} horas por cada 100 m².",
+      "formula_display": "m²/día = operarios × horas_día × rendimiento_m²_h_operario",
+      "steps": [
+        "Determina el número de operarios que trabajan simultáneamente en la tarea",
+        "Establece las horas efectivas de trabajo por jornada (8 h estándar, descartando pausas y preparación)",
+        "Asigna el rendimiento por operario en m²/hora según la tarea: 3-5 m²/h para tabiques, 1-3 m²/h para solados, 0.5-2 m²/h para enfoscados",
+        "Multiplica: operarios × horas/día × rendimiento/hora = producción diaria en m²",
+        "Calcula la producción semanal (×5 días) y mensual (×22 días laborables)",
+        "Calcula las horas necesarias para 100 m²: 100 ÷ (operarios × rendimiento_hora)"
+      ],
+      "mistakes": [
+        "Usar rendimientos teóricos de bases de precios sin ajustar a las condiciones reales de la obra",
+        "No considerar la curva de aprendizaje: los primeros días el rendimiento es menor hasta alcanzar la velocidad óptima",
+        "Olvidar que el rendimiento baja en altura (andamios) o en espacios confinados",
+        "No tener en cuenta el tiempo de acopio de materiales, cortes y limpieza entre tareas",
+        "Planificar con rendimientos de oficial de 1ª cuando el equipo incluye aprendices o peones"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "operarios",
+          "reason": "Tipo correcto: numérico entero para número de trabajadores simultáneos."
+        },
+        {
+          "field_id": "horas_dia",
+          "reason": "Tipo correcto: numérico decimal para horas efectivas por jornada."
+        },
+        {
+          "field_id": "rendimiento_m2_h",
+          "reason": "Tipo correcto: numérico decimal para producción horaria por operario."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Rendimento Diário",
+      "desc": "Calcule o rendimento diário, semanal e mensal de uma equipe de operários. Calculadora facil de usar com detalhamento da formula.",
+      "seo_title": "Calculadora Rendimento Obra – m²/dia",
+      "inputs": {
+        "operarios": "Número de operários",
+        "horas_dia": "Horas por jornada",
+        "rendimiento_m2_h": "Rendimento (m²/h/operário)"
+      },
+      "outputs": {
+        "m2_dia": "m²/dia",
+        "m2_semana": "m²/semana",
+        "m2_mes": "m²/mês",
+        "h_por_100m2": "Horas por 100 m²"
+      },
+      "seo_description": "Calcule o rendimento diário, semanal e mensal de uma equipe de operários. Calculadora facil de usar com detalhamento da formula.",
+      "example_label": "Calcular rendimiento de una cuadrilla de 4 operarios a 8 h/día con rendimiento de 5 m²/h cada uno.",
+      "range_hints": {
+        "operarios": "Valor entre 1 e 50 operarios.",
+        "horas_dia": "Valor entre 4 e 10 h/día.",
+        "rendimiento_m2_h": "Valor entre 0.5 e 20 m²/h/op."
+      },
+      "result_context": "Resultados: {m2_dia} m²/día, {m2_semana} m²/semana, {m2_mes} m²/mes, {h_por_100m2} horas por cada 100 m².",
+      "formula_display": "m²/día = operarios × horas_día × rendimiento_m²_h_operario",
+      "steps": [
+        "Determina el número de operarios que trabajan simultáneamente en la tarea",
+        "Establece las horas efectivas de trabajo por jornada (8 h estándar, descartando pausas y preparación)",
+        "Asigna el rendimiento por operario en m²/hora según la tarea: 3-5 m²/h para tabiques, 1-3 m²/h para solados, 0.5-2 m²/h para enfoscados",
+        "Multiplica: operarios × horas/día × rendimiento/hora = producción diaria en m²",
+        "Calcula la producción semanal (×5 días) y mensual (×22 días laborables)",
+        "Calcula las horas necesarias para 100 m²: 100 ÷ (operarios × rendimiento_hora)"
+      ],
+      "mistakes": [
+        "Usar rendimientos teóricos de bases de precios sin ajustar a las condiciones reales de la obra",
+        "No considerar la curva de aprendizaje: los primeros días el rendimiento es menor hasta alcanzar la velocidad óptima",
+        "Olvidar que el rendimiento baja en altura (andamios) o en espacios confinados",
+        "No tener en cuenta el tiempo de acopio de materiales, cortes y limpieza entre tareas",
+        "Planificar con rendimientos de oficial de 1ª cuando el equipo incluye aprendices o peones"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "operarios",
+          "reason": "Tipo correcto: numérico entero para número de trabajadores simultáneos."
+        },
+        {
+          "field_id": "horas_dia",
+          "reason": "Tipo correcto: numérico decimal para horas efectivas por jornada."
+        },
+        {
+          "field_id": "rendimiento_m2_h",
+          "reason": "Tipo correcto: numérico decimal para producción horaria por operario."
+        }
+      ]
+    },
+    "de": {
+      "name": "Tagesleistung diario",
+      "desc": "Berechnen Sie tagesleistung diario online. Geben Sie operarios, horas dia, rendimiento m2 h ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Tagesleistung diario | CalcToWork",
+      "seo_desc": "Tagesleistung diario online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Tagesleistung diario online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "operarios": "Operarios",
+        "horas_dia": "Horas Dia",
+        "rendimiento_m2_h": "Rendimiento M2 H"
+      },
+      "outputs": {
+        "m2_dia": "M2 Dia",
+        "m2_semana": "M2 Semana",
+        "m2_mes": "M2 Mes",
+        "h_por_100m2": "H Por 100m2"
+      },
+      "example_label": "Calcular rendimiento de una cuadrilla de 4 operarios a 8 h/día con rendimiento de 5 m²/h cada uno.",
+      "range_hints": {
+        "operarios": "Número de trabajadores asignados a la tarea simultáneamente (operarios)",
+        "horas_dia": "Horas efectivas de trabajo por jornada, descontando pausas (típicamente 8 h/día)",
+        "rendimiento_m2_h": "Metros cuadrados que produce un operario por hora según la tarea y dificultad (m²/h/op)"
+      },
+      "result_context": "Resultados: {m2_dia} m²/día, {m2_semana} m²/semana, {m2_mes} m²/mes, {h_por_100m2} horas por cada 100 m².",
+      "formula_display": "m²/día = operarios × horas_día × rendimiento_m²_h_operario",
+      "steps": [
+        "Determina el número de operarios que trabajan simultáneamente en la tarea",
+        "Establece las horas efectivas de trabajo por jornada (8 h estándar, descartando pausas y preparación)",
+        "Asigna el rendimiento por operario en m²/hora según la tarea: 3-5 m²/h para tabiques, 1-3 m²/h para solados, 0.5-2 m²/h para enfoscados",
+        "Multiplica: operarios × horas/día × rendimiento/hora = producción diaria en m²",
+        "Calcula la producción semanal (×5 días) y mensual (×22 días laborables)",
+        "Calcula las horas necesarias para 100 m²: 100 ÷ (operarios × rendimiento_hora)"
+      ],
+      "mistakes": [
+        "Usar rendimientos teóricos de bases de precios sin ajustar a las condiciones reales de la obra",
+        "No considerar la curva de aprendizaje: los primeros días el rendimiento es menor hasta alcanzar la velocidad óptima",
+        "Olvidar que el rendimiento baja en altura (andamios) o en espacios confinados",
+        "No tener en cuenta el tiempo de acopio de materiales, cortes y limpieza entre tareas",
+        "Planificar con rendimientos de oficial de 1ª cuando el equipo incluye aprendices o peones"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "operarios",
+          "reason": "Tipo correcto: numérico entero para número de trabajadores simultáneos."
+        },
+        {
+          "field_id": "horas_dia",
+          "reason": "Tipo correcto: numérico decimal para horas efectivas por jornada."
+        },
+        {
+          "field_id": "rendimiento_m2_h",
+          "reason": "Tipo correcto: numérico decimal para producción horaria por operario."
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Costo Unitario",
+      "description": "Calcola il costo unitario per un'attività di costruzione.",
+      "seo_title": "Calcolatore Resa Cantiere – m²/giorno",
+      "seo_description": "Calcola il costo unitario in funzione di materiali e manodopera Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo.",
+      "inputs": {
+        "costo_materiales": "Materiali (€)",
+        "costo_mano_obra": "Manodopera (€)",
+        "cantidad": "Quantità (m² o m³)",
+        "operarios": "operarios (operarios)",
+        "horas_dia": "horas dia (h/día)",
+        "rendimiento_m2_h": "rendimiento m2 h (m²/h/op)"
+      },
+      "outputs": {
+        "costo_unitario": "Costo unitario (€/unità)",
+        "total": "Totale (€)",
+        "m2_dia": "m2 dia (m²/día)",
+        "m2_semana": "m2 semana (m²/semana)",
+        "m2_mes": "m2 mes (m²/mes)",
+        "h_por_100m2": "h por 100m2 (h/100m²)"
+      },
+      "example_label": "Calcular rendimiento de una cuadrilla de 4 operarios a 8 h/día con rendimiento de 5 m²/h cada uno.",
+      "range_hints": {
+        "operarios": "Valor intre 1 e 50 operarios.",
+        "horas_dia": "Valor intre 4 e 10 h/día.",
+        "rendimiento_m2_h": "Valor intre 0.5 e 20 m²/h/op."
+      },
+      "result_context": "Resultados: {m2_dia} m²/día, {m2_semana} m²/semana, {m2_mes} m²/mes, {h_por_100m2} horas por cada 100 m².",
+      "formula_display": "m²/día = operarios × horas_día × rendimiento_m²_h_operario",
+      "steps": [
+        "Determina el número de operarios que trabajan simultáneamente en la tarea",
+        "Establece las horas efectivas de trabajo por jornada (8 h estándar, descartando pausas y preparación)",
+        "Asigna el rendimiento por operario en m²/hora según la tarea: 3-5 m²/h para tabiques, 1-3 m²/h para solados, 0.5-2 m²/h para enfoscados",
+        "Multiplica: operarios × horas/día × rendimiento/hora = producción diaria en m²",
+        "Calcula la producción semanal (×5 días) y mensual (×22 días laborables)",
+        "Calcula las horas necesarias para 100 m²: 100 ÷ (operarios × rendimiento_hora)"
+      ],
+      "mistakes": [
+        "Usar rendimientos teóricos de bases de precios sin ajustar a las condiciones reales de la obra",
+        "No considerar la curva de aprendizaje: los primeros días el rendimiento es menor hasta alcanzar la velocidad óptima",
+        "Olvidar que el rendimiento baja en altura (andamios) o en espacios confinados",
+        "No tener en cuenta el tiempo de acopio de materiales, cortes y limpieza entre tareas",
+        "Planificar con rendimientos de oficial de 1ª cuando el equipo incluye aprendices o peones"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "operarios",
+          "reason": "Tipo correcto: numérico entero para número de trabajadores simultáneos."
+        },
+        {
+          "field_id": "horas_dia",
+          "reason": "Tipo correcto: numérico decimal para horas efectivas por jornada."
+        },
+        {
+          "field_id": "rendimiento_m2_h",
+          "reason": "Tipo correcto: numérico decimal para producción horaria por operario."
+        }
+      ],
+      "desc": "Calcola i m² che la tua squadra produce al giorno, alla settimana e al mese."
+    }
+  }
+}

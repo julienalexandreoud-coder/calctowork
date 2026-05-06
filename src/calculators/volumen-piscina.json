@@ -1,0 +1,508 @@
+{
+  "id": "101",
+  "slug": "volumen-piscina",
+  "block": 4,
+  "block_slug": "fontaneria",
+  "inputs": [
+    {
+      "id": "largo_m",
+      "type": "number",
+      "min": 2,
+      "max": 50,
+      "step": 0.5,
+      "default": 8,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "ancho_m",
+      "type": "number",
+      "min": 1,
+      "max": 25,
+      "step": 0.5,
+      "default": 4,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "profundidad_m",
+      "type": "number",
+      "min": 0.5,
+      "max": 3,
+      "step": 0.1,
+      "default": 1.5,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.largo_m)||0,W=parseFloat(inputs.ancho_m)||0,D=parseFloat(inputs.profundidad_m)||0;if(!L||!W||!D)return{error:true};var vol=+(L*W*D).toFixed(2),litros=Math.round(vol*1000),cloro_g=Math.round(litros*0.002),tratamiento_semanas=+(litros/1000*0.15).toFixed(1);return{volumen_m3:vol,volumen_litros:litros,cloro_inicial_g:cloro_g,producto_mantenimiento_kg:tratamiento_semanas};",
+  "outputs": [
+    {
+      "id": "volumen_m3",
+      "unit": "m³",
+      "highlight": true
+    },
+    {
+      "id": "volumen_litros",
+      "unit": "litros"
+    },
+    {
+      "id": "cloro_inicial_g",
+      "unit": "g cloro inicial"
+    },
+    {
+      "id": "producto_mantenimiento_kg",
+      "unit": "kg mantenimiento/semana"
+    }
+  ],
+  "related": [
+    "041",
+    "039",
+    "040",
+    "102"
+  ],
+  "example_inputs": {
+    "largo_m": 10,
+    "ancho_m": 5,
+    "profundidad_m": 0.2
+  },
+  "example_label": "Calcular volumen y materiales para piscina de 10 m × 5 m × 0.2 m.",
+  "range_hints": {
+    "largo_m": "Medida lineal en m según plano",
+    "ancho_m": "Medida lineal en m según plano",
+    "profundidad_m": "Medida lineal en m según plano"
+  },
+  "result_context": "Resultados: {volumen_m3} m³ de agua, {volumen_litros} litros de agua, {cloro_inicial_g} g de cloro inicial, {producto_mantenimiento_kg} kg de mantenimiento/semana.",
+  "formula_display": "Volumen = largo × ancho × profundidad",
+  "steps": [
+    "Introducir los valores de largo_m, ancho_m y profundidad_m",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m, cm, mm)",
+    "Aplicar la fórmula: Volumen = largo × ancho × profundidad",
+    "El resultado se expresa en m³. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "No considerar profundidad promedio en piscinas irregulares",
+    "Olvidar margen de llenado (no llenar al borde)",
+    "No calcular sistema de filtrado adecuado"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "largo_m",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "ancho_m",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "profundidad_m",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small bathroom",
+      "largo_m": 5,
+      "ancho_m": 2.5,
+      "profundidad_m": 0.2
+    },
+    {
+      "_label": "Medium bathroom",
+      "largo_m": 7.5,
+      "ancho_m": 3.75,
+      "profundidad_m": 0.2
+    },
+    {
+      "_label": "Large bathroom",
+      "largo_m": 10,
+      "ancho_m": 5,
+      "profundidad_m": 0.2
+    },
+    {
+      "_label": "Apartment",
+      "largo_m": 15,
+      "ancho_m": 7.5,
+      "profundidad_m": 0.2
+    },
+    {
+      "_label": "House",
+      "largo_m": 20,
+      "ancho_m": 10,
+      "profundidad_m": 0.2
+    }
+  ],
+  "units": {
+    "largo_m": "m",
+    "ancho_m": "m",
+    "profundidad_m": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Volumen de Piscina",
+      "desc": "Calcula el volumen de agua y productos de mantenimiento para tu piscina.",
+      "seo_title": "Calculadora Volumen Piscina – Litros y m³",
+      "seo_desc": "Calcula los litros y m³ de tu piscina, cloro inicial y producto de mantenimiento semanal. Gratis y sin registro. Obten resultados al instante con.",
+      "inputs": {
+        "largo_m": "Largo de la piscina (m)",
+        "ancho_m": "Ancho de la piscina (m)",
+        "profundidad_m": "Profundidad media (m)"
+      },
+      "outputs": {
+        "volumen_m3": "Volumen (m³)",
+        "volumen_litros": "Volumen (litros)",
+        "cloro_inicial_g": "Cloro inicial (g)",
+        "producto_mantenimiento_kg": "Mantenimiento semanal (kg)"
+      },
+      "seo_description": "Calcula el volumen de agua de tu piscina en m³ y litros, la dosis de cloro inicial y el mantenimiento químico semanal. Solo introduce largo, ancho y profundidad media.",
+      "example_label": "Dimensionar volumen piscina para instalacion con 10 m dado.",
+      "range_hints": {
+        "largo_m": "Valor entre 2 y 50 m.",
+        "ancho_m": "Valor entre 1 y 25 m.",
+        "profundidad_m": "Valor entre 0.5 y 3 m."
+      },
+      "result_context": "El resultado principal es {volumen_m3} m³. Este valor sirve como referencia para tu proyecto.",
+      "formula_display": "Volumen = Largo × Ancho × Espesor",
+      "steps": [
+        "Introduce largo m: 10 m",
+        "Introduce ancho m: 5 m",
+        "Introduce profundidad m: 0.2 m",
+        "Pulsa calcular para obtener resultados",
+        "Interpreta resultado: {volumen_m3}"
+      ],
+      "mistakes": [
+        "No considerar perdidas de carga en tuberias",
+        "Dimensionar sin margen de caudal simultaneo",
+        "Olvidar presion minima requerida en grifos"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo_m",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "ancho_m",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "profundidad_m",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        }
+      ]
+    },
+    "en": {
+      "name": "Swimming Pool Volume Calculator",
+      "desc": "Calculate the water volume and maintenance chemicals for your pool.",
+      "seo_title": "Pool Volume Calculator – Litres & m³",
+      "seo_desc": "Calculate the litres and m³ of your swimming pool, initial chlorine dose and weekly maintenance product. Free, no signup.",
+      "inputs": {
+        "largo_m": "Pool length (m)",
+        "ancho_m": "Pool width (m)",
+        "profundidad_m": "Average depth (m)"
+      },
+      "outputs": {
+        "volumen_m3": "Volume (m³)",
+        "volumen_litros": "Volume (litres)",
+        "cloro_inicial_g": "Initial chlorine (g)",
+        "producto_mantenimiento_kg": "Weekly maintenance (kg)"
+      },
+      "seo_description": "Calculate your swimming pool water volume in m³ and litres, initial chlorine dose and weekly chemical maintenance. Just enter length, width and average depth.",
+      "example_label": "Dimensionar volumen piscina para instalacion con 10 m dado.",
+      "range_hints": {
+        "largo_m": "Valor entre 2 y 50 m.",
+        "ancho_m": "Valor entre 1 y 25 m.",
+        "profundidad_m": "Valor entre 0.5 y 3 m."
+      },
+      "result_context": "El resultado principal es {volumen_m3} m³. Este valor sirve como referencia para tu proyecto.",
+      "formula_display": "Volumen = Largo × Ancho × Espesor",
+      "steps": [
+        "Introduce largo m: 10 m",
+        "Introduce ancho m: 5 m",
+        "Introduce profundidad m: 0.2 m",
+        "Pulsa calcular para obtener resultados",
+        "Interpreta resultado: {volumen_m3}"
+      ],
+      "mistakes": [
+        "No considerar perdidas de carga en tuberias",
+        "Dimensionar sin margen de caudal simultaneo",
+        "Olvidar presion minima requerida en grifos"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "ancho_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "profundidad_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Volume Piscine",
+      "desc": "Calculez le volume d'eau et les produits de maintenance pour votre piscine.",
+      "seo_title": "Calculateur Volume Piscine – Litres et m³",
+      "inputs": {
+        "largo_m": "Longueur de la piscine (m)",
+        "ancho_m": "Largeur de la piscine (m)",
+        "profundidad_m": "Profondeur moyenne (m)"
+      },
+      "outputs": {
+        "volumen_m3": "Volume (m³)",
+        "volumen_litros": "Volume (litres)",
+        "cloro_inicial_g": "Chlore initial (g)",
+        "producto_mantenimiento_kg": "Entretien hebdomadaire (kg)"
+      },
+      "seo_description": "Calculez les litres et m³ de votre piscine, la dose initiale de chlore et le produit d'entretien hebdomadaire. Obtenez des resultats instantanes avec.",
+      "example_label": "Dimensionar volume piscina pour instalacion avec 10 m dado.",
+      "range_hints": {
+        "largo_m": "Valor entre 2 et 50 m.",
+        "ancho_m": "Valor entre 1 et 25 m.",
+        "profundidad_m": "Valor entre 0.5 et 3 m."
+      },
+      "result_context": "le resultado principal es {volumen_m3} m³. Este valor sirve como referencia pour tu proyecto.",
+      "formula_display": "volume = longueur × largeur × épaisseur",
+      "steps": [
+        "Introduce longueur m: 10 m",
+        "Introduce largeur m: 5 m",
+        "Introduce profondeur m: 0.2 m",
+        "Pulsa Calculer pour obtener resultados",
+        "Interpreta resultado: {volumen_m3}"
+      ],
+      "mistakes": [
+        "Ne pas considérer perdidas de carga dans tuberias",
+        "Dimensionar sans margen de caudal simultaneo",
+        "Oublier presion minima requerida dans grifos"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        },
+        {
+          "field_id": "ancho_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        },
+        {
+          "field_id": "profundidad_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Volume de Piscina",
+      "desc": "Calcule o volume de água e produtos de manutenção para sua piscina.",
+      "seo_title": "Calculadora Volume Piscina – Litros e m³",
+      "inputs": {
+        "largo_m": "Comprimento da piscina (m)",
+        "ancho_m": "Largura da piscina (m)",
+        "profundidad_m": "Profundidade média (m)"
+      },
+      "outputs": {
+        "volumen_m3": "Volume (m³)",
+        "volumen_litros": "Volume (litros)",
+        "cloro_inicial_g": "Cloro inicial (g)",
+        "producto_mantenimiento_kg": "Manutenção semanal (kg)"
+      },
+      "seo_description": "Calcule os litros e m³ da sua piscina, cloro inicial e produto de manutenção semanal Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Dimensionar volume piscina para instalacion com 10 m dado.",
+      "range_hints": {
+        "largo_m": "Valor entre 2 e 50 m.",
+        "ancho_m": "Valor entre 1 e 25 m.",
+        "profundidad_m": "Valor entre 0.5 e 3 m."
+      },
+      "result_context": "El resultado principal é {volumen_m3} m³. Este valor sirve como referencia para tu proyecto.",
+      "formula_display": "Volumen = Largo × Ancho × Espesor",
+      "steps": [
+        "Introduce comprimento m: 10 m",
+        "Introduce largura m: 5 m",
+        "Introduce profundidade m: 0.2 m",
+        "Pulsa calcular para obter resultados",
+        "Interpreta resultado: {volumen_m3}"
+      ],
+      "mistakes": [
+        "Não considerar perdidas de carga em tuberias",
+        "Dimensionar sem margen de caudal simultaneo",
+        "Esquecer presion minima requerida em grifos"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        },
+        {
+          "field_id": "ancho_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        },
+        {
+          "field_id": "profundidad_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        }
+      ]
+    },
+    "de": {
+      "name": "Volumen piscina",
+      "desc": "Berechnen Sie volumen piscina online. Geben Sie largo m, ancho m, profundidad m ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Volumen piscina | CalcToWork",
+      "seo_desc": "Volumen piscina online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Volumen piscina online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "largo_m": "Largo M",
+        "ancho_m": "Ancho M",
+        "profundidad_m": "Profundidad M"
+      },
+      "outputs": {
+        "volumen_m3": "Volumen M3",
+        "volumen_litros": "Volumen Litros",
+        "cloro_inicial_g": "Cloro Inicial G",
+        "producto_mantenimiento_kg": "Producto Mantenimiento Kg"
+      },
+      "example_label": "Calcular volumen y materiales para piscina de 10 m × 5 m × 0.2 m.",
+      "range_hints": {
+        "largo_m": "Medida lineal en m según plano",
+        "ancho_m": "Medida lineal en m según plano",
+        "profundidad_m": "Medida lineal en m según plano"
+      },
+      "result_context": "Resultados: {volumen_m3} m³ de agua, {volumen_litros} litros de agua, {cloro_inicial_g} g de cloro inicial, {producto_mantenimiento_kg} kg de mantenimiento/semana.",
+      "formula_display": "Volumen = largo × ancho × profundidad",
+      "steps": [
+        "Introducir los valores de largo_m, ancho_m y profundidad_m",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m, cm, mm)",
+        "Aplicar la fórmula: Volumen = largo × ancho × profundidad",
+        "El resultado se expresa en m³. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "No considerar profundidad promedio en piscinas irregulares",
+        "Olvidar margen de llenado (no llenar al borde)",
+        "No calcular sistema de filtrado adecuado"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "ancho_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "profundidad_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Volume Piscina",
+      "desc": "Calcola il volume d'acqua e i prodotti di manutenzione per la tua piscina.",
+      "seo_title": "Calcolatore Volume Piscina – Litri e m³",
+      "inputs": {
+        "largo_m": "Lunghezza piscina (m)",
+        "ancho_m": "Larghezza piscina (m)",
+        "profundidad_m": "Profondità media (m)"
+      },
+      "outputs": {
+        "volumen_m3": "Volume (m³)",
+        "volumen_litros": "Volume (litri)",
+        "cloro_inicial_g": "Cloro iniziale (g)",
+        "producto_mantenimiento_kg": "Manutenzione settimanale (kg)"
+      },
+      "seo_description": "Calcola litri e m³ della tua piscina, la dose iniziale di cloro e il prodotto di manutenzione settimanale. Ottieni risultati istantanei con spiegazione.",
+      "example_label": "Diminseonar volume piscina per instalacion con 10 m dado.",
+      "range_hints": {
+        "largo_m": "Valor intre 2 e 50 m.",
+        "ancho_m": "Valor intre 1 e 25 m.",
+        "profundidad_m": "Valor intre 0.5 e 3 m."
+      },
+      "result_context": "El risultato principal es {volume_m3} m³. Este valore serve come referincia per tu progetto.",
+      "formula_display": "Volumin = Largo × Ancho × Espesor",
+      "steps": [
+        "Introduce lunghezza m: 10 m",
+        "Introduce larghezza m: 5 m",
+        "Introduce profondità m: 0.2 m",
+        "Pulsa calcolare per obtiner risultati",
+        "Interpreta risultato: {volume_m3}"
+      ],
+      "mistakes": [
+        "Non consedirare perdidas di carico in tuberias",
+        "Diminseonar senza margin di pertata semulcosìeo",
+        "Diminticare preseon minima richiesta in grifos"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "largo_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        },
+        {
+          "field_id": "ancho_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        },
+        {
+          "field_id": "profundidad_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        }
+      ]
+    }
+  }
+}

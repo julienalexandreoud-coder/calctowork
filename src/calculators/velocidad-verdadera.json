@@ -1,0 +1,352 @@
+{
+  "id": "1047",
+  "slug": "velocidad-verdadera",
+  "block": 11,
+  "block_slug": "transporte",
+  "inputs": [
+    {
+      "id": "ias",
+      "type": "number",
+      "step": "any",
+      "default": 120,
+      "unit": "kt",
+      "unit_options": [
+        "kt",
+        "km/h",
+        "mph"
+      ],
+      "unit_category": "speed"
+    },
+    {
+      "id": "altitude",
+      "type": "number",
+      "step": "any",
+      "default": 5000,
+      "unit": "ft",
+      "unit_options": [
+        "ft",
+        "m"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "temp",
+      "type": "number",
+      "step": "any",
+      "default": 5,
+      "unit": "°C",
+      "unit_options": [
+        "°C",
+        "°F"
+      ],
+      "unit_category": "temperature"
+    }
+  ],
+  "formula": "var ias=parseFloat(inputs.ias)||0;var alt=parseFloat(inputs.altitude)||0;var t=parseFloat(inputs.temp)||0;var tas=ias*(1+alt/1000*0.02)*(1+(t-15)/273);return{tas:tas.toFixed(1)};",
+  "outputs": [
+    {
+      "id": "tas",
+      "unit": "kt"
+    }
+  ],
+  "related": [
+    "1045",
+    "1046",
+    "1048",
+    "1049"
+  ],
+  "example_inputs": {
+    "ias": 120,
+    "altitude": 5000,
+    "temp": 5
+  },
+  "example_label": "Calcular velocidad para 120 kt × 5000 ft × 5 °C.",
+  "range_hints": {
+    "ias": "Valor típico entre 0 y 500. Valor por defecto: 120 kt.",
+    "altitude": "Valor típico entre 0 y 500. Valor por defecto: 5000 ft.",
+    "temp": "Valor típico entre 0 y 500. Valor por defecto: 5 °C."
+  },
+  "result_context": "Velocidad verdadera (TAS): {tas} kt.",
+  "result_context_en": "True airspeed (TAS): {tas} kt.",
+  "result_context_fr": "Vitesse vraie (TAS) : {tas} kt.",
+  "result_context_pt": "Velocidade verdadeira (TAS): {tas} kt.",
+  "result_context_de": "Wahre Fluggeschwindigkeit (TAS): {tas} kt.",
+  "result_context_it": "Velocità vera (TAS): {tas} kt.",
+  "formula_display": "v = distancia ÷ tiempo",
+  "steps": [
+    "Introducir los valores de ias, altitude y temp",
+    "Verificar que las unidades sean correctas y convertir si es necesario (kt, km/h, mph)",
+    "Aplicar la fórmula: v = distancia ÷ tiempo",
+    "El resultado se expresa en kt. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Usar litros y millas sin convertir unidades (1 galón US = 3.785 L)",
+    "No considerar que el consumo urbano puede ser hasta un 50% mayor que el extraurbano",
+    "Olvidar que la presión de neumáticos debe medirse en frío"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "ias",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "altitude",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "temp",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "City",
+      "ias": 60,
+      "altitude": 2500,
+      "temp": 5
+    },
+    {
+      "_label": "Suburban",
+      "ias": 90,
+      "altitude": 3750,
+      "temp": 5
+    },
+    {
+      "_label": "Highway",
+      "ias": 120,
+      "altitude": 5000,
+      "temp": 5
+    },
+    {
+      "_label": "Long haul",
+      "ias": 180,
+      "altitude": 7500,
+      "temp": 5
+    },
+    {
+      "_label": "International",
+      "ias": 240,
+      "altitude": 10000,
+      "temp": 5
+    }
+  ],
+  "units": {
+    "ias": "m/s",
+    "altitude": "m",
+    "temp": "°C"
+  },
+  "i18n": {
+    "es": {
+      "name": "Velocidad Verdadera",
+      "description": "Calcula la velocidad verdadera desde la indicada.",
+      "inputs": {
+        "ias": "IAS",
+        "altitude": "Altitud",
+        "temp": "Temperatura"
+      },
+      "outputs": {
+        "tas": "TAS"
+      },
+      "seo_title": "Velocidad Verdadera – Calculadora TAS Aviación Gratuita",
+      "seo_description": "Calcula la Velocidad Aire Verdadera (TAS) desde la velocidad indicada (IAS), altitud y temperatura. Ejemplo: IAS=150 kt, 5000 ft, ISA → TAS≈168 kt. Gratis.",
+      "example_label": "Ejemplo de cálculo de transporte",
+      "range_hints": {},
+      "result_context": "Resultado del cálculo velocidad verdadera.",
+      "formula_display": "Ver fórmula en el cálculo",
+      "steps": [
+        "Identificar los valores de entrada",
+        "Aplicar la fórmula correspondiente",
+        "Realizar el cálculo",
+        "Obtener los 1 resultados"
+      ],
+      "mistakes": [
+        "No convertir unidades de distancia",
+        "No considerar condiciones reales",
+        "Usar fórmulas fuera de rango"
+      ],
+      "input_type_review": []
+    },
+    "en": {
+      "name": "True Airspeed Calculator",
+      "description": "Calculate true airspeed from indicated airspeed.",
+      "inputs": {
+        "ias": "IAS",
+        "altitude": "Altitude",
+        "temp": "Temperature"
+      },
+      "outputs": {
+        "tas": "TAS"
+      },
+      "seo_title": "True Airspeed Calculator – TAS from IAS",
+      "seo_description": "Calculate True Airspeed (TAS) from Indicated Airspeed (IAS), altitude, and temperature. Example: IAS=150 kt, 5000 ft, ISA â†’ TASâ‰ˆ168 kt. Free.",
+      "example_label": "Ejemplo de cálculo de transporte",
+      "range_hints": {},
+      "result_context": "Resultado del cálculo velocidad verdadera.",
+      "formula_display": "Ver fórmula en el cálculo",
+      "steps": [
+        "Identificar los valores de entrada",
+        "Aplicar la fórmula correspondiente",
+        "Realizar el cálculo",
+        "Obtener los 1 resultados"
+      ],
+      "mistakes": [
+        "No convertir unidades de distancia",
+        "No considerar condiciones reales",
+        "Usar fórmulas fuera de rango"
+      ],
+      "input_type_review": "3 entrada(s) de tipo number"
+    },
+    "fr": {
+      "name": "Vitesse Aire Vraie",
+      "description": "Calculez la vitesse aire vraie à partir de la vitesse indiquée.",
+      "inputs": {
+        "ias": "IAS",
+        "altitude": "Altitude",
+        "temp": "Température"
+      },
+      "outputs": {
+        "tas": "TAS"
+      },
+      "seo_title": "Vitesse Vraie – Calculateur TAS Aviation en Ligne",
+      "seo_description": "Calculez la Vitesse Vraie (TAS) à partir de la vitesse indiquée (IAS), l'altitude et la température. Exemple: IAS=150 kt, 5000 ft → TAS≈168 kt.",
+      "example_label": "Ejemplo de cálculo de transporte",
+      "range_hints": {},
+      "result_context": "Resultado du cálculo velocidad verdadera.",
+      "formula_display": "Ver fórmula dans le cálculo",
+      "steps": [
+        "Identificar les valores de entrada",
+        "Aplicar la fórmula correspondiente",
+        "Realizar le cálculo",
+        "Obtener les 1 resultados"
+      ],
+      "mistakes": [
+        "No convertir unités de distancia",
+        "Ne pas considérer condiciones reales",
+        "Utiliser fórmulas fuera de rango"
+      ],
+      "input_type_review": []
+    },
+    "pt": {
+      "name": "Velocidade Ar Verdadeira",
+      "description": "Calcule a velocidade ar verdadeira a partir da indicada.",
+      "inputs": {
+        "ias": "IAS",
+        "altitude": "Altitude",
+        "temp": "Temperatura"
+      },
+      "outputs": {
+        "tas": "TAS"
+      },
+      "seo_title": "Velocidade Verdadeira – Calculadora TAS Aviação",
+      "seo_description": "Calcule a Velocidade Ar Verdadeira (TAS) a partir da velocidade indicada (IAS), altitude e temperatura. Exemplo: IAS=150 kt, 5000 ft → TAS≈168 kt.",
+      "example_label": "Ejemplo de cálculo de transporte",
+      "range_hints": {},
+      "result_context": "Resultado do cálculo velocidad verdadera.",
+      "formula_display": "Ver fórmula não cálculo",
+      "steps": [
+        "Identificar os valores de entrada",
+        "Aplicar a fórmula correspondiente",
+        "Realizar o cálculo",
+        "Obtener os 1 resultados"
+      ],
+      "mistakes": [
+        "Não convertir unidades de distancia",
+        "Não considerar condiciones reales",
+        "Usar fórmulas fuera de intervalo"
+      ],
+      "input_type_review": []
+    },
+    "de": {
+      "name": "Velocidad verdadera",
+      "desc": "Berechnen Sie velocidad verdadera online. Geben Sie ias, altitude, temp ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Velocidad verdadera | CalcToWork",
+      "seo_desc": "Velocidad verdadera online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Velocidad verdadera online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "ias": "Ias",
+        "altitude": "Altitude",
+        "temp": "Temp"
+      },
+      "outputs": {
+        "tas": "Tas"
+      },
+      "example_label": "Calcular velocidad para 120 kt × 5000 ft × 5 °C.",
+      "range_hints": {
+        "ias": "Valor típico entre 0 y 500. Valor por defecto: 120 kt.",
+        "altitude": "Valor típico entre 0 y 500. Valor por defecto: 5000 ft.",
+        "temp": "Valor típico entre 0 y 500. Valor por defecto: 5 °C."
+      },
+      "result_context": "Wahre Fluggeschwindigkeit (TAS): {tas} kt.",
+      "formula_display": "v = distancia ÷ tiempo",
+      "steps": [
+        "Introducir los valores de ias, altitude y temp",
+        "Verificar que las unidades sean correctas y convertir si es necesario (kt, km/h, mph)",
+        "Aplicar la fórmula: v = distancia ÷ tiempo",
+        "El resultado se expresa en kt. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Usar litros y millas sin convertir unidades (1 galón US = 3.785 L)",
+        "No considerar que el consumo urbano puede ser hasta un 50% mayor que el extraurbano",
+        "Olvidar que la presión de neumáticos debe medirse en frío"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "ias",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "altitude",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "temp",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Velocità Aria Vera",
+      "description": "Calcola la velocità aria vera da quella indicata.",
+      "inputs": {
+        "ias": "IAS",
+        "altitude": "Altitudine",
+        "temp": "Temperatura"
+      },
+      "outputs": {
+        "tas": "TAS"
+      },
+      "seo_title": "Velocità Aria Vera – Calcolatore TAS Aviazione",
+      "seo_description": "Calcola la Velocità Aria Vera (TAS) da IAS, quota e temperatura. Esempio: IAS=150 kt, 5000 ft, ISA → TAS≈168 kt. Gratuito per piloti.",
+      "example_label": "Ejemplo di cálculo di transperte",
+      "range_hints": {},
+      "result_context": "Resultado dil cálculo velocità verdadira.",
+      "formula_display": "Ver fórmula in el cálculo",
+      "steps": [
+        "Idintificar i valorei di intrada",
+        "Applicare la fórmula correspondiinte",
+        "Realizar el cálculo",
+        "Obtiner i 1 risultati"
+      ],
+      "mistakes": [
+        "No convertir unità di discosìza",
+        "Non consedirare condiciones reales",
+        "Usare fórmule fuori di rango"
+      ],
+      "input_type_review": null
+    }
+  }
+}

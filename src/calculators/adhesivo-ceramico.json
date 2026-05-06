@@ -1,0 +1,399 @@
+{
+  "id": "029",
+  "slug": "adhesivo-ceramico",
+  "block": 3,
+  "block_slug": "pavimentos",
+  "inputs": [
+    {
+      "id": "area",
+      "type": "number",
+      "min": 0.5,
+      "max": 2000,
+      "step": 0.5,
+      "default": 25,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "tipo_colocacion",
+      "type": "select",
+      "default": "suelo",
+      "options": [
+        "suelo",
+        "pared",
+        "exterior",
+        "piscina"
+      ]
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area)||0,esp=inputs.tipo_colocacion==='pared'?4:6,ext=inputs.tipo_colocacion==='exterior'||inputs.tipo_colocacion==='piscina'?1.1:1;if(!A)return{error:true};var kg_m2=esp*ext,total=+(A*kg_m2*1.05).toFixed(1),sacos_25=Math.ceil(total/25);return{kg_m2:kg_m2,total_kg:total,sacos_25kg:sacos_25};",
+  "outputs": [
+    {
+      "id": "kg_m2",
+      "unit": "kg/m²"
+    },
+    {
+      "id": "total_kg",
+      "unit": "kg (+5% merma)",
+      "highlight": true
+    },
+    {
+      "id": "sacos_25kg",
+      "unit": "sacos 25kg"
+    }
+  ],
+  "related": [
+    "021",
+    "027",
+    "030",
+    "022"
+  ],
+  "example_inputs": {
+    "area": 25,
+    "tipo_colocacion": "suelo"
+  },
+  "example_label": "Ejemplo para adhesivo ceramico: valores 25m²",
+  "range_hints": {
+    "area": "Valor típico entre 0.5 y 2000. Valor por defecto: 25 m².",
+    "tipo_colocacion": "Seleccionar entre las opciones: suelo, pared, exterior, piscina"
+  },
+  "result_context": "Resultados: {kg_m2} kg/m² de rendimiento, {total_kg} kg de adhesivo, {sacos_25kg} sacos de 25 kg.",
+  "formula_display": "Cerámicos = área ÷ área_unidad × 1.10",
+  "steps": [
+    "Introducir los valores de area y tipo_colocacion",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+    "Aplicar la fórmula: Cerámicos = área ÷ área_unidad × 1.10",
+    "El resultado se expresa en kg/m². Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "No dejar juntas de dilatación perimetrales",
+    "Usar adhesivo incorrecto",
+    "No nivelar bien la base"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "area",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "tipo_colocacion",
+      "current_type": "select",
+      "recommended_type": "select",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small patio",
+      "area": 12.5
+    },
+    {
+      "_label": "Medium patio",
+      "area": 18.75
+    },
+    {
+      "_label": "Large patio",
+      "area": 25
+    },
+    {
+      "_label": "Driveway",
+      "area": 37.5
+    },
+    {
+      "_label": "Parking lot",
+      "area": 50
+    }
+  ],
+  "units": {
+    "area": "m²"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Adhesivo Cerámico",
+      "desc": "Calcula los kg de adhesivo cerámico tipo C1, C2 o C2S1 según el tipo de colocación (suelo, pared, exterior, piscina)..",
+      "seo_title": "Calculadora Cola Cerámica C1 C2 – kg",
+      "seo_desc": "Calcula los kg de adhesivo cerámico tipo C1, C2 o C2S1 según el tipo de colocación (suelo, pared, exterior, piscina)..",
+      "inputs": {
+        "area": "Área",
+        "tipo_colocacion": "Tipo de colocación",
+        "tipo_adhesivo": "Tipo adhesivo"
+      },
+      "outputs": {
+        "kg_m2": "Consumo por m²",
+        "total_kg": "Total kg (+5%)",
+        "sacos_25kg": "Sacos de 25 kg"
+      },
+      "seo_description": "Calcula los kilos y sacos de adhesivo cementoso para baldosas cerámicas según el tipo de colocación (suelo, pared, exterior o piscina). Incluye consumo por m² y merma del 5%.",
+      "example_label": "Calcular adhesivo para colocar 50m² de cerámica con doble encolado.",
+      "range_hints": {
+        "area": "Superficie a cubrir con cerámica/porcelánico"
+      },
+      "result_context": "Para {area} m² con {tipo_colocacion} se necesitan {adhesivo_kg} kg de adhesivo ({sacos_ud} sacos de 25kg). Consumo: {kg_m2} kg/m².",
+      "formula_display": "Consumo_simple = 4 kg/m²; Consumo_doble = 8 kg/m²; Total = área × consumo",
+      "steps": [
+        "Determinar consumo según tipo: doble encolado = 8 kg/m²",
+        "Calcular total: 50m² × 8 kg/m² = 400 kg",
+        "Calcular sacos: 400 kg ÷ 25 kg/saco = 16 sacos",
+        "Para doble encolado: aplicar adhesivo en soporte Y en dorso de pieza"
+      ],
+      "mistakes": [
+        "No hacer doble encolado en piezas mayores a 30×30cm",
+        "Usar el mismo adhesivo para interior y exterior (debe ser flexible en exteriores)",
+        "No respetar tiempo abierto del adhesivo (se seca antes de colocar)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "tipo_colocacion",
+          "reason": "Correcto: opción discreta"
+        }
+      ]
+    },
+    "en": {
+      "name": "Tile Adhesive Calculator",
+      "desc": "Tile Adhesive Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Tile Adhesive Calculator C1 C2 – kg",
+      "seo_desc": "Tile Adhesive Calculator. Area, Application type, Adhesive type — get Consumption per m², Total kg (+5%), 25 kg bags instantly for your flooring and.",
+      "inputs": {
+        "area": "Area",
+        "tipo_colocacion": "Application type",
+        "tipo_adhesivo": "Adhesive type"
+      },
+      "outputs": {
+        "kg_m2": "Consumption per m²",
+        "total_kg": "Total kg (+5%)",
+        "sacos_25kg": "25 kg bags"
+      },
+      "seo_description": "Calculate kg and bags of cement-based tile adhesive by installation type (floor, wall, exterior, swimming pool). Includes consumption per m² and 5% waste factor.",
+      "example_label": "Calcular adhesivo para colocar 50m² de cerámica con doble encolado.",
+      "range_hints": {
+        "area": "Superficie a cubrir con cerámica/porcelánico"
+      },
+      "result_context": "Para {area} m² con {tipo_colocacion} se necesitan {adhesivo_kg} kg de adhesivo ({sacos_ud} sacos de 25kg). Consumo: {kg_m2} kg/m².",
+      "formula_display": "Consumo_simple = 4 kg/m²; Consumo_doble = 8 kg/m²; Total = área × consumo",
+      "steps": [
+        "Determinar consumo según tipo: doble encolado = 8 kg/m²",
+        "Calcular total: 50m² × 8 kg/m² = 400 kg",
+        "Calcular sacos: 400 kg ÷ 25 kg/saco = 16 sacos",
+        "Para doble encolado: aplicar adhesivo en soporte Y en dorso de pieza"
+      ],
+      "mistakes": [
+        "No hacer doble encolado en piezas mayores a 30×30cm",
+        "Usar el mismo adhesivo para interior y exterior (debe ser flexible en exteriores)",
+        "No respetar tiempo abierto del adhesivo (se seca antes de colocar)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "tipo_colocacion",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: opción discreta"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Colle Carrelage",
+      "desc": "Calculez les kg de colle carrelage type C1, C2 ou C2S1 selon le type de pose Utilise par des professionnels et etudiants dans le monde entier.",
+      "seo_title": "Calculateur Colle Carrelage C1 C2",
+      "inputs": {
+        "area": "Surface",
+        "tipo_colocacion": "Type de pose",
+        "tipo_adhesivo": "Type colle"
+      },
+      "outputs": {
+        "kg_m2": "Consommation par m²",
+        "total_kg": "Total kg (+5%)",
+        "sacos_25kg": "Sacs de 25 kg"
+      },
+      "seo_description": "Calculez les kg de colle carrelage type C1, C2 ou C2S1 selon le type de pose Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calculer adhesivo pour colocar 50m² de céramique avec double encolado.",
+      "range_hints": {
+        "area": "surface a cubrir avec céramique/porcelánico"
+      },
+      "result_context": "pour {area} m² avec {tipo_colocacion} se necesitan {adhesivo_kg} kg de adhesivo ({sacos_ud} sacs de 25kg). Consumo: {kg_m2} kg/m².",
+      "formula_display": "Consumo_simple = 4 kg/m²; Consumo_doble = 8 kg/m²; total = área × consumo",
+      "steps": [
+        "Determinar consumo selon tipo: double encolado = 8 kg/m²",
+        "Calculer total: 50m² × 8 kg/m² = 400 kg",
+        "Calculer sacs: 400 kg Á· 25 kg/saco = 16 sacs",
+        "pour double encolado: aplicar adhesivo dans soporte et dans dorso de pieza"
+      ],
+      "mistakes": [
+        "No hacer double encolado dans piezas mayores a 30×30cm",
+        "Utiliser le même adhesivo pour interior et exterior (debe ser flexible dans exteriores)",
+        "No respetar tiempo abierto du adhesivo (se seca antes de colocar)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "tipo_colocacion",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correct : opción discreta"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Cola para Cerâmica",
+      "desc": "Calcule os kg de cola cerâmica tipo C1, C2 ou C2S1 pelo tipo de aplicação Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora Cola Cerâmica C1 C2",
+      "inputs": {
+        "area": "Área",
+        "tipo_colocacion": "Tipo de aplicação",
+        "tipo_adhesivo": "Tipo de cola"
+      },
+      "outputs": {
+        "kg_m2": "Consumo por m²",
+        "total_kg": "Total kg (+5%)",
+        "sacos_25kg": "Sacos de 25 kg"
+      },
+      "seo_description": "Calcule os kg de cola cerâmica tipo C1, C2 ou C2S1 pelo tipo de aplicação Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular adesivo para colocar 50m² de cerámica com duplo encolado.",
+      "range_hints": {
+        "area": "Superficie a cubrir com cerámica/porcelánico"
+      },
+      "result_context": "Para {area} m² com {tipo_colocacion} são necessários {adhesivo_kg} kg de adesivo ({sacos_ud} sacos de 25kg). Consumo: {kg_m2} kg/m².",
+      "formula_display": "Consumo_simple = 4 kg/m²; Consumo_doble = 8 kg/m²; Total = área × consumo",
+      "steps": [
+        "Determinar consumo segundo tipo: duplo encolado = 8 kg/m²",
+        "Calcular total: 50m² × 8 kg/m² = 400 kg",
+        "Calcular sacos: 400 kg ÷ 25 kg/saco = 16 sacos",
+        "Para duplo encolado: aplicar adesivo em soporte Y em dorso de pieza"
+      ],
+      "mistakes": [
+        "Não hacer duplo encolado em piezas mayores a 30×30cm",
+        "Usar o mismo adesivo para interior e exterior (deve ser flexível em exteriores)",
+        "Não respeitar tiempo abierto do adesivo (se seca antes de colocar)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "tipo_colocacion",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correto: opção discreta"
+        }
+      ]
+    },
+    "de": {
+      "name": "Fliesenkleber Keramik",
+      "desc": "Berechnen Sie fliesenkleber Keramik online. Geben Sie area, tipo colocacion ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Fliesenkleber Keramik | CalcToWork",
+      "seo_desc": "Fliesenkleber Keramik online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Fliesenkleber Keramik online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "area": "Area",
+        "tipo_colocacion": "Tipo Colocacion"
+      },
+      "outputs": {
+        "kg_m2": "Kg M2",
+        "total_kg": "Total Kg",
+        "sacos_25kg": "Sacos 25kg"
+      },
+      "example_label": "Ejemplo para adhesivo ceramico: valores 25m²",
+      "range_hints": {
+        "area": "Valor típico entre 0.5 y 2000. Valor por defecto: 25 m².",
+        "tipo_colocacion": "Seleccionar entre las opciones: suelo, pared, exterior, piscina"
+      },
+      "result_context": "Resultados: {kg_m2} kg/m² de rendimiento, {total_kg} kg de adhesivo, {sacos_25kg} sacos de 25 kg.",
+      "formula_display": "Cerámicos = área ÷ área_unidad × 1.10",
+      "steps": [
+        "Introducir los valores de area y tipo_colocacion",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+        "Aplicar la fórmula: Cerámicos = área ÷ área_unidad × 1.10",
+        "El resultado se expresa en kg/m². Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "No dejar juntas de dilatación perimetrales",
+        "Usar adhesivo incorrecto",
+        "No nivelar bien la base"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "tipo_colocacion",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Rasatura Pavimento Livellante",
+      "description": "Calcola l'autoliv ellante per la levigatura del pavimento.",
+      "seo_title": "Calcolatore Colla Ceramica C1 C2",
+      "seo_description": "Stima l'autolivellante necessario per livellare superfici Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo.",
+      "inputs": {
+        "area": "Superficie (m²)",
+        "espesor": "Spessore (mm)"
+      },
+      "outputs": {
+        "autolivellante_kg": "Autolivellante (kg)",
+        "sacos_25kg": "Sacchi 25 kg"
+      },
+      "example_label": "Calcolare adhesevo per colocar 50m² di cerámica con doble incolato.",
+      "range_hints": {
+        "area": "Superficie a cubrir con cerámica/percelánico"
+      },
+      "result_context": "Per {area} m² con {tipo_colocacion} sonon necessari {adhesevo_kg} kg di adhesevo ({sacos_ud} sacos di 25kg). Consumo: {kg_m2} kg/m².",
+      "formula_display": "Consumo_semple = 4 kg/m²; Consumo_doble = 8 kg/m²; Total = área × consumo",
+      "steps": [
+        "Definiree consumo según tipo: doble incolato = 8 kg/m²",
+        "Calcolare totale: 50m² × 8 kg/m² = 400 kg",
+        "Calcolare sacos: 400 kg ÷ 25 kg/saco = 16 sacos",
+        "Per doble incolato: aplicar adhesevo in supperto Y in dorso di pieza"
+      ],
+      "mistakes": [
+        "No hacer doble incolato in piezas maggiorees a 30×30cm",
+        "Usare el mismo adhesevo per internon e esternon (dive essere flessebile in esterni)",
+        "No respetar tempo abierto dil adhesevo (se seca prima di colocar)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "tipo_colocacion",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Corretto: opción discreta"
+        }
+      ]
+    }
+  }
+}

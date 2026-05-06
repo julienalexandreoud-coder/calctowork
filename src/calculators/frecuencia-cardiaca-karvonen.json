@@ -1,0 +1,442 @@
+{
+  "id": "419",
+  "slug": "frecuencia-cardiaca-karvonen",
+  "block": 9,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "age",
+      "type": "number",
+      "step": 1,
+      "default": 30,
+      "unit": "yr",
+      "unit_options": [
+        "yr"
+      ],
+      "unit_category": "time"
+    },
+    {
+      "id": "rest_hr",
+      "type": "number",
+      "step": 1,
+      "default": 60,
+      "unit": "bpm",
+      "unit_options": [
+        "bpm"
+      ],
+      "unit_category": "frequency"
+    },
+    {
+      "id": "intensity",
+      "type": "number",
+      "step": "any",
+      "default": 70,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "percentage"
+    }
+  ],
+  "formula": "var age=parseFloat(inputs.age)||0;var rest=parseFloat(inputs.rest_hr)||0;var intensity=parseFloat(inputs.intensity)||0;var max_hr=220-age;var reserve=max_hr-rest;var target=rest+(reserve*intensity/100);return{target_hr:Math.round(target)};",
+  "outputs": [
+    {
+      "id": "target_hr",
+      "unit": "bpm"
+    }
+  ],
+  "related": [
+    "420",
+    "411",
+    "421",
+    "426"
+  ],
+  "example_inputs": {
+    "age": 30,
+    "rest_hr": 175,
+    "intensity": 70
+  },
+  "example_label": "Calcular frecuencia cardíaca para 30 yr × 175 bpm × 70 %.",
+  "range_hints": {
+    "age": "Valor típico entre 0 y 500. Valor por defecto: 30 yr.",
+    "rest_hr": "Valor típico entre 0 y 500. Valor por defecto: 60 bpm.",
+    "intensity": "Valor típico entre 0 y 500. Valor por defecto: 70 %."
+  },
+  "result_context": "Tu frecuencia cardiaca objetivo según la fórmula de Karvonen es de {target_hr} lpm.",
+  "result_context_en": "Your target heart rate according to the Karvonen formula is {target_hr} bpm.",
+  "result_context_fr": "Votre fréquence cardiaque cible selon la formule de Karvonen est de {target_hr} bpm.",
+  "result_context_pt": "Sua frequência cardíaca alvo segundo a fórmula de Karvonen é de {target_hr} bpm.",
+  "result_context_de": "Ihre Zielherzfrequenz nach der Karvonen-Formel beträgt {target_hr} bpm.",
+  "result_context_it": "La tua frequenza cardiaca obiettivo secondo la formula di Karvonen è di {target_hr} bpm.",
+  "formula_display": "FC_máx = 220 - edad",
+  "steps": [
+    "Introducir los valores de age, rest_hr y intensity",
+    "Verificar que las unidades sean correctas y convertir si es necesario (yr)",
+    "Aplicar la fórmula: FC_máx = 220 - edad",
+    "El resultado se expresa en bpm. Verificar que la magnitud es coherente",
+    "Comparar el resultado con los valores de referencia para interpretar su significado"
+  ],
+  "mistakes": [
+    "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+    "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+    "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "age",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "rest_hr",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "intensity",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "age": 15,
+      "rest_hr": 88,
+      "intensity": 70
+    },
+    {
+      "_label": "Teen",
+      "age": 22,
+      "rest_hr": 131,
+      "intensity": 70
+    },
+    {
+      "_label": "Adult (F)",
+      "age": 30,
+      "rest_hr": 175,
+      "intensity": 70
+    },
+    {
+      "_label": "Adult (M)",
+      "age": 45,
+      "rest_hr": 262,
+      "intensity": 70
+    },
+    {
+      "_label": "Elderly",
+      "age": 60,
+      "rest_hr": 350,
+      "intensity": 70
+    }
+  ],
+  "units": {
+    "age": "s",
+    "rest_hr": "Hz",
+    "intensity": "%"
+  },
+  "i18n": {
+    "es": {
+      "name": "Frecuencia Cardíaca Karvonen",
+      "description": "Calcula la frecuencia cardíaca objetivo usando la fórmula de Karvonen.",
+      "inputs": {
+        "age": "Edad",
+        "rest_hr": "FC en reposo",
+        "intensity": "Intensidad %"
+      },
+      "outputs": {
+        "target_hr": "FC objetivo"
+      },
+      "seo_title": "Frecuencia Cardíaca Karvonen Gratuita",
+      "seo_description": "Calcula la frecuencia cardíaca objetivo usando la fórmula de Karvonen. Calculadora gratuita, precisa e instantánea..",
+      "example_label": "Calcular frecuencia cardíaca objetivo con edad 30, reposo 60, intensidad 70%",
+      "range_hints": {
+        "age": "Edad típica: 18-80 yr",
+        "rest_hr": "Reposo: 40-100 bpm",
+        "intensity": "Intensidad: 50-95 %"
+      },
+      "result_context": "La frecuencia objetivo usa fórmula Karvonen que considera frecuencia en reposo para mayor precisión.",
+      "formula_display": "FC objetivo = FC reposo + ((220 - edad) - FC reposo) × intensidad%",
+      "steps": [
+        "El calculador aplica la fórmula automáticamente y muestra resultados"
+      ],
+      "mistakes": [
+        "No verificar que age estén en unidades correctas antes de calcular",
+        "Redondear valores intermedios antes del cálculo final (pierde precisión)",
+        "Aplicar resultados sin considerar contexto individual o condiciones especiales"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "age",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "rest_hr",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "intensity",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "en": {
+      "name": "Karvonen Heart Rate Calculator",
+      "description": "Calculate target heart rate using the Karvonen formula.",
+      "inputs": {
+        "age": "Age",
+        "rest_hr": "Resting HR",
+        "intensity": "Intensity %"
+      },
+      "outputs": {
+        "target_hr": "Target HR"
+      },
+      "seo_title": "Karvonen Heart Rate Calculator",
+      "seo_description": "Karvonen Heart Rate Calculator. Age, Resting HR, Intensity % to find Target HR. professional-grade formula with compounding, tax, and fee adjustments built in.",
+      "example_label": "Calcular frecuencia cardíaca objetivo con edad 30, reposo 60, intensidad 70%",
+      "range_hints": {
+        "age": "Edad típica: 18-80 yr",
+        "rest_hr": "Reposo: 40-100 bpm",
+        "intensity": "Intensidad: 50-95 %"
+      },
+      "result_context": "La frecuencia objetivo usa fórmula Karvonen que considera frecuencia en reposo para mayor precisión.",
+      "formula_display": "FC objetivo = FC reposo + ((220 - edad) - FC reposo) × intensidad%",
+      "steps": [
+        "El calculador aplica la fórmula automáticamente y muestra resultados"
+      ],
+      "mistakes": [
+        "No verificar que age estén en unidades correctas antes de calcular",
+        "Redondear valores intermedios antes del cálculo final (pierde precisión)",
+        "Aplicar resultados sin considerar contexto individual o condiciones especiales"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "age",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "rest_hr",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "intensity",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Fréquence Cardiaque Karvonen",
+      "description": "Calculez la fréquence cardiaque cible avec la formule de Karvonen.",
+      "inputs": {
+        "age": "Âge",
+        "rest_hr": "FC au repos",
+        "intensity": "Intensité %"
+      },
+      "outputs": {
+        "target_hr": "FC cible"
+      },
+      "seo_title": "Fréquence Cardiaque Karvonen – Étape par Étape",
+      "seo_description": "Calculez la fréquence cardiaque cible avec la formule de Karvonen. Calculateur gratuit, précis et instantané. Outil gratuit avec formule et exemples.",
+      "example_label": "Calculer frecuencia cardíaca objetivo avec edad 30, reposo 60, intensidad 70%",
+      "range_hints": {
+        "age": "Edad typique: 18-80 yr",
+        "rest_hr": "Reposo: 40-100 bpm",
+        "intensity": "Intensidad: 50-95 %"
+      },
+      "result_context": "la frecuencia objetivo usa fórmula Karvonen que considera frecuencia dans reposo pour mayor precisión.",
+      "formula_display": "FC objetivo = FC reposo + ((220 - edad) - FC reposo) × intensidad%",
+      "steps": [
+        "le calculador aplica la fórmula automáticamente et muestra resultados"
+      ],
+      "mistakes": [
+        "Ne pas vérifier que age estén dans unités correctas antes de Calculer",
+        "Redondear valores intermedios antes du cálculo final (pierde precisión)",
+        "Aplicar resultados sans considerar contexto individuel o condiciones especiales"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "age",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "rest_hr",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "intensity",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Frequência Cardíaca de Karvonen",
+      "description": "Calcule a frequência cardíaca alvo usando a fórmula de Karvonen.",
+      "inputs": {
+        "age": "Idade",
+        "rest_hr": "FC em repouso",
+        "intensity": "Intensidade %"
+      },
+      "outputs": {
+        "target_hr": "FC alvo"
+      },
+      "seo_title": "Frequência Cardíaca de Karvonen",
+      "seo_description": "Calcule a frequência cardíaca alvo usando a fórmula de Karvonen. Calculadora gratuita, precisa e instantânea. Ferramenta gratuita com formula e exemplos.",
+      "example_label": "Calcular frecuencia cardíaca objetivo com edad 30, reposo 60, intensidad 70%",
+      "range_hints": {
+        "age": "Edad típica: 18-80 yr",
+        "rest_hr": "Reposo: 40-100 bpm",
+        "intensity": "Intensidad: 50-95 %"
+      },
+      "result_context": "La frecuencia objetivo usa fórmula Karvonen que considera frecuencia em reposo para mayor precisión.",
+      "formula_display": "FC objetivo = FC reposo + ((220 - edad) - FC reposo) × intensidad%",
+      "steps": [
+        "El calculador aplica a fórmula automáticamente e muestra resultados"
+      ],
+      "mistakes": [
+        "Não verificar que age estén em unidades correctas antes de calcular",
+        "Redondear valores intermedios antes do cálculo final (pierde precisión)",
+        "Aplicar resultados sem considerar contexto individual o condiciones especiais"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "age",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        },
+        {
+          "field_id": "rest_hr",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        },
+        {
+          "field_id": "intensity",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        }
+      ]
+    },
+    "de": {
+      "name": "Herzfrequenz cardiaca karvonen",
+      "desc": "Berechnen Sie herzfrequenz cardiaca karvonen online. Geben Sie age, rest hr, intensity ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Herzfrequenz cardiaca karvonen | CalcToWork",
+      "seo_desc": "Herzfrequenz cardiaca karvonen online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Herzfrequenz cardiaca karvonen online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "age": "Age",
+        "rest_hr": "Rest Hr",
+        "intensity": "Intensity"
+      },
+      "outputs": {
+        "target_hr": "Target Hr"
+      },
+      "example_label": "Calcular frecuencia cardíaca para 30 yr × 175 bpm × 70 %.",
+      "range_hints": {
+        "age": "Valor típico entre 0 y 500. Valor por defecto: 30 yr.",
+        "rest_hr": "Valor típico entre 0 y 500. Valor por defecto: 60 bpm.",
+        "intensity": "Valor típico entre 0 y 500. Valor por defecto: 70 %."
+      },
+      "result_context": "Ihre Zielherzfrequenz nach der Karvonen-Formel beträgt {target_hr} bpm.",
+      "formula_display": "FC_máx = 220 - edad",
+      "steps": [
+        "Introducir los valores de age, rest_hr y intensity",
+        "Verificar que las unidades sean correctas y convertir si es necesario (yr)",
+        "Aplicar la fórmula: FC_máx = 220 - edad",
+        "El resultado se expresa en bpm. Verificar que la magnitud es coherente",
+        "Comparar el resultado con los valores de referencia para interpretar su significado"
+      ],
+      "mistakes": [
+        "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+        "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+        "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "age",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "rest_hr",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "intensity",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Frequenza Cardiaca Karvonen",
+      "description": "Calcola la frequenza cardiaca target usando la formula di Karvonen.",
+      "inputs": {
+        "age": "Età",
+        "rest_hr": "FC a riposo",
+        "intensity": "Intensità %"
+      },
+      "outputs": {
+        "target_hr": "FC target"
+      },
+      "seo_title": "Frequenza Cardiaca Karvonen – Passo dopo Passo",
+      "seo_description": "Calcola la frequenza cardiaca target usando la formula di Karvonen. Calcolatore gratuito, preciso e istantaneo. Strumento gratuito con formula ed esempi.",
+      "example_label": "Calcolare frecuincia cardíaca obiettivo con edad 30, reposo 60, intinsedad 70%",
+      "range_hints": {
+        "age": "Edad típica: 18-80 er",
+        "rest_hr": "Reposo: 40-100 bpm",
+        "intensity": "Intinsedad: 50-95 %"
+      },
+      "result_context": "La frecuincia obiettivo usa fórmula Karvonin que consedira frecuincia in reposo per maggiore preciseón.",
+      "formula_display": "FC obiettivo = FC reposo + ((220 - edad) - FC reposo) × intinsedad%",
+      "steps": [
+        "El calculator aplica la fórmula automáticaminte e muestra risultati"
+      ],
+      "mistakes": [
+        "Non verificare que age estén in unità correctas prima di calcolare",
+        "Redovear valorei intermedi prima dil cálculo finel (pierdi preciseón)",
+        "Applicare risultati senza consedirar contesto individual o condiciones especiales"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "age",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        },
+        {
+          "field_id": "rest_hr",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        },
+        {
+          "field_id": "intensity",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        }
+      ]
+    }
+  }
+}

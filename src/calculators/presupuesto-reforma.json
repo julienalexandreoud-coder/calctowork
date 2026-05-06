@@ -1,0 +1,455 @@
+{
+  "id": "078",
+  "slug": "presupuesto-reforma",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "area_m2",
+      "type": "number",
+      "min": 10,
+      "max": 2000,
+      "step": 5,
+      "default": 100,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "tipo_reforma",
+      "type": "select",
+      "default": "media",
+      "options": [
+        "basica",
+        "media",
+        "alta",
+        "lujo"
+      ]
+    },
+    {
+      "id": "zona_geografica",
+      "type": "select",
+      "default": "media",
+      "options": [
+        "rural",
+        "media",
+        "capital",
+        "premium"
+      ]
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area_m2)||0,coste={'basica':400,'media':700,'alta':1100,'lujo':2000},geo={'rural':0.8,'media':1.0,'capital':1.2,'premium':1.5};if(!A)return{error:true};var eur_m2=+(coste[inputs.tipo_reforma]*geo[inputs.zona_geografica]).toFixed(0),total=+(A*eur_m2).toFixed(0),material=+(total*0.45).toFixed(0),mano_obra=+(total*0.40).toFixed(0),gestion=+(total*0.15).toFixed(0);return{eur_m2:eur_m2,total_eur:total,materiales_eur:material,mano_obra_eur:mano_obra,gestion_eur:gestion};",
+  "outputs": [
+    {
+      "id": "eur_m2",
+      "unit": "â‚¬/m²"
+    },
+    {
+      "id": "total_eur",
+      "unit": "â‚¬ total",
+      "highlight": true
+    },
+    {
+      "id": "materiales_eur",
+      "unit": "â‚¬ materiales"
+    },
+    {
+      "id": "mano_obra_eur",
+      "unit": "â‚¬ mano de obra"
+    },
+    {
+      "id": "gestion_eur",
+      "unit": "â‚¬ gestión"
+    }
+  ],
+  "related": [
+    "092",
+    "095",
+    "099",
+    "086"
+  ],
+  "example_inputs": {
+    "area_m2": 100,
+    "tipo_reforma": "media"
+  },
+  "example_label": "Calcular presupuesto de reforma para 100 m² de calidad media en zona intermedia.",
+  "range_hints": {
+    "area_m2": "Superficie construida total del proyecto en m² (entre 10 y 2000 m²)",
+    "tipo_reforma": "Nivel de calidad: básica (económica), media (estándar), alta (premium), lujo (alto standing)"
+  },
+  "result_context": "Resultados: {eur_m2} €/m², {total_eur} € totales, {materiales_eur} € en materiales, {mano_obra_eur} € en mano de obra, {gestion_eur} € en gestión.",
+  "formula_display": "Presupuesto = Σ(partidas × precio_unitario) + IVA + Gastos Generales",
+  "steps": [
+    "Enumera todas las partidas de obra (demolición, albañilería, fontanería, electricidad, acabados...)",
+    "Mide las cantidades de cada partida (m², m, ud) según planos del proyecto",
+    "Asigna el precio unitario de cada partida según la base de precios de construcción vigente",
+    "Multiplica cada partida por su precio unitario y suma todos los subtotales",
+    "Añade el porcentaje de gastos generales (13-19%) y beneficio industrial (6%)",
+    "Aplica el IVA correspondiente (21% para obras, 10% para rehabilitación en vivienda habitual)",
+    "Suma honorarios de proyecto (arquitecto, aparejador) si procede"
+  ],
+  "mistakes": [
+    "Olvidar partidas ocultas: licencias, tasas municipales, ICIO, conexión de suministros",
+    "No actualizar los precios unitarios a la fecha real de ejecución de la obra",
+    "Confundir presupuesto de contrata (con GG+BI) con presupuesto de ejecución material (PEM)",
+    "No incluir el coste de gestión de residuos de construcción y demolición (RCD)",
+    "Subestimar los imprevistos: reserva siempre un 5-10% adicional del PEM"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "area_m2",
+      "reason": "Tipo correcto: numérico continuo en m² para superficie construida."
+    },
+    {
+      "field_id": "tipo_reforma",
+      "reason": "Tipo correcto: selector discreto para nivel de calidad de la reforma."
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Piso pequeño reforma básica",
+      "area_m2": 60
+    },
+    {
+      "_label": "Piso estándar reforma media",
+      "area_m2": 90
+    },
+    {
+      "_label": "Vivienda unifamiliar reforma media",
+      "area_m2": 120
+    },
+    {
+      "_label": "Local comercial reforma alta",
+      "area_m2": 200
+    },
+    {
+      "_label": "Nave industrial reforma básica",
+      "area_m2": 500
+    }
+  ],
+  "units": {
+    "area_m2": "m²"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Presupuesto de Reforma",
+      "desc": "Estima el presupuesto de una reforma integral según los m², el nivel de calidad y la zona geográfica. Herramienta gratuita con formula y ejemplos.",
+      "seo_title": "Calculadora Presupuesto Reforma – €/m² y Coste Total",
+      "seo_desc": "Calcula el presupuesto de tu reforma: precio por m², materiales, mano de obra y gastos de gestión. Resultados al instante sin registro.",
+      "inputs": {
+        "area_m2": "Área a reformar",
+        "tipo_reforma": "Nivel de la reforma",
+        "zona_geografica": "Zona geográfica"
+      },
+      "outputs": {
+        "eur_m2": "€/m²",
+        "total_eur": "Presupuesto total",
+        "materiales_eur": "Materiales (45%)",
+        "mano_obra_eur": "Mano de obra (40%)",
+        "gestion_eur": "Gestión (15%)"
+      },
+      "seo_description": "Calcula el presupuesto estimado de tu reforma o rehabilitación. Introduce los m², el nivel de calidad y la zona geográfica para obtener el desglose completo con precios de construcción actualizados.",
+      "example_label": "Calcular presupuesto de reforma para 100 m² de calidad media en zona intermedia.",
+      "range_hints": {
+        "area_m2": "Valor entre 10 y 2000 m².",
+        "tipo_reforma": "Nivel de calidad: básica (económica), media (estándar), alta (premium), lujo (alto standing)"
+      },
+      "result_context": "Resultados: {eur_m2} €/m², {total_eur} € totales, {materiales_eur} € en materiales, {mano_obra_eur} € en mano de obra, {gestion_eur} € en gestión.",
+      "formula_display": "Presupuesto = Σ(partidas × precio_unitario) + IVA + Gastos Generales",
+      "steps": [
+        "Enumera todas las partidas de obra (demolición, albañilería, fontanería, electricidad, acabados...)",
+        "Mide las cantidades de cada partida (m², m, ud) según planos del proyecto",
+        "Asigna el precio unitario de cada partida según la base de precios de construcción vigente",
+        "Multiplica cada partida por su precio unitario y suma todos los subtotales",
+        "Añade el porcentaje de gastos generales (13-19%) y beneficio industrial (6%)",
+        "Aplica el IVA correspondiente (21% para obras, 10% para rehabilitación en vivienda habitual)",
+        "Suma honorarios de proyecto (arquitecto, aparejador) si procede"
+      ],
+      "mistakes": [
+        "Olvidar partidas ocultas: licencias, tasas municipales, ICIO, conexión de suministros",
+        "No actualizar los precios unitarios a la fecha real de ejecución de la obra",
+        "Confundir presupuesto de contrata (con GG+BI) con presupuesto de ejecución material (PEM)",
+        "No incluir el coste de gestión de residuos de construcción y demolición (RCD)",
+        "Subestimar los imprevistos: reserva siempre un 5-10% adicional del PEM"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "reason": "Tipo correcto: numérico continuo en m² para superficie construida."
+        },
+        {
+          "field_id": "tipo_reforma",
+          "reason": "Tipo correcto: selector discreto para nivel de calidad de la reforma."
+        }
+      ]
+    },
+    "en": {
+      "name": "Renovation Budget Calculator",
+      "desc": "Estimate the total cost of a renovation project based on floor area, quality level, and geographic location. Free tool with formula, real-world examples, and step-by-step guide.",
+      "seo_title": "Renovation Budget Calculator – €/m² and Total Cost",
+      "seo_desc": "Calculate your renovation budget: price per m², materials, labor and management costs. Instant results without registration.",
+      "inputs": {
+        "area_m2": "Area to renovate",
+        "tipo_reforma": "Renovation level",
+        "zona_geografica": "Geographic zone"
+      },
+      "outputs": {
+        "eur_m2": "€/m²",
+        "total_eur": "Total budget",
+        "materiales_eur": "Materials (45%)",
+        "mano_obra_eur": "Labour (40%)",
+        "gestion_eur": "Management (15%)"
+      },
+      "seo_description": "Calculate the estimated budget for your renovation or home improvement. Enter m², quality level, and geographic zone for a complete cost breakdown with updated construction prices.",
+      "example_label": "Calcular presupuesto de reforma para 100 m² de calidad media en zona intermedia.",
+      "range_hints": {
+        "area_m2": "Enter the renovation area between 10 and 2000 m².",
+        "tipo_reforma": "Nivel de calidad: básica (económica), media (estándar), alta (premium), lujo (alto standing)"
+      },
+      "result_context": "Resultados: {eur_m2} €/m², {total_eur} € totales, {materiales_eur} € en materiales, {mano_obra_eur} € en mano de obra, {gestion_eur} € en gestión.",
+      "formula_display": "Presupuesto = Σ(partidas × precio_unitario) + IVA + Gastos Generales",
+      "steps": [
+        "Enumera todas las partidas de obra (demolición, albañilería, fontanería, electricidad, acabados...)",
+        "Mide las cantidades de cada partida (m², m, ud) según planos del proyecto",
+        "Asigna el precio unitario de cada partida según la base de precios de construcción vigente",
+        "Multiplica cada partida por su precio unitario y suma todos los subtotales",
+        "Añade el porcentaje de gastos generales (13-19%) y beneficio industrial (6%)",
+        "Aplica el IVA correspondiente (21% para obras, 10% para rehabilitación en vivienda habitual)",
+        "Suma honorarios de proyecto (arquitecto, aparejador) si procede"
+      ],
+      "mistakes": [
+        "Olvidar partidas ocultas: licencias, tasas municipales, ICIO, conexión de suministros",
+        "No actualizar los precios unitarios a la fecha real de ejecución de la obra",
+        "Confundir presupuesto de contrata (con GG+BI) con presupuesto de ejecución material (PEM)",
+        "No incluir el coste de gestión de residuos de construcción y demolición (RCD)",
+        "Subestimar los imprevistos: reserva siempre un 5-10% adicional del PEM"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "reason": "Tipo correcto: numérico continuo en m² para superficie construida."
+        },
+        {
+          "field_id": "tipo_reforma",
+          "reason": "Tipo correcto: selector discreto para nivel de calidad de la reforma."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Budget Rénovation",
+      "desc": "Estimez le budget total d’une rénovation selon la surface, le niveau de qualité et la zone géographique. Outil gratuit avec formule, exemples réels et guide étape par étape.",
+      "seo_title": "Calculateur Budget Rénovation – €/m² et Coût Total",
+      "seo_desc": "Calculez le budget de votre rénovation : prix au m², matériaux, main-d'œuvre et frais de gestion. Résultats instantanés sans inscription.",
+      "inputs": {
+        "area_m2": "Surface à rénover",
+        "tipo_reforma": "Niveau de rénovation",
+        "zona_geografica": "Zone géographique"
+      },
+      "outputs": {
+        "eur_m2": "€/m²",
+        "total_eur": "Budget total",
+        "materiales_eur": "Matériaux (45%)",
+        "mano_obra_eur": "Main-d’œuvre (40%)",
+        "gestion_eur": "Gestion (15%)"
+      },
+      "seo_description": "Calculez le budget estimé de votre rénovation. Entrez les m², le niveau de qualité et la zone géographique pour obtenir le détail complet avec des prix de construction actualisés.",
+      "example_label": "Calcular presupuesto de reforma para 100 m² de calidad media en zona intermedia.",
+      "range_hints": {
+        "area_m2": "Entrez la surface à rénover entre 10 et 2000 m².",
+        "tipo_reforma": "Nivel de calidad: básica (económica), media (estándar), alta (premium), lujo (alto standing)"
+      },
+      "result_context": "Resultados: {eur_m2} €/m², {total_eur} € totales, {materiales_eur} € en materiales, {mano_obra_eur} € en mano de obra, {gestion_eur} € en gestión.",
+      "formula_display": "Presupuesto = Σ(partidas × precio_unitario) + IVA + Gastos Generales",
+      "steps": [
+        "Enumera todas las partidas de obra (demolición, albañilería, fontanería, electricidad, acabados...)",
+        "Mide las cantidades de cada partida (m², m, ud) según planos del proyecto",
+        "Asigna el precio unitario de cada partida según la base de precios de construcción vigente",
+        "Multiplica cada partida por su precio unitario y suma todos los subtotales",
+        "Añade el porcentaje de gastos generales (13-19%) y beneficio industrial (6%)",
+        "Aplica el IVA correspondiente (21% para obras, 10% para rehabilitación en vivienda habitual)",
+        "Suma honorarios de proyecto (arquitecto, aparejador) si procede"
+      ],
+      "mistakes": [
+        "Olvidar partidas ocultas: licencias, tasas municipales, ICIO, conexión de suministros",
+        "No actualizar los precios unitarios a la fecha real de ejecución de la obra",
+        "Confundir presupuesto de contrata (con GG+BI) con presupuesto de ejecución material (PEM)",
+        "No incluir el coste de gestión de residuos de construcción y demolición (RCD)",
+        "Subestimar los imprevistos: reserva siempre un 5-10% adicional del PEM"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "reason": "Tipo correcto: numérico continuo en m² para superficie construida."
+        },
+        {
+          "field_id": "tipo_reforma",
+          "reason": "Tipo correcto: selector discreto para nivel de calidad de la reforma."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Orçamento de Reforma",
+      "desc": "Estime o custo total de uma reforma com base na área, nível de qualidade e localização geográfica. Ferramenta gratuita com fórmula, exemplos reais e guia passo a passo.",
+      "seo_title": "Calculadora Orçamento Reforma – Custo por m²",
+      "inputs": {
+        "area_m2": "Área a reformar",
+        "tipo_reforma": "Nível da reforma",
+        "zona_geografica": "Região"
+      },
+      "outputs": {
+        "eur_m2": "€/m²",
+        "total_eur": "Orçamento total",
+        "materiales_eur": "Materiais (45%)",
+        "mano_obra_eur": "Mão de obra (40%)",
+        "gestion_eur": "Gestão (15%)"
+      },
+      "seo_description": "Estime o orçamento da sua reforma por área, nível de qualidade e região. Calculadora gratuita com fórmula profissional e exemplos detalhados.",
+      "example_label": "Calcular presupuesto de reforma para 100 m² de calidad media en zona intermedia.",
+      "range_hints": {
+        "area_m2": "Informe a área a reformar entre 10 e 2000 m².",
+        "tipo_reforma": "Nivel de calidad: básica (económica), media (estándar), alta (premium), lujo (alto standing)"
+      },
+      "result_context": "Resultados: {eur_m2} €/m², {total_eur} € totales, {materiales_eur} € en materiales, {mano_obra_eur} € en mano de obra, {gestion_eur} € en gestión.",
+      "formula_display": "Presupuesto = Σ(partidas × precio_unitario) + IVA + Gastos Generales",
+      "steps": [
+        "Enumera todas las partidas de obra (demolición, albañilería, fontanería, electricidad, acabados...)",
+        "Mide las cantidades de cada partida (m², m, ud) según planos del proyecto",
+        "Asigna el precio unitario de cada partida según la base de precios de construcción vigente",
+        "Multiplica cada partida por su precio unitario y suma todos los subtotales",
+        "Añade el porcentaje de gastos generales (13-19%) y beneficio industrial (6%)",
+        "Aplica el IVA correspondiente (21% para obras, 10% para rehabilitación en vivienda habitual)",
+        "Suma honorarios de proyecto (arquitecto, aparejador) si procede"
+      ],
+      "mistakes": [
+        "Olvidar partidas ocultas: licencias, tasas municipales, ICIO, conexión de suministros",
+        "No actualizar los precios unitarios a la fecha real de ejecución de la obra",
+        "Confundir presupuesto de contrata (con GG+BI) con presupuesto de ejecución material (PEM)",
+        "No incluir el coste de gestión de residuos de construcción y demolición (RCD)",
+        "Subestimar los imprevistos: reserva siempre un 5-10% adicional del PEM"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "reason": "Tipo correcto: numérico continuo en m² para superficie construida."
+        },
+        {
+          "field_id": "tipo_reforma",
+          "reason": "Tipo correcto: selector discreto para nivel de calidad de la reforma."
+        }
+      ]
+    },
+    "de": {
+      "name": "Budget Renovierung",
+      "desc": "Berechnen Sie budget Renovierung online. Geben Sie area m2, tipo reforma, zona geografica ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Budget Renovierung | CalcToWork",
+      "seo_desc": "Budget Renovierung online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Budget Renovierung online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "area_m2": "Area M2",
+        "tipo_reforma": "Tipo Reforma",
+        "zona_geografica": "Zona Geografica"
+      },
+      "outputs": {
+        "eur_m2": "Eur M2",
+        "total_eur": "Total Eur",
+        "materiales_eur": "Materiales Eur",
+        "mano_obra_eur": "Mano Obra Eur",
+        "gestion_eur": "Gestion Eur"
+      },
+      "example_label": "Calcular presupuesto de reforma para 100 m² de calidad media en zona intermedia.",
+      "range_hints": {
+        "area_m2": "Superficie construida total del proyecto en m² (entre 10 y 2000 m²)",
+        "tipo_reforma": "Nivel de calidad: básica (económica), media (estándar), alta (premium), lujo (alto standing)"
+      },
+      "result_context": "Resultados: {eur_m2} €/m², {total_eur} € totales, {materiales_eur} € en materiales, {mano_obra_eur} € en mano de obra, {gestion_eur} € en gestión.",
+      "formula_display": "Presupuesto = Σ(partidas × precio_unitario) + IVA + Gastos Generales",
+      "steps": [
+        "Enumera todas las partidas de obra (demolición, albañilería, fontanería, electricidad, acabados...)",
+        "Mide las cantidades de cada partida (m², m, ud) según planos del proyecto",
+        "Asigna el precio unitario de cada partida según la base de precios de construcción vigente",
+        "Multiplica cada partida por su precio unitario y suma todos los subtotales",
+        "Añade el porcentaje de gastos generales (13-19%) y beneficio industrial (6%)",
+        "Aplica el IVA correspondiente (21% para obras, 10% para rehabilitación en vivienda habitual)",
+        "Suma honorarios de proyecto (arquitecto, aparejador) si procede"
+      ],
+      "mistakes": [
+        "Olvidar partidas ocultas: licencias, tasas municipales, ICIO, conexión de suministros",
+        "No actualizar los precios unitarios a la fecha real de ejecución de la obra",
+        "Confundir presupuesto de contrata (con GG+BI) con presupuesto de ejecución material (PEM)",
+        "No incluir el coste de gestión de residuos de construcción y demolición (RCD)",
+        "Subestimar los imprevistos: reserva siempre un 5-10% adicional del PEM"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "reason": "Tipo correcto: numérico continuo en m² para superficie construida."
+        },
+        {
+          "field_id": "tipo_reforma",
+          "reason": "Tipo correcto: selector discreto para nivel de calidad de la reforma."
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Budget Costruzione",
+      "description": "Stima il costo totale di costruzione per m².",
+      "seo_title": "Calcolatore Budget Ristrutturazione",
+      "seo_description": "Calcola il budget estimativo per una costruzione in base al costo al m² Usato da professionisti e studenti in tutto il mondo.",
+      "inputs": {
+        "area": "Superficie (m²)",
+        "costo_m2": "Costo (€/m²)",
+        "imprevistos": "Imprevisti (%)",
+        "area_m2": "area m2 (m²)",
+        "tipo_reforma": "tipo reforma ()",
+        "zona_geografica": "zona geografica ()"
+      },
+      "outputs": {
+        "costo_base": "Costo base (€)",
+        "imprevistos_eur": "Imprevisti (€)",
+        "total": "Totale (€)",
+        "eur_m2": "eur m2 (â‚¬/m²)",
+        "total_eur": "total eur (â‚¬ total)",
+        "materiales_eur": "materiales eur (â‚¬ materiales)",
+        "mano_obra_eur": "mano obra eur (â‚¬ mano de obra)",
+        "gestion_eur": "gestion eur (â‚¬ gestión)"
+      },
+      "example_label": "Calcular presupuesto de reforma para 100 m² de calidad media en zona intermedia.",
+      "range_hints": {
+        "area_m2": "Valor intre 10 e 2000 m².",
+        "tipo_reforma": "Nivel de calidad: básica (económica), media (estándar), alta (premium), lujo (alto standing)"
+      },
+      "result_context": "Resultados: {eur_m2} €/m², {total_eur} € totales, {materiales_eur} € en materiales, {mano_obra_eur} € en mano de obra, {gestion_eur} € en gestión.",
+      "formula_display": "Presupuesto = Σ(partidas × precio_unitario) + IVA + Gastos Generales",
+      "steps": [
+        "Enumera todas las partidas de obra (demolición, albañilería, fontanería, electricidad, acabados...)",
+        "Mide las cantidades de cada partida (m², m, ud) según planos del proyecto",
+        "Asigna el precio unitario de cada partida según la base de precios de construcción vigente",
+        "Multiplica cada partida por su precio unitario y suma todos los subtotales",
+        "Añade el porcentaje de gastos generales (13-19%) y beneficio industrial (6%)",
+        "Aplica el IVA correspondiente (21% para obras, 10% para rehabilitación en vivienda habitual)",
+        "Suma honorarios de proyecto (arquitecto, aparejador) si procede"
+      ],
+      "mistakes": [
+        "Olvidar partidas ocultas: licencias, tasas municipales, ICIO, conexión de suministros",
+        "No actualizar los precios unitarios a la fecha real de ejecución de la obra",
+        "Confundir presupuesto de contrata (con GG+BI) con presupuesto de ejecución material (PEM)",
+        "No incluir el coste de gestión de residuos de construcción y demolición (RCD)",
+        "Subestimar los imprevistos: reserva siempre un 5-10% adicional del PEM"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "reason": "Tipo correcto: numérico continuo en m² para superficie construida."
+        },
+        {
+          "field_id": "tipo_reforma",
+          "reason": "Tipo correcto: selector discreto para nivel de calidad de la reforma."
+        }
+      ],
+      "desc": "Calcola il budget stimato per la tua ristrutturazione in base ai m², al livello di qualità e alla zona geografica."
+    }
+  }
+}

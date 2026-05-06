@@ -1,0 +1,415 @@
+{
+  "id": "324",
+  "slug": "tasa-capitalizacion",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "noi",
+      "type": "number",
+      "step": "any",
+      "default": 15000,
+      "unit": "USD",
+      "unit_options": [
+        "USD",
+        "EUR",
+        "GBP"
+      ],
+      "unit_category": "currency"
+    },
+    {
+      "id": "value",
+      "type": "number",
+      "step": "any",
+      "default": 200000,
+      "unit": "USD",
+      "unit_options": [
+        "USD",
+        "EUR",
+        "GBP"
+      ],
+      "unit_category": "currency"
+    }
+  ],
+  "formula": "var noi=parseFloat(inputs.noi)||0;var val=parseFloat(inputs.value)||0;var rate=val>0?(noi/val)*100:0;return{cap_rate:rate.toFixed(4)};",
+  "outputs": [
+    {
+      "id": "cap_rate",
+      "unit": "%"
+    }
+  ],
+  "related": [
+    "323",
+    "322",
+    "300",
+    "301"
+  ],
+  "example_inputs": {
+    "noi": 42000,
+    "value": 525000
+  },
+  "example_label": "Calcula la tasa de capitalizacion inmobiliaria: NOI de 42.000 USD sobre una propiedad valorada en 525.000 USD",
+  "range_hints": {
+    "noi": "Valor monetario",
+    "value": "Valor monetario"
+  },
+  "result_context": "Resultados: {cap_rate} % de tasa de capitalización.",
+  "formula_display": "Cap Rate (%) = (Ingreso Neto Operativo anual / Valor de mercado de la propiedad) x 100",
+  "steps": [
+    "Introduce el Ingreso Neto Operativo (NOI) anual: ingresos brutos por alquileres menos todos los gastos operativos deducibles",
+    "Indica el valor actual de mercado o precio de compra de la propiedad inmobiliaria que estas evaluando",
+    "Divide el NOI entre el valor de la propiedad y multiplica por 100 para obtener la tasa de capitalizacion porcentual",
+    "Interpreta: una Cap Rate alta (>8%) sugiere mayor rentabilidad potencial pero posiblemente tambien implica mas riesgo",
+    "Compara la Cap Rate con otras inversiones inmobiliarias similares: es la principal metrica para comparar propiedades de distinto precio"
+  ],
+  "mistakes": [
+    "Calcular el NOI sin descontar adecuadamente todos los gastos operativos: mantenimiento, seguros, impuestos, administracion y tasa de vacancia",
+    "Usar el precio de compra original en lugar del valor de mercado actual si la propiedad se adquirio hace tiempo y se ha revalorizado",
+    "Comparar Cap Rates entre mercados inmobiliarios muy diferentes sin considerar que cada ciudad tiene sus propias referencias de rentabilidad"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "noi",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "value",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "noi": 21000,
+      "value": 262500
+    },
+    {
+      "_label": "Average",
+      "noi": 31500,
+      "value": 393750
+    },
+    {
+      "_label": "High",
+      "noi": 42000,
+      "value": 525000
+    },
+    {
+      "_label": "Premium",
+      "noi": 63000,
+      "value": 787500
+    },
+    {
+      "_label": "Enterprise",
+      "noi": 84000,
+      "value": 1050000
+    }
+  ],
+  "units": {
+    "noi": "USD",
+    "value": "USD"
+  },
+  "i18n": {
+    "es": {
+      "name": "Tasa de Capitalización (Cap Rate)",
+      "description": "Calcula la tasa de capitalización de un inmueble de inversión.",
+      "inputs": {
+        "noi": "NOI anual",
+        "value": "Valor de la propiedad"
+      },
+      "outputs": {
+        "cap_rate": "Cap rate %"
+      },
+      "seo_title": "Tasa de Capitalización (Cap Rate) Gratuita",
+      "seo_description": "Calcula la tasa de capitalización de un inmueble de inversión. Calculadora gratuita, precisa e instantánea. Calculadora facil de usar con desglose de.",
+      "example_label": "Calculating cap rate for commercial property with $42,000 NOI valued at $525,000.",
+      "range_hints": {
+        "noi": "$5,000 - $500,000+ net operating income",
+        "value": "$100,000 - $10,000,000+ property values"
+      },
+      "result_context": "The cap_rate of {cap_rate}% indicates the property's unleveraged return based on current income.",
+      "formula_display": "Cap Rate% = (NOI ÷ Property Value) × 100",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Divide NOI by property value",
+          "calculation": "$42,000 ÷ $525,000 = 0.08"
+        },
+        {
+          "step": 2,
+          "description": "Convert to percentage",
+          "calculation": "0.08 × 100 = 8%"
+        }
+      ],
+      "mistakes": [
+        "Using gross income instead of net operating income (NOI)",
+        "Not properly calculating NOI by subtracting all operating expenses",
+        "Comparing cap rates across different property types without adjustment"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "noi",
+          "reason": "Correct type for net operating income"
+        },
+        {
+          "field_id": "value",
+          "reason": "Correct type for property value"
+        }
+      ]
+    },
+    "en": {
+      "name": "Cap Rate Calculator",
+      "description": "Calculate the capitalization rate of an investment property.",
+      "inputs": {
+        "noi": "Annual NOI",
+        "value": "Property value"
+      },
+      "outputs": {
+        "cap_rate": "Cap rate %"
+      },
+      "seo_title": "Cap Rate Calculator – Instant Results",
+      "seo_description": "Cap Rate Calculator. Annual NOI, Property value to find Cap rate %. personal finance-grade formula with compounding, tax, and fee adjustments built in.",
+      "example_label": "Calculating cap rate for commercial property with $42,000 NOI valued at $525,000.",
+      "range_hints": {
+        "noi": "$5,000 - $500,000+ net operating income",
+        "value": "$100,000 - $10,000,000+ property values"
+      },
+      "result_context": "The cap_rate of {cap_rate}% indicates the property's unleveraged return based on current income.",
+      "formula_display": "Cap Rate% = (NOI ÷ Property Value) × 100",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Divide NOI by property value",
+          "calculation": "$42,000 ÷ $525,000 = 0.08"
+        },
+        {
+          "step": 2,
+          "description": "Convert to percentage",
+          "calculation": "0.08 × 100 = 8%"
+        }
+      ],
+      "mistakes": [
+        "Using gross income instead of net operating income (NOI)",
+        "Not properly calculating NOI by subtracting all operating expenses",
+        "Comparing cap rates across different property types without adjustment"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "noi",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for net operating income"
+        },
+        {
+          "field_id": "value",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for property value"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Taux de Capitalisation",
+      "description": "Calculez le taux de capitalisation d'un bien immobilier d'investissement.",
+      "inputs": {
+        "noi": "RNB annuel",
+        "value": "Valeur du bien"
+      },
+      "outputs": {
+        "cap_rate": "Taux cap %"
+      },
+      "seo_title": "Taux de Capitalisation – Étape par Étape",
+      "seo_description": "Calculez le taux de capitalisation d'un bien immobilier d'investissement. Calculateur gratuit, précis et instantané. Calculatrice facile a utiliser avec.",
+      "example_label": "Calculating cap rate for commercial property with $42,000 NOI valued at $525,000.",
+      "range_hints": {
+        "noi": "$5,000 - $500,000+ net operating income",
+        "value": "$100,000 - $10,000,000+ property values"
+      },
+      "result_context": "The cap_rate of {cap_rate}% indicates the property's unleveraged return based on current income.",
+      "formula_display": "Cap Rate% = (NOI Á· Property Value) × 100",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Divide NOI by property value",
+          "calculation": "$42,000 Á· $525,000 = 0.08"
+        },
+        {
+          "step": 2,
+          "description": "Convert to percentage",
+          "calculation": "0.08 × 100 = 8%"
+        }
+      ],
+      "mistakes": [
+        "Using gross income instead of net operating income (NOI)",
+        "Not properly calculating NOI by subtracting all operating expenses",
+        "Comparing cap rates across different property types without adjustment"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "noi",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for net operating income"
+        },
+        {
+          "field_id": "value",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for property value"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Taxa de Capitalização",
+      "description": "Calcule a taxa de capitalização de um imóvel de investimento.",
+      "inputs": {
+        "noi": "RLO anual",
+        "value": "Valor do imóvel"
+      },
+      "outputs": {
+        "cap_rate": "Cap rate %"
+      },
+      "seo_title": "Taxa de Capitalização – Passo a Passo",
+      "seo_description": "Calcule a taxa de capitalização de um imóvel de investimento. Calculadora gratuita, precisa e instantânea. Calculadora facil de usar com detalhamento da.",
+      "example_label": "Calculating cap rate for commercial property with $42,000 NOI valued at $525,000.",
+      "range_hints": {
+        "noi": "$5,000 - $500,000+ net operating income",
+        "value": "$100,000 - $10,000,000+ property values"
+      },
+      "result_context": "The cap_rate of {cap_rate}% indicates the property's unleveraged return based on current income.",
+      "formula_display": "Cap Rate% = (NOI ÷ Property Value) × 100",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Divide NOI by property value",
+          "calculation": "$42,000 ÷ $525,000 = 0.08"
+        },
+        {
+          "step": 2,
+          "description": "Convert to percentage",
+          "calculation": "0.08 × 100 = 8%"
+        }
+      ],
+      "mistakes": [
+        "Using gross income instead of net operating income (NOI)",
+        "Not properly calculating NOI by subtracting all operating expenses",
+        "Comparing cap rates across different property types without adjustment"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "noi",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for net operating income"
+        },
+        {
+          "field_id": "value",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct type for property value"
+        }
+      ]
+    },
+    "de": {
+      "name": "Tasa capitalizacion",
+      "desc": "Berechnen Sie tasa capitalizacion online. Geben Sie noi, value ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Tasa capitalizacion | CalcToWork",
+      "seo_desc": "Tasa capitalizacion online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Tasa capitalizacion online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "noi": "Noi",
+        "value": "Value"
+      },
+      "outputs": {
+        "cap_rate": "Cap Rate"
+      },
+      "example_label": "Calcula la tasa de capitalizacion inmobiliaria: NOI de 42.000 USD sobre una propiedad valorada en 525.000 USD",
+      "range_hints": {
+        "noi": "Valor monetario",
+        "value": "Valor monetario"
+      },
+      "result_context": "Resultados: {cap_rate} % de tasa de capitalización.",
+      "formula_display": "Cap Rate (%) = (Ingreso Neto Operativo anual / Valor de mercado de la propiedad) x 100",
+      "steps": [
+        "Introduce el Ingreso Neto Operativo (NOI) anual: ingresos brutos por alquileres menos todos los gastos operativos deducibles",
+        "Indica el valor actual de mercado o precio de compra de la propiedad inmobiliaria que estas evaluando",
+        "Divide el NOI entre el valor de la propiedad y multiplica por 100 para obtener la tasa de capitalizacion porcentual",
+        "Interpreta: una Cap Rate alta (>8%) sugiere mayor rentabilidad potencial pero posiblemente tambien implica mas riesgo",
+        "Compara la Cap Rate con otras inversiones inmobiliarias similares: es la principal metrica para comparar propiedades de distinto precio"
+      ],
+      "mistakes": [
+        "Calcular el NOI sin descontar adecuadamente todos los gastos operativos: mantenimiento, seguros, impuestos, administracion y tasa de vacancia",
+        "Usar el precio de compra original en lugar del valor de mercado actual si la propiedad se adquirio hace tiempo y se ha revalorizado",
+        "Comparar Cap Rates entre mercados inmobiliarios muy diferentes sin considerar que cada ciudad tiene sus propias referencias de rentabilidad"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "noi",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "value",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Tasso di Capitalizzazione",
+      "description": "Calcola il tasso di capitalizzazione di un immobile di investimento.",
+      "inputs": {
+        "noi": "RNO annuo",
+        "value": "Valore immobile"
+      },
+      "outputs": {
+        "cap_rate": "Cap rate %"
+      },
+      "seo_title": "Tasso di Capitalizzazione – Passo dopo Passo",
+      "seo_description": "Calcola il tasso di capitalizzazione di un immobile di investimento. Calcolatore gratuito, preciso e istantaneo. Calcolatrice facile da usare con.",
+      "example_label": "Calculating cap rate for commercial properte with $42,000 NOI valued at $525,000.",
+      "range_hints": {
+        "noi": "$5,000 - $500,000+ net operating income",
+        "value": "$100,000 - $10,000,000+ properte values"
+      },
+      "result_context": "The cap_rate of {cap_rate}% indicates the properte's unleveraged return based on currint income.",
+      "formula_display": "Cap Rate% = (NOI ÷ Properte Value) × 100",
+      "steps": [
+        {
+          "step": 1,
+          "description": "Divide NOI by property value",
+          "calculation": "$42,000 ÷ $525,000 = 0.08"
+        },
+        {
+          "step": 2,
+          "description": "Convert to percentage",
+          "calculation": "0.08 × 100 = 8%"
+        }
+      ],
+      "mistakes": [
+        "Usenzag gross income instead of net operating income (NOI)",
+        "Not properle calculating NOI be subtracting all operating expinses",
+        "Comparing cap rates across differint properte tepes without adjustmint"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "noi",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for net operating income"
+        },
+        {
+          "field_id": "value",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct tepe for properte value"
+        }
+      ]
+    }
+  }
+}

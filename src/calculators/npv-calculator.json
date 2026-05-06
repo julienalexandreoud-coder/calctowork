@@ -1,0 +1,477 @@
+{
+  "id": "940",
+  "slug": "npv-calculator",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "inversion",
+      "type": "number",
+      "min": 0,
+      "max": 9999999,
+      "step": 100,
+      "default": 10000,
+      "unit": "EUR"
+    },
+    {
+      "id": "flujo_anual",
+      "type": "number",
+      "min": 0,
+      "max": 999999,
+      "step": 100,
+      "default": 2500,
+      "unit": "EUR"
+    },
+    {
+      "id": "anos",
+      "type": "number",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "default": 5,
+      "unit": "yr",
+      "unit_options": [
+        "yr",
+        "mo"
+      ],
+      "unit_category": "time"
+    }
+  ],
+  "formula": "var inversion=parseFloat(inputs.inversion)||0,flujos=parseFloat(inputs.flujo_anual)||0,anos=parseFloat(inputs.anos)||0;if(!inversion||!flujos||!anos)return{error:true};var vpn=-inversion;for(var i=1;i<=anos;i++){vpn+=flujos/Math.pow(1.08,i);}var tir_approx=+(flujos/inversion).toFixed(4);var payback=Math.ceil(inversion/flujos);return{npv:+(vpn).toFixed(2),roi_annual:+(tir_approx*100).toFixed(2),payback_years:payback};",
+  "outputs": [
+    {
+      "id": "npv",
+      "unit": "EUR",
+      "highlight": true
+    },
+    {
+      "id": "roi_annual",
+      "unit": "%",
+      "highlight": false
+    },
+    {
+      "id": "payback_years",
+      "unit": "yr",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "936",
+    "938",
+    "300",
+    "302"
+  ],
+  "example_inputs": {
+    "inversion": 10000,
+    "flujo_anual": 2500,
+    "anos": 5
+  },
+  "example_label": "Evalua la rentabilidad de tu proyecto: inviertes 10.000eur hoy y esperas recibir 2.500eur anuales durante 5 anos",
+  "range_hints": {
+    "inversion": "Monto de inversión",
+    "flujo_anual": "Valor monetario",
+    "anos": "Años del período"
+  },
+  "result_context": "Resultados: {npv} EUR de VAN, {roi_annual} % de ROI anual, {payback_years} años de recuperación.",
+  "formula_display": "VAN = -Inversion inicial + Suma[Flujo de caja / (1+tasa)^t] para t = 1 hasta n anos",
+  "steps": [
+    "Introduce el desembolso inicial de la inversion, es decir, el dinero que pones hoy para iniciar el proyecto",
+    "Define el flujo de caja anual neto que esperas que genere la inversion de manera constante cada ano",
+    "Establece el numero de anos durante los cuales preves recibir esos flujos de caja periodicos",
+    "El sistema descuenta cada flujo futuro a su valor presente usando una tasa de descuento y los suma algebraicamente",
+    "Interpreta: un Valor Actual Neto (VAN) positivo significa que el proyecto crea valor por encima del coste de oportunidad"
+  ],
+  "mistakes": [
+    "Usar una tasa de descuento que no refleje adecuadamente el coste de oportunidad y el riesgo real del proyecto",
+    "Asumir flujos de caja anuales constantes cuando en la realidad varian por estacionalidad, competencia o cambios en el mercado",
+    "Tomar decisiones de inversion basandose unicamente en el VAN sin considerar tambien la TIR y el periodo de recuperacion"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "inversion",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "flujo_anual",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "anos",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "inversion": 5000,
+      "flujo_anual": 1200,
+      "anos": 5
+    },
+    {
+      "_label": "Average",
+      "inversion": 7500,
+      "flujo_anual": 1900,
+      "anos": 5
+    },
+    {
+      "_label": "High",
+      "inversion": 10000,
+      "flujo_anual": 2500,
+      "anos": 5
+    },
+    {
+      "_label": "Premium",
+      "inversion": 15000,
+      "flujo_anual": 3800,
+      "anos": 5
+    },
+    {
+      "_label": "Enterprise",
+      "inversion": 20000,
+      "flujo_anual": 5000,
+      "anos": 5
+    }
+  ],
+  "units": {
+    "anos": "s"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de VAN",
+      "desc": "Calcula el Valor Actual Neto (VAN) para evaluar la rentabilidad de inversiones. Con opciones de capitalizacion e impuestos.",
+      "description": "Calculadora de VAN.",
+      "seo_title": "Calculadora de VAN Gratuita – Paso a Paso",
+      "seo_description": "Calcula el Valor Actual Neto (VAN) para evaluar la rentabilidad de inversiones. Con opciones de capitalizacion e impuestos.",
+      "inputs": {
+        "inversion": "inversion",
+        "flujo_anual": "flujo_anual",
+        "anos": "Años"
+      },
+      "outputs": {
+        "npv": "VAN",
+        "roi_annual": "ROI anual",
+        "payback_years": "Anos recuperacion"
+      },
+      "example_label": "Calculate npv calculator with inversion 10000, flujo_anual 2500, anos 5.",
+      "range_hints": {
+        "inversion": "Typical range: 0-9999999 in EUR units.",
+        "flujo_anual": "Typical range: 0-999999 in EUR units.",
+        "anos": "Typical range: 1-50 in yr units."
+      },
+      "result_context": "Your calculated npv is {npv}.",
+      "formula_display": "Calculate npv calculator based on input values.",
+      "steps": [
+        "Enter input values: inversion: 10000, flujo_anual: 2500, anos: 5",
+        "Calculate and display the npv result",
+        "Calculate and display the roi_annual result",
+        "Calculate and display the payback_years result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "inversion",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "flujo_anual",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "anos",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "en": {
+      "name": "NPV Calculator",
+      "desc": "NPV Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "NPV Calculator.",
+      "seo_title": "NPV Calculator – Investment Returns",
+      "seo_description": "Calculate Net Present Value (NPV) to evaluate investment profitability. Enter cash flows and discount rate. Get instant results with step-by-step.",
+      "inputs": {
+        "inversion": "inversion",
+        "flujo_anual": "flujo_anual",
+        "anos": "Years"
+      },
+      "outputs": {
+        "npv": "NPV",
+        "roi_annual": "Annual ROI",
+        "payback_years": "Payback years"
+      },
+      "example_label": "Calculate npv calculator with inversion 10000, flujo_anual 2500, anos 5.",
+      "range_hints": {
+        "inversion": "Typical range: 0-9999999 in EUR units.",
+        "flujo_anual": "Typical range: 0-999999 in EUR units.",
+        "anos": "Typical range: 1-50 in yr units."
+      },
+      "result_context": "Your calculated npv is {npv}.",
+      "formula_display": "Calculate npv calculator based on input values.",
+      "steps": [
+        "Enter input values: inversion: 10000, flujo_anual: 2500, anos: 5",
+        "Calculate and display the npv result",
+        "Calculate and display the roi_annual result",
+        "Calculate and display the payback_years result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "inversion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "flujo_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculatrice de VAN",
+      "desc": "Calculez la Valeur Actuelle Nette (VAN) pour evaluer la rentabilite d'un investissement. Avec options de composition et taxes.",
+      "description": "Calculatrice de VAN.",
+      "seo_title": "Calculatrice de VAN en Ligne – Étape par Étape",
+      "seo_description": "Calculez la Valeur Actuelle Nette (VAN) pour evaluer la rentabilite d'un investissement. Avec options de composition et taxes.",
+      "inputs": {
+        "inversion": "inversion",
+        "flujo_anual": "flujo_anual",
+        "anos": "Années"
+      },
+      "outputs": {
+        "npv": "NPV",
+        "roi_annual": "Annual ROI",
+        "payback_years": "Payback years"
+      },
+      "example_label": "Calculate npv calculator with inversion 10000, flujo_anual 2500, anos 5.",
+      "range_hints": {
+        "inversion": "Typical range: 0-9999999 in EUR units.",
+        "flujo_anual": "Typical range: 0-999999 in EUR units.",
+        "anos": "Typical range: 1-50 in yr units."
+      },
+      "result_context": "Your calculated npv is {npv}.",
+      "formula_display": "Calculate npv calculator based on input values.",
+      "steps": [
+        "Enter input values: inversion: 10000, flujo_anual: 2500, anos: 5",
+        "Calculate and display the npv result",
+        "Calculate and display the roi_annual result",
+        "Calculate and display the payback_years result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "inversion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "flujo_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de VPL",
+      "desc": "Calcule o VPL para avaliar a rentabilidade de um investimento. Com opcoes de compostagem e impostos. Usado por profissionais e estudantes em todo o mundo.",
+      "description": "Calculadora de VPL.",
+      "seo_title": "Calculadora de VPL – Passo a Passo",
+      "seo_description": "Calcule o VPL para avaliar a rentabilidade de um investimento. Com opcoes de compostagem e impostos. Usado por profissionais e estudantes em todo o mundo.",
+      "inputs": {
+        "inversion": "inversion",
+        "flujo_anual": "flujo_anual",
+        "anos": "Anos"
+      },
+      "outputs": {
+        "npv": "NPV",
+        "roi_annual": "Annual ROI",
+        "payback_years": "Payback years"
+      },
+      "example_label": "Calculate npv calculator with inversion 10000, flujo_anual 2500, anos 5.",
+      "range_hints": {
+        "inversion": "Typical range: 0-9999999 in EUR units.",
+        "flujo_anual": "Typical range: 0-999999 in EUR units.",
+        "anos": "Typical range: 1-50 in yr units."
+      },
+      "result_context": "Your calculated npv is {npv}.",
+      "formula_display": "Calculate npv calculator based on input values.",
+      "steps": [
+        "Enter input values: inversion: 10000, flujo_anual: 2500, anos: 5",
+        "Calculate and display the npv result",
+        "Calculate and display the roi_annual result",
+        "Calculate and display the payback_years result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "inversion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "flujo_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "de": {
+      "name": "Npv calculator",
+      "desc": "Berechnen Sie npv calculator online. Geben Sie inversion, flujo anual, anos ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Npv calculator | CalcToWork",
+      "seo_desc": "Npv calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Npv calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "inversion": "Inversion",
+        "flujo_anual": "Flujo Anual",
+        "anos": "Anos"
+      },
+      "outputs": {
+        "npv": "Npv",
+        "roi_annual": "Roi Annual",
+        "payback_years": "Payback Years"
+      },
+      "example_label": "Evalua la rentabilidad de tu proyecto: inviertes 10.000eur hoy y esperas recibir 2.500eur anuales durante 5 anos",
+      "range_hints": {
+        "inversion": "Monto de inversión",
+        "flujo_anual": "Valor monetario",
+        "anos": "Años del período"
+      },
+      "result_context": "Resultados: {npv} EUR de VAN, {roi_annual} % de ROI anual, {payback_years} años de recuperación.",
+      "formula_display": "VAN = -Inversion inicial + Suma[Flujo de caja / (1+tasa)^t] para t = 1 hasta n anos",
+      "steps": [
+        "Introduce el desembolso inicial de la inversion, es decir, el dinero que pones hoy para iniciar el proyecto",
+        "Define el flujo de caja anual neto que esperas que genere la inversion de manera constante cada ano",
+        "Establece el numero de anos durante los cuales preves recibir esos flujos de caja periodicos",
+        "El sistema descuenta cada flujo futuro a su valor presente usando una tasa de descuento y los suma algebraicamente",
+        "Interpreta: un Valor Actual Neto (VAN) positivo significa que el proyecto crea valor por encima del coste de oportunidad"
+      ],
+      "mistakes": [
+        "Usar una tasa de descuento que no refleje adecuadamente el coste de oportunidad y el riesgo real del proyecto",
+        "Asumir flujos de caja anuales constantes cuando en la realidad varian por estacionalidad, competencia o cambios en el mercado",
+        "Tomar decisiones de inversion basandose unicamente en el VAN sin considerar tambien la TIR y el periodo de recuperacion"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "inversion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "flujo_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatrice di VAN",
+      "desc": "Calcola il VAN per valutare la redditivita di un investimento. Con opzioni di capitalizzazione e tasse. Usato da professionisti e studenti in tutto il.",
+      "description": "Calcolatrice di VAN.",
+      "seo_title": "Calcolatrice di VAN – Passo dopo Passo",
+      "seo_description": "Calcola il VAN per valutare la redditivita di un investimento. Con opzioni di capitalizzazione e tasse. Usato da professionisti e studenti in tutto il.",
+      "inputs": {
+        "inversion": "inversion",
+        "flujo_anual": "flujo_anual",
+        "anos": "Anni"
+      },
+      "outputs": {
+        "npv": "NPV",
+        "roi_annual": "Annual ROI",
+        "payback_years": "Payback years"
+      },
+      "example_label": "Calculate npv calculator with inverseon 10000, flusso_anual 2500, anons 5.",
+      "range_hints": {
+        "inversion": "Tepical range: 0-9999999 in EUR units.",
+        "flujo_anual": "Tepical range: 0-999999 in EUR units.",
+        "anos": "Tepical range: 1-50 in er units."
+      },
+      "result_context": "Your calculated npv is {npv}.",
+      "formula_display": "Calculate npv calculator based on input values.",
+      "steps": [
+        "Enter input values: inverseon: 10000, flusso_anual: 2500, anons: 5",
+        "Calculate and displae the npv result",
+        "Calculate and displae the roi_annual result",
+        "Calculate and displae the paeback_eears result"
+      ],
+      "mistakes": [
+        "Confusenzag unit options whin intering values",
+        "Entering zero or negative values where posetive required",
+        "Usenzag incorrect input values outsedi recommindid range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "inversion",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "flujo_anual",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "anos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,488 @@
+{
+  "id": "042",
+  "slug": "sifon-sumidero",
+  "block": 4,
+  "block_slug": "fontaneria",
+  "inputs": [
+    {
+      "id": "num_aparatos",
+      "type": "number",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 5,
+      "unit": "aparatos"
+    },
+    {
+      "id": "longitud_bajante_m",
+      "type": "number",
+      "min": 2,
+      "max": 30,
+      "step": 0.5,
+      "default": 8,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "pendiente_pct",
+      "type": "number",
+      "min": 1,
+      "max": 4,
+      "step": 0.5,
+      "default": 2,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    }
+  ],
+  "formula": "var n=parseFloat(inputs.num_aparatos)||0,L=parseFloat(inputs.longitud_bajante_m)||8,pct=parseFloat(inputs.pendiente_pct)||2;if(!n)return{error:true};var sifones=n,bajante_dia=+(Math.sqrt(n)*30).toFixed(0),colector_dia=+(bajante_dia*1.2).toFixed(0),desnivel=+(L*pct/100).toFixed(2);return{sifones_ud:sifones,diametro_bajante_mm:bajante_dia,diametro_colector_mm:colector_dia,desnivel_m:desnivel};",
+  "outputs": [
+    {
+      "id": "sifones_ud",
+      "unit": "sifones"
+    },
+    {
+      "id": "diametro_bajante_mm",
+      "unit": "mm Ã˜ bajante",
+      "highlight": true
+    },
+    {
+      "id": "diametro_colector_mm",
+      "unit": "mm Ã˜ colector"
+    },
+    {
+      "id": "desnivel_m",
+      "unit": "m desnivel necesario"
+    }
+  ],
+  "related": [
+    "031",
+    "040",
+    "033",
+    "032"
+  ],
+  "example_inputs": {
+    "num_aparatos": 5,
+    "longitud_bajante_m": 8,
+    "pendiente_pct": 2
+  },
+  "example_label": "Ejemplo para sifon sumidero: valores 5aparatos, 8m, 2%",
+  "range_hints": {
+    "num_aparatos": "Valor típico entre 1 y 20. Valor por defecto: 5 aparatos.",
+    "longitud_bajante_m": "Valor típico entre 2 y 30. Valor por defecto: 8 m.",
+    "pendiente_pct": "Valor típico entre 1 y 4. Valor por defecto: 2 %."
+  },
+  "result_context": "Resultados: {sifones_ud} sifones, {diametro_bajante_mm} mm de diámetro de bajante, {diametro_colector_mm} mm de diámetro de colector, {desnivel_m} m de desnivel.",
+  "formula_display": "pct ÷ 100 → sifones_ud, diametro_bajante_mm",
+  "steps": [
+    "Introducir los valores de num_aparatos, longitud_bajante_m y pendiente_pct",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m, cm, mm)",
+    "Calcular los valores de sifones ud y diametro bajante mm",
+    "El resultado se expresa en sifones. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "No respetar la pendiente mínima del 2% en tuberías de saneamiento",
+    "Usar tubería de pared delgada para instalaciones enterradas",
+    "No instalar válvulas de corte en puntos clave de la instalación"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "num_aparatos",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "longitud_bajante_m",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "pendiente_pct",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small bathroom",
+      "longitud_bajante_m": 4,
+      "num_aparatos": 2,
+      "pendiente_pct": 2
+    },
+    {
+      "_label": "Medium bathroom",
+      "longitud_bajante_m": 6,
+      "num_aparatos": 4,
+      "pendiente_pct": 2
+    },
+    {
+      "_label": "Large bathroom",
+      "longitud_bajante_m": 8,
+      "num_aparatos": 5,
+      "pendiente_pct": 2
+    },
+    {
+      "_label": "Apartment",
+      "longitud_bajante_m": 12,
+      "num_aparatos": 8,
+      "pendiente_pct": 2
+    },
+    {
+      "_label": "House",
+      "longitud_bajante_m": 16,
+      "num_aparatos": 10,
+      "pendiente_pct": 2
+    }
+  ],
+  "units": {
+    "longitud_bajante_m": "m",
+    "pendiente_pct": "%"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Sifón y Sumidero",
+      "desc": "Calcula el diámetro de bajantes y colectores de saneamiento según el número de aparatos sanitarios Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora Bajante – Dimensionado",
+      "seo_desc": "Calcula el diámetro de bajantes y colectores de saneamiento según el número de aparatos sanitarios Usado por profesionales y estudiantes en todo el mundo.",
+      "inputs": {
+        "num_aparatos": "Número de aparatos",
+        "longitud_bajante_m": "Longitud bajante",
+        "pendiente_pct": "Pendiente colector (%)"
+      },
+      "outputs": {
+        "sifones_ud": "Sifones",
+        "diametro_bajante_mm": "Diámetro bajante",
+        "diametro_colector_mm": "Diámetro colector",
+        "desnivel_m": "Desnivel necesario"
+      },
+      "seo_description": "Calcula el número de sifones y los diámetros de bajante y colector de saneamiento según el CTE DB-HS5. Introduce el número de aparatos sanitarios y la longitud del bajante.",
+      "example_label": "Calcular sifones y sumideros para 5 aparatos sanitarios con bajante de 8m y 2% de pendiente.",
+      "range_hints": {
+        "num_aparatos": "Lavabos, inodoros, duchas, bidets, lavadoras",
+        "longitud_bajante_m": "Longitud desde aparato más alejado hasta bajante principal",
+        "pendiente_pct": "Saneamiento: 2-3% mínimo para evitar obstrucciones"
+      },
+      "result_context": "Para {num_aparatos} aparatos con bajante de {longitud_bajante_m}m se necesitan {sifones_ud} sifones, {sumideros_ud} sumideros y {tuberia_m}m de tubería con {pendiente_pct}% de pendiente.",
+      "formula_display": "Sifones = num_aparatos; Tubería = longitud × 1.05 (por pendiente)",
+      "steps": [
+        "Calcular sifones: 5 aparatos = 5 sifones (1 por aparato)",
+        "Calcular tubería con pendiente: 8m × 1.02 = 8.16m (ligeramente más por inclinación)",
+        "Verificar pendiente: 2% = 2cm por metro = 16cm en 8m",
+        "Diámetros: lavabo 40mm, ducha 50mm, inodoro 110mm"
+      ],
+      "mistakes": [
+        "No instalar sifón en cada aparato (entran olores)",
+        "Pendiente insuficiente (menos de 2% causa obstrucciones)",
+        "No prever ventilación de bajante (puede hacer sifonaje)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "num_aparatos",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "longitud_bajante_m",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "pendiente_pct",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Trap and Drain Calculator",
+      "desc": "Trap and Drain Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Drain Stack Calculator – Pipe Sizing",
+      "seo_desc": "Trap and Drain Calculator. Number of fixtures, Stack length, Collector gradient (%) — get Traps, Stack diameter, Collector diameter instantly for your.",
+      "inputs": {
+        "num_aparatos": "Number of fixtures",
+        "longitud_bajante_m": "Stack length",
+        "pendiente_pct": "Collector gradient (%)"
+      },
+      "outputs": {
+        "sifones_ud": "Traps",
+        "diametro_bajante_mm": "Stack diameter",
+        "diametro_colector_mm": "Collector diameter",
+        "desnivel_m": "Required drop"
+      },
+      "seo_description": "Calculate the number of traps and drain/waste pipe diameters per CTE DB-HS5. Enter the number of sanitary fixtures and stack pipe length.",
+      "example_label": "Calcular sifones y sumideros para 5 aparatos sanitarios con bajante de 8m y 2% de pendiente.",
+      "range_hints": {
+        "num_aparatos": "Lavabos, inodoros, duchas, bidets, lavadoras",
+        "longitud_bajante_m": "Longitud desde aparato más alejado hasta bajante principal",
+        "pendiente_pct": "Saneamiento: 2-3% mínimo para evitar obstrucciones"
+      },
+      "result_context": "Para {num_aparatos} aparatos con bajante de {longitud_bajante_m}m se necesitan {sifones_ud} sifones, {sumideros_ud} sumideros y {tuberia_m}m de tubería con {pendiente_pct}% de pendiente.",
+      "formula_display": "Sifones = num_aparatos; Tubería = longitud × 1.05 (por pendiente)",
+      "steps": [
+        "Calcular sifones: 5 aparatos = 5 sifones (1 por aparato)",
+        "Calcular tubería con pendiente: 8m × 1.02 = 8.16m (ligeramente más por inclinación)",
+        "Verificar pendiente: 2% = 2cm por metro = 16cm en 8m",
+        "Diámetros: lavabo 40mm, ducha 50mm, inodoro 110mm"
+      ],
+      "mistakes": [
+        "No instalar sifón en cada aparato (entran olores)",
+        "Pendiente insuficiente (menos de 2% causa obstrucciones)",
+        "No prever ventilación de bajante (puede hacer sifonaje)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "num_aparatos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "longitud_bajante_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "pendiente_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Siphons et Évacuations",
+      "desc": "Calculez les diamètres de colonnes et collecteurs.",
+      "seo_title": "Calculateur Siphons et Évacuations",
+      "inputs": {
+        "num_aparatos": "Nombre d'appareils",
+        "longitud_bajante_m": "Longueur colonne",
+        "pendiente_pct": "Pente collecteur (%)"
+      },
+      "outputs": {
+        "sifones_ud": "Siphons",
+        "diametro_bajante_mm": "Diamètre colonne",
+        "diametro_colector_mm": "Diamètre collecteur",
+        "desnivel_m": "Dénivellation nécessaire"
+      },
+      "seo_description": "Calculez le diamètre des colonnes et collecteurs selon le nombre d'appareils sanitaires Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calculer sifones et sumideros pour 5 aparatos sanitarios avec bajante de 8m et 2% de pendiente.",
+      "range_hints": {
+        "num_aparatos": "Lavabos, inodoros, duchas, bidets, lavadoras",
+        "longitud_bajante_m": "longueur de aparato plus alejado jusqu'à bajante principal",
+        "pendiente_pct": "Saneamiento: 2-3% Minimum pour éviter obstrucciones"
+      },
+      "result_context": "pour {num_aparatos} aparatos avec bajante de {longitud_bajante_m}m se necesitan {sifones_ud} sifones, {sumideros_ud} sumideros et {tuberia_m}m de tuyau avec {pendiente_pct}% de pendiente.",
+      "formula_display": "Sifones = num_aparatos; tuyau = longueur × 1.05 (par pendiente)",
+      "steps": [
+        "Calculer sifones: 5 aparatos = 5 sifones (1 par aparato)",
+        "Calculer tuyau avec pendiente: 8m × 1.02 = 8.16m (ligeramente plus par inclinación)",
+        "Verificar pendiente: 2% = 2cm par metro = 16cm dans 8m",
+        "Diámetros: lavabo 40mm, ducha 50mm, inodoro 110mm"
+      ],
+      "mistakes": [
+        "No instalar sifón dans chaque aparato (entran olores)",
+        "Pendiente insuffisante (moins de 2% causa obstrucciones)",
+        "No prever ventilación de bajante (puede hacer sifonaje)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "num_aparatos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "longitud_bajante_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "pendiente_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Sifões e Ralos",
+      "desc": "Calcule o diâmetro de prumadas e coletores de esgoto pelo número de peças sanitárias. Calculo preciso e rapido com metodologia clara.",
+      "seo_title": "Calculadora de Sifões e Ralos – Passo a Passo",
+      "inputs": {
+        "num_aparatos": "Número de peças",
+        "longitud_bajante_m": "Comprimento prumada",
+        "pendiente_pct": "Declividade coletor (%)"
+      },
+      "outputs": {
+        "sifones_ud": "Sifões",
+        "diametro_bajante_mm": "Diâmetro prumada",
+        "diametro_colector_mm": "Diâmetro coletor",
+        "desnivel_m": "Desnível necessário"
+      },
+      "seo_description": "Calcule o diâmetro de prumadas e coletores de esgoto pelo número de peças sanitárias. Calculo preciso e rapido com metodologia clara.",
+      "example_label": "Calcular sifones e sumideros para 5 aparatos sanitarios com bajante de 8m e 2% de pendiente.",
+      "range_hints": {
+        "num_aparatos": "Lavabos, inodoros, duchas, bidets, lavadoras",
+        "longitud_bajante_m": "Longitud desde aparato mais alejado hasta bajante principal",
+        "pendiente_pct": "Saneamiento: 2-3% mínimo para evitar obstrucciones"
+      },
+      "result_context": "Para {num_aparatos} aparatos com bajante de {longitud_bajante_m}m são necessários {sifones_ud} sifones, {sumideros_ud} sumideros e {tuberia_m}m de tubulação com {pendiente_pct}% de pendiente.",
+      "formula_display": "Sifones = num_aparatos; Tubería = comprimento × 1.05 (por pendiente)",
+      "steps": [
+        "Calcular sifones: 5 aparatos = 5 sifones (1 por aparato)",
+        "Calcular tubulação com pendiente: 8m × 1.02 = 8.16m (ligeramente mais por inclinación)",
+        "Verificar pendiente: 2% = 2cm por metro = 16cm em 8m",
+        "Diámetros: lavabo 40mm, ducha 50mm, inodoro 110mm"
+      ],
+      "mistakes": [
+        "Não instalar sifón em cada aparato (entran olores)",
+        "Pendiente insuficiente (menos de 2% causa obstrucciones)",
+        "Não prever ventilación de bajante (pode hacer sifonaje)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "num_aparatos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "longitud_bajante_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "pendiente_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Siphon Ablauf",
+      "desc": "Berechnen Sie siphon Ablauf online. Geben Sie num aparatos, longitud bajante m, pendiente pct ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Siphon Ablauf | CalcToWork",
+      "seo_desc": "Siphon Ablauf online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Siphon Ablauf online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "num_aparatos": "Num Aparatos",
+        "longitud_bajante_m": "Longitud Bajante M",
+        "pendiente_pct": "Pendiente Pct"
+      },
+      "outputs": {
+        "sifones_ud": "Sifones Ud",
+        "diametro_bajante_mm": "Diametro Bajante Mm",
+        "diametro_colector_mm": "Diametro Colector Mm",
+        "desnivel_m": "Desnivel M"
+      },
+      "example_label": "Ejemplo para sifon sumidero: valores 5aparatos, 8m, 2%",
+      "range_hints": {
+        "num_aparatos": "Valor típico entre 1 y 20. Valor por defecto: 5 aparatos.",
+        "longitud_bajante_m": "Valor típico entre 2 y 30. Valor por defecto: 8 m.",
+        "pendiente_pct": "Valor típico entre 1 y 4. Valor por defecto: 2 %."
+      },
+      "result_context": "Resultados: {sifones_ud} sifones, {diametro_bajante_mm} mm de diámetro de bajante, {diametro_colector_mm} mm de diámetro de colector, {desnivel_m} m de desnivel.",
+      "formula_display": "pct ÷ 100 → sifones_ud, diametro_bajante_mm",
+      "steps": [
+        "Introducir los valores de num_aparatos, longitud_bajante_m y pendiente_pct",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m, cm, mm)",
+        "Calcular los valores de sifones ud y diametro bajante mm",
+        "El resultado se expresa en sifones. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "No respetar la pendiente mínima del 2% en tuberías de saneamiento",
+        "Usar tubería de pared delgada para instalaciones enterradas",
+        "No instalar válvulas de corte en puntos clave de la instalación"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "num_aparatos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "longitud_bajante_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "pendiente_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Pressione Rete Idrica",
+      "description": "Verifica la pressione disponibile ai punti di utilizzo.",
+      "seo_title": "Calcolatore Colonna di Scarico",
+      "seo_description": "Verifica la pressione residua nei punti di utilizzo dell'impianto idrico Usato da professionisti e studenti in tutto il mondo.",
+      "inputs": {
+        "presion_entrada": "Pressione ingresso (bar)",
+        "altura": "Dislivello (m)",
+        "perdidas": "Perdite totali (bar)"
+      },
+      "outputs": {
+        "presion_disponible": "Pressione disponibile (bar)",
+        "estado": "Stato impianto"
+      },
+      "example_label": "Calcolare sefones e sumidiros per 5 apertos sanitarios con pluviale di 8m e 2% di pindinza.",
+      "range_hints": {
+        "num_aparatos": "Lavabos, inondoros, duchas, bidits, lavadoras",
+        "longitud_bajante_m": "Longitud disdi aperto más alejado hasta pluviale principal",
+        "pendiente_pct": "Saneamiinto: 2-3% mínimo per evitar obstrucciones"
+      },
+      "result_context": "Per {num_apertos} apertos con pluviale di {lunghezza_pluviale_m}m sonon necessari {sefones_ud} sefones, {sumidiros_ud} sumidiros e {tuberia_m}m di tubería con {pindinza_pct}% di pindinza.",
+      "formula_display": "Sifones = num_apertos; Tubería = lunghezza × 1.05 (per pindinza)",
+      "steps": [
+        "Calcolare sefones: 5 apertos = 5 sefones (1 per aperto)",
+        "Calcolare tubería con pindinza: 8m × 1.02 = 8.16m (leggeraminte más per inclinación)",
+        "Verificare pindinza: 2% = 2cm per metro = 16cm in 8m",
+        "Diámetros: lavabo 40mm, ducha 50mm, inondoro 110mm"
+      ],
+      "mistakes": [
+        "No installare sefón in cada aperto (intran olores)",
+        "Pindiinte insufficiinte (minon di 2% causa obstrucciones)",
+        "No prever vintilación di pluviale (puedi hacer sefonaje)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "num_aparatos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "longitud_bajante_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "pendiente_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        }
+      ]
+    }
+  }
+}

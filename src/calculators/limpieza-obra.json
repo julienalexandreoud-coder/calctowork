@@ -1,0 +1,469 @@
+{
+  "id": "086",
+  "slug": "limpieza-obra",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "area_m2",
+      "type": "number",
+      "min": 10,
+      "max": 5000,
+      "step": 5,
+      "default": 100,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "tipo_limpieza",
+      "type": "select",
+      "default": "final_obra",
+      "options": [
+        "final_obra",
+        "industrial",
+        "cristales",
+        "exterior"
+      ]
+    },
+    {
+      "id": "precio_m2",
+      "type": "number",
+      "min": 2,
+      "max": 25,
+      "step": 0.5,
+      "default": 6,
+      "unit": "â‚¬/m²",
+      "unit_options": [
+        "â‚¬/m²",
+        "$/m²"
+      ],
+      "unit_category": "price"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area_m2)||0,P=parseFloat(inputs.precio_m2)||6,mult={'final_obra':1,'industrial':1.3,'cristales':0.5,'exterior':0.8};if(!A)return{error:true};var coste=+(A*P*mult[inputs.tipo_limpieza]).toFixed(2),horas=+(A*0.06).toFixed(1),operarios=Math.max(1,Math.ceil(horas/8));return{horas_estimadas:horas,operarios_jornada:operarios,coste_eur:coste};",
+  "outputs": [
+    {
+      "id": "horas_estimadas",
+      "unit": "h"
+    },
+    {
+      "id": "operarios_jornada",
+      "unit": "operarios/jornada"
+    },
+    {
+      "id": "coste_eur",
+      "unit": "â‚¬ total",
+      "highlight": true
+    }
+  ],
+  "related": [
+    "085",
+    "088",
+    "084",
+    "078"
+  ],
+  "example_inputs": {
+    "area_m2": 100,
+    "tipo_limpieza": "final_obra",
+    "precio_m2": 6
+  },
+  "example_label": "Calcular limpieza final de obra para 100 m² a 6 €/m².",
+  "range_hints": {
+    "area_m2": "Superficie total a limpiar en m² (área construida o zona de actuación) (m²)",
+    "tipo_limpieza": "Tipo de servicio: final de obra (entrega), industrial (post-demolición), cristales, o fachada exterior",
+    "precio_m2": "Precio de referencia por m² según el tipo de limpieza contratado (€/m²)"
+  },
+  "result_context": "Resultados: {horas_estimadas} horas estimadas, {operarios_jornada} operarios por jornada, coste total de {coste_eur} €.",
+  "formula_display": "Coste = área_m² × precio_m² × factor_tipo_limpieza",
+  "steps": [
+    "Mide el área total a limpiar en m² (superficie construida o área de actuación)",
+    "Selecciona el tipo de limpieza: final de obra, industrial (después de demolición), cristales, o fachada exterior",
+    "Asigna un precio por m² según el tipo: 4-8 €/m² final de obra, 8-12 €/m² industrial, 3-5 €/m² solo cristales",
+    "Aplica el multiplicador según tipo: ×1 para final de obra, ×1.3 para industrial, ×0.5 solo cristales",
+    "Calcula horas estimadas: superficie × 0.06 h/m² (rendimiento medio de limpieza de obra)",
+    "Determina el número de operarios necesarios: horas totales ÷ 8 horas/jornada"
+  ],
+  "mistakes": [
+    "No presupuestar la limpieza final de obra como partida independiente: es obligatoria antes de la entrega",
+    "Subestimar la limpieza industrial tras demolición o trabajos de albañilería con gran cantidad de polvo",
+    "Olvidar que los cristales requieren limpieza especializada con productos específicos y medidas de seguridad en altura",
+    "No considerar la retirada de protecciones plásticas y restos de embalajes de materiales",
+    "Mezclar en el mismo presupuesto la limpieza periódica durante obra con la limpieza final de entrega"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "area_m2",
+      "reason": "Tipo correcto: numérico para la superficie total a limpiar en m²."
+    },
+    {
+      "field_id": "tipo_limpieza",
+      "reason": "Tipo correcto: selector discreto para el tipo de servicio de limpieza contratado."
+    },
+    {
+      "field_id": "precio_m2",
+      "reason": "Tipo correcto: numérico decimal para el precio por m² de limpieza."
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Limpieza final piso pequeño",
+      "area_m2": 60,
+      "precio_m2": 5
+    },
+    {
+      "_label": "Limpieza final vivienda estándar",
+      "area_m2": 100,
+      "precio_m2": 6
+    },
+    {
+      "_label": "Limpieza industrial nave",
+      "area_m2": 300,
+      "precio_m2": 8
+    },
+    {
+      "_label": "Limpieza cristales edificio",
+      "area_m2": 150,
+      "precio_m2": 4
+    },
+    {
+      "_label": "Limpieza fachada exterior edificio",
+      "area_m2": 500,
+      "precio_m2": 3
+    }
+  ],
+  "units": {
+    "area_m2": "m²"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Limpieza de Obra",
+      "desc": "Estima las horas de trabajo y el coste de la limpieza final de obra por tipo de intervención Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora Limpieza de Obra – Final, Industrial y Cristales",
+      "seo_desc": "Calcula el coste de limpieza de obra: final de obra, industrial, cristales o fachada. Introduce m² y precio para obtener horas, operarios y coste total.",
+      "inputs": {
+        "area_m2": "Área a limpiar",
+        "tipo_limpieza": "Tipo de limpieza",
+        "precio_m2": "Precio por m² (€)"
+      },
+      "outputs": {
+        "horas_estimadas": "Horas estimadas",
+        "operarios_jornada": "Operarios necesarios",
+        "coste_eur": "Coste total"
+      },
+      "seo_description": "Calcula el presupuesto de limpieza para tu obra. Diferencia entre limpieza final de entrega, limpieza industrial post-demolición, limpieza de cristales y limpieza de fachada exterior.",
+      "example_label": "Calcular limpieza final de obra para 100 m² a 6 €/m².",
+      "range_hints": {
+        "area_m2": "Valor entre 10 y 5000 m².",
+        "precio_m2": "Valor entre 2 y 25 €/m².",
+        "tipo_limpieza": "Tipo de servicio: final de obra (entrega), industrial (post-demolición), cristales, o fachada exterior"
+      },
+      "result_context": "Resultados: {horas_estimadas} horas estimadas, {operarios_jornada} operarios por jornada, coste total de {coste_eur} €.",
+      "formula_display": "Coste = área_m² × precio_m² × factor_tipo_limpieza",
+      "steps": [
+        "Mide el área total a limpiar en m² (superficie construida o área de actuación)",
+        "Selecciona el tipo de limpieza: final de obra, industrial (después de demolición), cristales, o fachada exterior",
+        "Asigna un precio por m² según el tipo: 4-8 €/m² final de obra, 8-12 €/m² industrial, 3-5 €/m² solo cristales",
+        "Aplica el multiplicador según tipo: ×1 para final de obra, ×1.3 para industrial, ×0.5 solo cristales",
+        "Calcula horas estimadas: superficie × 0.06 h/m² (rendimiento medio de limpieza de obra)",
+        "Determina el número de operarios necesarios: horas totales ÷ 8 horas/jornada"
+      ],
+      "mistakes": [
+        "No presupuestar la limpieza final de obra como partida independiente: es obligatoria antes de la entrega",
+        "Subestimar la limpieza industrial tras demolición o trabajos de albañilería con gran cantidad de polvo",
+        "Olvidar que los cristales requieren limpieza especializada con productos específicos y medidas de seguridad en altura",
+        "No considerar la retirada de protecciones plásticas y restos de embalajes de materiales",
+        "Mezclar en el mismo presupuesto la limpieza periódica durante obra con la limpieza final de entrega"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "reason": "Tipo correcto: numérico para la superficie total a limpiar en m²."
+        },
+        {
+          "field_id": "tipo_limpieza",
+          "reason": "Tipo correcto: selector discreto para el tipo de servicio de limpieza contratado."
+        },
+        {
+          "field_id": "precio_m2",
+          "reason": "Tipo correcto: numérico decimal para el precio por m² de limpieza."
+        }
+      ]
+    },
+    "en": {
+      "name": "Post-Construction Cleaning Calculator",
+      "desc": "Post-Construction Cleaning Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Site Cleaning Calculator – Post-Construction, Industrial & Glass",
+      "seo_desc": "Calculate site cleaning costs: post-construction, industrial, glass, or facade. Enter m² and price to get hours, workers, and total cost.",
+      "inputs": {
+        "area_m2": "Area to clean",
+        "tipo_limpieza": "Cleaning type",
+        "precio_m2": "Price per m² (â‚¬)"
+      },
+      "outputs": {
+        "horas_estimadas": "Estimated hours",
+        "operarios_jornada": "Cleaners needed",
+        "coste_eur": "Total cost"
+      },
+      "seo_description": "Calculate cleaning budget for your construction site. Differentiate between final handover cleaning, post-demolition industrial cleaning, glass cleaning, and exterior facade cleaning.",
+      "example_label": "Calcular limpieza final de obra para 100 m² a 6 €/m².",
+      "range_hints": {
+        "area_m2": "Valor entre 10 y 5000 m².",
+        "precio_m2": "Valor entre 2 y 25 â‚¬/m².",
+        "tipo_limpieza": "Tipo de servicio: final de obra (entrega), industrial (post-demolición), cristales, o fachada exterior"
+      },
+      "result_context": "Resultados: {horas_estimadas} horas estimadas, {operarios_jornada} operarios por jornada, coste total de {coste_eur} €.",
+      "formula_display": "Coste = área_m² × precio_m² × factor_tipo_limpieza",
+      "steps": [
+        "Mide el área total a limpiar en m² (superficie construida o área de actuación)",
+        "Selecciona el tipo de limpieza: final de obra, industrial (después de demolición), cristales, o fachada exterior",
+        "Asigna un precio por m² según el tipo: 4-8 €/m² final de obra, 8-12 €/m² industrial, 3-5 €/m² solo cristales",
+        "Aplica el multiplicador según tipo: ×1 para final de obra, ×1.3 para industrial, ×0.5 solo cristales",
+        "Calcula horas estimadas: superficie × 0.06 h/m² (rendimiento medio de limpieza de obra)",
+        "Determina el número de operarios necesarios: horas totales ÷ 8 horas/jornada"
+      ],
+      "mistakes": [
+        "No presupuestar la limpieza final de obra como partida independiente: es obligatoria antes de la entrega",
+        "Subestimar la limpieza industrial tras demolición o trabajos de albañilería con gran cantidad de polvo",
+        "Olvidar que los cristales requieren limpieza especializada con productos específicos y medidas de seguridad en altura",
+        "No considerar la retirada de protecciones plásticas y restos de embalajes de materiales",
+        "Mezclar en el mismo presupuesto la limpieza periódica durante obra con la limpieza final de entrega"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "reason": "Tipo correcto: numérico para la superficie total a limpiar en m²."
+        },
+        {
+          "field_id": "tipo_limpieza",
+          "reason": "Tipo correcto: selector discreto para el tipo de servicio de limpieza contratado."
+        },
+        {
+          "field_id": "precio_m2",
+          "reason": "Tipo correcto: numérico decimal para el precio por m² de limpieza."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Nettoyage Fin de Chantier",
+      "desc": "Estimez les heures et le coût du nettoyage de chantier.",
+      "seo_title": "Calculateur Nettoyage Fin de Chantier",
+      "inputs": {
+        "area_m2": "Surface à nettoyer",
+        "tipo_limpieza": "Type de nettoyage",
+        "precio_m2": "Prix par m² (€)"
+      },
+      "outputs": {
+        "horas_estimadas": "Heures estimées",
+        "operarios_jornada": "Agents nécessaires",
+        "coste_eur": "Coût total"
+      },
+      "seo_description": "Estimez les heures et le coût du nettoyage fin de chantier selon le type d'intervention Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calcular limpieza final de obra para 100 m² a 6 €/m².",
+      "range_hints": {
+        "area_m2": "Valor entre 10 et 5000 m².",
+        "precio_m2": "Valor entre 2 et 25 â‚¬/m².",
+        "tipo_limpieza": "Tipo de servicio: final de obra (entrega), industrial (post-demolición), cristales, o fachada exterior"
+      },
+      "result_context": "Resultados: {horas_estimadas} horas estimadas, {operarios_jornada} operarios por jornada, coste total de {coste_eur} €.",
+      "formula_display": "Coste = área_m² × precio_m² × factor_tipo_limpieza",
+      "steps": [
+        "Mide el área total a limpiar en m² (superficie construida o área de actuación)",
+        "Selecciona el tipo de limpieza: final de obra, industrial (después de demolición), cristales, o fachada exterior",
+        "Asigna un precio por m² según el tipo: 4-8 €/m² final de obra, 8-12 €/m² industrial, 3-5 €/m² solo cristales",
+        "Aplica el multiplicador según tipo: ×1 para final de obra, ×1.3 para industrial, ×0.5 solo cristales",
+        "Calcula horas estimadas: superficie × 0.06 h/m² (rendimiento medio de limpieza de obra)",
+        "Determina el número de operarios necesarios: horas totales ÷ 8 horas/jornada"
+      ],
+      "mistakes": [
+        "No presupuestar la limpieza final de obra como partida independiente: es obligatoria antes de la entrega",
+        "Subestimar la limpieza industrial tras demolición o trabajos de albañilería con gran cantidad de polvo",
+        "Olvidar que los cristales requieren limpieza especializada con productos específicos y medidas de seguridad en altura",
+        "No considerar la retirada de protecciones plásticas y restos de embalajes de materiales",
+        "Mezclar en el mismo presupuesto la limpieza periódica durante obra con la limpieza final de entrega"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "reason": "Tipo correcto: numérico para la superficie total a limpiar en m²."
+        },
+        {
+          "field_id": "tipo_limpieza",
+          "reason": "Tipo correcto: selector discreto para el tipo de servicio de limpieza contratado."
+        },
+        {
+          "field_id": "precio_m2",
+          "reason": "Tipo correcto: numérico decimal para el precio por m² de limpieza."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Limpeza de Obra",
+      "desc": "Estime as horas de trabalho e o custo da limpeza final de obra Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora Limpeza Final de Obra",
+      "inputs": {
+        "area_m2": "Área a limpar",
+        "tipo_limpieza": "Tipo de limpeza",
+        "precio_m2": "Preço por m² (R$)"
+      },
+      "outputs": {
+        "horas_estimadas": "Horas estimadas",
+        "operarios_jornada": "Profissionais necessários",
+        "coste_eur": "Custo total"
+      },
+      "seo_description": "Estime as horas de trabalho e o custo da limpeza final de obra. Usado por profissionais e estudantes em todo o mundo. Cálculo gratuito online.",
+      "example_label": "Calcular limpieza final de obra para 100 m² a 6 €/m².",
+      "range_hints": {
+        "area_m2": "Valor entre 10 e 5000 m².",
+        "precio_m2": "Valor entre 2 e 25 â‚¬/m².",
+        "tipo_limpieza": "Tipo de servicio: final de obra (entrega), industrial (post-demolición), cristales, o fachada exterior"
+      },
+      "result_context": "Resultados: {horas_estimadas} horas estimadas, {operarios_jornada} operarios por jornada, coste total de {coste_eur} €.",
+      "formula_display": "Coste = área_m² × precio_m² × factor_tipo_limpieza",
+      "steps": [
+        "Mide el área total a limpiar en m² (superficie construida o área de actuación)",
+        "Selecciona el tipo de limpieza: final de obra, industrial (después de demolición), cristales, o fachada exterior",
+        "Asigna un precio por m² según el tipo: 4-8 €/m² final de obra, 8-12 €/m² industrial, 3-5 €/m² solo cristales",
+        "Aplica el multiplicador según tipo: ×1 para final de obra, ×1.3 para industrial, ×0.5 solo cristales",
+        "Calcula horas estimadas: superficie × 0.06 h/m² (rendimiento medio de limpieza de obra)",
+        "Determina el número de operarios necesarios: horas totales ÷ 8 horas/jornada"
+      ],
+      "mistakes": [
+        "No presupuestar la limpieza final de obra como partida independiente: es obligatoria antes de la entrega",
+        "Subestimar la limpieza industrial tras demolición o trabajos de albañilería con gran cantidad de polvo",
+        "Olvidar que los cristales requieren limpieza especializada con productos específicos y medidas de seguridad en altura",
+        "No considerar la retirada de protecciones plásticas y restos de embalajes de materiales",
+        "Mezclar en el mismo presupuesto la limpieza periódica durante obra con la limpieza final de entrega"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "reason": "Tipo correcto: numérico para la superficie total a limpiar en m²."
+        },
+        {
+          "field_id": "tipo_limpieza",
+          "reason": "Tipo correcto: selector discreto para el tipo de servicio de limpieza contratado."
+        },
+        {
+          "field_id": "precio_m2",
+          "reason": "Tipo correcto: numérico decimal para el precio por m² de limpieza."
+        }
+      ]
+    },
+    "de": {
+      "name": "Baureinigung Baustelle",
+      "desc": "Berechnen Sie baureinigung Baustelle online. Geben Sie area m2, tipo limpieza, precio m2 ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Baureinigung Baustelle | CalcToWork",
+      "seo_desc": "Baureinigung Baustelle online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Baureinigung Baustelle online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "area_m2": "Area M2",
+        "tipo_limpieza": "Tipo Limpieza",
+        "precio_m2": "Precio M2"
+      },
+      "outputs": {
+        "horas_estimadas": "Horas Estimadas",
+        "operarios_jornada": "Operarios Jornada",
+        "coste_eur": "Coste Eur"
+      },
+      "example_label": "Calcular limpieza final de obra para 100 m² a 6 €/m².",
+      "range_hints": {
+        "area_m2": "Superficie total a limpiar en m² (área construida o zona de actuación) (m²)",
+        "tipo_limpieza": "Tipo de servicio: final de obra (entrega), industrial (post-demolición), cristales, o fachada exterior",
+        "precio_m2": "Precio de referencia por m² según el tipo de limpieza contratado (€/m²)"
+      },
+      "result_context": "Resultados: {horas_estimadas} horas estimadas, {operarios_jornada} operarios por jornada, coste total de {coste_eur} €.",
+      "formula_display": "Coste = área_m² × precio_m² × factor_tipo_limpieza",
+      "steps": [
+        "Mide el área total a limpiar en m² (superficie construida o área de actuación)",
+        "Selecciona el tipo de limpieza: final de obra, industrial (después de demolición), cristales, o fachada exterior",
+        "Asigna un precio por m² según el tipo: 4-8 €/m² final de obra, 8-12 €/m² industrial, 3-5 €/m² solo cristales",
+        "Aplica el multiplicador según tipo: ×1 para final de obra, ×1.3 para industrial, ×0.5 solo cristales",
+        "Calcula horas estimadas: superficie × 0.06 h/m² (rendimiento medio de limpieza de obra)",
+        "Determina el número de operarios necesarios: horas totales ÷ 8 horas/jornada"
+      ],
+      "mistakes": [
+        "No presupuestar la limpieza final de obra como partida independiente: es obligatoria antes de la entrega",
+        "Subestimar la limpieza industrial tras demolición o trabajos de albañilería con gran cantidad de polvo",
+        "Olvidar que los cristales requieren limpieza especializada con productos específicos y medidas de seguridad en altura",
+        "No considerar la retirada de protecciones plásticas y restos de embalajes de materiales",
+        "Mezclar en el mismo presupuesto la limpieza periódica durante obra con la limpieza final de entrega"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "reason": "Tipo correcto: numérico para la superficie total a limpiar en m²."
+        },
+        {
+          "field_id": "tipo_limpieza",
+          "reason": "Tipo correcto: selector discreto para el tipo de servicio de limpieza contratado."
+        },
+        {
+          "field_id": "precio_m2",
+          "reason": "Tipo correcto: numérico decimal para el precio por m² de limpieza."
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Cemento Sfuso",
+      "description": "Converte sacchi di cemento in volume e tonnellate.",
+      "seo_title": "Calcolatore Pulizia Fine Lavori",
+      "seo_description": "Converte sacchi di cemento in kg, m³ e stima il numero di sacchi Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo.",
+      "inputs": {
+        "sacos": "Numero sacchi (50 kg)",
+        "area_m2": "area m2 (m²)",
+        "tipo_limpieza": "tipo limpieza ()",
+        "precio_m2": "precio m2 (â‚¬/m²)"
+      },
+      "outputs": {
+        "kg_total": "kg totali",
+        "toneladas": "Tonnellate",
+        "volumen_m3": "Volume appross. (m³)",
+        "horas_estimadas": "horas estimadas (h)",
+        "operarios_jornada": "operarios jornada (operarios/jornada)",
+        "coste_eur": "coste eur (â‚¬ total)"
+      },
+      "example_label": "Calcular limpieza final de obra para 100 m² a 6 €/m².",
+      "range_hints": {
+        "area_m2": "Valor intre 10 e 5000 m².",
+        "precio_m2": "Valor intre 2 e 25 €/m².",
+        "tipo_limpieza": "Tipo de servicio: final de obra (entrega), industrial (post-demolición), cristales, o fachada exterior"
+      },
+      "result_context": "Resultados: {horas_estimadas} horas estimadas, {operarios_jornada} operarios por jornada, coste total de {coste_eur} €.",
+      "formula_display": "Coste = área_m² × precio_m² × factor_tipo_limpieza",
+      "steps": [
+        "Mide el área total a limpiar en m² (superficie construida o área de actuación)",
+        "Selecciona el tipo de limpieza: final de obra, industrial (después de demolición), cristales, o fachada exterior",
+        "Asigna un precio por m² según el tipo: 4-8 €/m² final de obra, 8-12 €/m² industrial, 3-5 €/m² solo cristales",
+        "Aplica el multiplicador según tipo: ×1 para final de obra, ×1.3 para industrial, ×0.5 solo cristales",
+        "Calcula horas estimadas: superficie × 0.06 h/m² (rendimiento medio de limpieza de obra)",
+        "Determina el número de operarios necesarios: horas totales ÷ 8 horas/jornada"
+      ],
+      "mistakes": [
+        "No presupuestar la limpieza final de obra como partida independiente: es obligatoria antes de la entrega",
+        "Subestimar la limpieza industrial tras demolición o trabajos de albañilería con gran cantidad de polvo",
+        "Olvidar que los cristales requieren limpieza especializada con productos específicos y medidas de seguridad en altura",
+        "No considerar la retirada de protecciones plásticas y restos de embalajes de materiales",
+        "Mezclar en el mismo presupuesto la limpieza periódica durante obra con la limpieza final de entrega"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "reason": "Tipo correcto: numérico para la superficie total a limpiar en m²."
+        },
+        {
+          "field_id": "tipo_limpieza",
+          "reason": "Tipo correcto: selector discreto para el tipo de servicio de limpieza contratado."
+        },
+        {
+          "field_id": "precio_m2",
+          "reason": "Tipo correcto: numérico decimal para el precio por m² de limpieza."
+        }
+      ],
+      "desc": "Calcola il costo e le ore necessarie per la pulizia del cantiere in base ai m² e al tipo di servizio."
+    }
+  }
+}

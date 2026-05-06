@@ -1,0 +1,471 @@
+{
+  "id": "430",
+  "slug": "peso-objetivo",
+  "block": 12,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "current",
+      "type": "number",
+      "step": "any",
+      "default": 80,
+      "unit": "kg",
+      "unit_options": [
+        "kg",
+        "lb"
+      ],
+      "unit_category": "mass"
+    },
+    {
+      "id": "goal_bmi",
+      "type": "number",
+      "step": "any",
+      "default": 22,
+      "unit": "",
+      "unit_options": [],
+      "unit_category": ""
+    },
+    {
+      "id": "height",
+      "type": "number",
+      "step": "any",
+      "default": 175,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "ft"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var h_m=(parseFloat(inputs.height)||0)/100;var goal=parseFloat(inputs.goal_bmi)||0;var target=goal*h_m*h_m;var current=parseFloat(inputs.current)||0;return{target:target.toFixed(2),to_lose:(current-target).toFixed(2)};",
+  "outputs": [
+    {
+      "id": "target",
+      "unit": "kg"
+    },
+    {
+      "id": "to_lose",
+      "unit": "kg"
+    }
+  ],
+  "related": [
+    "400",
+    "422",
+    "415",
+    "416"
+  ],
+  "example_inputs": {
+    "current": 80,
+    "goal_bmi": 24,
+    "height": 175
+  },
+  "example_label": "Ejemplo para peso objetivo: valores 80kg, 22, 175cm",
+  "range_hints": {
+    "current": "Valor típico entre 0 y 500. Valor por defecto: 80 kg.",
+    "goal_bmi": "Valor típico entre 0 y 500. Valor por defecto: 22.",
+    "height": "Valor típico entre 0 y 500. Valor por defecto: 175 cm."
+  },
+  "result_context": "Tu peso objetivo es {target} kg. Te faltan por perder aproximadamente {to_lose} kg.",
+  "result_context_en": "Your target weight is {target} kg. You still need to lose approximately {to_lose} kg.",
+  "result_context_fr": "Votre poids cible est de {target} kg. Il vous reste environ {to_lose} kg à perdre.",
+  "result_context_pt": "Seu peso objetivo é {target} kg. Você ainda precisa perder aproximadamente {to_lose} kg.",
+  "result_context_de": "Ihr Zielgewicht beträgt {target} kg. Sie müssen noch etwa {to_lose} kg abnehmen.",
+  "result_context_it": "Il tuo peso obiettivo è {target} kg. Ti mancano ancora circa {to_lose} kg da perdere.",
+  "formula_display": "goal × h_m × h_m → target, to_lose",
+  "steps": [
+    "Introducir los valores de current, goal_bmi y height",
+    "Verificar que las unidades sean correctas y convertir si es necesario (kg, lb)",
+    "Calcular los valores de target y to lose",
+    "El resultado se expresa en kg. Verificar que la magnitud es coherente",
+    "Comparar el resultado con los valores de referencia para interpretar su significado"
+  ],
+  "mistakes": [
+    "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+    "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+    "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "current",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "goal_bmi",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "height",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "current": 40,
+      "goal_bmi": 12,
+      "height": 175
+    },
+    {
+      "_label": "Teen",
+      "current": 60,
+      "goal_bmi": 18,
+      "height": 175
+    },
+    {
+      "_label": "Adult (F)",
+      "current": 80,
+      "goal_bmi": 24,
+      "height": 175
+    },
+    {
+      "_label": "Adult (M)",
+      "current": 120,
+      "goal_bmi": 36,
+      "height": 175
+    },
+    {
+      "_label": "Elderly",
+      "current": 160,
+      "goal_bmi": 48,
+      "height": 175
+    }
+  ],
+  "units": {
+    "current": "kg",
+    "height": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Peso Objetivo",
+      "description": "Calcula tu peso ideal según un IMC deseado.",
+      "inputs": {
+        "current": "Peso actual",
+        "goal_bmi": "IMC objetivo",
+        "height": "Altura"
+      },
+      "outputs": {
+        "target": "Peso objetivo",
+        "to_lose": "A perder"
+      },
+      "seo_title": "Peso Objetivo Gratuita – Herramienta Gratuita",
+      "seo_description": "Calcula tu peso ideal según un IMC deseado. Calculadora gratuita, precisa e instantánea. Con rangos de referencia y contexto de salud.",
+      "example_label": "Calcular peso objetivo para persona de 80kg buscando IMC de 22 con 175cm",
+      "range_hints": {
+        "current": "Peso actual: 40-150 kg",
+        "goal_bmi": "IMC normal: 18.5-25 ",
+        "height": "Altura común: 140-200 cm"
+      },
+      "result_context": "El peso a perder es diferencia entre actual y objetivo; pérdida saludable es 0.5-1kg/semana.",
+      "formula_display": "Peso objetivo = IMC objetivo × altura (m)²; A perder = peso actual - peso objetivo",
+      "steps": [
+        "Ingresa peso actual en kg",
+        "Ingresa altura en cm y conviértela a metros",
+        "Define IMC objetivo (22 es punto medio saludable)",
+        "Calcula: peso objetivo = IMC objetivo × altura²",
+        "Resta peso actual - peso objetivo para ver cuánto perder"
+      ],
+      "mistakes": [
+        "Fijar IMC objetivo <18.5 (bajo peso con riesgos de salud)",
+        "Esperar pérdida lineal (hay mesetas, fluctuaciones por agua)",
+        "No considerar recomposición corporal (puedes mantener peso ganando músculo)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "current",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "goal_bmi",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "height",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "en": {
+      "name": "Target Weight Calculator",
+      "description": "Calculate your ideal weight based on a target BMI.",
+      "inputs": {
+        "current": "Current weight",
+        "goal_bmi": "Goal BMI",
+        "height": "Height"
+      },
+      "outputs": {
+        "target": "Target weight",
+        "to_lose": "To lose"
+      },
+      "seo_title": "Target Weight Calculator – Free Online Tool",
+      "seo_description": "Target Weight Calculator. Current weight, Goal BMI, Height to calculate your Target weight, To lose. Based on the health and wellness formula used by.",
+      "example_label": "Calcular peso objetivo para persona de 80kg buscando IMC de 22 con 175cm",
+      "range_hints": {
+        "current": "Peso actual: 40-150 kg",
+        "goal_bmi": "IMC normal: 18.5-25 ",
+        "height": "Altura común: 140-200 cm"
+      },
+      "result_context": "El peso a perder es diferencia entre actual y objetivo; pérdida saludable es 0.5-1kg/semana.",
+      "formula_display": "Peso objetivo = IMC objetivo × altura (m)²; A perder = peso actual - peso objetivo",
+      "steps": [
+        "Ingresa peso actual en kg",
+        "Ingresa altura en cm y conviértela a metros",
+        "Define IMC objetivo (22 es punto medio saludable)",
+        "Calcula: peso objetivo = IMC objetivo × altura²",
+        "Resta peso actual - peso objetivo para ver cuánto perder"
+      ],
+      "mistakes": [
+        "Fijar IMC objetivo <18.5 (bajo peso con riesgos de salud)",
+        "Esperar pérdida lineal (hay mesetas, fluctuaciones por agua)",
+        "No considerar recomposición corporal (puedes mantener peso ganando músculo)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "current",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "goal_bmi",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "height",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Poids Cible",
+      "description": "Calculez votre poids idéal selon un IMC cible.",
+      "inputs": {
+        "current": "Poids actuel",
+        "goal_bmi": "IMC cible",
+        "height": "Taille"
+      },
+      "outputs": {
+        "target": "Poids cible",
+        "to_lose": "À perdre"
+      },
+      "seo_title": "Calculateur de Poids Cible – Objectif",
+      "seo_description": "Calculez votre poids idéal selon un IMC cible. Calculateur gratuit, précis et instantané. Avec plages de reference et contexte de sante.",
+      "example_label": "Calculer peso objetivo pour persona de 80kg buscando IMC de 22 avec 175cm",
+      "range_hints": {
+        "current": "Peso actual: 40-150 kg",
+        "goal_bmi": "IMC normal: 18.5-25 ",
+        "height": "hauteur común: 140-200 cm"
+      },
+      "result_context": "le peso a perder es diferencia entre actual et objetivo; pérdida saludable es 0.5-1kg/semana.",
+      "formula_display": "Peso objetivo = IMC objetivo × hauteur (m)²; A perder = peso actual - peso objetivo",
+      "steps": [
+        "Ingresa peso actual dans kg",
+        "Ingresa hauteur dans cm et conviértela a metros",
+        "Define IMC objetivo (22 es punto medio saludable)",
+        "Calcula: peso objetivo = IMC objetivo × hauteur²",
+        "Resta peso actual - peso objetivo pour ver cuánto perder"
+      ],
+      "mistakes": [
+        "Fijar IMC objetivo <18.5 (sous peso avec riesgos de salud)",
+        "Esperar pérdida lineal (hay mesetas, fluctuaciones par eau)",
+        "Ne pas considérer recomposición corporal (puedes mantener peso ganando músculo)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "current",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "goal_bmi",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "height",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Peso Alvo",
+      "description": "Calcule seu peso ideal com base em um IMC alvo.",
+      "inputs": {
+        "current": "Peso atual",
+        "goal_bmi": "IMC alvo",
+        "height": "Altura"
+      },
+      "outputs": {
+        "target": "Peso alvo",
+        "to_lose": "A perder"
+      },
+      "seo_title": "Calculadora de Peso Alvo – Objetivo",
+      "seo_description": "Calcule seu peso ideal com base em um IMC alvo. Calculadora gratuita, precisa e instantânea. Com intervalos de referencia e contexto de saude.",
+      "example_label": "Calcular peso objetivo para persona de 80kg buscando IMC de 22 com 175cm",
+      "range_hints": {
+        "current": "Peso atual: 40-150 kg",
+        "goal_bmi": "IMC normal: 18.5-25 ",
+        "height": "Altura comum: 140-200 cm"
+      },
+      "result_context": "El peso a perder é diferencia entre atual e objetivo; pérdida saludable é 0.5-1kg/semana.",
+      "formula_display": "Peso objetivo = IMC objetivo × altura (m)²; A perder = peso atual - peso objetivo",
+      "steps": [
+        "Ingresa peso atual em kg",
+        "Ingresa altura em cm e conviértela a metros",
+        "Define IMC objetivo (22 é punto médio saludable)",
+        "Calcula: peso objetivo = IMC objetivo × altura²",
+        "Resta peso atual - peso objetivo para ver cuánto perder"
+      ],
+      "mistakes": [
+        "Fijar IMC objetivo <18.5 (sob peso com riesgos de salud)",
+        "Esperar pérdida lineal (hay mesetas, fluctuaciones por água)",
+        "Não considerar recomposición corporal (puedes mantener peso ganando músculo)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "current",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        },
+        {
+          "field_id": "goal_bmi",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        },
+        {
+          "field_id": "height",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        }
+      ]
+    },
+    "de": {
+      "name": "Gewicht objetivo",
+      "desc": "Berechnen Sie gewicht objetivo online. Geben Sie current, goal bmi, height ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Gewicht objetivo | CalcToWork",
+      "seo_desc": "Gewicht objetivo online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Gewicht objetivo online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "current": "Current",
+        "goal_bmi": "Goal Bmi",
+        "height": "Height"
+      },
+      "outputs": {
+        "target": "Target",
+        "to_lose": "To Lose"
+      },
+      "example_label": "Ejemplo para peso objetivo: valores 80kg, 22, 175cm",
+      "range_hints": {
+        "current": "Valor típico entre 0 y 500. Valor por defecto: 80 kg.",
+        "goal_bmi": "Valor típico entre 0 y 500. Valor por defecto: 22.",
+        "height": "Valor típico entre 0 y 500. Valor por defecto: 175 cm."
+      },
+      "result_context": "Ihr Zielgewicht beträgt {target} kg. Sie müssen noch etwa {to_lose} kg abnehmen.",
+      "formula_display": "goal × h_m × h_m → target, to_lose",
+      "steps": [
+        "Introducir los valores de current, goal_bmi y height",
+        "Verificar que las unidades sean correctas y convertir si es necesario (kg, lb)",
+        "Calcular los valores de target y to lose",
+        "El resultado se expresa en kg. Verificar que la magnitud es coherente",
+        "Comparar el resultado con los valores de referencia para interpretar su significado"
+      ],
+      "mistakes": [
+        "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+        "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+        "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "current",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "goal_bmi",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "height",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Peso Obiettivo",
+      "description": "Calcola il tuo peso ideale in base a un BMI target.",
+      "inputs": {
+        "current": "Peso attuale",
+        "goal_bmi": "BMI obiettivo",
+        "height": "Altezza"
+      },
+      "outputs": {
+        "target": "Peso obiettivo",
+        "to_lose": "Da perdere"
+      },
+      "seo_title": "Peso Obiettivo – Strumento Gratuito",
+      "seo_description": "Calcola il tuo peso ideale in base a un BMI target. Calcolatore gratuito, preciso e istantaneo. Ottieni risultati istantanei con spiegazione passo dopo.",
+      "example_label": "Calcolare peso obiettivo per persona di 80kg buscando IMC di 22 con 175cm",
+      "range_hints": {
+        "current": "Peso attuale: 40-150 kg",
+        "goal_bmi": "IMC nonrmal: 18.5-25 ",
+        "height": "Altura común: 140-200 cm"
+      },
+      "result_context": "El peso a perdir es diferincia intre attuale e obiettivo; pérdida saludable es 0.5-1kg/settimana.",
+      "formula_display": "Peso obiettivo = IMC obiettivo × altezza (m)²; A perdir = peso attuale - peso obiettivo",
+      "steps": [
+        "Ingresa peso attuale in kg",
+        "Ingresa altezza in cm e conviértela a metros",
+        "Define IMC obiettivo (22 es punto medio saludable)",
+        "Calcula: peso obiettivo = IMC obiettivo × altezza²",
+        "Resta peso attuale - peso obiettivo per ver cuánto perdir"
+      ],
+      "mistakes": [
+        "Fijar IMC obiettivo <18.5 (basso peso con rischi di salud)",
+        "Esperar pérdida lineal (hae meseetas, fluctuaciones per acqua)",
+        "Non consedirare recomposeción corperal (puedis mantiner peso ganando músculo)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "current",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        },
+        {
+          "field_id": "goal_bmi",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        },
+        {
+          "field_id": "height",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        }
+      ]
+    }
+  }
+}

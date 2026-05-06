@@ -1,0 +1,415 @@
+{
+  "id": "040",
+  "slug": "acometida-agua",
+  "block": 4,
+  "block_slug": "fontaneria",
+  "inputs": [
+    {
+      "id": "caudal_lps",
+      "type": "number",
+      "min": 0.1,
+      "max": 10,
+      "step": 0.1,
+      "default": 0.5,
+      "unit": "L/s",
+      "unit_options": [
+        "L/s",
+        "m³/h",
+        "gal/min"
+      ],
+      "unit_category": "flow"
+    },
+    {
+      "id": "longitud_m",
+      "type": "number",
+      "min": 1,
+      "max": 200,
+      "step": 1,
+      "default": 15,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var Q=parseFloat(inputs.caudal_lps)||0,L=parseFloat(inputs.longitud_m)||15;if(!Q)return{error:true};var v=1.5,A_m2=Q/1000/v,D_m=Math.sqrt(4*A_m2/Math.PI),D_mm=+(D_m*1000).toFixed(1),D_norm=D_mm<=20?20:D_mm<=25?25:D_mm<=32?32:D_mm<=40?40:50;return{caudal_m3h:+(Q*3.6).toFixed(2),diametro_calc_mm:D_mm,diametro_normalizado_mm:D_norm};",
+  "outputs": [
+    {
+      "id": "caudal_m3h",
+      "unit": "m³/h"
+    },
+    {
+      "id": "diametro_calc_mm",
+      "unit": "mm (calculado)"
+    },
+    {
+      "id": "diametro_normalizado_mm",
+      "unit": "mm DN (normalizado)",
+      "highlight": true
+    }
+  ],
+  "related": [
+    "033",
+    "031",
+    "032",
+    "034"
+  ],
+  "example_inputs": {
+    "caudal_lps": 0.5,
+    "longitud_m": 15
+  },
+  "example_label": "Calcular agua para 0.5 L/s × 15 m.",
+  "range_hints": {
+    "caudal_lps": "Valor típico entre 0.1 y 10. Valor por defecto: 0.5 L/s.",
+    "longitud_m": "Valor típico entre 1 y 200. Valor por defecto: 15 m."
+  },
+  "result_context": "Resultados: {caudal_m3h} m³/h de caudal, {diametro_calc_mm} mm de diámetro calculado, {diametro_normalizado_mm} mm de diámetro normalizado.",
+  "formula_display": "Q ÷ 1000 → caudal_m3h, diametro_calc_mm",
+  "steps": [
+    "Introducir los valores de caudal_lps y longitud_m",
+    "Verificar que las unidades sean correctas y convertir si es necesario (L/s, m³/h, gal/min)",
+    "Calcular los valores de caudal m3h y diametro calc mm",
+    "El resultado se expresa en m³/h. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "No respetar la pendiente mínima del 2% en tuberías de saneamiento",
+    "Usar tubería de pared delgada para instalaciones enterradas",
+    "No instalar válvulas de corte en puntos clave de la instalación"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "caudal_lps",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "longitud_m",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small bathroom",
+      "longitud_m": 8,
+      "caudal_lps": 0.25
+    },
+    {
+      "_label": "Medium bathroom",
+      "longitud_m": 11,
+      "caudal_lps": 0.375
+    },
+    {
+      "_label": "Large bathroom",
+      "longitud_m": 15,
+      "caudal_lps": 0.5
+    },
+    {
+      "_label": "Apartment",
+      "longitud_m": 22,
+      "caudal_lps": 0.75
+    },
+    {
+      "_label": "House",
+      "longitud_m": 30,
+      "caudal_lps": 1
+    }
+  ],
+  "units": {
+    "longitud_m": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Acometida de Agua",
+      "desc": "Calcula el diámetro normalizado (DN) de la acometida de agua según el caudal requerido Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora Tuberías Fontanería – DN",
+      "inputs": {
+        "caudal_lps": "Caudal (L/s)",
+        "longitud_m": "Longitud acometida",
+        "presion_disponible_bar": "Presión disponible"
+      },
+      "outputs": {
+        "caudal_m3h": "Caudal (m³/h)",
+        "diametro_calc_mm": "Diámetro calculado",
+        "diametro_normalizado_mm": "Diámetro normalizado DN"
+      },
+      "seo_description": "Calcula el diámetro normalizado (DN) de la acometida de agua según el caudal simultáneo y la longitud del tramo. Aplica la velocidad máxima de 1.5 m/s del CTE DB-HS4.",
+      "example_label": "Calcular diámetro de tubería para acometida de agua con caudal de 2.5 L/s y 30m de longitud.",
+      "range_hints": {
+        "caudal_lps": "Caudal máximo simultáneo esperado",
+        "longitud_m": "Longitud desde red pública hasta contador/vivienda"
+      },
+      "result_context": "Para {caudal_lps} L/s en {longitud_m}m se recomienda tubería de {diametro_mm}mm ({diametro_pulgadas}\"). Velocidad del agua: {velocidad_ms} m/s. Pérdida de carga: {perdida_bar} bar.",
+      "formula_display": "Diámetro = √(4 × caudal ÷ (Ïâ‚¬ × velocidad)); Velocidad recomendada: 1-2 m/s",
+      "steps": [
+        "Asumir velocidad óptima: 1.5 m/s",
+        "Convertir caudal: 2.5 L/s = 0.0025 m³/s",
+        "Calcular diámetro: √(4 × 0.0025 ÷ (Ïâ‚¬ × 1.5)) = 0.046m = 46mm",
+        "Diámetro comercial: 50mm (2 pulgadas)"
+      ],
+      "mistakes": [
+        "Usar diámetro muy pequeño (pérdida de presión excesiva)",
+        "No considerar caudal simultáneo máximo (varios grifos abiertos)",
+        "No prever llave de corte y contador en acometida"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "caudal_lps",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "longitud_m",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Water Supply Connection Calculator",
+      "desc": "Calculate the normalised pipe diameter for supply.",
+      "seo_title": "Water Supply Pipe Sizing – Diameter DN",
+      "seo_desc": "Water Supply Connection Calculator. Flow rate (L/s), Connection length, Available pressure — get Flow rate (m³/h), Calculated diameter, Normalised DN.",
+      "inputs": {
+        "caudal_lps": "Flow rate (L/s)",
+        "longitud_m": "Connection length",
+        "presion_disponible_bar": "Available pressure"
+      },
+      "outputs": {
+        "caudal_m3h": "Flow rate (m³/h)",
+        "diametro_calc_mm": "Calculated diameter",
+        "diametro_normalizado_mm": "Normalised DN diameter"
+      },
+      "seo_description": "Calculate the nominal diameter (DN) of your water supply connection from simultaneous flow rate and pipe run length. Uses maximum velocity of 1.5 m/s per CTE DB-HS4.",
+      "example_label": "Calcular diámetro de tubería para acometida de agua con caudal de 2.5 L/s y 30m de longitud.",
+      "range_hints": {
+        "caudal_lps": "Caudal máximo simultáneo esperado",
+        "longitud_m": "Longitud desde red pública hasta contador/vivienda"
+      },
+      "result_context": "Para {caudal_lps} L/s en {longitud_m}m se recomienda tubería de {diametro_mm}mm ({diametro_pulgadas}\"). Velocidad del agua: {velocidad_ms} m/s. Pérdida de carga: {perdida_bar} bar.",
+      "formula_display": "Diámetro = √(4 × caudal ÷ (π × velocidad)); Velocidad recomendada: 1-2 m/s",
+      "steps": [
+        "Asumir velocidad óptima: 1.5 m/s",
+        "Convertir caudal: 2.5 L/s = 0.0025 m³/s",
+        "Calcular diámetro: √(4 × 0.0025 ÷ (π × 1.5)) = 0.046m = 46mm",
+        "Diámetro comercial: 50mm (2 pulgadas)"
+      ],
+      "mistakes": [
+        "Usar diámetro muy pequeño (pérdida de presión excesiva)",
+        "No considerar caudal simultáneo máximo (varios grifos abiertos)",
+        "No prever llave de corte y contador en acometida"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "caudal_lps",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "longitud_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Branchement Eau",
+      "desc": "Calculez le diamètre normalisé (DN) du branchement eau selon le débit requis Utilise par des professionnels et etudiants dans le monde entier.",
+      "seo_title": "Calculateur Tuyaux Plomberie – DN",
+      "inputs": {
+        "caudal_lps": "Débit (L/s)",
+        "longitud_m": "Longueur branchement",
+        "presion_disponible_bar": "Pression disponible"
+      },
+      "outputs": {
+        "caudal_m3h": "Débit (m³/h)",
+        "diametro_calc_mm": "Diamètre calculé",
+        "diametro_normalizado_mm": "Diamètre normalisé DN"
+      },
+      "seo_description": "Calculez le diamètre normalisé (DN) du branchement eau selon le débit requis Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calculer diamètre de tuyau pour acometida de eau avec caudal de 2.5 L/s et 30m de longueur.",
+      "range_hints": {
+        "caudal_lps": "Caudal maximum simultáneo esperado",
+        "longitud_m": "longueur de red pública jusqu'à contador/vivienda"
+      },
+      "result_context": "pour {caudal_lps} L/s dans {longitud_m}m se recomienda tuyau de {diametro_mm}mm ({diametro_pulgadas}\"). Velocidad du eau: {velocidad_ms} m/s. Pérdida de carga: {perdida_bar} bar.",
+      "formula_display": "diamètre = √(4 × caudal Á· (Ïâ‚¬ × velocidad)); Velocidad recomendada: 1-2 m/s",
+      "steps": [
+        "Asumir velocidad óptima: 1.5 m/s",
+        "Convertir caudal: 2.5 L/s = 0.0025 m³/s",
+        "Calculer diamètre: √(4 × 0.0025 Á· (Ïâ‚¬ × 1.5)) = 0.046m = 46mm",
+        "diamètre comercial: 50mm (2 pulgadas)"
+      ],
+      "mistakes": [
+        "Utiliser diamètre muy pequeño (pérdida de presión excessif)",
+        "Ne pas considérer caudal simultáneo maximum (varios grifos abiertos)",
+        "No prever llave de corte et contador dans acometida"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "caudal_lps",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "longitud_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Ramal de Água",
+      "desc": "Calcule o diâmetro normalizado (DN) do ramal de água pelo caudal requerido Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora Tubulação – Diâmetro DN",
+      "inputs": {
+        "caudal_lps": "Vazão (L/s)",
+        "longitud_m": "Comprimento ramal",
+        "presion_disponible_bar": "Pressão disponível"
+      },
+      "outputs": {
+        "caudal_m3h": "Vazão (m³/h)",
+        "diametro_calc_mm": "Diâmetro calculado",
+        "diametro_normalizado_mm": "Diâmetro normalizado DN"
+      },
+      "seo_description": "Calcule o diâmetro normalizado (DN) do ramal de água pelo caudal requerido Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular diâmetro de tubulação para acometida de água com caudal de 2.5 L/s e 30m de longitud.",
+      "range_hints": {
+        "caudal_lps": "Caudal máximo simultáneo esperado",
+        "longitud_m": "Longitud desde red pública hasta contador/vivienda"
+      },
+      "result_context": "Para {caudal_lps} L/s em {longitud_m}m se recomienda tubulação de {diametro_mm}mm ({diametro_pulgadas}\"). Velocidad do água: {velocidad_ms} m/s. Pérdida de carga: {perdida_bar} bar.",
+      "formula_display": "Diámetro = √(4 × caudal ÷ (Ïâ‚¬ × velocidad)); Velocidad recomendada: 1-2 m/s",
+      "steps": [
+        "Asumir velocidad óptima: 1.5 m/s",
+        "Convertir caudal: 2.5 L/s = 0.0025 m³/s",
+        "Calcular diâmetro: √(4 × 0.0025 ÷ (Ïâ‚¬ × 1.5)) = 0.046m = 46mm",
+        "Diámetro comercial: 50mm (2 pulgadas)"
+      ],
+      "mistakes": [
+        "Usar diâmetro muy pequeno (pérdida de presión excessiva)",
+        "Não considerar caudal simultáneo máximo (varios grifos abiertos)",
+        "Não prever llave de corte e contador em acometida"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "caudal_lps",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "longitud_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Hausanschluss Wasser",
+      "desc": "Berechnen Sie hausanschluss Wasser online. Geben Sie caudal lps, longitud m ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Hausanschluss Wasser | CalcToWork",
+      "seo_desc": "Hausanschluss Wasser online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Hausanschluss Wasser online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "caudal_lps": "Caudal Lps",
+        "longitud_m": "Longitud M"
+      },
+      "outputs": {
+        "caudal_m3h": "Caudal M3h",
+        "diametro_calc_mm": "Diametro Calc Mm",
+        "diametro_normalizado_mm": "Diametro Normalizado Mm"
+      },
+      "example_label": "Calcular agua para 0.5 L/s × 15 m.",
+      "range_hints": {
+        "caudal_lps": "Valor típico entre 0.1 y 10. Valor por defecto: 0.5 L/s.",
+        "longitud_m": "Valor típico entre 1 y 200. Valor por defecto: 15 m."
+      },
+      "result_context": "Resultados: {caudal_m3h} m³/h de caudal, {diametro_calc_mm} mm de diámetro calculado, {diametro_normalizado_mm} mm de diámetro normalizado.",
+      "formula_display": "Q ÷ 1000 → caudal_m3h, diametro_calc_mm",
+      "steps": [
+        "Introducir los valores de caudal_lps y longitud_m",
+        "Verificar que las unidades sean correctas y convertir si es necesario (L/s, m³/h, gal/min)",
+        "Calcular los valores de caudal m3h y diametro calc mm",
+        "El resultado se expresa en m³/h. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "No respetar la pendiente mínima del 2% en tuberías de saneamiento",
+        "Usar tubería de pared delgada para instalaciones enterradas",
+        "No instalar válvulas de corte en puntos clave de la instalación"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "caudal_lps",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "longitud_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Acqua Calda Sanitaria",
+      "description": "Calcola il fabbisogno giornaliero di ACS.",
+      "seo_title": "Calcolatore Tubazioni – Diametro",
+      "seo_description": "Calcola il fabbisogno di acqua calda sanitaria per abitazioni Usato da professionisti e studenti in tutto il mondo. Risolvi calcoli matematici in modo.",
+      "inputs": {
+        "habitantes": "Abitantt",
+        "litros_hab_dia": "L/abitante/giorno"
+      },
+      "outputs": {
+        "demanda_dia": "Fabbisogno giornaliero (L)",
+        "potencia_kw": "Potenza scaldacqua (kW)"
+      },
+      "example_label": "Calcolare diámetro di tubería per acometida di acqua con pertata di 2.5 L/s e 30m di lunghezza.",
+      "range_hints": {
+        "caudal_lps": "Caudal máximo semultáneo attesado",
+        "longitud_m": "Longitud disdi red pública hasta contador/viviinda"
+      },
+      "result_context": "Per {pertata_lps} L/s in {lunghezza_m}m se recomiinda tubería di {diametro_mm}mm ({diametro_pulgadas}\"). Velocidad dil acqua: {velocità_ms} m/s. Pérdida di carico: {perdida_bar} bar.",
+      "formula_display": "Diámetro = √(4 × pertata ÷ (Ïâ‚¬ × velocità)); Velocidad raccomandata: 1-2 m/s",
+      "steps": [
+        "Asumir velocità óptima: 1.5 m/s",
+        "Convertire pertata: 2.5 L/s = 0.0025 m³/s",
+        "Calcolare diámetro: √(4 × 0.0025 ÷ (Ïâ‚¬ × 1.5)) = 0.046m = 46mm",
+        "Diámetro commerciale: 50mm (2 pulgadas)"
+      ],
+      "mistakes": [
+        "Usare diámetro molto pequeño (pérdida di preseón exceseva)",
+        "Non consedirare pertata semultáneo máximo (varios grifos abiertos)",
+        "No prever chiave di taglio e contador in acometida"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "caudal_lps",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "longitud_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,384 @@
+{
+  "id": "909",
+  "slug": "tiempo-pista",
+  "block": 17,
+  "block_slug": "deportes",
+  "inputs": [
+    {
+      "id": "distancia_5k",
+      "type": "number",
+      "min": 5,
+      "max": 60,
+      "step": "any",
+      "default": 25,
+      "unit": ""
+    },
+    {
+      "id": "distancia_objetivo",
+      "type": "number",
+      "min": 0.1,
+      "max": 42.2,
+      "step": "any",
+      "default": 10,
+      "unit": ""
+    }
+  ],
+  "formula": "var t5k=parseFloat(inputs.distancia_5k)||0,d=parseFloat(inputs.distancia_objetivo)||0;if(!t5k||!d)return{error:true};var pred=t5k*Math.pow(d/5,1.06);var pm=Math.floor(pred),ps=Math.round((pred-pm)*60);return{tiempo_estimado:pm+':'+(ps<10?'0':'')+ps,ritmo_min_km:+(pred/d).toFixed(2)};",
+  "outputs": [
+    {
+      "id": "tiempo_estimado",
+      "unit": "",
+      "highlight": true
+    },
+    {
+      "id": "ritmo_min_km",
+      "unit": "min/km"
+    }
+  ],
+  "related": [
+    "900",
+    "907",
+    "906",
+    "901"
+  ],
+  "example_inputs": {
+    "distancia_5k": 25,
+    "distancia_objetivo": 10
+  },
+  "example_label": "Ejemplo para tiempo pista: valores 25, 10",
+  "range_hints": {
+    "distancia_5k": "Valor típico entre 5 y 60. Valor por defecto: 25.",
+    "distancia_objetivo": "Valor típico entre 0.1 y 42.2. Valor por defecto: 10."
+  },
+  "result_context": "Tu tiempo estimado es {tiempo_estimado} con un ritmo de {ritmo_min_km} min/km según tu referencia de 5K.",
+  "result_context_en": "Your estimated time is {tiempo_estimado} with a pace of {ritmo_min_km} min/km based on your 5K reference.",
+  "result_context_fr": "Votre temps estimé est de {tiempo_estimado} avec une allure de {ritmo_min_km} min/km selon votre référence de 5 km.",
+  "result_context_pt": "Seu tempo estimado é {tiempo_estimado} com um ritmo de {ritmo_min_km} min/km com base na sua referência de 5K.",
+  "result_context_de": "Ihre geschätzte Zeit beträgt {tiempo_estimado} mit einem Tempo von {ritmo_min_km} min/km basierend auf Ihrer 5K-Referenz.",
+  "result_context_it": "Il tuo tempo stimato è {tiempo_estimado} con un ritmo di {ritmo_min_km} min/km in base al tuo riferimento di 5K.",
+  "formula_display": "d ÷ 5 → tiempo_estimado, ritmo_min_km",
+  "steps": [
+    "Introducir los valores de distancia_5k y distancia_objetivo",
+    "Verificar que los valores introducidos están en el rango y formato correctos",
+    "Calcular los valores de tiempo estimado y ritmo min km",
+    "Verificar que el resultado es coherente con los valores de entrada",
+    "Comparar el resultado con los valores de referencia para interpretar su significado"
+  ],
+  "mistakes": [
+    "Confundir ritmo (min/km) con velocidad (km/h)",
+    "No considerar el desnivel del terreno en el cálculo de ritmo",
+    "Usar el peso corporal total en lugar de la masa magra para calcular gasto calórico"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "distancia_5k",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    },
+    {
+      "field_id": "distancia_objetivo",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Beginner",
+      "distancia_5k": 12,
+      "distancia_objetivo": 5
+    },
+    {
+      "_label": "Intermediate",
+      "distancia_5k": 19,
+      "distancia_objetivo": 8
+    },
+    {
+      "_label": "Advanced",
+      "distancia_5k": 25,
+      "distancia_objetivo": 10
+    },
+    {
+      "_label": "Elite",
+      "distancia_5k": 38,
+      "distancia_objetivo": 15
+    },
+    {
+      "_label": "Pro",
+      "distancia_5k": 50,
+      "distancia_objetivo": 20
+    }
+  ],
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Tiempos en Pista",
+      "desc": "Calcula Tiempo en pista = Distancia / Velocidad | Vuelta = Longitud circuito / Velocidad. Ejemplo: Circuito de 4.000 m, velocidad media 140 km/h = Tiempo por vuelta =...",
+      "description": "Calculadora Tiempo Pista",
+      "seo_title": "Calculadora Tiempo Pista Online Gratis",
+      "seo_description": "Calcula Tiempo en pista = Distancia / Velocidad | Vuelta = Longitud circuito / Velocidad. Ejemplo: Circuito de 4.000 m, velocidad media 140 km/h = Tiempo por vuelta =...",
+      "inputs": {
+        "distancia_5k": "Tiempo 5K (min)",
+        "distancia_objetivo": "Distancia objetivo (km)"
+      },
+      "outputs": {
+        "tiempo_estimado": "Tiempo estimado",
+        "ritmo_min_km": "Ritmo (min/km)"
+      },
+      "example_label": "Calculate tiempo pista with distancia_5k 25, distancia_objetivo 10.",
+      "range_hints": {
+        "distancia_5k": "Typical range: 5-60.",
+        "distancia_objetivo": "Typical range: 0.1-42.2."
+      },
+      "result_context": "Your calculated tiempo estimado is {tiempo_estimado}.",
+      "formula_display": "Calculate tiempo pista based on input values.",
+      "steps": [
+        "Enter input values: distancia_5k: 25, distancia_objetivo: 10",
+        "Calculate and display the tiempo_estimado result",
+        "Calculate and display the ritmo_min_km result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "distancia_5k",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "distancia_objetivo",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "en": {
+      "name": "Race Time Predictor",
+      "desc": "Race Time Predictor. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Race Time Predictor",
+      "seo_title": "Race Time Predictor – Free Online Tool",
+      "seo_description": "Calculate Track time = Distance / Speed | Lap time = Circuit length / Speed. Example: 4,000 m circuit, average speed 140 km/h = Lap time = 1 min 42.9 s. Free and...",
+      "inputs": {
+        "distancia_5k": "5K time (min)",
+        "distancia_objetivo": "Target distance (km)"
+      },
+      "outputs": {
+        "tiempo_estimado": "Estimated time",
+        "ritmo_min_km": "Pace (min/km)"
+      },
+      "example_label": "Calculate tiempo pista with distancia_5k 25, distancia_objetivo 10.",
+      "range_hints": {
+        "distancia_5k": "Typical range: 5-60.",
+        "distancia_objetivo": "Typical range: 0.1-42.2."
+      },
+      "result_context": "Your calculated tiempo estimado is {tiempo_estimado}.",
+      "formula_display": "Calculate tiempo pista based on input values.",
+      "steps": [
+        "Enter input values: distancia_5k: 25, distancia_objetivo: 10",
+        "Calculate and display the tiempo_estimado result",
+        "Calculate and display the ritmo_min_km result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "distancia_5k",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "distancia_objetivo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Temps Course",
+      "desc": "Calculez Track time = Distance / Speed | Lap time = Circuit length / Speed. Exemple: 4,000 m circuit, average speed 140 km/h = Lap time = 1 min 42.9 s. Calculateur...",
+      "description": "Calculateur Temps Course",
+      "seo_title": "Calculateur Temps Course – Outil Gratuit",
+      "seo_description": "Calculez Track time = Distance / Speed | Lap time = Circuit length / Speed. Exemple: 4,000 m circuit, average speed 140 km/h = Lap time = 1 min 42.9 s. Calculateur...",
+      "inputs": {
+        "distancia_5k": "Temps 5K (min)",
+        "distancia_objetivo": "Distance cible (km)"
+      },
+      "outputs": {
+        "tiempo_estimado": "Temps estimé",
+        "ritmo_min_km": "Allure (min/km)"
+      },
+      "example_label": "Calculate tiempo pista with distancia_5k 25, distancia_objetivo 10.",
+      "range_hints": {
+        "distancia_5k": "Typical range: 5-60.",
+        "distancia_objetivo": "Typical range: 0.1-42.2."
+      },
+      "result_context": "Your calculated tiempo estimado is {tiempo_estimado}.",
+      "formula_display": "Calculate tiempo pista based on input values.",
+      "steps": [
+        "Enter input values: distancia_5k: 25, distancia_objetivo: 10",
+        "Calculate and display the tiempo_estimado result",
+        "Calculate and display the ritmo_min_km result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "distancia_5k",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "distancia_objetivo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora Tempo Pista",
+      "desc": "Calcule Track time = Distance / Speed | Lap time = Circuit length / Speed. Exemplo: 4,000 m circuit, average speed 140 km/h = Lap time = 1 min 42.9 s. Calculadora...",
+      "description": "Calculadora Tempo Pista",
+      "seo_title": "Calculadora Tempo Pista – Ferramenta Grátis",
+      "seo_description": "Calcule Track time = Distance / Speed | Lap time = Circuit length / Speed. Exemplo: 4,000 m circuit, average speed 140 km/h = Lap time = 1 min 42.9 s. Calculadora...",
+      "inputs": {
+        "distancia_5k": "Tempo 5K (min)",
+        "distancia_objetivo": "Distância alvo (km)"
+      },
+      "outputs": {
+        "tiempo_estimado": "Tempo estimado",
+        "ritmo_min_km": "Ritmo (min/km)"
+      },
+      "example_label": "Calculate tiempo pista with distancia_5k 25, distancia_objetivo 10.",
+      "range_hints": {
+        "distancia_5k": "Typical range: 5-60.",
+        "distancia_objetivo": "Typical range: 0.1-42.2."
+      },
+      "result_context": "Your calculated tiempo estimado is {tiempo_estimado}.",
+      "formula_display": "Calculate tiempo pista based on input values.",
+      "steps": [
+        "Enter input values: distancia_5k: 25, distancia_objetivo: 10",
+        "Calculate and display the tiempo_estimado result",
+        "Calculate and display the ritmo_min_km result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "distancia_5k",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "distancia_objetivo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "de": {
+      "name": "Tiempo pista",
+      "desc": "Berechnen Sie tiempo pista online. Geben Sie distancia 5k, distancia objetivo ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Tiempo pista | CalcToWork",
+      "seo_desc": "Tiempo pista online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Tiempo pista online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "distancia_5k": "Distancia 5k",
+        "distancia_objetivo": "Distancia Objetivo"
+      },
+      "outputs": {
+        "tiempo_estimado": "Tiempo Estimado",
+        "ritmo_min_km": "Ritmo Min Km"
+      },
+      "example_label": "Ejemplo para tiempo pista: valores 25, 10",
+      "range_hints": {
+        "distancia_5k": "Valor típico entre 5 y 60. Valor por defecto: 25.",
+        "distancia_objetivo": "Valor típico entre 0.1 y 42.2. Valor por defecto: 10."
+      },
+      "result_context": "Ihre geschätzte Zeit beträgt {tiempo_estimado} mit einem Tempo von {ritmo_min_km} min/km basierend auf Ihrer 5K-Referenz.",
+      "formula_display": "d ÷ 5 → tiempo_estimado, ritmo_min_km",
+      "steps": [
+        "Introducir los valores de distancia_5k y distancia_objetivo",
+        "Verificar que los valores introducidos están en el rango y formato correctos",
+        "Calcular los valores de tiempo estimado y ritmo min km",
+        "Verificar que el resultado es coherente con los valores de entrada",
+        "Comparar el resultado con los valores de referencia para interpretar su significado"
+      ],
+      "mistakes": [
+        "Confundir ritmo (min/km) con velocidad (km/h)",
+        "No considerar el desnivel del terreno en el cálculo de ritmo",
+        "Usar el peso corporal total en lugar de la masa magra para calcular gasto calórico"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "distancia_5k",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "distancia_objetivo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Tempo Pista",
+      "desc": "Calcola Track time = Distance / Speed | Lap time = Circuit length / Speed. Esempio: 4,000 m circuit, average speed 140 km/h = Lap time = 1 min 42.9 s. Calcolatore...",
+      "description": "Calcolatore Tempo Pista",
+      "seo_title": "Calcolatore Tempo Pista – Strumento Gratuito",
+      "seo_description": "Calcola Track time = Distance / Speed | Lap time = Circuit length / Speed. Esempio: 4,000 m circuit, average speed 140 km/h = Lap time = 1 min 42.9 s. Calcolatore...",
+      "inputs": {
+        "distancia_5k": "Tempo 5K (min)",
+        "distancia_objetivo": "Distanza obiettivo (km)"
+      },
+      "outputs": {
+        "tiempo_estimado": "Tempo stimato",
+        "ritmo_min_km": "Ritmo (min/km)"
+      },
+      "example_label": "Calculate tempo pista with discosìza_5k 25, discosìza_obiettivo 10.",
+      "range_hints": {
+        "distancia_5k": "Tepical range: 5-60.",
+        "distancia_objetivo": "Tepical range: 0.1-42.2."
+      },
+      "result_context": "Your calculated tempo estimado is {tempo_estimado}.",
+      "formula_display": "Calculate tempo pista based on input values.",
+      "steps": [
+        "Enter input values: discosìza_5k: 25, discosìza_obiettivo: 10",
+        "Calculate and displae the tempo_estimado result",
+        "Calculate and displae the ritmo_min_km result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where posetive required",
+        "Usenzag incorrect input values outsedi recommindid range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "distancia_5k",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "distancia_objetivo",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        }
+      ]
+    }
+  }
+}

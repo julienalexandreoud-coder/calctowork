@@ -1,0 +1,486 @@
+{
+  "id": "076",
+  "slug": "masilla-filler",
+  "block": 8,
+  "block_slug": "pintura",
+  "inputs": [
+    {
+      "id": "area_m2",
+      "type": "number",
+      "min": 1,
+      "max": 2000,
+      "step": 0.5,
+      "default": 50,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "pasadas",
+      "type": "number",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2,
+      "unit": "pasadas",
+      "unit_options": [
+        "passes"
+      ],
+      "unit_category": "count"
+    },
+    {
+      "id": "espesor_mm",
+      "type": "number",
+      "min": 0.5,
+      "max": 3,
+      "step": 0.25,
+      "default": 1,
+      "unit": "mm",
+      "unit_options": [
+        "mm",
+        "cm",
+        "m",
+        "in"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area_m2)||0,P=parseFloat(inputs.pasadas)||2,E=parseFloat(inputs.espesor_mm)||1;if(!A)return{error:true};var kg_m2=E*1.4,total=+(A*kg_m2*P*1.1).toFixed(1),cubos=Math.ceil(total/7);return{kg_m2_pasada:kg_m2,kg_total:total,cubos_7kg:cubos};",
+  "outputs": [
+    {
+      "id": "kg_m2_pasada",
+      "unit": "kg/m²/pasada"
+    },
+    {
+      "id": "kg_total",
+      "unit": "kg (+10%)",
+      "highlight": true
+    },
+    {
+      "id": "cubos_7kg",
+      "unit": "cubos 7kg"
+    }
+  ],
+  "related": [
+    "075",
+    "069",
+    "018",
+    "070"
+  ],
+  "example_inputs": {
+    "area_m2": 50,
+    "pasadas": 2,
+    "espesor_mm": 0.2
+  },
+  "example_label": "Ejemplo para masilla filler: valores 50m², 2pasadas, 1mm",
+  "range_hints": {
+    "area_m2": "Valor típico entre 1 y 2000. Valor por defecto: 50 m².",
+    "pasadas": "Valor típico entre 1 y 3. Valor por defecto: 2 pasadas.",
+    "espesor_mm": "Valor típico entre 0.5 y 3. Valor por defecto: 1 mm."
+  },
+  "result_context": "Resultados: {kg_m2_pasada} kg/m² por pasada, {kg_total} kg totales con merma, {cubos_7kg} cubos de 7 kg.",
+  "formula_display": "A × kg_m2 × P → kg_m2_pasada, kg_total",
+  "steps": [
+    "Introducir los valores de area_m2, pasadas y espesor_mm",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+    "Calcular los valores de kg m2 pasada y kg total",
+    "El resultado se expresa en kg/m²/pasada. Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Introducir valores con unidades incorrectas sin verificar la conversión",
+    "Redondear resultados intermedios en lugar del resultado final",
+    "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "area_m2",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "pasadas",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "espesor_mm",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small room",
+      "area_m2": 25,
+      "espesor_mm": 0.5,
+      "pasadas": 2
+    },
+    {
+      "_label": "Medium room",
+      "area_m2": 37.5,
+      "espesor_mm": 0.5,
+      "pasadas": 2
+    },
+    {
+      "_label": "Large room",
+      "area_m2": 50,
+      "espesor_mm": 0.5,
+      "pasadas": 2
+    },
+    {
+      "_label": "Office",
+      "area_m2": 75,
+      "espesor_mm": 0.5,
+      "pasadas": 2
+    },
+    {
+      "_label": "Hall",
+      "area_m2": 100,
+      "espesor_mm": 0.5,
+      "pasadas": 2
+    }
+  ],
+  "units": {
+    "area_m2": "m²",
+    "espesor_mm": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Masilla y Filler",
+      "desc": "Calcula los kg de masilla o filler necesarios para alisar y preparar superficies antes de pintar Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora Masilla – kg Paredes",
+      "inputs": {
+        "area_m2": "Área a masillar",
+        "pasadas": "Número de pasadas",
+        "espesor_mm": "Espesor por pasada"
+      },
+      "outputs": {
+        "kg_m2_pasada": "Kg/m² por pasada",
+        "kg_total": "Kg total (+10%)",
+        "cubos_7kg": "Cubos de 7kg"
+      },
+      "seo_description": "Calcula los kg de masilla o filler necesarios para alisar y preparar superficies antes de pintar Usado por profesionales y estudiantes en todo el mundo.",
+      "example_label": "Estimar masilla filler necesario para superficie de 50 m².",
+      "range_hints": {
+        "area_m2": "Valor entre 1 y 2000 m².",
+        "pasadas": "Valor entre 1 y 3 pasadas.",
+        "espesor_mm": "Valor entre 0.5 y 3 mm."
+      },
+      "result_context": "La cantidad calculada de {kg_total} kg (+10%) incluye 10% de merma. Ajusta segun porosidad del soporte.",
+      "formula_display": "Formula especifica para masilla-filler - consulta documentacion tecnica.",
+      "steps": [
+        "Introduce area m2: 50 m²",
+        "Introduce pasadas: 2 pasadas",
+        "Introduce espesor mm: 0.2 mm",
+        "Pulsa calcular para obtener resultados",
+        "Interpreta resultado: {kg_m2_pasada}"
+      ],
+      "mistakes": [
+        "No considerar absorcion del soporte en consumo",
+        "Olvidar aplicar imprimacion antes del acabado",
+        "No añadir merma por herramientas (10-15%)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "pasadas",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "espesor_mm",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        }
+      ]
+    },
+    "en": {
+      "name": "Filler and Putty Calculator",
+      "desc": "Filler and Putty Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Filler & Putty Calculator – kg to Smooth",
+      "inputs": {
+        "area_m2": "Area to fill",
+        "pasadas": "Number of coats",
+        "espesor_mm": "Thickness per coat"
+      },
+      "outputs": {
+        "kg_m2_pasada": "Kg/m² per coat",
+        "kg_total": "Total kg (+10%)",
+        "cubos_7kg": "7kg tubs"
+      },
+      "seo_description": "Filler and Putty Calculator. Area to fill, Number of coats, Thickness per coat — get Kg/m² per coat, Total kg (+10%), 7kg tubs instantly for your painting.",
+      "example_label": "Estimar masilla filler necesario para superficie de 50 m².",
+      "range_hints": {
+        "area_m2": "Valor entre 1 y 2000 m².",
+        "pasadas": "Valor entre 1 y 3 pasadas.",
+        "espesor_mm": "Valor entre 0.5 y 3 mm."
+      },
+      "result_context": "La cantidad calculada de {kg_total} kg (+10%) incluye 10% de merma. Ajusta segun porosidad del soporte.",
+      "formula_display": "Formula especifica para masilla-filler - consulta documentacion tecnica.",
+      "steps": [
+        "Introduce area m2: 50 m²",
+        "Introduce pasadas: 2 pasadas",
+        "Introduce espesor mm: 0.2 mm",
+        "Pulsa calcular para obtener resultados",
+        "Interpreta resultado: {kg_m2_pasada}"
+      ],
+      "mistakes": [
+        "No considerar absorcion del soporte en consumo",
+        "Olvidar aplicar imprimacion antes del acabado",
+        "No añadir merma por herramientas (10-15%)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "pasadas",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "espesor_mm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Enduit de Rebouchage",
+      "desc": "Calculez les kg d'enduit ou mastic nécessaires pour lisser et préparer les surfaces avant peinture. Obtenez des resultats instantanes avec explication.",
+      "seo_title": "Calculateur Enduit de Lissage – kg",
+      "inputs": {
+        "area_m2": "Surface à enduire",
+        "pasadas": "Nombre de passes",
+        "espesor_mm": "Épaisseur par passe"
+      },
+      "outputs": {
+        "kg_m2_pasada": "Kg/m² par passe",
+        "kg_total": "Kg total (+10%)",
+        "cubos_7kg": "Seaux 7kg"
+      },
+      "seo_description": "Calculez les kg d'enduit ou mastic nécessaires pour lisser et préparer les surfaces avant peinture. Obtenez des resultats instantanes avec explication.",
+      "example_label": "Estimar masilla filler nécessaire pour surface de 50 m².",
+      "range_hints": {
+        "area_m2": "Valor entre 1 et 2000 m².",
+        "pasadas": "Valor entre 1 et 3 pasadas.",
+        "espesor_mm": "Valor entre 0.5 et 3 mm."
+      },
+      "result_context": "la quantité calculée de {kg_total} kg (+10%) incluye 10% de merma. Ajusta segun porosidad du soporte.",
+      "formula_display": "Formula especifica pour masilla-filler - consulta documentacion tecnica.",
+      "steps": [
+        "Introduce area m2: 50 m²",
+        "Introduce pasadas: 2 pasadas",
+        "Introduce épaisseur mm: 0.2 mm",
+        "Pulsa Calculer pour obtener resultados",
+        "Interpreta resultado: {kg_m2_pasada}"
+      ],
+      "mistakes": [
+        "Ne pas considérer absorcion du soporte dans consumo",
+        "Oublier aplicar imprimacion antes du acabado",
+        "No añadir merma par herramientas (10-15%)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        },
+        {
+          "field_id": "pasadas",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        },
+        {
+          "field_id": "espesor_mm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Massa Corrida e Gesso",
+      "desc": "Calcule os kg de massa corrida ou gesso necessários para alisar e preparar superfícies Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora Massa Corrida – kg",
+      "inputs": {
+        "area_m2": "Área a massar",
+        "pasadas": "Número de demãos",
+        "espesor_mm": "Espessura por demão"
+      },
+      "outputs": {
+        "kg_m2_pasada": "Kg/m² por demão",
+        "kg_total": "Kg total (+10%)",
+        "cubos_7kg": "Latas 7kg"
+      },
+      "seo_description": "Calcule os kg de massa corrida ou gesso necessários para alisar e preparar superfícies Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Estimar masilla filler necessário para superfície de 50 m².",
+      "range_hints": {
+        "area_m2": "Valor entre 1 e 2000 m².",
+        "pasadas": "Valor entre 1 e 3 pasadas.",
+        "espesor_mm": "Valor entre 0.5 e 3 mm."
+      },
+      "result_context": "La quantidade calculada de {kg_total} kg (+10%) incluye 10% de merma. Ajusta segun porosidad do soporte.",
+      "formula_display": "Formula especifica para masilla-filler - consulta documentacion tecnica.",
+      "steps": [
+        "Introduce area m2: 50 m²",
+        "Introduce pasadas: 2 pasadas",
+        "Introduce espessura mm: 0.2 mm",
+        "Pulsa calcular para obter resultados",
+        "Interpreta resultado: {kg_m2_pasada}"
+      ],
+      "mistakes": [
+        "Não considerar absorcion do soporte em consumo",
+        "Esquecer aplicar imprimacion antes do acabamento",
+        "Não adicionar merma por herramientas (10-15%)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        },
+        {
+          "field_id": "pasadas",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        },
+        {
+          "field_id": "espesor_mm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        }
+      ]
+    },
+    "de": {
+      "name": "Spachtelmasse Füllspachtel",
+      "desc": "Berechnen Sie spachtelmasse Füllspachtel online. Geben Sie area m2, pasadas, espesor mm ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Spachtelmasse Füllspachtel | CalcToWork",
+      "seo_desc": "Spachtelmasse Füllspachtel online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Spachtelmasse Füllspachtel online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "area_m2": "Area M2",
+        "pasadas": "Pasadas",
+        "espesor_mm": "Espesor Mm"
+      },
+      "outputs": {
+        "kg_m2_pasada": "Kg M2 Pasada",
+        "kg_total": "Kg Total",
+        "cubos_7kg": "Cubos 7kg"
+      },
+      "example_label": "Ejemplo para masilla filler: valores 50m², 2pasadas, 1mm",
+      "range_hints": {
+        "area_m2": "Valor típico entre 1 y 2000. Valor por defecto: 50 m².",
+        "pasadas": "Valor típico entre 1 y 3. Valor por defecto: 2 pasadas.",
+        "espesor_mm": "Valor típico entre 0.5 y 3. Valor por defecto: 1 mm."
+      },
+      "result_context": "Resultados: {kg_m2_pasada} kg/m² por pasada, {kg_total} kg totales con merma, {cubos_7kg} cubos de 7 kg.",
+      "formula_display": "A × kg_m2 × P → kg_m2_pasada, kg_total",
+      "steps": [
+        "Introducir los valores de area_m2, pasadas y espesor_mm",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+        "Calcular los valores de kg m2 pasada y kg total",
+        "El resultado se expresa en kg/m²/pasada. Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Introducir valores con unidades incorrectas sin verificar la conversión",
+        "Redondear resultados intermedios en lugar del resultado final",
+        "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "pasadas",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "espesor_mm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Antiruggine",
+      "description": "Calcola l'antiruggine per superfici metalliche.",
+      "seo_title": "Calcolatore Rasatura – kg Pareti",
+      "seo_description": "Calcola i litri di antiruggine per proteggere strutture metalliche Usato da professionisti e studenti in tutto il mondo.",
+      "inputs": {
+        "area": "Superficie (m²)",
+        "capas": "Mani",
+        "rendimiento": "Resa (m²/L)"
+      },
+      "outputs": {
+        "litros": "Litri necessari",
+        "botes_4l": "Latte da 4 L"
+      },
+      "example_label": "Stimare stucco filler necessario per superficie di 50 m².",
+      "range_hints": {
+        "area_m2": "Valor intre 1 e 2000 m².",
+        "pasadas": "Valor intre 1 e 3 pasadas.",
+        "espesor_mm": "Valor intre 0.5 e 3 mm."
+      },
+      "result_context": "La quantità calculada di {kg_totale} kg (+10%) incluee 10% di merma. Ajusta segun perosedad dil supperto.",
+      "formula_display": "Formula especifica per stucco-filler - consulta documintacion tecnica.",
+      "steps": [
+        "Introduce area m2: 50 m²",
+        "Introduce pasadas: 2 pasadas",
+        "Introduce spessore mm: 0.2 mm",
+        "Pulsa calcolare per obtiner risultati",
+        "Interpreta risultato: {kg_m2_pasada}"
+      ],
+      "mistakes": [
+        "Non consedirare absorcion dil supperto in consumo",
+        "Diminticare aplicar imprimacion prima dil finitura",
+        "No añadir merma per herramiintas (10-15%)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        },
+        {
+          "field_id": "pasadas",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        },
+        {
+          "field_id": "espesor_mm",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        }
+      ]
+    }
+  }
+}

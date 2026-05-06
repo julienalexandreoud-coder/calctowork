@@ -1,0 +1,274 @@
+{
+  "id": "1101",
+  "slug": "sod-turf-calculator",
+  "block": 1,
+  "block_slug": "estructuras",
+  "inputs": [
+    {
+      "id": "lawn_length",
+      "type": "number",
+      "min": 0.1,
+      "max": 100,
+      "step": 0.1,
+      "default": 10,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "lawn_width",
+      "type": "number",
+      "min": 0.1,
+      "max": 50,
+      "step": 0.1,
+      "default": 5,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "roll_width",
+      "type": "number",
+      "min": 0.3,
+      "max": 1,
+      "step": 0.05,
+      "default": 0.6,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "roll_length",
+      "type": "number",
+      "min": 1,
+      "max": 3,
+      "step": 0.1,
+      "default": 1.5,
+      "unit": "m",
+      "unit_category": "length"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "lawn_area_m2",
+      "unit": "m²",
+      "highlight": true
+    },
+    {
+      "id": "rolls_needed",
+      "unit": "rolls"
+    },
+    {
+      "id": "rolls_with_waste",
+      "unit": "rolls"
+    },
+    {
+      "id": "coverage_m2_per_roll",
+      "unit": "m²"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.lawn_length)||0,W=parseFloat(inputs.lawn_width)||0,rw=parseFloat(inputs.roll_width)||0.6,rl=parseFloat(inputs.roll_length)||1.5;if(!L||!W)return{error:true};var area=+(L*W).toFixed(2),ra=+(rw*rl).toFixed(3),rolls=Math.ceil(area/ra),rolls_w=Math.ceil(area*1.05/ra);return{lawn_area_m2:area,rolls_needed:rolls,rolls_with_waste:rolls_w,coverage_m2_per_roll:ra};",
+  "formula_display": "Lawn Area = Length × Width; Rolls = ceil(Area ÷ (roll_width × roll_length) × 1.05)",
+  "result_context": "Lawn area: {lawn_area_m2} m², rolls needed: {rolls_needed}, with 5% waste: {rolls_with_waste}",
+  "example_inputs": {
+    "lawn_length": 10,
+    "lawn_width": 8,
+    "roll_width": 0.6,
+    "roll_length": 2
+  },
+  "steps": [
+    "Calculate lawn area: 10 m × 8 m = 80.00 m²",
+    "Area per roll: 0.6 m × 2 m = 1.2 m² per roll",
+    "Rolls needed (exact): 80 ÷ 1.2 = 66.7 → 67 rolls",
+    "Add 5% waste allowance: ceil(67 × 1.05) = 71 rolls"
+  ],
+  "mistakes": [
+    "Not accounting for the 5% overlap and cutting waste",
+    "Measuring irregular lawn shapes as a simple rectangle",
+    "Forgetting to subtract paths, flowerbeds, or paved areas"
+  ],
+  "related": [
+    "1102",
+    "1119",
+    "1118",
+    "001"
+  ],
+  "comparison_presets": [
+    {
+      "lawn_length": 5,
+      "lawn_width": 4,
+      "roll_width": 0.6,
+      "roll_length": 2
+    },
+    {
+      "lawn_length": 8,
+      "lawn_width": 6,
+      "roll_width": 0.6,
+      "roll_length": 2
+    },
+    {
+      "lawn_length": 10,
+      "lawn_width": 8,
+      "roll_width": 0.6,
+      "roll_length": 2
+    },
+    {
+      "lawn_length": 15,
+      "lawn_width": 10,
+      "roll_width": 0.6,
+      "roll_length": 2
+    },
+    {
+      "lawn_length": 20,
+      "lawn_width": 15,
+      "roll_width": 0.6,
+      "roll_length": 2
+    }
+  ],
+  "buying_units": {
+    "rolls_with_waste": [
+      {
+        "label": "Rolls (0.6×2 m)",
+        "factor": 1,
+        "round": "ceil",
+        "unit_suffix": "rolls"
+      }
+    ]
+  },
+  "units": {
+    "lawn_length": "m",
+    "lawn_width": "m",
+    "roll_width": "m",
+    "roll_length": "m"
+  },
+  "example_label": "Ejemplo para sod turf calculator: valores 10m, 5m, 0.6m, 1.5m",
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Césped",
+      "desc": "Calculadora de Césped. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculadora de Césped – ¿Cuántos Rollos Necesitas?",
+      "seo_desc": "Calcula cuántos rollos de césped necesitas. Introduce las medidas del jardín y el tamaño del rollo para obtener la cantidad de rollos con y sin desperdicio.",
+      "seo_description": "Calculadora gratuita de césped: calcula cuántos rollos de tepe necesitas para tu jardín. Incluye desperdicio y cobertura por rollo.",
+      "inputs": {
+        "lawn_length": "Largo del jardín",
+        "lawn_width": "Ancho del jardín",
+        "roll_width": "Ancho del rollo",
+        "roll_length": "Largo del rollo"
+      },
+      "outputs": {
+        "lawn_area_m2": "Área del jardín",
+        "rolls_needed": "Rollos necesarios",
+        "rolls_with_waste": "Rollos con desperdicio",
+        "coverage_m2_per_roll": "Cobertura por rollo"
+      }
+    },
+    "en": {
+      "name": "Sod & Turf Calculator",
+      "desc": "Sod & Turf Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Sod Calculator ? How Many Turf Rolls Do You Need?",
+      "seo_desc": "Laying a new lawn? Enter your garden dimensions and roll size to find out exactly how many rolls of sod or turf to order. Avoid shortages with our waste calculator built in.",
+      "seo_description": "Calculate how many rolls of sod or turf you need for your lawn. Enter lawn dimensions and roll size for accurate ordering.",
+      "inputs": {
+        "lawn_length": "Lawn length",
+        "lawn_width": "Lawn width",
+        "roll_width": "Roll width",
+        "roll_length": "Roll length"
+      },
+      "outputs": {
+        "lawn_area_m2": "Lawn area",
+        "rolls_needed": "Rolls needed",
+        "rolls_with_waste": "Rolls with waste",
+        "coverage_m2_per_roll": "Coverage per roll"
+      }
+    },
+    "fr": {
+      "name": "Calculatrice de Gazon",
+      "desc": "Calculateur de Gazon. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculatrice de Gazon – Combien de Rouleaux?",
+      "seo_desc": "Calculez le nombre de rouleaux de gazon nécessaires pour votre pelouse. Entrez les dimensions et obtenez le nombre de rouleaux avec et sans marge de sécurité.",
+      "seo_description": "Calculateur gratuit de gazon: calculez combien de rouleaux de pelouse vous avez besoin. Inclut marge de déchet et couverture.",
+      "inputs": {
+        "lawn_length": "Longueur de la pelouse",
+        "lawn_width": "Largeur de la pelouse",
+        "roll_width": "Largeur du rouleau",
+        "roll_length": "Longueur du rouleau"
+      },
+      "outputs": {
+        "lawn_area_m2": "Surface de la pelouse",
+        "rolls_needed": "Rouleaux nécessaires",
+        "rolls_with_waste": "Rouleaux avec chutes",
+        "coverage_m2_per_roll": "Couverture par rouleau"
+      }
+    },
+    "pt": {
+      "name": "Calculadora de Grama",
+      "desc": "Calculadora de Grama. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculadora de Grama – Quantos Rolos Você Precisa?",
+      "seo_desc": "Calcule quantos rolos de grama você precisa para seu jardim. Insira as dimensões do gramado e o tamanho do rolo para obter a quantidade necessária com e sem desperdício.",
+      "seo_description": "Calculadora gratuita de grama: calcule quantos rolos de grama você precisa para seu jardim. Inclui desperdício e cobertura.",
+      "inputs": {
+        "lawn_length": "Comprimento do gramado",
+        "lawn_width": "Largura do gramado",
+        "roll_width": "Largura do rolo",
+        "roll_length": "Comprimento do rolo"
+      },
+      "outputs": {
+        "lawn_area_m2": "Área do gramado",
+        "rolls_needed": "Rolos necessários",
+        "rolls_with_waste": "Rolos com desperdício",
+        "coverage_m2_per_roll": "Cobertura por rolo"
+      }
+    },
+    "de": {
+      "name": "Sod turf calculator",
+      "desc": "Berechnen Sie sod turf calculator online. Geben Sie lawn length, lawn width, roll width ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Sod turf calculator | CalcToWork",
+      "seo_desc": "Sod turf calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Sod turf calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "lawn_length": "Lawn Length",
+        "lawn_width": "Lawn Width",
+        "roll_width": "Roll Width",
+        "roll_length": "Roll Length"
+      },
+      "outputs": {
+        "lawn_area_m2": "Lawn Area M2",
+        "rolls_needed": "Rolls Needed",
+        "rolls_with_waste": "Rolls With Waste",
+        "coverage_m2_per_roll": "Coverage M2 Per Roll"
+      },
+      "example_label": "Ejemplo para sod turf calculator: valores 10m, 5m, 0.6m, 1.5m",
+      "range_hints": {},
+      "result_context": "Lawn area: {lawn_area_m2} m², rolls needed: {rolls_needed}, with 5% waste: {rolls_with_waste}",
+      "formula_display": "Lawn Area = Length × Width; Rolls = ceil(Area ÷ (roll_width × roll_length) × 1.05)",
+      "steps": [
+        "Calculate lawn area: 10 m × 8 m = 80.00 m²",
+        "Area per roll: 0.6 m × 2 m = 1.2 m² per roll",
+        "Rolls needed (exact): 80 ÷ 1.2 = 66.7 → 67 rolls",
+        "Add 5% waste allowance: ceil(67 × 1.05) = 71 rolls"
+      ],
+      "mistakes": [
+        "Not accounting for the 5% overlap and cutting waste",
+        "Measuring irregular lawn shapes as a simple rectangle",
+        "Forgetting to subtract paths, flowerbeds, or paved areas"
+      ],
+      "input_type_review": []
+    },
+    "it": {
+      "name": "Calcolatore di Prato",
+      "desc": "Calcolatore Prato. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calcolatore Rotoli di Erba – Quanti Rotoli Servono?",
+      "seo_desc": "Calcola quanti rotoli di manto erboso ti servono per il tuo prato. Inserisci le dimensioni del prato e la dimensione del rotolo per ottenere la quantità necessaria.",
+      "seo_description": "Calcolatore gratuito prato: calcola quanti rotoli di erba pronta ti servono. Include spreco e copertura per rotolo.",
+      "inputs": {
+        "lawn_length": "Lunghezza del prato",
+        "lawn_width": "Larghezza del prato",
+        "roll_width": "Larghezza del rotolo",
+        "roll_length": "Lunghezza del rotolo"
+      },
+      "outputs": {
+        "lawn_area_m2": "Area del prato",
+        "rolls_needed": "Rotoli necessari",
+        "rolls_with_waste": "Rotoli con scarto",
+        "coverage_m2_per_roll": "Copertura per rotolo"
+      }
+    }
+  }
+}

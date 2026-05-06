@@ -1,0 +1,468 @@
+{
+  "id": "063",
+  "slug": "puertas-correderas",
+  "block": 7,
+  "block_slug": "carpinteria",
+  "inputs": [
+    {
+      "id": "num_puertas",
+      "type": "number",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 3,
+      "unit": "ud",
+      "unit_options": [
+        "ud"
+      ],
+      "unit_category": "count"
+    },
+    {
+      "id": "ancho_hoja_m",
+      "type": "number",
+      "min": 0.6,
+      "max": 2,
+      "step": 0.05,
+      "default": 0.9,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "alto_m",
+      "type": "number",
+      "min": 1.8,
+      "max": 2.5,
+      "step": 0.05,
+      "default": 2.1,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var n=parseFloat(inputs.num_puertas)||0,W=parseFloat(inputs.ancho_hoja_m)||0.9,H=parseFloat(inputs.alto_m)||2.1;if(!n)return{error:true};var rail_ud=+(W*2.1).toFixed(2),rail_total=+(rail_ud*n).toFixed(2),herrajes=n*2,m2_total=+(W*H*n).toFixed(2),peso_est=+(m2_total*12).toFixed(1),fijaciones=Math.ceil(rail_total/0.5);return{rail_por_puerta_m:rail_ud,rail_total_m:rail_total,herrajes_ud:herrajes,m2_total_vidrio_madera:m2_total,peso_est_kg:peso_est,fijaciones_ud:fijaciones};",
+  "outputs": [
+    {
+      "id": "rail_por_puerta_m",
+      "unit": "m.l. carril/puerta"
+    },
+    {
+      "id": "rail_total_m",
+      "unit": "m.l. carril total",
+      "highlight": true
+    },
+    {
+      "id": "herrajes_ud",
+      "unit": "juegos herrajes"
+    },
+    {
+      "id": "m2_total_vidrio_madera",
+      "unit": "m² hojas"
+    },
+    {
+      "id": "peso_est_kg",
+      "unit": "kg estimados"
+    },
+    {
+      "id": "fijaciones_ud",
+      "unit": "fijaciones"
+    }
+  ],
+  "related": [
+    "062",
+    "061",
+    "066",
+    "067"
+  ],
+  "example_inputs": {
+    "num_puertas": 2,
+    "ancho_hoja_m": 0.9,
+    "alto_m": 2.1
+  },
+  "example_label": "Calcular carril y herrajes para 2 puertas correderas de 90 × 210 cm.",
+  "range_hints": {
+    "num_puertas": "Número total de hojas correderas (una hoja = 2×ancho de carril).",
+    "ancho_hoja_m": "Ancho de cada hoja. El carril necesario será 2,1 veces el ancho de hoja.",
+    "alto_m": "Altura libre de la hoja, normalmente 2,03–2,10 m."
+  },
+  "result_context": "Carril total: {rail_total_m} m.l. Herrajes: {herrajes_ud} juegos (carro + guía). Peso estimado: {peso_est_kg} kg. Fijaciones: {fijaciones_ud} ud.",
+  "formula_display": "Carril = ancho hoja × 2,1. Herrajes = 2 juegos/puerta. Fijaciones cada 50 cm.",
+  "steps": [
+    "Medir el ancho del hueco de paso y decidir si la puerta será de pared vista o empotrada en tabique.",
+    "Si es empotrada, verificar que el tabique tiene capacidad para alojar el cajón (mínimo 10 cm de espesor).",
+    "Calcular carril necesario: 2,1 × ancho de hoja para cubrir recorrido completo más solape de cierre.",
+    "Estimar el peso de la hoja (≈12 kg/m²) para seleccionar herrajes con capacidad de carga adecuada.",
+    "Colocar fijaciones del carril al techo o pared cada 50 cm; reforzar el dintel si la puerta supera los 40 kg."
+  ],
+  "mistakes": [
+    "No reforzar el dintel o viga superior en puertas empotradas; el peso recae sobre el carril superior.",
+    "Olvidar la holgura inferior para que la puerta no roce el rodapié o la alfombra (mínimo 10 mm).",
+    "No nivelar el carril con láser; una desviación de 2 mm hace que la puerta se desplace sola."
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Armario empotrado (60 cm)",
+      "num_puertas": 2,
+      "ancho_hoja_m": 0.6,
+      "alto_m": 2.03
+    },
+    {
+      "_label": "Paso estándar (80 cm)",
+      "num_puertas": 1,
+      "ancho_hoja_m": 0.8,
+      "alto_m": 2.1
+    },
+    {
+      "_label": "Paso doble hoja (2×70 cm)",
+      "num_puertas": 2,
+      "ancho_hoja_m": 0.7,
+      "alto_m": 2.1
+    },
+    {
+      "_label": "Salón grande (100 cm)",
+      "num_puertas": 1,
+      "ancho_hoja_m": 1,
+      "alto_m": 2.1
+    },
+    {
+      "_label": "Varias estancias (5 ud)",
+      "num_puertas": 5,
+      "ancho_hoja_m": 0.8,
+      "alto_m": 2.03
+    }
+  ],
+  "units": {
+    "ancho_hoja_m": "m",
+    "alto_m": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Puertas Correderas",
+      "desc": "Calcula carril y herrajes para puertas correderas.",
+      "seo_title": "Calculadora Puertas Correderas",
+      "inputs": {
+        "num_puertas": "Número de puertas",
+        "ancho_hoja_m": "Ancho de hoja",
+        "alto_m": "Alto puerta"
+      },
+      "outputs": {
+        "rail_total_m": "Metros de carril",
+        "herrajes_ud": "Herrajes",
+        "m2_total_vidrio_madera": "m² total"
+      },
+      "seo_description": "Calcula los metros de carril y herrajes necesarios para instalar puertas correderas Usado por profesionales y estudiantes en todo el mundo.",
+      "example_label": "Calcular materiales para puertas correderas con 4 ud de ejemplo.",
+      "range_hints": {
+        "num_puertas": "Valor entre 1 y 20 ud.",
+        "ancho_hoja_m": "Valor entre 0.6 y 2 m.",
+        "alto_m": "Valor entre 1.8 y 2.5 m."
+      },
+      "result_context": "El resultado {rail_total_m} m.l. carril representa el material necesario. Verifica medidas antes de cortar.",
+      "formula_display": "Área = Ancho × Alto × Cantidad",
+      "steps": [
+        "Introduce num puertas: 4 ud",
+        "Introduce ancho hoja m: 5 m",
+        "Introduce alto m: 3 m",
+        "Pulsa calcular para obtener resultados",
+        "Interpreta resultado: {rail_total_m}"
+      ],
+      "mistakes": [
+        "Medir hueco en lugar de elemento fabricado",
+        "No considerar tolerancias de montaje",
+        "Olvidar herrajes y accesorios en presupuesto"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "num_puertas",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "ancho_hoja_m",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "alto_m",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        }
+      ]
+    },
+    "en": {
+      "name": "Sliding Door Calculator",
+      "desc": "Sliding Door Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Sliding Door Calculator – Track & Hardware",
+      "inputs": {
+        "num_puertas": "Number of doors",
+        "ancho_hoja_m": "Leaf width",
+        "alto_m": "Door height"
+      },
+      "outputs": {
+        "rail_total_m": "Track length",
+        "herrajes_ud": "Hardware sets",
+        "m2_total_vidrio_madera": "Total m²"
+      },
+      "seo_description": "Sliding Door Calculator. Number of doors, Leaf width, Door height — get Track length, Hardware sets, Total m² instantly for your carpentry and metalwork.",
+      "example_label": "Calcular materiales para puertas correderas con 4 ud de ejemplo.",
+      "range_hints": {
+        "num_puertas": "Valor entre 1 y 20 ud.",
+        "ancho_hoja_m": "Valor entre 0.6 y 2 m.",
+        "alto_m": "Valor entre 1.8 y 2.5 m."
+      },
+      "result_context": "El resultado {rail_total_m} m.l. carril representa el material necesario. Verifica medidas antes de cortar.",
+      "formula_display": "Área = Ancho × Alto × Cantidad",
+      "steps": [
+        "Introduce num puertas: 4 ud",
+        "Introduce ancho hoja m: 5 m",
+        "Introduce alto m: 3 m",
+        "Pulsa calcular para obtener resultados",
+        "Interpreta resultado: {rail_total_m}"
+      ],
+      "mistakes": [
+        "Medir hueco en lugar de elemento fabricado",
+        "No considerar tolerancias de montaje",
+        "Olvidar herrajes y accesorios en presupuesto"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "num_puertas",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "ancho_hoja_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "alto_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Portes Coulissantes",
+      "desc": "Calculez rail et ferrures pour portes coulissantes.",
+      "seo_title": "Calculateur Portes Coulissantes",
+      "inputs": {
+        "num_puertas": "Nombre de portes",
+        "ancho_hoja_m": "Largeur vantail",
+        "alto_m": "Hauteur porte"
+      },
+      "outputs": {
+        "rail_total_m": "Longueur rail",
+        "herrajes_ud": "Ferrures",
+        "m2_total_vidrio_madera": "m² total"
+      },
+      "seo_description": "Calculez les mètres de rail et ferrures nécessaires pour installer des portes coulissantes Utilise par des professionnels et etudiants dans le monde.",
+      "example_label": "Calculer les matériaux pour portes correderas avec 4 ud de ejemplo.",
+      "range_hints": {
+        "num_puertas": "Valor entre 1 et 20 ud.",
+        "ancho_hoja_m": "Valor entre 0.6 et 2 m.",
+        "alto_m": "Valor entre 1.8 et 2.5 m."
+      },
+      "result_context": "le resultado {rail_total_m} m.l. carril representa le material nécessaire. Verifica medidas antes de cortar.",
+      "formula_display": "Área = largeur × Alto × quantité",
+      "steps": [
+        "Introduce num portes: 4 ud",
+        "Introduce largeur hoja m: 5 m",
+        "Introduce alto m: 3 m",
+        "Pulsa Calculer pour obtener resultados",
+        "Interpreta resultado: {rail_total_m}"
+      ],
+      "mistakes": [
+        "Medir hueco dans lugar de elemento fabricado",
+        "Ne pas considérer tolerancias de montaje",
+        "Oublier herrajes et accesorios dans presupuesto"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "num_puertas",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        },
+        {
+          "field_id": "ancho_hoja_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        },
+        {
+          "field_id": "alto_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Portas de Correr",
+      "desc": "Calcule os metros de trilho e ferragens para instalar portas de correrCalculo preciso e rapido com metodologia clara.",
+      "seo_title": "Calculadora de Portas de Correr",
+      "inputs": {
+        "num_puertas": "Número de portas",
+        "ancho_hoja_m": "Largura da folha",
+        "alto_m": "Altura da porta"
+      },
+      "outputs": {
+        "rail_total_m": "Metros de trilho",
+        "herrajes_ud": "Ferragens",
+        "m2_total_vidrio_madera": "m² total"
+      },
+      "seo_description": "Calcule os metros de trilho e ferragens para instalar portas de correr. Cálculo preciso e rápido com resultados detalhados.",
+      "example_label": "Calcular materiais para portas correderas com 4 um de ejemplo.",
+      "range_hints": {
+        "num_puertas": "Valor entre 1 e 20 ud.",
+        "ancho_hoja_m": "Valor entre 0.6 e 2 m.",
+        "alto_m": "Valor entre 1.8 e 2.5 m."
+      },
+      "result_context": "El resultado {rail_total_m} m.l. carril representa o material necesario. Verifica medidas antes de cortar.",
+      "formula_display": "Área = Ancho × Alto × Cantidad",
+      "steps": [
+        "Introduce num portas: 4 um",
+        "Introduce largura hoja m: 5 m",
+        "Introduce alto m: 3 m",
+        "Pulsa calcular para obter resultados",
+        "Interpreta resultado: {rail_total_m}"
+      ],
+      "mistakes": [
+        "Medir hueco em lugar de elemento fabricado",
+        "Não considerar tolerancias de montagem",
+        "Esquecer herrajes e accesorios em presupuesto"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "num_puertas",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        },
+        {
+          "field_id": "ancho_hoja_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        },
+        {
+          "field_id": "alto_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        }
+      ]
+    },
+    "de": {
+      "name": "Türen Schiebetüren",
+      "desc": "Berechnen Sie türen Schiebetüren online. Geben Sie num puertas, ancho hoja m, alto m ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Türen Schiebetüren | CalcToWork",
+      "seo_desc": "Türen Schiebetüren online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Türen Schiebetüren online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "num_puertas": "Num Puertas",
+        "ancho_hoja_m": "Ancho Hoja M",
+        "alto_m": "Alto M"
+      },
+      "outputs": {
+        "rail_por_puerta_m": "Rail Por Puerta M",
+        "rail_total_m": "Rail Total M",
+        "herrajes_ud": "Herrajes Ud",
+        "m2_total_vidrio_madera": "M2 Total Vidrio Madera",
+        "peso_est_kg": "Peso Est Kg",
+        "fijaciones_ud": "Fijaciones Ud"
+      },
+      "example_label": "Calcular carril y herrajes para 2 puertas correderas de 90 × 210 cm.",
+      "range_hints": {
+        "num_puertas": "Número total de hojas correderas (una hoja = 2×ancho de carril).",
+        "ancho_hoja_m": "Ancho de cada hoja. El carril necesario será 2,1 veces el ancho de hoja.",
+        "alto_m": "Altura libre de la hoja, normalmente 2,03–2,10 m."
+      },
+      "result_context": "Carril total: {rail_total_m} m.l. Herrajes: {herrajes_ud} juegos (carro + guía). Peso estimado: {peso_est_kg} kg. Fijaciones: {fijaciones_ud} ud.",
+      "formula_display": "Carril = ancho hoja × 2,1. Herrajes = 2 juegos/puerta. Fijaciones cada 50 cm.",
+      "steps": [
+        "Medir el ancho del hueco de paso y decidir si la puerta será de pared vista o empotrada en tabique.",
+        "Si es empotrada, verificar que el tabique tiene capacidad para alojar el cajón (mínimo 10 cm de espesor).",
+        "Calcular carril necesario: 2,1 × ancho de hoja para cubrir recorrido completo más solape de cierre.",
+        "Estimar el peso de la hoja (≈12 kg/m²) para seleccionar herrajes con capacidad de carga adecuada.",
+        "Colocar fijaciones del carril al techo o pared cada 50 cm; reforzar el dintel si la puerta supera los 40 kg."
+      ],
+      "mistakes": [
+        "No reforzar el dintel o viga superior en puertas empotradas; el peso recae sobre el carril superior.",
+        "Olvidar la holgura inferior para que la puerta no roce el rodapié o la alfombra (mínimo 10 mm).",
+        "No nivelar el carril con láser; una desviación de 2 mm hace que la puerta se desplace sola."
+      ],
+      "input_type_review": []
+    },
+    "it": {
+      "name": "Calcolatore Tetto in Legno",
+      "description": "Calcola il legname per strutture di tetti a falde.",
+      "seo_title": "Calcolatore Tetto in Legno – Strumento Gratuito",
+      "seo_description": "Calcolatore Tetto in Legno. Lunghezza (m), Larghezza (m), Pendenza (%) ââ‚¬” ottieni Superficie copertura (m²), Numero travetti, Volume legname (m³).",
+      "inputs": {
+        "largo": "Lunghezza (m)",
+        "ancho": "Larghezza (m)",
+        "pendiente": "Pendenza (%)",
+        "separacion": "Interasse travetti (m)"
+      },
+      "outputs": {
+        "area_cubierta": "Superficie copertura (m²)",
+        "num_viguetas": "Numero travetti",
+        "volumen_madera": "Volume legname (m³)"
+      },
+      "example_label": "Calcolare opacoriales per perte corrediras con 4 ud di ejemplo.",
+      "range_hints": {
+        "num_puertas": "Valor intre 1 e 20 ud.",
+        "ancho_hoja_m": "Valor intre 0.6 e 2 m.",
+        "alto_m": "Valor intre 1.8 e 2.5 m."
+      },
+      "result_context": "El risultato {rail_totale_m} m.l. carril representa el opacorial necessario. Verifica misure prima di cortar.",
+      "formula_display": "Área = Ancho × Alto × Cantidad",
+      "steps": [
+        "Introduce num perte: 4 ud",
+        "Introduce larghezza anta m: 5 m",
+        "Introduce alto m: 3 m",
+        "Pulsa calcolare per obtiner risultati",
+        "Interpreta risultato: {rail_totale_m}"
+      ],
+      "mistakes": [
+        "Medir hueco in lugar di eleminto fabricado",
+        "Non consedirare tolerancias di montaje",
+        "Diminticare herrajes e accesorios in presupuesto"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "num_puertas",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        },
+        {
+          "field_id": "ancho_hoja_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        },
+        {
+          "field_id": "alto_m",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        }
+      ]
+    }
+  }
+}

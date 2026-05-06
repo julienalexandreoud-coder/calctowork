@@ -1,0 +1,412 @@
+{
+  "id": "046",
+  "slug": "puntos-luz-habitacion",
+  "block": 5,
+  "block_slug": "electricidad",
+  "inputs": [
+    {
+      "id": "area_m2",
+      "type": "number",
+      "min": 4,
+      "max": 200,
+      "step": 0.5,
+      "default": 15,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "uso",
+      "type": "select",
+      "default": "dormitorio",
+      "options": [
+        "sala",
+        "dormitorio",
+        "cocina",
+        "bano",
+        "oficina",
+        "garaje"
+      ]
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area_m2)||0,lux={'sala':150,'dormitorio':100,'cocina':300,'bano':200,'oficina':400,'garaje':150};if(!A)return{error:true};var e=lux[inputs.uso]||150,puntos=Math.max(1,Math.ceil(A/10)),enchufes=Math.max(2,Math.ceil(A/4));return{puntos_luz:puntos,enchufes:enchufes,lux_recomendados:e,w_led_estimados:puntos*12};",
+  "outputs": [
+    {
+      "id": "puntos_luz",
+      "unit": "puntos de luz",
+      "highlight": true
+    },
+    {
+      "id": "enchufes",
+      "unit": "enchufes"
+    },
+    {
+      "id": "lux_recomendados",
+      "unit": "lux recomendados"
+    },
+    {
+      "id": "w_led_estimados",
+      "unit": "W LED total"
+    }
+  ],
+  "related": [
+    "045",
+    "043",
+    "047",
+    "044"
+  ],
+  "example_inputs": {
+    "area_m2": 15,
+    "uso": "dormitorio"
+  },
+  "example_label": "Calcular puntos de luz para dormitorio de 16 m² con criterios de confort y normativa REBT.",
+  "range_hints": {
+    "area_m2": "Superficie útil de la habitación en m². Para estancias irregulares usar el área del rectángulo que las circunscribe",
+    "uso": "Según REBT ITC-BT-25: sala mín 2 puntos, dormitorio mín 2, cocina mín 2 + encimera, baño mín 1, oficina mín 2, garaje mín 1 punto de luz"
+  },
+  "result_context": "Para {area_m2} m² de uso {uso} se recomiendan {puntos_luz} puntos de luz, {enchufes} tomas de corriente y {lux_recomendados} lux. Potencia LED estimada: {w_led_estimados} W.",
+  "formula_display": "Puntos_luz_techo = ceil(área / 8).  Separación_máx = 1.5 × altura_montaje.  Enchufes = máx(2, ceil(perímetro / 3.6)).  Distribución uniforme para evitar sombras.",
+  "steps": [
+    "Medir las dimensiones de la habitación y calcular área: largo × ancho en metros",
+    "Identificar el tipo de uso para aplicar los niveles de lux: dormitorio 150 lx, sala 200 lx, cocina 300 lx, oficina 400 lx, garaje 150 lx",
+    "Calcular puntos de luz de techo: 1 punto por cada 8-10 m², con separación máxima entre luminarias ≤ 1.5 × altura de montaje para mantener uniformidad",
+    "Añadir puntos de luz de pared si el uso lo requiere: lectura en dormitorio, espejo en baño, encimera en cocina",
+    "Calcular tomas de corriente mínimas según REBT: 1 toma por cada 3.6 m de perímetro, con un mínimo de 2 tomas por estancia"
+  ],
+  "mistakes": [
+    "No prever conmutación en dormitorios: la falta de conmutador desde la cabecera obliga a levantarse para apagar la luz, incumpliendo criterios de confort",
+    "Colocar interruptor detrás de la puerta: el interruptor debe quedar en el lado de apertura de la puerta, a 90-110 cm del suelo",
+    "Olvidar puntos de luz específicos: espejo de baño (IP44 mínimo), encimera de cocina bajo armarios altos, zona de lectura en dormitorio",
+    "No prever enchufes suficientes: la ITC-BT-25 exige mínimo 3 tomas en sala (>20 m²), 3 en cocina, 2 en dormitorio y 2 en baño (fuera del volumen de protección)"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "area_m2",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "uso",
+      "current_type": "select",
+      "recommended_type": "select",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Baño compacto (5 m²)",
+      "area_m2": 5,
+      "uso": "bano"
+    },
+    {
+      "_label": "Dormitorio medio (14 m²)",
+      "area_m2": 14,
+      "uso": "dormitorio"
+    },
+    {
+      "_label": "Sala abierta (25 m²)",
+      "area_m2": 25,
+      "uso": "sala"
+    },
+    {
+      "_label": "Cocina amplia (18 m²)",
+      "area_m2": 18,
+      "uso": "cocina"
+    },
+    {
+      "_label": "Oficina en casa (12 m²)",
+      "area_m2": 12,
+      "uso": "oficina"
+    }
+  ],
+  "units": {
+    "area_m2": "m²"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Puntos de Luz por Habitación",
+      "desc": "Calcula el número de puntos de luz y enchufes recomendados para cada tipo de habitación según normativa. Herramienta gratuita con formula y ejemplos.",
+      "seo_title": "¿Cuántos Puntos de Luz Necesito?",
+      "inputs": {
+        "area_m2": "Área habitación",
+        "uso": "Tipo de uso"
+      },
+      "outputs": {
+        "puntos_luz": "Puntos de luz",
+        "enchufes": "Enchufes",
+        "lux_recomendados": "Lux recomendados",
+        "w_led_estimados": "Potencia LED estimada"
+      },
+      "seo_description": "Calcula el número de puntos de luz y enchufes recomendados para cada tipo de habitación según normativa. Herramienta gratuita con formula y ejemplos.",
+      "example_label": "Calcular puntos de luz recomendados para un dormitorio de 18m².",
+      "range_hints": {
+        "area_m2": "Superficie de la habitación"
+      },
+      "result_context": "Habitación de {area_m2}m² para {uso} requiere {puntos_luz_ud} puntos de luz: {techo_ud} en techo, {pared_ud} en pared. Potencia total: {potencia_w}W. Interruptores: {interruptores_ud} conmutados.",
+      "formula_display": "Puntos_techo = área ÷ 6m²; Puntos_pared = según uso; Total = suma",
+      "steps": [
+        "Puntos de techo: 18m² ÷ 6m² = 3 puntos",
+        "Dormitorio: agregar 1-2 puntos de pared (lectura)",
+        "Total: 3 techo + 2 pared = 5 puntos de luz",
+        "Prever conmutación en entrada y cabecera de cama"
+      ],
+      "mistakes": [
+        "No prever conmutación (incómodo apagar luz desde la cama)",
+        "No considerar luz de lectura junto a la cama",
+        "Ubicar interruptor detrás de la puerta (debe quedar accesible)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "uso",
+          "reason": "Correcto: opción discreta"
+        }
+      ]
+    },
+    "en": {
+      "name": "Light Points per Room Calculator",
+      "desc": "Light Points per Room Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "How Many Light Points Do I Need?",
+      "inputs": {
+        "area_m2": "Room area",
+        "uso": "Room type"
+      },
+      "outputs": {
+        "puntos_luz": "Light points",
+        "enchufes": "Outlets",
+        "lux_recomendados": "Recommended lux",
+        "w_led_estimados": "Estimated LED power"
+      },
+      "seo_description": "Light Points per Room Calculator. Room area, Room type — get Light points, Outlets, Recommended lux instantly for your electrical and lighting project.",
+      "example_label": "Calcular puntos de luz recomendados para un dormitorio de 18m².",
+      "range_hints": {
+        "area_m2": "Superficie de la habitación"
+      },
+      "result_context": "Habitación de {area_m2}m² para {uso} requiere {puntos_luz_ud} puntos de luz: {techo_ud} en techo, {pared_ud} en pared. Potencia total: {potencia_w}W. Interruptores: {interruptores_ud} conmutados.",
+      "formula_display": "Puntos_techo = área ÷ 6m²; Puntos_pared = según uso; Total = suma",
+      "steps": [
+        "Puntos de techo: 18m² ÷ 6m² = 3 puntos",
+        "Dormitorio: agregar 1-2 puntos de pared (lectura)",
+        "Total: 3 techo + 2 pared = 5 puntos de luz",
+        "Prever conmutación en entrada y cabecera de cama"
+      ],
+      "mistakes": [
+        "No prever conmutación (incómodo apagar luz desde la cama)",
+        "No considerar luz de lectura junto a la cama",
+        "Ubicar interruptor detrás de la puerta (debe quedar accesible)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "uso",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: opción discreta"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Points Lumineux par Pièce",
+      "desc": "Estimez les points lumineux et prises nécessaires.",
+      "seo_title": "Combien de Points Lumineux? Online",
+      "inputs": {
+        "area_m2": "Surface pièce",
+        "uso": "Type d'usage"
+      },
+      "outputs": {
+        "puntos_luz": "Points lumineux",
+        "enchufes": "Prises",
+        "lux_recomendados": "Lux recommandés",
+        "w_led_estimados": "Puissance LED estimée"
+      },
+      "seo_description": "Calculez le nombre de points lumineux et prises recommandés pour chaque type de pièce Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calculer puntos de luz recomendados pour un dormitorio de 18m².",
+      "range_hints": {
+        "area_m2": "surface de la habitación"
+      },
+      "result_context": "Habitación de {area_m2}m² pour {uso} nécessite {puntos_luz_ud} puntos de luz: {techo_ud} dans toit, {pared_ud} dans pared. Potencia total: {potencia_w}W. Interruptores: {interruptores_ud} conmutados.",
+      "formula_display": "Puntos_techo = área Á· 6m²; Puntos_pared = selon uso; total = suma",
+      "steps": [
+        "Puntos de toit: 18m² Á· 6m² = 3 puntos",
+        "Dormitorio: agregar 1-2 puntos de pared (lectura)",
+        "total: 3 toit + 2 pared = 5 puntos de luz",
+        "Prever conmutación dans entrada et cabecera de cama"
+      ],
+      "mistakes": [
+        "No prever conmutación (incómodo apagar luz de la cama)",
+        "Ne pas considérer luz de lectura junto a la cama",
+        "Ubicar interruptor detrás de la porte (debe quedar accesible)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "uso",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correct : opción discreta"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Pontos de Luz por Cômodo",
+      "desc": "Calcule o número de pontos de luz e tomadas recomendados para cada tipo de cômodo Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Quantos Pontos de Luz Preciso?",
+      "inputs": {
+        "area_m2": "Área do cômodo",
+        "uso": "Tipo de uso"
+      },
+      "outputs": {
+        "puntos_luz": "Pontos de luz",
+        "enchufes": "Tomadas",
+        "lux_recomendados": "Lux recomendados",
+        "w_led_estimados": "Potência LED estimada"
+      },
+      "seo_description": "Calcule o número de pontos de luz e tomadas recomendados para cada tipo de cômodo Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular puntos de vão recomendados para um dormitorio de 18m².",
+      "range_hints": {
+        "area_m2": "Superficie da habitación"
+      },
+      "result_context": "Habitación de {area_m2}m² para {uso} requer {puntos_luz_ud} puntos de vão: {techo_ud} em telhado, {pared_ud} em pared. Potencia total: {potencia_w}W. Interruptores: {interruptores_ud} conmutados.",
+      "formula_display": "Puntos_techo = área ÷ 6m²; Puntos_pared = segundo uso; Total = suma",
+      "steps": [
+        "Puntos de telhado: 18m² ÷ 6m² = 3 puntos",
+        "Dormitorio: agregar 1-2 puntos de parede (lectura)",
+        "Total: 3 telhado + 2 parede = 5 puntos de vão",
+        "Prever conmutación em entrada e cabecera de cama"
+      ],
+      "mistakes": [
+        "Não prever conmutación (incómodo apagar vão desde a cama)",
+        "Não considerar vão de lectura junto à cama",
+        "Ubicar interruptor detrás da porta (deve quedar accesible)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "uso",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correto: opção discreta"
+        }
+      ]
+    },
+    "de": {
+      "name": "Leuchten Licht Raum",
+      "desc": "Berechnen Sie leuchten Licht Raum online. Geben Sie area m2, uso ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Leuchten Licht Raum | CalcToWork",
+      "seo_desc": "Leuchten Licht Raum online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Leuchten Licht Raum online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "area_m2": "Area M2",
+        "uso": "Uso"
+      },
+      "outputs": {
+        "puntos_luz": "Puntos Luz",
+        "enchufes": "Enchufes",
+        "lux_recomendados": "Lux Recomendados",
+        "w_led_estimados": "W Led Estimados"
+      },
+      "example_label": "Calcular puntos de luz para dormitorio de 16 m² con criterios de confort y normativa REBT.",
+      "range_hints": {
+        "area_m2": "Superficie útil de la habitación en m². Para estancias irregulares usar el área del rectángulo que las circunscribe",
+        "uso": "Según REBT ITC-BT-25: sala mín 2 puntos, dormitorio mín 2, cocina mín 2 + encimera, baño mín 1, oficina mín 2, garaje mín 1 punto de luz"
+      },
+      "result_context": "Para {area_m2} m² de uso {uso} se recomiendan {puntos_luz} puntos de luz, {enchufes} tomas de corriente y {lux_recomendados} lux. Potencia LED estimada: {w_led_estimados} W.",
+      "formula_display": "Puntos_luz_techo = ceil(área / 8).  Separación_máx = 1.5 × altura_montaje.  Enchufes = máx(2, ceil(perímetro / 3.6)).  Distribución uniforme para evitar sombras.",
+      "steps": [
+        "Medir las dimensiones de la habitación y calcular área: largo × ancho en metros",
+        "Identificar el tipo de uso para aplicar los niveles de lux: dormitorio 150 lx, sala 200 lx, cocina 300 lx, oficina 400 lx, garaje 150 lx",
+        "Calcular puntos de luz de techo: 1 punto por cada 8-10 m², con separación máxima entre luminarias ≤ 1.5 × altura de montaje para mantener uniformidad",
+        "Añadir puntos de luz de pared si el uso lo requiere: lectura en dormitorio, espejo en baño, encimera en cocina",
+        "Calcular tomas de corriente mínimas según REBT: 1 toma por cada 3.6 m de perímetro, con un mínimo de 2 tomas por estancia"
+      ],
+      "mistakes": [
+        "No prever conmutación en dormitorios: la falta de conmutador desde la cabecera obliga a levantarse para apagar la luz, incumpliendo criterios de confort",
+        "Colocar interruptor detrás de la puerta: el interruptor debe quedar en el lado de apertura de la puerta, a 90-110 cm del suelo",
+        "Olvidar puntos de luz específicos: espejo de baño (IP44 mínimo), encimera de cocina bajo armarios altos, zona de lectura en dormitorio",
+        "No prever enchufes suficientes: la ITC-BT-25 exige mínimo 3 tomas en sala (>20 m²), 3 en cocina, 2 en dormitorio y 2 en baño (fuera del volumen de protección)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "uso",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Punti Luce per Stanza",
+      "desc": "Calcola il numero di punti luce, prese e lux raccomandati per ogni tipo di stanza secondo la normativa CEI. Gratuito, con formula e guida passo passo.",
+      "seo_title": "Quanti Punti Luce Servono? – Calcolatore",
+      "inputs": {
+        "area_m2": "Area stanza (m²)",
+        "uso": "Tipo di ambiente"
+      },
+      "outputs": {
+        "puntos_luz": "Punti luce",
+        "enchufes": "Prese elettriche",
+        "lux_recomendados": "Lux raccomandati",
+        "w_led_estimados": "Potenza LED stimata"
+      },
+      "seo_description": "Calcola il numero di punti luce e prese elettriche raccomandati per soggiorno, camera, cucina, bagno e ufficio. Conforme alla normativa CEI 64-8.",
+      "example_label": "Calcolare i punti luce raccomandati per una camera da letto di 16 m² secondo criteri di comfort e normativa CEI.",
+      "range_hints": {
+        "area_m2": "Superficie utile della stanza in m². Per ambienti irregolari usare l'area del rettangolo che li circoscrive",
+        "uso": "Secondo CEI 64-8: soggiorno min 2 punti, camera min 2, cucina min 2 + piano lavoro, bagno min 1, ufficio min 2, garage min 1 punto luce"
+      },
+      "result_context": "Per {area_m2} m² ad uso {uso} si raccomandano {puntos_luz} punti luce, {enchufes} prese elettriche e {lux_recomendados} lux. Potenza LED totale stimata: {w_led_estimados} W.",
+      "formula_display": "Punti luce a soffitto = ceil(area / 8). Distanza max = 1.5 × altezza installazione. Prese = max(2, ceil(perimetro / 3.6)). Distribuzione uniforme per evitare ombre.",
+      "steps": [
+        "Misurare le dimensioni della stanza e calcolare l'area: lunghezza × larghezza in metri",
+        "Identificare il tipo di ambiente per applicare i livelli di lux: camera 150 lx, soggiorno 200 lx, cucina 300 lx, ufficio 400 lx, garage 150 lx",
+        "Calcolare i punti luce a soffitto: 1 punto ogni 8-10 m², con distanza massima tra gli apparecchi ≤ 1.5 × altezza di installazione per mantenere l'uniformità",
+        "Aggiungere punti luce a parete se richiesto dall'uso: lettura in camera, specchio in bagno, piano lavoro in cucina",
+        "Calcolare le prese elettriche minime secondo CEI: 1 presa ogni 3.6 m di perimetro, con un minimo di 2 prese per ambiente"
+      ],
+      "mistakes": [
+        "Non prevedere la commutazione nelle camere: la mancanza di un deviatore dal letto obbliga ad alzarsi per spegnere la luce, violando i criteri base di comfort",
+        "Posizionare l'interruttore dietro la porta: l'interruttore deve trovarsi sul lato di apertura della porta, a un'altezza di 90-110 cm dal pavimento",
+        "Dimenticare punti luce specifici: specchio del bagno (IP44 minimo), piano lavoro cucina sotto pensili, zona lettura in camera da letto",
+        "Non prevedere prese sufficienti: la norma CEI 64-8 richiede minimo 3 prese in soggiorno (>20 m²), 3 in cucina, 2 in camera e 2 in bagno (fuori dal volume di protezione)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "reason": "Corretto: valore numerico continuo"
+        },
+        {
+          "field_id": "uso",
+          "reason": "Corretto: opzione discreta"
+        }
+      ]
+    }
+  }
+}

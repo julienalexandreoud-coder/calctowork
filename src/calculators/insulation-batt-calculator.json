@@ -1,0 +1,299 @@
+{
+  "id": "1105",
+  "slug": "insulation-batt-calculator",
+  "block": 6,
+  "block_slug": "climatizacion",
+  "inputs": [
+    {
+      "id": "wall_length",
+      "type": "number",
+      "min": 0.1,
+      "max": 100,
+      "step": 0.1,
+      "default": 5,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "wall_height",
+      "type": "number",
+      "min": 1,
+      "max": 10,
+      "step": 0.1,
+      "default": 2.7,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "stud_spacing",
+      "type": "select",
+      "options": [
+        {
+          "value": "400",
+          "label": "400mm (16\")"
+        },
+        {
+          "value": "600",
+          "label": "600mm (24\")"
+        }
+      ],
+      "default": "400"
+    },
+    {
+      "id": "roll_width",
+      "type": "number",
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "default": 40,
+      "unit": "cm",
+      "unit_category": "length"
+    },
+    {
+      "id": "roll_length",
+      "type": "number",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "default": 12,
+      "unit": "m",
+      "unit_category": "length"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "wall_area_m2",
+      "unit": "m²",
+      "highlight": true
+    },
+    {
+      "id": "rolls_needed",
+      "unit": "rolls"
+    },
+    {
+      "id": "coverage_per_roll",
+      "unit": "m²"
+    },
+    {
+      "id": "total_linear_meters",
+      "unit": "m"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.wall_length)||0,H=parseFloat(inputs.wall_height)||0,rw=parseFloat(inputs.roll_width)||0.6,rl=parseFloat(inputs.roll_length)||5.5;if(!L||!H)return{error:true};var area=+(L*H).toFixed(2),cpr=+(rw*rl).toFixed(2),rolls=Math.ceil(area/cpr*1.05),tlm=+(rolls*rl).toFixed(1);return{wall_area_m2:area,rolls_needed:rolls,coverage_per_roll:cpr,total_linear_meters:tlm};",
+  "formula_display": "Wall area = Length × Height; Rolls = ceil(area ÷ (roll_width × roll_length) × 1.1)",
+  "result_context": "Wall area: {wall_area_m2} m², rolls needed: {rolls_needed}, coverage per roll: {coverage_per_roll} m²",
+  "example_inputs": {
+    "wall_length": 8,
+    "wall_height": 2.7,
+    "stud_spacing": 40,
+    "roll_width": 38,
+    "roll_length": 10
+  },
+  "steps": [
+    "Wall area: 8 m × 2.7 m = 21.6 m²",
+    "Coverage per roll: 0.38 m × 10 m = 3.8 m²",
+    "Rolls needed: ceil(21.6 ÷ 3.8 × 1.1) = 7 rolls"
+  ],
+  "mistakes": [
+    "Using stud spacing in metres instead of centimetres",
+    "Forgetting to add 10% extra for cuts around windows and doors",
+    "Not checking if the roll width matches your stud spacing"
+  ],
+  "related": [
+    "1115",
+    "1112",
+    "1104",
+    "053"
+  ],
+  "buying_units": {
+    "rolls_needed": [
+      {
+        "label": "Rolls",
+        "factor": 1,
+        "round": "ceil",
+        "unit_suffix": "rolls"
+      }
+    ]
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small room",
+      "wall_length": 4,
+      "roll_width": 30,
+      "roll_length": 10,
+      "wall_height": 2.7
+    },
+    {
+      "_label": "Medium room",
+      "wall_length": 6,
+      "roll_width": 30,
+      "roll_length": 10,
+      "wall_height": 2.7
+    },
+    {
+      "_label": "Large room",
+      "wall_length": 8,
+      "roll_width": 40,
+      "roll_length": 10,
+      "wall_height": 2.7
+    },
+    {
+      "_label": "Office",
+      "wall_length": 12,
+      "roll_width": 55,
+      "roll_length": 10,
+      "wall_height": 2.7
+    },
+    {
+      "_label": "Warehouse",
+      "wall_length": 16,
+      "roll_width": 75,
+      "roll_length": 10,
+      "wall_height": 2.7
+    }
+  ],
+  "units": {
+    "wall_length": "m",
+    "wall_height": "m",
+    "roll_width": "m",
+    "roll_length": "m"
+  },
+  "example_label": "Ejemplo para insulation batt calculator: valores 5m, 2.7m, 40cm, 12m",
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Aislamiento",
+      "desc": "Calculadora 1105. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculadora de Aislamiento – Rollos y Cobertura",
+      "seo_desc": "Calcula cuántos rollos de aislamiento necesitas para tus paredes. Introduce las dimensiones de la pared y el tamaño del rollo para obtener la cantidad exacta.",
+      "seo_description": "Planifica tu proyecto de aislamiento térmico con exactitud. Introduce las dimensiones de pared, separación entre montantes y formato del rollo para saber cuántas unidades comprar.",
+      "inputs": {
+        "wall_length": "Largo de la pared",
+        "wall_height": "Alto de la pared",
+        "stud_spacing": "Separación entre montantes",
+        "roll_width": "Ancho del rollo",
+        "roll_length": "Largo del rollo"
+      },
+      "outputs": {
+        "wall_area_m2": "Área de la pared",
+        "rolls_needed": "Rollos necesarios",
+        "coverage_per_roll": "Cobertura por rollo",
+        "total_linear_meters": "Metros lineales totales"
+      }
+    },
+    "en": {
+      "name": "Insulation Batt Calculator",
+      "desc": "Calculator 1105. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Insulation Batt Calculator – Rolls & Coverage",
+      "seo_desc": "Calculate how many insulation batts or rolls you need for your walls. Enter wall dimensions and roll size to get exact roll count and total coverage area.",
+      "seo_description": "Plan your insulation project with precision. Calculate how many batts or rolls you need based on wall area, stud spacing, and roll dimensions — with instant coverage and waste estimates.",
+      "inputs": {
+        "wall_length": "Wall length",
+        "wall_height": "Wall height",
+        "stud_spacing": "Stud spacing",
+        "roll_width": "Roll width",
+        "roll_length": "Roll length"
+      },
+      "outputs": {
+        "wall_area_m2": "Wall area",
+        "rolls_needed": "Rolls needed",
+        "coverage_per_roll": "Coverage per roll",
+        "total_linear_meters": "Total linear metres"
+      }
+    },
+    "fr": {
+      "name": "Calculatrice d'Isolation",
+      "desc": "Calculateur 1105. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculatrice Isolation – Rouleaux et Couverture",
+      "seo_desc": "Calculez le nombre de rouleaux d'isolation nécessaires. Entrez les dimensions du mur et la taille du rouleau pour obtenir la quantité exacte et la surface couverte.",
+      "seo_description": "Préparez votre chantier d'isolation sans erreur de calcul. Déterminez le nombre de rouleaux nécessaires selon la surface murale, l'espacement des montants et les dimensions du rouleau isolant.",
+      "inputs": {
+        "wall_length": "Longueur du mur",
+        "wall_height": "Hauteur du mur",
+        "stud_spacing": "Espacement des montants",
+        "roll_width": "Largeur du rouleau",
+        "roll_length": "Longueur du rouleau"
+      },
+      "outputs": {
+        "wall_area_m2": "Surface du mur",
+        "rolls_needed": "Rouleaux nécessaires",
+        "coverage_per_roll": "Couverture par rouleau",
+        "total_linear_meters": "Mètres linéaires totaux"
+      }
+    },
+    "pt": {
+      "name": "Calculadora de Isolamento",
+      "desc": "Calculadora 1105. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculadora de Isolamento – Rolos e Cobertura",
+      "seo_desc": "Calcule quantos rolos de isolamento você precisa para suas paredes. Insira as dimensões da parede e o tamanho do rolo para obter a contagem exata de rolos e a área de...",
+      "seo_description": "Planeje o isolamento térmico das suas paredes com precisão. Calcule quantos rolos você precisa com base na área, espaçamento dos montantes e dimensões do rolo — com estimativa de cobertura total.",
+      "inputs": {
+        "wall_length": "Comprimento da parede",
+        "wall_height": "Altura da parede",
+        "stud_spacing": "Espaçamento entre montantes",
+        "roll_width": "Largura do rolo",
+        "roll_length": "Comprimento do rolo"
+      },
+      "outputs": {
+        "wall_area_m2": "Área da parede",
+        "rolls_needed": "Rolos necessários",
+        "coverage_per_roll": "Cobertura por rolo",
+        "total_linear_meters": "Metros lineares totais"
+      }
+    },
+    "de": {
+      "name": "Insulation batt calculator",
+      "desc": "Berechnen Sie insulation batt calculator online. Geben Sie wall length, wall height, stud spacing ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Insulation batt calculator | CalcToWork",
+      "seo_desc": "Insulation batt calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Insulation batt calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "wall_length": "Wall Length",
+        "wall_height": "Wall Height",
+        "stud_spacing": "Stud Spacing",
+        "roll_width": "Roll Width",
+        "roll_length": "Roll Length"
+      },
+      "outputs": {
+        "wall_area_m2": "Wall Area M2",
+        "rolls_needed": "Rolls Needed",
+        "coverage_per_roll": "Coverage Per Roll",
+        "total_linear_meters": "Total Linear Meters"
+      },
+      "example_label": "Ejemplo para insulation batt calculator: valores 5m, 2.7m, 40cm, 12m",
+      "range_hints": {},
+      "result_context": "Wall area: {wall_area_m2} m², rolls needed: {rolls_needed}, coverage per roll: {coverage_per_roll} m²",
+      "formula_display": "Wall area = Length × Height; Rolls = ceil(area ÷ (roll_width × roll_length) × 1.1)",
+      "steps": [
+        "Wall area: 8 m × 2.7 m = 21.6 m²",
+        "Coverage per roll: 0.38 m × 10 m = 3.8 m²",
+        "Rolls needed: ceil(21.6 ÷ 3.8 × 1.1) = 7 rolls"
+      ],
+      "mistakes": [
+        "Using stud spacing in metres instead of centimetres",
+        "Forgetting to add 10% extra for cuts around windows and doors",
+        "Not checking if the roll width matches your stud spacing"
+      ],
+      "input_type_review": []
+    },
+    "it": {
+      "name": "Calcolatore di Isolamento",
+      "desc": "Calcolatore 1105. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calcolatore Isolamento – Rotoli e Copertura",
+      "seo_desc": "Calcola quanti rotoli di isolamento ti servono per le tue pareti. Inserisci le dimensioni della parete e la dimensione del rotolo per ottenere la quantità esatta.",
+      "seo_description": "Pianifica l'isolamento termico delle tue pareti senza sprechi. Inserisci le dimensioni della parete, l'interasse dei montanti e il formato del rotolo per conoscere subito il numero di rotoli necessari.",
+      "inputs": {
+        "wall_length": "Lunghezza parete",
+        "wall_height": "Altezza parete",
+        "stud_spacing": "Interasse montanti",
+        "roll_width": "Larghezza rotolo",
+        "roll_length": "Lunghezza rotolo"
+      },
+      "outputs": {
+        "wall_area_m2": "Area parete",
+        "rolls_needed": "Rotoli necessari",
+        "coverage_per_roll": "Copertura per rotolo",
+        "total_linear_meters": "Metri lineari totali"
+      }
+    }
+  }
+}

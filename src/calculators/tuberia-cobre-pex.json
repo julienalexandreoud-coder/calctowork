@@ -1,0 +1,440 @@
+{
+  "id": "032",
+  "slug": "tuberia-cobre-pex",
+  "block": 4,
+  "block_slug": "fontaneria",
+  "inputs": [
+    {
+      "id": "longitud",
+      "type": "number",
+      "min": 1,
+      "max": 500,
+      "step": 0.5,
+      "default": 25,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "puntos_suministro",
+      "type": "number",
+      "min": 1,
+      "max": 30,
+      "step": 1,
+      "default": 6,
+      "unit": "ud",
+      "unit_options": [
+        "ud"
+      ],
+      "unit_category": "count"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.longitud)||0,ps=parseFloat(inputs.puntos_suministro)||6;if(!L)return{error:true};var l_merma=+(L*1.10).toFixed(1),codos=ps*2,tee=Math.ceil(ps/2),llaves=ps,rollo_50=Math.ceil(l_merma/50);return{longitud_merma_m:l_merma,codos_ud:codos,tee_ud:tee,llaves_escuadra:llaves,rollos_50m:rollo_50};",
+  "outputs": [
+    {
+      "id": "longitud_merma_m",
+      "unit": "m (+10%)",
+      "highlight": true
+    },
+    {
+      "id": "codos_ud",
+      "unit": "codos"
+    },
+    {
+      "id": "tee_ud",
+      "unit": "tes"
+    },
+    {
+      "id": "llaves_escuadra",
+      "unit": "llaves"
+    },
+    {
+      "id": "rollos_50m",
+      "unit": "rollos 50m (PEX)"
+    }
+  ],
+  "related": [
+    "031",
+    "038",
+    "040",
+    "033"
+  ],
+  "example_inputs": {
+    "longitud": 25,
+    "puntos_suministro": 6
+  },
+  "example_label": "Ejemplo para tuberia cobre pex: valores 25m, 6ud",
+  "range_hints": {
+    "longitud": "Longitud total requerida",
+    "puntos_suministro": "Cantidad de unidades"
+  },
+  "result_context": "Resultados: {longitud_merma_m} m de tubería, {codos_ud} codos, {tee_ud} tes, {llaves_escuadra} llaves de escuadra, {rollos_50m} rollos de 50 m.",
+  "formula_display": "ps ÷ 2 → longitud_merma_m, codos_ud",
+  "steps": [
+    "Introducir los valores de longitud y puntos_suministro",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m, cm, mm)",
+    "Calcular los valores de longitud merma m y codos ud",
+    "El resultado se expresa en m (+10%). Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "No respetar la pendiente mínima del 2% en tuberías de saneamiento",
+    "Usar tubería de pared delgada para instalaciones enterradas",
+    "No instalar válvulas de corte en puntos clave de la instalación"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "longitud",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "puntos_suministro",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small bathroom",
+      "longitud": 12.5,
+      "puntos_suministro": 3
+    },
+    {
+      "_label": "Medium bathroom",
+      "longitud": 18.75,
+      "puntos_suministro": 4
+    },
+    {
+      "_label": "Large bathroom",
+      "longitud": 25,
+      "puntos_suministro": 6
+    },
+    {
+      "_label": "Apartment",
+      "longitud": 37.5,
+      "puntos_suministro": 9
+    },
+    {
+      "_label": "House",
+      "longitud": 50,
+      "puntos_suministro": 12
+    }
+  ],
+  "units": {
+    "longitud": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Tubería Cobre y PEX",
+      "desc": "Calcula metros de tubería de cobre o PEX, codos, tes y llaves de escuadra para fontanería Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "Calculadora Tuberías Cobre PEX",
+      "seo_desc": "Calcula metros de tubería de cobre o PEX, codos, tes y llaves de escuadra para fontanería Usado por profesionales y estudiantes en todo el mundo.",
+      "inputs": {
+        "longitud": "Longitud total",
+        "diametro_mm": "Diámetro (mm)",
+        "puntos_suministro": "Puntos de suministro"
+      },
+      "outputs": {
+        "longitud_merma_m": "Longitud (+10%)",
+        "codos_ud": "Codos",
+        "tee_ud": "Tes",
+        "llaves_escuadra": "Llaves de escuadra",
+        "rollos_50m": "Rollos 50m (PEX)"
+      },
+      "seo_description": "Calcula los metros de tubería, codos, tes y llaves de escuadra necesarios para la red de agua fría y caliente de tu vivienda. Compatible con instalaciones de cobre y PEX según CTE DB-HS4.",
+      "example_label": "Calcular tubería de cobre/PEX para instalación de agua con 40m de longitud y 6 puntos de suministro.",
+      "range_hints": {
+        "longitud": "Longitud total de tubería para agua fría/caliente",
+        "puntos_suministro": "Grifos, duchas, inodoros, lavadoras, etc."
+      },
+      "result_context": "Para {longitud}m de tubería con {puntos_suministro} puntos se necesitan {tuberia_m}m de tubo, {accesorios_ud} accesorios y {aislamiento_m}m de aislamiento térmico.",
+      "formula_display": "Tubería = longitud × 1.10 (merma); Accesorios = puntos × 3",
+      "steps": [
+        "Calcular tubería con merma: 40m × 1.10 = 44m",
+        "Estimar accesorios: 6 puntos × 3 = 18 accesorios (válvulas, codos, tes)",
+        "Calcular aislamiento: 40m × 0.80 = 32m (solo agua caliente)",
+        "Diferenciar diámetros: 1/2\" para grifos, 3/4\" para duchas, 1\" para principales"
+      ],
+      "mistakes": [
+        "No aislar tuberías de agua caliente (pérdida de energía)",
+        "Usar diámetro insuficiente (baja presión en puntos alejados)",
+        "No prever llaves de corte por sector para mantenimiento"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "longitud",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "puntos_suministro",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Copper and PEX Pipe Calculator",
+      "desc": "Copper and PEX Pipe Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Copper & PEX Pipe Calculator – Plumbing",
+      "seo_desc": "Copper and PEX Pipe Calculator. Total length, Diameter (mm), Supply points — get Length (+10%), Elbows, Tees instantly for your plumbing and water systems.",
+      "inputs": {
+        "longitud": "Total length",
+        "diametro_mm": "Diameter (mm)",
+        "puntos_suministro": "Supply points"
+      },
+      "outputs": {
+        "longitud_merma_m": "Length (+10%)",
+        "codos_ud": "Elbows",
+        "tee_ud": "Tees",
+        "llaves_escuadra": "Isolating valves",
+        "rollos_50m": "50m rolls (PEX)"
+      },
+      "seo_description": "Calculate pipe length, elbows, tees and stop valves for hot and cold water supply. Compatible with copper and PEX installations per CTE DB-HS4.",
+      "example_label": "Calcular tubería de cobre/PEX para instalación de agua con 40m de longitud y 6 puntos de suministro.",
+      "range_hints": {
+        "longitud": "Longitud total de tubería para agua fría/caliente",
+        "puntos_suministro": "Grifos, duchas, inodoros, lavadoras, etc."
+      },
+      "result_context": "Para {longitud}m de tubería con {puntos_suministro} puntos se necesitan {tuberia_m}m de tubo, {accesorios_ud} accesorios y {aislamiento_m}m de aislamiento térmico.",
+      "formula_display": "Tubería = longitud × 1.10 (merma); Accesorios = puntos × 3",
+      "steps": [
+        "Calcular tubería con merma: 40m × 1.10 = 44m",
+        "Estimar accesorios: 6 puntos × 3 = 18 accesorios (válvulas, codos, tes)",
+        "Calcular aislamiento: 40m × 0.80 = 32m (solo agua caliente)",
+        "Diferenciar diámetros: 1/2\" para grifos, 3/4\" para duchas, 1\" para principales"
+      ],
+      "mistakes": [
+        "No aislar tuberías de agua caliente (pérdida de energía)",
+        "Usar diámetro insuficiente (baja presión en puntos alejados)",
+        "No prever llaves de corte por sector para mantenimiento"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "longitud",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "puntos_suministro",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Tube Cuivre et PER",
+      "desc": "Dimensionnez des tubes en cuivre, PER et multicouche. Calculez le diamètre minimum et la perte de charge avec Darcy-Weisbach.",
+      "seo_title": "Calculateur Cuivre PER – Diamètre et Perte de Charge",
+      "seo_desc": "Calculez le diamètre minimum de tube et la perte de charge pour cuivre, PER ou multicouche. Entrez le débit, la vitesse max et choisissez le matériau. Utilisé par les professionnels.",
+      "inputs": {
+        "caudal": "Débit simultané",
+        "velocidad_max": "Vitesse maximale",
+        "material": "Matériau"
+      },
+      "outputs": {
+        "diametro_min_mm": "Diamètre minimum",
+        "perdida_carga_mbar_m": "Perte de charge",
+        "velocidad_real_ms": "Vitesse réelle",
+        "material": "Matériau"
+      },
+      "seo_description": "Calculez le diamètre minimum avec l'équation de continuité et la perte de charge selon Darcy-Weisbach. Compatible cuivre (rugosité 0.0015 mm), PER (0.007 mm) et multicouche. Selon DTU 60.11 et NF EN 806.",
+      "example_label": "Calculer le diamètre minimum pour tube cuivre avec 30 L/min et vitesse max de 2 m/s.",
+      "range_hints": {
+        "caudal": "Logement type : 20-40 L/min total. Lavabo=6 L/min, douche=12 L/min, baignoire=18 L/min.",
+        "velocidad_max": "Recommandé : 0.5-1 m/s dérivations, 1-2 m/s colonnes, max 3.5 m/s pour éviter le bruit.",
+        "material": "Cuivre (durabilité 50+ ans), PER (flexible, résistant au gel), Multicouche (âme aluminium, dilatation minimale)."
+      },
+      "result_context": "Pour débit de {caudal} L/min à vitesse max {velocidad_max} m/s en {material} : diamètre minimum {diametro_min_mm} mm, perte de charge {perdida_carga_mbar_m} mbar/m, vitesse réelle {velocidad_real_ms} m/s.",
+      "formula_display": "D = √(4Q/πv),  ΔP (mbar/m) selon Darcy-Weisbach avec rugosité du matériau",
+      "steps": [
+        "Déterminer le débit simultané selon le nombre d'appareils (norme NF EN 806)",
+        "Sélectionner la vitesse max : 2 m/s pour conduites générales, 1 m/s pour dérivations",
+        "Choisir le matériau : cuivre (rugosité 0.0015mm), PER (0.007mm), multicouche (0.007mm)",
+        "Calculer le diamètre minimum avec l'équation de continuité : D = √(4Q/πv)",
+        "Vérifier la perte de charge (<20 mbar/m recommandé) avec la formule de Darcy-Weisbach"
+      ],
+      "mistakes": [
+        "Dimensionner uniquement avec le débit maximum sans considérer la simultanéité",
+        "Utiliser un tube cuivre en eau agressive (pH<7) sans protection cathodique",
+        "Ne pas prévoir de dilatation dans les longues sections droites de PER (>10m nécessite une lyre)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "caudal",
+          "reason": "Correct : débit simultané en L/min"
+        },
+        {
+          "field_id": "velocidad_max",
+          "reason": "Correct : vitesse de conception en m/s"
+        },
+        {
+          "field_id": "material",
+          "reason": "Correct : choix du matériau"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Tubulação Cobre e PEX",
+      "desc": "Calcule metros de tubo de cobre ou PEX, cotovelos, tês e registros para hidráulica Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora de Tubulação Cobre e PEX",
+      "inputs": {
+        "longitud": "Comprimento total",
+        "diametro_mm": "Diâmetro (mm)",
+        "puntos_suministro": "Pontos de abastecimento"
+      },
+      "outputs": {
+        "longitud_merma_m": "Comprimento (+10%)",
+        "codos_ud": "Cotovelos",
+        "tee_ud": "Tês",
+        "llaves_escuadra": "Registros",
+        "rollos_50m": "Rolos 50m (PEX)"
+      },
+      "seo_description": "Calcule metros de tubo de cobre ou PEX, cotovelos, tês e registros para hidráulica Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular tubulação de cobre/PEX para instalação de água com 40m de comprimento e 6 puntos de suministro.",
+      "range_hints": {
+        "longitud": "Longitud total de tubulação para água fría/caliente",
+        "puntos_suministro": "Grifos, duchas, inodoros, lavadoras, etc."
+      },
+      "result_context": "Para {comprimento}m de tubulação com {puntos_suministro} puntos são necessários {tuberia_m}m de tubo, {accesorios_ud} accesorios e {aislamiento_m}m de isolamento térmico.",
+      "formula_display": "Tubería = comprimento × 1.10 (merma); Accesorios = puntos × 3",
+      "steps": [
+        "Calcular tubulação com merma: 40m × 1.10 = 44m",
+        "Estimar accesorios: 6 puntos × 3 = 18 accesorios (válvulas, codos, tes)",
+        "Calcular isolamento: 40m × 0.80 = 32m (solo água caliente)",
+        "Diferenciar diámetros: 1/2\" para grifos, 3/4\" para duchas, 1\" para principais"
+      ],
+      "mistakes": [
+        "Não aislar tubulações de água caliente (pérdida de energía)",
+        "Usar diâmetro insuficiente (baja presión em puntos alejados)",
+        "Não prever llaves de corte por sector para manutenção"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "longitud",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "puntos_suministro",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Rohr Kupfer PEX",
+      "desc": "Berechnen Sie rohr Kupfer PEX online. Geben Sie longitud, puntos suministro ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Rohr Kupfer PEX | CalcToWork",
+      "seo_desc": "Rohr Kupfer PEX online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Rohr Kupfer PEX online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "longitud": "Longitud",
+        "puntos_suministro": "Puntos Suministro"
+      },
+      "outputs": {
+        "longitud_merma_m": "Longitud Merma M",
+        "codos_ud": "Codos Ud",
+        "tee_ud": "Tee Ud",
+        "llaves_escuadra": "Llaves Escuadra",
+        "rollos_50m": "Rollos 50m"
+      },
+      "example_label": "Ejemplo para tuberia cobre pex: valores 25m, 6ud",
+      "range_hints": {
+        "longitud": "Longitud total requerida",
+        "puntos_suministro": "Cantidad de unidades"
+      },
+      "result_context": "Resultados: {longitud_merma_m} m de tubería, {codos_ud} codos, {tee_ud} tes, {llaves_escuadra} llaves de escuadra, {rollos_50m} rollos de 50 m.",
+      "formula_display": "ps ÷ 2 → longitud_merma_m, codos_ud",
+      "steps": [
+        "Introducir los valores de longitud y puntos_suministro",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m, cm, mm)",
+        "Calcular los valores de longitud merma m y codos ud",
+        "El resultado se expresa en m (+10%). Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "No respetar la pendiente mínima del 2% en tuberías de saneamiento",
+        "Usar tubería de pared delgada para instalaciones enterradas",
+        "No instalar válvulas de corte en puntos clave de la instalación"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "longitud",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "puntos_suministro",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Tubi Rame e PEX",
+      "desc": "Dimensiona tubi in rame, PEX e multistrato. Calcola il diametro minimo e la perdita di carico con Darcy-Weisbach.",
+      "seo_title": "Calcolatore Rame PEX – Diametro e Perdita di Carico",
+      "seo_desc": "Calcola il diametro minimo del tubo e la perdita di carico per rame, PEX o multistrato. Inserisci portata, velocità massima e scegli il materiale. Usato da professionisti.",
+      "inputs": {
+        "caudal": "Portata simultanea",
+        "velocidad_max": "Velocità massima",
+        "material": "Materiale"
+      },
+      "outputs": {
+        "diametro_min_mm": "Diametro minimo",
+        "perdida_carga_mbar_m": "Perdita di carico",
+        "velocidad_real_ms": "Velocità reale",
+        "material": "Materiale"
+      },
+      "seo_description": "Calcola il diametro minimo con l'equazione di continuità e la perdita di carico con Darcy-Weisbach. Compatibile con rame (rugosità 0.0015 mm), PEX (0.007 mm) e multistrato. Secondo UNI 9182 e UNI EN 806.",
+      "example_label": "Calcolare il diametro minimo per tubo di rame con 30 L/min e velocità massima di 2 m/s.",
+      "range_hints": {
+        "caudal": "Abitazione tipo: 20-40 L/min totale. Lavabo=6 L/min, doccia=12 L/min, vasca=18 L/min.",
+        "velocidad_max": "Consigliato: 0.5-1 m/s derivazioni, 1-2 m/s montanti, max 3.5 m/s per evitare rumore.",
+        "material": "Rame (durabilità 50+ anni), PEX (flessibile, resistente al gelo), Multistrato (anima in alluminio, minima dilatazione)."
+      },
+      "result_context": "Per portata di {caudal} L/min con velocità massima {velocidad_max} m/s in {material}: diametro minimo {diametro_min_mm} mm, perdita di carico {perdida_carga_mbar_m} mbar/m, velocità reale {velocidad_real_ms} m/s.",
+      "formula_display": "D = √(4Q/πv),  ΔP (mbar/m) secondo Darcy-Weisbach con rugosità del materiale",
+      "steps": [
+        "Determinare la portata simultanea in base al numero di apparecchi (norma UNI 9182)",
+        "Selezionare la velocità massima: 2 m/s per tubazioni generali, 1 m/s per derivazioni",
+        "Scegliere il materiale: rame (rugosità 0.0015mm), PEX (0.007mm), multistrato (0.007mm)",
+        "Calcolare il diametro minimo con la formula di continuità: D = √(4Q/πv)",
+        "Verificare la perdita di carico (<20 mbar/m consigliato) con la formula di Darcy-Weisbach"
+      ],
+      "mistakes": [
+        "Dimensionare solo con la portata massima senza considerare la contemporaneità",
+        "Usare tubo di rame in acque aggressive (pH<7) senza protezione catodica",
+        "Non prevedere spazio per la dilatazione in lunghi tratti rettilinei di PEX (>10m necessita lira)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "caudal",
+          "reason": "Corretto: portata simultanea in L/min"
+        },
+        {
+          "field_id": "velocidad_max",
+          "reason": "Corretto: velocità di progetto in m/s"
+        },
+        {
+          "field_id": "material",
+          "reason": "Corretto: selezione del materiale"
+        }
+      ]
+    }
+  }
+}

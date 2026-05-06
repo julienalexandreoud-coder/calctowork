@@ -1,0 +1,471 @@
+{
+  "id": "020",
+  "slug": "cubierta-teja",
+  "block": 2,
+  "block_slug": "mamposteria",
+  "inputs": [
+    {
+      "id": "area_planta",
+      "type": "number",
+      "min": 5,
+      "max": 2000,
+      "step": 0.5,
+      "default": 60,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "pendiente_pct",
+      "type": "number",
+      "min": 10,
+      "max": 60,
+      "step": 1,
+      "default": 30,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    },
+    {
+      "id": "tipo_teja",
+      "type": "select",
+      "default": "arabe",
+      "options": [
+        "arabe",
+        "plana",
+        "mixta"
+      ]
+    }
+  ],
+  "formula": "var Ap=parseFloat(inputs.area_planta)||0,pct=parseFloat(inputs.pendiente_pct)||30,arabe=inputs.tipo_teja==='arabe';if(!Ap)return{error:true};var factor_inc=1/Math.cos(Math.atan(pct/100)),area_real=+(Ap*factor_inc).toFixed(2),tejas_m2=arabe?30:20,tejas=Math.ceil(area_real*tejas_m2*1.07),rastreles=+(area_real*2.5).toFixed(1);return{area_real_m2:area_real,tejas_ud:tejas,rastreles_ml:rastreles};",
+  "outputs": [
+    {
+      "id": "area_real_m2",
+      "unit": "m²",
+      "highlight": true
+    },
+    {
+      "id": "tejas_ud",
+      "unit": "uds (+7% merma)"
+    },
+    {
+      "id": "rastreles_ml",
+      "unit": "m.l."
+    }
+  ],
+  "related": [
+    "015",
+    "011",
+    "065",
+    "012"
+  ],
+  "example_inputs": {
+    "area_planta": 60,
+    "pendiente_pct": 30,
+    "tipo_teja": "arabe"
+  },
+  "example_label": "Calcular tejas para 60 m² × 30 % × arabe.",
+  "range_hints": {
+    "area_planta": "Valor típico entre 5 y 2000. Valor por defecto: 60 m².",
+    "pendiente_pct": "Valor típico entre 10 y 60. Valor por defecto: 30 %.",
+    "tipo_teja": "Seleccionar entre las opciones: arabe, plana, mixta"
+  },
+  "result_context": "Resultados: {area_real_m2} m² de área real, {tejas_ud} tejas, {rastreles_ml} m.l. de rastreles.",
+  "formula_display": "Tejas = área × tejas_por_m²",
+  "steps": [
+    "Introducir los valores de area_planta, pendiente_pct y tipo_teja",
+    "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+    "Aplicar la fórmula: Tejas = área × tejas_por_m²",
+    "El resultado se expresa en m². Verificar que la magnitud es coherente",
+    "Utilizar el resultado para la aplicación práctica correspondiente"
+  ],
+  "mistakes": [
+    "Introducir valores con unidades incorrectas sin verificar la conversión",
+    "Redondear resultados intermedios en lugar del resultado final",
+    "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "area_planta",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "pendiente_pct",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "tipo_teja",
+      "current_type": "select",
+      "recommended_type": "select",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small wall",
+      "area_planta": 30,
+      "pendiente_pct": 15
+    },
+    {
+      "_label": "Medium wall",
+      "area_planta": 45,
+      "pendiente_pct": 22
+    },
+    {
+      "_label": "Large wall",
+      "area_planta": 60,
+      "pendiente_pct": 30
+    },
+    {
+      "_label": "Room",
+      "area_planta": 90,
+      "pendiente_pct": 45
+    },
+    {
+      "_label": "House perimeter",
+      "area_planta": 120,
+      "pendiente_pct": 60
+    }
+  ],
+  "units": {
+    "area_planta": "m²",
+    "pendiente_pct": "%"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Cubierta de Teja",
+      "desc": "Calcula el número de tejas árabes o planas y rastreles para tu cubierta inclinada Usado por profesionales y estudiantes en todo el mundo.",
+      "seo_title": "¿Cuántas Tejas Necesito? Calculadora",
+      "inputs": {
+        "area_planta": "Área en planta",
+        "pendiente_pct": "Pendiente (%)",
+        "tipo_teja": "Tipo de teja"
+      },
+      "outputs": {
+        "area_real_m2": "Área real cubierta",
+        "tejas_ud": "Tejas (+7%)",
+        "rastreles_ml": "Rastreles"
+      },
+      "seo_description": "Calcula el número de tejas árabes o planas y rastreles para tu cubierta inclinada Usado por profesionales y estudiantes en todo el mundo.",
+      "example_label": "Calcular tejas para una cubierta de 80m² en planta con 30% de pendiente usando teja curva.",
+      "range_hints": {
+        "area_planta": "Superficie en planta (proyección horizontal) de la cubierta",
+        "pendiente_pct": "Teja curva: 25-50%, Teja plana: 15-30%, Pizarra: 30-60%"
+      },
+      "result_context": "Cubierta de {area_real} m² reales ({area_planta} m² en planta) requiere {tejas_ud} tejas {tipo_teja} ({tejas_m2} ud/m²), {cumbreras_ud} piezas de cumbrera y {caballetes_ud} caballetes.",
+      "formula_display": "Área_real = área_planta × factor_pendiente; Tejas = área_real × ud/m² según tipo",
+      "steps": [
+        "Calcular factor de pendiente: 30% ≈ 1.044 (coeficiente multiplicador)",
+        "Calcular área real: 80m² × 1.044 = 83.5m² de cubierta",
+        "Teja curva: 83.5m² × 15 ud/m² = 1253 tejas (aprox)",
+        "Aplicar merma 5%: 1253 × 1.05 = 1316 tejas",
+        "Calcular cumbreras: longitud de cumbrera ÷ 0.30m por pieza"
+      ],
+      "mistakes": [
+        "No aplicar coeficiente de pendiente (área real > área en planta)",
+        "Usar pendiente insuficiente para el tipo de teja (puede filtrar)",
+        "No calcular piezas especiales de cumbrera, limas y caballetes"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_planta",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "pendiente_pct",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "tipo_teja",
+          "reason": "Correcto: opción discreta"
+        }
+      ]
+    },
+    "en": {
+      "name": "Roofing Tiles Calculator",
+      "desc": "Roofing Tiles Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "How Many Roof Tiles Do I Need? Online",
+      "seo_desc": "Roofing Tiles Calculator. Plan area, Pitch (%), Tile type — get Actual roof area, Tiles (+7%), Battens instantly for your masonry and enclosures project.",
+      "inputs": {
+        "area_planta": "Plan area",
+        "pendiente_pct": "Pitch (%)",
+        "tipo_teja": "Tile type"
+      },
+      "outputs": {
+        "area_real_m2": "Actual roof area",
+        "tejas_ud": "Tiles (+7%)",
+        "rastreles_ml": "Battens"
+      },
+      "seo_description": "Calculate how many roof tiles and battens you need for a pitched roof. Enter plan area, pitch percentage and tile type (curved, flat or mixed).",
+      "example_label": "Calcular tejas para una cubierta de 80m² en planta con 30% de pendiente usando teja curva.",
+      "range_hints": {
+        "area_planta": "Superficie en planta (proyección horizontal) de la cubierta",
+        "pendiente_pct": "Teja curva: 25-50%, Teja plana: 15-30%, Pizarra: 30-60%"
+      },
+      "result_context": "Cubierta de {area_real} m² reales ({area_planta} m² en planta) requiere {tejas_ud} tejas {tipo_teja} ({tejas_m2} ud/m²), {cumbreras_ud} piezas de cumbrera y {caballetes_ud} caballetes.",
+      "formula_display": "Área_real = área_planta × factor_pendiente; Tejas = área_real × ud/m² según tipo",
+      "steps": [
+        "Calcular factor de pendiente: 30% â‰ˆ 1.044 (coeficiente multiplicador)",
+        "Calcular área real: 80m² × 1.044 = 83.5m² de cubierta",
+        "Teja curva: 83.5m² × 15 ud/m² = 1253 tejas (aprox)",
+        "Aplicar merma 5%: 1253 × 1.05 = 1316 tejas",
+        "Calcular cumbreras: longitud de cumbrera ÷ 0.30m por pieza"
+      ],
+      "mistakes": [
+        "No aplicar coeficiente de pendiente (área real > área en planta)",
+        "Usar pendiente insuficiente para el tipo de teja (puede filtrar)",
+        "No calcular piezas especiales de cumbrera, limas y caballetes"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_planta",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "pendiente_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "tipo_teja",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: opción discreta"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Couverture Tuiles",
+      "desc": "Calculez le nombre de tuiles canal ou plates et les liteaux pour votre toiture en pente Utilise par des professionnels et etudiants dans le monde entier.",
+      "seo_title": "Combien de Tuiles? – Calculateur",
+      "inputs": {
+        "area_planta": "Surface en plan",
+        "pendiente_pct": "Pente (%)",
+        "tipo_teja": "Type de tuile"
+      },
+      "outputs": {
+        "area_real_m2": "Surface réelle toiture",
+        "tejas_ud": "Tuiles (+7%)",
+        "rastreles_ml": "Liteaux"
+      },
+      "seo_description": "Calculez le nombre de tuiles canal ou plates et les liteaux pour votre toiture en pente Utilise par des professionnels et etudiants dans le monde entier.",
+      "example_label": "Calculer tuiles pour une couverture de 80m² dans planta avec 30% de pendiente usando tuile curva.",
+      "range_hints": {
+        "area_planta": "surface dans planta (proyección horizontal) de la couverture",
+        "pendiente_pct": "tuile curva: 25-50%, tuile plana: 15-30%, Pizarra: 30-60%"
+      },
+      "result_context": "couverture de {area_real} m² reales ({area_planta} m² dans planta) nécessite {tejas_ud} tuiles {tipo_teja} ({tejas_m2} ud/m²), {cumbreras_ud} piezas de cumbrera et {caballetes_ud} caballetes.",
+      "formula_display": "Área_real = área_planta × factor_pendiente; tuiles = área_real × ud/m² selon tipo",
+      "steps": [
+        "Calculer factor de pendiente: 30% ≈ 1.044 (coeficiente multiplicador)",
+        "Calculer área real: 80m² × 1.044 = 83.5m² de couverture",
+        "tuile curva: 83.5m² × 15 ud/m² = 1253 tuiles (aprox)",
+        "Aplicar merma 5%: 1253 × 1.05 = 1316 tuiles",
+        "Calculer cumbreras: longueur de cumbrera Á· 0.30m par pieza"
+      ],
+      "mistakes": [
+        "No aplicar coeficiente de pendiente (área real > área dans planta)",
+        "Utiliser pendiente insuffisant pour le tipo de tuile (puede filtrar)",
+        "No Calculer piezas especiales de cumbrera, limas et caballetes"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_planta",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "pendiente_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "tipo_teja",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correct : opción discreta"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Cobertura com Telhas",
+      "desc": "Calcule o número de telhas cerâmicas ou de concreto e ripas para sua cobertura inclinada. Calculo preciso e rapido com metodologia clara.",
+      "seo_title": "Quantas Telhas Preciso? Online",
+      "inputs": {
+        "area_planta": "Área em planta",
+        "pendiente_pct": "Inclinação (%)",
+        "tipo_teja": "Tipo de telha"
+      },
+      "outputs": {
+        "area_real_m2": "Área real cobertura",
+        "tejas_ud": "Telhas (+7%)",
+        "rastreles_ml": "Ripas"
+      },
+      "seo_description": "Calcule o número de telhas cerâmicas ou de concreto e ripas para sua cobertura inclinada. Calculo preciso e rapido com metodologia clara.",
+      "example_label": "Calcular telhas para uma cobertura de 80m² em planta com 30% de pendiente usando telha curva.",
+      "range_hints": {
+        "area_planta": "Superficie em planta (proyección horizontal) da cobertura",
+        "pendiente_pct": "Teja curva: 25-50%, Teja plana: 15-30%, Pizarra: 30-60%"
+      },
+      "result_context": "Cubierta de {area_real} m² reales ({area_planta} m² em planta) requer {tejas_ud} telhas {tipo_teja} ({tejas_m2} ud/m²), {cumbreras_ud} piezas de cumbrera e {caballetes_ud} caballetes.",
+      "formula_display": "Área_real = área_planta × factor_pendiente; Tejas = área_real × ud/m² segundo tipo",
+      "steps": [
+        "Calcular factor de pendiente: 30% ≈ 1.044 (coeficiente multiplicador)",
+        "Calcular área real: 80m² × 1.044 = 83.5m² de cobertura",
+        "Teja curva: 83.5m² × 15 ud/m² = 1253 telhas (aprox)",
+        "Aplicar merma 5%: 1253 × 1.05 = 1316 telhas",
+        "Calcular cumbreras: comprimento de cumbrera ÷ 0.30m por pieza"
+      ],
+      "mistakes": [
+        "Não aplicar coeficiente de pendiente (área real > área em planta)",
+        "Usar pendiente insuficiente para o tipo de telha (pode filtrar)",
+        "Não calcular piezas especiais de cumbrera, limas e caballetes"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_planta",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "pendiente_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "tipo_teja",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correto: opção discreta"
+        }
+      ]
+    },
+    "de": {
+      "name": "Dachziegel teja",
+      "desc": "Berechnen Sie dachziegel teja online. Geben Sie area planta, pendiente pct, tipo teja ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Dachziegel teja | CalcToWork",
+      "seo_desc": "Dachziegel teja online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Dachziegel teja online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "area_planta": "Area Planta",
+        "pendiente_pct": "Pendiente Pct",
+        "tipo_teja": "Tipo Teja"
+      },
+      "outputs": {
+        "area_real_m2": "Area Real M2",
+        "tejas_ud": "Tejas Ud",
+        "rastreles_ml": "Rastreles Ml"
+      },
+      "example_label": "Calcular tejas para 60 m² × 30 % × arabe.",
+      "range_hints": {
+        "area_planta": "Valor típico entre 5 y 2000. Valor por defecto: 60 m².",
+        "pendiente_pct": "Valor típico entre 10 y 60. Valor por defecto: 30 %.",
+        "tipo_teja": "Seleccionar entre las opciones: arabe, plana, mixta"
+      },
+      "result_context": "Resultados: {area_real_m2} m² de área real, {tejas_ud} tejas, {rastreles_ml} m.l. de rastreles.",
+      "formula_display": "Tejas = área × tejas_por_m²",
+      "steps": [
+        "Introducir los valores de area_planta, pendiente_pct y tipo_teja",
+        "Verificar que las unidades sean correctas y convertir si es necesario (m², ft²)",
+        "Aplicar la fórmula: Tejas = área × tejas_por_m²",
+        "El resultado se expresa en m². Verificar que la magnitud es coherente",
+        "Utilizar el resultado para la aplicación práctica correspondiente"
+      ],
+      "mistakes": [
+        "Introducir valores con unidades incorrectas sin verificar la conversión",
+        "Redondear resultados intermedios en lugar del resultado final",
+        "No verificar que el resultado tiene sentido físico o lógico en el contexto del problema"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_planta",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "pendiente_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "tipo_teja",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Sottofondo per Pavimento",
+      "description": "Calcola il materiale per massetti di livellamento.",
+      "seo_title": "Calcolatore Sottofondo per Pavimento",
+      "seo_description": "Calcolatore Sottofondo per Pavimento. Superficie (m²), Spessore (cm) ââ‚¬” ottieni Volume (m³), Sacchi cemento, Sabbia (m³) istantaneamente per il tuo.",
+      "inputs": {
+        "area": "Superficie (m²)",
+        "espesor": "Spessore (cm)"
+      },
+      "outputs": {
+        "volumen": "Volume (m³)",
+        "cemento_sacos": "Sacchi cemento",
+        "arena_m3": "Sabbia (m³)"
+      },
+      "example_label": "Calcolare tegole per una copertura di 80m² in pianta con 30% di pindinza usando tegola curva.",
+      "range_hints": {
+        "area_planta": "Superficie in pianta (proeección orizzontale) dilla copertura",
+        "pendiente_pct": "Teja curva: 25-50%, Teja piana: 15-30%, Pizarra: 30-60%"
+      },
+      "result_context": "Cubierta di {area_real} m² reales ({area_pianta} m² in pianta) richiedi {tegole_ud} tegole {tipo_tegola} ({tegole_m2} ud/m²), {colmos_ud} piezas di colmo e {colmos_ud} colmos.",
+      "formula_display": "Área_real = área_pianta × factor_pindinza; Tejas = área_real × ud/m² según tipo",
+      "steps": [
+        "Calcolare factor di pindinza: 30% ≈ 1.044 (coefficiinte multiplicador)",
+        "Calcolare área real: 80m² × 1.044 = 83.5m² di copertura",
+        "Teja curva: 83.5m² × 15 ud/m² = 1253 tegole (aprox)",
+        "Applicare merma 5%: 1253 × 1.05 = 1316 tegole",
+        "Calcolare colmos: lunghezza di colmo ÷ 0.30m per pieza"
+      ],
+      "mistakes": [
+        "No aplicar coefficiinte di pindinza (área real > área in pianta)",
+        "Usare pindinza insufficiinte per el tipo di tegola (puedi filtrar)",
+        "No calcolare piezas especiales di colmo, limas e colmos"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_planta",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "pendiente_pct",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "tipo_teja",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Corretto: opción discreta"
+        }
+      ]
+    }
+  }
+}

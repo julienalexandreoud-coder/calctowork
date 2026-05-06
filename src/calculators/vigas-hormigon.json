@@ -1,0 +1,587 @@
+{
+  "id": "006",
+  "slug": "vigas-hormigon",
+  "block": 1,
+  "block_slug": "estructuras",
+  "inputs": [
+    {
+      "id": "ancho",
+      "type": "number",
+      "min": 0.1,
+      "max": 2,
+      "step": 0.05,
+      "default": 0.25,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "canto",
+      "type": "number",
+      "min": 0.2,
+      "max": 2,
+      "step": 0.05,
+      "default": 0.5,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "longitud",
+      "type": "number",
+      "min": 0.5,
+      "max": 30,
+      "step": 0.1,
+      "default": 5,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "cantidad",
+      "type": "number",
+      "min": 1,
+      "max": 500,
+      "step": 1,
+      "default": 4,
+      "unit": "ud",
+      "unit_options": [
+        "ud"
+      ],
+      "unit_category": "count"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.ancho)||0,C=parseFloat(inputs.canto)||0,L=parseFloat(inputs.longitud)||0,n=parseFloat(inputs.cantidad)||1;if(!A||!C||!L)return{error:true};var v1=A*C*L,vT=v1*n,bags=Math.ceil(vT*7),acero=+(vT*140).toFixed(0),enc=+(2*(A+C)*L*n).toFixed(2);return{vol_unitario:+v1.toFixed(3),vol_total:+vT.toFixed(3),cemento_sacos:bags,acero_kg:acero,encofrado_m2:enc};",
+  "outputs": [
+    {
+      "id": "vol_unitario",
+      "unit": "m³/ud"
+    },
+    {
+      "id": "vol_total",
+      "unit": "m³",
+      "highlight": true
+    },
+    {
+      "id": "cemento_sacos",
+      "unit": "sacos 50kg"
+    },
+    {
+      "id": "acero_kg",
+      "unit": "kg"
+    },
+    {
+      "id": "encofrado_m2",
+      "unit": "m²"
+    }
+  ],
+  "related": [
+    "005",
+    "007",
+    "002",
+    "003"
+  ],
+  "example_inputs": {
+    "ancho": 0.25,
+    "canto": 0.5,
+    "longitud": 5,
+    "cantidad": 4
+  },
+  "example_label": "Calcular materiales para vigas de hormigón de 0.25 m × 0.5 m × 5 m × 4 ud.",
+  "range_hints": {
+    "ancho": "Medida típica según el proyecto",
+    "canto": "Medida lineal en m según plano",
+    "longitud": "Longitud total requerida",
+    "cantidad": "Número de unidades necesarias"
+  },
+  "result_context": "Resultados: {vol_unitario} m³ por unidad, {vol_total} m³, {cemento_sacos} sacos de cemento, {acero_kg} kg de acero, {encofrado_m2} m² de encofrado.",
+  "formula_display": "Volumen = largo × ancho × espesor",
+  "steps": [
+    "Multiplicar 1m × 0.25m = 0.25m² de área",
+    "Multiplicar 0.25m² × 1m = 0.25m³ de volumen",
+    "Calcular cemento: 0.25m³ × 7 = 2 sacos",
+    "Calcular arena: 0.16m³",
+    "Calcular grava: 0.23m³"
+  ],
+  "mistakes": [
+    "Usar espesor insuficiente que puede causar grietas",
+    "No considerar el 5-10% de desperdicio",
+    "Confundir metros cúbicos con metros cuadrados"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "ancho",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "canto",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "longitud",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "cantidad",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Caso 1",
+      "ancho": 0.1,
+      "canto": 0.2,
+      "longitud": 2.0,
+      "cantidad": 1.6
+    },
+    {
+      "_label": "Caso 2",
+      "ancho": 0.17,
+      "canto": 0.35,
+      "longitud": 3.5,
+      "cantidad": 2.8
+    },
+    {
+      "_label": "Caso 3",
+      "ancho": 0.25,
+      "canto": 0.5,
+      "longitud": 5.0,
+      "cantidad": 4.0
+    },
+    {
+      "_label": "Caso 4",
+      "ancho": 0.38,
+      "canto": 0.75,
+      "longitud": 7.5,
+      "cantidad": 6.0
+    },
+    {
+      "_label": "Caso 5",
+      "ancho": 0.62,
+      "canto": 1.25,
+      "longitud": 12.5,
+      "cantidad": 10.0
+    }
+  ],
+  "units": {
+    "ancho": "m",
+    "canto": "m",
+    "longitud": "m"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Vigas de Hormigón",
+      "desc": "Calcula el volumen de hormigón, acero y encofrado para vigas. Herramienta para estructuristas y constructores. Introduce tus valores y obtiene resultados.",
+      "seo_title": "Calculadora de Vigas de Hormigón — Materiales y Volumen",
+      "inputs": {
+        "ancho": "Ancho viga",
+        "canto": "Canto viga",
+        "longitud": "Longitud viga",
+        "cantidad": "Número de vigas"
+      },
+      "outputs": {
+        "vol_unitario": "Volumen unitario",
+        "vol_total": "Volumen total",
+        "cemento_sacos": "Sacos cemento",
+        "acero_kg": "Acero",
+        "encofrado_m2": "Encofrado"
+      },
+      "seo_description": "Calcula el volumen de hormigón, acero y encofrado para vigas. Herramienta para estructuristas y constructores. Introduce tus valores y obtiene resultados.",
+      "example_label": "Calcular materiales para 4 vigas de hormigón armado de 25cm de ancho, 50cm de canto y 5m de longitud.",
+      "range_hints": {
+        "ancho": "Vigas típicas: 0.20-0.40m según luz y cargas",
+        "canto": "Relación luz/canto ≈ 12-15: para 5m de luz, canto ≈ 0.35-0.45m",
+        "longitud": "Longitud de la viga entre apoyos",
+        "cantidad": "Número de vigas del mismo tipo"
+      },
+      "result_context": "Cada viga requiere {vol_unitario} m³. Total: {vol_total} m³ de hormigón, {cemento_sacos} sacos de cemento, {acero_kg} kg de acero y {encofrado_m2} m² de encofrado.",
+      "formula_display": "Vol_unitario = ancho × canto × longitud; Vol_total = vol_unitario × cantidad",
+      "steps": [
+        "Calcular volumen unitario: 0.25m × 0.50m × 5m = 0.625m³ por viga",
+        "Calcular volumen total: 0.625m³ × 4 = 2.5m³",
+        "Calcular cemento: 2.5m³ × 7 = 17.5 → 18 sacos",
+        "Calcular acero: 2.5m³ × 140 kg/m³ = 350 kg",
+        "Calcular encofrado: 2(0.25+0.50)×5×4 = 30m² (sin contar base si apoya sobre muro)"
+      ],
+      "mistakes": [
+        "No calcular correctamente el canto según la luz (vigas muy esbeltas se deforman)",
+        "Colocar mal el acero de tracción (debe ir en la zona inferior en vigas simplemente apoyadas)",
+        "No prever anclajes adecuados en los apoyos de la viga"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "ancho",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "canto",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "longitud",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "cantidad",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "en": {
+      "name": "Concrete Beam Calculator",
+      "desc": "Calculate materials for reinforced concrete beams.",
+      "seo_title": "Concrete Beam Calculator ? Rebar, Cement & Volume",
+      "seo_desc": "Ordering concrete for structural beams? Enter beam width, depth, length and quantity to calculate volume, cement bags, steel weight and formwork area.",
+      "inputs": {
+        "ancho": "Beam width",
+        "canto": "Beam depth",
+        "longitud": "Beam length",
+        "cantidad": "Number of beams"
+      },
+      "outputs": {
+        "vol_unitario": "Unit volume",
+        "vol_total": "Total volume",
+        "cemento_sacos": "Cement bags",
+        "acero_kg": "Steel",
+        "encofrado_m2": "Formwork"
+      },
+      "seo_description": "Calculate concrete volume and materials for reinforced concrete beams. Enter beam dimensions and quantity for accurate material ordering.",
+      "example_label": "Calcular materiales para 4 vigas de hormigón armado de 25cm de ancho, 50cm de canto y 5m de longitud.",
+      "range_hints": {
+        "ancho": "Vigas típicas: 0.20-0.40m según luz y cargas",
+        "canto": "Relación luz/canto â‰ˆ 12-15: para 5m de luz, canto â‰ˆ 0.35-0.45m",
+        "longitud": "Longitud de la viga entre apoyos",
+        "cantidad": "Número de vigas del mismo tipo"
+      },
+      "result_context": "Cada viga requiere {vol_unitario} m³. Total: {vol_total} m³ de hormigón, {cemento_sacos} sacos de cemento, {acero_kg} kg de acero y {encofrado_m2} m² de encofrado.",
+      "formula_display": "Vol_unitario = ancho × canto × longitud; Vol_total = vol_unitario × cantidad",
+      "steps": [
+        "Calcular volumen unitario: 0.25m × 0.50m × 5m = 0.625m³ por viga",
+        "Calcular volumen total: 0.625m³ × 4 = 2.5m³",
+        "Calcular cemento: 2.5m³ × 7 = 17.5 â†’ 18 sacos",
+        "Calcular acero: 2.5m³ × 140 kg/m³ = 350 kg",
+        "Calcular encofrado: 2(0.25+0.50)×5×4 = 30m² (sin contar base si apoya sobre muro)"
+      ],
+      "mistakes": [
+        "No calcular correctamente el canto según la luz (vigas muy esbeltas se deforman)",
+        "Colocar mal el acero de tracción (debe ir en la zona inferior en vigas simplemente apoyadas)",
+        "No prever anclajes adecuados en los apoyos de la viga"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "canto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "longitud",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        },
+        {
+          "field_id": "cantidad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Poutres en Béton",
+      "desc": "Calculez les matériaux pour poutres en béton armé.",
+      "seo_title": "Calculateur Poutre Béton — Acier, Ciment et Volume",
+      "inputs": {
+        "ancho": "Largeur poutre",
+        "canto": "Hauteur poutre",
+        "longitud": "Longueur poutre",
+        "cantidad": "Nombre de poutres"
+      },
+      "outputs": {
+        "vol_unitario": "Volume unitaire",
+        "vol_total": "Volume total",
+        "cemento_sacos": "Sacs ciment",
+        "acero_kg": "Acier",
+        "encofrado_m2": "Coffrage"
+      },
+      "seo_description": "Calculez le volume de béton, acier et coffrage pour poutres. Inclut le facteur de perte pour les commandes. Utilise par des professionnels et etudiants.",
+      "example_label": "Calculer les matériaux pour 4 poutres de béton armé de 25cm de largeur, 50cm de hauteur et 5m de longueur.",
+      "range_hints": {
+        "ancho": "poutres típicas: 0.20-0.40m selon luz et cargas",
+        "canto": "Relación luz/hauteur â‰ˆ 12-15: pour 5m de luz, hauteur â‰ˆ 0.35-0.45m",
+        "longitud": "longueur de la poutre entre apoyos",
+        "cantidad": "Número de poutres du même tipo"
+      },
+      "result_context": "Chaque poutre nécessite {vol_unitario} m³. total: {vol_total} m³ de béton, {cemento_sacos} sacs de ciment, {acero_kg} kg de acier et {encofrado_m2} m² de coffrage.",
+      "formula_display": "Vol_unitario = largeur × hauteur × longueur; Vol_total = vol_unitario × quantité",
+      "steps": [
+        "Calculer le volume unitaire: 0.25m × 0.50m × 5m = 0.625m³ par poutre",
+        "Calculer le volume total: 0.625m³ × 4 = 2.5m³",
+        "Calculer le ciment: 2.5m³ × 7 = 17.5 â†’ 18 sacs",
+        "Calculer l'acier: 2.5m³ × 140 kg/m³ = 350 kg",
+        "Calculer coffrage: 2(0.25+0.50)×5×4 = 30m² (sans contar base si apoya sur mur)"
+      ],
+      "mistakes": [
+        "No Calculer correctamente le hauteur selon la luz (poutres muy esbeltas se deforman)",
+        "Colocar mal le acier de tracción (debe ir dans la zona inferior dans poutres simplemente apoyadas)",
+        "No prever anclajes adecuados dans les apoyos de la poutre"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "canto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "longitud",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        },
+        {
+          "field_id": "cantidad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correct : valeur continue avec décimales"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Vigas de Concreto",
+      "desc": "Calcule o volume de concreto, aço e forma para vigas. Inclui fator de desperdicio para pedidos. Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora de Vigas de Concreto — Aço, Cimento e Volume",
+      "inputs": {
+        "ancho": "Largura viga",
+        "canto": "Altura viga",
+        "longitud": "Comprimento viga",
+        "cantidad": "Número de vigas"
+      },
+      "outputs": {
+        "vol_unitario": "Volume unitário",
+        "vol_total": "Volume total",
+        "cemento_sacos": "Sacos cimento",
+        "acero_kg": "Aço",
+        "encofrado_m2": "Forma"
+      },
+      "seo_description": "Calcule o volume de concreto, aço e forma para vigas. Inclui fator de desperdicio para pedidos. Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Calcular materiais para 4 vigas de betão armado de 25cm de largura, 50cm de altura e 5m de longitud.",
+      "range_hints": {
+        "ancho": "Vigas típicas: 0.20-0.40m segundo vão e cargas",
+        "canto": "Relación luz/canto â‰ˆ 12-15: para 5m de vão, altura â‰ˆ 0.35-0.45m",
+        "longitud": "Longitud da viga entre apoyos",
+        "cantidad": "Número de vigas do mismo tipo"
+      },
+      "result_context": "Cada viga requer {vol_unitario} m³. Total: {vol_total} m³ de betão, {cemento_sacos} sacos de cimento, {acero_kg} kg de aço e {encofrado_m2} m² de encofrado.",
+      "formula_display": "Vol_unitario = largura × altura × comprimento; Vol_total = vol_unitario × quantidade",
+      "steps": [
+        "Calcular volume unitário: 0.25m × 0.50m × 5m = 0.625m³ por viga",
+        "Calcular volume total: 0.625m³ × 4 = 2.5m³",
+        "Calcular cimento: 2.5m³ × 7 = 17.5 â†’ 18 sacos",
+        "Calcular aço: 2.5m³ × 140 kg/m³ = 350 kg",
+        "Calcular cofragem: 2(0.25+0.50)×5×4 = 30m² (sem contar base si apoya sobre muro)"
+      ],
+      "mistakes": [
+        "Não calcular correctamente o altura segundo a vão (vigas muy esbeltas se deforman)",
+        "Colocar mal o aço de tração (deve ir na zona inferior em vigas simplesmente apoyadas)",
+        "Não prever anclajes adequados nos apoyos da viga"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "canto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "longitud",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        },
+        {
+          "field_id": "cantidad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correto: valor contínuo com decimais"
+        }
+      ]
+    },
+    "de": {
+      "name": "Balken Beton",
+      "desc": "Berechnen Sie balken Beton online. Geben Sie ancho, canto, longitud ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Balken Beton | CalcToWork",
+      "seo_desc": "Balken Beton online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Balken Beton online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "ancho": "Ancho",
+        "canto": "Canto",
+        "longitud": "Longitud",
+        "cantidad": "Cantidad"
+      },
+      "outputs": {
+        "vol_unitario": "Vol Unitario",
+        "vol_total": "Vol Total",
+        "cemento_sacos": "Cemento Sacos",
+        "acero_kg": "Acero Kg",
+        "encofrado_m2": "Encofrado M2"
+      },
+      "example_label": "Calcular materiales para vigas de hormigón de 0.25 m × 0.5 m × 5 m × 4 ud.",
+      "range_hints": {
+        "ancho": "Medida típica según el proyecto",
+        "canto": "Medida lineal en m según plano",
+        "longitud": "Longitud total requerida",
+        "cantidad": "Número de unidades necesarias"
+      },
+      "result_context": "Resultados: {vol_unitario} m³ por unidad, {vol_total} m³, {cemento_sacos} sacos de cemento, {acero_kg} kg de acero, {encofrado_m2} m² de encofrado.",
+      "formula_display": "Volumen = largo × ancho × espesor",
+      "steps": [
+        "Multiplicar 1m × 0.25m = 0.25m² de área",
+        "Multiplicar 0.25m² × 1m = 0.25m³ de volumen",
+        "Calcular cemento: 0.25m³ × 7 = 2 sacos",
+        "Calcular arena: 0.16m³",
+        "Calcular grava: 0.23m³"
+      ],
+      "mistakes": [
+        "Usar espesor insuficiente que puede causar grietas",
+        "No considerar el 5-10% de desperdicio",
+        "Confundir metros cúbicos con metros cuadrados"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "canto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "longitud",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "cantidad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Muro di Ritegno",
+      "description": "Calcola il volume e i materiali per muri di ritegno in calcestruzzo.",
+      "seo_title": "Calcolatore Trave in Calcestruzzo — Acciaio e Volume",
+      "seo_description": "Stima il calcestruzzo necessario per muri di ritegno. Gratuito. Include fattore di scarto per gli ordini. Usato da professionisti e studenti in tutto il.",
+      "inputs": {
+        "largo": "Lunghezza (m)",
+        "alto": "Altezza (m)",
+        "espesor_base": "Spessore base (m)",
+        "espesor_fuste": "Spessore fusto (m)"
+      },
+      "outputs": {
+        "volumen": "Volume (m³)",
+        "cemento_sacos": "Sacchi cemento",
+        "acero_kg": "Acciaio (kg)"
+      },
+      "example_label": "Calcolare opacoriales per 4 travi di hormigón armado di 25cm di larghezza, 50cm di canto e 5m di lunghezza.",
+      "range_hints": {
+        "ancho": "Travi típicas: 0.20-0.40m según luz e carichi",
+        "canto": "Relación luz/canto ≈ 12-15: per 5m di luz, canto ≈ 0.35-0.45m",
+        "longitud": "Longitud dilla trave intre apoeos",
+        "cantidad": "Número di travi dil mismo tipo"
+      },
+      "result_context": "Cada trave richiedi {vol_unitario} m³. Total: {vol_totale} m³ di hormigón, {ceminto_sacos} sacos di ceminto, {acciaio_kg} kg di acciaio e {cassero_m2} m² di cassero.",
+      "formula_display": "Vol_unitario = larghezza × canto × lunghezza; Vol_totale = vol_unitario × quantità",
+      "steps": [
+        "Calcolare volume unitario: 0.25m × 0.50m × 5m = 0.625m³ per trave",
+        "Calcolare volume totale: 0.625m³ × 4 = 2.5m³",
+        "Calcolare ceminto: 2.5m³ × 7 = 17.5 → 18 sacos",
+        "Calcolare acciaio: 2.5m³ × 140 kg/m³ = 350 kg",
+        "Calcolare cassero: 2(0.25+0.50)×5×4 = 30m² (senza contar base se apoea su muro)"
+      ],
+      "mistakes": [
+        "No calcolare correttaminte el canto según la luz (travi molto esbeltas se diforman)",
+        "Colocar mal el acciaio di tracción (dibe ir in la zona inferiore in travi sempleminte apoeadas)",
+        "No prever anclajes adiguati in i apoeos dilla trave"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "ancho",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "canto",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "longitud",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        },
+        {
+          "field_id": "cantidad",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Corretto: valore continuo con dicimali"
+        }
+      ]
+    }
+  }
+}

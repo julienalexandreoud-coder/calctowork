@@ -1,0 +1,511 @@
+{
+  "id": "427",
+  "slug": "tasa-metabolica-basal-mifflin",
+  "block": 10,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "weight",
+      "type": "number",
+      "step": "any",
+      "default": 70,
+      "unit": "kg",
+      "unit_options": [
+        "kg",
+        "lb"
+      ],
+      "unit_category": "mass"
+    },
+    {
+      "id": "height",
+      "type": "number",
+      "step": "any",
+      "default": 175,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "ft"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "age",
+      "type": "number",
+      "step": 1,
+      "default": 30,
+      "unit": "yr",
+      "unit_options": [
+        "yr"
+      ],
+      "unit_category": "time"
+    },
+    {
+      "id": "gender",
+      "type": "select",
+      "options": [
+        {
+          "value": "male",
+          "label": "Male / Masculino"
+        },
+        {
+          "value": "female",
+          "label": "Female / Femenino"
+        }
+      ],
+      "default": "male",
+      "unit": "",
+      "unit_options": [],
+      "unit_category": ""
+    }
+  ],
+  "formula": "var w=parseFloat(inputs.weight)||0;var h=parseFloat(inputs.height)||0;var a=parseFloat(inputs.age)||0;var g=inputs.gender||'male';var bmr=g==='male'?(10*w+6.25*h-5*a+5):(10*w+6.25*h-5*a-161);return{bmr:bmr.toFixed(0)};",
+  "outputs": [
+    {
+      "id": "bmr",
+      "unit": "kcal"
+    }
+  ],
+  "related": [
+    "426",
+    "400",
+    "428",
+    "415"
+  ],
+  "example_inputs": {
+    "weight": 70,
+    "height": 175,
+    "age": 30,
+    "gender": "male"
+  },
+  "example_label": "Ejemplo para tasa metabolica basal mifflin: valores 70kg, 175cm, 30yr",
+  "range_hints": {
+    "weight": "Valor típico entre 0 y 500. Valor por defecto: 70 kg.",
+    "height": "Valor típico entre 0 y 500. Valor por defecto: 175 cm.",
+    "age": "Valor típico entre 0 y 500. Valor por defecto: 30 yr.",
+    "gender": "Seleccionar entre las opciones: male, female"
+  },
+  "result_context": "Tu tasa metabólica basal según Mifflin-St Jeor es de {bmr} kcal/día.",
+  "result_context_en": "Your basal metabolic rate according to Mifflin-St Jeor is {bmr} kcal/day.",
+  "result_context_fr": "Votre métabolisme basal selon Mifflin-St Jeor est de {bmr} kcal/jour.",
+  "result_context_pt": "Sua taxa metabólica basal segundo Mifflin-St Jeor é de {bmr} kcal/dia.",
+  "result_context_de": "Ihr Grundumsatz nach Mifflin-St Jeor beträgt {bmr} kcal/Tag.",
+  "result_context_it": "Il tuo metabolismo basale secondo Mifflin-St Jeor è di {bmr} kcal/giorno.",
+  "formula_display": "Bmr (kcal) = f(weight, height, age, gender)",
+  "steps": [
+    "Introducir los valores de weight, height, age y gender",
+    "Verificar que las unidades sean correctas y convertir si es necesario (kg, lb)",
+    "Realizar el cálculo para obtener bmr",
+    "El resultado se expresa en kcal. Verificar que la magnitud es coherente",
+    "Comparar el resultado con los valores de referencia para interpretar su significado"
+  ],
+  "mistakes": [
+    "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+    "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+    "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "weight",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "height",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "age",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "gender",
+      "current_type": "select",
+      "recommended_type": "select",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "weight": 35,
+      "height": 88,
+      "age": 30
+    },
+    {
+      "_label": "Teen",
+      "weight": 52,
+      "height": 131,
+      "age": 30
+    },
+    {
+      "_label": "Adult (F)",
+      "weight": 70,
+      "height": 175,
+      "age": 30
+    },
+    {
+      "_label": "Adult (M)",
+      "weight": 105,
+      "height": 262,
+      "age": 30
+    },
+    {
+      "_label": "Elderly",
+      "weight": 140,
+      "height": 350,
+      "age": 30
+    }
+  ],
+  "units": {
+    "weight": "kg",
+    "height": "m",
+    "age": "s"
+  },
+  "i18n": {
+    "es": {
+      "name": "Tasa Metabólica Basal (Mifflin-St Jeor)",
+      "description": "Calcula tu metabolismo basal con la fórmula de Mifflin-St Jeor.",
+      "inputs": {
+        "weight": "Peso",
+        "height": "Altura",
+        "age": "Edad",
+        "gender": "Sexo"
+      },
+      "outputs": {
+        "bmr": "BMR kcal"
+      },
+      "seo_title": "Tasa Metabólica Basal (Mifflin-St Jeor) Gratuita",
+      "seo_description": "Calcula tu metabolismo basal con la fórmula de Mifflin-St Jeor. Calculadora gratuita, precisa e instantánea. Calculo preciso y rapido con metodologia.",
+      "example_label": "Calcular tasa metabólica basal (Mifflin) para hombre de 70kg, 175cm, 30 años",
+      "range_hints": {
+        "weight": "Peso común: 45-120 kg",
+        "height": "Altura común: 140-200 cm",
+        "age": "Edad típica: 18-80 yr"
+      },
+      "result_context": "Mifflin-St Jeor es la ecuación más validada clínicamente; precisión ±10% para población general.",
+      "formula_display": "Hombre: BMR = 10 × peso + 6.25 × altura - 5 × edad + 5; Mujer: BMR = 10 × peso + 6.25 × altura - 5 × edad - 161",
+      "steps": [
+        "El calculador aplica la fórmula automáticamente y muestra resultados"
+      ],
+      "mistakes": [
+        "No verificar que weight estén en unidades correctas antes de calcular",
+        "Redondear valores intermedios antes del cálculo final (pierde precisión)",
+        "Aplicar resultados sin considerar contexto individual o condiciones especiales"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "weight",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "height",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "age",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "gender",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "en": {
+      "name": "BMR Calculator (Mifflin-St Jeor)",
+      "description": "Calculate basal metabolic rate using the Mifflin-St Jeor equation.",
+      "inputs": {
+        "weight": "Weight",
+        "height": "Height",
+        "age": "Age",
+        "gender": "Gender"
+      },
+      "outputs": {
+        "bmr": "BMR kcal"
+      },
+      "seo_title": "BMR Calculator (Mifflin-St Jeor)",
+      "seo_description": "Calculate basal metabolic rate using the Mifflin-St Jeor equation. Free, accurate and instant calculator. Accurate, fast calculation with clear.",
+      "example_label": "Calcular tasa metabólica basal (Mifflin) para hombre de 70kg, 175cm, 30 años",
+      "range_hints": {
+        "weight": "Peso común: 45-120 kg",
+        "height": "Altura común: 140-200 cm",
+        "age": "Edad típica: 18-80 yr"
+      },
+      "result_context": "Mifflin-St Jeor es la ecuación más validada clínicamente; precisión ±10% para población general.",
+      "formula_display": "Hombre: BMR = 10 × peso + 6.25 × altura - 5 × edad + 5; Mujer: BMR = 10 × peso + 6.25 × altura - 5 × edad - 161",
+      "steps": [
+        "El calculador aplica la fórmula automáticamente y muestra resultados"
+      ],
+      "mistakes": [
+        "No verificar que weight estén en unidades correctas antes de calcular",
+        "Redondear valores intermedios antes del cálculo final (pierde precisión)",
+        "Aplicar resultados sin considerar contexto individual o condiciones especiales"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "weight",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "height",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "age",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "gender",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Taux Métabolique de Base",
+      "description": "Calculez le taux métabolique de base avec Mifflin-St Jeor.",
+      "inputs": {
+        "weight": "Poids",
+        "height": "Taille",
+        "age": "Âge",
+        "gender": "Sexe"
+      },
+      "outputs": {
+        "bmr": "BMR kcal"
+      },
+      "seo_title": "Taux Métabolique de Base – Étape par Étape",
+      "seo_description": "Calculez le taux métabolique de base avec Mifflin-St Jeor. Calculateur gratuit, précis et instantané. Avec exemples resolus.",
+      "example_label": "Calculer tasa metabólica basal (Mifflin) pour hombre de 70kg, 175cm, 30 años",
+      "range_hints": {
+        "weight": "Peso común: 45-120 kg",
+        "height": "hauteur común: 140-200 cm",
+        "age": "Edad typique: 18-80 yr"
+      },
+      "result_context": "Mifflin-St Jeor es la ecuación plus validada clínicamente; precisión ±10% pour población general.",
+      "formula_display": "Hombre: BMR = 10 × peso + 6.25 × hauteur - 5 × edad + 5; Mujer: BMR = 10 × peso + 6.25 × hauteur - 5 × edad - 161",
+      "steps": [
+        "le calculador aplica la fórmula automáticamente et muestra resultados"
+      ],
+      "mistakes": [
+        "Ne pas vérifier que weight estén dans unités correctas antes de Calculer",
+        "Redondear valores intermedios antes du cálculo final (pierde precisión)",
+        "Aplicar resultados sans considerar contexto individuel o condiciones especiales"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "weight",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "height",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "age",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        },
+        {
+          "field_id": "gender",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Taxa Metabólica Basal",
+      "description": "Calcule a taxa metabólica basal usando a equação de Mifflin-St Jeor.",
+      "inputs": {
+        "weight": "Peso",
+        "height": "Altura",
+        "age": "Idade",
+        "gender": "Sexo"
+      },
+      "outputs": {
+        "bmr": "BMR kcal"
+      },
+      "seo_title": "Taxa Metabólica Basal – Passo a Passo",
+      "seo_description": "Calcule a taxa metabólica basal usando a equação de Mifflin-St Jeor. Calculadora gratuita, precisa e instantânea. Calculo preciso e rapido com.",
+      "example_label": "Calcular tasa metabólica basal (Mifflin) para hombre de 70kg, 175cm, 30 años",
+      "range_hints": {
+        "weight": "Peso comum: 45-120 kg",
+        "height": "Altura comum: 140-200 cm",
+        "age": "Edad típica: 18-80 yr"
+      },
+      "result_context": "Mifflin-St Jeor é a ecuación mais validada clínicamente; precisión ±10% para población general.",
+      "formula_display": "Hombre: BMR = 10 × peso + 6.25 × altura - 5 × edad + 5; Mujer: BMR = 10 × peso + 6.25 × altura - 5 × edad - 161",
+      "steps": [
+        "El calculador aplica a fórmula automáticamente e muestra resultados"
+      ],
+      "mistakes": [
+        "Não verificar que weight estén em unidades correctas antes de calcular",
+        "Redondear valores intermedios antes do cálculo final (pierde precisión)",
+        "Aplicar resultados sem considerar contexto individual o condiciones especiais"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "weight",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        },
+        {
+          "field_id": "height",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        },
+        {
+          "field_id": "age",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        },
+        {
+          "field_id": "gender",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Tipo atual é apropiado"
+        }
+      ]
+    },
+    "de": {
+      "name": "Tasa metabolica Grundumsatz mifflin",
+      "desc": "Berechnen Sie tasa metabolica Grundumsatz mifflin online. Geben Sie weight, height, age ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Tasa metabolica Grundumsatz mifflin | CalcToWork",
+      "seo_desc": "Tasa metabolica Grundumsatz mifflin online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Tasa metabolica Grundumsatz mifflin online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "weight": "Weight",
+        "height": "Height",
+        "age": "Age",
+        "gender": "Gender"
+      },
+      "outputs": {
+        "bmr": "Bmr"
+      },
+      "example_label": "Ejemplo para tasa metabolica basal mifflin: valores 70kg, 175cm, 30yr",
+      "range_hints": {
+        "weight": "Valor típico entre 0 y 500. Valor por defecto: 70 kg.",
+        "height": "Valor típico entre 0 y 500. Valor por defecto: 175 cm.",
+        "age": "Valor típico entre 0 y 500. Valor por defecto: 30 yr.",
+        "gender": "Seleccionar entre las opciones: male, female"
+      },
+      "result_context": "Ihr Grundumsatz nach Mifflin-St Jeor beträgt {bmr} kcal/Tag.",
+      "formula_display": "Bmr (kcal) = f(weight, height, age, gender)",
+      "steps": [
+        "Introducir los valores de weight, height, age y gender",
+        "Verificar que las unidades sean correctas y convertir si es necesario (kg, lb)",
+        "Realizar el cálculo para obtener bmr",
+        "El resultado se expresa en kcal. Verificar que la magnitud es coherente",
+        "Comparar el resultado con los valores de referencia para interpretar su significado"
+      ],
+      "mistakes": [
+        "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+        "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+        "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "weight",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "height",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "age",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "gender",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "BMR (Mifflin-St Jeor)",
+      "description": "Calcola il metabolismo basale con l'equazione di Mifflin-St Jeor.",
+      "inputs": {
+        "weight": "Peso",
+        "height": "Altezza",
+        "age": "Età",
+        "gender": "Sesso"
+      },
+      "outputs": {
+        "bmr": "BMR kcal"
+      },
+      "seo_title": "BMR (Mifflin-St Jeor) – Passo dopo Passo",
+      "seo_description": "Calcola il metabolismo basale con l'equazione di Mifflin-St Jeor. Calcolatore gratuito, preciso e istantaneo. Calcolo preciso e veloce con metodologia.",
+      "example_label": "Calcolare tasa metabólica basal (Mifflin) per hombre di 70kg, 175cm, 30 años",
+      "range_hints": {
+        "weight": "Peso común: 45-120 kg",
+        "height": "Altura común: 140-200 cm",
+        "age": "Edad típica: 18-80 er"
+      },
+      "result_context": "Mifflin-St Jeor es la ecuación más validada clínicaminte; preciseón ±10% per población gineral.",
+      "formula_display": "Hombre: BMR = 10 × peso + 6.25 × altezza - 5 × edad + 5; Mujer: BMR = 10 × peso + 6.25 × altezza - 5 × edad - 161",
+      "steps": [
+        "El calculator aplica la fórmula automáticaminte e muestra risultati"
+      ],
+      "mistakes": [
+        "Non verificare que weight estén in unità correctas prima di calcolare",
+        "Redovear valorei intermedi prima dil cálculo finel (pierdi preciseón)",
+        "Applicare risultati senza consedirar contesto individual o condiciones especiales"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "weight",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        },
+        {
+          "field_id": "height",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        },
+        {
+          "field_id": "age",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        },
+        {
+          "field_id": "gender",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Tipo attuale es apropiado"
+        }
+      ]
+    }
+  }
+}

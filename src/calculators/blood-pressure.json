@@ -1,0 +1,411 @@
+{
+  "id": "929",
+  "slug": "blood-pressure",
+  "block": 12,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "sistolica",
+      "type": "number",
+      "min": 50,
+      "max": 300,
+      "step": 1,
+      "default": 120,
+      "unit": "mmHg"
+    },
+    {
+      "id": "diastolica",
+      "type": "number",
+      "min": 30,
+      "max": 200,
+      "step": 1,
+      "default": 80,
+      "unit": "mmHg"
+    }
+  ],
+  "formula": "var sys=parseFloat(inputs.sistolica)||0,dia=parseFloat(inputs.diastolica)||0;if(!sys||!dia||sys<dia)return{error:true};var cat;if(sys<120&&dia<80)cat='Normal';else if(sys<130&&dia<80)cat='Elevated';else if(sys<140||dia<90)cat='Stage 1 Hypertension';else cat='Stage 2 Hypertension';var map=+(dia+(sys-dia)/3).toFixed(1),pp=sys-dia;return{systolic:sys,diastolic:dia,category:cat,map:mmHg,pulse_pressure:pp};",
+  "outputs": [
+    {
+      "id": "category",
+      "unit": "",
+      "highlight": true
+    },
+    {
+      "id": "systolic",
+      "unit": "mmHg"
+    },
+    {
+      "id": "diastolic",
+      "unit": "mmHg"
+    },
+    {
+      "id": "map",
+      "unit": "mmHg",
+      "highlight": false
+    },
+    {
+      "id": "pulse_pressure",
+      "unit": "mmHg",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "426",
+    "928",
+    "422",
+    "400"
+  ],
+  "example_inputs": {
+    "sistolica": 120,
+    "diastolica": 80
+  },
+  "example_label": "Ejemplo para blood pressure: valores 120mmHg, 80mmHg",
+  "range_hints": {
+    "sistolica": "Valor típico entre 50 y 300. Valor por defecto: 120 mmHg.",
+    "diastolica": "Valor típico entre 30 y 200. Valor por defecto: 80 mmHg."
+  },
+  "result_context": "Presión arterial: categoría {category}. Presión arterial media: {map} mmHg. Presión de pulso: {pulse_pressure} mmHg.",
+  "result_context_en": "Blood pressure: category {category}. Mean arterial pressure: {map} mmHg. Pulse pressure: {pulse_pressure} mmHg.",
+  "result_context_fr": "Pression artérielle : catégorie {category}. Pression artérielle moyenne : {map} mmHg. Pression différentielle : {pulse_pressure} mmHg.",
+  "result_context_pt": "Pressão arterial: categoria {category}. Pressão arterial média: {map} mmHg. Pressão de pulso: {pulse_pressure} mmHg.",
+  "result_context_de": "Blutdruck: Kategorie {category}. Mittlerer arterieller Druck: {map} mmHg. Pulsdruck: {pulse_pressure} mmHg.",
+  "result_context_it": "Pressione arteriosa: categoria {category}. Pressione arteriosa media: {map} mmHg. Pressione differenziale: {pulse_pressure} mmHg.",
+  "formula_display": "PA = (PAS + 2×PAD) / 3 (Presión Arterial Media)",
+  "steps": [
+    "Introducir los valores de sistolica y diastolica",
+    "Verificar que los valores introducidos están en el rango y formato correctos",
+    "Calcular los valores de category y systolic",
+    "Verificar que el resultado es coherente con los valores de entrada",
+    "Comparar el resultado con los valores de referencia para interpretar su significado"
+  ],
+  "mistakes": [
+    "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+    "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+    "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "sistolica",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    },
+    {
+      "field_id": "diastolica",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor entero para conteo"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "sistolica": 60,
+      "diastolica": 40
+    },
+    {
+      "_label": "Teen",
+      "sistolica": 90,
+      "diastolica": 60
+    },
+    {
+      "_label": "Adult (F)",
+      "sistolica": 120,
+      "diastolica": 80
+    },
+    {
+      "_label": "Adult (M)",
+      "sistolica": 180,
+      "diastolica": 120
+    },
+    {
+      "_label": "Elderly",
+      "sistolica": 240,
+      "diastolica": 160
+    }
+  ],
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Presión Arterial",
+      "desc": "Verifica tu categoria de presion arterial desde lecturas sistolica y diastolica. Con rangos de referencia y contexto de salud.",
+      "description": "Calculadora de Presión Arterial.",
+      "seo_title": "Calculadora de Presión Arterial Gratuita",
+      "seo_description": "Verifica tu categoria de presion arterial desde lecturas sistolica y diastolica. Con rangos de referencia y contexto de salud.",
+      "inputs": {
+        "sistolica": "Sistólica",
+        "diastolica": "Diastólica"
+      },
+      "outputs": {
+        "category": "Categoria",
+        "map": "Presion media",
+        "pulse_pressure": "Presion pulso"
+      },
+      "example_label": "Calculate blood pressure with sistolica 120, diastolica 80.",
+      "range_hints": {
+        "sistolica": "Typical range: 50-300 in mmHg units.",
+        "diastolica": "Typical range: 30-200 in mmHg units."
+      },
+      "result_context": "Your calculated category is {category}.",
+      "formula_display": "Calculate blood pressure based on input values.",
+      "steps": [
+        "Enter input values: sistolica: 120, diastolica: 80",
+        "Calculate and display the category result",
+        "Calculate and display the map result",
+        "Calculate and display the pulse_pressure result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "sistolica",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "diastolica",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "en": {
+      "name": "Blood Pressure Calculator",
+      "desc": "Blood Pressure Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Blood Pressure Calculator.",
+      "seo_title": "Blood Pressure Calculator – Free Online Tool",
+      "seo_description": "Check your blood pressure category from systolic and diastolic readings. Shows normal, elevated, and hypertension stages.",
+      "inputs": {
+        "sistolica": "Systolic",
+        "diastolica": "Diastolic"
+      },
+      "outputs": {
+        "category": "Category",
+        "map": "MAP",
+        "pulse_pressure": "Pulse pressure"
+      },
+      "example_label": "Calculate blood pressure with sistolica 120, diastolica 80.",
+      "range_hints": {
+        "sistolica": "Typical range: 50-300 in mmHg units.",
+        "diastolica": "Typical range: 30-200 in mmHg units."
+      },
+      "result_context": "Your calculated category is {category}.",
+      "formula_display": "Calculate blood pressure based on input values.",
+      "steps": [
+        "Enter input values: sistolica: 120, diastolica: 80",
+        "Calculate and display the category result",
+        "Calculate and display the map result",
+        "Calculate and display the pulse_pressure result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "sistolica",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "diastolica",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculatrice de Pression Artérielle",
+      "desc": "Verifiez votre categorie de pression arterielle. Avec plages de reference et contexte de sante. Utilise par des professionnels et etudiants dans le.",
+      "description": "Calculatrice de Pression Artérielle.",
+      "seo_title": "Calculatrice de Pression Artérielle en Ligne",
+      "seo_description": "Verifiez votre categorie de pression arterielle. Avec plages de reference et contexte de sante. Utilise par des professionnels et etudiants dans le.",
+      "inputs": {
+        "sistolica": "Systolique",
+        "diastolica": "Diastolique"
+      },
+      "outputs": {
+        "category": "Category",
+        "map": "MAP",
+        "pulse_pressure": "Pulse pressure"
+      },
+      "example_label": "Calculate blood pressure with sistolica 120, diastolica 80.",
+      "range_hints": {
+        "sistolica": "Typical range: 50-300 in mmHg units.",
+        "diastolica": "Typical range: 30-200 in mmHg units."
+      },
+      "result_context": "Your calculated category is {category}.",
+      "formula_display": "Calculate blood pressure based on input values.",
+      "steps": [
+        "Enter input values: sistolica: 120, diastolica: 80",
+        "Calculate and display the category result",
+        "Calculate and display the map result",
+        "Calculate and display the pulse_pressure result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "sistolica",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "diastolica",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Pressão Arterial",
+      "desc": "Calculadora de Pressão Arterial. Sistólica, Diastólica para calcular seus Category, MAP, Pulse pressure. Baseado na formula de saude e bem-estar usada por.",
+      "description": "Calculadora de Pressão Arterial.",
+      "seo_title": "Calculadora de Pressão Arterial",
+      "seo_description": "Calculadora de Pressão Arterial. Sistólica, Diastólica para calcular seus Category, MAP, Pulse pressure. Baseado na formula de saude e bem-estar usada por.",
+      "inputs": {
+        "sistolica": "Sistólica",
+        "diastolica": "Diastólica"
+      },
+      "outputs": {
+        "category": "Category",
+        "map": "MAP",
+        "pulse_pressure": "Pulse pressure"
+      },
+      "example_label": "Calculate blood pressure with sistolica 120, diastolica 80.",
+      "range_hints": {
+        "sistolica": "Typical range: 50-300 in mmHg units.",
+        "diastolica": "Typical range: 30-200 in mmHg units."
+      },
+      "result_context": "Your calculated category is {category}.",
+      "formula_display": "Calculate blood pressure based on input values.",
+      "steps": [
+        "Enter input values: sistolica: 120, diastolica: 80",
+        "Calculate and display the category result",
+        "Calculate and display the map result",
+        "Calculate and display the pulse_pressure result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "sistolica",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "diastolica",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "de": {
+      "name": "Blood pressure",
+      "desc": "Berechnen Sie blood pressure online. Geben Sie sistolica, diastolica ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Blood pressure | CalcToWork",
+      "seo_desc": "Blood pressure online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Blood pressure online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "sistolica": "Sistolica",
+        "diastolica": "Diastolica"
+      },
+      "outputs": {
+        "category": "Category",
+        "systolic": "Systolic",
+        "diastolic": "Diastolic",
+        "map": "Map",
+        "pulse_pressure": "Pulse Pressure"
+      },
+      "example_label": "Ejemplo para blood pressure: valores 120mmHg, 80mmHg",
+      "range_hints": {
+        "sistolica": "Valor típico entre 50 y 300. Valor por defecto: 120 mmHg.",
+        "diastolica": "Valor típico entre 30 y 200. Valor por defecto: 80 mmHg."
+      },
+      "result_context": "Blutdruck: Kategorie {category}. Mittlerer arterieller Druck: {map} mmHg. Pulsdruck: {pulse_pressure} mmHg.",
+      "formula_display": "PA = (PAS + 2×PAD) / 3 (Presión Arterial Media)",
+      "steps": [
+        "Introducir los valores de sistolica y diastolica",
+        "Verificar que los valores introducidos están en el rango y formato correctos",
+        "Calcular los valores de category y systolic",
+        "Verificar que el resultado es coherente con los valores de entrada",
+        "Comparar el resultado con los valores de referencia para interpretar su significado"
+      ],
+      "mistakes": [
+        "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+        "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+        "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "sistolica",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        },
+        {
+          "field_id": "diastolica",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor entero para conteo"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatrice di Pressione Sanguigna",
+      "desc": "Verifica la tua categoria di pressione sanguigna. Con intervalli di riferimento e contesto sanitario. Usato da professionisti e studenti in tutto il.",
+      "description": "Calcolatrice di Pressione Sanguigna.",
+      "seo_title": "Calcolatrice di Pressione Sanguigna",
+      "seo_description": "Verifica la tua categoria di pressione sanguigna. Con intervalli di riferimento e contesto sanitario. Usato da professionisti e studenti in tutto il.",
+      "inputs": {
+        "sistolica": "Sistolica",
+        "diastolica": "Diastolica"
+      },
+      "outputs": {
+        "category": "Category",
+        "map": "MAP",
+        "pulse_pressure": "Pulse pressure"
+      },
+      "example_label": "Calculate blood pressure with sestolica 120, diastolica 80.",
+      "range_hints": {
+        "sistolica": "Tepical range: 50-300 in mmHg units.",
+        "diastolica": "Tepical range: 30-200 in mmHg units."
+      },
+      "result_context": "Your calculated categore is {categore}.",
+      "formula_display": "Calculate blood pressure based on input values.",
+      "steps": [
+        "Enter input values: sestolica: 120, diastolica: 80",
+        "Calculate and displae the categore result",
+        "Calculate and displae the map result",
+        "Calculate and displae the pulse_pressure result"
+      ],
+      "mistakes": [
+        "Entering zero or negative values where posetive required",
+        "Usenzag incorrect input values outsedi recommindid range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "sistolica",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "diastolica",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        }
+      ]
+    }
+  }
+}

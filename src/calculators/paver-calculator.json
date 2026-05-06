@@ -1,0 +1,300 @@
+{
+  "id": "1118",
+  "slug": "paver-calculator",
+  "block": 3,
+  "block_slug": "pavimentos",
+  "inputs": [
+    {
+      "id": "area_length",
+      "type": "number",
+      "min": 0.1,
+      "max": 50,
+      "step": 0.1,
+      "default": 5,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "area_width",
+      "type": "number",
+      "min": 0.1,
+      "max": 30,
+      "step": 0.1,
+      "default": 3,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "paver_size",
+      "type": "select",
+      "options": [
+        {
+          "value": "10x20",
+          "label": "10×20 cm"
+        },
+        {
+          "value": "15x15",
+          "label": "15×15 cm"
+        },
+        {
+          "value": "20x20",
+          "label": "20×20 cm"
+        },
+        {
+          "value": "15x30",
+          "label": "15×30 cm"
+        }
+      ],
+      "default": "20x20"
+    },
+    {
+      "id": "pattern",
+      "type": "select",
+      "options": [
+        {
+          "value": "running",
+          "label": "Running Bond (5% waste)"
+        },
+        {
+          "value": "herringbone",
+          "label": "Herringbone (10% waste)"
+        },
+        {
+          "value": "basket",
+          "label": "Basket Weave (8% waste)"
+        }
+      ],
+      "default": "running"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "area_m2",
+      "unit": "m²",
+      "highlight": true
+    },
+    {
+      "id": "pavers_needed",
+      "unit": "pavers"
+    },
+    {
+      "id": "base_gravel_tonnes",
+      "unit": "t"
+    },
+    {
+      "id": "sand_kg",
+      "unit": "kg"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.area_length)||0,W=parseFloat(inputs.area_width)||0,ps=inputs.paver_size||'30x30',pat=inputs.pattern||'straight';if(!L||!W)return{error:true};var area=+(L*W).toFixed(2),sizes={'20x20':0.04,'30x30':0.09,'40x40':0.16,'20x40':0.08,'40x60':0.24},pa=sizes[ps]||0.09,waste=pat==='herringbone'?0.15:0.10,pavers=Math.ceil(area/pa*(1+waste)),gravel=+(area*0.1*1.5).toFixed(1),sand=Math.ceil(area*0.03*1600);return{area_m2:area,pavers_needed:pavers,base_gravel_tonnes:gravel,sand_kg:sand};",
+  "formula_display": "Area = Length × Width; Pavers = ceil(area ÷ (paver_L × paver_W) × pattern_factor); Gravel = area × 0.15 × 1.8",
+  "result_context": "Area: {area_m2} m², pavers needed: {pavers_needed}, base gravel: {base_gravel_tonnes} t, sand: {sand_kg} kg",
+  "example_inputs": {
+    "area_length": 4,
+    "area_width": 3,
+    "paver_size": 20,
+    "pattern": 1
+  },
+  "steps": [
+    "Paved area: 4 m × 3 m = 12 m²",
+    "Paver area (20×20 cm): 0.04 m² per paver",
+    "Pavers with 5% waste: ceil(12 ÷ 0.04 × 1.05) = 315 pavers",
+    "Gravel base (15 cm): 12 × 0.15 × 1.8 t/m³ = 3.24 tonnes"
+  ],
+  "mistakes": [
+    "Skipping or under-sizing the gravel base — leads to settling and cracking",
+    "Not compacting the gravel and sand bedding layers properly",
+    "Using paver size in metres instead of centimetres"
+  ],
+  "related": [
+    "1119",
+    "1110",
+    "1117",
+    "021"
+  ],
+  "comparison_presets": [
+    {
+      "area_length": 2,
+      "area_width": 2,
+      "paver_size": 20,
+      "pattern": 1
+    },
+    {
+      "area_length": 3,
+      "area_width": 3,
+      "paver_size": 20,
+      "pattern": 1
+    },
+    {
+      "area_length": 4,
+      "area_width": 3,
+      "paver_size": 20,
+      "pattern": 1
+    },
+    {
+      "area_length": 5,
+      "area_width": 4,
+      "paver_size": 30,
+      "pattern": 1
+    },
+    {
+      "area_length": 8,
+      "area_width": 5,
+      "paver_size": 40,
+      "pattern": 2
+    }
+  ],
+  "buying_units": {
+    "pavers_needed": [
+      {
+        "label": "Pavers",
+        "factor": 1,
+        "round": "ceil",
+        "unit_suffix": "pavers"
+      },
+      {
+        "label": "Pallets (250 pavers)",
+        "factor": 0.004,
+        "round": "ceil",
+        "unit_suffix": "pallets"
+      }
+    ]
+  },
+  "units": {
+    "area_length": "m",
+    "area_width": "m"
+  },
+  "example_label": "Ejemplo para paver calculator: valores 5m, 3m",
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Adoquines",
+      "desc": "Calculadora 1118. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculadora de Adoquines – Piezas, Grava y Arena",
+      "seo_desc": "Calcula cuántos adoquines necesitas más la grava base y la arena. Introduce las dimensiones del área y el tamaño del adoquín para obtener las cantidades exactas.",
+      "seo_description": "Planifica tu proyecto de adoquinado para patio o entrada. Introduce dimensiones del área y tamaño del adoquín para calcular piezas, grava base y arena de asiento.",
+      "inputs": {
+        "area_length": "Largo del área",
+        "area_width": "Ancho del área",
+        "paver_size": "Tamaño del adoquín",
+        "pattern": "Patrón de colocación"
+      },
+      "outputs": {
+        "area_m2": "Área adoquinada",
+        "pavers_needed": "Adoquines necesarios",
+        "base_gravel_tonnes": "Grava base",
+        "sand_kg": "Arena de asiento"
+      }
+    },
+    "en": {
+      "name": "Paver Calculator",
+      "desc": "Calculator 1118. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Paver Calculator – Pavers, Gravel & Sand",
+      "seo_desc": "Calculate how many pavers you need plus base gravel and sand quantities. Enter area dimensions and paver size to get exact material quantities with waste.",
+      "seo_description": "Plan your patio or driveway paving project instantly. Enter area dimensions and paver size to calculate pavers needed plus base gravel and bedding sand quantities.",
+      "inputs": {
+        "area_length": "Area length",
+        "area_width": "Area width",
+        "paver_size": "Paver size",
+        "pattern": "Laying pattern"
+      },
+      "outputs": {
+        "area_m2": "Paved area",
+        "pavers_needed": "Pavers needed",
+        "base_gravel_tonnes": "Base gravel",
+        "sand_kg": "Bedding sand"
+      }
+    },
+    "fr": {
+      "name": "Calculatrice de Pavés",
+      "desc": "Calculateur 1118. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculatrice Pavés – Pièces, Gravier et Sable",
+      "seo_desc": "Calculez le nombre de pavés, gravier et sable nécessaires. Entrez les dimensions de la zone et la taille des pavés pour obtenir les quantités exactes avec chutes.",
+      "seo_description": "Planifiez votre projet de pavage pour terrasse ou allée. Entrez les dimensions de la zone et la taille des pavés pour calculer pièces, gravier de base et sable de pose.",
+      "inputs": {
+        "area_length": "Longueur de la zone",
+        "area_width": "Largeur de la zone",
+        "paver_size": "Taille du pavé",
+        "pattern": "Motif de pose"
+      },
+      "outputs": {
+        "area_m2": "Surface pavée",
+        "pavers_needed": "Pavés nécessaires",
+        "base_gravel_tonnes": "Gravier de base",
+        "sand_kg": "Sable de pose"
+      }
+    },
+    "pt": {
+      "name": "Calculadora de Calçada",
+      "desc": "Calculadora 1118. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calculadora de Calçada – Peças, Brita e Areia",
+      "seo_desc": "Calcule quantas pedras de calçada, brita e areia você precisa. Insira as dimensões da área e o tamanho da pedra para obter as quantidades exatas com desperdício.",
+      "seo_description": "Planeje seu projeto de calçada para pátio ou entrada. Insira dimensões da área e tamanho da pedra para calcular peças, brita de base e areia de assentamento.",
+      "inputs": {
+        "area_length": "Comprimento da área",
+        "area_width": "Largura da área",
+        "paver_size": "Tamanho da pedra",
+        "pattern": "Padrão de assentamento"
+      },
+      "outputs": {
+        "area_m2": "Área pavimentada",
+        "pavers_needed": "Pedras necessárias",
+        "base_gravel_tonnes": "Brita de base",
+        "sand_kg": "Areia de assentamento"
+      }
+    },
+    "de": {
+      "name": "Paver calculator",
+      "desc": "Berechnen Sie paver calculator online. Geben Sie area length, area width, paver size ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Paver calculator | CalcToWork",
+      "seo_desc": "Paver calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Paver calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "area_length": "Area Length",
+        "area_width": "Area Width",
+        "paver_size": "Paver Size",
+        "pattern": "Pattern"
+      },
+      "outputs": {
+        "area_m2": "Area M2",
+        "pavers_needed": "Pavers Needed",
+        "base_gravel_tonnes": "Base Gravel Tonnes",
+        "sand_kg": "Sand Kg"
+      },
+      "example_label": "Ejemplo para paver calculator: valores 5m, 3m",
+      "range_hints": {},
+      "result_context": "Area: {area_m2} m², pavers needed: {pavers_needed}, base gravel: {base_gravel_tonnes} t, sand: {sand_kg} kg",
+      "formula_display": "Area = Length × Width; Pavers = ceil(area ÷ (paver_L × paver_W) × pattern_factor); Gravel = area × 0.15 × 1.8",
+      "steps": [
+        "Paved area: 4 m × 3 m = 12 m²",
+        "Paver area (20×20 cm): 0.04 m² per paver",
+        "Pavers with 5% waste: ceil(12 ÷ 0.04 × 1.05) = 315 pavers",
+        "Gravel base (15 cm): 12 × 0.15 × 1.8 t/m³ = 3.24 tonnes"
+      ],
+      "mistakes": [
+        "Skipping or under-sizing the gravel base — leads to settling and cracking",
+        "Not compacting the gravel and sand bedding layers properly",
+        "Using paver size in metres instead of centimetres"
+      ],
+      "input_type_review": []
+    },
+    "it": {
+      "name": "Calcolatore di Pavimentazione",
+      "desc": "Calcolatore 1118. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Calcolatore Pavimentazione – Pezzi, Ghiaia e Sabbia",
+      "seo_desc": "Calcola quanti mattoni per pavimentazione, ghiaia e sabbia ti servono. Inserisci le dimensioni dell'area e il formato del mattone per ottenere le quantità esatte.",
+      "seo_description": "Pianifica il tuo progetto di pavimentazione per patio o vialetto. Inserisci dimensioni area e formato mattone per calcolare pezzi, ghiaia base e sabbia di posa.",
+      "inputs": {
+        "area_length": "Lunghezza area",
+        "area_width": "Larghezza area",
+        "paver_size": "Formato mattone",
+        "pattern": "Schema di posa"
+      },
+      "outputs": {
+        "area_m2": "Area pavimentata",
+        "pavers_needed": "Mattoni necessari",
+        "base_gravel_tonnes": "Ghiaia base",
+        "sand_kg": "Sabbia di posa"
+      }
+    }
+  }
+}

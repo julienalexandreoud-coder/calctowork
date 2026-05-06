@@ -1,0 +1,492 @@
+{
+  "id": "069",
+  "slug": "pintura-plastica-paredes",
+  "block": 8,
+  "block_slug": "pintura",
+  "inputs": [
+    {
+      "id": "area_m2",
+      "type": "number",
+      "min": 1,
+      "max": 3000,
+      "step": 0.5,
+      "default": 60,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "manos",
+      "type": "number",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2,
+      "unit": "manos",
+      "unit_options": [
+        "coats"
+      ],
+      "unit_category": "count"
+    },
+    {
+      "id": "rendimiento_m2_l",
+      "type": "number",
+      "min": 5,
+      "max": 15,
+      "step": 0.5,
+      "default": 10,
+      "unit": "m²/L",
+      "unit_options": [
+        "m²/L"
+      ],
+      "unit_category": "yield"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area_m2)||0,M=parseFloat(inputs.manos)||2,R=parseFloat(inputs.rendimiento_m2_l)||10;if(!A)return{error:true};var litros_neto=+(A*M/R).toFixed(2),litros_merma=+(litros_neto*1.1).toFixed(2),cubos_15=Math.ceil(litros_merma/15),cubos_5=Math.ceil(litros_merma/5);return{litros_netos:litros_neto,litros_con_merma:litros_merma,cubos_15L:cubos_15,cubos_5L:cubos_5};",
+  "outputs": [
+    {
+      "id": "litros_netos",
+      "unit": "L"
+    },
+    {
+      "id": "litros_con_merma",
+      "unit": "L (+10%)",
+      "highlight": true
+    },
+    {
+      "id": "cubos_15L",
+      "unit": "cubos 15L"
+    },
+    {
+      "id": "cubos_5L",
+      "unit": "cubos 5L"
+    }
+  ],
+  "related": [
+    "070",
+    "075",
+    "076",
+    "071"
+  ],
+  "example_inputs": {
+    "area_m2": 50,
+    "manos": 30,
+    "rendimiento_m2_l": 50
+  },
+  "example_label": "Ejemplo para pintura plastica paredes: valores 60m², 2manos, 10m²/L",
+  "range_hints": {
+    "area_m2": "Valor típico entre 1 y 3000. Valor por defecto: 60 m².",
+    "manos": "Valor típico entre 1 y 4. Valor por defecto: 2 manos.",
+    "rendimiento_m2_l": "Valor típico entre 5 y 15. Valor por defecto: 10 m²/L."
+  },
+  "result_context": "Resultados: {litros_netos} L netos, {litros_con_merma} L con merma del 10 %, {cubos_15L} cubos de 15 L, {cubos_5L} cubos de 5 L.",
+  "formula_display": "Pintura = área ÷ rendimiento × manos",
+  "steps": [
+    "Calcular área total de paredes",
+    "Restar área de puertas y ventanas",
+    "Dividir por rendimiento de pintura",
+    "Multiplicar por número de manos",
+    "Agregar 10% de desperdicio"
+  ],
+  "mistakes": [
+    "No preparar la superficie correctamente",
+    "Aplicar con humedad excesiva",
+    "No respetar tiempos de secado"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "area_m2",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "manos",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "rendimiento_m2_l",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Small room",
+      "area_m2": 25,
+      "rendimiento_m2_l": 15,
+      "manos": 30
+    },
+    {
+      "_label": "Medium room",
+      "area_m2": 37.5,
+      "rendimiento_m2_l": 15,
+      "manos": 30
+    },
+    {
+      "_label": "Large room",
+      "area_m2": 50,
+      "rendimiento_m2_l": 15,
+      "manos": 30
+    },
+    {
+      "_label": "Office",
+      "area_m2": 75,
+      "rendimiento_m2_l": 15,
+      "manos": 30
+    },
+    {
+      "_label": "Hall",
+      "area_m2": 100,
+      "rendimiento_m2_l": 15,
+      "manos": 30
+    }
+  ],
+  "units": {
+    "area_m2": "m²"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Pintura Plástica para Paredes",
+      "desc": "Calcula los litros de pintura plástica necesarios para paredes según el área, número de manos y rendimiento. Obten resultados al instante con explicacion.",
+      "seo_title": "Calculadora Pintura Paredes – Litros",
+      "inputs": {
+        "area_m2": "Área a pintar",
+        "manos": "Número de manos",
+        "rendimiento_m2_l": "Rendimiento (m²/L)"
+      },
+      "outputs": {
+        "litros_netos": "Litros netos",
+        "litros_con_merma": "Litros (+10%)",
+        "cubos_15L": "Cubos 15L",
+        "cubos_5L": "Cubos 5L"
+      },
+      "seo_description": "Calcula los litros de pintura plástica necesarios para paredes según el área, número de manos y rendimiento. Obten resultados al instante con explicacion.",
+      "example_label": "Estimar pintura plastica paredes necesario para superficie de 50 m².",
+      "range_hints": {
+        "area_m2": "Valor entre 1 y 3000 m².",
+        "manos": "Valor entre 1 y 4 manos.",
+        "rendimiento_m2_l": "Valor entre 5 y 15 m²/L."
+      },
+      "result_context": "La cantidad calculada de {litros_con_merma} L (+10%) incluye 10% de merma. Ajusta segun porosidad del soporte.",
+      "formula_display": "Litros = (Área × Manos) ÷ Rendimiento",
+      "steps": [
+        "Introduce area m2: 50 m²",
+        "Introduce manos: 30 manos",
+        "Introduce rendimiento m2 l: 50 m²/L",
+        "Pulsa calcular para obtener resultados",
+        "Interpreta resultado: {litros_netos}"
+      ],
+      "mistakes": [
+        "No considerar absorcion del soporte en consumo",
+        "Olvidar aplicar imprimacion antes del acabado",
+        "No añadir merma por herramientas (10-15%)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "manos",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "rendimiento_m2_l",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        }
+      ]
+    },
+    "en": {
+      "name": "Emulsion Paint Calculator",
+      "desc": "Emulsion Paint Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "seo_title": "Wall Paint Calculator – Litres Required",
+      "inputs": {
+        "area_m2": "Area to paint",
+        "manos": "Number of coats",
+        "rendimiento_m2_l": "Coverage (m²/L)"
+      },
+      "outputs": {
+        "litros_netos": "Net litres",
+        "litros_con_merma": "Litres (+10%)",
+        "cubos_15L": "15L tubs",
+        "cubos_5L": "5L tubs"
+      },
+      "seo_description": "Emulsion Paint Calculator. Area to paint, Number of coats, Coverage (m²/L) — get Net litres, Litres (+10%), 15L tubs instantly for your painting and.",
+      "example_label": "Estimar pintura plastica paredes necesario para superficie de 50 m².",
+      "range_hints": {
+        "area_m2": "Valor entre 1 y 3000 m².",
+        "manos": "Valor entre 1 y 4 manos.",
+        "rendimiento_m2_l": "Valor entre 5 y 15 m²/L."
+      },
+      "result_context": "La cantidad calculada de {litros_con_merma} L (+10%) incluye 10% de merma. Ajusta segun porosidad del soporte.",
+      "formula_display": "Litros = (Área × Manos) ÷ Rendimiento",
+      "steps": [
+        "Introduce area m2: 50 m²",
+        "Introduce manos: 30 manos",
+        "Introduce rendimiento m2 l: 50 m²/L",
+        "Pulsa calcular para obtener resultados",
+        "Interpreta resultado: {litros_netos}"
+      ],
+      "mistakes": [
+        "No considerar absorcion del soporte en consumo",
+        "Olvidar aplicar imprimacion antes del acabado",
+        "No añadir merma por herramientas (10-15%)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "manos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        },
+        {
+          "field_id": "rendimiento_m2_l",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto para valores numericos continuos con unidades."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Peinture Plastique Murs",
+      "desc": "Calculez les litres de peinture plastique pour murs.",
+      "seo_title": "Calculateur Peinture Murs – Litres",
+      "inputs": {
+        "area_m2": "Surface à peindre",
+        "manos": "Nombre de couches",
+        "rendimiento_m2_l": "Rendement (m²/L)"
+      },
+      "outputs": {
+        "litros_netos": "Litres nets",
+        "litros_con_merma": "Litres (+10%)",
+        "cubos_15L": "Seaux 15L",
+        "cubos_5L": "Seaux 5L"
+      },
+      "seo_description": "Calculez les litres de peinture plastique pour murs selon la surface, le nombre de couches et le rendement. Obtenez des resultats instantanes avec.",
+      "example_label": "Estimar peinture plastica paredes nécessaire pour surface de 50 m².",
+      "range_hints": {
+        "area_m2": "Valor entre 1 et 3000 m².",
+        "manos": "Valor entre 1 et 4 manos.",
+        "rendimiento_m2_l": "Valor entre 5 et 15 m²/L."
+      },
+      "result_context": "la quantité calculée de {litros_con_merma} L (+10%) incluye 10% de merma. Ajusta segun porosidad du soporte.",
+      "formula_display": "Litros = (Área × Manos) Á· Rendimiento",
+      "steps": [
+        "Introduce area m2: 50 m²",
+        "Introduce manos: 30 manos",
+        "Introduce rendimiento m2 l: 50 m²/L",
+        "Pulsa Calculer pour obtener resultados",
+        "Interpreta resultado: {litros_netos}"
+      ],
+      "mistakes": [
+        "Ne pas considérer absorcion du soporte dans consumo",
+        "Oublier aplicar imprimacion antes du acabado",
+        "No añadir merma par herramientas (10-15%)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        },
+        {
+          "field_id": "manos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        },
+        {
+          "field_id": "rendimiento_m2_l",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correct pour valores numericos continuos avec unités."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Tinta PVA/Látex para Paredes",
+      "desc": "Calcule os litros de tinta látex para paredes pela área, número de demãos e rendimento Usado por profissionais e estudantes em todo o mundo.",
+      "seo_title": "Calculadora Tinta Parede – Litros",
+      "inputs": {
+        "area_m2": "Área a pintar",
+        "manos": "Número de demãos",
+        "rendimiento_m2_l": "Rendimento (m²/L)"
+      },
+      "outputs": {
+        "litros_netos": "Litros líquidos",
+        "litros_con_merma": "Litros (+10%)",
+        "cubos_15L": "Baldes 18L",
+        "cubos_5L": "Latas 3,6L"
+      },
+      "seo_description": "Calcule os litros de tinta látex para paredes pela área, número de demãos e rendimento Usado por profissionais e estudantes em todo o mundo.",
+      "example_label": "Estimar tinta plastica paredes necessário para superfície de 50 m².",
+      "range_hints": {
+        "area_m2": "Valor entre 1 e 3000 m².",
+        "manos": "Valor entre 1 e 4 manos.",
+        "rendimiento_m2_l": "Valor entre 5 e 15 m²/L."
+      },
+      "result_context": "La quantidade calculada de {litros_con_merma} L (+10%) incluye 10% de merma. Ajusta segun porosidad do soporte.",
+      "formula_display": "Litros = (Área × Manos) ÷ Rendimiento",
+      "steps": [
+        "Introduce area m2: 50 m²",
+        "Introduce manos: 30 manos",
+        "Introduce desempenho m2 l: 50 m²/L",
+        "Pulsa calcular para obter resultados",
+        "Interpreta resultado: {litros_netos}"
+      ],
+      "mistakes": [
+        "Não considerar absorcion do soporte em consumo",
+        "Esquecer aplicar imprimacion antes do acabamento",
+        "Não adicionar merma por herramientas (10-15%)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        },
+        {
+          "field_id": "manos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        },
+        {
+          "field_id": "rendimiento_m2_l",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correto para valores numericos continuos com unidades."
+        }
+      ]
+    },
+    "de": {
+      "name": "Wandfarbe plastica Wand",
+      "desc": "Berechnen Sie wandfarbe plastica Wand online. Geben Sie area m2, manos, rendimiento m2 l ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Wandfarbe plastica Wand | CalcToWork",
+      "seo_desc": "Wandfarbe plastica Wand online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Wandfarbe plastica Wand online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "area_m2": "Area M2",
+        "manos": "Manos",
+        "rendimiento_m2_l": "Rendimiento M2 L"
+      },
+      "outputs": {
+        "litros_netos": "Litros Netos",
+        "litros_con_merma": "Litros Con Merma",
+        "cubos_15L": "Cubos 15L",
+        "cubos_5L": "Cubos 5L"
+      },
+      "example_label": "Ejemplo para pintura plastica paredes: valores 60m², 2manos, 10m²/L",
+      "range_hints": {
+        "area_m2": "Valor típico entre 1 y 3000. Valor por defecto: 60 m².",
+        "manos": "Valor típico entre 1 y 4. Valor por defecto: 2 manos.",
+        "rendimiento_m2_l": "Valor típico entre 5 y 15. Valor por defecto: 10 m²/L."
+      },
+      "result_context": "Resultados: {litros_netos} L netos, {litros_con_merma} L con merma del 10 %, {cubos_15L} cubos de 15 L, {cubos_5L} cubos de 5 L.",
+      "formula_display": "Pintura = área ÷ rendimiento × manos",
+      "steps": [
+        "Calcular área total de paredes",
+        "Restar área de puertas y ventanas",
+        "Dividir por rendimiento de pintura",
+        "Multiplicar por número de manos",
+        "Agregar 10% de desperdicio"
+      ],
+      "mistakes": [
+        "No preparar la superficie correctamente",
+        "Aplicar con humedad excesiva",
+        "No respetar tiempos de secado"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "manos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "rendimiento_m2_l",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Pittura per Interni",
+      "description": "Calcola la quantità di pittura per pareti interne.",
+      "seo_title": "Calcolatore Vernice Pareti – Litri",
+      "seo_description": "Calcola quanta pittura serve per dipingere le pareti di una stanza Usato da professionisti e studenti in tutto il mondo.",
+      "inputs": {
+        "area": "Superficie (m²)",
+        "capas": "Numero di mani",
+        "rendimiento": "Resa (m²/L)"
+      },
+      "outputs": {
+        "litros": "Litri necessari",
+        "botes_4l": "Latte da 4 L",
+        "botes_15l": "Latte da 15 L"
+      },
+      "example_label": "Stimare vernice pletica paredè necessario per superficie di 50 m².",
+      "range_hints": {
+        "area_m2": "Valor intre 1 e 3000 m².",
+        "manos": "Valor intre 1 e 4 manons.",
+        "rendimiento_m2_l": "Valor intre 5 e 15 m²/L."
+      },
+      "result_context": "La quantità calculada di {litros_con_merma} L (+10%) incluee 10% di merma. Ajusta segun perosedad dil supperto.",
+      "formula_display": "Litros = (Área × Manons) ÷ Rindimiinto",
+      "steps": [
+        "Introduce area m2: 50 m²",
+        "Introduce manons: 30 manons",
+        "Introduce rindimiinto m2 l: 50 m²/L",
+        "Pulsa calcolare per obtiner risultati",
+        "Interpreta risultato: {litros_netos}"
+      ],
+      "mistakes": [
+        "Non consedirare absorcion dil supperto in consumo",
+        "Diminticare aplicar imprimacion prima dil finitura",
+        "No añadir merma per herramiintas (10-15%)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "area_m2",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        },
+        {
+          "field_id": "manos",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        },
+        {
+          "field_id": "rendimiento_m2_l",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo correcto per valorei numericos continuos con unità."
+        }
+      ]
+    }
+  }
+}

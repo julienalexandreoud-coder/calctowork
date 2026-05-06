@@ -1,0 +1,371 @@
+{
+  "id": "512",
+  "slug": "coste-consumo-electrico",
+  "block": 11,
+  "block_slug": "cotidiano",
+  "inputs": [
+    {
+      "id": "power",
+      "type": "number",
+      "step": "any",
+      "default": 100,
+      "unit": "W",
+      "unit_options": [
+        "W",
+        "kW"
+      ],
+      "unit_category": "power"
+    },
+    {
+      "id": "hours",
+      "type": "number",
+      "step": "any",
+      "default": 24,
+      "unit": "h",
+      "unit_options": [
+        "h",
+        "d"
+      ],
+      "unit_category": "time"
+    },
+    {
+      "id": "rate",
+      "type": "number",
+      "step": "any",
+      "default": 0.15,
+      "unit": "$/kWh",
+      "unit_options": [
+        "$/kWh",
+        "â‚¬/kWh"
+      ],
+      "unit_category": "currency"
+    }
+  ],
+  "formula": "var p=parseFloat(inputs.power)||0;var h=parseFloat(inputs.hours)||0;var r=parseFloat(inputs.rate)||0;var energy=p*h/1000;var cost=energy*r;return{energy:energy.toFixed(4),cost:cost.toFixed(4)};",
+  "outputs": [
+    {
+      "id": "energy",
+      "unit": "kWh"
+    },
+    {
+      "id": "cost",
+      "unit": "USD"
+    }
+  ],
+  "related": [
+    "505",
+    "512",
+    "500",
+    "501"
+  ],
+  "example_inputs": {
+    "power": 100,
+    "hours": 24,
+    "rate": 0.15
+  },
+  "example_label": "Calcula el coste electrico de un equipo de 2.000W usado 5 horas al dia con una tarifa de 0,15eur/kWh",
+  "range_hints": {
+    "power": "Valor típico entre 0 y 500. Valor por defecto: 100 W.",
+    "hours": "Valor típico entre 0 y 500. Valor por defecto: 24 h.",
+    "rate": "Valor típico entre 0 y 500. Valor por defecto: 0.15 $/kWh."
+  },
+  "result_context": "El consumo estimado es de {energy} kWh con un coste de {cost} USD.",
+  "result_context_en": "The estimated consumption is {energy} kWh with a cost of {cost} USD.",
+  "result_context_fr": "La consommation estimée est de {energy} kWh pour un coût de {cost} USD.",
+  "result_context_pt": "O consumo estimado é de {energy} kWh com um custo de {cost} USD.",
+  "result_context_de": "Der geschätzte Verbrauch beträgt {energy} kWh mit Kosten von {cost} USD.",
+  "result_context_it": "Il consumo stimato è di {energy} kWh con un costo di {cost} USD.",
+  "formula_display": "Coste total mensual = Potencia (kW) x Horas diarias x Precio del kWh x 30 dias",
+  "steps": [
+    "Introduce la potencia nominal del electrodomestico o equipo electrico expresada en vatios (W) o kilovatios (kW)",
+    "Indica el numero de horas diarias de uso medio que el dispositivo permanece encendido o en funcionamiento",
+    "Especifica el precio del kilovatio-hora (kWh) segun la tarifa electrica que tienes contratada con tu compania",
+    "Convierte la potencia a kW si es necesario y multiplica por las horas de uso para obtener el consumo diario en kWh",
+    "Multiplica el consumo diario por el precio unitario del kWh y por 30 para estimar el coste electrico mensual aproximado"
+  ],
+  "mistakes": [
+    "Olvidar que muchos electrodomesticos consumen energia incluso apagados: el consumo fantasma en standby puede ser hasta un 10% de la factura",
+    "No tener en cuenta la discriminacion horaria: el precio del kWh puede variar significativamente entre horas punta, llano y valle",
+    "Ignorar el termino de potencia contratada: ademas del consumo en kWh pagas un coste fijo mensual por la potencia que tienes contratada"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "power",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "hours",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "rate",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Escenario minimo",
+      "power": 40.0,
+      "hours": 9.6,
+      "rate": 0.06
+    },
+    {
+      "_label": "Uso habitual",
+      "power": 70.0,
+      "hours": 16.8,
+      "rate": 0.1
+    },
+    {
+      "_label": "Uso frecuente",
+      "power": 100.0,
+      "hours": 24.0,
+      "rate": 0.15
+    },
+    {
+      "_label": "Uso intensivo",
+      "power": 150.0,
+      "hours": 36.0,
+      "rate": 0.22
+    },
+    {
+      "_label": "Caso maximo",
+      "power": 250.0,
+      "hours": 60.0,
+      "rate": 0.38
+    }
+  ],
+  "units": {
+    "power": "W",
+    "hours": "s",
+    "rate": "USD"
+  },
+  "i18n": {
+    "es": {
+      "name": "Coste de Consumo Eléctrico",
+      "description": "Calcula la energía consumida y su coste.",
+      "inputs": {
+        "power": "Potencia",
+        "hours": "Horas",
+        "rate": "Tarifa/kWh"
+      },
+      "outputs": {
+        "energy": "Energía kWh",
+        "cost": "Coste"
+      },
+      "seo_title": "Coste de Consumo Eléctrico Gratuita",
+      "seo_description": "Coste de Consumo Eléctrico. Potencia, Horas, Tarifa/kWh para encontrar Energía kWh, Coste. Formula de nivel finanzas personales con ajustes de.",
+      "example_label": "100W, 24 horas, $0.15/kWh",
+      "range_hints": {
+        "power": "1W-5000W según dispositivo",
+        "hours": "1-8760 horas (año completo)",
+        "rate": "$0.05-0.50/kWh según país"
+      },
+      "result_context": "Energía consumida y costo total",
+      "formula_display": "Energía (kWh) = Potencia (W) × Horas / 1000; Costo = Energía × Tarifa",
+      "steps": [
+        "Convertir watts a kilowatts",
+        "Multiplicar por horas de uso",
+        "Multiplicar por tarifa"
+      ],
+      "mistakes": [
+        "No convertir W a kW",
+        "Confundir potencia nominal con consumo real"
+      ],
+      "input_type_review": []
+    },
+    "en": {
+      "name": "Electricity Cost Calculator",
+      "description": "Calculate energy consumption and its cost.",
+      "inputs": {
+        "power": "Power",
+        "hours": "Hours",
+        "rate": "Rate per kWh"
+      },
+      "outputs": {
+        "energy": "Energy kWh",
+        "cost": "Cost"
+      },
+      "seo_title": "Electricity Cost Calculator – Easy Calculator",
+      "seo_description": "Electricity Cost Calculator. Power, Hours, Rate per kWh to find Energy kWh, Cost. personal finance-grade formula with compounding, tax, and fee.",
+      "example_label": "100W, 24 horas, $0.15/kWh",
+      "range_hints": {
+        "power": "1W-5000W según dispositivo",
+        "hours": "1-8760 horas (año completo)",
+        "rate": "$0.05-0.50/kWh según país"
+      },
+      "result_context": "Energía consumida y costo total",
+      "formula_display": "Energía (kWh) = Potencia (W) × Horas / 1000; Costo = Energía × Tarifa",
+      "steps": [
+        "Convertir watts a kilowatts",
+        "Multiplicar por horas de uso",
+        "Multiplicar por tarifa"
+      ],
+      "mistakes": [
+        "No convertir W a kW",
+        "Confundir potencia nominal con consumo real"
+      ],
+      "input_type_review": "power es potencia, hours es tiempo, rate es moneda/energía"
+    },
+    "fr": {
+      "name": "Coût de Consommation Électrique",
+      "description": "Calculez l'énergie consommée et son coût.",
+      "inputs": {
+        "power": "Puissance",
+        "hours": "Heures",
+        "rate": "Tarif/kWh"
+      },
+      "outputs": {
+        "energy": "Énergie kWh",
+        "cost": "Coût"
+      },
+      "seo_title": "Coût de Consommation Électrique",
+      "seo_description": "Calculez l'énergie consommée et son coût. Calculateur gratuit, précis et instantané. Avec options de composition et taxes.",
+      "example_label": "100W, 24 horas, $0.15/kWh",
+      "range_hints": {
+        "power": "1W-5000W selon dispositivo",
+        "hours": "1-8760 horas (año completo)",
+        "rate": "$0.05-0.50/kWh selon país"
+      },
+      "result_context": "Energía consumida et costo total",
+      "formula_display": "Energía (kWh) = Potencia (W) × Horas / 1000; Costo = Energía × Tarifa",
+      "steps": [
+        "Convertir watts a kilowatts",
+        "Multiplier par horas de uso",
+        "Multiplier par tarifa"
+      ],
+      "mistakes": [
+        "No convertir W a kW",
+        "Confondre potencia nominal avec consumo real"
+      ],
+      "input_type_review": []
+    },
+    "pt": {
+      "name": "Custo de Consumo Elétrico",
+      "description": "Calcule o consumo de energia e seu custo.",
+      "inputs": {
+        "power": "Potência",
+        "hours": "Horas",
+        "rate": "Tarifa/kWh"
+      },
+      "outputs": {
+        "energy": "Energia kWh",
+        "cost": "Custo"
+      },
+      "seo_title": "Custo de Consumo Elétrico – Passo a Passo",
+      "seo_description": "Calcule o consumo de energia e seu custo. Calculadora gratuita, precisa e instantânea. Com opcoes de compostagem e impostos.",
+      "example_label": "100W, 24 horas, $0.15/kWh",
+      "range_hints": {
+        "power": "1W-5000W segundo dispositivo",
+        "hours": "1-8760 horas (año completo)",
+        "rate": "$0.05-0.50/kWh segundo país"
+      },
+      "result_context": "Energía consumida e costo total",
+      "formula_display": "Energía (kWh) = Potencia (W) × Horas / 1000; Costo = Energía × Tarifa",
+      "steps": [
+        "Convertir watts a kilowatts",
+        "Multiplicar por horas de uso",
+        "Multiplicar por tarifa"
+      ],
+      "mistakes": [
+        "Não convertir W a kW",
+        "Confundir potencia nominal com consumo real"
+      ],
+      "input_type_review": []
+    },
+    "de": {
+      "name": "Kosten Stromverbrauch electrico",
+      "desc": "Berechnen Sie kosten Stromverbrauch electrico online. Geben Sie power, hours, rate ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Kosten Stromverbrauch electrico | CalcToWork",
+      "seo_desc": "Kosten Stromverbrauch electrico online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Kosten Stromverbrauch electrico online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "power": "Power",
+        "hours": "Hours",
+        "rate": "Rate"
+      },
+      "outputs": {
+        "energy": "Energy",
+        "cost": "Cost"
+      },
+      "example_label": "Calcula el coste electrico de un equipo de 2.000W usado 5 horas al dia con una tarifa de 0,15eur/kWh",
+      "range_hints": {
+        "power": "Valor típico entre 0 y 500. Valor por defecto: 100 W.",
+        "hours": "Valor típico entre 0 y 500. Valor por defecto: 24 h.",
+        "rate": "Valor típico entre 0 y 500. Valor por defecto: 0.15 $/kWh."
+      },
+      "result_context": "Der geschätzte Verbrauch beträgt {energy} kWh mit Kosten von {cost} USD.",
+      "formula_display": "Coste total mensual = Potencia (kW) x Horas diarias x Precio del kWh x 30 dias",
+      "steps": [
+        "Introduce la potencia nominal del electrodomestico o equipo electrico expresada en vatios (W) o kilovatios (kW)",
+        "Indica el numero de horas diarias de uso medio que el dispositivo permanece encendido o en funcionamiento",
+        "Especifica el precio del kilovatio-hora (kWh) segun la tarifa electrica que tienes contratada con tu compania",
+        "Convierte la potencia a kW si es necesario y multiplica por las horas de uso para obtener el consumo diario en kWh",
+        "Multiplica el consumo diario por el precio unitario del kWh y por 30 para estimar el coste electrico mensual aproximado"
+      ],
+      "mistakes": [
+        "Olvidar que muchos electrodomesticos consumen energia incluso apagados: el consumo fantasma en standby puede ser hasta un 10% de la factura",
+        "No tener en cuenta la discriminacion horaria: el precio del kWh puede variar significativamente entre horas punta, llano y valle",
+        "Ignorar el termino de potencia contratada: ademas del consumo en kWh pagas un coste fijo mensual por la potencia que tienes contratada"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "power",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "hours",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "rate",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Costo Energia Elettrica",
+      "description": "Calcola il consumo di energia e il suo costo.",
+      "inputs": {
+        "power": "Potenza",
+        "hours": "Ore",
+        "rate": "Tariffa/kWh"
+      },
+      "outputs": {
+        "energy": "Energia kWh",
+        "cost": "Costo"
+      },
+      "seo_title": "Calcolatore Costo Energia Elettrica",
+      "seo_description": "Calcola il consumo di energia e il suo costo. Calcolatore gratuito, preciso e istantaneo. Con opzioni di capitalizzazione e tasse.",
+      "example_label": "100W, 24 ore, $0.15/kWh",
+      "range_hints": {
+        "power": "1W-5000W según disposetivo",
+        "hours": "1-8760 ore (año completo)",
+        "rate": "$0.05-0.50/kWh según país"
+      },
+      "result_context": "Energía consumida e costo totale",
+      "formula_display": "Energía (kWh) = Potincia (W) × Horas / 1000; Costo = Energía × Tarifa",
+      "steps": [
+        "Convertire watts a kilowatts",
+        "Moltiplicare per ore di uso",
+        "Moltiplicare per tarifa"
+      ],
+      "mistakes": [
+        "No convertir W a kW",
+        "Confondire potincia nonminal con consumo real"
+      ],
+      "input_type_review": null
+    }
+  }
+}

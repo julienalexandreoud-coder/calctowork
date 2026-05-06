@@ -1,0 +1,351 @@
+{
+  "id": "412",
+  "slug": "horas-sueno",
+  "block": 12,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "hora_despertar",
+      "type": "number",
+      "min": 0,
+      "max": 23,
+      "step": "any",
+      "default": 7,
+      "unit": ""
+    }
+  ],
+  "formula": "var wake=parseFloat(inputs.hora_despertar)||7;var cycle=1.5,fb=.25;function fmt(h){var hh=Math.floor(h),mm=Math.round((h-hh)*60);if(mm===60){hh++;mm=0;}return hh+':'+(mm<10?'0':'')+mm;}var beds=[];for(var i=6;i>=3;i--){var bed=wake-i*cycle-fb;if(bed<0)bed+=24;beds.push(fmt(bed)+' ('+i+' cycles = '+i*1.5+'h)');}return{cama_6:beds[0],cama_5:beds[1],cama_4:beds[2],cama_3:beds[3]};",
+  "outputs": [
+    {
+      "id": "cama_6",
+      "unit": "",
+      "highlight": true
+    },
+    {
+      "id": "cama_5",
+      "unit": ""
+    },
+    {
+      "id": "cama_4",
+      "unit": ""
+    },
+    {
+      "id": "cama_3",
+      "unit": ""
+    }
+  ],
+  "related": [
+    "401",
+    "410",
+    "403",
+    "400"
+  ],
+  "example_inputs": {
+    "hora_despertar": 175
+  },
+  "example_label": "Calcular para 175.",
+  "range_hints": {
+    "hora_despertar": "Valor típico entre 0 y 23. Valor por defecto: 7."
+  },
+  "result_context": "Horas para acostarte según ciclos de sueño: {cama_6} (6 ciclos), {cama_5} (5 ciclos), {cama_4} (4 ciclos), {cama_3} (3 ciclos).",
+  "result_context_en": "Bedtimes based on sleep cycles: {cama_6} (6 cycles), {cama_5} (5 cycles), {cama_4} (4 cycles), {cama_3} (3 cycles).",
+  "result_context_fr": "Heures de coucher selon les cycles de sommeil : {cama_6} (6 cycles), {cama_5} (5 cycles), {cama_4} (4 cycles), {cama_3} (3 cycles).",
+  "result_context_pt": "Horários para dormir segundo os ciclos de sono: {cama_6} (6 ciclos), {cama_5} (5 ciclos), {cama_4} (4 ciclos), {cama_3} (3 ciclos).",
+  "result_context_de": "Schlafenszeiten nach Schlafzyklen: {cama_6} (6 Zyklen), {cama_5} (5 Zyklen), {cama_4} (4 Zyklen), {cama_3} (3 Zyklen).",
+  "result_context_it": "Orari per andare a letto in base ai cicli del sonno: {cama_6} (6 cicli), {cama_5} (5 cicli), {cama_4} (4 cicli), {cama_3} (3 cicli).",
+  "formula_display": "i × cycle → cama_6, cama_5",
+  "steps": [
+    "Introducir el valor de hora_despertar",
+    "Verificar que los valores introducidos están en el rango y formato correctos",
+    "Calcular los valores de cama 6 y cama 5",
+    "Verificar que el resultado es coherente con los valores de entrada",
+    "Comparar el resultado con los valores de referencia para interpretar su significado"
+  ],
+  "mistakes": [
+    "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+    "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+    "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "hora_despertar",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "hora_despertar": 23
+    },
+    {
+      "_label": "Teen",
+      "hora_despertar": 23
+    },
+    {
+      "_label": "Adult (F)",
+      "hora_despertar": 23
+    },
+    {
+      "_label": "Adult (M)",
+      "hora_despertar": 23
+    },
+    {
+      "_label": "Elderly",
+      "hora_despertar": 23
+    }
+  ],
+  "i18n": {
+    "es": {
+      "name": "Calculadora Horas Sueno",
+      "desc": "Calcula Sueño óptimo = Ciclos × 90 min (ciclos recomendados: 5–6). Ejemplo: 5 ciclos de sueño = Sueño óptimo = 7,5 horas. Calculadora gratuita y precisa, sin registro.",
+      "description": "Calculadora Horas Sueno",
+      "seo_title": "Calculadora Horas Sueno Gratuita",
+      "seo_description": "Calcula Sueño óptimo = Ciclos × 90 min (ciclos recomendados: 5–6). Ejemplo: 5 ciclos de sueño = Sueño óptimo = 7,5 horas. Calculadora gratuita y precisa, sin registro.",
+      "inputs": {
+        "hora_despertar": "Hora de despertar"
+      },
+      "outputs": {
+        "cama_6": "FC máx. Cama 6",
+        "cama_5": "FC máx. Cama 5",
+        "cama_4": "FC máx. Cama 4",
+        "cama_3": "FC máx. Cama 3"
+      },
+      "example_label": "Determinar horas ideales para dormir despertando a las 7:00 AM",
+      "range_hints": {
+        "hora_despertar": "Hora: 5-10 "
+      },
+      "result_context": "Cada opción representa ciclos de sueño completos (90min); 6 ciclos (9h) es óptimo para recuperación máxima.",
+      "formula_display": "Hora cama = hora despertar - (ciclos × 1.5h) - 15min (tiempo conciliar sueño)",
+      "steps": [
+        "Define hora de despertar (ej: 7:00)",
+        "Cada ciclo de sueño dura 90 minutos",
+        "Resta ciclos completos: 6, 5, 4 o 3 ciclos",
+        "Resta 15 minutos adicionales para conciliar sueño",
+        "Elige hora que permita 5-6 ciclos para descanso óptimo"
+      ],
+      "mistakes": [
+        "Acostarse exactamente a la hora calculada (toma 15min dormir)",
+        "Dormir en exceso (>10h) regularmente (asociado a problemas salud)",
+        "Usar alarmas de sueño en apps sin validación científica"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "hora_despertar",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "en": {
+      "name": "Sleep Calculator",
+      "desc": "Sleep Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Sleep Calculator",
+      "seo_title": "Sleep Calculator – Free Online Tool",
+      "seo_description": "Calculate Optimal sleep = Cycles × 90 min (recommended cycles: 5–6). Example: 5 sleep cycles = Optimal sleep = 7.5 hours. Free and accurate calculator, no signup needed.",
+      "inputs": {
+        "hora_despertar": "Wake-up time"
+      },
+      "outputs": {
+        "cama_6": "Max HR Bed 6",
+        "cama_5": "Max HR Bed 5",
+        "cama_4": "Max HR Bed 4",
+        "cama_3": "Max HR Bed 3"
+      },
+      "example_label": "Determinar horas ideales para dormir despertando a las 7:00 AM",
+      "range_hints": {
+        "hora_despertar": "Hora: 5-10 "
+      },
+      "result_context": "Cada opción representa ciclos de sueño completos (90min); 6 ciclos (9h) es óptimo para recuperación máxima.",
+      "formula_display": "Hora cama = hora despertar - (ciclos × 1.5h) - 15min (tiempo conciliar sueño)",
+      "steps": [
+        "Define hora de despertar (ej: 7:00)",
+        "Cada ciclo de sueño dura 90 minutos",
+        "Resta ciclos completos: 6, 5, 4 o 3 ciclos",
+        "Resta 15 minutos adicionales para conciliar sueño",
+        "Elige hora que permita 5-6 ciclos para descanso óptimo"
+      ],
+      "mistakes": [
+        "Acostarse exactamente a la hora calculada (toma 15min dormir)",
+        "Dormir en exceso (>10h) regularmente (asociado a problemas salud)",
+        "Usar alarmas de sueño en apps sin validación científica"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "hora_despertar",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculateur Sommeil",
+      "desc": "Calculez Optimal sleep = Cycles × 90 min (recommended cycles: 5–6). Exemple: 5 sleep cycles = Optimal sleep = 7.5 hours. Calculateur gratuit et précis, sans inscription.",
+      "description": "Calculateur Sommeil",
+      "seo_title": "Calculateur Sommeil – Calcul Facile",
+      "seo_description": "Calculez Optimal sleep = Cycles × 90 min (recommended cycles: 5–6). Exemple: 5 sleep cycles = Optimal sleep = 7.5 hours. Calculateur gratuit et précis, sans inscription.",
+      "inputs": {
+        "hora_despertar": "Heure de réveil"
+      },
+      "outputs": {
+        "cama_6": "FC max Lit 6",
+        "cama_5": "FC max Lit 5",
+        "cama_4": "FC max Lit 4",
+        "cama_3": "FC max Lit 3"
+      },
+      "example_label": "Determinar horas ideales pour dormir despertando a les 7:00 AM",
+      "range_hints": {
+        "hora_despertar": "Hora: 5-10 "
+      },
+      "result_context": "chaque opción representa ciclos de sueño completos (90min); 6 ciclos (9h) es óptimo pour recuperación máxima.",
+      "formula_display": "Hora cama = hora despertar - (ciclos × 1.5h) - 15min (tiempo conciliar sueño)",
+      "steps": [
+        "Define hora de despertar (ej: 7:00)",
+        "chaque ciclo de sueño dura 90 minutos",
+        "Resta ciclos completos: 6, 5, 4 o 3 ciclos",
+        "Resta 15 minutos adicionales pour conciliar sueño",
+        "Elige hora que permita 5-6 ciclos pour descanso óptimo"
+      ],
+      "mistakes": [
+        "Acostarse exactamente a la hora calculée (toma 15min dormir)",
+        "Dormir dans exceso (>10h) regularmente (asociado a problemas salud)",
+        "Utiliser alarmas de sueño dans apps sans validación científica"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "hora_despertar",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo actual es apropiado"
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora Horas Sono",
+      "desc": "Calcule Optimal sleep = Cycles × 90 min (recommended cycles: 5–6). Exemplo: 5 sleep cycles = Optimal sleep = 7.5 hours. Calculadora gratuita e precisa, sem registo.",
+      "description": "Calculadora Horas Sono",
+      "seo_title": "Calculadora Horas Sono – Fácil e Grátis",
+      "seo_description": "Calcule Optimal sleep = Cycles × 90 min (recommended cycles: 5–6). Exemplo: 5 sleep cycles = Optimal sleep = 7.5 hours. Calculadora gratuita e precisa, sem registo.",
+      "inputs": {
+        "hora_despertar": "Hora de acordar"
+      },
+      "outputs": {
+        "cama_6": "FC máx. Cama 6",
+        "cama_5": "FC máx. Cama 5",
+        "cama_4": "FC máx. Cama 4",
+        "cama_3": "FC máx. Cama 3"
+      },
+      "example_label": "Determinar horas ideales para dormir despertando a as 7:00 AM",
+      "range_hints": {
+        "hora_despertar": "Hora: 5-10 "
+      },
+      "result_context": "Cada opção representa ciclos de sueño completos (90min); 6 ciclos (9h) é óptimo para recuperación máxima.",
+      "formula_display": "Hora cama = hora despertar - (ciclos × 1.5h) - 15min (tiempo conciliar sueño)",
+      "steps": [
+        "Define hora de despertar (ej: 7:00)",
+        "Cada ciclo de sueño dura 90 minutos",
+        "Resta ciclos completos: 6, 5, 4 o 3 ciclos",
+        "Resta 15 minutos adicionales para conciliar sueño",
+        "Elige hora que permita 5-6 ciclos para descanso óptimo"
+      ],
+      "mistakes": [
+        "Acostarse exactamente à hora calculada (toma 15min dormir)",
+        "Dormir em exceso (>10h) regularmente (asociado a problemas salud)",
+        "Usar alarmas de sueño em apps sem validación científica"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "hora_despertar",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo atual é apropiado"
+        }
+      ]
+    },
+    "de": {
+      "name": "Stunden Schlaf",
+      "desc": "Berechnen Sie stunden Schlaf online. Geben Sie hora despertar ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Stunden Schlaf | CalcToWork",
+      "seo_desc": "Stunden Schlaf online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Stunden Schlaf online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "hora_despertar": "Hora Despertar"
+      },
+      "outputs": {
+        "cama_6": "Cama 6",
+        "cama_5": "Cama 5",
+        "cama_4": "Cama 4",
+        "cama_3": "Cama 3"
+      },
+      "example_label": "Calcular para 175.",
+      "range_hints": {
+        "hora_despertar": "Valor típico entre 0 y 23. Valor por defecto: 7."
+      },
+      "result_context": "Schlafenszeiten nach Schlafzyklen: {cama_6} (6 Zyklen), {cama_5} (5 Zyklen), {cama_4} (4 Zyklen), {cama_3} (3 Zyklen).",
+      "formula_display": "i × cycle → cama_6, cama_5",
+      "steps": [
+        "Introducir el valor de hora_despertar",
+        "Verificar que los valores introducidos están en el rango y formato correctos",
+        "Calcular los valores de cama 6 y cama 5",
+        "Verificar que el resultado es coherente con los valores de entrada",
+        "Comparar el resultado con los valores de referencia para interpretar su significado"
+      ],
+      "mistakes": [
+        "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+        "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+        "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "hora_despertar",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatore Ore Sonno",
+      "desc": "Calcola Optimal sleep = Cycles × 90 min (recommended cycles: 5–6). Esempio: 5 sleep cycles = Optimal sleep = 7.5 hours. Calcolatore gratuito e preciso, senza...",
+      "description": "Calcolatore Ore Sonno",
+      "seo_title": "Calcolatore Ore Sonno – Calcolo Facile",
+      "seo_description": "Calcola Optimal sleep = Cycles × 90 min (recommended cycles: 5–6). Esempio: 5 sleep cycles = Optimal sleep = 7.5 hours. Calcolatore gratuito e preciso, senza...",
+      "inputs": {
+        "hora_despertar": "Ora di sveglia"
+      },
+      "outputs": {
+        "cama_6": "FC max Letto 6",
+        "cama_5": "FC max Letto 5",
+        "cama_4": "FC max Letto 4",
+        "cama_3": "FC max Letto 3"
+      },
+      "example_label": "Definiree ore idiales per dormir dispercosìdo a le 7:00 AM",
+      "range_hints": {
+        "hora_despertar": "Hora: 5-10 "
+      },
+      "result_context": "Cada opción representa cici di sueño completos (90min); 6 cici (9h) es óptimo per recuperación máxima.",
+      "formula_display": "Hora cama = ora dispertar - (cici × 1.5h) - 15min (tempo conciliar sueño)",
+      "steps": [
+        "Define ora di dispertar (ej: 7:00)",
+        "Cada ciclo di sueño dura 90 minuti",
+        "Resta cici completos: 6, 5, 4 o 3 cici",
+        "Resta 15 minuti adicionales per conciliar sueño",
+        "Elige ora que permita 5-6 cici per discanso óptimo"
+      ],
+      "mistakes": [
+        "Acostarse esattaminte alla ora calculada (toma 15min dormir)",
+        "Dormir in exceso (>10h) regularminte (asociado a problemi salud)",
+        "Usare alarmas di sueño in apps senza validación ciintífica"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "hora_despertar",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Tipo attuale es apropiado"
+        }
+      ]
+    }
+  }
+}

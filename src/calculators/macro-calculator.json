@@ -1,0 +1,501 @@
+{
+  "id": "928",
+  "slug": "macro-calculator",
+  "block": 12,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "peso_kg",
+      "type": "number",
+      "min": 10,
+      "max": 500,
+      "step": 0.1,
+      "default": 70,
+      "unit": "kg",
+      "unit_options": [
+        "kg",
+        "g",
+        "lb"
+      ],
+      "unit_category": "mass"
+    },
+    {
+      "id": "ejercicio_hrs",
+      "type": "number",
+      "min": 0,
+      "max": 50,
+      "step": 0.5,
+      "default": 3,
+      "unit": "h",
+      "unit_options": [
+        "h",
+        "min"
+      ],
+      "unit_category": "time"
+    },
+    {
+      "id": "objetivo",
+      "type": "select",
+      "options": [
+        "mantener",
+        "perder",
+        "ganar"
+      ],
+      "default": "mantener"
+    }
+  ],
+  "formula": "var p=parseFloat(inputs.peso_kg)||0,e=parseFloat(inputs.ejercicio_hrs)||0,g=inputs.objetivo||'mantener';if(!p)return{error:true};var base=p*1.2*24;var act=e>0?e*300:0;var total=base+act;var obj={mantener:total,perder:total-500,ganar:total+500};return{calorias_mantenimiento:Math.round(obj[g]),proteinas:Math.round(p*1.6),grasas:Math.round(p*0.9),carbohidratos:Math.round((obj[g]-(p*1.6*4)-(p*0.9*9))/4)};",
+  "outputs": [
+    {
+      "id": "calorias_mantenimiento",
+      "unit": "",
+      "highlight": true
+    },
+    {
+      "id": "proteinas",
+      "unit": "g",
+      "highlight": false
+    },
+    {
+      "id": "grasas",
+      "unit": "g",
+      "highlight": false
+    },
+    {
+      "id": "carbohidratos",
+      "unit": "g",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "426",
+    "926",
+    "429",
+    "400"
+  ],
+  "example_inputs": {
+    "peso_kg": 70,
+    "objetivo": "mantener",
+    "ejercicio_hrs": 3
+  },
+  "example_label": "Calcular cal para 70 kg × mantener × 3 h.",
+  "range_hints": {
+    "peso_kg": "Valor típico entre 10 y 500. Valor por defecto: 70 kg.",
+    "ejercicio_hrs": "Valor típico entre 0 y 50. Valor por defecto: 3 h.",
+    "objetivo": "Seleccionar entre las opciones: mantener, perder, ganar"
+  },
+  "result_context": "Para mantener tu peso necesitas {calorias_mantenimiento} kcal diarias: {proteinas} g de proteínas, {grasas} g de grasas y {carbohidratos} g de carbohidratos.",
+  "result_context_en": "To maintain your weight you need {calorias_mantenimiento} kcal per day: {proteinas} g of protein, {grasas} g of fat and {carbohidratos} g of carbohydrates.",
+  "result_context_fr": "Pour maintenir votre poids, vous avez besoin de {calorias_mantenimiento} kcal par jour : {proteinas} g de protéines, {grasas} g de lipides et {carbohidratos} g de glucides.",
+  "result_context_pt": "Para manter seu peso você precisa de {calorias_mantenimiento} kcal diárias: {proteinas} g de proteínas, {grasas} g de gorduras e {carbohidratos} g de carboidratos.",
+  "result_context_de": "Um Ihr Gewicht zu halten, benötigen Sie {calorias_mantenimiento} kcal pro Tag: {proteinas} g Protein, {grasas} g Fett und {carbohidratos} g Kohlenhydrate.",
+  "result_context_it": "Per mantenere il tuo peso hai bisogno di {calorias_mantenimiento} kcal al giorno: {proteinas} g di proteine, {grasas} g di grassi e {carbohidratos} g di carboidrati.",
+  "formula_display": "p × 1 → calorias_mantenimiento, proteinas",
+  "steps": [
+    "Introducir los valores de peso_kg, ejercicio_hrs y objetivo",
+    "Verificar que las unidades sean correctas y convertir si es necesario (kg, g, lb)",
+    "Calcular los valores de calorias mantenimiento y proteinas",
+    "Verificar que el resultado es coherente con los valores de entrada",
+    "Comparar el resultado con los valores de referencia para interpretar su significado"
+  ],
+  "mistakes": [
+    "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+    "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+    "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+  ],
+  "input_type_review": [
+    {
+      "field_id": "peso_kg",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "ejercicio_hrs",
+      "current_type": "number",
+      "recommended_type": "number",
+      "reason": "Considerar tipo \"select\" para unidades predefinidas"
+    },
+    {
+      "field_id": "objetivo",
+      "current_type": "select",
+      "recommended_type": "select",
+      "reason": "Correcto: valor continuo con decimales"
+    }
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "peso_kg": 35,
+      "ejercicio_hrs": 1.5
+    },
+    {
+      "_label": "Teen",
+      "peso_kg": 52.5,
+      "ejercicio_hrs": 2.25
+    },
+    {
+      "_label": "Adult (F)",
+      "peso_kg": 70,
+      "ejercicio_hrs": 3
+    },
+    {
+      "_label": "Adult (M)",
+      "peso_kg": 105,
+      "ejercicio_hrs": 4.5
+    },
+    {
+      "_label": "Elderly",
+      "peso_kg": 140,
+      "ejercicio_hrs": 6
+    }
+  ],
+  "units": {
+    "peso_kg": "kg",
+    "ejercicio_hrs": "s"
+  },
+  "i18n": {
+    "es": {
+      "name": "Calculadora de Macronutrientes",
+      "desc": "Calcula tus necesidades diarias de macronutrientes (proteinas, carbohidratos, grasas). Con rangos de referencia y contexto de salud.",
+      "description": "Calculadora de Macronutrientes.",
+      "seo_title": "Calculadora de Macronutrientes Gratuita",
+      "seo_description": "Calcula tus necesidades diarias de macronutrientes (proteinas, carbohidratos, grasas). Con rangos de referencia y contexto de salud.",
+      "inputs": {
+        "peso_kg": "Peso (kg)",
+        "ejercicio_hrs": "ejercicio_hrs",
+        "objetivo": "objetivo"
+      },
+      "outputs": {
+        "calorias_mantenimiento": "Calorias mantenimiento",
+        "proteinas": "Proteinas",
+        "grasas": "Grasas",
+        "carbohidratos": "Carbohidratos"
+      },
+      "example_label": "Calculate macro calculator with peso_kg 70, ejercicio_hrs 3, objetivo mantener.",
+      "range_hints": {
+        "peso_kg": "Typical range: 10-500 in kg units.",
+        "objetivo": "Typical range: -.",
+        "ejercicio_hrs": "Typical range: 0-50 in h units."
+      },
+      "result_context": "Your calculated calorias mantenimiento is {calorias_mantenimiento}.",
+      "formula_display": "Calculate macro calculator based on input values.",
+      "steps": [
+        "Enter input values: peso_kg: 70, ejercicio_hrs: 3, objetivo: mantener",
+        "Calculate and display the calorias_mantenimiento result",
+        "Calculate and display the proteinas result",
+        "Calculate and display the grasas result",
+        "Calculate and display the carbohidratos result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "ejercicio_hrs",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "objetivo",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "en": {
+      "name": "Macro Calculator",
+      "desc": "Macro Calculator. Free online calculator with formula, examples and step-by-step guide.",
+      "description": "Macro Calculator.",
+      "seo_title": "Macro Calculator – Track Your Macros",
+      "seo_description": "Macro Calculator. Weight (kg), ejercicio_hrs, objetivo to calculate your Maintenance calories, Protein, Fats. Based on the health and wellness formula.",
+      "inputs": {
+        "peso_kg": "Weight (kg)",
+        "ejercicio_hrs": "ejercicio_hrs",
+        "objetivo": "objetivo"
+      },
+      "outputs": {
+        "calorias_mantenimiento": "Maintenance calories",
+        "proteinas": "Protein",
+        "grasas": "Fats",
+        "carbohidratos": "Carbs"
+      },
+      "example_label": "Calculate macro calculator with peso_kg 70, ejercicio_hrs 3, objetivo mantener.",
+      "range_hints": {
+        "peso_kg": "Typical range: 10-500 in kg units.",
+        "objetivo": "Typical range: -.",
+        "ejercicio_hrs": "Typical range: 0-50 in h units."
+      },
+      "result_context": "Your calculated calorias mantenimiento is {calorias_mantenimiento}.",
+      "formula_display": "Calculate macro calculator based on input values.",
+      "steps": [
+        "Enter input values: peso_kg: 70, ejercicio_hrs: 3, objetivo: mantener",
+        "Calculate and display the calorias_mantenimiento result",
+        "Calculate and display the proteinas result",
+        "Calculate and display the grasas result",
+        "Calculate and display the carbohidratos result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "ejercicio_hrs",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "objetivo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "fr": {
+      "name": "Calculatrice de Macronutriments",
+      "desc": "Calculatrice de Macronutriments. Poids (kg), ejercicio_hrs, objetivo pour calculer vos Maintenance calories, Protein, Fats. Base sur la formule de sante.",
+      "description": "Calculatrice de Macronutriments.",
+      "seo_title": "Calculatrice de Macronutriments en Ligne",
+      "seo_description": "Calculatrice de Macronutriments. Poids (kg), ejercicio_hrs, objetivo pour calculer vos Maintenance calories, Protein, Fats. Base sur la formule de sante.",
+      "inputs": {
+        "peso_kg": "Poids (kg)",
+        "ejercicio_hrs": "ejercicio_hrs",
+        "objetivo": "objetivo"
+      },
+      "outputs": {
+        "calorias_mantenimiento": "Maintenance calories",
+        "proteinas": "Protein",
+        "grasas": "Fats",
+        "carbohidratos": "Carbs"
+      },
+      "example_label": "Calculate macro calculator with peso_kg 70, ejercicio_hrs 3, objetivo mantener.",
+      "range_hints": {
+        "peso_kg": "Typical range: 10-500 in kg units.",
+        "objetivo": "Typical range: -.",
+        "ejercicio_hrs": "Typical range: 0-50 in h units."
+      },
+      "result_context": "Your calculated calorias mantenimiento is {calorias_mantenimiento}.",
+      "formula_display": "Calculate macro calculator based on input values.",
+      "steps": [
+        "Enter input values: peso_kg: 70, ejercicio_hrs: 3, objetivo: mantener",
+        "Calculate and display the calorias_mantenimiento result",
+        "Calculate and display the proteinas result",
+        "Calculate and display the grasas result",
+        "Calculate and display the carbohidratos result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "ejercicio_hrs",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "objetivo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "pt": {
+      "name": "Calculadora de Macronutrientes",
+      "desc": "Calculadora de Macronutrientes. Peso (kg), ejercicio_hrs, objetivo para calcular seus Maintenance calories, Protein, Fats. Baseado na formula de saude e.",
+      "description": "Calculadora de Macronutrientes.",
+      "seo_title": "Calculadora de Macronutrientes",
+      "seo_description": "Calculadora de Macronutrientes. Peso (kg), ejercicio_hrs, objetivo para calcular seus Maintenance calories, Protein, Fats. Baseado na formula de saude e.",
+      "inputs": {
+        "peso_kg": "Peso (kg)",
+        "ejercicio_hrs": "ejercicio_hrs",
+        "objetivo": "objetivo"
+      },
+      "outputs": {
+        "calorias_mantenimiento": "Maintenance calories",
+        "proteinas": "Protein",
+        "grasas": "Fats",
+        "carbohidratos": "Carbs"
+      },
+      "example_label": "Calculate macro calculator with peso_kg 70, ejercicio_hrs 3, objetivo mantener.",
+      "range_hints": {
+        "peso_kg": "Typical range: 10-500 in kg units.",
+        "objetivo": "Typical range: -.",
+        "ejercicio_hrs": "Typical range: 0-50 in h units."
+      },
+      "result_context": "Your calculated calorias manutenção is {calorias_mantenimiento}.",
+      "formula_display": "Calculate macro calculator based on input values.",
+      "steps": [
+        "Enter input values: peso_kg: 70, ejercicio_hrs: 3, objetivo: mantener",
+        "Calculate and display the calorias_mantenimiento result",
+        "Calculate and display the proteinas result",
+        "Calculate and display the grasas result",
+        "Calculate and display the carbohidratos result"
+      ],
+      "mistakes": [
+        "Confusing unit options when entering values",
+        "Entering zero or negative values where positive required",
+        "Using incorrect input values outside recommended range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "ejercicio_hrs",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Current type is appropriate for this input."
+        },
+        {
+          "field_id": "objetivo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Current type is appropriate for this input."
+        }
+      ]
+    },
+    "de": {
+      "name": "Macro calculator",
+      "desc": "Berechnen Sie macro calculator online. Geben Sie peso kg, ejercicio hrs, objetivo ein und erhalten Sie sofort das Ergebnis.",
+      "seo_title": "Macro calculator | CalcToWork",
+      "seo_desc": "Macro calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "seo_description": "Macro calculator online berechnen. Einfach Werte eingeben, Ergebnis sofort erhalten. Kostenlos und ohne Registrierung.",
+      "inputs": {
+        "peso_kg": "Peso Kg",
+        "ejercicio_hrs": "Ejercicio Hrs",
+        "objetivo": "Objetivo"
+      },
+      "outputs": {
+        "calorias_mantenimiento": "Calorias Mantenimiento",
+        "proteinas": "Proteinas",
+        "grasas": "Grasas",
+        "carbohidratos": "Carbohidratos"
+      },
+      "example_label": "Calcular cal para 70 kg × mantener × 3 h.",
+      "range_hints": {
+        "peso_kg": "Valor típico entre 10 y 500. Valor por defecto: 70 kg.",
+        "ejercicio_hrs": "Valor típico entre 0 y 50. Valor por defecto: 3 h.",
+        "objetivo": "Seleccionar entre las opciones: mantener, perder, ganar"
+      },
+      "result_context": "Um Ihr Gewicht zu halten, benötigen Sie {calorias_mantenimiento} kcal pro Tag: {proteinas} g Protein, {grasas} g Fett und {carbohidratos} g Kohlenhydrate.",
+      "formula_display": "p × 1 → calorias_mantenimiento, proteinas",
+      "steps": [
+        "Introducir los valores de peso_kg, ejercicio_hrs y objetivo",
+        "Verificar que las unidades sean correctas y convertir si es necesario (kg, g, lb)",
+        "Calcular los valores de calorias mantenimiento y proteinas",
+        "Verificar que el resultado es coherente con los valores de entrada",
+        "Comparar el resultado con los valores de referencia para interpretar su significado"
+      ],
+      "mistakes": [
+        "Medir el peso con ropa y zapatos (añade 1-3 kg al resultado real)",
+        "Usar unidades incorrectas: libras en lugar de kg o pulgadas en lugar de cm",
+        "Interpretar el IMC como medida de grasa corporal (no distingue músculo de grasa)"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "ejercicio_hrs",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Considerar tipo \"select\" para unidades predefinidas"
+        },
+        {
+          "field_id": "objetivo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Correcto: valor continuo con decimales"
+        }
+      ]
+    },
+    "it": {
+      "name": "Calcolatrice di Macronutrienti",
+      "desc": "Calcolatrice di Macronutrienti. Peso (kg), ejercicio_hrs, objetivo per calcolare i tuoi Maintenance calories, Protein, Fats. Basato sulla formula di.",
+      "description": "Calcolatrice di Macronutrienti.",
+      "seo_title": "Calcolatrice di Macronutrienti",
+      "seo_description": "Calcolatrice di Macronutrienti. Peso (kg), ejercicio_hrs, objetivo per calcolare i tuoi Maintenance calories, Protein, Fats. Basato sulla formula di.",
+      "inputs": {
+        "peso_kg": "Peso (kg)",
+        "ejercicio_hrs": "ejercicio_hrs",
+        "objetivo": "objetivo"
+      },
+      "outputs": {
+        "calorias_mantenimiento": "Maintenance calories",
+        "proteinas": "Protein",
+        "grasas": "Fats",
+        "carbohidratos": "Carbs"
+      },
+      "example_label": "Calculate macro calculator with peso_kg 70, ejercicio_hrs 3, obiettivo mantiner.",
+      "range_hints": {
+        "peso_kg": "Tepical range: 10-500 in kg units.",
+        "objetivo": "Tepical range: -.",
+        "ejercicio_hrs": "Tepical range: 0-50 in h units."
+      },
+      "result_context": "Your calculated calorias mantinimiinto is {calorias_mantinimiinto}.",
+      "formula_display": "Calculate macro calculator based on input values.",
+      "steps": [
+        "Enter input values: peso_kg: 70, ejercicio_hrs: 3, obiettivo: mantiner",
+        "Calculate and displae the calorias_mantinimiinto result",
+        "Calculate and displae the proteinas result",
+        "Calculate and displae the grasas result",
+        "Calculate and displae the carbohidratos result"
+      ],
+      "mistakes": [
+        "Confusenzag unit options whin intering values",
+        "Entering zero or negative values where posetive required",
+        "Usenzag incorrect input values outsedi recommindid range"
+      ],
+      "input_type_review": [
+        {
+          "field_id": "peso_kg",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "ejercicio_hrs",
+          "current_type": "number",
+          "recommended_type": "number",
+          "reason": "Currint tepe is appropriate for this input."
+        },
+        {
+          "field_id": "objetivo",
+          "current_type": "select",
+          "recommended_type": "select",
+          "reason": "Currint tepe is appropriate for this input."
+        }
+      ]
+    }
+  }
+}
