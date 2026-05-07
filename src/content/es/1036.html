@@ -1,27 +1,139 @@
 <section class="long-content">
-<p>Lanza dados virtuales con cualquier número de caras.</p>
-<p>Simula el lanzamiento de 1 a 6 dados de 4, 6, 8, 10, 12 o 20 caras. Resultado instantáneo. Perfecto para juegos de rol y mesa. Gratis.</p>
-<h2>Datos de entrada</h2>
+<h2>¿Qué es un rodillo de dados?</h2>
+<p>Un rodillo de dados simula tirar dados físicos mediante la generación de números aleatorios, lo que produce resultados impredecibles para juegos de mesa, experimentos de probabilidad y toma de decisiones. Desde campañas de Dungeons &amp; Dragons que requieren tiradas de daño de 4d6+3 hasta aulas de estadística que demuestran el teorema del límite central, los rodillos de dados digitales brindan resultados aleatorios rápidos, justos y verificables sin necesidad de dados físicos.</p>
+<p class="see-also">También puede encontrar el<a href="/es/numero-aleatorio/">Random Number Generator</a> and <a href="/es/cara-cruz/">Coin Flip</a> useful.</p><p>Las matemáticas detrás del lanzamiento de dados revelan por qué son importantes los rodillos digitales. Un dado justo de seis caras (d6) tiene una probabilidad igual de 1/6 (16,67%) para cada cara. Pero los dados fabricados exhiben sesgos: los dados de casino cuestan más de $20 porque están equilibrados con precisión con una tolerancia de 0,0005 pulgadas. Los dados de juegos de mesa baratos pueden mostrar un sesgo del 5% hacia ciertas caras debido a la distribución desigual del peso de las pepitas. Los rodillos digitales que utilizan RNG criptográficamente seguro eliminan por completo el sesgo físico, lo que garantiza una probabilidad real de 1/6 para cada rollo.</p>
+<p>La notación de dados estandariza cómo se expresan las tiradas: "2d6" significa tirar dos dados de seis caras y sumar; "1d20+5" significa tirar un dado de veinte caras y sumar 5; "4d6kh3" significa tirar cuatro dados de seis caras y mantener el 3 más alto. Esta notación, que se originó en los juegos de rol de mesa de la década de 1970, ahora aparece en documentos de diseño de juegos, calculadoras de probabilidad y API de juegos en todo el mundo. Comprender la notación de los dados permite una comunicación precisa sobre resultados aleatorios en las comunidades de juegos.</p>
+<h2>Explicación de la fórmula y la probabilidad de la tirada de dados</h2>
+<p><strong>Fórmula básica de tirada de dados:</strong></p>
+<p><strong>Resultado = Σ(aleatorio(1, s) para cada dado) + modificador</strong></p>
+<p>Where:</p>
 <ul>
-<li><strong>Número dados</strong> en dice (valor por defecto: 2)</li>
-<li><strong>Caras</strong> en sides (valor por defecto: 6)</li>
+<li>s = Número de lados por dado (4, 6, 8, 10, 12, 20, 100, etc.)</li>
+<li>n = Número de dados lanzados</li>
+<li>modificador = Constante sumada o restada (puede ser 0)</li>
 </ul>
-<h2>Resultados</h2>
+<p><strong>Desglose de la notación de dados:</strong></p>
 <ul>
-<li><strong>Total</strong></li>
-<li><strong>Tiradas</strong></li>
+<li>XdY = Tira X dados con Y lados cada uno, suma los resultados</li>
+<li>XdY+Z = Tira X dados con lados Y, suma Z al total</li>
+<li>XdYkhZ = Tira X dados con lados Y, mantén los dados Z más altos</li>
+<li>XdYklZ = Tira X dados con lados Y, mantén los dados Z más bajos</li>
+<li>XdY! = Tira X dados con lados Y, explota al máximo (vuelve a tirar y agrega)</li>
 </ul>
-<p>Fórmula: <code>Ver fórmula en el cálculo</code></p><p>Ejemplo de uso: Número dados: <strong>2 dice</strong>, Caras: <strong>6 sides</strong>.</p><h2>Desglose del cálculo</h2>
+<p><strong>Distribución de probabilidad para XdY:</strong></p>
+<p>Para un solo dado (1dY): Distribución uniforme, P(cualquier valor) = 1/Y</p>
+<p>Para dados múltiples (XdY donde X &gt; 1): Distribución triangular o en forma de campana</p>
+<p><strong>Valor esperado (media) para XdY:</strong></p>
+<p><strong>E[XdY] = X × (Y + 1) / 2</strong></p>
+<p><strong>Varianza para XdY:</strong></p>
+<p><strong>Var(XdY) = X × (Y² - 1) / 12</strong></p>
+<p><strong>Ejemplo resuelto 1: tirada de ataque estándar de D&amp;D (1d20+5):</strong></p>
+<p>Paso 1: Tira un dado de 20 caras: aleatorio(1, 20) = 17</p>
+<p>Paso 2: Agregar modificador: 17 + 5 = 22</p>
+<p><strong>Resultado: 22</strong>(llega a AC 22 o menos)</p>
+<p>Paso 3: Calcular la probabilidad de alcanzar AC 18:</p>
+<p>Necesidad: 1d20 + 5 ≥ 18, entonces 1d20 ≥ 13</p>
+<p>Éxito en las tiradas 13-20: 8 resultados de 20</p>
+<p>P(impacto) = 8/20 = 0,40 = 40%</p>
+<p><strong>Ejemplo resuelto 2: estadísticas de personajes (4d6kh3):</strong></p>
+<p>Paso 1: Tira cuatro dados de 6 caras: [4, 6, 3, 5]</p>
+<p>Paso 2: Ordenar descendente: [6, 5, 4, 3]</p>
+<p>Paso 3: Mantener el 3 más alto: 6 + 5 + 4 = 15</p>
+<p><strong>Resultado: 15</strong>(estadística superior al promedio, la media es 12,24)</p>
+<p>Paso 4: Calcular el valor esperado para 4d6kh3:</p>
+<p>E[4d6kh3] = 4 × 3,5 - E[el más bajo de 4d6] = 14 - 1,76 = 12,24</p>
+<p><strong>Ejemplo resuelto 3: daño de bola de fuego (8d6):</strong></p>
+<p>Paso 1: Tira ocho dados de 6 caras: [3, 6, 2, 5, 4, 6, 1, 5]</p>
+<p>Paso 2: Sumar todos los valores: 3 + 6 + 2 + 5 + 4 + 6 + 1 + 5 = 32</p>
+<p><strong>Resultado: 32 daños</strong></p>
+<p>Paso 3: Calcular el daño esperado:</p>
+<p>E[8d6] = 8 × (6 + 1) / 2 = 8 × 3,5 = 28</p>
+<p>Paso 4: Calcular la desviación estándar:</p>
+<p>Var(8d6) = 8 × (36 - 1) / 12 = 8 × 2,917 = 23,33</p>
+<p>DE = √23,33 = 4,83</p>
+<p>Rango típico (±1 SD): 23 a 33 daños (68% de las tiradas)</p>
+<h2>6 pasos para tirar los dados</h2>
 <ol>
-<li>Identificar los valores de entrada</li>
-<li>Aplicar la fórmula correspondiente</li>
-<li>Realizar el cálculo</li>
-<li>Obtener los 2 resultados</li>
+<li><strong>Identifique la notación de los dados o los requisitos de tirada:</strong>Analiza la expresión de la tirada: "3d8+2" significa 3 dados, 8 caras cada uno, modificador +2. "2d20kh1" significa 2 dados de veinte caras, mantén el 1 más alto (ventaja en D&amp;D 5e). "¡5d10!" significa 5 dados de diez caras con explosión (volver a tirar los valores máximos). Anota cada componente: número de dados, caras de cada dado, modificador y cualquier regla especial (mantener más alto/más bajo, explotar, volver a tirar).</li>
+<li><strong>Genera valores aleatorios para cada dado:</strong>Para cada dado, genera un número entero aleatorio de 1 al número de lados. Utilice un RNG justo: crypto.getRandomValues() para los apostadores en línea o RNG de hardware para aplicaciones de casino. Para 3d8: genere tres valores, por ejemplo, [7, 3, 8]. Cada valor tiene una probabilidad igual a 1/8 (12,5%). Registre los resultados de los troqueles individuales para mayor transparencia y verificación.</li>
+<li><strong>Aplicar reglas especiales si corresponde:</strong>Para "mantener más alto" (kh): ordena los dados de forma descendente, suma solo los valores Z superiores. Para "mantener más bajo" (kl): ordenar de forma ascendente, sumar los valores Z inferiores. Para "explotar" (!): si algún dado muestra el valor máximo, tira un dado adicional y agrégalo (repite si el nuevo dado también alcanza el máximo). Para "volver a tirar 1": reemplace cualquier 1 con tiradas nuevas. Aplica estas reglas antes de sumar.</li>
+<li><strong>Suma los dados relevantes:</strong>Sume los valores de los dados que se están contando (todos los dados para tiradas estándar, dados guardados para tiradas kh/kl, incluidos los dados de explosión). Para 3d8 tirando [7, 3, 8]: suma = 7 + 3 + 8 = 18. Para 4d6kh3 tirando [4, 6, 3, 5], manteniendo [6, 5, 4]: suma = 15. Vuelva a verificar la suma: los errores aritméticos simples frustran a los jugadores más que la mala suerte.</li>
+<li><strong>Agregue cualquier modificador:</strong>Aplique el modificador constante de la notación. Para 3d8+2 con suma 18: 18 + 2 = 20. Los modificadores pueden ser negativos (1d20-3 para tiradas en desventaja) o cero (tiradas de daño puro). Algunos sistemas aplican modificadores de manera diferente: GURPS agrega modificadores antes de compararlos con el objetivo, mientras que D&amp;D agrega a la tirada. Sigue las reglas específicas del juego.</li>
+<li><strong>Muestra y registra el resultado:</strong>Muestre el total final junto con los valores de los troqueles individuales para mayor transparencia. "3d8+2 = [7, 3, 8] + 2 = 20" permite a los jugadores verificar que la tirada no fue manipulada. Para registros de juegos o registros de campaña, incluya la marca de tiempo, el nombre del jugador y el propósito de la tirada ("tirada de ataque de Goblin vs. CA 16"). Esto crea un rastro auditable de resultados controvertidos.</li>
 </ol>
-<h2>Errores frecuentes</h2>
+<h2>5 ejemplos prácticos de lanzamiento de dados</h2>
+<p><strong>Ejemplo 1: Tirada de ataque de D&amp;D 5e con ventaja (2d20kh1+7):</strong></p>
 <ul>
-<li>No verificar las unidades de entrada</li>
-<li>Redondear resultados intermedios</li>
-<li>No verificar el rango de validez</li>
+<li>Tira: 2 dados de veinte caras, mantén el más alto, suma 7</li>
+<li>Rollos individuales: [14, 19]</li>
+<li>Mantener más alto: 19</li>
+<li>Añadir modificador: 19 + 7 = 26</li>
+<li><strong>Resultado: 26</strong>(golpea a la mayoría de los monstruos en D&amp;D)</li>
+<li>Análisis de probabilidad: La ventaja aumenta la probabilidad de acertar del 60 % al 84 % frente a AC 18</li>
 </ul>
-<p>Calculadoras relacionadas: #1035 #1037 #1030 #1031</p>
+<p><strong>Ejemplo 2: Tirada de daño de Pathfinder (2d6+4 para espada larga):</strong></p>
+<ul>
+<li>Tira: 2 dados de seis caras, suma 4</li>
+<li>Rollos individuales: [3, 5]</li>
+<li>Suma: 3 + 5 = 8</li>
+<li>Agregar modificador: 8 + 4 = 12</li>
+<li><strong>Resultado: 12 daños cortantes</strong></li>
+<li>Daño esperado: E[2d6+4] = 2 × 3,5 + 4 = 11 (esta tirada está por encima del promedio)</li>
+</ul>
+<p><strong>Ejemplo 3: Dados explosivos de Savage Worlds (¡1d10!):</strong></p>
+<ul>
+<li>Tirada: 1 dado de diez caras, explota con 10</li>
+<li>Primera tirada: 10 (¡máximo! Tira de nuevo y suma)</li>
+<li>Tirada de explosión: 7</li>
+<li>Total: 10 + 7 = 17</li>
+<li><strong>Resultado: 17</strong>(excelente tirada, el máximo sin explosión es 10)</li>
+<li>Probabilidad de al menos una explosión: 10% por rollo, techo infinito</li>
+</ul>
+<p><strong>Ejemplo 4: Verificación de habilidad de GURPS (3d6 ≤ habilidad):</strong></p>
+<ul>
+<li>Tira: 3 dados de seis caras, la suma debe ser ≤ nivel de habilidad</li>
+<li>Tiradas individuales: [2, 4, 3]</li>
+<li>Suma: 2 + 4 + 3 = 9</li>
+<li><strong>Result: 9</strong>(éxito si habilidad ≥ 9, éxito crítico si habilidad ≥ 16)</li>
+<li>Distribución de probabilidad: 3d6 produce una curva de campana centrada en 10,5</li>
+<li>P(rollo ≤ 10) = 50%, P(rollo ≤ 14) = 90,7%, P(rollo = 3 o 18) = 0,46% cada uno</li>
+</ul>
+<p><strong>Ejemplo 5: Salvación de armadura de Warhammer 6+ (5d6, recuento de éxitos ≥ 5):</strong></p>
+<ul>
+<li>Tira: 5 dados de seis caras, cuenta los dados que muestren 5 o 6</li>
+<li>Rollos individuales: [2, 5, 6, 3, 6]</li>
+<li>Éxitos (≥5): morir 2 (5), morir 3 (6), morir 5 (6) = 3 éxitos</li>
+<li><strong>Resultado: 3 salvamentos realizados, 2 heridas recibidas</strong></li>
+<li>Salvaciones esperadas: 5 × (2/6) = 1,67 salvaciones (esta tirada superó las expectativas)</li>
+</ul>
+<h2>4 errores comunes al tirar los dados</h2>
+<ul>
+<li><strong>Usando generadores de números aleatorios sesgados:</strong>Algunos lanzadores de dados en línea utilizan Math.random() o PRNG no criptográficos similares que pueden producir patrones en miles de tiradas. Si bien es aceptable para juegos casuales, esto es importante para juegos de azar o juegos competitivos donde se analiza la equidad. Utilice rodillos que indiquen explícitamente que utilizan RNG criptográficamente seguro o que están auditados por terceros. Los dados físicos tienen un sesgo de fabricación; Los dados digitales tienen un sesgo algorítmico si no se implementan correctamente.</li>
+<li><strong>Aplicación incorrecta de las reglas de ventajas/desventajas:</strong>En D&amp;D 5e, ventaja significa tirar 2d20 y tomar el más alto (2d20kh1), NO tirar 1d20+5 o tirar dos veces y sumar ambos. La desventaja significa tomar lo inferior (2d20kl1). Múltiples fuentes de ventaja no se acumulan: aun así tiras sólo 2d20. Un error común es tirar 3d20 cuando tienes dos fuentes "ventajosas". La regla es binaria: cualquier número de ventajas = tirar 2d20kh1, cualquier número de desventajas = tirar 2d20kl1.</li>
+<li><strong>Olvidando restablecer las cadenas de explosión:</strong>Los dados explosivos (tirar nuevamente al máximo) pueden encadenarse indefinidamente. Un jugador tira 10 en 1d10!, luego tira otro 10, luego otro 10, luego un 3. Total = 10 + 10 + 10 + 3 = 33, no 13. Sigue cada explosión por separado. Algunos sistemas limitan las explosiones a una vez por dado o limitan el valor total. Siempre aclara las reglas de explosión antes de tirar para evitar disputas a mitad del juego sobre si esa tirada de daño de más de 50 fue legal.</li>
+<li><strong>Notación de dados confusa en todos los sistemas de juego:</strong>"4d6" significa cosas diferentes en diferentes contextos. En la creación de personajes de D&amp;D, generalmente significa "4d6kh3" (tira 4, mantén el 3 más alto). En tiradas de daño, significa sumar los 4 dados. En Shadowrun, "6d6" significa contar cuántos dados muestran 5 o 6 (éxitos), no una suma. Especifique siempre la notación completa, incluidas las reglas especiales. En caso de duda, escriba el procedimiento completo en lugar de asumir una comprensión compartida de la notación abreviada.</li>
+</ul>
+<h2>5 consejos profesionales para tirar dados</h2>
+<ul>
+<li><strong>Comprender las curvas de probabilidad para el equilibrio del juego:</strong>Un solo dado (1d20) produce una probabilidad fija: todos los resultados son igualmente probables. Varios dados (3d6, 4d6kh3) producen curvas de campana: los resultados medios son comunes, los extremos son raros. Esto afecta el diseño del juego: el 1d20 de D&amp;D significa que un modificador de +1 cambia la tasa de éxito en exactamente un 5%. 3d6 de GURPS significa +1 cambia la tasa de éxito en un 12,5% en la media pero solo un 2,8% en los extremos. Elija mecánicas que coincidan con su nivel de aleatoriedad deseado.</li>
+<li><strong>Utilice rodillos de dados con historial de tiradas y estadísticas:</strong>Los buenos rodillos digitales rastrean todos los rollos y muestran la distribución a lo largo del tiempo. Después de 100 tiradas de ataque, ¿realmente sacaste cinco 1 naturales? History proves (or disproves) "the dice hate me." Algunos rodillos muestran estadísticas en tiempo real: tirada promedio, desviación estándar, frecuencia de cada resultado. Esto ayuda a identificar sesgos reales frente a patrones percibidos. Los humanos recuerdan los fracasos dramáticos (nat 1) más que los éxitos mundanos, creando falsas impresiones de injusticia.</li>
+<li><strong>Expresiones de daño complejas previas al lanzamiento:</strong>Para hechizos con daño variable (8d6 bola de fuego), haz una tirada previa durante el turno del jugador anterior para acelerar el juego. Muchas mesas virtuales (Roll20, Foundry) le permiten crear botones de macro para expresiones que se utilizan con frecuencia. El botón "Bola de fuego" ejecuta 8d6 al instante. Esto mantiene el flujo del combate y reduce los errores matemáticos causados ​​por las prisas. Para el juego físico, tira los dados de daño junto con los dados de ataque si estás seguro de que acertarás.</li>
+<li><strong>Implementar grupos de dados con recuento de éxitos para tiradas grandes:</strong>Lanzar 20d6 y sumar es tedioso. Para grupos de dados grandes, utilice sistemas de conteo de éxitos: cada dado muestra 4+ = 1 éxito. Tirar 20d6 para "cuenta 4+" es más rápido que sumar. Éxitos esperados = 20 × 0,5 = 10. Muchos sistemas (World of Darkness, Shadowrun) utilizan este enfoque específicamente para la escalabilidad. Los rodillos digitales manejan piscinas de cualquier tamaño al instante, pero comprender las matemáticas ayuda a establecer DC razonables.</li>
+<li><strong>Establezca números DC/objetivo usando matemáticas de probabilidad:</strong>En lugar de adivinar la dificultad, calcule la tirada requerida y la probabilidad correspondiente. Para sistema 3d6 con media 10,5: CD 11 = 50% de éxito, CD 14 = 25% de éxito, CD 17 = 5% de éxito. Para 1d20+5 contra AC: AC 15 = 55% de impacto, CA 20 = 30% de impacto, CA 25 = 5% de impacto. El diseño se encuentra con las tasas de éxito previstas, no con números arbitrarios. Una comprobación "dura" debería tener éxito entre el 25% y el 40% de las veces; un control "casi imposible" ~5-10%.</li>
+</ul>
+<h2>4 preguntas frecuentes sobre tirar dados</h2>
+<div class="faq-list">
+<div class="faq-item"><button aria-expanded="false" class="faq-q">¿Los dados digitales son realmente aleatorios?</button><div class="faq-a">Los rodillos digitales bien diseñados que utilizan RNG criptográficamente seguro producen resultados distribuidos uniformemente, indistinguibles de la verdadera aleatoriedad. Cada cara tiene exactamente una probabilidad de 1/n, verificada mediante pruebas estadísticas. Los dados físicos, incluso los dados de casino de precisión, presentan un ligero sesgo debido a imperfecciones de fabricación. Sin embargo, la confianza es importante: utilice rodillos de fuentes acreditadas que publiquen su metodología RNG y se sometan a auditorías de terceros. En teoría, los rodillos de código cerrado podrían manipular los resultados.</div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">¿Cuál es la tirada promedio para combinaciones de dados comunes?</button><div class="faq-a">Valores esperados: 1d4 = 2,5, 1d6 = 3,5, 1d8 = 4,5, 1d10 = 5,5, 1d12 = 6,5, 1d20 = 10,5. Para dados múltiples: 2d6 = 7, 3d6 = 10,5, 4d6 = 14, 4d6kh3 = 12,24, 2d10 = 11, 2d20 = 21. Agregue modificadores después de calcular la expectativa base. Estos son promedios a largo plazo: las tiradas individuales varían ampliamente. La desviación estándar para 1d20 es 5,77, lo que significa que ~68% de las tiradas caen dentro de ±6 de la media (4-17 para 1d20).</div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">¿Cómo simulo tiradas de dados en programación?</button><div class="faq-a">La mayoría de los idiomas tienen funciones aleatorias integradas. Python: random.randint(1, 6) para 1d6. JavaScript: Math.floor(Math.random() * 6) + 1. Para varios dados: sum([random.randint(1, 6) for _ in range(3)]) para 3d6. Para tiradas criptográficamente seguras: módulo secretos de Python (secrets.randbelow(6) + 1) o crypto.getRandomValues() de JavaScript. Always seed PRNGs appropriately — use system time for games, fixed seeds for reproducible testing.</div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">¿Puedo usar un rodillo de dados para apostar?</button><div class="faq-a">Legalmente, esto depende de la jurisdicción. Muchas regiones exigen que los RNG de juegos de azar estén certificados por laboratorios de pruebas aprobados (GLI, BMM Testlabs) y utilicen RNG de hardware con monitoreo de entropía. El uso de un apostador en línea no certificado para apuestas con dinero real puede violar los términos de servicio y las leyes locales. Para jugar con dinero ficticio o juegos casuales entre amigos, cualquier apostador justo sirve. Para aplicaciones de juegos de azar serias, invierta en hardware RNG certificado y obtenga la aprobación regulatoria.</div></div>
+</div>
+<h2>Calculadoras relacionadas</h2>
+<ul>
+<li><a href="/es/">Coin Flip Simulator</a>— Simula resultados justos del lanzamiento de una moneda</li>
+<li><a href="/es/numero-aleatorio/">Random Number Generator</a>— Genera números aleatorios en cualquier rango</li>
+<li><a href="/es/">Dice Probability Calculator</a>— Calcula las probabilidades de los resultados de la tirada de dados</li>
+<li><a href="/es/">RPG Damage Calculator</a>— Calcula el daño esperado por ataques RPG</li>
+<li><a href="/es/">Advantage/Disadvantage Calculator</a>— Compara las probabilidades de tirada de D&amp;D 5e</li>
+</ul>
+</section>

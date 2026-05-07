@@ -4,706 +4,867 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>CalcToWork Admin Dashboard</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<title>CalcToWork Admin</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
-<script>
-const firebaseConfig = {
-  apiKey: "AIzaSyBmjGOakF8HneBc2cnmt6WeEfU4JWgJFw8",
-  authDomain: "calctowork.firebaseapp.com",
-  projectId: "calctowork",
-  storageBucket: "calctowork.firebasestorage.app",
-  messagingSenderId: "538330151764",
-  appId: "1:538330151764:web:175e3ff0f7d87f706b66c1",
-  measurementId: "G-FBFV87HD35"
-};
-try { firebase.initializeApp(firebaseConfig); } catch(e) {}
-</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 <style>
-:root{--primary:#f97316;--success:#22c55e;--warning:#f59e0b;--danger:#ef4444;--bg:#0f172a;--card:#1e293b;--text:#e2e8f0;--muted:#94a3b8;--border:#334155}
+:root{--primary:#f97316;--primary-glow:rgba(249,115,22,.25);--success:#22c55e;--warning:#f59e0b;--danger:#ef4444;--info:#3b82f6;--bg:#0a0e17;--sidebar:#0d1320;--card:#111827;--card-hover:#161e2c;--text:#e2e8f0;--muted:#64748b;--border:#1e293b;--radius:10px;--shadow:0 1px 3px rgba(0,0,0,.4)}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
-.header{background:var(--card);padding:1.5rem 2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
-.header h1{color:var(--primary);font-size:1.5rem}
-.header .status{display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;color:var(--muted)}
-.header .status-dot{width:8px;height:8px;border-radius:50%;background:var(--success);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
-.container{max-width:1400px;margin:0 auto;padding:2rem}
-.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:2rem}
-.kpi{background:var(--card);border-radius:12px;padding:1.25rem;border:1px solid var(--border)}
-.kpi h3{font-size:0.7rem;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;letter-spacing:0.05em}
-.kpi .value{font-size:2rem;font-weight:700;color:var(--text)}
-.kpi .change{font-size:0.8rem;margin-top:0.35rem;color:var(--muted)}
-.kpi .change.up{color:var(--success)}
-.kpi .change.down{color:var(--danger)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(400px,1fr));gap:1.5rem;margin-bottom:2rem}
-.card{background:var(--card);border-radius:12px;padding:1.5rem;border:1px solid var(--border)}
-.card h2{font-size:1.125rem;margin-bottom:1rem;color:var(--primary);display:flex;align-items:center;gap:0.5rem}
-.card h2 .icon{font-size:1.25rem}
-table{width:100%;border-collapse:collapse;font-size:0.85rem}
-th,td{padding:0.65rem 0.75rem;text-align:left;border-bottom:1px solid var(--border)}
-th{color:var(--muted);font-weight:600;font-size:0.7rem;text-transform:uppercase}
-tr:hover{background:rgba(255,255,255,0.02)}
-.badge{display:inline-block;padding:0.2rem 0.45rem;border-radius:6px;font-size:0.7rem;font-weight:600}
-.badge-success{background:rgba(34,197,94,0.2);color:var(--success)}
-.badge-warning{background:rgba(245,158,11,0.2);color:var(--warning)}
-.badge-danger{background:rgba(239,68,68,0.2);color:var(--danger)}
-.badge-info{background:rgba(59,130,246,0.2);color:#3b82f6}
-.chart-container{position:relative;height:260px;margin-top:0.5rem}
-.loading{display:flex;align-items:center;justify-content:center;padding:3rem;color:var(--muted)}
-.spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin 1s linear infinite}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;display:flex;min-height:100vh}
+a{color:var(--primary);text-decoration:none}
+
+/* LOGIN */
+.login-wrap{display:flex;align-items:center;justify-content:center;width:100%;min-height:100vh;background:linear-gradient(160deg,#0a0e17 0%,#1a1025 50%,#0a0e17 100%)}
+.login-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2.5rem;width:100%;max-width:400px;box-shadow:0 25px 60px rgba(0,0,0,.5)}
+.login-card h1{color:var(--primary);font-size:1.5rem;margin-bottom:.5rem;text-align:center}
+.login-card p{color:var(--muted);font-size:.875rem;margin-bottom:1.5rem;text-align:center}
+.login-card input{width:100%;padding:.75rem 1rem;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.95rem;margin-bottom:.75rem;outline:none;transition:border-color .2s}
+.login-card input:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-glow)}
+.login-card button{width:100%;padding:.75rem;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:.95rem;font-weight:600;cursor:pointer;transition:background .2s,transform .1s}
+.login-card button:hover{background:#ea580c}
+.login-card button:active{transform:scale(.98)}
+.login-error{color:var(--danger);font-size:.8rem;margin-bottom:.5rem;text-align:center;min-height:20px}
+
+/* SIDEBAR */
+.sidebar{width:240px;background:var(--sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:50;overflow-y:auto}
+.sidebar-brand{padding:1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.5rem}
+.sidebar-brand svg{width:28px;height:28px;color:var(--primary)}
+.sidebar-brand span{font-size:1.1rem;font-weight:700}
+.sidebar-brand span em{color:var(--primary);font-style:normal}
+.sidebar-nav{flex:1;padding:.75rem}
+.sidebar-nav a{display:flex;align-items:center;gap:.6rem;padding:.65rem .85rem;border-radius:8px;color:var(--muted);font-size:.88rem;font-weight:500;transition:all .15s;margin-bottom:.15rem}
+.sidebar-nav a:hover{background:var(--card);color:var(--text)}
+.sidebar-nav a.active{background:rgba(249,115,22,.12);color:var(--primary)}
+.sidebar-nav a svg{width:18px;height:18px;flex-shrink:0}
+.sidebar-footer{padding:.75rem;border-top:1px solid var(--border)}
+.sidebar-footer button{width:100%;padding:.55rem;background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:.8rem;cursor:pointer;transition:all .15s}
+.sidebar-footer button:hover{color:var(--danger);border-color:var(--danger)}
+
+/* MAIN */
+.main{flex:1;margin-left:240px;min-height:100vh}
+.topbar{background:var(--sidebar);border-bottom:1px solid var(--border);padding:1rem 1.5rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:40}
+.topbar h2{font-size:1.1rem;font-weight:600}
+.topbar-right{display:flex;align-items:center;gap:1rem;font-size:.85rem;color:var(--muted)}
+.topbar-right .live-dot{width:8px;height:8px;background:var(--success);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.content{padding:1.5rem;max-width:1500px}
+.page{display:none}
+.page.active{display:block}
+
+/* KPIs */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1rem;margin-bottom:1.5rem}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.15rem;position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--kpi-bar,var(--primary));opacity:.5}
+.kpi-label{font-size:.68rem;text-transform:uppercase;color:var(--muted);letter-spacing:.06em;margin-bottom:.3rem}
+.kpi-value{font-size:1.75rem;font-weight:700;line-height:1.1}
+.kpi-sub{font-size:.75rem;color:var(--muted);margin-top:.25rem}
+.kpi-sub.up{color:var(--success)}
+.kpi-sub.down{color:var(--danger)}
+
+/* Cards */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:1.5rem}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.card-title{font-size:.95rem;font-weight:600;color:var(--text)}
+.card-actions{display:flex;gap:.5rem}
+.card-actions button,.card-actions select{background:var(--bg);border:1px solid var(--border);color:var(--text);padding:.35rem .65rem;border-radius:6px;font-size:.78rem;cursor:pointer}
+.card-actions button:hover{background:var(--card-hover)}
+.chart-wrap{position:relative;width:100%;min-height:250px}
+.chart-wrap canvas{width:100%!important}
+
+/* Tables */
+.data-table{width:100%;border-collapse:collapse;font-size:.83rem}
+.data-table th,.data-table td{padding:.6rem .7rem;text-align:left;border-bottom:1px solid var(--border)}
+.data-table th{color:var(--muted);font-weight:600;font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;position:sticky;top:0;background:var(--card)}
+.data-table tbody tr{transition:background .1s;cursor:pointer}
+.data-table tbody tr:hover{background:var(--card-hover)}
+.data-table .num{text-align:right;font-variant-numeric:tabular-nums}
+
+.badge{display:inline-block;padding:.15rem .45rem;border-radius:5px;font-size:.7rem;font-weight:600}
+.badge-green{background:rgba(34,197,94,.15);color:var(--success)}
+.badge-orange{background:rgba(249,115,22,.15);color:var(--primary)}
+.badge-red{background:rgba(239,68,68,.15);color:var(--danger)}
+.badge-blue{background:rgba(59,130,246,.15);color:var(--info)}
+
+/* Activity feed */
+.activity-feed{max-height:400px;overflow-y:auto}
+.activity-item{display:flex;gap:.75rem;padding:.55rem 0;border-bottom:1px solid var(--border);font-size:.8rem;align-items:flex-start}
+.activity-time{color:var(--muted);font-size:.7rem;white-space:nowrap;min-width:65px}
+.activity-icon{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0}
+.activity-msg{flex:1}
+.activity-msg strong{color:var(--text)}
+
+/* Time range selector */
+.time-select{display:flex;gap:.25rem;background:var(--bg);border-radius:8px;padding:.2rem}
+.time-select button{padding:.4rem .8rem;border:none;background:transparent;color:var(--muted);border-radius:6px;font-size:.78rem;cursor:pointer;font-weight:500}
+.time-select button.active{background:var(--primary);color:#fff}
+
+/* Grid layouts */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem}
+
+/* Loading */
+.loading{display:flex;align-items:center;justify-content:center;padding:2rem;color:var(--muted)}
+.spinner{width:24px;height:24px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .6s linear infinite;margin-right:.5rem}
 @keyframes spin{to{transform:rotate(360deg)}}
-.login-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:1000}
-.login-box{background:var(--card);padding:3rem;border-radius:16px;border:1px solid var(--border);width:100%;max-width:400px;text-align:center}
-.login-box h2{margin-bottom:1rem;color:var(--primary)}
-.login-box p{color:var(--muted);margin-bottom:2rem}
-.login-box input{width:100%;padding:0.75rem 1rem;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);margin-bottom:1rem;font-size:1rem}
-.login-box input:focus{outline:none;border-color:var(--primary)}
-.login-box button{width:100%;padding:0.75rem;background:var(--primary);color:white;border:none;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;transition:opacity 0.2s}
-.login-box button:hover{opacity:0.9}
-.hidden{display:none !important}
-.refresh-btn{background:var(--primary);color:white;border:none;padding:0.5rem 1rem;border-radius:6px;cursor:pointer;font-size:0.875rem}
-.refresh-btn:hover{opacity:0.9}
-.section-label{font-size:0.8rem;text-transform:uppercase;color:var(--muted);letter-spacing:0.08em;margin-bottom:1rem;padding-left:0.25rem}
-.time-filters{display:flex;gap:0.5rem;}
-.time-filters button{background:var(--bg);border:1px solid var(--border);color:var(--text);padding:0.5rem 1rem;border-radius:6px;cursor:pointer;font-size:0.875rem}
-.time-filters button.active{background:var(--primary);border-color:var(--primary);color:white}
-.notice{background:rgba(245,158,11,0.1);border:1px solid var(--warning);color:var(--warning);padding:1rem;border-radius:8px;margin-bottom:1rem;font-size:0.875rem}
-.demo-notice{background:rgba(245,158,11,0.1);border:1px solid var(--warning);color:var(--warning);padding:1rem;border-radius:8px;margin-bottom:1rem;font-size:0.875rem}
-.empty-msg{color:var(--muted);padding:2rem;text-align:center;font-size:0.85rem}
-.full-width{grid-column:1/-1}
-.funnel-bar{display:flex;align-items:center;margin-bottom:0.65rem;gap:0.75rem}
-.funnel-bar .step-label{width:140px;text-align:right;font-size:0.8rem;color:var(--text)}
-.funnel-bar .step-bar-wrap{flex:1;background:var(--bg);border-radius:4px;height:28px;overflow:hidden;position:relative}
-.funnel-bar .step-bar-fill{height:100%;border-radius:4px;transition:width 0.4s ease;display:flex;align-items:center;padding-left:0.5rem;font-size:0.75rem;font-weight:600}
-.funnel-bar .step-count{width:80px;font-size:0.8rem;color:var(--muted)}
+
+/* Export button */
+.btn-export{background:var(--primary);color:#fff;border:none;padding:.4rem .9rem;border-radius:6px;font-size:.78rem;cursor:pointer;font-weight:500}
+.btn-export:hover{background:#ea580c}
+#btn-toggle-bots.active{background:rgba(249,115,22,.15)!important;color:var(--primary)!important;border-color:var(--primary)!important}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;display:flex;align-items:center;justify-content:center}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;width:90%;max-width:900px;max-height:85vh;overflow-y:auto}
+.modal h3{color:var(--primary);margin-bottom:1rem}
+.modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--muted);font-size:1.5rem;cursor:pointer}
+
+/* Responsive */
+@media(max-width:768px){
+  .sidebar{width:60px}
+  .sidebar-brand span,.sidebar-nav a span,.sidebar-footer button span{display:none}
+  .sidebar-nav a{justify-content:center;padding:.65rem}
+  .main{margin-left:60px}
+  .grid-2,.grid-3{grid-template-columns:1fr}
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+.empty-state{text-align:center;padding:3rem;color:var(--muted)}
+.empty-state .icon{font-size:3rem;margin-bottom:1rem}
 </style>
 </head>
 <body>
 
-<div id="loginScreen" class="login-screen">
-  <div class="login-box">
-    <h2>CalcToWork Admin</h2>
-    <p>Enter access code to view analytics dashboard</p>
-    <input type="password" id="accessCode" placeholder="Access code" onkeypress="if(event.key==='Enter')checkLogin()">
-    <button onclick="checkLogin()">Access Dashboard</button>
+<!-- LOGIN SCREEN -->
+<div id="login-screen" class="login-wrap">
+  <div class="login-card">
+    <h1>CalcToWork Admin</h1>
+    <p>Enter password to access analytics</p>
+    <div class="login-error" id="login-error"></div>
+    <input type="password" id="login-password" placeholder="Password" autocomplete="current-password">
+    <button onclick="doLogin()">Sign In</button>
   </div>
 </div>
 
-<div id="dashboard" class="hidden">
-  <div class="header">
-    <div>
-      <h1>CalcToWork Analytics</h1>
-      <div style="font-size:0.875rem;color:var(--muted);margin-top:0.25rem">Real-time user behavior tracking</div>
-    </div>
-    <div style="display:flex;align-items:center;gap:1rem">
-      <div class="time-filters">
-        <button class="active" onclick="setTimeRange('today')">Today</button>
-        <button onclick="setTimeRange('7d')">7 Days</button>
-        <button onclick="setTimeRange('30d')">30 Days</button>
-      </div>
-      <button class="refresh-btn" onclick="loadData()">Refresh</button>
-      <div class="status">
-        <div class="status-dot"></div>
-        <span id="connectionStatus">Live Mode</span>
-      </div>
-    </div>
-  </div>
+<!-- APP (hidden until login) -->
+<div id="app" style="display:none">
 
-  <div class="container">
-    <div id="statusNotice" class="notice hidden"></div>
-    <div id="demoNotice" class="demo-notice hidden"></div>
-
-    <div class="section-label">Key Metrics</div>
-    <div class="kpi-grid">
-      <div class="kpi"><h3>Active Users</h3><div class="value" id="activeUsers">0</div></div>
-      <div class="kpi"><h3>New Users</h3><div class="value" id="newUsers">0</div></div>
-      <div class="kpi"><h3>Page Views</h3><div class="value" id="pageViews">0</div><div class="change" id="pageViewsChange"></div></div>
-      <div class="kpi"><h3>Calculations</h3><div class="value" id="calculations">0</div><div class="change" id="calculationsChange"></div></div>
-      <div class="kpi"><h3>Conversion</h3><div class="value" id="convRate">0%</div><div class="change">View to Calc</div></div>
-      <div class="kpi"><h3>Avg Time</h3><div class="value" id="avgTime">0:00</div><div class="change">Minutes</div></div>
-      <div class="kpi"><h3>Scroll Depth</h3><div class="value" id="avgScroll">0%</div><div class="change">Average</div></div>
-      <div class="kpi"><h3>Languages</h3><div class="value" id="langCount">0</div><div class="change">Active</div></div>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/></svg>
+      <span>Calc<em>To</em>Work</span>
     </div>
-
-    <div class="section-label">Traffic &amp; Engagement</div>
-    <div class="grid">
-      <div class="card">
-        <h2><span class="icon">📈</span> Page Views Over Time</h2>
-        <div class="chart-container"><canvas id="pageViewsChart"></canvas></div>
-      </div>
-      <div class="card">
-        <h2><span class="icon">🧮</span> Calculations Over Time</h2>
-        <div class="chart-container"><canvas id="calculationsChart"></canvas></div>
-      </div>
+    <nav class="sidebar-nav">
+      <a href="#" class="active" data-page="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        <span>Dashboard</span>
+      </a>
+      <a href="#" data-page="calculators">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <span>Calculators</span>
+      </a>
+      <a href="#" data-page="users">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span>Users</span>
+      </a>
+      <a href="#" data-page="languages">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <span>Languages</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <button onclick="doLogout()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        <span>Logout</span>
+      </button>
     </div>
+  </aside>
 
-    <div class="section-label">Conversion Funnel &amp; Languages</div>
-    <div class="grid">
-      <div class="card">
-        <h2><span class="icon">🔻</span> Conversion Funnel</h2>
-        <div style="margin-top:0.5rem">
-          <div class="funnel-bar"><div class="step-label">Page Views</div><div class="step-bar-wrap"><div class="step-bar-fill" id="fBarViews" style="width:100%;background:#3b82f6">N/A</div></div><div class="step-count" id="fCountViews">0</div></div>
-          <div class="funnel-bar"><div class="step-label">Started Input</div><div class="step-bar-wrap"><div class="step-bar-fill" id="fBarInput" style="width:100%;background:#f97316">N/A</div></div><div class="step-count" id="fCountInput">0</div></div>
-          <div class="funnel-bar"><div class="step-label">Calculated</div><div class="step-bar-wrap"><div class="step-bar-fill" id="fBarCalc" style="width:100%;background:#22c55e">N/A</div></div><div class="step-count" id="fCountCalc">0</div></div>
-          <div class="funnel-bar"><div class="step-label">Copied Results</div><div class="step-bar-wrap"><div class="step-bar-fill" id="fBarCopy" style="width:100%;background:#f59e0b">N/A</div></div><div class="step-count" id="fCountCopy">0</div></div>
-          <div class="funnel-bar"><div class="step-label">Shared</div><div class="step-bar-wrap"><div class="step-bar-fill" id="fBarShare" style="width:100%;background:#ef4444">N/A</div></div><div class="step-count" id="fCountShare">0</div></div>
-        </div>
-      </div>
-      <div class="card">
-        <h2><span class="icon">🌐</span> Languages</h2>
-        <div class="chart-container"><canvas id="langChart"></canvas></div>
+  <!-- MAIN CONTENT -->
+  <main class="main" id="main-content">
+    <div class="topbar">
+      <h2 id="page-title">Dashboard</h2>
+      <div class="topbar-right">
+        <span id="refresh-time" style="font-size:.75rem"></span>
+        <button id="btn-toggle-bots" onclick="toggleBots()" style="background:var(--bg);border:1px solid var(--border);color:var(--muted);padding:.25rem .6rem;border-radius:6px;font-size:.72rem;cursor:pointer" title="Show/hide bot traffic">Show Bots</button>
+        <span class="live-dot"></span> Live
       </div>
     </div>
-
-    <div class="section-label">Acquisition &amp; Performance</div>
-    <div class="grid">
-      <div class="card">
-        <h2><span class="icon">🏆</span> Top Calculators</h2>
-        <div id="topCalculatorsLoading" class="loading"><div class="spinner"></div></div>
-        <table id="topCalculatorsTable" class="hidden">
-          <thead><tr><th>Calculator</th><th>Views</th><th>Calcs</th><th>CTR</th></tr></thead>
-          <tbody id="topCalculatorsBody"></tbody>
-        </table>
-      </div>
-      <div class="card">
-        <h2><span class="icon">🔗</span> Referrer Sources</h2>
-        <div id="referrerLoading" class="loading"><div class="spinner"></div></div>
-        <table id="referrerTable" class="hidden">
-          <thead><tr><th>Source</th><th>Views</th><th>Users</th><th>Conv %</th></tr></thead>
-          <tbody id="referrerBody"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="grid">
-      <div class="card full-width">
-        <h2><span class="icon">🌍</span> Language Performance</h2>
-        <div id="langPerfLoading" class="loading"><div class="spinner"></div></div>
-        <table id="langPerfTable" class="hidden">
-          <thead><tr><th>Language</th><th>Views</th><th>Users</th><th>Calculations</th><th>Conv %</th><th>Avg Time</th><th>Scroll %</th></tr></thead>
-          <tbody id="langPerfBody"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="grid">
-      <div class="card">
-        <h2><span class="icon">📱</span> Device Breakdown</h2>
-        <div class="chart-container"><canvas id="deviceChart"></canvas></div>
-      </div>
-      <div class="card">
-        <h2><span class="icon">🌍</span> Top Countries</h2>
-        <div id="countriesLoading" class="loading"><div class="spinner"></div></div>
-        <table id="countriesTable" class="hidden">
-          <thead><tr><th>Country</th><th>Users</th><th>Views</th><th>Time</th></tr></thead>
-          <tbody id="countriesBody"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="grid">
-      <div class="card full-width">
-        <h2><span class="icon">👍</span> Calculator Feedback</h2>
-        <div id="feedbackLoading" class="loading"><div class="spinner"></div></div>
-        <table id="feedbackTable" class="hidden">
-          <thead><tr><th>Calculator</th><th>👍 Thumbs Up</th><th>👎 Thumbs Down</th><th>Satisfaction</th></tr></thead>
-          <tbody id="feedbackBody"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="card" style="margin-bottom:2rem">
-      <h2><span class="icon">🕐</span> Recent Activity</h2>
-      <div id="activityLoading" class="loading"><div class="spinner"></div></div>
-      <table id="activityTable" class="hidden">
-        <thead><tr><th>Time</th><th>Event</th><th>Calculator</th><th>User</th><th>Details</th></tr></thead>
-        <tbody id="activityBody"></tbody>
-      </table>
-    </div>
-  </div>
+    <div class="content" id="content-area"></div>
+  </main>
 </div>
 
 <script>
-async function sha256(text) {
-  if (typeof crypto === 'undefined' || !crypto.subtle) {
-    throw new Error('crypto.subtle not available — use HTTPS or localhost');
+// ── FIREBASE INIT ──
+const fbConfig = {
+  apiKey:"AIzaSyBmjGOakF8HneBc2cnmt6WeEfU4JWgJFw8",
+  authDomain:"calctowork.firebaseapp.com",
+  projectId:"calctowork",
+  storageBucket:"calctowork.firebasestorage.app",
+  messagingSenderId:"538330151764",
+  appId:"1:538330151764:web:175e3ff0f7d87f706b66c1"
+};
+firebase.initializeApp(fbConfig);
+const db = firebase.firestore();
+
+// ── AUTH (simple password, no Firebase Auth needed) ──
+const PASS_HASH = '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9'; // admin123
+
+let loggedIn = false;
+let unsubscribers = [];
+
+function checkLogin() {
+  if (loggedIn) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'flex';
+    setupNavigation();
+    navigateTo('dashboard');
   }
-  const encoder = new TextEncoder();
-  const data = encoder.encode(text);
-  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
-const ADMIN_HASH = '057ba03d6c44104863dc7361fe4578965d1887360f90a0895882e58a6248fc86'; // sha256('changeme')
-
-async function checkLogin() {
-  const code = document.getElementById('accessCode').value;
-  try {
-    const hash = await sha256(code);
-    if (hash === ADMIN_HASH) {
-      document.getElementById('loginScreen').classList.add('hidden');
-      document.getElementById('dashboard').classList.remove('hidden');
-      loadData();
-      return;
-    }
-  } catch (e) {
-    console.warn('SHA-256 failed:', e.message);
-    if (code === 'changeme') {
-      document.getElementById('loginScreen').classList.add('hidden');
-      document.getElementById('dashboard').classList.remove('hidden');
-      loadData();
-      return;
-    }
+function doLogin() {
+  const pass = document.getElementById('login-password').value;
+  const errEl = document.getElementById('login-error');
+  if (!pass) { errEl.textContent = 'Enter password'; return; }
+  const hash = sha256(pass);
+  if (hash === PASS_HASH) {
+    loggedIn = true;
+    checkLogin();
+  } else {
+    errEl.textContent = 'Wrong password';
   }
-  alert('Invalid access code');
 }
 
-let currentRange = 'today';
-let charts = {};
+function doLogout() {
+  loggedIn = false;
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('app').style.display = 'none';
+  unsubscribeAll();
+}
+
+function unsubscribeAll() {
+  unsubscribers.forEach(fn => { try { fn(); } catch(e) {} });
+  unsubscribers = [];
+}
+
+// ── NAVIGATION ──
+let currentPage = 'dashboard';
+let currentTimeRange = 'today';
+let showBots = false;
+let lastRefreshTime = null;
+
+function setupNavigation() {
+  document.querySelectorAll('.sidebar-nav a').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      navigateTo(link.dataset.page);
+    });
+  });
+}
+
+function navigateTo(page) {
+  currentPage = page;
+  document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+  document.querySelector(`[data-page="${page}"]`)?.classList.add('active');
+  document.getElementById('page-title').textContent = 
+    {dashboard:'Dashboard',calculators:'Calculators',users:'Users',languages:'Languages'}[page] || page;
+  
+  unsubscribeAll();
+  const area = document.getElementById('content-area');
+  
+  switch(page) {
+    case 'dashboard': renderDashboard(area); break;
+    case 'calculators': renderCalculators(area); break;
+    case 'users': renderUsers(area); break;
+    case 'languages': renderLanguages(area); break;
+  }
+}
+
+// ── TIME HELPERS ──
+function getTimeRange() {
+  const now = new Date();
+  switch(currentTimeRange) {
+    case 'today': return { start: new Date(now.getFullYear(), now.getMonth(), now.getDate()), label: 'Today' };
+    case 'yesterday': return { start: new Date(now.getFullYear(), now.getMonth(), now.getDate()-1), end: new Date(now.getFullYear(), now.getMonth(), now.getDate()), label: 'Yesterday' };
+    case '7d': return { start: new Date(now - 7*86400000), label: '7 Days' };
+    case '30d': return { start: new Date(now - 30*86400000), label: '30 Days' };
+    default: return { start: new Date(now.getFullYear(), now.getMonth(), now.getDate()), label: 'Today' };
+  }
+}
+
+function timeRangeHTML() {
+  const active = currentTimeRange;
+  const btns = ['today','yesterday','7d','30d'].map(t => 
+    `<button class="${t===active?'active':''}" onclick="setTimeRange('${t}')">${t==='today'?'Today':t==='yesterday'?'Yesterday':t==='7d'?'7 Days':'30 Days'}</button>`
+  ).join('');
+  return `<div class="time-select">${btns}</div>`;
+}
 
 function setTimeRange(range) {
-  currentRange = range;
-  document.querySelectorAll('.time-filters button').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
-  loadData();
+  currentTimeRange = range;
+  navigateTo(currentPage);
 }
 
-function getDateRange() {
-  const now = new Date();
-  const start = new Date();
-  if (currentRange === 'today') {
-    start.setHours(0, 0, 0, 0);
-  } else if (currentRange === '7d') {
-    start.setDate(start.getDate() - 7);
-  } else if (currentRange === '30d') {
-    start.setDate(start.getDate() - 30);
-  }
-  return { start, end: now };
+// ── FIREBASE QUERIES ──
+function queryEvents(callback) {
+  const { start, end } = getTimeRange();
+  let q = db.collection('analytics_events')
+    .where('event_time', '>=', firebase.firestore.Timestamp.fromDate(start))
+    .orderBy('event_time', 'desc');
+  if (end) q = q.where('event_time', '<', firebase.firestore.Timestamp.fromDate(end));
+  q = q.limit(10000);
+  
+  const unsub = q.onSnapshot(snap => {
+    const events = [];
+    snap.forEach(doc => events.push({ id: doc.id, ...doc.data() }));
+    lastRefreshTime = new Date();
+    updateRefreshBadge();
+    const filtered = showBots ? events : events.filter(e => !e.is_bot);
+    callback(filtered);
+  }, err => console.error('Firestore error:', err));
+  
+  unsubscribers.push(unsub);
 }
 
-async function loadData() {
-  const notice = document.getElementById('statusNotice');
-  const demoNotice = document.getElementById('demoNotice');
-  try {
-    if (typeof firebase === 'undefined') throw new Error('Firebase SDK not loaded');
-    if (!firebase.apps || firebase.apps.length === 0) throw new Error('Firebase not initialized');
+function toggleBots() {
+  showBots = !showBots;
+  document.getElementById('btn-toggle-bots').textContent = showBots ? 'Hide Bots' : 'Show Bots';
+  document.getElementById('btn-toggle-bots').className = showBots ? 'active' : '';
+  navigateTo(currentPage);
+}
 
-    const db = firebase.firestore();
-    const { start, end } = getDateRange();
-
-    let eventsSnapshot = await db.collection('analytics_events')
-      .where('event_time', '>=', start)
-      .orderBy('event_time', 'desc')
-      .limit(5000)
-      .get();
-
-    let events = [];
-    eventsSnapshot.forEach(doc => events.push(doc.data()));
-
-    const filteredEvents = events.filter(e => {
-      if (!e.event_time) return false;
-      const ts = e.event_time.toDate ? e.event_time.toDate() : new Date(e.event_time);
-      return ts <= end;
-    });
-
-    if (filteredEvents.length > 0) {
-      demoNotice.classList.add('hidden');
-      notice.classList.add('hidden');
-      document.getElementById('connectionStatus').textContent = 'Live Mode';
-      document.getElementById('connectionStatus').style.color = 'var(--success)';
-      processAndDisplay(filteredEvents);
-      return;
-    }
-
-    const anySnapshot = await db.collection('analytics_events')
-      .orderBy('event_time', 'desc')
-      .limit(50)
-      .get();
-
-    const anyEvents = [];
-    anySnapshot.forEach(doc => anyEvents.push(doc.data()));
-
-    if (anyEvents.length > 0) {
-      var first = anyEvents[0];
-      var last = anyEvents[anyEvents.length - 1];
-      var firstTs = '?';
-      var lastTs = '?';
-      try {
-        firstTs = first.event_time && first.event_time.toDate ? first.event_time.toDate().toLocaleString() : new Date(first.event_time).toLocaleString();
-        lastTs = last.event_time && last.event_time.toDate ? last.event_time.toDate().toLocaleString() : new Date(last.event_time).toLocaleString();
-      } catch(e) {}
-
-      demoNotice.innerHTML = '<strong>Data found!</strong> Showing most recent 50 events. Events span: ' + lastTs + ' to ' + firstTs + '. Try a wider date range.';
-      demoNotice.style.background = 'rgba(34, 197, 94, 0.1)';
-      demoNotice.style.borderColor = 'var(--success)';
-      demoNotice.style.color = 'var(--success)';
-      demoNotice.classList.remove('hidden');
-      notice.classList.add('hidden');
-      document.getElementById('connectionStatus').textContent = 'Live Mode';
-      document.getElementById('connectionStatus').style.color = 'var(--success)';
-      processAndDisplay(anyEvents);
-      return;
-    }
-
-    notice.innerHTML = '<strong>Firebase Connected</strong><br>Collection is empty. Visit any calculator page to start tracking.';
-    notice.style.background = 'rgba(34, 197, 94, 0.1)';
-    notice.style.borderColor = 'var(--success)';
-    notice.style.color = 'var(--success)';
-    notice.classList.remove('hidden');
-    demoNotice.classList.add('hidden');
-    document.getElementById('connectionStatus').textContent = 'Connected - No data yet';
-    processAndDisplay([]);
-
-  } catch (error) {
-    console.error('Firebase error:', error);
-    notice.innerHTML = '<strong>Error:</strong> ' + error.message;
-    notice.style.background = 'rgba(239, 68, 68, 0.1)';
-    notice.style.borderColor = 'var(--danger)';
-    notice.style.color = 'var(--danger)';
-    notice.classList.remove('hidden');
-    document.getElementById('connectionStatus').textContent = 'Connection Error';
-    document.getElementById('connectionStatus').style.color = 'var(--danger)';
-    processAndDisplay([]);
+function updateRefreshBadge() {
+  const el = document.getElementById('refresh-time');
+  if (el && lastRefreshTime) {
+    el.textContent = 'Updated ' + lastRefreshTime.toLocaleTimeString();
   }
 }
 
-function processAndDisplay(events) {
-  const pageViews = events.filter(e => e.event_name === 'page_view');
-  const calculations = events.filter(e => e.event_name === 'calculation_completed');
-  const copies = events.filter(e => e.event_name === 'copy_results');
-  const shares = events.filter(e => e.event_name === 'share_clicked');
-  const inputFocus = events.filter(e => e.event_name === 'input_focus');
-  const scrollEvents = events.filter(e => e.event_name === 'scroll_depth');
+// ── DASHBOARD PAGE ──
+function renderDashboard(area) {
+  area.innerHTML = `
+    ${timeRangeHTML()}
+    <div style="margin-top:1rem">
+      <div class="kpi-grid" id="dash-kpis"></div>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><span class="card-title">Page Views & Calculations</span></div>
+        <div class="chart-wrap"><canvas id="chart-views-calcs"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="card-title">Hourly Activity</span></div>
+        <div class="chart-wrap"><canvas id="chart-hourly"></canvas></div>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><span class="card-title">Device Breakdown</span></div>
+        <div class="chart-wrap"><canvas id="chart-devices"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="card-title">Live Activity Feed</span></div>
+        <div class="activity-feed" id="activity-feed"></div>
+      </div>
+    </div>
+  `;
 
-  // Unique users
-  const uniqueUsers = new Set(events.map(e => e.user_id).filter(Boolean));
-
-  // New vs returning: count sessions per user_id; new = only 1 session
-  const userSessionCounts = {};
-  events.forEach(e => {
-    if (e.user_id && e.session_id) {
-      if (!userSessionCounts[e.user_id]) userSessionCounts[e.user_id] = new Set();
-      userSessionCounts[e.user_id].add(e.session_id);
-    }
+  queryEvents(events => {
+    updateDashboardKPIs(events);
+    updateDashboardCharts(events);
+    updateActivityFeed(events);
   });
-  const newUsers = Object.values(userSessionCounts).filter(s => s.size === 1).length;
+}
 
-  // Active users (last 5 min)
-  const fiveMinAgo = new Date(Date.now() - 5 * 60 * 1000);
-  const activeUsers = new Set(
-    events.filter(e => {
-      if (!e.event_time) return false;
-      const ts = e.event_time.toDate ? e.event_time.toDate() : new Date(e.event_time);
-      return ts > fiveMinAgo;
-    }).map(e => e.user_id).filter(Boolean)
-  );
-
-  // Avg time on page
-  const timeEvents = events.filter(e => e.event_name === 'time_on_page');
-  const avgTime = timeEvents.length > 0
-    ? Math.round(timeEvents.reduce((a, e) => a + (e.seconds || 0), 0) / timeEvents.length)
-    : 0;
-
-  // Avg scroll depth
-  const avgScroll = scrollEvents.length > 0
-    ? Math.round(scrollEvents.reduce((a, e) => a + (e.percent || 0), 0) / scrollEvents.length)
-    : 0;
-
-  // Bounce rate
-  const pageViewSessions = new Set(pageViews.map(e => e.session_id));
-  const calcSessions = new Set(calculations.map(e => e.session_id));
-  const bouncedSessions = [...pageViewSessions].filter(s => !calcSessions.has(s));
-  const bounceRate = pageViewSessions.size > 0
-    ? Math.round((bouncedSessions.length / pageViewSessions.size) * 100)
-    : 0;
-
-  // Conversion rate
-  const convRate = pageViews.length > 0
-    ? Math.round((calculations.length / pageViews.length) * 100)
-    : 0;
-
-  // Active languages
-  const activeLangs = new Set(events.map(e => {
-    if (!e.language) return null;
-    return e.language.split('-')[0].toUpperCase();
-  }).filter(Boolean));
-
-  // KPI display
-  document.getElementById('activeUsers').textContent = activeUsers.size;
-  document.getElementById('newUsers').textContent = newUsers.toLocaleString();
-  document.getElementById('pageViews').textContent = pageViews.length.toLocaleString();
-  document.getElementById('pageViewsChange').textContent = uniqueUsers.size + ' unique · ' + bounceRate + '% bounce';
-  document.getElementById('pageViewsChange').className = 'change ' + (bounceRate > 60 ? 'down' : 'up');
-  document.getElementById('calculations').textContent = calculations.length.toLocaleString();
-  document.getElementById('calculationsChange').textContent = convRate + '% of views';
-  document.getElementById('calculationsChange').className = 'change ' + (convRate > 20 ? 'up' : 'down');
-  document.getElementById('convRate').textContent = convRate + '%';
-  document.getElementById('avgTime').textContent = Math.floor(avgTime / 60) + ':' + (avgTime % 60).toString().padStart(2, '0');
-  document.getElementById('avgScroll').textContent = avgScroll + '%';
-  document.getElementById('langCount').textContent = activeLangs.size;
-
-  // === Conversion Funnel ===
-  const funnelSessions = {}; // session_id -> {view, input, calc, copy, share}
+function updateDashboardKPIs(events) {
+  const uniqueUsers = new Set();
+  const uniqueSessions = new Set();
+  const sessionEvents = {};
+  let pageViews = 0, calculations = 0, copies = 0, shares = 0, totalTimeOnPage = 0, timeOnPageCount = 0;
+  
   events.forEach(e => {
+    uniqueUsers.add(e.user_id);
+    uniqueSessions.add(e.session_id);
     const sid = e.session_id;
-    if (!sid) return;
-    if (!funnelSessions[sid]) funnelSessions[sid] = {};
-    if (e.event_name === 'page_view') funnelSessions[sid].view = true;
-    if (e.event_name === 'input_focus') funnelSessions[sid].input = true;
-    if (e.event_name === 'calculation_completed') funnelSessions[sid].calc = true;
-    if (e.event_name === 'copy_results') funnelSessions[sid].copy = true;
-    if (e.event_name === 'share_clicked') funnelSessions[sid].share = true;
+    if (!sessionEvents[sid]) sessionEvents[sid] = [];
+    sessionEvents[sid].push(e.event_name);
+    if (e.event_name === 'page_view') pageViews++;
+    if (e.event_name === 'calculation_completed') calculations++;
+    if (e.event_name === 'copy_results') copies++;
+    if (e.event_name === 'share_clicked') shares++;
+    if (e.seconds) { totalTimeOnPage += e.seconds; timeOnPageCount++; }
   });
-  const fTotal = Object.keys(funnelSessions).length || 1;
-  const fViews = Object.values(funnelSessions).filter(s => s.view).length;
-  const fInput = Object.values(funnelSessions).filter(s => s.input).length;
-  const fCalc = Object.values(funnelSessions).filter(s => s.calc).length;
-  const fCopy = Object.values(funnelSessions).filter(s => s.copy).length;
-  const fShare = Object.values(funnelSessions).filter(s => s.share).length;
 
-  function setFunnel(id, count, pct) {
-    document.getElementById('fCount' + id).textContent = count.toLocaleString();
-    document.getElementById('fBar' + id).style.width = pct + '%';
-    document.getElementById('fBar' + id).textContent = pct + '%';
-  }
-  setFunnel('Views', fViews, fViews > 0 ? Math.round((fViews / fViews) * 100) : 0);
-  setFunnel('Input', fInput, fViews > 0 ? Math.round((fInput / fViews) * 100) : 0);
-  setFunnel('Calc', fCalc, fViews > 0 ? Math.round((fCalc / fViews) * 100) : 0);
-  setFunnel('Copy', fCopy, fViews > 0 ? Math.round((fCopy / fViews) * 100) : 0);
-  setFunnel('Share', fShare, fViews > 0 ? Math.round((fShare / fViews) * 100) : 0);
+  // Bounce rate: sessions with ONLY page_view (no calc, copy, share, scroll)
+  let bouncedSessions = 0;
+  Object.values(sessionEvents).forEach(evts => {
+    const hasInteraction = evts.some(en =>
+      en === 'calculation_completed' || en === 'copy_results' || en === 'share_clicked' ||
+      en === 'scroll_depth' || en === 'input_changed' || en === 'input_focus');
+    if (!hasInteraction) bouncedSessions++;
+  });
+  const totalSessions = uniqueSessions.size;
+  const bounceRate = totalSessions > 0 ? ((bouncedSessions / totalSessions) * 100).toFixed(1) : '0';
+  const avgTime = timeOnPageCount > 0 ? Math.round(totalTimeOnPage / timeOnPageCount) : 0;
+  const convRate = pageViews > 0 ? ((calculations / pageViews) * 100).toFixed(1) : '0';
 
-  // === Language Performance ===
-  const langStats = {};
+  const kpis = [
+    { label: 'Users', value: uniqueUsers.size, sub: `${uniqueSessions.size} sessions`, cls: '' },
+    { label: 'Page Views', value: pageViews.toLocaleString(), sub: '', cls: '' },
+    { label: 'Calculations', value: calculations.toLocaleString(), sub: `${convRate}% conv rate`, cls: '' },
+    { label: 'Bounce Rate', value: `${bounceRate}%`, sub: `${bouncedSessions} of ${totalSessions} sessions`, cls: bouncedSessions > totalSessions*0.7 ? 'danger' : bouncedSessions > totalSessions*0.4 ? 'warning' : 'ok' },
+    { label: 'Avg Time', value: `${avgTime}s`, sub: `${timeOnPageCount} samples`, cls: '' },
+    { label: 'Copies', value: copies.toLocaleString(), sub: '', cls: '' },
+    { label: 'Shares', value: shares.toLocaleString(), sub: '', cls: '' },
+    { label: 'Events', value: events.length.toLocaleString(), sub: getTimeRange().label + (showBots ? ' (bots on)' : ''), cls: '' },
+  ];
+
+  document.getElementById('dash-kpis').innerHTML = kpis.map(k => {
+    let borderCls = '';
+    if (k.cls === 'danger') borderCls = 'style="--kpi-bar:#ef4444"';
+    else if (k.cls === 'warning') borderCls = 'style="--kpi-bar:#f59e0b"';
+    else if (k.cls === 'ok') borderCls = 'style="--kpi-bar:#22c55e"';
+    return `<div class="kpi" ${borderCls}><div class="kpi-label">${k.label}</div><div class="kpi-value">${k.value}</div>${k.sub?`<div class="kpi-sub">${k.sub}</div>`:''}</div>`;
+  }).join('');
+}
+
+let dashboardCharts = {};
+function updateDashboardCharts(events) {
+  // Views & Calcs over time (grouped by hour)
+  const hourly = {};
   events.forEach(e => {
-    const lang = e.language ? e.language.split('-')[0].toUpperCase() : '?';
-    if (!langStats[lang]) langStats[lang] = { views: 0, users: new Set(), calcs: 0, times: [], scrolls: [], sessions: new Set() };
-    if (e.event_name === 'page_view') { langStats[lang].views++; langStats[lang].sessions.add(e.session_id); }
-    langStats[lang].users.add(e.user_id);
-    if (e.event_name === 'calculation_completed') langStats[lang].calcs++;
-    if (e.seconds) langStats[lang].times.push(e.seconds);
-    if (e.percent) langStats[lang].scrolls.push(e.percent);
+    if (!e.event_time) return;
+    const h = new Date(e.event_time.seconds * 1000);
+    const key = `${h.getMonth()+1}/${h.getDate()} ${h.getHours()}:00`;
+    if (!hourly[key]) hourly[key] = { views: 0, calcs: 0 };
+    if (e.event_name === 'page_view') hourly[key].views++;
+    if (e.event_name === 'calculation_completed') hourly[key].calcs++;
   });
-  const langPerf = Object.entries(langStats).map(([lang, s]) => ({
-    lang,
-    views: s.views,
-    users: s.users.size,
-    calcs: s.calcs,
-    conv: s.views > 0 ? Math.round((s.calcs / s.views) * 100) : 0,
-    avgTime: s.times.length > 0 ? Math.round(s.times.reduce((a, b) => a + b, 0) / s.times.length) : 0,
-    avgScroll: s.scrolls.length > 0 ? Math.round(s.scrolls.reduce((a, b) => a + b, 0) / s.scrolls.length) : 0
-  })).sort((a, b) => b.views - a.views);
 
-  document.getElementById('langPerfLoading').classList.add('hidden');
-  document.getElementById('langPerfTable').classList.remove('hidden');
-  document.getElementById('langPerfBody').innerHTML = langPerf.length
-    ? langPerf.map(l => '<tr><td>' + getFlag(l.lang) + ' <strong>' + l.lang + '</strong></td><td>' + l.views + '</td><td>' + l.users + '</td><td>' + l.calcs + '</td><td><span class="badge ' + (l.conv > 20 ? 'badge-success' : 'badge-warning') + '">' + l.conv + '%</span></td><td>' + Math.floor(l.avgTime / 60) + 'm ' + (l.avgTime % 60) + 's</td><td>' + l.avgScroll + '%</td></tr>').join('')
-    : '<tr><td colspan="7" class="empty-msg">No language data yet</td></tr>';
+  const sorted = Object.entries(hourly).sort((a,b) => {
+    const [m1,d1,h1] = a[0].split(/[\/\s:]/).map(Number);
+    const [m2,d2,h2] = b[0].split(/[\/\s:]/).map(Number);
+    return m1!==m2 ? m1-m2 : d1!==d2 ? d1-d2 : h1-h2;
+  });
+  const labels = sorted.map(e => e[0]);
+  const views = sorted.map(e => e[1].views);
+  const calcs = sorted.map(e => e[1].calcs);
 
-  // === Top Calculators ===
+  if (dashboardCharts.viewsCalcs) dashboardCharts.viewsCalcs.destroy();
+  const ctx = document.getElementById('chart-views-calcs')?.getContext('2d');
+  if (ctx) {
+    dashboardCharts.viewsCalcs = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          { label: 'Page Views', data: views, borderColor: '#f97316', backgroundColor: 'rgba(249,115,22,.1)', fill: true, tension: .3, pointRadius: 0 },
+          { label: 'Calculations', data: calcs, borderColor: '#22c55e', backgroundColor: 'rgba(34,197,94,.1)', fill: true, tension: .3, pointRadius: 0 },
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: '#94a3b8', font: { size: 11 } } } },
+        scales: { x: { ticks: { color: '#64748b', maxTicksLimit: 12, font: { size: 10 } }, grid: { color: '#1e293b' } }, y: { ticks: { color: '#64748b' }, grid: { color: '#1e293b' }, beginAtZero: true } },
+        interaction: { intersect: false, mode: 'index' }
+      }
+    });
+  }
+
+  // Hourly heatmap (simplified as bar chart of events per hour of day)
+  const hourBins = Array(24).fill(0);
+  events.forEach(e => {
+    if (!e.event_time) return;
+    const h = new Date(e.event_time.seconds * 1000).getHours();
+    hourBins[h]++;
+  });
+
+  if (dashboardCharts.hourly) dashboardCharts.hourly.destroy();
+  const ctx2 = document.getElementById('chart-hourly')?.getContext('2d');
+  if (ctx2) {
+    dashboardCharts.hourly = new Chart(ctx2, {
+      type: 'bar',
+      data: {
+        labels: Array.from({length:24},(_,i)=>`${i}:00`),
+        datasets: [{ label: 'Events', data: hourBins, backgroundColor: 'rgba(249,115,22,.6)', borderRadius: 4 }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { x: { ticks: { color: '#64748b', font: { size: 9 }, maxTicksLimit: 12 }, grid: { display: false } }, y: { ticks: { color: '#64748b' }, grid: { color: '#1e293b' } } }
+      }
+    });
+  }
+
+  // Device breakdown
+  const devices = { desktop: 0, mobile: 0, tablet: 0 };
+  events.forEach(e => {
+    const w = e.screen_width || 0;
+    if (w >= 1024) devices.desktop++;
+    else if (w >= 600) devices.tablet++;
+    else if (w > 0) devices.mobile++;
+  });
+
+  if (dashboardCharts.devices) dashboardCharts.devices.destroy();
+  const ctx3 = document.getElementById('chart-devices')?.getContext('2d');
+  if (ctx3) {
+    dashboardCharts.devices = new Chart(ctx3, {
+      type: 'doughnut',
+      data: {
+        labels: ['Desktop','Mobile','Tablet'],
+        datasets: [{ data: [devices.desktop, devices.mobile, devices.tablet], backgroundColor: ['#f97316','#3b82f6','#22c55e'], borderWidth: 0 }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 11 }, padding: 15 } } }
+      }
+    });
+  }
+}
+
+function updateActivityFeed(events) {
+  const feed = document.getElementById('activity-feed');
+  if (!feed) return;
+  const recent = events.slice(0, 50);
+  
+  const icons = {
+    page_view: { emoji: '👁', bg: 'rgba(59,130,246,.15)' },
+    calculation_completed: { emoji: '🔢', bg: 'rgba(34,197,94,.15)' },
+    copy_results: { emoji: '📋', bg: 'rgba(249,115,22,.15)' },
+    share_clicked: { emoji: '🔗', bg: 'rgba(168,85,247,.15)' },
+    time_on_page: { emoji: '⏱', bg: 'rgba(148,163,184,.15)' },
+    scroll_depth: { emoji: '📜', bg: 'rgba(148,163,184,.15)' },
+  };
+
+  feed.innerHTML = recent.map(e => {
+    const t = e.event_time ? new Date(e.event_time.seconds * 1000) : new Date();
+    const time = t.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const ic = icons[e.event_name] || { emoji: '📊', bg: 'rgba(148,163,184,.15)' };
+    const slug = e.calc_slug || 'unknown';
+    const botTag = e.is_bot ? ' <span class="badge badge-red" style="margin-left:4px">bot</span>' : '';
+    return `<div class="activity-item">
+      <span class="activity-time">${time}</span>
+      <span class="activity-icon" style="background:${ic.bg}">${ic.emoji}</span>
+      <span class="activity-msg"><strong>${e.event_name.replace(/_/g,' ')}</strong> on <span style="color:var(--primary)">${slug}</span>${e.language ? ` (${e.language})` : ''}${botTag}</span>
+    </div>`;
+  }).join('');
+}
+
+// ── CALCULATORS PAGE ──
+function renderCalculators(area) {
+  area.innerHTML = `
+    ${timeRangeHTML()}
+    <div class="card" style="margin-top:1rem">
+      <div class="card-header">
+        <span class="card-title">Calculator Performance</span>
+        <button class="btn-export" onclick="exportTable('calc-table')">Export CSV</button>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="data-table" id="calc-table">
+          <thead><tr><th>Calculator</th><th>ID</th><th class="num">Views</th><th class="num">Calcs</th><th class="num">Conv %</th><th class="num">Copies</th><th class="num">Shares</th><th class="num">Avg Time</th></tr></thead>
+          <tbody id="calc-tbody"><tr><td colspan="8"><div class="loading"><span class="spinner"></span> Loading...</div></td></tr></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card" id="calc-detail" style="display:none">
+      <div class="card-header">
+        <span class="card-title" id="calc-detail-title">Calculator Detail</span>
+        <button onclick="document.getElementById('calc-detail').style.display='none'">✕ Close</button>
+      </div>
+      <div class="grid-2">
+        <div class="chart-wrap"><canvas id="chart-calc-timeline"></canvas></div>
+        <div id="calc-detail-stats"></div>
+      </div>
+    </div>
+  `;
+
+  queryEvents(events => updateCalculatorTable(events));
+}
+
+function updateCalculatorTable(events) {
   const calcStats = {};
   events.forEach(e => {
     const slug = e.calc_slug || 'unknown';
-    if (!calcStats[slug]) calcStats[slug] = { views: 0, calculations: 0, slug };
+    if (!calcStats[slug]) calcStats[slug] = { slug, id: e.calc_id||'', views:0, calcs:0, copies:0, shares:0, times:[], lang: e.language||'' };
     if (e.event_name === 'page_view') calcStats[slug].views++;
-    if (e.event_name === 'calculation_completed') calcStats[slug].calculations++;
+    if (e.event_name === 'calculation_completed') calcStats[slug].calcs++;
+    if (e.event_name === 'copy_results') calcStats[slug].copies++;
+    if (e.event_name === 'share_clicked') calcStats[slug].shares++;
+    if (e.seconds) calcStats[slug].times.push(e.seconds);
   });
-  const topCalcs = Object.values(calcStats).sort((a, b) => b.views - a.views).slice(0, 10);
 
-  document.getElementById('topCalculatorsLoading').classList.add('hidden');
-  document.getElementById('topCalculatorsTable').classList.remove('hidden');
-  document.getElementById('topCalculatorsBody').innerHTML = topCalcs.length
-    ? topCalcs.map(c => '<tr><td><strong>' + c.slug + '</strong></td><td>' + c.views + '</td><td>' + c.calculations + '</td><td><span class="badge ' + (c.calculations > 0 ? 'badge-success' : 'badge-warning') + '">' + (c.views > 0 ? Math.round((c.calculations / c.views) * 100) : 0) + '%</span></td></tr>').join('')
-    : '<tr><td colspan="4" class="empty-msg">No calculator data yet</td></tr>';
+  const rows = Object.values(calcStats)
+    .sort((a,b) => b.views - a.views)
+    .map(c => {
+      const conv = c.views > 0 ? ((c.calcs/c.views)*100).toFixed(1) : '0';
+      const avgTime = c.times.length > 0 ? Math.round(c.times.reduce((s,v)=>s+v,0)/c.times.length) : 0;
+      return `<tr onclick="showCalcDetail('${c.slug}')" style="cursor:pointer">
+        <td style="color:var(--primary)">${c.slug}</td>
+        <td>${c.id}</td>
+        <td class="num">${c.views.toLocaleString()}</td>
+        <td class="num">${c.calcs.toLocaleString()}</td>
+        <td class="num"><span class="badge ${conv>10?'badge-green':conv>3?'badge-orange':'badge-red'}">${conv}%</span></td>
+        <td class="num">${c.copies}</td>
+        <td class="num">${c.shares}</td>
+        <td class="num">${avgTime}s</td>
+      </tr>`;
+    }).join('');
 
-  // === Referrer Sources ===
-  const refStats = {};
-  pageViews.forEach(e => {
-    let ref = e.referrer || 'direct';
-    if (ref === 'direct' || ref === '') ref = 'Direct';
-    else if (ref.includes('google')) ref = 'Google';
-    else if (ref.includes('bing') || ref.includes('duckduckgo') || ref.includes('yahoo')) ref = 'Other Search';
-    else if (ref.includes('calcto.work') || ref.includes('calctowork')) ref = 'Internal';
-    else ref = 'Other';
-    if (!refStats[ref]) refStats[ref] = { views: 0, users: new Set(), calcs: new Set() };
-    refStats[ref].views++;
-    refStats[ref].users.add(e.user_id);
+  const tbody = document.getElementById('calc-tbody');
+  if (tbody) tbody.innerHTML = rows || '<tr><td colspan="8" class="empty-state">No data for this period</td></tr>';
+}
+
+let calcDetailChart = null;
+function showCalcDetail(slug) {
+  document.getElementById('calc-detail').style.display = 'block';
+  document.getElementById('calc-detail-title').textContent = `Calculator: ${slug}`;
+  
+  queryEvents(events => {
+    const calcEvents = events.filter(e => e.calc_slug === slug);
+    const views = calcEvents.filter(e => e.event_name === 'page_view').length;
+    const calcs = calcEvents.filter(e => e.event_name === 'calculation_completed').length;
+    const copies = calcEvents.filter(e => e.event_name === 'copy_results').length;
+    const shares = calcEvents.filter(e => e.event_name === 'share_clicked').length;
+    const times = calcEvents.filter(e => e.seconds).map(e => e.seconds);
+    const avgTime = times.length > 0 ? Math.round(times.reduce((s,v)=>s+v,0)/times.length) : 0;
+
+    document.getElementById('calc-detail-stats').innerHTML = `
+      <div class="kpi-grid" style="grid-template-columns:1fr 1fr">
+        <div class="kpi"><div class="kpi-label">Views</div><div class="kpi-value">${views}</div></div>
+        <div class="kpi"><div class="kpi-label">Calculations</div><div class="kpi-value">${calcs}</div></div>
+        <div class="kpi"><div class="kpi-label">Copies</div><div class="kpi-value">${copies}</div></div>
+        <div class="kpi"><div class="kpi-label">Shares</div><div class="kpi-value">${shares}</div></div>
+        <div class="kpi"><div class="kpi-label">Conv Rate</div><div class="kpi-value">${views>0?((calcs/views)*100).toFixed(1):0}%</div></div>
+        <div class="kpi"><div class="kpi-label">Avg Time</div><div class="kpi-value">${avgTime}s</div></div>
+      </div>
+    `;
   });
-  calculations.forEach(e => {
-    let ref = e.referrer || 'direct';
-    if (ref === 'direct' || ref === '') ref = 'Direct';
-    else if (ref.includes('google')) ref = 'Google';
-    else if (ref.includes('bing') || ref.includes('duckduckgo') || ref.includes('yahoo')) ref = 'Other Search';
-    else if (ref.includes('calcto.work') || ref.includes('calctowork')) ref = 'Internal';
-    else ref = 'Other';
-    if (!refStats[ref]) refStats[ref] = { views: 0, users: new Set(), calcs: new Set() };
-    refStats[ref].calcs.add(e.session_id);
-  });
-  const topRefs = Object.entries(refStats).sort((a, b) => b[1].views - a[1].views);
+}
 
-  document.getElementById('referrerLoading').classList.add('hidden');
-  document.getElementById('referrerTable').classList.remove('hidden');
-  document.getElementById('referrerBody').innerHTML = topRefs.length
-    ? topRefs.map(([ref, s]) => '<tr><td><strong>' + ref + '</strong></td><td>' + s.views + '</td><td>' + s.users.size + '</td><td>' + (s.views > 0 ? Math.round((s.calcs.size / Math.max(Object.values(refStats).reduce((a, r) => a + r.views, 0) / Object.keys(refStats).length, s.views > 0 ? s.views : 1)) * 100) : 0) + '%</td></tr>').join('')
-    : '<tr><td colspan="4" class="empty-msg">No referrer data yet</td></tr>';
+// ── USERS PAGE ──
+function renderUsers(area) {
+  area.innerHTML = `
+    ${timeRangeHTML()}
+    <div class="grid-3" style="margin-top:1rem">
+      <div class="kpi" id="kpi-users"></div>
+      <div class="kpi" id="kpi-sessions"></div>
+      <div class="kpi" id="kpi-avg-events"></div>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><span class="card-title">New vs Returning Users</span></div>
+        <div class="chart-wrap"><canvas id="chart-users-type"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="card-title">Browser Distribution</span></div>
+        <div class="chart-wrap"><canvas id="chart-browsers"></canvas></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="card-title">Session Duration Distribution</span></div>
+      <div class="chart-wrap"><canvas id="chart-session-duration"></canvas></div>
+    </div>
+  `;
 
-  // === Countries ===
-  const countryStats = {};
+  queryEvents(events => updateUserStats(events));
+}
+
+let usersCharts = {};
+function updateUserStats(events) {
+  Object.values(usersCharts).forEach(c => { try { c.destroy(); } catch(e) {} });
+  usersCharts = {};
+  const users = new Map();
   events.forEach(e => {
-    const lang = e.language || 'unknown';
-    const country = lang.split('-')[1] || lang;
-    if (!countryStats[country]) countryStats[country] = { users: new Set(), views: 0, times: [] };
-    countryStats[country].users.add(e.user_id);
-    if (e.event_name === 'page_view') countryStats[country].views++;
-    if (e.seconds) countryStats[country].times.push(e.seconds);
+    const uid = e.user_id || 'anon';
+    if (!users.has(uid)) users.set(uid, { events: 0, sessions: new Set(), firstSeen: Infinity, lastSeen: 0 });
+    const u = users.get(uid);
+    u.events++;
+    if (e.session_id) u.sessions.add(e.session_id);
+    if (e.event_time) {
+      const t = e.event_time.seconds * 1000;
+      if (t < u.firstSeen) u.firstSeen = t;
+      if (t > u.lastSeen) u.lastSeen = t;
+    }
   });
-  const topCountries = Object.entries(countryStats)
-    .map(([country, stats]) => ({
-      country,
-      users: stats.users.size,
-      views: stats.views,
-      avgTime: stats.times.length > 0 ? Math.round(stats.times.reduce((a, b) => a + b, 0) / stats.times.length) : 0
-    }))
-    .sort((a, b) => b.views - a.views)
-    .slice(0, 10);
 
-  document.getElementById('countriesLoading').classList.add('hidden');
-  document.getElementById('countriesTable').classList.remove('hidden');
-  document.getElementById('countriesBody').innerHTML = topCountries.length
-    ? topCountries.map(c => '<tr><td>' + getFlag(c.country) + ' ' + c.country + '</td><td>' + c.users + '</td><td>' + c.views + '</td><td>' + Math.floor(c.avgTime / 60) + 'm ' + (c.avgTime % 60) + 's</td></tr>').join('')
-    : '<tr><td colspan="4" class="empty-msg">No country data yet</td></tr>';
+  const total = users.size;
+  const returning = [...users.values()].filter(u => u.sessions.size > 1).length;
+  const newUsers = total - returning;
+  const totalSessions = [...users.values()].reduce((s,u) => s + u.sessions.size, 0);
+  const avgEventsPerUser = total > 0 ? Math.round(events.length / total) : 0;
 
-  // === Calculator Feedback ===
-  const feedbackEvents = events.filter(e => e.event_name === 'feedback_submitted');
-  const fbStats = {};
-  feedbackEvents.forEach(e => {
-    const slug = e.calc_slug || 'unknown';
-    if (!fbStats[slug]) fbStats[slug] = { up: 0, down: 0 };
-    if (e.vote === 'yes') fbStats[slug].up++;
-    else fbStats[slug].down++;
-  });
-  const topFb = Object.entries(fbStats).sort((a, b) => (b[1].up + b[1].down) - (a[1].up + a[1].down)).slice(0, 15);
+  document.getElementById('kpi-users').innerHTML = `<div class="kpi-label">Total Users</div><div class="kpi-value">${total}</div><div class="kpi-sub">${newUsers} new</div>`;
+  document.getElementById('kpi-sessions').innerHTML = `<div class="kpi-label">Total Sessions</div><div class="kpi-value">${totalSessions}</div><div class="kpi-sub">${returning} returning users</div>`;
+  document.getElementById('kpi-avg-events').innerHTML = `<div class="kpi-label">Avg Events/User</div><div class="kpi-value">${avgEventsPerUser}</div>`;
 
-  document.getElementById('feedbackLoading').classList.add('hidden');
-  document.getElementById('feedbackTable').classList.remove('hidden');
-  document.getElementById('feedbackBody').innerHTML = topFb.length
-    ? topFb.map(([slug, s]) => {
-        var total = s.up + s.down;
-        var pct = total > 0 ? Math.round((s.up / total) * 100) : 0;
-        var cls = pct >= 80 ? 'badge-success' : pct >= 50 ? 'badge-warning' : 'badge-danger';
-        return '<tr><td><strong>' + slug + '</strong></td><td>' + s.up + '</td><td>' + s.down + '</td><td><span class="badge ' + cls + '">' + pct + '%</span></td></tr>';
-      }).join('')
-    : '<tr><td colspan="4" class="empty-msg">No feedback yet</td></tr>';
+  // New vs Returning chart
+  const ctx1 = document.getElementById('chart-users-type')?.getContext('2d');
+  if (ctx1) {
+    usersCharts.type = new Chart(ctx1, {
+      type: 'doughnut',
+      data: { labels: ['New','Returning'], datasets: [{ data: [newUsers, returning], backgroundColor: ['#f97316','#3b82f6'], borderWidth: 0 }] },
+      options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 11 } } } } }
+    });
+  }
 
-  // === Recent Activity ===
-  document.getElementById('activityLoading').classList.add('hidden');
-  document.getElementById('activityTable').classList.remove('hidden');
-  document.getElementById('activityBody').innerHTML = events.length
-    ? events.slice(0, 50).map(e => {
-        let time = 'Unknown';
-        try {
-          time = e.event_time && e.event_time.toDate ? e.event_time.toDate().toLocaleTimeString() : new Date(e.event_time).toLocaleTimeString();
-        } catch(err) {}
-        return '<tr><td>' + time + '</td><td><span class="badge ' + getEventBadge(e.event_name) + '">' + e.event_name + '</span></td><td>' + (e.calc_slug || '-') + '</td><td>' + (e.user_id ? e.user_id.slice(0, 8) + '...' : 'Anonymous') + '</td><td>' + getEventDetails(e) + '</td></tr>';
-      }).join('')
-    : '<tr><td colspan="5" class="empty-msg">No activity yet</td></tr>';
-
-  updateCharts(events, langPerf);
-}
-
-function getEventBadge(eventName) {
-  if (eventName === 'page_view') return 'badge-success';
-  if (eventName === 'calculation_completed') return 'badge-success';
-  if (eventName === 'copy_results') return 'badge-warning';
-  if (eventName === 'share_clicked') return 'badge-warning';
-  if (eventName === 'favorite_added') return 'badge-danger';
-  if (eventName === 'favorite_removed') return 'badge-danger';
-  if (eventName === 'feedback_submitted') return 'badge-info';
-  if (eventName === 'input_focus') return 'badge-info';
-  return 'badge-info';
-}
-
-function getEventDetails(e) {
-  if (e.event_name === 'feedback_submitted') return e.vote === 'yes' ? '👍 Thumbs Up' : '👎 Thumbs Down';
-  if (e.inputs_filled) return e.inputs_filled + '/' + e.inputs_total + ' inputs';
-  if (e.seconds) return e.seconds + 's on page';
-  if (e.percent) return 'Scrolled ' + e.percent + '%';
-  if (e.share_platform) return 'Platform: ' + e.share_platform;
-  if (e.calc_name) return e.calc_name;
-  return '';
-}
-
-function getFlag(code) {
-  const flags = { 'US': '🇺🇸', 'GB': '🇬🇧', 'ES': '🇪🇸', 'DE': '🇩🇪', 'FR': '🇫🇷', 'IT': '🇮🇹', 'PT': '🇵🇹', 'BR': '🇧🇷', 'MX': '🇲🇽', 'CA': '🇨🇦', 'AU': '🇦🇺', 'IN': '🇮🇳', 'EN': '🇬🇧', 'FR': '🇫🇷', 'DE': '🇩🇪', 'IT': '🇮🇹', 'PT': '🇧🇷' };
-  return flags[code] || (code === 'EN' ? '🇬🇧' : code === 'ES' ? '🇪🇸' : '🌐');
-}
-
-function updateCharts(events, langPerf) {
-  // Hourly page views + calculations
-  const hourlyData = {};
+  // Browsers
+  const browsers = {};
   events.forEach(e => {
-    let hour = 0;
-    try {
-      hour = e.event_time && e.event_time.toDate ? e.event_time.toDate().getHours() : new Date(e.event_time).getHours();
-    } catch(err) {}
-    if (!hourlyData[hour]) hourlyData[hour] = { views: 0, calcs: 0 };
-    if (e.event_name === 'page_view') hourlyData[hour].views++;
-    if (e.event_name === 'calculation_completed') hourlyData[hour].calcs++;
+    const ua = (e.user_agent || '').toLowerCase();
+    let browser = 'Other';
+    if (ua.includes('chrome') && !ua.includes('edg')) browser = 'Chrome';
+    else if (ua.includes('firefox')) browser = 'Firefox';
+    else if (ua.includes('safari') && !ua.includes('chrome')) browser = 'Safari';
+    else if (ua.includes('edg')) browser = 'Edge';
+    browsers[browser] = (browsers[browser] || 0) + 1;
   });
 
-  const hours = Array.from({length: 24}, (_, i) => i);
+  const ctx2 = document.getElementById('chart-browsers')?.getContext('2d');
+  if (ctx2) {
+    const sorted = Object.entries(browsers).sort((a,b) => b[1]-a[1]);
+    usersCharts.browsers = new Chart(ctx2, {
+      type: 'pie',
+      data: { labels: sorted.map(e=>e[0]), datasets: [{ data: sorted.map(e=>e[1]), backgroundColor: ['#f97316','#3b82f6','#22c55e','#f59e0b','#8b5cf6'], borderWidth: 0 }] },
+      options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 11 } } } } }
+    });
+  }
 
-  if (charts.pageViews) charts.pageViews.destroy();
-  charts.pageViews = new Chart(document.getElementById('pageViewsChart'), {
-    type: 'line',
-    data: { labels: hours.map(h => h + ':00'), datasets: [{ label: 'Page Views', data: hours.map(h => hourlyData[h]?.views || 0), borderColor: '#f97316', backgroundColor: 'rgba(249, 115, 22, 0.1)', fill: true, tension: 0.4 }] },
-    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: '#334155' } }, x: { grid: { display: false } } } }
+  // Session duration
+  const durations = events.filter(e => e.seconds).map(e => e.seconds);
+  const bins = { '<10s':0, '10-30s':0, '30-60s':0, '1-3m':0, '3-10m':0, '>10m':0 };
+  durations.forEach(s => {
+    if (s < 10) bins['<10s']++;
+    else if (s < 30) bins['10-30s']++;
+    else if (s < 60) bins['30-60s']++;
+    else if (s < 180) bins['1-3m']++;
+    else if (s < 600) bins['3-10m']++;
+    else bins['>10m']++;
   });
 
-  if (charts.calculations) charts.calculations.destroy();
-  charts.calculations = new Chart(document.getElementById('calculationsChart'), {
-    type: 'line',
-    data: { labels: hours.map(h => h + ':00'), datasets: [{ label: 'Calculations', data: hours.map(h => hourlyData[h]?.calcs || 0), borderColor: '#22c55e', backgroundColor: 'rgba(34, 197, 94, 0.1)', fill: true, tension: 0.4 }] },
-    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: '#334155' } }, x: { grid: { display: false } } } }
+  const ctx3 = document.getElementById('chart-session-duration')?.getContext('2d');
+  if (ctx3) {
+    usersCharts.duration = new Chart(ctx3, {
+      type: 'bar',
+      data: { labels: Object.keys(bins), datasets: [{ data: Object.values(bins), backgroundColor: 'rgba(249,115,22,.6)', borderRadius: 4 }] },
+      options: { responsive: true, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#64748b', font: { size: 10 } }, grid: { display: false } }, y: { ticks: { color: '#64748b' }, grid: { color: '#1e293b' } } } }
+    });
+  }
+}
+
+// ── LANGUAGES PAGE ──
+function renderLanguages(area) {
+  area.innerHTML = `
+    ${timeRangeHTML()}
+    <div class="card" style="margin-top:1rem">
+      <div class="card-header"><span class="card-title">Language Performance</span></div>
+      <table class="data-table" id="lang-table">
+        <thead><tr><th>Language</th><th class="num">Users</th><th class="num">Views</th><th class="num">Calcs</th><th class="num">Conv %</th><th class="num">Avg Time</th><th>Top Calculator</th></tr></thead>
+        <tbody id="lang-tbody"><tr><td colspan="7"><div class="loading"><span class="spinner"></span> Loading...</div></td></tr></tbody>
+      </table>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><span class="card-title">Language Distribution</span></div>
+        <div class="chart-wrap"><canvas id="chart-lang-dist"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="card-title">Conversion by Language</span></div>
+        <div class="chart-wrap"><canvas id="chart-lang-conv"></canvas></div>
+      </div>
+    </div>
+  `;
+
+  queryEvents(events => updateLanguageStats(events));
+}
+
+let langCharts = {};
+function updateLanguageStats(events) {
+  Object.values(langCharts).forEach(c => { try { c.destroy(); } catch(e) {} });
+  langCharts = {};
+
+  const langStats = {};
+  events.forEach(e => {
+    let lang = (e.language || 'unknown').split('-')[0].toLowerCase();
+    if (lang.length > 2) lang = 'unknown';
+    if (!langStats[lang]) langStats[lang] = { users: new Set(), views: 0, calcs: 0, times: [], calcSlugs: {} };
+    const ls = langStats[lang];
+    if (e.user_id) ls.users.add(e.user_id);
+    if (e.event_name === 'page_view') ls.views++;
+    if (e.event_name === 'calculation_completed') ls.calcs++;
+    if (e.seconds) ls.times.push(e.seconds);
+    if (e.calc_slug) ls.calcSlugs[e.calc_slug] = (ls.calcSlugs[e.calc_slug] || 0) + 1;
   });
+
+  const rows = Object.entries(langStats)
+    .sort((a,b) => b[1].views - a[1].views)
+    .map(([lang, ls]) => {
+      const conv = ls.views > 0 ? ((ls.calcs/ls.views)*100).toFixed(1) : '0';
+      const avgTime = ls.times.length > 0 ? Math.round(ls.times.reduce((s,v)=>s+v,0)/ls.times.length) : 0;
+      const topCalc = Object.entries(ls.calcSlugs).sort((a,b)=>b[1]-a[1])[0]?.[0] || '-';
+      return `<tr>
+        <td><strong>${lang.toUpperCase()}</strong></td>
+        <td class="num">${ls.users.size}</td>
+        <td class="num">${ls.views}</td>
+        <td class="num">${ls.calcs}</td>
+        <td class="num"><span class="badge ${conv>10?'badge-green':conv>3?'badge-orange':'badge-red'}">${conv}%</span></td>
+        <td class="num">${avgTime}s</td>
+        <td style="color:var(--primary);font-size:.8rem">${topCalc}</td>
+      </tr>`;
+    }).join('');
+
+  const tbody = document.getElementById('lang-tbody');
+  if (tbody) tbody.innerHTML = rows || '<tr><td colspan="7" class="empty-state">No data for this period</td></tr>';
 
   // Language distribution chart
-  if (charts.lang) charts.lang.destroy();
-  const langColors = { 'EN': '#3b82f6', 'ES': '#f97316', 'FR': '#22c55e', 'DE': '#ef4444', 'IT': '#f59e0b', 'PT': '#8b5cf6' };
-  charts.lang = new Chart(document.getElementById('langChart'), {
-    type: 'doughnut',
-    data: {
-      labels: langPerf.length ? langPerf.map(l => l.lang) : ['No data'],
-      datasets: [{ data: langPerf.length ? langPerf.map(l => l.views) : [1], backgroundColor: langPerf.length ? langPerf.map(l => langColors[l.lang] || '#94a3b8') : ['#334155'] }]
-    },
-    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: '#e2e8f0' } } } }
-  });
+  const ctx1 = document.getElementById('chart-lang-dist')?.getContext('2d');
+  if (ctx1) {
+    const sorted = Object.entries(langStats).sort((a,b) => b[1].views - a[1].views);
+    langCharts.dist = new Chart(ctx1, {
+      type: 'doughnut',
+      data: { labels: sorted.map(e=>e[0].toUpperCase()), datasets: [{ data: sorted.map(e=>e[1].views), backgroundColor: ['#f97316','#3b82f6','#22c55e','#f59e0b','#8b5cf6','#ec4899'], borderWidth: 0 }] },
+      options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 11 } } } } }
+    });
+  }
 
-  // Device breakdown
-  const deviceTypes = { desktop: 0, mobile: 0, tablet: 0 };
-  events.forEach(e => {
-    const ua = e.user_agent || '';
-    if (ua.includes('Mobile')) deviceTypes.mobile++;
-    else if (ua.includes('Tablet')) deviceTypes.tablet++;
-    else deviceTypes.desktop++;
-  });
-
-  if (charts.devices) charts.devices.destroy();
-  charts.devices = new Chart(document.getElementById('deviceChart'), {
-    type: 'pie',
-    data: { labels: ['Desktop', 'Mobile', 'Tablet'], datasets: [{ data: [deviceTypes.desktop, deviceTypes.mobile, deviceTypes.tablet], backgroundColor: ['#3b82f6', '#22c55e', '#f59e0b'] }] },
-    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: '#e2e8f0' } } } }
-  });
+  // Conversion by language
+  const ctx2 = document.getElementById('chart-lang-conv')?.getContext('2d');
+  if (ctx2) {
+    const sorted = Object.entries(langStats).sort((a,b) => b[1].views - a[1].views);
+    langCharts.conv = new Chart(ctx2, {
+      type: 'bar',
+      data: {
+        labels: sorted.map(e=>e[0].toUpperCase()),
+        datasets: [{ label: 'Conversion %', data: sorted.map(([,ls]) => ls.views>0?+((ls.calcs/ls.views)*100).toFixed(1):0), backgroundColor: sorted.map((_,i)=>['#f97316','#3b82f6','#22c55e','#f59e0b','#8b5cf6','#ec4899'][i]), borderRadius: 4 }]
+      },
+      options: { responsive: true, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#64748b' }, grid: { display: false } }, y: { ticks: { color: '#64748b', callback: v=>v+'%' }, grid: { color: '#1e293b' } } }, indexAxis: 'y' }
+    });
+  }
 }
 
-setInterval(() => {
-  if (!document.getElementById('dashboard').classList.contains('hidden')) {
-    loadData();
-  }
-}, 30000);
-</script>
+// ── EXPORT ──
+function exportTable(tableId) {
+  const table = document.getElementById(tableId);
+  if (!table) return;
+  let csv = [];
+  const rows = table.querySelectorAll('tr');
+  rows.forEach(row => {
+    const cols = row.querySelectorAll('th,td');
+    csv.push([...cols].map(c => `"${c.textContent.trim().replace(/"/g,'""')}"`).join(','));
+  });
+  const blob = new Blob([csv.join('\n')], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `calctowork-${tableId}-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
 
+// ── STARTUP ──
+document.getElementById('login-password').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+});
+</script>
 </body>
 </html>

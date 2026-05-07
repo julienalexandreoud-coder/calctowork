@@ -1,43 +1,139 @@
 <section class="long-content">
-<h2>La formula medica spiegata</h2>
-<p>Comprendere le metriche del tuo corpo è il primo passo verso decisioni sanitarie migliori. Questa calcolatrice utilizza formule mediche consolidate per risultati personalizzati.</p>
-<p>La formula alla base di questo calcolo è <strong>Generatore di Password = f(Lunghezza)</strong>. Comprendere come si ottiene il risultato ti aiuta a verificare l'output e a rilevare errori di input.</p>
-
-<h2>Come prendere le misurazioni correttamente</h2>
-<p>Segui questi passaggi per ottenere un risultato affidabile:</p>
+<h2>Che cos'è un generatore di password e un controllo di sicurezza?</h2>
+<p>Un generatore di password crea password casuali e ad alta entropia che resistono alle ipotesi e agli attacchi di forza bruta, mentre un controllore di forza valuta le password esistenti rispetto a criteri di sicurezza. Insieme, questi strumenti proteggono i tuoi account digitali dall’81% delle violazioni dei dati causate da password deboli o rubate, secondo il Data Breach Investigations Report 2023 di Verizon.</p>
+<p class="see-also">Potresti anche trovare<a href="/it/entropia-contrasena/">Password Entropy Calculator</a> and <a href="/it/numero-casuale/">Random Number Generator</a> useful.</p>
+collegamenti-<p>La moderna sicurezza delle password richiede più di "Password123!" — gli aggressori utilizzano dizionari contenenti oltre 500 milioni di password trapelate, cluster GPU che testano oltre 100 miliardi di combinazioni al secondo e modelli di intelligenza artificiale addestrati su modelli di password umane. Una password generata complessa utilizza più di 16 caratteri tra i 95 possibili simboli ASCII, creando 95¹⁶ (circa 4,4 × 10³¹) combinazioni possibili. Con 100 miliardi di tentativi al secondo, per decifrare una password del genere occorrono in media 7 milioni di anni.</p>
+<p>Il generatore utilizza generatori di numeri casuali crittograficamente sicuri (CSPRNG) – non funzioni casuali standard – per garantire l’imprevedibilità. Le funzioni casuali standard come Math.random() di JavaScript producono sequenze prevedibili dai valori seed. I CSPRNG traggono entropia dalle fonti del sistema operativo (rumore hardware, tempi di interruzione, movimenti del mouse) rendendo ogni password generata veramente casuale. Il sistema di controllo della forza convalida quindi le password in base a criteri: lunghezza minima, varietà di caratteri, assenza di modelli comuni e non presenza nei database delle violazioni.</p>
+<h2>Spiegazione della formula per la generazione e la forza della password</h2>
+<p><strong>Formula dell'entropia della password (entropia di Shannon):</strong></p>
+<p><strong>Entropia (bit) = log₂(R^L) = L × log₂(R)</strong></p>
+<p>Where:</p>
+<ul>
+<li>R = Dimensione del repertorio di caratteri (numero di simboli possibili)</li>
+<li>L = Lunghezza della password (numero di caratteri)</li>
+<li>Entropia = Misura dell'imprevedibilità in bit</li>
+</ul>
+<p><strong>Dimensioni del repertorio dei caratteri:</strong></p>
+<ul>
+<li>Lettere minuscole (a-z): R = 26</li>
+<li>Maiuscolo + minuscolo (A-Za-z): R = 52</li>
+<li>Alfanumerico (A-Za-z0-9): R = 62</li>
+<li>Alfanumerico + simboli (95 ASCII stampabili): R = 95</li>
+</ul>
+<p><strong>Soglie di entropia per le valutazioni di resistenza:</strong></p>
+<ul>
+<li>Debole: &lt; 40 bit (craccabile in poche ore)</li>
+<li>Discreto: 40-60 bit (crackabile in mesi con cluster GPU)</li>
+<li>Buono: 60-80 bit (craccabili in anni)</li>
+<li>Forte: 80-100 bit (craccabili in secoli)</li>
+<li>Molto forte: &gt; 100 bit (impossibile dal punto di vista computazionale)</li>
+</ul>
+<p><strong>Esempio funzionato 1: password alfanumerica di 12 caratteri:</strong></p>
+<p>Passo 1: Repertorio caratteri = 62 (A-Za-z0-9)</p>
+<p>Passaggio 2: lunghezza della password = 12 caratteri</p>
+<p>Passaggio 3: calcolare l'entropia: 12 × log₂(62) = 12 × 5,95 = 71,4 bit</p>
+<p>Passaggio 4: Intensità della velocità: 71,4 bit = Buono (intervallo 60-80 bit)</p>
+<p><strong>Punti di forza: Buono, adatto alla maggior parte dei conti</strong></p>
+<p><strong>Esempio 2 funzionante: password ASCII completa di 16 caratteri:</strong></p>
+<p>Passaggio 1: repertorio di caratteri = 95 (tutti ASCII stampabili)</p>
+<p>Passaggio 2: lunghezza della password = 16 caratteri</p>
+<p>Passaggio 3: calcolare l'entropia: 16 × log₂(95) = 16 × 6,57 = 105,1 bit</p>
+<p>Passaggio 4: Intensità della velocità: 105,1 bit = Molto forte (&gt;100 bit)</p>
+<p><strong>Forza: Molto forte - adatto per conti ad alta sicurezza</strong></p>
+<p><strong>Esempio 3 funzionante: solo lettere minuscole di 8 caratteri (debole):</strong></p>
+<p>Passaggio 1: repertorio di caratteri = 26 (solo a-z)</p>
+<p>Passaggio 2: lunghezza della password = 8 caratteri</p>
+<p>Passaggio 3: calcolare l'entropia: 8 × log₂(26) = 8 × 4,70 = 37,6 bit</p>
+<p>Passaggio 4: Intensità della velocità: 37,6 bit = Debole (&lt;40 bit)</p>
+<p><strong>Forza: debole: si rompe in poche ore, non usare mai</strong></p>
+<p><strong>Tempo per eseguire i calcoli:</strong></p>
+<p><strong>Tempo = (R^L) / (2 × ipotesi al secondo)</strong></p>
+<p>La divisione per 2 rappresenta il caso medio (l'aggressore trova la password a metà della ricerca nello spazio delle chiavi).</p>
+<p>Per caratteri alfanumerici di 12 caratteri a 100 miliardi di tentativi/secondo:</p>
+<p>Tempo = 62¹² / (2 × 10¹¹) = 3,2 × 10²¹ / 2 × 10¹¹ = 1,6 × 10¹⁰ secondi = 507 anni</p>
+<h2>6 passaggi per generare e verificare la complessità della password</h2>
 <ol>
-<li><strong>Inserisci i tuoi valori:</strong> 16 chars — ensure all values use a single consistent unit system.</li>
-<li><strong>La calcolatrice applica la formula:</strong> <em>Generatore di Password = f(Lunghezza)</em>.</li>
-<li><strong>Leggi il tuo risultato:</strong> Password.</li>
-<li>Verificate: confermate che le unità siano coerenti e i valori realistici prima di agire sul risultato.</li>
+<li><strong>Determinare la lunghezza della password richiesta:</strong>Scegli un minimo di 12 caratteri per i conti standard, 16+ per i sistemi finanziari/aziendali. La pubblicazione speciale NIST 800-63B consiglia un minimo di 8 caratteri, ma 12+ fornisce margini di sicurezza migliori. Le password più lunghe aumentano esponenzialmente il tempo di cracking: ogni carattere aggiuntivo moltiplica lo spazio di ricerca per la dimensione del repertorio (62× per alfanumerico).</li>
+<li><strong>Seleziona i tipi di carattere da includere:</strong>Abilita lettere minuscole (a-z), maiuscole (A-Z), numeri (0-9) e simboli (!@#$%^&amp;*). Ogni categoria aggiunge al repertorio: solo lettere minuscole = 26 simboli, aggiunta di lettere maiuscole = 52, aggiunta di numeri = 62, aggiunta di simboli = 95. Alcuni sistemi limitano determinati simboli: controlla i requisiti prima di generare. Evitare caratteri ambigui (l, I, 1, O, 0) se le password verranno trascritte manualmente.</li>
+<li><strong>Genera utilizzando un'origine casuale crittograficamente sicura:</strong>Il generatore deve utilizzare CSPRNG, non funzioni casuali standard. Nei browser: window.crypto.getRandomValues(). In Python: modulo secrets (non casuale). In Node.js: crypto.randomBytes(). Le funzioni casuali standard producono sequenze prevedibili: gli aggressori che osservano una password generata possono potenzialmente prevederne altre dallo stesso seed.</li>
+<li><strong>Verificare la distribuzione dei caratteri:</strong>Assicurati che la password generata includa almeno un carattere per ciascun tipo selezionato. Una password di 16 caratteri che utilizza solo lettere minuscole spreca potenziale entropia. Alcuni generatori utilizzano algoritmi di "inclusione garantita": prima scegli un carattere da ciascun tipo richiesto, quindi riempi le posizioni rimanenti in modo casuale. Ciò impedisce output accidentalmente deboli derivanti da una generazione puramente casuale.</li>
+<li><strong>Verificare con gli elenchi di password comuni:</strong>Confronta la password generata con i database delle password trapelate (Have I Been Pwned, elenco RockYou, ecc.). Anche la generazione casuale può occasionalmente produrre "Password123" o "qwerty": escludeteli. Il controllo della forza dovrebbe rifiutare qualsiasi password che appare tra le prime 100.000 password più comuni, indipendentemente dall'entropia teorica.</li>
+<li><strong>Calcola e visualizza le metriche di forza:</strong>Mostra l'entropia in bit, il tempo di crack stimato e una valutazione semplice (debole/discreta/buona/forte/molto forte). Includi feedback specifico: "Aggiungi altri 4 caratteri per raggiungere la valutazione Forte" o "Includi simboli per aumentare l'entropia di 8 bit". Una guida pratica aiuta gli utenti a migliorare le password deboli anziché accettare messaggi generici "la password è debole".</li>
 </ol>
-
-<h2>Cosa significano i tuoi risultati</h2>
-<p>Questa calcolatrice è particolarmente utile nelle seguenti situazioni:</p>
+<h2>5 esempi pratici di generazione di password</h2>
+<p><strong>Esempio 1: account e-mail (12 caratteri, alfanumerici + simboli):</strong></p>
 <ul>
-<li>valutazione della sicurezza delle password</li><li>analisi del testo e conteggio dei caratteri</li><li>calcoli di data e ora</li><li>task utilitari quotidiani</li>
+<li>Lunghezza: 12 caratteri</li>
+<li>Set di caratteri: 95 (ASCII completo)</li>
+<li>Generato: K7#mN2$pL9@x</li>
+<li>Entropia: 12 × log₂(95) = 78,8 bit</li>
+<li>Tempo di crack a 100 miliardi di tentativi/sec: ~40.000 anni</li>
+<li><strong>Punti di forza: Forte: adatto per e-mail personali</strong></li>
 </ul>
-
-<h2>Cosa significa il tuo risultato</h2>
-<p>I risultati delle calcolatrici sanitarie sono stime, non diagnosi. Questi numeri sono medie di popolazione con margini di errore di ±10–15&nbsp;%. Usali come punti di orientamento per parlare con il tuo medico o nutrizionista, non come soglie assolute.</p>
-
-<h2>Comprendere le formule sanitarie</h2>
-<p>Le calcolatrici sanitarie si basano su studi di popolazione che identificano relazioni matematiche tra misure e risultati di salute. Queste formule forniscono stime basate su prove, ma rappresentano medie di popolazione. Consulta sempre un professionista sanitario prima di modificare dieta, esercizio o farmaci.</p>
-
-<h2>Errori comuni nell'automisurazione</h2>
+<p><strong>Esempio 2 — Conto bancario (20 caratteri, ASCII completo):</strong></p>
 <ul>
-<li>Usare una singola misurazione per decisioni di salute — consultare sempre un professionista medico.</li>
+<li>Lunghezza: 20 caratteri</li>
+<li>Set di caratteri: 95 (ASCII completo)</li>
+<li>Generato: vR4&amp;hT8!nM3@kL6#pW2%</li>
+<li>Entropia: 20 × log₂(95) = 131,4 bit</li>
+<li>Tempo di crack: ~10 settilioni di anni (più lungo dell'età dell'universo)</li>
+<li><strong>Forza: Molto forte - adatto per conti finanziari</strong></li>
 </ul>
-
-<h2>Quando consultare un professionista sanitario</h2>
-<p>Prendi le misurazioni alla stessa ora del giorno in condizioni simili per un monitoraggio coerente. Discuti sempre i risultati con un professionista sanitario.</p>
-
-<h2>Domande frequenti</h2>
+<p><strong>Esempio 3 — Password WiFi (16 caratteri, alfanumerici):</strong></p>
+<ul>
+<li>Lunghezza: 16 caratteri (WPA2 consiglia 16+)</li>
+<li>Set di caratteri: 62 (alfanumerico, simboli difficili da inserire sui dispositivi)</li>
+<li>Generato: aB3dE7gH9jK2mN5p</li>
+<li>Entropia: 16 × log₂(62) = 95,2 bit</li>
+<li>Tempo di cracking: ~15 milioni di anni</li>
+<li><strong>Intensità: Forte — adatto per WPA2/WPA3</strong></li>
+</ul>
+<p><strong>Esempio 4 — Conto temporaneo (8 caratteri, alfanumerici):</strong></p>
+<ul>
+<li>Lunghezza: 8 caratteri (minimo per uso temporaneo a basso rischio)</li>
+<li>Set di caratteri: 62 (alfanumerico)</li>
+<li>Generato: xT4mK9pL</li>
+<li>Entropia: 8 × log₂(62) = 47,6 bit</li>
+<li>Tempo di crack: ~3 mesi a 100 miliardi di tentativi/sec</li>
+<li><strong>Punti di forza: Discreto - accettabile solo per conti usa e getta</strong></li>
+</ul>
+<p><strong>Esempio 5: password principale per Password Manager (24 caratteri, ASCII completo):</strong></p>
+<ul>
+<li>Lunghezza: 24 caratteri (protezione massima per vault)</li>
+<li>Set di caratteri: 95 (ASCII completo)</li>
+<li>Generato: Zq8#Lm3$Rt7!Wx2@Hy6&amp;Np4%</li>
+<li>Entropia: 24 × log₂(95) = 157,7 bit</li>
+<li>Tempo di crack: computazionalmente impossibile</li>
+<li><strong>Forza: Molto forte: protegge tutte le altre password</strong></li>
+</ul>
+<h2>4 errori comuni nella sicurezza della password</h2>
+<ul>
+<li><strong>Utilizzo di sostituzioni prevedibili (l33t speak):</strong>Sostituire E con 3, A con @ o S con $ non aumenta in modo significativo la sicurezza. I dizionari degli aggressori includono varianti comuni del leet: "P@ssw0rd" appare nei database delle violazioni oltre 2 milioni di volte. "Tr0ub4dor&amp;3" (il famoso esempio di xkcd) ha solo 28 bit di entropia nonostante simboli e numeri. La vera casualità batte ogni volta le sostituzioni intelligenti.</li>
+<li><strong>Riutilizzo delle password su più account:</strong>Utilizzare la stessa password per e-mail, operazioni bancarie e acquisti significa che un sito Web violato compromette tutto. La persona media ha 154 password ma le riutilizza su 4-5 account ciascuna. Gli attacchi di credential stuffing provano automaticamente le credenziali trapelate su oltre 100 siti popolari. Genera password univoche per ogni account: i gestori di password lo rendono pratico archiviandole e compilandole automaticamente.</li>
+<li><strong>Creazione di password dalle informazioni personali:</strong>Date di nascita, nomi di animali domestici, squadre preferite e anniversari sono facilmente indovinabili dai social media. "Soffici2010!" (animale domestico + anno) appare in 47.000 account violati. Gli aggressori raschiano Facebook, Instagram e LinkedIn per creare dizionari personalizzati. Anche fatti personali oscuri (cognome da nubile della madre, prima macchina) sono domande di sicurezza comuni con risposta reperibile online.</li>
+<li><strong>Modifica delle password in base a pianificazioni arbitrarie:</strong>Le attuali linee guida del NIST scoraggiano la rotazione obbligatoria delle password di 90 giorni a meno che non si sospetti una compromissione. La rotazione forzata provoca schemi prevedibili: "Password1" diventa "Password2" quindi "Password3". Gli aggressori che ottengono una password possono indovinare quella successiva. Approccio migliore: generare una password molto complessa, utilizzarla a tempo indeterminato e monitorare l'esposizione ai database delle violazioni.</li>
+</ul>
+<h2>5 consigli professionali per la sicurezza delle password</h2>
+<ul>
+<li><strong>Utilizza un gestore di password con monitoraggio delle violazioni:</strong>Strumenti come Bitwarden, 1Password e KeePass generano, archiviano e compilano automaticamente password univoche per ogni account. Ti avvisano quando le credenziali archiviate compaiono in nuovi database di violazione. I generatori integrati creano password di oltre 20 caratteri con entropia completa. Devi solo ricordare una password principale: il manager si occuperà del resto. Le opzioni gratuite (Bitwarden) offrono funzionalità complete per i singoli utenti.</li>
+<li><strong>Abilita l'autenticazione a più fattori (MFA) ovunque disponibile:</strong>L'MFA aggiunge un secondo passaggio di verifica oltre alle password, in genere un codice basato sul tempo proveniente da un'app di autenticazione o da una chiave di sicurezza hardware. Anche se gli aggressori rubano la tua password, non possono accedere agli account senza il secondo fattore. Utilizza app di autenticazione (Authy, Google Authenticator) tramite SMS (vulnerabile allo scambio di SIM). Le chiavi hardware (YubiKey) forniscono la protezione più efficace contro il phishing.</li>
+<li><strong>Genera passphrase per password ad alta sicurezza memorizzabili:</strong>Per le password che devi digitare manualmente (password principali, sblocco del dispositivo), usa il metodo Diceware: lancia i dadi per selezionare 5-7 parole casuali da un elenco di 7.776 parole. "Il punto corretto della batteria del cavallo" (4 parole) ha 51 bit di entropia. "scorcio frattale prato turbina tramonto" (5 parole) ha 64 bit. Le passphrase sono più facili da ricordare e digitare rispetto ai caratteri casuali, pur mantenendo una forte sicurezza.</li>
+<li><strong>Controlla le password esistenti rispetto ai database delle violazioni:</strong>Utilizza Have I Been Pwned (haveibeenpwned.com) o Firefox Monitor per verificare se le tue combinazioni email/password compaiono in violazioni note. Oltre 13 miliardi di account sono stati esposti a violazioni pubbliche. Se viene visualizzata la tua password, cambiala immediatamente su quel servizio E su qualsiasi altro account utilizzando la stessa password. Molti gestori di password ora includono il monitoraggio automatico delle violazioni.</li>
+<li><strong>Implementa la limitazione della velocità e il blocco dell'account sui tuoi sistemi:</strong>Se crei applicazioni, proteggi le password degli utenti con limitazione della velocità (max 5 tentativi al minuto per IP) e ritardi progressivi (1 secondo, poi 5 secondi, poi 30 secondi). Dopo 10 tentativi falliti, blocca temporaneamente l'account e richiedi la verifica dell'e-mail. Ciò rende gli attacchi di forza bruta impraticabili anche contro password deboli. Non archiviare mai le password in testo normale: utilizza bcrypt, scrypt o Argon2 con fattori di costo adeguati.</li>
+</ul>
+<h2>4 Domande frequenti sulla sicurezza della password</h2>
 <div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Devo prendere decisioni di salute basate su questa calcolatrice?</button><div class="faq-a"><p>Questo strumento fornisce stime basate su formule mediche consolidate, ma non sostituisce il consiglio medico professionale.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Questa calcolatrice è precisa?</button><div class="faq-a"><p>Sì. La calcolatrice usa la formula standard: Generatore di Password = f(Lunghezza). I risultati sono matematicamente esatti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Posso usare questa calcolatrice sul telefono?</button><div class="faq-a"><p>Sì, la calcolatrice è completamente responsive e funziona su qualsiasi dispositivo. Nessuna installazione richiesta.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Come salvo o condivido il mio calcolo?</button><div class="faq-a"><p>Usa il pulsante <strong>Condividi</strong> per generare un URL con tutti i tuoi dati. Il pulsante <strong>Copia</strong> copia il risultato negli appunti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cosa fare se il risultato sembra sbagliato?</button><div class="faq-a"><p>Controlla prima i tuoi dati: valori nelle unità corrette e intervallo realistico. Verifica anche che la formula <em>Generatore di Password = f(Lunghezza)</em> si applichi esattamente alla tua situazione.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Quanto dovrebbe essere lunga la mia password?</button><div class="faq-a">Minimo 12 caratteri per account standard, 16+ per sistemi finanziari/aziendali e 20+ per password principali che proteggono i gestori di password. La lunghezza conta più della complessità: una password minuscola di 16 caratteri (entropia di 75 bit) è più forte di una password mista di 8 caratteri (50 bit). Il NIST consiglia un minimo di 8 caratteri, ma riconosce che 12+ forniscono margini di sicurezza migliori contro il moderno cracking delle GPU.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">I generatori di password sono sicuri da usare?</button><div class="faq-a">I generatori di password affidabili che utilizzano generatori di numeri casuali crittograficamente sicuri (CSPRNG) sono sicuri e producono password più forti di quelle che gli esseri umani possono creare. Evita i generatori online che trasmettono password su Internet: utilizza i generatori offline integrati nei gestori di password o nei sistemi operativi. I generatori basati su browser che utilizzano window.crypto.getRandomValues() sono sicuri perché la generazione avviene localmente. Non utilizzare mai un generatore che ti chiede di inviare un'e-mail o di salvare la password sul proprio server.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Con quale frequenza devo cambiare le mie password?</button><div class="faq-a">Le attuali linee guida NIST consigliano di modificare le password solo se si sospetta una compromissione o si riceve una notifica di violazione. La rotazione periodica obbligatoria (ogni 90 giorni) fa sì che gli utenti creino modelli più deboli e prevedibili. Invece: genera una password molto complessa per account, abilita l'MFA, monitora i database delle violazioni e modificala immediatamente se esposta. Eccezione: le password condivise (account del team) dovrebbero ruotare quando i membri lasciano l'organizzazione.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Cosa rende una password "forte" e "debole"?</button><div class="faq-a">Le password complesse hanno: (1) Lunghezza ≥16 caratteri, (2) Entropia elevata derivante dalla generazione casuale utilizzando tutti i tipi di caratteri, (3) Nessuna apparizione nei database delle violazioni o negli elenchi di password comuni, (4) Unicità in tutti gli account. Le password deboli hanno: (1) lunghezza &lt;10 caratteri, (2) parole del dizionario o informazioni personali, (3) modelli prevedibili (Password123!, Qwerty!), (4) riutilizzo su più account. Un'entropia superiore a 80 bit senza esposizione a violazioni indica una sicurezza elevata.</p></div></div>
 </div>
+<h2>Calcolatori correlati</h2>
+<ul>
+<li><a href="/it/">Entropy Calculator</a>— Calcola l'entropia delle informazioni in bit per le password e le chiavi di crittografia</li>
+<li><a href="/it/">Bcrypt Hash Generator</a>— Crea hash di password sicuri per l'archiviazione del database</li>
+<li><a href="/it/">Two-Factor Authentication Guide</a>— Istruzioni di configurazione per MFA nei servizi più diffusi</li>
+<li><a href="/it/">Passphrase Generator</a>— Crea password di più parole memorabili utilizzando il metodo Diceware</li>
+<li><a href="/it/">Breach Checker</a>— Verifica se la tua email appare in violazioni di dati note</li>
+</ul>
 </section>

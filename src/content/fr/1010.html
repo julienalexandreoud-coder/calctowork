@@ -1,43 +1,80 @@
 <section class="long-content">
-<h2>Comment fonctionne le calcul</h2>
-<p>Que vous planifiiez des travaux de rénovation, estimiez des matériaux pour un chantier ou calculiez des dimensions pour un projet DIY, disposer des bons chiffres dès le départ fait gagner du temps et de l'argent.</p>
-<p>La formule derrière ce calcul est <strong>Diviseur de Tension = f(V entrée, R1, R2)</strong>. Comprendre comment le résultat est obtenu vous aide à vérifier la sortie et à détecter les erreurs d'entrée.</p>
-
-<h2>Guide pas à pas pour votre projet</h2>
-<p>Suivez ces étapes pour obtenir un résultat fiable :</p>
-<ol>
-<li><strong>Saisissez vos valeurs:</strong> 12 V; 1000 Ω; 1000 Ω — ensure all values use a single consistent unit system.</li>
-<li><strong>La calculatrice applique la formule:</strong> <em>Diviseur de Tension = f(V entrée, R1, R2)</em>.</li>
-<li><strong>Lisez votre résultat:</strong> V sortie.</li>
-<li>Vérifiez : confirmez que les unités sont cohérentes et les valeurs réalistes avant d'agir sur le résultat.</li>
-</ol>
-
-<h2>Usages pratiques sur le chantier</h2>
-<p>Cette calculatrice est particulièrement utile dans les situations suivantes :</p>
+<h1>Calculateur de diviseur de tension : conception de circuits diviseurs de précision</h1>
+<p>Le calculateur de diviseur de tension calcule la tension de sortie d'un circuit diviseur de tension à deux résistances. Cette topologie de circuit fondamentale est utilisée dans presque tous les appareils électroniques pour l'interfaçage des capteurs, le décalage de niveau, la génération de références et l'atténuation du signal. Que vous conceviez un circuit de capteur Arduino, un amplificateur audio ou un moniteur d'alimentation, le diviseur de tension est un élément essentiel.</p>
+<p class="see-also">Vous pouvez également trouver le<a href="/en/punto-equilibrio/">Dew Point Calculator</a>, <a href="/en/indice-calor/">Heat Index Calculator</a>, and <a href="/en/energia-capacitor/">Capacitor Energy Calculator</a> useful.</p>
+liens-internes-ajoutés
+<div class="formula-section">
+<h2>Formule du diviseur de tension</h2>
+<p class="formula-display">V<sub>out</sub> = V<sub>in</sub> × R<sub>2</sub> ÷ (R<sub>1</sub> + R<sub>2</sub>)</p>
+<p>La formule dérive de la loi d'Ohm et du fait que le même courant traverse les deux résistances en série. La tension d'entrée Vin est appliquée aux bornes de la combinaison en série de R1 et R2. La tension de sortie Vout est prise aux bornes de R2, la résistance inférieure. Le rapport de division dépend uniquement des valeurs des résistances et non du niveau de tension absolu.</p>
+<p>Le courant circulant à travers le diviseur est I = Vin / (R1 + R2). Ce courant détermine la puissance dissipée dans chaque résistance : P1 = I² × R1 et P2 = I² × R2. Pour les circuits alimentés par batterie, des valeurs de résistance plus élevées (100 kΩ ou plus) sont utilisées pour minimiser la consommation de courant, tandis que pour les applications de précision, des valeurs plus petites (1 kΩ à 10 kΩ) sont préférées pour réduire le bruit et les effets de charge.</p>
+</div>
+<div class="examples-section">
+<h2>Exemples travaillés</h2>
+<div class="example">
+<h3>Exemple 1 : variateur de niveau 5 V à 3,3 V</h3>
+<p>Une sortie de microcontrôleur de 5 V doit être réduite à 3,3 V pour une entrée de module de capteur. Choisissez R1 = 10 kΩ et R2 = 6,8 kΩ (valeurs standard E12).</p>
+<p><strong>Calcul :</strong>Vout = 5 V × 6 800 ÷ (10 000 + 6 800) = 5 × 6 800 ÷ 16 800 =<strong>2.02 V</strong></p>
+<p>Cela produit seulement 2,02 V, pas les 3,3 V souhaités. Pour obtenir 3,3 V à partir d'une alimentation de 5 V, résolvez R2 : 3,3 = 5 × R2 / (R1 + R2). Avec R1 = 10 kΩ : 3,3 × (10 000 + R2) = 5 × R2, ce qui donne 33 000 + 3,3 R2 = 5 R2, donc 33 000 = 1,7 R2, et R2 = 19,4 kΩ. Utilisez R1 = 10 kΩ et R2 = 20 kΩ (valeur standard) pour obtenir environ 3,33 V.</p>
+</div>
+<div class="example">
+<h3>Exemple 2 : Moniteur de tension de batterie</h3>
+<p>Une batterie au plomb de 12 V (12,6 V entièrement chargée) doit être mesurée par un CAN qui accepte un maximum de 5 V. Concevez un diviseur de tension qui mappe 12,6 V à 5 V.</p>
+<p><strong>Calcul :</strong>En utilisant Vout / Vin = R2 / (R1 + R2) = 5 / 12,6 = 0,397. Si R2 = 10 kΩ, alors 0,397 = 10 000 / (R1 + 10 000). R1 + 10 000 = 10 000 / 0,397 = 25 189 Ω. R1 = 15 189 Ω ≈ 15 kΩ (valeur standard).</p>
+<p>Avec R1 = 15 kΩ et R2 = 10 kΩ, Vout à batterie 12,6 V = 12,6 × 10 000 / (15 000 + 10 000) = 12,6 × 0,4 =<strong>5.04 V</strong>. C'est proche de la limite de 5 V ADC. À 11,5 V (déchargé), Vout = 11,5 × 0,4 = 4,6 V. Le diviseur tire 12,6 / 25 000 = 0,5 mA de la batterie, ce qui est acceptable pour une surveillance continue.</p>
+</div>
+</div>
+<div class="uses-section">
+<h2>Utilisations courantes</h2>
 <ul>
-<li>conception et analyse de circuits</li><li>devoirs et projets d'électronique</li><li>sélection et vérification de composants</li><li>dépannage de circuits électriques</li>
+<li>Réduire les tensions de sortie des capteurs (par exemple, 0-10 V à 0-3,3 V) pour correspondre à la plage d'entrée des microcontrôleurs et des CAN</li>
+<li>Création de tensions de référence pour les circuits amplificateurs opérationnels et les seuils de comparateur</li>
+<li>Polarisation des étages amplificateurs à transistor en réglant la tension de base au point de fonctionnement correct</li>
+<li>Atténuation des signaux audio pour éviter l'écrêtage dans les interfaces d'enregistrement et les chaînes de traitement audio</li>
+<li>Surveillance des tensions de batterie dans les appareils électroniques portables sans dépasser les limites d'entrée ADC</li>
+<li>Réglage de la tension de retour dans les régulateurs de tension réglables et les alimentations à découpage</li>
 </ul>
-
-<h2>Interpréter et appliquer vos résultats</h2>
-<p>Votre résultat indique la quantité théorique requise. Ajoutez le facteur de perte approprié avant de commander : 5–10&nbsp;% pour le béton et le mortier, 10–15&nbsp;% pour les carreaux, la pierre naturelle et la brique, et 3–5&nbsp;% pour l'acier et le bois. Arrondissez toujours à l'unité supérieure — sac, tonne ou palette.</p>
-
-<h2>Normes de construction et bonnes pratiques</h2>
-<p>Les projets de construction dépendent d'estimations précises des matériaux. Les professionnels ajoutent généralement 5–10&nbsp;% de marge de perte aux quantités théoriques pour les coupes, la casse et les erreurs de mesure. Les normes ISO et EN définissent les propriétés des matériaux et les tolérances utilisées dans ces formules.</p>
-
-<h2>Erreurs courantes à éviter</h2>
+</div>
+<div class="mistakes-section">
+<h2>Erreurs courantes</h2>
 <ul>
-<li>Oublier d'ajouter une marge de perte (5-10%) lors de la commande de matériaux.</li><li>Mélanger unités métriques et impériales dans un même projet.</li>
+<li>Oubliant que la sortie du diviseur de tension change lorsqu'une charge est connectée - considérez toujours l'impédance de charge comme une résistance en parallèle avec R2</li>
+<li>Utiliser des valeurs de résistance trop élevées, ce qui rend le diviseur sensible au couplage de bruit provenant de signaux proches</li>
+<li>Utiliser des valeurs de résistance trop faibles, gaspiller de l'énergie et potentiellement dépasser les puissances nominales des résistances — un diviseur de 100 Ω à 12 V dissipe 1,44 W</li>
+<li>En supposant que le diviseur de tension fournit une sortie régulée, un diviseur n'est pas un régulateur de tension ; si la tension d'entrée fluctue, la sortie fluctue proportionnellement</li>
 </ul>
-
-<h2>Conseil pro pour les entrepreneurs</h2>
-<p>Commandez 5-10% de matériel en plus que le calcul ne l'indique pour couper les pertes et les erreurs de mesure.</p>
-
-<h2>Questions fréquentes</h2>
+</div>
+<div class="pro-tip">
+<h2>Pro Tip</h2>
+<p>Lors de la conception d'un diviseur de tension pour une entrée ADC, ajoutez un petit condensateur (0,1 µF) en parallèle avec R2 pour créer un filtre passe-bas. Celui-ci filtre le bruit haute fréquence et fournit un réservoir de charge pour le circuit échantillonneur-bloqueur de l'ADC, améliorant ainsi la précision des mesures. La fréquence de coupure est fc = 1 / (2π × R_equivalent × C), où R_equivalent est la combinaison parallèle de R1 et R2. Pour R1 = 10 kΩ et R2 = 10 kΩ, la résistance équivalente est de 5 kΩ, donc avec C = 0,1 µF, fc = 1 / (6,28 × 5000 × 1e-7) = 318 Hz, ce qui supprime le bruit haute fréquence tout en préservant le signal DC.</p>
+</div>
+<div class="faq-section">
+<h2>Foire aux questions</h2>
 <div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Combien de matériel supplémentaire dois-je commander?</button><div class="faq-a"><p>La plupart des professionnels recommandent de commander 5-10% de plus que le calcul pour couper les pertes et les erreurs de mesure.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cette calculatrice est-elle précise?</button><div class="faq-a"><p>Oui. La calculatrice utilise la formule standard : Diviseur de Tension = f(V entrée, R1, R2). Les résultats sont mathématiquement exacts.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Puis-je utiliser cette calculatrice sur mobile?</button><div class="faq-a"><p>Oui, la calculatrice est entièrement responsive et fonctionne sur tout appareil. Aucune installation requise.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Comment sauvegarder ou partager mon calcul ?</button><div class="faq-a"><p>Utilisez le bouton <strong>Partager</strong> pour générer une URL qui encode toutes vos entrées. Le bouton <strong>Copier</strong> copie le résultat dans le presse-papiers.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Que faire si mon résultat semble incorrect ?</button><div class="faq-a"><p>Vérifiez d'abord vos entrées : valeurs dans les bonnes unités et plage réaliste. Vérifiez aussi que la formule <em>Diviseur de Tension = f(V entrée, R1, R2)</em> s'applique exactement à votre situation.</p></div></div>
+<div class="faq-item">
+<button aria-expanded="false" class="faq-q">Quand dois-je utiliser un diviseur de tension plutôt qu’un régulateur de tension ?</button>
+<div class="faq-a">Utilisez un diviseur de tension uniquement pour les tensions de référence ou la polarisation où la charge consomme un courant négligeable (moins de 1 % du courant du diviseur). Pour alimenter des charges qui consomment un courant important, utilisez un régulateur de tension. La tension de sortie d'un diviseur de tension chute lorsqu'une charge est connectée car la résistance de charge apparaît en parallèle avec R2, modifiant ainsi le rapport de division.</div>
+</div>
+<div class="faq-item">
+<button aria-expanded="false" class="faq-q">Comment choisir les valeurs de résistance pour un diviseur de tension ?</button>
+<div class="faq-a">Choisissez des valeurs de résistance suffisamment grandes pour minimiser le gaspillage d'énergie, mais suffisamment petites pour que le courant de charge soit négligeable par rapport au courant du diviseur. Une bonne règle consiste à rendre le courant traversant le diviseur 100 fois supérieur au courant de charge attendu. Pour un diviseur de 5 V à 3,3 V, 10 kΩ et 6,8 kΩ fonctionnent bien, consommant environ 0,3 mA de l'alimentation.</div>
+</div>
+<div class="faq-item">
+<button aria-expanded="false" class="faq-q">Quel est le problème du diviseur de tension chargé ?</button>
+<div class="faq-a">Lorsque vous connectez une résistance de charge (RL) à la sortie d'un diviseur de tension, RL apparaît en parallèle avec R2, réduisant ainsi la résistance effective de la moitié inférieure. Cela réduit la tension de sortie. Le Vout réel devient Vin × R2∥RL / (R1 + R2∥RL). Pour minimiser cet effet, assurez-vous que RL est au moins 100 fois plus grand que R2.</div>
+</div>
+<div class="faq-item">
+<button aria-expanded="false" class="faq-q">Puis-je utiliser un diviseur de tension avec des signaux alternatifs ?</button>
+<div class="faq-a">Oui, la formule du diviseur de tension fonctionne pour les signaux DC et AC tant que la fréquence est suffisamment basse pour que la capacité parasite soit négligeable. Aux hautes fréquences, le condensateur formé par les fils de résistance et les traces du PCB crée un diviseur de tension dépendant de la fréquence (filtre RC) qui atténue davantage les fréquences élevées que les fréquences inférieures.</div>
+</div>
+</div>
+</div>
+<div class="related-calculators">
+<h2>Calculatrices associées</h2>
+<ul> <li><a href="/en/resistor-color-code/">Resistor Color Code Calculator</a></li>
+<li><a href="/en/capacitor-energy/">Capacitor Energy Calculator</a></li>
+<li><a href="/en/rc-time-constant/">RC Time Constant Calculator</a></li>
+<li><a href="/en/heat-index-calculator/">Wheatstone Bridge Calculator</a></li>
+</ul>
 </div>
 </section>

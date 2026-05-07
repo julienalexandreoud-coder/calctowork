@@ -1,6 +1,7 @@
 /**
  * CalcToWork Analytics API
  * Receives and stores user interaction events in Firestore
+ * Also exports GSC collector, aggregator, and alerting functions
  */
 
 const functions = require("firebase-functions");
@@ -73,6 +74,7 @@ exports.analytics = functions.https.onRequest((req, res) => {
           referrer: event.referrer || null,
           user_agent: event.user_agent || null,
           language: event.language || null,
+          is_bot: event.is_bot || false,
           screen_width: event.screen_width || null,
           screen_height: event.screen_height || null,
           viewport_width: event.viewport_width || null,
@@ -110,3 +112,20 @@ exports.analytics = functions.https.onRequest((req, res) => {
 exports.health = functions.https.onRequest((req, res) => {
   res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
 });
+
+// ── GSC Integration ──
+const gscCollector = require("./gsc-collector");
+exports.fetchGscData = gscCollector.fetchGscData;
+exports.fetchGscOnDemand = gscCollector.fetchGscOnDemand;
+exports.getGscData = gscCollector.getGscData;
+
+// ── Analytics Aggregation ──
+const aggregator = require("./aggregator");
+exports.aggregateDailyStats = aggregator.aggregateDailyStats;
+exports.aggregateOnDemand = aggregator.aggregateOnDemand;
+exports.getAggregatedData = aggregator.getAggregatedData;
+
+// ── Alerting ──
+const alerting = require("./alerting");
+exports.checkAlerts = alerting.checkAlerts;
+exports.getAlerts = alerting.getAlerts;

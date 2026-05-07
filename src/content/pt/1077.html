@@ -1,43 +1,80 @@
 <section class="long-content">
-<h2>A formula de fisica explicada</h2>
-<p>Formulas de fisica e quimica ganham vida quando voce pode inserir valores reais e ver resultados instantaneos. Esta calculadora gerencia conversoes de unidades automaticamente.</p>
-<p>A formula por tras deste calculo e <strong>Calculadora de Divisor de Tensão = f(Voltaje Entrada, R1, R2)</strong>. Compreender como o resultado e obtido ajuda a verificar a saida e detectar erros de entrada.</p>
-
-<h2>Calculo passo a passo com unidades</h2>
-<p>Siga estes passos para obter um resultado confiável:</p>
-<ol>
-<li><strong>Insira seus dados:</strong> 12 V; 1000 Ω; 2000 Ω — ensure all values use a single consistent unit system.</li>
-<li><strong>A calculadora aplica a fórmula:</strong> <em>Calculadora de Divisor de Tensão = f(Voltaje Entrada, R1, R2)</em>.</li>
-<li><strong>Leia seu resultado:</strong> Voltaje Salida, Corriente.</li>
-<li>Verifique: confirme que as unidades são consistentes e os valores realistas antes de agir com base no resultado.</li>
-</ol>
-
-<h2>Aplicacoes em laboratorio e no mundo real</h2>
-<p>Esta calculadora é especialmente útil nas seguintes situações:</p>
+<h1>Calculadora do divisor de tensão: Projete circuitos divisores de precisão</h1>
+<p>A calculadora do Divisor de Tensão calcula a tensão de saída de um circuito divisor de tensão de dois resistores. Esta topologia de circuito fundamental é usada em quase todos os dispositivos eletrônicos para interface de sensores, mudança de nível, geração de referência e atenuação de sinal. Esteja você projetando um circuito de sensor Arduino, um amplificador de áudio ou um monitor de fonte de alimentação, o divisor de tensão é um componente essencial.</p>
+<p class="see-also">Você também pode encontrar o<a href="/en/punto-equilibrio/">Dew Point Calculator</a>, <a href="/en/indice-calor/">Heat Index Calculator</a>, and <a href="/en/energia-capacitor/">Capacitor Energy Calculator</a> useful.</p>
+links internos adicionados
+<div class="formula-section">
+<h2>Fórmula do divisor de tensão</h2>
+<p class="formula-display">V<sub>out</sub> = V<sub>in</sub> × R<sub>2</sub> ÷ (R<sub>1</sub> + R<sub>2</sub>)</p>
+<p>A fórmula deriva da lei de Ohm e do fato de que a mesma corrente flui através de ambos os resistores em série. A tensão de entrada Vin é aplicada através da combinação em série de R1 e R2. A tensão de saída Vout é medida em R2, o resistor inferior. A relação de divisão depende apenas dos valores do resistor, não do nível de tensão absoluto.</p>
+<p>A corrente que flui através do divisor é I = Vin / (R1 + R2). Esta corrente determina a potência dissipada em cada resistor: P1 = I² × R1 e P2 = I² × R2. Para circuitos alimentados por bateria, valores de resistor maiores (100 kΩ ou mais) são usados ​​para minimizar o consumo de corrente, enquanto para aplicações de precisão, valores menores (1 kΩ a 10 kΩ) são preferidos para reduzir ruído e efeitos de carga.</p>
+</div>
+<div class="examples-section">
+<h2>Exemplos resolvidos</h2>
+<div class="example">
+<h3>Exemplo 1: Deslocador de nível de 5 V a 3,3 V</h3>
+<p>Uma saída de 5 V do microcontrolador precisa ser reduzida para 3,3 V para uma entrada de módulo sensor. Escolha R1 = 10 kΩ e R2 = 6,8 kΩ (valores E12 padrão).</p>
+<p><strong>Cálculo:</strong>Vout = 5 V × 6.800 ÷ (10.000 + 6.800) = 5 × 6.800 ÷ 16.800 =<strong>2.02 V</strong></p>
+<p>Isso produz apenas 2,02 V, não os 3,3 V desejados. Para obter 3,3 V de uma fonte de 5 V, resolva para R2: 3,3 = 5 × R2 / (R1 + R2). Com R1 = 10 kΩ: 3,3 × (10.000 + R2) = 5 × R2, dando 33.000 + 3,3 R2 = 5 R2, então 33.000 = 1,7 R2 e R2 = 19,4 kΩ. Use R1 = 10 kΩ e R2 = 20 kΩ (valor padrão) para obter aproximadamente 3,33 V.</p>
+</div>
+<div class="example">
+<h3>Exemplo 2: Monitor de tensão da bateria</h3>
+<p>Uma bateria de chumbo-ácido de 12 V (12,6 V totalmente carregada) precisa ser medida por um ADC que aceite no máximo 5 V. Projete um divisor de tensão que mapeie 12,6 V a 5 V.</p>
+<p><strong>Cálculo:</strong>Usando Vout / Vin = R2 / (R1 + R2) = 5 / 12,6 = 0,397. Se R2 = 10 kΩ, então 0,397 = 10.000 / (R1 + 10.000). R1 + 10.000 = 10.000 / 0,397 = 25.189Ω. R1 = 15.189 Ω ≈ 15 kΩ (valor padrão).</p>
+<p>Com R1 = 15 kΩ e R2 = 10 kΩ, Vout na bateria de 12,6 V = 12,6 × 10.000 / (15.000 + 10.000) = 12,6 × 0,4 =<strong>5.04 V</strong>. Isso está próximo do limite de 5 V ADC. A 11,5 V (descarregado), Vout = 11,5 × 0,4 = 4,6 V. O divisor consome 12,6 / 25.000 = 0,5 mA da bateria, o que é aceitável para monitoramento contínuo.</p>
+</div>
+</div>
+<div class="uses-section">
+<h2>Usos comuns</h2>
 <ul>
-<li>projeto e análise de circuitos</li><li>tarefas e projetos de eletrônica</li><li>seleção e verificação de componentes</li><li>solução de problemas de circuitos elétricos</li>
+<li>Reduzindo as tensões de saída do sensor (por exemplo, 0-10 V a 0-3,3 V) para corresponder à faixa de entrada de microcontroladores e ADCs</li>
+<li>Criação de tensões de referência para circuitos amplificadores operacionais e limiares comparadores</li>
+<li>Polarização dos estágios do amplificador de transistor ajustando a tensão de base no ponto de operação correto</li>
+<li>Atenuação de sinais de áudio para evitar cortes em interfaces de gravação e cadeias de processamento de áudio</li>
+<li>Monitoramento de tensões de bateria em eletrônicos portáteis sem exceder os limites de entrada ADC</li>
+<li>Configuração da tensão de realimentação em reguladores de tensão ajustáveis ​​e fontes de alimentação comutadas</li>
 </ul>
-
-<h2>Precisão e algarismos significativos</h2>
-<p>Verifique os algarismos significativos: seu resultado não pode ser mais preciso que sua medição menos precisa. Arredonde o resultado final para o mesmo número de algarismos significativos da medição menos precisa utilizada.</p>
-
-<h2>Contexto físico e científico</h2>
-<p>As fórmulas de física descrevem matematicamente relações reais validadas por séculos de experimentação. A consistência de unidades é a fonte de erro mais frequente: misturar SI com imperial compromete todos os cálculos seguintes. Sempre converta todas as entradas para um único sistema de unidades antes de calcular.</p>
-
-<h2>Erros de conversao de unidades a evitar</h2>
+</div>
+<div class="mistakes-section">
+<h2>Erros Comuns</h2>
 <ul>
-<li>Esquecer de converter todas as unidades ao SI antes de usar a formula.</li>
+<li>Esquecendo que a saída do divisor de tensão muda quando uma carga é conectada — considere sempre a impedância da carga como um resistor em paralelo com R2</li>
+<li>Usar valores de resistor muito altos, tornando o divisor suscetível ao acoplamento de ruído de sinais próximos</li>
+<li>Usando valores de resistor muito baixos, desperdiçando energia e potencialmente excedendo as classificações de potência do resistor - um divisor de 100 Ω a 12 V dissipa 1,44 W</li>
+<li>Supondo que o divisor de tensão forneça uma saída regulada – um divisor não é um regulador de tensão; se a tensão de entrada flutua, a saída flutua proporcionalmente</li>
 </ul>
-
-<h2>Dica para medicoes precisas</h2>
-<p>Trabalhe sempre em unidades SI (metros, quilogramas, segundos, Kelvin) ao aplicar formulas.</p>
-
+</div>
+<div class="pro-tip">
+<h2>Pro Tip</h2>
+<p>Ao projetar um divisor de tensão para uma entrada ADC, adicione um pequeno capacitor (0,1 µF) em paralelo com R2 para criar um filtro passa-baixa. Isso filtra o ruído de alta frequência e fornece um reservatório de carga para o circuito sample-and-hold do ADC, melhorando a precisão da medição. A frequência de corte é fc = 1 / (2π × R_equivalente × C), onde R_equivalente é a combinação paralela de R1 e R2. Para R1 = 10 kΩ e R2 = 10 kΩ, a resistência equivalente é 5 kΩ, portanto, com C = 0,1 µF, fc = 1 / (6,28 × 5000 × 1e-7) = 318 Hz, o que remove o ruído de alta frequência enquanto preserva o sinal DC.</p>
+</div>
+<div class="faq-section">
 <h2>Perguntas frequentes</h2>
 <div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Por que preciso converter unidades antes de calcular?</button><div class="faq-a"><p>A maioria das formulas de fisica e quimica sao definidas em unidades SI. Usar unidades misturadas produz resultados incorretos.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Esta calculadora e precisa?</button><div class="faq-a"><p>Sim. A calculadora usa a formula padrao: Calculadora de Divisor de Tensão = f(Voltaje Entrada, R1, R2). Os resultados sao matematicamente exatos.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Posso usar esta calculadora no celular?</button><div class="faq-a"><p>Sim, a calculadora e totalmente responsiva e funciona em qualquer dispositivo.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Como salvo ou compartilho meu cálculo?</button><div class="faq-a"><p>Use o botão <strong>Compartilhar</strong> para gerar uma URL com todos os seus dados. O botão <strong>Copiar</strong> copia o resultado para a área de transferência.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">O que fazer se o resultado parecer errado?</button><div class="faq-a"><p>Verifique suas entradas: valores nas unidades corretas e faixa realista. Confirme também que a fórmula <em>Calculadora de Divisor de Tensão = f(Voltaje Entrada, R1, R2)</em> se aplica exatamente à sua situação.</p></div></div>
+<div class="faq-item">
+<button aria-expanded="false" class="faq-q">Quando devo usar um divisor de tensão versus um regulador de tensão?</button>
+<div class="faq-a">Use um divisor de tensão somente para tensões de referência ou polarização onde a carga consome corrente insignificante (menos de 1% da corrente do divisor). Para alimentar cargas que consomem corrente significativa, use um regulador de tensão. A tensão de saída de um divisor de tensão cai quando uma carga é conectada porque o resistor de carga aparece em paralelo com R2, alterando a relação de divisão.</div>
+</div>
+<div class="faq-item">
+<button aria-expanded="false" class="faq-q">Como escolho os valores do resistor para um divisor de tensão?</button>
+<div class="faq-a">Escolha valores de resistor que sejam grandes o suficiente para minimizar o desperdício de energia, mas pequenos o suficiente para que a corrente de carga seja insignificante em comparação com a corrente do divisor. Uma boa regra é fazer com que a corrente através do divisor seja 100 vezes maior que a corrente de carga esperada. Para um divisor de 5 V a 3,3 V, 10 kΩ e 6,8 kΩ funcionam bem, consumindo cerca de 0,3 mA da fonte.</div>
+</div>
+<div class="faq-item">
+<button aria-expanded="false" class="faq-q">Qual é o problema do divisor de tensão carregado?</button>
+<div class="faq-a">Quando você conecta um resistor de carga (RL) a uma saída do divisor de tensão, RL aparece em paralelo com R2, reduzindo a resistência efetiva da metade inferior. Isso reduz a tensão de saída. O Vout real se torna Vin × R2∥RL / (R1 + R2∥RL). Para minimizar este efeito, certifique-se de que RL seja pelo menos 100 vezes maior que R2.</div>
+</div>
+<div class="faq-item">
+<button aria-expanded="false" class="faq-q">Posso usar um divisor de tensão com sinais AC?</button>
+<div class="faq-a">Sim, a fórmula do divisor de tensão funciona para sinais CC e CA, desde que a frequência seja baixa o suficiente para que a capacitância parasita seja insignificante. Em altas frequências, o capacitor formado pelos condutores do resistor e pelos traços da PCB cria um divisor de tensão dependente da frequência (filtro RC) que atenua as frequências mais altas mais do que as mais baixas.</div>
+</div>
+</div>
+</div>
+<div class="related-calculators">
+<h2>Calculadoras Relacionadas</h2>
+<ul> <li><a href="/en/resistor-color-code/">Resistor Color Code Calculator</a></li>
+<li><a href="/en/capacitor-energy/">Capacitor Energy Calculator</a></li>
+<li><a href="/en/rc-time-constant/">RC Time Constant Calculator</a></li>
+<li><a href="/en/heat-index-calculator/">Wheatstone Bridge Calculator</a></li>
+</ul>
 </div>
 </section>

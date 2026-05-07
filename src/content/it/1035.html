@@ -1,43 +1,139 @@
 <section class="long-content">
-<h2>La formula medica spiegata</h2>
-<p>Comprendere le metriche del tuo corpo è il primo passo verso decisioni sanitarie migliori. Questa calcolatrice utilizza formule mediche consolidate per risultati personalizzati.</p>
-<p>La formula alla base di questo calcolo è <strong>Numero Casuale = f(Minimo, Massimo)</strong>. Comprendere come si ottiene il risultato ti aiuta a verificare l'output e a rilevare errori di input.</p>
-
-<h2>Come prendere le misurazioni correttamente</h2>
-<p>Segui questi passaggi per ottenere un risultato affidabile:</p>
+<h2>Cos'è un generatore di numeri casuali?</h2>
+<p>Un generatore di numeri casuali (RNG) produce valori imprevedibili all'interno di un intervallo specificato, svolgendo funzioni critiche nella crittografia, nelle simulazioni scientifiche, nei giochi, nel campionamento statistico e nel processo decisionale. A differenza delle scelte “casuali” generate dall’uomo – che presentano pregiudizi prevedibili – gli RNG corretti forniscono distribuzioni matematicamente uniformi in cui ogni numero ha la stessa probabilità di selezione.</p>
+<p class="see-also">Potresti anche trovare<a href="/it/generatore-password/">Password Generator</a> and <a href="/it/lancio-dadi/">Dice Roller</a> useful.</p>
+collegamenti-<p>La differenza tra la vera casualità e l’approssimazione umana è netta. Chiedi a qualcuno di scegliere un numero casuale compreso tra 1 e 10 e 7 apparirà il 28% delle volte (rispetto al 10% previsto). Le persone evitano di ripetere i numeri, creano schemi falsi e preferiscono determinate cifre. In uno studio su 8,5 milioni di sequenze “casuali” generate dall’uomo, i ricercatori hanno identificato modelli prevedibili che consentono un’accuratezza della previsione del 15-27% – impossibile con la vera casualità in cui ogni risultato è indipendente.</p>
+<p>Esistono due tipi di RNG: i veri generatori di numeri casuali (TRNG) raccolgono entropia da fenomeni fisici come il rumore atmosferico, il decadimento radioattivo o le variazioni termiche. I generatori di numeri pseudo-casuali (PRNG) utilizzano algoritmi matematici a partire da un valore seme. I computer moderni combinano entrambi: PRNG per la velocità nelle simulazioni e nei giochi, seminati da fonti TRNG per la sicurezza crittografica. Comprendere il tipo di cui ha bisogno la tua applicazione previene errori costosi: l'utilizzo di PRNG prevedibili per la crittografia o il gioco d'azzardo invita allo sfruttamento.</p>
+<h2>Spiegazione della formula per la generazione di numeri casuali</h2>
+<p><strong>Formula del generatore congruenziale lineare (LCG):</strong></p>
+<p><strong>Xₙ₊₁ = (a × Xₙ + c) mod m</strong></p>
+<p>Where:</p>
+<ul>
+<li>Xₙ = Stato corrente (seme o valore precedente)</li>
+<li>Xₙ₊₁ = Valore casuale successivo</li>
+<li>a = Costante del moltiplicatore</li>
+<li>c = Costante di incremento</li>
+<li>m = Modulo (definisce l'intervallo da 0 a m-1)</li>
+</ul>
+<p><strong>Parametri LCG comuni (MINSTD):</strong></p>
+<ul>
+<li>a = 48.271</li>
+<li>c = 0</li>
+<li>m = 2.147.483.647 (2³¹ - 1, un primo di Mersenne)</li>
+<li>Periodo: 2,1 miliardi di valori prima di ripetere</li>
+</ul>
+<p><strong>Ridimensionamento a un intervallo arbitrario [min, max]:</strong></p>
+<p><strong>Casuale = min + (Xₙ / m) × (max - min + 1)</strong></p>
+<p>Oppure utilizzando il modulo per intervalli interi:</p>
+<p><strong>Casuale = min + (Xₙ mod (max - min + 1))</strong></p>
+<p><strong>Esempio svolto 1 — Genera un numero casuale 1-100:</strong></p>
+<p>Passaggio 1: valore seed X₀ = 12.345 (stato iniziale)</p>
+<p>Passaggio 2: applicare la formula LCG con i parametri MINSTD:</p>
+<p>X₁ = (48.271 × 12.345 + 0) mod 2.147.483.647</p>
+<p>X₁ = 595.904.595 + 2.147.483.647 = 595.904.595</p>
+<p>Passaggio 3: scala fino all'intervallo [1, 100]:</p>
+<p>Casuale = 1 + (595.904.595 mod 100) = 1 + 95 = 96</p>
+<p><strong>Risultato: 96</strong>(primo numero casuale nell'intervallo 1-100)</p>
+<p>Passaggio 4: generare il valore successivo:</p>
+<p>X₂ = (48.271 × 595.904.595) mod 2.147.483.647 = 1.308.818.422</p>
+<p>Casuale = 1 + (1.308.818.422 mod 100) = 1 + 22 = 23</p>
+<p><strong>Risultato: 23</strong>(secondo numero casuale)</p>
+<p><strong>Esempio svolto 2: byte casuale crittografico (0-255):</strong></p>
+<p>Gli RNG crittografici utilizzano fonti di entropia hardware, non formule LCG.</p>
+<p>Passaggio 1: raccogliere l'entropia dal sistema operativo (interruzioni temporali, rumore hardware)</p>
+<p>Passaggio 2: inserire la funzione hash crittografica (SHA-256)</p>
+<p>Passaggio 3: estrarre il primo byte: 0x7F = 127 in decimale</p>
+<p><strong>Risultato: 127</strong>(imprevedibile, adatto per chiavi di crittografia)</p>
+<p><strong>Calcoli delle probabilità:</strong></p>
+<p>Per una distribuzione uniforme nell'intervallo [min, max]:</p>
+<p><strong>P(qualsiasi valore specifico) = 1 / (max - min + 1)</strong></p>
+<p>Per l'intervallo 1-100: P(qualsiasi numero) = 1/100 = 0,01 = 1%</p>
+<p><strong>Valore atteso (media):</strong></p>
+<p><strong>E[X] = (min + max) / 2</strong></p>
+<p>Per l'intervallo 1-100: E[X] = (1 + 100) / 2 = 50,5</p>
+<h2>6 passaggi per generare numeri casuali</h2>
 <ol>
-<li><strong>Inserisci i tuoi valori:</strong> 1; 100 — ensure all values use a single consistent unit system.</li>
-<li><strong>La calcolatrice applica la formula:</strong> <em>Numero Casuale = f(Minimo, Massimo)</em>.</li>
-<li><strong>Leggi il tuo risultato:</strong> Numero.</li>
-<li>Verificate: confermate che le unità siano coerenti e i valori realistici prima di agire sul risultato.</li>
+<li><strong>Definire l'intervallo e il tipo di valori casuali necessari:</strong>Specifica i valori minimo e massimo e se sono necessari numeri interi o decimali. Lancio di un dado: intervallo [1, 6], numeri interi. Selezione di un numero della lotteria: intervallo [1, 69], numeri interi. Chiave crittografica: intervallo [0, 255], byte. Simulazione scientifica: intervallo [0.0, 1.0], virgola mobile. L'intervallo determina il modulo e l'approccio di ridimensionamento.</li>
+<li><strong>Scegli il tipo RNG appropriato per il tuo caso d'uso:</strong>Per giochi e simulazioni: utilizzare PRNG (Mersenne Twister, PCG) per velocità e riproducibilità. Per crittografia e sicurezza: utilizzare CSPRNG (crypto.getRandomValues, /dev/urandom) seminato dall'entropia hardware. Per la ricerca scientifica che richiede vera casualità: utilizzare i servizi TRNG (random.org) basati sul rumore atmosferico. Non utilizzare mai PRNG standard per password, crittografia o giochi d'azzardo.</li>
+<li><strong>Inizializza (semina) il generatore correttamente:</strong>I PRNG richiedono un valore seme: lo stesso seme produce sempre la stessa sequenza. Per la riproducibilità (debug, articoli scientifici): utilizzare un seed fisso come 42 o 12345. Per l'imprevedibilità (giochi, sicurezza): seed da fonti ad entropia elevata come l'ora corrente in microsecondi, ID di processo e contatori hardware. Gli RNG crittografici vengono sottoposti a seeding automatico dai pool di entropia del sistema operativo.</li>
+<li><strong>Genera il valore casuale grezzo:</strong>Chiama la funzione RNG per produrre un valore. In JavaScript: Math.random() restituisce [0.0, 1.0). In Python: random.randint(1, 100) fornisce numeri interi. In C#: Random.Next(1, 101). Per crittografia: window.crypto.getRandomValues() riempie un array tipizzato con byte casuali. Potrebbe essere necessario ridimensionare l'output grezzo in base all'intervallo target.</li>
+<li><strong>Ridimensiona e trasforma in base all'intervallo target:</strong>Converti l'output grezzo nell'intervallo desiderato. Per numeri interi [min, max]: risultato = min + (mod grezzo (max - min + 1)). Per i float [min, max]: risultato = min + raw × (max - min). Garantire una distribuzione uniforme: il ridimensionamento ingenuo può introdurre distorsioni. Ad esempio, generare 1-10 da 1-100 dividendo per 10 crea risultati non uniformi; utilizzare invece il campionamento modulo o di rifiuto.</li>
+<li><strong>Verificare le proprietà statistiche per le applicazioni critiche:</strong>Esegui test chi quadrato per confermare la distribuzione uniforme. Genera oltre 10.000 campioni e verifica che ciascun valore appaia approssimativamente uguale. Per l'uso crittografico, applicare la frequenza di convalida, le esecuzioni e le proprietà di autocorrelazione della NIST Statistical Test Suite (STS). I test falliti indicano un output distorto che richiede un algoritmo RNG o una fonte seed diversi.</li>
 </ol>
-
-<h2>Cosa significano i tuoi risultati</h2>
-<p>Questa calcolatrice è particolarmente utile nelle seguenti situazioni:</p>
+<h2>5 Esempi pratici di generazione di numeri casuali</h2>
+<p><strong>Esempio 1 – Gioco da tavolo Lancio di dadi (2d6):</strong></p>
 <ul>
-<li>valutazione della sicurezza delle password</li><li>analisi del testo e conteggio dei caratteri</li><li>calcoli di data e ora</li><li>task utilitari quotidiani</li>
+<li>Portata per dado: [1, 6]</li>
+<li>Tipo RNG: PRNG accettabile (nessun requisito di sicurezza)</li>
+<li>Genera il primo dado: random(1, 6) = 4</li>
+<li>Genera il secondo dado: random(1, 6) = 5</li>
+<li>Totale: 4 + 5 = 9</li>
+<li><strong>Result: 9</strong>(tipico lancio di dadi per Monopoli o Catan)</li>
 </ul>
-
-<h2>Cosa significa il tuo risultato</h2>
-<p>I risultati delle calcolatrici sanitarie sono stime, non diagnosi. Questi numeri sono medie di popolazione con margini di errore di ±10–15&nbsp;%. Usali come punti di orientamento per parlare con il tuo medico o nutrizionista, non come soglie assolute.</p>
-
-<h2>Comprendere le formule sanitarie</h2>
-<p>Le calcolatrici sanitarie si basano su studi di popolazione che identificano relazioni matematiche tra misure e risultati di salute. Queste formule forniscono stime basate su prove, ma rappresentano medie di popolazione. Consulta sempre un professionista sanitario prima di modificare dieta, esercizio o farmaci.</p>
-
-<h2>Errori comuni nell'automisurazione</h2>
+<p><strong>Esempio 2 — Selezione del numero della lotteria (6 numeri da 1 a 49):</strong></p>
 <ul>
-<li>Usare una singola misurazione per decisioni di salute — consultare sempre un professionista medico.</li>
+<li>Intervallo: [1, 49], non sono consentite ripetizioni</li>
+<li>Tipo RNG: PRNG con campionamento di rifiuto</li>
+<li>Genera: 17, 8, 33, 42, 5, 29 (rifiuta eventuali duplicati)</li>
+<li>Ordina per la visualizzazione: 5, 8, 17, 29, 33, 42</li>
+<li><strong>Risultato: [5, 8, 17, 29, 33, 42]</strong>(estrazione della lotteria valida)</li>
+<li>Probabilità di questa esatta combinazione: 1 su 13.983.816</li>
 </ul>
-
-<h2>Quando consultare un professionista sanitario</h2>
-<p>Prendi le misurazioni alla stessa ora del giorno in condizioni simili per un monitoraggio coerente. Discuti sempre i risultati con un professionista sanitario.</p>
-
-<h2>Domande frequenti</h2>
+<p><strong>Esempio 3: assegnazione del test A/B (dall'utente alla variante):</strong></p>
+<ul>
+<li>Intervallo: [0, 1) float, assegna &lt;0,5 alla variante A, ≥0,5 alla variante B</li>
+<li>Tipo RNG: PRNG (riproducibilità utile per il debug)</li>
+<li>Genera: random() = 0.73294</li>
+<li>Assegnazione: 0,73294 ≥ 0,5, quindi Variante B</li>
+<li><strong>Risultato: utente assegnato alla variante B</strong>(ripartizione 50/50)</li>
+<li>Oltre 10.000 utenti: previsti ~5.000 per variante (±100 in base alla casualità)</li>
+</ul>
+<p><strong>Esempio 4: generazione di chiavi di crittografia (128 bit):</strong></p>
+<ul>
+<li>Intervallo: [0, 255] per ciascuno dei 16 byte</li>
+<li>Tipo RNG: CSPRNG richiesto (critico per la sicurezza)</li>
+<li>Genera 16 byte casuali: 0x3A, 0xF7, 0x2C, 0x8D, 0x14, 0xE9, 0x76, 0xB3, 0x45, 0x9A, 0x0F, 0xC8, 0x51, 0xD2, 0x8E, 0x67</li>
+<li>Rappresentazione esadecimale: 3AF72C8D14E976B3459A0FC851D28E67</li>
+<li><strong>Risultato: chiave a 128 bit con 2¹²⁸ (3,4 × 10³⁸) valori possibili</strong></li>
+<li>Tempo di cracking: computazionalmente irrealizzabile con la tecnologia attuale</li>
+</ul>
+<p><strong>Esempio 5 — Simulazione Monte Carlo (stima π):</strong></p>
+<ul>
+<li>Genera punti casuali (x, y) nel quadrato unitario [0, 1] × [0, 1]</li>
+<li>Contare i punti dove x² + y² ≤ 1 (interno del quarto di cerchio)</li>
+<li>Genera 10.000 punti: 7.854 cadono nel cerchio</li>
+<li>π ≈ 4 × (interno / totale) = 4 × (7.854 / 10.000) = 3,1416</li>
+<li><strong>Risultato: π ≈ 3.1416</strong>(π effettivo = 3,14159..., errore = 0,003%)</li>
+<li>Più campioni = migliore precisione (legge dei grandi numeri)</li>
+</ul>
+<h2>4 errori comuni nella generazione di numeri casuali</h2>
+<ul>
+<li><strong>Utilizzo di RNG non crittografico per scopi di sicurezza:</strong>Math.random() di JavaScript, il modulo random di Python e rand() di C utilizzano algoritmi PRNG prevedibili. Un utente malintenzionato che osserva 624 output consecutivi di Mersenne Twister può prevedere tutti i valori futuri. Non utilizzarli mai per la generazione di password, token di sessione o chiavi di crittografia. Utilizza sempre crypto.getRandomValues() (browser), modulo secrets (Python) o /dev/urandom (Linux) per la casualità sensibile alla sicurezza.</li>
+<li><strong>Introduzione di distorsioni attraverso un ridimensionamento improprio dell'intervallo:</strong>La generazione di 1-10 casuali da random(1, 100) calcolando (random(1, 100) / 10) + 1 crea una distribuzione non uniforme. I valori 1-9 possono risultare da 10 input ciascuno, ma 10 risulta solo da 91-100 (10 input) - aspetta, questo esempio è in realtà uniforme. Esempio migliore: random(1, 7) mod 5 + 1 dà 1-3 da 2 input ciascuno, ma 4-5 da 1 input ciascuno, tendendo verso numeri più bassi. Utilizza campionamento di rifiuto: genera finché il valore non rientra nell'intervallo uniforme.</li>
+<li><strong>Seeding con valori prevedibili:</strong>Utilizzando il timestamp corrente (secondi) come seed, gli aggressori possono restringere il seed a circa 86.400 possibilità al giorno. Se sanno approssimativamente quando hai generato un valore, possono forzare il seed e prevedere tutti gli output. Utilizza seed ad alta entropia: combina timestamp con ID processo, contatori hardware ed entropia del sistema operativo. Per la crittografia, non eseguire mai il seeding manualmente: lascia che CSPRNG gestisca il seeding internamente.</li>
+<li><strong>Supponendo che casualità significhi "nessun modello":</strong>Gli esseri umani si aspettano che le sequenze casuali si alternino frequentemente (HTHTHT per il lancio di una moneta), ma la vera casualità produce cluster (HHHHHT, TTTTTH). Una sequenza di dieci 7 di fila ha probabilità 1 su 10¹⁰: improbabile ma garantita che alla fine si verifichi in infinite prove. Gli RNG che producono distribuzioni "troppo uniformi" (evitando i cluster) sono in realtà distorti. I test statistici verificano le proprietà di casualità attese, non l'assenza di modelli.</li>
+</ul>
+<h2>5 suggerimenti professionali per la generazione di numeri casuali</h2>
+<ul>
+<li><strong>Utilizzare il Mersenne Twister per simulazioni scientifiche:</strong>MT19337 ha un periodo di 2¹⁹⁹³⁷ - 1 (un numero con 6.002 cifre), supera tutti i test statistici standard e genera valori 3-10 volte più velocemente degli RNG crittografici. È l'impostazione predefinita in Python, R e NumPy per una buona ragione. Per motivi di riproducibilità, memorizza il valore seed nelle note di ricerca. Avvertenza: MT è prevedibile dopo aver osservato gli output 624: non utilizzare mai per la crittografia.</li>
+<li><strong>Implementare il campionamento del rifiuto per risultati imparziali:</strong>Quando si generano valori nell'intervallo [0, N) da un intervallo più ampio [0, M), rifiutare valori ≥ floor(M/N) × N. Esempio: generazione di 1-10 da un byte casuale [0, 255]. Floor(256/10) × 10 = 250. Genera un byte; se valore ≥ 250, scartare e rigenerare. Ciò garantisce che ciascuna uscita 0-9 abbia esattamente 25 valori di ingresso mappati su di essa, eliminando la distorsione del modulo. Leggermente più lento ma matematicamente corretto.</li>
+<li><strong>Sfrutta l'RNG hardware per la massima entropia:</strong>Le CPU moderne includono istruzioni RDRAND (Intel) o RDSEED (AMD) che accedono alle fonti di entropia su chip. In C/C++: utilizzare _rdrand32_step(). In Rust: rand::rngs::OsRng. In Go: crypto/rand.Read(). Questi derivano dal rumore termico, dal jitter del clock e dalla metastabilità del silicio: vera casualità fisica. Più lento dei PRNG ma essenziale per la generazione delle chiavi. Utilizza un approccio ibrido: esegui il seeding del PRNG dall'RNG hardware per velocità e sicurezza.</li>
+<li><strong>Testare l'output RNG con suite di test statistici:</strong>Per le applicazioni critiche, convalida il tuo RNG utilizzando NIST STS (15 test per RNG crittografici), Dieharder (17 test) o TestU01 (batteria completa). Questi controllano la distribuzione della frequenza, le corse, l'autocorrelazione e le proprietà spettrali. Un test fallito indica errori che potrebbero compromettere le simulazioni o la sicurezza. Esegui test su campioni da 1+ megabit: campioni piccoli potrebbero passare per caso anche con RNG rotti.</li>
+<li><strong>Documentare i valori seed per la riproducibilità:</strong>Nella ricerca scientifica, registra l'esatto seed e l'algoritmo RNG utilizzato. "Python 3.9, random.seed(42), Mersenne Twister" consente ad altri ricercatori di riprodurre le tue sequenze casuali. Ciò è essenziale per il debug, la revisione tra pari e lo sviluppo del lavoro precedente. Per i sistemi di produzione, log seed utilizzati per ogni sessione per consentire l'analisi post-hoc del comportamento anomalo.</li>
+</ul>
+<h2>4 domande frequenti sui numeri casuali</h2>
 <div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Devo prendere decisioni di salute basate su questa calcolatrice?</button><div class="faq-a"><p>Questo strumento fornisce stime basate su formule mediche consolidate, ma non sostituisce il consiglio medico professionale.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Questa calcolatrice è precisa?</button><div class="faq-a"><p>Sì. La calcolatrice usa la formula standard: Numero Casuale = f(Minimo, Massimo). I risultati sono matematicamente esatti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Posso usare questa calcolatrice sul telefono?</button><div class="faq-a"><p>Sì, la calcolatrice è completamente responsive e funziona su qualsiasi dispositivo. Nessuna installazione richiesta.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Come salvo o condivido il mio calcolo?</button><div class="faq-a"><p>Usa il pulsante <strong>Condividi</strong> per generare un URL con tutti i tuoi dati. Il pulsante <strong>Copia</strong> copia il risultato negli appunti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cosa fare se il risultato sembra sbagliato?</button><div class="faq-a"><p>Controlla prima i tuoi dati: valori nelle unità corrette e intervallo realistico. Verifica anche che la formula <em>Numero Casuale = f(Minimo, Massimo)</em> si applichi esattamente alla tua situazione.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Qual è la differenza tra random() e crypto.getRandomValues()?</button><div class="faq-a">Math.random() utilizza un algoritmo PRNG veloce (spesso xorshift128+) adatto a giochi e simulazioni ma prevedibile se si osservano gli output. crypto.getRandomValues() utilizza l'RNG crittograficamente sicuro del sistema operativo, seminato dall'entropia hardware, rendendo gli output imprevedibili anche con la piena conoscenza dei valori precedenti. Usa Math.random() per i lanci di dadi del gioco; utilizzare crypto.getRandomValues() per password, token e chiavi di crittografia. Differenza di prestazioni: ~100 volte più veloce per Math.random() ma la differenza di sicurezza è infinita (prevedibile vs. imprevedibile).</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">È possibile prevedere i generatori di numeri casuali?</button><div class="faq-a">I PRNG sono deterministici: lo stesso seme produce sempre la stessa sequenza. L'osservazione di un numero sufficiente di output (624 per Mersenne Twister) consente di prevedere tutti i valori futuri. TRNG e CSPRNG seminati dall’entropia hardware sono computazionalmente imprevedibili: nessun algoritmo conosciuto può prevedere l’output successivo dai valori precedenti senza conoscere lo stato interno. Tuttavia, implementazioni difettose (il buggy OpenSSL di Debian nel 2008, che riduce l'entropia a 32.767 possibilità) possono diventare prevedibili. Utilizza sempre librerie RNG ben verificate.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Perché ottengo sempre gli stessi numeri casuali?</button><div class="faq-a">Il tuo RNG ha un valore fisso (possibilmente impostato su 0 o 1 per impostazione predefinita). Molte lingue utilizzano un seme predefinito per la riproducibilità se non ne specifichi uno. In Python, chiama random.seed() senza argomenti per eseguire il seeding dall'ora del sistema. In C++, utilizzare std::random_device per eseguire il seeding. In JavaScript, Math.random() esegue il seeding automatico al caricamento della pagina. Per risultati riproducibili (test, ricerca), utilizzare intenzionalmente un seme fisso come random.seed(42). Per risultati imprevedibili, garantire la semina da fonti ad alta entropia.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">random.org è davvero casuale?</button><div class="faq-a">Sì, random.org utilizza il rumore atmosferico catturato dai ricevitori radio, un processo fisico fondamentalmente imprevedibile a causa degli effetti quantistici. Questa è vera casualità (TRNG), non pseudo-casualità algoritmica. Audit indipendenti confermano una distribuzione uniforme e imprevedibile. Limitazioni: velocità limitata a 1.000 bit/secondo per gli utenti gratuiti, richiede una connessione Internet e devi fidarti della loro implementazione. Per la maggior parte delle applicazioni, i CSPRNG forniti dal sistema operativo (anch'essi basati sull'entropia) sono più veloci e altrettanto sicuri.</p></div></div>
 </div>
+<h2>Calcolatori correlati</h2>
+<ul>
+<li><a href="/it/lancio-dadi/">Dice Roller</a>— Simula il lancio di più dadi con vari conteggi laterali</li>
+<li><a href="/it/">Coin Flip Simulator</a>— Genera risultati casuali testa/croce</li>
+<li><a href="/it/generatore-password/">Password Generator</a>— Crea password casuali sicure</li>
+<li><a href="/it/">Lottery Number Generator</a>— Sceglie combinazioni casuali della lotteria</li>
+<li><a href="/it/">Random List Picker</a>— Seleziona elementi casuali da un elenco</li>
+</ul>
 </section>

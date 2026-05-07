@@ -1289,6 +1289,9 @@ def copy_assets() -> None:
     admin_src = SRC / "admin.html"
     if admin_src.exists():
         shutil.copy2(admin_src, PUBLIC / "admin.html")
+    admin_v2_src = SRC / "admin-v2.html"
+    if admin_v2_src.exists():
+        shutil.copy2(admin_v2_src, PUBLIC / "admin-v2.html")
 
     # Copy OG images from src/og/ (not public/og/ which is wiped on build)
     og_dir = PUBLIC / "og"

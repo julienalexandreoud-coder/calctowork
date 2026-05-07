@@ -1,43 +1,140 @@
 <section class="long-content">
-<h2>A formula medica explicada</h2>
-<p>Comprender as metricas do seu corpo e o primeiro passo para melhores decisoes de saude. Esta calculadora usa formulas medicas estabelecidas para resultados personalizados.</p>
-<p>A formula por tras deste calculo e <strong>Gerador de Senhas = f(Comprimento)</strong>. Compreender como o resultado e obtido ajuda a verificar a saida e detectar erros de entrada.</p>
-
-<h2>Como tirar suas medicoes corretamente</h2>
-<p>Siga estes passos para obter um resultado confiável:</p>
+<h2>O que é um gerador de senha e verificador de força?</h2>
+<p>Um gerador de senhas cria senhas aleatórias e de alta entropia que resistem a adivinhações e ataques de força bruta, enquanto um verificador de força avalia as senhas existentes em relação a critérios de segurança. Juntas, essas ferramentas protegem suas contas digitais contra 81% das violações de dados causadas por senhas fracas ou roubadas, de acordo com o Relatório de Investigações de Violação de Dados de 2023 da Verizon.</p>
+<p class="see-also">Você também pode encontrar o<a href="/pt/entropia-contrasena/">Password Entropy Calculator</a> and <a href="/pt/numero-aleatorio/">Random Number Generator</a> useful.</p>
+<!-- internal-links-added -->
+<p>A segurança de senha moderna requer mais do que "Password123!" — os invasores usam dicionários contendo mais de 500 milhões de senhas vazadas, clusters de GPU testando mais de 100 bilhões de combinações por segundo e modelos de IA treinados em padrões de senha humanos. Uma senha forte gerada usa mais de 16 caracteres de 95 símbolos ASCII possíveis, criando 95¹⁶ (aproximadamente 4,4 × 10³¹) combinações possíveis. Com 100 bilhões de tentativas por segundo, quebrar essa senha leva em média 7 milhões de anos.</p>
+<p>O gerador usa geradores de números aleatórios criptograficamente seguros (CSPRNG) — e não funções aleatórias padrão — para garantir a imprevisibilidade. Funções aleatórias padrão, como Math.random() do JavaScript, produzem sequências previsíveis a partir de valores iniciais. Os CSPRNGs extraem entropia das fontes do sistema operacional (ruído de hardware, tempo de interrupção, movimentos do mouse), tornando cada senha gerada verdadeiramente aleatória. O verificador de força então valida as senhas de acordo com critérios: comprimento mínimo, variedade de caracteres, ausência de padrões comuns e não aparição em bancos de dados de violações.</p>
+<h2>Explicação da fórmula de geração e força de senha</h2>
+<p><strong>Fórmula de entropia de senha (entropia de Shannon):</strong></p>
+<p><strong>Entropia (bits) = log₂(R^L) = L × log₂(R)</strong></p>
+<p>Where:</p>
+<ul>
+<li>R = Tamanho do repertório de caracteres (número de símbolos possíveis)</li>
+<li>L = Comprimento da senha (número de caracteres)</li>
+<li>Entropia = Medida de imprevisibilidade em bits</li>
+</ul>
+<p><strong>Tamanhos de repertório de caracteres:</strong></p>
+<ul>
+<li>Letras minúsculas (a-z): R = 26</li>
+<li>Maiúsculas + minúsculas (A-Za-z): R = 52</li>
+<li>Alfanumérico (A-Za-z0-9): R = 62</li>
+<li>Alfanuméricos + símbolos (95 ASCII imprimíveis): R = 95</li>
+</ul>
+<p><strong>Limites de entropia para classificações de força:</strong></p>
+<ul>
+<li>Fraco: &lt;40 bits (quebrável em horas)</li>
+<li>Razoável: 40-60 bits (quebrável em meses com clusters de GPU)</li>
+<li>Bom: 60-80 bits (quebrável em anos)</li>
+<li>Forte: 80-100 bits (quebrável em séculos)</li>
+<li>Muito forte: &gt; 100 bits (computacionalmente inviável)</li>
+</ul>
+<p><strong>Exemplo 1 resolvido - senha alfanumérica de 12 caracteres:</strong></p>
+<p>Etapa 1: repertório de personagens = 62 (A-Za-z0-9)</p>
+<p>Etapa 2: Comprimento da senha = 12 caracteres</p>
+<p>Etapa 3: Calcular a entropia: 12 × log₂(62) = 12 × 5,95 = 71,4 bits</p>
+<p>Etapa 4: Força da taxa: 71,4 bits = Bom (faixa de 60 a 80 bits)</p>
+<p><strong>Força: Bom — adequado para a maioria das contas</strong></p>
+<p><strong>Exemplo 2 resolvido - senha ASCII completa de 16 caracteres:</strong></p>
+<p>Etapa 1: repertório de caracteres = 95 (todos ASCII imprimíveis)</p>
+<p>Etapa 2: Comprimento da senha = 16 caracteres</p>
+<p>Etapa 3: Calcular a entropia: 16 × log₂(95) = 16 × 6,57 = 105,1 bits</p>
+<p>Etapa 4: Força da taxa: 105,1 bits = Muito forte (&gt;100 bits)</p>
+<p><strong>Força: Muito Forte — adequado para contas de alta segurança</strong></p>
+<p><strong>Exemplo resolvido 3 - apenas letras minúsculas de 8 caracteres (fraco):</strong></p>
+<p>Etapa 1: repertório de caracteres = 26 (somente az)</p>
+<p>Etapa 2: Comprimento da senha = 8 caracteres</p>
+<p>Etapa 3: Calcular a entropia: 8 × log₂(26) = 8 × 4,70 = 37,6 bits</p>
+<p>Etapa 4: Força da taxa: 37,6 bits = Fraco (&lt;40 bits)</p>
+<p><strong>Resistência: Fraca — quebrável em horas, nunca use</strong></p>
+<p><strong>Hora de resolver os cálculos:</strong></p>
+<p><strong>Tempo = (R ^ L) / (2 × estimativas por segundo)</strong></p>
+<p>A divisão por 2 considera o caso médio (o invasor encontra a senha no meio da pesquisa no keyspace).</p>
+<p>Para caracteres alfanuméricos de 12 caracteres a 100 bilhões de tentativas/segundo:</p>
+<p>Tempo = 62¹² / (2 × 10¹¹) = 3,2 × 10²¹ / 2 × 10¹¹ = 1,6 × 10¹⁰ segundos = 507 anos</p>
+<h2>6 etapas para gerar e verificar a força da senha</h2>
 <ol>
-<li><strong>Insira seus dados:</strong> 16 chars — ensure all values use a single consistent unit system.</li>
-<li><strong>A calculadora aplica a fórmula:</strong> <em>Gerador de Senhas = f(Comprimento)</em>.</li>
-<li><strong>Leia seu resultado:</strong> Senha.</li>
-<li>Verifique: confirme que as unidades são consistentes e os valores realistas antes de agir com base no resultado.</li>
+<li><strong>Determine o comprimento da senha necessária:</strong>Escolha no mínimo 12 caracteres para contas padrão e 16+ para sistemas financeiros/empresariais. A publicação especial NIST 800-63B recomenda no mínimo 8 caracteres, mas 12+ fornece melhores margens de segurança. Senhas mais longas aumentam exponencialmente o tempo de cracking – cada caractere adicional multiplica o espaço de pesquisa pelo tamanho do repertório (62× para alfanumérico).</li>
+<li><strong>Selecione os tipos de caracteres a serem incluídos:</strong>Ative letras minúsculas (a-z), maiúsculas (A-Z), números (0-9) e símbolos (!@#$%^&amp;*). Cada categoria adiciona ao repertório: apenas letras minúsculas = 26 símbolos, adição de letras maiúsculas = 52, adição de números = 62, adição de símbolos = 95. Alguns sistemas restringem certos símbolos – verifique os requisitos antes de gerar. Evite caracteres ambíguos (l, I, 1, O, 0) se as senhas forem transcritas manualmente.</li>
+<li><strong>Gere usando fonte aleatória criptograficamente segura:</strong>O gerador deve usar CSPRNG, e não funções aleatórias padrão. Nos navegadores: window.crypto.getRandomValues(). Em Python: módulo de segredos (não aleatório). Em Node.js: crypto.randomBytes(). Funções aleatórias padrão produzem sequências previsíveis – os invasores que observam uma senha gerada podem potencialmente prever outras a partir da mesma semente.</li>
+<li><strong>Verifique a distribuição dos caracteres:</strong>Certifique-se de que a senha gerada inclua pelo menos um caractere de cada tipo selecionado. Uma senha de 16 caracteres usando apenas letras minúsculas desperdiça entropia potencial. Alguns geradores usam algoritmos de “inclusão garantida”: primeiro escolha um caractere de cada tipo necessário e, em seguida, preencha as posições restantes aleatoriamente. Isso evita saídas acidentalmente fracas de geração puramente aleatória.</li>
+<li><strong>Verifique as listas de senhas comuns:</strong>Compare a senha gerada com bancos de dados de senhas vazadas (Have I Been Pwned, lista RockYou, etc.). Mesmo a geração aleatória pode ocasionalmente produzir "Password123" ou "qwerty" - exclua-os. O verificador de força deve rejeitar qualquer senha que apareça entre as 100.000 senhas mais comuns, independentemente da entropia teórica.</li>
+<li><strong>Calcule e exiba métricas de força:</strong>Mostre a entropia em bits, o tempo estimado de crack e uma classificação simples (Fraco/Razoável/Bom/Forte/Muito Forte). Inclua feedback específico: “Adicione mais 4 caracteres para alcançar a classificação Forte” ou “Inclua símbolos para aumentar a entropia em 8 bits”. Orientações práticas ajudam os usuários a melhorar senhas fracas em vez de aceitar mensagens genéricas de "senha fraca".</li>
 </ol>
-
-<h2>O que seus resultados significam</h2>
-<p>Esta calculadora é especialmente útil nas seguintes situações:</p>
+<h2>5 exemplos práticos de geração de senha</h2>
+<p><strong>Exemplo 1 — Conta de Email (12 caracteres, alfanuméricos + símbolos):</strong></p>
 <ul>
-<li>avaliação de segurança de senhas</li><li>análise de texto e contagem de caracteres</li><li>cálculos de data e hora</li><li>tarefas utilitárias diárias</li>
+<li>Comprimento: 12 caracteres</li>
+<li>Conjunto de caracteres: 95 (ASCII completo)</li>
+<li>Gerado: K7#mN2$pL9@x</li>
+<li>Entropia: 12 × log₂(95) = 78,8 bits</li>
+<li>Tempo de crack em 100 bilhões de palpites/seg: ~40.000 anos</li>
+<li><strong>Força: Forte — adequado para e-mail pessoal</strong></li>
 </ul>
-
-<h2>O que seu resultado significa</h2>
-<p>Os resultados das calculadoras de saúde são estimativas, não diagnósticos. Esses números são médias populacionais com margens de erro de ±10–15&nbsp;%. Use-os como pontos de orientação para conversar com seu médico ou nutricionista, não como limites absolutos.</p>
-
-<h2>Compreendendo fórmulas de saúde</h2>
-<p>As calculadoras de saúde são baseadas em estudos populacionais que identificam relações matemáticas entre medidas e resultados de saúde. Essas fórmulas fornecem estimativas baseadas em evidências, mas representam médias populacionais. Consulte sempre um profissional de saúde antes de alterar dieta, exercício ou medicação.</p>
-
-<h2>Erros comuns na auto-medicao</h2>
+<p><strong>Exemplo 2 — Conta Bancária (20 caracteres, ASCII completo):</strong></p>
 <ul>
-<li>Usar uma unica medicao para decisoes de saude — consulte sempre um profissional medico.</li>
+<li>Comprimento: 20 caracteres</li>
+<li>Conjunto de caracteres: 95 (ASCII completo)</li>
+<li>Gerado: vR4&amp;hT8!nM3@kL6#pW2%</li>
+<li>Entropia: 20 × log₂(95) = 131,4 bits</li>
+<li>Tempo de crack: ~10 septilhões de anos (mais que a idade do universo)</li>
+<li><strong>Força: Muito Forte — adequado para contas financeiras</strong></li>
 </ul>
-
-<h2>Quando consultar um profissional de saude</h2>
-<p>Faca medicoes na mesma hora do dia em condicoes similares para rastreamento consistente. Sempre discuta resultados com um profissional de saude.</p>
-
-<h2>Perguntas frequentes</h2>
+<p><strong>Exemplo 3 — Senha WiFi (16 caracteres, alfanuméricos):</strong></p>
+<ul>
+<li>Comprimento: 16 caracteres (WPA2 recomenda 16+)</li>
+<li>Conjunto de caracteres: 62 (alfanuméricos, símbolos difíceis de inserir em dispositivos)</li>
+<li>Gerado: aB3dE7gH9jK2mN5p</li>
+<li>Entropia: 16 × log₂(62) = 95,2 bits</li>
+<li>Tempo de crack: ~15 milhões de anos</li>
+<li><strong>Força: Forte — adequado para WPA2/WPA3</strong></li>
+</ul>
+<p><strong>Exemplo 4 — Conta Temporária (8 caracteres, alfanuméricos):</strong></p>
+<ul>
+<li>Comprimento: 8 caracteres (mínimo para uso temporário de baixo risco)</li>
+<li>Conjunto de caracteres: 62 (alfanumérico)</li>
+<li>Gerado: xT4mK9pL</li>
+<li>Entropia: 8 × log₂(62) = 47,6 bits</li>
+<li>Tempo de crack: ~3 meses a 100 bilhões de palpites/s</li>
+<li><strong>Força: Razoável — aceitável apenas para contas descartáveis ​​ Exemplo 5 — Senha Mestra para Gerenciador de Senhas (24 caracteres, ASCII completo):</strong></li>
+</ul>
+<p><strong>Comprimento: 24 caracteres (proteção máxima para cofre)</strong></p>
+<ul>
+<li>Conjunto de caracteres: 95 (ASCII completo)</li>
+<li>Gerado: Zq8#Lm3$Rt7!Wx2@Hy6&amp;Np4%</li>
+<li>Entropia: 24 × log₂(95) = 157,7 bits</li>
+<li>Tempo de crack: computacionalmente inviável</li>
+<li>Força: Muito Forte — protege todas as outras senhas</li>
+<li><strong>4 erros comuns de segurança de senha</strong></li>
+</ul>
+<h2>Substituir E por 3, A por @ ou S por $ não aumenta significativamente a segurança. Os dicionários dos invasores incluem variações comuns: "P@ssw0rd" aparece em bancos de dados de violações mais de 2 milhões de vezes. "Tr0ub4dor&amp;3" (o famoso exemplo do xkcd) tem apenas 28 bits de entropia, apesar dos símbolos e números. A verdadeira aleatoriedade sempre supera as substituições inteligentes.</h2>
+<ul>
+<li><strong>Usar a mesma senha para e-mail, serviços bancários e compras significa que um site violado compromete tudo. Uma pessoa média tem 154 senhas, mas as reutiliza em 4 a 5 contas cada. Os ataques de preenchimento de credenciais testam automaticamente credenciais vazadas em mais de 100 sites populares. Gere senhas exclusivas para cada conta – os gerenciadores de senhas tornam isso prático armazenando-as e preenchendo-as automaticamente.</strong>Usando substituições previsíveis (l33t speak):</li>
+<li><strong>Datas de nascimento, nomes de animais de estimação, times favoritos e aniversários são facilmente adivinhados nas redes sociais. "Fofo2010!" (animal de estimação + ano) aparece em 47 mil contas violadas. Os invasores vasculham o Facebook, o Instagram e o LinkedIn para criar dicionários personalizados. Mesmo fatos pessoais obscuros (nome de solteira da mãe, primeiro carro) são perguntas de segurança comuns, com respostas que podem ser encontradas online.</strong>Reutilizando senhas em várias contas:</li>
+<li><strong>As diretrizes atuais do NIST desencorajam a rotação obrigatória de senhas de 90 dias, a menos que haja suspeita de comprometimento. A rotação forçada causa padrões previsíveis: "Password1" torna-se "Password2" e depois "Password3". Os invasores que obtiverem uma senha podem adivinhar a próxima. Melhor abordagem: gere uma senha muito forte, use-a indefinidamente e monitore os bancos de dados de violações quanto à exposição.</strong>Criando senhas a partir de informações pessoais:</li>
+<li><strong>5 dicas profissionais para segurança de senha</strong>Alteração de senhas em horários arbitrários:</li>
+</ul>
+<h2>5 Pro Tips for Password Security</h2>
+<ul>
+<li><strong>Use um gerenciador de senhas com monitoramento de violação:</strong>Ferramentas como Bitwarden, 1Password e KeePass geram, armazenam e preenchem automaticamente senhas exclusivas para cada conta. Eles alertam você quando credenciais armazenadas aparecem em novos bancos de dados de violações. Geradores integrados criam senhas com mais de 20 caracteres com entropia total. Você só precisa se lembrar de uma senha mestra – o gerente cuida do resto. As opções gratuitas (Bitwarden) oferecem funcionalidade completa para indivíduos.</li>
+<li><strong>Habilite a autenticação multifator (MFA) em todos os lugares disponíveis:</strong>A MFA adiciona uma segunda etapa de verificação além das senhas – normalmente um código baseado em tempo de um aplicativo autenticador ou chave de segurança de hardware. Mesmo que os invasores roubem sua senha, eles não poderão acessar as contas sem o segundo fator. Use aplicativos autenticadores (Authy, Google Authenticator) por SMS (vulnerável à troca de SIM). As chaves de hardware (YubiKey) fornecem proteção mais forte contra phishing.</li>
+<li><strong>Gere senhas para senhas memorizáveis ​​de alta segurança:</strong>Para senhas que você deve digitar manualmente (senhas mestras, desbloqueio de dispositivo), use o método Diceware: jogue os dados para selecionar de 5 a 7 palavras aleatórias em uma lista de 7.776 palavras. "grampo correto para bateria de cavalo" (4 palavras) tem 51 bits de entropia. "glimpse fractal prado turbina pôr do sol" (5 palavras) tem 64 bits. As senhas são mais fáceis de lembrar e digitar do que caracteres aleatórios, mantendo uma segurança forte.</li>
+<li><strong>Verifique as senhas existentes em bancos de dados de violação:</strong>Use o Have I Been Pwned (haveibeenpwned.com) ou o Firefox Monitor para verificar se suas combinações de e-mail/senha aparecem em violações conhecidas. Mais de 13 bilhões de contas foram expostas em violações públicas. Se sua senha aparecer, altere-a imediatamente nesse serviço E em qualquer outra conta usando a mesma senha. Muitos gerenciadores de senhas agora incluem monitoramento automático de violações.</li>
+<li><strong>Implemente limitação de taxa e bloqueio de conta em seus próprios sistemas:</strong>Se você criar aplicativos, proteja as senhas dos usuários com limitação de taxa (máximo de 5 tentativas por minuto por IP) e atrasos progressivos (1 segundo, depois 5 segundos e depois 30 segundos). Após 10 tentativas fracassadas, bloqueie temporariamente a conta e exija verificação de e-mail. Isso torna os ataques de força bruta impraticáveis, mesmo contra senhas fracas. Nunca armazene senhas em texto simples – use bcrypt, scrypt ou Argon2 com fatores de custo apropriados.</li>
+</ul>
+<h2>4 Perguntas frequentes sobre segurança de senha</h2>
 <div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Devo tomar decisoes de saude baseadas nesta calculadora?</button><div class="faq-a"><p>Esta ferramenta fornece estimativas baseadas em formulas medicas estabelecidas, mas nao substitui conselho medico profissional.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Esta calculadora e precisa?</button><div class="faq-a"><p>Sim. A calculadora usa a formula padrao: Gerador de Senhas = f(Comprimento). Os resultados sao matematicamente exatos.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Posso usar esta calculadora no celular?</button><div class="faq-a"><p>Sim, a calculadora e totalmente responsiva e funciona em qualquer dispositivo.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Como salvo ou compartilho meu cálculo?</button><div class="faq-a"><p>Use o botão <strong>Compartilhar</strong> para gerar uma URL com todos os seus dados. O botão <strong>Copiar</strong> copia o resultado para a área de transferência.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">O que fazer se o resultado parecer errado?</button><div class="faq-a"><p>Verifique suas entradas: valores nas unidades corretas e faixa realista. Confirme também que a fórmula <em>Gerador de Senhas = f(Comprimento)</em> se aplica exatamente à sua situação.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Qual deve ser o tamanho da minha senha?</button><div class="faq-a">Mínimo de 12 caracteres para contas padrão, 16+ para sistemas financeiros/empresariais e 20+ para senhas mestras que protegem gerenciadores de senhas. O comprimento é mais importante do que a complexidade – uma senha minúscula de 16 caracteres (entropia de 75 bits) é mais forte do que uma senha mista de 8 caracteres (50 bits). O NIST recomenda no mínimo 8 caracteres, mas reconhece que 12+ fornecem melhores margens de segurança contra cracking de GPU moderno.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Os geradores de senha são seguros para uso?</button><div class="faq-a">Geradores de senhas confiáveis ​​que usam geradores de números aleatórios criptograficamente seguros (CSPRNG) são seguros e produzem senhas mais fortes do que os humanos podem criar. Evite geradores online que transmitem senhas pela Internet – use geradores offline integrados em gerenciadores de senhas ou sistemas operacionais. Geradores baseados em navegador usando window.crypto.getRandomValues() são seguros porque a geração ocorre localmente. Nunca use um gerador que peça para você enviar um e-mail ou salvar a senha no servidor.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Com que frequência devo alterar minhas senhas?</button><div class="faq-a">As diretrizes atuais do NIST recomendam a alteração de senhas apenas se você suspeitar de comprometimento ou receber notificação de violação. A rotação periódica obrigatória (a cada 90 dias) faz com que os usuários criem padrões mais fracos e previsíveis. Em vez disso: gere uma senha muito forte por conta, habilite a MFA, monitore os bancos de dados de violações e altere-a imediatamente se for exposta. Exceção: as senhas compartilhadas (contas de equipe) devem ser alternadas quando os membros deixam a organização.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">O que torna uma senha “forte” versus “fraca”?</button><div class="faq-a">Senhas fortes têm: (1) Comprimento ≥16 caracteres, (2) Alta entropia de geração aleatória usando todos os tipos de caracteres, (3) Nenhuma aparição em bancos de dados de violações ou listas de senhas comuns, (4) Exclusividade em todas as contas. Senhas fracas têm: (1) Comprimento &lt;10 caracteres, (2) Palavras de dicionário ou informações pessoais, (3) Padrões previsíveis (Password123!, Qwerty!), (4) Reutilização em várias contas. Entropia acima de 80 bits sem exposição a violações indica segurança forte.</p></div></div>
 </div>
+<h2>Calculadoras Relacionadas</h2>
+<ul>
+<li><a href="/pt/">Entropy Calculator</a>— Calcula a entropia da informação em bits para senhas e chaves de criptografia</li>
+<li><a href="/pt/">Bcrypt Hash Generator</a>— Cria hashes de senha seguros para armazenamento de banco de dados</li>
+<li><a href="/pt/">Two-Factor Authentication Guide</a>— Instruções de configuração para MFA em serviços populares</li>
+<li><a href="/pt/">Passphrase Generator</a>— Cria senhas memoráveis ​​com várias palavras usando o método Diceware</li>
+<li><a href="/pt/">Breach Checker</a>— Verifica se o seu e-mail aparece em violações de dados conhecidas</li>
+</ul>
 </section>

@@ -1,43 +1,62 @@
 <section class="long-content">
-<h2>Comment fonctionne le calcul</h2>
-<p>Que vous planifiiez des travaux de rénovation, estimiez des matériaux pour un chantier ou calculiez des dimensions pour un projet DIY, disposer des bons chiffres dès le départ fait gagner du temps et de l'argent.</p>
-<p>La formule derrière ce calcul est <strong>Calculateur Puissance Triphasée = f(Intensité (A), Tension de ligne (V), Facteur de puissance (cos φ))</strong>. Comprendre comment le résultat est obtenu vous aide à vérifier la sortie et à détecter les erreurs d'entrée.</p>
-
-<h2>Guide pas à pas pour votre projet</h2>
-<p>Suivez ces étapes pour obtenir un résultat fiable :</p>
+<h2>Qu'est-ce qu'un calculateur de section de câble électrique ?</h2>
+<p>Un calculateur de section de câble électrique détermine la taille minimale du fil (mm²) requise pour une alimentation électrique sûre en fonction de la charge actuelle, de la longueur du circuit, de la tension d'alimentation et de la chute de tension acceptable. Pour un circuit de 16 A courant 20 m à 230 V avec une chute maximale de 3 %, le calculateur spécifie des conducteurs en cuivre de 2,5 mm² comme taille minimale.</p>
+<p class="see-also">Vous pouvez également trouver le<a href="/fr/calculateur-chute-tension/">Voltage Drop Calculator</a>, <a href="/fr/calculateur-tableau-electrique/">Electrical Panel Calculator</a>, and <a href="/fr/calculateur-consommation-electrique-mensuelle/">Monthly Electricity Consumption Calculator</a> useful.</p>
+liens-internes-ajoutés
+<p>Les câbles sous-dimensionnés surchauffent, provoquant une dégradation de l'isolation, des risques d'incendie et des dommages matériels. Un câble de 2,5 mm² transportant 20 A atteint en continu une température de 65 à 75 °C contre 40 °C nominal, réduisant ainsi la durée de vie du câble de 60 à 70 %. Les câbles surdimensionnés gaspillent entre 200 et 500 € par circuit en coûts de cuivre inutiles.</p>
+<p>Le calcul suit les normes CEI 60364-5-52, en tenant compte du matériau conducteur (cuivre ou aluminium), de la méthode d'installation (conduit, plateau, enterré) et des corrections de température ambiante.</p>
+<h2>Formules de section de câble avec calculs</h2>
+<p><strong>Chute de tension (V) = (2 × longueur × courant × résistivité) ÷ section transversale</strong></p>
+<p>Exemple : (2 × 20 m × 16 A × 0,0175 Ω·mm²/m) ÷ 2,5 mm² = 4,48 V</p>
+<p><strong>Chute de tension (%) = (Chute de tension ÷ Tension d'alimentation) × 100</strong></p>
+<p>4,48 V ÷ 230 V × 100 = 1,95 % (dans la limite de 3 % pour les circuits d'éclairage)</p>
+<p><strong>Section transversale minimale (mm²) = (2 × longueur × courant × résistivité) ÷ Chute de tension maximale</strong></p>
+<p>Chute maximale de 3 % de 230 V = 6,9 V. Minimum : (2 × 20 × 16 × 0,0175) ÷ 6,9 = 1,62 mm² → utiliser la norme 2,5 mm²</p>
+<p><strong>Correction de la valeur nominale actuelle pour la température :</strong></p>
+<p>À 30°C ambiant : facteur 1,0 (pas de correction)</p>
+<p>À une température ambiante de 40 °C : facteur 0,87 (2,5 mm² évalué à 21 A devient 18,3 A)</p>
+<p>À une température ambiante de 50 °C : facteur 0,71 (2,5 mm² évalué à 21 A devient 14,9 A)</p>
+<h2>6 étapes pour calculer la section transversale d'un câble</h2>
 <ol>
-<li><strong>Saisissez vos valeurs:</strong> 63 A; 400 V; 0.9 cos φ — ensure all values use a single consistent unit system.</li>
-<li><strong>La calculatrice applique la formule:</strong> <em>Calculateur Puissance Triphasée = f(Intensité (A), Tension de ligne (V), Facteur de puissance (cos φ))</em>.</li>
-<li><strong>Lisez votre résultat:</strong> Puissance apparente (kVA), Puissance active (kW), Puissance réactive (kVAr).</li>
-<li>Vérifiez : confirmez que les unités sont cohérentes et les valeurs réalistes avant d'agir sur le résultat.</li>
+<li><strong>Déterminer le courant de conception (Ib) à partir de la charge :</strong>Monophasé : Ib = Puissance (W) ÷ Tension (V). Triphasé : Ib = Puissance (W) ÷ (√3 × Tension × Facteur de puissance). Pour 3 680 W à 230 V : Ib = 3 680 ÷ 230 = 16 A. Ajoutez une marge de 25 % pour les charges moteur avec un courant de démarrage élevé.</li>
+<li><strong>Sélectionnez le calibre du dispositif de protection (In) :</strong>Le disjoncteur doit satisfaire Ib ≤ In ≤ Iz (capacité de courant du câble). Pour une charge de 16 A, choisissez un MCB de type B de 16 A ou 20 A. Type C pour les circuits moteur avec un courant d'appel de 5 à 10 ×. Type D pour transformateurs avec appel 10-20×.</li>
+<li><strong>Choisissez la méthode de référence d'installation :</strong>Méthode A (câble dans conduit dans mur) : dissipation thermique réduite. Méthode C (clippé direct) : meilleur refroidissement. Méthode E (chemin de câbles) : refroidissement modéré. Les tableaux de référence montrent du cuivre de 2,5 mm² : méthode A = 18 A, méthode C = 27 A, méthode E = 24 A.</li>
+<li><strong>Calculer la chute de tension sur la longueur du circuit :</strong>Utilisez la formule : ΔU = (2 × L × Ib × 0,0175) ÷ S pour monophasé. Pour un circuit de 25 m avec 16 A et 2,5 mm² : ΔU = (2 × 25 × 16 × 0,0175) ÷ 2,5 = 5,6 V = 2,43 %. Acceptable pour les circuits de puissance (limite de 5 % selon CEI 60364).</li>
+<li><strong>Appliquer des facteurs de correction pour les conditions ambiantes :</strong>Facteur de température (k1) : 0,87 à 40°C. Facteur de regroupement (k2) : 0,80 pour 4 câbles dans un même conduit. Combiné : 0,87 × 0,80 = 0,696. Capacité ajustée : 21 A × 0,696 = 14,6 A. Si la charge dépasse cette valeur, augmentez à 4 mm² (capacité de base de 28 A).</li>
+<li><strong>Vérifier la tenue thermique en court-circuit :</strong>Section minimale pour court-circuit : Smin = (Isc × √t) ÷ k. Pour défaut 6 kA, effacement 0,4 s, k=115 (cuivre/PVC) : Smin = (6000 × √0,4) ÷ 115 = 33,1 mm². Cependant, un dispositif de protection en amont limite l'énergie réellement laissée passer. Standard 2,5-4 mm² acceptable avec une bonne coordination MCB.</li>
 </ol>
-
-<h2>Usages pratiques sur le chantier</h2>
-<p>Cette calculatrice est particulièrement utile dans les situations suivantes :</p>
+<h2>4 Exemples pratiques</h2>
+<p><strong>Exemple 1 — Circuit d'éclairage résidentiel :</strong>Charge d'éclairage totale de 1 840 W à 230 V = 8 A. Longueur du circuit 35 m. Chute maximale de 3 % (6,9 V). Calcul : (2 × 35 × 8 × 0,0175) ÷ 6,9 = 1,42 mm². Taille standard : cuivre 1,5 mm². Chute de tension réelle : 5,8 V (2,5 %). Protégé par un MCB de type B de 10 A. Coût du câble : 45 à 65 € le rouleau de 50 m.</p>
+<p><strong>Exemple 2 — Circuit de chauffe-eau électrique :</strong>Chauffage 4 500 W à 230 V = 19,6 A. Longueur 18 m. Chute maximale de 5 % (11,5 V) pour les circuits de puissance. Requis : (2 × 18 × 19,6 × 0,0175) ÷ 11,5 = 1,07 mm². Cependant, la capacité actuelle nécessite 2,5 mm² (calibre 21 A). Utilisez 2,5 mm² avec un MCB de 20 A. Chute : 4,2 V (1,8 %). Câble : 85-110 € les 50 m.</p>
+<p><strong>Exemple 3 — Moteur industriel triphasé :</strong>Moteur 15 kW, 400 V, cos φ = 0,85, rendement 0,92. Courant : 15 000 ÷ (√3 × 400 × 0,85 × 0,92) = 28,5 A. Longueur 45 m. Chute maximale de 5 % (20 V). Formule triphasée : ΔU = (√3 × L × I × 0,0175) ÷ S. Requis S = (√3 × 45 × 28,5 × 0,0175) ÷ 20 = 1,94 mm². La capacité de courant nécessite 6 mm² (34 A dans un conduit). Utilisez un câble à 4 conducteurs de 6 mm². Chute : 6,7 V (1,7 %). Coût du câble : 420-580 € pour 50 m.</p>
+<p><strong>Exemple 4 — Câble CC du générateur solaire photovoltaïque :</strong>Générateur photovoltaïque de 8 kW, 400 V CC, 20 A max. Longueur 60 m (toit à onduleur). Chute maximale de 1,5 % pour DC (6 V). Calcul : (2 × 60 × 20 × 0,0175) ÷ 6 = 7,0 mm². Utilisez un câble solaire DC de 10 mm² (résistant aux UV, double isolation). Chute : 4,2 V (1,05 %). Câble : 180-240 € les 100 m. Un sous-dimensionnement à 6 mm² entraînerait une perte de 252 kWh par an (63-76 € à 0,25-0,30 €/kWh).</p>
+<h2>4 erreurs coûteuses à éviter</h2>
 <ul>
-<li>problèmes mathématiques quotidiens</li><li>budget et planification</li><li>cuisine et mesures domestiques</li><li>calculs de voyage et de temps</li>
+<li><strong>Utilisation d'un câble en aluminium sans migration :</strong>L'aluminium a une conductivité de 61 % par rapport au cuivre. 10 mm² d'aluminium équivaut à une capacité de courant de 6 mm² en cuivre. La substitution directe sans calcul provoque une surchauffe. L'aluminium nécessite 1 à 2 tailles plus grandes : remplacez le cuivre de 6 mm² par de l'aluminium de 16 mm². L'aluminium permet d'économiser 40 à 50 % sur le coût des matériaux mais nécessite des conduits plus grands et des cosses de terminaison spéciales (8 à 15 € chacune).</li>
+<li><strong>Ignorer les chutes de tension sur les circuits longs :</strong>Les électriciens dimensionnent souvent en fonction de la seule capacité actuelle. Un câble de 4 mm² transportant 25 A sur 80 m chute de 24,5 V (10,6 % à 230 V). L'équipement reçoit 205,5 V, provoquant une surchauffe des moteurs et un dysfonctionnement de l'électronique. Calculez toujours la chute de tension pour les circuits de plus de 30 m. La mise à niveau vers 10 mm² réduit la chute à 9,8 V (4,3 %).</li>
+<li><strong>Regrouper trop de câbles dans un seul conduit :</strong>Six câbles de 2,5 mm² dans un conduit de 25 mm sont déclassés chacun à 13,5 A (64 % de la valeur nominale d'un seul câble). Les disjoncteurs se déclenchent toujours à 16-20 A, permettant une surchauffe des câbles. Séparez-le en plusieurs conduits ou câbles surdimensionnés. L'ajout d'un deuxième conduit coûte entre 40 et 80 €, mais évite des réclamations pour dommages causés par un incendie de 2 000 à 5 000 €.</li>
+<li><strong>Raccordement de l'aluminium au cuivre sans raccords de transition :</strong>Les connexions directes aluminium-cuivre se corrodent galvaniquement en 12 à 18 mois, augmentant la résistance de 0,001 Ω à 0,5-1,0 Ω. À 20 A, cela dissipe 400 à 800 W sous forme de chaleur et fait fondre l'isolation. Utilisez des cosses bimétalliques (6-12 € pièce) ou un composé antioxydant. Des connexions appropriées durent 25 à 30 ans contre 18 à 24 mois pour un contact direct.</li>
 </ul>
-
-<h2>Interpréter et appliquer vos résultats</h2>
-<p>Votre résultat indique la quantité théorique requise. Ajoutez le facteur de perte approprié avant de commander : 5–10&nbsp;% pour le béton et le mortier, 10–15&nbsp;% pour les carreaux, la pierre naturelle et la brique, et 3–5&nbsp;% pour l'acier et le bois. Arrondissez toujours à l'unité supérieure — sac, tonne ou palette.</p>
-
-<h2>Normes de construction et bonnes pratiques</h2>
-<p>Les projets de construction dépendent d'estimations précises des matériaux. Les professionnels ajoutent généralement 5–10&nbsp;% de marge de perte aux quantités théoriques pour les coupes, la casse et les erreurs de mesure. Les normes ISO et EN définissent les propriétés des matériaux et les tolérances utilisées dans ces formules.</p>
-
-<h2>Erreurs courantes à éviter</h2>
+<h2>5 conseils professionnels</h2>
 <ul>
-<li>Oublier d'ajouter une marge de perte (5-10%) lors de la commande de matériaux.</li><li>Mélanger unités métriques et impériales dans un même projet.</li>
+<li><strong>Dimensionner les câbles de distribution principaux pour 125 % de la charge calculée :</strong>Une expansion future ajoute généralement 20 à 40 % de charge sur une période de 5 ans. Le chargeur principal dimensionné à 100 % de sa capacité doit être remplacé lors de l'ajout de la climatisation ou d'un chargeur EV. Le passage de 16 mm² à 25 mm² pendant la construction coûte entre 180 et 280 € de plus mais permet une croissance de 40 % sans recâblage.</li>
+<li><strong>Utilisez le codage couleur des câbles conformément à la norme CEI 60446 :</strong>Marron (L1), noir (L2), gris (L3), bleu (neutre), vert-jaune (terre). Une coloration cohérente réduit le temps de dépannage de 70 à 80 %. Documentez la palette de couleurs dans le répertoire du panneau électrique. Les couleurs non standard nécessitent des marqueurs à ruban aux deux extrémités (12 à 18 € pour le jeu de marqueurs).</li>
+<li><strong>Installez des marqueurs de câble aux deux extrémités et aux jonctions :</strong>Des marqueurs de câbles auto-plastifiés (25 à 40 € les 100) identifient la fonction du circuit. Format d'étiquette : « DB1-C15 » (Tableau de distribution 1, Circuit 15). Permet d'économiser 15 à 25 minutes par appel de dépannage. Les électriciens facturent entre 60 et 90 €/heure et paient les marqueurs en 2 à 3 appels de service.</li>
+<li><strong>Tirer des câbles avec du lubrifiant sur de longues distances :</strong>Le lubrifiant pour tirage de câbles (15 à 25 € le seau de 5 L) réduit le coefficient de friction de 0,5 à 0,2. Permet des tractions de 60 à 80 m contre 30 à 40 m à sec. Empêche les dommages à la gaine qui compromettent la résistance de l'isolation. Un godet traite 800 à 1 200 m de câbles tirés.</li>
+<li><strong>Testez la résistance d'isolement avant la mise sous tension :</strong>Test Megger à 500 V DC entre terre active et terre neutre. Acceptable : &gt;100 MΩ pour les nouvelles installations. Les lectures de 10 à 100 MΩ indiquent une pénétration d'humidité. En dessous de 10 MΩ indique une isolation endommagée nécessitant un remplacement. Location megger : 40-65 €/jour. Empêche les courts-circuits catastrophiques lors de la première mise sous tension.</li>
 </ul>
-
-<h2>Conseil pro pour les entrepreneurs</h2>
-<p>Commandez 5-10% de matériel en plus que le calcul ne l'indique pour couper les pertes et les erreurs de mesure.</p>
-
-<h2>Questions fréquentes</h2>
+<h2>4 FAQs</h2>
 <div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Combien de matériel supplémentaire dois-je commander?</button><div class="faq-a"><p>La plupart des professionnels recommandent de commander 5-10% de plus que le calcul pour couper les pertes et les erreurs de mesure.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cette calculatrice est-elle précise?</button><div class="faq-a"><p>Oui. La calculatrice utilise la formule standard : Calculateur Puissance Triphasée = f(Intensité (A), Tension de ligne (V), Facteur de puissance (cos φ)). Les résultats sont mathématiquement exacts.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Puis-je utiliser cette calculatrice sur mobile?</button><div class="faq-a"><p>Oui, la calculatrice est entièrement responsive et fonctionne sur tout appareil. Aucune installation requise.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Comment sauvegarder ou partager mon calcul ?</button><div class="faq-a"><p>Utilisez le bouton <strong>Partager</strong> pour générer une URL qui encode toutes vos entrées. Le bouton <strong>Copier</strong> copie le résultat dans le presse-papiers.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Que faire si mon résultat semble incorrect ?</button><div class="faq-a"><p>Vérifiez d'abord vos entrées : valeurs dans les bonnes unités et plage réaliste. Vérifiez aussi que la formule <em>Calculateur Puissance Triphasée = f(Intensité (A), Tension de ligne (V), Facteur de puissance (cos φ))</em> s'applique exactement à votre situation.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Puis-je utiliser 1,5 mm² pour des prises 16 A ?</button><div class="faq-a">Non. La norme CEI 60364 exige un minimum de 2,5 mm² pour les circuits de prises de courant, quelle que soit la charge. 1,5 mm² évalué à 14-18 A selon la méthode d'installation, insuffisant pour des charges continues de 16 A. Les circuits de prises doivent gérer des appareils de 16 A (radiateurs, outils) pendant plus de 3 heures. L'utilisation de 1,5 mm² viole les exigences d'assurance et annule la couverture contre les incendies électriques.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Quelle taille de câble pour un chargeur de véhicule électrique 32 A ?</button><div class="faq-a">32 Une charge continue nécessite 6 mm² de cuivre pour des distances inférieures à 25 m (chute de tension inférieure à 3 %). Pour des courses de 25 à 50 m, utilisez 10 mm². Les chargeurs de véhicules électriques fonctionnent pendant 4 à 8 heures en continu, générant une chaleur importante dans les câbles. Installez un RCD dédié de 40 A de type B ou de type A (sensible au courant continu). Coût du câble : 6 mm² 120-160 €, 10 mm² 200-280 € les 50 m.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Un câble toronné ou solide est-il préférable pour une installation fixe ?</button><div class="faq-a">Le câble à âme pleine (monobrin) coûte 15 à 20 % moins cher et conserve sa forme dans les conduits, ce qui est préféré pour le câblage fixe des bâtiments. Le câble toronné (7 à 19 brins) est flexible pour les connexions d'appareils, les panneaux de commande et les emplacements sujets aux vibrations. Les deux ont des valeurs nominales actuelles identiques. Utiliser du solide pour les circuits de construction, du toron pour les cordons d'équipement de moins de 2 m de longueur.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Comment calculer la taille du câble pour 400 V triphasé ?</button><div class="faq-a">Formule de chute de tension triphasée : ΔU = (√3 × L × I × 0,0175) ÷ S. Pour une charge de 20 kW à 400 V : I = 20 000 ÷ (√3 × 400 × 0,85) = 34 A. Pour une course de 50 m avec une chute de 5 % (20 V) : S = (√3 × 50 × 34 × 0,0175) ÷ 20 = 2,55 mm². Utilisez 6 mm² pour la capacité de courant (34 A minimum). Vérifiez toujours la chute de tension et le courant nominal, en sélectionnant le plus grand des deux calculs.</p></div></div>
 </div>
+<h2>Calculatrices associées</h2>
+<ul>
+<li>Calculateur de chute de tension — Calculez la chute de tension réelle pour les tailles de câbles installés</li>
+<li>Calculateur de puissance triphasée — Convertissez entre kW, kVA et ampères pour les systèmes triphasés</li>
+<li>Calculateur de dimensionnement de disjoncteur — Sélectionnez les valeurs nominales du MCB en fonction du câble et de la charge</li>
+<li>Calculateur de remplissage de conduit — Déterminez le nombre maximum de câbles par taille de conduit</li>
+</ul>
 </section>

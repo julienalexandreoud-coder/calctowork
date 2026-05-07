@@ -1,43 +1,138 @@
 <section class="long-content">
-<h2>Come funziona la conversione</h2>
-<p>Gli errori di conversione di unità causano problemi reali. Questa calcolatrice elimina gli errori di conversione calcolando istantaneamente.</p>
-<p>La formula alla base di questo calcolo è <strong>Testa o Croce = f(Lanci)</strong>. Comprendere come si ottiene il risultato ti aiuta a verificare l'output e a rilevare errori di input.</p>
-
-<h2>Esempio di conversione passo dopo passo</h2>
-<p>Segui questi passaggi per ottenere un risultato affidabile:</p>
+<h2>Cos'è un simulatore di lancio di monete?</h2>
+<p>Un simulatore di lancio di monete genera risultati casuali di testa o croce, replicando la probabilità 50/50 di lanciare una moneta fisica. Utilizzati per il processo decisionale ("testa andiamo, croce restiamo"), arbitraggio sportivo (possesso d'inizio), meccanica di gioco (determinazione dell'ordine di turno) e educazione alla probabilità, i lanciatori di monete digitali forniscono risultati immediati e imparziali senza bisogno di una moneta fisica.</p>
+<p class="see-also">Potresti anche trovare<a href="/it/numero-casuale/">Random Number Generator</a>, <a href="/it/lancio-dadi/">Dice Roller</a>, and <a href="/it/giorno-dellanno/">Day of Year Calculator</a> useful.</p>
+collegamenti-<p>Mentre i lanci delle monete sembrano perfettamente equi, le monete fisiche mostrano una leggera distorsione. Il matematico di Stanford Persi Diaconis ha dimostrato che le monete lanciate vigorosamente finiscono sulla stessa faccia da cui hanno iniziato il 51% delle volte a causa della dinamica della precessione. La distorsione deriva dal fatto che la moneta trascorre più tempo in aria con la faccia iniziale rivolta verso l'alto: un fenomeno fisico chiamato "distorsione dello stesso lato". Inoltre, far girare una moneta su un tavolo (anziché lanciarla) crea un drammatico pregiudizio: un penny americano cade verso l'alto l'80% delle volte perché il lato del Lincoln Memorial è leggermente più pesante.</p>
+<p>I simulatori digitali eliminano i pregiudizi fisici utilizzando generatori di numeri casuali con esattamente il 50% di probabilità per ciascun risultato. Oltre 10.000 lanci, una moneta digitale equa produce 5.000 ± 100 teste (entro la varianza statistica prevista). Ciò rende i flipper digitali ideali per applicazioni che richiedono equità verificabile: giochi online, ricerca randomizzata e risoluzione di controversie in cui le parti diffidano delle monete fisiche o l'una dell'altra.</p>
+<h2>Spiegazione della formula e della probabilità del lancio della moneta</h2>
+<p><strong>Formula base del lancio della moneta:</strong></p>
+<p><strong>Risultato = casuale(0, 1) dove 0 = Croce, 1 = Testa</strong></p>
+<p>O equivalentemente:</p>
+<p><strong>Risultato = casuale() &lt; 0,5 ? "Testa": "Croce"</strong></p>
+<p>Where:</p>
+<ul>
+<li>random() genera un valore uniforme nell'intervallo [0.0, 1.0)</li>
+<li>P(teste) = 0,5 = 50%</li>
+<li>P(Code) = 0,5 = 50%</li>
+</ul>
+<p><strong>Distribuzione binomiale per n capovolgimenti:</strong></p>
+<p><strong>P(k teste in n lanci) = C(n,k) × p^k × (1-p)^(n-k)</strong></p>
+<p>Where:</p>
+<ul>
+<li>C(n,k) = Coefficiente binomiale "n scegli k" = n! / (k! × (n-k)!)</li>
+<li>p = Probabilità di testa (0,5 per moneta giusta)</li>
+<li>k = Numero di teste</li>
+<li>n = Numero totale di lanci</li>
+</ul>
+<p><strong>Valore atteso per n lanci:</strong></p>
+<p><strong>E[teste] = n × p = n × 0,5</strong></p>
+<p><strong>Deviazione standard per n capovolgimenti:</strong></p>
+<p><strong>SD[teste] = √(n × p × (1-p)) = √(n × 0,25)</strong></p>
+<p><strong>Esempio realizzato 1 — Capovolgimento singolo:</strong></p>
+<p>Passaggio 1: genera un valore casuale: random() = 0,73294</p>
+<p>Passaggio 2: confrontare con 0,5: 0,73294 ≥ 0,5</p>
+<p><strong>Risultato: Croce</strong></p>
+<p>Probabilità: P(Testa) = 50%, P(Croce) = 50%</p>
+<p><strong>Esempio svolto 2 — Probabilità che esca testa in 5 lanci:</strong></p>
+<p>Passaggio 1: identificare i parametri: n = 5, k = 3, p = 0,5</p>
+<p>Passo 2: Calcola il coefficiente binomiale: C(5,3) = 5! / (3! × 2!) = 120 / (6 × 2) = 10</p>
+<p>Passaggio 3: applicare la formula: P(3 teste) = 10 × (0,5)³ × (0,5)² = 10 × 0,125 × 0,25 = 0,3125</p>
+<p><strong>Risultato: P(3 teste in 5 lanci) = 31,25%</strong></p>
+<p>Passaggio 4: verificare con tutti i risultati: 2⁵ = 32 sequenze possibili</p>
+<p>Sequenze con esattamente 3 teste: HHH TT, HH T H T, HH TT H, H THH T, H T H T H, H TT HH, THHH T, THH T H, T H THH, TT HHH = 10 sequenze</p>
+<p>P = 10/32 = 0,3125 ✓</p>
+<p><strong>Esempio realizzato 3: testa prevista in 100 lanci:</strong></p>
+<p>Passaggio 1: calcolare il valore atteso: E = 100 × 0,5 = 50 teste</p>
+<p>Passaggio 2: calcolare la deviazione standard: SD = √(100 × 0,25) = √25 = 5</p>
+<p>Passaggio 3: determinare l'intervallo tipico (±1 DS): 50 ± 5 = da 45 a 55 teste</p>
+<p><strong>Risultato: aspettatevi 45-55 teste nel 68% delle prove da 100 lanci</strong></p>
+<p>Passo 4: Calcola la probabilità di 50 teste esatte:</p>
+<p>P(50) = C(100,50) × (0,5)¹⁰⁰ = 1,01 × 10²⁹ × 7,89 × 10⁻³¹ = 0,0796 = 7,96%</p>
+<p>Anche il risultato più probabile si verifica meno dell’8% delle volte!</p>
+<h2>6 passaggi per simulare il lancio di una moneta</h2>
 <ol>
-<li><strong>Inserisci i tuoi valori:</strong> 1 flips — ensure all values use a single consistent unit system.</li>
-<li><strong>La calcolatrice applica la formula:</strong> <em>Testa o Croce = f(Lanci)</em>.</li>
-<li><strong>Leggi il tuo risultato:</strong> Teste, Croci, Risultato.</li>
-<li>Verificate: confermate che le unità siano coerenti e i valori realistici prima di agire sul risultato.</li>
+<li><strong>Determinare il numero di lanci necessari:</strong>Singolo lancio per decisioni binarie (sì/no, vai/resta). Lanci multipli per i giochi (al meglio di 5, dal primo a 3 teste). Gli esperimenti di probabilità possono richiedere più di 100 lanci per dimostrare la legge dei grandi numeri. Annotare il numero target prima di iniziare: la modifica a metà serie introduce errori di selezione.</li>
+<li><strong>Scegli una fonte casuale crittograficamente sicura:</strong>Utilizza crypto.getRandomValues() (browser), modulo segreti (Python) o /dev/urandom (Linux) per risultati imprevedibili. Evita Math.random() o random.randint() per applicazioni in cui l'equità è importante (giochi d'azzardo, controversie). Questi PRNG sono veloci ma prevedibili se un utente malintenzionato osserva un numero sufficiente di output. Per un uso occasionale, i PRNG standard sono accettabili.</li>
+<li><strong>Genera un valore casuale per ogni lancio:</strong>Per ogni lancio, genera un numero casuale in [0.0, 1.0). Se il valore &lt; 0,5, il risultato è Teste; altrimenti Croce. In alternativa, generare direttamente il numero intero casuale 0 o 1. Registra ogni singolo risultato per verifica e statistiche. Per 10 lanci: [H, T, H, H, T, T, H, T, H, T].</li>
+<li><strong>Tieni traccia delle statistiche cumulative:</strong>Mantieni il conteggio progressivo di testa, croce e lanci totali. Calcola la proporzione attuale: teste / totale. Dopo 10 lanci con 6 teste: proporzione = 6/10 = 60%. Questo convergerà verso il 50% man mano che aumentano i flip (legge dei grandi numeri). Visualizza sia i conteggi grezzi che le percentuali per maggiore chiarezza.</li>
+<li><strong>Applicare eventuali regole speciali se necessario:</strong>Alcuni giochi utilizzano lanci di monete modificati: "Testa vince, Croce rilancia" (75% di testa efficace). "Best of 5" significa girare finché una delle due parti non ottiene 3 vittorie. "Dalla prima alle 3 teste consecutive" richiede il monitoraggio delle serie. Chiarire le regole prima di iniziare. Per i lanci standard 50/50, salta questo passaggio.</li>
+<li><strong>Visualizza e facoltativamente salva i risultati:</strong>Mostra chiaramente i risultati finali: "Testa" per un singolo lancio o "6 teste, 4 croci (60% teste)" per più lanci. Per il processo decisionale, indica l'implicazione: "Testa, vai per primo". Per gli esperimenti, salva i risultati in CSV o in un database per l'analisi. Includere timestamp e ID sessione per la riproducibilità, se necessario.</li>
 </ol>
-
-<h2>Quando hai bisogno di questa conversione</h2>
-<p>Questa calcolatrice è particolarmente utile nelle seguenti situazioni:</p>
+<h2>5 esempi pratici di lancio di monete</h2>
+<p><strong>Esempio 1 – Possesso NFL straordinario (singolo lancio):</strong></p>
 <ul>
-<li>valutazione della sicurezza delle password</li><li>analisi del testo e conteggio dei caratteri</li><li>calcoli di data e ora</li><li>task utilitari quotidiani</li>
+<li>Scenario: i capitani delle squadre si incontrano a centrocampo per il lancio della monetina durante i supplementari</li>
+<li>Chiamata: "Testa" (a scelta del capitano della squadra)</li>
+<li>Risultato del lancio: Croce</li>
+<li><strong>Risultato: La squadra ospite vince il sorteggio, decide di ricevere</strong></li>
+<li>Probabilità: ogni squadra aveva esattamente il 50% di probabilità</li>
+<li>Nota: dal 2012, vincere al sorteggio dei tempi supplementari non garantisce la vittoria: le regole della morte improvvisa sono cambiate</li>
 </ul>
-
-<h2>Verificare la conversione</h2>
-<p>Dopo la conversione, verificate che il risultato abbia senso intuitivo. Attenzione alle varianti US e UK delle unità 'imperiali': un gallone americano (3,785 L) differisce da un gallone imperiale britannico (4,546 L).</p>
-
-<h2>Sistemi di unità e conversioni</h2>
-<p>I fattori di conversione delle unità sono esatti per definizione — 1 pollice = esattamente 2,54 cm. Le conversioni non aggiungono errori di arrotondamento. I diversi sistemi (SI, imperiale) coesistono perché si sono sviluppati storicamente in modo indipendente; il SI è lo standard scientifico universale.</p>
-
-<h2>Errori di conversione comuni</h2>
+<p><strong>Esempio 2 – Decisione al meglio delle 5 (pareggio tra 3 amici):</strong></p>
 <ul>
-<li>Verifica sempre la direzione di conversione — moltiplicare quando dovresti dividere e l'errore piu comune.</li>
+<li>Scenario: tre amici non riescono a decidere il ristorante; usa il meglio dei 5 lanci</li>
+<li>Regola: Testa = Opzione A (italiano), Croce = Opzione B (messicano)</li>
+<li>Risultati: [H, T, H, T, H]</li>
+<li>Conteggio: 3 teste, 2 croci</li>
+<li><strong>Risultato: l'Italiana vince 3-2</strong></li>
+<li>Probabilità di esattamente 3-2 al meglio di 5: C(5,3) × 0,5⁵ = 10 × 0,03125 = 31,25%</li>
 </ul>
-
-<h2>Consiglio per conversioni precise</h2>
-<p>Quando converti tra sistemi, annota il fattore di conversione e verifica che il risultato vada nella direzione prevista.</p>
-
-<h2>Domande frequenti</h2>
+<p><strong>Esempio 3 — Esperimento di probabilità (100 lanci):</strong></p>
+<ul>
+<li>Scenario: la lezione di statistica dimostra la legge dei grandi numeri</li>
+<li>Lanci: 100 lanci di monete simulati</li>
+<li>Risultati: 47 teste, 53 croci</li>
+<li>Proporzione: 47% teste (previsto: 50%)</li>
+<li><strong>Risultato: entro 1 SD rispetto al previsto (50 ± 5)</strong></li>
+<li>Punto di apprendimento: piccoli campioni mostrano varianza; i campioni di grandi dimensioni convergono al 50%</li>
+</ul>
+<p><strong>Esempio 4 — Meccaniche di gioco (determinazione dell'ordine di turno):</strong></p>
+<ul>
+<li>Scenario: 4 giocatori devono determinare chi inizia per primo nel gioco da tavolo</li>
+<li>Metodo: ogni giocatore gira una volta; vince il maggior numero di teste</li>
+<li>Risultati: Giocatore 1: T, Giocatore 2: H, Giocatore 3: H, Giocatore 4: T</li>
+<li>Parità tra il Giocatore 2 e il Giocatore 3</li>
+<li>Lancio dello spareggio: Giocatore 2: H, Giocatore 3: T</li>
+<li><strong>Risultato: il giocatore 2 inizia per primo</strong></li>
+<li>Probabilità di pareggio a 4 (tutte uguali): 2/16 = 12,5%</li>
+</ul>
+<p><strong>Esempio 5 — Analogia della meccanica quantistica (moneta di Schrödinger):</strong></p>
+<ul>
+<li>Scenario: dimostrazione fisica del concetto di sovrapposizione</li>
+<li>Prima dell'osservazione: la moneta è in sovrapposizione (50% testa, 50% croce)</li>
+<li>Dopo l'osservazione (capovolgimento): la funzione d'onda collassa allo stato definito</li>
+<li>Risultato: testa</li>
+<li><strong>Risultato: dimostrazione della natura probabilistica della misurazione quantistica</strong></li>
+<li>Nota educativa: a differenza dei sistemi quantistici, i lanci delle monete sono deterministici se si conoscono le condizioni iniziali: la casualità deriva dall'ignoranza della forza, dell'angolo e della resistenza dell'aria precisi</li>
+</ul>
+<h2>4 errori comuni nel lancio della moneta</h2>
+<ul>
+<li><strong>Cadere nell'errore del giocatore d'azzardo:</strong>Dopo 10 teste consecutive, le persone credono che sia "dovuta" la croce. Questo è falso: ogni lancio è indipendente con esattamente il 50% di probabilità indipendentemente dalla storia. P(11° lancio = H | 10 precedenti = H) = 0,5, come qualsiasi altro lancio. La probabilità di 11 teste di fila è 0,5¹¹ = 0,00049 (raro), ma dopo che sono già cadute 10 teste, l'undicesimo lancio rimane 50/50. I risultati passati non influenzano i lanci futuri.</li>
+<li><strong>Utilizzo di metodi fisici distorti per decisioni importanti:</strong>Far girare una moneta su un tavolo produce circa l'80% di code per i penny americani a causa della distribuzione del peso. Prendere una moneta lanciata (invece di lasciarla cadere) può introdurre pregiudizi se il ricevitore influenza inconsciamente il risultato. Per decisioni ad alto rischio, utilizza un simulatore digitale con probabilità verificata 50/50 o lascia che la moneta atterri su una superficie dura senza interferenze.</li>
+<li><strong>Incomprensione "50/50" in piccoli campioni:</strong>Le persone si aspettano esattamente 5 teste e 5 croci in 10 lanci. In realtà, P (esattamente 5H in 10 lanci) = 24,6%. Risultati più probabili: 4H (20,5%), 6H (20,5%), 3H (11,7%), 7H (11,7%). "50/50" descrive la proporzione a lungo termine, non l'esattezza a breve termine. La varianza è normale: 7 teste in 10 lanci non indicano bias, rientrano nella fluttuazione statistica prevista.</li>
+<li><strong>Non specificare la chiamata prima di capovolgere:</strong>Nelle controversie, una delle parti può lanciare e l'altra chiamare, ma se il flipper può vedere il risultato a mezz'aria e manipolare la presa, ottiene un vantaggio. Chiedi sempre al chiamante di specificare "testa" o "croce" prima che inizi il lancio. Meglio ancora, utilizza un simulatore digitale in cui nessuna delle parti può influenzare il risultato. Per i lanci fisici, lascia che la moneta cada su una superficie invece di prenderla.</li>
+</ul>
+<h2>5 consigli professionali per lanciare monete</h2>
+<ul>
+<li><strong>Usa più lanci per ridurre la varianza nelle decisioni importanti:</strong>I lanci singoli hanno un'elevata varianza: il risultato "sbagliato" vince il 50% delle volte. Per decisioni consequenziali, utilizza il meglio di 3 o il meglio di 5. Ciò non cambia l'equità (entrambe le parti hanno ancora il 50% complessivo) ma riduce l'impatto psicologico di un singolo lancio sfortunato. Il meglio di 3 consente anche rimonte, rendendo il processo meno arbitrario.</li>
+<li><strong>Implementare schemi di impegno per lanci di monete remoti:</strong>Quando si esegue il flip con qualcuno in remoto (telefono, chat), utilizzare un impegno crittografico: (1) Flipper genera un risultato casuale e ne esegue l'hashing (SHA-256), (2) Invia l'hash al chiamante, (3) Il chiamante dice "testa" o "croce", (4) Flipper rivela il risultato e la preimmagine, (5) Il chiamante verifica le corrispondenze dell'hash. Ciò impedisce al flipper di modificare il risultato dopo aver ascoltato la chiamata.</li>
+<li><strong>Tieni traccia delle statistiche a lungo termine per verificarne l'equità:</strong>Oltre 1.000 lanci, una moneta normale dovrebbe mostrare il 50% ± 2% di testa (intervallo di confidenza del 95%). Se il tuo flipper digitale mostra il 55% di testa dopo 10.000 lanci, l'RNG potrebbe essere distorto. I buoni simulatori mostrano le statistiche di corsa in modo che gli utenti possano verificarne l'equità. Anche le monete fisiche dovrebbero essere testate: girale 100 volte e conta. Una deviazione significativa dal 50% indica un bias.</li>
+li&gt;<strong>Utilizzare il lancio della moneta per studi randomizzati e controllati:</strong>Nella ricerca, i lanci di monete (o meglio, la randomizzazione generata dal computer) assegnano i soggetti ai gruppi di trattamento rispetto a quelli di controllo. Ciò elimina i pregiudizi di selezione: i ricercatori non possono assegnare consciamente o inconsciamente pazienti più sani al gruppo di trattamento. Per una ricerca seria, utilizzare la randomizzazione a blocchi (garantire dimensioni uguali dei gruppi) e la stratificazione (bilanciare variabili importanti tra i gruppi).
+<li><strong>Capire quando NON usare il lancio della moneta:</strong>Il lancio della moneta è appropriato per: decisioni a bassa posta in gioco, tie-break equi, dimostrazioni educative e giochi. Sono inappropriati per: decisioni mediche (usare prove), decisioni finanziarie (usare analisi), decisioni relazionali (usare comunicazione) e qualsiasi cosa in cui un risultato ha conseguenze significativamente diverse rispetto all'altro. Il lancio di una moneta non può dirti se lasciare il lavoro o trasferirsi in una nuova città: questi richiedono ragionamento, non casualità.</li>
+</ul>
+<h2>4 domande frequenti sul lancio della moneta</h2>
 <div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Perche ottengo risultati diversi da strumenti diversi?</button><div class="faq-a"><p>Alcuni strumenti usano fattori di conversione leggermente diversi. Questa calcolatrice usa i fattori piu accettati e esatti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Questa calcolatrice è precisa?</button><div class="faq-a"><p>Sì. La calcolatrice usa la formula standard: Testa o Croce = f(Lanci). I risultati sono matematicamente esatti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Posso usare questa calcolatrice sul telefono?</button><div class="faq-a"><p>Sì, la calcolatrice è completamente responsive e funziona su qualsiasi dispositivo. Nessuna installazione richiesta.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Come salvo o condivido il mio calcolo?</button><div class="faq-a"><p>Usa il pulsante <strong>Condividi</strong> per generare un URL con tutti i tuoi dati. Il pulsante <strong>Copia</strong> copia il risultato negli appunti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cosa fare se il risultato sembra sbagliato?</button><div class="faq-a"><p>Controlla prima i tuoi dati: valori nelle unità corrette e intervallo realistico. Verifica anche che la formula <em>Testa o Croce = f(Lanci)</em> si applichi esattamente alla tua situazione.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Il lancio della moneta è davvero 50/50?</button><div class="faq-a">Per una moneta equilibrata lanciata vigorosamente e lasciata cadere in modo naturale, la probabilità è estremamente vicina a 50/50 – entro lo 0,1% per la maggior parte delle monete. La ricerca di Stanford ha mostrato una distorsione dello stesso lato del 51% (la moneta atterra come è iniziata), ma questo è importante solo se conosci la posizione iniziale e puoi controllare il lancio. I simulatori digitali che utilizzano l'RNG corretto sono esattamente 50/50 in base alla progettazione. Le monete rotanti NON sono 50/50: i penny statunitensi hanno una coda pari a circa l'80% a causa della distribuzione del peso.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Qual è la probabilità che escano 10 teste di seguito?</button><div class="faq-a">P (10 teste consecutive) = (0,5)¹⁰ = 1/1024 = 0,000977 = 0,0977%, o circa 1 su 1.024. Su 1 milione di lanci di moneta, ti aspetteresti di vedere questa sequenza circa 977 volte. Le strisce più lunghe sono più rare: 20 teste = 1 su 1.048.576, 50 teste = 1 su 1,13 × 10¹⁵. Nonostante la rarità, queste strisce DEVONO verificarsi alla fine in infinite prove: questo è ciò che significa "casuale", non "distribuito uniformemente".</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Posso influenzare il risultato del lancio di una moneta?</button><div class="faq-a">Con la pratica, sì. I maghi e i giocatori d'azzardo imparano a controllare il lancio delle monete attraverso una forza, un'angolazione e una tecnica di cattura costanti. Persi Diaconis si è allenato a lanciare testa il 100% delle volte controllando la rotazione della moneta e cogliendola al momento giusto. Per la maggior parte delle persone, la variazione naturale della meccanica del ribaltamento rende i risultati effettivamente casuali. Se l'equità è importante, usa un'app lanciamonete, lascia che la moneta cada su una superficie (non si impigli) o chiedi a qualcun altro di lanciarla mentre chiami.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Quanti lanci prima di poter dimostrare che una moneta è distorta?</button><div class="faq-a">Per rilevare un bias 55/45 (deviazione del 5%) con una confidenza del 95%, sono necessari circa 1.000 lanci. Per un bias 51/49 (deviazione dell'1%), sono necessari circa 25.000 lanci. Utilizzare la formula: n = (z² × p × (1-p)) / E² dove z = 1,96 (95% di confidenza), p = proporzione prevista (0,5), E = margine di errore che si desidera rilevare (0,01 per 1%). Dopo aver raccolto i lanci, esegui un test chi quadrato: χ² = Σ((osservato - previsto)² / previsto). Se χ² &gt; 3,84 (per 1 grado di libertà), la moneta è distorta con una confidenza del 95%.</p></div></div>
 </div>
+<h2>Calcolatori correlati</h2>
+<ul>
+<li><a href="/it/lancio-dadi/">Dice Roller</a>— Simula il lancio di dadi con vari conteggi laterali</li>
+<li><a href="/it/numero-casuale/">Random Number Generator</a>— Genera numeri casuali in qualsiasi intervallo</li>
+<li><a href="/it/probabilita/">Probability Calculator</a>— Calcola le probabilità per vari eventi casuali</li>
+<li><a href="/it/">Decision Maker</a>— Seleziona casualmente tra più opzioni</li>
+<li><a href="/it/">Random Picker</a>— Sceglie elementi casuali da un elenco</li>
+</ul>
 </section>

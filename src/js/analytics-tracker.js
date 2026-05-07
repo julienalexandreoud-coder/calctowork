@@ -92,17 +92,14 @@
   }
 
   function getCalcSlug() {
-    const path = window.location.pathname;
-    const parts = path.split('/').filter(p => p);
-    if (parts.length >= 2) return parts[parts.length - 2];
-    return null;
+    return (window.CALC_CONFIG && window.CALC_CONFIG.slug) || null;
   }
 
   function setupInteractionTracking() {
     const calcBtn = document.getElementById('calc-btn');
     if (calcBtn) calcBtn.addEventListener('click', handleCalculate);
 
-    const resetBtn = document.getElementById('reset-btn');
+    const resetBtn = document.getElementById('btn-reset');
     if (resetBtn) resetBtn.addEventListener('click', () => track('reset_clicked', getCalcContext()));
 
     const copyBtn = document.getElementById('btn-copy');
@@ -138,9 +135,7 @@
 
     setInterval(() => {
       const timeOnPage = Math.round((Date.now() - pageLoadTime) / 1000);
-      if (timeOnPage % 10 === 0) {
-        track('time_on_page', { ...getCalcContext(), seconds: timeOnPage });
-      }
+      track('time_on_page', { ...getCalcContext(), seconds: timeOnPage });
     }, 10000);
 
     document.addEventListener('mouseleave', (e) => {
@@ -183,6 +178,18 @@
     };
   }
 
+  function getPageLanguage() {
+    if (window.CALC_LANG) return window.CALC_LANG;
+    const path = window.location.pathname;
+    const parts = path.split('/').filter(p => p);
+    return (parts.length > 0) ? parts[0] : null;
+  }
+
+  function isBot() {
+    const ua = (navigator.userAgent || '').toLowerCase();
+    return /(bot|crawler|spider|scraper|curl|wget|headless|phantom|selenium|puppeteer|playwright|googlebot|bingbot|yandex|baidu|duckduckbot|slurp|facebookexternalhit|twitterbot|whatsapp|linkedinbot|semrush|ahrefs|majestic|moz\.com|lighthouse|pagespeed|gtmetrix|pingdom|prerender)/.test(ua);
+  }
+
   function track(eventName, eventData) {
     const event = {
       event_name: eventName,
@@ -193,7 +200,8 @@
       page_title: document.title,
       referrer: document.referrer,
       user_agent: navigator.userAgent,
-      language: navigator.language,
+      language: getPageLanguage(),
+      is_bot: isBot(),
       ...eventData,
     };
     eventQueue.push(event);
@@ -221,6 +229,7 @@
           referrer: evt.referrer || null,
           user_agent: evt.user_agent || null,
           language: evt.language || null,
+          is_bot: evt.is_bot || false,
           screen_width: evt.screen_width || null,
           screen_height: evt.screen_height || null,
           viewport_width: evt.viewport_width || null,

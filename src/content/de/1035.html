@@ -1,43 +1,138 @@
 <section class="long-content">
-<h2>Die medizinische Formel erklart</h2>
-<p>Die Kenntnis Ihrer Körperwerte ist der erste Schritt zu besseren Gesundheitsentscheidungen. Dieser Rechner nutzt etablierte medizinische Formeln für individuelle Ergebnisse.</p>
-<p>Die Formel hinter dieser Berechnung lautet <strong>Zufallszahl = f(Minimum, Maximum)</strong>. Zu verstehen, wie das Ergebnis ermittelt wird, hilft Ihnen, die Ausgabe zu überprüfen und Eingabefehler zu erkennen.</p>
-
-<h2>So nehmen Sie Ihre Messwerte richtig</h2>
-<p>Folgen Sie diesen Schritten für ein zuverlässiges Ergebnis:</p>
-<öl>
-<li><strong>Geben Sie Ihre Werte ein:</strong> 1; 100 — stellen Sie sicher, dass alle Werte ein einheitliches Maßsystem verwenden.</li>
-<li><strong>Der Rechner wendet die Formel an:</strong> <em>Zufallszahl = f(Minimum, Maximum)</em>.</li>
-<li><strong>Lesen Sie Ihr Ergebnis:</strong> Zahl.</li>
-<li>Prüfen Sie: Bestätigen Sie, dass die Einheiten konsistent und die Werte realistisch sind, bevor Sie auf das Ergebnis reagieren.</li>
-</öl>
-
-<h2>Was Ihre Ergebnisse bedeuten</h2>
-<p>Dieser Rechner ist besonders nützlich in folgenden Situationen:</p>
+<h2>Was ist ein Zufallszahlengenerator?</h2>
+<p>Ein Zufallszahlengenerator (RNG) erzeugt unvorhersehbare Werte innerhalb eines bestimmten Bereichs und erfüllt wichtige Funktionen in der Kryptographie, wissenschaftlichen Simulationen, Spielen, statistischen Stichproben und Entscheidungsfindung. Im Gegensatz zu vom Menschen generierten „zufälligen“ Entscheidungen – die vorhersehbare Verzerrungen aufweisen – liefern echte RNGs mathematisch gleichmäßige Verteilungen, bei denen jede Zahl die gleiche Auswahlwahrscheinlichkeit hat.</p>
+<p class="see-also">Möglicherweise finden Sie auch<a href="/de/passwort-generator/">Password Generator</a> and <a href="/de/wuerfel/">Dice Roller</a> useful.</p><p>Der Unterschied zwischen echter Zufälligkeit und menschlicher Annäherung ist groß. Bitten Sie jemanden, eine Zufallszahl zwischen 1 und 10 auszuwählen, und 7 erscheint in 28 % der Fälle (gegenüber erwarteten 10 %). Menschen vermeiden die Wiederholung von Zahlen, schaffen falsche Muster und bevorzugen bestimmte Ziffern. In einer Studie mit 8,5 Millionen von Menschen erzeugten „zufälligen“ Sequenzen identifizierten Forscher vorhersehbare Muster, die eine Vorhersagegenauigkeit von 15–27 % ermöglichen – unmöglich mit echter Zufälligkeit, bei der jedes Ergebnis unabhängig ist.</p>
+<p>Es gibt zwei Arten von RNGs: Echte Zufallszahlengeneratoren (TRNGs) gewinnen Entropie aus physikalischen Phänomenen wie atmosphärischem Rauschen, radioaktivem Zerfall oder thermischen Schwankungen. Pseudozufallszahlengeneratoren (PRNG) verwenden mathematische Algorithmen, die von einem Startwert ausgehen. Moderne Computer kombinieren beides: PRNGs für Geschwindigkeit in Simulationen und Spielen, gesät durch TRNG-Quellen für kryptografische Sicherheit. Wenn Sie wissen, welchen Typ Ihre Anwendung benötigt, vermeiden Sie kostspielige Fehler – die Verwendung vorhersehbarer PRNGs für Verschlüsselung oder Glücksspiele lädt zur Ausbeutung ein.</p>
+<h2>Formel zur Erzeugung von Zufallszahlen erklärt</h2>
+<p><strong>Formel des linearen Kongruenzgenerators (LCG):</strong></p>
+<p><strong>Xₙ₊₁ = (a × Xₙ + c) mod m</strong></p>
+<p>Where:</p>
 <ul>
-<li>Passwortsicherheitsbewertung</li><li>Textanalyse und Zeichenzählung</li><li>Datums- und Zeitberechnungen</li><li>alltägliche Hilfsaufgaben</li>
+<li>Xₙ = Aktueller Zustand (Startwert oder vorheriger Wert)</li>
+<li>Xₙ₊₁ = Nächster Zufallswert</li>
+<li>a = Multiplikatorkonstante</li>
+<li>c = Inkrementkonstante</li>
+<li>m = Modul (definiert den Bereich 0 bis m-1)</li>
 </ul>
-
-<h2>Was Ihr Ergebnis bedeutet</h2>
-<p>Gesundheitsrechner liefern Schätzungen, keine Diagnosen. Diese Zahlen sind Bevölkerungsdurchschnitte mit Fehlermargen von ±10–15&nbsp;%. Verwenden Sie sie als Orientierungspunkte für Gespräche mit Ihrem Arzt oder Ernährungsberater, nicht als absolute Grenzwerte.</p>
-
-<h2>Gesundheitsformeln verstehen</h2>
-<p>Gesundheitsrechner basieren auf Bevölkerungsstudien, die mathematische Zusammenhänge zwischen Messwerten und Gesundheitsergebnissen identifizieren. Diese Formeln liefern evidenzbasierte Schätzungen, stellen aber Bevölkerungsdurchschnitte dar. Sprechen Sie immer mit einem Arzt, bevor Sie Ernährung, Sport oder Medikamente ändern.</p>
-
-<h2>Haufige Fehler bei der Selbstmessung</h2>
+<p><strong>Allgemeine LCG-Parameter (MINSTD):</strong></p>
 <ul>
-<li>Eine einzige Messung für Gesundheitsentscheidungen verwenden — konsultieren Sie immer einen Arzt.</li>
+<li>a = 48.271</li>
+<li>c = 0</li>
+<li>m = 2.147.483.647 (2³¹ - 1, eine Mersenne-Primzahl)</li>
+<li>Zeitraum: 2,1 Milliarden Werte vor der Wiederholung von</li>
 </ul>
-
-<h2>Wann Sie einen Arzt aufsuchen sollten</h2>
-<p>Nehmen Sie Messungen zur gleichen Tageszeit unter ähnlichen Bedingungen für konsistentes Tracking. Besprechen Sie Ergebnisse immer mit einem Arzt.</p>
-
-<h2>Haufig gestellte Fragen</h2>
+<p><strong>Skalierung auf beliebigen Bereich [min, max]:</strong></p>
+<p><strong>Zufällig = min + (Xₙ / m) × (max - min + 1)</strong></p>
+<p>Oder Modulo für Ganzzahlbereiche verwenden:</p>
+<p><strong>Zufällig = min + (Xₙ mod (max - min + 1))</strong></p>
+<p><strong>Ausgearbeitetes Beispiel 1 – Zufallszahl 1-100 generieren:</strong></p>
+<p>Schritt 1: Seed-Wert X₀ = 12.345 (Ausgangszustand)</p>
+<p>Schritt 2: LCG-Formel mit MINSTD-Parametern anwenden:</p>
+<p>X₁ = (48.271 × 12.345 + 0) mod 2.147.483.647</p>
+<p>X₁ = 595.904.595 mod 2.147.483.647 = 595.904.595</p>
+<p>Schritt 3: Skalieren Sie auf den Bereich [1, 100]:</p>
+<p>Zufällig = 1 + (595.904.595 mod 100) = 1 + 95 = 96</p>
+<p><strong>Ergebnis: 96</strong>(erste Zufallszahl im Bereich 1-100)</p>
+<p>Schritt 4: Nächsten Wert generieren:</p>
+<p>X₂ = (48.271 × 595.904.595) mod 2.147.483.647 = 1.308.818.422</p>
+<p>Zufällig = 1 + (1.308.818.422 mod 100) = 1 + 22 = 23</p>
+<p><strong>Ergebnis: 23</strong>(zweite Zufallszahl)</p>
+<p><strong>Arbeitsbeispiel 2 – Kryptografisches Zufallsbyte (0-255):</strong></p>
+<p>Kryptografische RNGs verwenden Hardware-Entropiequellen, keine LCG-Formeln.</p>
+<p>Schritt 1: Entropie vom Betriebssystem sammeln (Timing-Interrupts, Hardware-Rauschen)</p>
+<p>Schritt 2: Eingabe in die kryptografische Hash-Funktion (SHA-256)</p>
+<p>Schritt 3: Erstes Byte extrahieren: 0x7F = 127 in Dezimalzahl</p>
+<p><strong>Ergebnis: 127</strong>(unvorhersehbar, für Verschlüsselungsschlüssel geeignet)</p>
+<p><strong>Wahrscheinlichkeitsberechnungen:</strong></p>
+<p>Für eine gleichmäßige Verteilung über den Bereich [min, max]:</p>
+<p><strong>P(beliebiger spezifischer Wert) = 1 / (max - min + 1)</strong></p>
+<p>Für den Bereich 1-100: P(beliebige Zahl) = 1/100 = 0,01 = 1 %</p>
+<p><strong>Erwarteter Wert (Mittelwert):</strong></p>
+<p><strong>E[X] = (min + max) / 2</strong></p>
+<p>Für den Bereich 1-100: E[X] = (1 + 100) / 2 = 50,5</p>
+<h2>6 Schritte zum Generieren von Zufallszahlen</h2>
+<ol>
+<li><strong>Definieren Sie den Bereich und die Art der benötigten Zufallswerte:</strong>Geben Sie Mindest- und Höchstwerte an und ob Sie Ganzzahlen oder Dezimalzahlen benötigen. Würfeln: Bereich [1, 6], ganze Zahlen. Auswahl einer Lottozahl: Bereich [1, 69], ganze Zahlen. Kryptografischer Schlüssel: Bereich [0, 255], Bytes. Wissenschaftliche Simulation: Bereich [0,0, 1,0], Gleitkomma. Der Bereich bestimmt den Modul- und Skalierungsansatz.</li>
+<li><strong>Wählen Sie den passenden RNG-Typ für Ihren Anwendungsfall:</strong>Für Spiele und Simulationen: Verwenden Sie PRNG (Mersenne Twister, PCG) für Geschwindigkeit und Reproduzierbarkeit. Für Kryptografie und Sicherheit: Verwenden Sie CSPRNG (crypto.getRandomValues, /dev/urandom), geseed durch Hardware-Entropie. Für wissenschaftliche Forschung, die echte Zufälligkeit erfordert: Nutzen Sie TRNG-Dienste (random.org), die auf atmosphärischem Rauschen basieren. Verwenden Sie niemals Standard-PRNG für Passwörter, Verschlüsselung oder Glücksspiele.</li>
+<li><strong>Initialisieren (Seed) Sie den Generator ordnungsgemäß:</strong>PRNGs erfordern einen Startwert – derselbe Startwert erzeugt immer dieselbe Sequenz. Zur Reproduzierbarkeit (Debugging, wissenschaftliche Arbeiten): Verwenden Sie einen festen Startwert wie 42 oder 12345. Für Unvorhersehbarkeit (Spiele, Sicherheit): Startwert aus Quellen mit hoher Entropie, z. B. aktuelle Zeit in Mikrosekunden, Prozess-ID und Hardwarezähler. Kryptografische RNGs werden automatisch aus den Entropiepools des Betriebssystems gesekt.</li>
+<li><strong>Erzeugen Sie den rohen Zufallswert:</strong>Rufen Sie die RNG-Funktion auf, um einen Wert zu erzeugen. In JavaScript: Math.random() ergibt [0,0, 1,0). In Python: random.randint(1, 100) gibt ganze Zahlen. In C#: Random.Next(1, 101). Für Krypto: window.crypto.getRandomValues() füllt ein typisiertes Array mit zufälligen Bytes. Die Rohausgabe muss möglicherweise auf Ihren Zielbereich skaliert werden.</li>
+<li><strong>Skalieren und transformieren Sie auf Ihren Zielbereich:</strong>Konvertieren Sie die Rohausgabe in den gewünschten Bereich. Für ganze Zahlen [min, max]: Ergebnis = min + (roher Mod (max - min + 1)). Für Floats [min, max]: Ergebnis = min + roh × (max – min). Sorgen Sie für eine gleichmäßige Verteilung – naive Skalierung kann zu Verzerrungen führen. Wenn Sie beispielsweise 1-10 aus 1-100 durch Division durch 10 generieren, führt dies zu uneinheitlichen Ergebnissen. Verwenden Sie stattdessen Modulo- oder Ablehnungsstichproben.</li>
+<li><strong>Überprüfen Sie statistische Eigenschaften für kritische Anwendungen:</strong>Führen Sie Chi-Quadrat-Tests durch, um eine gleichmäßige Verteilung zu bestätigen. Generieren Sie mehr als 10.000 Stichproben und prüfen Sie, ob jeder Wert ungefähr gleich erscheint. Für den kryptografischen Einsatz nutzen Sie die NIST Statistical Test Suite (STS) zur Validierung von Häufigkeit, Läufen und Autokorrelationseigenschaften. Fehlgeschlagene Tests deuten auf eine verzerrte Ausgabe hin, die einen anderen RNG-Algorithmus oder eine andere Seed-Quelle erfordert.</li>
+</ol>
+<h2>5 praktische Beispiele für die Generierung von Zufallszahlen</h2>
+<p><strong>Beispiel 1 – Brettspiel-Würfelwurf (2d6):</strong></p>
+<ul>
+<li>Reichweite pro Würfel: [1, 6]</li>
+<li>RNG-Typ: PRNG akzeptabel (keine Sicherheitsanforderung)</li>
+<li>Erzeuge den ersten Würfel: random(1, 6) = 4</li>
+<li>Zweiten Würfel generieren: random(1, 6) = 5</li>
+<li>Gesamt: 4 + 5 = 9</li>
+<li><strong>Result: 9</strong>(typischer Würfelwurf für Monopoly oder Catan)</li>
+</ul>
+<p><strong>Beispiel 2 – Auswahl der Lotterienummern (6 Zahlen von 1-49):</strong></p>
+<ul>
+<li>Bereich: [1, 49], keine Wiederholungen erlaubt</li>
+<li>RNG-Typ: PRNG mit Ablehnungsstichprobe</li>
+<li>Generieren: 17, 8, 33, 42, 5, 29 (alle Duplikate ablehnen)</li>
+<li>Für die Anzeige sortieren: 5, 8, 17, 29, 33, 42</li>
+<li><strong>Ergebnis: [5, 8, 17, 29, 33, 42]</strong>(gültiger Lotterietipp)</li>
+<li>Wahrscheinlichkeit dieser genauen Kombination: 1 zu 13.983.816</li>
+</ul>
+<p><strong>Beispiel 3 – A/B-Testzuweisung (Benutzer zu Variante):</strong></p>
+<ul>
+<li>Bereich: [0, 1) float, weise &lt;0,5 der Variante A, ≥0,5 der Variante B zu</li>
+<li>RNG-Typ: PRNG (Reproduzierbarkeit nützlich für das Debuggen)</li>
+<li>Generieren: random() = 0,73294</li>
+<li>Zuweisung: 0,73294 ≥ 0,5, also Variante B</li>
+<li><strong>Ergebnis: Benutzer wurde Variante B</strong>(50/50-Aufteilung)</li>
+<li>zugewiesen Über 10.000 Benutzer: Erwarten Sie ~5.000 pro Variante (±100 aus Zufälligkeit)</li>
+</ul>
+<p><strong>Beispiel 4 – Generierung des Verschlüsselungsschlüssels (128-Bit):</strong></p>
+<ul>
+<li>Bereich: [0, 255] für jedes der 16 Bytes</li>
+<li>RNG-Typ: CSPRNG erforderlich (sicherheitskritisch)</li>
+<li>Generieren Sie 16 zufällige Bytes: 0x3A, 0xF7, 0x2C, 0x8D, 0x14, 0xE9, 0x76, 0xB3, 0x45, 0x9A, 0x0F, 0xC8, 0x51, 0xD2, 0x8E, 0x67</li>
+<li>Hex-Darstellung: 3AF72C8D14E976B3459A0FC851D28E67</li>
+<li><strong>Ergebnis: 128-Bit-Schlüssel mit 2¹²⁸ (3,4 × 10³⁸) möglichen Werten</strong></li>
+<li>Cracking-Zeit: rechnerisch mit der aktuellen Technologie nicht durchführbar</li>
+</ul>
+<p><strong>Beispiel 5 – Monte-Carlo-Simulation (π-Schätzung):</strong></p>
+<ul>
+<li>Erzeuge zufällige Punkte (x, y) im Einheitsquadrat [0, 1] × [0, 1]</li>
+<li>Zähle Punkte, bei denen x² + y² ≤ 1 (innerhalb des Viertelkreises)</li>
+<li>Generiere 10.000 Punkte: 7.854 fallen in den Kreis</li>
+<li>π ≈ 4 × (innen / gesamt) = 4 × (7.854 / 10.000) = 3,1416</li>
+<li><strong>Ergebnis: π ≈ 3,1416</strong>(tatsächliches π = 3,14159..., Fehler = 0,003%)</li>
+<li>Mehr Proben = bessere Genauigkeit (Gesetz der großen Zahlen)</li>
+</ul>
+<h2>4 häufige Fehler bei der Generierung von Zufallszahlen</h2>
+<ul>
+<li><strong>Verwendung von nicht-kryptografischem RNG aus Sicherheitsgründen:</strong>Math.random() von JavaScript, das Zufallsmodul von Python und rand() von C verwenden vorhersehbare PRNG-Algorithmen. Ein Angreifer, der 624 aufeinanderfolgende Mersenne-Twister-Ausgaben beobachtet, kann alle zukünftigen Werte vorhersagen. Verwenden Sie diese niemals für die Passwortgenerierung, Sitzungstokens oder Verschlüsselungsschlüssel. Verwenden Sie für sicherheitsrelevante Zufälligkeiten immer crypto.getRandomValues() (Browser), das Secrets-Modul (Python) oder /dev/urandom (Linux).</li>
+<li><strong>Einführung einer Verzerrung durch falsche Bereichsskalierung:</strong>Das Generieren von Zufall 1-10 aus Zufall(1, 100) durch Berechnen von (Zufall(1, 100) / 10) + 1 erzeugt eine ungleichmäßige Verteilung. Die Werte 1–9 können sich aus jeweils 10 Eingaben ergeben, 10 ergeben sich jedoch nur aus 91–100 (10 Eingaben) – Moment, dieses Beispiel ist tatsächlich einheitlich. Besseres Beispiel: random(1, 7) mod 5 + 1 ergibt 1-3 aus jeweils 2 Eingaben, aber 4-5 aus jeweils 1 Eingabe, wobei der Schwerpunkt auf niedrigeren Zahlen liegt. Verwenden Sie eine Ablehnungsstichprobe: Generieren Sie, bis der Wert in einen einheitlichen Bereich fällt.</li>
+<li><strong>Seeding mit vorhersehbaren Werten:</strong>Die Verwendung des aktuellen Zeitstempels (Sekunden) als Startwert bedeutet, dass Angreifer den Startwert auf etwa 86.400 Möglichkeiten pro Tag eingrenzen können. Wenn sie ungefähr wissen, wann Sie einen Wert generiert haben, können sie den Seed brutal erzwingen und alle Ausgaben vorhersagen. Verwenden Sie Seeds mit hoher Entropie: Kombinieren Sie Zeitstempel mit Prozess-ID, Hardwarezählern und Betriebssystementropie. Führen Sie für die Kryptografie niemals ein manuelles Seeding durch – überlassen Sie das Seeding dem CSPRNG intern.</li>
+<li><strong>Angenommen, Zufälligkeit bedeutet „keine Muster“:</strong>Menschen erwarten, dass sich zufällige Sequenzen häufig abwechseln (HTHTHT für Münzwürfe), aber echte Zufälligkeit erzeugt Cluster (HHHHHT, TTTTTH). Eine Folge von zehn Siebenen hintereinander hat eine Wahrscheinlichkeit von 1 zu 10¹⁰ – unwahrscheinlich, aber garantiert, dass sie irgendwann in unendlichen Versuchen auftritt. RNGs, die „zu gleichmäßige“ Verteilungen erzeugen (und Cluster vermeiden), sind tatsächlich voreingenommen. Statistische Tests prüfen die erwarteten Zufälligkeitseigenschaften und nicht das Fehlen von Mustern.</li>
+</ul>
+<h2>5 Profi-Tipps für die Generierung von Zufallszahlen</h2>
+<ul>
+<li><strong>Nutzen Sie den Mersenne Twister für wissenschaftliche Simulationen:</strong>MT19337 hat eine Periode von 2¹⁹⁹³⁷ - 1 (eine Zahl mit 6.002 Ziffern), besteht alle standardmäßigen statistischen Tests und generiert Werte 3-10-mal schneller als kryptografische RNGs. Es ist aus gutem Grund die Standardeinstellung in Python, R und NumPy. Zur Reproduzierbarkeit speichern Sie den Startwert in Ihren Forschungsnotizen. Vorsichtsmaßnahme: MT ist nach Beobachtung von 624 Ausgaben vorhersehbar – niemals für Kryptografie verwenden.</li>
+<li><strong>Implementieren Sie die Ablehnungsstichprobe für unvoreingenommene Ergebnisse:</strong>Wenn Sie Werte im Bereich [0, N) aus einem größeren Bereich [0, M) generieren, lehnen Sie Werte ≥ floor(M/N) × N ab. Beispiel: Generieren von 1-10 aus Zufallsbyte [0, 255]. Floor(256/10) × 10 = 250. Erzeuge ein Byte; Wenn der Wert ≥ 250 ist, verwerfen und neu generieren. Dadurch wird sichergestellt, dass jedem Ausgang 0–9 genau 25 Eingangswerte zugeordnet sind, wodurch Modulo-Bias vermieden wird. Etwas langsamer, aber mathematisch korrekt.</li>
+<li><strong>Nutzen Sie Hardware-RNG für maximale Entropie:</strong>Moderne CPUs verfügen über RDRAND- (Intel) oder RDSEED- (AMD) Anweisungen, die auf Entropiequellen auf dem Chip zugreifen. In C/C++: Verwenden Sie _rdrand32_step(). In Rust: rand::rngs::OsRng. In Go: crypto/rand.Read(). Diese beruhen auf thermischem Rauschen, Taktjitter und Metastabilität in Silizium – echter physikalischer Zufälligkeit. Langsamer als PRNGs, aber wichtig für die Schlüsselgenerierung. Verwenden Sie einen Hybridansatz: Seed-PRNG aus Hardware-RNG für Geschwindigkeit und Sicherheit.</li>
+<li><strong>Testen Sie die RNG-Ausgabe mit statistischen Testsuiten:</strong>Für kritische Anwendungen validieren Sie Ihren RNG mit NIST STS (15 Tests für kryptografische RNGs), Dieharder (17 Tests) oder TestU01 (umfassende Batterie). Diese überprüfen Häufigkeitsverteilung, Läufe, Autokorrelation und spektrale Eigenschaften. Ein fehlgeschlagener Test weist auf eine Voreingenommenheit hin, die Simulationen oder die Sicherheit gefährden könnte. Führen Sie Tests mit 1+-Megabit-Proben durch – kleine Proben können selbst bei defekten RNGs zufällig bestehen.</li>
+<li><strong>Dokumentieren Sie die Ausgangswerte zur Reproduzierbarkeit:</strong>Notieren Sie in der wissenschaftlichen Forschung den genauen verwendeten Seed- und RNG-Algorithmus. „Python 3.9, random.seed(42), Mersenne Twister“ ermöglicht es anderen Forschern, Ihre Zufallssequenzen zu reproduzieren. Dies ist für das Debuggen, die Peer-Review und den Aufbau auf früheren Arbeiten unerlässlich. Bei Produktionssystemen werden Protokoll-Seeds für jede Sitzung verwendet, um eine Post-hoc-Analyse von anomalem Verhalten zu ermöglichen.</li>
+</ul>
+<h2>4 FAQs zu Zufallszahlen</h2>
 <div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Soll ich Gesundheitsentscheidungen auf diesem Rechner basieren?</button><div class="faq-a"><p>Dieses Werkzeug liefert Schatzungen basierend auf etablierten medizinischen Formeln, ersetzt aber keinen ärztlichen Rat.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Ist dieser Rechner genau?</button><div class="faq-a"><p>Ja. Der Rechner verwendet die Standardformel: Zufallszahl = f(Minimum, Maximum). Die Ergebnisse sind mathematisch exakt.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Kann ich diesen Rechner auf dem Handy nutzen?</button><div class="faq-a"><p>Ja, der Rechner ist vollständig responsiv und funktioniert auf jedem Gerät. Keine Installation erforderlich.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Wie speichere oder teile ich meine Berechnung?</button><div class="faq-a"><p>Verwenden Sie die Schaltfläche <strong>Teilen</strong>, um eine URL mit allen Ihren Eingaben zu generieren. Die Schaltfläche <strong>Kopieren</strong> kopiert das Ergebnis in die Zwischenablage.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Was tun, wenn das Ergebnis falsch erscheint?</button><div class="faq-a"><p>Überprüfen Sie zuerst Ihre Eingaben: Werte in den richtigen Einheiten und realistischem Bereich. Bestätigen Sie auch, dass die Formel <em>Zufallszahl = f(Minimum, Maximum)</em> genau auf Ihre Situation zutrifft.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Was ist der Unterschied zwischen random() und crypto.getRandomValues()?</button><div class="faq-a">Math.random() verwendet einen schnellen PRNG-Algorithmus (häufig xorshift128+), der für Spiele und Simulationen geeignet, aber vorhersehbar ist, wenn die Ausgaben beobachtet werden. crypto.getRandomValues() nutzt den kryptografisch sicheren RNG des Betriebssystems, der aus der Hardware-Entropie geseed wird, wodurch die Ausgaben selbst bei vollständiger Kenntnis der vorherigen Werte unvorhersehbar sind. Verwenden Sie Math.random() für Würfelwürfe im Spiel. Verwenden Sie crypto.getRandomValues() für Passwörter, Token und Verschlüsselungsschlüssel. Leistungsunterschied: ~100-mal schneller für Math.random(), aber der Sicherheitsunterschied ist unendlich (vorhersehbar vs. unvorhersehbar).</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Können Zufallszahlengeneratoren vorhergesagt werden?</button><div class="faq-a">PRNGs sind deterministisch – der gleiche Startwert erzeugt immer die gleiche Sequenz. Die Beobachtung genügender Ausgaben (624 für Mersenne Twister) ermöglicht die Vorhersage aller zukünftigen Werte. Aus der Hardware-Entropie abgeleitete TRNGs und CSPRNGs sind rechnerisch unvorhersehbar – kein bekannter Algorithmus kann die nächste Ausgabe aus vorherigen Werten vorhersagen, ohne den internen Zustand zu kennen. Allerdings können fehlerhafte Implementierungen (Debians fehlerhaftes OpenSSL im Jahr 2008, das die Entropie auf 32.767 Möglichkeiten reduziert) vorhersehbar werden. Verwenden Sie immer gut geprüfte RNG-Bibliotheken.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Warum erhalte ich jedes Mal die gleichen Zufallszahlen?</button><div class="faq-a">Ihr RNG wird mit einem festen Wert vorbelegt (möglicherweise standardmäßig 0 oder 1). Viele Sprachen verwenden aus Gründen der Reproduzierbarkeit einen Standard-Seed, wenn Sie keinen angeben. Rufen Sie in Python random.seed() ohne Argumente auf, um den Seed aus der Systemzeit zu erstellen. Verwenden Sie in C++ std::random_device zum Seeding. In JavaScript führt Math.random() beim Laden der Seite automatisch einen Seed aus. Für reproduzierbare Ergebnisse (Tests, Forschung) verwenden Sie absichtlich einen festen Startwert wie random.seed(42). Für unvorhersehbare Ergebnisse stellen Sie sicher, dass Sie Quellen mit hoher Entropie verwenden.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Ist random.org wirklich zufällig?</button><div class="faq-a">Ja – random.org nutzt atmosphärisches Rauschen, das von Radioempfängern erfasst wird, ein physikalischer Prozess, der aufgrund von Quanteneffekten grundsätzlich unvorhersehbar ist. Dabei handelt es sich um echte Zufälligkeit (TRNG), nicht um algorithmische Pseudozufälligkeit. Unabhängige Audits bestätigen eine gleichmäßige Verteilung und Unvorhersehbarkeit. Einschränkungen: Für kostenlose Benutzer ist die Rate auf 1.000 Bit/Sekunde begrenzt, eine Internetverbindung ist erforderlich und Sie müssen der Implementierung vertrauen. Für die meisten Anwendungen sind vom Betriebssystem bereitgestellte CSPRNGs (auch entropiebasiert) schneller und gleichermaßen sicher.</p></div></div>
 </div>
+<h2>Verwandte Rechner</h2>
+<ul>
+<li><a href="/de/wuerfel/">Dice Roller</a>— Simuliert das Werfen mehrerer Würfel mit unterschiedlichen Seitenzahlen</li>
+<li><a href="/de/">Coin Flip Simulator</a>— Erzeugt zufällige Kopf-/Zahl-Ergebnisse</li>
+<li><a href="/de/passwort-generator/">Password Generator</a>— Erstellt sichere Zufallspasswörter</li>
+<li><a href="/de/">Lottery Number Generator</a>— Wählt zufällige Lotteriekombinationen aus</li>
+<li><a href="/de/">Random List Picker</a>– Wählt zufällige Elemente aus einer Liste aus</li>
+</ul>
 </section>

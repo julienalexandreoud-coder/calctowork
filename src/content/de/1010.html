@@ -1,43 +1,80 @@
 <section class="long-content">
-<h2>So funktioniert die Berechnung</h2>
-<p>Ob Sie eine Renovierung planen, Materialien für eine Baustelle schätzen oder Dimensionen für ein DIY-Projekt berechnen — die richtigen Zahlen von Anfang an sparen Zeit und Geld.</p>
-<p>Die Formel hinter dieser Berechnung lautet <strong>Spannungsteiler = f(V Eingang, R1, R2)</strong>. Zu verstehen, wie das Ergebnis ermittelt wird, hilft Ihnen, die Ausgabe zu überprüfen und Eingabefehler zu erkennen.</p>
-
-<h2>Schritt-für-Schritt-Anleitung für Ihr Projekt</h2>
-<p>Folgen Sie diesen Schritten für ein zuverlässiges Ergebnis:</p>
-<öl>
-<li><strong>Geben Sie Ihre Werte ein:</strong> 12 V; 1000 Ω; 1000 Ω — stellen Sie sicher, dass alle Werte ein einheitliches Maßsystem verwenden.</li>
-<li><strong>Der Rechner wendet die Formel an:</strong> <em>Spannungsteiler = f(V Eingang, R1, R2)</em>.</li>
-<li><strong>Lesen Sie Ihr Ergebnis:</strong> V Ausgang.</li>
-<li>Prüfen Sie: Bestätigen Sie, dass die Einheiten konsistent und die Werte realistisch sind, bevor Sie auf das Ergebnis reagieren.</li>
-</öl>
-
-<h2>Praktische Anwendungen auf der Baustelle</h2>
-<p>Dieser Rechner ist besonders nützlich in folgenden Situationen:</p>
+<h1>Spannungsteiler-Rechner: Entwerfen Sie Präzisionsteilerschaltungen</h1>
+<p>Der Spannungsteilerrechner berechnet die Ausgangsspannung einer Spannungsteilerschaltung mit zwei Widerständen. Diese grundlegende Schaltungstopologie wird in nahezu jedem elektronischen Gerät für Sensorschnittstellen, Pegelverschiebung, Referenzerzeugung und Signaldämpfung verwendet. Unabhängig davon, ob Sie eine Arduino-Sensorschaltung, einen Audioverstärker oder einen Stromversorgungsmonitor entwerfen, ist der Spannungsteiler ein wesentlicher Baustein.</p>
+<p class="see-also">Möglicherweise finden Sie auch<a href="/en/punto-equilibrio/">Dew Point Calculator</a>, <a href="/en/indice-calor/">Heat Index Calculator</a>, and <a href="/en/energia-capacitor/">Capacitor Energy Calculator</a> useful.</p>
+internal-links-added
+<div class="formula-section">
+<h2>Spannungsteilerformel</h2>
+<p class="formula-display">V<sub>out</sub> = V<sub>in</sub> × R<sub>2</sub> ÷ (R<sub>1</sub> + R<sub>2</sub>)</p>
+<p>Die Formel ergibt sich aus dem Ohmschen Gesetz und der Tatsache, dass durch beide Widerstände in Reihe der gleiche Strom fließt. Die Eingangsspannung Vin wird über die Reihenschaltung von R1 und R2 angelegt. Die Ausgangsspannung Vout wird über R2, dem unteren Widerstand, abgenommen. Das Teilungsverhältnis hängt nur von den Widerstandswerten ab, nicht vom absoluten Spannungspegel.</p>
+<p>Der durch den Teiler fließende Strom ist I = Vin / (R1 + R2). Dieser Strom bestimmt die Verlustleistung in jedem Widerstand: P1 = I² × R1 und P2 = I² × R2. Für batteriebetriebene Schaltkreise werden größere Widerstandswerte (100 kΩ oder mehr) verwendet, um die Stromaufnahme zu minimieren, während für Präzisionsanwendungen kleinere Werte (1 kΩ bis 10 kΩ) bevorzugt werden, um Rauschen und Belastungseffekte zu reduzieren.</p>
+</div>
+<div class="examples-section">
+<h2>Ausgearbeitete Beispiele</h2>
+<div class="example">
+<h3>Beispiel 1: 5 V auf 3,3 V Level Shifter</h3>
+<p>Für einen Sensormodul-Eingang muss ein 5-V-Mikrocontroller-Ausgang auf 3,3 V reduziert werden. Wählen Sie R1 = 10 kΩ und R2 = 6,8 kΩ (Standard-E12-Werte).</p>
+<p><strong>Berechnung:</strong>Vout = 5 V × 6.800 ÷ (10.000 + 6.800) = 5 × 6.800 ÷ 16.800 =<strong>2.02 V</strong></p>
+<p>Dies erzeugt nur 2,02 V, nicht die gewünschten 3,3 V. Um 3,3 V aus einer 5-V-Versorgung zu erhalten, lösen Sie nach R2 auf: 3,3 = 5 × R2 / (R1 + R2). Mit R1 = 10 kΩ: 3,3 × (10.000 + R2) = 5 × R2, was 33.000 + 3,3 R2 = 5 R2 ergibt, also 33.000 = 1,7 R2 und R2 = 19,4 kΩ. Verwenden Sie R1 = 10 kΩ und R2 = 20 kΩ (Standardwert), um ungefähr 3,33 V zu erhalten.</p>
+</div>
+<div class="example">
+<h3>Beispiel 2: Batteriespannungswächter</h3>
+<p>Eine 12-V-Blei-Säure-Batterie (12,6 V voll geladen) muss mit einem ADC gemessen werden, der maximal 5 V akzeptiert. Entwerfen Sie einen Spannungsteiler, der 12,6 V auf 5 V abbildet.</p>
+<p><strong>Berechnung:</strong>Unter Verwendung von Vout / Vin = R2 / (R1 + R2) = 5 / 12,6 = 0,397. Wenn R2 = 10 kΩ, dann 0,397 = 10.000 / (R1 + 10.000). R1 + 10.000 = 10.000 / 0,397 = 25.189 Ω. R1 = 15.189 Ω ≈ 15 kΩ (Standardwert).</p>
+<p>Mit R1 = 15 kΩ und R2 = 10 kΩ, Vout bei 12,6 V Batterie = 12,6 × 10.000 / (15.000 + 10.000) = 12,6 × 0,4 =<strong>5.04 V</strong>. Dies liegt nahe an der 5-V-ADC-Grenze. Bei 11,5 V (entladen) beträgt Vout = 11,5 × 0,4 = 4,6 V. Der Teiler zieht 12,6 / 25.000 = 0,5 mA aus der Batterie, was für eine kontinuierliche Überwachung akzeptabel ist.</p>
+</div>
+</div>
+<div class="uses-section">
+<h2>Allgemeine Verwendung</h2>
 <ul>
-<li>Schaltungsdesign und Analyse</li><li>Elektronik-Hausaufgaben und Projekte</li><li>Bauteilauswahl und Verifizierung</li><li>Fehlersuche in elektrischen Schaltungen</li>
+<li>Reduzierung der Sensorausgangsspannungen (z. B. 0–10 V auf 0–3,3 V), um sie an den Eingangsbereich von Mikrocontrollern und ADCs anzupassen</li>
+<li>Erstellen von Referenzspannungen für Operationsverstärkerschaltungen und Komparatorschwellen</li>
+<li>Vorspannen von Transistorverstärkerstufen durch Einstellen der Basisspannung auf den richtigen Arbeitspunkt</li>
+<li>Dämpfung von Audiosignalen, um Clipping in Aufnahmeschnittstellen und Audioverarbeitungsketten zu verhindern</li>
+<li>Überwachung der Batteriespannungen in tragbaren Elektronikgeräten, ohne die ADC-Eingangsgrenzen zu überschreiten</li>
+<li>Einstellung der Rückspeisespannung bei einstellbaren Spannungsreglern und Schaltnetzteilen</li>
 </ul>
-
-<h2>Ergebnisse richtig anwenden</h2>
-<p>Ihr Ergebnis zeigt die theoretisch benötigte Menge. Rechnen Sie vor der Bestellung den passenden Verschnittzuschlag ein: 5–10&nbsp;% für Beton und Mörtel, 10–15&nbsp;% für Fliesen, Naturstein und Ziegel, und 3–5&nbsp;% für Stahl und Holz. Runden Sie stets auf die nächste volle Einheit — Sack, Tonne oder Palette.</p>
-
-<h2>Baustandards und bewährte Praktiken</h2>
-<p>Bauprojekte hängen von genauen Materialschätzungen ab. Fachleute addieren typischerweise 5–10&nbsp;% Verschnittzuschlag auf die theoretische Menge für Schnitte, Bruch und Messfehler. DIN-, ISO- und EN-Normen definieren Materialeigenschaften und Toleranzen, die diesen Formeln zugrunde liegen.</p>
-
-<h2>Haufige Fehler vermeiden</h2>
+</div>
+<div class="mistakes-section">
+<h2>Häufige Fehler</h2>
 <ul>
-<li>Vergessen, einen Verschnittzuschlag (5-10%) bei der Materialbestellung hinzuzufügen.</li><li>Metrische und imperiale Einheiten im selben Projekt zu mischen.</li>
+<li>Vergessen Sie, dass sich der Spannungsteilerausgang ändert, wenn eine Last angeschlossen wird – betrachten Sie die Lastimpedanz immer als Widerstand parallel zu R2</li>
+<li>Durch die Verwendung zu hoher Widerstandswerte wird der Teiler anfällig für Rauschkopplungen von Signalen in der Nähe</li>
+<li>Die Verwendung zu niedriger Widerstandswerte führt zu Stromverschwendung und möglicherweise zu einer Überschreitung der Widerstandsnennwerte – ein 100-Ω-Teiler bei 12 V verbraucht 1,44 W</li>
+<li>Angenommen, der Spannungsteiler liefert einen geregelten Ausgang – ein Teiler ist kein Spannungsregler; Wenn die Eingangsspannung schwankt, schwankt der Ausgang proportional</li>
 </ul>
-
-<h2>Profitipp für Bauunternehmer</h2>
-<p>Bestellen Sie 5-10% mehr Material als berechnet, um Schnittverluste und Messfehler auszugleichen.</p>
-
-<h2>Haufig gestellte Fragen</h2>
+</div>
+<div class="pro-tip">
+<h2>Pro Tip</h2>
+<p>Wenn Sie einen Spannungsteiler für einen ADC-Eingang entwerfen, fügen Sie einen kleinen Kondensator (0,1 µF) parallel zu R2 hinzu, um einen Tiefpassfilter zu erstellen. Dadurch wird hochfrequentes Rauschen herausgefiltert und ein Ladungsreservoir für die Sample-and-Hold-Schaltung des ADC bereitgestellt, wodurch die Messgenauigkeit verbessert wird. Die Grenzfrequenz beträgt fc = 1 / (2π × R_äquivalent × C), wobei R_äquivalent die Parallelkombination von R1 und R2 ist. Für R1 = 10 kΩ und R2 = 10 kΩ beträgt der Ersatzwiderstand 5 kΩ, also mit C = 0,1 µF, fc = 1 / (6,28 × 5000 × 1e-7) = 318 Hz, wodurch hochfrequentes Rauschen entfernt und gleichzeitig das Gleichstromsignal erhalten bleibt.</p>
+</div>
+<div class="faq-section">
+<h2>Häufig gestellte Fragen</h2>
 <div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Wie viel zusätzliches Material sollte ich bestellen?</button><div class="faq-a"><p>Die meisten Profis empfehlen, 5-10% mehr zu bestellen als berechnet, um Schnittverluste und Messfehler abzudecken.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Ist dieser Rechner genau?</button><div class="faq-a"><p>Ja. Der Rechner verwendet die Standardformel: Spannungsteiler = f(V Eingang, R1, R2). Die Ergebnisse sind mathematisch exakt.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Kann ich diesen Rechner auf dem Handy nutzen?</button><div class="faq-a"><p>Ja, der Rechner ist vollständig responsiv und funktioniert auf jedem Gerät. Keine Installation erforderlich.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Wie speichere oder teile ich meine Berechnung?</button><div class="faq-a"><p>Verwenden Sie die Schaltfläche <strong>Teilen</strong>, um eine URL mit allen Ihren Eingaben zu generieren. Die Schaltfläche <strong>Kopieren</strong> kopiert das Ergebnis in die Zwischenablage.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Was tun, wenn das Ergebnis falsch erscheint?</button><div class="faq-a"><p>Überprüfen Sie zuerst Ihre Eingaben: Werte in den richtigen Einheiten und realistischem Bereich. Bestätigen Sie auch, dass die Formel <em>Spannungsteiler = f(V Eingang, R1, R2)</em> genau auf Ihre Situation zutrifft.</p></div></div>
+<div class="faq-item">
+<button aria-expanded="false" class="faq-q">Wann sollte ich einen Spannungsteiler oder einen Spannungsregler verwenden?</button>
+<div class="faq-a">Verwenden Sie einen Spannungsteiler nur für Referenzspannungen oder Vorspannungen, wenn die Last einen vernachlässigbaren Strom zieht (weniger als 1 % des Teilerstroms). Verwenden Sie einen Spannungsregler, um Lasten mit hoher Stromaufnahme zu versorgen. Die Ausgangsspannung eines Spannungsteilers sinkt, wenn eine Last angeschlossen wird, da der Lastwiderstand parallel zu R2 liegt und sich das Teilungsverhältnis ändert.</div>
+</div>
+<div class="faq-item">
+<button aria-expanded="false" class="faq-q">Wie wähle ich Widerstandswerte für einen Spannungsteiler aus?</button>
+<div class="faq-a">Wählen Sie Widerstandswerte, die groß genug sind, um Stromverschwendung zu minimieren, aber klein genug, dass der Laststrom im Vergleich zum Teilerstrom vernachlässigbar ist. Eine gute Regel besteht darin, den Strom durch den Teiler 100-mal größer zu machen als den erwarteten Laststrom. Für einen 5-V-zu-3,3-V-Teiler funktionieren 10 kΩ und 6,8 ​​kΩ gut und ziehen etwa 0,3 mA aus der Versorgung.</div>
+</div>
+<div class="faq-item">
+<button aria-expanded="false" class="faq-q">Was ist das Problem mit dem belasteten Spannungsteiler?</button>
+<div class="faq-a">Wenn Sie einen Lastwiderstand (RL) an einen Spannungsteilerausgang anschließen, erscheint RL parallel zu R2, wodurch der effektive Widerstand der unteren Hälfte verringert wird. Dadurch wird die Ausgangsspannung gesenkt. Der tatsächliche Vout wird zu Vin × R2∥RL / (R1 + R2∥RL). Um diesen Effekt zu minimieren, stellen Sie sicher, dass RL mindestens 100-mal größer als R2 ist.</div>
+</div>
+<div class="faq-item">
+<button aria-expanded="false" class="faq-q">Kann ich einen Spannungsteiler bei AC-Signalen verwenden?</button>
+<div class="faq-a">Ja, die Spannungsteilerformel funktioniert sowohl für Gleich- als auch für Wechselstromsignale, solange die Frequenz niedrig genug ist, dass die parasitäre Kapazität vernachlässigbar ist. Bei hohen Frequenzen erzeugt der durch die Widerstandsleitungen und Leiterplattenleiterbahnen gebildete Kondensator einen frequenzabhängigen Spannungsteiler (RC-Filter), der höhere Frequenzen stärker dämpft als niedrigere.</div>
+</div>
+</div>
+</div>
+<div class="related-calculators">
+<h2>Verwandte Rechner</h2>
+<ul> <li><a href="/en/resistor-color-code/">Resistor Color Code Calculator</a></li>
+<li><a href="/en/capacitor-energy/">Capacitor Energy Calculator</a></li>
+<li><a href="/en/rc-time-constant/">RC Time Constant Calculator</a></li>
+<li><a href="/en/heat-index-calculator/">Wheatstone Bridge Calculator</a></li>
+</ul>
 </div>
 </section>

@@ -1,43 +1,73 @@
 <section class="long-content">
-<h2>Comment fonctionne le calcul</h2>
-<p>Que vous planifiiez des travaux de rénovation, estimiez des matériaux pour un chantier ou calculiez des dimensions pour un projet DIY, disposer des bons chiffres dès le départ fait gagner du temps et de l'argent.</p>
-<p>La formule derrière ce calcul est <strong>Rapport de Contraste = f(Luminance claire, Luminance sombre)</strong>. Comprendre comment le résultat est obtenu vous aide à vérifier la sortie et à détecter les erreurs d'entrée.</p>
-
-<h2>Guide pas à pas pour votre projet</h2>
-<p>Suivez ces étapes pour obtenir un résultat fiable :</p>
+<h2>Qu'est-ce que le rapport de contraste ?</h2>
+<p>Le rapport de contraste mesure la différence de luminance entre les parties les plus claires et les plus sombres d'une image ou d'une interface. Un rapport de contraste de 21:1 représente un contraste maximum (blanc pur sur noir pur), tandis que 1:1 représente aucun contraste (couleurs identiques). Les directives pour l'accessibilité du contenu Web (WCAG) exigent des taux de contraste minimaux pour un texte lisible.</p>
+<p class="see-also">Vous pouvez également trouver le<a href="/fr/hex-a-rgb/">Hex to RGB Converter</a>, <a href="/fr/addition-decibels/">Decibel Addition Calculator</a>, and <a href="/fr/valeur-exposition/">Exposure Value Calculator</a> useful.</p>
+liens-internes-ajoutés
+<p>Les concepteurs Web utilisent des taux de contraste pour garantir que le texte est lisible pour les utilisateurs malvoyants. Le texte noir (#000000) sur fond blanc (#FFFFFF) atteint un contraste de 21:1, dépassant de loin l'exigence WCAG AA de 4,5:1 pour un texte normal. Le texte gris clair (#999999) sur blanc n'atteint que 2,8:1 – ce qui ne répond pas aux normes d'accessibilité et est difficile à lire pour de nombreux utilisateurs.</p>
+<p>Les développeurs d'interface utilisateur vérifient les rapports de contraste pour les éléments interactifs tels que les boutons et les liens. Un bouton bleu (#4A90D9) avec du texte blanc atteint un contraste de 4,6:1 – dépassant les WCAG AA. Le même bleu avec du texte gris clair (#CCCCCC) tombe à 1,8 : 1 – échouant et potentiellement inutilisable pour les utilisateurs malvoyants ou daltoniens.</p>
+<h2>Formules de rapport de contraste avec calculs travaillés</h2>
+<p>WCAG 2.1 définit le rapport de contraste en utilisant la luminance relative :</p>
+<p><strong>CR = (L₁ + 0,05) / (L₂ + 0,05)</strong></p>
+<p>Où L₁ est la luminance relative de la couleur la plus claire (0 à 1) et L₂ est la luminance relative de la couleur la plus foncée (0 à 1).</p>
+<p>La luminance relative est calculée à partir des valeurs sRVB :</p>
+<p><strong>L = 0,2126 × R + 0,7152 × G + 0,0722 × B</strong></p>
+<p>Où R, G et B sont les valeurs de couleur linéarisées (corrigées gamma).</p>
+<p><strong>Exemple concret :</strong>Calculez le contraste entre #3366CC (bleu) et #FFFFFF (blanc).</p>
+<p>Tout d'abord, convertissez l'hexadécimal en sRGB (échelle 0-255) : #3366CC = rgb(51, 102, 204), #FFFFFF = rgb(255, 255, 255).</p>
+<p>Normaliser sur une échelle de 0 à 1 : R = 51/255 = 0,2, G = 102/255 = 0,4, B = 204/255 = 0,8 pour le bleu. Le blanc est R = G = B = 1.</p>
+<p>Linéariser chaque canal (correction gamma inverse) :</p>
+<p>Si valeur ≤ 0,03928 : linéaire = valeur / 12,92</p>
+<p>Si valeur &gt; 0,03928 : linéaire = ((valeur + 0,055) / 1,055)^2,4</p>
+<p>Pour le bleu : R = ((0,2 + 0,055) / 1,055)^2,4 = 0,0337, G = ((0,4 + 0,055) / 1,055)^2,4 = 0,1369, B = ((0,8 + 0,055) / 1,055)^2,4 = 0,6072</p>
+<p>Pour le blanc : R = G = B = ((1 + 0,055) / 1,055)^2,4 = 1,0</p>
+<p>Calculer la luminance relative :</p>
+<p>L_bleu = 0,2126 × 0,0337 + 0,7152 × 0,1369 + 0,0722 × 0,6072 = 0,0072 + 0,0979 + 0,0438 = 0,1489</p>
+<p>L_blanc = 0,2126 × 1 + 0,7152 × 1 + 0,0722 × 1 = 1,0</p>
+<p>Calculer le rapport de contraste :</p>
+<p>CR = (1,0 + 0,05) / (0,1489 + 0,05) = 1,05 / 0,1989 = 5,28:1</p>
+<p>Résultat : bleu #3366CC sur blanc #FFFFFF atteint un contraste de 5,28 : 1 – dépasse les normes WCAG AA (4,5 : 1) et AAA (3 : 1) pour le texte normal.</p>
+<h2>Comment calculer le rapport de contraste : 6 étapes</h2>
 <ol>
-<li><strong>Saisissez vos valeurs:</strong> 255; 0 — ensure all values use a single consistent unit system.</li>
-<li><strong>La calculatrice applique la formule:</strong> <em>Rapport de Contraste = f(Luminance claire, Luminance sombre)</em>.</li>
-<li><strong>Lisez votre résultat:</strong> Rapport, Passe WCAG.</li>
-<li>Vérifiez : confirmez que les unités sont cohérentes et les valeurs réalistes avant d'agir sur le résultat.</li>
+<li><strong>Convertir les couleurs en RVB :</strong>Votre couleur de premier plan est #7B2D8E (violet) et votre arrière-plan est #F5F5F5 (gris clair). Convertir : #7B2D8E = RVB (123, 45, 142), #F5F5F5 = RVB (245, 245, 245).</li>
+<li><strong>Normaliser sur une échelle de 0 à 1 :</strong>Violet : R = 123/255 = 0,482, G = 45/255 = 0,176, B = 142/255 = 0,557. Gris : R = G = B = 245/255 = 0,961.</li>
+<li><strong>Appliquer la correction gamma :</strong>Pour le violet : R = ((0,482 + 0,055) / 1,055)^2,4 = 0,203, G = ((0,176 + 0,055) / 1,055)^2,4 = 0,026, B = ((0,557 + 0,055) / 1,055)^2,4 = 0,272. Pour le gris : R = G = B = ((0,961 + 0,055) / 1,055)^2,4 = 0,919.</li>
+<li><strong>Calculer la luminance relative :</strong>L_violet = 0,2126 × 0,203 + 0,7152 × 0,026 + 0,0722 × 0,272 = 0,043 + 0,019 + 0,020 = 0,082. L_gray = 0,2126 × 0,919 + 0,7152 × 0,919 + 0,0722 × 0,919 = 0,919.</li>
+<li><strong>Identifiez le plus clair et le plus foncé :</strong>L_gray (0,919) &gt; L_purple (0,082), donc L₁ = 0,919 et L₂ = 0,082.</li>
+<li><strong>Appliquer la formule de contraste :</strong>CR = (0,919 + 0,05) / (0,082 + 0,05) = 0,969 / 0,132 = 7,34:1. Ce violet sur gris clair atteint 7,34:1 – passe les normes WCAG AAA (7:1) pour un texte normal.</li>
 </ol>
-
-<h2>Usages pratiques sur le chantier</h2>
-<p>Cette calculatrice est particulièrement utile dans les situations suivantes :</p>
+<h2>5 Exemples de rapport de contraste</h2>
+<p><strong>Exemple 1 — Noir sur blanc (contraste maximal) :</strong>#000000 sur #FFFFFF. L_black = 0 (tous les canaux se linéarisent à 0). L_blanc = 1. CR = (1 + 0,05) / (0 + 0,05) = 1,05 / 0,05 = 21:1. Il s’agit du contraste maximal possible dans l’espace colorimétrique sRGB – la référence en matière de lisibilité.</p>
+<p><strong>Exemple 2 — Gris sur gris (contraste défaillant) :</strong>#999999 sur #CCCCCC. L_lumière = 0,2126 × 0,502 + 0,7152 × 0,502 + 0,0722 × 0,502 = 0,502. L_dark = 0,2126 × 0,282 + 0,7152 × 0,282 + 0,0722 × 0,282 = 0,282. CR = (0,502 + 0,05) / (0,282 + 0,05) = 0,552 / 0,332 = 1,66:1. Cela échoue à tous les niveaux WCAG – ce qui est courant dans les interfaces mal conçues où le texte « subtil » gris sur gris devient illisible.</p>
+<p><strong>Exemple 3 — Vert sur blanc (limite AA) :</strong>#00AA00 (vert vif) sur #FFFFFF. L_vert = 0,2126 × 0 + 0,7152 × 0,331 + 0,0722 × 0 = 0,237. L_blanc = 1. CR = (1 + 0,05) / (0,237 + 0,05) = 1,05 / 0,287 = 3,66:1. Cela échoue aux WCAG AA (4,5 : 1) pour le texte normal, mais réussit pour le texte volumineux (18 pts ou 14 pts en gras, nécessitant 3 : 1). Le texte vert est particulièrement problématique pour les utilisateurs daltoniens rouge-vert.</p>
+<p><strong>Exemple 4 — Jaune sur noir (contraste élevé) :</strong>#FFFF00 (jaune pur) sur #000000. L_jaune = 0,2126 × 1 + 0,7152 × 1 + 0,0722 × 0 = 0,928. L_noir = 0. CR = (0,928 + 0,05) / (0 + 0,05) = 0,978 / 0,05 = 19,56:1. Le jaune sur le noir permet d'obtenir un contraste presque maximal. C'est pourquoi les panneaux d'avertissement et les étiquettes de danger utilisent cette combinaison pour une visibilité maximale.</p>
+<p><strong>Exemple 5 — Lien bleu sur blanc (modèle Web commun) :</strong>#0000EE (lien standard bleu) sur #FFFFFF. L_bleu = 0,2126 × 0 + 0,7152 × 0,033 + 0,0722 × 0,549 = 0,024 + 0,040 = 0,064. L_blanc = 1. CR = (1 + 0,05) / (0,064 + 0,05) = 1,05 / 0,114 = 9,21:1. Le lien bleu traditionnel passe facilement tous les niveaux WCAG – une des raisons pour lesquelles il est devenu la norme du Web dans les années 1990 et reste accessible aujourd'hui.</p>
+<h2>4 erreurs courantes liées au rapport de contraste</h2>
 <ul>
-<li>optimisation des techniques photographiques</li><li>réglages d'objectif et d'appareil</li><li>calculs de studio et d'éclairage</li><li>planification de paysage et portrait</li>
+<li><strong>Utilisation de formules de luminance simples :</strong>Le calcul de la luminance comme (R + V + B) / 3 ignore la sensibilité différente de la vision humaine à chaque couleur. Le vert contribue à 71,52 % de la luminosité perçue, le rouge à 21,26 %, le bleu seulement à 7,22 %. Une couleur comme #00FF00 (vert pur) apparaît beaucoup plus lumineuse que #0000FF (bleu pur) malgré des sommes RVB égales.</li>
+<li><strong>Sauter la correction gamma :</strong>L’utilisation directe des valeurs sRVB sans linéarisation produit une luminance incorrecte. L'espace colorimétrique sRVB utilise une courbe gamma pour correspondre à la perception humaine. #808080 (gris moyen) a une luminance linéaire de 0,216 et non de 0,5 – une différence de 57 % qui affecte de manière significative les calculs de contraste.</li>
+<li><strong>Tester uniquement les tailles de texte normales :</strong>Les WCAG ont des exigences différentes pour le texte normal (4,5:1 AA, 7:1 AAA) et le texte volumineux (3:1 AA, 4,5:1 AAA). Le texte de grande taille est en gras de 18 ou 14 pts. Un contraste de 3,5 : 1 échoue à AA pour un corps de texte de 12 pts, mais réussit pour des titres de 20 pts.</li>
+<li><strong>Ignorer les éléments non textuels :</strong>WCAG nécessite également un contraste de 3:1 pour les composants de l'interface utilisateur (boutons, bordures de saisie) et les objets graphiques (icônes, graphiques). Une bordure de bouton grise (#CCCCCC) sur fond blanc (#FFFFFF) n'atteint que 1,3 : 1, ce qui échoue à l'exigence de 3 : 1 et rend le bouton invisible pour de nombreux utilisateurs.</li>
 </ul>
-
-<h2>Interpréter et appliquer vos résultats</h2>
-<p>Votre résultat indique la quantité théorique requise. Ajoutez le facteur de perte approprié avant de commander : 5–10&nbsp;% pour le béton et le mortier, 10–15&nbsp;% pour les carreaux, la pierre naturelle et la brique, et 3–5&nbsp;% pour l'acier et le bois. Arrondissez toujours à l'unité supérieure — sac, tonne ou palette.</p>
-
-<h2>Normes de construction et bonnes pratiques</h2>
-<p>Les projets de construction dépendent d'estimations précises des matériaux. Les professionnels ajoutent généralement 5–10&nbsp;% de marge de perte aux quantités théoriques pour les coupes, la casse et les erreurs de mesure. Les normes ISO et EN définissent les propriétés des matériaux et les tolérances utilisées dans ces formules.</p>
-
-<h2>Erreurs courantes à éviter</h2>
+<h2>5 conseils pour respecter le rapport de contraste</h2>
 <ul>
-<li>Oublier d'ajouter une marge de perte (5-10%) lors de la commande de matériaux.</li><li>Mélanger unités métriques et impériales dans un même projet.</li>
+<li><strong>Commencez avec des valeurs par défaut à contraste élevé :</strong>Utilisez #000000 sur #FFFFFF (21:1) ou #1A1A1A sur #FAFAFA (18:1) comme base. Ceux-ci dépassent toutes les exigences et offrent une marge pour les variations de conception. Réduisez intentionnellement le contraste uniquement pour des éléments de conception spécifiques, jamais pour le corps du texte.</li>
+<li><strong>Utilisez les DevTools du navigateur :</strong>Chrome et Firefox DevTools affichent les taux de contraste dans le sélecteur de couleurs. Cliquez sur n’importe quelle couleur dans le panneau Styles et le sélecteur affiche le rapport de contraste par rapport à l’arrière-plan. Il montre également en un coup d'œil la réussite/l'échec pour les WCAG AA et AAA.</li>
+<li><strong>Test avec des simulateurs de daltonisme :</strong>Des outils tels que Stark, Color Oracle ou les paramètres de rendu de Chrome simulent divers types de déficiences de vision des couleurs. Un contraste rouge-vert qui passe mathématiquement (4,5 : 1) peut toujours être illisible pour les utilisateurs deutéranopes si la teinte est le seul facteur distinctif.</li>
+<li><strong>Vérifiez les états de survol et de focus :</strong>Un bouton avec un contraste de 5:1 dans son état par défaut peut chuter à 2:1 au survol si l'arrière-plan s'éclaircit. Testez tous les états interactifs : par défaut, survol, focus, actif et désactivé. Chaque État doit répondre aux exigences minimales de contraste.</li>
+<li><strong>Utilisez des outils d'audit automatisés :</strong>Lighthouse (intégré à Chrome), ax DevTools ou WAVE peuvent analyser des pages entières à la recherche de violations de contraste. Ces outils détectent les problèmes manqués lors des tests manuels, comme le contenu généré dynamiquement ou les variables CSS qui modifient le contraste en fonction du thème.</li>
 </ul>
-
-<h2>Conseil pro pour les entrepreneurs</h2>
-<p>Commandez 5-10% de matériel en plus que le calcul ne l'indique pour couper les pertes et les erreurs de mesure.</p>
-
-<h2>Questions fréquentes</h2>
+<h2>4 FAQ sur le rapport de contraste</h2>
 <div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Combien de matériel supplémentaire dois-je commander?</button><div class="faq-a"><p>La plupart des professionnels recommandent de commander 5-10% de plus que le calcul pour couper les pertes et les erreurs de mesure.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cette calculatrice est-elle précise?</button><div class="faq-a"><p>Oui. La calculatrice utilise la formule standard : Rapport de Contraste = f(Luminance claire, Luminance sombre). Les résultats sont mathématiquement exacts.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Puis-je utiliser cette calculatrice sur mobile?</button><div class="faq-a"><p>Oui, la calculatrice est entièrement responsive et fonctionne sur tout appareil. Aucune installation requise.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Comment sauvegarder ou partager mon calcul ?</button><div class="faq-a"><p>Utilisez le bouton <strong>Partager</strong> pour générer une URL qui encode toutes vos entrées. Le bouton <strong>Copier</strong> copie le résultat dans le presse-papiers.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Que faire si mon résultat semble incorrect ?</button><div class="faq-a"><p>Vérifiez d'abord vos entrées : valeurs dans les bonnes unités et plage réaliste. Vérifiez aussi que la formule <em>Rapport de Contraste = f(Luminance claire, Luminance sombre)</em> s'applique exactement à votre situation.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Quelles sont les exigences WCAG en matière de contraste ?</button><div class="faq-a">WCAG 2.1 niveau AA nécessite 4,5 : 1 pour le texte normal, 3 : 1 pour le texte volumineux (18 pts ou 14 pts en gras) et 3 : 1 pour les composants et les graphiques de l'interface utilisateur. Le niveau AAA nécessite 7:1 pour le texte normal, 4,5:1 pour le texte volumineux et 4,5:1 pour les composants de l'interface utilisateur. La plupart des organisations ciblent les AA comme norme de conformité légale.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Le rapport de contraste s’applique-t-il aux images ?</button><div class="faq-a">Pas directement. Les WCAG ne nécessitent pas de rapports de contraste spécifiques dans les photographies ou les illustrations. Cependant, le texte superposé aux images doit répondre aux exigences de contraste, soit en ajoutant une superposition semi-transparente derrière le texte, soit en utilisant des ombres de texte. Les images décoratives nécessitent un alt="" et les images informatives nécessitent un texte alternatif descriptif.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Comment calculer le contraste des couleurs transparentes ?</button><div class="faq-a">Tout d’abord, composez la couleur transparente sur son arrière-plan à l’aide de la fusion alpha. Pour rgba(0, 0, 0, 0.5) sur #FFFFFF : RVB résultant = (0 × 0,5 + 255 × 0,5) = 127,5 → #808080. Calculez ensuite le contraste entre la couleur composée (#808080) et l'arrière-plan final. La transparence elle-même n'affecte pas le contraste : seule la couleur finale visible compte.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Pourquoi la formule ajoute-t-elle 0,05 à la luminance ?</button><div class="faq-a">La constante de 0,05 tient compte de l'éblouissement de l'écran et des réflexions de la lumière ambiante. Dans des conditions de visualisation réelles, même le « noir pur » sur un écran reflète un peu de lumière, et le « blanc pur » n’apparaît pas infiniment brillant. Le décalage empêche les rapports de contraste infinis (divisant par zéro) et modélise les environnements de visualisation typiques avec une lumière ambiante modérée.</p></div></div>
 </div>
+<h2>Calculatrices associées</h2>
+<ul>
+<li><a href="/fr/hex-a-rgb/">Hex to RGB Converter</a>— Convertir les codes de couleur hexadécimaux en valeurs RVB</li>
+<li><a href="/fr/">Color Blindness Simulator</a>— Aperçu des conceptions présentant différents types de déficiences de vision des couleurs</li>
+<li><a href="/fr/">WCAG Compliance Checker</a>— Auditer des pages entières pour vérifier la conformité en matière d'accessibilité</li>
+<li><a href="/fr/">Luminance Calculator</a>— Calculer la luminance relative pour n'importe quelle couleur sRGB</li>
+</ul>
 </section>

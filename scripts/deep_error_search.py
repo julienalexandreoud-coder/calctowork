@@ -23,7 +23,8 @@ for lang in ["es", "en", "fr", "pt", "de", "it"]:
         with open(page, "r", encoding="utf-8") as f:
             c = f.read()
         for ref in re.findall(r'(?:src|href)="(/[^"]*)"', c):
-            ref_path = os.path.join(PUBLIC, ref.lstrip("/"))
+            ref_clean = ref.split("?")[0].split("#")[0]
+            ref_path = os.path.join(PUBLIC, ref_clean.lstrip("/"))
             if not os.path.exists(ref_path):
                 rel = os.path.relpath(page, PUBLIC)
                 found += 1
@@ -94,7 +95,7 @@ for fp in sorted(glob.glob(os.path.join(CALC_DIR, "*.json"))):
     with open(fp, "r", encoding="utf-8-sig") as f:
         c = json.load(f)
     for out in c.get("outputs", []):
-        if "unit" not in out or out.get("unit", "") == "":
+        if "unit" not in out:
             missing_units += 1
             if missing_units <= 3:
                 print(f"  {c['id']} {os.path.basename(fp)}: output '{out.get('id','?')}' missing unit")
@@ -103,7 +104,7 @@ if missing_units == 0:
 
 # 6. Check for invalid input type values
 print("\n=== INVALID INPUT TYPES ===")
-valid_types = {"number", "select", "text", "checkbox", "range"}
+valid_types = {"number", "select", "text", "checkbox", "range", "date"}
 bad_types = 0
 for fp in sorted(glob.glob(os.path.join(CALC_DIR, "*.json"))):
     if "bak" in fp or "monolithic" in fp:

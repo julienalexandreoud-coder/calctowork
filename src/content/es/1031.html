@@ -1,26 +1,130 @@
 <section class="long-content">
-<p>Calcula el número de semana aproximado del año.</p>
-<p>Calcula el número de semana ISO 8601 para cualquier fecha. Ejemplo: 15 de marzo de 2025 → semana 11. Calculadora gratuita e instantánea.</p>
-<h2>Datos de entrada</h2>
+<h2>¿Qué es una calculadora de números de semanas?</h2>
+<p>Una calculadora de números de semanas determina en qué semana del año (1-53) cae una fecha específica de acuerdo con la norma internacional ISO 8601. A diferencia de las referencias casuales a la "semana 3" o "la tercera semana de enero", los números de semana ISO proporcionan un sistema inequívoco y globalmente consistente utilizado en negocios, fabricación, logística y desarrollo de software en más de 160 países.</p>
+<p class="see-also">También puede encontrar el<a href="/es/dia-del-ano/">Day of Year Calculator</a>, <a href="/es/edad-en-dias/">Age in Days Calculator</a>, and <a href="/es/tiempo-lectura/">Reading Time Calculator</a> useful.</p><p>El sistema de datación semanal ISO 8601 resuelve un problema crítico: los meses tienen una duración irregular (28-31 días), lo que hace que la planificación mensual sea inconsistente. Un "proyecto de 4 semanas" que comienza el 25 de enero termina en diferentes meses calendario dependiendo de cómo se cuente. Las semanas ISO siempre contienen exactamente 7 días, definiéndose la semana 1 como la semana que contiene el primer jueves del año. Esto garantiza que cada semana pertenezca enteramente a un año: ninguna semana abarca diciembre y enero.</p>
+<p>Las empresas dependen de los números semanales para los informes financieros, los cronogramas de producción y los plazos de entrega. Los sistemas SAP, Oracle y Microsoft utilizan semanas ISO para períodos fiscales. Las compañías de envío como FedEx y DHL hacen referencia a los números de semana para el seguimiento internacional. El control de versiones del software suele seguir patrones como "2024-W27" (semana 27 de 2024). Comprender los cálculos del número de semanas evita costosos errores de programación en operaciones globales.</p>
+<h2>Fórmula del número de semana ISO explicada con ejemplos</h2>
+<p>La norma ISO 8601 define los números de semanas utilizando reglas específicas:</p>
+<p><strong>Reglas de la semana ISO:</strong></p>
 <ul>
-<li><strong>Mes</strong> (valor por defecto: 1)</li>
-<li><strong>Día</strong> (valor por defecto: 1)</li>
+<li>Las semanas comienzan el lunes (no el domingo como en los calendarios de EE. UU.)</li>
+<li>La semana 1 es la semana que contiene el primer jueves del año</li>
+<li>La semana 1 siempre contiene el 4 de enero (ya que el 4 de enero siempre cae en la misma semana que el primer jueves)</li>
+<li>Cada semana tiene exactamente 7 días</li>
+<li>Un año tiene 52 o 53 semanas (nunca 54)</li>
+<li>Los números de la semana oscilan entre S01 y S53</li>
 </ul>
-<h2>Resultados</h2>
+<p><strong>Formula to determine ISO week number:</strong></p>
+<p><strong>Número de semana = piso((Ordinal(Fecha) - Día de la semana(Fecha) + 10) / 7)</strong></p>
+<p>Where:</p>
 <ul>
-<li><strong>Semana</strong></li>
+<li>Ordinal(Fecha) = Día del año (1-365/366)</li>
+<li>Día de la semana(Fecha) = Número de día de la semana ISO (lunes=1, domingo=7)</li>
+<li>Si resultado = 0, la fecha pertenece a la última semana del año anterior (W52 o W53)</li>
+<li>Si el resultado ≥ 53, verifique si en realidad es W01 del próximo año</li>
 </ul>
-<p>Fórmula: <code>Ver fórmula en el cálculo</code></p><p>Ejemplo de uso: Mes: <strong>1 </strong>, Día: <strong>1 </strong>.</p><h2>Desglose del cálculo</h2>
+<p><strong>El año tiene 53 semanas si:</strong></p>
+<ul>
+<li>El 1 de enero cae en jueves (cualquier año), O</li>
+<li>El 1 de enero cae en miércoles Y es un año bisiesto</li>
+<li>De lo contrario, el año tiene 52 semanas</li>
+</ul>
+<p><strong>Ejemplo resuelto 1 - 20 de julio de 2024:</strong></p>
+<p>Paso 1: Encuentre el día del año para el 20 de julio de 2024. 2024 es un año bisiesto (divisible por 4). De enero a junio = 182 días, más 20 = día 202.</p>
+<p>Paso 2: determine el día de la semana. El 20 de julio de 2024 es sábado. Día laborable ISO = 6 (lunes = 1, sábado = 6).</p>
+<p>Paso 3: Aplicar la fórmula: Semana = piso((202 - 6 + 10) / 7) = piso(206 / 7) = piso(29.43) = 29</p>
+<p>Paso 4: Verificar: 29 está entre 1 y 52, por lo que es válido.</p>
+<p><strong>Semana ISO: 2024-W29-6</strong>(Año 2024, Semana 29, Sábado)</p>
+<p><strong>Ejemplo resuelto 2: 1 de enero de 2024:</strong></p>
+<p>Paso 1: Día del año = 1 (primer día del año)</p>
+<p>Paso 2: El 1 de enero de 2024 es lunes. Día laborable ISO = 1.</p>
+<p>Paso 3: Aplicar la fórmula: Semana = piso((1 - 1 + 10) / 7) = piso(10 / 7) = piso(1.43) = 1</p>
+<p>Paso 4: Verificar: la semana 1 es válida. Verificar: ¿esta semana contiene el primer jueves? Del 1 de enero (lunes) al 7 de enero (domingo) contiene el 4 de enero (jueves). Sí.</p>
+<p><strong>Semana ISO: 2024-W01-1</strong>(Año 2024, Semana 1, lunes)</p>
+<p><strong>Ejemplo resuelto 3 - 31 de diciembre de 2024:</strong></p>
+<p>Paso 1: 2024 es un año bisiesto, por lo que 31 de diciembre = día 366</p>
+<p>Paso 2: El 31 de diciembre de 2024 es martes. Día laborable ISO = 2.</p>
+<p>Paso 3: Aplicar la fórmula: Semana = piso((366 - 2 + 10) / 7) = piso(374 / 7) = piso(53.43) = 53</p>
+<p>Paso 4: Verificar: ¿2024 tiene 53 semanas? El 1 de enero de 2024 es lunes, no jueves ni miércoles, por lo que 2024 tiene 52 semanas. La semana 53 no existe — el 31 de diciembre pertenece a W01 de 2025.</p>
+<p><strong>Semana ISO: 2025-W01-2</strong>(Año 2025, Semana 1, martes)</p>
+<h2>6 pasos para calcular el número de semana ISO</h2>
 <ol>
-<li>Identificar los valores de entrada</li>
-<li>Aplicar la fórmula correspondiente</li>
-<li>Realizar el cálculo</li>
-<li>Obtener los 1 resultados</li>
+<li><strong>Determinar el día del año (fecha ordinal):</strong>Cuente los días desde el 1 de enero hasta su fecha objetivo. 1 de enero = día 1, 31 de diciembre = día 365 (o 366 en años bisiestos). Para el 15 de marzo en un año no bisiesto: 31 (enero) + 28 (febrero) + 15 = día 74. Utilice una calculadora de día del año o memorice los totales mensuales acumulados para acelerar.</li>
+<li><strong>Encuentre el número ISO del día laborable:</strong>Números ISO 8601 entre semana de lunes = 1 a domingo = 7. Si su fecha es miércoles, día laborable ISO = 3. La mayoría de los lenguajes de programación tienen funciones integradas: Python<code>date.isoweekday()</code>, JavaScript requiere ajuste (<code>day.getDay() || 7</code>), Excel usa<code>WEEKDAY(date, 2)</code>. Recuerde: ISO lunes ≠ domingo EE. UU. como inicio de semana.</li>
+<li><strong>Aplique la fórmula del número de semana:</strong>Calcule (ordinal - día laborable + 10) / 7 y luego redondee hacia abajo al número entero más cercano. Para el día 202, día de la semana 6: (202 - 6 + 10) / 7 = 206 / 7 = 29,43 → 29. Esto proporciona un número de semana preliminar que puede necesitar ajustes para los límites del año.</li>
+<li><strong>Verifique los casos extremos con límite de año:</strong>Si la fórmula arroja 0, la fecha pertenece a la última semana del año anterior. Si arroja 53 o más, verifique si el año realmente tiene 53 semanas. Del 1 al 3 de enero suelen pertenecer a la última semana del año anterior, mientras que del 29 al 31 de diciembre suelen pertenecer a la semana 1 del año siguiente.</li>
+<li><strong>Determina si el año tiene 53 semanas:</strong>Consulte el día laborable del 1 de enero. Si el 1 de enero es jueves, el año tiene 53 semanas. Si el 1 de enero es miércoles Y es un año bisiesto, el año tiene 53 semanas. Todas las demás combinaciones producen años de 52 semanas. Para 2024 (año bisiesto, 1 de enero = lunes), hay 52 semanas. For 2026 (non-leap, Jan 1 = Thursday), there are 53 weeks.</li>
+<li><strong>Asigne el número de la última semana con el año:</strong>Exprese el resultado en formato AAAA-Www-D. 20 de julio de 2024 = 2024-W29-6. 31 de diciembre de 2024 = 2025-W01-2 (pertenece a la semana 1 del próximo año). Incluya siempre el año ISO, que puede diferir del año calendario para fechas cercanas al 1 de enero o al 31 de diciembre.</li>
 </ol>
-<h2>Errores frecuentes</h2>
+<h2>5 ejemplos prácticos de cálculo del número de semanas</h2>
+<p><strong>Ejemplo 1: fecha límite del proyecto (15 de abril de 2024):</strong></p>
 <ul>
-<li>No verificar las unidades de entrada</li>
-<li>Redondear resultados intermedios</li>
-<li>No verificar el rango de validez</li>
+<li>Día del año: 31 + 29 + 31 + 15 = 106 (2024 es año bisiesto)</li>
+<li>Día laborable: el 15 de abril de 2024 es lunes → día laborable ISO = 1</li>
+<li>Cálculo de la semana: (106 - 1 + 10) / 7 = 115 / 7 = 16,43 → 16</li>
+<li>Verificación de límites: 16 es válido para 2024 (año de 52 semanas)</li>
+<li><strong>Semana ISO: 2024-W16-1</strong>— Entregable vence el lunes de la semana 16</li>
 </ul>
-<p>Calculadoras relacionadas: #1030 #1032 #1033 #1034</p>
+<p><strong>Ejemplo 2: Lote de fabricación (2 de septiembre de 2024):</strong></p>
+<ul>
+<li>Día del año: 31 + 29 + 31 + 30 + 31 + 30 + 31 + 31 + 2 = 246</li>
+<li>Día laborable: el 2 de septiembre de 2024 es lunes → día laborable ISO = 1</li>
+<li>Cálculo de la semana: (246 - 1 + 10) / 7 = 255 / 7 = 36,43 → 36</li>
+<li><strong>Semana ISO: 2024-W36-1</strong>— Lote de producción previsto para la semana 36</li>
+</ul>
+<p><strong>Ejemplo 3: Nochevieja (31 de diciembre de 2025):</strong></p>
+<ul>
+<li>Día del año: 365 (2025 no es un año bisiesto)</li>
+<li>Día laborable: el 31 de diciembre de 2025 es miércoles → día laborable ISO = 3</li>
+<li>Cálculo de la semana: (365 - 3 + 10) / 7 = 372 / 7 = 53,14 → 53</li>
+<li>Verificación de límites: 2025 tiene 52 semanas (el 1 de enero de 2025 es miércoles, no año bisiesto)</li>
+<li>Resultado: la semana 53 no existe para 2025, por lo que esta es W01 de 2026</li>
+<li><strong>Semana ISO: 2026-W01-3</strong>— La víspera de Año Nuevo pertenece a la primera semana de 2026</li>
+</ul>
+<p><strong>Ejemplo 4: Fecha de principios de enero (2 de enero de 2023):</strong></p>
+<ul>
+<li>Día del año: 2</li>
+<li>Día laborable: el 2 de enero de 2023 es lunes → día laborable ISO = 1</li>
+<li>Cálculo de la semana: (2 - 1 + 10) / 7 = 11 / 7 = 1,57 → 1</li>
+<li>Verificación de límites: el 1 de enero de 2023 es domingo. La semana 1 contiene el primer jueves (5 de enero). El 2 de enero es la semana anterior.</li>
+<li>Recalcular: esta es en realidad la última semana de 2022</li>
+<li><strong>Semana ISO: 2022-W52-1</strong>— El 2 de enero de 2023 pertenece a la última semana completa de 2022</li>
+</ul>
+<p><strong>Ejemplo 5: Auditoría de mitad de año (30 de junio de 2024):</strong></p>
+<ul>
+<li>Día del año: 31 + 29 + 31 + 30 + 31 + 30 = 182 (año bisiesto)</li>
+<li>Día laborable: el 30 de junio de 2024 es domingo → Día laborable ISO = 7</li>
+<li>Cálculo de la semana: (182 - 7 + 10) / 7 = 185 / 7 = 26,43 → 26</li>
+<li><strong>Semana ISO: 2024-W26-7</strong>— Final de la semana 26, exactamente a mitad de año (52 semanas / 2 = 26)</li>
+</ul>
+<h2>4 errores comunes en el cálculo del número de semana</h2>
+<ul>
+<li><strong>Suponiendo que la semana 1 siempre comienza el 1 de enero:</strong>La semana 1 de ISO contiene el primer jueves, lo que significa que puede comenzar el 29 de diciembre (si el 1 de enero es viernes) o el 4 de enero (si el 1 de enero es jueves). En 2021, la semana 1 comenzó el 4 de enero. En 2022, la semana 1 comenzó el 3 de enero. En 2024, la semana 1 comenzó el 1 de enero. Esta variabilidad confunde a las personas que esperan que las semanas se alineen con los años calendario.</li>
+<li><strong>Uso de la numeración semanal de EE. UU. (inicio del domingo) para negocios internacionales:</strong>Estados Unidos tradicionalmente comienza las semanas en domingo y define la semana 1 como la semana que contiene el 1 de enero. Esto produce números de semana diferentes a los de ISO 8601 para el 15-20% de las fechas, especialmente cerca de los límites de los años. El 2 de enero de 2023 es la semana ISO 52 de 2022, pero la semana 1 de EE. UU. de 2023. Especifique siempre la "semana ISO" en los contratos y cronogramas.</li>
+<li><strong>Olvidando que algunos años tienen 53 semanas:</strong>Los años que comienzan en jueves siempre tienen 53 semanas (2009, 2015, 2020, 2026, 2037). Los años bisiestos que comienzan en miércoles también tienen 53 semanas (2004, 2032, 2060). Si siempre asume 52 semanas, sus cálculos del 30 al 31 de diciembre tendrán un error de una semana en años de 53 semanas. Esto afecta el cierre financiero, los recuentos de inventario y los informes anuales.</li>
+<li><strong>Mezclar el año ISO con el año calendario para las fechas límite:</strong>El 31 de diciembre de 2024 pertenece a la semana ISO 2025-W01, no a la 2024-W52. El 1 de enero de 2023 pertenece a 2022-W52, no a 2023-W01. El uso de un año ISO incorrecto provoca errores de clasificación de datos en las bases de datos y períodos fiscales desalineados. Utilice siempre el año ISO que corresponde a la semana, no el año calendario de la fecha.</li>
+</ul>
+<h2>5 consejos profesionales para calcular el número de semanas</h2>
+<ul>
+<li><strong>Utilice la "regla del 4 de enero" para un cálculo mental rápido:</strong>La semana 1 siempre contiene el 4 de enero. Cuente las semanas a partir de ahí: el 4 de enero está en W01, el 11 de enero es W02, el 18 de enero es W03, etc. Para cualquier fecha, encuentre el múltiplo de 7 días más cercano al 4 de enero. El 20 de julio son 197 días después del 4 de enero: 197/7 = 28,1, por lo que está en la semana 1 + 28 = W29. Esto funciona porque el 4 de enero siempre está en la semana 1 según la definición ISO.</li>
+<li><strong>Implementa la semana ISO en Excel con una sola fórmula:</strong> Use <code>=INT((A1-DATE(YEAR(A1),1,1)+(WEEKDAY(DATE(YEAR(A1),1,1),2)-1))/7)+1</code>para el número de semana. Para la fecha de la semana ISO completa:<code>=YEAR(A1)&amp;"-W"&amp;TEXT(WEEKNUM(A1,21),"00")&amp;"-"&amp;WEEKDAY(A1,2)</code>. El parámetro "21" le dice a Excel que use la numeración de semanas ISO. Para fechas cercanas a los límites del año, agregue lógica para ajustar el año ISO.</li>
+<li><strong>Aproveche las funciones integradas del lenguaje de programación:</strong> Python: <code>date.isocalendar()</code>devuelve (ISO_año, ISO_semana, ISO_día de la semana). JavaScript: use una biblioteca como date-fns<code>getISOWeek(date)</code>. PHP: <code>date("W", $timestamp)</code>. C#: <code>CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(date, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday)</code>. Estos manejan casos extremos automáticamente y reducen errores en el código de producción.</li>
+<li><strong>Plan para años de 53 semanas en los sistemas financieros:</strong>Las empresas que utilizan calendarios minoristas 4-4-5 o períodos fiscales semanales deben contabilizar años de 53 semanas que ocurren cada 5-6 años. En años de 53 semanas, el cuarto trimestre tiene 14 semanas en lugar de 13. Presuponga en consecuencia: objetivos anuales divididos por 53 en lugar de 52, o agregue la semana adicional a un trimestre específico. Documente esto en las políticas contables para evitar hallazgos de auditoría.</li>
+<li><strong>Convertir entre semana ISO y fecha ordinal para bases de datos:</strong>Almacene las fechas como cadenas semanales ISO 8601 (2024-W29-6) para los informes de cara al usuario, pero utilice fechas ordinales (día del año) para los cálculos. Conversión: ordinal = (semana - 1) × 7 + día de la semana - día de la semana_del_1 de enero + 1. Este enfoque híbrido combina la legibilidad humana con la eficiencia computacional en consultas SQL y canalizaciones de datos.</li>
+</ul>
+<h2>Preguntas frecuentes sobre el número de 4 semanas</h2>
+<div class="faq-list">
+<div class="faq-item"><button aria-expanded="false" class="faq-q">¿Por qué la semana 1 de ISO a veces comienza el año anterior?</button><div class="faq-a">ISO 8601 requiere que la semana 1 contenga el primer jueves. Si el 1 de enero es viernes, sábado o domingo, el primer jueves cae en la siguiente semana calendario, lo que hace que esas fechas de principios de enero pertenezcan a la última semana del año anterior. Por ejemplo, el 1 de enero de 2022 fue sábado, por lo que pertenecía a 2021-W52. Esto garantiza que ninguna semana se divida entre años: cada semana de lunes a domingo pertenece en su totalidad a un año ISO.</div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">¿Con qué frecuencia un año tiene 53 semanas?</button><div class="faq-a">Los años de 53 semanas se dan en el 71,4% de los años (5 de cada 7 años de media). Específicamente: cualquier año que comienza en jueves tiene 53 semanas, más los años bisiestos que comienzan en miércoles. Años recientes de 53 semanas: 2004, 2009, 2015, 2020. Próximos: 2026, 2032, 2037, 2043. El patrón se repite cada 28 años en el calendario juliano, pero las reglas de siglo del calendario gregoriano crean ligeras variaciones durante períodos más largos.</div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">¿Cuál es la diferencia entre la numeración de semanas ISO y de semanas de EE. UU.?</button><div class="faq-a">Tres diferencias clave: (1) las semanas ISO comienzan el lunes; Las semanas estadounidenses tradicionalmente comienzan el domingo. (2) La semana 1 de ISO contiene el primer jueves; La semana 1 de EE. UU. contiene el 1 de enero. (3) ISO utiliza 52-53 semanas con reglas estrictas; Los sistemas estadounidenses varían (algunos usan entre 52 y 54 semanas). El 1 de enero de 2024 ilustra: ISO = 2024-W01-1 (lunes), EE. UU. = 2024-W01-1 (pero comenzó el domingo 31 de diciembre de 2023). Para el 15-20% de las fechas, los números de semana difieren en 1.</div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">¿Puedo utilizar números de semanas para la gestión de proyectos?</button><div class="faq-a">Absolutamente: los números semanales son ideales para los cronogramas de los proyectos. A diferencia de los meses (que varían entre 28 y 31 días), cada semana ISO tiene exactamente 7 días. Un "sprint de 12 semanas" siempre equivale a 84 días, independientemente de la fecha de inicio. Los equipos ágiles utilizan números de semanas para la planificación de sprints (Sprint 2024-W25 a W26). La industria manufacturera los utiliza para los cronogramas de producción (Semana 32: ensamblaje; Semana 33: prueba; Semana 34: envío). Incluya el año ISO para evitar ambigüedades: "Entregar para 2025-W03" es más claro que "Entregar para la semana 3".</div></div>
+</div>
+<h2>Calculadoras relacionadas</h2>
+<ul>
+<li><a href="/es/dia-del-ano/">Day of Year Calculator</a>— Calcula el número de día ordinal (1-365/366) para cualquier fecha</li>
+<li><a href="/es/">Days Between Dates Calculator</a>— Cuenta los días exactos entre dos fechas del calendario</li>
+<li><a href="/es/dias-habiles/">Business Days Calculator</a>— Calcula los días laborables excluyendo fines de semana y festivos</li>
+<li><a href="/es/">Date Duration Calculator</a>— Suma o resta períodos de tiempo de fechas</li>
+<li><a href="/es/">ISO Week Date Converter</a>— Convierte entre el formato de semana ISO y las fechas del calendario estándar</li>
+</ul>
+</section>

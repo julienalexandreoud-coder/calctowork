@@ -1,43 +1,72 @@
 <section class="long-content">
-<h2>Come funziona il calcolo</h2>
-<p>Che tu stia pianificando una ristrutturazione, stimando materiali per un cantiere o calcolando dimensioni per un progetto fai-da-te, avere i numeri giusti fin dall'inizio risparmia tempo e denaro.</p>
-<p>La formula alla base di questo calcolo è <strong>Rapporto di Contrasto = f(Luminanza chiara, Luminanza scura)</strong>. Comprendere come si ottiene il risultato ti aiuta a verificare l'output e a rilevare errori di input.</p>
-
-<h2>Guida passo dopo passo per il tuo progetto</h2>
-<p>Segui questi passaggi per ottenere un risultato affidabile:</p>
+<h2>Cos'è il rapporto di contrasto?</h2>
+<p>Il rapporto di contrasto misura la differenza di luminanza tra le parti più chiare e quelle più scure di un'immagine o di un'interfaccia. Un rapporto di contrasto di 21:1 rappresenta il contrasto massimo (bianco puro su nero puro), mentre 1:1 rappresenta nessun contrasto (colori identici). Le Linee guida per l'accessibilità dei contenuti Web (WCAG) richiedono rapporti di contrasto minimi per il testo leggibile.</p>
+<p class="see-also">Potresti anche trovare<a href="/it/hex-a-rgb/">Hex to RGB Converter</a>, <a href="/it/addizione-decibel/">Decibel Addition Calculator</a>, and <a href="/it/valore-esposizione/">Exposure Value Calculator</a> useful.</p>
+collegamenti-<p>I web designer utilizzano rapporti di contrasto per garantire che il testo sia leggibile per gli utenti con disabilità visive. Il testo nero (#000000) su sfondo bianco (#FFFFFF) raggiunge un contrasto di 21:1, superando di gran lunga il requisito WCAG AA di 4,5:1 per il testo normale. Il testo grigio chiaro (#999999) su bianco raggiunge solo 2,8:1: non rispetta gli standard di accessibilità ed è difficile da leggere per molti utenti.</p>
+<p>Gli sviluppatori dell'interfaccia utente controllano i rapporti di contrasto per elementi interattivi come pulsanti e collegamenti. Un pulsante blu (#4A90D9) con testo bianco raggiunge un contrasto di 4,6:1, superando WCAG AA. Lo stesso blu con testo grigio chiaro (#CCCCCC) scende a 1,8:1: fallisce e potenzialmente inutilizzabile per gli utenti ipovedenti o daltonici.</p>
+<h2>Formule del rapporto di contrasto con calcoli elaborati</h2>
+<p>Le WCAG 2.1 definiscono il rapporto di contrasto utilizzando la luminanza relativa:</p>
+<p><strong>CR = (L₁ + 0,05) / (L₂ + 0,05)</strong></p>
+<p>Dove L₁ è la luminanza relativa del colore più chiaro (da 0 a 1) e L₂ è la luminanza relativa del colore più scuro (da 0 a 1).</p>
+<p>La luminanza relativa viene calcolata dai valori sRGB:</p>
+<p><strong>L = 0,2126 × R + 0,7152 × G + 0,0722 × B</strong></p>
+<p>Dove R, G e B sono i valori di colore linearizzati (con correzione gamma).</p>
+<p><strong>Esempio realizzato:</strong>Calcola il contrasto tra #3366CC (blu) e #FFFFFF (bianco).</p>
+<p>Innanzitutto, converti esadecimale in sRGB (scala 0-255): #3366CC = rgb(51, 102, 204), #FFFFFF = rgb(255, 255, 255).</p>
+<p>Normalizza su scala 0-1: R = 51/255 = 0,2, Sol = 102/255 = 0,4, Si = 204/255 = 0,8 per il blu. Il bianco è R = SOL = B = 1.</p>
+<p>Linearizzare ciascun canale (correzione gamma inversa):</p>
+<p>Se valore ≤ 0,03928: lineare = valore / 12,92</p>
+<p>Se valore &gt; 0,03928: lineare = ((valore + 0,055) / 1,055)^2,4</p>
+<p>Per il blu: R = ((0,2 + 0,055) / 1,055)^2,4 = 0,0337, G = ((0,4 + 0,055) / 1,055)^2,4 = 0,1369, B = ((0,8 + 0,055) / 1,055)^2,4 = 0,6072</p>
+<p>Per il bianco: R = SOL = B = ((1 + 0,055) / 1,055)^2,4 = 1,0</p>
+<p>Calcola la luminanza relativa:</p>
+<p>L_blu = 0,2126 × 0,0337 + 0,7152 × 0,1369 + 0,0722 × 0,6072 = 0,0072 + 0,0979 + 0,0438 = 0,1489</p>
+<p>L_bianco = 0,2126 × 1 + 0,7152 × 1 + 0,0722 × 1 = 1,0</p>
+<p>Calcola il rapporto di contrasto:</p>
+<p>CR = (1,0 + 0,05) / (0,1489 + 0,05) = 1,05 / 0,1989 = 5,28:1</p>
+<p>Risultato: il blu #3366CC su bianco #FFFFFF raggiunge un contrasto di 5,28:1: supera WCAG AA (4,5:1) e AAA (3:1) per il testo normale.</p>
+<h2>Come calcolare il rapporto di contrasto: 6 passaggi</h2>
 <ol>
-<li><strong>Inserisci i tuoi valori:</strong> 255; 0 — ensure all values use a single consistent unit system.</li>
-<li><strong>La calcolatrice applica la formula:</strong> <em>Rapporto di Contrasto = f(Luminanza chiara, Luminanza scura)</em>.</li>
-<li><strong>Leggi il tuo risultato:</strong> Rapporto, WCAG pass.</li>
-<li>Verificate: confermate che le unità siano coerenti e i valori realistici prima di agire sul risultato.</li>
+<li><strong>Converti i colori in RGB:</strong>Il colore di primo piano è #7B2D8E (viola) e lo sfondo è #F5F5F5 (grigio chiaro). Converti: #7B2D8E = rgb(123, 45, 142), #F5F5F5 = rgb(245, 245, 245).</li>
+<li><strong>Normalizza su scala 0-1:</strong>Viola: R = 123/255 = 0,482, Sol = 45/255 = 0,176, Si = 142/255 = 0,557. Grigio: R = Sol = Si = 245/255 = 0,961.</li>
+<li><strong>Applicare la correzione gamma:</strong>Per il viola: R = ((0,482 + 0,055) / 1,055)^2,4 = 0,203, G = ((0,176 + 0,055) / 1,055)^2,4 = 0,026, B = ((0,557 + 0,055) / 1,055)^2,4 = 0,272. Per il grigio: R = G = B = ((0,961 + 0,055) / 1,055)^2,4 = 0,919.</li>
+<li><strong>Calcola la luminanza relativa:</strong>L_viola = 0,2126 × 0,203 + 0,7152 × 0,026 + 0,0722 × 0,272 = 0,043 + 0,019 + 0,020 = 0,082. L_grigio = 0,2126 × 0,919 + 0,7152 × 0,919 + 0,0722 × 0,919 = 0,919.</li>
+<li><strong>Identificare il più chiaro e il più scuro:</strong>L_grigio (0,919) &gt; L_viola (0,082), quindi L₁ = 0,919 e L₂ = 0,082.</li>
+<li><strong>Applicare la formula di contrasto:</strong>CR = (0,919 + 0,05) / (0,082 + 0,05) = 0,969 / 0,132 = 7,34:1. Questo viola su grigio chiaro raggiunge 7,34:1 — supera WCAG AAA (7:1) per il testo normale.</li>
 </ol>
-
-<h2>Usi pratici in cantiere</h2>
-<p>Questa calcolatrice è particolarmente utile nelle seguenti situazioni:</p>
+<h2>5 Esempi di rapporti di contrasto</h2>
+<p><strong>Esempio 1 — Nero su bianco (contrasto massimo):</strong>#000000 su #FFFFFF. L_black = 0 (tutti i canali si linearizzano su 0). L_bianco = 1. CR = (1 + 0,05) / (0 + 0,05) = 1,05 / 0,05 = 21:1. Questo è il massimo contrasto possibile nello spazio colore sRGB: lo standard di riferimento per la leggibilità.</p>
+<p><strong>Esempio 2 — Grigio su grigio (contrasto insufficiente):</strong>#999999 su #CCCCCC. L_luce = 0,2126 × 0,502 + 0,7152 × 0,502 + 0,0722 × 0,502 = 0,502. L_scuro = 0,2126 × 0,282 + 0,7152 × 0,282 + 0,0722 × 0,282 = 0,282. CR = (0,502 + 0,05) / (0,282 + 0,05) = 0,552 / 0,332 = 1,66:1. Ciò non soddisfa tutti i livelli WCAG, cosa comune nelle interfacce mal progettate in cui il testo "sottile" grigio su grigio diventa illeggibile.</p>
+<p><strong>Esempio 3 — Verde su bianco (al limite AA):</strong>#00AA00 (verde brillante) su #FFFFFF. L_verde = 0,2126 × 0 + 0,7152 × 0,331 + 0,0722 × 0 = 0,237. L_bianco = 1. CR = (1 + 0,05) / (0,237 + 0,05) = 1,05 / 0,287 = 3,66:1. Ciò non soddisfa le WCAG AA (4.5:1) per il testo normale, ma passa per il testo di grandi dimensioni (18pt o 14pt in grassetto, che richiede 3:1). Il testo verde è particolarmente problematico per gli utenti daltonici rosso-verdi.</p>
+<p><strong>Esempio 4 — Giallo su nero (contrasto elevato):</strong>#FFFF00 (giallo puro) su #000000. L_giallo = 0,2126 × 1 + 0,7152 × 1 + 0,0722 × 0 = 0,928. L_nero = 0. CR = (0,928 + 0,05) / (0 + 0,05) = 0,978 / 0,05 = 19,56:1. Il giallo su nero raggiunge un contrasto quasi massimo: perché i segnali di avvertimento e le etichette di pericolo utilizzano questa combinazione per la massima visibilità.</p>
+<p><strong>Esempio 5: collegamento blu su bianco (modello Web comune):</strong>#0000EE (collegamento standard blu) su #FFFFFF. L_blu = 0,2126 × 0 + 0,7152 × 0,033 + 0,0722 × 0,549 = 0,024 + 0,040 = 0,064. L_bianco = 1. CR = (1 + 0,05) / (0,064 + 0,05) = 1,05 / 0,114 = 9,21:1. Il tradizionale collegamento blu supera facilmente tutti i livelli WCAG: uno dei motivi per cui è diventato lo standard web negli anni '90 e rimane accessibile anche oggi.</p>
+<h2>4 errori comuni nel rapporto di contrasto</h2>
 <ul>
-<li>ottimizzazione delle tecniche fotografiche</li><li>impostazioni di lente e fotocamera</li><li>calcoli di studio e illuminazione</li><li>pianificazione di paesaggio e ritratto</li>
+<li><strong>Utilizzando semplici formule di luminanza:</strong>Il calcolo della luminanza come (R + G + B) / 3 ignora la diversa sensibilità della visione umana a ciascun colore. Il verde contribuisce per il 71,52% alla luminosità percepita, il rosso per il 21,26%, il blu solo per il 7,22%. Un colore come #00FF00 (verde puro) appare molto più luminoso di #0000FF (blu puro) nonostante le stesse somme RGB.</li>
+<li><strong>Saltare la correzione gamma:</strong>L'utilizzo diretto dei valori sRGB senza linearizzazione produce una luminanza errata. Lo spazio colore sRGB utilizza una curva gamma per corrispondere alla percezione umana. #808080 (grigio medio) ha una luminanza lineare di 0,216, non di 0,5: una differenza del 57% che influisce in modo significativo sui calcoli del contrasto.</li>
+<li><strong>Testare solo le dimensioni normali del testo:</strong>Le WCAG hanno requisiti diversi per il testo normale (4,5:1 AA, 7:1 AAA) rispetto al testo di grandi dimensioni (3:1 AA, 4,5:1 AAA). Il testo grande è in grassetto da 18 o 14 punti. Un contrasto 3,5:1 fallisce AA per il corpo del testo di 12 punti ma passa per titoli di 20 punti.</li>
+<li><strong>Ignorando gli elementi non di testo:</strong>Le WCAG richiedono inoltre un contrasto 3:1 per i componenti dell'interfaccia utente (pulsanti, bordi di input) e gli oggetti grafici (icone, grafici). Un bordo grigio del pulsante (#CCCCCC) su sfondo bianco (#FFFFFF) raggiunge solo 1,3:1, non soddisfacendo il requisito 3:1 e rendendo il pulsante invisibile a molti utenti.</li>
 </ul>
-
-<h2>Come applicare i risultati</h2>
-<p>Il tuo risultato mostra la quantità teoricamente richiesta. Prima di ordinare, applica il fattore di scarto appropriato: 5–10&nbsp;% per calcestruzzo e malta, 10–15&nbsp;% per piastrelle, pietra naturale e mattoni, e 3–5&nbsp;% per acciaio e legname. Arrotonda sempre all'unità intera superiore — sacco, tonnellata o pallet.</p>
-
-<h2>Norme di costruzione e buone pratiche</h2>
-<p>I progetti di costruzione dipendono da stime precise dei materiali. I professionisti aggiungono tipicamente il 5–10&nbsp;% di tolleranza per sfridi, rotture ed errori di misura. Le norme ISO, EN e UNI definiscono le proprietà dei materiali e le tolleranze alla base di queste formule.</p>
-
-<h2>Errori comuni da evitare</h2>
+<h2>5 suggerimenti per il rispetto del rapporto di contrasto</h2>
 <ul>
-<li>Dimenticare di aggiungere un margine di scarto (5-10%) nell'ordine dei materiali.</li><li>Mescolare unità metriche e imperiali nello stesso progetto.</li>
+<li><strong>Inizia con valori predefiniti ad alto contrasto:</strong>Usa #000000 su #FFFFFF (21:1) o #1A1A1A su #FAFAFA (18:1) come base. Questi superano tutti i requisiti e offrono spazio per variazioni di progettazione. Riduci intenzionalmente il contrasto solo per elementi di design specifici, mai per il corpo del testo.</li>
+<li><strong>Utilizzare gli strumenti di sviluppo del browser:</strong>Chrome e Firefox DevTools mostrano i rapporti di contrasto nel selettore colori. Fai clic su qualsiasi colore nel pannello Stili e il selettore visualizzerà il rapporto di contrasto rispetto allo sfondo. Mostra inoltre a colpo d'occhio il superamento/fallimento per WCAG AA e AAA.</li>
+<li><strong>Test con simulatori di daltonismo:</strong>Strumenti come Stark, Color Oracle o le impostazioni di rendering di Chrome simulano vari tipi di deficit della visione dei colori. Un contrasto rosso-verde che passa matematicamente (4,5:1) potrebbe essere ancora illeggibile per gli utenti deuteranopi se la tonalità è l'unico fattore distintivo.</li>
+<li><strong>Controlla gli stati del passaggio del mouse e del focus:</strong>Un pulsante con contrasto 5:1 nel suo stato predefinito potrebbe scendere a 2:1 al passaggio del mouse se lo sfondo si schiarisce. Testa tutti gli stati interattivi: predefinito, passaggio del mouse, focus, attivo e disabilitato. Ogni stato deve soddisfare i requisiti minimi di contrasto.</li>
+<li><strong>Utilizza strumenti di controllo automatizzati:</strong>Lighthouse (integrato in Chrome), ax DevTools o WAVE possono scansionare intere pagine per rilevare violazioni del contrasto. Questi strumenti rilevano i problemi mancati nei test manuali, come contenuti generati dinamicamente o variabili CSS che cambiano il contrasto in base al tema.</li>
 </ul>
-
-<h2>Consiglio professionale per appaltatori</h2>
-<p>Ordina il 5-10% in più di materiale rispetto al calcolo per coprire tagli, rotture ed errori di misura.</p>
-
-<h2>Domande frequenti</h2>
+<h2>4 Domande frequenti sul rapporto di contrasto</h2>
 <div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Quanto materiale extra devo ordinare?</button><div class="faq-a"><p>La maggior parte dei professionisti raccomanda di ordinare il 5-10% in più rispetto al calcolato per coprire tagli e sprechi.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Questa calcolatrice è precisa?</button><div class="faq-a"><p>Sì. La calcolatrice usa la formula standard: Rapporto di Contrasto = f(Luminanza chiara, Luminanza scura). I risultati sono matematicamente esatti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Posso usare questa calcolatrice sul telefono?</button><div class="faq-a"><p>Sì, la calcolatrice è completamente responsive e funziona su qualsiasi dispositivo. Nessuna installazione richiesta.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Come salvo o condivido il mio calcolo?</button><div class="faq-a"><p>Usa il pulsante <strong>Condividi</strong> per generare un URL con tutti i tuoi dati. Il pulsante <strong>Copia</strong> copia il risultato negli appunti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cosa fare se il risultato sembra sbagliato?</button><div class="faq-a"><p>Controlla prima i tuoi dati: valori nelle unità corrette e intervallo realistico. Verifica anche che la formula <em>Rapporto di Contrasto = f(Luminanza chiara, Luminanza scura)</em> si applichi esattamente alla tua situazione.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Quali sono i requisiti di contrasto delle WCAG?</button><div class="faq-a">Le WCAG 2.1 Livello AA richiedono 4,5:1 per il testo normale, 3:1 per il testo di grandi dimensioni (18pt o 14pt in grassetto) e 3:1 per i componenti e la grafica dell'interfaccia utente. Il livello AAA richiede 7:1 per il testo normale, 4,5:1 per il testo di grandi dimensioni e 4,5:1 per i componenti dell'interfaccia utente. La maggior parte delle organizzazioni sceglie AA come standard di conformità legale.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Il rapporto di contrasto si applica alle immagini?</button><div class="faq-a">Non direttamente. WCAG non richiede rapporti di contrasto specifici all'interno di fotografie o illustrazioni. Tuttavia, il testo sovrapposto alle immagini deve soddisfare i requisiti di contrasto, aggiungendo una sovrapposizione semitrasparente dietro il testo o utilizzando le ombre del testo. Le immagini decorative necessitano di alt="" e le immagini informative necessitano di un testo alternativo descrittivo.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Come calcolo il contrasto per i colori trasparenti?</button><div class="faq-a">Innanzitutto, componi il colore trasparente sullo sfondo utilizzando la fusione alfa. Per rgba(0, 0, 0, 0,5) su #FFFFFF: RGB risultante = (0 × 0,5 + 255 × 0,5) = 127,5 → #808080. Quindi calcola il contrasto tra il colore composito (#808080) e lo sfondo finale. La trasparenza in sé non influisce sul contrasto: conta solo il colore finale visibile.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Perché la formula aggiunge 0,05 alla luminanza?</button><div class="faq-a">La costante 0,05 tiene conto dell'abbagliamento dello schermo e dei riflessi della luce ambientale. Nelle condizioni di visualizzazione del mondo reale, anche il "nero puro" su uno schermo riflette un po' di luce e il "bianco puro" non appare infinitamente luminoso. L'offset impedisce rapporti di contrasto infiniti (divisione per zero) e modella gli ambienti di visualizzazione tipici con luce ambientale moderata.</p></div></div>
 </div>
+<h2>Calcolatori correlati</h2>
+<ul>
+<li><a href="/it/hex-a-rgb/">Hex to RGB Converter</a>— Converti i codici colore esadecimali in valori RGB</li>
+<li><a href="/it/">Color Blindness Simulator</a>— Anteprima dei progetti con vari tipi di deficit di visione dei colori</li>
+<li><a href="/it/">WCAG Compliance Checker</a>— Controlla la conformità di intere pagine in termini di accessibilità</li>
+<li><a href="/it/">Luminance Calculator</a>— Calcola la luminanza relativa per qualsiasi colore sRGB</li>
+</ul>
 </section>

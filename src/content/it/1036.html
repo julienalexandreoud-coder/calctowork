@@ -1,43 +1,140 @@
 <section class="long-content">
-<h2>La formula di fisica spiegata</h2>
-<p>Le formule di fisica e chimica prendono vita quando puoi inserire valori reali e vedere risultati istantanei. Questa calcolatrice gestisce automaticamente le conversioni di unità.</p>
-<p>La formula alla base di questo calcolo è <strong>Lancio Dadi = f(Numero dadi, Facce)</strong>. Comprendere come si ottiene il risultato ti aiuta a verificare l'output e a rilevare errori di input.</p>
-
-<h2>Calcolo passo dopo passo con unita</h2>
-<p>Segui questi passaggi per ottenere un risultato affidabile:</p>
+<h2>Cos'è un rullo di dadi?</h2>
+<p>Un lanciatore di dadi simula il lancio di dadi fisici utilizzando la generazione di numeri casuali, producendo risultati imprevedibili per giochi da tavolo, esperimenti probabilistici e processi decisionali. Dalle campagne di Dungeons &amp; Dragons che richiedono 4d6+3 tiri per i danni alle lezioni di statistica che dimostrano il teorema del limite centrale, i lanciatori di dadi digitali forniscono risultati casuali rapidi, equi e verificabili senza bisogno di dadi fisici.</p>
+<p class="see-also">Potresti anche trovare<a href="/it/numero-casuale/">Random Number Generator</a> and <a href="/it/testa-o-croce/">Coin Flip</a> useful.</p>
+collegamenti-<p>La matematica dietro al lancio dei dadi rivela perché i rulli digitali sono importanti. Un dado equilibrato a sei facce (d6) ha pari 1/6 (16,67%) di probabilità per ciascuna faccia. Ma i dadi fabbricati mostrano pregiudizi: i dadi del casinò costano più di $ 20 perché sono bilanciati con precisione con una tolleranza di 0,0005 pollici. I dadi da gioco da tavolo economici possono mostrare una distorsione del 5% verso determinate facce a causa della distribuzione non uniforme del peso dei pip. I rulli digitali che utilizzano RNG crittograficamente sicuro eliminano completamente i bias fisici, garantendo una probabilità reale di 1/6 per ogni lancio.</p>
+<p>La notazione dei dadi standardizza il modo in cui vengono espressi i tiri: "2d6" significa lanciare due dadi a sei facce e sommare; "1d20+5" significa lanciare un dado a venti facce e aggiungere 5; "4d6kh3" significa lanciare quattro dadi a sei facce e mantenere il 3 più alto. Questa notazione, originata dai giochi di ruolo da tavolo negli anni '70, ora appare nei documenti di progettazione dei giochi, nei calcolatori di probabilità e nelle API di gioco in tutto il mondo. Comprendere la notazione dei dadi consente una comunicazione precisa sui risultati casuali tra le comunità di gioco.</p>
+<h2>Spiegazione della formula del lancio dei dadi e della probabilità</h2>
+<p><strong>Formula base del lancio dei dadi:</strong></p>
+<p><strong>Risultato = Σ(casuale(1, s) per ogni dado) + modificatore</strong></p>
+<p>Where:</p>
+<ul>
+<li>s = Numero di facce per matrice (4, 6, 8, 10, 12, 20, 100, ecc.)</li>
+<li>n = Numero di dadi lanciati</li>
+<li>modificatore = Costante aggiunta o sottratta (può essere 0)</li>
+</ul>
+<p><strong>Scomposizione della notazione dei dadi:</strong></p>
+<ul>
+<li>XdY = Lancia X dadi con Y facce ciascuno, somma i risultati</li>
+<li>XdY+Z = Lancia X dadi con Y lati, aggiungi Z al totale</li>
+<li>XdYkhZ = Lancia X dadi con Y lati, mantieni il dado Z più alto</li>
+<li>XdYklZ = Lancia X dadi con Y lati, mantieni il dado Z più basso</li>
+<li>XdY! = Lancia X dadi con Y facce, esplodi al massimo (rilancia e aggiungi)</li>
+</ul>
+<p><strong>Distribuzione di probabilità per XdY:</strong></p>
+<p>Per un dado singolo (1dY): distribuzione uniforme, P(qualsiasi valore) = 1/Y</p>
+<p>Per dadi multipli (XdY dove X &gt; 1): distribuzione triangolare o a campana</p>
+<p><strong>Valore atteso (media) per XdY:</strong></p>
+<p><strong>E[XdY] = X × (Y + 1) / 2</strong></p>
+<p><strong>Varianza per XdY:</strong></p>
+<p><strong>Var(XdY) = X × (Y² - 1) / 12</strong></p>
+<p><strong>Esempio funzionato 1 – Tiro per colpire standard di D&amp;D (1d20+5):</strong></p>
+<p>Passo 1: lancia un dado a 20 facce: random(1, 20) = 17</p>
+<p>Passaggio 2: aggiungi il modificatore: 17 + 5 = 22</p>
+<p><strong>Risultato: 22</strong>(arriva a CA 22 o inferiore)</p>
+<p>Passo 3: Calcola la probabilità di ottenere AC 18:</p>
+<p>Necessità: 1d20 + 5 ≥ 18, quindi 1d20 ≥ 13</p>
+<p>Successo sui tiri 13-20: 8 risultati su 20</p>
+<p>P(hit) = 8/20 = 0,40 = 40%</p>
+<p><strong>Esempio funzionato 2 — Statistiche del personaggio (4d6kh3):</strong></p>
+<p>Passo 1: lancia quattro dadi a 6 facce: [4, 6, 3, 5]</p>
+<p>Passaggio 2: ordinamento discendente: [6, 5, 4, 3]</p>
+<p>Passaggio 3: mantieni il 3 più alto: 6 + 5 + 4 = 15</p>
+<p><strong>Risultato: 15</strong>(stat sopra la media, la media è 12,24)</p>
+<p>Passo 4: Calcola il valore atteso per 4d6kh3:</p>
+<p>E[4d6kh3] = 4 × 3,5 - E[il più basso di 4d6] = 14 - 1,76 = 12,24</p>
+<p><strong>Esempio funzionato 3 — Danno da palla di fuoco (8d6):</strong></p>
+<p>Passaggio 1: lancia otto dadi a 6 facce: [3, 6, 2, 5, 4, 6, 1, 5]</p>
+<p>Passaggio 2: somma tutti i valori: 3 + 6 + 2 + 5 + 4 + 6 + 1 + 5 = 32</p>
+<p><strong>Risultato: 32 danni</strong></p>
+<p>Passaggio 3: calcolare il danno previsto:</p>
+<p>E[8d6] = 8 × (6 + 1) / 2 = 8 × 3,5 = 28</p>
+<p>Passaggio 4: calcolare la deviazione standard:</p>
+<p>Var(8d6) = 8 × (36 - 1) / 12 = 8 × 2,917 = 23,33</p>
+<p>SD = √23,33 = 4,83</p>
+<p>Intervallo tipico (±1 SD): da 23 a 33 danni (68% dei tiri)</p>
+<h2>6 passaggi per lanciare i dadi</h2>
 <ol>
-<li><strong>Inserisci i tuoi valori:</strong> 2 dice; 6 sides — ensure all values use a single consistent unit system.</li>
-<li><strong>La calcolatrice applica la formula:</strong> <em>Lancio Dadi = f(Numero dadi, Facce)</em>.</li>
-<li><strong>Leggi il tuo risultato:</strong> Totale, Lanci.</li>
-<li>Verificate: confermate che le unità siano coerenti e i valori realistici prima di agire sul risultato.</li>
+<li><strong>Identificare la notazione dei dadi o i requisiti del lancio:</strong>Analizza l'espressione del tiro: "3d8+2" significa 3 dadi, 8 facce ciascuno, modificatore +2. "2d20kh1" significa 2 dadi a venti facce, mantieni il più alto 1 (vantaggio in D&amp;D 5e). "5d10!" significa 5 dadi a dieci facce con esplosione (rilancia i valori massimi). Annota ogni componente: numero di dadi, lati del dado, modificatore ed eventuali regole speciali (mantieni il più alto/il più basso, esplodi, rilancia).</li>
+<li><strong>Genera valori casuali per ogni dado:</strong>Per ogni dado, genera un numero intero casuale compreso tra 1 e il numero di facce. Utilizza un RNG equo: crypto.getRandomValues() per i rulli online o un RNG hardware per le applicazioni del casinò. Per 3d8: genera tre valori, ad esempio [7, 3, 8]. Ciascun valore ha una probabilità uguale a 1/8 (12,5%). Registra i risultati dei singoli stampi per trasparenza e verifica.</li>
+<li><strong>Applicare regole speciali se applicabili:</strong>Per "mantieni il più alto" (kh): ordina i dadi in modo decrescente, somma solo i valori Z più alti. Per "mantieni il più basso" (kl): ordina in modo crescente, somma i valori Z inferiori. Per "esplodere" (!): se qualsiasi dado mostra il valore massimo, lancia un dado aggiuntivo e aggiungilo (ripeti se anche il nuovo dado raggiunge il massimo). Per "rilancio 1": sostituisci qualsiasi 1 con nuovi tiri. Applicare queste regole prima della somma.</li>
+<li><strong>Somma i dadi corrispondenti:</strong>Somma i valori dei dadi contati (tutti i dadi per i tiri standard, i dadi conservati per i tiri kh/kl, inclusi i dadi esplosione). Per 3d8 che lanciano [7, 3, 8]: somma = 7 + 3 + 8 = 18. Per 4d6kh3 che lanciano [4, 6, 3, 5], mantenendo [6, 5, 4]: somma = 15. Ricontrolla l'addizione: semplici errori aritmetici frustrano i giocatori più della sfortuna.</li>
+<li><strong>Aggiungi eventuali modificatori:</strong>Applicare il modificatore costante dalla notazione. Per 3d8+2 con somma 18: 18 + 2 = 20. I modificatori possono essere negativi (1d20-3 per tiri svantaggiati) o zero (tiri per danni puri). Alcuni sistemi applicano i modificatori in modo diverso: GURPS aggiunge i modificatori prima del confronto con il bersaglio, mentre D&amp;D li aggiunge al tiro. Seguire le regole del gioco specifico.</li>
+<li><strong>Visualizzare e registrare il risultato:</strong>Mostra il totale finale insieme ai valori dei singoli dadi per trasparenza. "3d8+2 = [7, 3, 8] + 2 = 20" consente ai giocatori di verificare che il tiro non sia stato manipolato. Per i registri di gioco o i registri della campagna, includere timestamp, nome del giocatore e scopo del tiro ("Tiro per colpire Goblin contro CA 16"). Ciò crea una traccia verificabile per i risultati controversi.</li>
 </ol>
-
-<h2>Applicazioni in laboratorio e nel mondo reale</h2>
-<p>Questa calcolatrice è particolarmente utile nelle seguenti situazioni:</p>
+<h2>5 esempi pratici di lancio dei dadi</h2>
+<p><strong>Esempio 1 — Tiro per colpire 5e di D&amp;D con vantaggio (2d20kh1+7):</strong></p>
 <ul>
-<li>valutazione della sicurezza delle password</li><li>analisi del testo e conteggio dei caratteri</li><li>calcoli di data e ora</li><li>task utilitari quotidiani</li>
+<li>Lancia: 2 dadi a venti facce, mantieni il valore più alto, aggiungi 7</li>
+<li>Tiri individuali: [14, 19]</li>
+<li>Mantieni il massimo: 19</li>
+<li>Aggiungi modificatore: 19 + 7 = 26</li>
+<li><strong>Risultato: 26</strong>(colpisce la maggior parte dei mostri in D&amp;D)</li>
+<li>Analisi delle probabilità: il vantaggio aumenta la probabilità di successo dal 60% all'84% rispetto a AC 18</li>
 </ul>
-
-<h2>Precisione e cifre significative</h2>
-<p>Verificate le cifre significative: il vostro risultato non può essere più preciso della misura meno precisa. Arrotondate il risultato finale allo stesso numero di cifre significative della misura meno precisa utilizzata.</p>
-
-<h2>Contesto fisico e scientifico</h2>
-<p>Le formule fisiche descrivono matematicamente relazioni reali validate da secoli di sperimentazione. La coerenza delle unità è la fonte di errore più frequente: mischiare SI e imperiale compromette tutti i calcoli successivi. Converti sempre tutti gli input in un unico sistema di unità prima di calcolare.</p>
-
-<h2>Errori di conversione di unita da evitare</h2>
+<p><strong>Esempio 2 – Tiro per Danni del Pathfinder (2d6+4 per la spada lunga):</strong></p>
 <ul>
-<li>Dimenticare di convertire tutte le unita in SI prima di usare la formula.</li>
+<li>Lancia: 2 dadi a sei facce, aggiungi 4</li>
+<li>Tiri individuali: [3, 5]</li>
+<li>Somma: 3 + 5 = 8</li>
+<li>Aggiungi modificatore: 8 + 4 = 12</li>
+<li><strong>Risultato: 12 danni taglienti</strong></li>
+<li>Danno atteso: E[2d6+4] = 2 × 3,5 + 4 = 11 (questo tiro è superiore alla media)</li>
 </ul>
-
-<h2>Consiglio per misurazioni precise</h2>
-<p>Lavora sempre in unità SI (metri, chilogrammi, secondi, Kelvin) quando applichi formule.</p>
-
-<h2>Domande frequenti</h2>
+<p><strong>Esempio 3 — Dadi esplosivi di Mondi selvaggi (1d10!):</strong></p>
+<ul>
+<li>Lancia: 1 dado a dieci facce, esplode con 10</li>
+<li>Primo lancio: 10 (massimo! Lancia di nuovo e aggiungi)</li>
+<li>Tiro per l'esplosione: 7</li>
+<li>Totale: 10 + 7 = 17</li>
+<li><strong>Risultato: 17</strong>(tiro eccellente, il massimo senza esplosione è 10)</li>
+<li>Probabilità di almeno un'esplosione: 10% per tiro, soffitto infinito</li>
+</ul>
+<p><strong>Esempio 4 — Prova di Abilità GURPS (3d6 ≤ abilità):</strong></p>
+<ul>
+<li>Lancio: 3 dadi a sei facce, la somma deve essere ≤ livello di abilità</li>
+<li>Tiri individuali: [2, 4, 3]</li>
+<li>Somma: 2 + 4 + 3 = 9</li>
+<li><strong>Result: 9</strong>(successo se abilità ≥ 9, successo critico se abilità ≥ 16)</li>
+<li>Distribuzione delle probabilità: 3d6 produce una curva a campana centrata su 10,5</li>
+<li>P(rotolo ≤ 10) = 50%, P(rotolo ≤ 14) = 90,7%, P(rotolo = 3 o 18) = 0,46% ciascuno</li>
+</ul>
+<p><strong>Esempio 5 — Tiro Armatura di Warhammer 6+ (5d6, conta i successi ≥ 5):</strong></p>
+<ul>
+<li>Lancia: 5 dadi a sei facce, conta i dadi che mostrano 5 o 6</li>
+<li>Tiri individuali: [2, 5, 6, 3, 6]</li>
+<li>Successi (≥5): dado 2 (5), dado 3 (6), dado 5 (6) = 3 successi</li>
+<li><strong>Risultato: 3 parate effettuate, 2 ferite subite</strong></li>
+<li>Tiri salvezza previsti: 5 × (2/6) = 1,67 tiri salvezza (questo tiro ha superato le aspettative)</li>
+</ul>
+<h2>4 errori comuni nel lancio dei dadi</h2>
+<ul>
+<li><strong>Utilizzo di generatori di numeri casuali distorti:</strong>Alcuni lanciatori di dadi online utilizzano Math.random() o PRNG simili non crittografici che possono produrre modelli su migliaia di lanci. Sebbene accettabile per il gioco occasionale, ciò è importante per il gioco d'azzardo o il gioco competitivo in cui l'equità viene esaminata attentamente. Utilizzare rulli che dichiarano esplicitamente di utilizzare un RNG crittograficamente sicuro o che siano controllati da terze parti. I dadi fisici hanno un pregiudizio di produzione; i dadi digitali hanno pregiudizi algoritmici se mal implementati.</li>
+<li><strong>Applicazione errata delle regole di vantaggio/svantaggio:</strong>In D&amp;D 5e, vantaggio significa tirare 2d20 e prendere il valore più alto (2d20kh1), NON tirare 1d20+5 o tirare due volte e sommare entrambi. Lo svantaggio significa prendere il più basso (2d20kl1). Molteplici fonti di vantaggio non si cumulano: tiri comunque solo 2d20. Un errore comune è lanciare 3d20 quando si hanno due fonti "vantaggiose". La regola è binaria: un qualsiasi numero di vantaggi = tira 2d20kl1, un qualsiasi numero di svantaggi = tira 2d20kl1.</li>
+<li><strong>Dimenticarsi di ripristinare le catene di esplosioni:</strong>I dadi esplosivi (tirare di nuovo al massimo) possono concatenarsi indefinitamente. Un giocatore tira 10 su 1d10!, poi tira un altro 10, poi un altro 10, poi un 3. Totale = 10 + 10 + 10 + 3 = 33, non 13. Traccia ogni esplosione separatamente. Alcuni sistemi limitano le esplosioni a una volta per dado o limitano il valore totale. Chiarire sempre le regole sull'esplosione prima di tirare per evitare controversie a metà partita sul fatto se quel tiro per i danni da 50+ fosse legale.</li>
+<li><strong>Notazione confusa dei dadi nei diversi sistemi di gioco:</strong>"4d6" significa cose diverse in contesti diversi. Nella creazione dei personaggi di D&amp;D, di solito significa "4d6kh3" (tira 4, mantieni il 3 più alto). Nei tiri per i danni, significa sommare tutti e 4 i dadi. In Shadowrun, "6d6" significa contare quanti dadi mostrano 5 o 6 (successi), non sommare. Specificare sempre la notazione completa comprese le regole speciali. In caso di dubbio, scrivere la procedura completa anziché dare per scontato una comprensione condivisa della notazione abbreviata.</li>
+</ul>
+<h2>5 consigli professionali per lanciare i dadi</h2>
+<ul>
+<li><strong>Comprendere le curve di probabilità per il bilanciamento del gioco:</strong>I dadi singoli (1d20) producono una probabilità piatta: ogni risultato ha la stessa probabilità. Dadi multipli (3d6, 4d6kh3) producono curve a campana: i risultati medi sono comuni, gli estremi rari. Ciò influisce sul design del gioco: 1d20 di D&amp;D significa che un modificatore +1 cambia la percentuale di successo esattamente del 5%. 3d6 di GURPS significa che +1 cambia il tasso di successo del 12,5% nella media ma solo del 2,8% agli estremi. Scegli la meccanica che corrisponde al livello di casualità desiderato.</li>
+<li><strong>Usa i rulli dei dadi con la cronologia dei tiri e le statistiche:</strong>I buoni rulli digitali tengono traccia di tutti i rotoli, mostrando la distribuzione nel tempo. Dopo 100 tiri per colpire, hai davvero ottenuto cinque 1 naturali? La storia dimostra (o smentisce) "i dadi mi odiano". Alcuni rulli mostrano statistiche in tempo reale: lancio medio, deviazione standard, frequenza di ciascun risultato. Ciò aiuta a identificare i pregiudizi effettivi rispetto ai modelli percepiti. Gli esseri umani ricordano i fallimenti drammatici (nat 1) più dei successi banali, creando false impressioni di ingiustizia.</li>
+<li><strong>Espressioni di danno complesse pre-roll:</strong>Per gli incantesimi con danno variabile (8d6 palla di fuoco), esegui il pre-roll durante il turno del giocatore precedente per accelerare il gioco. Molti tabletop virtuali (Roll20, Foundry) ti consentono di creare pulsanti macro per le espressioni lanciate frequentemente. Il pulsante "Palla di fuoco" esegue istantaneamente 8d6. Ciò mantiene il flusso del combattimento e riduce gli errori matematici dovuti alla fretta. Per il gioco fisico, lancia i dadi di danno insieme ai dadi di attacco se sei sicuro di colpire.</li>
+<li><strong>Implementa le riserve di dadi con il conteggio dei successi per i tiri grandi:</strong>Lanciare 20d6 e sommare è noioso. Per grandi riserve di dadi, utilizzare sistemi di conteggio dei successi: ogni dado che mostra 4+ = 1 successo. Lanciare 20d6 per "contare 4+" è più veloce della somma. Successi attesi = 20 × 0,5 = 10. Molti sistemi (World of Darkness, Shadowrun) utilizzano questo approccio specificamente per la scalabilità. I rulli digitali gestiscono istantaneamente qualsiasi dimensione di piscina, ma comprendere la matematica aiuta a impostare CD ragionevoli.</li>
+<li><strong>Imposta i numeri DC/obiettivo utilizzando la matematica delle probabilità:</strong>Invece di indovinare la difficoltà, calcola il tiro richiesto e la probabilità corrispondente. Per il sistema 3d6 con media 10,5: CD 11 = 50% di successo, CD 14 = 25% di successo, CD 17 = 5% di successo. Per 1d20+5 contro CA: CA 15 = 55% di colpo, CA 20 = 30% di colpo, CA 25 = 5% di colpo. Incontri di progettazione con tassi di successo previsti, non numeri arbitrari. Un controllo "duro" dovrebbe avere successo circa il 25-40% delle volte; un controllo "quasi impossibile" ~5-10%.</li>
+</ul>
+<h2>4 domande frequenti sul lancio dei dadi</h2>
 <div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Perche devo convertire le unita prima di calcolare?</button><div class="faq-a"><p>La maggior parte delle formule di fisica e chimica e definita in unita SI. Usare unita miste produce risultati errati.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Questa calcolatrice è precisa?</button><div class="faq-a"><p>Sì. La calcolatrice usa la formula standard: Lancio Dadi = f(Numero dadi, Facce). I risultati sono matematicamente esatti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Posso usare questa calcolatrice sul telefono?</button><div class="faq-a"><p>Sì, la calcolatrice è completamente responsive e funziona su qualsiasi dispositivo. Nessuna installazione richiesta.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Come salvo o condivido il mio calcolo?</button><div class="faq-a"><p>Usa il pulsante <strong>Condividi</strong> per generare un URL con tutti i tuoi dati. Il pulsante <strong>Copia</strong> copia il risultato negli appunti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cosa fare se il risultato sembra sbagliato?</button><div class="faq-a"><p>Controlla prima i tuoi dati: valori nelle unità corrette e intervallo realistico. Verifica anche che la formula <em>Lancio Dadi = f(Numero dadi, Facce)</em> si applichi esattamente alla tua situazione.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">I rulli dei dadi digitali sono davvero casuali?</button><div class="faq-a">I rulli digitali ben progettati che utilizzano RNG crittograficamente sicuro producono risultati distribuiti uniformemente indistinguibili dalla vera casualità. Ogni faccia ha esattamente 1/n probabilità, verificata attraverso test statistici. I dadi fisici, anche i dadi da casinò di precisione, mostrano una leggera distorsione dovuta a imperfezioni di fabbricazione. Tuttavia, la fiducia conta: utilizza rulli provenienti da fonti affidabili che pubblicano la loro metodologia RNG e sono sottoposti a controlli di terze parti. I rulli closed source potrebbero teoricamente manipolare i risultati.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Qual è il tiro medio per le combinazioni di dadi comuni?</button><div class="faq-a">Valori attesi: 1d4 = 2,5, 1d6 = 3,5, 1d8 = 4,5, 1d10 = 5,5, 1d12 = 6,5, 1d20 = 10,5. Per dadi multipli: 2d6 = 7, 3d6 = 10,5, 4d6 = 14, 4d6kh3 = 12,24, 2d10 = 11, 2d20 = 21. Aggiungere i modificatori dopo aver calcolato l'aspettativa di base. Queste sono medie a lungo termine: i singoli rotoli variano ampiamente. La deviazione standard per 1d20 è 5,77, il che significa che circa il 68% dei tiri rientra entro ±6 della media (4-17 per 1d20).</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Come posso simulare i tiri di dado nella programmazione?</button><div class="faq-a">La maggior parte delle lingue ha funzioni casuali integrate. Python: random.randint(1, 6) per 1d6. JavaScript: Math.floor(Math.random() * 6) + 1. Per più dadi: sum([random.randint(1, 6) for _ in range(3)]) per 3d6. Per rotoli crittograficamente sicuri: modulo dei segreti di Python (secrets.randbelow(6) + 1) o crypto.getRandomValues() di JavaScript. Semina sempre i PRNG in modo appropriato: usa il tempo di sistema per i giochi, semi fissi per test riproducibili.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Posso usare un lanciatore di dadi per giocare d'azzardo?</button><div class="faq-a">Legalmente, questo dipende dalla giurisdizione. Molte regioni richiedono che gli RNG di gioco d'azzardo siano certificati da laboratori di test approvati (GLI, BMM Testlabs) e utilizzino RNG hardware con monitoraggio dell'entropia. L'utilizzo di un gioco d'azzardo online non certificato per il gioco d'azzardo con soldi veri può violare i termini di servizio e le leggi locali. Per i giochi a soldi finti o casuali tra amici, qualsiasi roller corretto funziona. Per applicazioni di gioco d'azzardo serie, investi in hardware RNG certificato e sottoponiti all'approvazione normativa.</p></div></div>
 </div>
+<h2>Calcolatori correlati</h2>
+<ul>
+<li><a href="/it/">Coin Flip Simulator</a>— Simula risultati equi di lancio della moneta</li>
+<li><a href="/it/numero-casuale/">Random Number Generator</a>— Genera numeri casuali in qualsiasi intervallo</li>
+<li><a href="/it/">Dice Probability Calculator</a>— Calcola le probabilità per i risultati del lancio dei dadi</li>
+<li><a href="/it/">RPG Damage Calculator</a>— Calcola il danno previsto per gli attacchi RPG</li>
+<li><a href="/it/">Advantage/Disadvantage Calculator</a>— Confronta le probabilità di lancio di D&amp;D 5e</li>
+</ul>
 </section>

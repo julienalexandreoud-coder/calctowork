@@ -1,43 +1,141 @@
 <section class="long-content">
-<h2>A formula de fisica explicada</h2>
-<p>Formulas de fisica e quimica ganham vida quando voce pode inserir valores reais e ver resultados instantaneos. Esta calculadora gerencia conversoes de unidades automaticamente.</p>
-<p>A formula por tras deste calculo e <strong>Lançador de Dados = f(Número dados, Lados)</strong>. Compreender como o resultado e obtido ajuda a verificar a saida e detectar erros de entrada.</p>
-
-<h2>Calculo passo a passo com unidades</h2>
-<p>Siga estes passos para obter um resultado confiável:</p>
+<h2>O que é um rolo de dados?</h2>
+<p>Um rolo de dados simula o lançamento de dados físicos usando geração de números aleatórios, produzindo resultados imprevisíveis para jogos de mesa, experimentos de probabilidade e tomada de decisões. Desde campanhas de Dungeons &amp; Dragons que exigem jogadas de dano de 4d6+3 até aulas de estatística que demonstram o teorema central do limite, os lançamentos de dados digitais fornecem resultados aleatórios rápidos, justos e verificáveis, sem a necessidade de dados físicos.</p>
+<p class="see-also">Você também pode encontrar o<a href="/pt/numero-aleatorio/">Random Number Generator</a> and <a href="/pt/cara-ou-coroa/">Coin Flip</a> useful.</p>
+<!-- internal-links-added -->
+<p>A matemática por trás do lançamento de dados revela por que os rolos digitais são importantes. Um dado justo de seis lados (d6) tem probabilidade igual de 1/6 (16,67%) para cada face. Mas os dados fabricados apresentam preconceito – os dados de cassino custam mais de US$ 20 porque são balanceados com precisão para uma tolerância de 0,0005 polegadas. Dados baratos de jogos de tabuleiro podem apresentar tendência de 5% em relação a certas faces devido à distribuição desigual do peso dos pips. Os rolos digitais que usam RNG criptograficamente seguro eliminam totalmente o preconceito físico, garantindo uma probabilidade real de 1/6 para cada lançamento.</p>
+<p>A notação dos dados padroniza como os lançamentos são expressos: "2d6" significa lançar dois dados de seis lados e somar; "1d20+5" significa lançar um dado de vinte lados e adicionar 5; "4d6kh3" significa lançar quatro dados de seis lados e manter o 3 mais alto. Essa notação, originada de RPGs de mesa na década de 1970, agora aparece em documentos de design de jogos, calculadoras de probabilidade e APIs de jogos em todo o mundo. Compreender a notação dos dados permite uma comunicação precisa sobre resultados aleatórios nas comunidades de jogos.</p>
+<h2>Explicação da fórmula e probabilidade do lançamento de dados</h2>
+<p><strong>Fórmula básica de lançamento de dados:</strong></p>
+<p><strong>Resultado = Σ(random(1, s) para cada dado) + modificador</strong></p>
+<p>Where:</p>
+<ul>
+<li>s = Número de lados por dado (4, 6, 8, 10, 12, 20, 100, etc.)</li>
+<li>n = Número de dados lançados</li>
+<li>modificador = Constante adicionada ou subtraída (pode ser 0)</li>
+</ul>
+<p><strong>Análise da notação de dados:</strong></p>
+<ul>
+<li>XdY = Jogue X dados com Y lados cada, some os resultados</li>
+<li>XdY+Z = Jogue X dados com Y lados, adicione Z ao total</li>
+<li>XdYkhZ = Jogue X dados com Y lados, mantenha os dados Z mais altos</li>
+<li>XdYklZ = Jogue X dados com lados Y, mantenha os dados Z mais baixos</li>
+<li>XdY! = Jogue X dados com Y lados, exploda no máximo (role novamente e adicione)</li>
+</ul>
+<p><strong>Distribuição de probabilidade para XdY:</strong></p>
+<p>Para um único dado (1dY): Distribuição uniforme, P(qualquer valor) = 1/Y</p>
+<p>Para dados múltiplos (XdY onde X &gt; 1): Distribuição triangular ou em forma de sino</p>
+<p><strong>Valor esperado (média) para XdY:</strong></p>
+<p><strong>E[XdY] = X × (Y + 1) / 2</strong></p>
+<p><strong>Variação para XdY:</strong></p>
+<p><strong>Var(XdY) = X × (Y² - 1) / 12</strong></p>
+<p><strong>Exemplo resolvido 1 - jogada de ataque padrão de D&amp;D (1d20 + 5):</strong></p>
+<p>Passo 1: Jogue um dado de 20 faces: random(1, 20) = 17</p>
+<p>Etapa 2: Adicionar modificador: 17 + 5 = 22</p>
+<p><strong>Resultado: 22</strong>(atinge AC 22 ou menos)</p>
+<p>Etapa 3: Calcule a probabilidade de acertar AC 18:</p>
+<p>Necessário: 1d20 + 5 ≥ 18, então 1d20 ≥ 13</p>
+<p>Sucesso nas jogadas 13-20: 8 resultados em 20</p>
+<p>P(acerto) = 8/20 = 0,40 = 40%</p>
+<p><strong>Exemplo resolvido 2 - Estatísticas do personagem (4d6kh3):</strong></p>
+<p>Passo 1: Jogue quatro dados de 6 faces: [4, 6, 3, 5]</p>
+<p>Etapa 2: Classificar em ordem decrescente: [6, 5, 4, 3]</p>
+<p>Etapa 3: Mantenha o 3 mais alto: 6 + 5 + 4 = 15</p>
+<p><strong>Resultado: 15</strong>(estatística acima da média, a média é 12,24)</p>
+<p>Etapa 4: Calcule o valor esperado para 4d6kh3:</p>
+<p>E[4d6kh3] = 4 × 3,5 - E[menor de 4d6] = 14 - 1,76 = 12,24</p>
+<p><strong>Exemplo resolvido 3 — Dano de bola de fogo (8d6):</strong></p>
+<p>Etapa 1: jogue oito dados de 6 lados: [3, 6, 2, 5, 4, 6, 1, 5]</p>
+<p>Etapa 2: Soma todos os valores: 3 + 6 + 2 + 5 + 4 + 6 + 1 + 5 = 32</p>
+<p><strong>Resultado: 32 de dano</strong></p>
+<p>Etapa 3: Calcular o dano esperado:</p>
+<p>E[8d6] = 8 × (6 + 1) / 2 = 8 × 3,5 = 28</p>
+<p>Etapa 4: Calcular o desvio padrão:</p>
+<p>Var(8d6) = 8 × (36 - 1) / 12 = 8 × 2,917 = 23,33</p>
+<p>SD = √23,33 = 4,83</p>
+<p>Alcance típico (±1 SD): 23 a 33 de dano (68% das jogadas)</p>
+<h2>6 etapas para lançar dados</h2>
 <ol>
-<li><strong>Insira seus dados:</strong> 2 dice; 6 sides — ensure all values use a single consistent unit system.</li>
-<li><strong>A calculadora aplica a fórmula:</strong> <em>Lançador de Dados = f(Número dados, Lados)</em>.</li>
-<li><strong>Leia seu resultado:</strong> Total, Lançamentos.</li>
-<li>Verifique: confirme que as unidades são consistentes e os valores realistas antes de agir com base no resultado.</li>
+<li><strong>Identifique a notação dos dados ou os requisitos de lançamento:</strong>Analise a expressão do lançamento: "3d8 + 2" significa 3 dados, 8 lados cada, modificador +2. "2d20kh1" significa 2 dados de vinte faces, mantenha o maior 1 (vantagem em D&amp;D 5e). “5d10!” significa 5 dados de dez lados com explosão (rolar novamente os valores máximos). Anote cada componente: número de dados, lados por dado, modificador e quaisquer regras especiais (manter o mais alto/mais baixo, explodir, rolar novamente).</li>
+<li><strong>Gere valores aleatórios para cada dado:</strong>Para cada dado, gere um número inteiro aleatório de 1 ao número de lados. Use um RNG justo – crypto.getRandomValues() para rolos online ou RNG de hardware para aplicativos de cassino. Para 3d8: gere três valores, por exemplo, [7, 3, 8]. Cada valor tem probabilidade igual a 1/8 (12,5%). Registre os resultados individuais das matrizes para transparência e verificação.</li>
+<li><strong>Aplicar regras especiais, se aplicável:</strong>Para "manter o mais alto" (kh): classifique os dados em ordem decrescente, some apenas os valores Z superiores. Para "manter o mais baixo" (kl): classificação crescente, soma dos valores Z inferiores. Para "explodir" (!): se algum dado mostrar o valor máximo, jogue um dado adicional e adicione-o (repita se o novo dado também atingir o máximo). Para "reroll 1s": substitua quaisquer 1s por novos lançamentos. Aplique estas regras antes de somar.</li>
+<li><strong>Some os dados relevantes:</strong>Some os valores dos dados que estão sendo contados (todos os dados para lançamentos padrão, dados mantidos para lançamentos kh/kl, incluindo dados de explosão). Para 3d8 rolando [7, 3, 8]: soma = 7 + 3 + 8 = 18. Para 4d6kh3 rolando [4, 6, 3, 5], mantendo [6, 5, 4]: soma = 15. Verifique novamente a adição - erros aritméticos simples frustram mais os jogadores do que azar.</li>
+<li><strong>Adicione quaisquer modificadores:</strong>Aplique o modificador constante da notação. Para 3d8+2 com soma 18: 18 + 2 = 20. Os modificadores podem ser negativos (1d20-3 para jogadas de desvantagem) ou zero (lançamentos de dano puro). Alguns sistemas aplicam modificadores de maneira diferente – GURPS adiciona modificadores antes de comparar com o alvo, enquanto D&amp;D aumenta a rolagem. Siga as regras específicas do jogo.</li>
+<li><strong>Exiba e registre o resultado:</strong>Mostre o total final junto com os valores individuais dos dados para maior transparência. "3d8+2 = [7, 3, 8] + 2 = 20" permite aos jogadores verificar se o lançamento não foi manipulado. Para registros de jogos ou registros de campanha, inclua carimbo de data e hora, nome do jogador e propósito do teste ("Rolada de ataque Goblin vs. AC 16"). Isso cria uma trilha auditável para resultados contestados.</li>
 </ol>
-
-<h2>Aplicacoes em laboratorio e no mundo real</h2>
-<p>Esta calculadora é especialmente útil nas seguintes situações:</p>
+<h2>5 exemplos práticos de lançamento de dados</h2>
+<p><strong>Exemplo 1 — Jogada de Ataque D&amp;D 5e com Vantagem (2d20kh1+7):</strong></p>
 <ul>
-<li>avaliação de segurança de senhas</li><li>análise de texto e contagem de caracteres</li><li>cálculos de data e hora</li><li>tarefas utilitárias diárias</li>
+<li>Role: 2 dados de vinte faces, mantenha o mais alto, adicione 7</li>
+<li>Lançamentos individuais: [14, 19]</li>
+<li>Manter o mais alto: 19</li>
+<li>Adicionar modificador: 19 + 7 = 26</li>
+<li><strong>Resultado: 26</strong>(atinge a maioria dos monstros em D&amp;D)</li>
+<li>Análise de probabilidade: A vantagem aumenta a chance de acerto de 60% para 84% vs. AC 18</li>
 </ul>
-
-<h2>Precisão e algarismos significativos</h2>
-<p>Verifique os algarismos significativos: seu resultado não pode ser mais preciso que sua medição menos precisa. Arredonde o resultado final para o mesmo número de algarismos significativos da medição menos precisa utilizada.</p>
-
-<h2>Contexto físico e científico</h2>
-<p>As fórmulas de física descrevem matematicamente relações reais validadas por séculos de experimentação. A consistência de unidades é a fonte de erro mais frequente: misturar SI com imperial compromete todos os cálculos seguintes. Sempre converta todas as entradas para um único sistema de unidades antes de calcular.</p>
-
-<h2>Erros de conversao de unidades a evitar</h2>
+<p><strong>Exemplo 2 — Rolagem de Dano do Pathfinder (2d6+4 para espada longa):</strong></p>
 <ul>
-<li>Esquecer de converter todas as unidades ao SI antes de usar a formula.</li>
+<li>Jogue: 2 dados de seis faces, adicione 4</li>
+<li>Rolos individuais: [3, 5]</li>
+<li>Soma: 3 + 5 = 8</li>
+<li>Adicionar modificador: 8 + 4 = 12</li>
+<li><strong>Resultado: 12 danos cortantes</strong></li>
+<li>Dano esperado: E[2d6+4] = 2 × 3,5 + 4 = 11 (este teste está acima da média)</li>
 </ul>
-
-<h2>Dica para medicoes precisas</h2>
-<p>Trabalhe sempre em unidades SI (metros, quilogramas, segundos, Kelvin) ao aplicar formulas.</p>
-
-<h2>Perguntas frequentes</h2>
+<p><strong>Exemplo 3 — Dados Explosivos de Mundos Selvagens (1d10!):</strong></p>
+<ul>
+<li>Rolamento: 1 dado de dez lados, explode em 10</li>
+<li>Primeiro lançamento: 10 (máx. Role novamente e adicione)</li>
+<li>Rolagem de explosão: 7</li>
+<li>Total: 10 + 7 = 17</li>
+<li><strong>Resultado: 17</strong>(excelente rolagem, o máximo sem explosão é 10)</li>
+<li>Probabilidade de pelo menos uma explosão: 10% por rolo, teto infinito</li>
+</ul>
+<p><strong>Exemplo 4 — Teste de Perícia GURPS (3d6 ≤ perícia):</strong></p>
+<ul>
+<li>Lançamento: 3 dados de seis faces, a soma deve ser ≤ nível de habilidade</li>
+<li>Rolos individuais: [2, 4, 3]</li>
+<li>Soma: 2 + 4 + 3 = 9</li>
+<li><strong>Result: 9</strong>(sucesso se habilidade ≥ 9, sucesso crítico se habilidade ≥ 16)</li>
+<li>Distribuição de probabilidade: 3d6 produz uma curva em sino centrada em 10,5</li>
+<li>P(rolagem ≤ 10) = 50%, P(rolagem ≤ 14) = 90,7%, P(rolagem = 3 ou 18) = 0,46% cada</li>
+</ul>
+<p><strong>Exemplo 5 — Warhammer 6+ Armor Save (5d6, contagem de sucessos ≥ 5):</strong></p>
+<ul>
+<li>Jogue: 5 dados de seis lados, conte os dados mostrando 5 ou 6</li>
+<li>Rolos individuais: [2, 5, 6, 3, 6]</li>
+<li>Sucessos (≥5): dado 2 (5), dado 3 (6), dado 5 (6) = 3 sucessos</li>
+<li><strong>Resultado: 3 defesas feitas, 2 ferimentos sofridos</strong></li>
+<li>Salvamentos esperados: 5 × (2/6) = 1,67 salvamentos (este lançamento superou a expectativa)</li>
+</ul>
+<h2>4 erros comuns no lançamento de dados</h2>
+<ul>
+<li><strong>Usando geradores de números aleatórios tendenciosos:</strong>Alguns rolos de dados online usam Math.random() ou PRNGs não criptográficos semelhantes que podem produzir padrões em milhares de lançamentos. Embora seja aceitável para jogos casuais, isso é importante para jogos de azar ou jogos competitivos onde a imparcialidade é examinada. Use rolos que declarem explicitamente que usam RNG criptograficamente seguro ou que sejam auditados por terceiros. Os dados físicos têm viés de fabricação; os dados digitais têm viés algorítmico se mal implementados.</li>
+<li><strong>Aplicação incorreta das regras de vantagem/desvantagem:</strong>Em D&amp;D 5e, vantagem significa rolar 2d20 e pegar o maior (2d20kh1), NÃO rolar 1d20 + 5 ou rolar duas vezes e adicionar ambos. Desvantagem significa pegar o menor (2d20kl1). Múltiplas fontes de vantagem não se acumulam – você ainda rola apenas 2d20. Um erro comum é rolar 3d20 quando você tem duas fontes de “vantagem”. A regra é binária: qualquer número de vantagens = role 2d20kh1, qualquer número de desvantagens = role 2d20kl1.</li>
+<li><strong>Esquecendo de redefinir as cadeias de explosão:</strong>Dados explosivos (rolar novamente no máximo) podem encadear indefinidamente. Um jogador rola 10 em 1d10!, depois rola outro 10, depois outro 10, depois um 3. Total = 10 + 10 + 10 + 3 = 33, não 13. Acompanhe cada explosão separadamente. Alguns sistemas limitam as explosões a uma vez por dado ou limitam o valor total. Sempre esclareça as regras de explosão antes de rolar para evitar disputas no meio do jogo sobre se aquela jogada de mais de 50 danos foi legal.</li>
+<li><strong>Notação de dados confusa em sistemas de jogo:</strong>"4d6" significa coisas diferentes em contextos diferentes. Na criação de personagens de D&amp;D, geralmente significa "4d6kh3" (role 4, mantenha o maior 3). Nas jogadas de dano, significa somar todos os 4 dados. Em Shadowrun, "6d6" significa contar quantos dados mostram 5 ou 6 (sucessos), não soma. Sempre especifique a notação completa, incluindo regras especiais. Em caso de dúvida, escreva o procedimento completo em vez de assumir um entendimento compartilhado da notação abreviada.</li>
+</ul>
+<h2>5 dicas profissionais para lançar dados</h2>
+<ul>
+<li><strong>Entenda as curvas de probabilidade para equilíbrio do jogo:</strong>Dados únicos (1d20) produzem probabilidade fixa – todos os resultados são igualmente prováveis. Múltiplos dados (3d6, 4d6kh3) produzem curvas em forma de sino – resultados médios são comuns, extremos raros. Isso afeta o design do jogo: o 1d20 de D&amp;D significa que um modificador +1 altera a taxa de sucesso em exatamente 5%. 3d6 do GURPS significa +1 altera a taxa de sucesso em 12,5% na média, mas apenas 2,8% nos extremos. Escolha a mecânica que corresponda ao nível de aleatoriedade desejado.</li>
+<li><strong>Use rolos de dados com histórico e estatísticas de lançamento:</strong>Bons rolos digitais rastreiam todos os rolos, mostrando a distribuição ao longo do tempo. Depois de 100 jogadas de ataque, você realmente conseguiu cinco 1s naturais? A história prova (ou refuta) que “os dados me odeiam”. Alguns vídeos mostram estatísticas em tempo real: média de lançamento, desvio padrão, frequência de cada resultado. Isso ajuda a identificar preconceitos reais versus padrões percebidos. Os humanos se lembram mais dos fracassos dramáticos (nat 1) do que dos sucessos mundanos, criando falsas impressões de injustiça.</li>
+<li><strong>Expressões de dano complexo precedente:</strong>Para feitiços com dano variável (bola de fogo 8d6), faça um pré-rolamento durante o turno do jogador anterior para acelerar o jogo. Muitas mesas virtuais (Roll20, Foundry) permitem criar botões macro para expressões roladas com frequência. O botão "Bola de fogo" executa 8d6 instantaneamente. Isso mantém o fluxo do combate e reduz a ocorrência de erros matemáticos. Para jogo físico, jogue os dados de dano junto com os dados de ataque se tiver certeza de que acertará.</li>
+<li><strong>Implemente conjuntos de dados com contagem de sucesso para lançamentos grandes:</strong>Rolar 20d6 e somar é tedioso. Para grandes conjuntos de dados, use sistemas de contagem de sucessos: cada dado mostrando 4+ = 1 sucesso. Rolar 20d6 para "contar 4+" é mais rápido do que somar. Sucessos esperados = 20 × 0,5 = 10. Muitos sistemas (World of Darkness, Shadowrun) usam essa abordagem especificamente para escalabilidade. Os rolos digitais lidam com qualquer tamanho de pool instantaneamente, mas entender a matemática ajuda a definir CDs razoáveis.</li>
+<li><strong>Defina números DC/alvo usando matemática de probabilidade:</strong>Em vez de adivinhar a dificuldade, calcule o lançamento necessário e a probabilidade correspondente. Para sistema 3d6 com média de 10,5: CD 11 = 50% de sucesso, CD 14 = 25% de sucesso, CD 17 = 5% de sucesso. Para 1d20+5 vs. CA: CA 15 = 55% de acerto, CA 20 = 30% de acerto, CA 25 = 5% de acerto. Projete encontros com taxas de sucesso pretendidas, não com números arbitrários. Uma verificação "difícil" deve ser bem-sucedida em aproximadamente 25-40% das vezes; uma verificação "quase impossível" de aproximadamente 5 a 10%.</li>
+</ul>
+<h2>4 perguntas frequentes sobre lançamento de dados</h2>
 <div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Por que preciso converter unidades antes de calcular?</button><div class="faq-a"><p>A maioria das formulas de fisica e quimica sao definidas em unidades SI. Usar unidades misturadas produz resultados incorretos.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Esta calculadora e precisa?</button><div class="faq-a"><p>Sim. A calculadora usa a formula padrao: Lançador de Dados = f(Número dados, Lados). Os resultados sao matematicamente exatos.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Posso usar esta calculadora no celular?</button><div class="faq-a"><p>Sim, a calculadora e totalmente responsiva e funciona em qualquer dispositivo.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Como salvo ou compartilho meu cálculo?</button><div class="faq-a"><p>Use o botão <strong>Compartilhar</strong> para gerar uma URL com todos os seus dados. O botão <strong>Copiar</strong> copia o resultado para a área de transferência.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">O que fazer se o resultado parecer errado?</button><div class="faq-a"><p>Verifique suas entradas: valores nas unidades corretas e faixa realista. Confirme também que a fórmula <em>Lançador de Dados = f(Número dados, Lados)</em> se aplica exatamente à sua situação.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Os rolos de dados digitais são realmente aleatórios?</button><div class="faq-a">Rolos digitais bem projetados usando RNG criptograficamente seguro produzem resultados distribuídos uniformemente, indistinguíveis da verdadeira aleatoriedade. Cada face tem probabilidade exata de 1/n, verificada por meio de testes estatísticos. Os dados físicos, mesmo os dados de cassino de precisão, apresentam um leve viés devido a imperfeições de fabricação. No entanto, a confiança é importante: use vídeos de fontes confiáveis ​​que publicam sua metodologia RNG e sejam submetidos a auditorias de terceiros. Os rolos de código fechado poderiam, teoricamente, manipular os resultados.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Qual é o resultado médio para combinações de dados comuns?</button><div class="faq-a">Valores esperados: 1d4 = 2,5, 1d6 = 3,5, 1d8 = 4,5, 1d10 = 5,5, 1d12 = 6,5, 1d20 = 10,5. Para dados múltiplos: 2d6 = 7, 3d6 = 10,5, 4d6 = 14, 4d6kh3 = 12,24, 2d10 = 11, 2d20 = 21. Adicione modificadores após calcular a expectativa base. Estas são médias de longo prazo – os resultados individuais variam amplamente. O desvio padrão para 1d20 é 5,77, o que significa que ~68% dos lançamentos ficam dentro de ±6 da média (4-17 para 1d20).</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Como simulo jogadas de dados na programação?</button><div class="faq-a">A maioria das linguagens possui funções aleatórias integradas. Python: random.randint(1, 6) para 1d6. JavaScript: Math.floor(Math.random() * 6) + 1. Para dados múltiplos: sum([random.randint(1, 6) for _ in range(3)]) para 3d6. Para rolos criptograficamente seguros: módulo de segredos do Python (secrets.randbelow(6) + 1) ou crypto.getRandomValues() do JavaScript. Sempre propague PRNGs adequadamente – use o tempo do sistema para jogos, sementes fixas para testes reproduzíveis.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Posso usar um rolo de dados para jogar?</button><div class="faq-a">Legalmente, isso depende da jurisdição. Muitas regiões exigem que os RNGs de jogos de azar sejam certificados por laboratórios de testes aprovados (GLI, BMM Testlabs) e usem RNGs de hardware com monitoramento de entropia. Usar um rolo online não certificado para jogos de azar com dinheiro real pode violar os termos de serviço e as leis locais. Para jogos com dinheiro fictício ou jogos casuais entre amigos, qualquer apostador justo funciona. Para aplicações de jogos de azar sérias, invista em hardware RNG certificado e passe pela aprovação regulatória.</p></div></div>
 </div>
+<h2>Calculadoras Relacionadas</h2>
+<ul>
+<li><a href="/pt/">Coin Flip Simulator</a>— Simula resultados justos no lançamento da moeda</li>
+<li><a href="/pt/numero-aleatorio/">Random Number Generator</a>— Gera números aleatórios em qualquer intervalo</li>
+<li><a href="/pt/">Dice Probability Calculator</a>— Calcula probabilidades para resultados de lançamento de dados</li>
+<li><a href="/pt/">RPG Damage Calculator</a>— Calcula o dano esperado para ataques de RPG</li>
+<li><a href="/pt/">Advantage/Disadvantage Calculator</a>- Compara as probabilidades de rolagem do D&amp;D 5e</li>
+</ul>
 </section>

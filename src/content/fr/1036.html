@@ -1,43 +1,141 @@
 <section class="long-content">
-<h2>La formule de physique expliquee</h2>
-<p>Les formules de physique et de chimie prennent vie quand vous pouvez entrer des valeurs réelles et voir des résultats instantanés. Ce calculateur gère les conversions d'unités automatiquement.</p>
-<p>La formule derrière ce calcul est <strong>Lanceur de Dés = f(Nombre dés, Faces)</strong>. Comprendre comment le résultat est obtenu vous aide à vérifier la sortie et à détecter les erreurs d'entrée.</p>
-
-<h2>Calcul pas a pas avec unites</h2>
-<p>Suivez ces étapes pour obtenir un résultat fiable :</p>
+<h2>Qu'est-ce qu'un lance-dés ?</h2>
+<p>Un lancer de dés simule le lancer de dés physiques en utilisant la génération de nombres aléatoires, produisant des résultats imprévisibles pour les jeux de table, les expériences de probabilité et la prise de décision. Des campagnes Donjons &amp; Dragons nécessitant 4d6+3 jets de dégâts aux salles de classe de statistiques démontrant le théorème central limite, les lancers de dés numériques fournissent des résultats aléatoires rapides, équitables et vérifiables sans avoir besoin de dés physiques.</p>
+<p class="see-also">Vous pouvez également trouver le<a href="/fr/nombre-aleatoire/">Random Number Generator</a> and <a href="/fr/pile-ou-face/">Coin Flip</a> useful.</p>
+liens-internes-ajoutés
+<p>Les mathématiques derrière le lancer des dés révèlent pourquoi les rouleaux numériques sont importants. Un dé équitable à six faces (d6) a une probabilité égale à 1/6 (16,67 %) pour chaque face. Mais les dés fabriqués présentent un biais : les dés de casino coûtent plus de 20 $ car ils sont équilibrés avec précision avec une tolérance de 0,0005 pouce. Les dés de jeux de société bon marché peuvent montrer un biais de 5 % en faveur de certaines faces en raison d'une répartition inégale du poids des pépins. Les rouleaux numériques utilisant un RNG cryptographiquement sécurisé éliminent entièrement les biais physiques, garantissant une véritable probabilité de 1/6 pour chaque rouleau.</p>
+<p>La notation des dés standardise la façon dont les lancers sont exprimés : « 2d6 » signifie lancer deux dés à six faces et faire la somme ; "1d20+5" signifie lancer un dé à vingt faces et ajouter 5 ; "4d6kh3" signifie lancer quatre dés à six faces et conserver le 3 le plus élevé. Cette notation, issue des jeux de rôle sur table des années 1970, apparaît désormais dans les documents de conception de jeux, les calculateurs de probabilités et les API de jeu du monde entier. Comprendre la notation des dés permet une communication précise sur les résultats aléatoires au sein des communautés de joueurs.</p>
+<h2>Formule de lancer de dés et probabilité expliquées</h2>
+<p><strong>Formule de base du lancer de dés :</strong></p>
+<p><strong>Résultat = Σ(aléatoire(1, s) pour chaque dé) + modificateur</strong></p>
+<p>Where:</p>
+<ul>
+<li>s = Nombre de faces par dé (4, 6, 8, 10, 12, 20, 100, etc.)</li>
+<li>n = Nombre de dés lancés</li>
+<li>modificateur = Constante ajoutée ou soustraite (peut être 0)</li>
+</ul>
+<p><strong>Répartition de la notation des dés :</strong></p>
+<ul>
+<li>XdY = Lancez X dés avec Y côtés chacun, additionnez les résultats</li>
+<li>XdY+Z = Lancez X dés avec des côtés Y, ajoutez Z au total</li>
+<li>XdYkhZ = Lancez X dés avec des côtés Y, gardez les dés Z les plus élevés</li>
+<li>XdYklZ = Lancez X dés avec des côtés Y, gardez les dés Z les plus bas</li>
+<li>Xdy ! = Lancer X dés avec Y faces, exploser au maximum (relancer et ajouter)</li>
+</ul>
+<p><strong>Distribution de probabilité pour XdY :</strong></p>
+<p>Pour un seul dé (1dY) : distribution uniforme, P (n'importe quelle valeur) = 1/Y</p>
+<p>Pour plusieurs dés (XdY où X &gt; 1) : Répartition triangulaire ou en cloche</p>
+<p><strong>Valeur attendue (moyenne) pour XdY :</strong></p>
+<p><strong>E[XdY] = X × (Y + 1) / 2</strong></p>
+<p><strong>Écart pour XdY :</strong></p>
+<p><strong>Var(XdY) = X × (Y² - 1) / 12</strong></p>
+<p><strong>Exemple concret 1 — Jet d'attaque D&amp;D standard (1d20+5) :</strong></p>
+<p>Étape 1 : Lancez un dé à 20 faces : random(1, 20) = 17</p>
+<p>Étape 2 : Ajouter un modificateur : 17 + 5 = 22</p>
+<p><strong>Résultat : 22</strong>(atteint AC 22 ou moins)</p>
+<p>Étape 3 : Calculez la probabilité d’atteindre AC 18 :</p>
+<p>Besoin : 1d20 + 5 ≥ 18, donc 1d20 ≥ 13</p>
+<p>Succès aux lancers 13-20 : 8 résultats sur 20</p>
+<p>P(coup) = 8/20 = 0,40 = 40 %</p>
+<p><strong>Exemple pratique 2 — Statistiques du personnage (4d6kh3) :</strong></p>
+<p>Étape 1 : Lancez quatre dés à 6 faces : [4, 6, 3, 5]</p>
+<p>Étape 2 : Trier par ordre décroissant : [6, 5, 4, 3]</p>
+<p>Étape 3 : Conserver le 3 le plus élevé : 6 + 5 + 4 = 15</p>
+<p><strong>Résultat : 15</strong>(statistique supérieure à la moyenne, la moyenne est de 12,24)</p>
+<p>Étape 4 : Calculez la valeur attendue pour 4d6kh3 :</p>
+<p>E[4d6kh3] = 4 × 3,5 - E[le plus bas de 4d6] = 14 - 1,76 = 12,24</p>
+<p><strong>Exemple concret 3 — Dégâts de boule de feu (8d6) :</strong></p>
+<p>Étape 1 : Lancez huit dés à 6 faces : [3, 6, 2, 5, 4, 6, 1, 5]</p>
+<p>Étape 2 : additionnez toutes les valeurs : 3 + 6 + 2 + 5 + 4 + 6 + 1 + 5 = 32</p>
+<p><strong>Résultat : 32 dégâts</strong></p>
+<p>Étape 3 : Calculez les dommages attendus :</p>
+<p>E[8d6] = 8 × (6 + 1) / 2 = 8 × 3,5 = 28</p>
+<p>Étape 4 : Calculer l'écart type :</p>
+<p>Var(8d6) = 8 × (36 - 1) / 12 = 8 × 2,917 = 23,33</p>
+<p>SD = √23,33 = 4,83</p>
+<p>Portée typique (±1 SD) : 23 à 33 dégâts (68% des lancers)</p>
+<h2>6 étapes pour lancer les dés</h2>
 <ol>
-<li><strong>Saisissez vos valeurs:</strong> 2 dice; 6 sides — ensure all values use a single consistent unit system.</li>
-<li><strong>La calculatrice applique la formule:</strong> <em>Lanceur de Dés = f(Nombre dés, Faces)</em>.</li>
-<li><strong>Lisez votre résultat:</strong> Total, Lancers.</li>
-<li>Vérifiez : confirmez que les unités sont cohérentes et les valeurs réalistes avant d'agir sur le résultat.</li>
+<li><strong>Identifiez la notation des dés ou les exigences de lancer :</strong>Analysez l'expression du lancer : "3d8+2" signifie 3 dés, 8 faces chacun, +2 modificateurs. "2d20kh1" signifie 2 dés à vingt faces, gardez le plus haut 1 (avantage dans D&amp;D 5e). "5d10!" signifie 5 dés à dix faces avec explosion (relancer les valeurs max). Notez chaque composant : nombre de dés, côtés par dé, modificateur et toutes règles spéciales (garder le plus haut/le plus bas, exploser, relancer).</li>
+<li><strong>Générez des valeurs aléatoires pour chaque dé :</strong>Pour chaque dé, générez un entier aléatoire de 1 au nombre de faces. Utilisez un RNG équitable – crypto.getRandomValues() pour les rouleaux en ligne, ou du matériel RNG pour les applications de casino. Pour 3d8 : générez trois valeurs, par exemple [7, 3, 8]. Chaque valeur a une probabilité égale à 1/8 (12,5 %). Enregistrez les résultats individuels des matrices à des fins de transparence et de vérification.</li>
+<li><strong>Appliquer des règles spéciales le cas échéant :</strong>Pour « garder le plus haut » (kh) : trier les dés par ordre décroissant, additionner uniquement les valeurs Z supérieures. Pour « garder le plus bas » (kl) : trier par ordre croissant, additionner les valeurs Z inférieures. Pour "exploser" (!) : si un dé affiche une valeur maximale, lancez un dé supplémentaire et ajoutez-le (répétez si le nouveau dé atteint également son maximum). Pour "relancer les 1" : remplacez les 1 par de nouveaux lancers. Appliquez ces règles avant de faire la somme.</li>
+<li><strong>Additionnez les dés concernés :</strong>Additionnez les valeurs des dés comptés (tous les dés pour les lancers standards, les dés conservés pour les lancers kh/kl, y compris les dés d'explosion). Pour 3d8 lancés [7, 3, 8] : somme = 7 + 3 + 8 = 18. Pour 4d6kh3 lancés [4, 6, 3, 5], en gardant [6, 5, 4] : somme = 15. Vérifiez l'addition : de simples erreurs arithmétiques frustrent les joueurs plus que la malchance.</li>
+<li><strong>Ajoutez des modificateurs :</strong>Appliquez le modificateur constant de la notation. Pour 3d8+2 avec somme 18 : 18 + 2 = 20. Les modificateurs peuvent être négatifs (1d20-3 pour les jets défavorisés) ou nuls (jets de dégâts purs). Certains systèmes appliquent les modificateurs différemment : GURPS ajoute des modificateurs avant de les comparer à la cible, tandis que D&amp;D les ajoute au jet. Suivez les règles spécifiques du jeu.</li>
+<li><strong>Afficher et enregistrer le résultat :</strong>Affichez le total final ainsi que les valeurs individuelles des dés pour plus de transparence. "3d8+2 = [7, 3, 8] + 2 = 20" permet aux joueurs de vérifier que le jet n'a pas été manipulé. Pour les journaux de jeu ou les enregistrements de campagne, incluez l'horodatage, le nom du joueur et le but du lancer (« lancement d'attaque gobelin contre AC 16 »). Cela crée une piste vérifiable pour les résultats contestés.</li>
 </ol>
-
-<h2>Applications en laboratoire et dans le monde reel</h2>
-<p>Cette calculatrice est particulièrement utile dans les situations suivantes :</p>
+<h2>5 exemples pratiques de lancer de dés</h2>
+<p><strong>Exemple 1 — D&amp;D 5e jet d'attaque avec avantage (2d20kh1+7) :</strong></p>
 <ul>
-<li>évaluation de la sécurité des mots de passe</li><li>analyse de texte et comptage de caractères</li><li>calculs de date et d'heure</li><li>tâches utilitaires quotidiennes</li>
+<li>Lancer : 2 dés à vingt faces, garder le plus haut, ajouter 7</li>
+<li>Jets individuels : [14, 19]</li>
+<li>Garder le plus haut : 19</li>
+<li>Ajouter un modificateur : 19 + 7 = 26</li>
+<li><strong>Résultat : 26</strong>(touche la plupart des monstres dans D&amp;D)</li>
+<li>Analyse de probabilité : l'avantage augmente les chances de toucher de 60 % à 84 % par rapport à AC 18</li>
 </ul>
-
-<h2>Précision et chiffres significatifs</h2>
-<p>Vérifiez les chiffres significatifs : votre résultat ne peut pas être plus précis que votre mesure la moins précise. Arrondissez le résultat final au même nombre de chiffres significatifs que la mesure la moins précise utilisée.</p>
-
-<h2>Contexte physique et scientifique</h2>
-<p>Les formules physiques décrivent mathématiquement des relations réelles validées par des siècles d'expérimentation. La cohérence des unités est la source d'erreur la plus fréquente : mélanger le SI avec l'impérial corrompt tous les calculs suivants. Convertissez toujours toutes les entrées dans un système d'unités cohérent.</p>
-
-<h2>Erreurs de conversion d'unites a eviter</h2>
+<p><strong>Exemple 2 — Jet de dégâts Pathfinder (2d6+4 pour l'épée longue) :</strong></p>
 <ul>
-<li>Oublier de convertir toutes les unités au SI avant d'utiliser la formule.</li><li>Ne pas vérifier si l'ordre de grandeur du résultat a un sens physique.</li>
+<li>Lancer : 2 dés à six faces, ajouter 4</li>
+<li>Jets individuels : [3, 5]</li>
+<li>Somme : 3 + 5 = 8</li>
+<li>Ajouter un modificateur : 8 + 4 = 12</li>
+<li><strong>Résultat : 12 dégâts tranchants</strong></li>
+<li>Dégâts attendus : E[2d6+4] = 2 × 3,5 + 4 = 11 (ce jet est supérieur à la moyenne)</li>
 </ul>
-
-<h2>Conseil pour des mesures precises</h2>
-<p>Travaillez toujours en unités SI (mètres, kilogrammes, secondes, Kelvin) en appliquant des formules.</p>
-
-<h2>Questions frequentes</h2>
+<p><strong>Exemple 3 — Dés explosifs de mondes sauvages (1d10 !) :</strong></p>
+<ul>
+<li>Lancer : 1 dé à dix faces, exploser sur 10</li>
+<li>Premier lancer : 10 (max ! Lancez à nouveau et ajoutez)</li>
+<li>Jet d'explosion : 7</li>
+<li>Total : 10 + 7 = 17</li>
+<li><strong>Résultat : 17</strong>(excellent jet, le maximum sans explosion est de 10)</li>
+<li>Probabilité d'au moins une explosion : 10% par rouleau, plafond infini</li>
+</ul>
+<p><strong>Exemple 4 — Vérification de compétence GURPS (3d6 ≤ compétence) :</strong></p>
+<ul>
+<li>Lancer : 3 dés à six faces, la somme doit être ≤ niveau de compétence</li>
+<li>Jets individuels : [2, 4, 3]</li>
+<li>Somme : 2 + 4 + 3 = 9</li>
+<li><strong>Result: 9</strong>(succès si compétence ≥ 9, succès critique si compétence ≥ 16)</li>
+<li>Distribution de probabilité : 3d6 produit une courbe en cloche centrée sur 10,5</li>
+<li>P(roll ≤ 10) = 50 %, P(roll ≤ 14) = 90,7 %, P(roll = 3 ou 18) = 0,46 % chacun</li>
+</ul>
+<p><strong>Exemple 5 — Sauvegarde d'armure Warhammer 6+ (5d6, comptez les succès ≥ 5) :</strong></p>
+<ul>
+<li>Lancer : 5 dés à six faces, compter les dés indiquant 5 ou 6</li>
+<li>Rouleaux individuels : [2, 5, 6, 3, 6]</li>
+<li>Succès (≥5) : dé 2 (5), dé 3 (6), dé 5 (6) = 3 succès</li>
+<li><strong>Résultat : 3 arrêts réalisés, 2 blessures subies</strong></li>
+<li>Sauvegardes attendues : 5 × (2/6) = 1,67 sauvegardes (ce jet a dépassé les attentes)</li>
+</ul>
+<h2>4 erreurs courantes lors du lancer des dés</h2>
+<ul>
+<li><strong>Utilisation de générateurs de nombres aléatoires biaisés :</strong>Certains lanceurs de dés en ligne utilisent Math.random() ou des PRNG non cryptographiques similaires qui peuvent produire des modèles sur des milliers de lancers. Bien qu’acceptable pour le jeu occasionnel, cela est important pour les jeux de hasard ou les jeux compétitifs où l’équité est scrutée. Utilisez des rouleaux qui indiquent explicitement qu'ils utilisent du RNG cryptographiquement sécurisé ou qu'ils sont audités par des tiers. Les dés physiques ont un biais de fabrication ; les dés numériques ont un biais algorithmique s’ils sont mal mis en œuvre.</li>
+<li><strong>Mauvaise application des règles d'avantage/désavantage :</strong>Dans D&amp;D 5e, l'avantage signifie lancer 2d20 et prendre le plus élevé (2d20kh1), PAS lancer 1d20+5 ou lancer deux fois et ajouter les deux. L’inconvénient signifie prendre le plus bas (2d20kl1). Plusieurs sources d’avantage ne se cumulent pas – vous ne lancez toujours que 2d20. Une erreur courante consiste à lancer 3d20 lorsque vous disposez de deux sources « d’avantage ». La règle est binaire : n'importe quel nombre d'avantages = lancer 2d20kh1, n'importe quel nombre d'inconvénients = lancer 2d20kl1.</li>
+<li><strong>Oublier de réinitialiser les chaînes d'explosion :</strong>Les dés explosifs (relancer au maximum) peuvent s'enchaîner indéfiniment. Un joueur lance 10 sur 1d10 !, puis lance encore 10, puis encore 10, puis un 3. Total = 10 + 10 + 10 + 3 = 33, pas 13. Suivez chaque explosion séparément. Certains systèmes limitent les explosions à une fois par dé ou plafonnent la valeur totale. Clarifiez toujours les règles d'explosion avant de lancer le lancer pour éviter les différends en milieu de partie quant à savoir si ce jet de dégâts de 50+ était légal.</li>
+<li><strong>Notation des dés confuse dans les systèmes de jeu :</strong>"4d6" signifie différentes choses selon les contextes. Dans la création de personnages D&amp;D, cela signifie généralement « 4d6kh3 » (lancez 4, gardez le 3 le plus élevé). Dans les jets de dégâts, cela signifie additionner les 4 dés. Dans Shadowrun, "6d6" signifie compter le nombre de dés qui affichent 5 ou 6 (succès), et non la somme. Spécifiez toujours la notation complète, y compris les règles spéciales. En cas de doute, écrivez la procédure complète plutôt que de supposer une compréhension partagée de la notation abrégée.</li>
+</ul>
+<h2>5 conseils de pro pour lancer les dés</h2>
+<ul>
+<li><strong>Comprendre les courbes de probabilité pour l'équilibre du jeu :</strong>Un dé unique (1d20) produit une probabilité plate – chaque résultat est également probable. Plusieurs dés (3d6, 4d6kh3) produisent des courbes en cloche – les résultats moyens sont courants, les extrêmes sont rares. Cela affecte la conception du jeu : le 1d20 de D&amp;D signifie qu'un modificateur de +1 modifie le taux de réussite d'exactement 5 %. Le 3d6 de GURPS signifie que +1 modifie le taux de réussite de 12,5 % en moyenne mais de seulement 2,8 % aux extrêmes. Choisissez des mécanismes correspondant au niveau de hasard souhaité.</li>
+<li><strong>Utilisez des lancers de dés avec historique et statistiques :</strong>De bons rouleaux numériques suivent tous les rouleaux, montrant leur distribution dans le temps. Après 100 jets d’attaque, avez-vous vraiment obtenu cinq 1 naturels ? L’histoire prouve (ou réfute) « les dés me détestent ». Certains rouleaux affichent des statistiques en temps réel : roulage moyen, écart type, fréquence de chaque résultat. Cela permet d’identifier les préjugés réels par rapport aux modèles perçus. Les humains se souviennent davantage des échecs dramatiques (nat 1) que des succès banals, créant ainsi de fausses impressions d’injustice.</li>
+<li><strong>Expressions de dégâts complexes pré-roll :</strong>Pour les sorts aux dégâts variables (8d6 boule de feu), pré-lancez pendant le tour du joueur précédent pour accélérer le jeu. De nombreuses tables virtuelles (Roll20, Foundry) vous permettent de créer des boutons macro pour les expressions fréquemment lancées. Le bouton "Boule de feu" exécute 8d6 instantanément. Cela maintient le combat fluide et réduit les erreurs mathématiques dues à la précipitation. Pour le jeu physique, lancez les dés de dégâts en même temps que les dés d'attaque si vous êtes sûr de pouvoir toucher.</li>
+<li><strong>Implémentez des pools de dés avec comptage de réussite pour les gros lancers :</strong>Lancer 20d6 et faire la somme est fastidieux. Pour les grandes pools de dés, utilisez des systèmes de comptage des réussites : chaque dé affichant 4+ = 1 réussite. Lancer 20d6 pour « compter 4+ » est plus rapide que la somme. Succès attendus = 20 × 0,5 = 10. De nombreux systèmes (World of Darkness, Shadowrun) utilisent cette approche spécifiquement pour l'évolutivité. Les rouleaux numériques gèrent instantanément n’importe quelle taille de piscine, mais comprendre les mathématiques permet de définir des DC raisonnables.</li>
+<li><strong>Définissez les nombres DC/cibles à l'aide des mathématiques de probabilité :</strong>Au lieu de deviner la difficulté, calculez le lancer requis et la probabilité correspondante. Pour un système 3d6 avec une moyenne de 10,5 : DD 11 = 50 % de réussite, DD 14 = 25 % de réussite, DD 17 = 5 % de réussite. Pour 1d20+5 contre CA : CA 15 = 55 % de coup, CA 20 = 30 % de coup, CA 25 = 5 % de coup. Concevez des rencontres avec des taux de réussite prévus, et non des chiffres arbitraires. Une vérification « sérieuse » devrait réussir dans environ 25 à 40 % des cas ; un contrôle "presque impossible" ~5-10%.</li>
+</ul>
+<h2>FAQ sur les 4 lancers de dés</h2>
 <div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Pourquoi dois-je convertir les unités avant de calculer?</button><div class="faq-a"><p>La plupart des formules sont définies en unités SI. Utiliser des unités mélangées produit des résultats incorrects.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cette calculatrice est-elle précise?</button><div class="faq-a"><p>Oui. La calculatrice utilise la formule standard : Lanceur de Dés = f(Nombre dés, Faces). Les résultats sont mathématiquement exacts.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Puis-je utiliser cette calculatrice sur mobile?</button><div class="faq-a"><p>Oui, la calculatrice est entièrement responsive et fonctionne sur tout appareil. Aucune installation requise.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Comment sauvegarder ou partager mon calcul ?</button><div class="faq-a"><p>Utilisez le bouton <strong>Partager</strong> pour générer une URL qui encode toutes vos entrées. Le bouton <strong>Copier</strong> copie le résultat dans le presse-papiers.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Que faire si mon résultat semble incorrect ?</button><div class="faq-a"><p>Vérifiez d'abord vos entrées : valeurs dans les bonnes unités et plage réaliste. Vérifiez aussi que la formule <em>Lanceur de Dés = f(Nombre dés, Faces)</em> s'applique exactement à votre situation.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Les lancers de dés numériques sont-ils vraiment aléatoires ?</button><div class="faq-a">Des rouleaux numériques bien conçus utilisant un RNG cryptographiquement sécurisé produisent des résultats uniformément distribués, impossibles à distinguer du véritable hasard. Chaque visage a exactement une probabilité de 1/n, vérifiée par des tests statistiques. Les dés physiques, même les dés de casino de précision, présentent de légers biais dus à des imperfections de fabrication. Cependant, la confiance compte : utilisez des vidéos provenant de sources réputées qui publient leur méthodologie RNG et sont soumises à un audit tiers. Les vidéos à source fermée pourraient théoriquement manipuler les résultats.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Quel est le lancer moyen pour les combinaisons de dés courantes ?</button><div class="faq-a">Valeurs attendues : 1d4 = 2,5, 1d6 = 3,5, 1d8 = 4,5, 1d10 = 5,5, 1d12 = 6,5, 1d20 = 10,5. Pour plusieurs dés : 2d6 = 7, 3d6 = 10,5, 4d6 = 14, 4d6kh3 = 12,24, 2d10 = 11, 2d20 = 21. Ajoutez des modificateurs après avoir calculé l'attente de base. Il s’agit de moyennes à long terme – les rouleaux individuels varient considérablement. L'écart type pour 1d20 est de 5,77, ce qui signifie qu'environ 68 % des lancers se situent à ±6 de la moyenne (4-17 pour 1d20).</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Comment simuler des lancers de dés en programmation ?</button><div class="faq-a">La plupart des langages ont des fonctions aléatoires intégrées. Python : random.randint(1, 6) pour 1d6. JavaScript : Math.floor(Math.random() * 6) + 1. Pour plusieurs dés : sum([random.randint(1, 6) for _ in range(3)]) pour 3d6. Pour les rouleaux cryptographiquement sécurisés : le module secrets de Python (secrets.randbelow(6) + 1) ou crypto.getRandomValues() de JavaScript. Semez toujours les PRNG de manière appropriée : utilisez le temps système pour les jeux, les graines fixes pour des tests reproductibles.</p></div></div>
+<div class="faq-item"><button aria-expanded="false" class="faq-q">Puis-je utiliser un rouleau de dés pour jouer ?</button><div class="faq-a">Légalement, cela dépend de la juridiction. De nombreuses régions exigent que les RNG de jeu soient certifiés par des laboratoires de test agréés (GLI, BMM Testlabs) et utilisent des RNG matériels avec surveillance de l'entropie. L'utilisation d'un rouleau en ligne non certifié pour jouer en argent réel peut enfreindre les conditions de service et les lois locales. Pour de l'argent fictif ou des jeux occasionnels entre amis, n'importe quel rouleau équitable fonctionne. Pour les applications de jeu sérieuses, investissez dans du matériel RNG certifié et obtenez l’approbation réglementaire.</p></div></div>
 </div>
+<h2>Calculatrices associées</h2>
+<ul>
+<li><a href="/fr/">Coin Flip Simulator</a>— Simule les résultats d'un tirage au sort équitable</li>
+<li><a href="/fr/nombre-aleatoire/">Random Number Generator</a>— Génère des nombres aléatoires dans n'importe quelle plage</li>
+<li><a href="/fr/">Dice Probability Calculator</a>— Calcule les chances des résultats des lancers de dés</li>
+<li><a href="/fr/">RPG Damage Calculator</a>— Calcule les dégâts attendus pour les attaques RPG</li>
+<li><a href="/fr/">Advantage/Disadvantage Calculator</a>— Compare les probabilités de lancer D&amp;D 5e</li>
+</ul>
 </section>
