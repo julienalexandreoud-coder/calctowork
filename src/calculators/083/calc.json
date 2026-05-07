@@ -1,0 +1,97 @@
+{
+  "id": "083",
+  "slug": "dietas-desplazamiento",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "dias_obra",
+      "type": "number",
+      "min": 1,
+      "max": 365,
+      "step": 1,
+      "default": 20,
+      "unit": "dÃ­as",
+      "unit_options": [
+        "days"
+      ],
+      "unit_category": "time"
+    },
+    {
+      "id": "tipo_dieta",
+      "type": "select",
+      "default": "media_dieta",
+      "options": [
+        "media_dieta",
+        "dieta_completa",
+        "con_pernocta"
+      ]
+    },
+    {
+      "id": "km_diarios",
+      "type": "number",
+      "min": 0,
+      "max": 500,
+      "step": 5,
+      "default": 80,
+      "unit": "km/dÃ­a"
+    }
+  ],
+  "formula": "var D=parseFloat(inputs.dias_obra)||0,km=parseFloat(inputs.km_diarios)||0,dieta={'media_dieta':11.36,'dieta_completa':26.67,'con_pernocta':53.34};if(!D)return{error:true};var dieta_eur=+(D*dieta[inputs.tipo_dieta]).toFixed(2),km_eur=+(D*km*0.19).toFixed(2),total=+(dieta_eur+km_eur).toFixed(2);return{dieta_total_eur:dieta_eur,km_total_eur:km_eur,total_eur:total};",
+  "outputs": [
+    {
+      "id": "dieta_total_eur",
+      "unit": "Ã¢â€šÂ¬ dietas"
+    },
+    {
+      "id": "km_total_eur",
+      "unit": "Ã¢â€šÂ¬ km (0.19Ã¢â€šÂ¬/km)"
+    },
+    {
+      "id": "total_eur",
+      "unit": "Ã¢â€šÂ¬ total",
+      "highlight": true
+    }
+  ],
+  "related": [
+    "082",
+    "099",
+    "079",
+    "097"
+  ],
+  "example_inputs": {
+    "dias_obra": 20,
+    "tipo_dieta": "media_dieta",
+    "km_diarios": 80
+  },
+  "comparison_presets": [
+    {
+      "_label": "Desplazamiento corto (1 semana)",
+      "dias_obra": 5,
+      "km_diarios": 30
+    },
+    {
+      "_label": "Obra urbana (2 semanas)",
+      "dias_obra": 10,
+      "km_diarios": 50
+    },
+    {
+      "_label": "Obra provincial (1 mes)",
+      "dias_obra": 22,
+      "km_diarios": 80
+    },
+    {
+      "_label": "Obra en otra comunidad (2 meses)",
+      "dias_obra": 44,
+      "km_diarios": 120
+    },
+    {
+      "_label": "Gran obra con pernocta (3 meses)",
+      "dias_obra": 66,
+      "km_diarios": 150
+    }
+  ],
+  "units": {
+    "dias_obra": "s"
+  }
+}

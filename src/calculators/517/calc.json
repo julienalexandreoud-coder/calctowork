@@ -1,0 +1,79 @@
+{
+  "id": "517",
+  "slug": "latencia-ping",
+  "block": 13,
+  "block_slug": "cotidiano",
+  "inputs": [
+    {
+      "id": "distance",
+      "type": "number",
+      "step": "any",
+      "default": 1000,
+      "unit": "km",
+      "unit_options": [
+        "km",
+        "mi"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "medium",
+      "type": "select",
+      "options": [
+        "fiber",
+        "copper",
+        "wireless"
+      ],
+      "default": "fiber",
+      "unit": "",
+      "unit_options": [],
+      "unit_category": ""
+    }
+  ],
+  "formula": "var d=parseFloat(inputs.distance)||0;var m=inputs.medium||'fiber';var speed=m==='fiber'?2e8:m==='copper'?2.3e8:3e8;var lt=(d*1000/speed)*1000;var theo=lt*2;return{latency:lt.toFixed(2),theoretical:theo.toFixed(2)};",
+  "outputs": [
+    {
+      "id": "latency",
+      "unit": "ms"
+    },
+    {
+      "id": "theoretical",
+      "unit": "ms"
+    }
+  ],
+  "related": [
+    "516",
+    "504",
+    "503",
+    "500"
+  ],
+  "example_inputs": {
+    "distance": 1000,
+    "medium": "fiber"
+  },
+  "comparison_presets": [
+    {
+      "_label": "Escenario minimo",
+      "distance": 400.0
+    },
+    {
+      "_label": "Uso habitual",
+      "distance": 700.0
+    },
+    {
+      "_label": "Uso frecuente",
+      "distance": 1000.0
+    },
+    {
+      "_label": "Uso intensivo",
+      "distance": 1000.0
+    },
+    {
+      "_label": "Caso maximo",
+      "distance": 1000.0
+    }
+  ],
+  "units": {
+    "distance": "m"
+  }
+}

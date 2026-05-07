@@ -1,0 +1,90 @@
+{
+  "id": "089",
+  "slug": "senalizacion-obra",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "perimetro_m",
+      "type": "number",
+      "min": 5,
+      "max": 1000,
+      "step": 5,
+      "default": 60,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "altura_riesgo",
+      "type": "select",
+      "default": "medio",
+      "options": [
+        "bajo",
+        "medio",
+        "alto"
+      ]
+    }
+  ],
+  "formula": "var P=parseFloat(inputs.perimetro_m)||0,coef={'bajo':1,'medio':1.3,'alto':1.6};if(!P)return{error:true};var vallas=Math.ceil(P/2),senales_oblig=Math.ceil(P/15)*coef[inputs.altura_riesgo],senales_pelig=Math.ceil(P/20),coste=+(vallas*3+senales_oblig*12+senales_pelig*10).toFixed(2);return{vallas_2m_ud:vallas,senales_obligacion_ud:Math.ceil(senales_oblig),senales_peligro_ud:senales_pelig,coste_estimado_eur:coste};",
+  "outputs": [
+    {
+      "id": "vallas_2m_ud",
+      "unit": "vallas 2m"
+    },
+    {
+      "id": "senales_obligacion_ud",
+      "unit": "seÃ±ales obligaciÃ³n"
+    },
+    {
+      "id": "senales_peligro_ud",
+      "unit": "seÃ±ales peligro"
+    },
+    {
+      "id": "coste_estimado_eur",
+      "unit": "Ã¢â€šÂ¬ estimado",
+      "highlight": true
+    }
+  ],
+  "related": [
+    "088",
+    "085",
+    "086",
+    "078"
+  ],
+  "example_inputs": {
+    "perimetro_m": 60,
+    "altura_riesgo": "medio"
+  },
+  "comparison_presets": [
+    {
+      "_label": "Obra interior pequeÃ±a",
+      "perimetro_m": 20
+    },
+    {
+      "_label": "Reforma local comercial",
+      "perimetro_m": 40
+    },
+    {
+      "_label": "Obra fachada edificio viviendas",
+      "perimetro_m": 80
+    },
+    {
+      "_label": "Solar edificio viviendas",
+      "perimetro_m": 150
+    },
+    {
+      "_label": "Nave industrial (gran perÃ­metro)",
+      "perimetro_m": 300
+    }
+  ],
+  "units": {
+    "perimetro_m": "m"
+  }
+}

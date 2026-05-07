@@ -1,0 +1,154 @@
+{
+  "id": "1118",
+  "slug": "paver-calculator",
+  "block": 3,
+  "block_slug": "pavimentos",
+  "inputs": [
+    {
+      "id": "area_length",
+      "type": "number",
+      "min": 0.1,
+      "max": 50,
+      "step": 0.1,
+      "default": 5,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "area_width",
+      "type": "number",
+      "min": 0.1,
+      "max": 30,
+      "step": 0.1,
+      "default": 3,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "paver_size",
+      "type": "select",
+      "options": [
+        {
+          "value": "10x20",
+          "label": "10×20 cm"
+        },
+        {
+          "value": "15x15",
+          "label": "15×15 cm"
+        },
+        {
+          "value": "20x20",
+          "label": "20×20 cm"
+        },
+        {
+          "value": "15x30",
+          "label": "15×30 cm"
+        }
+      ],
+      "default": "20x20"
+    },
+    {
+      "id": "pattern",
+      "type": "select",
+      "options": [
+        {
+          "value": "running",
+          "label": "Running Bond (5% waste)"
+        },
+        {
+          "value": "herringbone",
+          "label": "Herringbone (10% waste)"
+        },
+        {
+          "value": "basket",
+          "label": "Basket Weave (8% waste)"
+        }
+      ],
+      "default": "running"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "area_m2",
+      "unit": "m²",
+      "highlight": true
+    },
+    {
+      "id": "pavers_needed",
+      "unit": "pavers"
+    },
+    {
+      "id": "base_gravel_tonnes",
+      "unit": "t"
+    },
+    {
+      "id": "sand_kg",
+      "unit": "kg"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.area_length)||0,W=parseFloat(inputs.area_width)||0,ps=inputs.paver_size||'30x30',pat=inputs.pattern||'straight';if(!L||!W)return{error:true};var area=+(L*W).toFixed(2),sizes={'20x20':0.04,'30x30':0.09,'40x40':0.16,'20x40':0.08,'40x60':0.24},pa=sizes[ps]||0.09,waste=pat==='herringbone'?0.15:0.10,pavers=Math.ceil(area/pa*(1+waste)),gravel=+(area*0.1*1.5).toFixed(1),sand=Math.ceil(area*0.03*1600);return{area_m2:area,pavers_needed:pavers,base_gravel_tonnes:gravel,sand_kg:sand};",
+  "example_inputs": {
+    "area_length": 4,
+    "area_width": 3,
+    "paver_size": 20,
+    "pattern": 1
+  },
+  "related": [
+    "1119",
+    "1110",
+    "1117",
+    "021"
+  ],
+  "comparison_presets": [
+    {
+      "area_length": 2,
+      "area_width": 2,
+      "paver_size": 20,
+      "pattern": 1
+    },
+    {
+      "area_length": 3,
+      "area_width": 3,
+      "paver_size": 20,
+      "pattern": 1
+    },
+    {
+      "area_length": 4,
+      "area_width": 3,
+      "paver_size": 20,
+      "pattern": 1
+    },
+    {
+      "area_length": 5,
+      "area_width": 4,
+      "paver_size": 30,
+      "pattern": 1
+    },
+    {
+      "area_length": 8,
+      "area_width": 5,
+      "paver_size": 40,
+      "pattern": 2
+    }
+  ],
+  "buying_units": {
+    "pavers_needed": [
+      {
+        "label": "Pavers",
+        "factor": 1,
+        "round": "ceil",
+        "unit_suffix": "pavers"
+      },
+      {
+        "label": "Pallets (250 pavers)",
+        "factor": 0.004,
+        "round": "ceil",
+        "unit_suffix": "pallets"
+      }
+    ]
+  },
+  "units": {
+    "area_length": "m",
+    "area_width": "m"
+  }
+}

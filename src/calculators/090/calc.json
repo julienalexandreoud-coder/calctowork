@@ -1,0 +1,105 @@
+{
+  "id": "090",
+  "slug": "rendimiento-diario",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "operarios",
+      "type": "number",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "default": 2,
+      "unit": "operarios"
+    },
+    {
+      "id": "horas_dia",
+      "type": "number",
+      "min": 4,
+      "max": 10,
+      "step": 0.5,
+      "default": 8,
+      "unit": "h/dÃ­a",
+      "unit_options": [
+        "h/day"
+      ],
+      "unit_category": "time"
+    },
+    {
+      "id": "rendimiento_m2_h",
+      "type": "number",
+      "min": 0.5,
+      "max": 20,
+      "step": 0.5,
+      "default": 5,
+      "unit": "mÂ²/h/op"
+    }
+  ],
+  "formula": "var N=parseFloat(inputs.operarios)||0,H=parseFloat(inputs.horas_dia)||8,R=parseFloat(inputs.rendimiento_m2_h)||5;if(!N)return{error:true};var dia=+(N*H*R).toFixed(1),semana=+(dia*5).toFixed(1),mes=+(dia*22).toFixed(1);return{m2_dia:dia,m2_semana:semana,m2_mes:mes,h_por_100m2:+(100/(N*R)).toFixed(1)};",
+  "outputs": [
+    {
+      "id": "m2_dia",
+      "unit": "mÂ²/dÃ­a",
+      "highlight": true
+    },
+    {
+      "id": "m2_semana",
+      "unit": "mÂ²/semana"
+    },
+    {
+      "id": "m2_mes",
+      "unit": "mÂ²/mes"
+    },
+    {
+      "id": "h_por_100m2",
+      "unit": "h/100mÂ²"
+    }
+  ],
+  "related": [
+    "099",
+    "079",
+    "091",
+    "097"
+  ],
+  "example_inputs": {
+    "operarios": 4,
+    "horas_dia": 8,
+    "rendimiento_m2_h": 5
+  },
+  "comparison_presets": [
+    {
+      "_label": "Oficial solo (tabiquerÃ­a)",
+      "operarios": 1,
+      "horas_dia": 8,
+      "rendimiento_m2_h": 4
+    },
+    {
+      "_label": "Pareja oficial+peÃ³n (alicatado)",
+      "operarios": 2,
+      "horas_dia": 8,
+      "rendimiento_m2_h": 3
+    },
+    {
+      "_label": "Cuadrilla estÃ¡ndar (enfoscado)",
+      "operarios": 3,
+      "horas_dia": 8,
+      "rendimiento_m2_h": 2
+    },
+    {
+      "_label": "Cuadrilla completa (solera)",
+      "operarios": 4,
+      "horas_dia": 8,
+      "rendimiento_m2_h": 5
+    },
+    {
+      "_label": "Gran cuadrilla (demoliciÃ³n)",
+      "operarios": 6,
+      "horas_dia": 8,
+      "rendimiento_m2_h": 8
+    }
+  ],
+  "units": {
+    "horas_dia": "h"
+  }
+}

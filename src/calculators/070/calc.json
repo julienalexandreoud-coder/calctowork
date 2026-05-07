@@ -1,0 +1,106 @@
+{
+  "id": "070",
+  "slug": "pintura-techo",
+  "block": 8,
+  "block_slug": "pintura",
+  "inputs": [
+    {
+      "id": "area_m2",
+      "type": "number",
+      "min": 1,
+      "max": 2000,
+      "step": 0.5,
+      "default": 40,
+      "unit": "mÂ²",
+      "unit_options": [
+        "mÂ²",
+        "ftÂ²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "manos",
+      "type": "number",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2,
+      "unit": "manos",
+      "unit_options": [
+        "coats"
+      ],
+      "unit_category": "count"
+    },
+    {
+      "id": "color",
+      "type": "select",
+      "default": "blanco",
+      "options": [
+        "blanco",
+        "pastel",
+        "oscuro"
+      ]
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area_m2)||0,M=parseFloat(inputs.manos)||2,extra=inputs.color==='oscuro'?1:0;if(!A)return{error:true};var R=9,manos_real=M+extra,litros=+(A*manos_real/R*1.1).toFixed(2),cubos=Math.ceil(litros/15);return{area_m2:+A.toFixed(2),litros_total:litros,cubos_15L:cubos,manos_totales:manos_real};",
+  "outputs": [
+    {
+      "id": "area_m2",
+      "unit": "mÂ²"
+    },
+    {
+      "id": "litros_total",
+      "unit": "L (+10%)",
+      "highlight": true
+    },
+    {
+      "id": "cubos_15L",
+      "unit": "cubos 15L"
+    },
+    {
+      "id": "manos_totales",
+      "unit": "manos"
+    }
+  ],
+  "related": [
+    "069",
+    "075",
+    "074",
+    "071"
+  ],
+  "example_inputs": {
+    "area_m2": 50,
+    "manos": 30,
+    "color": "blanco"
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small room",
+      "area_m2": 25,
+      "manos": 3
+    },
+    {
+      "_label": "Medium room",
+      "area_m2": 37.5,
+      "manos": 3
+    },
+    {
+      "_label": "Large room",
+      "area_m2": 50,
+      "manos": 3
+    },
+    {
+      "_label": "Office",
+      "area_m2": 75,
+      "manos": 3
+    },
+    {
+      "_label": "Hall",
+      "area_m2": 100,
+      "manos": 3
+    }
+  ],
+  "units": {
+    "area_m2": "mÂ²"
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "id": "311",
+  "slug": "ahorro-compuesto",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "deposito_mensual",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 200,
+      "unit": ""
+    },
+    {
+      "id": "tasa_anual",
+      "type": "number",
+      "min": 0,
+      "max": 50,
+      "step": "any",
+      "default": 7,
+      "unit": ""
+    },
+    {
+      "id": "anos",
+      "type": "number",
+      "min": 1,
+      "max": 50,
+      "step": "any",
+      "default": 10,
+      "unit": ""
+    }
+  ],
+  "formula": "var d=parseFloat(inputs.deposito_mensual)||0,r=parseFloat(inputs.tasa_anual)||0,n=parseFloat(inputs.anos)||0;if(!d||!n)return{error:true};var mr=r/100/12,nm=n*12;var total=mr?d*((Math.pow(1+mr,nm)-1)/mr)*(1+mr):d*nm;var dep=d*nm;return{total:+total.toFixed(2),intereses:+(total-dep).toFixed(2),depositado:+dep.toFixed(2)};",
+  "outputs": [
+    {
+      "id": "total",
+      "unit": "â‚¬",
+      "highlight": true
+    },
+    {
+      "id": "intereses",
+      "unit": "â‚¬"
+    },
+    {
+      "id": "depositado",
+      "unit": "â‚¬"
+    }
+  ],
+  "related": [
+    "302",
+    "300",
+    "314",
+    "936"
+  ],
+  "example_inputs": {
+    "deposito_mensual": 350,
+    "tasa_anual": 5.5,
+    "anos": 20
+  },
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "deposito_mensual": 175,
+      "tasa_anual": 3,
+      "anos": 20
+    },
+    {
+      "_label": "Average",
+      "deposito_mensual": 262,
+      "tasa_anual": 4,
+      "anos": 20
+    },
+    {
+      "_label": "High",
+      "deposito_mensual": 350,
+      "tasa_anual": 6,
+      "anos": 20
+    },
+    {
+      "_label": "Premium",
+      "deposito_mensual": 525,
+      "tasa_anual": 8,
+      "anos": 20
+    },
+    {
+      "_label": "Enterprise",
+      "deposito_mensual": 700,
+      "tasa_anual": 11,
+      "anos": 20
+    }
+  ]
+}

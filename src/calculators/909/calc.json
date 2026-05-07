@@ -1,0 +1,75 @@
+{
+  "id": "909",
+  "slug": "tiempo-pista",
+  "block": 17,
+  "block_slug": "deportes",
+  "inputs": [
+    {
+      "id": "distancia_5k",
+      "type": "number",
+      "min": 5,
+      "max": 60,
+      "step": "any",
+      "default": 25,
+      "unit": ""
+    },
+    {
+      "id": "distancia_objetivo",
+      "type": "number",
+      "min": 0.1,
+      "max": 42.2,
+      "step": "any",
+      "default": 10,
+      "unit": ""
+    }
+  ],
+  "formula": "var t5k=parseFloat(inputs.distancia_5k)||0,d=parseFloat(inputs.distancia_objetivo)||0;if(!t5k||!d)return{error:true};var pred=t5k*Math.pow(d/5,1.06);var pm=Math.floor(pred),ps=Math.round((pred-pm)*60);return{tiempo_estimado:pm+':'+(ps<10?'0':'')+ps,ritmo_min_km:+(pred/d).toFixed(2)};",
+  "outputs": [
+    {
+      "id": "tiempo_estimado",
+      "unit": "",
+      "highlight": true
+    },
+    {
+      "id": "ritmo_min_km",
+      "unit": "min/km"
+    }
+  ],
+  "related": [
+    "900",
+    "907",
+    "906",
+    "901"
+  ],
+  "example_inputs": {
+    "distancia_5k": 25,
+    "distancia_objetivo": 10
+  },
+  "comparison_presets": [
+    {
+      "_label": "Beginner",
+      "distancia_5k": 12,
+      "distancia_objetivo": 5
+    },
+    {
+      "_label": "Intermediate",
+      "distancia_5k": 19,
+      "distancia_objetivo": 8
+    },
+    {
+      "_label": "Advanced",
+      "distancia_5k": 25,
+      "distancia_objetivo": 10
+    },
+    {
+      "_label": "Elite",
+      "distancia_5k": 38,
+      "distancia_objetivo": 15
+    },
+    {
+      "_label": "Pro",
+      "distancia_5k": 50,
+      "distancia_objetivo": 20
+    }
+  ]
+}

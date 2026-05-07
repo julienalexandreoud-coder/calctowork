@@ -1,0 +1,115 @@
+{
+  "id": "084",
+  "slug": "alquiler-contenedor",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "m3_escombros",
+      "type": "number",
+      "min": 1,
+      "max": 200,
+      "step": 1,
+      "default": 8,
+      "unit": "mÂ³",
+      "unit_options": [
+        "mÂ³",
+        "ftÂ³"
+      ],
+      "unit_category": "volume"
+    },
+    {
+      "id": "dias_alquiler",
+      "type": "number",
+      "min": 1,
+      "max": 90,
+      "step": 1,
+      "default": 7,
+      "unit": "dÃ­as"
+    },
+    {
+      "id": "precio_dia_eur",
+      "type": "number",
+      "min": 2,
+      "max": 30,
+      "step": 0.5,
+      "default": 6,
+      "unit": "Ã¢â€šÂ¬/dÃ­a",
+      "unit_options": [
+        "Ã¢â€šÂ¬/day",
+        "$/day"
+      ],
+      "unit_category": "price"
+    }
+  ],
+  "formula": "var V=parseFloat(inputs.m3_escombros)||0,D=parseFloat(inputs.dias_alquiler)||7,P=parseFloat(inputs.precio_dia_eur)||6;if(!V)return{error:true};var tam=V<=7?7:V<=12?12:20,alq=+(D*P).toFixed(2),transporte=+(80+tam*5).toFixed(2),gestion_residuos=+(V*15).toFixed(2),total=+(alq+transporte+gestion_residuos).toFixed(2);return{tam_contenedor_m3:tam,alquiler_eur:alq,transporte_eur:transporte,gestion_residuos_eur:gestion_residuos,total_eur:total};",
+  "outputs": [
+    {
+      "id": "tam_contenedor_m3",
+      "unit": "mÂ³ contenedor"
+    },
+    {
+      "id": "alquiler_eur",
+      "unit": "Ã¢â€šÂ¬ alquiler"
+    },
+    {
+      "id": "transporte_eur",
+      "unit": "Ã¢â€šÂ¬ transporte"
+    },
+    {
+      "id": "gestion_residuos_eur",
+      "unit": "Ã¢â€šÂ¬ gestiÃ³n residuos"
+    },
+    {
+      "id": "total_eur",
+      "unit": "Ã¢â€šÂ¬ total estimado",
+      "highlight": true
+    }
+  ],
+  "related": [
+    "085",
+    "086",
+    "098",
+    "078"
+  ],
+  "example_inputs": {
+    "m3_escombros": 8,
+    "dias_alquiler": 7,
+    "precio_dia_eur": 6
+  },
+  "comparison_presets": [
+    {
+      "_label": "Reforma baÃ±o/cocina",
+      "m3_escombros": 3,
+      "dias_alquiler": 5,
+      "precio_dia_eur": 5
+    },
+    {
+      "_label": "Reforma integral piso",
+      "m3_escombros": 8,
+      "dias_alquiler": 7,
+      "precio_dia_eur": 6
+    },
+    {
+      "_label": "Reforma local comercial",
+      "m3_escombros": 15,
+      "dias_alquiler": 14,
+      "precio_dia_eur": 7
+    },
+    {
+      "_label": "DemoliciÃ³n vivienda unifamiliar",
+      "m3_escombros": 30,
+      "dias_alquiler": 21,
+      "precio_dia_eur": 8
+    },
+    {
+      "_label": "Obra nueva edificio pequeÃ±o",
+      "m3_escombros": 60,
+      "dias_alquiler": 30,
+      "precio_dia_eur": 10
+    }
+  ],
+  "units": {
+    "m3_escombros": "mÂ³"
+  }
+}

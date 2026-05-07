@@ -1,0 +1,112 @@
+{
+  "id": "952",
+  "slug": "running-pace-predictor",
+  "block": 16,
+  "block_slug": "deportes",
+  "inputs": [
+    {
+      "id": "distancia_km",
+      "type": "number",
+      "min": 0.1,
+      "max": 100,
+      "step": 0.1,
+      "default": 5,
+      "unit": "km",
+      "unit_options": [
+        "km",
+        "m",
+        "mi"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "tiempo_min",
+      "type": "number",
+      "min": 1,
+      "max": 600,
+      "step": 0.1,
+      "default": 25,
+      "unit": "min",
+      "unit_options": [
+        "min",
+        "s",
+        "h"
+      ],
+      "unit_category": "time"
+    }
+  ],
+  "formula": "var distancia=parseFloat(inputs.distancia_km)||0,tiempo=parseFloat(inputs.tiempo_min)||0;if(!distancia||!tiempo)return{error:true};var pace=+(tiempo/distancia).toFixed(1),speed=+(distancia/(tiempo/60)).toFixed(2);var t5k=Math.round(pace*5),t10k=Math.round(pace*10),thm=Math.round(pace*21.0975),tm=Math.round(pace*42.195);return{pace_min_km:pace,speed_kmh:speed,time_5k:t5k+' min',time_10k:t10k+' min',time_half_marathon:Math.floor(thm/60)+'h'+(thm%60)+'m',time_marathon:Math.floor(tm/60)+'h'+(tm%60)+'m'};",
+  "outputs": [
+    {
+      "id": "pace_min_km",
+      "unit": "min/km",
+      "highlight": true
+    },
+    {
+      "id": "speed_kmh",
+      "unit": "km/h",
+      "highlight": false
+    },
+    {
+      "id": "time_5k",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "time_10k",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "time_half_marathon",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "time_marathon",
+      "unit": "",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "950",
+    "951",
+    "954",
+    "900"
+  ],
+  "example_inputs": {
+    "distancia_km": 5,
+    "tiempo_min": 25
+  },
+  "comparison_presets": [
+    {
+      "_label": "Beginner",
+      "tiempo_min": 12.5,
+      "distancia_km": 2.5
+    },
+    {
+      "_label": "Intermediate",
+      "tiempo_min": 18.75,
+      "distancia_km": 3.75
+    },
+    {
+      "_label": "Advanced",
+      "tiempo_min": 25,
+      "distancia_km": 5
+    },
+    {
+      "_label": "Elite",
+      "tiempo_min": 37.5,
+      "distancia_km": 7.5
+    },
+    {
+      "_label": "Pro",
+      "tiempo_min": 50,
+      "distancia_km": 10
+    }
+  ],
+  "units": {
+    "distancia_km": "m",
+    "tiempo_min": "s"
+  }
+}

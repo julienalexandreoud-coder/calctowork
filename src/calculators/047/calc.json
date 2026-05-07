@@ -1,0 +1,97 @@
+{
+  "id": "047",
+  "slug": "cuadro-electrico",
+  "block": 5,
+  "block_slug": "electricidad",
+  "inputs": [
+    {
+      "id": "potencia_kw",
+      "type": "number",
+      "min": 1,
+      "max": 200,
+      "step": 0.5,
+      "default": 9.2,
+      "unit": "kW",
+      "unit_options": [
+        "kW",
+        "W"
+      ],
+      "unit_category": "power"
+    },
+    {
+      "id": "tension_v",
+      "type": "select",
+      "default": "230",
+      "options": [
+        "230",
+        "400"
+      ]
+    },
+    {
+      "id": "factor_simultaneidad",
+      "type": "number",
+      "min": 0.4,
+      "max": 1,
+      "step": 0.05,
+      "default": 0.7,
+      "unit": ""
+    }
+  ],
+  "formula": "var P=parseFloat(inputs.potencia_kw)||0,V=parseFloat(inputs.tension_v)||230,fs=parseFloat(inputs.factor_simultaneidad)||0.7;if(!P)return{error:true};var i_max=+(P*1000*fs/(V*(V===230?1:Math.sqrt(3)))).toFixed(1),icp=i_max<=16?16:i_max<=25?25:i_max<=32?32:i_max<=40?40:i_max<=50?50:63,riti=Math.ceil(i_max/16);return{corriente_max_a:i_max,icp_recomendado_a:icp,circuitos_estimados:riti};",
+  "outputs": [
+    {
+      "id": "corriente_max_a",
+      "unit": "A"
+    },
+    {
+      "id": "icp_recomendado_a",
+      "unit": "A (ICP/IGA)",
+      "highlight": true
+    },
+    {
+      "id": "circuitos_estimados",
+      "unit": "circuitos"
+    }
+  ],
+  "related": [
+    "043",
+    "044",
+    "050",
+    "045"
+  ],
+  "example_inputs": {
+    "potencia_kw": 9.2,
+    "tension_v": "230",
+    "factor_simultaneidad": 0.7
+  },
+  "comparison_presets": [
+    {
+      "_label": "Piso pequeño (3.45 kW)",
+      "potencia_kw": 3.45,
+      "factor_simultaneidad": 0.5
+    },
+    {
+      "_label": "Vivienda estándar (5.75 kW)",
+      "potencia_kw": 5.75,
+      "factor_simultaneidad": 0.6
+    },
+    {
+      "_label": "Vivienda equipada (9.2 kW)",
+      "potencia_kw": 9.2,
+      "factor_simultaneidad": 0.7
+    },
+    {
+      "_label": "Local comercial (20 kW)",
+      "potencia_kw": 20,
+      "factor_simultaneidad": 0.8
+    },
+    {
+      "_label": "Nave industrial (50 kW)",
+      "potencia_kw": 50,
+      "factor_simultaneidad": 0.9
+    }
+  ],
+  "units": {
+    "potencia_kw": "W"
+  }
+}

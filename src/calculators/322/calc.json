@@ -1,0 +1,103 @@
+{
+  "id": "322",
+  "slug": "amortizacion-prestamo",
+  "block": 7,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "principal",
+      "type": "number",
+      "step": "any",
+      "default": 100000,
+      "unit": "USD",
+      "unit_options": [
+        "USD",
+        "EUR",
+        "GBP"
+      ],
+      "unit_category": "currency"
+    },
+    {
+      "id": "rate",
+      "type": "number",
+      "step": "any",
+      "default": 5,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "percentage"
+    },
+    {
+      "id": "years",
+      "type": "number",
+      "step": 1,
+      "default": 30,
+      "unit": "yr",
+      "unit_options": [
+        "yr",
+        "mo"
+      ],
+      "unit_category": "time"
+    }
+  ],
+  "formula": "var p=parseFloat(inputs.principal)||0;var r=(parseFloat(inputs.rate)||0)/1200;var n=(parseFloat(inputs.years)||0)*12;var payment=r>0?p*r/(1-Math.pow(1+r,-n)):p/n;var total=payment*n-p;return{payment:payment.toFixed(2),total_interest:total.toFixed(2)};",
+  "outputs": [
+    {
+      "id": "payment",
+      "unit": "USD"
+    },
+    {
+      "id": "total_interest",
+      "unit": "USD"
+    }
+  ],
+  "related": [
+    "300",
+    "320",
+    "334",
+    "337"
+  ],
+  "example_inputs": {
+    "principal": 250000,
+    "rate": 4.5,
+    "years": 30
+  },
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "principal": 125000,
+      "rate": 2,
+      "years": 30
+    },
+    {
+      "_label": "Average",
+      "principal": 187500,
+      "rate": 3,
+      "years": 30
+    },
+    {
+      "_label": "High",
+      "principal": 250000,
+      "rate": 4,
+      "years": 30
+    },
+    {
+      "_label": "Premium",
+      "principal": 375000,
+      "rate": 7,
+      "years": 30
+    },
+    {
+      "_label": "Enterprise",
+      "principal": 500000,
+      "rate": 9,
+      "years": 30
+    }
+  ],
+  "units": {
+    "principal": "USD",
+    "rate": "%",
+    "years": "s"
+  }
+}

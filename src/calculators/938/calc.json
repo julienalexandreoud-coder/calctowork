@@ -1,0 +1,108 @@
+{
+  "id": "938",
+  "slug": "savings-calculator",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "ahorro_mensual",
+      "type": "number",
+      "min": 0,
+      "max": 99999,
+      "step": 10,
+      "default": 500,
+      "unit": "EUR"
+    },
+    {
+      "id": "tasa_anual",
+      "type": "number",
+      "min": 0,
+      "max": 20,
+      "step": 0.01,
+      "default": 7,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    },
+    {
+      "id": "anos",
+      "type": "number",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "default": 20,
+      "unit": "yr",
+      "unit_options": [
+        "yr",
+        "mo"
+      ],
+      "unit_category": "time"
+    }
+  ],
+  "formula": "var ahorro=parseFloat(inputs.ahorro_mensual)||0,tasa=parseFloat(inputs.tasa_anual)||0,anos=parseFloat(inputs.anos)||20;if(!ahorro)return{error:true};var r=tasa/1200,n=anos*12;var total=ahorro*(Math.pow(1+r,n)-1)/r;var aportado=ahorro*n;var interes=total-aportado;return{final_amount:+(total).toFixed(2),total_contributed:+(aportado).toFixed(2),total_interest:+(interes).toFixed(2)};",
+  "outputs": [
+    {
+      "id": "final_amount",
+      "unit": "EUR",
+      "highlight": true
+    },
+    {
+      "id": "total_contributed",
+      "unit": "EUR",
+      "highlight": false
+    },
+    {
+      "id": "total_interest",
+      "unit": "EUR",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "936",
+    "934",
+    "314",
+    "311"
+  ],
+  "example_inputs": {
+    "ahorro_mensual": 500,
+    "tasa_anual": 7,
+    "anos": 20
+  },
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "ahorro_mensual": 250,
+      "anos": 10,
+      "tasa_anual": 7
+    },
+    {
+      "_label": "Average",
+      "ahorro_mensual": 380,
+      "anos": 15,
+      "tasa_anual": 7
+    },
+    {
+      "_label": "High",
+      "ahorro_mensual": 500,
+      "anos": 20,
+      "tasa_anual": 7
+    },
+    {
+      "_label": "Premium",
+      "ahorro_mensual": 750,
+      "anos": 30,
+      "tasa_anual": 7
+    },
+    {
+      "_label": "Enterprise",
+      "ahorro_mensual": 1000,
+      "anos": 40,
+      "tasa_anual": 7
+    }
+  ],
+  "units": {
+    "anos": "s"
+  }
+}

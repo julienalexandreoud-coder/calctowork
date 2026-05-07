@@ -1,0 +1,120 @@
+{
+  "id": "039",
+  "slug": "riego-goteo",
+  "block": 4,
+  "block_slug": "fontaneria",
+  "inputs": [
+    {
+      "id": "area_m2",
+      "type": "number",
+      "min": 5,
+      "max": 10000,
+      "step": 5,
+      "default": 200,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "separacion_goteros_cm",
+      "type": "number",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "default": 30,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in",
+        "ft"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "separacion_lineas_m",
+      "type": "number",
+      "min": 0.3,
+      "max": 2,
+      "step": 0.1,
+      "default": 0.5,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area_m2)||0,sg=parseFloat(inputs.separacion_goteros_cm)||30,sl=parseFloat(inputs.separacion_lineas_m)||0.5;if(!A)return{error:true};var lineas_m=+(A/sl).toFixed(1),goteros=Math.ceil((A/(sl*sg/100))),tuberia_m=+(lineas_m*1.15).toFixed(1),programador=1;return{lineas_tuberia_m:tuberia_m,goteros_ud:goteros,sectores:Math.ceil(A/500)};",
+  "outputs": [
+    {
+      "id": "lineas_tuberia_m",
+      "unit": "m.l. tubería (+15%)",
+      "highlight": true
+    },
+    {
+      "id": "goteros_ud",
+      "unit": "goteros"
+    },
+    {
+      "id": "sectores",
+      "unit": "sectores (500m²/sector)"
+    }
+  ],
+  "related": [
+    "031",
+    "033",
+    "034",
+    "036"
+  ],
+  "example_inputs": {
+    "area_m2": 200,
+    "separacion_goteros_cm": 30,
+    "separacion_lineas_m": 0.5
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small bathroom",
+      "area_m2": 100,
+      "separacion_goteros_cm": 20,
+      "separacion_lineas_m": 0.5
+    },
+    {
+      "_label": "Medium bathroom",
+      "area_m2": 150,
+      "separacion_goteros_cm": 20,
+      "separacion_lineas_m": 0.5
+    },
+    {
+      "_label": "Large bathroom",
+      "area_m2": 200,
+      "separacion_goteros_cm": 30,
+      "separacion_lineas_m": 0.5
+    },
+    {
+      "_label": "Apartment",
+      "area_m2": 300,
+      "separacion_goteros_cm": 40,
+      "separacion_lineas_m": 0.5
+    },
+    {
+      "_label": "House",
+      "area_m2": 400,
+      "separacion_goteros_cm": 60,
+      "separacion_lineas_m": 0.5
+    }
+  ],
+  "units": {
+    "area_m2": "m²",
+    "separacion_goteros_cm": "m",
+    "separacion_lineas_m": "m"
+  }
+}

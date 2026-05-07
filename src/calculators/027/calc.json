@@ -1,0 +1,122 @@
+{
+  "id": "027",
+  "slug": "azulejo-pared",
+  "block": 3,
+  "block_slug": "pavimentos",
+  "inputs": [
+    {
+      "id": "area",
+      "type": "number",
+      "min": 0.5,
+      "max": 500,
+      "step": 0.5,
+      "default": 20,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "tam_pieza_cm",
+      "type": "number",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "default": 30,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "piezas_por_caja",
+      "type": "number",
+      "min": 1,
+      "max": 30,
+      "step": 1,
+      "default": 10,
+      "unit": "ud",
+      "unit_options": [
+        "piezas/caja"
+      ],
+      "unit_category": "count"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area)||0,tam=parseFloat(inputs.tam_pieza_cm)||30,pxc=parseFloat(inputs.piezas_por_caja)||10;if(!A)return{error:true};var area_merma=+(A*1.15).toFixed(2),pieza_m2=(tam/100)*(tam/100),piezas=Math.ceil(area_merma/pieza_m2),cajas=Math.ceil(piezas/pxc),adhesivo=+(area_merma*4).toFixed(1),lechada=+(area_merma*0.4).toFixed(1);return{area_merma_m2:area_merma,piezas_ud:piezas,cajas_ud:cajas,adhesivo_kg:adhesivo,lechada_kg:lechada};",
+  "outputs": [
+    {
+      "id": "area_merma_m2",
+      "unit": "m² (+15% merma)",
+      "highlight": true
+    },
+    {
+      "id": "piezas_ud",
+      "unit": "piezas"
+    },
+    {
+      "id": "cajas_ud",
+      "unit": "cajas"
+    },
+    {
+      "id": "adhesivo_kg",
+      "unit": "kg"
+    },
+    {
+      "id": "lechada_kg",
+      "unit": "kg"
+    }
+  ],
+  "related": [
+    "021",
+    "028",
+    "029",
+    "026"
+  ],
+  "example_inputs": {
+    "area": 20,
+    "tam_pieza_cm": 30,
+    "piezas_por_caja": 10
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small patio",
+      "area": 10,
+      "tam_pieza_cm": 15,
+      "piezas_por_caja": 10
+    },
+    {
+      "_label": "Medium patio",
+      "area": 15,
+      "tam_pieza_cm": 20,
+      "piezas_por_caja": 10
+    },
+    {
+      "_label": "Large patio",
+      "area": 20,
+      "tam_pieza_cm": 30,
+      "piezas_por_caja": 10
+    },
+    {
+      "_label": "Driveway",
+      "area": 30,
+      "tam_pieza_cm": 45,
+      "piezas_por_caja": 10
+    },
+    {
+      "_label": "Parking lot",
+      "area": 40,
+      "tam_pieza_cm": 60,
+      "piezas_por_caja": 10
+    }
+  ],
+  "units": {
+    "area": "m²",
+    "tam_pieza_cm": "m"
+  }
+}

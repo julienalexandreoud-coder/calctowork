@@ -1,0 +1,81 @@
+{
+  "id": "941",
+  "slug": "emergency-fund",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "gastos_mensuales",
+      "type": "number",
+      "min": 0,
+      "max": 99999,
+      "step": 10,
+      "default": 2000,
+      "unit": "EUR"
+    },
+    {
+      "id": "ahorro_meses",
+      "type": "number",
+      "min": 1,
+      "max": 24,
+      "step": 1,
+      "default": 6,
+      "unit": "mo"
+    }
+  ],
+  "formula": "var gastos=parseFloat(inputs.gastos_mensuales)||0,ahorro=parseFloat(inputs.ahorro_meses)||6;if(!gastos)return{error:true};var total=gastos*ahorro;return{emergency_fund:+(total).toFixed(2),monthly:gastos,months:ahorro};",
+  "outputs": [
+    {
+      "id": "emergency_fund",
+      "unit": "EUR",
+      "highlight": true
+    },
+    {
+      "id": "monthly",
+      "unit": "EUR",
+      "highlight": false
+    },
+    {
+      "id": "months",
+      "unit": "mo",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "938",
+    "936",
+    "937",
+    "300"
+  ],
+  "example_inputs": {
+    "gastos_mensuales": 2000,
+    "ahorro_meses": 6
+  },
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "gastos_mensuales": 1000,
+      "ahorro_meses": 3
+    },
+    {
+      "_label": "Average",
+      "gastos_mensuales": 1500,
+      "ahorro_meses": 4
+    },
+    {
+      "_label": "High",
+      "gastos_mensuales": 2000,
+      "ahorro_meses": 6
+    },
+    {
+      "_label": "Premium",
+      "gastos_mensuales": 3000,
+      "ahorro_meses": 9
+    },
+    {
+      "_label": "Enterprise",
+      "gastos_mensuales": 4000,
+      "ahorro_meses": 12
+    }
+  ]
+}

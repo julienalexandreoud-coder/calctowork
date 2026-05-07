@@ -1,0 +1,113 @@
+{
+  "id": "606",
+  "slug": "intervalo-confianza",
+  "block": 14,
+  "block_slug": "estadistica",
+  "inputs": [
+    {
+      "id": "media",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 50,
+      "unit": ""
+    },
+    {
+      "id": "desviacion",
+      "type": "number",
+      "min": 0.001,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 10,
+      "unit": ""
+    },
+    {
+      "id": "n",
+      "type": "number",
+      "min": 2,
+      "max": 1000000000,
+      "step": "any",
+      "default": 100,
+      "unit": ""
+    },
+    {
+      "id": "confianza",
+      "type": "number",
+      "min": 1,
+      "max": 99.9,
+      "step": "any",
+      "default": 95,
+      "unit": ""
+    }
+  ],
+  "formula": "var m=parseFloat(inputs.media)||0,s=parseFloat(inputs.desviacion)||0,n=parseFloat(inputs.n)||0,c=parseFloat(inputs.confianza)||95;if(!n||!s)return{error:true};var z=c>=99?2.576:c>=98?2.326:c>=95?1.96:c>=90?1.645:1.036;var se=s/Math.sqrt(n),me=z*se;return{limite_inferior:+(m-me).toFixed(4),limite_superior:+(m+me).toFixed(4),margen_error:+me.toFixed(4),error_estandar:+se.toFixed(4)};",
+  "outputs": [
+    {
+      "id": "limite_inferior",
+      "unit": "",
+      "highlight": true
+    },
+    {
+      "id": "limite_superior",
+      "unit": ""
+    },
+    {
+      "id": "margen_error",
+      "unit": ""
+    },
+    {
+      "id": "error_estandar",
+      "unit": ""
+    }
+  ],
+  "related": [
+    "600",
+    "602",
+    "608",
+    "607"
+  ],
+  "example_inputs": {
+    "media": 50,
+    "desviacion": 10,
+    "n": 100,
+    "confianza": 95
+  },
+  "comparison_presets": [
+    {
+      "_label": "Muestra pequena",
+      "media": 20.0,
+      "desviacion": 4.0,
+      "n": 40.0,
+      "confianza": 38.0
+    },
+    {
+      "_label": "Datos uniformes",
+      "media": 35.0,
+      "desviacion": 7.0,
+      "n": 70.0,
+      "confianza": 66.5
+    },
+    {
+      "_label": "Datos dispersos",
+      "media": 50.0,
+      "desviacion": 10.0,
+      "n": 100.0,
+      "confianza": 95.0
+    },
+    {
+      "_label": "Muestra grande",
+      "media": 75.0,
+      "desviacion": 15.0,
+      "n": 150.0,
+      "confianza": 99.9
+    },
+    {
+      "_label": "Valores atipicos",
+      "media": 125.0,
+      "desviacion": 25.0,
+      "n": 250.0,
+      "confianza": 99.9
+    }
+  ]
+}

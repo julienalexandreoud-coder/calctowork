@@ -1,0 +1,70 @@
+{
+  "id": "139",
+  "slug": "cuartiles",
+  "block": 11,
+  "block_slug": "matematicas",
+  "inputs": [
+    {
+      "id": "values",
+      "type": "text",
+      "default": "1,2,3,4,5,6,7,8,9,10",
+      "unit": "",
+      "unit_options": [],
+      "unit_category": ""
+    }
+  ],
+  "formula": "var vals=(inputs.values||'').split(',').map(function(v){return parseFloat(v.trim());}).filter(function(v){return !isNaN(v);});vals.sort(function(a,b){return a-b;});var n=vals.length;var getQ=function(p){var pos=(n-1)*p+1;var base=Math.floor(pos)-1;var rest=pos-base-1;if(base+1>=n)return vals[n-1];return vals[base]+rest*(vals[base+1]-vals[base]);};return{q1:getQ(0.25).toFixed(4),q2:getQ(0.5).toFixed(4),q3:getQ(0.75).toFixed(4),iqr:(getQ(0.75)-getQ(0.25)).toFixed(4)};",
+  "outputs": [
+    {
+      "id": "q1",
+      "unit": ""
+    },
+    {
+      "id": "q2",
+      "unit": ""
+    },
+    {
+      "id": "q3",
+      "unit": ""
+    },
+    {
+      "id": "iqr",
+      "unit": ""
+    }
+  ],
+  "related": [
+    "138",
+    "136",
+    "200",
+    "201"
+  ],
+  "example_inputs": {
+    "values": "5, 12, 18, 22, 28, 35, 42, 48, 55, 62"
+  },
+  "comparison_presets": [
+    {
+      "_label": "10 values",
+      "values": "1,2,3,4,5,6,7,8,9,10"
+    },
+    {
+      "_label": "Test scores",
+      "values": "50,55,60,65,70,75,80,85,90,95,100"
+    },
+    {
+      "_label": "Ages",
+      "values": "22,25,28,31,34,37,40,43,46,49,52"
+    },
+    {
+      "_label": "Salaries (k)",
+      "values": "28,32,35,38,40,42,45,48,52,58,65,75"
+    },
+    {
+      "_label": "Heights (cm)",
+      "values": "155,160,163,165,168,170,172,175,178,182,185"
+    }
+  ],
+  "buying_units": {
+    "box": 12,
+    "sqm_per_box": 1.44
+  }
+}

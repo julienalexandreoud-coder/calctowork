@@ -1,0 +1,85 @@
+{
+  "id": "516",
+  "slug": "tiempo-actividad",
+  "block": 4,
+  "block_slug": "cotidiano",
+  "inputs": [
+    {
+      "id": "downtime_min",
+      "type": "number",
+      "step": "any",
+      "default": 60,
+      "unit": "min",
+      "unit_options": [
+        "min",
+        "h"
+      ],
+      "unit_category": "time"
+    },
+    {
+      "id": "period",
+      "type": "number",
+      "step": "any",
+      "default": 30,
+      "unit": "days",
+      "unit_options": [
+        "days",
+        "mo",
+        "yr"
+      ],
+      "unit_category": "time"
+    }
+  ],
+  "formula": "var dt=parseFloat(inputs.downtime_min)||0;var p=parseFloat(inputs.period)||30;var total_min=p*24*60;var up=(1-dt/total_min)*100;var sla=up>=99.999?'Five nines':up>=99.99?'Four nines':up>=99.9?'Three nines':up>=99?'Two nines':'Below 99%';return{uptime_pct:up.toFixed(4),sla:sla};",
+  "outputs": [
+    {
+      "id": "uptime_pct",
+      "unit": "%"
+    },
+    {
+      "id": "sla",
+      "unit": ""
+    }
+  ],
+  "related": [
+    "517",
+    "510",
+    "500",
+    "501"
+  ],
+  "example_inputs": {
+    "downtime_min": 60,
+    "period": 30
+  },
+  "comparison_presets": [
+    {
+      "_label": "Escenario minimo",
+      "downtime_min": 24.0,
+      "period": 12.0
+    },
+    {
+      "_label": "Uso habitual",
+      "downtime_min": 42.0,
+      "period": 21.0
+    },
+    {
+      "_label": "Uso frecuente",
+      "downtime_min": 60.0,
+      "period": 30.0
+    },
+    {
+      "_label": "Uso intensivo",
+      "downtime_min": 90.0,
+      "period": 45.0
+    },
+    {
+      "_label": "Caso maximo",
+      "downtime_min": 150.0,
+      "period": 75.0
+    }
+  ],
+  "units": {
+    "downtime_min": "s",
+    "period": "s"
+  }
+}

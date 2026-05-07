@@ -1,0 +1,103 @@
+{
+  "id": "078",
+  "slug": "presupuesto-reforma",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "area_m2",
+      "type": "number",
+      "min": 10,
+      "max": 2000,
+      "step": 5,
+      "default": 100,
+      "unit": "mÂ²",
+      "unit_options": [
+        "mÂ²",
+        "ftÂ²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "tipo_reforma",
+      "type": "select",
+      "default": "media",
+      "options": [
+        "basica",
+        "media",
+        "alta",
+        "lujo"
+      ]
+    },
+    {
+      "id": "zona_geografica",
+      "type": "select",
+      "default": "media",
+      "options": [
+        "rural",
+        "media",
+        "capital",
+        "premium"
+      ]
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area_m2)||0,coste={'basica':400,'media':700,'alta':1100,'lujo':2000},geo={'rural':0.8,'media':1.0,'capital':1.2,'premium':1.5};if(!A)return{error:true};var eur_m2=+(coste[inputs.tipo_reforma]*geo[inputs.zona_geografica]).toFixed(0),total=+(A*eur_m2).toFixed(0),material=+(total*0.45).toFixed(0),mano_obra=+(total*0.40).toFixed(0),gestion=+(total*0.15).toFixed(0);return{eur_m2:eur_m2,total_eur:total,materiales_eur:material,mano_obra_eur:mano_obra,gestion_eur:gestion};",
+  "outputs": [
+    {
+      "id": "eur_m2",
+      "unit": "Ã¢â€šÂ¬/mÂ²"
+    },
+    {
+      "id": "total_eur",
+      "unit": "Ã¢â€šÂ¬ total",
+      "highlight": true
+    },
+    {
+      "id": "materiales_eur",
+      "unit": "Ã¢â€šÂ¬ materiales"
+    },
+    {
+      "id": "mano_obra_eur",
+      "unit": "Ã¢â€šÂ¬ mano de obra"
+    },
+    {
+      "id": "gestion_eur",
+      "unit": "Ã¢â€šÂ¬ gestiÃ³n"
+    }
+  ],
+  "related": [
+    "092",
+    "095",
+    "099",
+    "086"
+  ],
+  "example_inputs": {
+    "area_m2": 100,
+    "tipo_reforma": "media"
+  },
+  "comparison_presets": [
+    {
+      "_label": "Piso pequeÃ±o reforma bÃ¡sica",
+      "area_m2": 60
+    },
+    {
+      "_label": "Piso estÃ¡ndar reforma media",
+      "area_m2": 90
+    },
+    {
+      "_label": "Vivienda unifamiliar reforma media",
+      "area_m2": 120
+    },
+    {
+      "_label": "Local comercial reforma alta",
+      "area_m2": 200
+    },
+    {
+      "_label": "Nave industrial reforma bÃ¡sica",
+      "area_m2": 500
+    }
+  ],
+  "units": {
+    "area_m2": "mÂ²"
+  }
+}

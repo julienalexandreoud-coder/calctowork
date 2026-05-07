@@ -1,0 +1,102 @@
+{
+  "id": "1045",
+  "slug": "viento-cruzado",
+  "block": 2,
+  "block_slug": "transporte",
+  "inputs": [
+    {
+      "id": "wind_dir",
+      "type": "number",
+      "step": "any",
+      "default": 270,
+      "unit": "deg",
+      "unit_options": [
+        "deg"
+      ],
+      "unit_category": "angle"
+    },
+    {
+      "id": "runway",
+      "type": "number",
+      "step": "any",
+      "default": 360,
+      "unit": "deg",
+      "unit_options": [
+        "deg"
+      ],
+      "unit_category": "angle"
+    },
+    {
+      "id": "wind_speed",
+      "type": "number",
+      "step": "any",
+      "default": 20,
+      "unit": "kt",
+      "unit_options": [
+        "kt",
+        "km/h",
+        "mph"
+      ],
+      "unit_category": "speed"
+    }
+  ],
+  "formula": "var wd=(parseFloat(inputs.wind_dir)||0)*Math.PI/180;var rw=(parseFloat(inputs.runway)||0)*Math.PI/180;var ws=parseFloat(inputs.wind_speed)||0;var angle=wd-rw;var cw=ws*Math.sin(angle);var hw=ws*Math.cos(angle);return{crosswind:Math.abs(cw).toFixed(1),headwind:hw.toFixed(1)};",
+  "outputs": [
+    {
+      "id": "crosswind",
+      "unit": "kt"
+    },
+    {
+      "id": "headwind",
+      "unit": "kt"
+    }
+  ],
+  "related": [
+    "1046",
+    "1047",
+    "1048",
+    "1049"
+  ],
+  "example_inputs": {
+    "wind_dir": 270,
+    "runway": 360,
+    "wind_speed": 20
+  },
+  "comparison_presets": [
+    {
+      "_label": "City",
+      "wind_dir": 135,
+      "runway": 180,
+      "wind_speed": 20
+    },
+    {
+      "_label": "Suburban",
+      "wind_dir": 202,
+      "runway": 270,
+      "wind_speed": 20
+    },
+    {
+      "_label": "Highway",
+      "wind_dir": 270,
+      "runway": 360,
+      "wind_speed": 20
+    },
+    {
+      "_label": "Long haul",
+      "wind_dir": 405,
+      "runway": 540,
+      "wind_speed": 20
+    },
+    {
+      "_label": "International",
+      "wind_dir": 540,
+      "runway": 720,
+      "wind_speed": 20
+    }
+  ],
+  "units": {
+    "wind_dir": "deg",
+    "runway": "deg",
+    "wind_speed": "m/s"
+  }
+}

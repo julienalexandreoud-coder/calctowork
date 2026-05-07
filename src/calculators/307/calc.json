@@ -1,0 +1,94 @@
+{
+  "id": "307",
+  "slug": "punto-de-equilibrio",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "costes_fijos",
+      "type": "number",
+      "min": 0.01,
+      "max": 1000000000000,
+      "step": 1,
+      "default": 5000,
+      "unit": "â‚¬"
+    },
+    {
+      "id": "precio_venta",
+      "type": "number",
+      "min": 0.01,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 50,
+      "unit": "â‚¬"
+    },
+    {
+      "id": "coste_variable",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 20,
+      "unit": "â‚¬"
+    }
+  ],
+  "formula": "var CF=parseFloat(inputs.costes_fijos)||0,PV=parseFloat(inputs.precio_venta)||0,CV=parseFloat(inputs.coste_variable)||0;if(!CF||!PV||PV<=CV)return{error:true};var mc=+(PV-CV).toFixed(4),pe_u=Math.ceil(CF/mc),pe_v=+(pe_u*PV).toFixed(2);return{pe_unidades:pe_u,pe_ventas_eur:pe_v,margen_contribucion:mc};",
+  "outputs": [
+    {
+      "id": "pe_unidades",
+      "unit": "uds",
+      "highlight": true
+    },
+    {
+      "id": "pe_ventas_eur",
+      "unit": "â‚¬"
+    },
+    {
+      "id": "margen_contribucion",
+      "unit": "â‚¬/ud"
+    }
+  ],
+  "related": [
+    "096",
+    "095",
+    "305",
+    "1069"
+  ],
+  "example_inputs": {
+    "costes_fijos": 8500,
+    "precio_venta": 75,
+    "coste_variable": 42
+  },
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "coste_variable": 21,
+      "costes_fijos": 4250,
+      "precio_venta": 75
+    },
+    {
+      "_label": "Average",
+      "coste_variable": 32,
+      "costes_fijos": 6375,
+      "precio_venta": 75
+    },
+    {
+      "_label": "High",
+      "coste_variable": 42,
+      "costes_fijos": 8500,
+      "precio_venta": 75
+    },
+    {
+      "_label": "Premium",
+      "coste_variable": 63,
+      "costes_fijos": 12750,
+      "precio_venta": 75
+    },
+    {
+      "_label": "Enterprise",
+      "coste_variable": 84,
+      "costes_fijos": 17000,
+      "precio_venta": 75
+    }
+  ]
+}

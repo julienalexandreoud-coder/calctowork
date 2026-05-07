@@ -1,0 +1,116 @@
+{
+  "id": "079",
+  "slug": "precio-hora-trabajo",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "costes_fijos_mes",
+      "type": "number",
+      "min": 500,
+      "max": 10000,
+      "step": 100,
+      "default": 2000,
+      "unit": "Ã¢â€šÂ¬/mes"
+    },
+    {
+      "id": "costes_variables_mes",
+      "type": "number",
+      "min": 200,
+      "max": 5000,
+      "step": 100,
+      "default": 800,
+      "unit": "Ã¢â€šÂ¬/mes"
+    },
+    {
+      "id": "horas_facturables_mes",
+      "type": "number",
+      "min": 50,
+      "max": 220,
+      "step": 5,
+      "default": 150,
+      "unit": "h/mes"
+    },
+    {
+      "id": "beneficio_deseado_pct",
+      "type": "number",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "default": 20,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    }
+  ],
+  "formula": "var Cf=parseFloat(inputs.costes_fijos_mes)||0,Cv=parseFloat(inputs.costes_variables_mes)||0,H=parseFloat(inputs.horas_facturables_mes)||150,Bp=parseFloat(inputs.beneficio_deseado_pct)||20;if(!H)return{error:true};var coste_h=+(( Cf+Cv)/H).toFixed(2),precio_h=+(coste_h*(1+Bp/100)).toFixed(2);return{coste_hora_eur:coste_h,precio_hora_sin_iva_eur:precio_h,precio_hora_con_iva_eur:+(precio_h*1.21).toFixed(2)};",
+  "outputs": [
+    {
+      "id": "coste_hora_eur",
+      "unit": "Ã¢â€šÂ¬/h (coste)"
+    },
+    {
+      "id": "precio_hora_sin_iva_eur",
+      "unit": "Ã¢â€šÂ¬/h (sin IVA)",
+      "highlight": true
+    },
+    {
+      "id": "precio_hora_con_iva_eur",
+      "unit": "Ã¢â€šÂ¬/h (con IVA 21%)"
+    }
+  ],
+  "related": [
+    "095",
+    "096",
+    "099",
+    "078"
+  ],
+  "example_inputs": {
+    "costes_fijos_mes": 2000,
+    "costes_variables_mes": 800,
+    "horas_facturables_mes": 150,
+    "beneficio_deseado_pct": 20
+  },
+  "comparison_presets": [
+    {
+      "_label": "AutÃ³nomo principiante",
+      "costes_fijos_mes": 1200,
+      "costes_variables_mes": 400,
+      "horas_facturables_mes": 100,
+      "beneficio_deseado_pct": 15
+    },
+    {
+      "_label": "AutÃ³nomo consolidado",
+      "costes_fijos_mes": 2000,
+      "costes_variables_mes": 800,
+      "horas_facturables_mes": 130,
+      "beneficio_deseado_pct": 20
+    },
+    {
+      "_label": "PequeÃ±a empresa (2-3 operarios)",
+      "costes_fijos_mes": 4000,
+      "costes_variables_mes": 1500,
+      "horas_facturables_mes": 150,
+      "beneficio_deseado_pct": 25
+    },
+    {
+      "_label": "Empresa mediana (5-10 operarios)",
+      "costes_fijos_mes": 8000,
+      "costes_variables_mes": 3000,
+      "horas_facturables_mes": 160,
+      "beneficio_deseado_pct": 20
+    },
+    {
+      "_label": "Especialista tÃ©cnico (alta demanda)",
+      "costes_fijos_mes": 3000,
+      "costes_variables_mes": 1000,
+      "horas_facturables_mes": 120,
+      "beneficio_deseado_pct": 30
+    }
+  ],
+  "units": {
+    "beneficio_deseado_pct": "%"
+  }
+}

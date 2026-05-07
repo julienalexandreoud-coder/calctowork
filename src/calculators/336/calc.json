@@ -1,0 +1,104 @@
+{
+  "id": "336",
+  "slug": "liquidacion-tarjeta-credito",
+  "block": 3,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "balance",
+      "type": "number",
+      "step": "any",
+      "default": 5000,
+      "unit": "USD",
+      "unit_options": [
+        "USD",
+        "EUR",
+        "GBP"
+      ],
+      "unit_category": "currency"
+    },
+    {
+      "id": "rate",
+      "type": "number",
+      "step": "any",
+      "default": 18,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "percentage"
+    },
+    {
+      "id": "payment",
+      "type": "number",
+      "step": "any",
+      "default": 200,
+      "unit": "USD",
+      "unit_options": [
+        "USD",
+        "EUR",
+        "GBP"
+      ],
+      "unit_category": "currency"
+    }
+  ],
+  "formula": "var bal=parseFloat(inputs.balance)||0;var r=(parseFloat(inputs.rate)||0)/1200;var pmt=parseFloat(inputs.payment)||0;var months=0;var total_int=0;var b=bal;while(b>0&&months<1000){var int_b=b*r;var prin=pmt-int_b;if(prin<=0){months=999;break;}b-=prin;months++;total_int+=int_b;}return{months:months.toFixed(0),total_interest:total_int.toFixed(2)};",
+  "outputs": [
+    {
+      "id": "months",
+      "unit": "mo"
+    },
+    {
+      "id": "total_interest",
+      "unit": "USD"
+    }
+  ],
+  "related": [
+    "335",
+    "322",
+    "327",
+    "328"
+  ],
+  "example_inputs": {
+    "balance": 5000,
+    "rate": 18,
+    "payment": 200
+  },
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "balance": 2500,
+      "rate": 9,
+      "payment": 200
+    },
+    {
+      "_label": "Average",
+      "balance": 3750,
+      "rate": 14,
+      "payment": 200
+    },
+    {
+      "_label": "High",
+      "balance": 5000,
+      "rate": 18,
+      "payment": 200
+    },
+    {
+      "_label": "Premium",
+      "balance": 7500,
+      "rate": 27,
+      "payment": 200
+    },
+    {
+      "_label": "Enterprise",
+      "balance": 10000,
+      "rate": 36,
+      "payment": 200
+    }
+  ],
+  "units": {
+    "balance": "USD",
+    "rate": "%",
+    "payment": "USD"
+  }
+}

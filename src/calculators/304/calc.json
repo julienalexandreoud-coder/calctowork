@@ -1,0 +1,82 @@
+{
+  "id": "304",
+  "slug": "calculadora-iva",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "precio_sin_iva",
+      "type": "number",
+      "min": 0.01,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 100,
+      "unit": "â‚¬"
+    },
+    {
+      "id": "iva_pct",
+      "type": "number",
+      "min": 0,
+      "max": 50,
+      "step": 0.5,
+      "default": 21,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    }
+  ],
+  "formula": "var P=parseFloat(inputs.precio_sin_iva)||0,T=parseFloat(inputs.iva_pct)||21;if(!P)return{error:true};var iva_importe=+(P*T/100).toFixed(2),con_iva=+(P+P*T/100).toFixed(2),sin_iva_desde_con=+(con_iva/(1+T/100)).toFixed(2);return{iva_importe:iva_importe,precio_con_iva:con_iva};",
+  "outputs": [
+    {
+      "id": "iva_importe",
+      "unit": "â‚¬",
+      "highlight": true
+    },
+    {
+      "id": "precio_con_iva",
+      "unit": "â‚¬"
+    }
+  ],
+  "related": [
+    "305",
+    "306",
+    "303",
+    "300"
+  ],
+  "example_inputs": {
+    "precio_sin_iva": 249.99,
+    "iva_pct": 21
+  },
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "precio_sin_iva": 125,
+      "iva_pct": 10.5
+    },
+    {
+      "_label": "Average",
+      "precio_sin_iva": 187,
+      "iva_pct": 15.75
+    },
+    {
+      "_label": "High",
+      "precio_sin_iva": 250,
+      "iva_pct": 21
+    },
+    {
+      "_label": "Premium",
+      "precio_sin_iva": 375,
+      "iva_pct": 31.5
+    },
+    {
+      "_label": "Enterprise",
+      "precio_sin_iva": 500,
+      "iva_pct": 42
+    }
+  ],
+  "units": {
+    "iva_pct": "%"
+  }
+}

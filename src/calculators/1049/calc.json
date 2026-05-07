@@ -1,0 +1,114 @@
+{
+  "id": "1049",
+  "slug": "distancia-ortodromica",
+  "block": 17,
+  "block_slug": "transporte",
+  "inputs": [
+    {
+      "id": "lat1",
+      "type": "number",
+      "step": "any",
+      "default": 40,
+      "unit": "deg",
+      "unit_options": [
+        "deg"
+      ],
+      "unit_category": "angle"
+    },
+    {
+      "id": "lon1",
+      "type": "number",
+      "step": "any",
+      "default": -74,
+      "unit": "deg",
+      "unit_options": [
+        "deg"
+      ],
+      "unit_category": "angle"
+    },
+    {
+      "id": "lat2",
+      "type": "number",
+      "step": "any",
+      "default": 51,
+      "unit": "deg",
+      "unit_options": [
+        "deg"
+      ],
+      "unit_category": "angle"
+    },
+    {
+      "id": "lon2",
+      "type": "number",
+      "step": "any",
+      "default": -0.1,
+      "unit": "deg",
+      "unit_options": [
+        "deg"
+      ],
+      "unit_category": "angle"
+    }
+  ],
+  "formula": "var lat1=parseFloat(inputs.lat1)||0;var lon1=parseFloat(inputs.lon1)||0;var lat2=parseFloat(inputs.lat2)||0;var lon2=parseFloat(inputs.lon2)||0;var R=6371;var dLat=(lat2-lat1)*Math.PI/180;var dLon=(lon2-lon1)*Math.PI/180;var a=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)*Math.sin(dLon/2);var c=2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));return{dist:(R*c).toFixed(2)};",
+  "outputs": [
+    {
+      "id": "dist",
+      "unit": "km"
+    }
+  ],
+  "related": [
+    "1045",
+    "1047",
+    "1046",
+    "1048"
+  ],
+  "example_inputs": {
+    "lat1": 40,
+    "lon1": -74,
+    "lat2": 51,
+    "lon2": -0.1
+  },
+  "comparison_presets": [
+    {
+      "_label": "City",
+      "lat1": 20,
+      "lon1": -37,
+      "lat2": 51,
+      "lon2": -0.1
+    },
+    {
+      "_label": "Suburban",
+      "lat1": 30,
+      "lon1": -56,
+      "lat2": 51,
+      "lon2": -0.1
+    },
+    {
+      "_label": "Highway",
+      "lat1": 40,
+      "lon1": -74,
+      "lat2": 51,
+      "lon2": -0.1
+    },
+    {
+      "_label": "Long haul",
+      "lat1": 60,
+      "lon1": -111,
+      "lat2": 51,
+      "lon2": -0.1
+    },
+    {
+      "_label": "International",
+      "lat1": 80,
+      "lon1": -148,
+      "lat2": 51,
+      "lon2": -0.1
+    }
+  ],
+  "units": {
+    "lat1": "deg",
+    "lon1": "deg",
+    "lat2": "deg",
+    "lon2": "deg"
+  }
+}

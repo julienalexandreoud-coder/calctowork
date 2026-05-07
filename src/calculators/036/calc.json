@@ -1,0 +1,116 @@
+{
+  "id": "036",
+  "slug": "caldera-gas",
+  "block": 4,
+  "block_slug": "fontaneria",
+  "inputs": [
+    {
+      "id": "area_m2",
+      "type": "number",
+      "min": 20,
+      "max": 2000,
+      "step": 5,
+      "default": 100,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "altura_m",
+      "type": "number",
+      "min": 2.2,
+      "max": 5,
+      "step": 0.1,
+      "default": 2.7,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "aislamiento",
+      "type": "select",
+      "default": "medio",
+      "options": [
+        "deficiente",
+        "medio",
+        "bueno",
+        "excelente"
+      ]
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area_m2)||0,H=parseFloat(inputs.altura_m)||2.7,aisl={'deficiente':100,'medio':70,'bueno':50,'excelente':35};if(!A)return{error:true};var vol=A*H,kw_cal=+(vol*aisl[inputs.aislamiento]/1000).toFixed(1),kw_acs=+(A*0.05).toFixed(1),kw_total=+(kw_cal+kw_acs).toFixed(1),modelo=kw_total<=15?'15kW':kw_total<=24?'24kW':kw_total<=35?'35kW':'50kW+';return{vol_m3:+vol.toFixed(1),kw_calefaccion:kw_cal,kw_acs:kw_acs,kw_total:kw_total,modelo_recomendado:modelo};",
+  "outputs": [
+    {
+      "id": "vol_m3",
+      "unit": "m³"
+    },
+    {
+      "id": "kw_calefaccion",
+      "unit": "kW (calef.)"
+    },
+    {
+      "id": "kw_acs",
+      "unit": "kW (ACS)"
+    },
+    {
+      "id": "kw_total",
+      "unit": "kW total",
+      "highlight": true
+    },
+    {
+      "id": "modelo_recomendado",
+      "unit": "modelo"
+    }
+  ],
+  "related": [
+    "035",
+    "037",
+    "053",
+    "033"
+  ],
+  "example_inputs": {
+    "area_m2": 100,
+    "altura_m": 2.7,
+    "aislamiento": "medio"
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small bathroom",
+      "area_m2": 50,
+      "altura_m": 2.2
+    },
+    {
+      "_label": "Medium bathroom",
+      "area_m2": 75,
+      "altura_m": 2.2
+    },
+    {
+      "_label": "Large bathroom",
+      "area_m2": 100,
+      "altura_m": 2.7
+    },
+    {
+      "_label": "Apartment",
+      "area_m2": 150,
+      "altura_m": 4.05
+    },
+    {
+      "_label": "House",
+      "area_m2": 200,
+      "altura_m": 5
+    }
+  ],
+  "units": {
+    "area_m2": "m²",
+    "altura_m": "m"
+  }
+}

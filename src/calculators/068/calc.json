@@ -1,0 +1,118 @@
+{
+  "id": "068",
+  "slug": "vidrio-cristal",
+  "block": 7,
+  "block_slug": "carpinteria",
+  "inputs": [
+    {
+      "id": "m2_total",
+      "type": "number",
+      "min": 0.1,
+      "max": 500,
+      "step": 0.1,
+      "default": 10,
+      "unit": "mÂ²",
+      "unit_options": [
+        "mÂ²",
+        "ftÂ²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "tipo_vidrio",
+      "type": "select",
+      "default": "doble_4_16_4",
+      "options": [
+        "simple_6",
+        "doble_4_16_4",
+        "doble_4_20_4",
+        "triple",
+        "laminado"
+      ]
+    },
+    {
+      "id": "merma_pct",
+      "type": "number",
+      "min": 5,
+      "max": 20,
+      "step": 1,
+      "default": 10,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.m2_total)||0,mp=parseFloat(inputs.merma_pct)||10,kg={'simple_6':15,'doble_4_16_4':20,'doble_4_20_4':22,'triple':30,'laminado':25};if(!A)return{error:true};var area_merma=+(A*(1+mp/100)).toFixed(2),kg_m2=kg[inputs.tipo_vidrio]||20,kg_total=+(area_merma*kg_m2).toFixed(1),espesor='';if(A<=1)espesor='4 mm';else if(A<=2)espesor='6 mm';else if(A<=3)espesor='8 mm';else espesor='10 mm';var templado=(inputs.tipo_vidrio!=='simple_6'&&A>2)||A>3;return{area_merma_m2:area_merma,kg_m2:kg_m2,kg_total:kg_total,espesor_recomendado:espesor,requiere_templado:templado?'Si':'No'};",
+  "outputs": [
+    {
+      "id": "area_merma_m2",
+      "unit": "mÂ² (con merma)",
+      "highlight": true
+    },
+    {
+      "id": "kg_m2",
+      "unit": "kg/mÂ²"
+    },
+    {
+      "id": "kg_total",
+      "unit": "kg total"
+    },
+    {
+      "id": "espesor_recomendado",
+      "unit": "espesor"
+    },
+    {
+      "id": "requiere_templado",
+      "unit": "templado"
+    }
+  ],
+  "related": [
+    "061",
+    "062",
+    "063",
+    "064"
+  ],
+  "example_inputs": {
+    "m2_total": 2.5,
+    "tipo_vidrio": "doble_4_16_4",
+    "merma_pct": 10
+  },
+  "comparison_presets": [
+    {
+      "_label": "Ventanuco (0,5 mÂ²)",
+      "m2_total": 0.5,
+      "tipo_vidrio": "simple_6",
+      "merma_pct": 10
+    },
+    {
+      "_label": "Ventana estÃ¡ndar (1,5 mÂ²)",
+      "m2_total": 1.5,
+      "tipo_vidrio": "doble_4_16_4",
+      "merma_pct": 10
+    },
+    {
+      "_label": "Ventanal medio (2,5 mÂ²)",
+      "m2_total": 2.5,
+      "tipo_vidrio": "doble_4_20_4",
+      "merma_pct": 12
+    },
+    {
+      "_label": "Cerramiento grande (8 mÂ²)",
+      "m2_total": 8,
+      "tipo_vidrio": "triple",
+      "merma_pct": 15
+    },
+    {
+      "_label": "Mampara ducha (3,5 mÂ²)",
+      "m2_total": 3.5,
+      "tipo_vidrio": "laminado",
+      "merma_pct": 10
+    }
+  ],
+  "units": {
+    "m2_total": "mÂ²",
+    "merma_pct": "%"
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "id": "041",
+  "slug": "depuradora-piscina",
+  "block": 4,
+  "block_slug": "fontaneria",
+  "inputs": [
+    {
+      "id": "largo_m",
+      "type": "number",
+      "min": 2,
+      "max": 50,
+      "step": 0.5,
+      "default": 8,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "ancho_m",
+      "type": "number",
+      "min": 2,
+      "max": 20,
+      "step": 0.5,
+      "default": 4,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "profundidad_media_m",
+      "type": "number",
+      "min": 0.8,
+      "max": 3,
+      "step": 0.1,
+      "default": 1.5,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "turnos_dia",
+      "type": "number",
+      "min": 1,
+      "max": 4,
+      "step": 0.5,
+      "default": 2,
+      "unit": "turnos/día"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.largo_m)||0,W=parseFloat(inputs.ancho_m)||0,H=parseFloat(inputs.profundidad_media_m)||1.5,T=parseFloat(inputs.turnos_dia)||2;if(!L||!W)return{error:true};var vol=+(L*W*H).toFixed(1),caudal=+(vol/T/8).toFixed(2),filtro_m2=+(caudal/20).toFixed(2),cloro_sem=+(vol*0.003).toFixed(2);return{vol_m3:vol,caudal_m3h:caudal,filtro_area_m2:filtro_m2,cloro_semanal_kg:cloro_sem};",
+  "outputs": [
+    {
+      "id": "vol_m3",
+      "unit": "m³",
+      "highlight": true
+    },
+    {
+      "id": "caudal_m3h",
+      "unit": "m³/h"
+    },
+    {
+      "id": "filtro_area_m2",
+      "unit": "m² filtro"
+    },
+    {
+      "id": "cloro_semanal_kg",
+      "unit": "kg cloro/semana"
+    }
+  ],
+  "related": [
+    "034",
+    "033",
+    "039",
+    "101"
+  ],
+  "example_inputs": {
+    "largo_m": 8,
+    "ancho_m": 4,
+    "profundidad_media_m": 1.5,
+    "turnos_dia": 2
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small bathroom",
+      "largo_m": 4,
+      "ancho_m": 2,
+      "turnos_dia": 2,
+      "profundidad_media_m": 1.5
+    },
+    {
+      "_label": "Medium bathroom",
+      "largo_m": 6,
+      "ancho_m": 3,
+      "turnos_dia": 2,
+      "profundidad_media_m": 1.5
+    },
+    {
+      "_label": "Large bathroom",
+      "largo_m": 8,
+      "ancho_m": 4,
+      "turnos_dia": 2,
+      "profundidad_media_m": 1.5
+    },
+    {
+      "_label": "Apartment",
+      "largo_m": 12,
+      "ancho_m": 6,
+      "turnos_dia": 2,
+      "profundidad_media_m": 1.5
+    },
+    {
+      "_label": "House",
+      "largo_m": 16,
+      "ancho_m": 8,
+      "turnos_dia": 2,
+      "profundidad_media_m": 1.5
+    }
+  ],
+  "units": {
+    "largo_m": "m",
+    "ancho_m": "m",
+    "profundidad_media_m": "m"
+  }
+}

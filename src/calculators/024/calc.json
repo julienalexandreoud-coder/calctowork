@@ -1,0 +1,107 @@
+{
+  "id": "024",
+  "slug": "parquet-madera",
+  "block": 3,
+  "block_slug": "pavimentos",
+  "inputs": [
+    {
+      "id": "area",
+      "type": "number",
+      "min": 1,
+      "max": 500,
+      "step": 0.5,
+      "default": 25,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "m2_por_caja",
+      "type": "number",
+      "min": 0.5,
+      "max": 5,
+      "step": 0.1,
+      "default": 2.2,
+      "unit": "m²/caja",
+      "unit_options": [
+        "m²/box"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "colocacion",
+      "type": "select",
+      "default": "recto",
+      "options": [
+        "recto",
+        "diagonal",
+        "espiga"
+      ]
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area)||0,mxc=parseFloat(inputs.m2_por_caja)||2.2,diag=inputs.colocacion!=='recto';if(!A)return{error:true};var merma=diag?0.12:0.07,area_merma=+(A*(1+merma)).toFixed(2),cajas=Math.ceil(area_merma/mxc),barniz=+(A/10).toFixed(1),rodapie=+(Math.sqrt(A)*4).toFixed(1);return{area_merma_m2:area_merma,cajas_ud:cajas,barniz_litros:barniz,rodapie_ml:rodapie};",
+  "outputs": [
+    {
+      "id": "area_merma_m2",
+      "unit": "m² (con merma)",
+      "highlight": true
+    },
+    {
+      "id": "cajas_ud",
+      "unit": "cajas"
+    },
+    {
+      "id": "barniz_litros",
+      "unit": "litros"
+    },
+    {
+      "id": "rodapie_ml",
+      "unit": "m.l."
+    }
+  ],
+  "related": [
+    "023",
+    "025",
+    "072",
+    "022"
+  ],
+  "example_inputs": {
+    "area": 25,
+    "m2_por_caja": 2.2,
+    "colocacion": "recto"
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small patio",
+      "area": 12.5,
+      "m2_por_caja": 1.1
+    },
+    {
+      "_label": "Medium patio",
+      "area": 18.75,
+      "m2_por_caja": 1.65
+    },
+    {
+      "_label": "Large patio",
+      "area": 25,
+      "m2_por_caja": 2.2
+    },
+    {
+      "_label": "Driveway",
+      "area": 37.5,
+      "m2_por_caja": 3.3
+    },
+    {
+      "_label": "Parking lot",
+      "area": 50,
+      "m2_por_caja": 4.4
+    }
+  ],
+  "units": {
+    "area": "m²",
+    "m2_por_caja": "m²"
+  }
+}

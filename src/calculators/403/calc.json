@@ -1,0 +1,92 @@
+{
+  "id": "403",
+  "slug": "agua-diaria-2",
+  "block": 12,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "peso_kg",
+      "type": "number",
+      "min": 10,
+      "max": 300,
+      "step": 0.5,
+      "default": 70,
+      "unit": "kg",
+      "unit_options": [
+        "kg",
+        "lb"
+      ],
+      "unit_category": "mass",
+      "unit_default": "kg"
+    },
+    {
+      "id": "ejercicio_min",
+      "type": "number",
+      "min": 0,
+      "max": 480,
+      "step": 5,
+      "default": 30,
+      "unit": "min/día"
+    }
+  ],
+  "formula": "var P=parseFloat(inputs.peso_kg)||0,E=parseFloat(inputs.ejercicio_min)||0;if(!P)return{error:true};var base=P*0.033,extra=E*0.5/60,total=+(base+extra).toFixed(2),vasos=Math.ceil(total/0.25);return{agua_total_litros:total,agua_base_litros:+base.toFixed(2),agua_extra_litros:+extra.toFixed(2),vasos_250ml:vasos};",
+  "outputs": [
+    {
+      "id": "agua_total_litros",
+      "unit": "L/día",
+      "highlight": true
+    },
+    {
+      "id": "agua_base_litros",
+      "unit": "L/día"
+    },
+    {
+      "id": "agua_extra_litros",
+      "unit": "L/día"
+    },
+    {
+      "id": "vasos_250ml",
+      "unit": "vasos"
+    }
+  ],
+  "related": [
+    "400",
+    "401",
+    "402",
+    "410"
+  ],
+  "example_inputs": {
+    "peso_kg": 70,
+    "ejercicio_min": 30
+  },
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "ejercicio_min": 15,
+      "peso_kg": 35
+    },
+    {
+      "_label": "Teen",
+      "ejercicio_min": 20,
+      "peso_kg": 52.5
+    },
+    {
+      "_label": "Adult (F)",
+      "ejercicio_min": 30,
+      "peso_kg": 70
+    },
+    {
+      "_label": "Adult (M)",
+      "ejercicio_min": 45,
+      "peso_kg": 105
+    },
+    {
+      "_label": "Elderly",
+      "ejercicio_min": 60,
+      "peso_kg": 140
+    }
+  ],
+  "units": {
+    "peso_kg": "kg"
+  }
+}

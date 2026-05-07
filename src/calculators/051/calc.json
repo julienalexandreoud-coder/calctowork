@@ -1,0 +1,98 @@
+{
+  "id": "051",
+  "slug": "puesta-tierra",
+  "block": 5,
+  "block_slug": "electricidad",
+  "inputs": [
+    {
+      "id": "resistividad_ohm_m",
+      "type": "number",
+      "min": 10,
+      "max": 5000,
+      "step": 10,
+      "default": 100,
+      "unit": "Ω·m"
+    },
+    {
+      "id": "resistencia_max_ohm",
+      "type": "number",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "default": 10,
+      "unit": "Ω"
+    },
+    {
+      "id": "tipo_pica",
+      "type": "select",
+      "default": "cobre",
+      "options": [
+        "cobre",
+        "acero_galv"
+      ]
+    }
+  ],
+  "formula": "var rho=parseFloat(inputs.resistividad_ohm_m)||100,Rmax=parseFloat(inputs.resistencia_max_ohm)||10;if(!rho)return{error:true};var L_pica=2,R_pica=+(rho/(2*Math.PI*L_pica)*Math.log(4*L_pica/0.016)).toFixed(1),picas_nec=Math.ceil(R_pica/Rmax),cond_mm2=inputs.tipo_pica==='cobre'?16:25;return{r_pica_ohm:R_pica,picas_necesarias:picas_nec,conductor_mm2:cond_mm2,longitud_pica_m:L_pica};",
+  "outputs": [
+    {
+      "id": "r_pica_ohm",
+      "unit": "Ω (resist. pica)"
+    },
+    {
+      "id": "picas_necesarias",
+      "unit": "picas 2m",
+      "highlight": true
+    },
+    {
+      "id": "conductor_mm2",
+      "unit": "mm² conductor"
+    },
+    {
+      "id": "longitud_pica_m",
+      "unit": "m/pica"
+    }
+  ],
+  "related": [
+    "043",
+    "047",
+    "044",
+    "045"
+  ],
+  "example_inputs": {
+    "resistividad_ohm_m": 100,
+    "resistencia_max_ohm": 10,
+    "tipo_pica": "cobre"
+  },
+  "comparison_presets": [
+    {
+      "_label": "Arcilloso (50 Ω·m)",
+      "resistividad_ohm_m": 50,
+      "resistencia_max_ohm": 10,
+      "tipo_pica": "cobre"
+    },
+    {
+      "_label": "Normal (100 Ω·m)",
+      "resistividad_ohm_m": 100,
+      "resistencia_max_ohm": 10,
+      "tipo_pica": "cobre"
+    },
+    {
+      "_label": "Seco (300 Ω·m)",
+      "resistividad_ohm_m": 300,
+      "resistencia_max_ohm": 10,
+      "tipo_pica": "acero_galv"
+    },
+    {
+      "_label": "Pedregoso (800 Ω·m)",
+      "resistividad_ohm_m": 800,
+      "resistencia_max_ohm": 20,
+      "tipo_pica": "acero_galv"
+    },
+    {
+      "_label": "Roca (2000 Ω·m)",
+      "resistividad_ohm_m": 2000,
+      "resistencia_max_ohm": 20,
+      "tipo_pica": "cobre"
+    }
+  ]
+}

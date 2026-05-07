@@ -1,0 +1,124 @@
+{
+  "id": "960",
+  "slug": "bsa-ideal-weight",
+  "block": 12,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "edad",
+      "type": "number",
+      "min": 2,
+      "max": 120,
+      "step": 1,
+      "default": 30,
+      "unit": "years"
+    },
+    {
+      "id": "peso_kg",
+      "type": "number",
+      "min": 10,
+      "max": 500,
+      "step": 0.1,
+      "default": 70,
+      "unit": "kg",
+      "unit_options": [
+        "kg",
+        "g",
+        "lb"
+      ],
+      "unit_category": "mass"
+    },
+    {
+      "id": "altura_cm",
+      "type": "number",
+      "min": 50,
+      "max": 250,
+      "step": 0.5,
+      "default": 175,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in",
+        "ft"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "sexo",
+      "type": "select",
+      "options": [
+        "mujer",
+        "hombre"
+      ],
+      "default": "mujer"
+    }
+  ],
+  "formula": "var edad=parseFloat(inputs.edad)||30,peso=parseFloat(inputs.peso_kg)||0,altura=parseFloat(inputs.altura_cm)||0,sexo=inputs.sexo||'mujer';if(!peso||!altura||altura<50)return{error:true};var bsa=+Math.sqrt((peso*altura)/3600).toFixed(2);var ibw=sexo=='hombre'?50+0.91*(altura-152.4):45.5+0.91*(altura-152.4);var abw=+(ibw+0.4*(peso-ibw)).toFixed(1);return{bsa:bsa+' m2',ideal_weight:+(ibw).toFixed(1),adjusted_weight:abw};",
+  "outputs": [
+    {
+      "id": "bsa",
+      "unit": "m2",
+      "highlight": true
+    },
+    {
+      "id": "ideal_weight",
+      "unit": "kg",
+      "highlight": false
+    },
+    {
+      "id": "adjusted_weight",
+      "unit": "kg",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "958",
+    "430",
+    "926",
+    "400"
+  ],
+  "example_inputs": {
+    "sexo": "mujer",
+    "peso_kg": 70,
+    "altura_cm": 175,
+    "edad": 30
+  },
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "peso_kg": 35,
+      "altura_cm": 87.5,
+      "edad": 30
+    },
+    {
+      "_label": "Teen",
+      "peso_kg": 52.5,
+      "altura_cm": 131.25,
+      "edad": 30
+    },
+    {
+      "_label": "Adult (F)",
+      "peso_kg": 70,
+      "altura_cm": 175,
+      "edad": 30
+    },
+    {
+      "_label": "Adult (M)",
+      "peso_kg": 105,
+      "altura_cm": 250,
+      "edad": 30
+    },
+    {
+      "_label": "Elderly",
+      "peso_kg": 140,
+      "altura_cm": 250,
+      "edad": 30
+    }
+  ],
+  "units": {
+    "peso_kg": "kg",
+    "altura_cm": "m"
+  }
+}

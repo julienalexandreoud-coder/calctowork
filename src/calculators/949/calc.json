@@ -1,0 +1,136 @@
+{
+  "id": "949",
+  "slug": "ohms-law-power",
+  "block": 15,
+  "block_slug": "ciencia",
+  "inputs": [
+    {
+      "id": "voltaje",
+      "type": "number",
+      "min": 0,
+      "max": 999999,
+      "step": 0.1,
+      "default": 0,
+      "unit": "V",
+      "unit_options": [
+        "V",
+        "kV"
+      ],
+      "unit_category": "voltage"
+    },
+    {
+      "id": "corriente",
+      "type": "number",
+      "min": 0,
+      "max": 999999,
+      "step": 0.01,
+      "default": 0,
+      "unit": "A",
+      "unit_options": [
+        "A",
+        "mA"
+      ],
+      "unit_category": "current"
+    },
+    {
+      "id": "resistencia",
+      "type": "number",
+      "min": 0,
+      "max": 999999,
+      "step": 0.1,
+      "default": 0,
+      "unit": "Ohm"
+    },
+    {
+      "id": "potencia",
+      "type": "number",
+      "min": 0,
+      "max": 999999,
+      "step": 0.1,
+      "default": 0,
+      "unit": "W",
+      "unit_options": [
+        "W",
+        "kW"
+      ],
+      "unit_category": "power"
+    }
+  ],
+  "formula": "var v=parseFloat(inputs.voltaje)||0,i=parseFloat(inputs.corriente)||0,r=parseFloat(inputs.resistencia)||0,p=parseFloat(inputs.potencia)||0;var count=0;if(v>0)count++;if(i>0)count++;if(r>0)count++;if(p>0)count++;if(count<2)return{error:true};if(v&&i){r=+(v/i).toFixed(2);p=+(v*i).toFixed(2);}else if(v&&r){i=+(v/r).toFixed(2);p=+(v*v/r).toFixed(2);}else if(i&&r){v=+(i*r).toFixed(2);p=+(i*i*r).toFixed(2);}else if(v&&p){i=+(p/v).toFixed(2);r=+(v*v/p).toFixed(2);}else if(i&&p){v=+(p/i).toFixed(2);r=+(p/(i*i)).toFixed(2);}else if(r&&p){v=+(Math.sqrt(p*r)).toFixed(2);i=+(Math.sqrt(p/r)).toFixed(2);}return{voltage:v,current:i,resistance:r,power:p};",
+  "outputs": [
+    {
+      "id": "voltage",
+      "unit": "V",
+      "highlight": true
+    },
+    {
+      "id": "current",
+      "unit": "A",
+      "highlight": false
+    },
+    {
+      "id": "resistance",
+      "unit": "Ohm",
+      "highlight": false
+    },
+    {
+      "id": "power",
+      "unit": "W",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "950",
+    "951",
+    "948",
+    "707"
+  ],
+  "example_inputs": {
+    "voltaje": 12,
+    "corriente": 2,
+    "resistencia": 0,
+    "potencia": 0
+  },
+  "comparison_presets": [
+    {
+      "_label": "Escala laboratorio",
+      "voltaje": 0.4,
+      "corriente": 0.4,
+      "resistencia": 0.4,
+      "potencia": 0.4
+    },
+    {
+      "_label": "Uso domestico",
+      "voltaje": 0.7,
+      "corriente": 0.7,
+      "resistencia": 0.7,
+      "potencia": 0.7
+    },
+    {
+      "_label": "Aplicacion industrial",
+      "voltaje": 1.0,
+      "corriente": 1.0,
+      "resistencia": 1.0,
+      "potencia": 1.0
+    },
+    {
+      "_label": "Ingenieria civil",
+      "voltaje": 1.5,
+      "corriente": 1.5,
+      "resistencia": 1.5,
+      "potencia": 1.5
+    },
+    {
+      "_label": "Escala cientifica",
+      "voltaje": 2.5,
+      "corriente": 2.5,
+      "resistencia": 2.5,
+      "potencia": 2.5
+    }
+  ],
+  "units": {
+    "voltaje": "V",
+    "corriente": "A",
+    "potencia": "W"
+  }
+}

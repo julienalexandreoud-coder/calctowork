@@ -1,0 +1,109 @@
+{
+  "id": "120",
+  "slug": "movimiento-proyectil",
+  "block": 3,
+  "block_slug": "ciencia",
+  "inputs": [
+    {
+      "id": "v0",
+      "type": "number",
+      "step": "any",
+      "default": 20,
+      "unit": "m/s",
+      "unit_options": [
+        "m/s",
+        "km/h",
+        "mph"
+      ],
+      "unit_category": "velocity"
+    },
+    {
+      "id": "angle",
+      "type": "number",
+      "step": "any",
+      "default": 45,
+      "unit": "deg",
+      "unit_options": [
+        "deg",
+        "rad"
+      ],
+      "unit_category": "angle"
+    },
+    {
+      "id": "h0",
+      "type": "number",
+      "step": "any",
+      "default": 0,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "ft",
+        "cm"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var v0=parseFloat(inputs.v0)||0;var theta=(parseFloat(inputs.angle)||0)*Math.PI/180;var h0=parseFloat(inputs.h0)||0;var g=9.80665;var vx=v0*Math.cos(theta);var vy=v0*Math.sin(theta);var t_flight=(vy+Math.sqrt(vy*vy+2*g*h0))/g;var range=vx*t_flight;var max_h=h0+vy*vy/(2*g);return{range:range.toFixed(4),max_height:max_h.toFixed(4),flight_time:t_flight.toFixed(4)};",
+  "outputs": [
+    {
+      "id": "range",
+      "unit": "m"
+    },
+    {
+      "id": "max_height",
+      "unit": "m"
+    },
+    {
+      "id": "flight_time",
+      "unit": "s"
+    }
+  ],
+  "related": [
+    "121",
+    "129",
+    "700",
+    "701"
+  ],
+  "example_inputs": {
+    "v0": 20,
+    "angle": 45,
+    "h0": 0
+  },
+  "comparison_presets": [
+    {
+      "_label": "Escala laboratorio",
+      "v0": 8.0,
+      "angle": 18.0,
+      "h0": 0.4
+    },
+    {
+      "_label": "Uso domestico",
+      "v0": 14.0,
+      "angle": 31.5,
+      "h0": 0.7
+    },
+    {
+      "_label": "Aplicacion industrial",
+      "v0": 20.0,
+      "angle": 45.0,
+      "h0": 1.0
+    },
+    {
+      "_label": "Ingenieria civil",
+      "v0": 30.0,
+      "angle": 67.5,
+      "h0": 1.5
+    },
+    {
+      "_label": "Escala cientifica",
+      "v0": 50.0,
+      "angle": 112.5,
+      "h0": 2.5
+    }
+  ],
+  "units": {
+    "v0": "m/s",
+    "angle": "deg",
+    "h0": "m"
+  }
+}

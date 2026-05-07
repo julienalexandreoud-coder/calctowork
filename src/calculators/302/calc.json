@@ -1,0 +1,111 @@
+{
+  "id": "302",
+  "slug": "interes-compuesto",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "capital_inicial",
+      "type": "number",
+      "min": 1,
+      "max": 1000000000000,
+      "step": 1,
+      "default": 1000,
+      "unit": "€"
+    },
+    {
+      "id": "interes_anual_pct",
+      "type": "number",
+      "min": 0.01,
+      "max": 100,
+      "step": 0.01,
+      "default": 7,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    },
+    {
+      "id": "anos",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "default": 10,
+      "unit": "años"
+    },
+    {
+      "id": "frecuencia_anual",
+      "type": "number",
+      "min": 1,
+      "max": 365,
+      "step": 1,
+      "default": 12,
+      "unit": "veces/año"
+    }
+  ],
+  "formula": "var P=parseFloat(inputs.capital_inicial)||0,r=parseFloat(inputs.interes_anual_pct)||0,n=parseFloat(inputs.anos)||0,f=parseFloat(inputs.frecuencia_anual)||12;if(!P||!r||!n)return{error:true};var rate=r/100,tbl=[],bal=P;for(var i=1;i<=n;i++){  var new_bal=+(P*Math.pow(1+rate/f,f*i)).toFixed(2);  var yr_int=+(new_bal-bal).toFixed(2);  tbl.push({year:i,interest:yr_int,balance:new_bal});  bal=new_bal;}var total_int=+(bal-P).toFixed(2),mult=+(bal/P).toFixed(3);return{capital_final:+bal.toFixed(2),total_intereses:total_int,multiplicador:mult,table:tbl};",
+  "outputs": [
+    {
+      "id": "capital_final",
+      "unit": "€",
+      "highlight": true
+    },
+    {
+      "id": "total_intereses",
+      "unit": "€"
+    },
+    {
+      "id": "multiplicador",
+      "unit": "x"
+    }
+  ],
+  "related": [
+    "303",
+    "301",
+    "300",
+    "311"
+  ],
+  "tableHeaders": [
+    "year",
+    "interest",
+    "balance"
+  ],
+  "example_inputs": {
+    "capital_inicial": 5000,
+    "interes_anual_pct": 6.5,
+    "anos": 15,
+    "frecuencia_anual": 12
+  },
+  "comparison_presets": [
+    {
+      "capital_inicial": 5000,
+      "interes_anual_pct": 6,
+      "anos": 2
+    },
+    {
+      "capital_inicial": 10000,
+      "interes_anual_pct": 7,
+      "anos": 3
+    },
+    {
+      "capital_inicial": 20000,
+      "interes_anual_pct": 8,
+      "anos": 4
+    },
+    {
+      "capital_inicial": 30000,
+      "interes_anual_pct": 9,
+      "anos": 5
+    },
+    {
+      "capital_inicial": 50000,
+      "interes_anual_pct": 10,
+      "anos": 6
+    }
+  ],
+  "units": {
+    "interes_anual_pct": "%"
+  }
+}

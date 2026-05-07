@@ -1,0 +1,80 @@
+{
+  "id": "1023",
+  "slug": "humedad-relativa",
+  "block": 2,
+  "block_slug": "clima",
+  "inputs": [
+    {
+      "id": "t",
+      "type": "number",
+      "step": "any",
+      "default": 20,
+      "unit": "°C",
+      "unit_options": [
+        "°C",
+        "°F"
+      ],
+      "unit_category": "temperature"
+    },
+    {
+      "id": "dp",
+      "type": "number",
+      "step": "any",
+      "default": 10,
+      "unit": "°C",
+      "unit_options": [
+        "°C",
+        "°F"
+      ],
+      "unit_category": "temperature"
+    }
+  ],
+  "formula": "var t=parseFloat(inputs.t)||0;var dp=parseFloat(inputs.dp)||0;var a=17.27;var b=237.7;var num=Math.exp((a*dp)/(b+dp));var den=Math.exp((a*t)/(b+t));var rh=100*(num/den);return{rh:rh.toFixed(2)};",
+  "outputs": [
+    {
+      "id": "rh",
+      "unit": "%"
+    }
+  ],
+  "related": [
+    "1020",
+    "1021",
+    "1022",
+    "1024"
+  ],
+  "example_inputs": {
+    "t": 20,
+    "dp": 10
+  },
+  "comparison_presets": [
+    {
+      "_label": "Light",
+      "t": 10,
+      "dp": 5
+    },
+    {
+      "_label": "Moderate",
+      "t": 15,
+      "dp": 8
+    },
+    {
+      "_label": "Strong",
+      "t": 20,
+      "dp": 10
+    },
+    {
+      "_label": "Severe",
+      "t": 30,
+      "dp": 15
+    },
+    {
+      "_label": "Extreme",
+      "t": 40,
+      "dp": 20
+    }
+  ],
+  "units": {
+    "t": "°C",
+    "dp": "°C"
+  }
+}

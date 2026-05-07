@@ -1,0 +1,112 @@
+{
+  "id": "314",
+  "slug": "plan-jubilacion",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "ahorro_actual",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 10000,
+      "unit": ""
+    },
+    {
+      "id": "aportacion_mensual",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 300,
+      "unit": ""
+    },
+    {
+      "id": "rentabilidad_pct",
+      "type": "number",
+      "min": 0,
+      "max": 30,
+      "step": "any",
+      "default": 7,
+      "unit": ""
+    },
+    {
+      "id": "anos_jubilacion",
+      "type": "number",
+      "min": 1,
+      "max": 60,
+      "step": "any",
+      "default": 30,
+      "unit": ""
+    }
+  ],
+  "formula": "var a=parseFloat(inputs.ahorro_actual)||0,d=parseFloat(inputs.aportacion_mensual)||0,r=parseFloat(inputs.rentabilidad_pct)||0,n=parseFloat(inputs.anos_jubilacion)||0;var mr=r/100/12,nm=n*12;var fvA=a*Math.pow(1+mr,nm),fvD=mr?d*((Math.pow(1+mr,nm)-1)/mr):d*nm;var total=fvA+fvD;return{total_acumulado:+total.toFixed(2),aportado:+(a+d*nm).toFixed(2),rendimientos:+(total-a-d*nm).toFixed(2)};",
+  "outputs": [
+    {
+      "id": "total_acumulado",
+      "unit": "â‚¬",
+      "highlight": true
+    },
+    {
+      "id": "aportado",
+      "unit": "â‚¬"
+    },
+    {
+      "id": "rendimientos",
+      "unit": "â‚¬"
+    }
+  ],
+  "related": [
+    "311",
+    "302",
+    "300",
+    "301"
+  ],
+  "example_inputs": {
+    "ahorro_actual": 45000,
+    "aportacion_mensual": 500,
+    "rentabilidad_pct": 6,
+    "anos_jubilacion": 25
+  },
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "ahorro_actual": 22500,
+      "aportacion_mensual": 250,
+      "anos_jubilacion": 25,
+      "rentabilidad_pct": 6
+    },
+    {
+      "_label": "Average",
+      "ahorro_actual": 33750,
+      "aportacion_mensual": 375,
+      "anos_jubilacion": 25,
+      "rentabilidad_pct": 6
+    },
+    {
+      "_label": "High",
+      "ahorro_actual": 45000,
+      "aportacion_mensual": 500,
+      "anos_jubilacion": 25,
+      "rentabilidad_pct": 6
+    },
+    {
+      "_label": "Premium",
+      "ahorro_actual": 67500,
+      "aportacion_mensual": 750,
+      "anos_jubilacion": 25,
+      "rentabilidad_pct": 6
+    },
+    {
+      "_label": "Enterprise",
+      "ahorro_actual": 90000,
+      "aportacion_mensual": 1000,
+      "anos_jubilacion": 25,
+      "rentabilidad_pct": 6
+    }
+  ],
+  "units": {
+    "rentabilidad_pct": "%"
+  }
+}

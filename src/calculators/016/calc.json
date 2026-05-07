@@ -1,0 +1,95 @@
+{
+  "id": "016",
+  "slug": "revoco-proyectado",
+  "block": 2,
+  "block_slug": "mamposteria",
+  "inputs": [
+    {
+      "id": "area",
+      "type": "number",
+      "min": 1,
+      "max": 2000,
+      "step": 0.5,
+      "default": 50,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "espesor_mm",
+      "type": "number",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "default": 15,
+      "unit": "mm",
+      "unit_options": [
+        "mm",
+        "cm",
+        "m",
+        "in"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area)||0,E=parseFloat(inputs.espesor_mm)||15;if(!A)return{error:true};var kg_m2=E*1.5,kg_total=+(A*kg_m2*1.1).toFixed(1),sacos=Math.ceil(kg_total/25);return{kg_m2:+kg_m2.toFixed(1),kg_total:kg_total,sacos_25kg:sacos};",
+  "outputs": [
+    {
+      "id": "kg_m2",
+      "unit": "kg/m²"
+    },
+    {
+      "id": "kg_total",
+      "unit": "kg (+10% merma)",
+      "highlight": true
+    },
+    {
+      "id": "sacos_25kg",
+      "unit": "sacos 25kg"
+    }
+  ],
+  "related": [
+    "018",
+    "017",
+    "075",
+    "011"
+  ],
+  "example_inputs": {
+    "area": 50,
+    "espesor_mm": 15
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small wall",
+      "area": 25,
+      "espesor_mm": 8
+    },
+    {
+      "_label": "Medium wall",
+      "area": 37.5,
+      "espesor_mm": 11
+    },
+    {
+      "_label": "Large wall",
+      "area": 50,
+      "espesor_mm": 15
+    },
+    {
+      "_label": "Room",
+      "area": 75,
+      "espesor_mm": 22
+    },
+    {
+      "_label": "House perimeter",
+      "area": 100,
+      "espesor_mm": 30
+    }
+  ],
+  "units": {
+    "area": "m²",
+    "espesor_mm": "m"
+  }
+}

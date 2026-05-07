@@ -1,0 +1,96 @@
+{
+  "id": "933",
+  "slug": "heart-rate-zones",
+  "block": 12,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "edad",
+      "type": "number",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "default": 30,
+      "unit": "years"
+    },
+    {
+      "id": "fc_reposo",
+      "type": "number",
+      "min": 30,
+      "max": 120,
+      "step": 1,
+      "default": 60,
+      "unit": "bpm"
+    }
+  ],
+  "formula": "var edad=parseFloat(inputs.edad)||30,fc_reposo=parseFloat(inputs.fc_reposo)||60;if(!edad||!fc_reposo)return{error:true};var fc_max=220-edad;var z1_min=Math.round(fc_reposo+(fc_max-fc_reposo)*0.5),z1_max=Math.round(fc_reposo+(fc_max-fc_reposo)*0.6);var z2_min=Math.round(fc_reposo+(fc_max-fc_reposo)*0.6),z2_max=Math.round(fc_reposo+(fc_max-fc_reposo)*0.7);var z3_min=Math.round(fc_reposo+(fc_max-fc_reposo)*0.7),z3_max=Math.round(fc_reposo+(fc_max-fc_reposo)*0.8);var z4_min=Math.round(fc_reposo+(fc_max-fc_reposo)*0.8),z4_max=Math.round(fc_reposo+(fc_max-fc_reposo)*0.9);var z5_min=Math.round(fc_reposo+(fc_max-fc_reposo)*0.9),z5_max=fc_max;return{fc_max:fc_max,z1_recovery:z1_min+'-'+z1_max,z2_fat_burn:z2_min+'-'+z2_max,z3_aerobic:z3_min+'-'+z3_max,z4_threshold:z4_min+'-'+z4_max,z5_maximum:z5_min+'-'+z5_max};",
+  "outputs": [
+    {
+      "id": "fc_max",
+      "unit": "bpm",
+      "highlight": true
+    },
+    {
+      "id": "z1_recovery",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "z2_fat_burn",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "z3_aerobic",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "z4_threshold",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "z5_maximum",
+      "unit": "",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "422",
+    "930",
+    "932",
+    "400"
+  ],
+  "example_inputs": {
+    "edad": 30,
+    "fc_reposo": 60
+  },
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "edad": 15,
+      "fc_reposo": 30
+    },
+    {
+      "_label": "Teen",
+      "edad": 22,
+      "fc_reposo": 45
+    },
+    {
+      "_label": "Adult (F)",
+      "edad": 30,
+      "fc_reposo": 60
+    },
+    {
+      "_label": "Adult (M)",
+      "edad": 45,
+      "fc_reposo": 90
+    },
+    {
+      "_label": "Elderly",
+      "edad": 60,
+      "fc_reposo": 120
+    }
+  ]
+}

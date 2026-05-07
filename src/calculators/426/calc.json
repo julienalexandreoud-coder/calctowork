@@ -1,0 +1,152 @@
+{
+  "id": "426",
+  "slug": "gasto-energetico-total",
+  "block": 5,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "weight",
+      "type": "number",
+      "step": "any",
+      "default": 70,
+      "unit": "kg",
+      "unit_options": [
+        "kg",
+        "lb"
+      ],
+      "unit_category": "mass"
+    },
+    {
+      "id": "height",
+      "type": "number",
+      "step": "any",
+      "default": 175,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "ft"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "age",
+      "type": "number",
+      "step": 1,
+      "default": 30,
+      "unit": "yr",
+      "unit_options": [
+        "yr"
+      ],
+      "unit_category": "time"
+    },
+    {
+      "id": "gender",
+      "type": "select",
+      "options": [
+        {
+          "value": "male",
+          "label": "Male / Masculino"
+        },
+        {
+          "value": "female",
+          "label": "Female / Femenino"
+        }
+      ],
+      "default": "male",
+      "unit": "",
+      "unit_options": [],
+      "unit_category": ""
+    },
+    {
+      "id": "activity",
+      "type": "select",
+      "options": [
+        {
+          "value": "1.2",
+          "label": "Sedentary (no exercise)"
+        },
+        {
+          "value": "1.375",
+          "label": "Lightly active (1-3 days/wk)"
+        },
+        {
+          "value": "1.55",
+          "label": "Moderately active (3-5 days/wk)"
+        },
+        {
+          "value": "1.725",
+          "label": "Very active (6-7 days/wk)"
+        },
+        {
+          "value": "1.9",
+          "label": "Extra active (hard daily exercise)"
+        }
+      ],
+      "default": "1.55",
+      "unit": "",
+      "unit_options": [],
+      "unit_category": ""
+    }
+  ],
+  "formula": "var w=parseFloat(inputs.weight)||0;var h=parseFloat(inputs.height)||0;var a=parseFloat(inputs.age)||0;var g=inputs.gender||'male';var act=parseFloat(inputs.activity)||1.55;var bmr=g==='male'?(10*w+6.25*h-5*a+5):(10*w+6.25*h-5*a-161);var tdee=bmr*act;return{tdee:tdee.toFixed(0),bmr:bmr.toFixed(0)};",
+  "outputs": [
+    {
+      "id": "tdee",
+      "unit": "kcal"
+    },
+    {
+      "id": "bmr",
+      "unit": "kcal"
+    }
+  ],
+  "related": [
+    "401",
+    "417",
+    "427",
+    "428"
+  ],
+  "example_inputs": {
+    "weight": 70,
+    "height": 175,
+    "age": 30,
+    "gender": "male",
+    "activity": "1.2"
+  },
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "weight": 35,
+      "height": 88,
+      "age": 30
+    },
+    {
+      "_label": "Teen",
+      "weight": 52,
+      "height": 131,
+      "age": 30
+    },
+    {
+      "_label": "Adult (F)",
+      "weight": 70,
+      "height": 175,
+      "age": 30
+    },
+    {
+      "_label": "Adult (M)",
+      "weight": 105,
+      "height": 262,
+      "age": 30
+    },
+    {
+      "_label": "Elderly",
+      "weight": 140,
+      "height": 350,
+      "age": 30
+    }
+  ],
+  "units": {
+    "weight": "kg",
+    "height": "m",
+    "age": "s"
+  }
+}

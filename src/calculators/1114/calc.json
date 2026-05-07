@@ -1,0 +1,138 @@
+{
+  "id": "1114",
+  "slug": "baseboard-calculator",
+  "block": 7,
+  "block_slug": "carpinteria",
+  "inputs": [
+    {
+      "id": "room_perimeter",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "step": 0.1,
+      "default": 18,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "door_width",
+      "type": "number",
+      "min": 0.5,
+      "max": 2,
+      "step": 0.1,
+      "default": 0.9,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "doors_count",
+      "type": "number",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "default": 1,
+      "unit": "pcs",
+      "unit_category": "count"
+    },
+    {
+      "id": "board_length",
+      "type": "number",
+      "min": 1,
+      "max": 5,
+      "step": 0.3,
+      "default": 2.4,
+      "unit": "m",
+      "unit_category": "length"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "net_perimeter_m",
+      "unit": "m",
+      "highlight": true
+    },
+    {
+      "id": "linear_meters",
+      "unit": "m"
+    },
+    {
+      "id": "boards_needed",
+      "unit": "boards"
+    },
+    {
+      "id": "returns_needed",
+      "unit": "pcs"
+    }
+  ],
+  "formula": "var P=parseFloat(inputs.room_perimeter)||0,dw=parseFloat(inputs.door_width)||0.9,dc=parseFloat(inputs.doors_count)||1,bl=parseFloat(inputs.board_length)||2.4;if(!P)return{error:true};var net=+(P-(dc*dw)).toFixed(2),lm=+(net*1.10).toFixed(1),boards=Math.ceil(lm/bl),returns=dc*2;return{net_perimeter_m:net,linear_meters:lm,boards_needed:boards,returns_needed:returns};",
+  "example_inputs": {
+    "room_perimeter": 18,
+    "door_width": 0.9,
+    "doors_count": 2,
+    "board_length": 2.4
+  },
+  "related": [
+    "1113",
+    "1100",
+    "1107",
+    "061"
+  ],
+  "buying_units": {
+    "boards_needed": [
+      {
+        "label": "Boards (2.4 m)",
+        "factor": 1,
+        "round": "ceil",
+        "unit_suffix": "boards"
+      },
+      {
+        "label": "Boards (3.6 m)",
+        "factor": 0.67,
+        "round": "ceil",
+        "unit_suffix": "boards"
+      }
+    ]
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small door",
+      "room_perimeter": 9,
+      "doors_count": 1,
+      "board_length": 2.4,
+      "door_width": 0.9
+    },
+    {
+      "_label": "Standard door",
+      "room_perimeter": 13.5,
+      "doors_count": 2,
+      "board_length": 2.4,
+      "door_width": 0.9
+    },
+    {
+      "_label": "Large door",
+      "room_perimeter": 18,
+      "doors_count": 2,
+      "board_length": 2.4,
+      "door_width": 0.9
+    },
+    {
+      "_label": "Window",
+      "room_perimeter": 27,
+      "doors_count": 3,
+      "board_length": 2.4,
+      "door_width": 0.9
+    },
+    {
+      "_label": "Bay window",
+      "room_perimeter": 36,
+      "doors_count": 4,
+      "board_length": 2.4,
+      "door_width": 0.9
+    }
+  ],
+  "units": {
+    "room_perimeter": "m",
+    "door_width": "m",
+    "board_length": "m"
+  }
+}

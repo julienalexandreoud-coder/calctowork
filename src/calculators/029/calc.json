@@ -1,0 +1,84 @@
+{
+  "id": "029",
+  "slug": "adhesivo-ceramico",
+  "block": 3,
+  "block_slug": "pavimentos",
+  "inputs": [
+    {
+      "id": "area",
+      "type": "number",
+      "min": 0.5,
+      "max": 2000,
+      "step": 0.5,
+      "default": 25,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "tipo_colocacion",
+      "type": "select",
+      "default": "suelo",
+      "options": [
+        "suelo",
+        "pared",
+        "exterior",
+        "piscina"
+      ]
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area)||0,esp=inputs.tipo_colocacion==='pared'?4:6,ext=inputs.tipo_colocacion==='exterior'||inputs.tipo_colocacion==='piscina'?1.1:1;if(!A)return{error:true};var kg_m2=esp*ext,total=+(A*kg_m2*1.05).toFixed(1),sacos_25=Math.ceil(total/25);return{kg_m2:kg_m2,total_kg:total,sacos_25kg:sacos_25};",
+  "outputs": [
+    {
+      "id": "kg_m2",
+      "unit": "kg/m²"
+    },
+    {
+      "id": "total_kg",
+      "unit": "kg (+5% merma)",
+      "highlight": true
+    },
+    {
+      "id": "sacos_25kg",
+      "unit": "sacos 25kg"
+    }
+  ],
+  "related": [
+    "021",
+    "027",
+    "030",
+    "022"
+  ],
+  "example_inputs": {
+    "area": 25,
+    "tipo_colocacion": "suelo"
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small patio",
+      "area": 12.5
+    },
+    {
+      "_label": "Medium patio",
+      "area": 18.75
+    },
+    {
+      "_label": "Large patio",
+      "area": 25
+    },
+    {
+      "_label": "Driveway",
+      "area": 37.5
+    },
+    {
+      "_label": "Parking lot",
+      "area": 50
+    }
+  ],
+  "units": {
+    "area": "m²"
+  }
+}

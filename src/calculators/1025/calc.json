@@ -1,0 +1,78 @@
+{
+  "id": "1025",
+  "slug": "amanecer-atardecer",
+  "block": 15,
+  "block_slug": "clima",
+  "inputs": [
+    {
+      "id": "lat",
+      "type": "number",
+      "step": "any",
+      "default": 40,
+      "unit": "°",
+      "unit_options": [
+        "°"
+      ],
+      "unit_category": "angle"
+    },
+    {
+      "id": "day",
+      "type": "number",
+      "step": 1,
+      "default": 172,
+      "unit": "day",
+      "unit_options": [
+        "day"
+      ],
+      "unit_category": "time"
+    }
+  ],
+  "formula": "var lat=parseFloat(inputs.lat)||0;var day=parseFloat(inputs.day)||0;var decl=23.45*Math.sin((360/365)*(day-81)*Math.PI/180);var latr=lat*Math.PI/180;var decr=decl*Math.PI/180;var h=Math.acos(-Math.tan(latr)*Math.tan(decr));var daylight=h*2*12/Math.PI;return{daylight:daylight.toFixed(2)};",
+  "outputs": [
+    {
+      "id": "daylight",
+      "unit": "h"
+    }
+  ],
+  "related": [
+    "1020",
+    "1026",
+    "1021",
+    "1022"
+  ],
+  "example_inputs": {
+    "lat": 40,
+    "day": 172
+  },
+  "comparison_presets": [
+    {
+      "_label": "Light",
+      "lat": 20,
+      "day": 86
+    },
+    {
+      "_label": "Moderate",
+      "lat": 30,
+      "day": 129
+    },
+    {
+      "_label": "Strong",
+      "lat": 40,
+      "day": 172
+    },
+    {
+      "_label": "Severe",
+      "lat": 60,
+      "day": 258
+    },
+    {
+      "_label": "Extreme",
+      "lat": 80,
+      "day": 344
+    }
+  ],
+  "units": {
+    "lat": "deg",
+    "day": "s"
+  }
+}

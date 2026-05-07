@@ -1,0 +1,111 @@
+{
+  "id": "930",
+  "slug": "waist-hip-ratio",
+  "block": 12,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "cintura_cm",
+      "type": "number",
+      "min": 30,
+      "max": 200,
+      "step": 0.5,
+      "default": 80,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in",
+        "ft"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "cadera_cm",
+      "type": "number",
+      "min": 30,
+      "max": 200,
+      "step": 0.5,
+      "default": 95,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in",
+        "ft"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "sexo",
+      "type": "select",
+      "options": [
+        "mujer",
+        "hombre"
+      ],
+      "default": "mujer"
+    }
+  ],
+  "formula": "var sexo=inputs.sexo||'mujer',cintura=parseFloat(inputs.cintura_cm)||0,cadera=parseFloat(inputs.cadera_cm)||0;if(!cintura||!cadera)return{error:true};var whr=+(cintura/cadera).toFixed(2),riesgo=sexo=='mujer'?(whr>0.85?'High':'Normal'):(whr>0.90?'High':'Normal');return{whr:whr,risk:riesgo,ideal:sexo=='mujer'?'<0.85':'<0.90'};",
+  "outputs": [
+    {
+      "id": "whr",
+      "unit": "",
+      "highlight": true
+    },
+    {
+      "id": "risk",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "ideal",
+      "unit": "",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "931",
+    "412",
+    "928",
+    "400"
+  ],
+  "example_inputs": {
+    "cadera_cm": 95,
+    "sexo": "mujer",
+    "cintura_cm": 80
+  },
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "cintura_cm": 40,
+      "cadera_cm": 47.5
+    },
+    {
+      "_label": "Teen",
+      "cintura_cm": 60,
+      "cadera_cm": 71.25
+    },
+    {
+      "_label": "Adult (F)",
+      "cintura_cm": 80,
+      "cadera_cm": 95
+    },
+    {
+      "_label": "Adult (M)",
+      "cintura_cm": 120,
+      "cadera_cm": 142.5
+    },
+    {
+      "_label": "Elderly",
+      "cintura_cm": 160,
+      "cadera_cm": 190
+    }
+  ],
+  "units": {
+    "cintura_cm": "m",
+    "cadera_cm": "m"
+  }
+}

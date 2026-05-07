@@ -1,0 +1,116 @@
+{
+  "id": "052",
+  "slug": "consumo-electrico-mensual",
+  "block": 5,
+  "block_slug": "electricidad",
+  "inputs": [
+    {
+      "id": "potencia_w",
+      "type": "number",
+      "min": 10,
+      "max": 50000,
+      "step": 10,
+      "default": 2000,
+      "unit": "W",
+      "unit_options": [
+        "W",
+        "kW"
+      ],
+      "unit_category": "power"
+    },
+    {
+      "id": "horas_dia",
+      "type": "number",
+      "min": 0.1,
+      "max": 24,
+      "step": 0.1,
+      "default": 4,
+      "unit": "h/día",
+      "unit_options": [
+        "h/day"
+      ],
+      "unit_category": "time"
+    },
+    {
+      "id": "precio_kwh",
+      "type": "number",
+      "min": 0.05,
+      "max": 1,
+      "step": 0.01,
+      "default": 0.18,
+      "unit": "â‚¬/kWh",
+      "unit_options": [
+        "â‚¬/kWh",
+        "$/kWh"
+      ],
+      "unit_category": "price"
+    }
+  ],
+  "formula": "var P=parseFloat(inputs.potencia_w)||0,H=parseFloat(inputs.horas_dia)||0,precio=parseFloat(inputs.precio_kwh)||0.18;if(!P||!H)return{error:true};var kwh_dia=+(P*H/1000).toFixed(3),kwh_mes=+(kwh_dia*30).toFixed(2),coste_mes=+(kwh_mes*precio).toFixed(2),coste_ano=+(kwh_mes*12*precio).toFixed(2);return{kwh_dia:kwh_dia,kwh_mes:kwh_mes,coste_mes_eur:coste_mes,coste_ano_eur:coste_ano};",
+  "outputs": [
+    {
+      "id": "kwh_dia",
+      "unit": "kWh/día"
+    },
+    {
+      "id": "kwh_mes",
+      "unit": "kWh/mes",
+      "highlight": true
+    },
+    {
+      "id": "coste_mes_eur",
+      "unit": "â‚¬/mes"
+    },
+    {
+      "id": "coste_ano_eur",
+      "unit": "â‚¬/año"
+    }
+  ],
+  "related": [
+    "048",
+    "045",
+    "047",
+    "043"
+  ],
+  "example_inputs": {
+    "potencia_w": 2000,
+    "horas_dia": 4,
+    "precio_kwh": 0.18
+  },
+  "comparison_presets": [
+    {
+      "_label": "TV LED (100W × 4h)",
+      "potencia_w": 100,
+      "horas_dia": 4,
+      "precio_kwh": 0.18
+    },
+    {
+      "_label": "Nevera A++ (200W × 10h)",
+      "potencia_w": 200,
+      "horas_dia": 10,
+      "precio_kwh": 0.18
+    },
+    {
+      "_label": "Termo eléctrico (2000W × 4h)",
+      "potencia_w": 2000,
+      "horas_dia": 4,
+      "precio_kwh": 0.18
+    },
+    {
+      "_label": "Lavadora (2500W × 1.5h)",
+      "potencia_w": 2500,
+      "horas_dia": 1.5,
+      "precio_kwh": 0.18
+    },
+    {
+      "_label": "Aire acond. (1500W × 8h)",
+      "potencia_w": 1500,
+      "horas_dia": 8,
+      "precio_kwh": 0.18
+    }
+  ],
+  "units": {
+    "potencia_w": "W",
+    "horas_dia": "s"
+  }
+}

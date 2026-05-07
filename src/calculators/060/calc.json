@@ -1,0 +1,107 @@
+{
+  "id": "060",
+  "slug": "carga-gas-refrigerante",
+  "block": 6,
+  "block_slug": "climatizacion",
+  "inputs": [
+    {
+      "id": "longitud_linea_m",
+      "type": "number",
+      "min": 3,
+      "max": 50,
+      "step": 0.5,
+      "default": 5,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "potencia_eq_kw",
+      "type": "number",
+      "min": 1,
+      "max": 30,
+      "step": 0.5,
+      "default": 3.5,
+      "unit": "kW",
+      "unit_options": [
+        "kW",
+        "W"
+      ],
+      "unit_category": "power"
+    },
+    {
+      "id": "tipo_gas",
+      "type": "select",
+      "default": "R32",
+      "options": [
+        "R32",
+        "R410A",
+        "R22"
+      ]
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.longitud_linea_m)||0,Pkw=parseFloat(inputs.potencia_eq_kw)||3.5,base_kg={'R32':0.02,'R410A':0.025,'R22':0.03};if(!L)return{error:true};var extra_m=Math.max(0,L-5),carga_extra=+(extra_m*base_kg[inputs.tipo_gas]).toFixed(3),carga_base=+(Pkw*0.04).toFixed(3),carga_total=+(carga_base+carga_extra).toFixed(3);return{carga_base_kg:carga_base,carga_extra_kg:carga_extra,carga_total_kg:carga_total};",
+  "outputs": [
+    {
+      "id": "carga_base_kg",
+      "unit": "kg (base equipo)"
+    },
+    {
+      "id": "carga_extra_kg",
+      "unit": "kg (linea >5m)"
+    },
+    {
+      "id": "carga_total_kg",
+      "unit": "kg total",
+      "highlight": true
+    }
+  ],
+  "related": [
+    "053",
+    "057",
+    "056",
+    "054"
+  ],
+  "example_inputs": {
+    "longitud_linea_m": 10,
+    "potencia_eq_kw": 3.5,
+    "tipo_gas": "R32"
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small room",
+      "longitud_linea_m": 5,
+      "potencia_eq_kw": 1.75
+    },
+    {
+      "_label": "Medium room",
+      "longitud_linea_m": 7.5,
+      "potencia_eq_kw": 2.625
+    },
+    {
+      "_label": "Large room",
+      "longitud_linea_m": 10,
+      "potencia_eq_kw": 3.5
+    },
+    {
+      "_label": "Office",
+      "longitud_linea_m": 15,
+      "potencia_eq_kw": 5.25
+    },
+    {
+      "_label": "Warehouse",
+      "longitud_linea_m": 20,
+      "potencia_eq_kw": 7
+    }
+  ],
+  "units": {
+    "longitud_linea_m": "m",
+    "potencia_eq_kw": "W"
+  }
+}

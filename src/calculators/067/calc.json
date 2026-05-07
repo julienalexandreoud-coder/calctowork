@@ -1,0 +1,171 @@
+{
+  "id": "067",
+  "slug": "cerrajeria-puerta",
+  "block": 7,
+  "block_slug": "carpinteria",
+  "inputs": [
+    {
+      "id": "ancho_m",
+      "type": "number",
+      "min": 0.8,
+      "max": 5,
+      "step": 0.1,
+      "default": 1.5,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "alto_m",
+      "type": "number",
+      "min": 1,
+      "max": 4,
+      "step": 0.1,
+      "default": 2,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "grosor_puerta_mm",
+      "type": "number",
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "default": 40,
+      "unit": "mm",
+      "unit_options": [
+        "mm",
+        "cm",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "grosor_guarnicion_mm",
+      "type": "number",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "default": 10,
+      "unit": "mm",
+      "unit_options": [
+        "mm",
+        "cm",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "grado_seguridad",
+      "type": "select",
+      "default": "3_estrellas",
+      "options": [
+        "1_estrella",
+        "2_estrellas",
+        "3_estrellas",
+        "4_estrellas",
+        "5_estrellas"
+      ]
+    }
+  ],
+  "formula": "var W=parseFloat(inputs.ancho_m)||0,H=parseFloat(inputs.alto_m)||0,gp=parseFloat(inputs.grosor_puerta_mm)||40,gg=parseFloat(inputs.grosor_guarnicion_mm)||10;if(!W||!H)return{error:true};var m2=+(W*H).toFixed(2),kg_chapa=+(m2*15).toFixed(1),kg_marco=+(2*(W+H)*5).toFixed(1),kg_total=+(kg_chapa+kg_marco).toFixed(1),cilindro_mm=gp+gg,backset_mm=+(Number(W*1000*0.06 > 45?W*1000*0.06:45)).toFixed(0);return{m2_puerta:m2,kg_chapa:kg_chapa,kg_marco:kg_marco,kg_total:kg_total,cilindro_mm:cilindro_mm,backset_mm:backset_mm};",
+  "outputs": [
+    {
+      "id": "m2_puerta",
+      "unit": "mÂ² puerta"
+    },
+    {
+      "id": "kg_chapa",
+      "unit": "kg chapa"
+    },
+    {
+      "id": "kg_marco",
+      "unit": "kg marco"
+    },
+    {
+      "id": "kg_total",
+      "unit": "kg total",
+      "highlight": true
+    },
+    {
+      "id": "cilindro_mm",
+      "unit": "mm cilindro"
+    },
+    {
+      "id": "backset_mm",
+      "unit": "mm backset"
+    }
+  ],
+  "related": [
+    "062",
+    "065",
+    "066",
+    "061"
+  ],
+  "example_inputs": {
+    "ancho_m": 1,
+    "alto_m": 2.1,
+    "grosor_puerta_mm": 40,
+    "grosor_guarnicion_mm": 10,
+    "grado_seguridad": "3_estrellas"
+  },
+  "comparison_presets": [
+    {
+      "_label": "Puerta peatonal (90Ã—210)",
+      "ancho_m": 0.9,
+      "alto_m": 2.1,
+      "grosor_puerta_mm": 40,
+      "grosor_guarnicion_mm": 10,
+      "grado_seguridad": "3_estrellas"
+    },
+    {
+      "_label": "Puerta estÃ¡ndar (100Ã—210)",
+      "ancho_m": 1,
+      "alto_m": 2.1,
+      "grosor_puerta_mm": 45,
+      "grosor_guarnicion_mm": 10,
+      "grado_seguridad": "3_estrellas"
+    },
+    {
+      "_label": "PortÃ³n doble (2Ã—120Ã—210)",
+      "ancho_m": 1.2,
+      "alto_m": 2.1,
+      "grosor_puerta_mm": 50,
+      "grosor_guarnicion_mm": 15,
+      "grado_seguridad": "4_estrellas"
+    },
+    {
+      "_label": "Puerta garaje (250Ã—220)",
+      "ancho_m": 2.5,
+      "alto_m": 2.2,
+      "grosor_puerta_mm": 60,
+      "grosor_guarnicion_mm": 15,
+      "grado_seguridad": "5_estrellas"
+    },
+    {
+      "_label": "Cancel exterior (150Ã—250)",
+      "ancho_m": 1.5,
+      "alto_m": 2.5,
+      "grosor_puerta_mm": 50,
+      "grosor_guarnicion_mm": 10,
+      "grado_seguridad": "4_estrellas"
+    }
+  ],
+  "units": {
+    "ancho_m": "m",
+    "alto_m": "m"
+  }
+}

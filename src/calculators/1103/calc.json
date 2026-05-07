@@ -1,0 +1,142 @@
+{
+  "id": "1103",
+  "slug": "fence-picket-calculator",
+  "block": 7,
+  "block_slug": "carpinteria",
+  "inputs": [
+    {
+      "id": "fence_length",
+      "type": "number",
+      "min": 1,
+      "max": 500,
+      "step": 0.1,
+      "default": 30,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "picket_width",
+      "type": "number",
+      "min": 5,
+      "max": 20,
+      "step": 0.5,
+      "default": 10,
+      "unit": "cm",
+      "unit_category": "length"
+    },
+    {
+      "id": "gap_between",
+      "type": "number",
+      "min": 0,
+      "max": 15,
+      "step": 0.5,
+      "default": 5,
+      "unit": "cm",
+      "unit_category": "length"
+    },
+    {
+      "id": "post_spacing",
+      "type": "number",
+      "min": 1,
+      "max": 5,
+      "step": 0.1,
+      "default": 2.4,
+      "unit": "m",
+      "unit_category": "length"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "pickets_needed",
+      "unit": "pcs",
+      "highlight": true
+    },
+    {
+      "id": "posts_needed",
+      "unit": "posts"
+    },
+    {
+      "id": "rails_needed",
+      "unit": "rails"
+    },
+    {
+      "id": "total_linear_meters",
+      "unit": "m"
+    }
+  ],
+  "formula": "var fl=parseFloat(inputs.fence_length)||0,pw=parseFloat(inputs.picket_width)||10,gb=parseFloat(inputs.gap_between)||5,ps=parseFloat(inputs.post_spacing)||2.4;if(!fl)return{error:true};var spp=(pw+gb)/100,pickets=Math.ceil(fl/spp),posts=Math.ceil(fl/ps)+1,rails=(posts-1)*2,tlm=+(pickets*(pw/100)).toFixed(1);return{pickets_needed:pickets,posts_needed:posts,rails_needed:rails,total_linear_meters:tlm};",
+  "example_inputs": {
+    "fence_length": 20,
+    "picket_width": 9,
+    "gap_between": 2,
+    "post_spacing": 2.4
+  },
+  "related": [
+    "1100",
+    "1114",
+    "1113",
+    "061"
+  ],
+  "comparison_presets": [
+    {
+      "fence_length": 10,
+      "picket_width": 9,
+      "gap_between": 2,
+      "post_spacing": 2.4
+    },
+    {
+      "fence_length": 15,
+      "picket_width": 9,
+      "gap_between": 2,
+      "post_spacing": 2.4
+    },
+    {
+      "fence_length": 20,
+      "picket_width": 9,
+      "gap_between": 2,
+      "post_spacing": 2.4
+    },
+    {
+      "fence_length": 30,
+      "picket_width": 9,
+      "gap_between": 2,
+      "post_spacing": 2.4
+    },
+    {
+      "fence_length": 50,
+      "picket_width": 9,
+      "gap_between": 2,
+      "post_spacing": 2.4
+    }
+  ],
+  "buying_units": {
+    "pickets_needed": [
+      {
+        "label": "Pickets",
+        "factor": 1,
+        "round": "ceil",
+        "unit_suffix": "pickets"
+      },
+      {
+        "label": "Bundles of 10",
+        "factor": 0.1,
+        "round": "ceil",
+        "unit_suffix": "bundles"
+      }
+    ],
+    "posts_needed": [
+      {
+        "label": "Posts",
+        "factor": 1,
+        "round": "ceil",
+        "unit_suffix": "posts"
+      }
+    ]
+  },
+  "units": {
+    "fence_length": "m",
+    "picket_width": "m",
+    "gap_between": "m",
+    "post_spacing": "m"
+  }
+}

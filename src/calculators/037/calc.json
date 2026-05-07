@@ -1,0 +1,112 @@
+{
+  "id": "037",
+  "slug": "radiador-aluminio",
+  "block": 4,
+  "block_slug": "fontaneria",
+  "inputs": [
+    {
+      "id": "area_m2",
+      "type": "number",
+      "min": 5,
+      "max": 100,
+      "step": 0.5,
+      "default": 15,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "altura_m",
+      "type": "number",
+      "min": 2.2,
+      "max": 5,
+      "step": 0.1,
+      "default": 2.7,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "orientacion",
+      "type": "select",
+      "default": "interior",
+      "options": [
+        "interior",
+        "exterior_norte",
+        "exterior_sur",
+        "sotano"
+      ]
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area_m2)||0,H=parseFloat(inputs.altura_m)||2.7,coef={'interior':0.04,'exterior_norte':0.065,'exterior_sur':0.05,'sotano':0.07};if(!A)return{error:true};var vol=A*H,w_necesarios=+(vol*coef[inputs.orientacion]*1000).toFixed(0),elementos=Math.ceil(w_necesarios/175),radiadores=Math.ceil(elementos/12);return{vol_m3:+vol.toFixed(1),w_necesarios:w_necesarios,elementos_ud:elementos,radiadores_ud:radiadores};",
+  "outputs": [
+    {
+      "id": "vol_m3",
+      "unit": "m³"
+    },
+    {
+      "id": "w_necesarios",
+      "unit": "W"
+    },
+    {
+      "id": "elementos_ud",
+      "unit": "elementos (175W/elem)",
+      "highlight": true
+    },
+    {
+      "id": "radiadores_ud",
+      "unit": "radiadores (12 elem/rad)"
+    }
+  ],
+  "related": [
+    "036",
+    "038",
+    "053",
+    "033"
+  ],
+  "example_inputs": {
+    "area_m2": 15,
+    "altura_m": 2.7,
+    "orientacion": "interior"
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small bathroom",
+      "area_m2": 7.5,
+      "altura_m": 2.2
+    },
+    {
+      "_label": "Medium bathroom",
+      "area_m2": 11.25,
+      "altura_m": 2.2
+    },
+    {
+      "_label": "Large bathroom",
+      "area_m2": 15,
+      "altura_m": 2.7
+    },
+    {
+      "_label": "Apartment",
+      "area_m2": 22.5,
+      "altura_m": 4.05
+    },
+    {
+      "_label": "House",
+      "area_m2": 30,
+      "altura_m": 5
+    }
+  ],
+  "units": {
+    "area_m2": "m²",
+    "altura_m": "m"
+  }
+}

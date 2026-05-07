@@ -1,0 +1,88 @@
+{
+  "id": "054",
+  "slug": "conductos-aire",
+  "block": 6,
+  "block_slug": "climatizacion",
+  "inputs": [
+    {
+      "id": "caudal_m3h",
+      "type": "number",
+      "min": 50,
+      "max": 50000,
+      "step": 50,
+      "default": 500,
+      "unit": "m³/h"
+    },
+    {
+      "id": "velocidad_ms",
+      "type": "number",
+      "min": 1,
+      "max": 10,
+      "step": 0.5,
+      "default": 4,
+      "unit": "m/s",
+      "unit_options": [
+        "m/s",
+        "km/h",
+        "ft/s"
+      ],
+      "unit_category": "speed"
+    }
+  ],
+  "formula": "var Q=parseFloat(inputs.caudal_m3h)||0,v=parseFloat(inputs.velocidad_ms)||4;if(!Q)return{error:true};var A_m2=Q/3600/v,D_mm=+(Math.sqrt(4*A_m2/Math.PI)*1000).toFixed(0),D_norm=D_mm<=100?100:D_mm<=125?125:D_mm<=160?160:D_mm<=200?200:D_mm<=250?250:D_mm<=315?315:400,lado=+(Math.sqrt(A_m2)*1000).toFixed(0);return{area_conducto_m2:+A_m2.toFixed(4),diametro_circular_mm:D_norm,lado_rectangular_mm:lado};",
+  "outputs": [
+    {
+      "id": "diametro_circular_mm",
+      "unit": "mm Ã˜ (circular)",
+      "highlight": true
+    },
+    {
+      "id": "lado_rectangular_mm",
+      "unit": "mm (cuadrado equiv.)"
+    },
+    {
+      "id": "area_conducto_m2",
+      "unit": "m² sección"
+    }
+  ],
+  "related": [
+    "055",
+    "053",
+    "059",
+    "058"
+  ],
+  "example_inputs": {
+    "caudal_m3h": 500,
+    "velocidad_ms": 4
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small room",
+      "caudal_m3h": 250,
+      "velocidad_ms": 2
+    },
+    {
+      "_label": "Medium room",
+      "caudal_m3h": 400,
+      "velocidad_ms": 3
+    },
+    {
+      "_label": "Large room",
+      "caudal_m3h": 500,
+      "velocidad_ms": 4
+    },
+    {
+      "_label": "Office",
+      "caudal_m3h": 750,
+      "velocidad_ms": 6
+    },
+    {
+      "_label": "Warehouse",
+      "caudal_m3h": 1000,
+      "velocidad_ms": 8
+    }
+  ],
+  "units": {
+    "velocidad_ms": "m/s"
+  }
+}

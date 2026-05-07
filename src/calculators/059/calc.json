@@ -1,0 +1,88 @@
+{
+  "id": "059",
+  "slug": "rejillas-difusores",
+  "block": 6,
+  "block_slug": "climatizacion",
+  "inputs": [
+    {
+      "id": "caudal_m3h",
+      "type": "number",
+      "min": 10,
+      "max": 5000,
+      "step": 10,
+      "default": 200,
+      "unit": "m³/h"
+    },
+    {
+      "id": "velocidad_cara_ms",
+      "type": "number",
+      "min": 1,
+      "max": 4,
+      "step": 0.1,
+      "default": 2,
+      "unit": "m/s",
+      "unit_options": [
+        "m/s",
+        "km/h",
+        "ft/s"
+      ],
+      "unit_category": "speed"
+    }
+  ],
+  "formula": "var Q=parseFloat(inputs.caudal_m3h)||0,v=parseFloat(inputs.velocidad_cara_ms)||2;if(!Q)return{error:true};var A_m2=Q/3600/v,lado_cm=+(Math.sqrt(A_m2)*100).toFixed(0),norm=lado_cm<=20?'20x20':lado_cm<=30?'30x30':lado_cm<=40?'40x40':'50x50',alcance_m=+(Math.sqrt(A_m2)*10).toFixed(1);return{area_libre_m2:+A_m2.toFixed(4),tamano_rejilla_cm:norm,alcance_m:alcance_m};",
+  "outputs": [
+    {
+      "id": "area_libre_m2",
+      "unit": "m² sección libre"
+    },
+    {
+      "id": "tamano_rejilla_cm",
+      "unit": "cm (normalizado)",
+      "highlight": true
+    },
+    {
+      "id": "alcance_m",
+      "unit": "m alcance chorro"
+    }
+  ],
+  "related": [
+    "054",
+    "058",
+    "055",
+    "053"
+  ],
+  "example_inputs": {
+    "caudal_m3h": 100,
+    "velocidad_cara_ms": 2
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small room",
+      "caudal_m3h": 50,
+      "velocidad_cara_ms": 1
+    },
+    {
+      "_label": "Medium room",
+      "caudal_m3h": 80,
+      "velocidad_cara_ms": 1.5
+    },
+    {
+      "_label": "Large room",
+      "caudal_m3h": 100,
+      "velocidad_cara_ms": 2
+    },
+    {
+      "_label": "Office",
+      "caudal_m3h": 150,
+      "velocidad_cara_ms": 3
+    },
+    {
+      "_label": "Warehouse",
+      "caudal_m3h": 200,
+      "velocidad_cara_ms": 4
+    }
+  ],
+  "units": {
+    "velocidad_cara_ms": "m/s"
+  }
+}

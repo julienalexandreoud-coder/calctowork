@@ -1,0 +1,110 @@
+{
+  "id": "421",
+  "slug": "aclaramiento-creatinina",
+  "block": 12,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "age",
+      "type": "number",
+      "step": 1,
+      "default": 50,
+      "unit": "yr",
+      "unit_options": [
+        "yr"
+      ],
+      "unit_category": "time"
+    },
+    {
+      "id": "weight",
+      "type": "number",
+      "step": "any",
+      "default": 70,
+      "unit": "kg",
+      "unit_options": [
+        "kg",
+        "lb"
+      ],
+      "unit_category": "mass"
+    },
+    {
+      "id": "creatinine",
+      "type": "number",
+      "step": "any",
+      "default": 1,
+      "unit": "mg/dL",
+      "unit_options": [
+        "mg/dL",
+        "µmol/L"
+      ],
+      "unit_category": "count"
+    },
+    {
+      "id": "gender",
+      "type": "select",
+      "options": [
+        "male",
+        "female"
+      ],
+      "default": "male",
+      "unit": "",
+      "unit_options": [],
+      "unit_category": ""
+    }
+  ],
+  "formula": "var age=parseFloat(inputs.age)||0;var w=parseFloat(inputs.weight)||0;var cr=parseFloat(inputs.creatinine)||1;var g=inputs.gender||'male';var factor=g==='male'?1:0.85;var crcl=((140-age)*w*factor)/(72*cr);return{crcl:crcl.toFixed(2)};",
+  "outputs": [
+    {
+      "id": "crcl",
+      "unit": "mL/min"
+    }
+  ],
+  "related": [
+    "415",
+    "400",
+    "426",
+    "427"
+  ],
+  "example_inputs": {
+    "age": 30,
+    "weight": 70,
+    "creatinine": 1,
+    "gender": "male"
+  },
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "age": 15,
+      "weight": 35,
+      "creatinine": 1
+    },
+    {
+      "_label": "Teen",
+      "age": 22,
+      "weight": 52,
+      "creatinine": 1
+    },
+    {
+      "_label": "Adult (F)",
+      "age": 30,
+      "weight": 70,
+      "creatinine": 1
+    },
+    {
+      "_label": "Adult (M)",
+      "age": 45,
+      "weight": 105,
+      "creatinine": 1
+    },
+    {
+      "_label": "Elderly",
+      "age": 60,
+      "weight": 140,
+      "creatinine": 1
+    }
+  ],
+  "units": {
+    "age": "s",
+    "weight": "kg"
+  }
+}

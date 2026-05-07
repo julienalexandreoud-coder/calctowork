@@ -1,0 +1,115 @@
+{
+  "id": "038",
+  "slug": "suelo-radiante",
+  "block": 4,
+  "block_slug": "fontaneria",
+  "inputs": [
+    {
+      "id": "area_m2",
+      "type": "number",
+      "min": 5,
+      "max": 500,
+      "step": 0.5,
+      "default": 80,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "separacion_cm",
+      "type": "number",
+      "min": 10,
+      "max": 30,
+      "step": 5,
+      "default": 20,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in",
+        "ft"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "circuitos_max_m",
+      "type": "number",
+      "min": 50,
+      "max": 120,
+      "step": 10,
+      "default": 80,
+      "unit": "m/circuito"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area_m2)||0,sep=parseFloat(inputs.separacion_cm)||20,cmax=parseFloat(inputs.circuitos_max_m)||80;if(!A)return{error:true};var ml_tubo=+(A*(100/sep)*1.1).toFixed(1),circuitos=Math.ceil(ml_tubo/cmax),colectores=Math.ceil(circuitos/8),mortero_kg=+(A*80).toFixed(0);return{ml_tubo:ml_tubo,circuitos:circuitos,colectores_ud:colectores,mortero_autonivelante_kg:mortero_kg};",
+  "outputs": [
+    {
+      "id": "ml_tubo",
+      "unit": "m.l. tubo (+10%)",
+      "highlight": true
+    },
+    {
+      "id": "circuitos",
+      "unit": "circuitos"
+    },
+    {
+      "id": "colectores_ud",
+      "unit": "colectores (8 circ)"
+    },
+    {
+      "id": "mortero_autonivelante_kg",
+      "unit": "kg"
+    }
+  ],
+  "related": [
+    "037",
+    "032",
+    "036",
+    "039"
+  ],
+  "example_inputs": {
+    "area_m2": 80,
+    "separacion_cm": 20,
+    "circuitos_max_m": 80
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small bathroom",
+      "area_m2": 40,
+      "circuitos_max_m": 50,
+      "separacion_cm": 20
+    },
+    {
+      "_label": "Medium bathroom",
+      "area_m2": 60,
+      "circuitos_max_m": 60,
+      "separacion_cm": 20
+    },
+    {
+      "_label": "Large bathroom",
+      "area_m2": 80,
+      "circuitos_max_m": 80,
+      "separacion_cm": 20
+    },
+    {
+      "_label": "Apartment",
+      "area_m2": 120,
+      "circuitos_max_m": 120,
+      "separacion_cm": 20
+    },
+    {
+      "_label": "House",
+      "area_m2": 160,
+      "circuitos_max_m": 120,
+      "separacion_cm": 20
+    }
+  ],
+  "units": {
+    "area_m2": "m²",
+    "separacion_cm": "m"
+  }
+}

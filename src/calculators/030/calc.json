@@ -1,0 +1,137 @@
+{
+  "id": "030",
+  "slug": "lechada-junta",
+  "block": 3,
+  "block_slug": "pavimentos",
+  "inputs": [
+    {
+      "id": "area",
+      "type": "number",
+      "min": 0.5,
+      "max": 2000,
+      "step": 0.5,
+      "default": 25,
+      "unit": "m┬▓",
+      "unit_options": [
+        "m┬▓",
+        "ft┬▓"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "tam_pieza_cm",
+      "type": "number",
+      "min": 10,
+      "max": 120,
+      "step": 5,
+      "default": 60,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "ancho_junta_mm",
+      "type": "number",
+      "min": 2,
+      "max": 15,
+      "step": 1,
+      "default": 3,
+      "unit": "mm",
+      "unit_options": [
+        "mm",
+        "cm"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "grosor_pieza_mm",
+      "type": "number",
+      "min": 6,
+      "max": 25,
+      "step": 1,
+      "default": 10,
+      "unit": "mm",
+      "unit_options": [
+        "mm",
+        "cm"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area)||0,T=parseFloat(inputs.tam_pieza_cm)||60,J=parseFloat(inputs.ancho_junta_mm)||3,G=parseFloat(inputs.grosor_pieza_mm)||10;if(!A)return{error:true};var kg_m2=(2*J*G)/(T*10)*1.7*1.6,total=+(A*kg_m2*1.1).toFixed(2),sacos=Math.ceil(total/5);return{kg_m2:+kg_m2.toFixed(3),total_kg:total,sacos_5kg:sacos};",
+  "outputs": [
+    {
+      "id": "kg_m2",
+      "unit": "kg/m┬▓"
+    },
+    {
+      "id": "total_kg",
+      "unit": "kg (+10%)",
+      "highlight": true
+    },
+    {
+      "id": "sacos_5kg",
+      "unit": "sacos 5kg"
+    }
+  ],
+  "related": [
+    "021",
+    "029",
+    "027",
+    "026"
+  ],
+  "example_inputs": {
+    "area": 25,
+    "tam_pieza_cm": 60,
+    "ancho_junta_mm": 3,
+    "grosor_pieza_mm": 10
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small patio",
+      "area": 12.5,
+      "tam_pieza_cm": 30,
+      "grosor_pieza_mm": 10,
+      "ancho_junta_mm": 3
+    },
+    {
+      "_label": "Medium patio",
+      "area": 18.75,
+      "tam_pieza_cm": 45,
+      "grosor_pieza_mm": 10,
+      "ancho_junta_mm": 3
+    },
+    {
+      "_label": "Large patio",
+      "area": 25,
+      "tam_pieza_cm": 60,
+      "grosor_pieza_mm": 10,
+      "ancho_junta_mm": 3
+    },
+    {
+      "_label": "Driveway",
+      "area": 37.5,
+      "tam_pieza_cm": 90,
+      "grosor_pieza_mm": 10,
+      "ancho_junta_mm": 3
+    },
+    {
+      "_label": "Parking lot",
+      "area": 50,
+      "tam_pieza_cm": 120,
+      "grosor_pieza_mm": 10,
+      "ancho_junta_mm": 3
+    }
+  ],
+  "units": {
+    "area": "m┬▓",
+    "tam_pieza_cm": "m",
+    "ancho_junta_mm": "m",
+    "grosor_pieza_mm": "m"
+  }
+}

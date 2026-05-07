@@ -1,0 +1,123 @@
+{
+  "id": "1116",
+  "slug": "concrete-steps-calculator",
+  "block": 1,
+  "block_slug": "estructuras",
+  "inputs": [
+    {
+      "id": "total_rise",
+      "type": "number",
+      "min": 0.1,
+      "max": 5,
+      "step": 0.01,
+      "default": 1,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "total_run",
+      "type": "number",
+      "min": 0.5,
+      "max": 10,
+      "step": 0.1,
+      "default": 2.5,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "step_width",
+      "type": "number",
+      "min": 0.5,
+      "max": 3,
+      "step": 0.1,
+      "default": 1.2,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "riser_height",
+      "type": "number",
+      "min": 10,
+      "max": 25,
+      "step": 1,
+      "default": 18,
+      "unit": "cm",
+      "unit_category": "length"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "number_of_steps",
+      "unit": "steps",
+      "highlight": true
+    },
+    {
+      "id": "tread_depth",
+      "unit": "m"
+    },
+    {
+      "id": "stringer_length",
+      "unit": "m"
+    },
+    {
+      "id": "concrete_m3",
+      "unit": "m³"
+    }
+  ],
+  "formula": "var tr=parseFloat(inputs.total_rise)||0,trun=parseFloat(inputs.total_run)||0,sw=parseFloat(inputs.step_width)||1.2,rh=parseFloat(inputs.riser_height)||0.18;if(!tr||!trun)return{error:true};var steps=Math.round(tr/rh),tread=+(trun/steps).toFixed(3),stringer=+(Math.sqrt(tr*tr+trun*trun)).toFixed(2),vol=0;for(var i=1;i<=steps;i++){vol+=sw*rh*(tread*i);}return{number_of_steps:steps,tread_depth:tread,stringer_length:stringer,concrete_m3:+vol.toFixed(3)};",
+  "example_inputs": {
+    "total_rise": 90,
+    "total_run": 180,
+    "step_width": 1.2,
+    "riser_height": 18
+  },
+  "related": [
+    "1117",
+    "1118",
+    "001",
+    "002"
+  ],
+  "comparison_presets": [
+    {
+      "_label": "Caso 1",
+      "total_rise": 0.4,
+      "total_run": 1.0,
+      "step_width": 0.5,
+      "riser_height": 10.0
+    },
+    {
+      "_label": "Caso 2",
+      "total_rise": 0.7,
+      "total_run": 1.75,
+      "step_width": 0.84,
+      "riser_height": 12.6
+    },
+    {
+      "_label": "Caso 3",
+      "total_rise": 1.0,
+      "total_run": 2.5,
+      "step_width": 1.2,
+      "riser_height": 18.0
+    },
+    {
+      "_label": "Caso 4",
+      "total_rise": 1.5,
+      "total_run": 3.75,
+      "step_width": 1.8,
+      "riser_height": 25.0
+    },
+    {
+      "_label": "Caso 5",
+      "total_rise": 2.5,
+      "total_run": 6.25,
+      "step_width": 3.0,
+      "riser_height": 25.0
+    }
+  ],
+  "units": {
+    "total_rise": "m",
+    "total_run": "m",
+    "step_width": "m",
+    "riser_height": "m"
+  }
+}

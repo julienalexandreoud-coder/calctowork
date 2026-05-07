@@ -1,0 +1,112 @@
+{
+  "id": "928",
+  "slug": "macro-calculator",
+  "block": 12,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "peso_kg",
+      "type": "number",
+      "min": 10,
+      "max": 500,
+      "step": 0.1,
+      "default": 70,
+      "unit": "kg",
+      "unit_options": [
+        "kg",
+        "g",
+        "lb"
+      ],
+      "unit_category": "mass"
+    },
+    {
+      "id": "ejercicio_hrs",
+      "type": "number",
+      "min": 0,
+      "max": 50,
+      "step": 0.5,
+      "default": 3,
+      "unit": "h",
+      "unit_options": [
+        "h",
+        "min"
+      ],
+      "unit_category": "time"
+    },
+    {
+      "id": "objetivo",
+      "type": "select",
+      "options": [
+        "mantener",
+        "perder",
+        "ganar"
+      ],
+      "default": "mantener"
+    }
+  ],
+  "formula": "var p=parseFloat(inputs.peso_kg)||0,e=parseFloat(inputs.ejercicio_hrs)||0,g=inputs.objetivo||'mantener';if(!p)return{error:true};var base=p*1.2*24;var act=e>0?e*300:0;var total=base+act;var obj={mantener:total,perder:total-500,ganar:total+500};return{calorias_mantenimiento:Math.round(obj[g]),proteinas:Math.round(p*1.6),grasas:Math.round(p*0.9),carbohidratos:Math.round((obj[g]-(p*1.6*4)-(p*0.9*9))/4)};",
+  "outputs": [
+    {
+      "id": "calorias_mantenimiento",
+      "unit": "",
+      "highlight": true
+    },
+    {
+      "id": "proteinas",
+      "unit": "g",
+      "highlight": false
+    },
+    {
+      "id": "grasas",
+      "unit": "g",
+      "highlight": false
+    },
+    {
+      "id": "carbohidratos",
+      "unit": "g",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "426",
+    "926",
+    "429",
+    "400"
+  ],
+  "example_inputs": {
+    "peso_kg": 70,
+    "objetivo": "mantener",
+    "ejercicio_hrs": 3
+  },
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "peso_kg": 35,
+      "ejercicio_hrs": 1.5
+    },
+    {
+      "_label": "Teen",
+      "peso_kg": 52.5,
+      "ejercicio_hrs": 2.25
+    },
+    {
+      "_label": "Adult (F)",
+      "peso_kg": 70,
+      "ejercicio_hrs": 3
+    },
+    {
+      "_label": "Adult (M)",
+      "peso_kg": 105,
+      "ejercicio_hrs": 4.5
+    },
+    {
+      "_label": "Elderly",
+      "peso_kg": 140,
+      "ejercicio_hrs": 6
+    }
+  ],
+  "units": {
+    "peso_kg": "kg",
+    "ejercicio_hrs": "s"
+  }
+}

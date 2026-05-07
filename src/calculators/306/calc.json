@@ -1,0 +1,82 @@
+{
+  "id": "306",
+  "slug": "descuento",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "precio_original",
+      "type": "number",
+      "min": 0.01,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 120,
+      "unit": "â‚¬"
+    },
+    {
+      "id": "descuento_pct",
+      "type": "number",
+      "min": 0.01,
+      "max": 99,
+      "step": 0.5,
+      "default": 25,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    }
+  ],
+  "formula": "var P=parseFloat(inputs.precio_original)||0,D=parseFloat(inputs.descuento_pct)||0;if(!P||!D)return{error:true};var ahorro=+(P*D/100).toFixed(2),final=+(P-ahorro).toFixed(2);return{precio_final:final,ahorro:ahorro};",
+  "outputs": [
+    {
+      "id": "precio_final",
+      "unit": "â‚¬",
+      "highlight": true
+    },
+    {
+      "id": "ahorro",
+      "unit": "â‚¬"
+    }
+  ],
+  "related": [
+    "304",
+    "200",
+    "201",
+    "300"
+  ],
+  "example_inputs": {
+    "precio_original": 189.95,
+    "descuento_pct": 35
+  },
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "precio_original": 95,
+      "descuento_pct": 17.5
+    },
+    {
+      "_label": "Average",
+      "precio_original": 142,
+      "descuento_pct": 26.25
+    },
+    {
+      "_label": "High",
+      "precio_original": 190,
+      "descuento_pct": 35
+    },
+    {
+      "_label": "Premium",
+      "precio_original": 285,
+      "descuento_pct": 52.5
+    },
+    {
+      "_label": "Enterprise",
+      "precio_original": 380,
+      "descuento_pct": 70
+    }
+  ],
+  "units": {
+    "descuento_pct": "%"
+  }
+}

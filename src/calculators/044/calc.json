@@ -1,0 +1,121 @@
+{
+  "id": "044",
+  "slug": "caida-tension",
+  "block": 5,
+  "block_slug": "electricidad",
+  "inputs": [
+    {
+      "id": "seccion_mm2",
+      "type": "number",
+      "min": 1.5,
+      "max": 240,
+      "step": 0.5,
+      "default": 2.5,
+      "unit": "mm²"
+    },
+    {
+      "id": "longitud_m",
+      "type": "number",
+      "min": 1,
+      "max": 500,
+      "step": 1,
+      "default": 30,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "corriente_a",
+      "type": "number",
+      "min": 1,
+      "max": 200,
+      "step": 1,
+      "default": 16,
+      "unit": "A",
+      "unit_options": [
+        "A",
+        "mA"
+      ],
+      "unit_category": "current"
+    },
+    {
+      "id": "tension_v",
+      "type": "select",
+      "default": "230",
+      "options": [
+        "230",
+        "400"
+      ]
+    }
+  ],
+  "formula": "var S=parseFloat(inputs.seccion_mm2)||0,L=parseFloat(inputs.longitud_m)||0,I=parseFloat(inputs.corriente_a)||0,V=parseFloat(inputs.tension_v)||230;if(!S||!L||!I)return{error:true};var sigma=56,dV=+(2*L*I/(sigma*S)).toFixed(3),dV_pct=+(dV/V*100).toFixed(2),ok=dV_pct<=3;return{caida_v:dV,caida_pct:dV_pct,cumple_rebt:ok?'SI':'NO (>3%)'};",
+  "outputs": [
+    {
+      "id": "caida_v",
+      "unit": "V"
+    },
+    {
+      "id": "caida_pct",
+      "unit": "%",
+      "highlight": true
+    },
+    {
+      "id": "cumple_rebt",
+      "unit": "Cumple REBT"
+    }
+  ],
+  "related": [
+    "043",
+    "047",
+    "050",
+    "045"
+  ],
+  "example_inputs": {
+    "seccion_mm2": 2.5,
+    "longitud_m": 30,
+    "corriente_a": 16,
+    "tension_v": "230"
+  },
+  "comparison_presets": [
+    {
+      "_label": "Alumbrado (1.5 mm²)",
+      "longitud_m": 15,
+      "seccion_mm2": 1.5,
+      "corriente_a": 8
+    },
+    {
+      "_label": "Tomas salón (2.5 mm²)",
+      "longitud_m": 25,
+      "seccion_mm2": 2.5,
+      "corriente_a": 16
+    },
+    {
+      "_label": "Electrodomésticos (4 mm²)",
+      "longitud_m": 30,
+      "seccion_mm2": 4,
+      "corriente_a": 25
+    },
+    {
+      "_label": "Climatización (6 mm²)",
+      "longitud_m": 40,
+      "seccion_mm2": 6,
+      "corriente_a": 32
+    },
+    {
+      "_label": "Subcuadro exterior (10 mm²)",
+      "longitud_m": 55,
+      "seccion_mm2": 10,
+      "corriente_a": 40
+    }
+  ],
+  "units": {
+    "longitud_m": "m",
+    "corriente_a": "A"
+  }
+}

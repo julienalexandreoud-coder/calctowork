@@ -1,0 +1,149 @@
+{
+  "id": "1105",
+  "slug": "insulation-batt-calculator",
+  "block": 6,
+  "block_slug": "climatizacion",
+  "inputs": [
+    {
+      "id": "wall_length",
+      "type": "number",
+      "min": 0.1,
+      "max": 100,
+      "step": 0.1,
+      "default": 5,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "wall_height",
+      "type": "number",
+      "min": 1,
+      "max": 10,
+      "step": 0.1,
+      "default": 2.7,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "stud_spacing",
+      "type": "select",
+      "options": [
+        {
+          "value": "400",
+          "label": "400mm (16\")"
+        },
+        {
+          "value": "600",
+          "label": "600mm (24\")"
+        }
+      ],
+      "default": "400"
+    },
+    {
+      "id": "roll_width",
+      "type": "number",
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "default": 40,
+      "unit": "cm",
+      "unit_category": "length"
+    },
+    {
+      "id": "roll_length",
+      "type": "number",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "default": 12,
+      "unit": "m",
+      "unit_category": "length"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "wall_area_m2",
+      "unit": "m²",
+      "highlight": true
+    },
+    {
+      "id": "rolls_needed",
+      "unit": "rolls"
+    },
+    {
+      "id": "coverage_per_roll",
+      "unit": "m²"
+    },
+    {
+      "id": "total_linear_meters",
+      "unit": "m"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.wall_length)||0,H=parseFloat(inputs.wall_height)||0,rw=parseFloat(inputs.roll_width)||0.6,rl=parseFloat(inputs.roll_length)||5.5;if(!L||!H)return{error:true};var area=+(L*H).toFixed(2),cpr=+(rw*rl).toFixed(2),rolls=Math.ceil(area/cpr*1.05),tlm=+(rolls*rl).toFixed(1);return{wall_area_m2:area,rolls_needed:rolls,coverage_per_roll:cpr,total_linear_meters:tlm};",
+  "example_inputs": {
+    "wall_length": 8,
+    "wall_height": 2.7,
+    "stud_spacing": 40,
+    "roll_width": 38,
+    "roll_length": 10
+  },
+  "related": [
+    "1115",
+    "1112",
+    "1104",
+    "053"
+  ],
+  "buying_units": {
+    "rolls_needed": [
+      {
+        "label": "Rolls",
+        "factor": 1,
+        "round": "ceil",
+        "unit_suffix": "rolls"
+      }
+    ]
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small room",
+      "wall_length": 4,
+      "roll_width": 30,
+      "roll_length": 10,
+      "wall_height": 2.7
+    },
+    {
+      "_label": "Medium room",
+      "wall_length": 6,
+      "roll_width": 30,
+      "roll_length": 10,
+      "wall_height": 2.7
+    },
+    {
+      "_label": "Large room",
+      "wall_length": 8,
+      "roll_width": 40,
+      "roll_length": 10,
+      "wall_height": 2.7
+    },
+    {
+      "_label": "Office",
+      "wall_length": 12,
+      "roll_width": 55,
+      "roll_length": 10,
+      "wall_height": 2.7
+    },
+    {
+      "_label": "Warehouse",
+      "wall_length": 16,
+      "roll_width": 75,
+      "roll_length": 10,
+      "wall_height": 2.7
+    }
+  ],
+  "units": {
+    "wall_length": "m",
+    "wall_height": "m",
+    "roll_width": "m",
+    "roll_length": "m"
+  }
+}

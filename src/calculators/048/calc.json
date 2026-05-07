@@ -1,0 +1,98 @@
+{
+  "id": "048",
+  "slug": "instalacion-solar",
+  "block": 5,
+  "block_slug": "electricidad",
+  "inputs": [
+    {
+      "id": "consumo_diario_kwh",
+      "type": "number",
+      "min": 1,
+      "max": 200,
+      "step": 0.5,
+      "default": 15,
+      "unit": "kWh/día"
+    },
+    {
+      "id": "hsp_dia",
+      "type": "number",
+      "min": 2,
+      "max": 7,
+      "step": 0.5,
+      "default": 4.5,
+      "unit": "HSP/día"
+    },
+    {
+      "id": "potencia_panel_w",
+      "type": "number",
+      "min": 200,
+      "max": 600,
+      "step": 25,
+      "default": 400,
+      "unit": "W/panel"
+    }
+  ],
+  "formula": "var C=parseFloat(inputs.consumo_diario_kwh)||0,HSP=parseFloat(inputs.hsp_dia)||4.5,Wp=parseFloat(inputs.potencia_panel_w)||400;if(!C)return{error:true};var kwp_nec=+(C/HSP/0.8).toFixed(2),paneles=Math.ceil(kwp_nec*1000/Wp),kwp_inst=+(paneles*Wp/1000).toFixed(2),prod_anual=+(kwp_inst*HSP*365*0.8).toFixed(0);return{kwp_necesario:kwp_nec,paneles_ud:paneles,kwp_instalado:kwp_inst,produccion_anual_kwh:prod_anual};",
+  "outputs": [
+    {
+      "id": "kwp_necesario",
+      "unit": "kWp"
+    },
+    {
+      "id": "paneles_ud",
+      "unit": "paneles",
+      "highlight": true
+    },
+    {
+      "id": "kwp_instalado",
+      "unit": "kWp instalado"
+    },
+    {
+      "id": "produccion_anual_kwh",
+      "unit": "kWh/año estimado"
+    }
+  ],
+  "related": [
+    "049",
+    "052",
+    "047",
+    "043"
+  ],
+  "example_inputs": {
+    "consumo_diario_kwh": 15,
+    "hsp_dia": 4.5,
+    "potencia_panel_w": 400
+  },
+  "comparison_presets": [
+    {
+      "_label": "Vivienda pequeña (8 kWh/d)",
+      "consumo_diario_kwh": 8,
+      "hsp_dia": 4.5,
+      "potencia_panel_w": 400
+    },
+    {
+      "_label": "Vivienda media (12 kWh/d)",
+      "consumo_diario_kwh": 12,
+      "hsp_dia": 4.5,
+      "potencia_panel_w": 450
+    },
+    {
+      "_label": "Vivienda grande (15 kWh/d)",
+      "consumo_diario_kwh": 15,
+      "hsp_dia": 5,
+      "potencia_panel_w": 450
+    },
+    {
+      "_label": "Casa con bomba calor (25 kWh)",
+      "consumo_diario_kwh": 25,
+      "hsp_dia": 5,
+      "potencia_panel_w": 500
+    },
+    {
+      "_label": "Pequeña industria (50 kWh)",
+      "consumo_diario_kwh": 50,
+      "hsp_dia": 5.5,
+      "potencia_panel_w": 550
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "id": "091",
+  "slug": "planificacion-gantt",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "num_tareas",
+      "type": "number",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "default": 8,
+      "unit": "tareas"
+    },
+    {
+      "id": "duracion_media_dias",
+      "type": "number",
+      "min": 1,
+      "max": 30,
+      "step": 1,
+      "default": 5,
+      "unit": "dÃ­as/tarea"
+    },
+    {
+      "id": "paralelismo_pct",
+      "type": "number",
+      "min": 0,
+      "max": 70,
+      "step": 5,
+      "default": 30,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    }
+  ],
+  "formula": "var N=parseFloat(inputs.num_tareas)||0,D=parseFloat(inputs.duracion_media_dias)||5,par=parseFloat(inputs.paralelismo_pct)||30;if(!N)return{error:true};var dias_total=Math.ceil(N*D*(1-par/100)),semanas=+(dias_total/5).toFixed(1),semanas_imprevistos=+(semanas*1.15).toFixed(1);return{dias_total:dias_total,semanas:semanas,semanas_con_imprevistos:semanas_imprevistos};",
+  "outputs": [
+    {
+      "id": "dias_total",
+      "unit": "dÃ­as laborables"
+    },
+    {
+      "id": "semanas",
+      "unit": "semanas",
+      "highlight": true
+    },
+    {
+      "id": "semanas_con_imprevistos",
+      "unit": "semanas (+15% imprevistos)"
+    }
+  ],
+  "related": [
+    "090",
+    "078",
+    "099",
+    "079"
+  ],
+  "example_inputs": {
+    "num_tareas": 10,
+    "duracion_media_dias": 5,
+    "paralelismo_pct": 30
+  },
+  "comparison_presets": [
+    {
+      "_label": "Reforma pequeÃ±a (baÃ±o/cocina)",
+      "num_tareas": 8,
+      "duracion_media_dias": 3,
+      "paralelismo_pct": 20
+    },
+    {
+      "_label": "Reforma integral piso",
+      "num_tareas": 15,
+      "duracion_media_dias": 5,
+      "paralelismo_pct": 25
+    },
+    {
+      "_label": "Vivienda unifamiliar nueva",
+      "num_tareas": 25,
+      "duracion_media_dias": 7,
+      "paralelismo_pct": 30
+    },
+    {
+      "_label": "Edificio plurifamiliar",
+      "num_tareas": 40,
+      "duracion_media_dias": 8,
+      "paralelismo_pct": 35
+    },
+    {
+      "_label": "Nave industrial",
+      "num_tareas": 50,
+      "duracion_media_dias": 6,
+      "paralelismo_pct": 40
+    }
+  ],
+  "units": {
+    "paralelismo_pct": "%"
+  }
+}

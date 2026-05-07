@@ -1,0 +1,144 @@
+{
+  "id": "1107",
+  "slug": "laminate-flooring-calculator",
+  "block": 3,
+  "block_slug": "pavimentos",
+  "inputs": [
+    {
+      "id": "room_length",
+      "type": "number",
+      "min": 0.1,
+      "max": 50,
+      "step": 0.1,
+      "default": 5,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "room_width",
+      "type": "number",
+      "min": 0.1,
+      "max": 30,
+      "step": 0.1,
+      "default": 4,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "plank_length",
+      "type": "number",
+      "min": 0.5,
+      "max": 2,
+      "step": 0.05,
+      "default": 1.2,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "plank_width",
+      "type": "number",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "default": 19,
+      "unit": "cm",
+      "unit_category": "length"
+    },
+    {
+      "id": "planks_per_box",
+      "type": "number",
+      "min": 5,
+      "max": 20,
+      "step": 1,
+      "default": 8,
+      "unit": "pcs",
+      "unit_category": "count"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "room_area_m2",
+      "unit": "m²",
+      "highlight": true
+    },
+    {
+      "id": "planks_needed",
+      "unit": "planks"
+    },
+    {
+      "id": "boxes_needed",
+      "unit": "boxes"
+    },
+    {
+      "id": "waste_percent",
+      "unit": "%"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.room_length)||0,W=parseFloat(inputs.room_width)||0,pl=parseFloat(inputs.plank_length)||1.22,pw=parseFloat(inputs.plank_width)||0.193,ppb=parseFloat(inputs.planks_per_box)||8;if(!L||!W)return{error:true};var area=+(L*W).toFixed(2),pa=pl*pw,planks=Math.ceil(area/pa*1.10),boxes=Math.ceil(planks/ppb),waste=+(Math.max(10,((planks*pa/area)-1)*100)).toFixed(1);return{room_area_m2:area,planks_needed:planks,boxes_needed:boxes,waste_percent:waste};",
+  "example_inputs": {
+    "room_length": 5,
+    "room_width": 4,
+    "plank_length": 1.26,
+    "plank_width": 0.192,
+    "planks_per_box": 8
+  },
+  "related": [
+    "1106",
+    "1118",
+    "1110",
+    "021"
+  ],
+  "comparison_presets": [
+    {
+      "room_length": 3,
+      "room_width": 3,
+      "plank_length": 1.26,
+      "plank_width": 0.192,
+      "planks_per_box": 8
+    },
+    {
+      "room_length": 4,
+      "room_width": 3.5,
+      "plank_length": 1.26,
+      "plank_width": 0.192,
+      "planks_per_box": 8
+    },
+    {
+      "room_length": 5,
+      "room_width": 4,
+      "plank_length": 1.26,
+      "plank_width": 0.192,
+      "planks_per_box": 8
+    },
+    {
+      "room_length": 6,
+      "room_width": 4.5,
+      "plank_length": 1.26,
+      "plank_width": 0.192,
+      "planks_per_box": 8
+    },
+    {
+      "room_length": 8,
+      "room_width": 5,
+      "plank_length": 1.85,
+      "plank_width": 0.24,
+      "planks_per_box": 6
+    }
+  ],
+  "buying_units": {
+    "boxes_needed": [
+      {
+        "label": "Boxes",
+        "factor": 1,
+        "round": "ceil",
+        "unit_suffix": "boxes"
+      }
+    ]
+  },
+  "units": {
+    "room_length": "m",
+    "room_width": "m",
+    "plank_length": "m",
+    "plank_width": "m"
+  }
+}

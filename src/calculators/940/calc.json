@@ -1,0 +1,104 @@
+{
+  "id": "940",
+  "slug": "npv-calculator",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "inversion",
+      "type": "number",
+      "min": 0,
+      "max": 9999999,
+      "step": 100,
+      "default": 10000,
+      "unit": "EUR"
+    },
+    {
+      "id": "flujo_anual",
+      "type": "number",
+      "min": 0,
+      "max": 999999,
+      "step": 100,
+      "default": 2500,
+      "unit": "EUR"
+    },
+    {
+      "id": "anos",
+      "type": "number",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "default": 5,
+      "unit": "yr",
+      "unit_options": [
+        "yr",
+        "mo"
+      ],
+      "unit_category": "time"
+    }
+  ],
+  "formula": "var inversion=parseFloat(inputs.inversion)||0,flujos=parseFloat(inputs.flujo_anual)||0,anos=parseFloat(inputs.anos)||0;if(!inversion||!flujos||!anos)return{error:true};var vpn=-inversion;for(var i=1;i<=anos;i++){vpn+=flujos/Math.pow(1.08,i);}var tir_approx=+(flujos/inversion).toFixed(4);var payback=Math.ceil(inversion/flujos);return{npv:+(vpn).toFixed(2),roi_annual:+(tir_approx*100).toFixed(2),payback_years:payback};",
+  "outputs": [
+    {
+      "id": "npv",
+      "unit": "EUR",
+      "highlight": true
+    },
+    {
+      "id": "roi_annual",
+      "unit": "%",
+      "highlight": false
+    },
+    {
+      "id": "payback_years",
+      "unit": "yr",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "936",
+    "938",
+    "300",
+    "302"
+  ],
+  "example_inputs": {
+    "inversion": 10000,
+    "flujo_anual": 2500,
+    "anos": 5
+  },
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "inversion": 5000,
+      "flujo_anual": 1200,
+      "anos": 5
+    },
+    {
+      "_label": "Average",
+      "inversion": 7500,
+      "flujo_anual": 1900,
+      "anos": 5
+    },
+    {
+      "_label": "High",
+      "inversion": 10000,
+      "flujo_anual": 2500,
+      "anos": 5
+    },
+    {
+      "_label": "Premium",
+      "inversion": 15000,
+      "flujo_anual": 3800,
+      "anos": 5
+    },
+    {
+      "_label": "Enterprise",
+      "inversion": 20000,
+      "flujo_anual": 5000,
+      "anos": 5
+    }
+  ],
+  "units": {
+    "anos": "s"
+  }
+}

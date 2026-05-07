@@ -1,0 +1,162 @@
+{
+  "id": "004",
+  "slug": "muro-contencion",
+  "block": 1,
+  "block_slug": "estructuras",
+  "inputs": [
+    {
+      "id": "largo",
+      "type": "number",
+      "min": 0.5,
+      "max": 200,
+      "step": 0.1,
+      "default": 10,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "altura",
+      "type": "number",
+      "min": 0.5,
+      "max": 10,
+      "step": 0.1,
+      "default": 2,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "espesor_base",
+      "type": "number",
+      "min": 0.2,
+      "max": 2,
+      "step": 0.05,
+      "default": 0.4,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "espesor_corona",
+      "type": "number",
+      "min": 0.15,
+      "max": 1,
+      "step": 0.05,
+      "default": 0.3,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.largo)||0,H=parseFloat(inputs.altura)||0,Eb=parseFloat(inputs.espesor_base)||0,Ec=parseFloat(inputs.espesor_corona)||0;if(!L||!H||!Eb||!Ec)return{error:true};var vol=L*H*(Eb+Ec)/2,c=Math.ceil(vol*7),acero=+(vol*90).toFixed(0),enc=+(L*H*2).toFixed(2),losa=+(L*(H*0.4)).toFixed(2);return{vol_muro:+vol.toFixed(3),cemento_sacos:c,acero_kg:acero,encofrado_m2:enc,vol_losa_cim:+losa.toFixed(3)};",
+  "outputs": [
+    {
+      "id": "vol_muro",
+      "unit": "m³",
+      "highlight": true
+    },
+    {
+      "id": "cemento_sacos",
+      "unit": "sacos 50kg"
+    },
+    {
+      "id": "acero_kg",
+      "unit": "kg"
+    },
+    {
+      "id": "encofrado_m2",
+      "unit": "m²"
+    },
+    {
+      "id": "vol_losa_cim",
+      "unit": "m³"
+    }
+  ],
+  "related": [
+    "002",
+    "003",
+    "010",
+    "001"
+  ],
+  "example_inputs": {
+    "largo": 10,
+    "altura": 2,
+    "espesor_base": 0.4,
+    "espesor_corona": 0.3
+  },
+  "comparison_presets": [
+    {
+      "area": 20,
+      "coats": 1
+    },
+    {
+      "area": 30,
+      "coats": 2
+    },
+    {
+      "area": 40,
+      "coats": 2
+    },
+    {
+      "area": 60,
+      "coats": 2
+    },
+    {
+      "area": 80,
+      "coats": 3
+    }
+  ],
+  "buying_units": {
+    "litros": [
+      {
+        "label": "Cans (1 L)",
+        "factor": 1,
+        "round": "ceil",
+        "unit_suffix": "cans"
+      },
+      {
+        "label": "Cans (5 L)",
+        "factor": 0.2,
+        "round": "ceil",
+        "unit_suffix": "cans"
+      },
+      {
+        "label": "Cans (10 L)",
+        "factor": 0.1,
+        "round": "ceil",
+        "unit_suffix": "cans"
+      }
+    ]
+  },
+  "units": {
+    "largo": "m",
+    "altura": "m",
+    "espesor_base": "m",
+    "espesor_corona": "m"
+  }
+}

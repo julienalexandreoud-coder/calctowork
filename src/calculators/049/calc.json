@@ -1,0 +1,94 @@
+{
+  "id": "049",
+  "slug": "baterias-autonomia",
+  "block": 5,
+  "block_slug": "electricidad",
+  "inputs": [
+    {
+      "id": "consumo_diario_kwh",
+      "type": "number",
+      "min": 0.5,
+      "max": 200,
+      "step": 0.5,
+      "default": 10,
+      "unit": "kWh/día"
+    },
+    {
+      "id": "dias_autonomia",
+      "type": "number",
+      "min": 0.5,
+      "max": 5,
+      "step": 0.5,
+      "default": 1,
+      "unit": "días"
+    },
+    {
+      "id": "capacidad_bateria_kwh",
+      "type": "number",
+      "min": 2,
+      "max": 20,
+      "step": 0.5,
+      "default": 5,
+      "unit": "kWh/bat"
+    }
+  ],
+  "formula": "var C=parseFloat(inputs.consumo_diario_kwh)||0,D=parseFloat(inputs.dias_autonomia)||1,CB=parseFloat(inputs.capacidad_bateria_kwh)||5;if(!C)return{error:true};var kwh_nec=+(C*D/0.8).toFixed(2),baterias=Math.ceil(kwh_nec/CB),kwh_inst=+(baterias*CB).toFixed(1);return{kwh_necesario:kwh_nec,baterias_ud:baterias,kwh_instalado:kwh_inst};",
+  "outputs": [
+    {
+      "id": "kwh_necesario",
+      "unit": "kWh necesario"
+    },
+    {
+      "id": "baterias_ud",
+      "unit": "baterías",
+      "highlight": true
+    },
+    {
+      "id": "kwh_instalado",
+      "unit": "kWh instalado"
+    }
+  ],
+  "related": [
+    "048",
+    "052",
+    "047",
+    "043"
+  ],
+  "example_inputs": {
+    "consumo_diario_kwh": 10,
+    "dias_autonomia": 1,
+    "capacidad_bateria_kwh": 5
+  },
+  "comparison_presets": [
+    {
+      "_label": "Fin de semana (5 kWh/d, 1 día)",
+      "consumo_diario_kwh": 5,
+      "dias_autonomia": 1,
+      "capacidad_bateria_kwh": 5
+    },
+    {
+      "_label": "Residencia aislada (10 kWh/d, 2 días)",
+      "consumo_diario_kwh": 10,
+      "dias_autonomia": 2,
+      "capacidad_bateria_kwh": 10
+    },
+    {
+      "_label": "Casa rural (15 kWh/d, 3 días)",
+      "consumo_diario_kwh": 15,
+      "dias_autonomia": 3,
+      "capacidad_bateria_kwh": 13.5
+    },
+    {
+      "_label": "Refugio montaña (8 kWh/d, 5 días)",
+      "consumo_diario_kwh": 8,
+      "dias_autonomia": 5,
+      "capacidad_bateria_kwh": 5
+    },
+    {
+      "_label": "Granja aislada (30 kWh/d, 2 días)",
+      "consumo_diario_kwh": 30,
+      "dias_autonomia": 2,
+      "capacidad_bateria_kwh": 13.5
+    }
+  ]
+}

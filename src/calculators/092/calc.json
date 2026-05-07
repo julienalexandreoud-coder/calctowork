@@ -1,0 +1,98 @@
+{
+  "id": "092",
+  "slug": "licencias-municipales",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "presupuesto_obra_eur",
+      "type": "number",
+      "min": 1000,
+      "max": 5000000,
+      "step": 1000,
+      "default": 50000,
+      "unit": "Ã¢â€šÂ¬"
+    },
+    {
+      "id": "tipo_licencia",
+      "type": "select",
+      "default": "obra_menor",
+      "options": [
+        "comunicacion",
+        "obra_menor",
+        "obra_mayor",
+        "actividad"
+      ]
+    },
+    {
+      "id": "tasa_municipal_pct",
+      "type": "number",
+      "min": 0.5,
+      "max": 5,
+      "step": 0.1,
+      "default": 2,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    }
+  ],
+  "formula": "var P=parseFloat(inputs.presupuesto_obra_eur)||0,tp=parseFloat(inputs.tasa_municipal_pct)||2,base={'comunicacion':0,'obra_menor':150,'obra_mayor':300,'actividad':500};if(!P)return{error:true};var tasa=+(P*tp/100).toFixed(2),icio=+(P*0.04).toFixed(2),min=base[inputs.tipo_licencia],total=+(Math.max(tasa,min)+icio).toFixed(2);return{tasa_licencia_eur:+(Math.max(tasa,min)).toFixed(2),icio_eur:icio,total_estimado_eur:total};",
+  "outputs": [
+    {
+      "id": "tasa_licencia_eur",
+      "unit": "Ã¢â€šÂ¬ tasa licencia"
+    },
+    {
+      "id": "icio_eur",
+      "unit": "Ã¢â€šÂ¬ ICIO (4%)"
+    },
+    {
+      "id": "total_estimado_eur",
+      "unit": "Ã¢â€šÂ¬ total estimado",
+      "highlight": true
+    }
+  ],
+  "related": [
+    "078",
+    "093",
+    "087",
+    "079"
+  ],
+  "example_inputs": {
+    "presupuesto_obra_eur": 50000,
+    "tipo_licencia": "obra_menor",
+    "tasa_municipal_pct": 2
+  },
+  "comparison_presets": [
+    {
+      "_label": "Obra menor (reforma interior)",
+      "presupuesto_obra_eur": 15000,
+      "tasa_municipal_pct": 2
+    },
+    {
+      "_label": "Obra mayor (vivienda unifamiliar)",
+      "presupuesto_obra_eur": 150000,
+      "tasa_municipal_pct": 3
+    },
+    {
+      "_label": "Obra mayor (edificio viviendas)",
+      "presupuesto_obra_eur": 500000,
+      "tasa_municipal_pct": 3.5
+    },
+    {
+      "_label": "Nave industrial",
+      "presupuesto_obra_eur": 300000,
+      "tasa_municipal_pct": 4
+    },
+    {
+      "_label": "Actividad (local comercial)",
+      "presupuesto_obra_eur": 80000,
+      "tasa_municipal_pct": 2.5
+    }
+  ],
+  "units": {
+    "tasa_municipal_pct": "%"
+  }
+}

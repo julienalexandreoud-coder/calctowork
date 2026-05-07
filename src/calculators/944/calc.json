@@ -1,0 +1,108 @@
+{
+  "id": "944",
+  "slug": "tip-calculator-advanced",
+  "block": 14,
+  "block_slug": "cotidiano",
+  "inputs": [
+    {
+      "id": "cuenta",
+      "type": "number",
+      "min": 0,
+      "max": 99999,
+      "step": 0.01,
+      "default": 100,
+      "unit": "EUR"
+    },
+    {
+      "id": "porcentaje",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "step": 0.1,
+      "default": 15,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    },
+    {
+      "id": "personas",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "default": 2,
+      "unit": ""
+    }
+  ],
+  "formula": "var total=parseFloat(inputs.cuenta)||0,pct=parseFloat(inputs.porcentaje)||15,personas=parseInt(inputs.personas)||1;if(!total||personas<1)return{error:true};var propina=+(total*pct/100).toFixed(2),total_f=+(total+propina).toFixed(2),pp=+(total_f/personas).toFixed(2),prop_pp=+(propina/personas).toFixed(2);return{tip:propina,total:total_f,per_person:pp,tip_per_person:prop_pp};",
+  "outputs": [
+    {
+      "id": "tip",
+      "unit": "EUR",
+      "highlight": true
+    },
+    {
+      "id": "total",
+      "unit": "EUR",
+      "highlight": false
+    },
+    {
+      "id": "per_person",
+      "unit": "EUR",
+      "highlight": false
+    },
+    {
+      "id": "tip_per_person",
+      "unit": "EUR",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "935",
+    "942",
+    "934",
+    "500"
+  ],
+  "example_inputs": {
+    "cuenta": 100,
+    "porcentaje": 15,
+    "personas": 2
+  },
+  "comparison_presets": [
+    {
+      "_label": "Escenario minimo",
+      "cuenta": 40.0,
+      "porcentaje": 6.0,
+      "personas": 1.0
+    },
+    {
+      "_label": "Uso habitual",
+      "cuenta": 70.0,
+      "porcentaje": 10.5,
+      "personas": 1.4
+    },
+    {
+      "_label": "Uso frecuente",
+      "cuenta": 100.0,
+      "porcentaje": 15.0,
+      "personas": 2.0
+    },
+    {
+      "_label": "Uso intensivo",
+      "cuenta": 150.0,
+      "porcentaje": 22.5,
+      "personas": 3.0
+    },
+    {
+      "_label": "Caso maximo",
+      "cuenta": 250.0,
+      "porcentaje": 37.5,
+      "personas": 5.0
+    }
+  ],
+  "units": {
+    "porcentaje": "%"
+  }
+}

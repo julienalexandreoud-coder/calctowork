@@ -1,0 +1,77 @@
+{
+  "id": "424",
+  "slug": "calculadora-ovulacion",
+  "block": 2,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "lmp",
+      "type": "date",
+      "default": "",
+      "unit": "",
+      "unit_options": [],
+      "unit_category": ""
+    },
+    {
+      "id": "cycle",
+      "type": "number",
+      "step": 1,
+      "default": 28,
+      "unit": "days",
+      "unit_options": [
+        "days"
+      ],
+      "unit_category": "time"
+    }
+  ],
+  "formula": "var lmp=inputs.lmp||'';var cycle=parseFloat(inputs.cycle)||28;if(!lmp)return{ovulation:'Enter LMP',fertile_start:'',fertile_end:''};var d=new Date(lmp);var ov=new Date(d);ov.setDate(d.getDate()+cycle-14);var fs=new Date(ov);fs.setDate(ov.getDate()-5);var fe=new Date(ov);fe.setDate(ov.getDate()+1);return{ovulation:ov.toISOString().split('T')[0],fertile_start:fs.toISOString().split('T')[0],fertile_end:fe.toISOString().split('T')[0]};",
+  "outputs": [
+    {
+      "id": "ovulation",
+      "unit": ""
+    },
+    {
+      "id": "fertile_start",
+      "unit": ""
+    },
+    {
+      "id": "fertile_end",
+      "unit": ""
+    }
+  ],
+  "related": [
+    "423",
+    "501",
+    "400",
+    "401"
+  ],
+  "example_inputs": {
+    "lmp": "2024-01-15",
+    "cycle": 28
+  },
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "cycle": 14
+    },
+    {
+      "_label": "Teen",
+      "cycle": 21
+    },
+    {
+      "_label": "Adult (F)",
+      "cycle": 28
+    },
+    {
+      "_label": "Adult (M)",
+      "cycle": 42
+    },
+    {
+      "_label": "Elderly",
+      "cycle": 56
+    }
+  ],
+  "units": {
+    "cycle": "s"
+  }
+}

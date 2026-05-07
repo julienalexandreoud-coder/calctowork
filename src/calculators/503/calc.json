@@ -1,0 +1,103 @@
+{
+  "id": "503",
+  "slug": "coste-combustible-2",
+  "block": 7,
+  "block_slug": "cotidiano",
+  "inputs": [
+    {
+      "id": "distance",
+      "type": "number",
+      "step": "any",
+      "default": 100,
+      "unit": "km",
+      "unit_options": [
+        "km",
+        "mi"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "efficiency",
+      "type": "number",
+      "step": "any",
+      "default": 6,
+      "unit": "L/100km",
+      "unit_options": [
+        "L/100km",
+        "mpg"
+      ],
+      "unit_category": "volume"
+    },
+    {
+      "id": "price",
+      "type": "number",
+      "step": "any",
+      "default": 1.5,
+      "unit": "$/L",
+      "unit_options": [
+        "$/L",
+        "$/gal(us)"
+      ],
+      "unit_category": "currency_per_volume"
+    }
+  ],
+  "formula": "var d=parseFloat(inputs.distance)||0;var eff=parseFloat(inputs.efficiency)||1;var pr=parseFloat(inputs.price)||0;var fuel=d*eff/100;var cost=fuel*pr;return{cost:cost.toFixed(2),fuel:fuel.toFixed(2)};",
+  "outputs": [
+    {
+      "id": "cost",
+      "unit": "USD"
+    },
+    {
+      "id": "fuel",
+      "unit": "L"
+    }
+  ],
+  "related": [
+    "504",
+    "505",
+    "517",
+    "500"
+  ],
+  "example_inputs": {
+    "distance": 100,
+    "efficiency": 6,
+    "price": 1.5
+  },
+  "comparison_presets": [
+    {
+      "_label": "Escenario minimo",
+      "distance": 40.0,
+      "efficiency": 2.4,
+      "price": 0.6
+    },
+    {
+      "_label": "Uso habitual",
+      "distance": 70.0,
+      "efficiency": 4.2,
+      "price": 1.05
+    },
+    {
+      "_label": "Uso frecuente",
+      "distance": 100.0,
+      "efficiency": 6.0,
+      "price": 1.5
+    },
+    {
+      "_label": "Uso intensivo",
+      "distance": 150.0,
+      "efficiency": 9.0,
+      "price": 2.25
+    },
+    {
+      "_label": "Caso maximo",
+      "distance": 250.0,
+      "efficiency": 15.0,
+      "price": 3.75
+    }
+  ],
+  "units": {
+    "distance": "m",
+    "efficiency": "m³",
+    "price": "$/L"
+  }
+}

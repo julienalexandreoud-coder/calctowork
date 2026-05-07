@@ -1,0 +1,96 @@
+{
+  "id": "962",
+  "slug": "cholesterol-ldl",
+  "block": 12,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "colesterol_total",
+      "type": "number",
+      "min": 50,
+      "max": 500,
+      "step": 1,
+      "default": 200,
+      "unit": "mg/dL"
+    },
+    {
+      "id": "hdl",
+      "type": "number",
+      "min": 10,
+      "max": 150,
+      "step": 1,
+      "default": 50,
+      "unit": "mg/dL"
+    },
+    {
+      "id": "trigliceridos",
+      "type": "number",
+      "min": 20,
+      "max": 1000,
+      "step": 1,
+      "default": 150,
+      "unit": "mg/dL"
+    }
+  ],
+  "formula": "var total=parseFloat(inputs.colesterol_total)||0,hdl=parseFloat(inputs.hdl)||0,trig=parseFloat(inputs.trigliceridos)||0;if(!total||!hdl)return{error:true};var ldl=+(total-hdl-trig/5).toFixed(1);var ratio=+(total/hdl).toFixed(1);return{ldl:ldl+' mg/dL',total_hdl_ratio:ratio,risk:ratio<3.5?'Low':ratio<5?'Moderate':'High'};",
+  "outputs": [
+    {
+      "id": "ldl",
+      "unit": "mg/dL",
+      "highlight": true
+    },
+    {
+      "id": "total_hdl_ratio",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "risk",
+      "unit": "",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "127",
+    "950",
+    "951",
+    "400"
+  ],
+  "example_inputs": {
+    "hdl": 50,
+    "colesterol_total": 200,
+    "trigliceridos": 150
+  },
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "trigliceridos": 75,
+      "colesterol_total": 100,
+      "hdl": 50
+    },
+    {
+      "_label": "Teen",
+      "trigliceridos": 112,
+      "colesterol_total": 150,
+      "hdl": 50
+    },
+    {
+      "_label": "Adult (F)",
+      "trigliceridos": 150,
+      "colesterol_total": 200,
+      "hdl": 50
+    },
+    {
+      "_label": "Adult (M)",
+      "trigliceridos": 225,
+      "colesterol_total": 300,
+      "hdl": 50
+    },
+    {
+      "_label": "Elderly",
+      "trigliceridos": 300,
+      "colesterol_total": 400,
+      "hdl": 50
+    }
+  ]
+}

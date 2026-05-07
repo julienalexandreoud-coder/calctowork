@@ -1,0 +1,86 @@
+{
+  "id": "506",
+  "slug": "tiempo-descarga",
+  "block": 4,
+  "block_slug": "cotidiano",
+  "inputs": [
+    {
+      "id": "file_size",
+      "type": "number",
+      "step": "any",
+      "default": 1,
+      "unit": "GB",
+      "unit_options": [
+        "GB",
+        "MB",
+        "TB"
+      ],
+      "unit_category": "digital_storage"
+    },
+    {
+      "id": "speed",
+      "type": "number",
+      "step": "any",
+      "default": 50,
+      "unit": "Mbps",
+      "unit_options": [
+        "Mbps",
+        "MB/s",
+        "Kbps"
+      ],
+      "unit_category": "data_rate"
+    }
+  ],
+  "formula": "var size_gb=parseFloat(inputs.file_size)||0;var speed_mbps=parseFloat(inputs.speed)||1;var size_mb=size_gb*1024;var time_sec=(size_mb*8)/speed_mbps;var time_min=time_sec/60;return{time_sec:Math.round(time_sec),time_min:time_min.toFixed(2)};",
+  "outputs": [
+    {
+      "id": "time_sec",
+      "unit": "s"
+    },
+    {
+      "id": "time_min",
+      "unit": "min"
+    }
+  ],
+  "related": [
+    "504",
+    "510",
+    "500",
+    "501"
+  ],
+  "example_inputs": {
+    "file_size": 1,
+    "speed": 50
+  },
+  "comparison_presets": [
+    {
+      "_label": "Escenario minimo",
+      "file_size": 0.4,
+      "speed": 20.0
+    },
+    {
+      "_label": "Uso habitual",
+      "file_size": 0.7,
+      "speed": 35.0
+    },
+    {
+      "_label": "Uso frecuente",
+      "file_size": 1.0,
+      "speed": 50.0
+    },
+    {
+      "_label": "Uso intensivo",
+      "file_size": 1.5,
+      "speed": 75.0
+    },
+    {
+      "_label": "Caso maximo",
+      "file_size": 2.5,
+      "speed": 125.0
+    }
+  ],
+  "units": {
+    "file_size": "MB",
+    "speed": "Mbps"
+  }
+}

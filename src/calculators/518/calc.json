@@ -1,0 +1,102 @@
+{
+  "id": "518",
+  "slug": "palabras-por-minuto",
+  "block": 15,
+  "block_slug": "cotidiano",
+  "inputs": [
+    {
+      "id": "words",
+      "type": "number",
+      "step": 1,
+      "default": 300,
+      "unit": "words",
+      "unit_options": [
+        "words"
+      ],
+      "unit_category": "count"
+    },
+    {
+      "id": "minutes",
+      "type": "number",
+      "step": "any",
+      "default": 5,
+      "unit": "min",
+      "unit_options": [
+        "min"
+      ],
+      "unit_category": "time"
+    },
+    {
+      "id": "errors",
+      "type": "number",
+      "step": 1,
+      "default": 5,
+      "unit": "errors",
+      "unit_options": [
+        "errors"
+      ],
+      "unit_category": "count"
+    }
+  ],
+  "formula": "var w=parseFloat(inputs.words)||0;var m=parseFloat(inputs.minutes)||1;var e=parseFloat(inputs.errors)||0;var wpm=w/m;var net=(w-e)/m;var acc=((w-e)/w)*100;return{wpm:wpm.toFixed(1),net_wpm:net.toFixed(1),accuracy:acc.toFixed(1)};",
+  "outputs": [
+    {
+      "id": "wpm",
+      "unit": "WPM"
+    },
+    {
+      "id": "net_wpm",
+      "unit": "WPM"
+    },
+    {
+      "id": "accuracy",
+      "unit": "%"
+    }
+  ],
+  "related": [
+    "519",
+    "510",
+    "500",
+    "501"
+  ],
+  "example_inputs": {
+    "words": 300,
+    "minutes": 5,
+    "errors": 5
+  },
+  "comparison_presets": [
+    {
+      "_label": "Escenario minimo",
+      "words": 120.0,
+      "minutes": 2.0,
+      "errors": 2.0
+    },
+    {
+      "_label": "Uso habitual",
+      "words": 210.0,
+      "minutes": 3.5,
+      "errors": 3.5
+    },
+    {
+      "_label": "Uso frecuente",
+      "words": 300.0,
+      "minutes": 5.0,
+      "errors": 5.0
+    },
+    {
+      "_label": "Uso intensivo",
+      "words": 450.0,
+      "minutes": 7.5,
+      "errors": 7.5
+    },
+    {
+      "_label": "Caso maximo",
+      "words": 750.0,
+      "minutes": 12.5,
+      "errors": 12.5
+    }
+  ],
+  "units": {
+    "minutes": "s"
+  }
+}

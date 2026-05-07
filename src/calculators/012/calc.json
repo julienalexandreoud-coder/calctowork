@@ -1,0 +1,128 @@
+{
+  "id": "012",
+  "slug": "ladrillo-cara-vista",
+  "block": 2,
+  "block_slug": "mamposteria",
+  "inputs": [
+    {
+      "id": "largo",
+      "type": "number",
+      "min": 0.5,
+      "max": 200,
+      "step": 0.1,
+      "default": 8,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "alto",
+      "type": "number",
+      "min": 0.5,
+      "max": 10,
+      "step": 0.1,
+      "default": 2.8,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "descontar_huecos",
+      "type": "number",
+      "min": 0,
+      "max": 50,
+      "step": 0.1,
+      "default": 4,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.largo)||0,H=parseFloat(inputs.alto)||0,huecos=parseFloat(inputs.descontar_huecos)||0;if(!L||!H)return{error:true};var area_bruta=L*H,area_neta=Math.max(0,area_bruta-huecos),ladrillos=Math.ceil(area_neta*55*1.07),mortero=+(area_neta*20).toFixed(1),junta=+(area_neta*0.5).toFixed(1);return{area_bruta:+area_bruta.toFixed(2),area_neta:+area_neta.toFixed(2),ladrillos_ud:ladrillos,mortero_kg:mortero,lechada_kg:junta};",
+  "outputs": [
+    {
+      "id": "area_bruta",
+      "unit": "m²"
+    },
+    {
+      "id": "area_neta",
+      "unit": "m²",
+      "highlight": true
+    },
+    {
+      "id": "ladrillos_ud",
+      "unit": "uds (+7% merma)"
+    },
+    {
+      "id": "mortero_kg",
+      "unit": "kg"
+    },
+    {
+      "id": "lechada_kg",
+      "unit": "kg"
+    }
+  ],
+  "related": [
+    "011",
+    "013",
+    "019",
+    "014"
+  ],
+  "example_inputs": {
+    "largo": 8,
+    "alto": 2.8,
+    "descontar_huecos": 4
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small wall",
+      "largo": 4,
+      "descontar_huecos": 2,
+      "alto": 2.8
+    },
+    {
+      "_label": "Medium wall",
+      "largo": 6,
+      "descontar_huecos": 3,
+      "alto": 2.8
+    },
+    {
+      "_label": "Large wall",
+      "largo": 8,
+      "descontar_huecos": 4,
+      "alto": 2.8
+    },
+    {
+      "_label": "Room",
+      "largo": 12,
+      "descontar_huecos": 6,
+      "alto": 2.8
+    },
+    {
+      "_label": "House perimeter",
+      "largo": 16,
+      "descontar_huecos": 8,
+      "alto": 2.8
+    }
+  ],
+  "units": {
+    "largo": "m",
+    "alto": "m",
+    "descontar_huecos": "m²"
+  }
+}

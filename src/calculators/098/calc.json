@@ -1,0 +1,105 @@
+{
+  "id": "098",
+  "slug": "factor-merma-material",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "cantidad_neta",
+      "type": "number",
+      "min": 0.1,
+      "max": 100000,
+      "step": 0.1,
+      "default": 100,
+      "unit": "(unidades)"
+    },
+    {
+      "id": "factor_merma_pct",
+      "type": "number",
+      "min": 1,
+      "max": 30,
+      "step": 0.5,
+      "default": 10,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    },
+    {
+      "id": "precio_ud",
+      "type": "number",
+      "min": 0.01,
+      "max": 10000,
+      "step": 0.01,
+      "default": 25,
+      "unit": "Ã¢â€šÂ¬/ud"
+    }
+  ],
+  "formula": "var Q=parseFloat(inputs.cantidad_neta)||0,mp=parseFloat(inputs.factor_merma_pct)||10,P=parseFloat(inputs.precio_ud)||25;if(!Q)return{error:true};var q_pedir=+(Q*(1+mp/100)).toFixed(2),q_merma=+(q_pedir-Q).toFixed(2),coste_merma=+(q_merma*P).toFixed(2),coste_total=+(q_pedir*P).toFixed(2);return{cantidad_pedir:q_pedir,cantidad_merma:q_merma,coste_merma_eur:coste_merma,coste_total_eur:coste_total};",
+  "outputs": [
+    {
+      "id": "cantidad_pedir",
+      "unit": "uds a pedir",
+      "highlight": true
+    },
+    {
+      "id": "cantidad_merma",
+      "unit": "uds merma"
+    },
+    {
+      "id": "coste_merma_eur",
+      "unit": "Ã¢â€šÂ¬ coste merma"
+    },
+    {
+      "id": "coste_total_eur",
+      "unit": "Ã¢â€šÂ¬ coste total"
+    }
+  ],
+  "related": [
+    "078",
+    "090",
+    "084",
+    "079"
+  ],
+  "example_inputs": {
+    "cantidad_neta": 100,
+    "factor_merma_pct": 10,
+    "precio_ud": 25
+  },
+  "comparison_presets": [
+    {
+      "_label": "Ladrillo cerÃ¡mico (merma baja)",
+      "cantidad_neta": 5000,
+      "factor_merma_pct": 5,
+      "precio_ud": 0.35
+    },
+    {
+      "_label": "Baldosa cerÃ¡mica estÃ¡ndar",
+      "cantidad_neta": 100,
+      "factor_merma_pct": 10,
+      "precio_ud": 25
+    },
+    {
+      "_label": "Azulejo porcelÃ¡nico (merma alta)",
+      "cantidad_neta": 80,
+      "factor_merma_pct": 15,
+      "precio_ud": 35
+    },
+    {
+      "_label": "Bloque de hormigÃ³n",
+      "cantidad_neta": 2000,
+      "factor_merma_pct": 5,
+      "precio_ud": 1.2
+    },
+    {
+      "_label": "Piedra natural (merma muy alta)",
+      "cantidad_neta": 50,
+      "factor_merma_pct": 20,
+      "precio_ud": 60
+    }
+  ],
+  "units": {
+    "factor_merma_pct": "%"
+  }
+}

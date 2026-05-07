@@ -1,0 +1,101 @@
+{
+  "id": "500",
+  "slug": "propina",
+  "block": 13,
+  "block_slug": "cotidiano",
+  "inputs": [
+    {
+      "id": "total_cuenta",
+      "type": "number",
+      "min": 0.01,
+      "max": 1000000000,
+      "step": "any",
+      "default": 65,
+      "unit": "â‚¬"
+    },
+    {
+      "id": "propina_pct",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 15,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    },
+    {
+      "id": "num_personas",
+      "type": "number",
+      "min": 1,
+      "max": 1000,
+      "step": 1,
+      "default": 4,
+      "unit": "pers."
+    }
+  ],
+  "formula": "var C=parseFloat(inputs.total_cuenta)||0,P=parseFloat(inputs.propina_pct)||0,N=Math.max(1,parseFloat(inputs.num_personas)||1);if(!C)return{error:true};var prop=+(C*P/100).toFixed(2),total=+(C+prop).toFixed(2),pp=+(total/N).toFixed(2);return{propina_total:prop,total_con_propina:total,por_persona:pp};",
+  "outputs": [
+    {
+      "id": "propina_total",
+      "unit": "â‚¬",
+      "highlight": true
+    },
+    {
+      "id": "total_con_propina",
+      "unit": "â‚¬"
+    },
+    {
+      "id": "por_persona",
+      "unit": "â‚¬/pers."
+    }
+  ],
+  "related": [
+    "501",
+    "306",
+    "200",
+    "502"
+  ],
+  "example_inputs": {
+    "total_cuenta": 65,
+    "propina_pct": 15,
+    "num_personas": 4
+  },
+  "comparison_presets": [
+    {
+      "_label": "Escenario minimo",
+      "total_cuenta": 26.0,
+      "propina_pct": 6.0,
+      "num_personas": 1.6
+    },
+    {
+      "_label": "Uso habitual",
+      "total_cuenta": 45.5,
+      "propina_pct": 10.5,
+      "num_personas": 2.8
+    },
+    {
+      "_label": "Uso frecuente",
+      "total_cuenta": 65.0,
+      "propina_pct": 15.0,
+      "num_personas": 4.0
+    },
+    {
+      "_label": "Uso intensivo",
+      "total_cuenta": 97.5,
+      "propina_pct": 22.5,
+      "num_personas": 6.0
+    },
+    {
+      "_label": "Caso maximo",
+      "total_cuenta": 162.5,
+      "propina_pct": 37.5,
+      "num_personas": 10.0
+    }
+  ],
+  "units": {
+    "propina_pct": "%"
+  }
+}

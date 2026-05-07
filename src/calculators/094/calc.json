@@ -1,0 +1,97 @@
+{
+  "id": "094",
+  "slug": "prestamo-equipo",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "importe_eur",
+      "type": "number",
+      "min": 500,
+      "max": 500000,
+      "step": 500,
+      "default": 20000,
+      "unit": "Ã¢â€šÂ¬"
+    },
+    {
+      "id": "tae_pct",
+      "type": "number",
+      "min": 1,
+      "max": 30,
+      "step": 0.1,
+      "default": 6.5,
+      "unit": "% TAE"
+    },
+    {
+      "id": "plazo_meses",
+      "type": "number",
+      "min": 6,
+      "max": 120,
+      "step": 6,
+      "default": 48,
+      "unit": "meses"
+    }
+  ],
+  "formula": "var P=parseFloat(inputs.importe_eur)||0,tae=parseFloat(inputs.tae_pct)||6.5,n=parseFloat(inputs.plazo_meses)||48;if(!P||!n)return{error:true};var r=tae/100/12,cuota=+(P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1)).toFixed(2),total_pag=+(cuota*n).toFixed(2),total_int=+(total_pag-P).toFixed(2);return{cuota_mensual_eur:cuota,total_pagado_eur:total_pag,total_intereses_eur:total_int};",
+  "outputs": [
+    {
+      "id": "cuota_mensual_eur",
+      "unit": "Ã¢â€šÂ¬/mes",
+      "highlight": true
+    },
+    {
+      "id": "total_pagado_eur",
+      "unit": "Ã¢â€šÂ¬ total pagado"
+    },
+    {
+      "id": "total_intereses_eur",
+      "unit": "Ã¢â€šÂ¬ intereses"
+    }
+  ],
+  "related": [
+    "080",
+    "081",
+    "079",
+    "078"
+  ],
+  "example_inputs": {
+    "importe_eur": 20000,
+    "tae_pct": 6.5,
+    "plazo_meses": 48
+  },
+  "comparison_presets": [
+    {
+      "_label": "Herramienta elÃ©ctrica (24 meses)",
+      "importe_eur": 2000,
+      "tae_pct": 8,
+      "plazo_meses": 24
+    },
+    {
+      "_label": "Furgoneta segunda mano (36 meses)",
+      "importe_eur": 15000,
+      "tae_pct": 7.5,
+      "plazo_meses": 36
+    },
+    {
+      "_label": "Miniexcavadora (48 meses)",
+      "importe_eur": 25000,
+      "tae_pct": 6.5,
+      "plazo_meses": 48
+    },
+    {
+      "_label": "CamiÃ³n grÃºa (60 meses)",
+      "importe_eur": 45000,
+      "tae_pct": 6,
+      "plazo_meses": 60
+    },
+    {
+      "_label": "Retroexcavadora (72 meses)",
+      "importe_eur": 60000,
+      "tae_pct": 5.5,
+      "plazo_meses": 72
+    }
+  ],
+  "units": {
+    "tae_pct": "%"
+  }
+}

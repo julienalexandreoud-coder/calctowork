@@ -1,0 +1,114 @@
+{
+  "id": "069",
+  "slug": "pintura-plastica-paredes",
+  "block": 8,
+  "block_slug": "pintura",
+  "inputs": [
+    {
+      "id": "area_m2",
+      "type": "number",
+      "min": 1,
+      "max": 3000,
+      "step": 0.5,
+      "default": 60,
+      "unit": "mÂ²",
+      "unit_options": [
+        "mÂ²",
+        "ftÂ²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "manos",
+      "type": "number",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2,
+      "unit": "manos",
+      "unit_options": [
+        "coats"
+      ],
+      "unit_category": "count"
+    },
+    {
+      "id": "rendimiento_m2_l",
+      "type": "number",
+      "min": 5,
+      "max": 15,
+      "step": 0.5,
+      "default": 10,
+      "unit": "mÂ²/L",
+      "unit_options": [
+        "mÂ²/L"
+      ],
+      "unit_category": "yield"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area_m2)||0,M=parseFloat(inputs.manos)||2,R=parseFloat(inputs.rendimiento_m2_l)||10;if(!A)return{error:true};var litros_neto=+(A*M/R).toFixed(2),litros_merma=+(litros_neto*1.1).toFixed(2),cubos_15=Math.ceil(litros_merma/15),cubos_5=Math.ceil(litros_merma/5);return{litros_netos:litros_neto,litros_con_merma:litros_merma,cubos_15L:cubos_15,cubos_5L:cubos_5};",
+  "outputs": [
+    {
+      "id": "litros_netos",
+      "unit": "L"
+    },
+    {
+      "id": "litros_con_merma",
+      "unit": "L (+10%)",
+      "highlight": true
+    },
+    {
+      "id": "cubos_15L",
+      "unit": "cubos 15L"
+    },
+    {
+      "id": "cubos_5L",
+      "unit": "cubos 5L"
+    }
+  ],
+  "related": [
+    "070",
+    "075",
+    "076",
+    "071"
+  ],
+  "example_inputs": {
+    "area_m2": 50,
+    "manos": 30,
+    "rendimiento_m2_l": 50
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small room",
+      "area_m2": 25,
+      "rendimiento_m2_l": 15,
+      "manos": 30
+    },
+    {
+      "_label": "Medium room",
+      "area_m2": 37.5,
+      "rendimiento_m2_l": 15,
+      "manos": 30
+    },
+    {
+      "_label": "Large room",
+      "area_m2": 50,
+      "rendimiento_m2_l": 15,
+      "manos": 30
+    },
+    {
+      "_label": "Office",
+      "area_m2": 75,
+      "rendimiento_m2_l": 15,
+      "manos": 30
+    },
+    {
+      "_label": "Hall",
+      "area_m2": 100,
+      "rendimiento_m2_l": 15,
+      "manos": 30
+    }
+  ],
+  "units": {
+    "area_m2": "mÂ²"
+  }
+}

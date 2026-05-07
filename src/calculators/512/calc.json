@@ -1,0 +1,103 @@
+{
+  "id": "512",
+  "slug": "coste-consumo-electrico",
+  "block": 11,
+  "block_slug": "cotidiano",
+  "inputs": [
+    {
+      "id": "power",
+      "type": "number",
+      "step": "any",
+      "default": 100,
+      "unit": "W",
+      "unit_options": [
+        "W",
+        "kW"
+      ],
+      "unit_category": "power"
+    },
+    {
+      "id": "hours",
+      "type": "number",
+      "step": "any",
+      "default": 24,
+      "unit": "h",
+      "unit_options": [
+        "h",
+        "d"
+      ],
+      "unit_category": "time"
+    },
+    {
+      "id": "rate",
+      "type": "number",
+      "step": "any",
+      "default": 0.15,
+      "unit": "$/kWh",
+      "unit_options": [
+        "$/kWh",
+        "â‚¬/kWh"
+      ],
+      "unit_category": "currency"
+    }
+  ],
+  "formula": "var p=parseFloat(inputs.power)||0;var h=parseFloat(inputs.hours)||0;var r=parseFloat(inputs.rate)||0;var energy=p*h/1000;var cost=energy*r;return{energy:energy.toFixed(4),cost:cost.toFixed(4)};",
+  "outputs": [
+    {
+      "id": "energy",
+      "unit": "kWh"
+    },
+    {
+      "id": "cost",
+      "unit": "USD"
+    }
+  ],
+  "related": [
+    "505",
+    "512",
+    "500",
+    "501"
+  ],
+  "example_inputs": {
+    "power": 100,
+    "hours": 24,
+    "rate": 0.15
+  },
+  "comparison_presets": [
+    {
+      "_label": "Escenario minimo",
+      "power": 40.0,
+      "hours": 9.6,
+      "rate": 0.06
+    },
+    {
+      "_label": "Uso habitual",
+      "power": 70.0,
+      "hours": 16.8,
+      "rate": 0.1
+    },
+    {
+      "_label": "Uso frecuente",
+      "power": 100.0,
+      "hours": 24.0,
+      "rate": 0.15
+    },
+    {
+      "_label": "Uso intensivo",
+      "power": 150.0,
+      "hours": 36.0,
+      "rate": 0.22
+    },
+    {
+      "_label": "Caso maximo",
+      "power": 250.0,
+      "hours": 60.0,
+      "rate": 0.38
+    }
+  ],
+  "units": {
+    "power": "W",
+    "hours": "s",
+    "rate": "USD"
+  }
+}

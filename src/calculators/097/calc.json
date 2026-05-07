@@ -1,0 +1,97 @@
+{
+  "id": "097",
+  "slug": "consumo-agua-obra",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "operarios",
+      "type": "number",
+      "min": 1,
+      "max": 200,
+      "step": 1,
+      "default": 8,
+      "unit": "operarios"
+    },
+    {
+      "id": "dias_obra",
+      "type": "number",
+      "min": 1,
+      "max": 500,
+      "step": 1,
+      "default": 60,
+      "unit": "dÃ­as",
+      "unit_options": [
+        "days"
+      ],
+      "unit_category": "time"
+    },
+    {
+      "id": "tipo_obra",
+      "type": "select",
+      "default": "reforma",
+      "options": [
+        "reforma",
+        "obra_nueva",
+        "demolicion"
+      ]
+    }
+  ],
+  "formula": "var N=parseFloat(inputs.operarios)||0,D=parseFloat(inputs.dias_obra)||60,l_dia={'reforma':80,'obra_nueva':120,'demolicion':60};if(!N)return{error:true};var l_op_dia=l_dia[inputs.tipo_obra],total_litros=+(N*D*l_op_dia).toFixed(0),m3=+(total_litros/1000).toFixed(2),coste=+(m3*2).toFixed(2);return{litros_total:total_litros,m3_total:m3,coste_estimado_eur:coste};",
+  "outputs": [
+    {
+      "id": "litros_total",
+      "unit": "litros"
+    },
+    {
+      "id": "m3_total",
+      "unit": "mÂ³",
+      "highlight": true
+    },
+    {
+      "id": "coste_estimado_eur",
+      "unit": "Ã¢â€šÂ¬ coste estimado"
+    }
+  ],
+  "related": [
+    "099",
+    "086",
+    "091",
+    "083"
+  ],
+  "example_inputs": {
+    "operarios": 8,
+    "dias_obra": 60,
+    "tipo_obra": "reforma"
+  },
+  "comparison_presets": [
+    {
+      "_label": "Reforma pequeÃ±a (pocos operarios, corta)",
+      "operarios": 2,
+      "dias_obra": 15
+    },
+    {
+      "_label": "Reforma integral estÃ¡ndar",
+      "operarios": 4,
+      "dias_obra": 30
+    },
+    {
+      "_label": "Obra nueva vivienda unifamiliar",
+      "operarios": 6,
+      "dias_obra": 90
+    },
+    {
+      "_label": "Obra nueva edificio pequeÃ±o",
+      "operarios": 10,
+      "dias_obra": 180
+    },
+    {
+      "_label": "DemoliciÃ³n con riego antipolvo",
+      "operarios": 5,
+      "dias_obra": 30
+    }
+  ],
+  "units": {
+    "dias_obra": "dÃ­as"
+  }
+}

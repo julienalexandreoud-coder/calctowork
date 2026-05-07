@@ -1,0 +1,97 @@
+{
+  "id": "1029",
+  "slug": "evapotranspiracion",
+  "block": 1,
+  "block_slug": "clima",
+  "inputs": [
+    {
+      "id": "temp",
+      "type": "number",
+      "step": "any",
+      "default": 25,
+      "unit": "°C",
+      "unit_options": [
+        "°C",
+        "°F"
+      ],
+      "unit_category": "temperature"
+    },
+    {
+      "id": "rh",
+      "type": "number",
+      "step": "any",
+      "default": 50,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    },
+    {
+      "id": "wind",
+      "type": "number",
+      "step": "any",
+      "default": 2,
+      "unit": "m/s",
+      "unit_options": [
+        "m/s",
+        "km/h"
+      ],
+      "unit_category": "speed"
+    }
+  ],
+  "formula": "var t=parseFloat(inputs.temp)||0;var rh=parseFloat(inputs.rh)||0;var w=parseFloat(inputs.wind)||0;var et=0.0023*(t+17.8)*Math.pow(rh,0.5)*w;return{et:et.toFixed(2)};",
+  "outputs": [
+    {
+      "id": "et",
+      "unit": "mm/d"
+    }
+  ],
+  "related": [
+    "1020",
+    "1028",
+    "1021",
+    "1022"
+  ],
+  "example_inputs": {
+    "temp": 25,
+    "rh": 50,
+    "wind": 2
+  },
+  "comparison_presets": [
+    {
+      "_label": "Light",
+      "temp": 12,
+      "rh": 25,
+      "wind": 2
+    },
+    {
+      "_label": "Moderate",
+      "temp": 19,
+      "rh": 38,
+      "wind": 2
+    },
+    {
+      "_label": "Strong",
+      "temp": 25,
+      "rh": 50,
+      "wind": 2
+    },
+    {
+      "_label": "Severe",
+      "temp": 38,
+      "rh": 75,
+      "wind": 2
+    },
+    {
+      "_label": "Extreme",
+      "temp": 50,
+      "rh": 100,
+      "wind": 2
+    }
+  ],
+  "units": {
+    "temp": "°C",
+    "wind": "m/s"
+  }
+}

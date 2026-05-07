@@ -1,0 +1,96 @@
+{
+  "id": "040",
+  "slug": "acometida-agua",
+  "block": 4,
+  "block_slug": "fontaneria",
+  "inputs": [
+    {
+      "id": "caudal_lps",
+      "type": "number",
+      "min": 0.1,
+      "max": 10,
+      "step": 0.1,
+      "default": 0.5,
+      "unit": "L/s",
+      "unit_options": [
+        "L/s",
+        "m³/h",
+        "gal/min"
+      ],
+      "unit_category": "flow"
+    },
+    {
+      "id": "longitud_m",
+      "type": "number",
+      "min": 1,
+      "max": 200,
+      "step": 1,
+      "default": 15,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var Q=parseFloat(inputs.caudal_lps)||0,L=parseFloat(inputs.longitud_m)||15;if(!Q)return{error:true};var v=1.5,A_m2=Q/1000/v,D_m=Math.sqrt(4*A_m2/Math.PI),D_mm=+(D_m*1000).toFixed(1),D_norm=D_mm<=20?20:D_mm<=25?25:D_mm<=32?32:D_mm<=40?40:50;return{caudal_m3h:+(Q*3.6).toFixed(2),diametro_calc_mm:D_mm,diametro_normalizado_mm:D_norm};",
+  "outputs": [
+    {
+      "id": "caudal_m3h",
+      "unit": "m³/h"
+    },
+    {
+      "id": "diametro_calc_mm",
+      "unit": "mm (calculado)"
+    },
+    {
+      "id": "diametro_normalizado_mm",
+      "unit": "mm DN (normalizado)",
+      "highlight": true
+    }
+  ],
+  "related": [
+    "033",
+    "031",
+    "032",
+    "034"
+  ],
+  "example_inputs": {
+    "caudal_lps": 0.5,
+    "longitud_m": 15
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small bathroom",
+      "longitud_m": 8,
+      "caudal_lps": 0.25
+    },
+    {
+      "_label": "Medium bathroom",
+      "longitud_m": 11,
+      "caudal_lps": 0.375
+    },
+    {
+      "_label": "Large bathroom",
+      "longitud_m": 15,
+      "caudal_lps": 0.5
+    },
+    {
+      "_label": "Apartment",
+      "longitud_m": 22,
+      "caudal_lps": 0.75
+    },
+    {
+      "_label": "House",
+      "longitud_m": 30,
+      "caudal_lps": 1
+    }
+  ],
+  "units": {
+    "longitud_m": "m"
+  }
+}

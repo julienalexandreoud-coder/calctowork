@@ -1,0 +1,103 @@
+{
+  "id": "082",
+  "slug": "coste-combustible",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "km_viaje",
+      "type": "number",
+      "min": 1,
+      "max": 5000,
+      "step": 1,
+      "default": 150,
+      "unit": "km",
+      "unit_options": [
+        "km",
+        "m",
+        "mi"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "consumo_l100km",
+      "type": "number",
+      "min": 4,
+      "max": 25,
+      "step": 0.5,
+      "default": 8,
+      "unit": "L/100km"
+    },
+    {
+      "id": "precio_l",
+      "type": "number",
+      "min": 0.8,
+      "max": 3,
+      "step": 0.01,
+      "default": 1.55,
+      "unit": "Ã¢â€šÂ¬/L"
+    }
+  ],
+  "formula": "var K=parseFloat(inputs.km_viaje)||0,C=parseFloat(inputs.consumo_l100km)||8,P=parseFloat(inputs.precio_l)||1.55;if(!K)return{error:true};var litros=+(K*C/100).toFixed(2),coste=+(litros*P).toFixed(2),ida_vuelta=+(coste*2).toFixed(2);return{litros_ud:litros,coste_eur:coste,coste_ida_vuelta_eur:ida_vuelta};",
+  "outputs": [
+    {
+      "id": "litros_ud",
+      "unit": "L"
+    },
+    {
+      "id": "coste_eur",
+      "unit": "Ã¢â€šÂ¬ (ida)",
+      "highlight": true
+    },
+    {
+      "id": "coste_ida_vuelta_eur",
+      "unit": "Ã¢â€šÂ¬ (ida y vuelta)"
+    }
+  ],
+  "related": [
+    "081",
+    "083",
+    "099",
+    "078"
+  ],
+  "example_inputs": {
+    "km_viaje": 150,
+    "consumo_l100km": 8,
+    "precio_l": 1.55
+  },
+  "comparison_presets": [
+    {
+      "_label": "Turismo diÃ©sel (trayecto corto)",
+      "km_viaje": 30,
+      "consumo_l100km": 5.5,
+      "precio_l": 1.45
+    },
+    {
+      "_label": "Furgoneta cargada (trayecto medio)",
+      "km_viaje": 75,
+      "consumo_l100km": 9,
+      "precio_l": 1.45
+    },
+    {
+      "_label": "Desplazamiento interurbano obra",
+      "km_viaje": 150,
+      "consumo_l100km": 8,
+      "precio_l": 1.55
+    },
+    {
+      "_label": "CamiÃ³n ligero larga distancia",
+      "km_viaje": 300,
+      "consumo_l100km": 14,
+      "precio_l": 1.45
+    },
+    {
+      "_label": "Transporte de materiales (ruta larga)",
+      "km_viaje": 500,
+      "consumo_l100km": 12,
+      "precio_l": 1.55
+    }
+  ],
+  "units": {
+    "km_viaje": "km"
+  }
+}

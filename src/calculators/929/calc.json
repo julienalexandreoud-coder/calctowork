@@ -1,0 +1,89 @@
+{
+  "id": "929",
+  "slug": "blood-pressure",
+  "block": 12,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "sistolica",
+      "type": "number",
+      "min": 50,
+      "max": 300,
+      "step": 1,
+      "default": 120,
+      "unit": "mmHg"
+    },
+    {
+      "id": "diastolica",
+      "type": "number",
+      "min": 30,
+      "max": 200,
+      "step": 1,
+      "default": 80,
+      "unit": "mmHg"
+    }
+  ],
+  "formula": "var sys=parseFloat(inputs.sistolica)||0,dia=parseFloat(inputs.diastolica)||0;if(!sys||!dia||sys<dia)return{error:true};var cat;if(sys<120&&dia<80)cat='Normal';else if(sys<130&&dia<80)cat='Elevated';else if(sys<140||dia<90)cat='Stage 1 Hypertension';else cat='Stage 2 Hypertension';var map=+(dia+(sys-dia)/3).toFixed(1),pp=sys-dia;return{systolic:sys,diastolic:dia,category:cat,map:'mmHg',pulse_pressure:pp};",
+  "outputs": [
+    {
+      "id": "category",
+      "unit": "",
+      "highlight": true
+    },
+    {
+      "id": "systolic",
+      "unit": "mmHg"
+    },
+    {
+      "id": "diastolic",
+      "unit": "mmHg"
+    },
+    {
+      "id": "map",
+      "unit": "mmHg",
+      "highlight": false
+    },
+    {
+      "id": "pulse_pressure",
+      "unit": "mmHg",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "426",
+    "928",
+    "422",
+    "400"
+  ],
+  "example_inputs": {
+    "sistolica": 120,
+    "diastolica": 80
+  },
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "sistolica": 60,
+      "diastolica": 40
+    },
+    {
+      "_label": "Teen",
+      "sistolica": 90,
+      "diastolica": 60
+    },
+    {
+      "_label": "Adult (F)",
+      "sistolica": 120,
+      "diastolica": 80
+    },
+    {
+      "_label": "Adult (M)",
+      "sistolica": 180,
+      "diastolica": 120
+    },
+    {
+      "_label": "Elderly",
+      "sistolica": 240,
+      "diastolica": 160
+    }
+  ]
+}

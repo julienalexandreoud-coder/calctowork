@@ -1,0 +1,84 @@
+{
+  "id": "074",
+  "slug": "acabado-texturado",
+  "block": 8,
+  "block_slug": "pintura",
+  "inputs": [
+    {
+      "id": "area_m2",
+      "type": "number",
+      "min": 1,
+      "max": 2000,
+      "step": 0.5,
+      "default": 80,
+      "unit": "mÂ²",
+      "unit_options": [
+        "mÂ²",
+        "ftÂ²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "tipo_textura",
+      "type": "select",
+      "default": "proyectado",
+      "options": [
+        "proyectado",
+        "rodillo_gota",
+        "veneciano",
+        "estuco"
+      ]
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area_m2)||0,kg_m2={'proyectado':1.5,'rodillo_gota':0.8,'veneciano':1.2,'estuco':1.0};if(!A)return{error:true};var kg_ud=kg_m2[inputs.tipo_textura]||1,total=+(A*kg_ud*1.1).toFixed(1),sacos=Math.ceil(total/25);return{kg_m2:kg_ud,kg_total:total,sacos_25kg:sacos};",
+  "outputs": [
+    {
+      "id": "kg_m2",
+      "unit": "kg/mÂ²"
+    },
+    {
+      "id": "kg_total",
+      "unit": "kg (+10%)",
+      "highlight": true
+    },
+    {
+      "id": "sacos_25kg",
+      "unit": "sacos 25kg"
+    }
+  ],
+  "related": [
+    "016",
+    "069",
+    "076",
+    "070"
+  ],
+  "example_inputs": {
+    "area_m2": 50,
+    "tipo_textura": "proyectado"
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small room",
+      "area_m2": 25
+    },
+    {
+      "_label": "Medium room",
+      "area_m2": 37.5
+    },
+    {
+      "_label": "Large room",
+      "area_m2": 50
+    },
+    {
+      "_label": "Office",
+      "area_m2": 75
+    },
+    {
+      "_label": "Hall",
+      "area_m2": 100
+    }
+  ],
+  "units": {
+    "area_m2": "mÂ²"
+  }
+}

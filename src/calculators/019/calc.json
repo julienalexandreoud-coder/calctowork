@@ -1,0 +1,127 @@
+{
+  "id": "019",
+  "slug": "mamposteria-piedra",
+  "block": 2,
+  "block_slug": "mamposteria",
+  "inputs": [
+    {
+      "id": "largo",
+      "type": "number",
+      "min": 0.5,
+      "max": 200,
+      "step": 0.1,
+      "default": 6,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "alto",
+      "type": "number",
+      "min": 0.3,
+      "max": 10,
+      "step": 0.1,
+      "default": 2,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "espesor",
+      "type": "number",
+      "min": 0.2,
+      "max": 2,
+      "step": 0.05,
+      "default": 0.4,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.largo)||0,H=parseFloat(inputs.alto)||0,E=parseFloat(inputs.espesor)||0;if(!L||!H||!E)return{error:true};var vol=L*H*E,piedra=+(vol*1.1*1800).toFixed(0),mortero=+(vol*0.35).toFixed(3),sacos=Math.ceil(mortero*350/50);return{vol_m3:+vol.toFixed(3),piedra_kg:piedra,mortero_m3:mortero,cemento_sacos:sacos};",
+  "outputs": [
+    {
+      "id": "vol_m3",
+      "unit": "m³",
+      "highlight": true
+    },
+    {
+      "id": "piedra_kg",
+      "unit": "kg"
+    },
+    {
+      "id": "mortero_m3",
+      "unit": "m³"
+    },
+    {
+      "id": "cemento_sacos",
+      "unit": "sacos 50kg"
+    }
+  ],
+  "related": [
+    "017",
+    "012",
+    "004",
+    "011"
+  ],
+  "example_inputs": {
+    "largo": 6,
+    "alto": 2,
+    "espesor": 0.4
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small wall",
+      "largo": 3,
+      "alto": 1,
+      "espesor": 0.4
+    },
+    {
+      "_label": "Medium wall",
+      "largo": 4.5,
+      "alto": 1.5,
+      "espesor": 0.4
+    },
+    {
+      "_label": "Large wall",
+      "largo": 6,
+      "alto": 2,
+      "espesor": 0.4
+    },
+    {
+      "_label": "Room",
+      "largo": 9,
+      "alto": 3,
+      "espesor": 0.4
+    },
+    {
+      "_label": "House perimeter",
+      "largo": 12,
+      "alto": 4,
+      "espesor": 0.4
+    }
+  ],
+  "units": {
+    "largo": "m",
+    "alto": "m",
+    "espesor": "m"
+  }
+}

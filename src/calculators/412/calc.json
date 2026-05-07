@@ -1,0 +1,68 @@
+{
+  "id": "412",
+  "slug": "horas-sueno",
+  "block": 12,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "hora_despertar",
+      "type": "number",
+      "min": 0,
+      "max": 23,
+      "step": "any",
+      "default": 7,
+      "unit": ""
+    }
+  ],
+  "formula": "var wake=parseFloat(inputs.hora_despertar)||7;var cycle=1.5,fb=.25;function fmt(h){var hh=Math.floor(h),mm=Math.round((h-hh)*60);if(mm===60){hh++;mm=0;}return hh+':'+(mm<10?'0':'')+mm;}var beds=[];for(var i=6;i>=3;i--){var bed=wake-i*cycle-fb;if(bed<0)bed+=24;beds.push(fmt(bed)+' ('+i+' cycles = '+i*1.5+'h)');}return{cama_6:beds[0],cama_5:beds[1],cama_4:beds[2],cama_3:beds[3]};",
+  "outputs": [
+    {
+      "id": "cama_6",
+      "unit": "",
+      "highlight": true
+    },
+    {
+      "id": "cama_5",
+      "unit": ""
+    },
+    {
+      "id": "cama_4",
+      "unit": ""
+    },
+    {
+      "id": "cama_3",
+      "unit": ""
+    }
+  ],
+  "related": [
+    "401",
+    "410",
+    "403",
+    "400"
+  ],
+  "example_inputs": {
+    "hora_despertar": 175
+  },
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "hora_despertar": 23
+    },
+    {
+      "_label": "Teen",
+      "hora_despertar": 23
+    },
+    {
+      "_label": "Adult (F)",
+      "hora_despertar": 23
+    },
+    {
+      "_label": "Adult (M)",
+      "hora_despertar": 23
+    },
+    {
+      "_label": "Elderly",
+      "hora_despertar": 23
+    }
+  ]
+}

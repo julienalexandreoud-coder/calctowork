@@ -1,0 +1,108 @@
+{
+  "id": "050",
+  "slug": "trifasica-potencia",
+  "block": 5,
+  "block_slug": "electricidad",
+  "inputs": [
+    {
+      "id": "corriente_a",
+      "type": "number",
+      "min": 1,
+      "max": 400,
+      "step": 1,
+      "default": 63,
+      "unit": "A",
+      "unit_options": [
+        "A",
+        "mA"
+      ],
+      "unit_category": "current"
+    },
+    {
+      "id": "tension_v",
+      "type": "number",
+      "min": 380,
+      "max": 415,
+      "step": 5,
+      "default": 400,
+      "unit": "V",
+      "unit_options": [
+        "V",
+        "kV"
+      ],
+      "unit_category": "voltage"
+    },
+    {
+      "id": "fp",
+      "type": "number",
+      "min": 0.7,
+      "max": 1,
+      "step": 0.05,
+      "default": 0.9,
+      "unit": "cos Ï†"
+    }
+  ],
+  "formula": "var I=parseFloat(inputs.corriente_a)||0,V=parseFloat(inputs.tension_v)||400,fp=parseFloat(inputs.fp)||0.9;if(!I)return{error:true};var kva=+(Math.sqrt(3)*V*I/1000).toFixed(2),kw=+(kva*fp).toFixed(2),kvar=+(Math.sqrt(kva*kva-kw*kw)).toFixed(2);return{potencia_kva:kva,potencia_kw:kw,potencia_reactiva_kvar:kvar};",
+  "outputs": [
+    {
+      "id": "potencia_kva",
+      "unit": "kVA"
+    },
+    {
+      "id": "potencia_kw",
+      "unit": "kW",
+      "highlight": true
+    },
+    {
+      "id": "potencia_reactiva_kvar",
+      "unit": "kVAr"
+    }
+  ],
+  "related": [
+    "043",
+    "047",
+    "044",
+    "045"
+  ],
+  "example_inputs": {
+    "corriente_a": 63,
+    "tension_v": 400,
+    "fp": 0.9
+  },
+  "comparison_presets": [
+    {
+      "_label": "Taller pequeño (16 A)",
+      "corriente_a": 16,
+      "tension_v": 400,
+      "fp": 0.85
+    },
+    {
+      "_label": "Bomba industrial (32 A)",
+      "corriente_a": 32,
+      "tension_v": 400,
+      "fp": 0.82
+    },
+    {
+      "_label": "Compresor trifásico (63 A)",
+      "corriente_a": 63,
+      "tension_v": 400,
+      "fp": 0.9
+    },
+    {
+      "_label": "Frigorífico industrial (125 A)",
+      "corriente_a": 125,
+      "tension_v": 400,
+      "fp": 0.88
+    },
+    {
+      "_label": "Horno trifásico (200 A)",
+      "corriente_a": 200,
+      "tension_v": 400,
+      "fp": 1
+    }
+  ],
+  "units": {
+    "corriente_a": "A",
+    "tension_v": "V"
+  }
+}

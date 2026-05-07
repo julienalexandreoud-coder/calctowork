@@ -1,0 +1,101 @@
+{
+  "id": "301",
+  "slug": "prestamo",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "capital",
+      "type": "number",
+      "min": 100,
+      "max": 1000000000,
+      "step": 100,
+      "default": 10000,
+      "unit": "â‚¬"
+    },
+    {
+      "id": "interes_anual_pct",
+      "type": "number",
+      "min": 0.01,
+      "max": 50,
+      "step": 0.01,
+      "default": 5,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    },
+    {
+      "id": "plazo_meses",
+      "type": "number",
+      "min": 1,
+      "max": 600,
+      "step": 1,
+      "default": 48,
+      "unit": "meses"
+    }
+  ],
+  "formula": "var P=parseFloat(inputs.capital)||0,R=parseFloat(inputs.interes_anual_pct)||0,N=parseFloat(inputs.plazo_meses)||0;if(!P||!R||!N)return{error:true};var r=R/100/12,cuota=r?P*(r*Math.pow(1+r,N))/(Math.pow(1+r,N)-1):P/N,total=+(cuota*N).toFixed(2),intereses=+(total-P).toFixed(2);return{cuota_mensual:+cuota.toFixed(2),total_intereses:intereses,total_pagado:total};",
+  "outputs": [
+    {
+      "id": "cuota_mensual",
+      "unit": "â‚¬/mes",
+      "highlight": true
+    },
+    {
+      "id": "total_intereses",
+      "unit": "â‚¬"
+    },
+    {
+      "id": "total_pagado",
+      "unit": "â‚¬"
+    }
+  ],
+  "related": [
+    "300",
+    "302",
+    "303",
+    "316"
+  ],
+  "example_inputs": {
+    "capital": 15750,
+    "interes_anual_pct": 6.75,
+    "plazo_meses": 36
+  },
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "capital": 7900,
+      "plazo_meses": 18,
+      "interes_anual_pct": 6.75
+    },
+    {
+      "_label": "Average",
+      "capital": 11800,
+      "plazo_meses": 27,
+      "interes_anual_pct": 6.75
+    },
+    {
+      "_label": "High",
+      "capital": 15800,
+      "plazo_meses": 36,
+      "interes_anual_pct": 6.75
+    },
+    {
+      "_label": "Premium",
+      "capital": 23600,
+      "plazo_meses": 54,
+      "interes_anual_pct": 6.75
+    },
+    {
+      "_label": "Enterprise",
+      "capital": 31500,
+      "plazo_meses": 72,
+      "interes_anual_pct": 6.75
+    }
+  ],
+  "units": {
+    "interes_anual_pct": "%"
+  }
+}

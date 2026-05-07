@@ -1,0 +1,89 @@
+{
+  "id": "900",
+  "slug": "ritmo-carrera-2",
+  "block": 17,
+  "block_slug": "deportes",
+  "inputs": [
+    {
+      "id": "distancia_km",
+      "type": "number",
+      "min": 0.01,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 10,
+      "unit": "",
+      "unit_options": [
+        "km",
+        "mi",
+        "m"
+      ],
+      "unit_category": "length_km",
+      "unit_default": "km"
+    },
+    {
+      "id": "tiempo_min",
+      "type": "number",
+      "min": 0.1,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 50,
+      "unit": ""
+    }
+  ],
+  "formula": "var d=parseFloat(inputs.distancia_km)||0,t=parseFloat(inputs.tiempo_min)||0;if(!d||!t)return{error:true};var pace=t/d,speed=d*60/t;var pm=Math.floor(pace),ps=Math.round((pace-pm)*60);return{ritmo_min_km:pm+':'+(ps<10?'0':'')+ps,velocidad_kmh:+speed.toFixed(2),velocidad_mph:+(speed/1.60934).toFixed(2)};",
+  "outputs": [
+    {
+      "id": "ritmo_min_km",
+      "unit": "min/km",
+      "highlight": true
+    },
+    {
+      "id": "velocidad_kmh",
+      "unit": "km/h"
+    },
+    {
+      "id": "velocidad_mph",
+      "unit": "mph"
+    }
+  ],
+  "related": [
+    "901",
+    "907",
+    "908",
+    "952"
+  ],
+  "example_inputs": {
+    "distancia_km": 10,
+    "tiempo_min": 50
+  },
+  "comparison_presets": [
+    {
+      "_label": "Beginner",
+      "distancia_km": 5,
+      "tiempo_min": 25
+    },
+    {
+      "_label": "Intermediate",
+      "distancia_km": 8,
+      "tiempo_min": 38
+    },
+    {
+      "_label": "Advanced",
+      "distancia_km": 10,
+      "tiempo_min": 50
+    },
+    {
+      "_label": "Elite",
+      "distancia_km": 15,
+      "tiempo_min": 75
+    },
+    {
+      "_label": "Pro",
+      "distancia_km": 20,
+      "tiempo_min": 100
+    }
+  ],
+  "units": {
+    "tiempo_min": "s"
+  }
+}

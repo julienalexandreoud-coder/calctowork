@@ -1,0 +1,155 @@
+{
+  "id": "1100",
+  "slug": "decking-calculator",
+  "block": 7,
+  "block_slug": "carpinteria",
+  "inputs": [
+    {
+      "id": "deck_length",
+      "type": "number",
+      "min": 0.1,
+      "max": 100,
+      "step": 0.1,
+      "default": 5,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "deck_width",
+      "type": "number",
+      "min": 0.1,
+      "max": 50,
+      "step": 0.1,
+      "default": 3,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "board_width",
+      "type": "number",
+      "min": 5,
+      "max": 30,
+      "step": 0.5,
+      "default": 14,
+      "unit": "cm",
+      "unit_category": "length"
+    },
+    {
+      "id": "board_length",
+      "type": "number",
+      "min": 1,
+      "max": 6,
+      "step": 0.3,
+      "default": 3.6,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "gap_size",
+      "type": "number",
+      "min": 0,
+      "max": 2,
+      "step": 0.1,
+      "default": 0.6,
+      "unit": "cm",
+      "unit_category": "length"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "deck_area_m2",
+      "unit": "mÂ²",
+      "highlight": true
+    },
+    {
+      "id": "boards_needed",
+      "unit": "boards"
+    },
+    {
+      "id": "board_rows",
+      "unit": "rows"
+    },
+    {
+      "id": "waste_percent",
+      "unit": "%"
+    },
+    {
+      "id": "total_linear_meters",
+      "unit": "m"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.deck_length)||0,W=parseFloat(inputs.deck_width)||0,bw=parseFloat(inputs.board_width)||14,bl=parseFloat(inputs.board_length)||3.6,gap=parseFloat(inputs.gap_size)||0.6;if(!L||!W||!bw||!bl)return{error:true};var area=+(L*W).toFixed(2),eff=(bw+gap)/100,rows=Math.ceil(W/eff),bpr=Math.ceil(L/bl),boards=rows*bpr,tlm=+(boards*bl).toFixed(1),waste=+(Math.max(5,((boards*bl*eff/area)-1)*100)).toFixed(1);return{deck_area_m2:area,boards_needed:boards,board_rows:rows,waste_percent:waste,total_linear_meters:tlm};",
+  "example_inputs": {
+    "deck_length": 5,
+    "deck_width": 4,
+    "board_width": 14,
+    "board_length": 3.6,
+    "gap_size": 0.6
+  },
+  "related": [
+    "1103",
+    "1113",
+    "1114",
+    "061"
+  ],
+  "comparison_presets": [
+    {
+      "deck_length": 3,
+      "deck_width": 2.5,
+      "board_width": 14,
+      "board_length": 3.6,
+      "gap_size": 0.6
+    },
+    {
+      "deck_length": 4,
+      "deck_width": 3,
+      "board_width": 14,
+      "board_length": 3.6,
+      "gap_size": 0.6
+    },
+    {
+      "deck_length": 5,
+      "deck_width": 4,
+      "board_width": 14,
+      "board_length": 3.6,
+      "gap_size": 0.6
+    },
+    {
+      "deck_length": 6,
+      "deck_width": 4,
+      "board_width": 14,
+      "board_length": 4.8,
+      "gap_size": 0.6
+    },
+    {
+      "deck_length": 8,
+      "deck_width": 5,
+      "board_width": 19,
+      "board_length": 4.8,
+      "gap_size": 0.6
+    }
+  ],
+  "buying_units": {
+    "boards_needed": [
+      {
+        "label": "Lengths (3.6 m)",
+        "factor": 1,
+        "round": "ceil",
+        "unit_suffix": "lengths"
+      },
+      {
+        "label": "Packs (10 boards)",
+        "factor": 0.1,
+        "round": "ceil",
+        "unit_suffix": "packs"
+      }
+    ]
+  },
+  "units": {
+    "deck_length": "m",
+    "deck_width": "m",
+    "board_width": "m",
+    "board_length": "m",
+    "gap_size": "m"
+  }
+}

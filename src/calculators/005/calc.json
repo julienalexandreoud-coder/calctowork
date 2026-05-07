@@ -1,0 +1,150 @@
+{
+  "id": "005",
+  "slug": "pilares-hormigon",
+  "block": 1,
+  "block_slug": "estructuras",
+  "inputs": [
+    {
+      "id": "ancho",
+      "type": "number",
+      "min": 0.2,
+      "max": 2,
+      "step": 0.05,
+      "default": 0.3,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "profundidad",
+      "type": "number",
+      "min": 0.2,
+      "max": 2,
+      "step": 0.05,
+      "default": 0.3,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "altura",
+      "type": "number",
+      "min": 0.5,
+      "max": 20,
+      "step": 0.1,
+      "default": 3,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "cantidad",
+      "type": "number",
+      "min": 1,
+      "max": 200,
+      "step": 1,
+      "default": 6,
+      "unit": "ud",
+      "unit_options": [
+        "ud"
+      ],
+      "unit_category": "count"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.ancho)||0,P=parseFloat(inputs.profundidad)||0,H=parseFloat(inputs.altura)||0,n=parseFloat(inputs.cantidad)||1;if(!A||!P||!H)return{error:true};var v1=A*P*H,vT=v1*n,c=Math.ceil(vT*7),acero=+(vT*160).toFixed(0),enc=+(2*(A+P)*H*n).toFixed(2);return{vol_unitario:+v1.toFixed(3),vol_total:+vT.toFixed(3),cemento_sacos:c,acero_kg:acero,encofrado_m2:enc};",
+  "outputs": [
+    {
+      "id": "vol_unitario",
+      "unit": "m³/ud"
+    },
+    {
+      "id": "vol_total",
+      "unit": "m³",
+      "highlight": true
+    },
+    {
+      "id": "cemento_sacos",
+      "unit": "sacos 50kg"
+    },
+    {
+      "id": "acero_kg",
+      "unit": "kg"
+    },
+    {
+      "id": "encofrado_m2",
+      "unit": "m²"
+    }
+  ],
+  "related": [
+    "002",
+    "006",
+    "007",
+    "003"
+  ],
+  "example_inputs": {
+    "ancho": 0.3,
+    "profundidad": 0.3,
+    "altura": 3,
+    "cantidad": 6
+  },
+  "comparison_presets": [
+    {
+      "_label": "Caso 1",
+      "ancho": 0.2,
+      "profundidad": 0.2,
+      "altura": 1.2,
+      "cantidad": 2.4
+    },
+    {
+      "_label": "Caso 2",
+      "ancho": 0.21,
+      "profundidad": 0.21,
+      "altura": 2.1,
+      "cantidad": 4.2
+    },
+    {
+      "_label": "Caso 3",
+      "ancho": 0.3,
+      "profundidad": 0.3,
+      "altura": 3.0,
+      "cantidad": 6.0
+    },
+    {
+      "_label": "Caso 4",
+      "ancho": 0.45,
+      "profundidad": 0.45,
+      "altura": 4.5,
+      "cantidad": 9.0
+    },
+    {
+      "_label": "Caso 5",
+      "ancho": 0.75,
+      "profundidad": 0.75,
+      "altura": 7.5,
+      "cantidad": 15.0
+    }
+  ],
+  "units": {
+    "ancho": "m",
+    "profundidad": "m",
+    "altura": "m"
+  }
+}

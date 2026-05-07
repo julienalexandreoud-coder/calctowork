@@ -1,0 +1,99 @@
+{
+  "id": "328",
+  "slug": "valor-actual-anualidad",
+  "block": 7,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "pmt",
+      "type": "number",
+      "step": "any",
+      "default": 100,
+      "unit": "USD",
+      "unit_options": [
+        "USD",
+        "EUR",
+        "GBP"
+      ],
+      "unit_category": "currency"
+    },
+    {
+      "id": "rate",
+      "type": "number",
+      "step": "any",
+      "default": 5,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "percentage"
+    },
+    {
+      "id": "n",
+      "type": "number",
+      "step": 1,
+      "default": 10,
+      "unit": "yr",
+      "unit_options": [
+        "yr",
+        "mo"
+      ],
+      "unit_category": "time"
+    }
+  ],
+  "formula": "var pmt=parseFloat(inputs.pmt)||0;var r=(parseFloat(inputs.rate)||0)/100;var n=parseFloat(inputs.n)||0;var pv=r>0?pmt*((1-Math.pow(1+r,-n))/r):pmt*n;return{pv:pv.toFixed(2)};",
+  "outputs": [
+    {
+      "id": "pv",
+      "unit": "USD"
+    }
+  ],
+  "related": [
+    "327",
+    "301",
+    "321",
+    "322"
+  ],
+  "example_inputs": {
+    "pmt": 1000,
+    "rate": 5,
+    "n": 15
+  },
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "pmt": 500,
+      "rate": 2,
+      "n": 15
+    },
+    {
+      "_label": "Average",
+      "pmt": 750,
+      "rate": 4,
+      "n": 15
+    },
+    {
+      "_label": "High",
+      "pmt": 1000,
+      "rate": 5,
+      "n": 15
+    },
+    {
+      "_label": "Premium",
+      "pmt": 1500,
+      "rate": 8,
+      "n": 15
+    },
+    {
+      "_label": "Enterprise",
+      "pmt": 2000,
+      "rate": 10,
+      "n": 15
+    }
+  ],
+  "units": {
+    "pmt": "USD",
+    "rate": "%",
+    "n": "s"
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "id": "015",
+  "slug": "aislamiento-termico",
+  "block": 2,
+  "block_slug": "mamposteria",
+  "inputs": [
+    {
+      "id": "largo",
+      "type": "number",
+      "min": 0.5,
+      "max": 300,
+      "step": 0.1,
+      "default": 10,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "alto",
+      "type": "number",
+      "min": 0.5,
+      "max": 10,
+      "step": 0.1,
+      "default": 3,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "espesor_cm",
+      "type": "number",
+      "min": 2,
+      "max": 25,
+      "step": 1,
+      "default": 6,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.largo)||0,H=parseFloat(inputs.alto)||0,E=parseFloat(inputs.espesor_cm)||6;if(!L||!H)return{error:true};var area=L*H,plancha_m2=+(area*1.05).toFixed(2),vol_m3=+(area*E/100*1.05).toFixed(3);return{area_m2:+area.toFixed(2),plancha_m2:plancha_m2,vol_m3:vol_m3};",
+  "outputs": [
+    {
+      "id": "area_m2",
+      "unit": "m²",
+      "highlight": true
+    },
+    {
+      "id": "plancha_m2",
+      "unit": "m² (+5% merma)"
+    },
+    {
+      "id": "vol_m3",
+      "unit": "m³"
+    }
+  ],
+  "related": [
+    "014",
+    "053",
+    "055",
+    "011"
+  ],
+  "example_inputs": {
+    "largo": 10,
+    "alto": 3,
+    "espesor_cm": 6
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small wall",
+      "largo": 5,
+      "espesor_cm": 3,
+      "alto": 3
+    },
+    {
+      "_label": "Medium wall",
+      "largo": 7.5,
+      "espesor_cm": 4,
+      "alto": 3
+    },
+    {
+      "_label": "Large wall",
+      "largo": 10,
+      "espesor_cm": 6,
+      "alto": 3
+    },
+    {
+      "_label": "Room",
+      "largo": 15,
+      "espesor_cm": 9,
+      "alto": 3
+    },
+    {
+      "_label": "House perimeter",
+      "largo": 20,
+      "espesor_cm": 12,
+      "alto": 3
+    }
+  ],
+  "units": {
+    "largo": "m",
+    "alto": "m",
+    "espesor_cm": "m"
+  }
+}

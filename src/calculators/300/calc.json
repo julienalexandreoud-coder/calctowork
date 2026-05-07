@@ -1,0 +1,121 @@
+{
+  "id": "300",
+  "slug": "hipoteca",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "precio_vivienda",
+      "type": "number",
+      "min": 1000,
+      "max": 1000000000,
+      "step": 1000,
+      "default": 200000,
+      "unit": "â‚¬"
+    },
+    {
+      "id": "entrada_pct",
+      "type": "number",
+      "min": 0,
+      "max": 90,
+      "step": 1,
+      "default": 20,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    },
+    {
+      "id": "interes_anual_pct",
+      "type": "number",
+      "min": 0.01,
+      "max": 25,
+      "step": 0.01,
+      "default": 3.5,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    },
+    {
+      "id": "plazo_anos",
+      "type": "number",
+      "min": 1,
+      "max": 40,
+      "step": 1,
+      "default": 25,
+      "unit": "años"
+    }
+  ],
+  "formula": "var P=parseFloat(inputs.precio_vivienda)||0,E=parseFloat(inputs.entrada_pct)||20,R=parseFloat(inputs.interes_anual_pct)||0,N=parseFloat(inputs.plazo_anos)||0;if(!P||!R||!N)return{error:true};var principal=+(P*(1-E/100)).toFixed(2),r=R/100/12,n=N*12;var cuota=r?principal*(r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1):principal/n;var total=+(cuota*n).toFixed(2),intereses=+(total-principal).toFixed(2);var tbl=[],bal=principal;for(var i=1;i<=N;i++){  var int_yr=+(bal*R/100).toFixed(2);  var pri_yr=+(Math.min(cuota*12-int_yr,bal)).toFixed(2);  bal=+(Math.max(bal-pri_yr,0)).toFixed(2);  tbl.push({year:i,interest:int_yr,principal:pri_yr,balance:bal});}return{cuota_mensual:+cuota.toFixed(2),principal_eur:+principal.toFixed(0),total_intereses:intereses,total_pagado:total,table:tbl};",
+  "outputs": [
+    {
+      "id": "cuota_mensual",
+      "unit": "â‚¬/mes",
+      "highlight": true
+    },
+    {
+      "id": "principal_eur",
+      "unit": "â‚¬"
+    },
+    {
+      "id": "total_intereses",
+      "unit": "â‚¬"
+    },
+    {
+      "id": "total_pagado",
+      "unit": "â‚¬"
+    }
+  ],
+  "related": [
+    "301",
+    "302",
+    "303",
+    "936"
+  ],
+  "tableHeaders": [
+    "year",
+    "interest",
+    "principal",
+    "balance"
+  ],
+  "example_inputs": {
+    "precio_vivienda": 285000,
+    "entrada_pct": 18,
+    "interes_anual_pct": 3.25,
+    "plazo_anos": 28
+  },
+  "comparison_presets": [
+    {
+      "principal": 100000,
+      "interest_rate": 3.5,
+      "years": 30
+    },
+    {
+      "principal": 150000,
+      "interest_rate": 4,
+      "years": 25
+    },
+    {
+      "principal": 200000,
+      "interest_rate": 4.5,
+      "years": 30
+    },
+    {
+      "principal": 300000,
+      "interest_rate": 5,
+      "years": 30
+    },
+    {
+      "principal": 500000,
+      "interest_rate": 5.5,
+      "years": 25
+    }
+  ],
+  "units": {
+    "entrada_pct": "%",
+    "interes_anual_pct": "%"
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "id": "066",
+  "slug": "estructuras-metalicas",
+  "block": 7,
+  "block_slug": "carpinteria",
+  "inputs": [
+    {
+      "id": "luz_m",
+      "type": "number",
+      "min": 1,
+      "max": 30,
+      "step": 0.5,
+      "default": 6,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "carga_kn_m2",
+      "type": "number",
+      "min": 1,
+      "max": 20,
+      "step": 0.5,
+      "default": 5,
+      "unit": "kN/mÂ²",
+      "unit_options": [
+        "kN/mÂ²",
+        "kg/mÂ²",
+        "lb/ftÂ²"
+      ],
+      "unit_category": "pressure"
+    },
+    {
+      "id": "longitud_nave_m",
+      "type": "number",
+      "min": 1,
+      "max": 200,
+      "step": 1,
+      "default": 20,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "perfil_tipo",
+      "type": "select",
+      "default": "IPE",
+      "options": [
+        "IPE",
+        "HEB",
+        "UPN"
+      ]
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.luz_m)||0,q=parseFloat(inputs.carga_kn_m2)||5,Ln=parseFloat(inputs.longitud_nave_m)||20;if(!L)return{error:true};var M=+(q*L*L/8).toFixed(2),Wy=+(M*100/23.5).toFixed(0),kg_ml={IPE:+(Wy*0.035).toFixed(1),HEB:+(Wy*0.055).toFixed(1),UPN:+(Wy*0.040).toFixed(1)},pm=kg_ml[inputs.perfil_tipo]||(Wy*0.035).toFixed(1),kg_viga=+(pm*L).toFixed(1),n_vigas=Math.ceil(Ln/6)+1,kg_total=+(kg_viga*n_vigas).toFixed(0),pintura=+(kg_total*0.025).toFixed(1);return{momento_kn_m:M,modulo_resist_cm3:Wy,kg_por_viga:kg_viga,vigas_ud:n_vigas,kg_total:kg_total,pintura_m2:+pintura.toFixed(1)};",
+  "outputs": [
+    {
+      "id": "momento_kn_m",
+      "unit": "kNÂ·m"
+    },
+    {
+      "id": "modulo_resist_cm3",
+      "unit": "cmÂ³ Wy mÃ­n."
+    },
+    {
+      "id": "kg_por_viga",
+      "unit": "kg/viga"
+    },
+    {
+      "id": "vigas_ud",
+      "unit": "vigas"
+    },
+    {
+      "id": "kg_total",
+      "unit": "kg total",
+      "highlight": true
+    },
+    {
+      "id": "pintura_m2",
+      "unit": "mÂ² pintura"
+    }
+  ],
+  "related": [
+    "065",
+    "002",
+    "067",
+    "061"
+  ],
+  "example_inputs": {
+    "luz_m": 6,
+    "carga_kn_m2": 5,
+    "longitud_nave_m": 20,
+    "perfil_tipo": "IPE"
+  },
+  "comparison_presets": [
+    {
+      "_label": "PequeÃ±a marquesina (3 m)",
+      "luz_m": 3,
+      "carga_kn_m2": 3,
+      "longitud_nave_m": 10,
+      "perfil_tipo": "IPE"
+    },
+    {
+      "_label": "Nave estÃ¡ndar (6 m)",
+      "luz_m": 6,
+      "carga_kn_m2": 5,
+      "longitud_nave_m": 20,
+      "perfil_tipo": "IPE"
+    },
+    {
+      "_label": "Nave industrial (9 m)",
+      "luz_m": 9,
+      "carga_kn_m2": 6,
+      "longitud_nave_m": 30,
+      "perfil_tipo": "HEB"
+    },
+    {
+      "_label": "Gran luz (12 m)",
+      "luz_m": 12,
+      "carga_kn_m2": 7,
+      "longitud_nave_m": 40,
+      "perfil_tipo": "HEB"
+    },
+    {
+      "_label": "Carga pesada (15 m)",
+      "luz_m": 15,
+      "carga_kn_m2": 10,
+      "longitud_nave_m": 50,
+      "perfil_tipo": "HEB"
+    }
+  ],
+  "units": {
+    "luz_m": "m",
+    "carga_kn_m2": "Pa",
+    "longitud_nave_m": "m"
+  }
+}

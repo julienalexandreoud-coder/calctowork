@@ -1,0 +1,126 @@
+{
+  "id": "043",
+  "slug": "cable-electrico-seccion",
+  "block": 5,
+  "block_slug": "electricidad",
+  "inputs": [
+    {
+      "id": "corriente_a",
+      "type": "number",
+      "min": 1,
+      "max": 200,
+      "step": 1,
+      "default": 16,
+      "unit": "A",
+      "unit_options": [
+        "A",
+        "mA"
+      ],
+      "unit_category": "current"
+    },
+    {
+      "id": "longitud_m",
+      "type": "number",
+      "min": 1,
+      "max": 500,
+      "step": 1,
+      "default": 20,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "tension_v",
+      "type": "select",
+      "default": "230",
+      "options": [
+        "230",
+        "400"
+      ]
+    },
+    {
+      "id": "caida_max_pct",
+      "type": "number",
+      "min": 1,
+      "max": 5,
+      "step": 0.5,
+      "default": 3,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    }
+  ],
+  "formula": "var I=parseFloat(inputs.corriente_a)||0,L=parseFloat(inputs.longitud_m)||0,V=parseFloat(inputs.tension_v)||230,cp=parseFloat(inputs.caida_max_pct)||3;if(!I||!L)return{error:true};var sigma=56,dV=V*cp/100,S_calc=+(2*L*I/(sigma*dV)).toFixed(4),S_norm=S_calc<=1.5?1.5:S_calc<=2.5?2.5:S_calc<=4?4:S_calc<=6?6:S_calc<=10?10:S_calc<=16?16:S_calc<=25?25:35;return{seccion_calc_mm2:S_calc,seccion_normalizada_mm2:S_norm,caida_real_pct:+(2*L*I/(sigma*S_norm*V)*100).toFixed(2)};",
+  "outputs": [
+    {
+      "id": "seccion_calc_mm2",
+      "unit": "mm² (calculado)"
+    },
+    {
+      "id": "seccion_normalizada_mm2",
+      "unit": "mm² (normalizado)",
+      "highlight": true
+    },
+    {
+      "id": "caida_real_pct",
+      "unit": "% caída real"
+    }
+  ],
+  "related": [
+    "044",
+    "047",
+    "052",
+    "050"
+  ],
+  "example_inputs": {
+    "corriente_a": 16,
+    "longitud_m": 20,
+    "tension_v": "230",
+    "caida_max_pct": 3
+  },
+  "comparison_presets": [
+    {
+      "_label": "Alumbrado (1.5 mm²)",
+      "longitud_m": 15,
+      "corriente_a": 8,
+      "caida_max_pct": 3
+    },
+    {
+      "_label": "Enchufes dormitorio (2.5 mm²)",
+      "longitud_m": 20,
+      "corriente_a": 16,
+      "caida_max_pct": 3
+    },
+    {
+      "_label": "Cocina/horno (4 mm²)",
+      "longitud_m": 25,
+      "corriente_a": 25,
+      "caida_max_pct": 5
+    },
+    {
+      "_label": "Aire acondicionado (6 mm²)",
+      "longitud_m": 35,
+      "corriente_a": 32,
+      "caida_max_pct": 5
+    },
+    {
+      "_label": "Derivación garaje (10 mm²)",
+      "longitud_m": 60,
+      "corriente_a": 40,
+      "caida_max_pct": 5
+    }
+  ],
+  "units": {
+    "corriente_a": "A",
+    "longitud_m": "m",
+    "caida_max_pct": "%"
+  }
+}

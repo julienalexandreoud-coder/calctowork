@@ -1,0 +1,100 @@
+{
+  "id": "1047",
+  "slug": "velocidad-verdadera",
+  "block": 11,
+  "block_slug": "transporte",
+  "inputs": [
+    {
+      "id": "ias",
+      "type": "number",
+      "step": "any",
+      "default": 120,
+      "unit": "kt",
+      "unit_options": [
+        "kt",
+        "km/h",
+        "mph"
+      ],
+      "unit_category": "speed"
+    },
+    {
+      "id": "altitude",
+      "type": "number",
+      "step": "any",
+      "default": 5000,
+      "unit": "ft",
+      "unit_options": [
+        "ft",
+        "m"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "temp",
+      "type": "number",
+      "step": "any",
+      "default": 5,
+      "unit": "°C",
+      "unit_options": [
+        "°C",
+        "°F"
+      ],
+      "unit_category": "temperature"
+    }
+  ],
+  "formula": "var ias=parseFloat(inputs.ias)||0;var alt=parseFloat(inputs.altitude)||0;var t=parseFloat(inputs.temp)||0;var tas=ias*(1+alt/1000*0.02)*(1+(t-15)/273);return{tas:tas.toFixed(1)};",
+  "outputs": [
+    {
+      "id": "tas",
+      "unit": "kt"
+    }
+  ],
+  "related": [
+    "1045",
+    "1046",
+    "1048",
+    "1049"
+  ],
+  "example_inputs": {
+    "ias": 120,
+    "altitude": 5000,
+    "temp": 5
+  },
+  "comparison_presets": [
+    {
+      "_label": "City",
+      "ias": 60,
+      "altitude": 2500,
+      "temp": 5
+    },
+    {
+      "_label": "Suburban",
+      "ias": 90,
+      "altitude": 3750,
+      "temp": 5
+    },
+    {
+      "_label": "Highway",
+      "ias": 120,
+      "altitude": 5000,
+      "temp": 5
+    },
+    {
+      "_label": "Long haul",
+      "ias": 180,
+      "altitude": 7500,
+      "temp": 5
+    },
+    {
+      "_label": "International",
+      "ias": 240,
+      "altitude": 10000,
+      "temp": 5
+    }
+  ],
+  "units": {
+    "ias": "m/s",
+    "altitude": "m",
+    "temp": "°C"
+  }
+}

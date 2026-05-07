@@ -1,0 +1,107 @@
+{
+  "id": "080",
+  "slug": "amortizacion-maquinaria",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "coste_eur",
+      "type": "number",
+      "min": 100,
+      "max": 500000,
+      "step": 100,
+      "default": 15000,
+      "unit": "Ã¢â€šÂ¬",
+      "unit_options": [
+        "Ã¢â€šÂ¬",
+        "$"
+      ],
+      "unit_category": "currency"
+    },
+    {
+      "id": "anos_vida_util",
+      "type": "number",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 5,
+      "unit": "aÃ±os"
+    },
+    {
+      "id": "valor_residual_pct",
+      "type": "number",
+      "min": 0,
+      "max": 40,
+      "step": 5,
+      "default": 10,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    }
+  ],
+  "formula": "var C=parseFloat(inputs.coste_eur)||0,Y=parseFloat(inputs.anos_vida_util)||5,Vr=parseFloat(inputs.valor_residual_pct)||10;if(!C||!Y)return{error:true};var residual=+(C*Vr/100).toFixed(2),base=C-residual,anual=+(base/Y).toFixed(2),mensual=+(anual/12).toFixed(2),diaria=+(anual/220).toFixed(2);return{amort_anual_eur:anual,amort_mensual_eur:mensual,amort_diaria_eur:diaria};",
+  "outputs": [
+    {
+      "id": "amort_anual_eur",
+      "unit": "Ã¢â€šÂ¬/aÃ±o",
+      "highlight": true
+    },
+    {
+      "id": "amort_mensual_eur",
+      "unit": "Ã¢â€šÂ¬/mes"
+    },
+    {
+      "id": "amort_diaria_eur",
+      "unit": "Ã¢â€šÂ¬/dÃ­a"
+    }
+  ],
+  "related": [
+    "081",
+    "094",
+    "079",
+    "078"
+  ],
+  "example_inputs": {
+    "coste_eur": 15000,
+    "anos_vida_util": 5,
+    "valor_residual_pct": 10
+  },
+  "comparison_presets": [
+    {
+      "_label": "Herramienta elÃ©ctrica (taladro, radial)",
+      "coste_eur": 500,
+      "anos_vida_util": 4,
+      "valor_residual_pct": 5
+    },
+    {
+      "_label": "Hormigonera elÃ©ctrica 250L",
+      "coste_eur": 3000,
+      "anos_vida_util": 6,
+      "valor_residual_pct": 10
+    },
+    {
+      "_label": "Miniexcavadora 2.5t",
+      "coste_eur": 25000,
+      "anos_vida_util": 8,
+      "valor_residual_pct": 15
+    },
+    {
+      "_label": "Retroexcavadora mixta",
+      "coste_eur": 60000,
+      "anos_vida_util": 10,
+      "valor_residual_pct": 15
+    },
+    {
+      "_label": "GrÃºa torre desmontable",
+      "coste_eur": 120000,
+      "anos_vida_util": 12,
+      "valor_residual_pct": 20
+    }
+  ],
+  "units": {
+    "coste_eur": "EUR",
+    "valor_residual_pct": "%"
+  }
+}

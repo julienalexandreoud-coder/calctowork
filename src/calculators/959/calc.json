@@ -1,0 +1,120 @@
+{
+  "id": "959",
+  "slug": "sample-size-confidence",
+  "block": 18,
+  "block_slug": "estadistica",
+  "inputs": [
+    {
+      "id": "tamano_muestra",
+      "type": "number",
+      "min": 1,
+      "max": 999999,
+      "step": 1,
+      "default": 100,
+      "unit": ""
+    },
+    {
+      "id": "proporcion",
+      "type": "number",
+      "min": 0,
+      "max": 1,
+      "step": 0.01,
+      "default": 0.5,
+      "unit": ""
+    },
+    {
+      "id": "margen_error",
+      "type": "number",
+      "min": 0.001,
+      "max": 0.5,
+      "step": 0.001,
+      "default": 0.05,
+      "unit": ""
+    },
+    {
+      "id": "confianza",
+      "type": "number",
+      "min": 0.8,
+      "max": 0.99,
+      "step": 0.01,
+      "default": 0.95,
+      "unit": ""
+    }
+  ],
+  "formula": "var n=parseInt(inputs.tamano_muestra)||0,p=parseFloat(inputs.proporcion)||0.5,e=parseFloat(inputs.margen_error)||0.05,conf=parseFloat(inputs.confianza)||0.95;if(!n)return{error:true};var z={0.9:1.645,0.95:1.96,0.99:2.576};var zv=z[conf]||1.96;var se=+Math.sqrt(p*(1-p)/n).toFixed(4);var me=+(zv*se).toFixed(4);var lower=+(p-me).toFixed(4),upper=+(p+me).toFixed(4);return{sample_size:n,standard_error:se,margin_of_error:me,ci_lower:lower,ci_upper:upper};",
+  "outputs": [
+    {
+      "id": "sample_size",
+      "unit": ""
+    },
+    {
+      "id": "standard_error",
+      "unit": "",
+      "highlight": true
+    },
+    {
+      "id": "margin_of_error",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "ci_lower",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "ci_upper",
+      "unit": "",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "958",
+    "957",
+    "961",
+    "606"
+  ],
+  "example_inputs": {
+    "proporcion": 0.5,
+    "confianza": 0.95,
+    "margen_error": 0.05,
+    "tamano_muestra": 100
+  },
+  "comparison_presets": [
+    {
+      "_label": "Muestra pequena",
+      "tamano_muestra": 40.0,
+      "proporcion": 0.2,
+      "margen_error": 0.02,
+      "confianza": 0.8
+    },
+    {
+      "_label": "Datos uniformes",
+      "tamano_muestra": 70.0,
+      "proporcion": 0.35,
+      "margen_error": 0.03,
+      "confianza": 0.8
+    },
+    {
+      "_label": "Datos dispersos",
+      "tamano_muestra": 100.0,
+      "proporcion": 0.5,
+      "margen_error": 0.05,
+      "confianza": 0.95
+    },
+    {
+      "_label": "Muestra grande",
+      "tamano_muestra": 150.0,
+      "proporcion": 0.75,
+      "margen_error": 0.08,
+      "confianza": 0.99
+    },
+    {
+      "_label": "Valores atipicos",
+      "tamano_muestra": 250.0,
+      "proporcion": 1.0,
+      "margen_error": 0.12,
+      "confianza": 0.99
+    }
+  ]
+}

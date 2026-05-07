@@ -1,0 +1,112 @@
+{
+  "id": "013",
+  "slug": "bloque-hormigon",
+  "block": 2,
+  "block_slug": "mamposteria",
+  "inputs": [
+    {
+      "id": "largo",
+      "type": "number",
+      "min": 0.5,
+      "max": 300,
+      "step": 0.1,
+      "default": 10,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "alto",
+      "type": "number",
+      "min": 0.5,
+      "max": 10,
+      "step": 0.1,
+      "default": 3,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "descontar_huecos",
+      "type": "number",
+      "min": 0,
+      "max": 50,
+      "step": 0.1,
+      "default": 3,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.largo)||0,H=parseFloat(inputs.alto)||0,huecos=parseFloat(inputs.descontar_huecos)||0;if(!L||!H)return{error:true};var area_neta=Math.max(0,L*H-huecos),bloques=Math.ceil(area_neta*12.5*1.05),mortero=+(area_neta*12).toFixed(1);return{area_neta:+area_neta.toFixed(2),bloques_ud:bloques,mortero_kg:mortero};",
+  "outputs": [
+    {
+      "id": "area_neta",
+      "unit": "m²",
+      "highlight": true
+    },
+    {
+      "id": "bloques_ud",
+      "unit": "uds (+5% merma)"
+    },
+    {
+      "id": "mortero_kg",
+      "unit": "kg"
+    }
+  ],
+  "related": [
+    "011",
+    "012",
+    "017",
+    "014"
+  ],
+  "example_inputs": {
+    "largo": 10,
+    "alto": 3,
+    "descontar_huecos": 3
+  },
+  "diagram": "wall",
+  "standard": "EN 1996-1-1",
+  "comparison_presets": [
+    {
+      "largo": 5,
+      "alto": 2.5,
+      "descontar_huecos": 0
+    },
+    {
+      "largo": 8,
+      "alto": 2.5,
+      "descontar_huecos": 0
+    },
+    {
+      "largo": 10,
+      "alto": 2.7,
+      "descontar_huecos": 2
+    },
+    {
+      "largo": 15,
+      "alto": 3,
+      "descontar_huecos": 4
+    }
+  ],
+  "units": {
+    "largo": "m",
+    "alto": "m",
+    "descontar_huecos": "m²"
+  }
+}

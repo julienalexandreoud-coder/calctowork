@@ -1,0 +1,96 @@
+{
+  "id": "419",
+  "slug": "frecuencia-cardiaca-karvonen",
+  "block": 9,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "age",
+      "type": "number",
+      "step": 1,
+      "default": 30,
+      "unit": "yr",
+      "unit_options": [
+        "yr"
+      ],
+      "unit_category": "time"
+    },
+    {
+      "id": "rest_hr",
+      "type": "number",
+      "step": 1,
+      "default": 60,
+      "unit": "bpm",
+      "unit_options": [
+        "bpm"
+      ],
+      "unit_category": "frequency"
+    },
+    {
+      "id": "intensity",
+      "type": "number",
+      "step": "any",
+      "default": 70,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "percentage"
+    }
+  ],
+  "formula": "var age=parseFloat(inputs.age)||0;var rest=parseFloat(inputs.rest_hr)||0;var intensity=parseFloat(inputs.intensity)||0;var max_hr=220-age;var reserve=max_hr-rest;var target=rest+(reserve*intensity/100);return{target_hr:Math.round(target)};",
+  "outputs": [
+    {
+      "id": "target_hr",
+      "unit": "bpm"
+    }
+  ],
+  "related": [
+    "420",
+    "411",
+    "421",
+    "426"
+  ],
+  "example_inputs": {
+    "age": 30,
+    "rest_hr": 175,
+    "intensity": 70
+  },
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "age": 15,
+      "rest_hr": 88,
+      "intensity": 70
+    },
+    {
+      "_label": "Teen",
+      "age": 22,
+      "rest_hr": 131,
+      "intensity": 70
+    },
+    {
+      "_label": "Adult (F)",
+      "age": 30,
+      "rest_hr": 175,
+      "intensity": 70
+    },
+    {
+      "_label": "Adult (M)",
+      "age": 45,
+      "rest_hr": 262,
+      "intensity": 70
+    },
+    {
+      "_label": "Elderly",
+      "age": 60,
+      "rest_hr": 350,
+      "intensity": 70
+    }
+  ],
+  "units": {
+    "age": "s",
+    "rest_hr": "Hz",
+    "intensity": "%"
+  }
+}

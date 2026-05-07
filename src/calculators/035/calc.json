@@ -1,0 +1,138 @@
+{
+  "id": "035",
+  "slug": "calentador-agua",
+  "block": 4,
+  "block_slug": "fontaneria",
+  "inputs": [
+    {
+      "id": "litros_deposito",
+      "type": "number",
+      "min": 30,
+      "max": 500,
+      "step": 10,
+      "default": 80,
+      "unit": "L",
+      "unit_options": [
+        "L",
+        "mL",
+        "gal"
+      ],
+      "unit_category": "volume"
+    },
+    {
+      "id": "temp_entrada_c",
+      "type": "number",
+      "min": 5,
+      "max": 20,
+      "step": 1,
+      "default": 12,
+      "unit": "°C",
+      "unit_options": [
+        "°C",
+        "°F",
+        "K"
+      ],
+      "unit_category": "temperature"
+    },
+    {
+      "id": "temp_salida_c",
+      "type": "number",
+      "min": 40,
+      "max": 75,
+      "step": 1,
+      "default": 55,
+      "unit": "°C",
+      "unit_options": [
+        "°C",
+        "°F",
+        "K"
+      ],
+      "unit_category": "temperature"
+    },
+    {
+      "id": "horas_calentamiento",
+      "type": "number",
+      "min": 0.5,
+      "max": 8,
+      "step": 0.5,
+      "default": 2,
+      "unit": "h",
+      "unit_options": [
+        "h",
+        "min"
+      ],
+      "unit_category": "time"
+    }
+  ],
+  "formula": "var V=parseFloat(inputs.litros_deposito)||0,Ti=parseFloat(inputs.temp_entrada_c)||12,Ts=parseFloat(inputs.temp_salida_c)||55,H=parseFloat(inputs.horas_calentamiento)||2;if(!V)return{error:true};var kw=+(V*(Ts-Ti)*1.163/1000/H).toFixed(2),kwh=+(V*(Ts-Ti)*1.163/1000).toFixed(2);return{potencia_kw:kw,energia_kwh:kwh,consumo_mes_kwh:+(kwh*30).toFixed(1)};",
+  "outputs": [
+    {
+      "id": "potencia_kw",
+      "unit": "kW",
+      "highlight": true
+    },
+    {
+      "id": "energia_kwh",
+      "unit": "kWh/ciclo"
+    },
+    {
+      "id": "consumo_mes_kwh",
+      "unit": "kWh/mes (1 ciclo/día)"
+    }
+  ],
+  "related": [
+    "036",
+    "034",
+    "052",
+    "031"
+  ],
+  "example_inputs": {
+    "litros_deposito": 80,
+    "temp_entrada_c": 12,
+    "temp_salida_c": 55,
+    "horas_calentamiento": 2
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small bathroom",
+      "litros_deposito": 40,
+      "temp_salida_c": 40,
+      "temp_entrada_c": 12,
+      "horas_calentamiento": 2
+    },
+    {
+      "_label": "Medium bathroom",
+      "litros_deposito": 60,
+      "temp_salida_c": 41,
+      "temp_entrada_c": 12,
+      "horas_calentamiento": 2
+    },
+    {
+      "_label": "Large bathroom",
+      "litros_deposito": 80,
+      "temp_salida_c": 55,
+      "temp_entrada_c": 12,
+      "horas_calentamiento": 2
+    },
+    {
+      "_label": "Apartment",
+      "litros_deposito": 120,
+      "temp_salida_c": 75,
+      "temp_entrada_c": 12,
+      "horas_calentamiento": 2
+    },
+    {
+      "_label": "House",
+      "litros_deposito": 160,
+      "temp_salida_c": 75,
+      "temp_entrada_c": 12,
+      "horas_calentamiento": 2
+    }
+  ],
+  "units": {
+    "litros_deposito": "m³",
+    "temp_entrada_c": "°C",
+    "temp_salida_c": "°C",
+    "horas_calentamiento": "s"
+  }
+}

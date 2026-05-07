@@ -1,0 +1,113 @@
+{
+  "id": "100",
+  "slug": "roi-herramienta",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "coste_herramienta_eur",
+      "type": "number",
+      "min": 50,
+      "max": 50000,
+      "step": 50,
+      "default": 1200,
+      "unit": "Ã¢â€šÂ¬"
+    },
+    {
+      "id": "ahorro_horas_mes",
+      "type": "number",
+      "min": 0.5,
+      "max": 200,
+      "step": 0.5,
+      "default": 8,
+      "unit": "h/mes"
+    },
+    {
+      "id": "coste_hora_eur",
+      "type": "number",
+      "min": 10,
+      "max": 150,
+      "step": 1,
+      "default": 30,
+      "unit": "Ã¢â€šÂ¬/h"
+    },
+    {
+      "id": "vida_util_anos",
+      "type": "number",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 5,
+      "unit": "aÃ±os"
+    }
+  ],
+  "formula": "var C=parseFloat(inputs.coste_herramienta_eur)||0,Ah=parseFloat(inputs.ahorro_horas_mes)||0,Ch=parseFloat(inputs.coste_hora_eur)||30,Y=parseFloat(inputs.vida_util_anos)||5;if(!C||!Ah)return{error:true};var ahorro_mes=+(Ah*Ch).toFixed(2),meses_payback=+(C/ahorro_mes).toFixed(1),ahorro_total=+(ahorro_mes*12*Y).toFixed(2),roi_pct=+((ahorro_total-C)/C*100).toFixed(1);return{ahorro_mensual_eur:ahorro_mes,payback_meses:meses_payback,ahorro_total_eur:ahorro_total,roi_pct:roi_pct};",
+  "outputs": [
+    {
+      "id": "ahorro_mensual_eur",
+      "unit": "Ã¢â€šÂ¬/mes"
+    },
+    {
+      "id": "payback_meses",
+      "unit": "meses payback",
+      "highlight": true
+    },
+    {
+      "id": "ahorro_total_eur",
+      "unit": "Ã¢â€šÂ¬ ahorro total"
+    },
+    {
+      "id": "roi_pct",
+      "unit": "% ROI"
+    }
+  ],
+  "related": [
+    "080",
+    "079",
+    "094",
+    "099"
+  ],
+  "example_inputs": {
+    "coste_herramienta_eur": 1200,
+    "ahorro_horas_mes": 8,
+    "coste_hora_eur": 30,
+    "vida_util_anos": 5
+  },
+  "comparison_presets": [
+    {
+      "_label": "Atornillador elÃ©ctrico profesional",
+      "coste_herramienta_eur": 250,
+      "ahorro_horas_mes": 4,
+      "coste_hora_eur": 25,
+      "vida_util_anos": 3
+    },
+    {
+      "_label": "Cortadora de mesa (azulejos)",
+      "coste_herramienta_eur": 1200,
+      "ahorro_horas_mes": 8,
+      "coste_hora_eur": 30,
+      "vida_util_anos": 5
+    },
+    {
+      "_label": "Hormigonera elÃ©ctrica 250L",
+      "coste_herramienta_eur": 3000,
+      "ahorro_horas_mes": 12,
+      "coste_hora_eur": 28,
+      "vida_util_anos": 8
+    },
+    {
+      "_label": "Nivel lÃ¡ser rotativo profesional",
+      "coste_herramienta_eur": 800,
+      "ahorro_horas_mes": 10,
+      "coste_hora_eur": 30,
+      "vida_util_anos": 5
+    },
+    {
+      "_label": "Miniexcavadora (inversiÃ³n grande)",
+      "coste_herramienta_eur": 25000,
+      "ahorro_horas_mes": 40,
+      "coste_hora_eur": 35,
+      "vida_util_anos": 10
+    }
+  ]
+}

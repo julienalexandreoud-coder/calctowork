@@ -1,0 +1,158 @@
+{
+  "id": "1110",
+  "slug": "grout-calculator",
+  "block": 3,
+  "block_slug": "pavimentos",
+  "inputs": [
+    {
+      "id": "tile_length",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "step": 0.5,
+      "default": 30,
+      "unit": "cm",
+      "unit_category": "length"
+    },
+    {
+      "id": "tile_width",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "step": 0.5,
+      "default": 30,
+      "unit": "cm",
+      "unit_category": "length"
+    },
+    {
+      "id": "tile_area",
+      "type": "number",
+      "min": 0.1,
+      "max": 100,
+      "step": 0.1,
+      "default": 10,
+      "unit": "m2",
+      "unit_category": "area"
+    },
+    {
+      "id": "grout_width",
+      "type": "number",
+      "min": 1,
+      "max": 20,
+      "step": 0.5,
+      "default": 3,
+      "unit": "mm",
+      "unit_category": "length"
+    },
+    {
+      "id": "tile_thickness",
+      "type": "number",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "default": 10,
+      "unit": "mm",
+      "unit_category": "length"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "grout_kg_needed",
+      "unit": "kg",
+      "highlight": true
+    },
+    {
+      "id": "bags_5kg",
+      "unit": "bags"
+    },
+    {
+      "id": "bags_10kg",
+      "unit": "bags"
+    },
+    {
+      "id": "coverage_m2_per_kg",
+      "unit": "m²/kg"
+    }
+  ],
+  "formula": "var tl=parseFloat(inputs.tile_length)||0,tw=parseFloat(inputs.tile_width)||0,ta=parseFloat(inputs.tile_area)||1,gw=parseFloat(inputs.grout_width)||3,tt=parseFloat(inputs.tile_thickness)||8;if(!tl||!tw)return{error:true};var tl_m=tl/100,tw_m=tw/100,cov=+(tl_m*tw_m/(gw/1000*tt/1000*(tl_m+tw_m))/1.7).toFixed(2),kg=+(ta/cov).toFixed(2),b5=Math.ceil(kg/5),b10=Math.ceil(kg/10);return{grout_kg_needed:kg,bags_5kg:b5,bags_10kg:b10,coverage_m2_per_kg:cov};",
+  "example_inputs": {
+    "tile_length": 30,
+    "tile_width": 30,
+    "tile_area": 20,
+    "grout_width": 3,
+    "tile_thickness": 8
+  },
+  "related": [
+    "1109",
+    "1107",
+    "1118",
+    "021"
+  ],
+  "buying_units": {
+    "bags_5kg": [
+      {
+        "label": "Bags (5 kg)",
+        "factor": 1,
+        "round": "ceil",
+        "unit_suffix": "bags"
+      }
+    ],
+    "bags_10kg": [
+      {
+        "label": "Bags (10 kg)",
+        "factor": 1,
+        "round": "ceil",
+        "unit_suffix": "bags"
+      }
+    ]
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small patio",
+      "tile_area": 10,
+      "tile_length": 15,
+      "tile_width": 30,
+      "tile_thickness": 8,
+      "grout_width": 3
+    },
+    {
+      "_label": "Medium patio",
+      "tile_area": 15,
+      "tile_length": 22.5,
+      "tile_width": 30,
+      "tile_thickness": 8,
+      "grout_width": 3
+    },
+    {
+      "_label": "Large patio",
+      "tile_area": 20,
+      "tile_length": 30,
+      "tile_width": 30,
+      "tile_thickness": 8,
+      "grout_width": 3
+    },
+    {
+      "_label": "Driveway",
+      "tile_area": 30,
+      "tile_length": 45,
+      "tile_width": 30,
+      "tile_thickness": 8,
+      "grout_width": 3
+    },
+    {
+      "_label": "Parking lot",
+      "tile_area": 40,
+      "tile_length": 60,
+      "tile_width": 30,
+      "tile_thickness": 8,
+      "grout_width": 3
+    }
+  ],
+  "units": {
+    "tile_length": "m",
+    "tile_width": "m",
+    "tile_area": "m²",
+    "grout_width": "m",
+    "tile_thickness": "m"
+  }
+}

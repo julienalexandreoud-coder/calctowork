@@ -1,0 +1,94 @@
+{
+  "id": "034",
+  "slug": "deposito-agua",
+  "block": 4,
+  "block_slug": "fontaneria",
+  "inputs": [
+    {
+      "id": "personas",
+      "type": "number",
+      "min": 1,
+      "max": 200,
+      "step": 1,
+      "default": 4,
+      "unit": "personas"
+    },
+    {
+      "id": "litros_persona_dia",
+      "type": "number",
+      "min": 50,
+      "max": 400,
+      "step": 10,
+      "default": 150,
+      "unit": "L/p/día"
+    },
+    {
+      "id": "dias_autonomia",
+      "type": "number",
+      "min": 0.5,
+      "max": 7,
+      "step": 0.5,
+      "default": 1,
+      "unit": "días"
+    }
+  ],
+  "formula": "var P=parseFloat(inputs.personas)||0,L=parseFloat(inputs.litros_persona_dia)||150,D=parseFloat(inputs.dias_autonomia)||1;if(!P)return{error:true};var total=+(P*L*D).toFixed(0),deposito_norm=total<=500?500:total<=1000?1000:total<=2000?2000:5000;return{litros_necesarios:total,deposito_recomendado_L:deposito_norm,m3_dia:+(P*L/1000).toFixed(2)};",
+  "outputs": [
+    {
+      "id": "litros_necesarios",
+      "unit": "litros",
+      "highlight": true
+    },
+    {
+      "id": "deposito_recomendado_L",
+      "unit": "L (talla estándar)"
+    },
+    {
+      "id": "m3_dia",
+      "unit": "m³/día"
+    }
+  ],
+  "related": [
+    "033",
+    "035",
+    "041",
+    "031"
+  ],
+  "example_inputs": {
+    "personas": 4,
+    "litros_persona_dia": 150,
+    "dias_autonomia": 1
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small bathroom",
+      "litros_persona_dia": 80,
+      "personas": 2,
+      "dias_autonomia": 1
+    },
+    {
+      "_label": "Medium bathroom",
+      "litros_persona_dia": 110,
+      "personas": 3,
+      "dias_autonomia": 1
+    },
+    {
+      "_label": "Large bathroom",
+      "litros_persona_dia": 150,
+      "personas": 4,
+      "dias_autonomia": 1
+    },
+    {
+      "_label": "Apartment",
+      "litros_persona_dia": 220,
+      "personas": 6,
+      "dias_autonomia": 1
+    },
+    {
+      "_label": "House",
+      "litros_persona_dia": 300,
+      "personas": 8,
+      "dias_autonomia": 1
+    }
+  ]
+}

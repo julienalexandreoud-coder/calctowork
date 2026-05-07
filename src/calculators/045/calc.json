@@ -1,0 +1,106 @@
+{
+  "id": "045",
+  "slug": "luminarias-lumenes",
+  "block": 5,
+  "block_slug": "electricidad",
+  "inputs": [
+    {
+      "id": "area_m2",
+      "type": "number",
+      "min": 1,
+      "max": 2000,
+      "step": 0.5,
+      "default": 20,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "lux_requeridos",
+      "type": "number",
+      "min": 50,
+      "max": 1000,
+      "step": 50,
+      "default": 300,
+      "unit": "lux"
+    },
+    {
+      "id": "eficiencia_luminaria",
+      "type": "number",
+      "min": 50,
+      "max": 150,
+      "step": 5,
+      "default": 90,
+      "unit": "lm/W"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area_m2)||0,E=parseFloat(inputs.lux_requeridos)||300,eff=parseFloat(inputs.eficiencia_luminaria)||90;if(!A)return{error:true};var cu=0.6,fm=0.8,total_lm=+(A*E/(cu*fm)).toFixed(0),w_total=+(total_lm/eff).toFixed(0);return{lumenes_totales:total_lm,potencia_total_w:w_total,led_18w_ud:Math.ceil(total_lm/(18*eff)),led_36w_ud:Math.ceil(total_lm/(36*eff))};",
+  "outputs": [
+    {
+      "id": "lumenes_totales",
+      "unit": "lm",
+      "highlight": true
+    },
+    {
+      "id": "potencia_total_w",
+      "unit": "W"
+    },
+    {
+      "id": "led_18w_ud",
+      "unit": "focos LED 18W"
+    },
+    {
+      "id": "led_36w_ud",
+      "unit": "paneles LED 36W"
+    }
+  ],
+  "related": [
+    "046",
+    "043",
+    "052",
+    "044"
+  ],
+  "example_inputs": {
+    "area_m2": 20,
+    "lux_requeridos": 300,
+    "eficiencia_luminaria": 90
+  },
+  "comparison_presets": [
+    {
+      "_label": "Pasillo LED (100 lux)",
+      "area_m2": 8,
+      "lux_requeridos": 100,
+      "eficiencia_luminaria": 120
+    },
+    {
+      "_label": "Dormitorio LED (150 lux)",
+      "area_m2": 16,
+      "lux_requeridos": 150,
+      "eficiencia_luminaria": 120
+    },
+    {
+      "_label": "Cocina LED (300 lux)",
+      "area_m2": 14,
+      "lux_requeridos": 300,
+      "eficiencia_luminaria": 120
+    },
+    {
+      "_label": "Oficina LED (500 lux)",
+      "area_m2": 25,
+      "lux_requeridos": 500,
+      "eficiencia_luminaria": 120
+    },
+    {
+      "_label": "Taller industrial (750 lux)",
+      "area_m2": 100,
+      "lux_requeridos": 750,
+      "eficiencia_luminaria": 140
+    }
+  ],
+  "units": {
+    "area_m2": "m²"
+  }
+}

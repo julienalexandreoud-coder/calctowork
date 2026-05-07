@@ -1,0 +1,94 @@
+{
+  "id": "096",
+  "slug": "punto-equilibrio-2",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "costes_fijos_eur",
+      "type": "number",
+      "min": 100,
+      "max": 1000000,
+      "step": 100,
+      "default": 5000,
+      "unit": "Ã¢â€šÂ¬/mes"
+    },
+    {
+      "id": "precio_venta_ud",
+      "type": "number",
+      "min": 1,
+      "max": 100000,
+      "step": 1,
+      "default": 800,
+      "unit": "Ã¢â€šÂ¬/ud"
+    },
+    {
+      "id": "coste_variable_ud",
+      "type": "number",
+      "min": 1,
+      "max": 100000,
+      "step": 1,
+      "default": 500,
+      "unit": "Ã¢â€šÂ¬/ud"
+    }
+  ],
+  "formula": "var Cf=parseFloat(inputs.costes_fijos_eur)||0,Pv=parseFloat(inputs.precio_venta_ud)||0,Cv=parseFloat(inputs.coste_variable_ud)||0;if(!Cf||!Pv||Pv<=Cv)return{error:true};var margen_contrib=Pv-Cv,umb_unidades=+(Cf/margen_contrib).toFixed(1),umb_euros=+(umb_unidades*Pv).toFixed(2);return{unidades_break_even:umb_unidades,facturacion_break_even_eur:umb_euros,margen_contribucion_eur:margen_contrib};",
+  "outputs": [
+    {
+      "id": "unidades_break_even",
+      "unit": "unidades/trabajos",
+      "highlight": true
+    },
+    {
+      "id": "facturacion_break_even_eur",
+      "unit": "Ã¢â€šÂ¬ facturaciÃ³n mÃ­nima"
+    },
+    {
+      "id": "margen_contribucion_eur",
+      "unit": "Ã¢â€šÂ¬/ud margen"
+    }
+  ],
+  "related": [
+    "095",
+    "079",
+    "097",
+    "078"
+  ],
+  "example_inputs": {
+    "costes_fijos_eur": 5000,
+    "precio_venta_ud": 800,
+    "coste_variable_ud": 500
+  },
+  "comparison_presets": [
+    {
+      "_label": "AutÃ³nomo (costes fijos bajos)",
+      "costes_fijos_eur": 2000,
+      "precio_venta_ud": 600,
+      "coste_variable_ud": 300
+    },
+    {
+      "_label": "PequeÃ±a empresa reformas",
+      "costes_fijos_eur": 5000,
+      "precio_venta_ud": 800,
+      "coste_variable_ud": 500
+    },
+    {
+      "_label": "Empresa de instalaciones",
+      "costes_fijos_eur": 8000,
+      "precio_venta_ud": 1200,
+      "coste_variable_ud": 700
+    },
+    {
+      "_label": "Constructora mediana",
+      "costes_fijos_eur": 15000,
+      "precio_venta_ud": 2000,
+      "coste_variable_ud": 1200
+    },
+    {
+      "_label": "Gran constructora",
+      "costes_fijos_eur": 50000,
+      "precio_venta_ud": 5000,
+      "coste_variable_ud": 3000
+    }
+  ]
+}

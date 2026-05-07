@@ -1,0 +1,87 @@
+{
+  "id": "087",
+  "slug": "seguro-responsabilidad",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "facturacion_anual_eur",
+      "type": "number",
+      "min": 10000,
+      "max": 2000000,
+      "step": 5000,
+      "default": 150000,
+      "unit": "Ã¢â€šÂ¬/aÃ±o"
+    },
+    {
+      "id": "tipo_actividad",
+      "type": "select",
+      "default": "reforma",
+      "options": [
+        "reforma",
+        "obra_nueva",
+        "instalaciones",
+        "servicios"
+      ]
+    },
+    {
+      "id": "capital_asegurado_eur",
+      "type": "number",
+      "min": 100000,
+      "max": 2000000,
+      "step": 50000,
+      "default": 300000,
+      "unit": "Ã¢â€šÂ¬"
+    }
+  ],
+  "formula": "var F=parseFloat(inputs.facturacion_anual_eur)||0,Ca=parseFloat(inputs.capital_asegurado_eur)||300000,tasa={'reforma':0.003,'obra_nueva':0.004,'instalaciones':0.0035,'servicios':0.002};if(!F)return{error:true};var prima=+(Math.max(F*tasa[inputs.tipo_actividad],Ca*0.001)).toFixed(2),mensual=+(prima/12).toFixed(2);return{prima_anual_eur:prima,prima_mensual_eur:mensual};",
+  "outputs": [
+    {
+      "id": "prima_anual_eur",
+      "unit": "Ã¢â€šÂ¬/aÃ±o",
+      "highlight": true
+    },
+    {
+      "id": "prima_mensual_eur",
+      "unit": "Ã¢â€šÂ¬/mes"
+    }
+  ],
+  "related": [
+    "079",
+    "078",
+    "092",
+    "080"
+  ],
+  "example_inputs": {
+    "facturacion_anual_eur": 150000,
+    "tipo_actividad": "reforma",
+    "capital_asegurado_eur": 300000
+  },
+  "comparison_presets": [
+    {
+      "_label": "AutÃ³nomo reformas (baja facturaciÃ³n)",
+      "facturacion_anual_eur": 50000,
+      "capital_asegurado_eur": 150000
+    },
+    {
+      "_label": "PequeÃ±a empresa reformas",
+      "facturacion_anual_eur": 150000,
+      "capital_asegurado_eur": 300000
+    },
+    {
+      "_label": "Constructora obra nueva",
+      "facturacion_anual_eur": 500000,
+      "capital_asegurado_eur": 600000
+    },
+    {
+      "_label": "Instalaciones elÃ©ctricas/fontanerÃ­a",
+      "facturacion_anual_eur": 200000,
+      "capital_asegurado_eur": 300000
+    },
+    {
+      "_label": "Gran constructora",
+      "facturacion_anual_eur": 2000000,
+      "capital_asegurado_eur": 1000000
+    }
+  ]
+}

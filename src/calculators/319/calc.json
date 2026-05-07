@@ -1,0 +1,94 @@
+{
+  "id": "319",
+  "slug": "punto-equilibrio-unidades",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "costos_fijos",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 5000,
+      "unit": ""
+    },
+    {
+      "id": "precio_unitario",
+      "type": "number",
+      "min": 0.01,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 50,
+      "unit": ""
+    },
+    {
+      "id": "costo_variable",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 30,
+      "unit": ""
+    }
+  ],
+  "formula": "var cf=parseFloat(inputs.costos_fijos)||0,p=parseFloat(inputs.precio_unitario)||0,cv=parseFloat(inputs.costo_variable)||0;var m=p-cv;if(m<=0)return{error:true};var u=Math.ceil(cf/m);return{unidades:u,facturacion:+(u*p).toFixed(2),margen_contribucion:+m.toFixed(2)};",
+  "outputs": [
+    {
+      "id": "unidades",
+      "unit": "uds",
+      "highlight": true
+    },
+    {
+      "id": "facturacion",
+      "unit": "â‚¬"
+    },
+    {
+      "id": "margen_contribucion",
+      "unit": "â‚¬/ud"
+    }
+  ],
+  "related": [
+    "307",
+    "310",
+    "300",
+    "301"
+  ],
+  "example_inputs": {
+    "costos_fijos": 12000,
+    "precio_unitario": 85,
+    "costo_variable": 52
+  },
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "costos_fijos": 6000,
+      "costo_variable": 26,
+      "precio_unitario": 85
+    },
+    {
+      "_label": "Average",
+      "costos_fijos": 9000,
+      "costo_variable": 39,
+      "precio_unitario": 85
+    },
+    {
+      "_label": "High",
+      "costos_fijos": 12000,
+      "costo_variable": 52,
+      "precio_unitario": 85
+    },
+    {
+      "_label": "Premium",
+      "costos_fijos": 18000,
+      "costo_variable": 78,
+      "precio_unitario": 85
+    },
+    {
+      "_label": "Enterprise",
+      "costos_fijos": 24000,
+      "costo_variable": 104,
+      "precio_unitario": 85
+    }
+  ]
+}

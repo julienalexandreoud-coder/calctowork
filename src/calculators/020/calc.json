@@ -1,0 +1,103 @@
+{
+  "id": "020",
+  "slug": "cubierta-teja",
+  "block": 2,
+  "block_slug": "mamposteria",
+  "inputs": [
+    {
+      "id": "area_planta",
+      "type": "number",
+      "min": 5,
+      "max": 2000,
+      "step": 0.5,
+      "default": 60,
+      "unit": "m┬▓",
+      "unit_options": [
+        "m┬▓",
+        "ft┬▓"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "pendiente_pct",
+      "type": "number",
+      "min": 10,
+      "max": 60,
+      "step": 1,
+      "default": 30,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    },
+    {
+      "id": "tipo_teja",
+      "type": "select",
+      "default": "arabe",
+      "options": [
+        "arabe",
+        "plana",
+        "mixta"
+      ]
+    }
+  ],
+  "formula": "var Ap=parseFloat(inputs.area_planta)||0,pct=parseFloat(inputs.pendiente_pct)||30,arabe=inputs.tipo_teja==='arabe';if(!Ap)return{error:true};var factor_inc=1/Math.cos(Math.atan(pct/100)),area_real=+(Ap*factor_inc).toFixed(2),tejas_m2=arabe?30:20,tejas=Math.ceil(area_real*tejas_m2*1.07),rastreles=+(area_real*2.5).toFixed(1);return{area_real_m2:area_real,tejas_ud:tejas,rastreles_ml:rastreles};",
+  "outputs": [
+    {
+      "id": "area_real_m2",
+      "unit": "m┬▓",
+      "highlight": true
+    },
+    {
+      "id": "tejas_ud",
+      "unit": "uds (+7% merma)"
+    },
+    {
+      "id": "rastreles_ml",
+      "unit": "m.l."
+    }
+  ],
+  "related": [
+    "015",
+    "011",
+    "065",
+    "012"
+  ],
+  "example_inputs": {
+    "area_planta": 60,
+    "pendiente_pct": 30,
+    "tipo_teja": "arabe"
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small wall",
+      "area_planta": 30,
+      "pendiente_pct": 15
+    },
+    {
+      "_label": "Medium wall",
+      "area_planta": 45,
+      "pendiente_pct": 22
+    },
+    {
+      "_label": "Large wall",
+      "area_planta": 60,
+      "pendiente_pct": 30
+    },
+    {
+      "_label": "Room",
+      "area_planta": 90,
+      "pendiente_pct": 45
+    },
+    {
+      "_label": "House perimeter",
+      "area_planta": 120,
+      "pendiente_pct": 60
+    }
+  ],
+  "units": {
+    "area_planta": "m┬▓",
+    "pendiente_pct": "%"
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "id": "022",
+  "slug": "porcelanico",
+  "block": 3,
+  "block_slug": "pavimentos",
+  "inputs": [
+    {
+      "id": "area",
+      "type": "number",
+      "min": 0.5,
+      "max": 2000,
+      "step": 0.5,
+      "default": 30,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "m2_por_caja",
+      "type": "number",
+      "min": 0.5,
+      "max": 5,
+      "step": 0.1,
+      "default": 1.44,
+      "unit": "m²/caja",
+      "unit_options": [
+        "m²/box"
+      ],
+      "unit_category": "area"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area)||0,mxc=parseFloat(inputs.m2_por_caja)||1.44;if(!A)return{error:true};var area_merma=+(A*1.10).toFixed(2),cajas=Math.ceil(area_merma/mxc),adhesivo=+(area_merma*6).toFixed(1),lechada=+(area_merma*0.35).toFixed(1);return{area_merma_m2:area_merma,cajas_ud:cajas,adhesivo_kg:adhesivo,lechada_kg:lechada};",
+  "outputs": [
+    {
+      "id": "area_merma_m2",
+      "unit": "m² (+10% merma)",
+      "highlight": true
+    },
+    {
+      "id": "cajas_ud",
+      "unit": "cajas"
+    },
+    {
+      "id": "adhesivo_kg",
+      "unit": "kg"
+    },
+    {
+      "id": "lechada_kg",
+      "unit": "kg"
+    }
+  ],
+  "related": [
+    "021",
+    "029",
+    "030",
+    "023"
+  ],
+  "example_inputs": {
+    "area": 30,
+    "m2_por_caja": 1.44
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small patio",
+      "area": 15,
+      "m2_por_caja": 0.72
+    },
+    {
+      "_label": "Medium patio",
+      "area": 22.5,
+      "m2_por_caja": 1.08
+    },
+    {
+      "_label": "Large patio",
+      "area": 30,
+      "m2_por_caja": 1.44
+    },
+    {
+      "_label": "Driveway",
+      "area": 45,
+      "m2_por_caja": 2.16
+    },
+    {
+      "_label": "Parking lot",
+      "area": 60,
+      "m2_por_caja": 2.88
+    }
+  ],
+  "units": {
+    "area": "m²",
+    "m2_por_caja": "m²"
+  }
+}

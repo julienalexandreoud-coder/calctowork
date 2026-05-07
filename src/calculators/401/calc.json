@@ -1,0 +1,131 @@
+{
+  "id": "401",
+  "slug": "calorias-diarias",
+  "block": 12,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "peso_kg",
+      "type": "number",
+      "min": 20,
+      "max": 300,
+      "step": 0.1,
+      "default": 70,
+      "unit": "kg",
+      "unit_options": [
+        "kg",
+        "lb"
+      ],
+      "unit_category": "mass",
+      "unit_default": "kg"
+    },
+    {
+      "id": "altura_cm",
+      "type": "number",
+      "min": 100,
+      "max": 250,
+      "step": 0.5,
+      "default": 175,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length_cm",
+      "unit_default": "cm"
+    },
+    {
+      "id": "edad",
+      "type": "number",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "default": 30,
+      "unit": "años"
+    },
+    {
+      "id": "genero",
+      "type": "number",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "default": 1,
+      "unit": "1=H 2=M"
+    },
+    {
+      "id": "nivel_actividad",
+      "type": "number",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 3,
+      "unit": "1-5"
+    }
+  ],
+  "formula": "var P=parseFloat(inputs.peso_kg)||0,H=parseFloat(inputs.altura_cm)||0,E=parseFloat(inputs.edad)||0,G=parseFloat(inputs.genero)||1,A=parseFloat(inputs.nivel_actividad)||3;if(!P||!H||!E)return{error:true};var bmr=G<=1?(10*P+6.25*H-5*E+5):(10*P+6.25*H-5*E-161);var fact=[1.2,1.375,1.55,1.725,1.9][Math.min(4,Math.max(0,Math.round(A)-1))];var tdee=+(bmr*fact).toFixed(0),bajar=+(tdee-500).toFixed(0),subir=+(tdee+500).toFixed(0);return{calorias_mantenimiento:tdee,para_adelgazar:bajar,para_ganar_peso:subir,metabolismo_basal:+bmr.toFixed(0)};",
+  "outputs": [
+    {
+      "id": "calorias_mantenimiento",
+      "unit": "kcal/día",
+      "highlight": true
+    },
+    {
+      "id": "para_adelgazar",
+      "unit": "kcal/día"
+    },
+    {
+      "id": "para_ganar_peso",
+      "unit": "kcal/día"
+    },
+    {
+      "id": "metabolismo_basal",
+      "unit": "kcal/día"
+    }
+  ],
+  "related": [
+    "400",
+    "402",
+    "403",
+    "410"
+  ],
+  "example_inputs": {
+    "peso_kg": 70,
+    "altura_cm": 175,
+    "edad": 30,
+    "genero": 1,
+    "nivel_actividad": 3
+  },
+  "comparison_presets": [
+    {
+      "weight": 60,
+      "height": 165,
+      "age": 25
+    },
+    {
+      "weight": 70,
+      "height": 170,
+      "age": 30
+    },
+    {
+      "weight": 75,
+      "height": 175,
+      "age": 35
+    },
+    {
+      "weight": 80,
+      "height": 180,
+      "age": 40
+    },
+    {
+      "weight": 90,
+      "height": 185,
+      "age": 45
+    }
+  ],
+  "units": {
+    "peso_kg": "kg",
+    "altura_cm": "m"
+  }
+}

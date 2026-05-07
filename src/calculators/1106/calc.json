@@ -1,0 +1,123 @@
+{
+  "id": "1106",
+  "slug": "carpet-calculator",
+  "block": 3,
+  "block_slug": "pavimentos",
+  "inputs": [
+    {
+      "id": "room_length",
+      "type": "number",
+      "min": 0.1,
+      "max": 50,
+      "step": 0.1,
+      "default": 5,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "room_width",
+      "type": "number",
+      "min": 0.1,
+      "max": 30,
+      "step": 0.1,
+      "default": 4,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "carpet_roll_width",
+      "type": "select",
+      "options": [
+        {
+          "value": "3.66",
+          "label": "12 ft (3.66m)"
+        },
+        {
+          "value": "4.57",
+          "label": "15 ft (4.57m)"
+        }
+      ],
+      "default": "3.66"
+    },
+    {
+      "id": "pattern_repeat",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 0,
+      "unit": "cm",
+      "unit_category": "length"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "room_area_m2",
+      "unit": "m²",
+      "highlight": true
+    },
+    {
+      "id": "square_yards",
+      "unit": "yd²"
+    },
+    {
+      "id": "linear_meters_needed",
+      "unit": "m"
+    },
+    {
+      "id": "waste_percent",
+      "unit": "%"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.room_length)||0,W=parseFloat(inputs.room_width)||0,crw=parseFloat(inputs.carpet_roll_width)||4,pr=parseFloat(inputs.pattern_repeat)||0;if(!L||!W)return{error:true};var area=+(L*W).toFixed(2),sqy=+(area*1.196).toFixed(2),adj=pr>0?Math.ceil(L/(pr/100))*(pr/100):L,lm=+(Math.ceil(W/crw)*adj).toFixed(1),waste=+(Math.max(5,((lm*crw/area)-1)*100)).toFixed(1);return{room_area_m2:area,square_yards:sqy,linear_meters_needed:lm,waste_percent:waste};",
+  "example_inputs": {
+    "room_length": 5,
+    "room_width": 4,
+    "carpet_roll_width": 3.66,
+    "pattern_repeat": 0
+  },
+  "related": [
+    "1107",
+    "1106",
+    "1112",
+    "021"
+  ],
+  "comparison_presets": [
+    {
+      "room_length": 3,
+      "room_width": 3,
+      "carpet_roll_width": 3.66,
+      "pattern_repeat": 0
+    },
+    {
+      "room_length": 4,
+      "room_width": 3.5,
+      "carpet_roll_width": 3.66,
+      "pattern_repeat": 0
+    },
+    {
+      "room_length": 5,
+      "room_width": 4,
+      "carpet_roll_width": 3.66,
+      "pattern_repeat": 0
+    },
+    {
+      "room_length": 6,
+      "room_width": 4.5,
+      "carpet_roll_width": 3.66,
+      "pattern_repeat": 0.64
+    },
+    {
+      "room_length": 7,
+      "room_width": 5,
+      "carpet_roll_width": 3.66,
+      "pattern_repeat": 0.64
+    }
+  ],
+  "units": {
+    "room_length": "m",
+    "room_width": "m",
+    "carpet_roll_width": "m",
+    "pattern_repeat": "m"
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "id": "931",
+  "slug": "waist-height-ratio",
+  "block": 12,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "altura_cm",
+      "type": "number",
+      "min": 50,
+      "max": 250,
+      "step": 0.5,
+      "default": 175,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in",
+        "ft"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "cintura_cm",
+      "type": "number",
+      "min": 30,
+      "max": 200,
+      "step": 0.5,
+      "default": 80,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in",
+        "ft"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var altura=parseFloat(inputs.altura_cm)||0,cintura=parseFloat(inputs.cintura_cm)||0;if(!altura||!cintura)return{error:true};var whr=+(cintura/altura).toFixed(2),riesgo=whr>0.5?'High':'Normal';return{whr:whr,risk:riesgo,ideal:'<0.5'};",
+  "outputs": [
+    {
+      "id": "whr",
+      "unit": "",
+      "highlight": true
+    },
+    {
+      "id": "risk",
+      "unit": "",
+      "highlight": false
+    },
+    {
+      "id": "ideal",
+      "unit": "",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "422",
+    "930",
+    "426",
+    "400"
+  ],
+  "example_inputs": {
+    "cintura_cm": 80,
+    "altura_cm": 175
+  },
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "altura_cm": 87.5,
+      "cintura_cm": 40
+    },
+    {
+      "_label": "Teen",
+      "altura_cm": 131.25,
+      "cintura_cm": 60
+    },
+    {
+      "_label": "Adult (F)",
+      "altura_cm": 175,
+      "cintura_cm": 80
+    },
+    {
+      "_label": "Adult (M)",
+      "altura_cm": 250,
+      "cintura_cm": 120
+    },
+    {
+      "_label": "Elderly",
+      "altura_cm": 250,
+      "cintura_cm": 160
+    }
+  ],
+  "units": {
+    "altura_cm": "m",
+    "cintura_cm": "m"
+  }
+}

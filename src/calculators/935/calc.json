@@ -1,0 +1,109 @@
+{
+  "id": "935",
+  "slug": "hourly-to-salary",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "salario_hora",
+      "type": "number",
+      "min": 0,
+      "max": 1000,
+      "step": 0.01,
+      "default": 25,
+      "unit": "EUR"
+    },
+    {
+      "id": "horas_semana",
+      "type": "number",
+      "min": 1,
+      "max": 80,
+      "step": 1,
+      "default": 40,
+      "unit": "h",
+      "unit_options": [
+        "h",
+        "min"
+      ],
+      "unit_category": "time"
+    },
+    {
+      "id": "semanas_ano",
+      "type": "number",
+      "min": 1,
+      "max": 52,
+      "step": 1,
+      "default": 52,
+      "unit": "wk"
+    }
+  ],
+  "formula": "var hora=parseFloat(inputs.salario_hora)||0,horas=parseFloat(inputs.horas_semana)||40,semanas=parseFloat(inputs.semanas_ano)||52;if(!hora)return{error:true};var anual=+(hora*horas*semanas).toFixed(2),mes=+(anual/12).toFixed(2),semana=+(hora*horas).toFixed(2),dia=+(hora*(horas/5)).toFixed(2);return{annual:anual,monthly:mes,weekly:semana,daily:dia};",
+  "outputs": [
+    {
+      "id": "annual",
+      "unit": "EUR",
+      "highlight": true
+    },
+    {
+      "id": "monthly",
+      "unit": "EUR",
+      "highlight": false
+    },
+    {
+      "id": "weekly",
+      "unit": "EUR",
+      "highlight": false
+    },
+    {
+      "id": "daily",
+      "unit": "EUR",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "934",
+    "936",
+    "938",
+    "300"
+  ],
+  "example_inputs": {
+    "semanas_ano": 52,
+    "horas_semana": 40,
+    "salario_hora": 25
+  },
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "salario_hora": 12.5,
+      "horas_semana": 20,
+      "semanas_ano": 52
+    },
+    {
+      "_label": "Average",
+      "salario_hora": 18.75,
+      "horas_semana": 30,
+      "semanas_ano": 52
+    },
+    {
+      "_label": "High",
+      "salario_hora": 25,
+      "horas_semana": 40,
+      "semanas_ano": 52
+    },
+    {
+      "_label": "Premium",
+      "salario_hora": 37.5,
+      "horas_semana": 60,
+      "semanas_ano": 52
+    },
+    {
+      "_label": "Enterprise",
+      "salario_hora": 50,
+      "horas_semana": 80,
+      "semanas_ano": 52
+    }
+  ],
+  "units": {
+    "horas_semana": "s"
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "id": "937",
+  "slug": "debt-payoff",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "deuda_total",
+      "type": "number",
+      "min": 0,
+      "max": 999999,
+      "step": 100,
+      "default": 10000,
+      "unit": "EUR"
+    },
+    {
+      "id": "tasa_anual",
+      "type": "number",
+      "min": 0,
+      "max": 30,
+      "step": 0.01,
+      "default": 18,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    },
+    {
+      "id": "pago_mensual",
+      "type": "number",
+      "min": 0,
+      "max": 99999,
+      "step": 10,
+      "default": 300,
+      "unit": "EUR"
+    }
+  ],
+  "formula": "var deuda=parseFloat(inputs.deuda_total)||0,tasa=parseFloat(inputs.tasa_anual)||0,pago=parseFloat(inputs.pago_mensual)||0;if(!deuda||!tasa||!pago)return{error:true};var r=tasa/1200,balance=deuda,meses=0,total_interes=0;while(balance>0&&meses<600){var interes_mes=balance*r;total_interes+=interes_mes;var principal=pago-interes_mes;if(principal<=0)return{error:true};balance-=principal;meses++;}return{months_to_payoff:meses,total_interest:+(total_interes).toFixed(2),total_paid:+(deuda+total_interes).toFixed(2)};",
+  "outputs": [
+    {
+      "id": "months_to_payoff",
+      "unit": "",
+      "highlight": true
+    },
+    {
+      "id": "total_interest",
+      "unit": "EUR",
+      "highlight": false
+    },
+    {
+      "id": "total_paid",
+      "unit": "EUR",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "936",
+    "938",
+    "314",
+    "311"
+  ],
+  "example_inputs": {
+    "pago_mensual": 300,
+    "deuda_total": 10000,
+    "tasa_anual": 18
+  },
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "deuda_total": 5000,
+      "pago_mensual": 150,
+      "tasa_anual": 18
+    },
+    {
+      "_label": "Average",
+      "deuda_total": 7500,
+      "pago_mensual": 220,
+      "tasa_anual": 18
+    },
+    {
+      "_label": "High",
+      "deuda_total": 10000,
+      "pago_mensual": 300,
+      "tasa_anual": 18
+    },
+    {
+      "_label": "Premium",
+      "deuda_total": 15000,
+      "pago_mensual": 450,
+      "tasa_anual": 18
+    },
+    {
+      "_label": "Enterprise",
+      "deuda_total": 20000,
+      "pago_mensual": 600,
+      "tasa_anual": 18
+    }
+  ]
+}

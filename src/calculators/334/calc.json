@@ -1,0 +1,117 @@
+{
+  "id": "334",
+  "slug": "prestamo-afordable",
+  "block": 17,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "income",
+      "type": "number",
+      "step": "any",
+      "default": 5000,
+      "unit": "USD",
+      "unit_options": [
+        "USD",
+        "EUR",
+        "GBP"
+      ],
+      "unit_category": "currency"
+    },
+    {
+      "id": "debt_ratio",
+      "type": "number",
+      "step": "any",
+      "default": 36,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "percentage"
+    },
+    {
+      "id": "rate",
+      "type": "number",
+      "step": "any",
+      "default": 5,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "percentage"
+    },
+    {
+      "id": "years",
+      "type": "number",
+      "step": 1,
+      "default": 30,
+      "unit": "yr",
+      "unit_options": [
+        "yr",
+        "mo"
+      ],
+      "unit_category": "time"
+    }
+  ],
+  "formula": "var inc=parseFloat(inputs.income)||0;var dr=(parseFloat(inputs.debt_ratio)||0)/100;var r=(parseFloat(inputs.rate)||0)/1200;var n=(parseFloat(inputs.years)||0)*12;var max_payment=inc*dr;var max_loan=r>0?max_payment*(1-Math.pow(1+r,-n))/r:max_payment*n;return{max_loan:max_loan.toFixed(2)};",
+  "outputs": [
+    {
+      "id": "max_loan",
+      "unit": "USD"
+    }
+  ],
+  "related": [
+    "322",
+    "300",
+    "337",
+    "338"
+  ],
+  "example_inputs": {
+    "income": 5000,
+    "debt_ratio": 36,
+    "rate": 5,
+    "years": 30
+  },
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "income": 2500,
+      "debt_ratio": 18,
+      "rate": 5,
+      "years": 30
+    },
+    {
+      "_label": "Average",
+      "income": 3750,
+      "debt_ratio": 27,
+      "rate": 5,
+      "years": 30
+    },
+    {
+      "_label": "High",
+      "income": 5000,
+      "debt_ratio": 36,
+      "rate": 5,
+      "years": 30
+    },
+    {
+      "_label": "Premium",
+      "income": 7500,
+      "debt_ratio": 54,
+      "rate": 5,
+      "years": 30
+    },
+    {
+      "_label": "Enterprise",
+      "income": 10000,
+      "debt_ratio": 72,
+      "rate": 5,
+      "years": 30
+    }
+  ],
+  "units": {
+    "income": "USD",
+    "debt_ratio": "%",
+    "rate": "%",
+    "years": "s"
+  }
+}

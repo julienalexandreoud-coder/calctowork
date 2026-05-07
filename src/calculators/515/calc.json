@@ -1,0 +1,96 @@
+{
+  "id": "515",
+  "slug": "capacidad-raid",
+  "block": 6,
+  "block_slug": "cotidiano",
+  "inputs": [
+    {
+      "id": "drives",
+      "type": "number",
+      "step": 1,
+      "default": 4,
+      "unit": "",
+      "unit_options": [],
+      "unit_category": ""
+    },
+    {
+      "id": "drive_size",
+      "type": "number",
+      "step": "any",
+      "default": 2000,
+      "unit": "GB",
+      "unit_options": [
+        "GB",
+        "TB"
+      ],
+      "unit_category": "digital_storage"
+    },
+    {
+      "id": "raid",
+      "type": "select",
+      "options": [
+        "0",
+        "1",
+        "5",
+        "6",
+        "10"
+      ],
+      "default": "5",
+      "unit": "",
+      "unit_options": [],
+      "unit_category": ""
+    }
+  ],
+  "formula": "var d=parseFloat(inputs.drives)||0;var s=parseFloat(inputs.drive_size)||0;var r=inputs.raid||'5';var usable=r==='0'?d*s:r==='1'?s:r==='5'?(d-1)*s:r==='6'?(d-2)*s:r==='10'?(d/2)*s:0;var red=r==='0'?'None':r==='1'?'Mirror':r==='5'?'1 drive':r==='6'?'2 drives':r==='10'?'Mirror + Stripe':'Unknown';return{usable:usable.toFixed(0),redundancy:red};",
+  "outputs": [
+    {
+      "id": "usable",
+      "unit": "GB"
+    },
+    {
+      "id": "redundancy",
+      "unit": ""
+    }
+  ],
+  "related": [
+    "511",
+    "510",
+    "500",
+    "501"
+  ],
+  "example_inputs": {
+    "drives": 4,
+    "drive_size": 2000,
+    "raid": "5"
+  },
+  "comparison_presets": [
+    {
+      "_label": "Escenario minimo",
+      "drives": 1.6,
+      "drive_size": 800.0
+    },
+    {
+      "_label": "Uso habitual",
+      "drives": 2.8,
+      "drive_size": 1000.0
+    },
+    {
+      "_label": "Uso frecuente",
+      "drives": 4.0,
+      "drive_size": 1000.0
+    },
+    {
+      "_label": "Uso intensivo",
+      "drives": 6.0,
+      "drive_size": 1000.0
+    },
+    {
+      "_label": "Caso maximo",
+      "drives": 10.0,
+      "drive_size": 1000.0
+    }
+  ],
+  "units": {
+    "drive_size": "MB"
+  }
+}

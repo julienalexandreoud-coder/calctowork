@@ -1,0 +1,81 @@
+{
+  "id": "509",
+  "slug": "entropia-contrasena-2",
+  "block": 8,
+  "block_slug": "cotidiano",
+  "inputs": [
+    {
+      "id": "length",
+      "type": "number",
+      "step": 1,
+      "default": 12,
+      "unit": "chars",
+      "unit_options": [
+        "chars"
+      ],
+      "unit_category": "count"
+    },
+    {
+      "id": "pool",
+      "type": "number",
+      "step": 1,
+      "default": 62,
+      "unit": "symbols",
+      "unit_options": [
+        "symbols"
+      ],
+      "unit_category": "count"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.length)||0;var R=parseFloat(inputs.pool)||1;var entropy=L*Math.log2(R);var strength=entropy<40?'Very Weak':entropy<60?'Weak':entropy<80?'Moderate':entropy<100?'Strong':'Very Strong';return{entropy:entropy.toFixed(2),strength:strength};",
+  "outputs": [
+    {
+      "id": "entropy",
+      "unit": "bits"
+    },
+    {
+      "id": "strength",
+      "unit": ""
+    }
+  ],
+  "related": [
+    "511",
+    "508",
+    "500",
+    "501"
+  ],
+  "example_inputs": {
+    "length": 12,
+    "pool": 62
+  },
+  "comparison_presets": [
+    {
+      "_label": "Escenario minimo",
+      "length": 4.8,
+      "pool": 24.8
+    },
+    {
+      "_label": "Uso habitual",
+      "length": 8.4,
+      "pool": 43.4
+    },
+    {
+      "_label": "Uso frecuente",
+      "length": 12.0,
+      "pool": 62.0
+    },
+    {
+      "_label": "Uso intensivo",
+      "length": 18.0,
+      "pool": 93.0
+    },
+    {
+      "_label": "Caso maximo",
+      "length": 30.0,
+      "pool": 155.0
+    }
+  ],
+  "units": {
+    "length": "m"
+  }
+}

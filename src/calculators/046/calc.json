@@ -1,0 +1,95 @@
+{
+  "id": "046",
+  "slug": "puntos-luz-habitacion",
+  "block": 5,
+  "block_slug": "electricidad",
+  "inputs": [
+    {
+      "id": "area_m2",
+      "type": "number",
+      "min": 4,
+      "max": 200,
+      "step": 0.5,
+      "default": 15,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "uso",
+      "type": "select",
+      "default": "dormitorio",
+      "options": [
+        "sala",
+        "dormitorio",
+        "cocina",
+        "bano",
+        "oficina",
+        "garaje"
+      ]
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area_m2)||0,lux={'sala':150,'dormitorio':100,'cocina':300,'bano':200,'oficina':400,'garaje':150};if(!A)return{error:true};var e=lux[inputs.uso]||150,puntos=Math.max(1,Math.ceil(A/10)),enchufes=Math.max(2,Math.ceil(A/4));return{puntos_luz:puntos,enchufes:enchufes,lux_recomendados:e,w_led_estimados:puntos*12};",
+  "outputs": [
+    {
+      "id": "puntos_luz",
+      "unit": "puntos de luz",
+      "highlight": true
+    },
+    {
+      "id": "enchufes",
+      "unit": "enchufes"
+    },
+    {
+      "id": "lux_recomendados",
+      "unit": "lux recomendados"
+    },
+    {
+      "id": "w_led_estimados",
+      "unit": "W LED total"
+    }
+  ],
+  "related": [
+    "045",
+    "043",
+    "047",
+    "044"
+  ],
+  "example_inputs": {
+    "area_m2": 15,
+    "uso": "dormitorio"
+  },
+  "comparison_presets": [
+    {
+      "_label": "Baño compacto (5 m²)",
+      "area_m2": 5,
+      "uso": "bano"
+    },
+    {
+      "_label": "Dormitorio medio (14 m²)",
+      "area_m2": 14,
+      "uso": "dormitorio"
+    },
+    {
+      "_label": "Sala abierta (25 m²)",
+      "area_m2": 25,
+      "uso": "sala"
+    },
+    {
+      "_label": "Cocina amplia (18 m²)",
+      "area_m2": 18,
+      "uso": "cocina"
+    },
+    {
+      "_label": "Oficina en casa (12 m²)",
+      "area_m2": 12,
+      "uso": "oficina"
+    }
+  ],
+  "units": {
+    "area_m2": "m²"
+  }
+}

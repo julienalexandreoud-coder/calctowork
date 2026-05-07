@@ -1,0 +1,139 @@
+{
+  "id": "064",
+  "slug": "escalera-madera",
+  "block": 7,
+  "block_slug": "carpinteria",
+  "inputs": [
+    {
+      "id": "altura_total_m",
+      "type": "number",
+      "min": 0.5,
+      "max": 10,
+      "step": 0.05,
+      "default": 2.8,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "ancho_m",
+      "type": "number",
+      "min": 0.6,
+      "max": 2,
+      "step": 0.05,
+      "default": 0.9,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "contrahuella_cm",
+      "type": "number",
+      "min": 16,
+      "max": 22,
+      "step": 0.5,
+      "default": 18,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in",
+        "ft"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var H=parseFloat(inputs.altura_total_m)||0,W=parseFloat(inputs.ancho_m)||0.9,ch=parseFloat(inputs.contrahuella_cm)||18;if(!H)return{error:true};var peldanos=Math.ceil(H*100/ch),huella=+(63-ch).toFixed(0),zanca=+(Math.sqrt(H*H+Math.pow(peldanos*huella/100,2))).toFixed(2),m2_peldano=+(W*(huella/100)).toFixed(3),m2_total=+(m2_peldano*peldanos).toFixed(2),contrah_final=+(H*100/peldanos).toFixed(1),cabezada=+(Number(H-2.1 > 0)).toFixed(0);return{num_peldanos:peldanos,huella_cm:huella,contrahuella_real_cm:contrah_final,zanca_ml:zanca,m2_peldano:m2_peldano,m2_total_tablas:m2_total,altura_libre_ok:cabezada};",
+  "outputs": [
+    {
+      "id": "num_peldanos",
+      "unit": "peldaÃ±os",
+      "highlight": true
+    },
+    {
+      "id": "huella_cm",
+      "unit": "cm huella"
+    },
+    {
+      "id": "contrahuella_real_cm",
+      "unit": "cm contrahuella real"
+    },
+    {
+      "id": "zanca_ml",
+      "unit": "m.l. zanca"
+    },
+    {
+      "id": "m2_peldano",
+      "unit": "mÂ²/peldaÃ±o"
+    },
+    {
+      "id": "m2_total_tablas",
+      "unit": "mÂ² madera total"
+    },
+    {
+      "id": "altura_libre_ok",
+      "unit": "altura libre > 2,10 m"
+    }
+  ],
+  "related": [
+    "065",
+    "066",
+    "062",
+    "061"
+  ],
+  "example_inputs": {
+    "altura_total_m": 2.8,
+    "ancho_m": 0.9,
+    "contrahuella_cm": 18
+  },
+  "comparison_presets": [
+    {
+      "_label": "Planta baja-buhardilla (2,50 m)",
+      "altura_total_m": 2.5,
+      "ancho_m": 0.8,
+      "contrahuella_cm": 17
+    },
+    {
+      "_label": "Vivienda estÃ¡ndar (2,80 m)",
+      "altura_total_m": 2.8,
+      "ancho_m": 0.9,
+      "contrahuella_cm": 18
+    },
+    {
+      "_label": "Doble altura (3,20 m)",
+      "altura_total_m": 3.2,
+      "ancho_m": 1,
+      "contrahuella_cm": 18
+    },
+    {
+      "_label": "Local comercial (3,60 m)",
+      "altura_total_m": 3.6,
+      "ancho_m": 1.2,
+      "contrahuella_cm": 19
+    },
+    {
+      "_label": "Gran altura (4,50 m)",
+      "altura_total_m": 4.5,
+      "ancho_m": 1,
+      "contrahuella_cm": 20
+    }
+  ],
+  "units": {
+    "altura_total_m": "m",
+    "ancho_m": "m",
+    "contrahuella_cm": "m"
+  }
+}

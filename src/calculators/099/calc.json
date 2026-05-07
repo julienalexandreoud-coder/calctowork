@@ -1,0 +1,120 @@
+{
+  "id": "099",
+  "slug": "coste-mano-obra",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "operarios",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "default": 3,
+      "unit": "operarios"
+    },
+    {
+      "id": "horas_jornada",
+      "type": "number",
+      "min": 4,
+      "max": 10,
+      "step": 0.5,
+      "default": 8,
+      "unit": "h/dÃ­a"
+    },
+    {
+      "id": "dias_obra",
+      "type": "number",
+      "min": 1,
+      "max": 365,
+      "step": 1,
+      "default": 15,
+      "unit": "dÃ­as",
+      "unit_options": [
+        "days"
+      ],
+      "unit_category": "time"
+    },
+    {
+      "id": "coste_hora_eur",
+      "type": "number",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "default": 25,
+      "unit": "Ã¢â€šÂ¬/h"
+    }
+  ],
+  "formula": "var N=parseFloat(inputs.operarios)||0,H=parseFloat(inputs.horas_jornada)||8,D=parseFloat(inputs.dias_obra)||15,Ch=parseFloat(inputs.coste_hora_eur)||25;if(!N||!D)return{error:true};var total_h=+(N*H*D).toFixed(0),total=+(total_h*Ch).toFixed(2),dia=+(N*H*Ch).toFixed(2),semana=+(dia*5).toFixed(2);return{total_horas:total_h,coste_dia_eur:dia,coste_semana_eur:semana,coste_total_eur:total};",
+  "outputs": [
+    {
+      "id": "total_horas",
+      "unit": "horas"
+    },
+    {
+      "id": "coste_dia_eur",
+      "unit": "Ã¢â€šÂ¬/dÃ­a"
+    },
+    {
+      "id": "coste_semana_eur",
+      "unit": "Ã¢â€šÂ¬/semana"
+    },
+    {
+      "id": "coste_total_eur",
+      "unit": "Ã¢â€šÂ¬ total",
+      "highlight": true
+    }
+  ],
+  "related": [
+    "079",
+    "090",
+    "078",
+    "097"
+  ],
+  "example_inputs": {
+    "operarios": 4,
+    "horas_jornada": 8,
+    "dias_obra": 20,
+    "coste_hora_eur": 25
+  },
+  "comparison_presets": [
+    {
+      "_label": "PeÃ³n (obra pequeÃ±a)",
+      "operarios": 1,
+      "horas_jornada": 8,
+      "dias_obra": 5,
+      "coste_hora_eur": 18
+    },
+    {
+      "_label": "Pareja oficial+peÃ³n (1 semana)",
+      "operarios": 2,
+      "horas_jornada": 8,
+      "dias_obra": 5,
+      "coste_hora_eur": 22
+    },
+    {
+      "_label": "Cuadrilla estÃ¡ndar (3 semanas)",
+      "operarios": 3,
+      "horas_jornada": 8,
+      "dias_obra": 15,
+      "coste_hora_eur": 25
+    },
+    {
+      "_label": "Cuadrilla completa (2 meses)",
+      "operarios": 5,
+      "horas_jornada": 8,
+      "dias_obra": 44,
+      "coste_hora_eur": 28
+    },
+    {
+      "_label": "Gran cuadrilla (6 meses)",
+      "operarios": 8,
+      "horas_jornada": 8,
+      "dias_obra": 132,
+      "coste_hora_eur": 25
+    }
+  ],
+  "units": {
+    "dias_obra": "dÃ­as"
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "id": "1016",
+  "slug": "constante-tiempo-rc-2",
+  "block": 3,
+  "block_slug": "electronica",
+  "inputs": [
+    {
+      "id": "r",
+      "type": "number",
+      "step": "any",
+      "default": 1000,
+      "unit": "Ω",
+      "unit_options": [
+        "Ω",
+        "kΩ",
+        "MΩ"
+      ],
+      "unit_category": "resistance"
+    },
+    {
+      "id": "c",
+      "type": "number",
+      "step": "any",
+      "default": 1,
+      "unit": "µF",
+      "unit_options": [
+        "µF",
+        "nF",
+        "F"
+      ],
+      "unit_category": "capacitance"
+    }
+  ],
+  "formula": "var r=parseFloat(inputs.r)||0;var c=parseFloat(inputs.c)||0;var tau=r*c*1e-6;var cutoff=1/(2*Math.PI*tau);return{tau:tau.toFixed(6),cutoff:cutoff.toFixed(4)};",
+  "outputs": [
+    {
+      "id": "tau",
+      "unit": "s"
+    },
+    {
+      "id": "cutoff",
+      "unit": "Hz"
+    }
+  ],
+  "related": [
+    "1013",
+    "1017",
+    "1010",
+    "1011"
+  ],
+  "example_inputs": {
+    "r": 1000,
+    "c": 1
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small circuit",
+      "r": 500,
+      "c": 0
+    },
+    {
+      "_label": "Medium circuit",
+      "r": 750,
+      "c": 1
+    },
+    {
+      "_label": "Large circuit",
+      "r": 1000,
+      "c": 1
+    },
+    {
+      "_label": "Board",
+      "r": 1500,
+      "c": 2
+    },
+    {
+      "_label": "System",
+      "r": 2000,
+      "c": 2
+    }
+  ],
+  "units": {
+    "r": "ohm",
+    "c": "F"
+  }
+}

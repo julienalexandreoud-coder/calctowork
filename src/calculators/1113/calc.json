@@ -1,0 +1,136 @@
+{
+  "id": "1113",
+  "slug": "crown-molding-calculator",
+  "block": 7,
+  "block_slug": "carpinteria",
+  "inputs": [
+    {
+      "id": "room_length",
+      "type": "number",
+      "min": 0.1,
+      "max": 50,
+      "step": 0.1,
+      "default": 5,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "room_width",
+      "type": "number",
+      "min": 0.1,
+      "max": 30,
+      "step": 0.1,
+      "default": 4,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "corner_type",
+      "type": "select",
+      "options": [
+        {
+          "value": "miter",
+          "label": "Mitered (45Â°)"
+        },
+        {
+          "value": "copied",
+          "label": "Coped"
+        },
+        {
+          "value": "blocks",
+          "label": "Corner Blocks"
+        }
+      ],
+      "default": "miter"
+    },
+    {
+      "id": "molding_length",
+      "type": "number",
+      "min": 1,
+      "max": 5,
+      "step": 0.3,
+      "default": 2.4,
+      "unit": "m",
+      "unit_category": "length"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "perimeter_m",
+      "unit": "m",
+      "highlight": true
+    },
+    {
+      "id": "linear_meters_needed",
+      "unit": "m"
+    },
+    {
+      "id": "pieces_needed",
+      "unit": "pcs"
+    },
+    {
+      "id": "corner_pieces",
+      "unit": "pcs"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.room_length)||0,W=parseFloat(inputs.room_width)||0,ct=inputs.corner_type||'inside',ml=parseFloat(inputs.molding_length)||2.4;if(!L||!W)return{error:true};var perim=+(2*(L+W)).toFixed(2),lm=+(perim*1.15).toFixed(1),pieces=Math.ceil(lm/ml),corners=ct==='both'?8:4;return{perimeter_m:perim,linear_meters_needed:lm,pieces_needed:pieces,corner_pieces:corners};",
+  "example_inputs": {
+    "room_length": 5,
+    "room_width": 4,
+    "corner_type": 1,
+    "molding_length": 2.4
+  },
+  "related": [
+    "1114",
+    "1100",
+    "1103",
+    "061"
+  ],
+  "buying_units": {
+    "pieces_needed": [
+      {
+        "label": "Pieces (2.4 m)",
+        "factor": 1,
+        "round": "ceil",
+        "unit_suffix": "pieces"
+      }
+    ]
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small door",
+      "room_length": 2.5,
+      "room_width": 2,
+      "molding_length": 2.4
+    },
+    {
+      "_label": "Standard door",
+      "room_length": 3.75,
+      "room_width": 3,
+      "molding_length": 2.4
+    },
+    {
+      "_label": "Large door",
+      "room_length": 5,
+      "room_width": 4,
+      "molding_length": 2.4
+    },
+    {
+      "_label": "Window",
+      "room_length": 7.5,
+      "room_width": 6,
+      "molding_length": 2.4
+    },
+    {
+      "_label": "Bay window",
+      "room_length": 10,
+      "room_width": 8,
+      "molding_length": 2.4
+    }
+  ],
+  "units": {
+    "room_length": "m",
+    "room_width": "m",
+    "molding_length": "m"
+  }
+}

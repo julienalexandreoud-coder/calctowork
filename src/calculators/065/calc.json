@@ -1,0 +1,147 @@
+{
+  "id": "065",
+  "slug": "barandilla-metalica",
+  "block": 7,
+  "block_slug": "carpinteria",
+  "inputs": [
+    {
+      "id": "longitud_m",
+      "type": "number",
+      "min": 0.5,
+      "max": 200,
+      "step": 0.1,
+      "default": 15,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "altura_m",
+      "type": "number",
+      "min": 0.9,
+      "max": 1.2,
+      "step": 0.05,
+      "default": 1,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "separacion_montantes_m",
+      "type": "number",
+      "min": 0.5,
+      "max": 1.5,
+      "step": 0.1,
+      "default": 1,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "uso",
+      "type": "select",
+      "default": "residencial",
+      "options": [
+        "residencial",
+        "comercial",
+        "industrial"
+      ]
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.longitud_m)||0,H=parseFloat(inputs.altura_m)||1,sep=parseFloat(inputs.separacion_montantes_m)||1;if(!L)return{error:true};var hMin=inputs.uso==='comercial'?1.1:inputs.uso==='industrial'?1.1:0.9,montantes=Math.ceil(L/sep)+1,pasamanos=+(L*1.05).toFixed(1),barrotes=Math.ceil(L/0.1),kg_acero=+(L*H*9).toFixed(1),relleno_m2=+(L*H*0.7).toFixed(2);return{montantes_ud:montantes,pasamanos_ml:pasamanos,barrotes_ud:barrotes,kg_acero:kg_acero,relleno_m2:relleno_m2};",
+  "outputs": [
+    {
+      "id": "montantes_ud",
+      "unit": "montantes",
+      "highlight": true
+    },
+    {
+      "id": "pasamanos_ml",
+      "unit": "m.l. pasamanos"
+    },
+    {
+      "id": "barrotes_ud",
+      "unit": "barrotes"
+    },
+    {
+      "id": "kg_acero",
+      "unit": "kg acero est."
+    },
+    {
+      "id": "relleno_m2",
+      "unit": "mÂ² relleno"
+    }
+  ],
+  "related": [
+    "064",
+    "066",
+    "067",
+    "061"
+  ],
+  "example_inputs": {
+    "longitud_m": 10,
+    "altura_m": 1,
+    "separacion_montantes_m": 1.5,
+    "uso": "residencial"
+  },
+  "comparison_presets": [
+    {
+      "_label": "BalcÃ³n pequeÃ±o (3 m)",
+      "longitud_m": 3,
+      "altura_m": 1,
+      "separacion_montantes_m": 1,
+      "uso": "residencial"
+    },
+    {
+      "_label": "Terraza media (6 m)",
+      "longitud_m": 6,
+      "altura_m": 1,
+      "separacion_montantes_m": 1.2,
+      "uso": "residencial"
+    },
+    {
+      "_label": "Escalera (10 m)",
+      "longitud_m": 10,
+      "altura_m": 0.9,
+      "separacion_montantes_m": 1.5,
+      "uso": "residencial"
+    },
+    {
+      "_label": "Comercial (15 m)",
+      "longitud_m": 15,
+      "altura_m": 1.1,
+      "separacion_montantes_m": 1.5,
+      "uso": "comercial"
+    },
+    {
+      "_label": "Pasarela industrial (30 m)",
+      "longitud_m": 30,
+      "altura_m": 1.1,
+      "separacion_montantes_m": 2,
+      "uso": "industrial"
+    }
+  ],
+  "units": {
+    "longitud_m": "m",
+    "altura_m": "m",
+    "separacion_montantes_m": "m"
+  }
+}

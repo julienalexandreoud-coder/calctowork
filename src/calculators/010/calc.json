@@ -1,0 +1,136 @@
+{
+  "id": "010",
+  "slug": "excavacion-tierra",
+  "block": 1,
+  "block_slug": "estructuras",
+  "inputs": [
+    {
+      "id": "largo",
+      "type": "number",
+      "min": 0.5,
+      "max": 500,
+      "step": 0.1,
+      "default": 10,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "ancho",
+      "type": "number",
+      "min": 0.5,
+      "max": 500,
+      "step": 0.1,
+      "default": 6,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "profundidad",
+      "type": "number",
+      "min": 0.2,
+      "max": 20,
+      "step": 0.1,
+      "default": 1.5,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "esponjamiento",
+      "type": "number",
+      "min": 1,
+      "max": 1.5,
+      "step": 0.05,
+      "default": 1.25,
+      "unit": "factor",
+      "unit_options": [
+        "factor"
+      ],
+      "unit_category": "ratio"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.largo)||0,W=parseFloat(inputs.ancho)||0,H=parseFloat(inputs.profundidad)||0,fe=parseFloat(inputs.esponjamiento)||1.25;if(!L||!W||!H)return{error:true};var vol_neto=L*W*H,vol_esp=+(vol_neto*fe).toFixed(2),camiones=Math.ceil(vol_esp/8),perim=+(2*(L+W)*H).toFixed(2);return{vol_neto_m3:+vol_neto.toFixed(2),vol_esponjado_m3:vol_esp,camiones_8m3:camiones,perimetro_talud_m2:perim};",
+  "outputs": [
+    {
+      "id": "vol_neto_m3",
+      "unit": "m³",
+      "highlight": true
+    },
+    {
+      "id": "vol_esponjado_m3",
+      "unit": "m³"
+    },
+    {
+      "id": "camiones_8m3",
+      "unit": "camiones"
+    },
+    {
+      "id": "perimetro_talud_m2",
+      "unit": "m²"
+    }
+  ],
+  "related": [
+    "003",
+    "009",
+    "001",
+    "002"
+  ],
+  "example_inputs": {
+    "largo": 10,
+    "ancho": 6,
+    "profundidad": 1.5,
+    "esponjamiento": 1.25
+  },
+  "comparison_presets": [
+    {
+      "length": 3,
+      "width": 2,
+      "height": 0.1
+    },
+    {
+      "length": 4,
+      "width": 3,
+      "height": 0.1
+    },
+    {
+      "length": 5,
+      "width": 4,
+      "height": 0.12
+    },
+    {
+      "length": 6,
+      "width": 4,
+      "height": 0.12
+    },
+    {
+      "length": 8,
+      "width": 5,
+      "height": 0.15
+    }
+  ],
+  "units": {
+    "largo": "m",
+    "ancho": "m",
+    "profundidad": "m"
+  }
+}

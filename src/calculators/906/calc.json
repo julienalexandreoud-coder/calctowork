@@ -1,0 +1,78 @@
+{
+  "id": "906",
+  "slug": "ritmo-natacion",
+  "block": 17,
+  "block_slug": "deportes",
+  "inputs": [
+    {
+      "id": "distancia_m",
+      "type": "number",
+      "min": 1,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 1500,
+      "unit": ""
+    },
+    {
+      "id": "tiempo_min",
+      "type": "number",
+      "min": 0.1,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 30,
+      "unit": ""
+    }
+  ],
+  "formula": "var d=parseFloat(inputs.distancia_m)||0,t=parseFloat(inputs.tiempo_min)||0;if(!d||!t)return{error:true};var p=t/d*100;var pm=Math.floor(p),ps=Math.round((p-pm)*60);return{ritmo_100m:pm+':'+(ps<10?'0':'')+ps+' /100m',velocidad_ms:+(d/t/60).toFixed(3)};",
+  "outputs": [
+    {
+      "id": "ritmo_100m",
+      "unit": "/100m",
+      "highlight": true
+    },
+    {
+      "id": "velocidad_ms",
+      "unit": "m/s"
+    }
+  ],
+  "related": [
+    "900",
+    "907",
+    "901",
+    "952"
+  ],
+  "example_inputs": {
+    "distancia_m": 1500,
+    "tiempo_min": 30
+  },
+  "comparison_presets": [
+    {
+      "_label": "Beginner",
+      "tiempo_min": 15,
+      "distancia_m": 750
+    },
+    {
+      "_label": "Intermediate",
+      "tiempo_min": 22,
+      "distancia_m": 1125
+    },
+    {
+      "_label": "Advanced",
+      "tiempo_min": 30,
+      "distancia_m": 1500
+    },
+    {
+      "_label": "Elite",
+      "tiempo_min": 45,
+      "distancia_m": 2250
+    },
+    {
+      "_label": "Pro",
+      "tiempo_min": 60,
+      "distancia_m": 3000
+    }
+  ],
+  "units": {
+    "tiempo_min": "s"
+  }
+}

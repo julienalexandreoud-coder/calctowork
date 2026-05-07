@@ -1,0 +1,145 @@
+{
+  "id": "1112",
+  "slug": "wallpaper-calculator",
+  "block": 8,
+  "block_slug": "pintura",
+  "inputs": [
+    {
+      "id": "room_perimeter",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "step": 0.1,
+      "default": 15,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "wall_height",
+      "type": "number",
+      "min": 1,
+      "max": 5,
+      "step": 0.1,
+      "default": 2.7,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "roll_length",
+      "type": "number",
+      "min": 5,
+      "max": 20,
+      "step": 1,
+      "default": 10,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "roll_width",
+      "type": "number",
+      "min": 0.5,
+      "max": 1.5,
+      "step": 0.05,
+      "default": 0.53,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "pattern_repeat",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 0,
+      "unit": "cm",
+      "unit_category": "length"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "wall_area_m2",
+      "unit": "m²",
+      "highlight": true
+    },
+    {
+      "id": "rolls_needed",
+      "unit": "rolls"
+    },
+    {
+      "id": "strips_per_roll",
+      "unit": "strips"
+    },
+    {
+      "id": "waste_percent",
+      "unit": "%"
+    }
+  ],
+  "formula": "var P=parseFloat(inputs.room_perimeter)||0,H=parseFloat(inputs.wall_height)||0,rl=parseFloat(inputs.roll_length)||10,rw=parseFloat(inputs.roll_width)||0.53,pr=parseFloat(inputs.pattern_repeat)||0;if(!P||!H)return{error:true};var wa=+(P*H).toFixed(2),eh=pr>0?Math.ceil(H/(pr/100))*(pr/100):H,spr=Math.floor(rl/eh),sn=Math.ceil(P/rw*1.10),rolls=Math.ceil(sn/spr),waste=+(Math.max(10,((rolls*spr*eh*rw/(P*H))-1)*100)).toFixed(1);return{wall_area_m2:wa,rolls_needed:rolls,strips_per_roll:spr,waste_percent:waste};",
+  "example_inputs": {
+    "room_perimeter": 16,
+    "wall_height": 2.5,
+    "roll_length": 10,
+    "roll_width": 0.53,
+    "pattern_repeat": 0.64
+  },
+  "related": [
+    "1111",
+    "1106",
+    "1113",
+    "1109"
+  ],
+  "comparison_presets": [
+    {
+      "room_perimeter": 12,
+      "wall_height": 2.5,
+      "roll_length": 10,
+      "roll_width": 0.53,
+      "pattern_repeat": 0
+    },
+    {
+      "room_perimeter": 14,
+      "wall_height": 2.5,
+      "roll_length": 10,
+      "roll_width": 0.53,
+      "pattern_repeat": 0
+    },
+    {
+      "room_perimeter": 16,
+      "wall_height": 2.5,
+      "roll_length": 10,
+      "roll_width": 0.53,
+      "pattern_repeat": 0.64
+    },
+    {
+      "room_perimeter": 18,
+      "wall_height": 2.7,
+      "roll_length": 10,
+      "roll_width": 0.53,
+      "pattern_repeat": 0.64
+    },
+    {
+      "room_perimeter": 22,
+      "wall_height": 2.7,
+      "roll_length": 10,
+      "roll_width": 0.53,
+      "pattern_repeat": 1.28
+    }
+  ],
+  "buying_units": {
+    "rolls_needed": [
+      {
+        "label": "Rolls",
+        "factor": 1,
+        "round": "ceil",
+        "unit_suffix": "rolls"
+      }
+    ]
+  },
+  "units": {
+    "room_perimeter": "m",
+    "wall_height": "m",
+    "roll_length": "m",
+    "roll_width": "m",
+    "pattern_repeat": "m"
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "id": "025",
+  "slug": "marmol-granito",
+  "block": 3,
+  "block_slug": "pavimentos",
+  "inputs": [
+    {
+      "id": "area",
+      "type": "number",
+      "min": 0.5,
+      "max": 500,
+      "step": 0.5,
+      "default": 15,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "espesor_cm",
+      "type": "number",
+      "min": 1,
+      "max": 5,
+      "step": 0.5,
+      "default": 2,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "tipo",
+      "type": "select",
+      "default": "marmol",
+      "options": [
+        "marmol",
+        "granito",
+        "cuarcita"
+      ]
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area)||0,E=parseFloat(inputs.espesor_cm)||2;if(!A)return{error:true};var area_merma=+(A*1.08).toFixed(2),densidad=inputs.tipo==='granito'?2700:2700,peso=+(area_merma*E/100*densidad).toFixed(0),adhesivo=+(area_merma*6).toFixed(1);return{area_merma_m2:area_merma,peso_total_kg:peso,adhesivo_kg:adhesivo};",
+  "outputs": [
+    {
+      "id": "area_merma_m2",
+      "unit": "m² (+8% merma)",
+      "highlight": true
+    },
+    {
+      "id": "peso_total_kg",
+      "unit": "kg"
+    },
+    {
+      "id": "adhesivo_kg",
+      "unit": "kg"
+    }
+  ],
+  "related": [
+    "021",
+    "022",
+    "029",
+    "023"
+  ],
+  "example_inputs": {
+    "area": 15,
+    "espesor_cm": 2,
+    "tipo": "marmol"
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small patio",
+      "area": 7.5,
+      "espesor_cm": 1
+    },
+    {
+      "_label": "Medium patio",
+      "area": 11.25,
+      "espesor_cm": 1.5
+    },
+    {
+      "_label": "Large patio",
+      "area": 15,
+      "espesor_cm": 2
+    },
+    {
+      "_label": "Driveway",
+      "area": 22.5,
+      "espesor_cm": 3
+    },
+    {
+      "_label": "Parking lot",
+      "area": 30,
+      "espesor_cm": 4
+    }
+  ],
+  "units": {
+    "area": "m²",
+    "espesor_cm": "m"
+  }
+}

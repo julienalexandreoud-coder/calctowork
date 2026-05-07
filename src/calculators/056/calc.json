@@ -1,0 +1,99 @@
+{
+  "id": "056",
+  "slug": "bomba-calor-aerotermia",
+  "block": 6,
+  "block_slug": "climatizacion",
+  "inputs": [
+    {
+      "id": "area_m2",
+      "type": "number",
+      "min": 20,
+      "max": 1000,
+      "step": 5,
+      "default": 120,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "aislamiento",
+      "type": "select",
+      "default": "medio",
+      "options": [
+        "deficiente",
+        "medio",
+        "bueno",
+        "passivhaus"
+      ]
+    },
+    {
+      "id": "acs_personas",
+      "type": "number",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "default": 4,
+      "unit": "personas"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area_m2)||0,P=parseFloat(inputs.acs_personas)||4,coef={'deficiente':70,'medio':50,'bueno':35,'passivhaus':15};if(!A)return{error:true};var kw_cal=+(A*coef[inputs.aislamiento]/1000).toFixed(1),kw_acs=+(P*0.2).toFixed(1),kw_total=+(kw_cal+kw_acs).toFixed(1),cop=3.5,kw_el=+(kw_total/cop).toFixed(2);return{kw_termico:kw_total,kw_electrico:kw_el,cop_estimado:cop};",
+  "outputs": [
+    {
+      "id": "kw_termico",
+      "unit": "kW térmico",
+      "highlight": true
+    },
+    {
+      "id": "kw_electrico",
+      "unit": "kW eléctrico"
+    },
+    {
+      "id": "cop_estimado",
+      "unit": "COP estimado"
+    }
+  ],
+  "related": [
+    "053",
+    "036",
+    "057",
+    "055"
+  ],
+  "example_inputs": {
+    "area_m2": 50,
+    "aislamiento": "medio",
+    "acs_personas": 4
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small room",
+      "area_m2": 25,
+      "acs_personas": 2
+    },
+    {
+      "_label": "Medium room",
+      "area_m2": 40,
+      "acs_personas": 3
+    },
+    {
+      "_label": "Large room",
+      "area_m2": 50,
+      "acs_personas": 4
+    },
+    {
+      "_label": "Office",
+      "area_m2": 75,
+      "acs_personas": 6
+    },
+    {
+      "_label": "Warehouse",
+      "area_m2": 100,
+      "acs_personas": 8
+    }
+  ],
+  "units": {
+    "area_m2": "m²"
+  }
+}

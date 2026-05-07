@@ -1,0 +1,104 @@
+{
+  "id": "335",
+  "slug": "liquidacion-hipoteca",
+  "block": 16,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "balance",
+      "type": "number",
+      "step": "any",
+      "default": 200000,
+      "unit": "USD",
+      "unit_options": [
+        "USD",
+        "EUR",
+        "GBP"
+      ],
+      "unit_category": "currency"
+    },
+    {
+      "id": "rate",
+      "type": "number",
+      "step": "any",
+      "default": 4,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "percentage"
+    },
+    {
+      "id": "extra",
+      "type": "number",
+      "step": "any",
+      "default": 200,
+      "unit": "USD",
+      "unit_options": [
+        "USD",
+        "EUR",
+        "GBP"
+      ],
+      "unit_category": "currency"
+    }
+  ],
+  "formula": "var bal=parseFloat(inputs.balance)||0;var r=(parseFloat(inputs.rate)||0)/1200;var extra=parseFloat(inputs.extra)||0;var term=360;var pmt=bal*r/(1-Math.pow(1+r,-term));var months=0;var total_int_normal=pmt*term-bal;var total_int_extra=0;var b=bal;while(b>0&&months<1000){var interest=b*r;var principal=pmt+extra-interest;if(principal<=0)break;b-=principal;months++;total_int_extra+=interest;}return{months_saved:(term-months).toFixed(0),interest_saved:(total_int_normal-total_int_extra).toFixed(2)};",
+  "outputs": [
+    {
+      "id": "months_saved",
+      "unit": "mo"
+    },
+    {
+      "id": "interest_saved",
+      "unit": "USD"
+    }
+  ],
+  "related": [
+    "300",
+    "334",
+    "336",
+    "322"
+  ],
+  "example_inputs": {
+    "balance": 200000,
+    "rate": 4,
+    "extra": 200
+  },
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "balance": 100000,
+      "rate": 2,
+      "extra": 200
+    },
+    {
+      "_label": "Average",
+      "balance": 150000,
+      "rate": 3,
+      "extra": 200
+    },
+    {
+      "_label": "High",
+      "balance": 200000,
+      "rate": 4,
+      "extra": 200
+    },
+    {
+      "_label": "Premium",
+      "balance": 300000,
+      "rate": 6,
+      "extra": 200
+    },
+    {
+      "_label": "Enterprise",
+      "balance": 400000,
+      "rate": 8,
+      "extra": 200
+    }
+  ],
+  "units": {
+    "balance": "USD",
+    "rate": "%",
+    "extra": "USD"
+  }
+}

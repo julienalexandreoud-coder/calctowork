@@ -1,0 +1,75 @@
+{
+  "id": "318",
+  "slug": "ratio-deuda",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "deuda_mensual",
+      "type": "number",
+      "min": 0,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 800,
+      "unit": ""
+    },
+    {
+      "id": "ingresos_mensuales",
+      "type": "number",
+      "min": 1,
+      "max": 1000000000000,
+      "step": "any",
+      "default": 2500,
+      "unit": ""
+    }
+  ],
+  "formula": "var d=parseFloat(inputs.deuda_mensual)||0,i=parseFloat(inputs.ingresos_mensuales)||0;if(!i)return{error:true};var r=d/i*100;var ev=r<=15?'Excelente':r<=25?'Bueno':r<=35?'Aceptable':r<=45?'Preocupante':'Peligroso';return{ratio:+r.toFixed(1),evaluacion:ev};",
+  "outputs": [
+    {
+      "id": "ratio",
+      "unit": "%",
+      "highlight": true
+    },
+    {
+      "id": "evaluacion",
+      "unit": ""
+    }
+  ],
+  "related": [
+    "300",
+    "301",
+    "305",
+    "302"
+  ],
+  "example_inputs": {
+    "deuda_mensual": 1250,
+    "ingresos_mensuales": 4200
+  },
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "deuda_mensual": 625,
+      "ingresos_mensuales": 2100
+    },
+    {
+      "_label": "Average",
+      "deuda_mensual": 938,
+      "ingresos_mensuales": 3150
+    },
+    {
+      "_label": "High",
+      "deuda_mensual": 1250,
+      "ingresos_mensuales": 4200
+    },
+    {
+      "_label": "Premium",
+      "deuda_mensual": 1875,
+      "ingresos_mensuales": 6300
+    },
+    {
+      "_label": "Enterprise",
+      "deuda_mensual": 2500,
+      "ingresos_mensuales": 8400
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "id": "077",
+  "slug": "lija-abrasivo",
+  "block": 8,
+  "block_slug": "pintura",
+  "inputs": [
+    {
+      "id": "area_m2",
+      "type": "number",
+      "min": 0.5,
+      "max": 500,
+      "step": 0.5,
+      "default": 20,
+      "unit": "mÂ²",
+      "unit_options": [
+        "mÂ²",
+        "ftÂ²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "num_granos",
+      "type": "number",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2,
+      "unit": "granos",
+      "unit_options": [
+        "grits"
+      ],
+      "unit_category": "count"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area_m2)||0,ng=parseFloat(inputs.num_granos)||2;if(!A)return{error:true};var hojas_por_grano=Math.ceil(A),hojas_total=hojas_por_grano*ng,rollos=Math.ceil(hojas_total/50);return{hojas_por_grano:hojas_por_grano,hojas_total:hojas_total,rollos_estimados:rollos};",
+  "outputs": [
+    {
+      "id": "hojas_por_grano",
+      "unit": "hojas/grano"
+    },
+    {
+      "id": "hojas_total",
+      "unit": "hojas total",
+      "highlight": true
+    },
+    {
+      "id": "rollos_estimados",
+      "unit": "rollos 50 hojas"
+    }
+  ],
+  "related": [
+    "072",
+    "071",
+    "076",
+    "069"
+  ],
+  "example_inputs": {
+    "area_m2": 50,
+    "num_granos": 4
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small room",
+      "area_m2": 25,
+      "num_granos": 2
+    },
+    {
+      "_label": "Medium room",
+      "area_m2": 37.5,
+      "num_granos": 3
+    },
+    {
+      "_label": "Large room",
+      "area_m2": 50,
+      "num_granos": 4
+    },
+    {
+      "_label": "Office",
+      "area_m2": 75,
+      "num_granos": 4
+    },
+    {
+      "_label": "Hall",
+      "area_m2": 100,
+      "num_granos": 4
+    }
+  ],
+  "units": {
+    "area_m2": "mÂ²"
+  }
+}

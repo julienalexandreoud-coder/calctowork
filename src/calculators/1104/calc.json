@@ -1,0 +1,139 @@
+{
+  "id": "1104",
+  "slug": "roofing-shingle-calculator",
+  "block": 1,
+  "block_slug": "estructuras",
+  "inputs": [
+    {
+      "id": "roof_length",
+      "type": "number",
+      "min": 1,
+      "max": 100,
+      "step": 0.1,
+      "default": 10,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "roof_width",
+      "type": "number",
+      "min": 1,
+      "max": 50,
+      "step": 0.1,
+      "default": 8,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "roof_pitch",
+      "type": "select",
+      "options": [
+        {
+          "value": "3/12",
+          "label": "3/12 (Low)"
+        },
+        {
+          "value": "6/12",
+          "label": "6/12 (Medium)"
+        },
+        {
+          "value": "9/12",
+          "label": "9/12 (Steep)"
+        },
+        {
+          "value": "12/12",
+          "label": "12/12 (Very Steep)"
+        }
+      ],
+      "default": "6/12"
+    },
+    {
+      "id": "shingles_per_bundle",
+      "type": "number",
+      "min": 20,
+      "max": 40,
+      "step": 1,
+      "default": 29,
+      "unit": "pcs",
+      "unit_category": "count"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "roof_area_m2",
+      "unit": "m²",
+      "highlight": true
+    },
+    {
+      "id": "roofing_squares",
+      "unit": "sq"
+    },
+    {
+      "id": "bundles_needed",
+      "unit": "bundles"
+    },
+    {
+      "id": "waste_percent",
+      "unit": "%"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.roof_length)||0,W=parseFloat(inputs.roof_width)||0,pitch=inputs.roof_pitch||'6/12',spb=parseFloat(inputs.shingles_per_bundle)||29;if(!L||!W)return{error:true};var m={'3/12':1.031,'6/12':1.118,'9/12':1.250,'12/12':1.414},mult=m[pitch]||1.118,area=+(L*W*mult).toFixed(2),squares=+(area*10.764/100).toFixed(1),bundles=Math.ceil(squares*3*1.10);return{roof_area_m2:area,roofing_squares:squares,bundles_needed:bundles,waste_percent:10};",
+  "example_inputs": {
+    "roof_length": 12,
+    "roof_width": 8,
+    "roof_pitch": 4,
+    "shingles_per_bundle": 33
+  },
+  "related": [
+    "1115",
+    "1105",
+    "1116",
+    "001"
+  ],
+  "comparison_presets": [
+    {
+      "roof_length": 8,
+      "roof_width": 5,
+      "roof_pitch": 4,
+      "shingles_per_bundle": 33
+    },
+    {
+      "roof_length": 10,
+      "roof_width": 7,
+      "roof_pitch": 4,
+      "shingles_per_bundle": 33
+    },
+    {
+      "roof_length": 12,
+      "roof_width": 8,
+      "roof_pitch": 6,
+      "shingles_per_bundle": 33
+    },
+    {
+      "roof_length": 15,
+      "roof_width": 10,
+      "roof_pitch": 6,
+      "shingles_per_bundle": 33
+    },
+    {
+      "roof_length": 20,
+      "roof_width": 12,
+      "roof_pitch": 8,
+      "shingles_per_bundle": 33
+    }
+  ],
+  "buying_units": {
+    "bundles_needed": [
+      {
+        "label": "Bundles",
+        "factor": 1,
+        "round": "ceil",
+        "unit_suffix": "bundles"
+      }
+    ]
+  },
+  "units": {
+    "roof_length": "m",
+    "roof_width": "m"
+  }
+}

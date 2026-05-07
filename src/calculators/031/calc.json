@@ -1,0 +1,102 @@
+{
+  "id": "031",
+  "slug": "tuberia-pvc-saneamiento",
+  "block": 4,
+  "block_slug": "fontaneria",
+  "inputs": [
+    {
+      "id": "longitud",
+      "type": "number",
+      "min": 1,
+      "max": 500,
+      "step": 0.5,
+      "default": 20,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "tramos",
+      "type": "number",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "default": 4,
+      "unit": "tramos",
+      "unit_options": [
+        "tramos"
+      ],
+      "unit_category": "count"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.longitud)||0,tr=parseFloat(inputs.tramos)||4;if(!L)return{error:true};var l_merma=+(L*1.10).toFixed(1),barras=Math.ceil(l_merma/3),codos=tr*2,manguitos=Math.ceil(L/3)+tr,tee_ud=Math.ceil(tr/2);return{longitud_merma_m:l_merma,barras_3m:barras,codos_ud:codos,manguitos_ud:manguitos,tee_ud:tee_ud};",
+  "outputs": [
+    {
+      "id": "longitud_merma_m",
+      "unit": "m (+10%)",
+      "highlight": true
+    },
+    {
+      "id": "barras_3m",
+      "unit": "barras 3m"
+    },
+    {
+      "id": "codos_ud",
+      "unit": "codos"
+    },
+    {
+      "id": "manguitos_ud",
+      "unit": "manguitos"
+    },
+    {
+      "id": "tee_ud",
+      "unit": "tes"
+    }
+  ],
+  "related": [
+    "032",
+    "042",
+    "040",
+    "033"
+  ],
+  "example_inputs": {
+    "longitud": 20,
+    "tramos": 4
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small bathroom",
+      "longitud": 10,
+      "tramos": 2
+    },
+    {
+      "_label": "Medium bathroom",
+      "longitud": 15,
+      "tramos": 3
+    },
+    {
+      "_label": "Large bathroom",
+      "longitud": 20,
+      "tramos": 4
+    },
+    {
+      "_label": "Apartment",
+      "longitud": 30,
+      "tramos": 6
+    },
+    {
+      "_label": "House",
+      "longitud": 40,
+      "tramos": 8
+    }
+  ],
+  "units": {
+    "longitud": "m"
+  }
+}

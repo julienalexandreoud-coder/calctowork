@@ -1,0 +1,79 @@
+{
+  "id": "501",
+  "slug": "calculadora-edad",
+  "block": 13,
+  "block_slug": "cotidiano",
+  "inputs": [
+    {
+      "id": "anio_nacimiento",
+      "type": "number",
+      "min": 1900,
+      "max": 2025,
+      "step": 1,
+      "default": 1990,
+      "unit": "año"
+    },
+    {
+      "id": "mes_nacimiento",
+      "type": "number",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "default": 6,
+      "unit": "mes"
+    }
+  ],
+  "formula": "var Y=parseFloat(inputs.anio_nacimiento)||0,M=parseFloat(inputs.mes_nacimiento)||1;if(!Y||Y<1900||Y>2025)return{error:true};var hoy=new Date(2026,3,23),nac=new Date(Y,M-1,1),edad=hoy.getFullYear()-nac.getFullYear()-(hoy.getMonth()<nac.getMonth()||hoy.getMonth()===nac.getMonth()&&hoy.getDate()<nac.getDate()?1:0),prox_mes=M-1,prox=new Date(2026,prox_mes,1);if(prox<hoy)prox.setFullYear(2027);var diff_ms=prox-hoy,dias_cumple=Math.round(diff_ms/86400000),meses_vividos=edad*12+(hoy.getMonth()-nac.getMonth()+12)%12;return{edad_anios:edad,meses_vividos:meses_vividos,dias_proximo_cumple:dias_cumple};",
+  "outputs": [
+    {
+      "id": "edad_anios",
+      "unit": "años",
+      "highlight": true
+    },
+    {
+      "id": "meses_vividos",
+      "unit": "meses"
+    },
+    {
+      "id": "dias_proximo_cumple",
+      "unit": "días"
+    }
+  ],
+  "related": [
+    "502",
+    "500",
+    "200",
+    "942"
+  ],
+  "example_inputs": {
+    "anio_nacimiento": 1990,
+    "mes_nacimiento": 6
+  },
+  "comparison_presets": [
+    {
+      "_label": "Escenario minimo",
+      "anio_nacimiento": 1900.0,
+      "mes_nacimiento": 2.4
+    },
+    {
+      "_label": "Uso habitual",
+      "anio_nacimiento": 1900.0,
+      "mes_nacimiento": 4.2
+    },
+    {
+      "_label": "Uso frecuente",
+      "anio_nacimiento": 1990.0,
+      "mes_nacimiento": 6.0
+    },
+    {
+      "_label": "Uso intensivo",
+      "anio_nacimiento": 2025.0,
+      "mes_nacimiento": 9.0
+    },
+    {
+      "_label": "Caso maximo",
+      "anio_nacimiento": 2025.0,
+      "mes_nacimiento": 12.0
+    }
+  ]
+}

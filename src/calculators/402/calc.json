@@ -1,0 +1,94 @@
+{
+  "id": "402",
+  "slug": "peso-ideal",
+  "block": 12,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "altura_cm",
+      "type": "number",
+      "min": 100,
+      "max": 250,
+      "step": 0.5,
+      "default": 175,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length_cm",
+      "unit_default": "cm"
+    },
+    {
+      "id": "genero",
+      "type": "number",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "default": 1,
+      "unit": "1=H 2=M"
+    }
+  ],
+  "formula": "var H=parseFloat(inputs.altura_cm)||0,G=parseFloat(inputs.genero)||1;if(!H||H<100)return{error:true};var h2=H/100,min_bmi=+(18.5*h2*h2).toFixed(1),max_bmi=+(24.9*h2*h2).toFixed(1),lorentz=G<=1?(H-100-(H-150)/4):(H-100-(H-150)/2.5),devine=G<=1?(50+2.3*(H/2.54-60)):(45.5+2.3*(H/2.54-60));return{rango_min_kg:min_bmi,rango_max_kg:max_bmi,formula_lorentz:+lorentz.toFixed(1),formula_devine:+devine.toFixed(1)};",
+  "outputs": [
+    {
+      "id": "rango_min_kg",
+      "unit": "kg",
+      "highlight": true
+    },
+    {
+      "id": "rango_max_kg",
+      "unit": "kg"
+    },
+    {
+      "id": "formula_lorentz",
+      "unit": "kg"
+    },
+    {
+      "id": "formula_devine",
+      "unit": "kg"
+    }
+  ],
+  "related": [
+    "400",
+    "401",
+    "403",
+    "410"
+  ],
+  "example_inputs": {
+    "altura_cm": 175,
+    "genero": 1
+  },
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "altura_cm": 100,
+      "genero": 1
+    },
+    {
+      "_label": "Teen",
+      "altura_cm": 131.25,
+      "genero": 1
+    },
+    {
+      "_label": "Adult (F)",
+      "altura_cm": 175,
+      "genero": 1
+    },
+    {
+      "_label": "Adult (M)",
+      "altura_cm": 250,
+      "genero": 2
+    },
+    {
+      "_label": "Elderly",
+      "altura_cm": 250,
+      "genero": 2
+    }
+  ],
+  "units": {
+    "altura_cm": "m"
+  }
+}

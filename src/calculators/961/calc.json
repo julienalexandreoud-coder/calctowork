@@ -1,0 +1,66 @@
+{
+  "id": "961",
+  "slug": "a1c-estimator",
+  "block": 12,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "glucosa_mgdl",
+      "type": "number",
+      "min": 30,
+      "max": 600,
+      "step": 1,
+      "default": 100,
+      "unit": "mg/dL"
+    }
+  ],
+  "formula": "var glucosa=parseFloat(inputs.glucosa_mgdl)||0;if(!glucosa)return{error:true};var a1c=+((glucosa+46.7)/28.7).toFixed(1);return{a1c_estimated:a1c+'%',glucose:glucosa+' mg/dL',category:glucosa<100?'Normal':glucosa<126?'Prediabetic':'Diabetic'};",
+  "outputs": [
+    {
+      "id": "a1c_estimated",
+      "unit": "%",
+      "highlight": true
+    },
+    {
+      "id": "glucose",
+      "unit": "mg/dL",
+      "highlight": false
+    },
+    {
+      "id": "category",
+      "unit": "",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "958",
+    "957",
+    "959",
+    "400"
+  ],
+  "example_inputs": {
+    "glucosa_mgdl": 100
+  },
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "glucosa_mgdl": 50
+    },
+    {
+      "_label": "Teen",
+      "glucosa_mgdl": 75
+    },
+    {
+      "_label": "Adult (F)",
+      "glucosa_mgdl": 100
+    },
+    {
+      "_label": "Adult (M)",
+      "glucosa_mgdl": 150
+    },
+    {
+      "_label": "Elderly",
+      "glucosa_mgdl": 200
+    }
+  ]
+}

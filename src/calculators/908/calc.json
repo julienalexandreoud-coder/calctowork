@@ -1,0 +1,93 @@
+{
+  "id": "908",
+  "slug": "imc-deportista",
+  "block": 17,
+  "block_slug": "deportes",
+  "inputs": [
+    {
+      "id": "peso_kg",
+      "type": "number",
+      "min": 20,
+      "max": 300,
+      "step": "any",
+      "default": 75,
+      "unit": "",
+      "unit_options": [
+        "kg",
+        "lb"
+      ],
+      "unit_category": "mass",
+      "unit_default": "kg"
+    },
+    {
+      "id": "altura_cm",
+      "type": "number",
+      "min": 50,
+      "max": 250,
+      "step": "any",
+      "default": 180,
+      "unit": ""
+    }
+  ],
+  "formula": "var p=parseFloat(inputs.peso_kg)||0,h=parseFloat(inputs.altura_cm)||0;if(!p||!h)return{error:true};var hm=h/100,bmi=p/(hm*hm);var cat=bmi<18.5?'Bajo':bmi<25?'Normal':bmi<30?'Sobrepeso':'Obesidad';return{imc:+bmi.toFixed(1),categoria:cat,peso_min:+(18.5*hm*hm).toFixed(1),peso_max:+(24.9*hm*hm).toFixed(1)};",
+  "outputs": [
+    {
+      "id": "imc",
+      "unit": "kg/m²",
+      "highlight": true
+    },
+    {
+      "id": "categoria",
+      "unit": ""
+    },
+    {
+      "id": "peso_min",
+      "unit": "kg"
+    },
+    {
+      "id": "peso_max",
+      "unit": "kg"
+    }
+  ],
+  "related": [
+    "400",
+    "901",
+    "401",
+    "905"
+  ],
+  "example_inputs": {
+    "peso_kg": 75,
+    "altura_cm": 180
+  },
+  "comparison_presets": [
+    {
+      "_label": "Beginner",
+      "peso_kg": 38,
+      "altura_cm": 90
+    },
+    {
+      "_label": "Intermediate",
+      "peso_kg": 56,
+      "altura_cm": 135
+    },
+    {
+      "_label": "Advanced",
+      "peso_kg": 75,
+      "altura_cm": 180
+    },
+    {
+      "_label": "Elite",
+      "peso_kg": 112,
+      "altura_cm": 250
+    },
+    {
+      "_label": "Pro",
+      "peso_kg": 150,
+      "altura_cm": 250
+    }
+  ],
+  "units": {
+    "peso_kg": "kg",
+    "altura_cm": "m"
+  }
+}

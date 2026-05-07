@@ -1,0 +1,109 @@
+{
+  "id": "934",
+  "slug": "salary-to-hourly",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "salario_anual",
+      "type": "number",
+      "min": 0,
+      "max": 9999999,
+      "step": 100,
+      "default": 50000,
+      "unit": "EUR"
+    },
+    {
+      "id": "horas_semana",
+      "type": "number",
+      "min": 1,
+      "max": 80,
+      "step": 1,
+      "default": 40,
+      "unit": "h",
+      "unit_options": [
+        "h",
+        "min"
+      ],
+      "unit_category": "time"
+    },
+    {
+      "id": "semanas_ano",
+      "type": "number",
+      "min": 1,
+      "max": 52,
+      "step": 1,
+      "default": 52,
+      "unit": "wk"
+    }
+  ],
+  "formula": "var salario=parseFloat(inputs.salario_anual)||0,horas=parseFloat(inputs.horas_semana)||40,semanas=parseFloat(inputs.semanas_ano)||52;if(!salario)return{error:true};var hora=+(salario/(horas*semanas)).toFixed(2),mes=+(salario/12).toFixed(2),semana=+(salario/semanas).toFixed(2),dia=+(salario/(horas*semanas/5)).toFixed(2);return{hourly:hora,monthly:mes,weekly:semana,daily:dia};",
+  "outputs": [
+    {
+      "id": "hourly",
+      "unit": "EUR",
+      "highlight": true
+    },
+    {
+      "id": "monthly",
+      "unit": "EUR",
+      "highlight": false
+    },
+    {
+      "id": "weekly",
+      "unit": "EUR",
+      "highlight": false
+    },
+    {
+      "id": "daily",
+      "unit": "EUR",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "936",
+    "938",
+    "314",
+    "935"
+  ],
+  "example_inputs": {
+    "salario_anual": 50000,
+    "semanas_ano": 52,
+    "horas_semana": 40
+  },
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "salario_anual": 25000,
+      "horas_semana": 20,
+      "semanas_ano": 52
+    },
+    {
+      "_label": "Average",
+      "salario_anual": 37500,
+      "horas_semana": 30,
+      "semanas_ano": 52
+    },
+    {
+      "_label": "High",
+      "salario_anual": 50000,
+      "horas_semana": 40,
+      "semanas_ano": 52
+    },
+    {
+      "_label": "Premium",
+      "salario_anual": 75000,
+      "horas_semana": 60,
+      "semanas_ano": 52
+    },
+    {
+      "_label": "Enterprise",
+      "salario_anual": 100000,
+      "horas_semana": 80,
+      "semanas_ano": 52
+    }
+  ],
+  "units": {
+    "horas_semana": "s"
+  }
+}

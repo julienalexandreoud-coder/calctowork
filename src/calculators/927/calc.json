@@ -1,0 +1,144 @@
+{
+  "id": "927",
+  "slug": "bmr-katch-mcardle",
+  "block": 12,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "peso_kg",
+      "type": "number",
+      "min": 10,
+      "max": 500,
+      "step": 0.1,
+      "default": 70,
+      "unit": "kg",
+      "unit_options": [
+        "kg",
+        "g",
+        "lb"
+      ],
+      "unit_category": "mass"
+    },
+    {
+      "id": "altura_cm",
+      "type": "number",
+      "min": 50,
+      "max": 250,
+      "step": 0.5,
+      "default": 175,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in",
+        "ft"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "edad",
+      "type": "number",
+      "min": 2,
+      "max": 120,
+      "step": 1,
+      "default": 30,
+      "unit": "years"
+    },
+    {
+      "id": "sexo",
+      "type": "select",
+      "options": [
+        "mujer",
+        "hombre"
+      ],
+      "default": "mujer"
+    },
+    {
+      "id": "grasa_pct",
+      "type": "number",
+      "min": 1,
+      "max": 60,
+      "step": 0.1,
+      "default": 20,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    }
+  ],
+  "formula": "var p=parseFloat(inputs.peso_kg)||0,h=parseFloat(inputs.altura_cm)||0,e=parseFloat(inputs.edad)||30,s=inputs.sexo||'mujer',bf=parseFloat(inputs.grasa_pct)||20;if(!p||!h||h<50)return{error:true};var lbm=p*(1-bf/100);var bmr=370+(21.6*lbm);return{bmr_katch:Math.round(bmr),lbm:+(lbm).toFixed(1),tdee:Math.round(bmr*1.2)};",
+  "outputs": [
+    {
+      "id": "bmr_katch",
+      "unit": "",
+      "highlight": true
+    },
+    {
+      "id": "lbm",
+      "unit": "kg",
+      "highlight": false
+    },
+    {
+      "id": "tdee",
+      "unit": "",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "426",
+    "928",
+    "926",
+    "400"
+  ],
+  "example_inputs": {
+    "sexo": "mujer",
+    "altura_cm": 175,
+    "peso_kg": 70,
+    "grasa_pct": 20,
+    "edad": 30
+  },
+  "comparison_presets": [
+    {
+      "_label": "Child",
+      "peso_kg": 35,
+      "altura_cm": 87.5,
+      "edad": 30,
+      "grasa_pct": 20
+    },
+    {
+      "_label": "Teen",
+      "peso_kg": 52.5,
+      "altura_cm": 131.25,
+      "edad": 30,
+      "grasa_pct": 20
+    },
+    {
+      "_label": "Adult (F)",
+      "peso_kg": 70,
+      "altura_cm": 175,
+      "edad": 30,
+      "grasa_pct": 20
+    },
+    {
+      "_label": "Adult (M)",
+      "peso_kg": 105,
+      "altura_cm": 250,
+      "edad": 30,
+      "grasa_pct": 20
+    },
+    {
+      "_label": "Elderly",
+      "peso_kg": 140,
+      "altura_cm": 250,
+      "edad": 30,
+      "grasa_pct": 20
+    }
+  ],
+  "units": {
+    "peso_kg": "kg",
+    "altura_cm": "m",
+    "grasa_pct": "%"
+  }
+}

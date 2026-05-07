@@ -1,0 +1,114 @@
+{
+  "id": "076",
+  "slug": "masilla-filler",
+  "block": 8,
+  "block_slug": "pintura",
+  "inputs": [
+    {
+      "id": "area_m2",
+      "type": "number",
+      "min": 1,
+      "max": 2000,
+      "step": 0.5,
+      "default": 50,
+      "unit": "mÂ²",
+      "unit_options": [
+        "mÂ²",
+        "ftÂ²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "pasadas",
+      "type": "number",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2,
+      "unit": "pasadas",
+      "unit_options": [
+        "passes"
+      ],
+      "unit_category": "count"
+    },
+    {
+      "id": "espesor_mm",
+      "type": "number",
+      "min": 0.5,
+      "max": 3,
+      "step": 0.25,
+      "default": 1,
+      "unit": "mm",
+      "unit_options": [
+        "mm",
+        "cm",
+        "m",
+        "in"
+      ],
+      "unit_category": "length"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area_m2)||0,P=parseFloat(inputs.pasadas)||2,E=parseFloat(inputs.espesor_mm)||1;if(!A)return{error:true};var kg_m2=E*1.4,total=+(A*kg_m2*P*1.1).toFixed(1),cubos=Math.ceil(total/7);return{kg_m2_pasada:kg_m2,kg_total:total,cubos_7kg:cubos};",
+  "outputs": [
+    {
+      "id": "kg_m2_pasada",
+      "unit": "kg/mÂ²/pasada"
+    },
+    {
+      "id": "kg_total",
+      "unit": "kg (+10%)",
+      "highlight": true
+    },
+    {
+      "id": "cubos_7kg",
+      "unit": "cubos 7kg"
+    }
+  ],
+  "related": [
+    "075",
+    "069",
+    "018",
+    "070"
+  ],
+  "example_inputs": {
+    "area_m2": 50,
+    "pasadas": 2,
+    "espesor_mm": 0.2
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small room",
+      "area_m2": 25,
+      "espesor_mm": 0.5,
+      "pasadas": 2
+    },
+    {
+      "_label": "Medium room",
+      "area_m2": 37.5,
+      "espesor_mm": 0.5,
+      "pasadas": 2
+    },
+    {
+      "_label": "Large room",
+      "area_m2": 50,
+      "espesor_mm": 0.5,
+      "pasadas": 2
+    },
+    {
+      "_label": "Office",
+      "area_m2": 75,
+      "espesor_mm": 0.5,
+      "pasadas": 2
+    },
+    {
+      "_label": "Hall",
+      "area_m2": 100,
+      "espesor_mm": 0.5,
+      "pasadas": 2
+    }
+  ],
+  "units": {
+    "area_m2": "mÂ²",
+    "espesor_mm": "m"
+  }
+}

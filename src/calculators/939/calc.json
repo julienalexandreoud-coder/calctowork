@@ -1,0 +1,81 @@
+{
+  "id": "939",
+  "slug": "profit-margin",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "costo",
+      "type": "number",
+      "min": 0,
+      "max": 999999,
+      "step": 0.01,
+      "default": 50,
+      "unit": "EUR"
+    },
+    {
+      "id": "precio_venta",
+      "type": "number",
+      "min": 0,
+      "max": 999999,
+      "step": 0.01,
+      "default": 100,
+      "unit": "EUR"
+    }
+  ],
+  "formula": "var costo=parseFloat(inputs.costo)||0,precio=parseFloat(inputs.precio_venta)||0;if(!costo||!precio)return{error:true};var margen=+((precio-costo)/precio*100).toFixed(2),markup=+((precio-costo)/costo*100).toFixed(2),ganancia=precio-costo;return{margin_pct:margen,markup_pct:markup,profit:ganancia};",
+  "outputs": [
+    {
+      "id": "margin_pct",
+      "unit": "%",
+      "highlight": true
+    },
+    {
+      "id": "markup_pct",
+      "unit": "%",
+      "highlight": false
+    },
+    {
+      "id": "profit",
+      "unit": "EUR",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "937",
+    "320",
+    "940",
+    "307"
+  ],
+  "example_inputs": {
+    "precio_venta": 100,
+    "costo": 50
+  },
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "costo": 25,
+      "precio_venta": 50
+    },
+    {
+      "_label": "Average",
+      "costo": 37.5,
+      "precio_venta": 75
+    },
+    {
+      "_label": "High",
+      "costo": 50,
+      "precio_venta": 100
+    },
+    {
+      "_label": "Premium",
+      "costo": 75,
+      "precio_venta": 150
+    },
+    {
+      "_label": "Enterprise",
+      "costo": 100,
+      "precio_venta": 200
+    }
+  ]
+}

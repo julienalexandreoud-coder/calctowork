@@ -1,0 +1,134 @@
+{
+  "id": "400",
+  "slug": "imc-bmi",
+  "block": 12,
+  "block_slug": "salud",
+  "inputs": [
+    {
+      "id": "sexo",
+      "type": "select",
+      "default": "mujer",
+      "options": [
+        {
+          "value": "mujer",
+          "label": "Mujer"
+        },
+        {
+          "value": "hombre",
+          "label": "Hombre"
+        }
+      ]
+    },
+    {
+      "id": "edad",
+      "type": "number",
+      "min": 18,
+      "max": 100,
+      "step": 1,
+      "default": 35,
+      "unit": "años"
+    },
+    {
+      "id": "peso_kg",
+      "type": "number",
+      "min": 10,
+      "max": 500,
+      "step": 0.1,
+      "default": 70,
+      "unit": "kg",
+      "unit_options": [
+        "kg",
+        "lb"
+      ],
+      "unit_category": "mass",
+      "unit_default": "kg"
+    },
+    {
+      "id": "altura_cm",
+      "type": "number",
+      "min": 50,
+      "max": 250,
+      "step": 0.5,
+      "default": 175,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length_cm",
+      "unit_default": "cm"
+    }
+  ],
+  "formula": "var P=parseFloat(inputs.peso_kg)||0,H=parseFloat(inputs.altura_cm)||0,edad=parseFloat(inputs.edad)||0,sexo=inputs.sexo||'mujer';if(!P||!H||H<50)return{error:true};var h=H/100,imc=+(P/(h*h)).toFixed(1),cat,cat_en,note='';if(imc<18.5){cat='Bajo peso';cat_en='Underweight';}else if(imc<25){cat='Normal';cat_en='Healthy';}else if(imc<30){cat='Sobrepeso';cat_en='Overweight';}else if(imc<35){cat='Obesidad I';cat_en='Obese I';}else{cat='Obesidad II+';cat_en='Obese II+';}var pmin=+(18.5*h*h).toFixed(1),pmax=+(24.9*h*h).toFixed(1);if(edad>=65){note='Adulto mayor';cat_en+=' (65+)';}if(sexo==='mujer'&&edad>=20&&edad<=40&&imc>24){note+='Riesgo moderado';}return{imc:imc,categoria:cat,peso_saludable_min:pmin,peso_saludable_max:pmax,edad:edad,sexo:sexo,nota:note};",
+  "outputs": [
+    {
+      "id": "imc",
+      "unit": "kg/m²",
+      "highlight": true
+    },
+    {
+      "id": "categoria",
+      "unit": ""
+    },
+    {
+      "id": "peso_saludable_min",
+      "unit": "kg"
+    },
+    {
+      "id": "peso_saludable_max",
+      "unit": "kg"
+    },
+    {
+      "id": "edad",
+      "unit": "años"
+    },
+    {
+      "id": "sexo",
+      "unit": ""
+    },
+    {
+      "id": "nota",
+      "unit": ""
+    }
+  ],
+  "related": [
+    "401",
+    "402",
+    "403",
+    "410"
+  ],
+  "example_inputs": {
+    "sexo": "mujer",
+    "edad": 30,
+    "peso_kg": 70,
+    "altura_cm": 175
+  },
+  "comparison_presets": [
+    {
+      "weight": 60,
+      "height": 165
+    },
+    {
+      "weight": 70,
+      "height": 170
+    },
+    {
+      "weight": 80,
+      "height": 175
+    },
+    {
+      "weight": 90,
+      "height": 180
+    },
+    {
+      "weight": 100,
+      "height": 185
+    }
+  ],
+  "units": {
+    "peso_kg": "kg",
+    "altura_cm": "m"
+  }
+}

@@ -1,0 +1,163 @@
+{
+  "id": "1111",
+  "slug": "paint-coverage-calculator",
+  "block": 8,
+  "block_slug": "pintura",
+  "inputs": [
+    {
+      "id": "wall_length",
+      "type": "number",
+      "min": 0.1,
+      "max": 100,
+      "step": 0.1,
+      "default": 5,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "wall_height",
+      "type": "number",
+      "min": 1,
+      "max": 10,
+      "step": 0.1,
+      "default": 2.7,
+      "unit": "m",
+      "unit_category": "length"
+    },
+    {
+      "id": "coats",
+      "type": "number",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2,
+      "unit": "pcs",
+      "unit_category": "count"
+    },
+    {
+      "id": "paint_type",
+      "type": "select",
+      "options": [
+        {
+          "value": "primer",
+          "label": "Primer (12 m²/L)"
+        },
+        {
+          "value": "latex",
+          "label": "Latex (10 m²/L)"
+        },
+        {
+          "value": "oil",
+          "label": "Oil-based (8 m²/L)"
+        }
+      ],
+      "default": "latex"
+    },
+    {
+      "id": "doors_windows",
+      "type": "number",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "default": 1,
+      "unit": "pcs",
+      "unit_category": "count"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "paintable_area_m2",
+      "unit": "m²",
+      "highlight": true
+    },
+    {
+      "id": "litres_needed",
+      "unit": "L"
+    },
+    {
+      "id": "gallons_needed",
+      "unit": "gal"
+    },
+    {
+      "id": "cans_5L",
+      "unit": "cans"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.wall_length)||0,H=parseFloat(inputs.wall_height)||0,coats=parseFloat(inputs.coats)||2,pt=inputs.paint_type||'standard',dw=parseFloat(inputs.doors_windows)||0;if(!L||!H)return{error:true};var raw=+(L*H-dw).toFixed(2),area=+(raw*coats).toFixed(2),cov={'standard':12,'premium':10,'matte':10,'gloss':14},c=cov[pt]||12,litres=+(area/c).toFixed(2),gallons=+(litres*0.264).toFixed(2),cans5=Math.ceil(litres/5);return{paintable_area_m2:raw,litres_needed:litres,gallons_needed:gallons,cans_5L:cans5};",
+  "example_inputs": {
+    "wall_length": 14,
+    "wall_height": 2.5,
+    "coats": 2,
+    "paint_type": 1,
+    "doors_windows": 3
+  },
+  "related": [
+    "1112",
+    "1109",
+    "1113",
+    "069"
+  ],
+  "comparison_presets": [
+    {
+      "wall_length": 10,
+      "wall_height": 2.5,
+      "coats": 2,
+      "paint_type": 1,
+      "doors_windows": 2
+    },
+    {
+      "wall_length": 12,
+      "wall_height": 2.5,
+      "coats": 2,
+      "paint_type": 1,
+      "doors_windows": 3
+    },
+    {
+      "wall_length": 14,
+      "wall_height": 2.7,
+      "coats": 2,
+      "paint_type": 1,
+      "doors_windows": 3
+    },
+    {
+      "wall_length": 16,
+      "wall_height": 2.7,
+      "coats": 2,
+      "paint_type": 1,
+      "doors_windows": 4
+    },
+    {
+      "wall_length": 20,
+      "wall_height": 3,
+      "coats": 3,
+      "paint_type": 1,
+      "doors_windows": 4
+    }
+  ],
+  "buying_units": {
+    "litres_needed": [
+      {
+        "label": "Cans (1 L)",
+        "factor": 1,
+        "round": "ceil",
+        "unit_suffix": "cans"
+      },
+      {
+        "label": "Cans (5 L)",
+        "factor": 0.2,
+        "round": "ceil",
+        "unit_suffix": "cans"
+      },
+      {
+        "label": "Cans (10 L)",
+        "factor": 0.1,
+        "round": "ceil",
+        "unit_suffix": "cans"
+      }
+    ]
+  },
+  "units": {
+    "wall_length": "m",
+    "wall_height": "m"
+  }
+}

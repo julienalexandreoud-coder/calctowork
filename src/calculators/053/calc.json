@@ -1,0 +1,127 @@
+{
+  "id": "053",
+  "slug": "aire-acondicionado-btu",
+  "block": 6,
+  "block_slug": "climatizacion",
+  "inputs": [
+    {
+      "id": "area_m2",
+      "type": "number",
+      "min": 5,
+      "max": 500,
+      "step": 0.5,
+      "default": 20,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "altura_m",
+      "type": "number",
+      "min": 2.2,
+      "max": 6,
+      "step": 0.1,
+      "default": 2.7,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "orientacion",
+      "type": "select",
+      "default": "norte",
+      "options": [
+        "norte",
+        "sur",
+        "este",
+        "oeste"
+      ]
+    },
+    {
+      "id": "aislamiento",
+      "type": "select",
+      "default": "medio",
+      "options": [
+        "deficiente",
+        "medio",
+        "bueno"
+      ]
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area_m2)||0,H=parseFloat(inputs.altura_m)||2.7,orie={'norte':0.9,'sur':1.1,'este':1.0,'oeste':1.05},aisl={'deficiente':1.2,'medio':1.0,'bueno':0.85};if(!A)return{error:true};var vol=A*H,btu=+(vol*35*orie[inputs.orientacion]*aisl[inputs.aislamiento]).toFixed(0),kw=+(btu/3412).toFixed(2),frig=+(btu*0.252).toFixed(0),modelo=btu<=6000?'1x1':btu<=9000?'1x1 (9000)':btu<=12000?'1x1 (12000)':btu<=18000?'1x1.5 (18000)':'2x1+';return{vol_m3:+vol.toFixed(1),btu_necesarios:btu,kw_frio:kw,frigorias:frig,modelo_sugerido:modelo};",
+  "outputs": [
+    {
+      "id": "vol_m3",
+      "unit": "m³"
+    },
+    {
+      "id": "btu_necesarios",
+      "unit": "BTU/h",
+      "highlight": true
+    },
+    {
+      "id": "kw_frio",
+      "unit": "kW frío"
+    },
+    {
+      "id": "frigorias",
+      "unit": "kcal/h"
+    },
+    {
+      "id": "modelo_sugerido",
+      "unit": "modelo split"
+    }
+  ],
+  "related": [
+    "036",
+    "037",
+    "055",
+    "056"
+  ],
+  "example_inputs": {
+    "area_m2": 20,
+    "altura_m": 2.7,
+    "orientacion": "norte",
+    "aislamiento": "medio"
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small room",
+      "area_m2": 10,
+      "altura_m": 2.2
+    },
+    {
+      "_label": "Medium room",
+      "area_m2": 15,
+      "altura_m": 2.2
+    },
+    {
+      "_label": "Large room",
+      "area_m2": 20,
+      "altura_m": 2.7
+    },
+    {
+      "_label": "Office",
+      "area_m2": 30,
+      "altura_m": 4.05
+    },
+    {
+      "_label": "Warehouse",
+      "area_m2": 40,
+      "altura_m": 5.4
+    }
+  ],
+  "units": {
+    "area_m2": "m²",
+    "altura_m": "m"
+  }
+}

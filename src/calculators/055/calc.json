@@ -1,0 +1,115 @@
+{
+  "id": "055",
+  "slug": "ventilacion-mecanica",
+  "block": 6,
+  "block_slug": "climatizacion",
+  "inputs": [
+    {
+      "id": "area_m2",
+      "type": "number",
+      "min": 5,
+      "max": 1000,
+      "step": 0.5,
+      "default": 100,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "altura_m",
+      "type": "number",
+      "min": 2.2,
+      "max": 5,
+      "step": 0.1,
+      "default": 2.7,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "renovaciones_hora",
+      "type": "number",
+      "min": 0.5,
+      "max": 10,
+      "step": 0.5,
+      "default": 0.8,
+      "unit": "ren/h"
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area_m2)||0,H=parseFloat(inputs.altura_m)||2.7,R=parseFloat(inputs.renovaciones_hora)||0.8;if(!A)return{error:true};var vol=A*H,m3h=+(vol*R).toFixed(1),ls=+(m3h/3.6).toFixed(1),kw_fan=+(m3h*0.0003).toFixed(2);return{vol_m3:+vol.toFixed(1),caudal_m3h:m3h,caudal_ls:ls,potencia_kw:kw_fan};",
+  "outputs": [
+    {
+      "id": "vol_m3",
+      "unit": "m³"
+    },
+    {
+      "id": "caudal_m3h",
+      "unit": "m³/h",
+      "highlight": true
+    },
+    {
+      "id": "caudal_ls",
+      "unit": "L/s"
+    },
+    {
+      "id": "potencia_kw",
+      "unit": "kW ventilador"
+    }
+  ],
+  "related": [
+    "053",
+    "054",
+    "058",
+    "056"
+  ],
+  "example_inputs": {
+    "area_m2": 100,
+    "altura_m": 2.7,
+    "renovaciones_hora": 0.8
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small room",
+      "area_m2": 50,
+      "renovaciones_hora": 0.5,
+      "altura_m": 2.7
+    },
+    {
+      "_label": "Medium room",
+      "area_m2": 75,
+      "renovaciones_hora": 0.6,
+      "altura_m": 2.7
+    },
+    {
+      "_label": "Large room",
+      "area_m2": 100,
+      "renovaciones_hora": 0.8,
+      "altura_m": 2.7
+    },
+    {
+      "_label": "Office",
+      "area_m2": 150,
+      "renovaciones_hora": 1.2,
+      "altura_m": 2.7
+    },
+    {
+      "_label": "Warehouse",
+      "area_m2": 200,
+      "renovaciones_hora": 1.6,
+      "altura_m": 2.7
+    }
+  ],
+  "units": {
+    "area_m2": "m²",
+    "altura_m": "m"
+  }
+}

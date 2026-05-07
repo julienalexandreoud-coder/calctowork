@@ -1,0 +1,127 @@
+{
+  "id": "953",
+  "slug": "vo2-max-estimator",
+  "block": 16,
+  "block_slug": "deportes",
+  "inputs": [
+    {
+      "id": "edad",
+      "type": "number",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "default": 30,
+      "unit": "years"
+    },
+    {
+      "id": "peso_kg",
+      "type": "number",
+      "min": 10,
+      "max": 200,
+      "step": 0.1,
+      "default": 70,
+      "unit": "kg",
+      "unit_options": [
+        "kg",
+        "g",
+        "lb"
+      ],
+      "unit_category": "mass"
+    },
+    {
+      "id": "fc_reposo",
+      "type": "number",
+      "min": 30,
+      "max": 120,
+      "step": 1,
+      "default": 60,
+      "unit": "bpm"
+    },
+    {
+      "id": "duracion_min",
+      "type": "number",
+      "min": 1,
+      "max": 300,
+      "step": 1,
+      "default": 30,
+      "unit": "min",
+      "unit_options": [
+        "min",
+        "s",
+        "h"
+      ],
+      "unit_category": "time"
+    }
+  ],
+  "formula": "var edad=parseFloat(inputs.edad)||30,peso=parseFloat(inputs.peso_kg)||70,fc_reposo=parseFloat(inputs.fc_reposo)||60,duracion=parseFloat(inputs.duracion_min)||30;if(!edad||!peso)return{error:true};var fc_max=220-edad;var vo2=+(15.3*(fc_max/fc_reposo)).toFixed(1);var cal=+(0.0175*vo2*peso*duracion).toFixed(0);return{vo2_max:vo2,calories_burned:cal,fitness_level:vo2>50?'Excellent':vo2>40?'Good':vo2>30?'Average':'Below average'};",
+  "outputs": [
+    {
+      "id": "vo2_max",
+      "unit": "ml/kg/min",
+      "highlight": true
+    },
+    {
+      "id": "calories_burned",
+      "unit": "cal",
+      "highlight": false
+    },
+    {
+      "id": "fitness_level",
+      "unit": "",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "426",
+    "928",
+    "429",
+    "901"
+  ],
+  "example_inputs": {
+    "peso_kg": 70,
+    "fc_reposo": 60,
+    "duracion_min": 30,
+    "edad": 30
+  },
+  "comparison_presets": [
+    {
+      "_label": "Beginner",
+      "duracion_min": 15,
+      "peso_kg": 35,
+      "edad": 30,
+      "fc_reposo": 60
+    },
+    {
+      "_label": "Intermediate",
+      "duracion_min": 22,
+      "peso_kg": 52.5,
+      "edad": 30,
+      "fc_reposo": 60
+    },
+    {
+      "_label": "Advanced",
+      "duracion_min": 30,
+      "peso_kg": 70,
+      "edad": 30,
+      "fc_reposo": 60
+    },
+    {
+      "_label": "Elite",
+      "duracion_min": 45,
+      "peso_kg": 105,
+      "edad": 30,
+      "fc_reposo": 60
+    },
+    {
+      "_label": "Pro",
+      "duracion_min": 60,
+      "peso_kg": 140,
+      "edad": 30,
+      "fc_reposo": 60
+    }
+  ],
+  "units": {
+    "peso_kg": "kg",
+    "duracion_min": "s"
+  }
+}

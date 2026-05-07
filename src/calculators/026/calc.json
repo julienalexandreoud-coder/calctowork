@@ -1,0 +1,105 @@
+{
+  "id": "026",
+  "slug": "terrazo",
+  "block": 3,
+  "block_slug": "pavimentos",
+  "inputs": [
+    {
+      "id": "area",
+      "type": "number",
+      "min": 1,
+      "max": 1000,
+      "step": 0.5,
+      "default": 30,
+      "unit": "m²",
+      "unit_options": [
+        "m²",
+        "ft²"
+      ],
+      "unit_category": "area"
+    },
+    {
+      "id": "tam_pieza_cm",
+      "type": "number",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "default": 40,
+      "unit": "cm",
+      "unit_options": [
+        "cm",
+        "m",
+        "mm",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "incluye_mortero",
+      "type": "select",
+      "default": "si",
+      "options": [
+        "si",
+        "no"
+      ]
+    }
+  ],
+  "formula": "var A=parseFloat(inputs.area)||0,tam=parseFloat(inputs.tam_pieza_cm)||40;if(!A)return{error:true};var area_merma=+(A*1.08).toFixed(2),pieza_m2=(tam/100)*(tam/100),piezas=Math.ceil(area_merma/pieza_m2),mortero_kg=inputs.incluye_mortero==='si'?+(A*30).toFixed(0):0;return{area_merma_m2:area_merma,piezas_ud:piezas,mortero_base_kg:mortero_kg};",
+  "outputs": [
+    {
+      "id": "area_merma_m2",
+      "unit": "m² (+8% merma)",
+      "highlight": true
+    },
+    {
+      "id": "piezas_ud",
+      "unit": "piezas"
+    },
+    {
+      "id": "mortero_base_kg",
+      "unit": "kg"
+    }
+  ],
+  "related": [
+    "021",
+    "025",
+    "030",
+    "027"
+  ],
+  "example_inputs": {
+    "area": 30,
+    "tam_pieza_cm": 40,
+    "incluye_mortero": "si"
+  },
+  "comparison_presets": [
+    {
+      "_label": "Small patio",
+      "area": 15,
+      "tam_pieza_cm": 20
+    },
+    {
+      "_label": "Medium patio",
+      "area": 22.5,
+      "tam_pieza_cm": 30
+    },
+    {
+      "_label": "Large patio",
+      "area": 30,
+      "tam_pieza_cm": 40
+    },
+    {
+      "_label": "Driveway",
+      "area": 45,
+      "tam_pieza_cm": 60
+    },
+    {
+      "_label": "Parking lot",
+      "area": 60,
+      "tam_pieza_cm": 60
+    }
+  ],
+  "units": {
+    "area": "m²",
+    "tam_pieza_cm": "m"
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "id": "095",
+  "slug": "margen-beneficio",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "coste_total_eur",
+      "type": "number",
+      "min": 1,
+      "max": 10000000,
+      "step": 1,
+      "default": 8000,
+      "unit": "Ã¢â€šÂ¬"
+    },
+    {
+      "id": "precio_venta_eur",
+      "type": "number",
+      "min": 1,
+      "max": 10000000,
+      "step": 1,
+      "default": 10000,
+      "unit": "Ã¢â€šÂ¬"
+    }
+  ],
+  "formula": "var C=parseFloat(inputs.coste_total_eur)||0,V=parseFloat(inputs.precio_venta_eur)||0;if(!C||!V||V<C)return{error:true};var ben=+(V-C).toFixed(2),margen_pct=+(ben/V*100).toFixed(2),markup_pct=+(ben/C*100).toFixed(2);return{beneficio_eur:ben,margen_pct:margen_pct,markup_pct:markup_pct};",
+  "outputs": [
+    {
+      "id": "beneficio_eur",
+      "unit": "Ã¢â€šÂ¬ beneficio",
+      "highlight": true
+    },
+    {
+      "id": "margen_pct",
+      "unit": "% margen (sobre PV)"
+    },
+    {
+      "id": "markup_pct",
+      "unit": "% markup (sobre coste)"
+    }
+  ],
+  "related": [
+    "096",
+    "079",
+    "093",
+    "078"
+  ],
+  "example_inputs": {
+    "coste_total_eur": 8000,
+    "precio_venta_eur": 10000
+  },
+  "comparison_presets": [
+    {
+      "_label": "Obra ajustada (margen mÃ­nimo)",
+      "coste_total_eur": 9500,
+      "precio_venta_eur": 10000
+    },
+    {
+      "_label": "Margen estÃ¡ndar construcciÃ³n",
+      "coste_total_eur": 8000,
+      "precio_venta_eur": 10000
+    },
+    {
+      "_label": "Margen holgado (obra pequeÃ±a)",
+      "coste_total_eur": 6000,
+      "precio_venta_eur": 10000
+    },
+    {
+      "_label": "Obra especializada (margen alto)",
+      "coste_total_eur": 5000,
+      "precio_venta_eur": 10000
+    },
+    {
+      "_label": "Gran obra (economÃ­a de escala)",
+      "coste_total_eur": 800000,
+      "precio_venta_eur": 920000
+    }
+  ]
+}

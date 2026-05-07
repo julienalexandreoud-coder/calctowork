@@ -1,0 +1,138 @@
+{
+  "id": "936",
+  "slug": "mortgage-calculator",
+  "block": 11,
+  "block_slug": "finanzas",
+  "inputs": [
+    {
+      "id": "precio_casa",
+      "type": "number",
+      "min": 0,
+      "max": 9999999,
+      "step": 1000,
+      "default": 300000,
+      "unit": "EUR"
+    },
+    {
+      "id": "entrada_pct",
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    },
+    {
+      "id": "tasa_anual",
+      "type": "number",
+      "min": 0,
+      "max": 20,
+      "step": 0.01,
+      "default": 3.5,
+      "unit": "%",
+      "unit_options": [
+        "%"
+      ],
+      "unit_category": "ratio"
+    },
+    {
+      "id": "anos",
+      "type": "number",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "default": 30,
+      "unit": "yr",
+      "unit_options": [
+        "yr",
+        "mo"
+      ],
+      "unit_category": "time"
+    }
+  ],
+  "formula": "var precio=parseFloat(inputs.precio_casa)||0,entrada=parseFloat(inputs.entrada_pct)||20,tasa=parseFloat(inputs.tasa_anual)||0,anos=parseFloat(inputs.anos)||30;if(!precio||!tasa||!anos)return{error:true};var prestamo=precio*(1-entrada/100),r=tasa/1200,n=anos*12,pmt=prestamo*r/(1-Math.pow(1+r,-n));var total=+(pmt*n).toFixed(2),interes=+(total-prestamo).toFixed(2);return{monthly_payment:+(pmt).toFixed(2),loan_amount:+(prestamo).toFixed(2),total_paid:total,total_interest:interes,interest_ratio:+(interes/total*100).toFixed(1)};",
+  "outputs": [
+    {
+      "id": "monthly_payment",
+      "unit": "EUR",
+      "highlight": true
+    },
+    {
+      "id": "loan_amount",
+      "unit": "EUR",
+      "highlight": false
+    },
+    {
+      "id": "total_paid",
+      "unit": "EUR",
+      "highlight": false
+    },
+    {
+      "id": "total_interest",
+      "unit": "EUR",
+      "highlight": false
+    },
+    {
+      "id": "interest_ratio",
+      "unit": "%",
+      "highlight": false
+    }
+  ],
+  "related": [
+    "938",
+    "934",
+    "314",
+    "311"
+  ],
+  "example_inputs": {
+    "anos": 30,
+    "tasa_anual": 3.5,
+    "precio_casa": 300000,
+    "entrada_pct": 20
+  },
+  "comparison_presets": [
+    {
+      "_label": "Starter",
+      "precio_casa": 150000,
+      "entrada_pct": 10,
+      "anos": 30,
+      "tasa_anual": 3.5
+    },
+    {
+      "_label": "Average",
+      "precio_casa": 225000,
+      "entrada_pct": 15,
+      "anos": 30,
+      "tasa_anual": 3.5
+    },
+    {
+      "_label": "High",
+      "precio_casa": 300000,
+      "entrada_pct": 20,
+      "anos": 30,
+      "tasa_anual": 3.5
+    },
+    {
+      "_label": "Premium",
+      "precio_casa": 450000,
+      "entrada_pct": 30,
+      "anos": 30,
+      "tasa_anual": 3.5
+    },
+    {
+      "_label": "Enterprise",
+      "precio_casa": 600000,
+      "entrada_pct": 40,
+      "anos": 30,
+      "tasa_anual": 3.5
+    }
+  ],
+  "units": {
+    "entrada_pct": "%",
+    "anos": "s"
+  }
+}

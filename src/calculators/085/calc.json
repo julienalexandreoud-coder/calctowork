@@ -1,0 +1,138 @@
+{
+  "id": "085",
+  "slug": "alquiler-andamio",
+  "block": 9,
+  "block_slug": "gestion",
+  "inputs": [
+    {
+      "id": "longitud_m",
+      "type": "number",
+      "min": 2,
+      "max": 200,
+      "step": 0.5,
+      "default": 12,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "altura_m",
+      "type": "number",
+      "min": 2,
+      "max": 30,
+      "step": 0.5,
+      "default": 6,
+      "unit": "m",
+      "unit_options": [
+        "m",
+        "cm",
+        "mm",
+        "ft",
+        "in"
+      ],
+      "unit_category": "length"
+    },
+    {
+      "id": "semanas",
+      "type": "number",
+      "min": 1,
+      "max": 52,
+      "step": 1,
+      "default": 4,
+      "unit": "semanas"
+    },
+    {
+      "id": "precio_m2_semana",
+      "type": "number",
+      "min": 0.5,
+      "max": 5,
+      "step": 0.1,
+      "default": 1.5,
+      "unit": "Ã¢â€šÂ¬/mÂ²Â·sem",
+      "unit_options": [
+        "Ã¢â€šÂ¬/mÂ²/wk",
+        "$/mÂ²/wk"
+      ],
+      "unit_category": "price"
+    }
+  ],
+  "formula": "var L=parseFloat(inputs.longitud_m)||0,H=parseFloat(inputs.altura_m)||0,S=parseFloat(inputs.semanas)||4,P=parseFloat(inputs.precio_m2_semana)||1.5;if(!L||!H)return{error:true};var m2=+(L*H).toFixed(2),alquiler=+(m2*S*P).toFixed(2),montaje=+(m2*4).toFixed(2),total=+(alquiler+montaje*2).toFixed(2);return{m2_andamio:m2,coste_alquiler_eur:alquiler,montaje_desmontaje_eur:+(montaje*2).toFixed(2),total_eur:total};",
+  "outputs": [
+    {
+      "id": "m2_andamio",
+      "unit": "mÂ²"
+    },
+    {
+      "id": "coste_alquiler_eur",
+      "unit": "Ã¢â€šÂ¬ alquiler"
+    },
+    {
+      "id": "montaje_desmontaje_eur",
+      "unit": "Ã¢â€šÂ¬ montaje+desmontaje"
+    },
+    {
+      "id": "total_eur",
+      "unit": "Ã¢â€šÂ¬ total",
+      "highlight": true
+    }
+  ],
+  "related": [
+    "084",
+    "089",
+    "078",
+    "079"
+  ],
+  "example_inputs": {
+    "longitud_m": 12,
+    "altura_m": 6,
+    "semanas": 4,
+    "precio_m2_semana": 1.5
+  },
+  "comparison_presets": [
+    {
+      "_label": "Andamio fachada pequeÃ±a (chalet)",
+      "longitud_m": 8,
+      "altura_m": 4,
+      "semanas": 2,
+      "precio_m2_semana": 1.5
+    },
+    {
+      "_label": "Andamio fachada estÃ¡ndar",
+      "longitud_m": 12,
+      "altura_m": 6,
+      "semanas": 4,
+      "precio_m2_semana": 1.5
+    },
+    {
+      "_label": "Andamio edificio 3 plantas",
+      "longitud_m": 20,
+      "altura_m": 10,
+      "semanas": 8,
+      "precio_m2_semana": 2
+    },
+    {
+      "_label": "Andamio edificio oficinas",
+      "longitud_m": 30,
+      "altura_m": 15,
+      "semanas": 12,
+      "precio_m2_semana": 2.5
+    },
+    {
+      "_label": "Andamio torre (restauraciÃ³n)",
+      "longitud_m": 10,
+      "altura_m": 25,
+      "semanas": 16,
+      "precio_m2_semana": 3
+    }
+  ],
+  "units": {
+    "longitud_m": "m",
+    "altura_m": "m"
+  }
+}
