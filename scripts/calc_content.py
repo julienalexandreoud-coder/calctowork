@@ -47342,7 +47342,14 @@ def build_article_v2(calc_id: str, facts: dict, lang: str, calc_name: str = "") 
     if not d:
         return ""
 
-    calcs_data = json.load(open(os.path.join(os.path.dirname(__file__), '..', 'src', 'calculators', 'calculators.json'), 'r', encoding='utf-8'))['calculators']
+    calcs_data = []
+    calc_dir = os.path.join(os.path.dirname(__file__), '..', 'src', 'calculators')
+    calc_file = os.path.join(calc_dir, str(calc_id), 'calc.json')
+    if os.path.exists(calc_file):
+        with open(calc_file, 'r', encoding='utf-8') as f:
+            calcs_data = [json.load(f)]
+    else:
+        calcs_data = []
     calc_info = None
     for c in calcs_data:
         if str(c.get('id', '')) == str(calc_id):

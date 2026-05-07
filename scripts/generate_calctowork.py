@@ -1182,12 +1182,11 @@ def normalize_trans(raw: dict) -> dict:
 
 
 def load_from_individual_files() -> tuple[list, dict]:
-    """Load calculators and translations from individual calculator files."""
+    """Load calculators and translations from individual calculator folders."""
     calc_dir = SRC / "calculators"
     calcs = []
     trans = {lang: {} for lang in LANGS}
     
-    # Also load site-level i18n strings from language files
     site_i18n = {}
     for lang in LANGS:
         try:
@@ -1196,25 +1195,27 @@ def load_from_individual_files() -> tuple[list, dict]:
         except Exception:
             site_i18n[lang] = {}
     
-    for f in sorted(calc_dir.glob("*.json")):
-        if f.name == "calculators.json" or "monolithic" in f.name or "backup" in f.name:
+    for folder in sorted(calc_dir.iterdir()):
+        if not folder.is_dir():
+            continue
+        calc_file = folder / "calc.json"
+        if not calc_file.exists():
             continue
         try:
-            data = load_json(f)
+            calc_def = load_json(calc_file)
         except Exception:
             continue
-        # Extract calculator definition (everything except i18n)
-        calc_def = {}
-        for k, v in data.items():
-            if k != "i18n":
-                calc_def[k] = v
         calcs.append(calc_def)
+        cid = calc_def.get("id", "")
         
-        # Extract i18n
-        i18n = data.get("i18n", {})
         for lang in LANGS:
-            if lang in i18n and i18n[lang]:
-                trans[lang][calc_def.get("id", "")] = i18n[lang]
+            lang_file = folder / f"{lang}.json"
+            if lang_file.exists():
+                try:
+                    lang_data = load_json(lang_file)
+                    trans[lang][cid] = lang_data
+                except Exception:
+                    pass
     
     return calcs, trans
 
@@ -1696,11 +1697,15 @@ def generate() -> None:
                     })
 
             # ── Long content + TOC ───────────────────────────────────────────
-            calc_long = ci18n.get("long_content", "")
-            if calc_long:
-                long_content_raw = calc_long
+            content_file = SRC / "calculators" / cid / f"{lang}.html"
+            if content_file.exists():
+                long_content_raw = content_file.read_text(encoding="utf-8")
             else:
-                long_content_raw = generate_long_content(cid, lang, calc_name=ci18n["name"])
+                calc_long = ci18n.get("long_content", "")
+                if calc_long:
+                    long_content_raw = calc_long
+                else:
+                    long_content_raw = generate_long_content(cid, lang, calc_name=ci18n["name"])
 
             # ── Content ──────────────────────────────────────────────────────
             # Only generate generic block-level content when no calculator-specific
