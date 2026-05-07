@@ -1126,6 +1126,7 @@ def normalize_trans(raw: dict) -> dict:
             "seo_description": seo_desc,
             "inputs":          c.get("inputs", {}),
             "outputs":         c.get("outputs", {}),
+            "long_content":    c.get("long_content", ""),
         }
     if long_titles:
         print(f"  [WARN] {len(long_titles)} seo_title > 60 chars")
@@ -1695,11 +1696,9 @@ def generate() -> None:
                     })
 
             # ── Long content + TOC ───────────────────────────────────────────
-            # 1. Check for external content file first (batch-generated)
-            content_file = CONTENT_DIR / lang / f"{cid}.html"
-            has_long_content = content_file.exists()
-            if has_long_content:
-                long_content_raw = content_file.read_text(encoding="utf-8")
+            calc_long = ci18n.get("long_content", "")
+            if calc_long:
+                long_content_raw = calc_long
             else:
                 long_content_raw = generate_long_content(cid, lang, calc_name=ci18n["name"])
 
