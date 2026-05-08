@@ -21,6 +21,121 @@ CALC_DIR = ROOT / "src" / "calculators"
 
 LANGS = ["en", "es", "de", "fr", "it", "pt"]
 
+# Translated section headings per language
+SECTION_HEADINGS = {
+    "en": {
+        "how_to_use": "How to Use This Calculator",
+        "steps_intro": "Follow these simple steps to get accurate results:",
+        "how_it_works": "How It Works",
+        "inputs": "Input Fields",
+        "outputs": "Result Outputs",
+        "tips": "Helpful Tips",
+        "faq": "Frequently Asked Questions",
+        "formula": "Formula",
+    },
+    "es": {
+        "how_to_use": "Cómo usar esta calculadora",
+        "steps_intro": "Sigue estos pasos para obtener resultados precisos:",
+        "how_it_works": "Cómo funciona",
+        "inputs": "Campos de entrada",
+        "outputs": "Resultados",
+        "tips": "Consejos útiles",
+        "faq": "Preguntas frecuentes",
+        "formula": "Fórmula",
+    },
+    "de": {
+        "how_to_use": "So verwenden Sie diesen Rechner",
+        "steps_intro": "Folgen Sie diesen Schritten für genaue Ergebnisse:",
+        "how_it_works": "Wie es funktioniert",
+        "inputs": "Eingabefelder",
+        "outputs": "Ergebnisse",
+        "tips": "Hilfreiche Tipps",
+        "faq": "Häufig gestellte Fragen",
+        "formula": "Formel",
+    },
+    "fr": {
+        "how_to_use": "Comment utiliser cette calculatrice",
+        "steps_intro": "Suivez ces étapes simples pour obtenir des résultats précis :",
+        "how_it_works": "Comment ça fonctionne",
+        "inputs": "Champs de saisie",
+        "outputs": "Résultats",
+        "tips": "Conseils utiles",
+        "faq": "Foire aux questions",
+        "formula": "Formule",
+    },
+    "it": {
+        "how_to_use": "Come usare questo calcolatore",
+        "steps_intro": "Segui questi semplici passaggi per ottenere risultati precisi:",
+        "how_it_works": "Come funziona",
+        "inputs": "Campi di input",
+        "outputs": "Risultati",
+        "tips": "Suggerimenti utili",
+        "faq": "Domande frequenti",
+        "formula": "Formula",
+    },
+    "pt": {
+        "how_to_use": "Como usar esta calculadora",
+        "steps_intro": "Siga estes passos simples para obter resultados precisos:",
+        "how_it_works": "Como funciona",
+        "inputs": "Campos de entrada",
+        "outputs": "Resultados",
+        "tips": "Dicas úteis",
+        "faq": "Perguntas frequentes",
+        "formula": "Fórmula",
+    },
+}
+
+# Generic "How It Works" fallback per language
+GENERIC_HOW_IT_WORKS = {
+    "en": "This calculator uses standard formulas to compute accurate results based on your inputs. Enter your values and click Calculate to get instant results.",
+    "es": "Esta calculadora utiliza fórmulas estándar para calcular resultados precisos basados en tus valores. Ingresa los datos y pulsa Calcular para obtener resultados al instante.",
+    "de": "Dieser Rechner verwendet Standardformeln, um genaue Ergebnisse basierend auf Ihren Eingaben zu berechnen. Geben Sie Ihre Werte ein und klicken Sie auf Berechnen.",
+    "fr": "Cette calculatrice utilise des formules standard pour calculer des résultats précis basés sur vos entrées. Saisissez vos valeurs et cliquez sur Calculer pour obtenir des résultats instantanés.",
+    "it": "Questo calcolatore utilizza formule standard per calcolare risultati precisi in base ai tuoi valori. Inserisci i dati e fai clic su Calcola per ottenere risultati istantanei.",
+    "pt": "Esta calculadora utiliza fórmulas padrão para calcular resultados precisos com base nos seus valores. Insira os dados e clique em Calcular para obter resultados instantâneos.",
+}
+
+# Generic step verbs per language (for fallback steps)
+STEP_VERBS = {
+    "en": {"enter": "Enter the", "click": "Click Calculate to see your results", "review": "Review the"},
+    "es": {"enter": "Introduce el valor de", "click": "Pulsa Calcular para ver los resultados", "review": "Revisa el resultado de"},
+    "de": {"enter": "Geben Sie den Wert für ein:", "click": "Klicken Sie auf Berechnen", "review": "Überprüfen Sie das Ergebnis:"},
+    "fr": {"enter": "Entrez la valeur pour", "click": "Cliquez sur Calculer", "review": "Consultez le résultat :"},
+    "it": {"enter": "Inserisci il valore di", "click": "Fai clic su Calcola", "review": "Controlla il risultato di"},
+    "pt": {"enter": "Insira o valor de", "click": "Clique em Calcular para ver os resultados", "review": "Revise o resultado de"},
+}
+
+# Common Spanish words that indicate contamination in non-Spanish files
+SPANISH_CONTAMINATION = {
+    "pieza", "piezas", "caja", "cajas", "lado", "solado", "cerámico",
+    "ceramico", "calcular", "calcule", "calculer", "calcolare",
+    "colocación", "colocacion", "merma", "lechada", "baldosa", "loseta",
+    "pavimento", "cubrir", "tamaño", "tamaño", "pendiente", "cumbrera",
+    "cumbreras", "teja", "mortero", "ladrillo", "bloque", "hormigon",
+}
+
+# Common English words that indicate contamination in non-English files
+ENGLISH_CONTAMINATION = {
+    "area to cover", "tile size", "pieces per box", "area with waste",
+    "calculate", "calculatete", "enter the", "review the",
+}
+
+
+def is_contaminated(text: str, lang: str) -> bool:
+    """Returns True if the text appears to be in the wrong language."""
+    text_lower = text.lower()
+    if lang in ("de", "fr", "it", "pt"):
+        # Check for Spanish contamination
+        word_count = sum(1 for w in SPANISH_CONTAMINATION if w in text_lower)
+        if word_count >= 2:
+            return True
+    if lang in ("de", "fr", "it", "pt"):
+        # Check for English-only labels
+        for phrase in ENGLISH_CONTAMINATION:
+            if phrase in text_lower:
+                return True
+    return False
+
 
 def load_json(path: Path) -> dict:
     if not path.exists():
@@ -104,100 +219,109 @@ def generate_content(
 ) -> str:
     """Generate unique HTML content for a calculator."""
 
-    name = lang_data.get("name", calc_data.get("slug", "Calculator"))
+    h = SECTION_HEADINGS.get(lang, SECTION_HEADINGS["en"])
+    verbs = STEP_VERBS.get(lang, STEP_VERBS["en"])
+
     desc = lang_data.get("seo_description", lang_data.get("desc", ""))
-    inputs = lang_data.get("inputs", {})
-    outputs = lang_data.get("outputs", {})
+    inputs_raw = lang_data.get("inputs", {})
+    outputs_raw = lang_data.get("outputs", {})
     formula = lang_data.get("formula_display", "")
     mistakes = lang_data.get("mistakes", [])
     steps = lang_data.get("steps", [])
     block_slug = calc_data.get("block_slug", "")
-    example_label = lang_data.get("example_label", "")
 
-    # Get domain-specific content if available
+    # Get domain-specific content
     domain_content = MULTILINGUAL_DOMAIN_CONTENT.get(block_slug, {}).get(lang, {})
     intro_base = domain_content.get("intro") or desc
-    how_it_works = domain_content.get("how_it_works") or "This calculator helps you estimate the materials and quantities needed for your project."
+    how_it_works = domain_content.get("how_it_works") or GENERIC_HOW_IT_WORKS.get(lang, GENERIC_HOW_IT_WORKS["en"])
     tips = domain_content.get("tips", [])
 
-    # Build step-by-step guide
+    # Filter contaminated input/output labels
+    inputs = {k: v for k, v in inputs_raw.items() if not is_contaminated(v, lang)}
+    outputs = {k: v for k, v in outputs_raw.items() if not is_contaminated(v, lang)}
+    # Fallback: if all labels are contaminated, use the raw ones anyway (better than nothing)
+    if not inputs:
+        inputs = inputs_raw
+    if not outputs:
+        outputs = outputs_raw
+
+    # Build step-by-step guide (skip contaminated steps)
     steps_html = ""
     if steps and isinstance(steps, list):
         step_texts = []
         for step in steps[:6]:
-            if isinstance(step, str):
-                # Handle dict string representations (e.g., "{'step': 1, 'description': '...'}")
-                if step.startswith("{'") or step.startswith('{"'):
-                    # Extract description from dict string
-                    match = re.search(r"['\"]description['\"]:\s*['\"]([^'\"]+)['\"]", step)
-                    if match:
-                        step_texts.append(match.group(1))
-                elif not step.startswith("{"):
-                    # Plain text step
-                    step_texts.append(step)
+            if not isinstance(step, str):
+                continue
+            # Extract from dict-like strings
+            if step.startswith("{'") or step.startswith('{"'):
+                match = re.search(r"['\"]description['\"]:\s*['\"]([^'\"]+)['\"]", step)
+                if match:
+                    step = match.group(1)
+                else:
+                    continue
+            if step.startswith("{"):
+                continue
+            # Skip contaminated steps
+            if is_contaminated(step, lang):
+                continue
+            step_texts.append(step)
 
         if step_texts:
             steps_html = "<ol>\n" + "\n".join(f"<li>{s}</li>" for s in step_texts) + "\n</ol>"
 
     if not steps_html:
-        # Generate concise generic steps based on inputs/outputs
+        # Generic steps using proper language verbs
         step_texts = []
-        input_labels = [v for v in list(inputs.values())[:2]]
+        input_labels = [v for v in list(inputs.values())[:2] if not is_contaminated(v, lang)]
         if input_labels:
-            step_texts.append(f"Enter the {input_labels[0].lower()}")
+            step_texts.append(f"{verbs['enter']} {input_labels[0].lower()}")
         if len(input_labels) > 1:
-            step_texts.append(f"Enter the {input_labels[1].lower()}")
-        step_texts.append("Click Calculate to see your results")
-
-        output_labels = [v for v in list(outputs.values())[:2]]
+            step_texts.append(f"{verbs['enter']} {input_labels[1].lower()}")
+        step_texts.append(verbs["click"])
+        output_labels = [v for v in list(outputs.values())[:1] if not is_contaminated(v, lang)]
         if output_labels:
-            step_texts.append(f"Review the {output_labels[0].lower()}")
-
+            step_texts.append(f"{verbs['review']} {output_labels[0].lower()}")
         steps_html = "<ol>\n" + "\n".join(f"<li>{s}</li>" for s in step_texts) + "\n</ol>"
 
-    # Build input/output reference (avoid redundancy)
-    inputs_list = "\n".join(f"<li>{label}</li>" for label in list(inputs.values())[:4])
-    outputs_list = "\n".join(f"<li>{label}</li>" for label in list(outputs.values())[:4])
+    # Build input/output lists — skip contaminated labels
+    inputs_items = [v for v in list(inputs.values())[:4] if not is_contaminated(v, lang)]
+    outputs_items = [v for v in list(outputs.values())[:4] if not is_contaminated(v, lang)]
+    inputs_list = "\n".join(f"<li>{label}</li>" for label in inputs_items)
+    outputs_list = "\n".join(f"<li>{label}</li>" for label in outputs_items)
 
     # Build tips section
     tips_html = ""
     if tips:
-        tips_html = "\n<h2>Helpful Tips</h2>\n<ul>\n" + "\n".join(f"<li>{tip}</li>" for tip in tips[:5]) + "\n</ul>"
+        tips_html = f"\n<h2>{h['tips']}</h2>\n<ul>\n" + "\n".join(f"<li>{tip}</li>" for tip in tips[:5]) + "\n</ul>"
 
     # Build FAQ section
     faq_html = build_faq_html(lang, mistakes, inputs, outputs, block_slug)
 
-    # Assemble final HTML
-    html = f"""<section class="long-content">
-<p>{intro_base}</p>
+    # Assemble final HTML with properly translated headings
+    html_parts = [f'<section class="long-content">']
+    html_parts.append(f"<p>{intro_base}</p>")
+    html_parts.append(f"\n<h2>{h['how_to_use']}</h2>")
+    html_parts.append(f"<p>{h['steps_intro']}</p>")
+    html_parts.append(steps_html)
+    html_parts.append(f"\n<h2>{h['how_it_works']}</h2>")
+    html_parts.append(f"<p>{how_it_works}</p>")
 
-<h2>How to Use This Calculator</h2>
-<p>Follow these simple steps to get accurate results:</p>
-{steps_html}
+    if inputs_items:
+        html_parts.append(f"\n<h2>{h['inputs']}</h2>\n<ul>\n{inputs_list}\n</ul>")
 
-<h2>How It Works</h2>
-<p>{how_it_works}</p>
+    if outputs_items:
+        html_parts.append(f"\n<h2>{h['outputs']}</h2>\n<ul>\n{outputs_list}\n</ul>")
 
-<h2>Input Fields</h2>
-<ul>
-{inputs_list}
-</ul>
-
-<h2>Result Outputs</h2>
-<ul>
-{outputs_list}
-</ul>
-"""
-
-    if formula:
-        html += f"\n<h2>Formula</h2>\n<p>{formula}</p>"
+    if formula and not is_contaminated(formula, lang):
+        html_parts.append(f"\n<h2>{h['formula']}</h2>\n<p>{formula}</p>")
 
     if tips_html:
-        html += tips_html
+        html_parts.append(tips_html)
 
-    html += f"\n\n<h2>Frequently Asked Questions</h2>\n{faq_html}\n</section>"
+    html_parts.append(f"\n<h2>{h['faq']}</h2>\n{faq_html}")
+    html_parts.append("</section>")
 
-    return html
+    return "\n".join(html_parts)
 
 
 def process_calculator(calc_id: str, dry_run: bool = False) -> int:
