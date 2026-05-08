@@ -1,5 +1,6 @@
 """
-Fix Spanish text in calc JSON i18n fields. Safe approach: parse JSON, only modify known text fields.
+Fix Spanish text in calc JSON i18n fields.
+Calculator JSON files have NO extension!
 """
 import json
 from pathlib import Path
@@ -36,8 +37,6 @@ REPLACE = {
         (' durante ', ' during '), (' siempre ', ' always '),
         (' debe ', ' must '),
         ('ingresados', 'entered'), ('tepical', 'typical'),
-        ('paemint', 'payment'), ('recommindid', 'recommended'),
-        ('currint', 'current'), ('eears', 'years'),
         ('origen', 'source'), ('sistema', 'system'),
         ('paramento a aislar', 'wall to insulate'),
         ('planchas de isolation', 'insulation boards'),
@@ -163,8 +162,12 @@ def fix_text(val, lang):
         return {k: fix_text(v, lang) for k, v in val.items()}
     return val
 
+# Find all files without extension (calculator JSONs)
 total = 0
-for fpath in sorted(CALCS_DIR.glob('*.json')):
+for fpath in sorted(CALCS_DIR.iterdir()):
+    if not fpath.is_file() or fpath.suffix:
+        continue  # Skip directories and files with extensions
+    
     with open(fpath, encoding='utf-8') as f:
         data = json.load(f)
     orig = json.dumps(data, ensure_ascii=False)
