@@ -3509,6 +3509,7 @@ let staticCalcsIndex = [];
 let cmsEditing = null;
 let cmsEditorSection = 1;
 let cmsActiveLang = 'en';
+let cmsContentLang = 'en';
 let cmsListTab = 'cms'; // 'cms' | 'static'
 let cmsSearch = '';
 let cmsAutoSaveTimer = null;
@@ -4043,6 +4044,24 @@ function renderCMSSectionBasic() {
         ${cmsField('Related Calculator IDs', cmsInput('cms-related', cmsEditing.related, 'e.g. 001, 003'))}
       </div>
     </div>
+    <div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--border)">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem">
+        <label style="font-size:.75rem;color:var(--muted);font-weight:600">Calculator Name — Other Languages</label>
+        <span style="font-size:.72rem;color:var(--muted)">Or use Content tab → language tab → Auto-translate</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem">
+        ${CMS_LANGS.filter(ll => ll !== 'en').map(ll => {
+          const ll_data = cmsEditing.langs?.[ll] || {};
+          return `<div>
+            <label style="font-size:.7rem;color:var(--muted);font-weight:600;display:block;margin-bottom:.2rem">${CMS_LANG_NAMES[ll]||ll}</label>
+            <input value="${(ll_data.name||'').replace(/"/g,'&quot;')}"
+              oninput="if(!cmsEditing.langs['${ll}'])cmsEditing.langs['${ll}']={};cmsEditing.langs['${ll}'].name=this.value;cmsScheduleAutoSave()"
+              placeholder="${(l.name||'Calculator name')}"
+              style="width:100%;padding:.38rem .5rem;background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--text);font-size:.78rem">
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
   </div>`;
 }
 
@@ -4231,7 +4250,9 @@ function cmsTestFormula() {
 
 // ── SECTION 4: CONTENT ──
 function renderCMSSectionContent(lang) {
-  const l = cmsEditing.langs?.[lang] || {};
+  // lang param is kept for backward compat but we use cmsContentLang internally
+  const activeLang = cmsContentLang || 'en';
+  const l = cmsEditing.langs?.[activeLang] || {};
   const inputs = cmsEditing.inputs || [];
   const outputs = cmsEditing.outputs || [];
   const steps = l.steps && l.steps.length ? l.steps : ['','',''];
@@ -4239,11 +4260,32 @@ function renderCMSSectionContent(lang) {
   const seoTitleLen = (l.seo_title||'').length;
   const seoDescLen = (l.seo_description||'').length;
 
+  const langTabs = CMS_LANGS.map(ll => {
+    const has = !!(cmsEditing.langs?.[ll]?.name || cmsEditing.langs?.[ll]?.desc);
+    const active = activeLang === ll;
+    return `<button onclick="cmsContentLang='${ll}';document.getElementById('cms-section-body').innerHTML=renderCMSSection(4)"
+      style="padding:.3rem .7rem;border-radius:5px;border:1px solid ${active?'var(--primary)':has?'var(--success)':'var(--border)'};
+      background:${active?'var(--primary)':has?'rgba(34,197,94,.08)':'var(--bg)'};
+      color:${active?'#fff':has?'var(--success)':'var(--muted)'};cursor:pointer;font-size:.78rem;font-weight:${active?'600':'400'}">
+      ${CMS_LANG_NAMES[ll]||ll}${has&&!active?' ✓':''}
+    </button>`;
+  }).join('');
+
+  const isEnglish = activeLang === 'en';
+
   return `<div>
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
-      <h3 style="font-size:.92rem;font-weight:700">📝 Content — English</h3>
-      <button onclick="aiGenerateContent()" class="btn btn-sm" style="background:linear-gradient(135deg,#8b5cf6,#6366f1);color:#fff;border:none;font-size:.72rem">🤖 Generate All Content</button>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem">
+      <h3 style="font-size:.92rem;font-weight:700">📝 Content</h3>
+      ${isEnglish
+        ? `<button onclick="aiGenerateContent()" class="btn btn-sm" style="background:linear-gradient(135deg,#8b5cf6,#6366f1);color:#fff;border:none;font-size:.72rem">🤖 Generate All (EN)</button>`
+        : `<button onclick="cmsAutoTranslate('${activeLang}')" class="btn btn-sm" style="background:linear-gradient(135deg,#8b5cf6,#6366f1);color:#fff;border:none;font-size:.72rem">✨ Auto-translate from English</button>`
+      }
     </div>
+    <div style="display:flex;gap:.3rem;flex-wrap:wrap;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)">
+      ${langTabs}
+    </div>
+    <div id="cms-lang-translate-status" style="font-size:.78rem;color:var(--muted);margin-bottom:.5rem"></div>
+    ${isEnglish ? `
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
       <div>
         ${cmsField('Short Description', cmsInput('cms-lang-en-desc', l.desc, 'One sentence describing the calculator'))}
@@ -4319,7 +4361,6 @@ function renderCMSSectionContent(lang) {
       </div>`).join('')}
     </div>` : ''}
 
-    <!-- FAQ editor -->
     <div style="margin-top:1.25rem">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem">
         <label style="font-size:.75rem;color:var(--muted);font-weight:600">FAQ (English) <span style="font-weight:400">${(l.faq||[]).length} items</span></label>
@@ -4341,7 +4382,6 @@ function renderCMSSectionContent(lang) {
       ${!(l.faq||[]).length ? `<div style="font-size:.75rem;color:var(--muted);font-style:italic">No FAQ items yet. Click "+ Question" or use "Generate All Content" to auto-create.</div>` : ''}
     </div>
 
-    <!-- Long-form HTML content editor -->
     <div style="margin-top:1.25rem">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem">
         <label style="font-size:.75rem;color:var(--muted);font-weight:600">Long-form Article (HTML) — English <span style="font-weight:400;margin-left:.5rem">${(l.long_content||'').length} chars</span></label>
@@ -4356,6 +4396,7 @@ function renderCMSSectionContent(lang) {
         style="width:100%;padding:.5rem .65rem;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.78rem;font-family:monospace;resize:vertical;line-height:1.5">${(l.long_content||'').replace(/</g,'&lt;')}</textarea>
       <div id="cms-lc-en-status" style="font-size:.72rem;color:var(--muted);margin-top:.2rem"></div>
     </div>
+    ` : renderCMSLangFields(activeLang)}
   </div>`;
 }
 
@@ -4591,7 +4632,7 @@ async function cmsAutoTranslate(lang) {
     if (!cmsEditing.langs) cmsEditing.langs = {};
     cmsEditing.langs[lang] = { ...(cmsEditing.langs[lang] || {}), ...data.translated };
     if (status) status.innerHTML = '<span style="color:var(--success)">✓ Done — review and edit below.</span>';
-    document.getElementById('cms-section-body').innerHTML = renderCMSSection(5);
+    document.getElementById('cms-section-body').innerHTML = renderCMSSection(cmsEditorSection);
   } catch(e) {
     if (status) status.innerHTML = `<span style="color:var(--danger)">Failed: ${e.message}</span>`;
   }
