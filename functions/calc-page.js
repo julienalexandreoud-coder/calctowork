@@ -449,8 +449,12 @@ exports.translateCalc = functions.https.onRequest(async (req, res) => {
     const langNames = { es:"Spanish", fr:"French", de:"German", it:"Italian", pt:"Portuguese" };
     const targetName = langNames[targetLang] || targetLang;
 
+    // Build inputs_labels and outputs_labels for translation
+    const inputsLabels = enContent.inputs_labels || {};
+    const outputsLabels = enContent.outputs_labels || {};
+
     const prompt = `Translate the following calculator content from English to ${targetName}.
-Return ONLY valid JSON with the same structure. Translate all string values including the HTML in long_content. Keep {placeholder} tokens unchanged. Preserve all HTML tags in long_content exactly.
+Return ONLY a valid JSON object with the same structure. Translate all string values. Keep {placeholder} tokens (like {result}) unchanged. Do NOT include long_content.
 
 Input JSON:
 ${JSON.stringify({
@@ -463,8 +467,9 @@ ${JSON.stringify({
   formula_display: enContent.formula_display || "",
   steps: enContent.steps || [],
   mistakes: enContent.mistakes || [],
-  long_content: enContent.long_content || "",
-  faq: enContent.faq || [],
+  faq: (enContent.faq || []).slice(0, 4),
+  inputs_labels: inputsLabels,
+  outputs_labels: outputsLabels,
 }, null, 2)}`;
 
     // Use configured AI provider (callAI logic inline to avoid HTTP round-trip)
@@ -480,17 +485,18 @@ ${JSON.stringify({
       const r = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
         headers: { "x-api-key": apiKey, "anthropic-version": "2023-06-01", "content-type": "application/json" },
-        body: JSON.stringify({ model: provCfg.model || "claude-haiku-4-5-20251001", max_tokens: 4000, messages: [{ role: "user", content: prompt }] }),
+        body: JSON.stringify({ model: provCfg.model || "claude-haiku-4-5-20251001", max_tokens: 6000, messages: [{ role: "user", content: prompt }] }),
       });
       if (!r.ok) throw new Error("AI error: " + await r.text());
       const d = await r.json();
       text = d.content && d.content[0] && d.content[0].text;
     } else if (provider === "openai" || provider === "deepseek") {
       const baseUrl = provider === "deepseek" ? "https://api.deepseek.com/v1" : "https://api.openai.com/v1";
+      const effectiveModel = (provider === "deepseek" && (provCfg.model || "").includes("reasoner")) ? "deepseek-chat" : (provCfg.model || (provider === "deepseek" ? "deepseek-chat" : "gpt-4o-mini"));
       const r = await fetch(`${baseUrl}/chat/completions`, {
         method: "POST",
         headers: { "Authorization": "Bearer " + apiKey, "Content-Type": "application/json" },
-        body: JSON.stringify({ model: provCfg.model || (provider === "deepseek" ? "deepseek-chat" : "gpt-4o-mini"), messages: [{ role: "user", content: prompt }], max_tokens: 4000 }),
+        body: JSON.stringify({ model: effectiveModel, messages: [{ role: "user", content: prompt }], max_tokens: 6000 }),
       });
       if (!r.ok) throw new Error("AI error: " + await r.text());
       const d = await r.json();
@@ -498,13 +504,11 @@ ${JSON.stringify({
     }
 
     const jsonMatch = text && text.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) return res.status(500).json({ error: "Could not parse AI response" });
+    if (!jsonMatch) return res.status(500).json({ error: "Could not parse AI response", preview: (text||"").slice(0, 200) });
 
     const translated = JSON.parse(jsonMatch[0]);
 
-    // Preserve input/output labels (translate those separately if needed)
-    translated.inputs_labels = enContent.inputs_labels || {};
-    translated.outputs_labels = enContent.outputs_labels || {};
+    // Preserve range_hints from English (not translatable)
     translated.range_hints = enContent.range_hints || {};
     translated.slug = enContent.slug || slug;
 

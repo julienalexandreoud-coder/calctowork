@@ -4122,6 +4122,18 @@ function renderCMSSectionInputs() {
             style="width:100%;padding:.4rem .5rem;background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--text);font-size:.8rem">
         </div>
       </div>
+      <div style="margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--border)">
+        <div style="font-size:.7rem;color:var(--muted);font-weight:600;margin-bottom:.3rem">Labels in other languages</div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.35rem">
+          ${CMS_LANGS.filter(ll=>ll!=='en').map(ll=>`<div>
+            <div style="font-size:.65rem;color:var(--muted);margin-bottom:.15rem">${CMS_LANG_NAMES[ll]||ll}</div>
+            <input value="${((cmsEditing.langs?.[ll]?.inputs_labels?.[inp.id])||'').replace(/"/g,'&quot;')}"
+              placeholder="${label||inp.id}"
+              oninput="if(!cmsEditing.langs['${ll}'])cmsEditing.langs['${ll}']={};if(!cmsEditing.langs['${ll}'].inputs_labels)cmsEditing.langs['${ll}'].inputs_labels={};cmsEditing.langs['${ll}'].inputs_labels['${inp.id}']=this.value;cmsScheduleAutoSave()"
+              style="width:100%;padding:.32rem .4rem;background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--text);font-size:.75rem">
+          </div>`).join('')}
+        </div>
+      </div>
       <button onclick="cmsRemoveInput(${i})" style="position:absolute;top:.6rem;right:.6rem;background:none;border:none;color:var(--danger);cursor:pointer;font-size:.85rem" title="Remove input">✕</button>
     </div>`;
   }).join('');
@@ -4179,18 +4191,38 @@ function renderCMSSectionFormula() {
         <h3 style="font-size:.92rem;font-weight:700">Outputs</h3>
         <button class="btn btn-sm btn-outline" onclick="cmsAddOutput()">+ Add</button>
       </div>
-      <div style="display:grid;grid-template-columns:auto 1fr 1fr auto auto;gap:.4rem;align-items:center;font-size:.72rem;color:var(--muted);margin-bottom:.25rem;padding:0 .25rem">
-        <span></span><span>Field ID</span><span>Unit label</span><span>Highlight</span><span></span>
+      <div style="display:grid;grid-template-columns:auto 1fr 1fr 1fr auto auto;gap:.4rem;align-items:center;font-size:.72rem;color:var(--muted);margin-bottom:.25rem;padding:0 .25rem">
+        <span></span><span>Field ID</span><span>Label (EN)</span><span>Unit label</span><span>Highlight</span><span></span>
       </div>
-      ${outputs.map((o, i) => `<div style="display:grid;grid-template-columns:24px 1fr 1fr auto auto;gap:.4rem;align-items:center;margin-bottom:.35rem">
-        <span style="font-size:.75rem;color:var(--muted);text-align:right">${i+1}.</span>
-        <input id="cms-out-${i}-id" value="${o.id||''}" oninput="cmsSync('cms-out-${i}-id');cmsScheduleAutoSave()" placeholder="result" style="padding:.4rem;background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--text);font-size:.8rem;font-family:monospace">
-        <input id="cms-out-${i}-unit" value="${o.unit||''}" oninput="cmsSync('cms-out-${i}-unit');cmsScheduleAutoSave()" placeholder="m², kg…" style="padding:.4rem;background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--text);font-size:.8rem">
-        <label style="display:flex;align-items:center;gap:.3rem;font-size:.75rem;white-space:nowrap;cursor:pointer">
-          <input id="cms-out-${i}-highlight" type="checkbox" ${o.highlight?'checked':''} onchange="cmsSync('cms-out-${i}-highlight');cmsScheduleAutoSave()"> Hero
-        </label>
-        <button onclick="cmsRemoveOutput(${i})" style="background:none;border:none;color:var(--danger);cursor:pointer;font-size:.85rem">✕</button>
-      </div>`).join('')}
+      ${outputs.map((o, i) => {
+        const enOutLabel = cmsEditing.langs?.en?.outputs_labels?.[o.id] || '';
+        return `<div style="background:var(--card-hover);border:1px solid var(--border);border-radius:6px;padding:.5rem .6rem;margin-bottom:.4rem">
+        <div style="display:grid;grid-template-columns:24px 1fr 1fr 1fr auto auto;gap:.4rem;align-items:center;margin-bottom:.4rem">
+          <span style="font-size:.75rem;color:var(--muted);text-align:right">${i+1}.</span>
+          <input id="cms-out-${i}-id" value="${o.id||''}" oninput="cmsSync('cms-out-${i}-id');cmsScheduleAutoSave()" placeholder="result" style="padding:.4rem;background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--text);font-size:.8rem;font-family:monospace">
+          <input value="${enOutLabel.replace(/"/g,'&quot;')}" placeholder="Label (EN)"
+            oninput="if(!cmsEditing.langs.en.outputs_labels)cmsEditing.langs.en.outputs_labels={};cmsEditing.langs.en.outputs_labels['${o.id}']=this.value;cmsScheduleAutoSave()"
+            style="padding:.4rem;background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--text);font-size:.8rem">
+          <input id="cms-out-${i}-unit" value="${o.unit||''}" oninput="cmsSync('cms-out-${i}-unit');cmsScheduleAutoSave()" placeholder="m², kg…" style="padding:.4rem;background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--text);font-size:.8rem">
+          <label style="display:flex;align-items:center;gap:.3rem;font-size:.75rem;white-space:nowrap;cursor:pointer">
+            <input id="cms-out-${i}-highlight" type="checkbox" ${o.highlight?'checked':''} onchange="cmsSync('cms-out-${i}-highlight');cmsScheduleAutoSave()"> Hero
+          </label>
+          <button onclick="cmsRemoveOutput(${i})" style="background:none;border:none;color:var(--danger);cursor:pointer;font-size:.85rem">✕</button>
+        </div>
+        <div style="padding-top:.35rem;border-top:1px solid var(--border)">
+          <div style="font-size:.65rem;color:var(--muted);font-weight:600;margin-bottom:.25rem">Labels in other languages</div>
+          <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.35rem">
+            ${CMS_LANGS.filter(ll=>ll!=='en').map(ll=>`<div>
+              <div style="font-size:.65rem;color:var(--muted);margin-bottom:.15rem">${CMS_LANG_NAMES[ll]||ll}</div>
+              <input value="${((cmsEditing.langs?.[ll]?.outputs_labels?.[o.id])||'').replace(/"/g,'&quot;')}"
+                placeholder="${enOutLabel||o.id}"
+                oninput="if(!cmsEditing.langs['${ll}'])cmsEditing.langs['${ll}']={};if(!cmsEditing.langs['${ll}'].outputs_labels)cmsEditing.langs['${ll}'].outputs_labels={};cmsEditing.langs['${ll}'].outputs_labels['${o.id}']=this.value;cmsScheduleAutoSave()"
+                style="width:100%;padding:.3rem .4rem;background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--text);font-size:.75rem">
+            </div>`).join('')}
+          </div>
+        </div>
+      </div>`;
+      }).join('')}
       ${outputs.length===0?'<div style="color:var(--muted);font-size:.8rem;padding:.5rem">No outputs yet.</div>':''}
     </div>
 
