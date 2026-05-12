@@ -4046,14 +4046,18 @@ function renderCMSSectionBasic() {
     </div>
     <div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--border)">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem">
-        <label style="font-size:.75rem;color:var(--muted);font-weight:600">Calculator Name — Other Languages</label>
-        <span style="font-size:.72rem;color:var(--muted)">Or use Content tab → language tab → Auto-translate</span>
+        <label style="font-size:.75rem;color:var(--muted);font-weight:600">Other Languages</label>
+        <div style="display:flex;align-items:center;gap:.5rem">
+          <span id="basic-translate-status" style="font-size:.72rem;color:var(--muted)"></span>
+          <button onclick="cmsTranslateAllLanguages()" class="btn btn-sm" style="background:linear-gradient(135deg,#8b5cf6,#6366f1);color:#fff;border:none;font-size:.72rem">✨ Auto-translate all from English</button>
+        </div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem">
         ${CMS_LANGS.filter(ll => ll !== 'en').map(ll => {
           const ll_data = cmsEditing.langs?.[ll] || {};
+          const hasData = !!(ll_data.name);
           return `<div>
-            <label style="font-size:.7rem;color:var(--muted);font-weight:600;display:block;margin-bottom:.2rem">${CMS_LANG_NAMES[ll]||ll}</label>
+            <label style="font-size:.7rem;color:${hasData?'var(--success)':'var(--muted)'};font-weight:600;display:block;margin-bottom:.2rem">${CMS_LANG_NAMES[ll]||ll}${hasData?' ✓':''}</label>
             <input value="${(ll_data.name||'').replace(/"/g,'&quot;')}"
               oninput="if(!cmsEditing.langs['${ll}'])cmsEditing.langs['${ll}']={};cmsEditing.langs['${ll}'].name=this.value;cmsScheduleAutoSave()"
               placeholder="${(l.name||'Calculator name')}"
@@ -4647,6 +4651,36 @@ async function aiRetranslateLongContent(lang) {
 }
 
 // ── AUTO-TRANSLATE ──
+async function cmsTranslateAllLanguages() {
+  if (!cmsEditing.langs?.en?.name) { alert('Fill English content first (Content tab).'); return; }
+  const statusEl = document.getElementById('basic-translate-status');
+  const otherLangs = CMS_LANGS.filter(l => l !== 'en');
+  const tmpSlug = cmsEditing.slug || ('cms-tmp-' + Date.now());
+  try {
+    await db.collection('calc_cms').doc(tmpSlug).set({ ...cmsEditing, slug: tmpSlug }, { merge: true });
+  } catch(e) { if(statusEl) statusEl.textContent = 'Save failed: ' + e.message; return; }
+
+  let done = 0;
+  for (const lang of otherLangs) {
+    if(statusEl) statusEl.innerHTML = `<span class="spinner" style="display:inline-block;width:12px;height:12px;border-width:2px"></span> Translating ${CMS_LANG_NAMES[lang]||lang}…`;
+    try {
+      const res = await fetch(`${CMS_BASE}/translateCalc`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug: tmpSlug, targetLang: lang }),
+      });
+      const data = await res.json();
+      if (!data.error) {
+        if (!cmsEditing.langs) cmsEditing.langs = {};
+        cmsEditing.langs[lang] = { ...(cmsEditing.langs[lang] || {}), ...data.translated };
+        done++;
+      }
+    } catch(e) { /* continue with next lang */ }
+  }
+  cmsScheduleAutoSave();
+  if(statusEl) statusEl.innerHTML = `<span style="color:var(--success)">✓ ${done}/${otherLangs.length} languages translated</span>`;
+  document.getElementById('cms-section-body').innerHTML = renderCMSSection(1);
+}
+
 async function cmsAutoTranslate(lang) {
   const status = document.getElementById('cms-lang-translate-status');
   if (!cmsEditing.langs?.en?.name) { if(status) status.textContent = 'Fill English content first (Content tab).'; return; }
