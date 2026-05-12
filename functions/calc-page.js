@@ -610,7 +610,7 @@ Return ONLY valid JSON:
  * retranslateLongContent — retranslates English long_content + faq to a target language
  * POST /retranslateLongContent  { slug, lang, en_long_content, en_faq }
  */
-exports.retranslateLongContent = functions.https.onRequest(async (req, res) => {
+exports.retranslateLongContent = functions.runWith({ timeoutSeconds: 300, memory: '256MB' }).https.onRequest(async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
   res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.set("Access-Control-Allow-Headers", "Content-Type");
@@ -665,10 +665,11 @@ ${JSON.stringify(en_faq)}`;
       text = d.content && d.content[0] && d.content[0].text;
     } else {
       const baseUrl = provider === "deepseek" ? "https://api.deepseek.com/v1" : "https://api.openai.com/v1";
+      const effectiveModel = (provider === "deepseek" && (provCfg.model || "").includes("reasoner")) ? "deepseek-chat" : (provCfg.model || (provider === "deepseek" ? "deepseek-chat" : "gpt-4o-mini"));
       const r = await fetch(`${baseUrl}/chat/completions`, {
         method: "POST",
         headers: { "Authorization": "Bearer " + apiKey, "Content-Type": "application/json" },
-        body: JSON.stringify({ model: provCfg.model || "gpt-4o-mini", messages: [{ role: "user", content: prompt }], max_tokens: 8000 }),
+        body: JSON.stringify({ model: effectiveModel, messages: [{ role: "user", content: prompt }], max_tokens: 8000 }),
       });
       if (!r.ok) throw new Error("AI error: " + await r.text());
       const d = await r.json();
@@ -676,7 +677,7 @@ ${JSON.stringify(en_faq)}`;
     }
 
     const jsonMatch = text && text.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) return res.status(500).json({ error: "Could not parse AI response" });
+    if (!jsonMatch) return res.status(500).json({ error: "Could not parse AI response", preview: (text||"").slice(0,200) });
     const parsed = JSON.parse(jsonMatch[0]);
     return res.status(200).json({ long_content: parsed.long_content || "", faq: parsed.faq || [] });
   } catch (e) {
