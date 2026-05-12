@@ -934,17 +934,18 @@ exports.callAI = functions.runWith({ timeoutSeconds: 120, memory: '256MB' })
         ? "https://api.deepseek.com/v1"
         : "https://api.openai.com/v1";
       const defaultModel = provider === "deepseek" ? "deepseek-chat" : "gpt-4o-mini";
+      // deepseek-reasoner returns reasoning chain-of-thought, not usable output — force chat model
+      const effectiveModel = (provider === "deepseek" && (model || "").includes("reasoner")) ? "deepseek-chat" : (model || defaultModel);
       const msgs = system ? [{ role: "system", content: system }, ...messages] : messages;
       const r = await fetch(`${baseUrl}/chat/completions`, {
         method: "POST",
         headers: { "Authorization": "Bearer " + apiKey, "Content-Type": "application/json" },
-        body: JSON.stringify({ model: model || defaultModel, messages: msgs, max_tokens: maxTokens }),
+        body: JSON.stringify({ model: effectiveModel, messages: msgs, max_tokens: maxTokens }),
       });
       if (!r.ok) throw new Error(`${provider} error: ` + await r.text());
       const d = await r.json();
       const msg = d.choices && d.choices[0] && d.choices[0].message;
-      // deepseek-reasoner returns content in reasoning_content when content is empty
-      responseText = msg && (msg.content || msg.reasoning_content);
+      responseText = msg && msg.content;
 
     } else if (provider === "gemini") {
       const mdl = model || "gemini-1.5-flash";
