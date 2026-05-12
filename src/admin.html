@@ -3575,8 +3575,16 @@ function renderCalculatorCMS(area) {
     <div id="cms-list-view"></div>
     <div id="cms-editor-view" style="display:none"></div>
   </div>`;
+  const openEditorAfterLoad = !!cmsEditing;
   Promise.all([loadCMSCalcs(), loadStaticCalcIndex()]).then(() => {
-    renderCMSList();
+    if (openEditorAfterLoad) {
+      // Pipeline "Edit" was clicked — show editor, don't overwrite with list
+      document.getElementById('cms-list-view').style.display = 'none';
+      document.getElementById('cms-editor-view').style.display = '';
+      renderCMSEditor();
+    } else {
+      renderCMSList();
+    }
     loadLangCoverageCard();
   });
 }
@@ -4991,10 +4999,7 @@ async function openPipelineCalc(docId) {
     if (!cmsEditing.langs.en) cmsEditing.langs.en = {};
     if (!cmsEditing.inputs) cmsEditing.inputs = [];
     if (!cmsEditing.outputs) cmsEditing.outputs = [];
-    switchTab('calculators');
-    document.getElementById('cms-list-view').style.display = 'none';
-    document.getElementById('cms-editor-view').style.display = '';
-    renderCMSEditor();
+    switchTab('calculators'); // renderCalculatorCMS will detect cmsEditing and open editor after load
   } catch(e) { alert('Could not open: ' + e.message); }
 }
 
