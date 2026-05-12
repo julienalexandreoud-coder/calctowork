@@ -4995,6 +4995,12 @@ async function openPipelineCalc(docId) {
     if (!doc.exists) return;
     const d = doc.data();
     const calc = d.generated_calc || {};
+    // Normalize formula_js → formula (old pipeline format used full function declaration)
+    if (!calc.formula && calc.formula_js) {
+      const bodyMatch = calc.formula_js.match(/function\s*\w*\s*\([^)]*\)\s*\{([\s\S]*)\}/);
+      calc.formula = bodyMatch ? bodyMatch[1].trim() : calc.formula_js;
+      delete calc.formula_js;
+    }
     // Load it into the CMS editor
     cmsEditing = { ...calc, _pipelineId: docId };
     if (!cmsEditing.langs) cmsEditing.langs = {};

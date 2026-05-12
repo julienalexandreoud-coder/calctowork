@@ -2667,7 +2667,7 @@ async function _generateCalcRaw(apiKey, provider, model, prompt) {
 {
   "slug": "kebab-case-slug",
   "category": "category_slug",
-  "formula_js": "function calculate(inputs){return {result: inputs.value * 2};}",
+  "formula": "const a = parseFloat(inputs.value)||0; return { result: a * 2 };",
   "inputs": [{"id":"value","label":"Value","type":"number","unit":"","placeholder":"","required":true}],
   "outputs": [{"id":"result","label":"Result","format":"number","unit":""}],
   "langs": {
@@ -2685,14 +2685,29 @@ async function _generateCalcRaw(apiKey, provider, model, prompt) {
   }
 }
 
-Important: long_content must be at least 300 words of helpful HTML content covering usage, formula explanation, examples, and tips.`;
+Important rules for "formula":
+- formula is a JavaScript function BODY (not a function declaration) — it will be wrapped as: function(inputs){ YOUR_FORMULA }
+- Read inputs with: const x = parseFloat(inputs.field_id)||0;
+- Return an object with output field IDs as keys: return { output_id: value };
+- Do NOT write "function calculate(...){...}" — just the body
+- long_content must be at least 300 words of helpful HTML content.`;
   let text = await _callAIRaw(apiKey, provider, model,
     `${systemPrompt}\n\nCalculator to build: ${prompt}`, 4000);
   if (!text) return null;
   text = text.replace(/<think>[\s\S]*?<\/think>/g, "").trim();
   const m = text.match(/\{[\s\S]*\}/s);
   if (!m) return null;
-  try { return JSON.parse(m[0]); } catch(e) {
+  try {
+    const parsed = JSON.parse(m[0]);
+    // Normalize formula_js → formula (extract body if it's a full function declaration)
+    if (!parsed.formula && parsed.formula_js) {
+      const fjs = parsed.formula_js;
+      const bodyMatch = fjs.match(/function\s*\w*\s*\([^)]*\)\s*\{([\s\S]*)\}/);
+      parsed.formula = bodyMatch ? bodyMatch[1].trim() : fjs;
+      delete parsed.formula_js;
+    }
+    return parsed;
+  } catch(e) {
     try {
       const cleaned = m[0].replace(/,\s*([}\]])/g, '$1');
       return JSON.parse(cleaned);
