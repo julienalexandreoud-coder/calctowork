@@ -118,6 +118,9 @@ const gscCollector = require("./gsc-collector");
 exports.fetchGscData = gscCollector.fetchGscData;
 exports.fetchGscOnDemand = gscCollector.fetchGscOnDemand;
 exports.getGscData = gscCollector.getGscData;
+exports.getMovement = gscCollector.getMovement;
+exports.getIndexCoverage = gscCollector.getIndexCoverage;
+exports.sendWeeklyDigest = gscCollector.sendWeeklyDigest;
 
 // ── Analytics Aggregation ──
 const aggregator = require("./aggregator");
@@ -129,3 +132,27 @@ exports.getAggregatedData = aggregator.getAggregatedData;
 const alerting = require("./alerting");
 exports.checkAlerts = alerting.checkAlerts;
 exports.getAlerts = alerting.getAlerts;
+
+// ── Calculator CMS ──
+const calcPage = require("./calc-page");
+exports.calcPage = calcPage.calcPage;
+exports.translateCalc = calcPage.translateCalc;
+exports.generateLongContent = calcPage.generateLongContent;
+exports.retranslateLongContent = calcPage.retranslateLongContent;
+exports.getCalcData = calcPage.getCalcData;
+exports.publishCalcToHosting = calcPage.publishCalcToHosting;
+exports.callAI = calcPage.callAI;
+exports.saveAIConfig = calcPage.saveAIConfig;
+exports.getAIConfig = calcPage.getAIConfig;
+exports.generateCalcFromPrompt = calcPage.generateCalcFromPrompt;
+
+// ── Autonomous Growth ──
+exports.sitemap = calcPage.sitemap;
+exports.findKeywordOpportunities = calcPage.findKeywordOpportunities;
+exports.findKeywordOpportunitiesHttp = calcPage.findKeywordOpportunitiesHttp;
+exports.generateSEOSuggestions = calcPage.generateSEOSuggestions;
+exports.generateSEOSuggestionsHttp = calcPage.generateSEOSuggestionsHttp;
+exports.generateGrowthReport = calcPage.generateGrowthReport;
+exports.generateGrowthReportHttp = calcPage.generateGrowthReportHttp;
+exports.runAutoPilot = calcPage.runAutoPilot;
+exports.runAutoPilotHttp = calcPage.runAutoPilotHttp;
