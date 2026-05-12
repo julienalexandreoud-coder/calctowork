@@ -942,7 +942,9 @@ exports.callAI = functions.runWith({ timeoutSeconds: 120, memory: '256MB' })
       });
       if (!r.ok) throw new Error(`${provider} error: ` + await r.text());
       const d = await r.json();
-      responseText = d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content;
+      const msg = d.choices && d.choices[0] && d.choices[0].message;
+      // deepseek-reasoner returns content in reasoning_content when content is empty
+      responseText = msg && (msg.content || msg.reasoning_content);
 
     } else if (provider === "gemini") {
       const mdl = model || "gemini-1.5-flash";
@@ -1621,12 +1623,12 @@ Return JSON only: {"title":"new title","description":"new description","reasonin
 /**
  * generateGrowthReport — Monday 9 AM: AI reads all data and writes growth brief
  */
-exports.generateGrowthReport = functions.runWith({ timeoutSeconds: 120, memory: "256MB" })
+exports.generateGrowthReport = functions.runWith({ timeoutSeconds: 540, memory: "512MB" })
   .pubsub.schedule("0 9 * * 1").timeZone("UTC").onRun(async () => {
   await _generateGrowthReport();
 });
 
-exports.generateGrowthReportHttp = functions.runWith({ timeoutSeconds: 120, memory: "256MB" })
+exports.generateGrowthReportHttp = functions.runWith({ timeoutSeconds: 540, memory: "512MB" })
   .https.onRequest(async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
   if (req.method === "OPTIONS") return res.status(204).send("");
@@ -2622,22 +2624,27 @@ Write accurate, helpful content — do not invent features. Minimum 800 words.`;
 async function _callAIRaw(apiKey, provider, model, prompt, maxTokens = 2000) {
   if (!apiKey) return null;
   const fetch = require("node-fetch");
+  // deepseek-reasoner is a slow thinking model — force deepseek-chat for background tasks
+  const effectiveModel = (provider === "deepseek" && model === "deepseek-reasoner") ? "deepseek-chat" : model;
   if (provider === "openai" || provider === "deepseek") {
     const baseURL = provider === "deepseek" ? "https://api.deepseek.com/v1" : "https://api.openai.com/v1";
-    const m = model || (provider === "deepseek" ? "deepseek-chat" : "gpt-4o-mini");
+    const m = effectiveModel || (provider === "deepseek" ? "deepseek-chat" : "gpt-4o-mini");
     const r = await fetch(`${baseURL}/chat/completions`, {
       method: "POST",
       headers: { "Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json" },
       body: JSON.stringify({ model: m, messages: [{ role: "user", content: prompt }], max_tokens: maxTokens }),
+      timeout: 120000,
     });
     const data = await r.json();
-    return data?.choices?.[0]?.message?.content || null;
+    const msg = data?.choices?.[0]?.message;
+    return msg?.content || msg?.reasoning_content || null;
   } else if (provider === "gemini") {
     const m = model || "gemini-1.5-flash";
     const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent?key=${apiKey}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { maxOutputTokens: maxTokens } }),
+      timeout: 120000,
     });
     const data = await r.json();
     return data?.candidates?.[0]?.content?.parts?.[0]?.text || null;
@@ -2648,6 +2655,7 @@ async function _callAIRaw(apiKey, provider, model, prompt, maxTokens = 2000) {
       method: "POST",
       headers: { "x-api-key": apiKey, "anthropic-version": "2023-06-01", "Content-Type": "application/json" },
       body: JSON.stringify({ model: m, max_tokens: maxTokens, messages: [{ role: "user", content: prompt }] }),
+      timeout: 120000,
     });
     const data = await r.json();
     return data?.content?.[0]?.text || null;
