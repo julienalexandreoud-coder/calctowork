@@ -3860,7 +3860,7 @@ function renderCMSEditor() {
     { label:'Inputs', icon:'🔢' },
     { label:'Formula & Outputs', icon:'⚙️' },
     { label:'Content (EN)', icon:'📝' },
-    { label:'Languages', icon:'🌐' },
+    { label:'Other Languages (ES/FR/DE…)', icon:'🌐' },
     { label:'Preview', icon:'👁' },
   ];
   const savedText = cmsLastSaved ? 'Saved ' + timeAgo(cmsLastSaved) : (cmsEditing.slug ? '' : 'Not saved');
@@ -4362,6 +4362,8 @@ function renderCMSSectionContent(lang) {
 // ── SECTION 5: LANGUAGES ──
 function renderCMSSectionLanguages() {
   const otherLangs = CMS_LANGS.filter(l => l !== 'en');
+  // If active lang is 'en' (default), switch to first other lang
+  if (cmsActiveLang === 'en') cmsActiveLang = otherLangs[0];
   return `<div>
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
       <h3 style="font-size:.92rem;font-weight:700">🌐 Languages</h3>
