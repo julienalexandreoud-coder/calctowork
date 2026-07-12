@@ -11,7 +11,9 @@ const db = admin.firestore();
 /**
  * Aggregate raw events into daily calculator-level summaries
  */
-exports.aggregateDailyStats = functions.pubsub
+exports.aggregateDailyStats = functions
+  .runWith({ timeoutSeconds: 540, memory: "512MB" })
+  .pubsub
   .schedule("0 2 * * *")
   .timeZone("UTC")
   .onRun(async (context) => {

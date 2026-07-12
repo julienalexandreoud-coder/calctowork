@@ -19,6 +19,13 @@ from datetime import date
 from itertools import product as cartesian_product
 from pathlib import Path
 
+# Load .env file if present (for ad network config, GA4 ID, etc.)
+try:
+    from dotenv import load_dotenv
+    load_dotenv(Path(__file__).resolve().parent.parent / ".env")
+except ImportError:
+    pass  # python-dotenv not installed, use system env vars or defaults
+
 try:
     import csscompressor
 except ImportError:
@@ -149,31 +156,100 @@ GA4_HEAD = f"""<script async src="https://www.googletagmanager.com/gtag/js?id={G
   }});
 </script>"""
 
-ADSENSE_HEAD = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3048983871829953" crossorigin="anonymous"></script>'
+# ── Ad Network Configuration ──
+# Set AD_NETWORK env var to one of: media_net, carbon, adsterra, propellerads, adsense, none
+# Each provider needs its own env vars for IDs. All accept "none" to disable ads entirely.
+AD_NETWORK = os.environ.get("AD_NETWORK", "none")
 
-ADSENSE_PUB = "ca-pub-3048983871829953"
+# ── Media.net (Yahoo/Bing Network) ──
+# Sign up at https://www.media.net — best AdSense alternative, global CPM model
+MEDIANET_CID = os.environ.get("MEDIANET_CID", "")  # e.g. "8CUP7NJD9"
 
-# ── Ad slot IDs: create matching ad units in AdSense dashboard ──
-# Banner: top-of-page horizontal (728x90 or responsive)
+# ── Carbon Ads (carbonads.net) ──
+# Perfect for developer/tool sites — one ad per page, fixed CPM
+CARBON_ADS_ID = os.environ.get("CARBON_ADS_ID", "")  # e.g. "CE7D27QE"
+
+# ── Adsterra ──
+# Sign up at https://adsterra.com — provides script-based ad codes
+# You'll get an invoke script URL and one or more placement script URLs from their dashboard.
+ADSTERRA_INVOKE_URL = os.environ.get("ADSTERRA_INVOKE_URL", "")    # e.g. https://pl29864212.effectivecpmnetwork.com/xxx/invoke.js
+ADSTERRA_BANNER_CODE = os.environ.get("ADSTERRA_BANNER_CODE", "")  # container div id + script, e.g. "container-d43b..."
+ADSTERRA_NATIVE_CODE = os.environ.get("ADSTERRA_NATIVE_CODE", "")  # second placement for mid-page
+
+# ── PropellerAds ──
+# Sign up at https://propellerads.com — push + native
+PROPELLER_ZONE_ID = os.environ.get("PROPELLER_ZONE_ID", "")
+
+# ── AdSense (fallback if approved) ──
+ADSENSE_PUB = os.environ.get("ADSENSE_PUB", "ca-pub-3048983871829953")
 ADSENSE_SLOT_BANNER = os.environ.get("ADSENSE_SLOT_BANNER", "")
-# In-article: inside long-form content (fluid/in-article format preferred)
 ADSENSE_SLOT_INARTICLE = os.environ.get("ADSENSE_SLOT_INARTICLE", "")
-# Responsive: mid-page after calculator results
 ADSENSE_SLOT_RESPONSIVE = os.environ.get("ADSENSE_SLOT_RESPONSIVE", "")
 
-def _ad_ins(slot_id, fmt="auto"):
-    """Build an AdSense <ins> block. Uses slot_id when configured."""
-    slot_attr = f'\n     data-ad-slot="{slot_id}"' if slot_id else ""
-    fmt_attr = f'\n     data-ad-format="{fmt}"' if fmt else ""
-    return f"""<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="{ADSENSE_PUB}"{fmt_attr}{slot_attr}
-     data-full-width-responsive="true"></ins>
-<script>(adsbygoogle = window.adsbygoogle || []).push({{}});</script>"""
 
-ADSENSE_BANNER = _ad_ins(ADSENSE_SLOT_BANNER)
-ADSENSE_INARTICLE = _ad_ins(ADSENSE_SLOT_INARTICLE, "fluid")
-ADSENSE_RESPONSIVE = _ad_ins(ADSENSE_SLOT_RESPONSIVE)
+def _ad_head():
+    """Generate the <head> script for the active ad network."""
+    if AD_NETWORK == "media_net" and MEDIANET_CID:
+        return f'<script type="text/javascript">window._mNHandle=window._mNHandle||{{}};window._mNHandle.queue=window._mNHandle.queue||[];medianet_versionId="3121199";</script><script src="https://contextual.media.net/dmedianet.js?cid={MEDIANET_CID}" async="async"></script>'
+    if AD_NETWORK == "carbon" and CARBON_ADS_ID:
+        return f'<script async src="//cdn.carbonads.com/carbon.js?serve={CARBON_ADS_ID}&placement=calctowork" id="_carbonads_js"></script>'
+    if AD_NETWORK == "adsterra" and ADSTERRA_INVOKE_URL:
+        return f'<script async="async" data-cfasync="false" src="{ADSTERRA_INVOKE_URL}"></script>'
+    if AD_NETWORK == "propellerads" and PROPELLER_ZONE_ID:
+        return f'<script>(function(d,z,s){{s.src="//"+d+"/400/"+z;try{{(document.body||document.documentElement).appendChild(s)}}catch(e){{}}}})("ayyknrom.com",{PROPELLER_ZONE_ID},document.createElement("script"))</script>'
+    if AD_NETWORK == "adsense" and ADSENSE_PUB:
+        return f'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={ADSENSE_PUB}" crossorigin="anonymous"></script>'
+    return ""
+
+ADSENSE_HEAD = _ad_head()
+
+
+def _ad_banner():
+    """Generate the top-of-page banner ad."""
+    if AD_NETWORK == "media_net" and MEDIANET_CID:
+        return f'<div id="491596330"><script>try{{window._mNHandle.queue.push(function(){{window._mNDetails.loadTag("491596330","728x90","491596330");}});}}catch(e){{}}</script></div>'
+    if AD_NETWORK == "carbon" and CARBON_ADS_ID:
+        return f'<script async src="//cdn.carbonads.com/carbon.js?serve={CARBON_ADS_ID}&placement=calctowork" id="_carbonads_js"></script>'
+    if AD_NETWORK == "adsterra" and ADSTERRA_BANNER_CODE:
+        return ADSTERRA_BANNER_CODE
+    if AD_NETWORK == "propellerads" and PROPELLER_ZONE_ID:
+        return ""
+    if AD_NETWORK == "adsense" and ADSENSE_PUB:
+        slot = f' data-ad-slot="{ADSENSE_SLOT_BANNER}"' if ADSENSE_SLOT_BANNER else ""
+        return f'<ins class="adsbygoogle" style="display:block" data-ad-client="{ADSENSE_PUB}"{slot} data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({{}});</script>'
+    return ""
+
+ADSENSE_BANNER = _ad_banner()
+
+
+def _ad_responsive():
+    """Generate the mid-content responsive ad."""
+    if AD_NETWORK == "media_net" and MEDIANET_CID:
+        return f'<div id="776561389"><script>try{{window._mNHandle.queue.push(function(){{window._mNDetails.loadTag("776561389","300x250","776561389");}});}}catch(e){{}}</script></div>'
+    if AD_NETWORK == "adsterra" and ADSTERRA_NATIVE_CODE:
+        return ADSTERRA_NATIVE_CODE
+    if AD_NETWORK == "adsense" and ADSENSE_PUB:
+        slot = f' data-ad-slot="{ADSENSE_SLOT_RESPONSIVE}"' if ADSENSE_SLOT_RESPONSIVE else ""
+        return f'<ins class="adsbygoogle" style="display:block" data-ad-client="{ADSENSE_PUB}"{slot} data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({{}});</script>'
+    return ""
+
+ADSENSE_RESPONSIVE = _ad_responsive()
+
+
+def _ad_inarticle():
+    """Generate the in-article ad."""
+    if AD_NETWORK == "adsense" and ADSENSE_PUB and ADSENSE_SLOT_INARTICLE:
+        return f'<ins class="adsbygoogle" style="display:block;text-align:center" data-ad-client="{ADSENSE_PUB}" data-ad-slot="{ADSENSE_SLOT_INARTICLE}" data-ad-format="fluid" data-ad-layout-key="-ef+6k-30-ac+ty"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({{}});</script>'
+    if AD_NETWORK == "adsterra" and ADSTERRA_NATIVE_CODE:
+        return ADSTERRA_NATIVE_CODE
+    return ""
+
+ADSENSE_INARTICLE = _ad_inarticle()
+
+# Legacy: keep old variable names for template compatibility
+ADSENSE_SLOT_BANNER = ADSENSE_SLOT_BANNER or ""
+ADSENSE_SLOT_INARTICLE = ADSENSE_SLOT_INARTICLE or ""
+ADSENSE_SLOT_RESPONSIVE = ADSENSE_SLOT_RESPONSIVE or ""
 
 # ── Cookie consent script (GDPR/CCPA) ──
 COOKIE_CONSENT_SCRIPT = '<script src="/js/cookie-consent.js" defer></script>'
@@ -1287,13 +1363,21 @@ def copy_assets() -> None:
     sw_out = sw_template.replace("var CACHE = 'ctw-v2';", f"var CACHE = 'ctw-{BUILD_DATE}';")
     (PUBLIC / "sw.js").write_text(sw_out, encoding="utf-8")
 
-    # Copy admin dashboard
+    # Copy admin dashboard (unified single dashboard)
     admin_src = SRC / "admin.html"
     if admin_src.exists():
         shutil.copy2(admin_src, PUBLIC / "admin.html")
-    admin_v2_src = SRC / "admin-v2.html"
-    if admin_v2_src.exists():
-        shutil.copy2(admin_v2_src, PUBLIC / "admin-v2.html")
+    # admin-v2.html was merged into admin.html — redirect old bookmarks
+    (PUBLIC / "admin-v2.html").write_text(
+        '<!DOCTYPE html><html><head><meta charset="UTF-8">'
+        '<meta name="robots" content="noindex,nofollow">'
+        '<meta http-equiv="refresh" content="0; url=/admin.html">'
+        '<link rel="canonical" href="/admin.html">'
+        '<title>Redirecting…</title></head>'
+        '<body>The dashboard has moved to <a href="/admin.html">/admin.html</a>.'
+        '<script>location.replace("/admin.html");</script></body></html>',
+        encoding="utf-8",
+    )
 
     # Copy OG images from src/og/ (not public/og/ which is wiped on build)
     og_dir = PUBLIC / "og"

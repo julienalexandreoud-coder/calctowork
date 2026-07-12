@@ -156,3 +156,16 @@ exports.generateGrowthReport = calcPage.generateGrowthReport;
 exports.generateGrowthReportHttp = calcPage.generateGrowthReportHttp;
 exports.runAutoPilot = calcPage.runAutoPilot;
 exports.runAutoPilotHttp = calcPage.runAutoPilotHttp;
+
+// ── Growth Engine v2 ──
+exports.autoOptimizeCalcsHttp = calcPage.autoOptimizeCalcsHttp;
+exports.analyzeCompetitorHttp = calcPage.analyzeCompetitorHttp;
+exports.applySEOSuggestionsHttp = calcPage.applySEOSuggestionsHttp;
+exports.quickGenerateCalcHttp = calcPage.quickGenerateCalcHttp;
+exports.autoFixHreflangHttp = calcPage.autoFixHreflangHttp;
+
+// ── Autonomous Growth Agent ──
+exports.autonomousGrowthLoop = calcPage.autonomousGrowthLoop;
+exports.toggleAutonomyHttp = calcPage.toggleAutonomyHttp;
+exports.getAutonomyStatusHttp = calcPage.getAutonomyStatusHttp;
+exports.dailyCoreRegeneration = calcPage.dailyCoreRegeneration;

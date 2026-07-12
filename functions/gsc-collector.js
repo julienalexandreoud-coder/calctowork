@@ -216,7 +216,9 @@ async function storeCoverageData(siteUrl) {
  * Main scheduled function — runs daily
  * Trigger: pubsub schedule "0 3 * * *" (3 AM UTC)
  */
-exports.fetchGscData = functions.pubsub
+exports.fetchGscData = functions
+  .runWith({ timeoutSeconds: 540, memory: "512MB" })
+  .pubsub
   .schedule("0 3 * * *")
   .timeZone("UTC")
   .onRun(async (context) => {
@@ -243,7 +245,9 @@ exports.fetchGscData = functions.pubsub
  * On-demand GSC fetch — callable via HTTP
  * Trigger: HTTPS request with ?days=N parameter
  */
-exports.fetchGscOnDemand = functions.https.onRequest(async (req, res) => {
+exports.fetchGscOnDemand = functions
+  .runWith({ timeoutSeconds: 540, memory: "512MB" })
+  .https.onRequest(async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
   if (req.method === "OPTIONS") {
     res.set("Access-Control-Allow-Methods", "GET");
@@ -283,18 +287,24 @@ exports.getGscData = functions.https.onRequest(async (req, res) => {
     const type = req.query.type || "queries";
     const days = parseInt(req.query.days) || 30;
     const cutoff = new Date(Date.now() - days * 86400000).toISOString().slice(0, 10);
+    const siteUrl = gscConfig().siteUrl || "sc-domain:calcto.work";
 
     if (type === "queries") {
       const snap = await db.collection("gsc_search_data")
+        .where("site_url", "==", siteUrl)
         .where("date", ">=", cutoff)
         .orderBy("date", "desc")
         .limit(parseInt(req.query.limit) || 500)
         .get();
 
+      // Optional device filter (DESKTOP / MOBILE / TABLET). "all" or empty = no filter.
+      const deviceFilter = (req.query.device || "").toUpperCase();
+
       // Aggregate by query across the date range
       const byQuery = {};
       snap.forEach(doc => {
         const d = doc.data();
+        if (deviceFilter && deviceFilter !== "ALL" && (d.device || "").toUpperCase() !== deviceFilter) return;
         const q = d.query || "";
         if (!byQuery[q]) byQuery[q] = { query: q, clicks: 0, impressions: 0, ctrSum: 0, posSum: 0, count: 0 };
         byQuery[q].clicks += d.clicks || 0;
@@ -310,8 +320,39 @@ exports.getGscData = functions.https.onRequest(async (req, res) => {
       return res.status(200).json(rows);
     }
 
+    if (type === "queries_raw") {
+      // Raw per-dimension rows (query + page + country + device + date) so the
+      // dashboard can build drilldowns, country breakdowns and per-query trends.
+      const snap = await db.collection("gsc_search_data")
+        .where("site_url", "==", siteUrl)
+        .where("date", ">=", cutoff)
+        .orderBy("date", "desc")
+        .limit(parseInt(req.query.limit) || 5000)
+        .get();
+      const deviceFilter = (req.query.device || "").toUpperCase();
+      const rows = [];
+      snap.forEach(doc => {
+        const d = doc.data();
+        if (deviceFilter && deviceFilter !== "ALL" && (d.device || "").toUpperCase() !== deviceFilter) return;
+        rows.push({
+          query: d.query || "",
+          page: d.page || "",
+          country: d.country || "",
+          device: d.device || "",
+          date: d.date || "",
+          clicks: d.clicks || 0,
+          impressions: d.impressions || 0,
+          ctr: d.ctr || 0,
+          position: d.position || 0,
+        });
+      });
+      return res.status(200).json(rows);
+    }
+
     if (type === "pages") {
+      const siteUrl = gscConfig().siteUrl || "sc-domain:calcto.work";
       const snap = await db.collection("gsc_page_stats")
+        .where("site_url", "==", siteUrl)
         .where("date", ">=", cutoff)
         .orderBy("date", "desc")
         .limit(parseInt(req.query.limit) || 500)
@@ -338,6 +379,7 @@ exports.getGscData = functions.https.onRequest(async (req, res) => {
 
     if (type === "site_stats") {
       const snap = await db.collection("gsc_site_stats")
+        .where("site_url", "==", siteUrl)
         .where("date", ">=", cutoff)
         .orderBy("date", "asc")
         .limit(parseInt(req.query.limit) || 90)
@@ -360,6 +402,7 @@ exports.getGscData = functions.https.onRequest(async (req, res) => {
 
     res.status(400).json({ error: "Unknown type. Use: queries, pages, site_stats, coverage" });
   } catch (e) {
+    console.error("getGscData error:", e.message, e.code, e.details);
     res.status(500).json({ error: e.message });
   }
 });

@@ -243,7 +243,10 @@ document.addEventListener('DOMContentLoaded', () => {
         <span class="live-dot"></span> Live
       </div>
     </div>
-    <div class="content" id="content-area"></div>
+    <div class="content" id="content-area">
+      <div id="firestore-error"></div>
+      <div id="gsc-error"></div>
+    </div>
   </main>
 </div>
 
@@ -290,6 +293,7 @@ let showBots = false;
 let lastRefreshTime = null;
 let analyticsEvents = [];
 let gscQueries = [];
+let gscQueriesRaw = [];
 let gscPages = [];
 let gscSiteStats = [];
 let alerts = [];
@@ -300,6 +304,27 @@ let goals = JSON.parse(localStorage.getItem('ctw_goals') || '{"clicks":0,"impres
 let abTests = JSON.parse(localStorage.getItem('ctw_abtests') || '[]');
 let roadmapStatus = JSON.parse(localStorage.getItem('ctw_roadmap') || '{}');
 
+// ── ERROR DISPLAY ──
+function showFirestoreError(err) {
+  let msg = err.message || 'Unknown error';
+  if (msg.includes('index')) msg = 'Missing Firestore index. Run: firebase deploy --only firestore:indexes';
+  if (msg.includes('permission')) msg = 'Firestore permission denied. Check security rules.';
+  const el = document.getElementById('firestore-error');
+  if (el) el.innerHTML = `<div style="background:rgba(239,68,68,.12);border:1px solid var(--danger);border-radius:8px;padding:.75rem 1rem;margin-bottom:1rem;font-size:.8rem;display:flex;align-items:center;gap:.5rem"><span>🔴</span><span>${msg}</span><button onclick="clearFirestoreError()" style="margin-left:auto;background:none;border:none;color:var(--danger);cursor:pointer;font-size:1rem;line-height:1">✕</button></div>`;
+}
+function clearFirestoreError() {
+  const el = document.getElementById('firestore-error');
+  if (el) el.innerHTML = '';
+}
+function showGscError(msg) {
+  const el = document.getElementById('gsc-error');
+  if (el) el.innerHTML = `<div style="background:rgba(245,158,11,.12);border:1px solid var(--warning);border-radius:8px;padding:.65rem .9rem;margin-bottom:1rem;font-size:.78rem;display:flex;align-items:center;gap:.5rem"><span>🟡</span><span>GSC data unavailable: ${msg}. Run deploy or check GSC credentials.</span><button onclick="clearGscError()" style="margin-left:auto;background:none;border:none;color:var(--warning);cursor:pointer;font-size:1rem;line-height:1">✕</button></div>`;
+}
+function clearGscError() {
+  const el = document.getElementById('gsc-error');
+  if (el) el.innerHTML = '';
+}
+
 // ── GSC CACHE (per days-bucket, valid 10 min) ──
 const gscCache = {};
 function gscCacheKey(days) { return 'd' + days; }
@@ -307,12 +332,12 @@ function gscCacheValid(days) {
   const k = gscCacheKey(days);
   return gscCache[k] && (Date.now() - gscCache[k].ts < 10 * 60 * 1000);
 }
-function gscCacheStore(days, q, p, s) {
-  gscCache[gscCacheKey(days)] = { queries: q, pages: p, stats: s, ts: Date.now() };
+function gscCacheStore(days, q, p, s, raw) {
+  gscCache[gscCacheKey(days)] = { queries: q, pages: p, stats: s, raw: raw || [], ts: Date.now() };
 }
 function gscCacheLoad(days) {
   const c = gscCache[gscCacheKey(days)];
-  gscQueries = c.queries; gscPages = c.pages; gscSiteStats = c.stats;
+  gscQueries = c.queries; gscPages = c.pages; gscSiteStats = c.stats; gscQueriesRaw = c.raw || [];
 }
 
 // ── FIRESTORE PREFS ──
@@ -340,12 +365,16 @@ const TABS = [
   { id:'overview', label:'Overview', icon:'📊' },
   { id:'search', label:'Search Console', icon:'🔍' },
   { id:'content', label:'Content', icon:'📝' },
+  { id:'ctr', label:'CTR Boost', icon:'🎯' },
+  { id:'audit', label:'Audit', icon:'🩺' },
   { id:'traffic', label:'Traffic', icon:'📈' },
+  { id:'conversions', label:'Conversions', icon:'🎯' },
   { id:'technical', label:'Technical SEO', icon:'⚙️' },
   { id:'opportunities', label:'Opportunities', icon:'💡' },
   { id:'alerts', label:'Alerts', icon:'🔔' },
   { id:'calculators', label:'Calculators', icon:'🧮' },
   { id:'autopilot', label:'Autopilot', icon:'🚀' },
+  { id:'growthlab', label:'Growth Lab', icon:'🧪' },
   { id:'ai', label:'AI Tools', icon:'🤖' },
   { id:'settings', label:'Settings', icon:'⚙️' },
 ];
@@ -373,18 +402,22 @@ function switchTab(tabId) {
 
   unsubscribeAll();
   const area = document.getElementById('content-area');
-  area.innerHTML = '';
+  area.innerHTML = '<div id="firestore-error"></div><div id="gsc-error"></div>';
 
   switch (tabId) {
     case 'overview': renderOverview(area); break;
     case 'search': renderSearchConsole(area); break;
     case 'content': renderContent(area); break;
+    case 'ctr': renderCTRBoost(area); break;
+    case 'audit': renderContentAudit(area); break;
     case 'traffic': renderTraffic(area); break;
+    case 'conversions': renderConversions(area); break;
     case 'technical': renderTechnical(area); break;
     case 'opportunities': renderOpportunities(area); break;
     case 'alerts': renderAlertsTab(area); break;
     case 'calculators': renderCalculatorCMS(area); break;
     case 'autopilot': renderAutopilot(area); break;
+    case 'growthlab': renderGrowthLab(area); break;
     case 'ai': renderAITools(area); break;
     case 'settings': renderSettings(area); break;
   }
@@ -599,8 +632,13 @@ function queryEvents(callback) {
     lastRefreshTime = new Date();
     updateRefreshBadge();
     analyticsEvents = showBots ? events : events.filter(e => !e.is_bot);
+    clearFirestoreError();
     callback(analyticsEvents);
-  }, err => console.error('Firestore error:', err));
+  }, err => {
+    showFirestoreError(err);
+    console.error('Firestore error:', err);
+    callback([]);
+  });
   unsubscribers.push(unsub);
 }
 
@@ -610,18 +648,23 @@ async function loadGscData(overrideDays, forceRefresh) {
   if (!forceRefresh && gscCacheValid(d)) { gscCacheLoad(d); return; }
   try {
     const base = `https://us-central1-calctowork.cloudfunctions.net`;
-    const [qRes, pRes, sRes] = await Promise.all([
+    const [qRes, pRes, sRes, qRawRes] = await Promise.all([
       fetch(`${base}/getGscData?type=queries&days=${d}&limit=500`).then(r=>r.json()).catch(()=>[]),
       fetch(`${base}/getGscData?type=pages&days=${d}&limit=500`).then(r=>r.json()).catch(()=>[]),
       fetch(`${base}/getGscData?type=site_stats&days=${d}&limit=90`).then(r=>r.json()).catch(()=>[]),
+      fetch(`${base}/getGscData?type=queries_raw&days=${d}&limit=5000`).then(r=>r.json()).catch(()=>[]),
     ]);
     gscQueries = Array.isArray(qRes) ? qRes : [];
+    gscQueriesRaw = Array.isArray(qRawRes) ? qRawRes : [];
     gscPages = Array.isArray(pRes) ? pRes : [];
     gscSiteStats = Array.isArray(sRes) ? sRes : [];
-    gscCacheStore(d, gscQueries, gscPages, gscSiteStats);
+    gscCacheStore(d, gscQueries, gscPages, gscSiteStats, gscQueriesRaw);
+    clearGscError();
   } catch(e) {
     console.warn('GSC data not loaded:', e.message);
+    showGscError(e.message);
     gscQueries = []; gscPages = []; gscSiteStats = [];
+    gscQueriesRaw = [];
   }
 }
 
@@ -630,7 +673,7 @@ async function loadAlerts() {
     const base = `https://us-central1-calctowork.cloudfunctions.net`;
     const res = await fetch(`${base}/getAlerts?limit=50`).then(r=>r.json()).catch(()=>[]);
     alerts = Array.isArray(res) ? res : [];
-    alertCount = res.filter(a => !a.acknowledged).length;
+    alertCount = alerts.filter(a => !a.acknowledged).length;
     const badge = document.getElementById('alert-badge');
     if (badge) {
       badge.textContent = alertCount;
@@ -940,14 +983,24 @@ function gscSetFilter(type,value,el) {
   if(type==='device') gscDeviceFilter = value;
   el.parentElement.querySelectorAll('.filter-pill').forEach(p=>p.classList.remove('active'));
   el.classList.add('active');
-  updateSearchConsole();
+  loadGscDevice().then(() => updateSearchConsole());
+}
+
+async function loadGscDevice() {
+  const { days } = getTimeRange();
+  const base = `https://us-central1-calctowork.cloudfunctions.net`;
+  const deviceParam = (gscDeviceFilter && gscDeviceFilter !== 'all') ? `&device=${encodeURIComponent(gscDeviceFilter)}` : '';
+  try {
+    const qRes = await fetch(`${base}/getGscData?type=queries&days=${days}&limit=500${deviceParam}`).then(r=>r.json()).catch(()=>[]);
+    gscQueries = Array.isArray(qRes) ? qRes : [];
+  } catch(e) { /* keep existing */ }
 }
 
 let gscCharts = {};
 function updateSearchConsole() {
   Object.values(gscCharts).forEach(c=>{try{c.destroy();}catch(e){}}); gscCharts={};
 
-  const filteredQueries = gscDeviceFilter==='all'?gscQueries:gscQueries.filter(q=>q.device===gscDeviceFilter);
+  const filteredQueries = gscQueries;
 
   // Main chart
   const ctx1 = document.getElementById('chart-gsc-main')?.getContext('2d');
@@ -1021,7 +1074,7 @@ function openPageDrilldown(pageUrl) {
   const slug = pageUrl.split('/').filter(Boolean).pop() || pageUrl;
 
   // Queries for this page
-  const pageQueries = gscQueries.filter(q => q.page === pageUrl);
+  const pageQueries = gscQueriesRaw.filter(q => q.page === pageUrl);
   const topQ = [...pageQueries].sort((a,b)=>(b.impressions||0)-(a.impressions||0)).slice(0,10);
 
   // Trend from site stats per day (approximate from query data grouped by date)
@@ -1151,7 +1204,7 @@ function renderCannibalization() {
   if (!el) return;
   // Find queries where 2+ different pages appear
   const queryPages = {};
-  gscQueries.forEach(q => {
+  gscQueriesRaw.forEach(q => {
     if (!q.query || !q.page) return;
     if (!queryPages[q.query]) queryPages[q.query] = {};
     if (!queryPages[q.query][q.page]) queryPages[q.query][q.page] = { clicks:0, impressions:0, positions:[] };
@@ -1194,7 +1247,7 @@ function renderCountryBreakdown() {
 
   // Group queries by country
   const countryMap = {};
-  gscQueries.forEach(q => {
+  gscQueriesRaw.forEach(q => {
     const c = q.country || 'unknown';
     if (!countryMap[c]) countryMap[c] = { clicks:0, impressions:0, queries:new Set() };
     countryMap[c].clicks += q.clicks||0;
@@ -1319,6 +1372,390 @@ function updateContent(events) {
         </tr>`).join('')}</tbody>
       </table>`;
     }
+  }
+}
+
+// ── TAB: CTR BOOST ──
+function renderCTRBoost(area) {
+  area.innerHTML = `<div id="ctr-tab">
+    <div class="card" style="margin-bottom:1rem;background:linear-gradient(135deg,rgba(249,115,22,.08),rgba(245,158,11,.05));border-color:rgba(249,115,22,.25)">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
+        <span class="card-title">🎯 Low-CTR Pages — Biggest Wins</span>
+        <button class="btn btn-sm" onclick="exportCTRTable()">Export CSV</button>
+      </div>
+      <p style="font-size:.75rem;color:var(--muted);margin-bottom:.75rem">Pages with high impressions but zero/low clicks. Fixing these gives the fastest traffic boost.</p>
+      <div style="overflow-x:auto"><table class="data-table" id="ctr-table">
+        <thead><tr><th>Page</th><th class="num">Impressions</th><th class="num">Clicks</th><th class="num">CTR</th><th class="num">Position</th><th>Fix</th></tr></thead>
+        <tbody id="ctr-tbody"><tr><td colspan="6"><div class="loading"><span class="spinner"></span> Loading GSC data...</div></td></tr></tbody>
+      </table></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="card-title">📋 Quick Meta Fixes</span></div>
+      <p style="font-size:.75rem;color:var(--muted);margin-bottom:.75rem">These pages have SEO issues that hurt CTR. Click a page to open its CMS editor.</p>
+      <div style="overflow-x:auto"><table class="data-table" id="meta-table">
+        <thead><tr><th>Calculator</th><th>Issue</th><th>Current</th><th>Suggested Fix</th><th></th></tr></thead>
+        <tbody id="meta-tbody"><tr><td colspan="5"><div class="loading"><span class="spinner"></span> Scanning CMS calculators...</div></td></tr></tbody>
+      </table></div>
+    </div>
+    <div class="grid-2">
+      <div class="card"><div class="card-header"><span class="card-title">CTR by Position</span></div><div class="chart-wrap" style="min-height:200px"><canvas id="chart-ctr-pos"></canvas></div></div>
+      <div class="card">
+        <div class="card-header"><span class="card-title">Quick Actions</span></div>
+        <div style="display:flex;flex-direction:column;gap:.5rem;padding:.5rem 0">
+          <button class="btn" onclick="fixAllMissingHreflang()" style="text-align:left;padding:.65rem 1rem">🔗 Fix 7 missing hreflang entries (one-click)</button>
+          <button class="btn btn-outline" onclick="switchTab('audit')" style="text-align:left;padding:.65rem 1rem">🩺 Run full content audit</button>
+          <button class="btn btn-outline" onclick="regenerateAndDeploy()" style="text-align:left;padding:.65rem 1rem">🔄 Regenerate site (apply all fixes)</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+  loadGscData().then(() => updateCTRBoost());
+}
+
+function updateCTRBoost() {
+  // CTR by page table
+  const merged = {};
+  gscPages.forEach(p => {
+    const slug = (p.page || '').split('/').filter(Boolean).pop() || p.page;
+    if (!merged[slug]) merged[slug] = { slug, imp:0, clicks:0, pos:0, ctr:0, count:0 };
+    merged[slug].imp += p.total_impressions || 0;
+    merged[slug].clicks += p.total_clicks || 0;
+    merged[slug].pos += p.avg_position || 0;
+    merged[slug].count++;
+  });
+
+  const rows = Object.values(merged)
+    .filter(r => r.imp >= 5 && r.clicks < r.imp * 0.02)
+    .sort((a,b) => b.imp - a.imp)
+    .slice(0, 50);
+
+  document.getElementById('ctr-tbody').innerHTML = rows.length
+    ? rows.map(r => {
+        const ctr = r.imp > 0 ? ((r.clicks/r.imp)*100).toFixed(2) : '0';
+        const avgPos = r.count > 0 ? (r.pos/r.count).toFixed(1) : '--';
+        const fix = avgPos > 30 ? 'Improve meta + add FAQ schema' : r.clicks === 0 ? 'Rewrite title for CTR' : 'Add structured data';
+        return `<tr onclick="cmsEditBySlug('${r.slug}')" style="cursor:pointer">
+          <td style="color:var(--primary)">${r.slug}</td>
+          <td class="num">${r.imp.toLocaleString()}</td>
+          <td class="num">${r.clicks}</td>
+          <td class="num"><span class="badge badge-red">${ctr}%</span></td>
+          <td class="num"><span class="badge ${avgPos<=10?'badge-green':avgPos<=30?'badge-orange':'badge-red'}">${avgPos}</span></td>
+          <td style="font-size:.75rem;color:var(--muted)">${fix}</td>
+        </tr>`;
+      }).join('')
+    : '<tr><td colspan="6" class="empty-state">No low-CTR pages found — great job!</td></tr>';
+
+  // CTR by position chart
+  const posBuckets = { '1-3':{imp:0,clicks:0}, '4-10':{imp:0,clicks:0}, '11-20':{imp:0,clicks:0}, '21-30':{imp:0,clicks:0}, '31-50':{imp:0,clicks:0}, '50+':{imp:0,clicks:0} };
+  gscPages.forEach(p => {
+    const pos = p.avg_position || 100;
+    const bucket = pos <= 3 ? '1-3' : pos <= 10 ? '4-10' : pos <= 20 ? '11-20' : pos <= 30 ? '21-30' : pos <= 50 ? '31-50' : '50+';
+    posBuckets[bucket].imp += p.total_impressions || 0;
+    posBuckets[bucket].clicks += p.total_clicks || 0;
+  });
+  const labels = Object.keys(posBuckets);
+  const ctrs = labels.map(k => posBuckets[k].imp > 0 ? ((posBuckets[k].clicks/posBuckets[k].imp)*100).toFixed(1) : 0);
+  const ctx = document.getElementById('chart-ctr-pos')?.getContext('2d');
+  if (ctx) new Chart(ctx, { type:'bar', data:{ labels, datasets:[{ data:ctrs, backgroundColor:['#22c55e','#f97316','#f59e0b','#f59e0b','#ef4444','#64748b'], borderRadius:4 }] }, options:{ responsive:true, plugins:{ legend:{ display:false } }, scales:{ x:{ ticks:{ color:'#64748b' }, grid:{ display:false } }, y:{ ticks:{ color:'#64748b', callback:v=>v+'%' }, grid:{ color:'#1e293b' } } } } });
+
+  // Meta fixes table
+  loadCMSCalcs().then(() => {
+    const issues = [];
+    cmsCalcs.forEach(c => {
+      const en = c.langs?.en || {};
+      if (en.seo_title && en.seo_title.length > 60) issues.push({ slug:c.slug, issue:'Title too long', current:en.seo_title.length+' chars (max 60)', fix: en.seo_title.slice(0,57)+'...' });
+      if (en.seo_description && en.seo_description.length > 160) issues.push({ slug:c.slug, issue:'Description too long', current:en.seo_description.length+' chars (max 160)', fix: en.seo_description.slice(0,157)+'...' });
+      if (!en.faq || en.faq.length === 0) issues.push({ slug:c.slug, issue:'No FAQ', current:'Missing', fix:'Add 3-5 FAQ items for rich snippets' });
+      if (!en.steps || en.steps.filter(Boolean).length < 2) issues.push({ slug:c.slug, issue:'No how-to steps', current:'Missing or <2 steps', fix:'Add 3-5 step-by-step instructions' });
+    });
+    document.getElementById('meta-tbody').innerHTML = issues.length
+      ? issues.slice(0, 30).map(i => `<tr onclick="cmsEditBySlug('${i.slug}')" style="cursor:pointer">
+          <td style="color:var(--primary)">${i.slug}</td>
+          <td><span class="badge badge-orange">${i.issue}</span></td>
+          <td style="font-size:.78rem;color:var(--muted)">${i.current}</td>
+          <td style="font-size:.78rem;color:var(--success)">${i.fix}</td>
+          <td><button class="btn btn-sm" onclick="event.stopPropagation();cmsEditBySlug('${i.slug}')">Fix</button></td>
+        </tr>`).join('')
+      : '<tr><td colspan="5" class="empty-state">All CMS pages look good!</td></tr>';
+  });
+}
+
+function cmsEditBySlug(slug) {
+  // Try CMS calcs first
+  cmsEditing = cmsCalcs.find(c => c.slug === slug) || null;
+  // If not found, try static calcs
+  if (!cmsEditing) {
+    const sc = staticCalcsIndex.find(c => c.slug === slug);
+    if (sc) {
+      cmsEditing = {
+        slug: sc.slug,
+        staticId: sc.id,
+        category: sc.category || '',
+        standard: sc.standard || '',
+        inputs: (sc.inputs || []).map(inp => ({ id: inp.id, type: inp.type || 'number', unit: inp.unit || '', min: inp.min, max: inp.max, step: inp.step, required: true })),
+        outputs: (sc.outputs || []).map(out => ({ id: out.id, unit: out.unit || '', highlight: out.highlight || false })),
+        formula: sc.formula_js || sc.formula || '',
+        related: sc.related || '',
+        langs: { en: { name: (sc.names||{})['en']||'', desc: '', seo_title: '', seo_description: '' } },
+        _isStatic: true,
+      };
+    }
+  }
+  if (cmsEditing) { cmsEditorSection = 1; cmsContentLang = 'en'; switchTab('calculators'); }
+  else alert('Calculator not found: ' + slug);
+}
+
+function fixAllMissingHreflang() {
+  const slugs = ['building-permit-cost-estimator','calculer-budget-renovimmopro','cylinder-volume-calculator','gelaender-rechner','gelander-berechnen-formel'];
+  alert('Opening CMS for 5 calculators with missing hreflang. For each one, go to Languages tab and fill translations.');
+  slugs.forEach((s,i) => setTimeout(() => cmsEditBySlug(s), i*100));
+  switchTab('calculators');
+}
+
+function exportCTRTable() {
+  const rows = [['Page','Impressions','Clicks','CTR','Position']];
+  document.querySelectorAll('#ctr-tbody tr').forEach(tr => {
+    const cells = tr.querySelectorAll('td');
+    if (cells.length >= 5) rows.push([cells[0].textContent,cells[1].textContent,cells[2].textContent,cells[3].textContent.replace('%',''),cells[4].textContent]);
+  });
+  const csv = rows.map(r => r.join(',')).join('\n');
+  const blob = new Blob([csv],{type:'text/csv'});
+  const a = document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='ctr-boost.csv'; a.click();
+}
+
+// ── TAB: CONTENT AUDIT ──
+function renderContentAudit(area) {
+  area.innerHTML = `<div id="audit-tab">
+    <div class="card"><div class="card-header"><span class="card-title">🩺 Content Health Scan</span><button class="btn btn-sm" onclick="runContentAudit()">⟳ Re-scan</button></div>
+      <div id="audit-results"><div class="loading"><span class="spinner"></span> Scanning all calculators...</div></div>
+    </div>
+  </div>`;
+  runContentAudit();
+}
+
+async function runContentAudit() {
+  const el = document.getElementById('audit-results');
+  el.innerHTML = '<div class="loading"><span class="spinner"></span> Scanning calculators...</div>';
+
+  await loadCMSCalcs();
+  await loadStaticCalcIndex();
+  await loadGscData();
+
+  const gscLookup = {};
+  gscPages.forEach(p => {
+    const slug = (p.page||'').split('/').filter(Boolean).pop() || '';
+    if (!gscLookup[slug]) gscLookup[slug] = { imp:0, clicks:0 };
+    gscLookup[slug].imp += p.total_impressions || 0;
+    gscLookup[slug].clicks += p.total_clicks || 0;
+  });
+
+  const all = [...cmsCalcs, ...staticCalcsIndex];
+  const seen = new Set();
+  const issues = [];
+
+  all.forEach(c => {
+    const slug = c.slug || '';
+    if (seen.has(slug) || !slug) return;
+    seen.add(slug);
+    const gsc = gscLookup[slug] || { imp:0, clicks:0 };
+
+    // Handle both CMS calcs (langs object) and static calcs (names/slugs dicts)
+    const names = c.names || {};
+    const slugs = c.slugs || {};
+    const enName = c.langs?.en?.name || names['en'] || '';
+    const enTitle = c.langs?.en?.seo_title || '';
+    const enDesc = c.langs?.en?.seo_description || '';
+    const enFaq = c.langs?.en?.faq;
+    const enSteps = c.langs?.en?.steps;
+    const enLongContent = c.langs?.en?.long_content;
+
+    if (!enName) issues.push({ slug, type:'Missing English name', severity:'high' });
+    if (enTitle && enTitle.length > 60) issues.push({ slug, type:'SEO title >60 chars', severity:'medium', detail:enTitle.length+' chars' });
+    if (enDesc && enDesc.length > 160) issues.push({ slug, type:'Meta desc >160 chars', severity:'medium', detail:enDesc.length+' chars' });
+    if (enFaq !== undefined && (!enFaq || enFaq.length === 0)) issues.push({ slug, type:'No FAQ schema', severity:'medium' });
+    if (enSteps !== undefined && (!enSteps || enSteps.filter(Boolean).length < 2)) issues.push({ slug, type:'No how-to steps', severity:'low' });
+    if (enLongContent !== undefined && (!enLongContent || enLongContent.length < 200)) issues.push({ slug, type:'No long-form article', severity:'medium' });
+
+    const otherLangs = CMS_LANGS.filter(l => l !== 'en');
+    const missingLangs = otherLangs.filter(l => !names[l] && !(c.langs && c.langs[l]?.name));
+    if (missingLangs.length > 0) {
+      issues.push({ slug, type:`Missing ${missingLangs.length} language(s): ${missingLangs.map(l=>CMS_LANG_NAMES[l]||l).join(', ')}`, severity:'high' });
+    }
+
+    if (gsc.imp >= 5 && gsc.clicks === 0) {
+      issues.push({ slug, type:'Zero CTR despite impressions', severity:'critical', detail:`${gsc.imp} imp, 0 clicks` });
+    }
+  });
+
+  // Summary KPIs
+  const critical = issues.filter(i=>i.severity==='critical').length;
+  const high = issues.filter(i=>i.severity==='high').length;
+  const medium = issues.filter(i=>i.severity==='medium').length;
+  const low = issues.filter(i=>i.severity==='low').length;
+
+  el.innerHTML = `
+    <div class="kpi-grid" style="margin-bottom:1rem">
+      <div class="kpi" style="--kpi-bar:#ef4444"><div class="kpi-label">Critical</div><div class="kpi-value">${critical}</div><div class="kpi-sub">Zero-CTR pages</div></div>
+      <div class="kpi" style="--kpi-bar:#f97316"><div class="kpi-label">High</div><div class="kpi-value">${high}</div><div class="kpi-sub">Missing names/languages</div></div>
+      <div class="kpi" style="--kpi-bar:#f59e0b"><div class="kpi-label">Medium</div><div class="kpi-value">${medium}</div><div class="kpi-sub">Meta/FAQ/content gaps</div></div>
+      <div class="kpi" style="--kpi-bar:#3b82f6"><div class="kpi-label">Low</div><div class="kpi-value">${low}</div><div class="kpi-sub">Minor improvements</div></div>
+    </div>
+    <div style="overflow-x:auto"><table class="data-table">
+      <thead><tr><th>Calculator</th><th>Issue</th><th>Severity</th><th>Detail</th><th></th></tr></thead>
+      <tbody>${issues.length
+        ? issues.sort((a,b) => { const s={critical:0,high:1,medium:2,low:3}; return s[a.severity]-s[b.severity]; }).slice(0,100).map(i => `
+          <tr onclick="cmsEditBySlug('${i.slug}')" style="cursor:pointer">
+            <td style="color:var(--primary)">${i.slug}</td>
+            <td style="font-size:.8rem">${i.type}</td>
+            <td><span class="badge ${i.severity==='critical'?'badge-red':i.severity==='high'?'badge-orange':i.severity==='medium'?'badge-orange':'badge-blue'}">${i.severity}</span></td>
+            <td style="font-size:.75rem;color:var(--muted)">${i.detail||''}</td>
+            <td><button class="btn btn-sm" onclick="event.stopPropagation();cmsEditBySlug('${i.slug}')">Fix</button></td>
+          </tr>`).join('')
+        : '<tr><td colspan="5" class="empty-state">All clean!</td></tr>'}
+      </tbody>
+    </table></div>`;
+}
+
+async function loadAutonomyStatus() {
+  try {
+    const base = `https://us-central1-calctowork.cloudfunctions.net`;
+    const res = await fetch(`${base}/getAutonomyStatusHttp`).then(r=>r.json());
+
+    document.getElementById('kpi-auto-actions').textContent = res.today?.actions || 0;
+    document.getElementById('kpi-auto-publishes').textContent = res.today?.publishes || 0;
+    document.getElementById('kpi-auto-api').textContent = res.today?.api_calls || 0;
+
+    const dot = document.getElementById('autonomy-status-dot');
+    const text = document.getElementById('autonomy-status-text');
+    const btnToggle = document.getElementById('btn-auto-toggle');
+    const btnPub = document.getElementById('btn-auto-publish');
+    const btnStop = document.getElementById('btn-auto-stop');
+
+    if (res.emergency_stop) {
+      dot.style.background = '#ef4444'; text.textContent = 'EMERGENCY STOPPED'; text.style.color = '#ef4444';
+      btnToggle.textContent = '⚠️ Agent Stopped'; btnToggle.style.background = '#ef4444';
+      btnStop.style.display = 'none';
+    } else if (res.enabled) {
+      dot.style.background = '#22c55e'; text.textContent = 'Running (every 4h)'; text.style.color = '#22c55e';
+      btnToggle.textContent = 'Pause Agent'; btnToggle.style.background = 'linear-gradient(135deg,#f59e0b,#d97706)';
+      btnStop.style.display = '';
+    } else {
+      dot.style.background = '#64748b'; text.textContent = 'Disabled'; text.style.color = '#64748b';
+      btnToggle.textContent = 'Enable Agent'; btnToggle.style.background = 'linear-gradient(135deg,#8b5cf6,#6366f1)';
+      btnStop.style.display = 'none';
+    }
+
+    btnPub.textContent = 'Auto-Publish: ' + (res.auto_publish ? 'ON ✅' : 'OFF');
+    btnPub.className = res.auto_publish ? 'btn btn-sm btn-outline active' : 'btn btn-sm btn-outline';
+
+    // Recent actions
+    const recent = res.recent_actions || [];
+    document.getElementById('autonomy-recent').innerHTML = recent.length
+      ? recent.map(a => `<div style="display:flex;justify-content:space-between;padding:.25rem 0;border-bottom:1px solid var(--border);gap:.5rem">
+          <span style="color:${a.status==='completed'?'var(--success)':a.status==='error'?'var(--danger)':'var(--muted)'}">${a.status==='completed'?'✅':a.status==='error'?'❌':'⏭'} ${a.type}</span>
+          <span style="color:var(--muted);font-size:.68rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${a.result||a.reason||''}</span>
+          <span style="color:var(--muted);font-size:.65rem;white-space:nowrap">${new Date(a.created_at?._seconds*1000||a.started_at).toLocaleTimeString()}</span>
+        </div>`).join('')
+      : '<div style="color:var(--muted);font-size:.7rem">No actions today. Agent will run on schedule.</div>';
+
+    if (res.last_report) {
+      document.getElementById('autonomy-recent').innerHTML += `<div style="margin-top:.35rem;color:var(--muted);font-size:.65rem">Last run: ${res.last_report.completed||0} completed · ${res.last_report.errors_count||0} errors · ${res.last_report.duration_ms ? (res.last_report.duration_ms/1000).toFixed(0)+'s' : '?'}</div>`;
+    }
+  } catch(e) { console.warn('Autonomy status:', e.message); }
+}
+
+async function toggleAutonomy() {
+  const btn = document.getElementById('btn-auto-toggle');
+  const currentText = btn.textContent;
+  const enable = currentText.includes('Enable') || currentText.includes('Stopped');
+  const base = `https://us-central1-calctowork.cloudfunctions.net`;
+
+  try {
+    await fetch(`${base}/toggleAutonomyHttp`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ enabled: enable, emergency_stop: false })
+    });
+    btn.textContent = 'Updating...';
+    setTimeout(loadAutonomyStatus, 1000);
+  } catch(e) { alert('Error: ' + e.message); }
+}
+
+async function stopAutonomy() {
+  if (!confirm('EMERGENCY STOP — pause all autonomous actions immediately?')) return;
+  const base = `https://us-central1-calctowork.cloudfunctions.net`;
+  try {
+    await fetch(`${base}/toggleAutonomyHttp`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ emergency_stop: true })
+    });
+    loadAutonomyStatus();
+  } catch(e) { alert('Error: ' + e.message); }
+}
+
+async function toggleAutoPublish() {
+  const btn = document.getElementById('btn-auto-publish');
+  const current = btn.textContent.includes('ON');
+  const base = `https://us-central1-calctowork.cloudfunctions.net`;
+  try {
+    await fetch(`${base}/toggleAutonomyHttp`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ auto_publish: !current })
+    });
+    loadAutonomyStatus();
+  } catch(e) { alert('Error: ' + e.message); }
+}
+
+function regenerateAndDeploy() {
+  if (confirm('This regenerates all pages with current source content. Deploy with: firebase deploy --only hosting\n\nRun now in terminal?')) {
+    alert('Run in terminal:\ncd C:\\Microsaas\\obra\npy scripts\\generate_calctowork.py\nfirebase deploy --only hosting');
+  }
+}
+
+async function quickGenerateCalc() {
+  const name = document.getElementById('quick-calc-name').value.trim();
+  const category = document.getElementById('quick-calc-category').value;
+  const el = document.getElementById('quick-gen-results');
+  if (!name) { el.innerHTML = '<span style="color:var(--danger)">Enter a calculator name.</span>'; return; }
+
+  el.innerHTML = '<span class="spinner" style="display:inline-block;width:14px;height:14px;border-width:2px"></span> AI is creating your calculator (formula, inputs, outputs, translations)...';
+
+  try {
+    const base = `https://us-central1-calctowork.cloudfunctions.net`;
+    const res = await fetch(`${base}/quickGenerateCalcHttp`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, category, publish: false })
+    }).then(r=>r.json());
+
+    if (res.error) { el.innerHTML = `<span style="color:var(--danger)">${res.error}</span>`; return; }
+
+    el.innerHTML = `<div style="color:var(--success);font-weight:600">✅ Created "${res.name}"</div>
+      <div style="color:var(--muted);font-size:.75rem;margin:.25rem 0">Slug: ${res.slug} · ${res.inputs} inputs · ${res.outputs} outputs · Auto-translated to ${res.auto_translated}</div>
+      <div style="color:var(--muted);font-size:.72rem">${res.seo_title}</div>
+      <button class="btn btn-sm" style="margin-top:.35rem" onclick="cmsEditBySlug('${res.slug}')">✏️ Edit in CMS</button>
+      <button class="btn btn-sm btn-outline" style="margin-top:.35rem;margin-left:.25rem" onclick="document.getElementById('quick-calc-name').value='';document.getElementById('quick-gen-results').innerHTML=''">+ Create Another</button>`;
+  } catch(e) {
+    el.innerHTML = `<span style="color:var(--danger)">Error: ${e.message}</span>`;
+  }
+}
+
+async function autoFixHreflang() {
+  const el = document.getElementById('quick-gen-results');
+  el.innerHTML = '<span class="spinner" style="display:inline-block;width:14px;height:14px;border-width:2px"></span> Scanning and fixing missing language entries...';
+
+  try {
+    const base = `https://us-central1-calctowork.cloudfunctions.net`;
+    const res = await fetch(`${base}/autoFixHreflangHttp`, { method: 'POST' }).then(r=>r.json());
+
+    if (res.error) { el.innerHTML = `<span style="color:var(--danger)">${res.error}</span>`; return; }
+    if (res.fixed === 0) {
+      el.innerHTML = '<span style="color:var(--success)">✅ All calculators have complete language coverage!</span>';
+    } else {
+      el.innerHTML = `<span style="color:var(--success)">✅ Fixed ${res.fixed} missing language entries across ${res.calcs_scanned} calculators!</span>
+        <div style="color:var(--muted);font-size:.75rem">Run regenerate + deploy to make hreflang live on all pages.</div>`;
+    }
+  } catch(e) {
+    el.innerHTML = `<span style="color:var(--danger)">Error: ${e.message}</span>`;
   }
 }
 
@@ -2844,6 +3281,248 @@ async function runAutopilotNow() {
   } catch(e) {
     btn.textContent = '❌ Error — check console';
     btn.disabled = false;
+  }
+}
+
+// ═══════════════════════════════════════════════
+//  GROWTH LAB — Competitor Intel + Auto-Optimize + Milestones
+// ═══════════════════════════════════════════════
+function renderGrowthLab(area) {
+  area.innerHTML = `<div id="growthlab-tab">
+    <!-- COMPETITOR GAP ANALYSIS -->
+    <div class="card" style="margin-bottom:1rem;background:linear-gradient(135deg,rgba(139,92,246,.08),rgba(99,102,241,.05));border-color:rgba(139,92,246,.25)">
+      <div class="card-header"><span class="card-title">🔍 Competitor Gap Analysis</span></div>
+      <div style="display:flex;gap:.5rem;margin-bottom:.75rem">
+        <input id="competitor-url" placeholder="https://competitor.com/tools" style="flex:1;padding:.5rem .75rem;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.82rem">
+        <button class="btn" onclick="runCompetitorAnalysis()" style="white-space:nowrap">Analyze</button>
+      </div>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.5rem">
+        <button onclick="document.getElementById('competitor-url').value='https://www.omnicalculator.com/construction';runCompetitorAnalysis()" class="btn btn-sm btn-outline">OmniCalculator</button>
+        <button onclick="document.getElementById('competitor-url').value='https://www.calculator.net/';runCompetitorAnalysis()" class="btn btn-sm btn-outline">Calculator.net</button>
+        <button onclick="document.getElementById('competitor-url').value='https://www.gigacalculator.com/';runCompetitorAnalysis()" class="btn btn-sm btn-outline">GigaCalculator</button>
+        <button onclick="document.getElementById('competitor-url').value='https://www.inchcalculator.com/';runCompetitorAnalysis()" class="btn btn-sm btn-outline">InchCalculator</button>
+      </div>
+      <div id="competitor-results" style="font-size:.8rem;color:var(--muted)">Enter a competitor URL to find calculators they have that you don't.</div>
+    </div>
+
+    <div class="grid-2" style="gap:1rem;margin-bottom:1rem">
+      <!-- AUTO-OPTIMIZE -->
+      <div class="card" style="background:linear-gradient(135deg,rgba(34,197,94,.06),rgba(34,197,94,.02));border-color:rgba(34,197,94,.2)">
+        <div class="card-header"><span class="card-title">🎯 Auto-Optimize Titles</span></div>
+        <p style="font-size:.75rem;color:var(--muted);margin-bottom:.75rem">AI rewrites meta titles for pages ranking near page 1 (positions 3–20) with high impressions but low CTR.</p>
+        <div style="display:flex;gap:.5rem;margin-bottom:.5rem">
+          <button class="btn" onclick="runAutoOptimize(false)" style="flex:1">Generate Suggestions</button>
+          <button class="btn btn-outline btn-sm" onclick="runAutoOptimize(true)">Dry Run</button>
+        </div>
+        <p style="font-size:.7rem;color:var(--muted);margin-bottom:.5rem">Scans pages ranking in positions 1-99 with 10+ impressions. Dry run shows suggestions without saving.</p>
+        <button class="btn btn-sm" onclick="applyAllSEOSuggestions()" style="width:100%;margin-top:.25rem;background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;border:none">✅ Approve & Apply All Pending</button>
+        <div id="autooptimize-results" style="margin-top:.75rem;font-size:.78rem;max-height:300px;overflow-y:auto"></div>
+      </div>
+
+      <!-- GROWTH MILESTONES -->
+      <div class="card">
+        <div class="card-header"><span class="card-title">📈 Road to 10k Daily Users</span></div>
+        <div id="milestones-panel" style="font-size:.78rem">
+          <div class="loading"><span class="spinner"></span> Loading...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AUTONOMOUS AGENT CONTROLS -->
+    <div class="card" style="margin-bottom:1rem;background:linear-gradient(135deg,rgba(99,102,241,.06),rgba(139,92,246,.04));border-color:rgba(99,102,241,.2)">
+      <div class="card-header">
+        <span class="card-title">🤖 Autonomous Growth Agent</span>
+        <div style="display:flex;align-items:center;gap:.5rem">
+          <span id="autonomy-status-dot" style="width:8px;height:8px;border-radius:50%;background:var(--muted)"></span>
+          <span id="autonomy-status-text" style="font-size:.75rem;color:var(--muted)">Checking...</span>
+        </div>
+      </div>
+      <div class="grid-4" style="gap:.5rem;margin-bottom:.75rem">
+        <div class="kpi" style="--kpi-bar:#8b5cf6;padding:.75rem"><div class="kpi-label" style="font-size:.62rem">Today Actions</div><div class="kpi-value" style="font-size:1.25rem" id="kpi-auto-actions">--</div></div>
+        <div class="kpi" style="--kpi-bar:#22c55e;padding:.75rem"><div class="kpi-label" style="font-size:.62rem">Published</div><div class="kpi-value" style="font-size:1.25rem" id="kpi-auto-publishes">--</div></div>
+        <div class="kpi" style="--kpi-bar:#f59e0b;padding:.75rem"><div class="kpi-label" style="font-size:.62rem">API Calls</div><div class="kpi-value" style="font-size:1.25rem" id="kpi-auto-api">--</div></div>
+        <div class="kpi" style="--kpi-bar:#3b82f6;padding:.75rem"><div class="kpi-label" style="font-size:.62rem">Next Run</div><div class="kpi-value" style="font-size:1rem" id="kpi-auto-next">4h</div></div>
+      </div>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+        <button class="btn btn-sm" id="btn-auto-toggle" onclick="toggleAutonomy()" style="background:linear-gradient(135deg,#8b5cf6,#6366f1);color:#fff;border:none">Enable Agent</button>
+        <button class="btn btn-sm btn-outline" onclick="toggleAutoPublish()" id="btn-auto-publish">Auto-Publish: OFF</button>
+        <button class="btn btn-sm btn-outline" onclick="stopAutonomy()" style="color:var(--danger);border-color:var(--danger)" id="btn-auto-stop">🛑 Emergency Stop</button>
+        <button class="btn btn-sm btn-outline" onclick="loadAutonomyStatus()">⟳ Refresh</button>
+      </div>
+      <div id="autonomy-recent" style="margin-top:.6rem;max-height:150px;overflow-y:auto;font-size:.72rem"></div>
+    </div>
+
+    <!-- QUICK CALCULATOR GENERATOR -->
+    <div class="card" style="margin-bottom:1rem;background:linear-gradient(135deg,rgba(34,197,94,.06),rgba(34,197,94,.02));border-color:rgba(34,197,94,.2)">
+      <div class="card-header"><span class="card-title">⚡ Quick Calculator Generator</span><span style="font-size:.72rem;color:var(--muted)">AI creates a full calculator from just a name</span></div>
+      <div style="display:flex;gap:.5rem;margin-bottom:.5rem">
+        <input id="quick-calc-name" placeholder="e.g. Roof Snow Load Calculator" style="flex:1;padding:.5rem .75rem;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.82rem">
+        <select id="quick-calc-category" style="padding:.5rem;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.82rem">
+          <option value="construction">Construction</option><option value="math">Math</option><option value="finance">Finance</option><option value="health">Health</option><option value="physics">Physics</option><option value="chemistry">Chemistry</option><option value="everyday">Everyday</option>
+        </select>
+      </div>
+      <div style="display:flex;gap:.5rem">
+        <button class="btn" onclick="quickGenerateCalc()" style="flex:1">Generate + Auto-Translate</button>
+        <button class="btn btn-sm btn-outline" onclick="autoFixHreflang()" style="white-space:nowrap">🔗 Auto-Fix Hreflang</button>
+      </div>
+      <div id="quick-gen-results" style="margin-top:.5rem;font-size:.78rem"></div>
+    </div>
+
+    <!-- QUICK ACTIONS -->
+    <div class="card">
+      <div class="card-header"><span class="card-title">⚡ Quick Actions</span></div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem">
+        <button class="btn" onclick="runAutoOptimize(false)" style="text-align:center;padding:.6rem">🎯 Optimize Titles</button>
+        <button class="btn btn-outline" onclick="switchTab('ctr')" style="text-align:center;padding:.6rem">📊 CTR Report</button>
+        <button class="btn btn-outline" onclick="switchTab('audit')" style="text-align:center;padding:.6rem">🩺 Full Audit</button>
+        <button class="btn btn-outline" onclick="fetch('https://us-central1-calctowork.cloudfunctions.net/runAutoPilotHttp',{method:'POST'}).then(()=>alert('Autopilot triggered!'))" style="text-align:center;padding:.6rem">🚀 Run Autopilot</button>
+        <button class="btn btn-outline" onclick="alert('Core pages and sitemaps regenerate automatically after each agent cycle + daily at 5 AM UTC. Manual regeneration not needed.')" style="text-align:center;padding:.6rem">🔄 Auto-Regeneration</button>
+      </div>
+    </div>
+  </div>`;
+
+  loadGscData();
+  loadMilestones();
+  loadAutonomyStatus();
+}
+
+async function runCompetitorAnalysis() {
+  const url = document.getElementById('competitor-url').value.trim();
+  const el = document.getElementById('competitor-results');
+  if (!url) { el.innerHTML = '<span style="color:var(--danger)">Enter a URL first.</span>'; return; }
+  el.innerHTML = '<span class="spinner" style="display:inline-block;width:14px;height:14px;border-width:2px"></span> Analyzing competitor...';
+
+  try {
+    const base = `https://us-central1-calctowork.cloudfunctions.net`;
+    const res = await fetch(`${base}/analyzeCompetitorHttp?url=${encodeURIComponent(url)}`).then(r=>r.json());
+
+    if (res.error) { el.innerHTML = `<span style="color:var(--danger)">${res.error}</span>`; return; }
+
+    const gaps = res.gaps || [];
+    if (gaps.length === 0) {
+      el.innerHTML = `<span style="color:var(--success)">✅ No gaps found — you have all their tools!</span>
+        <div style="margin-top:.5rem;color:var(--muted);font-size:.75rem">AI scanned <strong>${res.pageTitle||url}</strong> — found ${res.tools_found||0} tools vs ${res.our_tools||0} in yours. ${res.tools_found ? 'Your coverage is excellent.' : ''}</div>`;
+    } else {
+      el.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
+          <span style="color:var(--primary);font-weight:600">🔥 ${res.gaps_found||gaps.length} tools they have that you don't</span>
+          <span style="font-size:.7rem;color:var(--muted)">Scanned ${res.pageTitle||url} — ${res.tools_found||0} tools found</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:.35rem;max-height:300px;overflow-y:auto">${gaps.map(g => `<span style="background:var(--card-hover);border:1px solid var(--border);border-radius:6px;padding:.3rem .55rem;font-size:.75rem;display:flex;align-items:center;gap:.35rem">📐 ${g.name}</span>`).join('')}</div>
+        <button class="btn btn-sm" style="margin-top:.5rem" onclick="addGapsToPipeline()">+ Add all to Pipeline</button>`;
+    }
+  } catch(e) {
+    el.innerHTML = `<span style="color:var(--danger)">Error: ${e.message}</span>`;
+  }
+}
+
+async function runAutoOptimize(dryRun) {
+  const el = document.getElementById('autooptimize-results');
+  el.innerHTML = '<span class="spinner" style="display:inline-block;width:14px;height:14px;border-width:2px"></span> AI is analyzing GSC data and generating optimized titles...';
+
+  try {
+    const base = `https://us-central1-calctowork.cloudfunctions.net`;
+    const res = await fetch(`${base}/autoOptimizeCalcsHttp`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ limit: 15, minPosition: 1, maxPosition: 99, dryRun })
+    }).then(r=>r.json());
+
+    if (res.error) { el.innerHTML = `<span style="color:var(--danger)">${res.error}</span>`; return; }
+    if (res.optimized === 0) { el.innerHTML = '<span style="color:var(--success)">No candidates found in positions 3-20 with enough impressions. Everything is either already ranking well or needs more impressions first.</span>'; return; }
+
+    el.innerHTML = `<div style="color:var(--success);font-weight:600;margin-bottom:.5rem">✓ ${res.optimized} pages optimized${dryRun?' (DRY RUN — no changes saved)':''}</div>
+      <table class="data-table" style="font-size:.72rem"><thead><tr><th>Slug</th><th class="num">Impr</th><th class="num">CTR</th><th>New Title</th></tr></thead>
+      <tbody>${res.results.map(r => `<tr>
+        <td style="color:var(--primary)">${r.slug}</td>
+        <td class="num">${r.old_impressions}</td>
+        <td class="num"><span class="badge badge-orange">${r.old_ctr}</span></td>
+        <td style="font-size:.72rem;color:var(--success)">${r.new_title||'—'}</td>
+      </tr>`).join('')}</tbody></table>
+      ${!dryRun ? '<button class="btn btn-sm" style="margin-top:.5rem" onclick="applyAllSEOSuggestions()">✅ Apply All Now</button>' : ''}`;
+  } catch(e) {
+    el.innerHTML = `<span style="color:var(--danger)">Error: ${e.message}</span>`;
+  }
+}
+
+async function applyAllSEOSuggestions() {
+  const el = document.getElementById('autooptimize-results');
+  el.innerHTML = '<span class="spinner" style="display:inline-block;width:14px;height:14px;border-width:2px"></span> Applying suggestions...';
+  try {
+    const base = `https://us-central1-calctowork.cloudfunctions.net`;
+    const res = await fetch(`${base}/applySEOSuggestionsHttp`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ limit: 20 })
+    }).then(r=>r.json());
+    if (res.applied > 0) {
+      el.innerHTML = `<span style="color:var(--success)">✅ Applied ${res.applied} title optimizations! Regenerate your site to make them live.</span>
+        <button class="btn btn-sm" style="margin-top:.5rem" onclick="regenerateAndDeploy()">🔄 Regenerate Now</button>`;
+    } else {
+      el.innerHTML = '<span style="color:var(--muted)">No pending suggestions to apply.</span>';
+    }
+  } catch(e) {
+    el.innerHTML = `<span style="color:var(--danger)">Error: ${e.message}</span>`;
+  }
+}
+
+async function loadMilestones() {
+  const el = document.getElementById('milestones-panel');
+  try {
+    const base = `https://us-central1-calctowork.cloudfunctions.net`;
+    const statsRes = await fetch(`${base}/getGscData?type=site_stats&days=7&limit=7`).then(r=>r.json());
+    const today = statsRes[0] || {};
+    const clicks = today.total_clicks || 0;
+    const impressions = today.total_impressions || 0;
+
+    const milestones = [
+      { label: '100 daily clicks', target: 100, current: clicks, icon: '👆' },
+      { label: '500 daily clicks', target: 500, current: clicks, icon: '📈' },
+      { label: '1,000 daily clicks', target: 1000, current: clicks, icon: '🔥' },
+      { label: '5,000 daily clicks', target: 5000, current: clicks, icon: '🚀' },
+      { label: '10,000 daily clicks', target: 10000, current: clicks, icon: '🏆' },
+      { label: '50k daily impressions', target: 50000, current: impressions, icon: '👁' },
+    ];
+
+    el.innerHTML = `<div style="font-size:.75rem;color:var(--muted);margin-bottom:.75rem">Today: <strong style="color:var(--primary)">${clicks} clicks</strong> · ${impressions} impressions</div>
+      ${milestones.map(m => {
+        const pct = Math.min(100, Math.round((m.current / m.target) * 100));
+        const barColor = pct >= 100 ? '#22c55e' : pct >= 50 ? '#f97316' : pct >= 20 ? '#f59e0b' : '#64748b';
+        return `<div style="margin-bottom:.5rem">
+          <div style="display:flex;justify-content:space-between;margin-bottom:.15rem"><span>${m.icon} ${m.label}</span><span style="color:var(--muted)">${m.current}/${m.target}</span></div>
+          <div style="background:var(--bg);border-radius:4px;height:6px;overflow:hidden"><div style="background:${barColor};height:100%;width:${pct}%;transition:width .3s;border-radius:4px"></div></div>
+        </div>`;
+      }).join('')}`;
+  } catch(e) {
+    el.innerHTML = '<span style="color:var(--muted)">GSC data unavailable</span>';
+  }
+}
+
+async function addGapsToPipeline() {
+  const el = document.getElementById('competitor-results');
+  const nameEls = el.querySelectorAll('span');
+  const names = [];
+  nameEls.forEach(s => { const t = s.textContent.trim(); if (t.length > 3 && t !== '📐') names.push(t.replace('📐','').trim()); });
+
+  if (names.length === 0) { alert('No gaps to add.'); return; }
+
+  try {
+    const batch = db.batch();
+    let count = 0;
+    names.forEach(name => {
+      const slug = name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+      const ref = db.collection('calc_pipeline').doc(slug);
+      batch.set(ref, {
+        slug, name,
+        status: 'idea',
+        source: 'competitor_analysis',
+        created_at: firebase.firestore.FieldValue.serverTimestamp(),
+      }, { merge: true });
+      count++;
+      if (count >= 500) return; // batch limit
+    });
+    await batch.commit();
+    alert(`✅ Added ${count} calculator ideas to your pipeline! Go to Calculators tab to develop them.`);
+    initPipelineBadge();
+  } catch(e) {
+    alert('Error: ' + e.message);
   }
 }
 
