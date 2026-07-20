@@ -27,7 +27,11 @@ def test_sitemap_exists():
     print("[PASS] All sitemap files exist")
 
 def test_noindex_on_parametric():
-    """Verify parametric variant pages have noindex."""
+    """Verify parametric variant pages have noindex (AdSense-safe policy).
+
+    Parametric variants are inherently near-duplicate (same calc, different
+    numbers), so they stay noindex,follow — the base pages carry indexing.
+    """
     # Parametric pages are nested deeper: /lang/slug/param/index.html
     parametric_pages = []
     for lang_dir in PUBLIC.glob("*"):

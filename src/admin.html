@@ -375,6 +375,7 @@ const TABS = [
   { id:'calculators', label:'Calculators', icon:'🧮' },
   { id:'autopilot', label:'Autopilot', icon:'🚀' },
   { id:'growthlab', label:'Growth Lab', icon:'🧪' },
+  { id:'strategy', label:'Strategy', icon:'🧠' },
   { id:'ai', label:'AI Tools', icon:'🤖' },
   { id:'settings', label:'Settings', icon:'⚙️' },
 ];
@@ -418,6 +419,7 @@ function switchTab(tabId) {
     case 'calculators': renderCalculatorCMS(area); break;
     case 'autopilot': renderAutopilot(area); break;
     case 'growthlab': renderGrowthLab(area); break;
+    case 'strategy': renderStrategy(area); break;
     case 'ai': renderAITools(area); break;
     case 'settings': renderSettings(area); break;
   }
@@ -1704,6 +1706,18 @@ async function toggleAutoPublish() {
     });
     loadAutonomyStatus();
   } catch(e) { alert('Error: ' + e.message); }
+}
+
+async function runBacklinkHunter() {
+  const el = document.getElementById('autooptimize-results');
+  el.innerHTML = '<span class="spinner"></span> Hunting backlinks...';
+  try {
+    const res = await fetch('https://us-central1-calctowork.cloudfunctions.net/backlinkHunterHttp').then(r=>r.json());
+    const dirs = res.directories || [];
+    el.innerHTML = '<div style="color:var(--success);font-weight:600">🔗 Backlink Report</div>' +
+      dirs.map(d => '<div style="font-size:.72rem;margin:.15rem 0">' + d.name + ': <span style="color:'+(d.status==='exists'?'var(--success)':'var(--muted)')+'">' + d.status + '</span>' + (d.action ? ' - ' + d.action : '') + '</div>').join('') +
+      '<div style="margin-top:.5rem;font-size:.72rem;color:var(--muted)">💡 Embed: <code>&lt;script src="https://calcto.work/embed.js" data-calc="bmi-calculator"&gt;&lt;/script&gt;</code></div>';
+  } catch(e) { el.innerHTML = '<span style="color:var(--danger)">Error: ' + e.message + '</span>'; }
 }
 
 function regenerateAndDeploy() {
@@ -3315,6 +3329,8 @@ function renderGrowthLab(area) {
           <button class="btn btn-outline btn-sm" onclick="runAutoOptimize(true)">Dry Run</button>
         </div>
         <p style="font-size:.7rem;color:var(--muted);margin-bottom:.5rem">Scans pages ranking in positions 1-99 with 10+ impressions. Dry run shows suggestions without saving.</p>
+        <button class="btn btn-sm" onclick="generateAllSEOTitles()" style="width:100%;margin-top:.25rem;background:linear-gradient(135deg,#8b5cf6,#6366f1);color:#fff;border:none">✨ Generate SEO Titles for ALL (bulk AI)</button>
+        <button class="btn btn-sm" onclick="auditCalcQuality()" style="width:100%;margin-top:.25rem;background:linear-gradient(135deg,#f97316,#ea580c);color:#fff;border:none">🛡 Audit Quality & Unpublish Bad Calcs</button>
         <button class="btn btn-sm" onclick="applyAllSEOSuggestions()" style="width:100%;margin-top:.25rem;background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;border:none">✅ Approve & Apply All Pending</button>
         <div id="autooptimize-results" style="margin-top:.75rem;font-size:.78rem;max-height:300px;overflow-y:auto"></div>
       </div>
@@ -3375,7 +3391,7 @@ function renderGrowthLab(area) {
         <button class="btn" onclick="runAutoOptimize(false)" style="text-align:center;padding:.6rem">🎯 Optimize Titles</button>
         <button class="btn btn-outline" onclick="switchTab('ctr')" style="text-align:center;padding:.6rem">📊 CTR Report</button>
         <button class="btn btn-outline" onclick="switchTab('audit')" style="text-align:center;padding:.6rem">🩺 Full Audit</button>
-        <button class="btn btn-outline" onclick="fetch('https://us-central1-calctowork.cloudfunctions.net/runAutoPilotHttp',{method:'POST'}).then(()=>alert('Autopilot triggered!'))" style="text-align:center;padding:.6rem">🚀 Run Autopilot</button>
+        <button class="btn btn-outline" onclick="runBacklinkHunter()" style="text-align:center;padding:.6rem">🔗 Hunt Backlinks</button>
         <button class="btn btn-outline" onclick="alert('Core pages and sitemaps regenerate automatically after each agent cycle + daily at 5 AM UTC. Manual regeneration not needed.')" style="text-align:center;padding:.6rem">🔄 Auto-Regeneration</button>
       </div>
     </div>
@@ -3438,6 +3454,43 @@ async function runAutoOptimize(dryRun) {
         <td style="font-size:.72rem;color:var(--success)">${r.new_title||'—'}</td>
       </tr>`).join('')}</tbody></table>
       ${!dryRun ? '<button class="btn btn-sm" style="margin-top:.5rem" onclick="applyAllSEOSuggestions()">✅ Apply All Now</button>' : ''}`;
+  } catch(e) {
+    el.innerHTML = `<span style="color:var(--danger)">Error: ${e.message}</span>`;
+  }
+}
+
+async function auditCalcQuality() {
+  const el = document.getElementById('autooptimize-results');
+  if (!confirm('This will score ALL calculators and unpublish any below 80/100 quality. Continue?')) return;
+  el.innerHTML = '<span class="spinner"></span> Auditing calculator quality...';
+  try {
+    const res = await fetch('https://us-central1-calctowork.cloudfunctions.net/auditCalcQualityHttp', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ autoFix:true, threshold:80 })
+    }).then(r=>r.json());
+    el.innerHTML = `<div style="color:var(--primary);font-weight:600">🛡 Quality Audit Complete</div>
+      <div style="font-size:.78rem;margin:.3rem 0">Scored: ${res.scored} | <span style="color:var(--success)">Passed: ${res.passed}</span> | <span style="color:var(--danger)">Failed: ${res.failed}</span> | Unpublished: ${res.unpublished}</div>
+      ${res.top_issues ? res.top_issues.slice(0,10).map(i => `<div style="font-size:.7rem;margin:.1rem 0;padding:.2rem .4rem;background:var(--card-hover);border-radius:4px"><strong>${i.slug}</strong>: ${i.score}/100 — ${(i.issues||[]).join(', ')}</div>`).join('') : ''}`;
+  } catch(e) { el.innerHTML = '<span style="color:var(--danger)">Error: '+e.message+'</span>'; }
+}
+
+async function generateAllSEOTitles() {
+  const el = document.getElementById('autooptimize-results');
+  el.innerHTML = '<span class="spinner" style="display:inline-block;width:14px;height:14px;border-width:2px"></span> AI generating SEO titles for all calculators missing them (this takes ~2 min)...';
+
+  try {
+    const base = `https://us-central1-calctowork.cloudfunctions.net`;
+    const res = await fetch(`${base}/generateAllSEOTitlesHttp`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ limit: 30, deploy: false })
+    }).then(r=>r.json());
+
+    if (res.error) { el.innerHTML = `<span style="color:var(--danger)">${res.error}</span>`; return; }
+
+    el.innerHTML = `<div style="color:var(--success);font-weight:600">✅ Generated SEO titles for ${res.generated} calculators</div>
+      <div style="color:var(--muted);font-size:.75rem">${res.skipped} already had good titles. ${res.deployed||0} auto-deployed.</div>
+      ${res.results ? res.results.slice(0,10).map(r => `<div style="font-size:.72rem;margin:.2rem 0;padding:.2rem .4rem;background:var(--card-hover);border-radius:4px"><strong>${r.slug}</strong>: ${r.title}</div>`).join('') : ''}
+      <button class="btn btn-sm" style="margin-top:.5rem" onclick="generateAllSEOTitles()">Generate 30 More</button>`;
   } catch(e) {
     el.innerHTML = `<span style="color:var(--danger)">Error: ${e.message}</span>`;
   }
@@ -3524,6 +3577,143 @@ async function addGapsToPipeline() {
   } catch(e) {
     alert('Error: ' + e.message);
   }
+}
+
+// ═══════════════════════════════════════════
+//  STRATEGY TAB — AI Brain: Plan → Review → Replan
+// ═══════════════════════════════════════════
+function renderStrategy(area) {
+  area.innerHTML = `<div id="strategy-tab">
+    <div class="grid-2" style="gap:1rem;margin-bottom:1rem">
+      <!-- CURRENT PLAN -->
+      <div class="card" style="background:linear-gradient(135deg,rgba(139,92,246,.08),rgba(99,102,241,.05));border-color:rgba(139,92,246,.25)">
+        <div class="card-header">
+          <span class="card-title">🧠 Current Plan</span>
+          <div style="display:flex;gap:.35rem">
+            <button class="btn btn-sm" onclick="generateStrategyPlan()">New Plan</button>
+            <button class="btn btn-sm btn-outline" onclick="reviewStrategyPlan()">Review</button>
+          </div>
+        </div>
+        <div id="current-plan"><div class="loading"><span class="spinner"></span> Loading...</div></div>
+      </div>
+
+      <!-- MEMORY & LEARNINGS -->
+      <div class="card">
+        <div class="card-header"><span class="card-title">📚 Long-term Memory</span></div>
+        <div id="strategy-memory"><div class="loading"><span class="spinner"></span> Loading...</div></div>
+      </div>
+    </div>
+
+    <!-- TIMELINE -->
+    <div class="card" style="margin-bottom:1rem">
+      <div class="card-header"><span class="card-title">📅 Historical Timeline</span><button class="btn btn-sm btn-outline" onclick="addStrategyNote()">+ Note</button></div>
+      <div id="strategy-timeline"><div class="loading"><span class="spinner"></span> Loading...</div></div>
+    </div>
+
+    <!-- QUICK NOTE -->
+    <div class="card">
+      <div class="card-header"><span class="card-title">💡 Add Insight</span></div>
+      <div style="display:flex;gap:.5rem">
+        <input id="strategy-insight" placeholder="e.g. Construction calculators get 10x more clicks than math ones" style="flex:1;padding:.5rem;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.82rem">
+        <button class="btn" onclick="saveStrategyNote()">Save</button>
+      </div>
+    </div>
+  </div>`;
+
+  loadStrategyMemory();
+}
+
+async function loadStrategyMemory() {
+  try {
+    const base = 'https://us-central1-calctowork.cloudfunctions.net';
+    const data = await fetch(`${base}/getStrategyMemoryHttp`).then(r=>r.json());
+
+    // Current plan
+    const plan = data.strategy?.current_plan;
+    const planEl = document.getElementById('current-plan');
+    if (plan && plan.headline) {
+      planEl.innerHTML = `<div style="font-size:.85rem;font-weight:600;color:var(--primary);margin-bottom:.5rem">${plan.headline}</div>
+        <div style="font-size:.78rem;color:var(--muted);margin-bottom:.5rem">Goal: ${plan.big_goal||''}</div>
+        ${(plan.phases||[]).map(p => `<div style="margin-bottom:.5rem;padding:.4rem .6rem;background:var(--card-hover);border-radius:6px;font-size:.75rem">
+          <div style="font-weight:600;color:var(--text)">Phase ${p.phase}: ${p.focus}</div>
+          ${(p.actions||[]).map(a => `<div style="color:var(--muted);margin-left:.5rem">• ${a}</div>`).join('')}
+          <div style="color:var(--success);font-size:.68rem;margin-top:.15rem">${p.success_criteria||''}</div>
+        </div>`).join('')}
+        ${plan.long_term_vision ? `<div style="font-size:.72rem;color:var(--muted);margin-top:.5rem;padding:.3rem .5rem;background:var(--bg);border-radius:4px">🎯 Vision: ${plan.long_term_vision}</div>` : ''}`;
+    } else {
+      planEl.innerHTML = '<div style="color:var(--muted)">No active plan. Click "New Plan" to generate one.</div>';
+    }
+
+    // Memory & learnings
+    const learn = data.learnings || {};
+    const memEl = document.getElementById('strategy-memory');
+    memEl.innerHTML = `<div style="margin-bottom:.75rem"><strong style="font-size:.75rem;color:var(--success)">✅ What Works:</strong>${(learn.what_works||[]).slice(0,5).map(w => `<div style="font-size:.72rem;margin:.1rem 0;padding:.15rem .4rem;background:rgba(34,197,94,.08);border-radius:4px">${w}</div>`).join('')||'<div style="font-size:.72rem;color:var(--muted)">Nothing yet</div>'}</div>
+      <div style="margin-bottom:.75rem"><strong style="font-size:.75rem;color:var(--danger)">❌ What Doesn't:</strong>${(learn.what_doesnt||[]).slice(0,5).map(w => `<div style="font-size:.72rem;margin:.1rem 0;padding:.15rem .4rem;background:rgba(239,68,68,.08);border-radius:4px">${w}</div>`).join('')||'<div style="font-size:.72rem;color:var(--muted)">Nothing yet</div>'}</div>
+      <div><strong style="font-size:.75rem;color:var(--info)">📊 Patterns:</strong>${(learn.site_patterns||[]).slice(0,5).map(w => `<div style="font-size:.72rem;margin:.1rem 0;padding:.15rem .4rem;background:rgba(59,130,246,.08);border-radius:4px">${w}</div>`).join('')||'<div style="font-size:.72rem;color:var(--muted)">Nothing yet</div>'}</div>`;
+
+    // Timeline
+    const memory = data.memory || {};
+    const timeline = memory.timeline || [];
+    const tlEl = document.getElementById('strategy-timeline');
+    tlEl.innerHTML = timeline.length ? timeline.slice(0,20).map(t => `<div style="display:flex;gap:.75rem;padding:.35rem 0;border-bottom:1px solid var(--border);font-size:.75rem">
+      <span style="color:var(--muted);white-space:nowrap;min-width:100px">${new Date(t.date).toLocaleDateString()}</span>
+      <span style="color:var(--text)">${t.event||''} ${t.headline? '— '+t.headline : ''} ${t.summary? '— '+t.summary.slice(0,100) : ''}</span>
+    </div>`).join('') : '<div style="color:var(--muted);font-size:.75rem">No timeline yet. Create a plan to start.</div>';
+  } catch(e) { console.warn('Strategy:', e.message); }
+}
+
+async function generateStrategyPlan() {
+  const el = document.getElementById('current-plan');
+  el.innerHTML = '<span class="spinner"></span> AI is analyzing site + memory and creating a 2-week plan...';
+  try {
+    const res = await fetch('https://us-central1-calctowork.cloudfunctions.net/generateStrategyPlanHttp').then(r=>r.json());
+    if (res.error) { el.innerHTML = `<span style="color:var(--danger)">${res.error}</span>`; return; }
+    loadStrategyMemory();
+  } catch(e) { el.innerHTML = `<span style="color:var(--danger)">Error: ${e.message}</span>`; }
+}
+
+async function reviewStrategyPlan() {
+  const el = document.getElementById('current-plan');
+  el.innerHTML = '<span class="spinner"></span> AI is reviewing progress vs plan...';
+  try {
+    const res = await fetch('https://us-central1-calctowork.cloudfunctions.net/reviewStrategyPlanHttp').then(r=>r.json());
+    if (res.error) { el.innerHTML = `<span style="color:var(--danger)">${res.error}</span>`; return; }
+    el.innerHTML = `<div style="font-size:.85rem;font-weight:600;color:var(--primary);margin-bottom:.5rem">📋 Review: ${res.summary||''}</div>
+      <div style="font-size:.78rem">
+        <div style="margin-bottom:.3rem"><span class="badge ${res.plan_status==='on_track'?'badge-green':'badge-orange'}">${res.plan_status||'pending'}</span> Confidence: ${res.confidence}/10</div>
+        ${res.what_worked ? '<div style="color:var(--success);font-size:.72rem">✅ '+res.what_worked.join(', ')+'</div>' : ''}
+        ${res.what_didnt ? '<div style="color:var(--danger);font-size:.72rem">❌ '+res.what_didnt.join(', ')+'</div>' : ''}
+        ${res.adjustments ? '<div style="color:var(--info);font-size:.72rem;margin-top:.25rem">🔄 Adjust: '+res.adjustments.join(', ')+'</div>' : ''}
+      </div>
+      <button class="btn btn-sm" style="margin-top:.5rem" onclick="generateStrategyPlan()">Create Adjusted Plan</button>`;
+    setTimeout(loadStrategyMemory, 1500);
+  } catch(e) { el.innerHTML = `<span style="color:var(--danger)">Error: ${e.message}</span>`; }
+}
+
+async function saveStrategyNote() {
+  const inp = document.getElementById('strategy-insight');
+  const text = inp.value.trim();
+  if (!text) return;
+  try {
+    await fetch('https://us-central1-calctowork.cloudfunctions.net/saveStrategyMemoryHttp', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ insight:text, event:text })
+    });
+    inp.value = '';
+    loadStrategyMemory();
+  } catch(e) { alert('Error: '+e.message); }
+}
+
+async function addStrategyNote() {
+  const note = prompt('Add a note or event to the timeline:');
+  if (!note) return;
+  try {
+    await fetch('https://us-central1-calctowork.cloudfunctions.net/saveStrategyMemoryHttp', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ event:note })
+    });
+    loadStrategyMemory();
+  } catch(e) { alert('Error: '+e.message); }
 }
 
 function renderAITools(area) {

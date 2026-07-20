@@ -123,11 +123,13 @@ async function storePageStats(siteUrl, startDate, endDate) {
 
   for (const row of rows) {
     const page = (row.keys || [])[0] || "";
-    const docId = `${startDate}_${page.replace(/[\/\.\#\$\[\]]/g, "_")}`;
+    // Stamp with endDate (snapshot date), not startDate: each daily run produces
+    // one snapshot keyed by its window end, so dashboards can query "latest snapshot".
+    const docId = `${endDate}_${page.replace(/[\/\.\#\$\[\]]/g, "_")}`;
     const docRef = db.collection("gsc_page_stats").doc(docId);
 
     batch.set(docRef, {
-      date: startDate,
+      date: endDate,
       page,
       total_clicks: row.clicks || 0,
       total_impressions: row.impressions || 0,
@@ -351,11 +353,20 @@ exports.getGscData = functions.https.onRequest(async (req, res) => {
 
     if (type === "pages") {
       const siteUrl = gscConfig().siteUrl || "sc-domain:calcto.work";
+      // Page stats are 90-day-window snapshots stamped with their endDate.
+      // Summing across snapshots would double-count overlapping windows, so
+      // always return ONLY the latest snapshot.
+      const latestSnap = await db.collection("gsc_page_stats")
+        .where("site_url", "==", siteUrl)
+        .orderBy("date", "desc")
+        .limit(1)
+        .get();
+      if (latestSnap.empty) return res.status(200).json([]);
+      const latestDate = latestSnap.docs[0].data().date;
+
       const snap = await db.collection("gsc_page_stats")
         .where("site_url", "==", siteUrl)
-        .where("date", ">=", cutoff)
-        .orderBy("date", "desc")
-        .limit(parseInt(req.query.limit) || 500)
+        .where("date", "==", latestDate)
         .get();
 
       // Aggregate by page across the date range

@@ -169,3 +169,15 @@ exports.autonomousGrowthLoop = calcPage.autonomousGrowthLoop;
 exports.toggleAutonomyHttp = calcPage.toggleAutonomyHttp;
 exports.getAutonomyStatusHttp = calcPage.getAutonomyStatusHttp;
 exports.dailyCoreRegeneration = calcPage.dailyCoreRegeneration;
+exports.syncStaticCalcsHttp = calcPage.syncStaticCalcsHttp;
+exports.generateAllSEOTitlesHttp = calcPage.generateAllSEOTitlesHttp;
+exports.generateOneSEOTitleHttp = calcPage.generateOneSEOTitleHttp;
+exports.backlinkHunterHttp = calcPage.backlinkHunterHttp;
+exports.weeklyBacklinkHunter = calcPage.weeklyBacklinkHunter;
+
+// ── AI Strategy Brain ──
+exports.generateStrategyPlanHttp = calcPage.generateStrategyPlanHttp;
+exports.reviewStrategyPlanHttp = calcPage.reviewStrategyPlanHttp;
+exports.getStrategyMemoryHttp = calcPage.getStrategyMemoryHttp;
+exports.saveStrategyMemoryHttp = calcPage.saveStrategyMemoryHttp;
+exports.auditCalcQualityHttp = calcPage.auditCalcQualityHttp;
