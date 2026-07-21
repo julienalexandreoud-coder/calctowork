@@ -1,44 +1,82 @@
-<section class="long-content">
-<p>Verwenden Sie den <strong>Copper and PEX Pipe Calculator</strong>, um länge (+10%), bögen, t-stücke schnell und präzise zu berechnen.</p>
-<h2>So funktioniert die Berechnung</h2>
-<p>Ob Sie eine Renovierung planen, Materialien fur eine Baustelle schatzen oder Dimensionen fur ein DIY-Projekt berechnen — die richtigen Zahlen von Anfang an sparen Zeit und Geld.</p>
-<p>Die Formel hinter dieser Berechnung lautet <strong>Kupfer- und PEX-Rohr-Rechner = f(Gesamtlänge, Entnahmestellen)</strong>. Zu verstehen, wie das Ergebnis ermittelt wird, hilft Ihnen, die Ausgabe zu überprüfen und Eingabefehler zu erkennen.</p>
+<p>Der Trinkwasserrohr-Rechner hilft Ihnen dabei, die benötigte Menge an Kupfer- oder PEX-Rohren für Ihre Trinkwasserinstallation präzise zu ermitteln. Mit diesem praktischen Online-Tool geben Sie einfach die Rohrlänge und die Anzahl der Zapfstellen in Ihrem Gebäude ein und erhalten sofort eine detaillierte Materialliste inklusive Fittings und Verschnitt.</p>
 
-<h2>Schritt-fur-Schritt-Anleitung fur Ihr Projekt</h2>
-<p>Folgen Sie diesen Schritten für ein zuverlässiges Ergebnis:</p>
-<ol>
-<li><strong>Geben Sie Ihre Werte ein:</strong> 25 m; 6 ud — ensure all values use a single consistent unit system.</li>
-<li><strong>Der Rechner wendet die Formel an:</strong> <em>Kupfer- und PEX-Rohr-Rechner = f(Gesamtlänge, Entnahmestellen)</em>.</li>
-<li><strong>Lesen Sie Ihr Ergebnis:</strong> Länge (+10%), Bögen, T-Stücke.</li>
-<li>Prüfen Sie: Bestätigen Sie, dass die Einheiten konsistent und die Werte realistisch sind, bevor Sie auf das Ergebnis reagieren.</li>
-</ol>
+<h2>Was ist der Trinkwasserrohr-Rechner und wann sollten Sie ihn einsetzen?</h2>
 
-<h2>Praktische Anwendungen auf der Baustelle</h2>
-<p>Dieser Rechner ist besonders nützlich in folgenden Situationen:</p>
+<p>Der Trinkwasserrohr-Rechner ist ein speziell für SHK-Handwerker, Bauplaner und Heimwerker entwickeltes Tool zur schnellen Materialermittlung. Sie geben die horizontale oder vertikale Rohrleitungslänge in Metern sowie die geplanten Zapfstellen (z. B. Waschbecken, Duschen, Außenzapfstellen) ein. Der Rechner berechnet daraus automatisch den benötigten Hauptleitungsdurchmesser, die Anzahl der Fittings und den Materialverschnitt von 10 %.</p>
+
+<p>Am häufigsten wird der Rechner bei diesen Anlässen genutzt:</p>
 <ul>
-<li>alltägliche Mathematikprobleme</li><li>Budgetierung und Planung</li><li>Kochen und Heimessungen</li><li>Reise- und Zeitberechnungen</li>
+<li>Planung einer neuen Trinkwasserinstallation im Neubau (Einfamilienhaus, Mehrfamilienhaus)</li>
+<li>Sanierung alter Kupfer- oder PEX-Leitungen</li>
+<li>Kalkulation von Materialkosten für ein Angebot</li>
+<li>Schnelle Überprüfung der benötigten Rollenanzahl (50-m-Rollen für PEX)</li>
 </ul>
 
-<h2>Ergebnisse richtig anwenden</h2>
-<p>Ihr Ergebnis zeigt die theoretisch benötigte Menge. Rechnen Sie vor der Bestellung den passenden Verschnittzuschlag ein: 5–10&nbsp;% für Beton und Mörtel, 10–15&nbsp;% für Fliesen, Naturstein und Ziegel, und 3–5&nbsp;% für Stahl und Holz. Runden Sie stets auf die nächste volle Einheit — Sack, Tonne oder Palette.</p>
+<p>Das Tool spart Zeit, reduziert Materialfehler und verhindert teure Nachbestellungen während der Bauphase.</p>
 
-<h2>Baustandards und bewährte Praktiken</h2>
-<p>Bauprojekte hängen von genauen Materialschätzungen ab. Fachleute addieren typischerweise 5–10&nbsp;% Verschnittzuschlag auf die theoretische Menge für Schnitte, Bruch und Messfehler. DIN-, ISO- und EN-Normen definieren Materialeigenschaften und Toleranzen, die diesen Formeln zugrunde liegen.</p>
+<h2>Die Formel des Trinkwasserrohr-Rechners Schritt für Schritt erklärt</h2>
 
-<h2>Haufige Fehler vermeiden</h2>
+<p>Die Berechnung basiert auf der folgenden Logik, die in JavaScript umgesetzt ist:</p>
+
 <ul>
-<li>Vergessen, einen Verschnittzuschlag (5-10%) bei der Materialbestellung hinzuzufügen.</li><li>Métrische und imperiale Einheiten im selben Projekt zu mischen.</li>
+<li><strong>L (longitud)</strong> – Die eingegebene Rohrlänge in Metern (z. B. 35 Meter Hauptleitung).</li>
+<li><strong>ps (puntos_suministro)</strong> – Die Anzahl der Zapfstellen (z. B. 6 Waschbecken und Duschen). Standardvorgabe ist 6, falls der Nutzer keinen Wert eingibt.</li>
+<li><strong>l_merma</strong> – Die effektive Rohrlänge inklusive 10 % Verschnitt: <strong>L × 1,10</strong>. Dieser Puffer deckt unerwartete Hindernisse, Biegungen und Abfall beim Zuschneiden ab. Beispiel: 35 m × 1,10 = 38,5 m.</li>
+<li><strong>codos</strong> – Die Anzahl der benötigten 90-Grad-Winkel (Codos): <strong>ps × 2</strong>. Pro Zapfstelle werden zwei Winkel kalkuliert (einer für den Anschluss an die Hauptleitung, einer für die vertikale Steigleitung).</li>
+<li><strong>tee</strong> – Anzahl der T-Stücke: <strong>Math.ceil(ps / 2)</strong>. Aufgerundet auf die nächste ganze Zahl. Bei 6 Zapfstellen: 6/2 = 3 T-Stücke.</li>
+<li><strong>llaves</strong> – Anzahl der Eckventile (Absperrarmaturen): entspricht <strong>exakt der Anzahl der Zapfstellen ps</strong>. Jede Zapfstelle erhält ein Eckventil zur Absperrung.</li>
+<li><strong>rollo_50</strong> – Anzahl der benötigten 50-m-Rollen: <strong>Math.ceil(l_merma / 50)</strong>. Aufgerundet, weil PEX-Rohre nur in kompletten Rollen gekauft werden. Bei 38,5 m: 38,5/50 = 0,77 → aufgerundet zu 1 Rolle.</li>
 </ul>
 
-<h2>Profitipp fur Bauunternehmer</h2>
-<p>Bestellen Sie 5-10% mehr Material als berechnet, um Schnittverluste und Messfehler auszugleichen.</p>
+<p>Die Werte werden in der Regel auf eine Dezimalstelle gerundet (z. B. 38,5 m) und die Stückzahlen immer auf ganze Zahlen aufgerundet, da Fittings nicht geteilt werden können.</p>
 
-<h2>Haufig gestellte Fragen</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Wie viel zusätzliches Material sollte ich bestellen?</button><div class="faq-a"><p>Die meisten Profis empfehlen, 5-10% mehr zu bestellen als berechnet, um Schnittverluste und Messfehler abzudecken.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Ist dieser Rechner genau?</button><div class="faq-a"><p>Ja. Der Rechner verwendet die Standardformel: Kupfer- und PEX-Rohr-Rechner = f(Gesamtlänge, Entnahmestellen). Die Ergebnisse sind mathematisch exakt.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Kann ich diesen Rechner auf dem Handy nutzen?</button><div class="faq-a"><p>Ja, der Rechner ist vollständig responsiv und funktioniert auf jedem Gerät. Keine Installation erforderlich.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Wie speichere oder teile ich meine Berechnung?</button><div class="faq-a"><p>Verwenden Sie die Schaltfläche <strong>Teilen</strong>, um eine URL mit allen Ihren Eingaben zu generieren. Die Schaltfläche <strong>Kopieren</strong> kopiert das Ergebnis in die Zwischenablage.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Was tun, wenn das Ergebnis falsch erscheint?</button><div class="faq-a"><p>Überprüfen Sie zuerst Ihre Eingaben: Werte in den richtigen Einheiten und realistischem Bereich. Bestätigen Sie auch, dass die Formel <em>Kupfer- und PEX-Rohr-Rechner = f(Gesamtlänge, Entnahmestellen)</em> genau auf Ihre Situation zutrifft.</p></div></div>
-</div>
-</section>
+<h2>Praxisbeispiele: So funktioniert die Berechnung</h2>
+
+<h3>Beispiel 1: Einfamilienhaus mit 8 Zapfstellen und 45 Meter Rohrlänge</h3>
+
+<ul>
+<li>Eingabe: longitud = 45 Meter, puntos_suministro = 8</li>
+<li>Rohrlänge mit Verschnitt: 45 × 1,10 = <strong>49,5 Meter</strong></li>
+<li>Winkel (Codos): 8 × 2 = <strong>16 Stück</strong></li>
+<li>T-Stücke: 8/2 = 4 → aufgerundet <strong>4 Stück</strong></li>
+<li>Eckventile: <strong>8 Stück</strong></li>
+<li>PEX-Rollen (50 m): 49,5/50 = 0,99 → aufgerundet <strong>1 Rolle</strong> (eine 50-m-Rolle reicht genau aus)</li>
+</ul>
+
+<p>Sie bestellen also 1 Rolle PEX-Rohr, 16 Winkel, 4 T-Stücke und 8 Eckventile für die gesamte Trinkwasserinstallation.</p>
+
+<h3>Beispiel 2: Kleine Wohnung mit 3 Zapfstellen und 20 Meter Rohrlänge</h3>
+
+<ul>
+<li>Eingabe: longitud = 20 Meter, puntos_suministro = 3</li>
+<li>Rohrlänge mit Verschnitt: 20 × 1,10 = <strong>22,0 Meter</strong></li>
+<li>Winkel (Codos): 3 × 2 = <strong>6 Stück</strong></li>
+<li>T-Stücke: 3/2 = 1,5 → aufgerundet <strong>2 Stück</strong></li>
+<li>Eckventile: <strong>3 Stück</strong></li>
+<li>PEX-Rollen (50 m): 22,0/50 = 0,44 → aufgerundet <strong>1 Rolle</strong> (Rest von 28 Metern bleibt für spätere Reparaturen übrig)</li>
+</ul>
+
+<p>Tipp: Der verbleibende Rollenrest kann für kleine Erweiterungen oder Reparaturen im selben Projekt verwendet werden.</p>
+
+<h2>Häufige Fehler bei der Nutzung des Trinkwasserrohr-Rechners</h2>
+
+<ul>
+<li><strong>Falsche Längenangabe:</strong> Viele Nutzer vergessen, die tatsächliche Rohrführung durch Wände, Decken und Schächte zu berücksichtigen. Messen Sie immer die real verlegte Strecke und nicht nur die Raumdiagonale. Ein typischer Fehler: 20 Meter Raumlänge statt 35 Meter tatsächlicher Rohrweg.</li>
+<li><strong>Zapfstellen falsch gezählt:</strong> Jeder Wasserhahn, jede Dusche und jeder Außenzapfhahn zählt als Zapfstelle. Vergessen Sie oft den Kelleranschluss oder den Gartenhahn. Zählen Sie alle Endverbraucher genau.</li>
+<li><strong>Verschnitt ignoriert:</strong> Der Rechner schlägt 10 % Verschnitt vor. Manche Experten empfehlen bei komplexen Grundrissen 15-20 %. Überprüfen Sie, ob die 10 % für Ihre Situation ausreichen – besonders bei vielen Biegungen und kurvenreichen Strecken.</li>
+<li><strong>Fittings nachbestellt, nicht komplett bestellt:</strong> Der Rechner berechnet nur die Hauptfittings. Denken Sie an zusätzliche Reduzierstücke, Mauerdurchführungen und Verbinder für Endpunkte. Ein zu knapp kalkulierter Fittingsatz verzögert die Montage.</li>
+<li><strong>Rollenanzahl falsch interpretiert:</strong> Der Rechner rundet automatisch auf ganze Rollen auf. Bei 49,9 Meter reicht eine 50-m-Rolle. Aber kaufen Sie lieber eine zweite Rolle, wenn Sie unsicher sind – der Rest bleibt als Reserve.</li>
+</ul>
+
+<h2>Häufig gestellte Fragen (FAQ) zum Trinkwasserrohr-Rechner</h2>
+
+<h3>Kann der Rechner auch mit Kupferrohren verwendet werden?</h3>
+<p>Ja, der Rechner ist für Kupfer- und PEX-Rohre gleichermaßen geeignet. Die Formel basiert auf der Leitungslänge und den Zapfstellen, unabhängig vom Material. Beachten Sie jedoch, dass der Rechner die Rollenanzahl für 50-m-Rollen ausgibt. Bei Kupferrohren, die oft als Stangen (5 oder 6 Meter) geliefert werden, teilen Sie das Ergebnis in Meter durch die Stangenlänge. Beispiel: 38,5 Meter Kupferrohr benötigen 38,5/6 = 7 Stangen (aufgerundet von 6,4 auf 7).</p>
+
+<h3>Warum gibt es einen pauschalen Aufschlag von 10 % bei der Länge?</h3>
+<p>Der 10-prozentige Verschnittzuschlag ist ein branchenüblicher Richtwert für Trinkwasserinstallationen. Er deckt Verluste durch Zuschnitte, unerwartete Hindernisse (z. B. Träger, Schächte) und die Anfahrt zu den Zapfstellen ab. Bei sehr geradlinigen Verlegungen kann der Wert niedriger sein, bei verwinkelten Grundrissen empfehlen wir 15 %.</p>
+
+<h3>Was ist, wenn ich mehr als 50 Meter Rohr benötige – wie viele Rollen kaufe ich?</h3>
+<p>Der Rechner rundet die benötigten Rollen immer auf. Wenn das Ergebnis 1,2 Rollen ergibt, zeigt der Rechner 2 Rollen an. So vermeiden Sie Materialmangel. Übrigens: Viele Installateure kaufen bei längeren Strecken lieber zwei 50-m-Rollen als eine 100-m-Rolle, weil sie flexible Reste für kurze Anschlüsse benötigen.</p>
+
+<p>Der Trinkwasserrohr-Rechner ist ein unverzichtbares Werkzeug für jede Trinkwasserinstallation in Deutschland. Er spart Zeit, Geld und reduziert Materialfehler. Nutzen Sie ihn für Ihre nächste Planung und passen Sie die standardisierten Werte gegebenenfalls an Ihre spezifischen Gegebenheiten an.</p>

@@ -1,46 +1,68 @@
-<section class="long-content">
-<p>Usa la <strong>Electrical Panel Calculator</strong> para calcular intensidad máxima, icp/iga recomendado (a), circuitos estimados de forma rápida y precisa.</p>
-<h2>Cómo funciona el cálculo</h2>
-<p>Ya estés planificando una reforma, estimando materiales para una obra o calculando dimensiones para un proyecto DIY, tener los datos correctos desde el principio ahorra tiempo y dinero. Esta herramienta te da resultados instantáneos y fiables para pedir materiales con confianza y evitar sobrecostes.</p>
-<p>Los cálculos de construcción parecen sencillos hasta que consideras margen de desperdicio, conversiones de unidades y estándares regionales de materiales. Esta calculadora gestiona esos detalles automáticamente, para que te concentres en la obra y no en las matemáticas.</p>
-<p>La fórmula detrás de este cálculo es <strong>Calculadora de Cuadro Eléctrico = f(Potencia contratada (kW), Tensión, Factor de simultaneidad)</strong>. Comprender cómo se obtiene el resultado te ayuda a verificar la salida y detectar errores de entrada.</p>
+<p>La <strong>Calculadora de Cuadro Eléctrico</strong> es una herramienta online diseñada para simplificar el dimensionamiento de los componentes básicos de un cuadro eléctrico doméstico o de pequeña actividad profesional en España. Con esta calculadora podrás obtener de forma inmediata el Interruptor de Control de Potencia (ICP), el calibre del interruptor diferencial y el número estimado de circuitos independientes que necesitarás, todo ello adaptado a la tensión y a tu factor de simultaneidad particular.</p>
 
-<h2>Guía paso a paso para tu proyecto</h2>
-<p>Sigue estos pasos para obtener un resultado fiable:</p>
+<h2>¿Qué calcula y cuándo utilizar esta herramienta?</h2>
+<p>Esta calculadora resuelve tres parámetros fundamentales para cualquier instalación eléctrica según el Reglamento Electrotécnico para Baja Tensión (REBT):</p>
+<ul>
+<li><strong>ICP (Interruptor de Control de Potencia):</strong> El dispositivo que limita la potencia máxima que puedes contratar. La herramienta devuelve el valor normalizado (16, 25, 32, 40, 50 o 63 amperios) más cercano a tu necesidad.</li>
+<li><strong>Interruptor diferencial:</strong> Se calcula en función de la corriente máxima, recomendando un diferencial de 40A o 63A según el resultado.</li>
+<li><strong>Número de circuitos:</strong> Conociendo la corriente máxima se estima cuántos circuitos de 16A (cada uno para enchufes, iluminación, etc.) son necesarios para no sobrecargar las líneas.</li>
+</ul>
+<p>Es especialmente útil al <strong>reformar una vivienda</strong>, <strong>dimensionar una instalación nueva</strong> o <strong>verificar si tu ICP actual es el adecuado</strong> para los electrodomésticos que tienes. Si estás calculando la potencia de un local comercial o una comunidad de vecinos, también te servirá, ajustando el factor de simultaneidad.</p>
+
+<h2>Fórmula explicada variable por variable</h2>
+<p>El cálculo se basa en la ley de Ohm y en la normativa española para instalaciones monofásicas (la más común en hogares, a 230V). La fórmula principal es:</p>
 <ol>
-<li><strong>Introduce tus datos:</strong> 9.2 kW; 230; 0.7 — ensure all values use a single consistent unit system.</li>
-<li><strong>La calculadora aplica la fórmula:</strong> <em>Calculadora de Cuadro Eléctrico = f(Potencia contratada (kW), Tensión, Factor de simultaneidad)</em>.</li>
-<li><strong>Lee tu resultado:</strong> Intensidad máxima, ICP/IGA recomendado (A), Circuitos estimados.</li>
-<li>Verifica: confirma que las unidades sean coherentes y los valores realistas antes de actuar en base al resultado.</li>
+<li><strong>Potencia activa total (P):</strong> La suma de las potencias de todos los aparatos que pueden funcionar simultáneamente, expresada en kilovatios (kW). Es el dato que introduces en el campo <em>potencia_kw</em>.</li>
+<li><strong>Tensión (V):</strong> En España, para uso doméstico es 230V en monofásica (fase y neutro). Para trifásica se usa 400V. El campo <em>tension_v</em> permite cambiarlo.</li>
+<li><strong>Factor de simultaneidad (fs):</strong> Un valor entre 0 y 1 que indica qué porcentaje de la potencia total puede estar conectada al mismo tiempo. Por defecto 0.7 (70%), pero puedes ajustarlo si sabes que usas muchos aparatos a la vez (0.8) o muy pocos (0.5).</li>
+<li><strong>Corriente máxima (I<sub>max</sub>):</strong> Se obtiene con la fórmula: <em>I<sub>max</sub> = (P × 1000 × fs) / (V × √3)</em> si es trifásica (V=400V), o simplemente <em>I<sub>max</sub> = (P × 1000 × fs) / V</em> para monofásica (V=230V). El resultado se redondea a un decimal.</li>
+<li><strong>ICP normalizado:</strong> Se selecciona el valor comercial inmediatamente superior a I<sub>max</sub> entre 16, 25, 32, 40, 50 o 63 amperios. Por ejemplo, si I<sub>max</sub>=27A, el ICP será de 32A.</li>
+<li><strong>Circuitos estimados:</strong> Se divide la I<sub>max</sub> entre 16A (capacidad típica de un circuito de enchufes o alumbrado) y se redondea al alza. Así sabes cuántos circuitos independientes necesitarás como mínimo.</li>
 </ol>
 
-<h2>Usos prácticos en la obra</h2>
-<p>Esta calculadora es especialmente útil en las siguientes situaciones:</p>
+<h2>Ejemplos prácticos con cálculos reales</h2>
+<h3>Ejemplo 1: Vivienda estándar de 90 m²</h3>
+<p><strong>Datos de entrada:</strong></p>
 <ul>
-<li>problemas matemáticos cotidianos</li><li>presupuesto y planificación</li><li>cocina y mediciones del hogar</li><li>cálculos de viaje y tiempo</li>
+<li>Potencia total: 9,2 kW (suma de cocina, horno, lavadora, iluminación, etc.)</li>
+<li>Tensión: 230V (monofásica)</li>
+<li>Factor de simultaneidad: 0,7</li>
+</ul>
+<p><strong>Cálculo paso a paso:</strong></p>
+<ul>
+<li>I<sub>max</sub> = (9,2 × 1000 × 0,7) / 230 = 6440 / 230 = 28,0 A</li>
+<li>ICP recomendado: 32 A (valor normalizado superior a 28,0)</li>
+<li>Número de circuitos: 28,0 / 16 = 1,75 → redondeado a 2 circuitos</li>
+</ul>
+<p><strong>Resultado:</strong> Necesitas un ICP de 32A y al menos 2 circuitos independientes (por ejemplo, uno para enchufes generales y otro para cocina y baño). El diferencial deberá ser de al menos 40A.</p>
+
+<h3>Ejemplo 2: Taller pequeño con maquinaria</h3>
+<p><strong>Datos de entrada:</strong></p>
+<ul>
+<li>Potencia total: 14,5 kW (varias máquinas herramientas, compresor, iluminación industrial)</li>
+<li>Tensión: 400V (trifásica, común en talleres)</li>
+<li>Factor de simultaneidad: 0,8 (las máquinas pueden funcionar a la vez)</li>
+</ul>
+<p><strong>Cálculo paso a paso:</strong></p>
+<ul>
+<li>I<sub>max</sub> = (14,5 × 1000 × 0,8) / (400 × √3) = 11600 / 692,8 = 16,74 A</li>
+<li>ICP recomendado: 25 A (el valor normalizado superior a 16,74)</li>
+<li>Número de circuitos: 16,74 / 16 = 1,04 → redondeado a 2 circuitos</li>
+</ul>
+<p><strong>Resultado en trifásica:</strong> Un ICP de 25A es suficiente. Necesitarás 2 circuitos (uno para las máquinas, otro para iluminación y servicios). El diferencial se recomienda de 40A.</p>
+
+<h2>Errores comunes al dimensionar el cuadro eléctrico</h2>
+<ul>
+<li><strong>No considerar el factor de simultaneidad real:</strong> Usar el 0,7 por defecto sin pensar en tu caso concreto. En hogares con muchos electrodomésticos funcionando a la vez (por ejemplo, en hora punta), deberías subirlo a 0,8 o 0,9. Si lo pones demasiado bajo, el ICP saltará frecuentemente.</li>
+<li><strong>Olvidar la tensión de la instalación:</strong> Muchas calculadoras asumen siempre 230V. Si tu instalación es trifásica (400V) y metes 230V, el ICP calculado será casi el doble del necesario, pagando más en la factura por tener una potencia contratada superior a la real.</li>
+<li><strong>Redondear arbitrariamente el número de circuitos:</strong> El resultado de la división da un mínimo. Pero la normativa española exige circuitos separados para cocina, baño, lavandería y alumbrado. Siempre revisa con un electricista si son suficientes.</li>
+<li><strong>Ignorar la caída de tensión en largos recorridos:</strong> La calculadora estima la corriente en el origen. Si tienes un cuadro muy alejado del contador, la sección del cable debe ser mayor, pero la herramienta no lo considera. Es un cálculo de partida, no un proyecto final.</li>
 </ul>
 
-<h2>Cómo aplicar los resultados</h2>
-<p>Tu resultado muestra la cantidad teórica necesaria. Antes de pedir, aplica el factor de merma adecuado al material: 5–10&nbsp;% para hormigón y mortero, 10–15&nbsp;% para azulejo, piedra natural y ladrillo (para cubrir cortes, roturas y encaje de juntas), y 3–5&nbsp;% para acero y madera. Redondea siempre al alza a la siguiente unidad completa — saco, tonelada o palé — para evitar parar la obra por una segunda entrega.</p>
-
-<h2>Normas de construcción y buenas prácticas</h2>
-<p>Los proyectos de construcción dependen de estimaciones precisas de materiales para mantenerse dentro del presupuesto y el cronograma. Pedir demasiado poco detiene la obra y genera entregas de emergencia costosas; pedir demasiado desperdicia dinero y ocupa espacio en el sitio. Los estimadores profesionales suelen añadir un 5–10&nbsp;% de factor de merma sobre la cantidad teórica para cubrir cortes, recortes, roturas y pequeños errores de medición.</p><p>Los cálculos modernos de construcción siguen normas establecidas por organismos como ISO, DIN o UNE, que definen propiedades de materiales, tolerancias y márgenes de diseño. Conocer la norma detrás de una fórmula ayuda a adaptarla cuando las condiciones difieren del caso estándar — por ejemplo, al trabajar con materiales recuperados, dimensiones no estándar o sitios en altitud donde el fraguado del hormigón se comporta de forma diferente.</p>
-
-<h2>Errores comunes a evitar</h2>
-<ul>
-<li>Olvidar añadir un margen de desperdicio (típicamente 5-10%) al pedir materiales — redondear arriba evita una segunda entrega.</li><li>Mezclar unidades métricas e imperiales en el mismo proyecto. Mantén un sistema consistente.</li><li>Medir dimensiones exteriores en vez del área interior — la diferencia importa para suelos y azulejos.</li>
-</ul>
-
-<h2>Consejo profesional para contratistas</h2>
-<p>Pide un 5-10% más de material de lo que indica tu cálculo para cubrir cortes, roturas y errores de medición. Es más barato que una segunda entrega.</p>
-
-<h2>Preguntas frecuentes</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Cuánto material extra debo pedir?</button><div class="faq-a"><p>La mayoría de profesionales recomiendan pedir un 5-10% más de lo calculado para cubrir cortes, desperdicio y errores de medición. Para piedra natural o azulejo cerámico, el factor de desperdicio puede ser del 10-15%.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Puedo usar esta calculadora con unidades métricas e imperiales?</button><div class="faq-a"><p>Sí. Selecciona tu sistema de unidades preferido en los campos de entrada y la calculadora convierte automáticamente.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Es precisa esta calculadora?</button><div class="faq-a"><p>Sí. La calculadora utiliza la fórmula estándar: Calculadora de Cuadro Eléctrico = f(Potencia contratada (kW), Tensión, Factor de simultaneidad). Los resultados son matemáticamente exactos; la precisión final depende de los datos que introduzcas.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Puedo usar esta calculadora en el móvil?</button><div class="faq-a"><p>Sí, la calculadora es totalmente responsiva y funciona en cualquier dispositivo. No requiere instalación ni registro.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Cómo guardo o comparto mi cálculo?</button><div class="faq-a"><p>Usa el botón <strong>Compartir</strong> para generar una URL que codifica todos tus datos — quien abra el enlace verá los mismos valores y resultado. El botón <strong>Copiar</strong> copia el texto del resultado para pegarlo en una hoja de cálculo, correo o documento.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Qué hago si el resultado parece incorrecto?</button><div class="faq-a"><p>Primero revisa tus datos: comprueba que los valores estén en las unidades correctas y en un rango realista. Las causas más comunes son la mezcla de unidades métricas e imperiales, dígitos transpuestos o el uso de una calculadora equivocada. Si los datos parecen correctos y el resultado sigue siendo extraño, verifica que la fórmula <em>Calculadora de Cuadro Eléctrico = f(Potencia contratada (kW), Tensión, Factor de simultaneidad)</em> se aplica exactamente a tu caso.</p></div></div>
-</div>
-</section>
+<h2>Preguntas frecuentes (FAQ)</h2>
+<h3>¿Puedo usar esta calculadora para una vivienda unifamiliar grande?</h3>
+<p>Sí, siempre que ajustes correctamente el factor de simultaneidad. Para una casa grande con muchos electrodomésticos (horno, vitrocerámica, aire acondicionado, caldera), usa un factor de 0,8 o 0,85. La herramienta te dará un ICP orientativo, pero el cálculo final debe ser validado por un instalador autorizado, ya que también influyen la longitud de los cables y las protecciones adicionales.</p>
+<h3>¿Qué diferencia hay entre el ICP y el diferencial que calcula la herramienta?</h3>
+<p>El ICP protege contra sobrecargas y cortocircuitos, limitando la potencia que entra en la vivienda. El diferencial, que se dimensiona en función de la corriente máxima (40A o 63A), protege contra derivaciones a tierra. La calculadora te da el calibre recomendado para el diferencial basándose en la corriente máxima, pero la sensibilidad (30 mA para hogares) debes elegirla tú según la normativa.</p>
+<h3>¿Por qué el número de circuitos a veces parece bajo?</h3>
+<p>La herramienta estima el <strong>mínimo</strong> para no sobrepasar 16A por circuito. La normativa española exige al menos 5 circuitos en una vivienda (iluminación, enchufes, cocina, baño, lavandería), aunque la corriente total sea baja. Usa este número como base y añade los circuitos obligatorios según el REBT. No reemplaza el diseño detallado de un electricista.</p>

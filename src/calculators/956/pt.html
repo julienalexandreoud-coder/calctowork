@@ -1,101 +1,91 @@
-<section class="long-content">
-  <h1>Energy Unit Converter</h1>
-  <p>This calculator converts between the most common energy units: joules (J), kilojoules (kJ), calories (cal), kilocalories (kcal), watt-hours (Wh), kilowatt-hours (kWh) and electronvolts (eV).</p>
+<p>O <strong>Conversor de Energia</strong> é a ferramenta ideal para quem precisa de converter rapidamente entre diferentes unidades de medida de energia, como Joules, calorias, kWh e BTU. Este conversor é amplamente utilizado por profissionais das áreas de engenharia, nutrição e ciências do desporto, bem como por estudantes que necessitam de realizar cálculos precisos sem perder tempo com fórmulas manuais.</p>
 
-  <h2>Conversion factors</h2>
-  <p>The main equivalences are:</p>
+<h2>O que é o Conversor de Energia e quando deve utilizá-lo?</h2>
+
+<p>O <strong>Conversor de Energia</strong> funciona como uma calculadora especializada que transforma um valor em Joules (J) em várias outras unidades de energia, nomeadamente calorias (cal), quilocalorias (kcal), watts-hora (Wh) e quilowatts-hora (kWh). Ao introduzir um número no campo de entrada "joules", obtém de imediato as conversões equivalentes, todas calculadas com elevada precisão decimal.</p>
+
+<p>Esta ferramenta é indispensável em diversas situações do dia a dia. Por exemplo, atletas e treinadores podem utilizá-la para converter o gasto energético de um treino (medido em calorias) para Joules, facilitando a comparação com dados científicos. Nutricionistas usam o conversor para verificar valores energéticos em tabelas alimentares, especialmente quando lidam com especificações técnicas que usam o Joule como padrão. Na engenharia, é comum necessitar de converter kWh (a unidade da sua fatura de eletricidade) para Joules, para cálculos de eficiência energética. O mesmo se aplica a técnicos de aquecimento e refrigeração, que trabalham frequentemente com BTU, mas precisam de comparar valores com sistemas que usam Joules.</p>
+
+<p>Além disso, o conversor inclui uma funcionalidade útil para atletas: a divisão em zonas de treinamento, ajudando a interpretar os valores energéticos em contextos de desempenho desportivo, como ciclismo ou corrida.</p>
+
+<h2>Fórmula do conversor: como é feito o cálculo?</h2>
+
+<p>A lógica do <strong>Conversor de Energia</strong> baseia-se em relações fixas entre o Joule e as outras unidades. O algoritmo começa por ler o valor inserido no campo "joules" e, em seguida, aplica as seguintes operações:</p>
+
+<h3>Variável por variável:</h3>
+
+<ol>
+<li><strong>Calorias (cal):</strong> Divide-se o valor em Joules por 4,184. Esta é a equivalência padrão: 1 caloria = 4,184 Joules. O resultado é arredondado a 4 casas decimais (ex.: 1000 J / 4,184 = 239,0048 cal).</li>
+<li><strong>Quilocalorias (kcal):</strong> Divide-se o valor em Joules por 4184. Como 1 kcal = 1000 cal, e 1 cal = 4,184 J, então 1 kcal = 4184 J. O resultado tem precisão de 6 casas decimais (ex.: 1000 J / 4184 = 0,239006 kcal).</li>
+<li><strong>Watts-hora (Wh):</strong> Divide-se o valor em Joules por 3600. Isto porque 1 Watt = 1 Joule/segundo, e 1 hora tem 3600 segundos. O resultado é arredondado a 6 casas decimais.</li>
+<li><strong>Quilowatts-hora (kWh):</strong> Divide-se o valor em Joules por 3.600.000. Como 1 kWh = 1000 Wh, e 1 Wh = 3600 J, a conversão é direta. O resultado tem precisão de 9 casas decimais, garantindo valores muito exatos para cálculos energéticos de grandes quantidades.</li>
+</ol>
+
+<p>A fórmula base, em JavaScript, é a seguinte (para referência):</p>
+
+<p>var j = parseFloat(inputs.joules) || 0;<br>
+var cal = +(j / 4.184).toFixed(4),<br>
+kcal = +(j / 4184).toFixed(6),<br>
+wh = +(j / 3600).toFixed(6),<br>
+kwh = +(j / 3600000).toFixed(9);<br>
+return {calories: cal, kilocalories: kcal, watt_hours: wh, kilowatt_hours: kwh};</p>
+
+<h2>Exemplos práticos de utilização</h2>
+
+<h3>Exemplo 1: Um atleta que quer saber o gasto energético de um treino</h3>
+
+<p>Suponha que um ciclista queimou 2000 Joules durante um esforço intenso de 10 minutos. Para saber quantas calorias isso representa, insere "2000" no campo "joules" do <strong>Conversor de Energia</strong>.</p>
+
+<ul>
+<li><strong>Cálculo manual:</strong> 2000 / 4,184 = 478,0472 calorias.</li>
+<li><strong>Resultado do conversor:</strong> 
   <ul>
-    <li><strong>1 kcal</strong> = 4,184 J</li>
-    <li><strong>1 kWh</strong> = 3,600,000 J = 3.6 MJ</li>
-    <li><strong>1 cal</strong> = 4.184 J</li>
-    <li><strong>1 Wh</strong> = 3,600 J</li>
-    <li><strong>1 eV</strong> = 1.602 × 10⁻¹⁹ J</li>
-    <li><strong>1 BTU</strong> = 1,055.06 J</li>
+    <li>Calorias: 478,0472 cal</li>
+    <li>Quilocalorias: 0,478047 kcal</li>
+    <li>Watts-hora: 0,555556 Wh</li>
+    <li>Quilowatts-hora: 0,000555556 kWh</li>
   </ul>
-  <p>All conversions are performed by first converting to joules as the intermediate unit.</p>
+</li>
+</ul>
 
-  <h2>Example 1: calories to joules</h2>
-  <p><strong>Problem:</strong> Convert 500 kcal to joules.</p>
-  <ol>
-    <li>Calculation:
-      <ul>
-        <li>500 × 4,184 = 2,092,000 J = 2,092 kJ.</li>
-      </ul>
-    </li>
-  </ol>
-  <p><strong>Answer:</strong> 500 kcal = 2,092,000 J = 2,092 kJ.</p>
+<p><strong>Interpretação:</strong> O treino de 2000 J corresponde a aproximadamente 0,48 kcal, um valor baixo porque 1 kcal é muita energia. Para uma sessão de treino mais longa, com 200.000 J (200 kJ), o conversor mostraria 47,8 kcal, o que já é mais realista para um pequeno lanche.</p>
 
-  <h2>Example 2: kWh to calories</h2>
-  <p><strong>Problem:</strong> Convert 1 kWh to kcal.</p>
-  <ol>
-    <li>Calculation:
-      <ul>
-        <li>1 kWh = 3,600,000 J.</li>
-        <li>3,600,000 / 4,184 ≈ 860.4 kcal.</li>
-      </ul>
-    </li>
-  </ol>
-  <p><strong>Answer:</strong> 1 kWh ≈ 860.4 kcal.</p>
+<h3>Exemplo 2: Um engenheiro a verificar o consumo de um aparelho</h3>
 
-  <h2>Usos comuns</h2>
+<p>Um estudante de engenharia encontra um aparelho que consome 5.000.000 Joules por dia. Pretende saber o custo em kWh, pois a eletricidade em Portugal é faturada em euros por kWh (cerca de 0,15 €/kWh). Insere "5000000" no conversor.</p>
+
+<ul>
+<li><strong>Cálculo manual:</strong> 5.000.000 / 3.600.000 = 1,388888889 kWh.</li>
+<li><strong>Resultado do conversor:</strong>
   <ul>
-    <li>Converting food calories to joules for scientific calculations.</li>
-    <li>Comparing electrical consumption (kWh) with thermal energy.</li>
-    <li>Computing food energy content in different units.</li>
-    <li>Working with energy efficiency data.</li>
-    <li>Converting units in physics and thermodynamics problems.</li>
-    <li>Analyzing the energy content of fuels.</li>
+    <li>Calorias: 1.195.029,3000 cal</li>
+    <li>Quilocalorias: 1195,029300 kcal</li>
+    <li>Watts-hora: 1388,888889 Wh</li>
+    <li>Quilowatts-hora: 1,388888889 kWh</li>
   </ul>
+</li>
+</ul>
 
-  <h2>Common mistakes with energy units</h2>
-  <ul>
-    <li>Confusing calories (cal) with kilocalories (kcal or "Cal" in nutrition).</li>
-    <li>Not distinguishing between watts (power) and watt-hours (energy).</li>
-    <li>Using approximate conversion factors when precision is needed.</li>
-    <li>Forgetting that 1 Cal (nutrition) = 1 kcal = 1,000 cal.</li>
-  </ul>
+<p><strong>Interpretação:</strong> O aparelho consome cerca de 1,39 kWh por dia. Multiplicando por 0,15 €, o custo diário é de aproximadamente 0,21 €. Sem o conversor, teria de fazer a divisão manualmente e arriscar-se a erros de vírgula.</p>
 
-  <h2>Dica profissional</h2>
-  <p>In nutrition, when "calories" are mentioned they actually mean kilocalories. A 95-"calorie" apple actually has 95 kcal = 397,480 J. This confusion is very common.</p>
+<h2>Erros comuns ao usar o Conversor de Energia</h2>
 
-  <div class="faq-list">
-    <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">What is the difference between calorie and kilocalorie?</button>
-      <div class="faq-ap">
-        <p>1 kcal = 1,000 cal. In nutrition, "calorie" means kilocalorie. One Cal (capital C) = 1 kcal.</p>
-      </div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">What is a kWh?</button>
-      <div class="faq-ap">
-        <p>A kilowatt-hour is the energy consumed by a 1,000 W device running for 1 hour. It is the billing unit for electricity.</p>
-      </div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">What is a BTU?</button>
-      <div class="faq-ap">
-        <p>BTU (British Thermal Unit) is the energy needed to heat 1 pound of water by 1 °F. It is used in HVAC and heating.</p>
-      </div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">How many calories are in 1 kWh?</button>
-      <div class="faq-ap">
-        <p>1 kWh ≈ 860.4 kcal. This means the energy of 1 kWh equals about 860 food "calories".</p>
-      </div>
-    </div>
-  </div>
+<p>Apesar de ser uma ferramenta simples, há armadilhas que podem levar a resultados errados. Conheça os erros mais frequentes:</p>
 
-  <div class="related-calculators">
-    <h2>Related Calculators</h2>
-    <ul>      <li><a href="/angle-converter-calculator">Angle Converter Calculator</a></li>
-      <li><a href="/temperature-calculator">Temperature Calculator</a></li>
-    </ul>
-  </div>
+<ul>
+<li><strong>Confundir calorias com quilocalorias:</strong> Em nutrição, quando se diz "calorias" nos rótulos, na verdade são quilocalorias (kcal). No conversor, se introduzir 1000 J, obtém 0,239 kcal. Se pensar que isso são 239 calorias alimentares, estará a cometer um erro de fator 1000. O resultado correto é 0,239 kcal (ou 239 cal, mas estas são calorias "pequenas", não as de dieta).</li>
+<li><strong>Inserir valores com vírgula em vez de ponto:</strong> Em Portugal, usamos a vírgula como separador decimal (ex.: 1.500,50). Contudo, o conversor pode exigir o ponto (1.500.50). Se introduzir "1.500", o programa interpreta como 1,5 (ou 1500, dependendo do navegador). Verifique sempre o formato solicitado.</li>
+<li><strong>Ignorar as unidades nos resultados:</strong> O conversor mostra valores com muitas casas decimais. Por exemplo, 100 J dá 0,027777778 kWh. É tentador ignorar os zeros, mas isso pode significar a diferença entre 0,03 kWh e 0,00003 kWh. Leia sempre o número completo.</li>
+<li><strong>Não redefinir o campo entre cálculos:</strong> Se fizer uma conversão de 500 J e depois inserir 2000 J, mas sem apagar o resultado anterior, pode confundir os valores. Use o botão "limpar" ou selecione todo o texto antes de escrever o novo número.</li>
+</ul>
 
-  <div class="related-calculators">
-    <h2>Related Calculators</h2>
-    <ul>      <li><a href="/angle-converter-calculator">Angle Converter Calculator</a></li>
-      <li><a href="/temperature-calculator">Temperature Calculator</a></li>
-    </ul>
-  </div>
-</section>
+<h2>Perguntas frequentes (FAQ)</h2>
+
+<h3>1. O que é um Joule, afinal?</h3>
+<p>Um Joule (J) é a unidade padrão de energia no Sistema Internacional (SI). Corresponde à energia necessária para aplicar a força de 1 Newton ao longo de 1 metro. Para ter uma ideia prática, uma caloria alimentar (kcal) equivale a 4184 J, e um kWh (usado na fatura da luz) equivale a 3,6 milhões de Joules.</p>
+
+<h3>2. O conversor funciona para BTU também?</h3>
+<p>Este conversor específico converte Joules para calorias, kcal, Wh e kWh. No entanto, pode facilmente converter para BTU (British Thermal Unit) sabendo que 1 BTU = 1055,06 J. Basta pegar no valor em Joules e dividir por 1055,06. Por exemplo, 1000 J = 0,9478 BTU. Se precisar de conversões frequentes para BTU, pode usar o resultado em calorias como referência (1 cal = 0,00397 BTU).</p>
+
+<h3>3. Como sei se o meu resultado está correto?</h3>
+<p>Uma forma rápida de verificar é usar valores redondos conhecidos. Por exemplo, 4184 J é exatamente 1 kcal. Se inserir 4184 no conversor, deve obter 1,000000 kcal. Outro exemplo: 3600 J são exatamente 1 Wh. Se o conversor mostrar 1,000000 Wh para 3600 J, está tudo a funcionar bem. Guarde estes números de teste para validações rápidas.</p>

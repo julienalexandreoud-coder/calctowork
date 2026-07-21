@@ -1,44 +1,137 @@
-<section class="long-content">
-<p>Utilizza il <strong>Sliding Door Calculator</strong> per calcolare rail total m, herrajes ud, m2 total vidrio madera in modo rapido e preciso.</p>
-<h2>Come funziona il calcolo</h2>
-<p>Che tu stia pianificando una ristrutturazione, stimando materiali per un cantiere o calcolando dimensioni per un progetto fai-da-te, avere i numeri giusti fin dall'inizio risparmia tempo e denaro.</p>
-<p>La formula alla base di questo calcolo è <strong>Calcolatore Tetto in Legno = f(Num Puertas, Larghezza Hoja M, Alto M)</strong>. Comprendere come si ottiene il risultato ti aiuta a verificare l'output e a rilevare errori di input.</p>
+<p>Lo <strong>Sliding Door Calcolatore</strong> è uno strumento pratico e veloce progettato per chi lavora nel settore della falegnameria, della carpenteria o dell'edilizia, e ha bisogno di stimare con precisione il materiale necessario per realizzare porte scorrevoli, spesso integrate in strutture di tetti a falde o in pareti divisorie. Questo calcolatore semplifica il processo di preventivo, permettendo di ottenere in pochi secondi i metri lineari di guide, il numero di ferramenta, la superficie totale in metri quadri e il peso stimato degli elementi, il tutto partendo da tre semplici input.</p>
 
-<h2>Guida passo dopo passo per il tuo progetto</h2>
-<p>Segui questi passaggi per ottenere un risultato affidabile:</p>
+<h2>A cosa serve lo Sliding Door Calcolatore e quando utilizzarlo</h2>
+
+<p>Questo strumento è stato creato per calcolare il consumo di <strong>legname e accessori</strong> per la costruzione di ante scorrevoli, un componente comune nelle ristrutturazioni di sottotetti o nelle nuove costruzioni con coperture inclinate. Quando si progetta un tetto a falde, spesso si decide di sfruttare lo spazio sottostante con armadiature o porte scorrevoli su misura. In questi casi, è fondamentale sapere esattamente quanto materiale ordinare per evitare sprechi o carenze.</p>
+
+<p>Lo Sliding Door Calcolatore è utile in diverse fasi del lavoro:</p>
+<ul>
+  <li><strong>Preventivazione:</strong> per fornire al cliente un costo indicativo dei materiali.</li>
+  <li><strong>Pianificazione del cantiere:</strong> per ordinare il legname (guide) e la ferramenta in un’unica soluzione.</li>
+  <li><strong>Verifica della fattibilità:</strong> per controllare se il peso totale delle ante è compatibile con la struttura del tetto o del telaio di supporto.</li>
+</ul>
+<p>Il calcolatore è pensato per un pubblico italiano, utilizza unità metriche (metri, metri quadri, chilogrammi) e restituisce risultati pronti per essere convertiti in ordini di materiale presso qualsiasi rivendita di ferramenta o legname.</p>
+
+<h2>La formula spiegata variabile per variabile</h2>
+
+<p>Il cuore del calcolatore è una formula che combina misure geometriche e coefficienti pratici. Ecco come funziona ogni passaggio, partendo dai tre dati che devi inserire:</p>
+
+<h3>Variabili di input</h3>
+<ul>
+  <li><strong>num_puertas (n):</strong> il numero di ante scorrevoli che intendi realizzare. Ad esempio, 2 per una doppia anta, 3 per un armadio a tre ante.</li>
+  <li><strong>ancho_hoja_m (W):</strong> la larghezza di una singola anta, espressa in metri. Il valore predefinito è 0.9 m (90 cm), ma può essere modificato in base al progetto.</li>
+  <li><strong>alto_m (H):</strong> l’altezza dell’anta, in metri. Il valore di default è 2.1 m (210 cm), altezza standard per porte interne.</li>
+</ul>
+
+<h3>Calcoli intermedi e finali</h3>
 <ol>
-<li><strong>Inserisci i tuoi valori:</strong> 3 ud; 0.9 m; 2.1 m — ensure all values use a single consistent unit system.</li>
-<li><strong>La calcolatrice applica la formula:</strong> <em>Calcolatore Tetto in Legno = f(Num Puertas, Larghezza Hoja M, Alto M)</em>.</li>
-<li><strong>Leggi il tuo risultato:</strong> Rail Total M, Herrajes Ud, M2 Total Vidrio Madera.</li>
-<li>Verificate: confermate che le unità siano coerenti e i valori realistici prima di agire sul risultato.</li>
+  <li><strong>Guida per anta (rail_por_puerta_m):</strong> si calcola moltiplicando la larghezza dell’anta per un fattore 2.1. Questo coefficiente tiene conto della lunghezza della guida necessaria per il movimento di scorrimento, inclusi gli sbalzi laterali per l’apertura completa. Formula: <em>W × 2.1</em>. Il risultato è arrotondato a due decimali.</li>
+  <li><strong>Guida totale (rail_total_m):</strong> si ottiene moltiplicando la guida per anta per il numero di ante: <em>rail_por_puerta_m × n</em>. Questo è il metraggio lineare complessivo di guida da acquistare.</li>
+  <li><strong>Ferramenta (herrajes_ud):</strong> il numero di kit di carrelli e accessori è pari a 2 per ogni anta, quindi <em>n × 2</em>. Una anta scorrevole standard richiede due carrelli (superiore e inferiore).</li>
+  <li><strong>Superficie totale (m2_total):</strong> area complessiva di tutti i pannelli. Si calcola come <em>W × H × n</em>. Utile per stimare il costo del pannello (legno, vetro, MDF) o la verniciatura.</li>
+  <li><strong>Peso stimato (peso_est):</strong> si ottiene moltiplicando la superficie totale per 12 kg/m². Questo coefficiente è una media per pannelli in legno tamburato o MDF di spessore standard (circa 18-22 mm). Il risultato è un peso in chilogrammi, utile per verificare la capacità portante della struttura del tetto. Formula: <em>m2_total × 12</em>.</li>
+  <li><strong>Fissaggi (fijaciones):</strong> è il numero approssimativo di viti o tasselli necessari per fissare la guida al soffitto o alla trave. Si calcola dividendo la lunghezza totale della guida per 0.5 metri (distanza media tra un fissaggio e l’altro), arrotondando per eccesso. Formula: <em>Math.ceil(rail_total_m / 0.5)</em>.</li>
 </ol>
 
-<h2>Usi pratici in cantiere</h2>
-<p>Questa calcolatrice è particolarmente utile nelle seguenti situazioni:</p>
+<h2>Due esempi pratici con numeri concreti</h2>
+
+<h3>Esempio 1: Armadio scorrevole due ante in un sottotetto</h3>
+<p>Supponiamo di voler realizzare un armadio con due ante scorrevoli sotto una falda del tetto. I dati sono:</p>
 <ul>
-<li>problemi matematici quotidiani</li><li>budget e pianificazione</li><li>cucina e misurazioni domestiche</li><li>calcoli di viaggio e tempo</li>
+  <li>num_puertas = 2</li>
+  <li>Larghezza anta (W) = 0.9 m</li>
+  <li>Altezza anta (H) = 2.1 m</li>
 </ul>
+<p>Inserendo questi valori nel calcolatore, otteniamo:</p>
+<table>
+  <tr>
+    <th>Voce</th>
+    <th>Risultato</th>
+  </tr>
+  <tr>
+    <td>Guida per anta</td>
+    <td>0.9 × 2.1 = 1.89 m</td>
+  </tr>
+  <tr>
+    <td>Guida totale</td>
+    <td>1.89 × 2 = 3.78 m</td>
+  </tr>
+  <tr>
+    <td>Ferramenta</td>
+    <td>2 × 2 = 4 kit (carrelli)</td>
+  </tr>
+  <tr>
+    <td>Superficie totale</td>
+    <td>0.9 × 2.1 × 2 = 3.78 m²</td>
+  </tr>
+  <tr>
+    <td>Peso stimato</td>
+    <td>3.78 × 12 = 45.4 kg</td>
+  </tr>
+  <tr>
+    <td>Fissaggi</td>
+    <td>Math.ceil(3.78 / 0.5) = Math.ceil(7.56) = 8 viti</td>
+  </tr>
+</table>
+<p>Interpretazione: per due ante standard, serviranno circa 3.78 metri lineari di guida, 4 carrelli, e il peso totale delle ante sarà di circa 45 kg, compatibile con la maggior parte delle strutture in legno.</p>
 
-<h2>Come applicare i risultati</h2>
-<p>Il tuo risultato mostra la quantità teoricamente richiesta. Prima di ordinare, applica il fattore di scarto appropriato: 5–10&nbsp;% per calcestruzzo e malta, 10–15&nbsp;% per piastrelle, pietra naturale e mattoni, e 3–5&nbsp;% per acciaio e legname. Arrotonda sempre all'unità intera superiore — sacco, tonnellata o pallet.</p>
-
-<h2>Norme di costruzione e buone pratiche</h2>
-<p>I progetti di costruzione dipendono da stime precise dei materiali. I professionisti aggiungono tipicamente il 5–10&nbsp;% di tolleranza per sfridi, rotture ed errori di misura. Le norme ISO, EN e UNI definiscono le proprietà dei materiali e le tolleranze alla base di queste formule.</p>
+<h3>Esempio 2: Tre ante strette per una parete inclinata</h3>
+<p>Immaginiamo un progetto più complesso: tre ante scorrevoli per una parete divisoria in un sottotetto con spazio limitato. I dati sono:</p>
+<ul>
+  <li>num_puertas = 3</li>
+  <li>Larghezza anta (W) = 0.6 m</li>
+  <li>Altezza anta (H) = 1.8 m</li>
+</ul>
+<p>I risultati saranno:</p>
+<table>
+  <tr>
+    <th>Voce</th>
+    <th>Risultato</th>
+  </tr>
+  <tr>
+    <td>Guida per anta</td>
+    <td>0.6 × 2.1 = 1.26 m</td>
+  </tr>
+  <tr>
+    <td>Guida totale</td>
+    <td>1.26 × 3 = 3.78 m</td>
+  </tr>
+  <tr>
+    <td>Ferramenta</td>
+    <td>3 × 2 = 6 kit</td>
+  </tr>
+  <tr>
+    <td>Superficie totale</td>
+    <td>0.6 × 1.8 × 3 = 3.24 m²</td>
+  </tr>
+  <tr>
+    <td>Peso stimato</td>
+    <td>3.24 × 12 = 38.9 kg</td>
+  </tr>
+  <tr>
+    <td>Fissaggi</td>
+    <td>Math.ceil(3.78 / 0.5) = Math.ceil(7.56) = 8 viti</td>
+  </tr>
+</table>
+<p>Nota: in questo caso, la guida totale è uguale all’esempio precedente (3.78 m) perché la larghezza ridotta compensa il numero maggiore di ante. Tuttavia, la ferramenta richiesta è di 6 kit, con un peso totale inferiore (circa 39 kg).</p>
 
 <h2>Errori comuni da evitare</h2>
+
+<p>Usare lo Sliding Door Calcolatore è semplice, ma alcuni errori possono portare a stime sbagliate. Ecco i più frequenti:</p>
 <ul>
-<li>Dimenticare di aggiungere un margine di scarto (5-10%) nell'ordine dei materiali.</li><li>Mescolare unità metriche e imperiali nello stesso progetto.</li>
+  <li><strong>Inserire larghezze o altezze non coerenti con l’unità di misura:</strong> il calcolatore lavora in metri. Se inserisci 90 invece di 0.9 (per 90 cm), il risultato della guida diventerà 90 × 2.1 = 189 metri, un valore assurdo. Ricorda sempre di convertire i centimetri in metri dividendo per 100.</li>
+  <li><strong>Dimenticare che il coefficiente 2.1 per la guida è fisso:</strong> non è un fattore opzionale. Alcuni utenti pensano di poterlo modificare, ma è un parametro tecnico standard per il gioco di scorrimento. Se lo cambi, la guida potrebbe risultare troppo corta.</li>
+  <li><strong>Non considerare il peso nella struttura del tetto:</strong> il peso stimato (12 kg/m²) è una media per pannelli standard. Se usi vetro spesso o legno massello, il peso reale può essere superiore. In questo caso, il calcolatore fornisce una stima prudenziale, ma è sempre bene verificare la portata delle travi.</li>
+  <li><strong>Confondere ferramenta e fissaggi:</strong> la ferramenta (herrajes) sono i kit carrello; i fissaggi (fijaciones) sono le viti. Non sono la stessa cosa. Il calcolatore li distingue chiaramente: acquista 2 kit per ogni anta, e circa 1 vite ogni 50 cm di guida.</li>
 </ul>
 
-<h2>Consiglio professionale per appaltatori</h2>
-<p>Ordina il 5-10% in più di materiale rispetto al calcolo per coprire tagli, rotture ed errori di misura.</p>
+<h2>Domande frequenti (FAQ)</h2>
 
-<h2>Domande frequenti</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Quanto materiale extra devo ordinare?</button><div class="faq-a"><p>La maggior parte dei professionisti raccomanda di ordinare il 5-10% in più rispetto al calcolato per coprire tagli e sprechi.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Questa calcolatrice è precisa?</button><div class="faq-a"><p>Sì. La calcolatrice usa la formula standard: Calcolatore Tetto in Legno = f(Num Puertas, Larghezza Hoja M, Alto M). I risultati sono matematicamente esatti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Posso usare questa calcolatrice sul telefono?</button><div class="faq-a"><p>Sì, la calcolatrice è completamente responsive e funziona su qualsiasi dispositivo. Nessuna installazione richiesta.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Come salvo o condivido il mio calcolo?</button><div class="faq-a"><p>Usa il pulsante <strong>Condividi</strong> per generare un URL con tutti i tuoi dati. Il pulsante <strong>Copia</strong> copia il risultato negli appunti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cosa fare se il risultato sembra sbagliato?</button><div class="faq-a"><p>Controlla prima i tuoi dati: valori nelle unità corrette e intervallo realistico. Verifica anche che la formula <em>Calcolatore Tetto in Legno = f(Num Puertas, Larghezza Hoja M, Alto M)</em> si applichi esattamente alla tua situazione.</p></div></div>
-</div>
-</section>
+<h3>Posso usare questo calcolatore per porte scorrevoli in vetro?</h3>
+<p>Sì, il calcolatore può essere utilizzato per qualsiasi tipo di pannello, ma tieni presente che il peso stimato (12 kg/m²) è basato su pannelli in legno o MDF. Per il vetro, il peso specifico è maggiore (circa 20-25 kg/m² per vetro temperato da 10 mm). In quel caso, usa il risultato della superficie e moltiplicalo per il peso specifico del materiale scelto, ignorando il peso stimato fornito dallo strumento.</p>
+
+<h3>Cosa succede se inserisco un numero di ante pari a 1?</h3>
+<p>Il calcolatore funziona anche con una singola anta. In questo caso, la guida totale sarà uguale alla guida per anta, la ferramenta sarà 2 kit, e il peso sarà calcolato su un solo pannello. È un caso comune per porte di ripostigli o armadi a una anta.</p>
+
+<h3>Il risultato “fijaciones” è preciso per tutti i tipi di guida?</h3>
+<p>Il numero di fissaggi (viti o tasselli) è una stima basata su una distanza di 50 cm tra un punto di ancoraggio e l’altro. Questa è una pratica comune per guide in alluminio o acciaio leggero. Se stai montando guide molto pesanti o su strutture irregolari (ad esempio, travi in legno con nodi), potresti aver bisogno di più fissaggi. Il calcolatore ti dà una base di partenza affidabile per l’ordine di materiale.</p>

@@ -1,44 +1,68 @@
-<section class="long-content">
-<p>Utilisez le <strong>Stone Masonry Calculator</strong> pour calculer volume mur, pierre (kg), mortier rapidement et avec précision.</p>
-<h2>Comment fonctionne le calcul</h2>
-<p>Que vous planifiiez des travaux de rénovation, estimiez des matériaux pour un chantier ou calculiez des dimensions pour un projet DIY, disposer des bons chiffres dès le départ fait gagner du temps et de l'argent.</p>
-<p>La formule derrière ce calcul est <strong>Calculateur Maçonnerie Pierre = f(Longueur mur, Hauteur mur, Épaisseur mur)</strong>. Comprendre comment le résultat est obtenu vous aide à vérifier la sortie et à détecter les erreurs d'entrée.</p>
+<p>Vous avez un projet de mur en pierre et cherchez à estimer les quantités de matériaux nécessaires ? Le <strong>Calculateur Maçonnerie Pierre</strong> est l'outil idéal pour calculer précisément le volume de pierre et de mortier requis pour vos murs en maçonnerie. Cet outil simple et rapide vous permet d'obtenir en un clic les données essentielles pour votre chantier, en utilisant les unités métriques et en respectant les pratiques françaises du métier.</p>
 
-<h2>Guide pas à pas pour votre projet</h2>
-<p>Suivez ces étapes pour obtenir un résultat fiable :</p>
+<h2>Qu'est-ce que le Calculateur Maçonnerie Pierre et quand l'utiliser ?</h2>
+
+<p>Le <strong>Calculateur Maçonnerie Pierre</strong> est un outil en ligne conçu pour estimer les besoins en matériaux pour la construction de murs en pierre. Il vous demande simplement trois dimensions : la longueur, la hauteur et l'épaisseur de votre mur en mètres. À partir de ces données, il calcule automatiquement plusieurs valeurs clés : le volume total du mur en mètres cubes (m³), le poids de la pierre nécessaire en kilogrammes, le volume de mortier nécessaire en mètres cubes, et le nombre de sacs de ciment de 35 kg requis pour préparer ce mortier.</p>
+
+<p>Cet outil est particulièrement utile dans les situations suivantes :</p>
+<ul>
+<li><strong>Projets de rénovation de murs anciens</strong> : pour reconstruire ou réparer un mur en pierre existant.</li>
+<li><strong>Construction d'un mur de clôture ou de soutènement</strong> : pour estimer les coûts et approvisionner le chantier.</li>
+<li><strong>Projets de maçonnerie paysagère</strong> : pour des murets décoratifs ou des bordures en pierre.</li>
+<li><strong>Préparation de devis</strong> : pour fournir un chiffrage précis à votre client ou pour vos propres achats.</li>
+</ul>
+<p>Il est important de noter que ce calculateur donne des estimations basées sur des densités moyennes. Pour des pierres spécifiques (granit, calcaire, grès), ajustez vos besoins en fonction de leur densité réelle.</p>
+
+<h2>La formule détaillée : comment le calcul est effectué</h2>
+
+<p>Le calculateur utilise une série d'étapes logiques pour convertir les dimensions de votre mur en quantités de matériaux. Voici l'explication variable par variable :</p>
+
 <ol>
-<li><strong>Saisissez vos valeurs:</strong> 6 m; 2 m; 0.4 m — ensure all values use a single consistent unit system.</li>
-<li><strong>La calculatrice applique la formule:</strong> <em>Calculateur Maçonnerie Pierre = f(Longueur mur, Hauteur mur, Épaisseur mur)</em>.</li>
-<li><strong>Lisez votre résultat:</strong> Volume mur, Pierre (kg), Mortier.</li>
-<li>Vérifiez : confirmez que les unités sont cohérentes et les valeurs réalistes avant d'agir sur le résultat.</li>
+<li><strong>Vérification des entrées</strong> : Le programme vérifie que les valeurs pour la longueur (L), la hauteur (H) et l'épaisseur (E) sont bien des nombres. Si l'une d'elles est manquante ou invalide, il retourne une erreur.</li>
+<li><strong>Calcul du volume brut du mur (vol)</strong> : La première opération consiste à multiplier la longueur par la hauteur et par l'épaisseur : <strong>vol = L x H x E</strong>. Ce résultat est exprimé en mètres cubes (m³). Par exemple, un mur de 5 mètres de long, 2 mètres de haut et 0,3 mètre d'épaisseur donnera un volume de 5 x 2 x 0,3 = 3 m³.</li>
+<li><strong>Besoin en pierre (piedra_kg)</strong> : Le calcul intègre un coefficient de 1,1 pour tenir compte des vides entre les pierres et des pertes. Ensuite, il multiplie par 1800 kg/m³, qui est la masse volumique moyenne d'une pierre (comme la pierre calcaire courante en France). La formule est : <strong>pierre (kg) = vol x 1,1 x 1800</strong>. Le résultat est arrondi à l'entier le plus proche.</li>
+<li><strong>Besoin en mortier (mortero_m³)</strong> : Le volume de mortier nécessaire est estimé à 35% du volume du mur. Cette proportion est une règle de l'art pour les murs en moellons ou en pierre de taille maçonnée. La formule est : <strong>mortier (m³) = vol x 0,35</strong>. Le résultat est arrondi à trois décimales.</li>
+<li><strong>Nombre de sacs de ciment (cemento_sacos)</strong> : Le calculateur suppose qu'un mètre cube de mortier nécessite environ 350 kg de ciment. Les sacs disponibles en France sont généralement de 35 kg. Le nombre de sacs est donc : <strong>sacs = (volume de mortier x 350) / 35</strong>, soit <strong>sacs = volume de mortier x 10</strong> simplifié. L'outil utilise la fonction <strong>Math.ceil</strong> pour arrondir le résultat au nombre de sacs supérieur, afin d'éviter de vous retrouver en manque.</li>
 </ol>
 
-<h2>Usages pratiques sur le chantier</h2>
-<p>Cette calculatrice est particulièrement utile dans les situations suivantes :</p>
+<h2>Deux exemples concrets pour comprendre</h2>
+
+<h3>Exemple 1 : Un petit muret de jardin</h3>
+<p>Imaginons que vous souhaitiez construire un muret de 4 mètres de long, 1,5 mètre de haut et 0,25 mètre d'épaisseur (soit 25 cm).</p>
 <ul>
-<li>construction de murs en briques et parpaings</li><li>estimation de matériaux de maçonnerie</li><li>calculs de surface de mur et mortier</li><li>budgets de construction</li>
+<li><strong>Volume du mur (vol)</strong> : L x H x E = 4 x 1,5 x 0,25 = <strong>1,5 m³</strong></li>
+<li><strong>Pierre nécessaire</strong> : 1,5 x 1,1 x 1800 = 2970 kg. Soit environ <strong>2,97 tonnes</strong> de pierre.</li>
+<li><strong>Mortier nécessaire</strong> : 1,5 x 0,35 = <strong>0,525 m³</strong> de mortier.</li>
+<li><strong>Sacs de ciment</strong> : 0,525 x 10 = 5,25. Arrondi à l'unité supérieure, il vous faudra <strong>6 sacs de ciment de 35 kg</strong>.</li>
 </ul>
 
-<h2>Interpréter et appliquer vos résultats</h2>
-<p>Votre résultat indique la quantité théorique requise. Ajoutez le facteur de perte approprié avant de commander : 5–10&nbsp;% pour le béton et le mortier, 10–15&nbsp;% pour les carreaux, la pierre naturelle et la brique, et 3–5&nbsp;% pour l'acier et le bois. Arrondissez toujours à l'unité supérieure — sac, tonne ou palette.</p>
-
-<h2>Normes de construction et bonnes pratiques</h2>
-<p>Les projets de construction dépendent d'estimations précises des matériaux. Les professionnels ajoutent généralement 5–10&nbsp;% de marge de perte aux quantités théoriques pour les coupes, la casse et les erreurs de mesure. Les normes ISO et EN définissent les propriétés des matériaux et les tolérances utilisées dans ces formules.</p>
-
-<h2>Erreurs courantes à éviter</h2>
+<h3>Exemple 2 : Un mur de clôture plus conséquent</h3>
+<p>Vous prévoyez un mur de 10 mètres de long pour une clôture, avec une hauteur de 2 mètres et une épaisseur de 0,4 mètre (40 cm).</p>
 <ul>
-<li>Oublier d'ajouter une marge de perte (5-10%) lors de la commande de matériaux.</li><li>Mélanger unités métriques et impériales dans un même projet.</li>
+<li><strong>Volume du mur (vol)</strong> : 10 x 2 x 0,4 = <strong>8 m³</strong></li>
+<li><strong>Pierre nécessaire</strong> : 8 x 1,1 x 1800 = 15840 kg. Soit environ <strong>15,84 tonnes</strong> de pierre.</li>
+<li><strong>Mortier nécessaire</strong> : 8 x 0,35 = <strong>2,8 m³</strong> de mortier.</li>
+<li><strong>Sacs de ciment</strong> : 2,8 x 10 = 28. Il vous faudra donc <strong>28 sacs de ciment de 35 kg</strong>.</li>
 </ul>
 
-<h2>Conseil pro pour les entrepreneurs</h2>
-<p>Commandez 5-10% de matériel en plus que le calcul ne l'indique pour couper les pertes et les erreurs de mesure.</p>
+<h2>Erreurs fréquentes à éviter lors de l'utilisation du calculateur</h2>
 
-<h2>Questions fréquentes</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Combien de matériel supplémentaire dois-je commander?</button><div class="faq-a"><p>La plupart des professionnels recommandent de commander 5-10% de plus que le calcul pour couper les pertes et les erreurs de mesure.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cette calculatrice est-elle précise?</button><div class="faq-a"><p>Oui. La calculatrice utilise la formule standard : Calculateur Maçonnerie Pierre = f(Longueur mur, Hauteur mur, Épaisseur mur). Les résultats sont mathématiquement exacts.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Puis-je utiliser cette calculatrice sur mobile?</button><div class="faq-a"><p>Oui, la calculatrice est entièrement responsive et fonctionne sur tout appareil. Aucune installation requise.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Comment sauvegarder ou partager mon calcul ?</button><div class="faq-a"><p>Utilisez le bouton <strong>Partager</strong> pour générer une URL qui encode toutes vos entrées. Le bouton <strong>Copier</strong> copie le résultat dans le presse-papiers.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Que faire si mon résultat semble incorrect ?</button><div class="faq-a"><p>Vérifiez d'abord vos entrées : valeurs dans les bonnes unités et plage réaliste. Vérifiez aussi que la formule <em>Calculateur Maçonnerie Pierre = f(Longueur mur, Hauteur mur, Épaisseur mur)</em> s'applique exactement à votre situation.</p></div></div>
-</div>
-</section>
+<p>Même avec un outil fiable, certaines erreurs peuvent fausser vos résultats. Voici les plus courantes :</p>
+
+<ul>
+<li><strong>Ne pas utiliser les bonnes unités</strong> : Le calculateur attend des mètres (m). Si vous entrez des centimètres par erreur (par exemple 30 au lieu de 0,3), le volume sera multiplié par 1000 et les résultats deviendront absurdes. Vérifiez toujours vos dimensions en mètres avant de valider.</li>
+<li><strong>Oublier l'épaisseur réelle du mur</strong> : Ne confondez pas l'épaisseur du mur avec la longueur des pierres. L'épaisseur est la dimension perpendiculaire à la longueur et à la hauteur. Pour un mur "de bout", mesurez sa largeur sur le dessus.</li>
+<li><strong>Ignorer les vides et la forme des pierres</strong> : Le coefficient 1,1 pour la pierre est une moyenne. Si vos pierres sont très irrégulières ou si vous utilisez des blocs de taille parfaitement carrée (type opus incertum), les proportions peuvent varier. Pour des blocs très réguliers, le volume de mortier peut être inférieur.</li>
+<li><strong>Confondre le poids de la pierre avec celui du mortier</strong> : Le calculateur donne le poids de la pierre en kg et le volume du mortier en m³. Ne les additionnez pas directement : le mortier est plus dense que la pierre, mais son volume est plus faible. Commandez toujours vos matériaux séparément.</li>
+</ul>
+
+<h2>Foire aux questions (FAQ)</h2>
+
+<h3>Le calculateur prend-il en compte le type de pierre utilisé ?</h3>
+<p>Non, l'outil utilise une densité moyenne de 1800 kg/m³, qui correspond à la plupart des pierres courantes en France (calcaire, grès tendre, moellon). Si vous utilisez une pierre très dense comme le granit (environ 2700 kg/m³), vous devrez ajuster manuellement le poids en multipliant le résultat "pierre_kg" par 2700/1800. Par exemple, pour du granit, multipliez le poids donné par 1,5.</p>
+
+<h3>Pourquoi le calculateur arrondit-il le nombre de sacs de ciment à l'unité supérieure ?</h3>
+<p>Le <strong>Math.ceil</strong> est utilisé pour éviter que vous ne vous retrouviez à court de ciment en plein travail. Si votre calcul exact donne 5,1 sacs, il est préférable d'en acheter 6 que d'être en panne. De plus, les sacs de ciment s'achètent par unité entière dans les magasins de bricolage. Pensez à utiliser le surplus pour réaliser des joints ou des petites réparations.</p>
+
+<h3>Quelle est la différence entre le volume du mur et le volume de mortier ?</h3>
+<p>Le volume du mur (vol) est le volume total que votre mur occupera dans l'espace. Ce volume est composé de la pierre (environ 65% en volume) et du mortier (environ 35% en volume). Le calculateur vous donne ces deux valeurs séparément. Ne commandez jamais du mortier en volume égal au volume du mur, car vous en auriez trois fois trop. La valeur "mortero_m³" est déjà le volume exact de mortier à préparer.</p>

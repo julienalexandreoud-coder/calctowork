@@ -1,46 +1,97 @@
-<section class="long-content">
-<p>Use the <strong>Metal Structure Calculator</strong> to calculate max moment (kn·m), min section modulus (cm³), kg per beam quickly and accurately.</p>
-<h2>How the calculation works</h2>
-<p>Construction calculations often seem straightforward until you factor in waste allowances, unit conversions, and regional material standards. This calculator handles those details automatically, letting you focus on the build instead of the math.</p>
-<p>Whether you're planning a home renovation, estimating materials for a job site, or calculating dimensions for a DIY project, having the right numbers upfront saves time and money. This tool gives you instant, reliable results so you can order materials confidently and avoid costly overages.</p>
-<p>The formula behind this calculation is <strong>Metal Structure Calculator = f(Span (m), Total load (kN/m²), Building length (m))</strong>. Understanding how the result is derived helps you verify the output and spot input errors before they cascade into bad decisions.</p>
+<p>The Metal Structure Calculator is a free online tool that helps engineers, architects, and construction professionals quickly estimate the weight and required size of steel beams for metal building frameworks. Whether you are designing a small workshop roof or a large industrial nave, this calculator provides instant results based on standard European steel profiles like IPE, HEB, and UPN.</p>
 
-<h2>Step-by-step guide for your project</h2>
-<p>Follow these steps to get a reliable result:</p>
+<h2>What the Metal Structure Calculator Does and When to Use It</h2>
+
+<p>This calculator simplifies the initial sizing of steel beams by taking key structural parameters and returning the bending moment, required section modulus, weight per meter, and total steel mass. It is designed for preliminary design and educational use, not for final structural certification. You should use it during the conceptual phase of a project, when comparing different beam spans, loads, or profile types, or when you need a quick weight estimate for budgeting and transport logistics.</p>
+
+<p>The calculator works with four main inputs: the beam span in meters (luz_m), the uniform load in kilonewtons per square meter (carga_kn_m2), the total building length in meters (longitud_nave_m), and the profile type (perfil_tipo). It assumes simply supported beams under uniform distributed loading, which is a common scenario for roof purlins, floor beams, and main frames in metal buildings.</p>
+
+<h2>Formula Explained Variable by Variable</h2>
+
+<p>The calculation follows standard structural engineering principles. Here is the logic broken down step by step:</p>
+
 <ol>
-<li><strong>Enter your values:</strong> 6 m; 5 kN/m²; 20 m — ensure all values use a single consistent unit system.</li>
-<li><strong>The calculator applies the formula:</strong> <em>Metal Structure Calculator = f(Span (m), Total load (kN/m²), Building length (m))</em>.</li>
-<li><strong>Read your result:</strong> Max moment (kN·m), Min section modulus (cm³), Kg per beam.</li>
-<li>Verify: confirm units are consistent and the numbers are realistic for your context before acting on the result.</li>
+<li><strong>Maximum Bending Moment (M)</strong>: M = (q * L * L) / 8<br>
+Where q is the uniform load in kN/m (the input carga_kn_m2 is interpreted as a line load for a one-meter-wide strip, but for simplicity the calculator applies it as a uniform distributed load over the span) and L is the beam span in meters (luz_m). The result is given in kNm.</li>
+
+<li><strong>Required Section Modulus (Wy)</strong>: Wy = (M * 100) / 23.5<br>
+The factor 23.5 is the allowable bending stress in kN/cm² (approximately 235 MPa, typical for structural steel S235). Multiplying by 100 converts the moment from kNm to kNcm, so Wy comes out in cm³.</li>
+
+<li><strong>Weight per Meter (kg_ml)</strong>: Different steel profile families have different weight-to-modulus ratios. The calculator uses empirical factors:<br>
+- IPE: Wy * 0.035<br>
+- HEB: Wy * 0.055<br>
+- UPN: Wy * 0.040<br>
+These give an approximate weight in kg per linear meter of beam.</li>
+
+<li><strong>Single Beam Weight (kg_viga)</strong>: kg_ml * L<br>
+This is the total weight of one beam spanning the full length L.</li>
+
+<li><strong>Number of Beams (n_vigas)</strong>: ceil(Ln / 6) + 1<br>
+Where Ln is the building length (longitud_nave_m). The calculator assumes beams are spaced approximately every 6 meters, plus one extra beam at the end.</li>
+
+<li><strong>Total Steel Weight (kg_total)</strong>: kg_viga * n_vigas<br>
+This gives the combined weight of all parallel beams in the structure.</li>
 </ol>
 
-<h2>Practical uses on the job site</h2>
-<p>This calculator is particularly useful in the following situations:</p>
+<p>If any input is missing or invalid, the calculator returns an error. The default load is 5 kN/m², and the default building length is 20 meters.</p>
+
+<h2>Worked Examples with Concrete Numbers</h2>
+
+<h3>Example 1: Small Warehouse Roof</h3>
+<p><strong>Inputs:</strong> Span L = 8 m, Load q = 4 kN/m², Building length Ln = 24 m, Profile = IPE</p>
+
+<p><strong>Step 1:</strong> M = (4 * 8 * 8) / 8 = 32.00 kNm</p>
+
+<p><strong>Step 2:</strong> Wy = (32.00 * 100) / 23.5 = 136 cm³ (rounded to nearest integer)</p>
+
+<p><strong>Step 3:</strong> Weight per meter for IPE = 136 * 0.035 = 4.8 kg/m</p>
+
+<p><strong>Step 4:</strong> Beam weight = 4.8 * 8 = 38.4 kg per single beam</p>
+
+<p><strong>Step 5:</strong> Number of beams = ceil(24 / 6) + 1 = 4 + 1 = 5 beams</p>
+
+<p><strong>Step 6:</strong> Total steel weight = 38.4 * 5 = 192.0 kg</p>
+
+<p><strong>Interpretation:</strong> For a 24-meter long building with 8-meter span, using IPE profiles, you need approximately 192 kg of steel for the main beams. In imperial terms, this is about 423 pounds over a 79-foot building length.</p>
+
+<h3>Example 2: Heavy Industrial Nave</h3>
+<p><strong>Inputs:</strong> Span L = 12 m, Load q = 10 kN/m², Building length Ln = 36 m, Profile = HEB</p>
+
+<p><strong>Step 1:</strong> M = (10 * 12 * 12) / 8 = 180.00 kNm</p>
+
+<p><strong>Step 2:</strong> Wy = (180.00 * 100) / 23.5 = 766 cm³</p>
+
+<p><strong>Step 3:</strong> Weight per meter for HEB = 766 * 0.055 = 42.1 kg/m</p>
+
+<p><strong>Step 4:</strong> Beam weight = 42.1 * 12 = 505.2 kg per single beam</p>
+
+<p><strong>Step 5:</strong> Number of beams = ceil(36 / 6) + 1 = 6 + 1 = 7 beams</p>
+
+<p><strong>Step 6:</strong> Total steel weight = 505.2 * 7 = 3536.4 kg</p>
+
+<p><strong>Interpretation:</strong> This heavy-duty structure requires over 3.5 metric tons of steel (approximately 7,800 pounds). The HEB profile provides much higher strength for the longer span and higher load.</p>
+
+<h2>Common Mistakes When Using the Calculator</h2>
+
 <ul>
-<li>everyday math problems</li><li>budgeting and planning</li><li>cooking and home measurements</li><li>travel and time calculations</li>
+<li><strong>Ignoring load units:</strong> The calculator expects carga_kn_m2 in kilonewtons per square meter. A common error is entering values in kg/m². Remember that 1 kN/m² is approximately 102 kg/m². For example, a typical roof live load of 100 kg/m² should be entered as 0.98 kN/m², not as 100.</li>
+
+<li><strong>Confusing span with building length:</strong> The span (luz_m) is the distance between supports for a single beam, while the building length (longitud_nave_m) is the overall dimension perpendicular to the beam span. Entering the same value for both will give unrealistic beam spacings.</li>
+
+<li><strong>Overestimating profile capacity:</strong> The calculator provides an approximate required section modulus based on elastic design. In reality, factors like lateral-torsional buckling, deflection limits, and connection details may require a larger profile. Always verify with a certified structural engineer.</li>
+
+<li><strong>Using the wrong profile factor:</strong> The empirical factors for kg/m are averages. For very large or very small section moduli, actual profile weights may differ by 10-20%. For precise work, use manufacturer tables.</li>
+
+<li><strong>Forgetting self-weight:</strong> The calculator does not automatically add the beam's own weight to the load. For heavy sections like HEB 300 or larger, self-weight can add 5-15% to the total load, which increases the required section modulus further.</li>
 </ul>
 
-<h2>Interpreting and applying your results</h2>
-<p>Your result shows the theoretical quantity required. Before ordering, apply the appropriate waste factor for your material: 5–10&nbsp;% for concrete and mortar, 10–15&nbsp;% for ceramic tile, natural stone, and brick (to account for cuts, breakage, and pattern matching), and 3–5&nbsp;% for steel and timber. Always round up to the next full unit — bag, tonne, or pallet — to avoid halting work for a second delivery.</p>
+<h2>Frequently Asked Questions</h2>
 
-<h2>Construction standards and best practices</h2>
-<p>Construction projects live and die by accurate material estimates. Ordering too little halts the job and triggers costly emergency deliveries; ordering too much wastes money and clutters the site. Professional estimators typically add a 5–10&nbsp;% waste factor on top of the theoretical quantity to account for cuts, off-cuts, breakage, and minor measurement errors — a discipline built from hard-won job-site experience.</p><p>Modern construction calculations follow standards set by bodies like ISO, ASTM, or EN (European Norm), which define material properties, tolerances, and design allowances. Knowing the standard behind a formula helps you adapt it when conditions differ from the textbook — for example, when working with reclaimed materials, non-standard dimensions, or sites at altitude where concrete curing behaves differently.</p>
+<h3>Can I use this calculator for aluminum or timber structures?</h3>
+<p>No. The formula is specifically calibrated for structural steel with an assumed yield strength of 235 MPa (S235 grade). Aluminum and timber have different allowable stresses and require separate calculation methods. The weight factors (0.035, 0.055, 0.040) are also specific to steel profile families.</p>
 
-<h2>Common mistakes to avoid</h2>
-<ul>
-<li>Forgetting to add a waste allowance (typically 5-10%) when ordering materials — rounding up saves a second delivery.</li><li>Mixing up metric and imperial units on the same project. Stick to one system throughout your calculation.</li><li>Measuring outline dimensions instead of interior surface area — the difference matters for flooring and tiling.</li><li>Not accounting for irregular shapes. Break complex areas into simpler rectangles and triangles before calculating.</li>
-</ul>
+<h3>What is the difference between IPE, HEB, and UPN profiles?</h3>
+<p>IPE (I-beam with parallel flanges) is the most common for bending applications and offers good strength-to-weight ratio. HEB (wide-flange beam) has thicker flanges and web, making it stronger per unit weight but heavier overall. UPN (channel section) is less efficient for bending but useful for edge beams and secondary framing. The calculator's different weight factors reflect these differences.</p>
 
-<h2>Pro tip for contractors and builders</h2>
-<p>Order 5-10% more material than your calculation suggests to account for cuts, breakage, and measurement errors. It's cheaper to have a little left over than to halt work for a second delivery.</p>
-
-<h2>Frequently asked questions</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">How much extra material should I order?</button><div class="faq-a"><p>Most professionals recommend ordering 5-10% more than calculated to cover cuts, waste, and measurement errors. For natural stone or ceramic tile, the waste factor can be 10-15% due to breakage and pattern matching.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Can I use this calculator for both metric and imperial units?</button><div class="faq-a"><p>Yes. Select your preferred unit system in the input fields and the calculator converts automatically. All internal calculations are performed consistently to avoid mixed-unit errors.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Is this calculator accurate?</button><div class="faq-a"><p>Yes. The calculator uses the standard formula: Metal Structure Calculator = f(Span (m), Total load (kN/m²), Building length (m)). Results are mathematically exact; final accuracy depends on the precision of the data you enter.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Can I use this calculator on my phone?</button><div class="faq-a"><p>Yes, the calculator is fully responsive and works on any device: computer, tablet, and mobile. No installation or registration required.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">How do I save or share my calculation?</button><div class="faq-a"><p>Use the <strong>Share</strong> button to generate a URL that encodes all your inputs — anyone who opens the link will see the same values and result. The <strong>Copy</strong> button copies the formatted result text to your clipboard for pasting into a spreadsheet, email, or document.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">What if my result seems wrong?</button><div class="faq-a"><p>First recheck your inputs: confirm the values are in the correct units and within a realistic range. Common causes include unit mismatch (mixing metric and imperial), transposed digits, or selecting the wrong calculator for the problem. If inputs look correct and the result still seems off, verify that the formula <em>Metal Structure Calculator = f(Span (m), Total load (kN/m²), Building length (m))</em> applies to exactly the situation you are in — some calculators with similar names solve slightly different variants of the same problem.</p></div></div>
-</div>
-</section>
+<h3>Why does the number of beams formula use ceil(Ln/6)+1?</h3>
+<p>This assumes a standard spacing of 6 meters between beam lines, which is typical for purlin and girder arrangements in metal buildings. The "+1" accounts for the end beam. You can adjust this manually by changing the building length input, but the spacing logic is fixed. For non-standard spacings, calculate the required number of beams separately and enter a modified building length that gives the correct count.</p>

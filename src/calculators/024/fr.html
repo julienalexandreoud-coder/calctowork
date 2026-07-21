@@ -1,44 +1,102 @@
-<section class="long-content">
-<p>Utilisez le <strong>Wood Parquet Calculator</strong> pour calculer surface avec chute, boîtes, vernis (litres) rapidement et avec précision.</p>
-<h2>Comment fonctionne le calcul</h2>
-<p>Que vous planifiiez des travaux de rénovation, estimiez des matériaux pour un chantier ou calculiez des dimensions pour un projet DIY, disposer des bons chiffres dès le départ fait gagner du temps et de l'argent.</p>
-<p>La formule derrière ce calcul est <strong>Calculateur Parquet Bois = f(Surface à couvrir, m² par boîte, Type de pose)</strong>. Comprendre comment le résultat est obtenu vous aide à vérifier la sortie et à détecter les erreurs d'entrée.</p>
+<p>Le <strong>Calculateur Parquet Bois</strong> est l'outil idéal pour tous vos projets de pose de parquet, que vous soyez un professionnel du bâtiment ou un étudiant en architecture. Cet outil en ligne vous permet de calculer instantanément le nombre de boîtes de parquet nécessaires, la quantité de vernis en litres et le métrage linéaire de plinthes, en tenant compte de la superficie de votre pièce et du type de pose choisi. Plus besoin de vous perdre dans des calculs complexes : en quelques clics, vous obtenez des résultats précis pour réaliser votre devis ou planifier vos achats.</p>
 
-<h2>Guide pas à pas pour votre projet</h2>
-<p>Suivez ces étapes pour obtenir un résultat fiable :</p>
+<h2>Qu’est-ce que le Calculateur Parquet Bois et quand l’utiliser ?</h2>
+
+<p>Le <strong>Calculateur Parquet Bois</strong> est un simulateur de sol conçu pour répondre aux besoins des artisans et des particuliers en France. Il utilise des unités métriques (mètres carrés, litres, mètres linéaires) et s’adapte aux conventions françaises. Vous pouvez l’utiliser dans plusieurs contextes :</p>
+<ul>
+<li><strong>Pour un chantier résidentiel :</strong> calculer le parquet nécessaire pour une chambre, un salon ou un couloir.</li>
+<li><strong>Pour une rénovation :</strong> estimer le volume de vernis à acheter pour protéger un parquet ancien.</li>
+<li><strong>Pour un projet professionnel :</strong> réaliser un métré précis avant de soumettre un devis à un client.</li>
+<li><strong>Pour un exercice académique :</strong> les étudiants en génie civil ou en design d’intérieur l’utilisent pour valider leurs calculs de surface et de matériaux.</li>
+</ul>
+<p>L’outil prend en compte la perte liée à la coupe (marge de chute), ce qui évite les mauvaises surprises lors de la pose. Que vous optiez pour une pose rectiligne ou en diagonale, il adapte automatiquement les résultats.</p>
+
+<h2>La formule du calculateur expliquée variable par variable</h2>
+
+<p>Le calcul repose sur une logique simple mais efficace, intégrée dans le code de l’outil. Voici comment chaque variable intervient :</p>
+
+<h3>1. La surface au sol (area)</h3>
+<p><strong>Variable :</strong> <em>A</em> (en m²).<br>
+C’est la surface brute de la pièce que vous mesurez. Par exemple, une pièce de 5 mètres sur 4 mètres donne <em>A = 20 m²</em>. Si aucun nombre n’est saisi, le calculateur renvoie une erreur.</p>
+
+<h3>2. Les mètres carrés par boîte (m2_por_caja)</h3>
+<p><strong>Variable :</strong> <em>mxc</em> (en m²).<br>
+Cette valeur indique la surface couverte par une boîte de parquet. Par défaut, elle est fixée à 2,2 m², mais vous pouvez la modifier selon le produit que vous avez choisi (par exemple, 1,8 m² pour un parquet en lames larges).</p>
+
+<h3>3. La pose en diagonale ou rectiligne (colocacion)</h3>
+<p><strong>Variable :</strong> <em>diag</em> (booléen).<br>
+Si vous sélectionnez une pose en diagonale, le calculateur applique une marge de chute de 12 % (0,12). Pour une pose rectiligne, la marge est de 7 % (0,07). Cette marge compense les découpes inévitables, surtout dans les angles et le long des murs.</p>
+
+<h3>4. La surface avec marge (area_merma)</h3>
+<p><strong>Formule :</strong> <em>A × (1 + merma)</em>.<br>
+On multiplie la surface brute par 1,07 (rectiligne) ou 1,12 (diagonale). Le résultat est arrondi à deux décimales. Par exemple, pour 20 m² en rectiligne : 20 × 1,07 = 21,40 m².</p>
+
+<h3>5. Le nombre de boîtes (cajas_ud)</h3>
+<p><strong>Formule :</strong> <em>Math.ceil(area_merma / mxc)</em>.<br>
+On divise la surface avec marge par la surface par boîte, puis on arrondit à l’entier supérieur. Cela garantit que vous ne manquiez pas de lames.</p>
+
+<h3>6. Le vernis (barniz_litros)</h3>
+<p><strong>Formule :</strong> <em>A / 10</em>.<br>
+Le calculateur estime qu’il faut 1 litre de vernis pour 10 m² de parquet. Le résultat est donné avec une décimale. Pour 20 m², cela donne 2,0 litres.</p>
+
+<h3>7. Les plinthes (rodapie_ml)</h3>
+<p><strong>Formule :</strong> <em>Math.sqrt(A) × 4</em>.<br>
+On prend la racine carrée de la surface et on la multiplie par 4. Cela donne le périmètre approximatif d’une pièce carrée. Pour 20 m², la racine de 20 est environ 4,47, multipliée par 4 donne 17,9 mètres linéaires de plinthes.</p>
+
+<h2>Deux exemples concrets avec des chiffres précis</h2>
+
+<p>Pour bien comprendre comment utiliser le <strong>Calculateur Parquet Bois</strong>, voici deux cas pratiques avec des données réelles.</p>
+
+<h3>Exemple 1 : Pose rectiligne dans un salon de 25 m²</h3>
+<p><strong>Données :</strong></p>
+<ul>
+<li>Surface (A) : 25 m²</li>
+<li>Mètres carrés par boîte (mxc) : 2,2 m²</li>
+<li>Type de pose : rectiligne (marge de 7 %)</li>
+</ul>
+<p><strong>Calculs :</strong></p>
 <ol>
-<li><strong>Saisissez vos valeurs:</strong> 25 m²; 2.2 m²/caja; recto — ensure all values use a single consistent unit system.</li>
-<li><strong>La calculatrice applique la formule:</strong> <em>Calculateur Parquet Bois = f(Surface à couvrir, m² par boîte, Type de pose)</em>.</li>
-<li><strong>Lisez votre résultat:</strong> Surface avec chute, Boîtes, Vernis (litres).</li>
-<li>Vérifiez : confirmez que les unités sont cohérentes et les valeurs réalistes avant d'agir sur le résultat.</li>
+<li>Surface avec marge : 25 × 1,07 = 26,75 m²</li>
+<li>Boîtes nécessaires : 26,75 ÷ 2,2 = 12,16 → arrondi à 13 boîtes</li>
+<li>Vernis nécessaire : 25 ÷ 10 = 2,5 litres</li>
+<li>Plinthes : √25 = 5, 5 × 4 = 20 mètres linéaires</li>
 </ol>
+<p><strong>Résultat fourni par l’outil :</strong> 13 boîtes, 2,5 litres de vernis, 20 mètres de plinthes.</p>
 
-<h2>Usages pratiques sur le chantier</h2>
-<p>Cette calculatrice est particulièrement utile dans les situations suivantes :</p>
+<h3>Exemple 2 : Pose en diagonale dans une chambre de 15 m²</h3>
+<p><strong>Données :</strong></p>
 <ul>
-<li>problèmes mathématiques quotidiens</li><li>budget et planification</li><li>cuisine et mesures domestiques</li><li>calculs de voyage et de temps</li>
+<li>Surface (A) : 15 m²</li>
+<li>Mètres carrés par boîte (mxc) : 1,8 m² (parquet plus large)</li>
+<li>Type de pose : diagonale (marge de 12 %)</li>
+</ul>
+<p><strong>Calculs :</strong></p>
+<ol>
+<li>Surface avec marge : 15 × 1,12 = 16,80 m²</li>
+<li>Boîtes nécessaires : 16,80 ÷ 1,8 = 9,33 → arrondi à 10 boîtes</li>
+<li>Vernis nécessaire : 15 ÷ 10 = 1,5 litre</li>
+<li>Plinthes : √15 ≈ 3,87, 3,87 × 4 = 15,5 mètres linéaires</li>
+</ol>
+<p><strong>Résultat :</strong> 10 boîtes, 1,5 litre de vernis, 15,5 mètres de plinthes.</p>
+
+<h2>Les erreurs courantes à éviter avec ce simulateur</h2>
+
+<p>Même avec un outil aussi fiable, certaines erreurs peuvent fausser vos résultats. Voici les plus fréquentes :</p>
+<ul>
+<li><strong>Ne pas mesurer la surface correctement.</strong> Prenez toujours les dimensions au sol (longueur × largeur) et non les murs. Si la pièce a une forme irrégulière, divisez-la en rectangles puis additionnez les surfaces.</li>
+<li><strong>Oublier de changer le nombre de m² par boîte.</strong> Par défaut, le calculateur utilise 2,2 m², mais chaque fabricant propose des conditionnements différents (1,5 m², 2,0 m², etc.). Vérifiez l’étiquette de vos boîtes.</li>
+<li><strong>Confondre pose rectiligne et diagonale.</strong> La diagonale augmente les chutes de près de 5 %. Si vous prévoyez une pose à 45 degrés, ne sélectionnez pas l’option par défaut.</li>
+<li><strong>Négliger les plinthes.</strong> Le calcul du périmètre est basé sur une pièce carrée. Pour une pièce très allongée (par exemple 10 m × 2 m), le périmètre réel (24 m) sera plus élevé que celui estimé (≈ 17,9 m). Ajoutez alors 10 à 15 % de marge.</li>
+<li><strong>Ne pas prévoir de surplus de vernis.</strong> Le calculateur donne une estimation, mais si vous appliquez deux couches (recommandé pour les parquets en bois massif), doublez la quantité de vernis.</li>
 </ul>
 
-<h2>Interpréter et appliquer vos résultats</h2>
-<p>Votre résultat indique la quantité théorique requise. Ajoutez le facteur de perte approprié avant de commander : 5–10&nbsp;% pour le béton et le mortier, 10–15&nbsp;% pour les carreaux, la pierre naturelle et la brique, et 3–5&nbsp;% pour l'acier et le bois. Arrondissez toujours à l'unité supérieure — sac, tonne ou palette.</p>
+<h2>FAQ – Questions fréquentes sur le Calculateur Parquet Bois</h2>
 
-<h2>Normes de construction et bonnes pratiques</h2>
-<p>Les projets de construction dépendent d'estimations précises des matériaux. Les professionnels ajoutent généralement 5–10&nbsp;% de marge de perte aux quantités théoriques pour les coupes, la casse et les erreurs de mesure. Les normes ISO et EN définissent les propriétés des matériaux et les tolérances utilisées dans ces formules.</p>
+<h3>Le calculateur tient-il compte des pertes liées aux découpes autour des piliers ou des portes ?</h3>
+<p>Oui, indirectement. La marge de 7 % (rectiligne) ou 12 % (diagonale) couvre les chutes standards. Cependant, si votre pièce comporte de nombreux obstacles (piliers, alcôves, portes en angle), il est conseillé d’ajouter 2 à 3 % supplémentaires à la surface saisie pour plus de sécurité.</p>
 
-<h2>Erreurs courantes à éviter</h2>
-<ul>
-<li>Oublier d'ajouter une marge de perte (5-10%) lors de la commande de matériaux.</li><li>Mélanger unités métriques et impériales dans un même projet.</li>
-</ul>
+<h3>Puis-je utiliser cet outil pour un parquet en lames de vinyle ou en stratifié ?</h3>
+<p>Absolument. Le <strong>Calculateur Parquet Bois</strong> s’applique à tout type de revêtement de sol en lames qui se pose avec des joints (emboîtement ou collage). Les formules de surface et de marge restent valables. Adaptez simplement le nombre de m² par boîte selon le fabricant.</p>
 
-<h2>Conseil pro pour les entrepreneurs</h2>
-<p>Commandez 5-10% de matériel en plus que le calcul ne l'indique pour couper les pertes et les erreurs de mesure.</p>
-
-<h2>Questions fréquentes</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Combien de matériel supplémentaire dois-je commander?</button><div class="faq-a"><p>La plupart des professionnels recommandent de commander 5-10% de plus que le calcul pour couper les pertes et les erreurs de mesure.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cette calculatrice est-elle précise?</button><div class="faq-a"><p>Oui. La calculatrice utilise la formule standard : Calculateur Parquet Bois = f(Surface à couvrir, m² par boîte, Type de pose). Les résultats sont mathématiquement exacts.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Puis-je utiliser cette calculatrice sur mobile?</button><div class="faq-a"><p>Oui, la calculatrice est entièrement responsive et fonctionne sur tout appareil. Aucune installation requise.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Comment sauvegarder ou partager mon calcul ?</button><div class="faq-a"><p>Utilisez le bouton <strong>Partager</strong> pour générer une URL qui encode toutes vos entrées. Le bouton <strong>Copier</strong> copie le résultat dans le presse-papiers.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Que faire si mon résultat semble incorrect ?</button><div class="faq-a"><p>Vérifiez d'abord vos entrées : valeurs dans les bonnes unités et plage réaliste. Vérifiez aussi que la formule <em>Calculateur Parquet Bois = f(Surface à couvrir, m² par boîte, Type de pose)</em> s'applique exactement à votre situation.</p></div></div>
-</div>
-</section>
+<h3>Pourquoi le résultat du vernis est-il donné en litres alors que je préfère en m² par couche ?</h3>
+<p>L’outil convertit automatiquement la surface en litres, car le vernis est généralement vendu en bidons de 1 litre ou 2,5 litres. Si vous utilisez un produit différent (huile ou cire), sachez qu’il faut en moyenne 1 litre pour 12 à 15 m². Adaptez alors votre achat en conséquence, mais la valeur affichée reste une base fiable pour le vernis classique.</p>

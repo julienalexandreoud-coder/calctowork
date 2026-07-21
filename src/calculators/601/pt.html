@@ -1,35 +1,113 @@
-<section class="long-content">
-<h2>O que é o median and what is it used for?</h2>
-<p>The <strong>median</strong> is the middle value of a dataset ordered from smallest to largest. Unlike the arithmetic mean, the median is <strong>resistant to extreme values (outliers)</strong>, making it the most representative measure of central tendency in skewed distributions. For salary data, real estate prices, or system response times, the median is usually more informative than the mean.</p>
+<p>A <strong>Calculadora Mediana</strong> é uma ferramenta online gratuita que lhe permite encontrar rapidamente o valor central de qualquer conjunto de dados numéricos. Com esta <strong>Calculadora Mediana</strong>, não precisa de fazer contas manuais ou registar-se: basta inserir os seus números e obter o resultado imediato e preciso.</p>
 
-<h2>How to calculate the median</h2>
-<p><strong>Step 1:</strong> Sort the data from smallest to largest.</p>
-<p><strong>If there's an odd number of values:</strong> the median is the middle value.<br>
-Position = (n + 1) / 2</p>
-<p><strong>If there's an even number of values:</strong> the median is the average of the two middle values.<br>
-Median = (value at position n/2 + value at position n/2+1) / 2</p>
+<h2>O que é a Mediana e quando deve utilizá-la?</h2>
 
-<h2>Step-by-step example</h2>
-<p><strong>7 employees earn: $28,000, $35,000, $31,000, $95,000, $29,000, $33,000, $30,000</strong></p>
+<p>A mediana é uma medida de tendência central que representa o valor intermédio de um conjunto de dados ordenados. Diferente da média, a mediana não é influenciada por valores extremos (outliers), tornando-a ideal para analisar distribuições assimétricas, como salários, preços de imóveis ou tempos de espera.</p>
+
+<p>Utilize a <strong>Calculadora Mediana</strong> quando:</p>
+<ul>
+  <li>Precisa de encontrar o valor típico de um conjunto com poucos dados (ex.: notas de 5 alunos).</li>
+  <li>Os seus dados contêm outliers que distorceriam a média (ex.: rendimentos com valores muito altos ou baixos).</li>
+  <li>Trabalha com variáveis ordinais onde a média não faz sentido (ex.: classificações de 1 a 5).</li>
+  <li>Quer uma análise rápida sem complicações estatísticas.</li>
+</ul>
+
+<p>Esta calculadora é especialmente útil em contextos portugueses, como análise de preços no supermercado, avaliação de alunos ou comparação de salários em euros.</p>
+
+<h2>Fórmula explicada passo a passo</h2>
+
+<p>A <strong>Calculadora Mediana</strong> utiliza a seguinte lógica, apresentada de forma simplificada:</p>
+
 <ol>
-  <li>Sorted: 28,000, 29,000, 30,000, <strong>31,000</strong>, 33,000, 35,000, 95,000</li>
-  <li>n = 7 (odd) → middle position = (7+1)/2 = 4th</li>
-  <li>Median = <strong>$31,000</strong></li>
-  <li>Arithmetic mean: 281,000 / 7 = $40,143 (distorted by the $95,000 salary)</li>
+  <li><strong>Lista de valores (v1 a v10):</strong> Os campos v1, v2, v3, v4, v5, v6, v7, v8, v9 e v10 recebem os números que pretende analisar. Apenas os campos preenchidos com números válidos são considerados.</li>
+  <li><strong>Ordenação:</strong> O algoritmo ordena os valores do menor para o maior (função sort).</li>
+  <li><strong>Cálculo do número de elementos (n):</strong> Conta quantos valores válidos foram inseridos (ex.: se preencheu 5 campos, n = 5).</li>
+  <li><strong>Verificação de paridade:</strong>
+    <ul>
+      <li>Se <strong>n for ímpar</strong>: a mediana é o valor na posição central (Math.floor(n/2) arredonda para baixo). Exemplo: com 7 números, a posição central é o 4.º valor ordenado.</li>
+      <li>Se <strong>n for par</strong>: a mediana é a média aritmética dos dois valores centrais. Exemplo: com 6 números, soma o 3.º e o 4.º valor e divide por 2.</li>
+    </ul>
+  </li>
+  <li><strong>Resultado:</strong> A calculadora devolve o valor exato da mediana.</li>
 </ol>
-<p>The median better reflects the group's reality than the mean.</p>
 
-<h2>Median vs Mean: when to use each</h2>
+<p><strong>Variáveis da fórmula:</strong></p>
+<table>
+  <tr>
+    <th>Variável</th>
+    <th>Descrição</th>
+  </tr>
+  <tr>
+    <td>v1 a v10</td>
+    <td>Campos de input onde insere os números (apenas números válidos são processados)</td>
+  </tr>
+  <tr>
+    <td>vals[ ]</td>
+    <td>Array que armazena todos os números válidos após validação</td>
+  </tr>
+  <tr>
+    <td>sort(a,b)</td>
+    <td>Função que ordena os números de forma crescente</td>
+  </tr>
+  <tr>
+    <td>n</td>
+    <td>Número total de elementos válidos no array</td>
+  </tr>
+  <tr>
+    <td>n%2 === 1</td>
+    <td>Verifica se n é ímpar (resto da divisão por 2 igual a 1)</td>
+  </tr>
+  <tr>
+    <td>Math.floor(n/2)</td>
+    <td>Arredonda para baixo o valor de n/2 (índice do elemento central para n ímpar)</td>
+  </tr>
+  <tr>
+    <td>(vals[n/2-1] + vals[n/2]) / 2</td>
+    <td>Média dos dois valores centrais quando n é par</td>
+  </tr>
+</table>
+
+<h2>Exemplos práticos com a Calculadora Mediana</h2>
+
+<h3>Exemplo 1: Número ímpar de dados</h3>
+<p><strong>Cenário:</strong> Um grupo de 5 amigos em Lisboa registou os seus gastos num café: 4€, 7€, 2€, 9€, 5€.</p>
+<p><strong>Passos na calculadora:</strong></p>
 <ul>
-  <li><strong>Use the mean</strong> when data has a symmetric distribution with no outliers (adult heights, temperatures, standardized production times).</li>
-  <li><strong>Use the median</strong> when there are outliers or asymmetric distribution: salaries, house prices, household income, emergency room wait times.</li>
+  <li>Insira nos campos: v1=4, v2=7, v3=2, v4=9, v5=5 (deixe v6 a v10 vazios).</li>
+  <li>A calculadora ordena os valores: [2, 4, 5, 7, 9].</li>
+  <li>Como n=5 (ímpar), a mediana é o 3.º valor: <strong>5€</strong>.</li>
+</ul>
+<p><strong>Interpretação:</strong> Metade dos amigos gastou até 5€, a outra metade gastou 5€ ou mais. A mediana de 5€ representa melhor o gasto típico do que a média (5,4€), que é ligeiramente puxada para cima pelo valor 9€.</p>
+
+<h3>Exemplo 2: Número par de dados</h3>
+<p><strong>Cenário:</strong> Preços de 6 artigos num supermercado em Portugal: 1,50€, 3,20€, 2,80€, 4,00€, 2,50€, 3,60€.</p>
+<p><strong>Passos na calculadora:</strong></p>
+<ul>
+  <li>Insira: v1=1.5, v2=3.2, v3=2.8, v4=4.0, v5=2.5, v6=3.6 (use ponto como separador decimal ou vírgula, conforme a calculadora aceitar; em Portugal usa-se vírgula, mas muitas ferramentas aceitam ambos).</li>
+  <li>Ordenação: [1.5, 2.5, 2.8, 3.2, 3.6, 4.0].</li>
+  <li>Como n=6 (par), a mediana é a média entre o 3.º e o 4.º valor: (2.8 + 3.2) / 2 = <strong>3,00€</strong>.</li>
+</ul>
+<p><strong>Interpretação:</strong> O preço mediano dos artigos é 3,00€. Metade dos produtos custa menos de 3€, metade custa mais. A mediana é resistente ao valor extremo de 4,00€.</p>
+
+<h2>Erros comuns ao calcular a mediana</h2>
+
+<ul>
+  <li><strong>Não ordenar os dados:</strong> Muitas pessoas esquecem que a mediana exige dados ordenados. A calculadora faz isto automaticamente, mas ao fazer manualmente, é o erro mais frequente.</li>
+  <li><strong>Confundir mediana com média:</strong> A média soma tudo e divide; a mediana é o valor central. Exemplo: [1, 2, 100] tem média ≈34,3, mas mediana=2. São conceitos distintos.</li>
+  <li><strong>Esquecer os dois valores centrais (n par):</strong> Para conjuntos com número par de dados, muitos calculam apenas um valor, mas é obrigatório fazer a média dos dois centrais.</li>
+  <li><strong>Inserir dados não numéricos:</strong> Se colocar texto ou deixar campos vazios com caracteres especiais, a calculadora ignora-os, mas pode confundir o resultado se não validar. A nossa calculadora trata automaticamente estes casos.</li>
+  <li><strong>Usar vírgula errada:</strong> Em Portugal, o separador decimal é a vírgula (ex.: 2,5). Se a calculadora exigir ponto, converta ou ajuste. Verifique o formato aceite antes de inserir.</li>
 </ul>
 
-<h2>Applications of the median across sectors</h2>
-<ul>
-  <li><strong>Economics and salaries:</strong> Statistical agencies publish median salaries (not mean) to better describe the true distribution of income.</li>
-  <li><strong>Real estate:</strong> The median house price splits the market into two equal halves by number of transactions.</li>
-  <li><strong>IT systems:</strong> P50 latency (50th percentile) in web systems is the median response time.</li>
-  <li><strong>Medicine:</strong> Median survival in oncology indicates the time at which 50% of patients are still alive.</li>
-</ul>
-</section>
+<h2>Perguntas Frequentes (FAQ)</h2>
+
+<h3>A Calculadora Mediana funciona com dados em euros?</h3>
+<p>Sim, funciona perfeitamente com valores em euros ou qualquer outra unidade. Basta inserir os números (ex.: 12.50 ou 12,50). O resultado será o valor mediano, independentemente da moeda ou unidade de medida.</p>
+
+<h3>Posso usar a calculadora com menos de 10 números?</h3>
+<p>Claro. Pode inserir quantos números quiser, desde 1 até 10. Se inserir apenas 1 número, a mediana será esse mesmo número. Se inserir 2, será a média dos dois. A calculadora adapta-se automaticamente ao número de valores preenchidos.</p>
+
+<h3>O que acontece se eu inserir letras ou campos vazios?</h3>
+<p>A calculadora ignora campos vazios ou com texto não numérico. Apenas números válidos (inteiros ou decimais) são processados. Se todos os campos estiverem vazios ou inválidos, a calculadora apresenta um erro, pois não há dados para calcular.</p>
+
+<p>Utilize a <strong>Calculadora Mediana</strong> sempre que precisar de uma análise rápida, fiável e sem complicações. Ideal para estudantes, profissionais e qualquer pessoa que lide com dados numéricos em Portugal.</p>

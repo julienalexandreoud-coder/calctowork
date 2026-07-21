@@ -1,44 +1,103 @@
-<section class="long-content">
-<p>Use a <strong>Mosaic Calculator</strong> para calcular área com perda, placas, cola de forma rápida e precisa.</p>
-<h2>Como funciona o calculo</h2>
-<p>Seja para planejar uma reforma, estimar materiais para uma obra ou calcular dimensoes para um projeto DIY, ter os numeros certos desde o inicio economiza tempo e dinheiro.</p>
-<p>A formula por tras deste calculo e <strong>Calculadora de Pastilha de Vidro = f(Área a cobrir, Tamanho placa)</strong>. Compreender como o resultado e obtido ajuda a verificar a saida e detectar erros de entrada.</p>
+<p>A instalação de pastilhas de vidro pode transformar qualquer ambiente, mas saber a quantidade exata de material necessário muitas vezes gera dúvidas e desperdícios. A <strong>Calculadora de Pastilha de Vidro</strong> foi criada para resolver exatamente este problema: com base na área a revestir e no tamanho da manta (malla), ela calcula automaticamente quantas placas de pastilha, quilogramas de cola e quilogramas de rejunte (lechada) você precisa comprar. Esta ferramenta é ideal tanto para profissionais da construção civil que preparam orçamentos, quanto para particulares que planeiam uma remodelação em casa, evitando sobras desnecessárias ou a frustração de faltar material a meio do trabalho.</p>
 
-<h2>Guia passo a passo para seu projeto</h2>
-<p>Siga estes passos para obter um resultado confiável:</p>
+<h2>O que a Calculadora de Pastilha de Vidro faz e quando deve utilizá-la</h2>
+
+<p>A calculadora simplifica o processo de orçamentação de revestimentos com pastilha de vidro. Você insere apenas dois valores: a <strong>área total da parede ou superfície a revestir</strong> (em metros quadrados) e o <strong>tamanho da manta (malla)</strong> em centímetros (o valor padrão é 30 cm, que corresponde às mantas mais comuns no mercado português). A ferramenta devolve quatro resultados essenciais:</p>
+
+<ul>
+<li><strong>Área com margem de segurança (m²):</strong> a área total acrescida de 10% para compensar recortes e quebras.</li>
+<li><strong>Número de mantas (unidades):</strong> a quantidade exata de placas de pastilha a adquirir.</li>
+<li><strong>Cola (kg):</strong> a estimativa de adesivo necessária, calculada a 5 kg por metro quadrado.</li>
+<li><strong>Rejunte / Lechada (kg):</strong> a quantidade estimada para o rejuntamento, a 0,6 kg por metro quadrado.</li>
+</ul>
+
+<p>Use esta calculadora sempre que for planejar a compra de materiais para cozinhas, casas de banho, fachadas ou murais decorativos com pastilha de vidro. É particularmente útil para evitar compras por excesso – já que a pastilha de vidro costuma ter um custo elevado – e para garantir que o revestimento fique uniforme, sem emendas mal calculadas.</p>
+
+<h2>A fórmula explicada variável por variável</h2>
+
+<p>O cálculo segue uma lógica simples mas rigorosa, baseada na geometria das mantas e em consumos médios praticados no mercado. Veja como cada variável é obtida:</p>
+
+<p><strong>Variável 1: Área com margem (area_merma_m2)</strong><br>
+A fórmula começa por multiplicar a área bruta inserida pelo utilizador por 1,10 (ou seja, acrescenta 10% de margem). Este valor cobre perdas inevitáveis com cortes, ajustes em cantos e possíveis quebras durante o manuseamento. Exemplo: se a área for 10 m², a área com margem será 11 m².</p>
+
+<p><strong>Variável 2: Tamanho da malla em metros quadrados (malla_m2)</strong><br>
+O utilizador insere o lado da manta em centímetros (padrão: 30 cm). O programa converte esse valor para metros (dividindo por 100) e calcula a área de cada manta: (tamanho / 100) x (tamanho / 100). Por exemplo, uma manta de 30 cm corresponde a 0,3 m x 0,3 m = 0,09 m².</p>
+
+<p><strong>Variável 3: Número de mantas (mallas_ud)</strong><br>
+Divide-se a área com margem pela área de cada manta e arredonda-se o resultado para cima (usando Math.ceil), pois não se pode comprar uma fração de manta. Isto garante que o material cobre toda a superfície.</p>
+
+<p><strong>Variável 4: Cola em kg (adhesivo_kg)</strong><br>
+Multiplica-se a área com margem por 5 kg/m². Este valor é uma média para pastilha de vidro aplicada com espátula dentada adequada, considerando que o adesivo precisa preencher bem o verso da pastilha.</p>
+
+<p><strong>Variável 5: Rejunte / Lechada em kg (lechada_kg)</strong><br>
+Multiplica-se a área com margem por 0,6 kg/m². Este consumo considera juntas padrão de 1 a 2 mm, comuns em pastilhas de vidro montadas em rede.</p>
+
+<h2>Dois exemplos práticos com números concretos</h2>
+
+<h3>Exemplo 1: Revestimento de uma bancada de cozinha</h3>
+
+<p>Imagine que quer revestir uma parede de 4,5 m² por detrás do fogão, usando mantas padrão de 30 cm.</p>
+
+<p><strong>Dados inseridos:</strong><br>
+Área: 4,5 m²<br>
+Tamanho da malla: 30 cm</p>
+
+<p><strong>Cálculo passo a passo:</strong></p>
 <ol>
-<li><strong>Insira seus dados:</strong> 8 m²; 30 cm — ensure all values use a single consistent unit system.</li>
-<li><strong>A calculadora aplica a fórmula:</strong> <em>Calculadora de Pastilha de Vidro = f(Área a cobrir, Tamanho placa)</em>.</li>
-<li><strong>Leia seu resultado:</strong> Área com perda, Placas, Cola.</li>
-<li>Verifique: confirme que as unidades são consistentes e os valores realistas antes de agir com base no resultado.</li>
+<li>Área com margem: 4,5 x 1,10 = 4,95 m²</li>
+<li>Área de cada manta: (30/100) x (30/100) = 0,3 x 0,3 = 0,09 m²</li>
+<li>Número de mantas: 4,95 / 0,09 = 55 → arredondado para 55 mantas (cálculo exato, sem sobras)</li>
+<li>Cola: 4,95 x 5 = 24,75 kg</li>
+<li>Rejunte: 4,95 x 0,6 = 2,97 kg</li>
 </ol>
 
-<h2>Usos praticos na obra</h2>
-<p>Esta calculadora é especialmente útil nas seguintes situações:</p>
-<ul>
-<li>problemas matemáticos do dia a dia</li><li>orçamento e planejamento</li><li>culinária e medições domésticas</li><li>cálculos de viagem e tempo</li>
-</ul>
+<p><strong>Resultado final:</strong>
+Área com margem: 4,95 m² | Mantas: 55 unidades | Cola: 24,8 kg | Rejunte: 3,0 kg</p>
 
-<h2>Como aplicar os resultados</h2>
-<p>Seu resultado mostra a quantidade teórica necessária. Antes de pedir, aplique o fator de perda adequado: 5–10&nbsp;% para concreto e argamassa, 10–15&nbsp;% para cerâmica, pedra natural e tijolo, e 3–5&nbsp;% para aço e madeira. Sempre arredonde para cima à próxima unidade inteira — saco, tonelada ou palete.</p>
+<h3>Exemplo 2: Parede inteira de uma casa de banho</h3>
 
-<h2>Normas de construção e boas práticas</h2>
-<p>Projetos de construção dependem de estimativas precisas de materiais para cumprir orçamento e cronograma. Profissionais geralmente adicionam 5–10&nbsp;% de margem de perda sobre a quantidade teórica para cobrir cortes, quebras e erros de medição. As normas ISO e ABNT definem as propriedades dos materiais utilizadas nestas fórmulas.</p>
+<p>Agora considere uma parede de 12 m², utilizando mantas de 30 cm (tamanho mais comum em Portugal).</p>
 
-<h2>Erros comuns a evitar</h2>
-<ul>
-<li>Esquecer de adicionar margem de desperdicio (5-10%) ao pedir materiais.</li><li>Misturar unidades metricas e imperiais no mesmo projeto.</li>
-</ul>
+<p><strong>Dados inseridos:</strong><br>
+Área: 12 m²<br>
+Tamanho da malla: 30 cm</p>
 
-<h2>Dica profissional para contratados</h2>
-<p>Peça 5-10% mais material do que o calculo indica para cobrir cortes, quebras e erros de medicao.</p>
+<p><strong>Cálculo passo a passo:</strong></p>
+<ol>
+<li>Área com margem: 12 x 1,10 = 13,20 m²</li>
+<li>Área de cada manta: 0,09 m² (como no exemplo anterior)</li>
+<li>Número de mantas: 13,20 / 0,09 = 146,66 → arredondado para 147 mantas</li>
+<li>Cola: 13,20 x 5 = 66,0 kg</li>
+<li>Rejunte: 13,20 x 0,6 = 7,92 kg</li>
+</ol>
 
-<h2>Perguntas frequentes</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Quanto material extra devo pedir?</button><div class="faq-a"><p>A maioria dos profissionais recomenda pedir 5-10% mais do que o calculado para cobrir cortes e desperdicio.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Esta calculadora e precisa?</button><div class="faq-a"><p>Sim. A calculadora usa a formula padrao: Calculadora de Pastilha de Vidro = f(Área a cobrir, Tamanho placa). Os resultados sao matematicamente exatos.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Posso usar esta calculadora no celular?</button><div class="faq-a"><p>Sim, a calculadora e totalmente responsiva e funciona em qualquer dispositivo.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Como salvo ou compartilho meu cálculo?</button><div class="faq-a"><p>Use o botão <strong>Compartilhar</strong> para gerar uma URL com todos os seus dados. O botão <strong>Copiar</strong> copia o resultado para a área de transferência.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">O que fazer se o resultado parecer errado?</button><div class="faq-a"><p>Verifique suas entradas: valores nas unidades corretas e faixa realista. Confirme também que a fórmula <em>Calculadora de Pastilha de Vidro = f(Área a cobrir, Tamanho placa)</em> se aplica exatamente à sua situação.</p></div></div>
-</div>
-</section>
+<p><strong>Resultado final:</strong>
+Área com margem: 13,20 m² | Mantas: 147 unidades | Cola: 66,0 kg | Rejunte: 7,9 kg</p>
+
+<p>Note que, no segundo exemplo, o arredondamento das mantas para cima (147 em vez de 146) cobre a pequena fração que faltaria, garantindo que não terá de interromper o trabalho para comprar mais uma manta.</p>
+
+<h2>Erros comuns ao calcular pastilha de vidro</h2>
+
+<p><strong>Não incluir a margem de 10%</strong><br>
+Muitas pessoas medem a área com precisão mas esquecem-se de que os cortes em cantos, à volta de tomadas ou em superfícies irregulares geram desperdício. Sem a margem, arrisca-se a comprar mantas a menos e o fornecedor pode não ter o mesmo lote, resultando em diferenças de cor ou textura.</p>
+
+<p><strong>Ignorar o tamanho real da manta</strong><br>
+Embora o padrão seja 30 cm, existem mantas de 25 cm, 33 cm ou outros formatos. Inserir um valor errado neste campo faz com que o número de mantas calculado fique completamente desajustado – por exemplo, usar 30 cm quando a manta tem 25 cm fará com que compre menos mantas do que o necessário.</p>
+
+<p><strong>Confundir área com margem com a área útil</strong><br>
+A calculadora já devolve a área com margem, mas alguns utilizadores tentam descontar novamente 10% ou usar a área bruta para calcular cola e rejunte. Os 5 kg/m² e 0,6 kg/m² já consideram a aplicação real; usar a área bruta resultará em falta de adesivo e rejunte.</p>
+
+<p><strong>Arredondar mantas para baixo</strong><br>
+A calculadora arredonda sempre para cima. Se o utilizador decidir manualmente arredondar 146,66 para 146 mantas, faltará material para aproximadamente 0,66 m² de superfície, o que pode inviabilizar a conclusão do trabalho.</p>
+
+<h2>Perguntas frequentes (FAQ)</h2>
+
+<h3>Preciso mesmo de 5 kg de cola por metro quadrado de pastilha de vidro?</h3>
+<p>Sim, esse valor é uma referência segura para a aplicação com espátula dentada de 6 mm, que é a recomendada para pastilha de vidro. Em superfícies muito irregulares ou com absorção elevada, o consumo pode ser ligeiramente maior. A calculadora usa 5 kg/m² como média do mercado português, garantindo que não falte material na maioria das obras.</p>
+
+<h3>O que fazer se a minha manta tiver um tamanho diferente de 30 cm?</h3>
+<p>Basta alterar o campo "tamanho da malla em cm" na calculadora. Meça com uma régua a distância de um extremo ao outro da manta (incluindo os espaçamentos entre pastilhas) e insira esse valor. A ferramenta ajustará automaticamente a área de cada manta e o número total necessário.</h3>
+<h3>A calculadora considera perdas com quebras de pastilhas individuais?</h3>
+<p>Sim, a margem de 10% incluída na área com margem (area_merma_m2) já foi pensada para cobrir quebras e recortes. Em obras muito complexas, com muitos cantos ou recortes em ângulo, pode ser prudente acrescentar mais 2% a 3% por conta própria, mas na maioria dos projetos residenciais os 10% são suficientes.</p>
+
+<p>Utilizar a <strong>Calculadora de Pastilha de Vidro</strong> antes de ir à loja de materiais não só poupa dinheiro, como evita dores de cabeça com logística de reposição. Com os valores certos de mantas, cola e rejunte, o seu projeto de revestimento segue com muito mais fluidez e profissionalismo.</p>

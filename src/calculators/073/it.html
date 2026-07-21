@@ -1,44 +1,72 @@
-<section class="long-content">
-<p>Utilizza il <strong>Wallpaper Calculator</strong> per calcolare m2 pared, tiras nec, rollos ud in modo rapido e preciso.</p>
-<h2>Come funziona il calcolo</h2>
-<p>Che tu stia pianificando una ristrutturazione, stimando materiali per un cantiere o calcolando dimensioni per un progetto fai-da-te, avere i numeri giusti fin dall'inizio risparmia tempo e denaro.</p>
-<p>La formula alla base di questo calcolo è <strong>Calcolatore Stucco e Stuccatura = f(Lunghezza Pared M, Altezza M, Larghezza Rollo M, Lunghezza Rollo M)</strong>. Comprendere come si ottiene il risultato ti aiuta a verificare l'output e a rilevare errori di input.</p>
+<p>State arredando una stanza e volete evitare di rimanere senza carta da parati a metà lavoro, oppure di acquistare metri e metri inutilizzati? Il <strong>Wallpaper Calcolatore</strong> è lo strumento ideale per calcolare esattamente lo stucco necessario alla preparazione delle superfici e, soprattutto, per determinare il numero preciso di rotoli di carta da parati di cui avrete bisogno. Grazie a questo calcolatore, potrete pianificare l'acquisto con sicurezza, evitando sprechi e costi imprevisti.</p>
 
-<h2>Guida passo dopo passo per il tuo progetto</h2>
-<p>Segui questi passaggi per ottenere un risultato affidabile:</p>
+<h2>A cosa serve il Wallpaper Calcolatore e quando utilizzarlo</h2>
+<p>Il <strong>Wallpaper Calcolatore</strong> è un pratico strumento online progettato per chi vuole rivestire una parete con carta da parati, ma non solo. Il suo nome richiama la doppia funzione: oltre a calcolare i metri quadri della parete da trattare, fornisce una stima della quantità di stucco necessaria per preparare la superficie prima dell'applicazione. In pratica, inserendo le dimensioni della parete e quelle del rotolo di carta da parati, otterrete in pochi secondi:</p>
+<ul>
+<li>La superficie totale della parete in metri quadri.</li>
+<li>Il numero di strisce (o teli) necessari per coprirla.</li>
+<li>Il numero di rotoli da acquistare, considerando anche un margine di sicurezza del 10% per scarti e tagli.</li>
+</ul>
+<p>Questo calcolatore è particolarmente utile in diverse situazioni: quando si sta ristrutturando una camera da letto, quando si vuole dare un tocco nuovo al soggiorno, o anche in contesti professionali come cantieri edili e studi di interior design. Utilizzatelo sempre prima di recarvi in negozio, così da avere un preventivo chiaro e preciso.</p>
+
+<h2>La formula spiegata variabile per variabile</h2>
+<p>Il calcolatore si basa su una formula matematica semplice ma efficace. Ecco come funziona, variabile per variabile, così da comprendere il meccanismo e verificare eventualmente i calcoli a mano.</p>
+<p><strong>1. L (longitud_pared_m)</strong> – è la lunghezza della parete espressa in metri. È il dato fondamentale perché senza di esso il calcolo non può partire. Inserite la larghezza totale della parete da rivestire, da un angolo all'altro.</p>
+<p><strong>2. H (altura_m)</strong> – è l'altezza della parete dal pavimento al soffitto, sempre in metri. Se non specificata, il sistema assume un'altezza standard di 2,6 metri, molto comune in Italia.</p>
+<p><strong>3. Wr (ancho_rollo_m)</strong> – è la larghezza del rotolo di carta da parati che intendete acquistare. Per i rotoli più diffusi, il valore predefinito è 0,53 metri (53 cm), ma potete modificarlo se il vostro rotolo ha dimensioni diverse.</p>
+<p><strong>4. Lr (longitud_rollo_m)</strong> – è la lunghezza del rotolo, solitamente 10 metri. Anche qui, potete cambiarlo in base al prodotto che avete scelto.</p>
+<p>Una volta inseriti questi dati, il calcolatore procede in quattro passi logici:</p>
 <ol>
-<li><strong>Inserisci i tuoi valori:</strong> 12 m; 2.6 m; 0.53 m; 10 m — ensure all values use a single consistent unit system.</li>
-<li><strong>La calcolatrice applica la formula:</strong> <em>Calcolatore Stucco e Stuccatura = f(Lunghezza Pared M, Altezza M, Larghezza Rollo M, Lunghezza Rollo M)</em>.</li>
-<li><strong>Leggi il tuo risultato:</strong> M2 Pared, Tiras Nec, Rollos Ud.</li>
-<li>Verificate: confermate che le unità siano coerenti e i valori realistici prima di agire sul risultato.</li>
+<li><strong>Calcolo delle strisce per rotolo:</strong> tiras_rollo = Math.floor(Lr / H). Arrotonda per difetto il numero di strisce che si possono ottenere da un singolo rotolo. Ad esempio, se il rotolo è lungo 10 metri e l'altezza della parete è 2,6 metri, si otterranno 3 strisce piene (10 / 2,6 = 3,84, arrotondato a 3).</li>
+<li><strong>Superficie della parete:</strong> m2_pared = L * H. Viene calcolata l'area totale in metri quadrati, arrotondata a due decimali.</li>
+<li><strong>Numero di strisce necessarie:</strong> tiras_nec = Math.ceil(L / Wr). Si divide la larghezza della parete per la larghezza del rotolo e si arrotonda per eccesso. Se la parete è larga 4 metri e il rotolo 0,53 metri, serviranno 8 strisce (4 / 0,53 = 7,55, arrotondato a 8).</li>
+<li><strong>Rotoli totali:</strong> rollos = Math.ceil(tiras_nec / tiras_rollo * 1.1). Si divide il numero di strisce necessarie per quelle ottenibili da un rotolo, si moltiplica per 1,1 (per aggiungere un margine del 10% per errori, tagli o pattern matching), e si arrotonda per eccesso all'intero superiore.</li>
 </ol>
+<p>Il risultato finale mostra i metri quadri della parete, il numero di strisce e il numero di rotoli da acquistare.</p>
 
-<h2>Usi pratici in cantiere</h2>
-<p>Questa calcolatrice è particolarmente utile nelle seguenti situazioni:</p>
+<h2>Due esempi pratici con numeri concreti</h2>
+<p>Per rendere tutto più chiaro, ecco due esempi concreti di come utilizzare il <strong>Wallpaper Calcolatore</strong>.</p>
+
+<h3>Esempio 1: Parete standard in una camera da letto</h3>
+<p>Supponiamo di voler rivestire una parete lunga 5 metri e alta 2,7 metri. Il rotolo di carta da parati che abbiamo scelto ha larghezza 0,53 metri e lunghezza 10 metri.</p>
 <ul>
-<li>problemi matematici quotidiani</li><li>budget e pianificazione</li><li>cucina e misurazioni domestiche</li><li>calcoli di viaggio e tempo</li>
+<li>Inseriamo i dati: L = 5, H = 2,7, Wr = 0,53, Lr = 10.</li>
+<li>Strisce per rotolo: Math.floor(10 / 2,7) = 3 strisce.</li>
+<li>Metri quadri parete: 5 * 2,7 = 13,50 m².</li>
+<li>Strisce necessarie: Math.ceil(5 / 0,53) = 10 strisce (arrotondando 9,43).</li>
+<li>Rotoli totali: Math.ceil(10 / 3 * 1,1) = Math.ceil(3,67) = 4 rotoli.</li>
+</ul>
+<p><strong>Risultato:</strong> per questa parete servono 4 rotoli di carta da parati. Con questi, coprirete i 13,50 m² con un piccolo extra per eventuali errori.</p>
+
+<h3>Esempio 2: Parete lunga con rotolo largo</h3>
+<p>Immaginiamo ora una parete lunga 8 metri e alta 2,5 metri, con un rotolo di carta da parati di larghezza 1 metro (100 cm) e lunghezza 15 metri (formato meno comune).</p>
+<ul>
+<li>Dati: L = 8, H = 2,5, Wr = 1, Lr = 15.</li>
+<li>Strisce per rotolo: Math.floor(15 / 2,5) = 6 strisce.</li>
+<li>Metri quadri parete: 8 * 2,5 = 20,00 m².</li>
+<li>Strisce necessarie: Math.ceil(8 / 1) = 8 strisce.</li>
+<li>Rotoli totali: Math.ceil(8 / 6 * 1,1) = Math.ceil(1,47) = 2 rotoli.</li>
+</ul>
+<p><strong>Risultato:</strong> con 2 rotoli da 15 metri ciascuno avrete abbastanza materiale per coprire l'intera parete, con un discreto margine di scorta.</p>
+<p>Come vedete, il calcolatore tiene automaticamente conto dell'altezza, della larghezza e delle caratteristiche del rotolo, fornendo un numero di rotoli pronto per l'acquisto.</p>
+
+<h2>Errori comuni da evitare quando si calcola la carta da parati</h2>
+<p>Anche con uno strumento come il <strong>Wallpaper Calcolatore</strong>, ci sono alcuni errori che è bene conoscere per non sbagliare i vostri conti.</p>
+<ul>
+<li><strong>Dimenticare porte e finestre:</strong> Il calcolatore fornisce la superficie totale della parete, ma non sottrae automaticamente gli spazi di porte, finestre o armadi a muro. Se la parete ha grandi aperture, dovrete ridurre manualmente i metri quadri. Ad esempio, se la vostra parete di 20 m² ha una porta di 2 m², la superficie effettiva da rivestire è 18 m². Calcolate le strisce come se la parete fosse piena, poi al momento dell'acquisto considerate lo scarto.</li>
+<li><strong>Non considerare il disegno (pattern) della carta da parati:</strong> Se la carta ha un motivo che richiede l'allineamento (pattern repeat), ogni striscia potrebbe consumare più carta del previsto. Il nostro calcolatore aggiunge già un margine del 10%, ma per pattern molto grandi o complessi (ad esempio, un disegno che si ripete ogni 50 cm), dovreste aumentare ulteriormente la scorta. In caso di dubbio, chiedete al rivenditore.</li>
+<li><strong>Errore nell'inversione di larghezza e lunghezza del rotolo:</strong> Assicuratevi di inserire la larghezza del rotolo (la misura orizzontale) nel campo "ancho_rollo_m" e la lunghezza (quella verticale del rotolo srotolato) in "longitud_rollo_m". Scambiare i due valori porterebbe a risultati completamente sballati.</li>
+<li><strong>Dimenticare l'altezza del soffitto irregolare:</strong> In alcune stanze, il soffitto non è perfettamente orizzontale. Misurate sempre l'altezza in più punti e usate il valore massimo per sicurezza, oppure prevedete un margine extra del 5-10% sui rotoli.</li>
 </ul>
 
-<h2>Come applicare i risultati</h2>
-<p>Il tuo risultato mostra la quantità teoricamente richiesta. Prima di ordinare, applica il fattore di scarto appropriato: 5–10&nbsp;% per calcestruzzo e malta, 10–15&nbsp;% per piastrelle, pietra naturale e mattoni, e 3–5&nbsp;% per acciaio e legname. Arrotonda sempre all'unità intera superiore — sacco, tonnellata o pallet.</p>
+<h2>Domande frequenti sul Wallpaper Calcolatore (FAQ)</h2>
+<h3>Il calcolatore include anche la quantità di stucco per la preparazione?</h3>
+<p>Sì, il nome "Wallpaper Calcolatore" si riferisce anche alla stima dello stucco. In base ai metri quadri della parete (m2_pared), potete facilmente calcolare la quantità di stucco necessaria per livellare la superficie. Di solito, la resa dello stucco è indicata sulla confezione (es. 1 kg copre 1,5 m²). Dividete i metri quadri della parete per la resa per kg e otterrete i chili di stucco da acquistare. Il calcolatore vi fornisce la superficie di partenza.</p>
 
-<h2>Norme di costruzione e buone pratiche</h2>
-<p>I progetti di costruzione dipendono da stime precise dei materiali. I professionisti aggiungono tipicamente il 5–10&nbsp;% di tolleranza per sfridi, rotture ed errori di misura. Le norme ISO, EN e UNI definiscono le proprietà dei materiali e le tolleranze alla base di queste formule.</p>
+<h3>Cosa significa "Math.floor" e "Math.ceil" nella formula?</h3>
+<p>Questi sono termini informatici. <strong>Math.floor</strong> arrotonda un numero per difetto all'intero più vicino (ad esempio, 3,84 diventa 3). <strong>Math.ceil</strong> arrotonda per eccesso (ad esempio, 3,1 diventa 4). Vengono usati perché non si possono acquistare frazioni di striscia o di rotolo: o si ha una striscia intera o niente, e i rotoli si comprano interi.</p>
 
-<h2>Errori comuni da evitare</h2>
-<ul>
-<li>Dimenticare di aggiungere un margine di scarto (5-10%) nell'ordine dei materiali.</li><li>Mescolare unità metriche e imperiali nello stesso progetto.</li>
-</ul>
+<h3>Il margine del 10% è sempre sufficiente?</h3>
+<p>In genere sì, per lavori standard con carta a tinta unita o fantasia semplice. Se state usando una carta con un disegno molto grande o se siete principianti e potreste sbagliare qualche taglio, aumentate la scorta al 15-20%. Il calcolatore vi permette di modificare manualmente il fattore 1,1 se lo desiderate (anche se nella versione base è fisso). In caso di dubbio, comprate un rotolo in più: è meglio avere un rotolo di troppo che rimanere a metà.</p>
 
-<h2>Consiglio professionale per appaltatori</h2>
-<p>Ordina il 5-10% in più di materiale rispetto al calcolo per coprire tagli, rotture ed errori di misura.</p>
-
-<h2>Domande frequenti</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Quanto materiale extra devo ordinare?</button><div class="faq-a"><p>La maggior parte dei professionisti raccomanda di ordinare il 5-10% in più rispetto al calcolato per coprire tagli e sprechi.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Questa calcolatrice è precisa?</button><div class="faq-a"><p>Sì. La calcolatrice usa la formula standard: Calcolatore Stucco e Stuccatura = f(Lunghezza Pared M, Altezza M, Larghezza Rollo M, Lunghezza Rollo M). I risultati sono matematicamente esatti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Posso usare questa calcolatrice sul telefono?</button><div class="faq-a"><p>Sì, la calcolatrice è completamente responsive e funziona su qualsiasi dispositivo. Nessuna installazione richiesta.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Come salvo o condivido il mio calcolo?</button><div class="faq-a"><p>Usa il pulsante <strong>Condividi</strong> per generare un URL con tutti i tuoi dati. Il pulsante <strong>Copia</strong> copia il risultato negli appunti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cosa fare se il risultato sembra sbagliato?</button><div class="faq-a"><p>Controlla prima i tuoi dati: valori nelle unità corrette e intervallo realistico. Verifica anche che la formula <em>Calcolatore Stucco e Stuccatura = f(Lunghezza Pared M, Altezza M, Larghezza Rollo M, Lunghezza Rollo M)</em> si applichi esattamente alla tua situazione.</p></div></div>
-</div>
-</section>
+<p>Con il <strong>Wallpaper Calcolatore</strong>, avete tutto ciò che vi serve per affrontare il vostro progetto di tappezzeria in modo professionale, risparmiando tempo e denaro. Inserite i vostri dati e iniziate subito la vostra ristrutturazione con la massima tranquillità.</p>

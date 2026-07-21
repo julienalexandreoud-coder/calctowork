@@ -1,44 +1,94 @@
-<section class="long-content">
-<p>Utilisez le <strong>Refrigerant Charge Calculator</strong> pour calculer charge de base équipement, charge extra ligne longue, charge totale gaz rapidement et avec précision.</p>
-<h2>Comment fonctionne le calcul</h2>
-<p>Que vous planifiiez des travaux de rénovation, estimiez des matériaux pour un chantier ou calculiez des dimensions pour un projet DIY, disposer des bons chiffres dès le départ fait gagner du temps et de l'argent.</p>
-<p>La formule derrière ce calcul est <strong>Calculateur Charge Fluide Frigorigène = f(Longueur ligne frigorifique, Puissance équipement (kW), Type de gaz)</strong>. Comprendre comment le résultat est obtenu vous aide à vérifier la sortie et à détecter les erreurs d'entrée.</p>
+<p>Le <strong>Calculateur Charge Fluide Frigorigène</strong> est un outil en ligne conçu pour estimer rapidement la quantité de gaz réfrigérant nécessaire dans une installation de climatisation ou de pompe à chaleur en fonction de la longueur des tuyauteries. Ce calculateur est particulièrement utile pour les frigoristes, les techniciens de maintenance et les installateurs qui doivent préparer des devis ou vérifier les charges réglementaires lors de la mise en service d'un système.</p>
 
-<h2>Guide pas à pas pour votre projet</h2>
-<p>Suivez ces étapes pour obtenir un résultat fiable :</p>
+<h2>À quoi sert le calculateur et quand l'utiliser ?</h2>
+
+<p>Le calcul de la charge de fluide frigorigène est une étape critique pour garantir l'efficacité énergétique et la durabilité d'un équipement. Une charge inadéquate peut entraîner une surconsommation électrique, un mauvais rendement thermique, voire une panne prématurée du compresseur. Ce calculateur répond à un besoin précis : déterminer la quantité totale de fluide à ajouter dans une installation, en distinguant la charge de base (liée à la puissance de l'équipement) et la charge supplémentaire (liée à la longueur des liaisons frigorifiques).</p>
+
+<p>Il est recommandé d'utiliser cet outil dans les situations suivantes :</p>
+<ul>
+  <li><strong>Installation neuve</strong> : lors du dimensionnement d'une climatisation split ou d'une pompe à chaleur air/air ou air/eau.</li>
+  <li><strong>Remplacement d'équipement</strong> : lorsque l'on change un groupe extérieur et que les liaisons existantes sont conservées ou modifiées.</li>
+  <li><strong>Réparation suite à une fuite</strong> : pour recalculer la charge après réparation d'une fuite sur une ligne frigorifique.</li>
+  <li><strong>Devis et facturation</strong> : pour estimer la quantité de fluide à facturer au client, notamment pour les compléments de charge.</li>
+</ul>
+
+<h2>La formule expliquée variable par variable</h2>
+
+<p>Le calcul s'appuie sur une formule simple mais efficace, qui prend en compte trois paramètres principaux. Voici le détail de chaque variable utilisée dans le <strong>Calculateur Charge Fluide Frigorigène</strong> :</p>
+
+<table>
+  <tr>
+    <th>Variable</th>
+    <th>Nom dans l'outil</th>
+    <th>Description</th>
+    <th>Unité</th>
+  </tr>
+  <tr>
+    <td>L</td>
+    <td>longitud_linea_m</td>
+    <td>Longueur totale de la ligne de liaison entre l'unité intérieure et extérieure</td>
+    <td>mètres (m)</td>
+  </tr>
+  <tr>
+    <td>Pkw</td>
+    <td>potencia_eq_kw</td>
+    <td>Puissance frigorifique ou calorifique de l'équipement</td>
+    <td>kW</td>
+  </tr>
+  <tr>
+    <td>base_kg</td>
+    <td>tipo_gas</td>
+    <td>Coefficient spécifique à chaque type de fluide (R32, R410A, R22)</td>
+    <td>kg par mètre supplémentaire</td>
+  </tr>
+</table>
+
+<p><strong>Détail du calcul :</strong></p>
 <ol>
-<li><strong>Saisissez vos valeurs:</strong> 5 m; 3.5 kW; R32 — ensure all values use a single consistent unit system.</li>
-<li><strong>La calculatrice applique la formule:</strong> <em>Calculateur Charge Fluide Frigorigène = f(Longueur ligne frigorifique, Puissance équipement (kW), Type de gaz)</em>.</li>
-<li><strong>Lisez votre résultat:</strong> Charge de base équipement, Charge extra ligne longue, Charge totale gaz.</li>
-<li>Vérifiez : confirmez que les unités sont cohérentes et les valeurs réalistes avant d'agir sur le résultat.</li>
+  <li><strong>Charge de base (carga_base_kg)</strong> : elle est calculée en multipliant la puissance de l'équipement (Pkw) par 0,04. Cela correspond à une estimation de la charge interne des échangeurs et du compresseur. Par exemple, pour un équipement de 3,5 kW, la charge de base est de 3,5 × 0,04 = 0,140 kg.</li>
+  <li><strong>Longueur supplémentaire (extra_m)</strong> : on considère que les 5 premiers mètres de liaison sont déjà inclus dans la charge de base. La longueur excédentaire est donc : extra_m = max(0, L - 5).</li>
+  <li><strong>Charge supplémentaire (carga_extra_kg)</strong> : elle correspond à la quantité de fluide ajoutée pour la longueur excédentaire. Elle est calculée en multipliant extra_m par le coefficient base_kg propre au gaz : pour le R32, 0,02 kg/m ; pour le R410A, 0,025 kg/m ; pour le R22, 0,03 kg/m.</li>
+  <li><strong>Charge totale (carga_total_kg)</strong> : c'est la somme de la charge de base et de la charge supplémentaire. Le résultat est arrondi à trois décimales.</li>
 </ol>
 
-<h2>Usages pratiques sur le chantier</h2>
-<p>Cette calculatrice est particulièrement utile dans les situations suivantes :</p>
+<h2>Deux exemples concrets avec chiffres</h2>
+
+<p><strong>Exemple 1 : Installation avec fluide R32, puissance 3,5 kW, longueur de ligne 12 mètres</strong></p>
 <ul>
-<li>problèmes mathématiques quotidiens</li><li>budget et planification</li><li>cuisine et mesures domestiques</li><li>calculs de voyage et de temps</li>
+  <li>Charge de base : 3,5 × 0,04 = 0,140 kg</li>
+  <li>Longueur supplémentaire : 12 - 5 = 7 mètres</li>
+  <li>Charge supplémentaire : 7 × 0,02 = 0,140 kg</li>
+  <li><strong>Charge totale : 0,140 + 0,140 = 0,280 kg</strong></li>
 </ul>
+<p>Dans ce cas, le technicien devra prévoir une recharge totale d'environ 280 grammes de R32 pour l'ensemble du circuit.</p>
 
-<h2>Interpréter et appliquer vos résultats</h2>
-<p>Votre résultat indique la quantité théorique requise. Ajoutez le facteur de perte approprié avant de commander : 5–10&nbsp;% pour le béton et le mortier, 10–15&nbsp;% pour les carreaux, la pierre naturelle et la brique, et 3–5&nbsp;% pour l'acier et le bois. Arrondissez toujours à l'unité supérieure — sac, tonne ou palette.</p>
-
-<h2>Normes de construction et bonnes pratiques</h2>
-<p>Les projets de construction dépendent d'estimations précises des matériaux. Les professionnels ajoutent généralement 5–10&nbsp;% de marge de perte aux quantités théoriques pour les coupes, la casse et les erreurs de mesure. Les normes ISO et EN définissent les propriétés des matériaux et les tolérances utilisées dans ces formules.</p>
+<p><strong>Exemple 2 : Installation avec fluide R410A, puissance 7 kW, longueur de ligne 20 mètres</strong></p>
+<ul>
+  <li>Charge de base : 7 × 0,04 = 0,280 kg</li>
+  <li>Longueur supplémentaire : 20 - 5 = 15 mètres</li>
+  <li>Charge supplémentaire : 15 × 0,025 = 0,375 kg</li>
+  <li><strong>Charge totale : 0,280 + 0,375 = 0,655 kg</strong></li>
+</ul>
+<p>Pour cette configuration plus puissante, la charge nécessaire est de 655 grammes de R410A. On note que la part de la charge supplémentaire devient majoritaire dès que la liaison dépasse 10 mètres.</p>
 
 <h2>Erreurs courantes à éviter</h2>
+
+<p>L'utilisation du <strong>Calculateur Charge Fluide Frigorigène</strong> est intuitive, mais certaines erreurs peuvent fausser les résultats :</p>
 <ul>
-<li>Oublier d'ajouter une marge de perte (5-10%) lors de la commande de matériaux.</li><li>Mélanger unités métriques et impériales dans un même projet.</li>
+  <li><strong>Ne pas tenir compte du type de gaz</strong> : chaque fluide a un coefficient de charge linéique différent. Confondre le R32 avec le R410A peut entraîner une sous-charge ou une surcharge de 20 %.</li>
+  <li><strong>Mesurer la mauvaise longueur</strong> : la longueur à saisir est celle de la ligne la plus longue (souvent la ligne liquide), et non pas la somme des deux liaisons (liquide + gaz). Certains installateurs additionnent par erreur les deux trajets.</li>
+  <li><strong>Oublier la longueur minimale</strong> : le calculateur applique automatiquement un seuil de 5 mètres. Si vous avez une liaison de 3 mètres, la charge supplémentaire sera nulle. Inutile d'ajouter du fluide pour une courte distance.</li>
+  <li><strong>Confondre puissance électrique et puissance frigorifique</strong> : la donnée à entrer dans "potencia_eq_kw" est la puissance frigorifique nominale (en kW), généralement indiquée sur la plaque signalétique de l'unité intérieure ou extérieure.</li>
+  <li><strong>Utiliser des unités non métriques</strong> : l'outil est conçu pour le système métrique. Si vous entrez des pieds ou des pouces, le résultat sera complètement erroné.</li>
 </ul>
 
-<h2>Conseil pro pour les entrepreneurs</h2>
-<p>Commandez 5-10% de matériel en plus que le calcul ne l'indique pour couper les pertes et les erreurs de mesure.</p>
+<h2>Foire aux questions (FAQ)</h2>
 
-<h2>Questions fréquentes</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Combien de matériel supplémentaire dois-je commander?</button><div class="faq-a"><p>La plupart des professionnels recommandent de commander 5-10% de plus que le calcul pour couper les pertes et les erreurs de mesure.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cette calculatrice est-elle précise?</button><div class="faq-a"><p>Oui. La calculatrice utilise la formule standard : Calculateur Charge Fluide Frigorigène = f(Longueur ligne frigorifique, Puissance équipement (kW), Type de gaz). Les résultats sont mathématiquement exacts.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Puis-je utiliser cette calculatrice sur mobile?</button><div class="faq-a"><p>Oui, la calculatrice est entièrement responsive et fonctionne sur tout appareil. Aucune installation requise.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Comment sauvegarder ou partager mon calcul ?</button><div class="faq-a"><p>Utilisez le bouton <strong>Partager</strong> pour générer une URL qui encode toutes vos entrées. Le bouton <strong>Copier</strong> copie le résultat dans le presse-papiers.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Que faire si mon résultat semble incorrect ?</button><div class="faq-a"><p>Vérifiez d'abord vos entrées : valeurs dans les bonnes unités et plage réaliste. Vérifiez aussi que la formule <em>Calculateur Charge Fluide Frigorigène = f(Longueur ligne frigorifique, Puissance équipement (kW), Type de gaz)</em> s'applique exactement à votre situation.</p></div></div>
-</div>
-</section>
+<h3>Puis-je utiliser ce calculateur pour tous les types de climatiseurs ?</h3>
+<p>Oui, le calculateur est adapté aux systèmes split, multi-split et pompes à chaleur réversibles utilisant les fluides R32, R410A ou R22. Pour d'autres gaz comme le R134a ou le R290, les coefficients diffèrent et l'outil ne donnera pas un résultat fiable. Dans ce cas, il faut se référer aux données techniques du fabricant.</p>
+
+<h3>Que faire si la longueur de ligne est inférieure à 5 mètres ?</h3>
+<p>Le calculateur gère automatiquement cette situation : si la longueur est de 4 mètres par exemple, la charge supplémentaire sera nulle (car 4 - 5 = -1, mais la formule prend le maximum entre 0 et cette valeur). Vous obtiendrez donc uniquement la charge de base. Cela correspond à la pratique standard : pour les liaisons courtes, la charge interne de l'équipement est suffisante.</p>
+
+<h3>Le résultat du calcul est-il conforme à la réglementation F-Gas ?</h3>
+<p>Le calculateur fournit une estimation technique de la quantité de fluide. Cependant, la réglementation F-Gas (règlement UE n°517/2014) impose des obligations de contrôle des fuites et de traçabilité. Ce calculateur ne remplace pas une étude de dimensionnement complète réalisée par un professionnel certifié. Il est fortement recommandé de vérifier les charges avec un manomètre et une balance de précision lors de l'intervention sur site.</p>

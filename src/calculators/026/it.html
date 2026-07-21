@@ -1,44 +1,91 @@
-<section class="long-content">
-<p>Utilizza il <strong>Terrazzo Calculator</strong> per calcolare area merma m2, piezas ud, mortero base kg in modo rapido e preciso.</p>
-<h2>Come funziona il calcolo</h2>
-<p>Che tu stia pianificando una ristrutturazione, stimando materiali per un cantiere o calcolando dimensioni per un progetto fai-da-te, avere i numeri giusti fin dall'inizio risparmia tempo e denaro.</p>
-<p>La formula alla base di questo calcolo è <strong>Calcolatore Manto Impermeabilizzante = f(Superficie (m²), Dimensione piastrella cm, Incluye Mortero)</strong>. Comprendere come si ottiene il risultato ti aiuta a verificare l'output e a rilevare errori di input.</p>
+<p>Il <strong>Terrazzo Calcolatore</strong> è uno strumento online progettato per calcolare con precisione la quantità di guaina bituminosa necessaria per l'impermeabilizzazione di terrazzi e superfici piane. Se stai progettando un intervento di impermeabilizzazione, questo calcolatore ti aiuta a evitare sprechi e a ordinare la giusta quantità di materiale, tenendo conto di sfridi, pezzi di copertura e malta di base. Perfetto per professionisti e privati che vogliono un preventivo rapido e accurato in metri quadri e in unità di prodotto.</p>
 
-<h2>Guida passo dopo passo per il tuo progetto</h2>
-<p>Segui questi passaggi per ottenere un risultato affidabile:</p>
+<h2>Cosa calcola il Terrazzo Calcolatore e quando usarlo</h2>
+
+<p>Il <strong>Terrazzo Calcolatore</strong> risponde a una domanda pratica: quanta guaina bituminosa serve per coprire un terrazzo, considerando le perdite per tagli e sovrapposizioni? Lo strumento è utile in diverse fasi del lavoro:</p>
+
+<ul>
+<li><strong>Preventivazione:</strong> per calcolare il costo dei materiali prima di iniziare i lavori.</li>
+<li><strong>Acquisto:</strong> per ordinare il numero esatto di pezzi di guaina (solitamente venduti in rotoli o lastre di dimensioni standard).</li>
+<li><strong>Pianificazione:</strong> per stimare la quantità di malta base necessaria per la posa, se richiesta.</li>
+</ul>
+
+<p>Utilizza questo calcolatore ogni volta che devi impermeabilizzare un terrazzo, un balcone, una copertura piana o un sottotetto calpestabile. I risultati sono espressi in metri quadri di superficie effettiva, numero di pezzi (lastre o rotoli) e chilogrammi di malta base, secondo le consuetudini italiane.</p>
+
+<h2>La formula spiegata variabile per variabile</h2>
+
+<p>Il calcolatore si basa su una formula semplice ma efficace, che puoi comprendere facilmente. Ecco la spiegazione di ogni variabile:</p>
+
+<ul>
+<li><strong>area (A)</strong>: è la superficie del terrazzo in metri quadri, inserita dall'utente. È il dato di partenza.</li>
+<li><strong>tam_pieza_cm (tam)</strong>: è la dimensione del lato del pezzo di guaina in centimetri. Il valore predefinito è 40 cm, ma puoi modificarlo in base al prodotto che usi (es. lastre 40x40 cm, rotoli 50x50 cm, ecc.).</li>
+<li><strong>area_merma</strong>: è la superficie totale considerando uno sfrido del 8%. Si calcola moltiplicando l'area per 1,08 (A * 1,08). Questo valore aggiunge il materiale extra necessario per tagli, adattamenti e sovrapposizioni.</li>
+<li><strong>pieza_m2</strong>: è la superficie di un singolo pezzo di guaina in metri quadri. Si ottiene convertendo la dimensione da centimetri a metri e moltiplicando lato per lato: (tam/100) * (tam/100).</li>
+<li><strong>piezas</strong>: è il numero di pezzi necessari, arrotondato per eccesso (con Math.ceil). Si calcola dividendo l'area_merma per la superficie di un pezzo.</li>
+<li><strong>mortero_kg</strong>: è la quantità di malta base in chilogrammi, richiesta solo se l'utente seleziona "sì" nella casella "incluye_mortero". Si calcola moltiplicando l'area per 30 kg/m² (A * 30), che è un valore standard per la posa di guaine bituminose su terrazzi.</li>
+</ul>
+
+<p>La formula restituisce tre valori finali: area_merma_m2 (superficie con sfrido), piezas_ud (numero di pezzi), mortero_base_kg (chili di malta, se richiesti). Se il campo "area" è vuoto, il calcolatore mostra un errore.</p>
+
+<h2>Due esempi pratici con numeri concreti</h2>
+
+<p>Vediamo come funziona il Terrazzo Calcolatore con due situazioni reali.</p>
+
+<h3>Esempio 1: Terrazzo piccolo senza malta</h3>
+
+<p>Supponiamo di avere un terrazzo di 15 m² e di usare lastre di guaina da 40x40 cm (quindi 40 cm di lato). Non vogliamo includere la malta base.</p>
+<ul>
+<li><strong>Area:</strong> 15 m²</li>
+<li><strong>Dimensione pezzo:</strong> 40 cm</li>
+<li><strong>Includi mortaio:</strong> No</li>
+</ul>
+<p>Il calcolatore esegue i passaggi:</p>
 <ol>
-<li><strong>Inserisci i tuoi valori:</strong> 30 m²; 40 cm; si — ensure all values use a single consistent unit system.</li>
-<li><strong>La calcolatrice applica la formula:</strong> <em>Calcolatore Manto Impermeabilizzante = f(Superficie (m²), Dimensione piastrella cm, Incluye Mortero)</em>.</li>
-<li><strong>Leggi il tuo risultato:</strong> Area Merma M2, Piezas Ud, Mortero Base Kg.</li>
-<li>Verificate: confermate che le unità siano coerenti e i valori realistici prima di agire sul risultato.</li>
+<li>area_merma = 15 * 1,08 = 16,20 m²</li>
+<li>pieza_m2 = (40/100) * (40/100) = 0,40 * 0,40 = 0,16 m² per pezzo</li>
+<li>piezas = Math.ceil(16,20 / 0,16) = Math.ceil(101,25) = 102 pezzi</li>
+<li>mortero_kg = 0 (perché non selezionato)</li>
 </ol>
+<p><strong>Risultato:</strong> avrai bisogno di 16,20 m² di guaina (incluso lo sfrido), acquistando 102 pezzi da 40 cm. Nessuna malta necessaria.</p>
 
-<h2>Usi pratici in cantiere</h2>
-<p>Questa calcolatrice è particolarmente utile nelle seguenti situazioni:</p>
+<h3>Esempio 2: Terrazzo grande con malta base</h3>
+
+<p>Consideriamo un terrazzo di 45 m², con lastre da 50x50 cm (50 cm di lato), e con la malta base inclusa.</p>
 <ul>
-<li>problemi matematici quotidiani</li><li>budget e pianificazione</li><li>cucina e misurazioni domestiche</li><li>calcoli di viaggio e tempo</li>
+<li><strong>Area:</strong> 45 m²</li>
+<li><strong>Dimensione pezzo:</strong> 50 cm</li>
+<li><strong>Includi mortaio:</strong> Sì</li>
+</ul>
+<p>I calcoli sono:</p>
+<ol>
+<li>area_merma = 45 * 1,08 = 48,60 m²</li>
+<li>pieza_m2 = (50/100) * (50/100) = 0,50 * 0,50 = 0,25 m² per pezzo</li>
+<li>piezas = Math.ceil(48,60 / 0,25) = Math.ceil(194,4) = 195 pezzi</li>
+<li>mortero_kg = 45 * 30 = 1350 kg di malta</li>
+</ol>
+<p><strong>Risultato:</strong> serviranno 48,60 m² di guaina, cioè 195 pezzi da 50 cm, e 1350 kg di malta base per la posa. Con questi dati puoi ordinare il materiale al fornitore senza sorprese.</p>
+
+<h2>Errori comuni da evitare nell'uso del calcolatore</h2>
+
+<p>Anche se il Terrazzo Calcolatore è semplice, alcuni errori possono falsare i risultati. Ecco i più frequenti:</p>
+
+<ul>
+<li><strong>Inserire l'area sbagliata:</strong> assicurati di misurare correttamente la superficie del terrazzo, includendo eventuali rientranze o nicchie. Un errore di pochi metri quadri può portare a ordini insufficienti o eccessivi.</li>
+<li><strong>Dimenticare la dimensione del pezzo:</strong> il calcolatore usa 40 cm come predefinito, ma se il tuo prodotto è diverso (es. 30 cm o 60 cm), devi modificare il campo. Altrimenti il numero di pezzi sarà sbagliato.</li>
+<li><strong>Confondere centimetri e metri:</strong> inserisci la dimensione in centimetri, non in metri. Se scrivi "0,40" invece di "40", il calcolo sarà errato perché la formula converte automaticamente da cm a m.</li>
+<li><strong>Non considerare lo sfrido:</strong> l'8% di margine è già incluso, ma se il tuo terrazzo ha forme molto irregolari (es. molte curve, angoli, ostacoli), potresti aver bisogno di un margine maggiore. In quel caso, aumenta l'area di partenza manualmente.</li>
+<li><strong>Selezionare "sì" per la malta se non serve:</strong> se non prevedi di usare malta base, lascia l'opzione su "no". Altrimenti il calcolatore aggiungerà chilogrammi superflui, gonfiando il preventivo.</li>
 </ul>
 
-<h2>Come applicare i risultati</h2>
-<p>Il tuo risultato mostra la quantità teoricamente richiesta. Prima di ordinare, applica il fattore di scarto appropriato: 5–10&nbsp;% per calcestruzzo e malta, 10–15&nbsp;% per piastrelle, pietra naturale e mattoni, e 3–5&nbsp;% per acciaio e legname. Arrotonda sempre all'unità intera superiore — sacco, tonnellata o pallet.</p>
+<h2>Domande frequenti (FAQ) sul Terrazzo Calcolatore</h2>
 
-<h2>Norme di costruzione e buone pratiche</h2>
-<p>I progetti di costruzione dipendono da stime precise dei materiali. I professionisti aggiungono tipicamente il 5–10&nbsp;% di tolleranza per sfridi, rotture ed errori di misura. Le norme ISO, EN e UNI definiscono le proprietà dei materiali e le tolleranze alla base di queste formule.</p>
+<h3>1. Il calcolatore funziona anche per altri tipi di impermeabilizzazione, come tetti verdi o lastre di cemento?</h3>
+<p>Sì, il principio di calcolo è universale. Il Terrazzo Calcolatore stima la quantità di guaina bituminosa basandosi sull'area e sulle dimensioni del pezzo. Puoi usarlo per qualsiasi superficie piana o inclinata, purché i pezzi siano di forma quadrata o rettangolare. Per materiali diversi (es. membrane liquide), le formule cambiano e questo strumento non è adatto.</p>
 
-<h2>Errori comuni da evitare</h2>
-<ul>
-<li>Dimenticare di aggiungere un margine di scarto (5-10%) nell'ordine dei materiali.</li><li>Mescolare unità metriche e imperiali nello stesso progetto.</li>
-</ul>
+<h3>2. Perché il calcolatore arrotonda il numero di pezzi per eccesso?</h3>
+<p>L'arrotondamento per eccesso (Math.ceil) è una cautela pratica: non puoi acquistare un pezzo di guaina "a metà". Anche se il calcolo esatto dà 101,25 pezzi, dovrai comprarne 102 per coprire completamente la superficie, considerando che i pezzi vanno tagliati e adattati. È meglio avere un pezzo in più piuttosto che rimanere a corto a lavoro iniziato.</p>
 
-<h2>Consiglio professionale per appaltatori</h2>
-<p>Ordina il 5-10% in più di materiale rispetto al calcolo per coprire tagli, rotture ed errori di misura.</p>
+<h3>3. Quanto è accurato il valore di 30 kg di malta per metro quadro?</h3>
+<p>Il valore di 30 kg/m² è una stima media per la posa di guaine bituminose su terrazzi, utilizzata spesso in Italia. Tuttavia, la quantità esatta dipende dallo spessore dello strato di malta, dalla planarità del fondo e dal tipo di prodotto. Per lavori professionali, consulta sempre la scheda tecnica del produttore della guaina. Il calcolatore fornisce un punto di partenza affidabile per un preventivo.</p>
 
-<h2>Domande frequenti</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Quanto materiale extra devo ordinare?</button><div class="faq-a"><p>La maggior parte dei professionisti raccomanda di ordinare il 5-10% in più rispetto al calcolato per coprire tagli e sprechi.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Questa calcolatrice è precisa?</button><div class="faq-a"><p>Sì. La calcolatrice usa la formula standard: Calcolatore Manto Impermeabilizzante = f(Superficie (m²), Dimensione piastrella cm, Incluye Mortero). I risultati sono matematicamente esatti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Posso usare questa calcolatrice sul telefono?</button><div class="faq-a"><p>Sì, la calcolatrice è completamente responsive e funziona su qualsiasi dispositivo. Nessuna installazione richiesta.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Come salvo o condivido il mio calcolo?</button><div class="faq-a"><p>Usa il pulsante <strong>Condividi</strong> per generare un URL con tutti i tuoi dati. Il pulsante <strong>Copia</strong> copia il risultato negli appunti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cosa fare se il risultato sembra sbagliato?</button><div class="faq-a"><p>Controlla prima i tuoi dati: valori nelle unità corrette e intervallo realistico. Verifica anche che la formula <em>Calcolatore Manto Impermeabilizzante = f(Superficie (m²), Dimensione piastrella cm, Incluye Mortero)</em> si applichi esattamente alla tua situazione.</p></div></div>
-</div>
-</section>
+<p>Usa il <strong>Terrazzo Calcolatore</strong> per rendere i tuoi lavori di impermeabilizzazione più efficienti, evitando errori di calcolo e ordinando esattamente ciò che ti serve. Con un semplice inserimento di dati, ottieni risultati chiari e pronti all'uso, in linea con le pratiche edilizie italiane.</p>

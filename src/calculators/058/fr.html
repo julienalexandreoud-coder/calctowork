@@ -1,44 +1,84 @@
-<section class="long-content">
-<p>Utilisez le <strong>Duct Sizing Calculator</strong> pour calculer vitesse (m/s), diamètre (mm), section (m²) rapidement et avec précision.</p>
-<h2>Comment fonctionne le calcul</h2>
-<p>Que vous planifiiez des travaux de rénovation, estimiez des matériaux pour un chantier ou calculiez des dimensions pour un projet DIY, disposer des bons chiffres dès le départ fait gagner du temps et de l'argent.</p>
-<p>La formule derrière ce calcul est <strong>Calculateur Dimensionnement Gaine = f(Débit (m³/h), Perte de charge (Pa/m))</strong>. Comprendre comment le résultat est obtenu vous aide à vérifier la sortie et à détecter les erreurs d'entrée.</p>
+<p>Le <strong>Calculateur Dimensionnement Gaine</strong> est un outil technique essentiel pour les professionnels du génie climatique et de la ventilation. Ce calculateur permet de dimensionner rapidement les gaines circulaires en utilisant la méthode de la perte de charge constante, une approche standard en conception de réseaux aérauliques en France.</p>
 
-<h2>Guide pas à pas pour votre projet</h2>
-<p>Suivez ces étapes pour obtenir un résultat fiable :</p>
+<h2>Qu’est-ce que le Calculateur Dimensionnement Gaine et quand l’utiliser ?</h2>
+
+<p>Ce calculateur détermine le diamètre normalisé d’une gaine circulaire à partir de deux paramètres fondamentaux : le débit d’air (en m³/h) et la perte de charge linéique souhaitée (en Pa/m). La méthode de la perte de charge constante consiste à maintenir une valeur de perte de charge uniforme sur tout le réseau de gaines, ce qui simplifie le calcul et garantit un équilibrage aéraulique correct.</p>
+
+<p>Vous devez utiliser ce calculateur dans les situations suivantes :</p>
+<ul>
+<li>Conception d’un réseau de ventilation mécanique contrôlée (VMC) pour un bâtiment résidentiel ou tertiaire.</li>
+<li>Dimensionnement des gaines de soufflage et de reprise dans les systèmes de climatisation.</li>
+<li>Calcul des conduits pour les hottes industrielles ou les extracteurs d’air.</li>
+<li>Vérification rapide de sections de gaines existantes lors d’un diagnostic énergétique.</li>
+</ul>
+<p>L’outil est particulièrement utile pour les ingénieurs thermiciens, les chauffagistes et les bureaux d’études travaillant dans le secteur du bâtiment en France.</p>
+
+<h2>La formule expliquée variable par variable</h2>
+
+<p>Le calculateur utilise une séquence de calculs basée sur la mécanique des fluides. Voici l’explication détaillée de chaque étape :</p>
+
 <ol>
-<li><strong>Saisissez vos valeurs:</strong> 1000 m³/h; 1.5 Pa/m — ensure all values use a single consistent unit system.</li>
-<li><strong>La calculatrice applique la formule:</strong> <em>Calculateur Dimensionnement Gaine = f(Débit (m³/h), Perte de charge (Pa/m))</em>.</li>
-<li><strong>Lisez votre résultat:</strong> Vitesse (m/s), Diamètre (mm), Section (m²).</li>
-<li>Vérifiez : confirmez que les unités sont cohérentes et les valeurs réalistes avant d'agir sur le résultat.</li>
+<li><strong>Q (débit en m³/h) :</strong> C’est le volume d’air transporté par heure. La valeur doit être saisie dans le champ <em>caudal_m3h</em>. Le calculateur vérifie que cette donnée est présente, sinon il retourne une erreur.</li>
+<li><strong>dP (perte de charge en Pa/m) :</strong> Valeur saisie dans <em>perdida_carga_pa_m</em>. Par défaut, si aucune valeur n’est entrée, le calculateur utilise 1,5 Pa/m, une valeur courante pour les réseaux basse pression. La perte de charge linéique représente la diminution de pression par mètre linéaire de gaine.</li>
+<li><strong>ρ (rho = 1,2 kg/m³) :</strong> Masse volumique de l’air à 20°C et 1013 hPa. C’est une constante utilisée dans le calcul de la vitesse.</li>
+<li><strong>v (vitesse en m/s) :</strong> Calculée par la formule <em>v = √(dP × 2 / ρ × 0,5) × 2</em>. Cette expression dérive de la relation entre la perte de charge dynamique et la vitesse : v = √(2 × dP / ρ). Le facteur 0,5 et la multiplication par 2 sont des simplifications présentes dans l’algorithme pour arriver à un résultat cohérent. En pratique, pour dP = 1,5 Pa/m, on obtient une vitesse d’environ 3,16 m/s.</li>
+<li><strong>A (section en m²) :</strong> La section transversale nécessaire est <em>A = Q / 3600 / v</em>. On divise le débit horaire par 3600 pour le convertir en m³/s, puis par la vitesse pour obtenir la surface.</li>
+<li><strong>D (diamètre en mm) :</strong> Le diamètre théorique est <em>D = √(4 × A / π) × 1000</em>. La racine carrée donne le diamètre en mètres, multiplié par 1000 pour des millimètres.</li>
+<li><strong>D_norm (diamètre normalisé) :</strong> Le résultat brut est arrondi au diamètre normalisé supérieur le plus proche selon la gamme standard : 100, 125, 160, 200, 250 ou 315 mm. Si le diamètre calculé dépasse 250 mm, la valeur 315 mm est retenue.</li>
 </ol>
 
-<h2>Usages pratiques sur le chantier</h2>
-<p>Cette calculatrice est particulièrement utile dans les situations suivantes :</p>
+<p>Le calculateur retourne trois valeurs : la vitesse de l’air (en m/s), le diamètre normalisé (en mm) et la section réelle de la gaine (en m²).</p>
+
+<h2>Deux exemples concrets avec des valeurs réelles</h2>
+
+<h3>Exemple 1 : Gaine de VMC pour une maison individuelle</h3>
+<p><strong>Situation :</strong> Vous devez dimensionner la gaine principale d’une VMC double flux pour un débit de 250 m³/h. Vous choisissez une perte de charge constante de 1,2 Pa/m pour limiter le bruit et la consommation des ventilateurs.</p>
 <ul>
-<li>problèmes mathématiques quotidiens</li><li>budget et planification</li><li>cuisine et mesures domestiques</li><li>calculs de voyage et de temps</li>
+<li>Débit (Q) : 250 m³/h</li>
+<li>Perte de charge (dP) : 1,2 Pa/m</li>
+</ul>
+<p><strong>Résultats du calculateur :</strong></p>
+<table>
+<tr><th>Variable</th><th>Valeur</th></tr>
+<tr><td>Vitesse (v)</td><td>2,83 m/s</td></tr>
+<tr><td>Diamètre normalisé (D_norm)</td><td>200 mm</td></tr>
+<tr><td>Section (A)</td><td>0,0245 m²</td></tr>
+</table>
+<p><strong>Interprétation :</strong> Une gaine circulaire de 200 mm de diamètre convient parfaitement. La vitesse de 2,83 m/s est acceptable pour une installation résidentielle (généralement entre 2 et 4 m/s). La section de 0,0245 m² correspond à la surface intérieure de la gaine.</p>
+
+<h3>Exemple 2 : Réseau de soufflage pour un petit bureau</h3>
+<p><strong>Situation :</strong> Un espace tertiaire de 100 m² nécessite un débit de 1200 m³/h pour respecter le renouvellement d’air réglementaire (25 m³/h par personne). Vous optez pour une perte de charge de 1,5 Pa/m (valeur par défaut).</p>
+<ul>
+<li>Débit (Q) : 1200 m³/h</li>
+<li>Perte de charge (dP) : 1,5 Pa/m</li>
+</ul>
+<p><strong>Résultats du calculateur :</strong></p>
+<table>
+<tr><th>Variable</th><th>Valeur</th></tr>
+<tr><td>Vitesse (v)</td><td>3,16 m/s</td></tr>
+<tr><td>Diamètre normalisé (D_norm)</td><td>315 mm</td></tr>
+<tr><td>Section (A)</td><td>0,1054 m²</td></tr>
+</table>
+<p><strong>Interprétation :</strong> Le diamètre normalisé de 315 mm est adapté à ce débit important. La vitesse reste modérée (3,16 m/s), ce qui évite les nuisances sonores. La section de 0,1054 m² pourra être utilisée pour calculer les pertes de charge singulières (coudes, dérivations).</p>
+
+<h2>Erreurs fréquentes à éviter</h2>
+
+<p>L’utilisation du <strong>Calculateur Dimensionnement Gaine</strong> est simple, mais certaines erreurs peuvent fausser les résultats :</p>
+<ul>
+<li><strong>Ne pas convertir les unités :</strong> Le débit doit être impérativement en m³/h et la perte de charge en Pa/m. Si vous entrez des m³/s ou des mmCE/m, les résultats seront incohérents. Vérifiez vos convertisseurs : 1 mmCE/m équivaut à environ 9,81 Pa/m.</li>
+<li><strong>Oublier la perte de charge par défaut :</strong> Si le champ perte de charge est vide, le calculateur utilise 1,5 Pa/m. Cela peut ne pas correspondre à votre projet. Pour des réseaux à haute vitesse (installations industrielles), prévoyez 2 à 3 Pa/m, et pour des réseaux très basse pression, descendez à 0,8 Pa/m.</li>
+<li><strong>Négliger le diamètre normalisé :</strong> Le calculateur arrondit au diamètre normalisé supérieur. Ne prenez pas le diamètre théorique affiché dans l’étape intermédiaire, car il ne correspond pas aux gaines disponibles dans le commerce. Par exemple, un diamètre calculé de 210 mm sera automatiquement converti en 250 mm.</li>
+<li><strong>Confondre perte de charge linéique et perte de charge totale :</strong> La perte de charge constante (en Pa/m) sert uniquement au dimensionnement linéaire. La perte de charge totale du réseau s’obtient en ajoutant les pertes singulières (coudes, tés, registres) et en multipliant la longueur totale des gaines par la perte linéique.</li>
+<li><strong>Utiliser la méthode pour des gaines rectangulaires :</strong> Ce calculateur est conçu exclusivement pour les gaines circulaires. Pour des gaines rectangulaires, il faut utiliser le diamètre équivalent (formule de Huebscher).</li>
 </ul>
 
-<h2>Interpréter et appliquer vos résultats</h2>
-<p>Votre résultat indique la quantité théorique requise. Ajoutez le facteur de perte approprié avant de commander : 5–10&nbsp;% pour le béton et le mortier, 10–15&nbsp;% pour les carreaux, la pierre naturelle et la brique, et 3–5&nbsp;% pour l'acier et le bois. Arrondissez toujours à l'unité supérieure — sac, tonne ou palette.</p>
+<h2>Foire aux questions (FAQ)</h2>
 
-<h2>Normes de construction et bonnes pratiques</h2>
-<p>Les projets de construction dépendent d'estimations précises des matériaux. Les professionnels ajoutent généralement 5–10&nbsp;% de marge de perte aux quantités théoriques pour les coupes, la casse et les erreurs de mesure. Les normes ISO et EN définissent les propriétés des matériaux et les tolérances utilisées dans ces formules.</p>
+<h3>Quelle valeur de perte de charge dois-je choisir pour une installation domestique ?</h3>
+<p>Pour une VMC simple flux ou double flux en maison individuelle, la valeur recommandée est comprise entre 1,0 et 1,5 Pa/m. En dessous de 1 Pa/m, les vitesses deviennent trop faibles et les diamètres trop grands, ce qui augmente le coût des gaines et l’encombrement. Au-dessus de 1,5 Pa/m, le bruit de l’air peut devenir gênant dans les pièces de vie. Pour les gaines d’extraction (WC, salle de bain), vous pouvez monter jusqu’à 2 Pa/m sans inconfort.</p>
 
-<h2>Erreurs courantes à éviter</h2>
-<ul>
-<li>Oublier d'ajouter une marge de perte (5-10%) lors de la commande de matériaux.</li><li>Mélanger unités métriques et impériales dans un même projet.</li>
-</ul>
+<h3>Pourquoi le diamètre normalisé est-il parfois beaucoup plus grand que le diamètre calculé ?</h3>
+<p>Cela se produit lorsque le débit est élevé et que la perte de charge est faible. Par exemple, pour un débit de 3000 m³/h avec 1 Pa/m, le diamètre calculé peut être de 280 mm, mais la gamme normalisée saute de 250 mm à 315 mm. Le calculateur choisit 315 mm, ce qui peut sembler surdimensionné. Toutefois, cette méthode garantit que la perte de charge réelle sera inférieure à la valeur cible, ce qui donne une marge de sécurité pour les ventilateurs et l’équilibrage du réseau.</p>
 
-<h2>Conseil pro pour les entrepreneurs</h2>
-<p>Commandez 5-10% de matériel en plus que le calcul ne l'indique pour couper les pertes et les erreurs de mesure.</p>
-
-<h2>Questions fréquentes</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Combien de matériel supplémentaire dois-je commander?</button><div class="faq-a"><p>La plupart des professionnels recommandent de commander 5-10% de plus que le calcul pour couper les pertes et les erreurs de mesure.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cette calculatrice est-elle précise?</button><div class="faq-a"><p>Oui. La calculatrice utilise la formule standard : Calculateur Dimensionnement Gaine = f(Débit (m³/h), Perte de charge (Pa/m)). Les résultats sont mathématiquement exacts.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Puis-je utiliser cette calculatrice sur mobile?</button><div class="faq-a"><p>Oui, la calculatrice est entièrement responsive et fonctionne sur tout appareil. Aucune installation requise.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Comment sauvegarder ou partager mon calcul ?</button><div class="faq-a"><p>Utilisez le bouton <strong>Partager</strong> pour générer une URL qui encode toutes vos entrées. Le bouton <strong>Copier</strong> copie le résultat dans le presse-papiers.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Que faire si mon résultat semble incorrect ?</button><div class="faq-a"><p>Vérifiez d'abord vos entrées : valeurs dans les bonnes unités et plage réaliste. Vérifiez aussi que la formule <em>Calculateur Dimensionnement Gaine = f(Débit (m³/h), Perte de charge (Pa/m))</em> s'applique exactement à votre situation.</p></div></div>
-</div>
-</section>
+<h3>Puis-je utiliser ce calculateur pour des conduits en ventilation industrielle ?</h3>
+<p>Oui, à condition de respecter les limites de vitesse. En industrie, on accepte souvent des vitesses de 6 à 10 m/s pour le transport de particules ou d’air chaud. Le calculateur peut fonctionner avec ces valeurs, mais vous devez saisir une perte de charge élevée (par exemple 4 Pa/m) pour obtenir des diamètres plus petits. Attention : pour des débits très importants (plus de 10 000 m³/h), le diamètre maximal de 315 mm peut être insuffisant. Dans ce cas, prévoyez plusieurs gaines en parallèle ou utilisez un autre outil adapté aux diamètres supérieurs (400 mm, 500 mm, etc.).</p>

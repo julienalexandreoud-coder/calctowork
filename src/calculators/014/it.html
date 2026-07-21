@@ -1,44 +1,125 @@
-<section class="long-content">
-<p>Utilizza il <strong>Drywall Partition Calculator</strong> per calcolare area m2, placas ud, perfiles canal in modo rapido e preciso.</p>
-<h2>Come funziona il calcolo</h2>
-<p>Che tu stia pianificando una ristrutturazione, stimando materiali per un cantiere o calcolando dimensioni per un progetto fai-da-te, avere i numeri giusti fin dall'inizio risparmia tempo e denaro.</p>
-<p>La formula alla base di questo calcolo è <strong>Calcolatore Rasatura con Gesso = f(Lunghezza, Alto, Tipo Placa, Aislamiento)</strong>. Comprendere come si ottiene il risultato ti aiuta a verificare l'output e a rilevare errori di input.</p>
+<p>Il <strong>Calcolatore Contropartizione in Cartongesso</strong> è uno strumento pratico e veloce per stimare con precisione i materiali necessari per realizzare una contropartizione in cartongesso. In questo articolo scoprirai come utilizzarlo al meglio, interpretare i risultati e evitare gli errori più comuni durante il calcolo di lastre, profili, viti e pasta per rasare le pareti.</p>
 
-<h2>Guida passo dopo passo per il tuo progetto</h2>
-<p>Segui questi passaggi per ottenere un risultato affidabile:</p>
+<h2>Cos'è il calcolatore e quando usarlo</h2>
+
+<p>Il calcolatore è stato progettato per chi deve realizzare una contropartizione, ovvero una parete aggiuntiva in cartongesso fissata a un muro esistente o montata su una struttura indipendente. Lo strumento ti aiuta a determinare:</p>
+
+<ul>
+<li>La superficie totale in metri quadri (m²) della parete da rivestire.</li>
+<li>Il numero di lastre di cartongesso necessarie, considerando sfridi e doppio strato.</li>
+<li>I profili a "c" (montanti) e a "U" (canali) per la struttura portante.</li>
+<li>Le viti per il fissaggio e la quantità di pasta (gesso) per rasare le pareti.</li>
+<li>L'eventuale isolante termoacustico, se selezionato.</li>
+</ul>
+
+<p>Questo calcolatore è ideale per <strong>posatori professionisti</strong>, <strong>architetti</strong> e <strong>appassionati di fai-da-te</strong> che vogliono preventivare i lavori con margini di errore ridotti. Lo utilizzi ogni volta che devi realizzare una contropartizione in ambienti residenziali, uffici o locali commerciali.</p>
+
+<h2>Come funziona la formula: le variabili spiegate</h2>
+
+<p>La logica del calcolatore si basa su una serie di variabili che combinano le dimensioni della parete con le caratteristiche del materiale e il tipo di posa. Ecco la spiegazione dettagliata di ogni elemento.</p>
+
+<h3>Input principali</h3>
+
+<ul>
+<li><strong>largo</strong> (L): larghezza della parete in metri.</li>
+<li><strong>alto</strong> (H): altezza della parete in metri.</li>
+<li><strong>tipo_placa</strong>: scegli tra singolo strato o doppio strato (double). Con il doppio strato, la quantità di lastre raddoppia.</li>
+<li><strong>aislamiento</strong>: seleziona "sì" per includere il materiale isolante (lana di roccia o fibra di vetro).</li>
+</ul>
+
+<h3>Calcoli intermedi</h3>
+
+<ul>
+<li><strong>Area (m²) = L × H</strong>: la superficie totale della parete.</li>
+</ul>
+
+<h3>Output e formule</h3>
+
+<table>
+<tr>
+<th>Materiale</th>
+<th>Formula</th>
+<th>Spiegazione</th>
+</tr>
+<tr>
+<td>Lastre di cartongesso</td>
+<td>Math.ceil(area × doble / 2,88 × 1,1)</td>
+<td>Ogni lastra standard copre 2,88 m² (120 × 240 cm). L'1,1 (10%) serve per sfridi e tagli. Il doppio strato moltiplica per 2.</td>
+</tr>
+<tr>
+<td>Profili a canale (U)</td>
+<td>Math.ceil(L × 2 × 1,1)</td>
+<td>Servono due canali (a pavimento e a soffitto) per ogni parete. Il 10% extra per compensare errori di taglio.</td>
+</tr>
+<tr>
+<td>Profili montanti (c)</td>
+<td>Math.ceil(L / 0,6 + 1) × doble</td>
+<td>I montanti sono distanziati ogni 60 cm. Si aggiunge un profilo finale. Con doppio strato, i montanti raddoppiano (due file).</td>
+</tr>
+<tr>
+<td>Viti per lastre</td>
+<td>Math.ceil(area × 20)</td>
+<td>Si stimano 20 viti per ogni metro quadro di lastra.</td>
+</tr>
+<tr>
+<td>Pasta per rasare (kg)</td>
+<td>+(area × 0,5).toFixed(1)</td>
+<td>Si consumano circa 0,5 kg di gesso per ogni m² di superficie rasata.</td>
+</tr>
+<tr>
+<td>Lana isolante (m²)</td>
+<td>+area.toFixed(2) (se isolamento = sì)</td>
+<td>Se richiesto, la quantità di isolante corrisponde esattamente all'area della parete.</td>
+</tr>
+</table>
+
+<h2>Due esempi pratici con numeri reali</h2>
+
+<h3>Esempio 1: Parete singola di 4 m × 2,7 m (strato singolo, senza isolamento)</h3>
+
 <ol>
-<li><strong>Inserisci i tuoi valori:</strong> 10 m; 2.6 m; single; si — ensure all values use a single consistent unit system.</li>
-<li><strong>La calcolatrice applica la formula:</strong> <em>Calcolatore Rasatura con Gesso = f(Lunghezza, Alto, Tipo Placa, Aislamiento)</em>.</li>
-<li><strong>Leggi il tuo risultato:</strong> Area M2, Placas Ud, Perfiles Canal.</li>
-<li>Verificate: confermate che le unità siano coerenti e i valori realistici prima di agire sul risultato.</li>
+<li><strong>Input</strong>: largo = 4 m, alto = 2,7 m, tipo placa = singolo, isolamento = no.</li>
+<li><strong>Area</strong>: 4 × 2,7 = 10,8 m².</li>
+<li><strong>Lastre</strong>: 10,8 × 1 (singolo) / 2,88 × 1,1 = 4,13 → arrotondato a 5 lastre.</li>
+<li><strong>Profili canale (U)</strong>: 4 × 2 × 1,1 = 8,8 → 9 profili.</li>
+<li><strong>Profili montanti (c)</strong>: (4 / 0,6 + 1) × 1 = 7,66 → 8 montanti.</li>
+<li><strong>Viti</strong>: 10,8 × 20 = 216 viti.</li>
+<li><strong>Pasta per rasare</strong>: 10,8 × 0,5 = 5,4 kg.</li>
+<li><strong>Isolante</strong>: 0 m² (non richiesto).</li>
 </ol>
 
-<h2>Usi pratici in cantiere</h2>
-<p>Questa calcolatrice è particolarmente utile nelle seguenti situazioni:</p>
+<h3>Esempio 2: Parete doppia struttura 6 m × 2,5 m (doppio strato, con isolamento)</h3>
+
+<ol>
+<li><strong>Input</strong>: largo = 6 m, alto = 2,5 m, tipo placa = double, isolamento = sì.</li>
+<li><strong>Area</strong>: 6 × 2,5 = 15,0 m².</li>
+<li><strong>Lastre</strong>: 15 × 2 (doppio) / 2,88 × 1,1 = 11,46 → 12 lastre.</li>
+<li><strong>Profili canale (U)</strong>: 6 × 2 × 1,1 = 13,2 → 14 profili.</li>
+<li><strong>Profili montanti (c)</strong>: (6 / 0,6 + 1) × 2 = 22 montanti (doppia fila).</li>
+<li><strong>Viti</strong>: 15 × 20 = 300 viti.</li>
+<li><strong>Pasta per rasare</strong>: 15 × 0,5 = 7,5 kg.</li>
+<li><strong>Isolante</strong>: 15,00 m² di lana.</li>
+</ol>
+
+<h2>Errori comuni da evitare quando usi il calcolatore</h2>
+
+<p>Anche se lo strumento semplifica il lavoro, ecco gli sbagli più frequenti che possono falsare il preventivo.</p>
+
 <ul>
-<li>costruzione di muri in mattoni e blocchi</li><li>stima di materiali da muratura</li><li>calcoli di area murale e malta</li><li>budget di costruzione</li>
+<li><strong>Dimenticare il doppio strato nella sezione montanti</strong>: se selezioni "double" per le lastre, i montanti raddoppiano automaticamente. Se li calcoli a mano, assicurati di moltiplicare per 2.</li>
+<li><strong>Non considerare gli sfridi nei profili</strong>: il calcolatore aggiunge automaticamente un 10% extra per canali e montanti. Se modifichi i risultati, ricordati di non abbassare troppo la quantità.</li>
+<li><strong>Confondere i metri lineari con i metri quadri</strong>: i profili si acquistano in metri lineari, le lastre in metri quadri. Il calcolatore già converte tutto nel formato corretto.</li>
+<li><strong>Ignorare il tipo di isolante</strong>: il calcolo per la lana è in m², ma i pannelli hanno spessore variabile (es. 5 o 10 cm). Controlla che lo spessore sia compatibile con la tua contropartizione.</li>
+<li><strong>Arrotondare troppo presto</strong>: il calcolatore usa arrotondamenti per eccesso (Math.ceil) per garantire materiale sufficiente. Se arrotondi per difetto, rischi di rimanere senza lastre o profili.</li>
 </ul>
 
-<h2>Come applicare i risultati</h2>
-<p>Il tuo risultato mostra la quantità teoricamente richiesta. Prima di ordinare, applica il fattore di scarto appropriato: 5–10&nbsp;% per calcestruzzo e malta, 10–15&nbsp;% per piastrelle, pietra naturale e mattoni, e 3–5&nbsp;% per acciaio e legname. Arrotonda sempre all'unità intera superiore — sacco, tonnellata o pallet.</p>
+<h2>Domande frequenti (FAQ)</h2>
 
-<h2>Norme di costruzione e buone pratiche</h2>
-<p>I progetti di costruzione dipendono da stime precise dei materiali. I professionisti aggiungono tipicamente il 5–10&nbsp;% di tolleranza per sfridi, rotture ed errori di misura. Le norme ISO, EN e UNI definiscono le proprietà dei materiali e le tolleranze alla base di queste formule.</p>
+<h3>Il calcolatore include anche i tasselli e le viti per fissare i profili al muro?</h3>
+<p>No, il calcolatore stima solo le viti per fissare le lastre ai montanti. Per il fissaggio dei profili a pavimento e soffitto, ti servono tasselli e viti autofilettanti (circa 3-4 per metro). Aggiungili separatamente in base alla lunghezza dei canali.</p>
 
-<h2>Errori comuni da evitare</h2>
-<ul>
-<li>Dimenticare di aggiungere un margine di scarto (5-10%) nell'ordine dei materiali.</li><li>Mescolare unità metriche e imperiali nello stesso progetto.</li>
-</ul>
+<h3>Posso usare i risultati per una parete divisoria (tramezzo) invece che per una contropartizione?</h3>
+<p>Sì, ma con attenzione. La formula funziona per pareti semplici con struttura su un lato. Se devi realizzare un tramezzo che divide due stanze, dovresti raddoppiare lastre e viti su entrambi i lati. Il calcolatore non gestisce questa modalità: in quel caso, moltiplica per 2 i valori di lastre, viti e pasta.</p>
 
-<h2>Consiglio professionale per appaltatori</h2>
-<p>Ordina il 5-10% in più di materiale rispetto al calcolo per coprire tagli, rotture ed errori di misura.</p>
-
-<h2>Domande frequenti</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Quanto materiale extra devo ordinare?</button><div class="faq-a"><p>La maggior parte dei professionisti raccomanda di ordinare il 5-10% in più rispetto al calcolato per coprire tagli e sprechi.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Questa calcolatrice è precisa?</button><div class="faq-a"><p>Sì. La calcolatrice usa la formula standard: Calcolatore Rasatura con Gesso = f(Lunghezza, Alto, Tipo Placa, Aislamiento). I risultati sono matematicamente esatti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Posso usare questa calcolatrice sul telefono?</button><div class="faq-a"><p>Sì, la calcolatrice è completamente responsive e funziona su qualsiasi dispositivo. Nessuna installazione richiesta.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Come salvo o condivido il mio calcolo?</button><div class="faq-a"><p>Usa il pulsante <strong>Condividi</strong> per generare un URL con tutti i tuoi dati. Il pulsante <strong>Copia</strong> copia il risultato negli appunti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cosa fare se il risultato sembra sbagliato?</button><div class="faq-a"><p>Controlla prima i tuoi dati: valori nelle unità corrette e intervallo realistico. Verifica anche che la formula <em>Calcolatore Rasatura con Gesso = f(Lunghezza, Alto, Tipo Placa, Aislamiento)</em> si applichi esattamente alla tua situazione.</p></div></div>
-</div>
-</section>
+<h3>Perché la quantità di pasta per rasare è così precisa (0,5 kg/m²)?</h3>
+<p>Quel valore è una media standard per una rasatura su cartongesso con giunti stuccati. Se hai pareti molto irregolari o devi applicare più mani di rasatura, aumenta la quantità del 20-30%. Per finiture lisce e professionale, 0,5 kg/m² sono sufficienti.</p>

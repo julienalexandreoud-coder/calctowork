@@ -1,44 +1,64 @@
-<section class="long-content">
-<p>Utilizza il <strong>Retaining Wall Calculator</strong> per calcolare vol muro, sacchi cemento, acciaio (kg) in modo rapido e preciso.</p>
-<h2>Come funziona il calcolo</h2>
-<p>Che tu stia pianificando una ristrutturazione, stimando materiali per un cantiere o calcolando dimensioni per un progetto fai-da-te, avere i numeri giusti fin dall'inizio risparmia tempo e denaro.</p>
-<p>La formula alla base di questo calcolo è <strong>Calcolatore Pilastro in Cemento Armato = f(Lunghezza, Altezza, Spessore Base, Spessore Corona)</strong>. Comprendere come si ottiene il risultato ti aiuta a verificare l'output e a rilevare errori di input.</p>
+<p>Il <strong>Calcolatore Muro di Sostegno</strong> è uno strumento progettato per ingegneri, geometri e appassionati di costruzioni che desiderano stimare rapidamente i materiali necessari per la realizzazione di pilastri in cemento armato. Questo calcolatore è particolarmente utile durante la fase di progettazione preliminare, quando è necessario valutare il consumo di calcestruzzo, acciaio e casseri senza ricorrere a calcoli manuali complessi.</p>
 
-<h2>Guida passo dopo passo per il tuo progetto</h2>
-<p>Segui questi passaggi per ottenere un risultato affidabile:</p>
+<h2>Come funziona il Calcolatore Muro di Sostegno e quando utilizzarlo</h2>
+<p>Il calcolatore richiede quattro input fondamentali: <strong>largo</strong> (L), <strong>altura</strong> (H), <strong>espesor base</strong> (Eb) e <strong>espesor corona</strong> (Ec). Inserendo queste misure in metri, lo strumento restituisce immediatamente il volume del muro, il numero di sacchi di cemento necessari, i chili di acciaio, la superficie del cassero e il volume della losa di fondazione. È ideale per muri di sostegno a sezione trapezoidale, tipici in opere di contenimento di terreni o in strutture di fondazione per edifici.</p>
+<p>Utilizzalo quando devi preparare un preventivo per un cantiere edile, stimare i materiali per un progetto fai-da-te di piccole dimensioni o verificare rapidamente la fattibilità di un intervento. Ricorda però che i risultati sono indicativi: per opere strutturali definitive è sempre obbligatoria la consulenza di un professionista abilitato.</p>
+
+<h2>Formula alla base del calcolo: variabili e significato</h2>
+<p>La logica del calcolatore si basa sulla geometria del muro e su coefficienti empirici consolidati nel settore edile italiano.</p>
+<h3>Volume del muro (tronco di prisma a base trapezoidale)</h3>
+<p>Il volume <strong>V</strong> si calcola con la formula: <strong>V = L × H × (Eb + Ec) / 2</strong>. Ogni variabile ha un ruolo preciso:</p>
+<ul>
+  <li><strong>L (largo)</strong>: lunghezza totale del muro in metri. Influenza direttamente il volume e i costi.</li>
+  <li><strong>H (altura)</strong>: altezza del muro, sempre in metri. Un'altezza maggiore aumenta esponenzialmente i materiali.</li>
+  <li><strong>Eb (espesor base)</strong>: spessore alla base del muro in metri. Di solito è maggiore dello spessore in corona per garantire stabilità.</li>
+  <li><strong>Ec (espesor corona)</strong>: spessore alla sommità del muro in metri. La media tra Eb e Ec determina la sezione trasversale media.</li>
+</ul>
+<h3>Calcolo dei materiali derivati</h3>
+<p>Dal volume V si ottengono le stime pratiche:</p>
+<ul>
+  <li><strong>Cemento (sacchi da 25 kg)</strong>: V × 7. Arrotondato per eccesso con Math.ceil. Il coefficiente 7 considera un dosaggio tipico per calcestruzzo strutturale (circa 350 kg di cemento per metro cubo).</li>
+  <li><strong>Acciaio (kg)</strong>: V × 90. Stima basata su una percentuale di armatura media del 2-2.5% del volume di calcestruzzo.</li>
+  <li><strong>Casseri (encofrado, m²)</strong>: L × H × 2. Superficie totale delle due facce del muro (senza considerare testate e fondazione).</li>
+  <li><strong>Volume della losa di fondazione (m³)</strong>: L × (H × 0.4). La fondazione viene stimata come una losa di lunghezza L e larghezza pari al 40% dell'altezza H.</li>
+</ul>
+
+<h2>Due esempi pratici con numeri concreti</h2>
+<p>Per comprendere meglio l'utilizzo del calcolatore, ecco due esempi con dati reali.</p>
+<h3>Esempio 1: muro di sostegno per giardino residenziale</h3>
+<p>Supponiamo un muro lungo 4 metri, alto 1.5 metri, con base di 0.6 metri e corona di 0.3 metri.</p>
 <ol>
-<li><strong>Inserisci i tuoi valori:</strong> 10 m; 2 m; 0.4 m; 0.3 m — ensure all values use a single consistent unit system.</li>
-<li><strong>La calcolatrice applica la formula:</strong> <em>Calcolatore Pilastro in Cemento Armato = f(Lunghezza, Altezza, Spessore Base, Spessore Corona)</em>.</li>
-<li><strong>Leggi il tuo risultato:</strong> Vol Muro, Sacchi cemento, Acciaio (kg).</li>
-<li>Verificate: confermate che le unità siano coerenti e i valori realistici prima di agire sul risultato.</li>
+  <li><strong>Volume</strong>: 4 × 1.5 × (0.6 + 0.3) / 2 = 4 × 1.5 × 0.45 = 2.700 m³</li>
+  <li><strong>Cemento</strong>: Math.ceil(2.700 × 7) = Math.ceil(18.9) = 19 sacchi da 25 kg</li>
+  <li><strong>Acciaio</strong>: 2.700 × 90 = 243 kg</li>
+  <li><strong>Casseri</strong>: 4 × 1.5 × 2 = 12.00 m²</li>
+  <li><strong>Losa di fondazione</strong>: 4 × (1.5 × 0.4) = 4 × 0.6 = 2.40 m³</li>
 </ol>
+<p>In un cantiere italiano, questi dati corrispondono a circa 19 sacchi di cemento tipo R42.5, 243 kg di tondo per cemento armato (ad esempio barre da 12 mm) e 12 m² di pannelli per cassero. Il volume della losa di 2.40 m³ richiede ulteriori 17 sacchi di cemento circa, se gettata separatamente.</p>
 
-<h2>Usi pratici in cantiere</h2>
-<p>Questa calcolatrice è particolarmente utile nelle seguenti situazioni:</p>
+<h3>Esempio 2: muro di contenimento per scarpata stradale</h3>
+<p>Muro lungo 8 metri, alto 2.8 metri, base 0.9 metri, corona 0.4 metri.</p>
+<ol>
+  <li><strong>Volume</strong>: 8 × 2.8 × (0.9 + 0.4) / 2 = 8 × 2.8 × 0.65 = 14.560 m³</li>
+  <li><strong>Cemento</strong>: Math.ceil(14.560 × 7) = Math.ceil(101.92) = 102 sacchi</li>
+  <li><strong>Acciaio</strong>: 14.560 × 90 = 1310.4 kg (arrotondato a 1310 kg)</li>
+  <li><strong>Casseri</strong>: 8 × 2.8 × 2 = 44.80 m²</li>
+  <li><strong>Losa di fondazione</strong>: 8 × (2.8 × 0.4) = 8 × 1.12 = 8.96 m³</li>
+</ol>
+<p>Questo muro più imponente richiede oltre 100 sacchi di cemento e più di 1.3 tonnellate di acciaio. È evidente come la stima sia fondamentale per organizzare la logistica del cantiere e il budget.</p>
+
+<h2>Errori comuni nell'uso del calcolatore e come evitarli</h2>
 <ul>
-<li>calcoli di fondazioni residenziali</li><li>ordini di calcestruzzo per progetti edilizi</li><li>stima di materiali strutturali</li><li>pianificazione di miglioramenti domestici</li>
+  <li><strong>Inserire misure in centimetri anziché in metri</strong>: il calcolatore si basa su input in metri. Se inserisci 50 cm come 50 invece di 0.5, il volume viene sovrastimato di mille volte. Controlla sempre l'unità di misura.</li>
+  <li><strong>Dimenticare che la sezione è trapezoidale</strong>: il calcolo (Eb+Ec)/2 presuppone una sezione che varia linearmente. Se il muro ha una sezione rettangolare (Eb = Ec), la formula funziona comunque, ma per forme irregolari il risultato è solo approssimativo.</li>
+  <li><strong>Confondere "espesor base" con "larghezza della fondazione"</strong>: lo spessore base è lo spessore del muro alla base, non la larghezza della fondazione. Quest'ultima viene calcolata separatamente come losa di fondazione.</li>
+  <li><strong>Non arrotondare i sacchi di cemento</strong>: il calcolatore arrotonda per eccesso automaticamente, ma se fai calcoli manuali, ricordati di non usare sacchi frazionari. In cantiere si contano sacchi interi.</li>
 </ul>
 
-<h2>Come applicare i risultati</h2>
-<p>Il tuo risultato mostra la quantità teoricamente richiesta. Prima di ordinare, applica il fattore di scarto appropriato: 5–10&nbsp;% per calcestruzzo e malta, 10–15&nbsp;% per piastrelle, pietra naturale e mattoni, e 3–5&nbsp;% per acciaio e legname. Arrotonda sempre all'unità intera superiore — sacco, tonnellata o pallet.</p>
-
-<h2>Norme di costruzione e buone pratiche</h2>
-<p>I progetti di costruzione dipendono da stime precise dei materiali. I professionisti aggiungono tipicamente il 5–10&nbsp;% di tolleranza per sfridi, rotture ed errori di misura. Le norme ISO, EN e UNI definiscono le proprietà dei materiali e le tolleranze alla base di queste formule.</p>
-
-<h2>Errori comuni da evitare</h2>
-<ul>
-<li>Dimenticare di aggiungere un margine di scarto (5-10%) nell'ordine dei materiali.</li><li>Mescolare unità metriche e imperiali nello stesso progetto.</li>
-</ul>
-
-<h2>Consiglio professionale per appaltatori</h2>
-<p>Ordina il 5-10% in più di materiale rispetto al calcolo per coprire tagli, rotture ed errori di misura.</p>
-
-<h2>Domande frequenti</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Quanto materiale extra devo ordinare?</button><div class="faq-a"><p>La maggior parte dei professionisti raccomanda di ordinare il 5-10% in più rispetto al calcolato per coprire tagli e sprechi.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Questa calcolatrice è precisa?</button><div class="faq-a"><p>Sì. La calcolatrice usa la formula standard: Calcolatore Pilastro in Cemento Armato = f(Lunghezza, Altezza, Spessore Base, Spessore Corona). I risultati sono matematicamente esatti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Posso usare questa calcolatrice sul telefono?</button><div class="faq-a"><p>Sì, la calcolatrice è completamente responsive e funziona su qualsiasi dispositivo. Nessuna installazione richiesta.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Come salvo o condivido il mio calcolo?</button><div class="faq-a"><p>Usa il pulsante <strong>Condividi</strong> per generare un URL con tutti i tuoi dati. Il pulsante <strong>Copia</strong> copia il risultato negli appunti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cosa fare se il risultato sembra sbagliato?</button><div class="faq-a"><p>Controlla prima i tuoi dati: valori nelle unità corrette e intervallo realistico. Verifica anche che la formula <em>Calcolatore Pilastro in Cemento Armato = f(Lunghezza, Altezza, Spessore Base, Spessore Corona)</em> si applichi esattamente alla tua situazione.</p></div></div>
-</div>
-</section>
+<h2>Domande frequenti sul Calcolatore Muro di Sostegno</h2>
+<h3>Il calcolo dell'acciaio è accurato per tutte le tipologie di armatura?</h3>
+<p>No, la stima di 90 kg per metro cubo è una media valida per muri di sostegno con armatura ordinaria (doppia rete e staffe). Per muri con armatura particolarmente fitta, come quelli in zona sismica, il quantitativo può salire fino a 120-150 kg/m³. Utilizza il risultato come base di partenza, ma verifica con il calcolo strutturale.</p>
+<h3>Posso usare il calcolatore per muri in calcestruzzo non armato?</h3>
+<p>Sì, ma solo per il volume e i casseri, ignorando le stime di acciaio e cemento (che presuppongono calcestruzzo armato). Per un muro in calcestruzzo semplice, il consumo di cemento è inferiore (circa 5 sacchi per m³) e non richiede armatura. Il calcolatore è ottimizzato per muri armati.</p>
+<h3>Come si gestisce la losa di fondazione nel preventivo finale?</h3>
+<p>La losa di fondazione viene calcolata separatamente dal volume del muro. Nel preventivo, considera che i materiali per la losa (calcestruzzo, acciaio) vanno aggiunti a quelli del muro. Inoltre, lo scavo e il cassero della losa hanno costi autonomi. Il calcolatore fornisce il volume della losa come suggerimento dimensionale, ma non ne dettaglia i materiali specifici.</p>

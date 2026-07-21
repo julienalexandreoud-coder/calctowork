@@ -1,46 +1,70 @@
-<section class="long-content">
-<p>Usa la <strong>Metal Structure Calculator</strong> para calcular momento máximo (kn·m), módulo resistente mínimo (cm³), kg por viga de forma rápida y precisa.</p>
-<h2>Cómo funciona el cálculo</h2>
-<p>Los cálculos de construcción parecen sencillos hasta que consideras margen de desperdicio, conversiones de unidades y estándares regionales de materiales. Esta calculadora gestiona esos detalles automáticamente, para que te concentres en la obra y no en las matemáticas.</p>
-<p>Los cálculos de construcción parecen sencillos hasta que consideras margen de desperdicio, conversiones de unidades y estándares regionales de materiales. Esta calculadora gestiona esos detalles automáticamente, para que te concentres en la obra y no en las matemáticas.</p>
-<p>La fórmula detrás de este cálculo es <strong>Calculadora de Estructura Metálica = f(Luz entre apoyos (m), Carga total (kN/m²), Longitud nave (m))</strong>. Comprender cómo se obtiene el resultado te ayuda a verificar la salida y detectar errores de entrada.</p>
+<p>La <strong>Calculadora de Estructura Metálica</strong> es una herramienta técnica diseñada para ingenieros, arquitectos y proyectistas que necesitan predimensionar correas y vigas en naves industriales o edificaciones con estructura de acero. Con solo introducir cuatro parámetros básicos, esta calculadora permite obtener el peso por metro lineal del perfil más adecuado, el peso total de la viga y el número de vigas necesarias para cubrir la nave, todo ello en unidades métricas adaptadas al contexto de la construcción en España.</p>
 
-<h2>Guía paso a paso para tu proyecto</h2>
-<p>Sigue estos pasos para obtener un resultado fiable:</p>
+<h2>Qué hace la calculadora y cuándo utilizarla</h2>
+<p>La calculadora predimensiona elementos estructurales metálicos horizontales, como correas de cubierta y vigas de carga, sometidos a flexión simple. Está pensada para las primeras fases de un proyecto, cuando se necesita una estimación rápida de los perfiles sin recurrir a software de cálculo complejo. Se recomienda su uso en:</p>
+<ul>
+<li>Naves agrícolas, ganaderas o industriales ligeras.</li>
+<li>Cubiertas inclinadas con correas separadas entre 1,5 y 3 metros.</li>
+<li>Edificaciones de una sola planta con luces entre 6 y 25 metros.</li>
+<li>Anteproyectos y presupuestos iniciales donde se requiere una aproximación del peso del acero.</li>
+</ul>
+<p>La herramienta no sustituye un cálculo estructural completo, pero ofrece un punto de partida fiable para seleccionar perfiles IPE, HEB o UPN según las necesidades de carga y luz.</p>
+
+<h2>Fórmula explicada variable por variable</h2>
+<p>El cálculo se basa en la resistencia a flexión de una viga simplemente apoyada. A continuación se detalla cada variable empleada en la fórmula:</p>
+<table>
+<tr><th>Variable</th><th>Significado</th><th>Unidad</th><th>Ejemplo</th></tr>
+<tr><td><strong>L</strong></td><td>Luz de la viga o correa (distancia entre apoyos)</td><td>metros (m)</td><td>8,00</td></tr>
+<tr><td><strong>q</strong></td><td>Carga uniformemente repartida por metro cuadrado</td><td>kN/m²</td><td>5,0</td></tr>
+<tr><td><strong>Ln</strong></td><td>Longitud total de la nave (dirección de las vigas)</td><td>metros (m)</td><td>20,0</td></tr>
+<tr><td><strong>M</strong></td><td>Momento flector máximo (q·L²/8)</td><td>kN·m</td><td>40,00</td></tr>
+<tr><td><strong>Wy</strong></td><td>Módulo resistente necesario (M·100/23,5)</td><td>cm³</td><td>170</td></tr>
+<tr><td><strong>kg_ml</strong></td><td>Peso por metro lineal según tipo de perfil (IPE, HEB o UPN)</td><td>kg/m</td><td>6,0</td></tr>
+<tr><td><strong>kg_viga</strong></td><td>Peso total de una viga (kg_ml · L)</td><td>kg</td><td>48,0</td></tr>
+<tr><td><strong>n_vigas</strong></td><td>Número de vigas en la nave (Ln/6 + 1, redondeado)</td><td>unidades</td><td>4</td></tr>
+<tr><td><strong>kg_total</strong></td><td>Peso total de acero para todas las vigas</td><td>kg</td><td>192,0</td></tr>
+</table>
+<p>La relación entre Wy y el peso por metro lineal se obtiene de tablas empíricas de perfiles normalizados: para perfil IPE se multiplica Wy por 0,035; para HEB por 0,055; y para UPN por 0,040. Estos coeficientes aproximan el peso real de los perfiles comerciales disponibles en el mercado español.</p>
+
+<h2>Dos ejemplos prácticos resueltos</h2>
+<h3>Ejemplo 1: Nave agrícola con perfil IPE</h3>
+<p>Supongamos una nave de 15 metros de longitud (Ln = 15 m), con correas que salvan una luz de 5 metros (L = 5 m) y una carga de nieve y peso propio de 4 kN/m² (q = 4). Seleccionamos perfil tipo IPE. El cálculo paso a paso es:</p>
 <ol>
-<li><strong>Introduce tus datos:</strong> 6 m; 5 kN/m²; 20 m — ensure all values use a single consistent unit system.</li>
-<li><strong>La calculadora aplica la fórmula:</strong> <em>Calculadora de Estructura Metálica = f(Luz entre apoyos (m), Carga total (kN/m²), Longitud nave (m))</em>.</li>
-<li><strong>Lee tu resultado:</strong> Momento máximo (kN·m), Módulo resistente mínimo (cm³), Kg por viga.</li>
-<li>Verifica: confirma que las unidades sean coherentes y los valores realistas antes de actuar en base al resultado.</li>
+<li>Momento flector: M = (4 · 5²) / 8 = 12,50 kN·m</li>
+<li>Módulo resistente: Wy = (12,50 · 100) / 23,5 = 53,19 cm³</li>
+<li>Peso por metro IPE: 53,19 · 0,035 = 1,9 kg/m</li>
+<li>Peso de una viga: 1,9 · 5 = 9,5 kg</li>
+<li>Número de vigas: (15 / 6) + 1 = 3,5 → redondeamos a 4 vigas</li>
+<li>Peso total: 9,5 · 4 = 38,0 kg</li>
 </ol>
+<p>Para esta nave ligera, la calculadora propone un perfil IPE de aproximadamente 2 kg/m, lo cual es coherente con un IPE 80.</p>
 
-<h2>Usos prácticos en la obra</h2>
-<p>Esta calculadora es especialmente útil en las siguientes situaciones:</p>
+<h3>Ejemplo 2: Nave industrial con perfil HEB</h3>
+<p>Ahora consideremos una nave de 24 metros de longitud (Ln = 24 m), vigas principales con luz de 10 metros (L = 10 m) y una carga de 8 kN/m² (q = 8). Se elige perfil HEB para mayor capacidad. Los resultados:</p>
+<ol>
+<li>M = (8 · 10²) / 8 = 100,00 kN·m</li>
+<li>Wy = (100,00 · 100) / 23,5 = 425,53 cm³</li>
+<li>Peso por metro HEB: 425,53 · 0,055 = 23,4 kg/m</li>
+<li>Peso de una viga: 23,4 · 10 = 234,0 kg</li>
+<li>Número de vigas: (24 / 6) + 1 = 5 vigas</li>
+<li>Peso total: 234,0 · 5 = 1170,0 kg</li>
+</ol>
+<p>Este resultado correspondería aproximadamente a un perfil HEB 200, muy común en naves industriales medianas.</p>
+
+<h2>Errores frecuentes al usar la calculadora</h2>
 <ul>
-<li>problemas matemáticos cotidianos</li><li>presupuesto y planificación</li><li>cocina y mediciones del hogar</li><li>cálculos de viaje y tiempo</li>
+<li><strong>Confundir luz con longitud de nave</strong>: La luz (L) es la distancia entre apoyos de una viga, no la longitud total de la nave. Es el error más habitual y lleva a momentos flectores irreales.</li>
+<li><strong>Introducir cargas en kN/m en lugar de kN/m²</strong>: La calculadora espera carga superficial (kN por metro cuadrado). Si se introduce una carga lineal, los resultados serán incorrectos.</li>
+<li><strong>No considerar el peso propio del perfil</strong>: La fórmula ya incluye una estimación del peso del acero, pero en cargas elevadas conviene verificar que la carga introducida (q) incluya el peso propio aproximado de la estructura.</li>
+<li><strong>Redondear el número de vigas por defecto</strong>: El cálculo usa n_vigas = Ln/6 + 1 redondeando al alza. Redondear hacia abajo puede dejar vanos excesivos entre vigas.</li>
+<li><strong>Usar perfiles no normalizados</strong>: Los coeficientes (0,035, 0,055, 0,040) están calibrados para perfiles IPE, HEB y UPN europeos. Aplicarlos a otros perfiles (como HEA o IPN) dará pesos aproximados pero menos precisos.</li>
 </ul>
-
-<h2>Cómo aplicar los resultados</h2>
-<p>Tu resultado muestra la cantidad teórica necesaria. Antes de pedir, aplica el factor de merma adecuado al material: 5–10&nbsp;% para hormigón y mortero, 10–15&nbsp;% para azulejo, piedra natural y ladrillo (para cubrir cortes, roturas y encaje de juntas), y 3–5&nbsp;% para acero y madera. Redondea siempre al alza a la siguiente unidad completa — saco, tonelada o palé — para evitar parar la obra por una segunda entrega.</p>
-
-<h2>Normas de construcción y buenas prácticas</h2>
-<p>Los proyectos de construcción dependen de estimaciones precisas de materiales para mantenerse dentro del presupuesto y el cronograma. Pedir demasiado poco detiene la obra y genera entregas de emergencia costosas; pedir demasiado desperdicia dinero y ocupa espacio en el sitio. Los estimadores profesionales suelen añadir un 5–10&nbsp;% de factor de merma sobre la cantidad teórica para cubrir cortes, recortes, roturas y pequeños errores de medición.</p><p>Los cálculos modernos de construcción siguen normas establecidas por organismos como ISO, DIN o UNE, que definen propiedades de materiales, tolerancias y márgenes de diseño. Conocer la norma detrás de una fórmula ayuda a adaptarla cuando las condiciones difieren del caso estándar — por ejemplo, al trabajar con materiales recuperados, dimensiones no estándar o sitios en altitud donde el fraguado del hormigón se comporta de forma diferente.</p>
-
-<h2>Errores comunes a evitar</h2>
-<ul>
-<li>Olvidar añadir un margen de desperdicio (típicamente 5-10%) al pedir materiales — redondear arriba evita una segunda entrega.</li><li>Mezclar unidades métricas e imperiales en el mismo proyecto. Mantén un sistema consistente.</li><li>Medir dimensiones exteriores en vez del área interior — la diferencia importa para suelos y azulejos.</li>
-</ul>
-
-<h2>Consejo profesional para contratistas</h2>
-<p>Pide un 5-10% más de material de lo que indica tu cálculo para cubrir cortes, roturas y errores de medición. Es más barato que una segunda entrega.</p>
 
 <h2>Preguntas frecuentes</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Cuánto material extra debo pedir?</button><div class="faq-a"><p>La mayoría de profesionales recomiendan pedir un 5-10% más de lo calculado para cubrir cortes, desperdicio y errores de medición. Para piedra natural o azulejo cerámico, el factor de desperdicio puede ser del 10-15%.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Puedo usar esta calculadora con unidades métricas e imperiales?</button><div class="faq-a"><p>Sí. Selecciona tu sistema de unidades preferido en los campos de entrada y la calculadora convierte automáticamente.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Es precisa esta calculadora?</button><div class="faq-a"><p>Sí. La calculadora utiliza la fórmula estándar: Calculadora de Estructura Metálica = f(Luz entre apoyos (m), Carga total (kN/m²), Longitud nave (m)). Los resultados son matemáticamente exactos; la precisión final depende de los datos que introduzcas.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Puedo usar esta calculadora en el móvil?</button><div class="faq-a"><p>Sí, la calculadora es totalmente responsiva y funciona en cualquier dispositivo. No requiere instalación ni registro.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Cómo guardo o comparto mi cálculo?</button><div class="faq-a"><p>Usa el botón <strong>Compartir</strong> para generar una URL que codifica todos tus datos — quien abra el enlace verá los mismos valores y resultado. El botón <strong>Copiar</strong> copia el texto del resultado para pegarlo en una hoja de cálculo, correo o documento.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Qué hago si el resultado parece incorrecto?</button><div class="faq-a"><p>Primero revisa tus datos: comprueba que los valores estén en las unidades correctas y en un rango realista. Las causas más comunes son la mezcla de unidades métricas e imperiales, dígitos transpuestos o el uso de una calculadora equivocada. Si los datos parecen correctos y el resultado sigue siendo extraño, verifica que la fórmula <em>Calculadora de Estructura Metálica = f(Luz entre apoyos (m), Carga total (kN/m²), Longitud nave (m))</em> se aplica exactamente a tu caso.</p></div></div>
-</div>
-</section>
+<h3>¿Puedo usar esta calculadora para vigas de más de 20 metros de luz?</h3>
+<p>Sí, la fórmula es válida para cualquier luz, pero para vigas muy largas (más de 15-20 metros) las deformaciones y el pandeo lateral pueden ser significativos. La calculadora ofrece un predimensionado inicial, pero para luces grandes se recomienda un cálculo detallado con software específico que considere flechas y estabilidad lateral.</p>
+
+<h3>¿Qué carga debo introducir para cubiertas en España?</h3>
+<p>En la mayor parte de la Península, la carga de nieve para altitudes normales ronda 0,5-1,0 kN/m², a la que hay que sumar el peso de la cubierta (0,5-0,8 kN/m²) y sobrecarga de uso (0,4-0,6 kN/m²). Un valor típico para cubiertas ligeras es 3-5 kN/m² en total. Para zonas de montaña o con nieve abundante, consulte la normativa CTE DB-SE-AE.</p>
+<h3>¿Por qué el número de vigas se calcula dividiendo la longitud de la nave entre 6?</h3>
+<p>Es una regla práctica que supone una separación entre vigas de aproximadamente 6 metros, distancia habitual en naves con correas metálicas. Esta separación permite optimizar el peso de acero y simplificar el montaje. Si su proyecto requiere separaciones diferentes, puede ajustar manualmente el número de vigas después del cálculo.</p>

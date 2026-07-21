@@ -1,39 +1,82 @@
-<section class="long-content">
-<h2>O que é um mortgage calculator?</h2>
-<p>The <strong>mortgage calculator</strong> lets you know in advance your monthly payment, total interest paid over the loan's life, and the total repayment amount. It's essential before signing any mortgage to compare bank offers and understand the real cost of your home loan.</p>
+<p>Comprar casa é um dos passos financeiros mais importantes na vida de qualquer pessoa, e para tomar uma decisão informada, é essencial saber exatamente quanto vai pagar todos os meses. A <strong>Calculadora de Hipoteca</strong> é a ferramenta ideal para simular o seu crédito habitação: ela calcula a prestação mensal, os juros totais e o custo final da sua hipoteca, ajudando-o a planear o seu orçamento familiar com transparência e sem surpresas. Utilize esta calculadora sempre que estiver a avaliar um imóvel, a comparar propostas de bancos ou a renegociar o seu emprédimo atual.</p>
 
-<h2>Mortgage payment formula</h2>
-<p>Fixed-rate mortgages use the French amortization formula:</p>
-<p><strong>Payment = P × [r(1+r)^n] ÷ [(1+r)^n − 1]</strong></p>
+<h2>O que a Calculadora de Hipoteca faz e quando deve usá-la</h2>
+<p>A <strong>Calculadora de Hipoteca</strong> foi desenvolvida para transformar dados simples (preço do imóvel, entrada, taxa de juro e prazo) numa previsão financeira completa. Ao preencher os campos, obtém de imediato o valor da prestação mensal, o montante total de juros que pagará ao longo do contrato e o custo total do empréstimo (soma de todas as prestações). Esta ferramenta é útil em várias situações:</p>
 <ul>
-  <li><strong>P</strong> = Loan principal (home price minus down payment)</li>
-  <li><strong>r</strong> = Monthly interest rate (annual rate ÷ 12)</li>
-  <li><strong>n</strong> = Total number of payments (years × 12)</li>
+<li><strong>Antes de comprar casa:</strong> para saber quanto pode pedir ao banco e qual será a prestação real.</li>
+<li><strong>Na comparação de ofertas:</strong> para testar diferentes taxas de juro e prazos, vendo como variam os juros totais.</li>
+<li><strong>No planeamento financeiro:</strong> para ajustar a entrada (entrada_pct) e perceber como um valor maior reduz os juros e o prazo.</li>
+<li><strong>Na renegociação:</strong> para simular o impacto de uma descida da taxa de juro no seu contrato atual.</li>
 </ul>
 
-<h2>Step-by-step example</h2>
-<p><strong>$300,000 home, 20% down, 3.5% annual rate, 30 years.</strong></p>
-<ol>
-  <li>Principal: $300,000 × 0.80 = <strong>$240,000</strong></li>
-  <li>Monthly rate: 3.5% ÷ 12 = 0.2917% = 0.002917</li>
-  <li>Number of payments: 30 × 12 = 360</li>
-  <li>Monthly payment: ≈ <strong>$1,078/month</strong></li>
-  <li>Total paid: $1,078 × 360 = <strong>$388,080</strong></li>
-  <li>Total interest: $388,080 − $240,000 = <strong>$148,080</strong></li>
-</ol>
-
-<h2>Factors affecting your mortgage payment</h2>
+<h2>Fórmula explicada: como os cálculos são feitos, variável por variável</h2>
+<p>O coração da calculadora é a fórmula da prestação mensal de um empréstimo com juros compostos (sistema francês). Cada variável corresponde diretamente aos campos que preenche:</p>
 <ul>
-  <li><strong>Loan amount:</strong> Higher principal means higher payments.</li>
-  <li><strong>Interest rate:</strong> One percentage point more can add hundreds per month.</li>
-  <li><strong>Term:</strong> Longer terms reduce monthly payments but increase total interest.</li>
-  <li><strong>Down payment:</strong> More down (20–30%) reduces the loan and improves bank terms.</li>
+<li><strong>precio_vivienda (P):</strong> o preço total do imóvel em euros. É o valor base de todo o cálculo.</li>
+<li><strong>entrada_pct (E):</strong> a percentagem do preço que já tem disponível para dar de entrada. O valor emprestado (principal) será P * (1 - E/100). Exemplo: se a casa custa 200.000€ e dá 20% de entrada, o principal é 200.000 * 0,80 = 160.000€.</li>
+<li><strong>interes_anual_pct (R):</strong> a taxa de juro anual nominal (TAN) aplicada pelo banco, em percentagem. A fórmula converte-a para taxa mensal: r = R / 100 / 12.</li>
+<li><strong>plazo_anos (N):</strong> a duração total do empréstimo em anos. O número total de prestações mensais é n = N * 12.</li>
+</ul>
+<p>A fórmula da prestação mensal (cuota) é a seguinte:</p>
+<p><strong>cuota = principal * [ r * (1 + r)^n ] / [ (1 + r)^n - 1 ]</strong></p>
+<p>Se a taxa de juro for 0% (r=0), a prestação é simplesmente principal / n.</p>
+<p>Depois de calcular a prestação:</p>
+<ul>
+<li><strong>Custo total do empréstimo (total):</strong> cuota * n</li>
+<li><strong>Juros totais (intereses):</strong> total - principal</li>
+</ul>
+<p>Todo o resultado é arredondado a duas casas decimais (cêntimos), seguindo a convenção portuguesa.</p>
+
+<h2>Exemplos práticos com números concretos</h2>
+<h3>Exemplo 1: Compra de um T2 em Lisboa</h3>
+<table>
+<tr><th>Variável</th><th>Valor</th></tr>
+<tr><td>Preço do imóvel (precio_vivienda)</td><td>250.000 €</td></tr>
+<tr><td>Entrada (entrada_pct)</td><td>25%</td></tr>
+<tr><td>Taxa de juro anual (interes_anual_pct)</td><td>3,5%</td></tr>
+<tr><td>Prazo (plazo_anos)</td><td>30 anos</td></tr>
+</table>
+<p><strong>Cálculo:</strong> Principal = 250.000 * (1 - 0,25) = 187.500 €. Taxa mensal r = 0,035 / 12 ≈ 0,0029167. Número de prestações n = 360.</p>
+<p>Prestação mensal = 187.500 * [0,0029167 * (1,0029167)^360] / [(1,0029167)^360 - 1] ≈ 841,82 €.</p>
+<p><strong>Resultados:</strong></p>
+<ul>
+<li>Prestação mensal: <strong>841,82 €</strong></li>
+<li>Juros totais: <strong>115.455,20 €</strong></li>
+<li>Custo total do empréstimo: <strong>302.955,20 €</strong></li>
 </ul>
 
-<h2>Tips to reduce your mortgage cost</h2>
+<h3>Exemplo 2: Apartamento no Porto com entrada maior</h3>
+<table>
+<tr><th>Variável</th><th>Valor</th></tr>
+<tr><td>Preço do imóvel (precio_vivienda)</td><td>180.000 €</td></tr>
+<tr><td>Entrada (entrada_pct)</td><td>40%</td></tr>
+<tr><td>Taxa de juro anual (interes_anual_pct)</td><td>4%</td></tr>
+<tr><td>Prazo (plazo_anos)</td><td>25 anos</td></tr>
+</table>
+<p><strong>Cálculo:</strong> Principal = 180.000 * (1 - 0,40) = 108.000 €. r = 0,04 / 12 ≈ 0,0033333. n = 300.</p>
+<p>Prestação mensal = 108.000 * [0,0033333 * (1,0033333)^300] / [(1,0033333)^300 - 1] ≈ 569,80 €.</p>
+<p><strong>Resultados:</strong></p>
 <ul>
-  <li>Compare at least 3–5 lenders before signing.</li>
-  <li>Negotiate origination fees and the interest rate margin.</li>
-  <li>Make extra payments when possible to reduce principal and interest.</li>
+<li>Prestação mensal: <strong>569,80 €</strong></li>
+<li>Juros totais: <strong>62.940,00 €</strong></li>
+<li>Custo total do empréstimo: <strong>170.940,00 €</strong></li>
 </ul>
-</section>
+
+<h2>Erros comuns ao utilizar a calculadora (e como evitá-los)</h2>
+<ul>
+<li><strong>Ignorar as taxas extras:</strong> a calculadora usa a TAN (taxa de juro nominal). No entanto, o crédito habitação inclui seguros comissões e spread. O valor real da prestação será ligeiramente superior ao calculado. Use a TAN do banco, mas saiba que a prestação final pode variar em 20-50 €.</li>
+<li><strong>Confundir entrada (entrada_pct) com poupança total:</strong> a calculadora usa a percentagem de entrada que vai dar no momento da compra. Muitos utilizadores colocam a poupança total, que inclui impostos e despesas de escritura. A entrada deve ser apenas o valor que reduz o capital pedido.</li>
+<li><strong>Prazos demasiado curtos ou longos:</strong> simular um prazo de 30 anos reduz a prestação, mas aumenta os juros totais. Já um prazo de 15 anos pode tornar a prestação incomportável. Teste sempre vários prazos (20, 25, 30 anos) para encontrar o equilíbrio ideal.</li>
+<li><strong>Não verificar a taxa de juro atual:</strong> as taxas variam semanalmente. Utilize sempre a TAN mais recente do seu banco ou a simulação do Banco de Portugal. Taxas desatualizadas podem dar resultados muito diferentes.</li>
+<li><strong>Esquecer o impacto da inflação:</strong> a calculadora não considera inflação ou subida de taxas variáveis. Para cenários realistas, adicione 1-2% à taxa de juro simulada para testar a sua resiliência financeira.</li>
+</ul>
+
+<h2>Perguntas frequentes (FAQ)</h2>
+<h3>O resultado da calculadora é o mesmo que uma simulação bancária?</h3>
+<p>Não exatamente. A <strong>Calculadora de Hipoteca</strong> fornece uma estimativa matemática pura, baseada na TAN. Os bancos adicionam spreads, comissões de processo, seguros de vida e multirriscos. Use este valor como referência inicial, mas peça sempre simulações personalizadas ao seu banco para o valor final.</p>
+
+<h3>Preciso de preencher todos os campos para obter um resultado?</h3>
+<p>Sim. A calculadora precisa do preço do imóvel, da percentagem de entrada, da taxa de juro anual e do prazo em anos. Se algum destes campos estiver vazio, o cálculo não é realizado. Se a taxa de juro for 0%, a calculadora assume prestações lineares (sem juros).</p>
+
+<h3>A entrada (entrada_pct) influencia muito o custo total?</h3>
+<p>Sim, e de forma significativa. Quanto maior for a entrada, menor é o capital pedido e, consequentemente, menores são os juros totais. Por exemplo, no Exemplo 1, uma entrada de 25% resultou em 115.455 € de juros. Se a entrada fosse de 30%, o principal seria 175.000 € e os juros totais desceriam para cerca de 107.800 €. Aumentar a entrada é uma das estratégias mais eficazes para reduzir o custo final do empréstimo.</p>

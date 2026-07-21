@@ -1,46 +1,82 @@
-<section class="long-content">
-<p>Use the <strong>Aluminum Radiator Calculator</strong> to calculate volume, watts needed, radiator elements quickly and accurately.</p>
-<h2>How the calculation works</h2>
-<p>Accurate material estimation is the backbone of any successful build. A small error in your calculations can mean the difference between finishing on budget and paying for a second delivery. This tool removes the guesswork so you can plan with certainty.</p>
-<p>Construction calculations often seem straightforward until you factor in waste allowances, unit conversions, and regional material standards. This calculator handles those details automatically, letting you focus on the build instead of the math.</p>
-<p>The formula behind this calculation is <strong>Aluminium Radiator Calculator = f(Room area, Ceiling height, Orientation)</strong>. Understanding how the result is derived helps you verify the output and spot input errors before they cascade into bad decisions.</p>
+<p>Finding the right size for your heating system can feel overwhelming, but the Aluminum Radiator Calculator takes the guesswork out of the equation. This tool helps you determine the exact radiator power needed for any room based on its volume and heat loss characteristics, ensuring you stay warm without wasting energy.</p>
 
-<h2>Step-by-step guide for your project</h2>
-<p>Follow these steps to get a reliable result:</p>
+<h2>What the Aluminum Radiator Calculator Does and When to Use It</h2>
+
+<p>The Aluminum Radiator Calculator is designed to estimate the required heating capacity in watts for a room, then translate that into the number of aluminum radiator elements you need. It uses room dimensions and orientation to calculate heat loss, a critical step often overlooked when simply picking a radiator by size.</p>
+
+<p>You should use this calculator whenever you are installing a new heating system, replacing old radiators, or renovating a room. It is ideal for residential spaces, offices, and small commercial areas where metric measurements are standard, though the results are useful for anyone familiar with imperial equivalents. The tool is especially helpful in cold climates where proper insulation and radiator sizing directly impact comfort and energy bills.</p>
+
+<h2>The Formula Explained Variable by Variable</h2>
+
+<p>The calculator works through a clear sequence of calculations to output the final number of radiator elements. Understanding each variable helps you input accurate data and interpret results correctly.</p>
+
+<p><strong>Step 1: Calculate Room Volume</strong></p>
+<p>The first step is finding the room volume by multiplying floor area by ceiling height:</p>
+<ul>
+<li><strong>area_m2</strong> – The floor area of the room in square meters. This is the most critical input; measure the length and width of the room and multiply them (e.g., 5 m x 4 m = 20 m²). For quick reference, 1 m² equals about 10.76 square feet.</li>
+<li><strong>altura_m</strong> – The height of the room in meters. If not specified, the calculator defaults to 2.7 meters (roughly 8.8 feet). Standard ceiling heights range from 2.4 m to 3.0 m.</li>
+</ul>
+<p>The formula multiplies these: <em>Volume (vol) = area_m2 × altura_m</em>. The result is in cubic meters (m³). One cubic meter equals about 35.3 cubic feet.</p>
+
+<p><strong>Step 2: Apply the Heat Loss Coefficient</strong></p>
+<p>Not all rooms lose heat at the same rate. The calculator uses a coefficient (<em>coef</em>) based on the room’s orientation and exposure:</p>
+<ul>
+<li><strong>interior</strong> (coefficient 0.04) – Rooms surrounded by heated spaces on all sides, like an inner hallway or bedroom. Lowest heat loss.</li>
+<li><strong>exterior_norte</strong> (coefficient 0.065) – Rooms with at least one external wall facing north. North-facing walls receive little direct sunlight and lose more heat.</li>
+<li><strong>exterior_sur</strong> (coefficient 0.05) – Rooms with an external wall facing south. Southern exposure gets more sun, reducing heat loss slightly.</li>
+<li><strong>sotano</strong> (coefficient 0.07) – Basement rooms, which are partially or fully underground and typically lose the most heat due to contact with cold earth.</li>
+</ul>
+<p><em>Watts needed (w_necesarios) = Volume × coefficient × 1000</em>. Multiplying by 1000 converts the result from kilowatts to watts for precision. For example, a 50 m³ room with an exterior north wall yields 50 × 0.065 × 1000 = 3,250 watts.</p>
+
+<p><strong>Step 3: Convert Watts to Radiator Elements</strong></p>
+<p>Standard aluminum radiator elements produce roughly 175 watts of heat output per element under typical water temperatures (75°C flow, 65°C return). The formula divides total watts by 175: <em>Elements (elementos_ud) = ceiling(w_necesarios / 175)</em>. The <em>Math.ceil</em> function rounds up to ensure you have enough capacity.</p>
+<p>Finally, the calculator groups elements into radiators: <em>Radiators = ceiling(elementos_ud / 12)</em>. This assumes a practical maximum of 12 elements per radiator for even heat distribution and easy installation. You may choose to use more or fewer radiators per room.</p>
+
+<h2>Two Worked Examples with Concrete Numbers</h2>
+
+<p>These examples show the calculator in action for different room types.</p>
+
+<h3>Example 1: Medium Bedroom with South-Facing Wall</h3>
+<p>You are sizing a radiator for a bedroom with a floor area of 16 m² (4 m x 4 m) and a standard ceiling height of 2.7 m. The room has one external wall facing south.</p>
 <ol>
-<li><strong>Enter your values:</strong> 15 m²; 2.7 m; interior — ensure all values use a single consistent unit system.</li>
-<li><strong>The calculator applies the formula:</strong> <em>Aluminium Radiator Calculator = f(Room area, Ceiling height, Orientation)</em>.</li>
-<li><strong>Read your result:</strong> Volume, Watts needed, Radiator elements.</li>
-<li>Verify: confirm units are consistent and the numbers are realistic for your context before acting on the result.</li>
+<li><strong>Volume:</strong> 16 m² × 2.7 m = 43.2 m³.</li>
+<li><strong>Heat loss:</strong> 43.2 m³ × 0.05 (south-facing coefficient) × 1000 = 2,160 watts.</li>
+<li><strong>Number of elements:</strong> 2,160 / 175 = 12.34 → rounded up to <strong>13 elements</strong>.</li>
+<li><strong>Number of radiators:</strong> 13 / 12 = 1.08 → rounded up to <strong>2 radiators</strong> (e.g., one with 7 elements and one with 6 elements).</li>
 </ol>
+<p>In imperial terms: area = 172 sq ft, volume = 1,526 cu ft, required output = about 7,370 BTU (since 1 watt ≈ 3.41 BTU).</p>
 
-<h2>Practical uses on the job site</h2>
-<p>This calculator is particularly useful in the following situations:</p>
+<h3>Example 2: Small Living Room with North-Facing Wall</h3>
+<p>Now consider a living room of 22 m² with a ceiling height of 2.5 m, and a north-facing external wall.</p>
+<ol>
+<li><strong>Volume:</strong> 22 m² × 2.5 m = 55 m³.</li>
+<li><strong>Heat loss:</strong> 55 m³ × 0.065 (north-facing coefficient) × 1000 = 3,575 watts.</li>
+<li><strong>Number of elements:</strong> 3,575 / 175 = 20.43 → rounded up to <strong>21 elements</strong>.</li>
+<li><strong>Number of radiators:</strong> 21 / 12 = 1.75 → rounded up to <strong>2 radiators</strong> (likely 11 and 10 elements respectively).</li>
+</ul>
+<p>This room needs more power due to the north exposure. In imperial units: area = 237 sq ft, volume = 1,942 cu ft, output required ≈ 12,200 BTU.</p>
+
+<h2>Common Mistakes When Using the Aluminum Radiator Calculator</h2>
+
+<p>Even a good calculator can produce misleading results if you misuse it. Here are frequent errors to avoid.</p>
+
 <ul>
-<li>everyday math problems</li><li>budgeting and planning</li><li>cooking and home measurements</li><li>travel and time calculations</li>
+<li><strong>Ignoring ceiling height:</strong> Many people assume a default height but fail to adjust for rooms with extra-high ceilings (e.g., older homes or vaulted rooms). This dramatically underestimates volume and required wattage.</li>
+<li><strong>Selecting the wrong orientation:</strong> Misidentifying whether a wall faces north or south can shift your heat loss by 30%. Check a compass or building plan rather than guessing.</li>
+<li><strong>Forgetting windows and insulation:</strong> The calculator uses a general coefficient, but large windows, poor insulation, or unheated rooms next door increase heat loss. For very old or leaky homes, consider adding 10-20% to the calculated wattage.</li>
+<li><strong>Assuming all radiators output exactly 175 watts per element:</strong> This value assumes standard water temperatures (75/65°C). Low-temperature systems (e.g., heat pumps using 55/45°C water) produce less output per element. Always verify your radiator manufacturer’s specifications.</li>
+<li><strong>Rounding down instead of up:</strong> Rounding the element count down saves a few euros but leaves you cold. Always use the ceiling function to ensure adequate capacity.</li>
 </ul>
 
-<h2>Interpreting and applying your results</h2>
-<p>Your result shows the theoretical quantity required. Before ordering, apply the appropriate waste factor for your material: 5–10&nbsp;% for concrete and mortar, 10–15&nbsp;% for ceramic tile, natural stone, and brick (to account for cuts, breakage, and pattern matching), and 3–5&nbsp;% for steel and timber. Always round up to the next full unit — bag, tonne, or pallet — to avoid halting work for a second delivery.</p>
+<h2>Frequently Asked Questions</h2>
 
-<h2>Construction standards and best practices</h2>
-<p>Construction projects live and die by accurate material estimates. Ordering too little halts the job and triggers costly emergency deliveries; ordering too much wastes money and clutters the site. Professional estimators typically add a 5–10&nbsp;% waste factor on top of the theoretical quantity to account for cuts, off-cuts, breakage, and minor measurement errors — a discipline built from hard-won job-site experience.</p><p>Modern construction calculations follow standards set by bodies like ISO, ASTM, or EN (European Norm), which define material properties, tolerances, and design allowances. Knowing the standard behind a formula helps you adapt it when conditions differ from the textbook — for example, when working with reclaimed materials, non-standard dimensions, or sites at altitude where concrete curing behaves differently.</p>
+<h3>What if my room has both north and south external walls?</h3>
+<p>Use the coefficient for the <strong>most exposed</strong> wall, typically the north-facing one. If the room has multiple external walls, you can safely apply the exterior_norte coefficient (0.065) as a conservative estimate. For rooms with two or more external walls, consider increasing the calculated wattage by 10-15% for safety.</p>
 
-<h2>Common mistakes to avoid</h2>
-<ul>
-<li>Forgetting to add a waste allowance (typically 5-10%) when ordering materials — rounding up saves a second delivery.</li><li>Mixing up metric and imperial units on the same project. Stick to one system throughout your calculation.</li><li>Measuring outline dimensions instead of interior surface area — the difference matters for flooring and tiling.</li><li>Not accounting for irregular shapes. Break complex areas into simpler rectangles and triangles before calculating.</li>
-</ul>
+<h3>Can I use this calculator for rooms with heated floors or other radiator types?</h3>
+<p>The calculator is specifically calibrated for aluminum radiators with standard output. For heated floors, you need different calculations because they operate at lower temperatures. For steel panel radiators or cast iron, the per-element output varies significantly. You can still use the calculator to find the required watts, then match those watts to the output of your chosen radiator model.</p>
 
-<h2>Pro tip for contractors and builders</h2>
-<p>Order 5-10% more material than your calculation suggests to account for cuts, breakage, and measurement errors. It's cheaper to have a little left over than to halt work for a second delivery.</p>
+<h3>What imperial measurements does the calculator accept?</h3>
+<p>The calculator requires metric inputs (meters and square meters). To use imperial measurements, convert feet to meters (1 foot = 0.3048 m) and square feet to square meters (1 sq ft = 0.0929 m²) before entering data. The results will always be in watts and cubic meters, but you can easily convert watts to BTU by multiplying by 3.41.</p>
 
-<h2>Frequently asked questions</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">How much extra material should I order?</button><div class="faq-a"><p>Most professionals recommend ordering 5-10% more than calculated to cover cuts, waste, and measurement errors. For natural stone or ceramic tile, the waste factor can be 10-15% due to breakage and pattern matching.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Can I use this calculator for both metric and imperial units?</button><div class="faq-a"><p>Yes. Select your preferred unit system in the input fields and the calculator converts automatically. All internal calculations are performed consistently to avoid mixed-unit errors.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Is this calculator accurate?</button><div class="faq-a"><p>Yes. The calculator uses the standard formula: Aluminium Radiator Calculator = f(Room area, Ceiling height, Orientation). Results are mathematically exact; final accuracy depends on the precision of the data you enter.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Can I use this calculator on my phone?</button><div class="faq-a"><p>Yes, the calculator is fully responsive and works on any device: computer, tablet, and mobile. No installation or registration required.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">How do I save or share my calculation?</button><div class="faq-a"><p>Use the <strong>Share</strong> button to generate a URL that encodes all your inputs — anyone who opens the link will see the same values and result. The <strong>Copy</strong> button copies the formatted result text to your clipboard for pasting into a spreadsheet, email, or document.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">What if my result seems wrong?</button><div class="faq-a"><p>First recheck your inputs: confirm the values are in the correct units and within a realistic range. Common causes include unit mismatch (mixing metric and imperial), transposed digits, or selecting the wrong calculator for the problem. If inputs look correct and the result still seems off, verify that the formula <em>Aluminium Radiator Calculator = f(Room area, Ceiling height, Orientation)</em> applies to exactly the situation you are in — some calculators with similar names solve slightly different variants of the same problem.</p></div></div>
-</div>
-</section>
+<p>The Aluminum Radiator Calculator simplifies a complex heating design task into a few straightforward inputs. By understanding the formula, avoiding common mistakes, and applying the results wisely, you can select radiators that keep your space comfortable efficiently.</p>

@@ -1,44 +1,70 @@
-<section class="long-content">
-<p>Utilizza il <strong>Concrete Slab Calculator</strong> per calcolare area m2, vol m3, sacchi cemento in modo rapido e preciso.</p>
-<h2>Come funziona il calcolo</h2>
-<p>Che tu stia pianificando una ristrutturazione, stimando materiali per un cantiere o calcolando dimensioni per un progetto fai-da-te, avere i numeri giusti fin dall'inizio risparmia tempo e denaro.</p>
-<p>La formula alla base di questo calcolo è <strong>Calcolatore Fondazione a Trave rovescia = f(Lunghezza, Larghezza, Spessore, Kg Acero M2)</strong>. Comprendere come si ottiene il risultato ti aiuta a verificare l'output e a rilevare errori di input.</p>
+<p>Il <strong>Calcolatore Soletta in Calcestruzzo</strong> è uno strumento pratico e veloce per stimare il volume di calcestruzzo e la quantità di acciaio necessari per realizzare una soletta piena. Questo calcolatore è ideale per ingegneri, architetti, impresedili e privati che devono pianificare un getto in cemento armato per solai, pavimentazioni o coperture in ambito edilizio.</p>
 
-<h2>Guida passo dopo passo per il tuo progetto</h2>
-<p>Segui questi passaggi per ottenere un risultato affidabile:</p>
+<h2>Come funziona il calcolatore e quando utilizzarlo</h2>
+<p>Il calcolatore è progettato per dare risultati immediati inserendo le dimensioni della soletta e il peso dell’armatura per metro quadrato. È utile in tutte le fasi di progettazione e preventivazione: dal calcolo del materiale per un piccolo ampliamento fino alla stima per un intero piano di un edificio. I campi richiesti sono semplici:</p>
+<ul>
+<li><strong>Lunghezza (largo)</strong> – in metri</li>
+<li><strong>Larghezza (ancho)</strong> – in metri</li>
+<li><strong>Spessore (espesor)</strong> – in metri (ad esempio 0,15 per 15 cm)</li>
+<li><strong>Acciaio al m² (kg_acero_m2)</strong> – valore predefinito di 12 kg/m², modificabile in base al progetto</li>
+</ul>
+<p>Una volta inseriti i dati, il calcolatore fornisce: superficie in m², volume in m³, numero di sacchi di cemento (considerando 7 sacchi per metro cubo) e peso totale dell’acciaio in kg. È uno strumento trasparente e senza fronzoli, pensato per l’uso reale in cantiere.</p>
+
+<h2>Spiegazione della formula: variabili e calcoli</h2>
+<p>Il funzionamento si basa su una sequenza di operazioni geometriche e proporzioni pratiche. Ecco la spiegazione dettagliata di ogni variabile:</p>
+<ul>
+<li><strong>L (largo) – Lunghezza della soletta in metri</strong>: rappresenta la dimensione maggiore della superficie da gettare. Se la soletta è rettangolare, è il lato più lungo.</li>
+<li><strong>W (ancho) – Larghezza della soletta in metri</strong>: la dimensione perpendicolare alla lunghezza. Insieme a L definisce l’area.</li>
+<li><strong>E (espesor) – Spessore della soletta in metri</strong>: esprime l’altezza del getto. Per solette armate usuali si va da 0,10 m a 0,25 m. Attenzione: va sempre inserito in metri, non in centimetri.</li>
+<li><strong>kg_acero_m2 (ka) – Peso dell’armatura per metro quadrato</strong>: valore consigliato di 12 kg/m², ma può essere aumentato in zone sismiche o per carichi maggiori. È un parametro progettuale che il calcolatore prende così com’è.</li>
+</ul>
+<p>Le formule utilizzate sono:</p>
 <ol>
-<li><strong>Inserisci i tuoi valori:</strong> 6 m; 4 m; 0.2 m; 12 kg/m² — ensure all values use a single consistent unit system.</li>
-<li><strong>La calcolatrice applica la formula:</strong> <em>Calcolatore Fondazione a Trave rovescia = f(Lunghezza, Larghezza, Spessore, Kg Acero M2)</em>.</li>
-<li><strong>Leggi il tuo risultato:</strong> Area M2, Vol M3, Sacchi cemento.</li>
-<li>Verificate: confermate che le unità siano coerenti e i valori realistici prima di agire sul risultato.</li>
+<li><strong>Area (m²)</strong> = L × W</li>
+<li><strong>Volume (m³)</strong> = Area × E</li>
+<li><strong>Sacchi di cemento</strong> = arrotondamento per eccesso di (Volume × 7) – si assume un dosaggio di circa 300 kg/m³ con sacchi da 25 kg? In realtà la conversione è pratica: moltiplicare il volume per 7 dà il numero di sacchi da 25 kg necessari, considerando un rapporto acqua/cemento standard.</li>
+<li><strong>Acciaio (kg)</strong> = Area × kg_acero_m2 (arrotondato a intero)</li>
 </ol>
+<p>Il calcolatore esegue anche un controllo di errore: se uno dei valori di lunghezza, larghezza o spessore è zero, restituisce un messaggio di errore e blocca il risultato.</p>
 
-<h2>Usi pratici in cantiere</h2>
-<p>Questa calcolatrice è particolarmente utile nelle seguenti situazioni:</p>
+<h2>Esempi pratici passo dopo passo</h2>
+<h3>Esempio 1: Soletta rettangolare per un piccolo ambiente</h3>
+<p>Ipotizziamo di voler realizzare una soletta piena per un ripostiglio di 4 metri per 3 metri, spessa 12 cm (0,12 m). Acciaio standard: 12 kg/m².</p>
+<ol>
+<li>Lunghezza = 4 m, Larghezza = 3 m, Spessore = 0,12 m</li>
+<li>Area = 4 × 3 = 12 m²</li>
+<li>Volume = 12 × 0,12 = 1,440 m³</li>
+<li>Sacchi di cemento = 1,440 × 7 = 10,08 → arrotondato a 11 sacchi (perché il calcolatore usa Math.ceil, cioè arrotonda sempre per eccesso)</li>
+<li>Acciaio = 12 × 12 = 144 kg</li>
+</ol>
+<p><em>Risultato finale:</em> superficie 12 m², volume 1,440 m³, cemento 11 sacchi, acciaio 144 kg.</p>
+
+<h3>Esempio 2: Soletta per un garage di 6 m × 5 m con spessore maggiore</h3>
+<p>Supponiamo una soletta per un’auto: lunghezza 6 m, larghezza 5 m, spessore 18 cm (0,18 m), e con armatura più robusta di 15 kg/m².</p>
+<ol>
+<li>L = 6 m, W = 5 m, E = 0,18 m, ka = 15</li>
+<li>Area = 6 × 5 = 30 m²</li>
+<li>Volume = 30 × 0,18 = 5,400 m³</li>
+<li>Sacchi = 5,400 × 7 = 37,8 → arrotondato a 38 sacchi</li>
+<li>Acciaio = 30 × 15 = 450 kg</li>
+</ol>
+<p><em>Risultato finale:</em> 30 m², 5,400 m³, 38 sacchi di cemento, 450 kg di acciaio.</p>
+
+<h2>Errori comuni da evitare durante l’inserimento dei dati</h2>
+<p>L’uso corretto del calcolatore richiede attenzione ad alcune insidie frequenti:</p>
 <ul>
-<li>calcoli di fondazioni residenziali</li><li>ordini di calcestruzzo per progetti edilizi</li><li>stima di materiali strutturali</li><li>pianificazione di miglioramenti domestici</li>
+<li><strong>Spessore espresso in centimetri invece che in metri</strong>: è l’errore più comune. Se inserisci 15 invece di 0,15, il volume risulterà 100 volte maggiore, portando a stime di materiale completamente errate.</li>
+<li><strong>Omettere il campo dell’acciaio</strong>: il valore predefinito è 12 kg/m², ma se non modifichi il dato e la tua soletta ha bisogno di più armatura (ad esempio per luci ampie), rischi di ordinare meno acciaio del necessario.</li>
+<li><strong>Non arrotondare il numero di sacchi</strong>: il calcolatore arrotonda per eccesso, il che è corretto per evitare di rimanere a corto di cemento. Non tentare di usare il valore decimale per l’ordine.</li>
+<li><strong>Confondere larghezza e lunghezza</strong>: per il calcolo dell’area non ha importanza l’ordine, ma è bene inserire dati coerenti con il disegno per evitare errori di trascrizione.</li>
+<li><strong>Dimenticare che il volume è in metri cubi</strong>: per il trasporto del calcestruzzo in betoniera o per il calcolo del carico, usa il valore in m³, non convertire in litri se non necessario.</li>
 </ul>
+<p>Un consiglio: verifica sempre che la dimensione minima della soletta sia di almeno 10 cm per solette portanti, e controlla le normative italiane (NTC 2018) per i dosaggi minimi di cemento in relazione alla classe di esposizione.</p>
 
-<h2>Come applicare i risultati</h2>
-<p>Il tuo risultato mostra la quantità teoricamente richiesta. Prima di ordinare, applica il fattore di scarto appropriato: 5–10&nbsp;% per calcestruzzo e malta, 10–15&nbsp;% per piastrelle, pietra naturale e mattoni, e 3–5&nbsp;% per acciaio e legname. Arrotonda sempre all'unità intera superiore — sacco, tonnellata o pallet.</p>
-
-<h2>Norme di costruzione e buone pratiche</h2>
-<p>I progetti di costruzione dipendono da stime precise dei materiali. I professionisti aggiungono tipicamente il 5–10&nbsp;% di tolleranza per sfridi, rotture ed errori di misura. Le norme ISO, EN e UNI definiscono le proprietà dei materiali e le tolleranze alla base di queste formule.</p>
-
-<h2>Errori comuni da evitare</h2>
-<ul>
-<li>Dimenticare di aggiungere un margine di scarto (5-10%) nell'ordine dei materiali.</li><li>Mescolare unità metriche e imperiali nello stesso progetto.</li>
-</ul>
-
-<h2>Consiglio professionale per appaltatori</h2>
-<p>Ordina il 5-10% in più di materiale rispetto al calcolo per coprire tagli, rotture ed errori di misura.</p>
-
-<h2>Domande frequenti</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Quanto materiale extra devo ordinare?</button><div class="faq-a"><p>La maggior parte dei professionisti raccomanda di ordinare il 5-10% in più rispetto al calcolato per coprire tagli e sprechi.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Questa calcolatrice è precisa?</button><div class="faq-a"><p>Sì. La calcolatrice usa la formula standard: Calcolatore Fondazione a Trave rovescia = f(Lunghezza, Larghezza, Spessore, Kg Acero M2). I risultati sono matematicamente esatti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Posso usare questa calcolatrice sul telefono?</button><div class="faq-a"><p>Sì, la calcolatrice è completamente responsive e funziona su qualsiasi dispositivo. Nessuna installazione richiesta.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Come salvo o condivido il mio calcolo?</button><div class="faq-a"><p>Usa il pulsante <strong>Condividi</strong> per generare un URL con tutti i tuoi dati. Il pulsante <strong>Copia</strong> copia il risultato negli appunti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cosa fare se il risultato sembra sbagliato?</button><div class="faq-a"><p>Controlla prima i tuoi dati: valori nelle unità corrette e intervallo realistico. Verifica anche che la formula <em>Calcolatore Fondazione a Trave rovescia = f(Lunghezza, Larghezza, Spessore, Kg Acero M2)</em> si applichi esattamente alla tua situazione.</p></div></div>
-</div>
-</section>
+<h2>Domande frequenti (FAQ)</h2>
+<p><strong>D: Il calcolatore considera lo sfrido o lo spreco di materiale?</strong><br>
+R: No, il calcolatore fornisce i valori teorici basati sulle dimensioni geometriche. Per il cantiere si consiglia di aggiungere un 5-10% al volume di calcestruzzo e ai sacchi di cemento per compensare perdite, getti di prova o differenze di spessore. L’acciaio invece può essere ordinato con un sovrannumero del 5% per le giunzioni e le pieghe.</p>
+<p><strong>D: Il valore di 12 kg/m² di acciaio è sempre adatto?</strong><br>
+R: Il valore di 12 kg/m² è un dato medio per solette piene in edifici civili con luce fino a 4-5 metri. Per solette con luci maggiori, carichi più pesanti (uso industriale, parcheggi) o in zona sismica, il progettista può prescrivere fino a 20-25 kg/m². Il calcolatore permette di modificare questo campo, ma la decisione finale deve sempre basarsi sul calcolo strutturale firmato da un professionista.</p>
+<p><strong>D: Come convertire i sacchi di cemento indicati dal calcolatore in metri cubi di calcestruzzo preconfezionato?</strong><br>
+R: Il calcolatore assume un dosaggio standard di circa 7 sacchi da 25 kg per metro cubo di calcestruzzo (pari a 175 kg di cemento per m³). Se acquisti calcestruzzo pronto in betoniera, il volume da ordinare è semplicemente il valore in m³ restituito dal calcolatore, eventualmente aumentato del 5-10% per sicurezza. In quel caso il numero di sacchi serve solo come riferimento per la proporzione in cantiere.</p>

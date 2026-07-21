@@ -1,44 +1,100 @@
-<section class="long-content">
-<p>Verwenden Sie den <strong>Sandpaper Calculator</strong>, um bögen pro körnung, bögen gesamt, rollen (50 bögen) schnell und präzise zu berechnen.</p>
-<h2>So funktioniert die Berechnung</h2>
-<p>Ob Sie eine Renovierung planen, Materialien fur eine Baustelle schatzen oder Dimensionen fur ein DIY-Projekt berechnen — die richtigen Zahlen von Anfang an sparen Zeit und Geld.</p>
-<p>Die Formel hinter dieser Berechnung lautet <strong>Schleifpapier-Rechner = f(Zu schleifende Fläche, Anzahl verschiedener Körnungen)</strong>. Zu verstehen, wie das Ergebnis ermittelt wird, hilft Ihnen, die Ausgabe zu überprüfen und Eingabefehler zu erkennen.</p>
+<p>Der Schleifmittel-Rechner ist ein praktisches Online-Tool, mit dem Sie den Verbrauch von Schleifmitteln präzise berechnen können. Egal ob Sie im Handwerk tätig sind oder ein DIY-Projekt planen – mit diesem Rechner ermitteln Sie sofort, wie viele Schleifblätter oder Rollen Sie für Ihre Fläche benötigen.</p>
 
-<h2>Schritt-fur-Schritt-Anleitung fur Ihr Projekt</h2>
-<p>Folgen Sie diesen Schritten für ein zuverlässiges Ergebnis:</p>
+<h2>Was der Schleifmittel-Rechner leistet und wann Sie ihn einsetzen</h2>
+
+<p>Der Schleifmittel-Rechner wurde entwickelt, um den Materialbedarf für Schleifarbeiten schnell und zuverlässig zu kalkulieren. Sie geben einfach die zu bearbeitende Fläche in Quadratmetern (area_m2) und die gewünschte Anzahl der Körnungen (num_granos) ein. Das Tool liefert Ihnen dann drei zentrale Werte:</p>
+
+<ul>
+<li>Die benötigten Blätter pro Kornstufe</li>
+<li>Die Gesamtanzahl aller Blätter</li>
+<li>Die geschätzte Anzahl an Rollen (basierend auf 50 Blättern pro Rolle)</li>
+</ul>
+
+<p>Besonders nützlich ist der Rechner bei der Planung von Schleifprojekten wie:</p>
+
+<ul>
+<li>Renovierung von Holzfußböden oder Treppen</li>
+<li>Abbeizen und Glätten von Möbeln</li>
+<li>Vorbereitung von Wänden oder Decken vor dem Streichen</li>
+<li>Metallbearbeitung und Entgraten von Kanten</li>
+</ul>
+
+<p>Statt aufwändiger manueller Berechnungen oder teurer Fehlkäufe erhalten Sie innerhalb von Sekunden eine verlässliche Bedarfsermittlung. Das spart nicht nur Zeit, sondern auch Geld – denn zu viele gekaufte Schleifmittel bleiben oft ungenutzt, während zu wenige den Arbeitsfluss unterbrechen.</p>
+
+<h2>Die Formel des Rechners Schritt für Schritt erklärt</h2>
+
+<p>Der Schleifmittel-Rechner arbeitet mit einer einfachen, aber effektiven Logik. Die Berechnung erfolgt automatisch, sobald Sie die Werte für Fläche und Körnungen eingegeben haben. Hier ist die Formel im Detail:</p>
+
+<p><strong>Schritt 1: Blätter pro Kornstufe berechnen</strong><br>
+Die Grundlage bildet die Fläche in Quadratmetern. Der Rechner rundet den Wert immer auf die nächste ganze Zahl auf – daher die Funktion Math.ceil(A). Wenn Ihre Fläche beispielsweise 4,2 m² beträgt, werden 5 Blätter pro Kornstufe benötigt, da Sie ein ganzes Blatt mehr einplanen müssen.</p>
+
+<table>
+<tr><th>Variable</th><th>Bedeutung</th><th>Erklärung</th></tr>
+<tr><td>A (area_m2)</td><td>Fläche in m²</td><td>Die zu schleifende Fläche. Wird als Dezimalzahl oder ganze Zahl eingegeben.</td></tr>
+<tr><td>ng (num_granos)</td><td>Anzahl der Körnungen</td><td>Wie viele verschiedene Körnungen Sie verwenden möchten (z. B. 3 für grob, mittel, fein). Standardwert ist 2, falls nichts eingegeben wird.</td></tr>
+<tr><td>hojas_por_grano</td><td>Blätter pro Kornstufe</td><td>Math.ceil(A) – immer aufgerundet, um sicherzustellen, dass die Fläche komplett abgedeckt wird.</td></tr>
+<tr><td>hojas_total</td><td>Gesamtblätter</td><td>Blätter pro Kornstufe multipliziert mit der Anzahl der Körnungen.</td></tr>
+<tr><td>rollos_estimados</td><td>Geschätzte Rollen</td><td>Math.ceil(hojas_total / 50) – aufgerundet, da Rollen meist in 50er-Packungen verkauft werden.</td></tr>
+</table>
+
+<p><strong>Schritt 2: Gesamtblätter berechnen</strong><br>
+Multiplizieren Sie die Blätter pro Kornstufe mit der Anzahl der Körnungen. Wenn Sie 5 Blätter pro Stufe und 3 Körnungen verwenden, ergibt das 15 Blätter insgesamt.</p>
+
+<p><strong>Schritt 3: Rollen schätzen</strong><br>
+Da Schleifmittel häufig in Rollen zu je 50 Blättern angeboten werden, teilt der Rechner die Gesamtblätter durch 50 und rundet auf. Bei 15 Blättern erhalten Sie also 1 Rolle (gerundet von 0,3 auf 1).</p>
+
+<p>Der Rechner prüft auch, ob eine Fläche eingegeben wurde. Fehlt dieser Wert (A = 0), gibt er eine Fehlermeldung aus – so stellen Sie sicher, dass die Berechnung immer auf einer soliden Basis steht.</p>
+
+<h2>Zwei konkrete Rechenbeispiele mit Zahlen</h2>
+
+<h3>Beispiel 1: Kleines Möbelstück lackieren</h3>
+
+<p>Sie möchten eine Kommode mit einer Oberfläche von 2,4 m² schleifen. Sie planen zwei Körnungen: zuerst mit Körnung 80 (grob), dann mit Körnung 120 (fein).</p>
+
+<ul>
+<li>Eingabe: Fläche = 2,4 m², Körnungen = 2</li>
+<li>Berechnung: Blätter pro Kornstufe = Math.ceil(2,4) = 3 Blätter</li>
+<li>Gesamtblätter = 3 x 2 = 6 Blätter</li>
+<li>Rollen = Math.ceil(6 / 50) = 1 Rolle (gerundet auf)</li>
+</ul>
+
+<p><strong>Ergebnis:</strong> Sie benötigen 3 Blätter pro Kornstufe, insgesamt 6 Blätter. Eine 50er-Rolle reicht für dieses Projekt locker aus – der Rest bleibt für spätere Arbeiten.</p>
+
+<h3>Beispiel 2: Komplette Wohnung schleifen</h3>
+
+<p>Sie renovieren eine 3-Zimmer-Wohnung mit 65 m² Parkettboden. Sie möchten drei Körnungen verwenden: Körnung 40 (grob), 80 (mittel) und 120 (fein).</p>
+
+<ul>
+<li>Eingabe: Fläche = 65 m², Körnungen = 3</li>
+<li>Berechnung: Blätter pro Kornstufe = Math.ceil(65) = 65 Blätter (da ganze Zahl)</li>
+<li>Gesamtblätter = 65 x 3 = 195 Blätter</li>
+<li>Rollen = Math.ceil(195 / 50) = 4 Rollen (da 195 / 50 = 3,9 → aufgerundet 4)</li>
+</ul>
+
+<p><strong>Ergebnis:</strong> Sie brauchen 65 Blätter pro Körnung, insgesamt 195 Blätter. Der Kauf von 4 Rollen (200 Blätter) deckt den Bedarf exakt. Planen Sie etwas Reserve für Fehler oder Nachbesserungen ein – 5 Rollen wären hier die sicherere Wahl.</p>
+
+<p>Beide Beispiele zeigen: Der Rechner ist flexibel einsetzbar – von kleinen bis zu großen Projekten. Die automatische Aufrundung verhindert, dass Ihnen mitten in der Arbeit das Material ausgeht.</p>
+
+<h2>Häufige Fehler bei der Nutzung des Rechners</h2>
+
+<p>Trotz seiner Einfachheit gibt es einige typische Fallstricke, die das Ergebnis verfälschen können. Hier die häufigsten Fehlerquellen:</p>
+
 <ol>
-<li><strong>Geben Sie Ihre Werte ein:</strong> 20 m²; 2 granos — ensure all values use a single consistent unit system.</li>
-<li><strong>Der Rechner wendet die Formel an:</strong> <em>Schleifpapier-Rechner = f(Zu schleifende Fläche, Anzahl verschiedener Körnungen)</em>.</li>
-<li><strong>Lesen Sie Ihr Ergebnis:</strong> Bögen pro Körnung, Bögen gesamt, Rollen (50 Bögen).</li>
-<li>Prüfen Sie: Bestätigen Sie, dass die Einheiten konsistent und die Werte realistisch sind, bevor Sie auf das Ergebnis reagieren.</li>
+<li><strong>Falsche Flächenangabe:</strong> Viele Nutzer vergessen, die gesamte Oberfläche zu berechnen. Bei einem Tisch mit 4 Beinen müssen Sie alle Seitenflächen addieren – nicht nur die Tischplatte. Messen Sie genau nach und notieren Sie sich alle Maße.</li>
+<li><strong>Körnungen vergessen:</strong> Der Standardwert liegt bei 2 Körnungen. Wenn Sie nur eine Körnung verwenden, müssen Sie den Wert manuell auf 1 setzen. Andernfalls bestellen Sie doppelt so viel Material wie nötig.</li>
+<li><strong>Rundung unterschätzen:</strong> Der Rechner rundet immer auf. Das ist gut für die Planung, aber manche Nutzer wundern sich über scheinbar zu viele Blätter. Bedenken Sie: Bei unregelmäßigen Flächen oder Verschnitt kann diese Reserve lebensrettend sein.</li>
+<li><strong>Einheiten verwechseln:</strong> Der Rechner arbeitet mit Quadratmetern. Geben Sie keine Zentimeter oder Dezimeter ein – rechnen Sie immer in m² um. Ein Raum von 5 m Länge und 4 m Breite hat 20 m², nicht 20 cm².</li>
 </ol>
 
-<h2>Praktische Anwendungen auf der Baustelle</h2>
-<p>Dieser Rechner ist besonders nützlich in folgenden Situationen:</p>
-<ul>
-<li>alltägliche Mathematikprobleme</li><li>Budgetierung und Planung</li><li>Kochen und Heimessungen</li><li>Reise- und Zeitberechnungen</li>
-</ul>
+<p>Ein weiterer Tipp aus der Praxis: Berücksichtigen Sie, dass Schleifpapier mit der Zeit nachlässt. Bei sehr harten Hölzern oder großen Flächen kann es sinnvoll sein, 10-15 % mehr Blätter einzuplanen, als der Rechner ausgibt – besonders bei groben Körnungen.</p>
 
-<h2>Ergebnisse richtig anwenden</h2>
-<p>Ihr Ergebnis zeigt die theoretisch benötigte Menge. Rechnen Sie vor der Bestellung den passenden Verschnittzuschlag ein: 5–10&nbsp;% für Beton und Mörtel, 10–15&nbsp;% für Fliesen, Naturstein und Ziegel, und 3–5&nbsp;% für Stahl und Holz. Runden Sie stets auf die nächste volle Einheit — Sack, Tonne oder Palette.</p>
+<h2>Häufig gestellte Fragen (FAQ)</h2>
 
-<h2>Baustandards und bewährte Praktiken</h2>
-<p>Bauprojekte hängen von genauen Materialschätzungen ab. Fachleute addieren typischerweise 5–10&nbsp;% Verschnittzuschlag auf die theoretische Menge für Schnitte, Bruch und Messfehler. DIN-, ISO- und EN-Normen definieren Materialeigenschaften und Toleranzen, die diesen Formeln zugrunde liegen.</p>
+<h3>Was passiert, wenn ich die Anzahl der Körnungen nicht eingebe?</h3>
+<p>Der Rechner setzt automatisch den Wert 2 voraus. Das ist sinnvoll, wenn Sie üblicherweise mit zwei Körnungen arbeiten (z. B. grob und fein). Für Projekte mit nur einer Körnung oder mehr als zwei müssen Sie den Wert manuell anpassen – andernfalls erhalten Sie ein ungenaues Ergebnis.</p>
 
-<h2>Haufige Fehler vermeiden</h2>
-<ul>
-<li>Vergessen, einen Verschnittzuschlag (5-10%) bei der Materialbestellung hinzuzufügen.</li><li>Métrische und imperiale Einheiten im selben Projekt zu mischen.</li>
-</ul>
+<h3>Kann ich den Rechner auch für Schleifbänder oder -scheiben nutzen?</h3>
+<p>Der Schleifmittel-Rechner ist primär für Blätter und Rollen ausgelegt. Die Logik basiert auf der Annahme, dass ein Blatt eine Fläche von etwa 1 m² abdeckt. Für Schleifbänder oder -scheiben mit anderen Formaten sollten Sie die Maße entsprechend umrechnen – zum Beispiel, indem Sie die Bandlänge durch die Blattgröße teilen. Eine pauschale Nutzung ist nicht empfehlenswert.</p>
 
-<h2>Profitipp fur Bauunternehmer</h2>
-<p>Bestellen Sie 5-10% mehr Material als berechnet, um Schnittverluste und Messfehler auszugleichen.</p>
-
-<h2>Haufig gestellte Fragen</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Wie viel zusätzliches Material sollte ich bestellen?</button><div class="faq-a"><p>Die meisten Profis empfehlen, 5-10% mehr zu bestellen als berechnet, um Schnittverluste und Messfehler abzudecken.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Ist dieser Rechner genau?</button><div class="faq-a"><p>Ja. Der Rechner verwendet die Standardformel: Schleifpapier-Rechner = f(Zu schleifende Fläche, Anzahl verschiedener Körnungen). Die Ergebnisse sind mathematisch exakt.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Kann ich diesen Rechner auf dem Handy nutzen?</button><div class="faq-a"><p>Ja, der Rechner ist vollständig responsiv und funktioniert auf jedem Gerät. Keine Installation erforderlich.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Wie speichere oder teile ich meine Berechnung?</button><div class="faq-a"><p>Verwenden Sie die Schaltfläche <strong>Teilen</strong>, um eine URL mit allen Ihren Eingaben zu generieren. Die Schaltfläche <strong>Kopieren</strong> kopiert das Ergebnis in die Zwischenablage.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Was tun, wenn das Ergebnis falsch erscheint?</button><div class="faq-a"><p>Überprüfen Sie zuerst Ihre Eingaben: Werte in den richtigen Einheiten und realistischem Bereich. Bestätigen Sie auch, dass die Formel <em>Schleifpapier-Rechner = f(Zu schleifende Fläche, Anzahl verschiedener Körnungen)</em> genau auf Ihre Situation zutrifft.</p></div></div>
-</div>
-</section>
+<h3>Warum rundet der Rechner immer auf?</h3>
+<p>Die Aufrundung erfolgt, weil Schleifmittel in der Praxis nicht teilbar sind – Sie können kein halbes Blatt kaufen. Außerdem entsteht beim Schleifen immer Verschnitt durch Ränder und Ecken. Die Aufrundung stellt sicher, dass Sie die gesamte Fläche bearbeiten können, ohne plötzlich nachkaufen zu müssen. Gerade bei teuren Schleifmitteln oder knappen Zeitplänen ist diese Sicherheitsmarge Gold wert.</p>

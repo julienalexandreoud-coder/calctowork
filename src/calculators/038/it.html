@@ -1,44 +1,96 @@
-<section class="long-content">
-<p>Utilizza il <strong>Underfloor Heating Calculator</strong> per calcolare ml tubo, circuitos, colectores ud in modo rapido e preciso.</p>
-<h2>Come funziona il calcolo</h2>
-<p>Che tu stia pianificando una ristrutturazione, stimando materiali per un cantiere o calcolando dimensioni per un progetto fai-da-te, avere i numeri giusti fin dall'inizio risparmia tempo e denaro.</p>
-<p>La formula alla base di questo calcolo è <strong>Calcolatore Scatola di Ispezione = f(Area M2, Separacion Cm, Circuitos Max M)</strong>. Comprendere come si ottiene il risultato ti aiuta a verificare l'output e a rilevare errori di input.</p>
+<p>Se stai progettando un impianto di riscaldamento a pavimento, il <strong>Calcolatore Riscaldamento a Pavimento</strong> è lo strumento che ti serve per dimensionare correttamente la rete di tubazioni e i componenti accessori. Questo calcolatore ti permette di ottenere, partendo dalla superficie dell'ambiente e dalla distanza tra i tubi, i metri lineari di tubo necessari, il numero di circuiti, i collettori e la quantità di massetto autolivellante, semplificando la fase di progettazione e preventivazione.</p>
 
-<h2>Guida passo dopo passo per il tuo progetto</h2>
-<p>Segui questi passaggi per ottenere un risultato affidabile:</p>
-<ol>
-<li><strong>Inserisci i tuoi valori:</strong> 80 m²; 20 cm; 80 m/circuito — ensure all values use a single consistent unit system.</li>
-<li><strong>La calcolatrice applica la formula:</strong> <em>Calcolatore Scatola di Ispezione = f(Area M2, Separacion Cm, Circuitos Max M)</em>.</li>
-<li><strong>Leggi il tuo risultato:</strong> Ml Tubo, Circuitos, Colectores Ud.</li>
-<li>Verificate: confermate che le unità siano coerenti e i valori realistici prima di agire sul risultato.</li>
-</ol>
+<h2>Come funziona il calcolatore e quando utilizzarlo</h2>
 
-<h2>Usi pratici in cantiere</h2>
-<p>Questa calcolatrice è particolarmente utile nelle seguenti situazioni:</p>
+<p>Il calcolatore è progettato per chi deve realizzare un impianto radiante a pavimento, sia per nuove costruzioni che per ristrutturazioni. Lo strumento richiede tre dati di input fondamentali:</p>
+
 <ul>
-<li>problemi matematici quotidiani</li><li>budget e pianificazione</li><li>cucina e misurazioni domestiche</li><li>calcoli di viaggio e tempo</li>
+<li><strong>Superficie dell'ambiente (m²)</strong>: l'area netta da riscaldare, escludendo mobili fissi e zone non calpestabili.</li>
+<li><strong>Distanza tra i tubi (cm)</strong>: il passo di posa, generalmente compreso tra 5 e 30 cm a seconda del fabbisogno termico.</li>
+<li><strong>Lunghezza massima dei circuiti (m)</strong>: la lunghezza massima consentita per ogni singolo circuito, solitamente 80-100 metri per evitare perdite di carico eccessive.</li>
 </ul>
 
-<h2>Come applicare i risultati</h2>
-<p>Il tuo risultato mostra la quantità teoricamente richiesta. Prima di ordinare, applica il fattore di scarto appropriato: 5–10&nbsp;% per calcestruzzo e malta, 10–15&nbsp;% per piastrelle, pietra naturale e mattoni, e 3–5&nbsp;% per acciaio e legname. Arrotonda sempre all'unità intera superiore — sacco, tonnellata o pallet.</p>
+<p>Utilizzalo in fase di progettazione per calcolare il materiale necessario, confrontare diverse configurazioni di posa o preparare un preventivo per il cliente. I risultati vengono espressi in unità metriche e seguono le convenzioni tecniche italiane, rendendoli immediatamente utilizzabili nel nostro mercato.</p>
 
-<h2>Norme di costruzione e buone pratiche</h2>
-<p>I progetti di costruzione dipendono da stime precise dei materiali. I professionisti aggiungono tipicamente il 5–10&nbsp;% di tolleranza per sfridi, rotture ed errori di misura. Le norme ISO, EN e UNI definiscono le proprietà dei materiali e le tolleranze alla base di queste formule.</p>
+<h2>La formula spiegata variabile per variabile</h2>
+
+<p>Il calcolatore applica una formula semplice ma efficace, che scompone il problema in passaggi logici. Ecco come funziona ogni variabile:</p>
+
+<h3>Calcolo dei metri lineari di tubo (ml_tubo)</h3>
+<p>La formula base è: <strong>ml_tubo = A × (100 / separazione) × 1,1</strong>.</p>
+<p><strong>A</strong> rappresenta la superficie in metri quadri. Dividendo 100 per la separazione in centimetri otteniamo il numero di metri di tubo per metro quadro (ad esempio, con passo 20 cm servono 5 metri di tubo per ogni m²). Il fattore <strong>1,1</strong> aggiunge un margine del 10% per compensare le curve, gli attacchi al collettore e le inevitabili perdite in fase di posa, un'accortezza che i posatori italiani conoscono bene.</p>
+
+<h3>Numero di circuiti (circuitos)</h3>
+<p>Si calcola come <strong>circuiti = ml_tubo / lunghezza massima circuito</strong>, arrotondato per eccesso (Math.ceil). Se hai 180 metri di tubo e circuiti da massimo 80 metri, servono 3 circuiti (180/80 = 2,25 → 3).</p>
+
+<h3>Collettori (colectores_ud)</h3>
+<p>Ogni collettore standard gestisce fino a 8 circuiti. Il calcolo è: <strong>collettori = circuiti / 8</strong>, arrotondato per eccesso. Per 3 circuiti serve 1 collettore; per 17 circuiti ne servono 3.</p>
+
+<h3>Massetto autolivellante (mortero_autonivelante_kg)</h3>
+<p>La quantità di massetto si stima in <strong>80 kg per m²</strong>, un valore medio per uno spessore di circa 5-6 cm. Il totale è <strong>A × 80 kg</strong>. Per una stanza di 50 m² servono 4.000 kg di massetto.</p>
+
+<h2>Due esempi pratici con numeri concreti</h2>
+
+<p>Vediamo due casi tipici per capire come applicare il calcolatore nella realtà.</p>
+
+<h3>Esempio 1: Soggiorno di 30 m² con passo 20 cm</h3>
+<p>Supponiamo di dover riscaldare un soggiorno di 30 m². Decidiamo di posare i tubi con passo 20 cm e di limitare ogni circuito a 80 metri (valore standard).</p>
+
+<p>Inseriamo i dati:</p>
+<ul>
+<li>Area: 30 m²</li>
+<li>Separazione: 20 cm</li>
+<li>Circuito max: 80 m</li>
+</ul>
+
+<p>Il calcolatore esegue i seguenti calcoli:</p>
+<ul>
+<li>ml_tubo = 30 × (100/20) × 1,1 = 30 × 5 × 1,1 = <strong>165,0 metri</strong></li>
+<li>Circuiti = 165 / 80 = 2,06 → <strong>3 circuiti</strong> (arrotondato per eccesso)</li>
+<li>Collettori = 3 / 8 = 0,375 → <strong>1 collettore</strong></li>
+<li>Massetto = 30 × 80 = <strong>2.400 kg</strong></li>
+</ul>
+
+<p>Per un soggiorno di 30 m² ti serviranno quindi 3 circuiti di tubo, un collettore a 3 o 4 vie e circa 2.400 kg di massetto autolivellante.</p>
+
+<h3>Esempio 2: Open space di 80 m² con passo 15 cm</h3>
+<p>Un ambiente open space di 80 m² richiede un passo più fitto (15 cm) per garantire una distribuzione uniforme del calore. Manteniamo il limite di 80 metri per circuito.</p>
+
+<p>Dati inseriti:</p>
+<ul>
+<li>Area: 80 m²</li>
+<li>Separazione: 15 cm</li>
+<li>Circuito max: 80 m</li>
+</ul>
+
+<p>Risultati:</p>
+<ul>
+<li>ml_tubo = 80 × (100/15) × 1,1 = 80 × 6,67 × 1,1 = <strong>586,7 metri</strong> (arrotondato a 586,7)</li>
+<li>Circuiti = 586,7 / 80 = 7,33 → <strong>8 circuiti</strong></li>
+<li>Collettori = 8 / 8 = <strong>1 collettore da 8 vie</strong></li>
+<li>Massetto = 80 × 80 = <strong>6.400 kg</strong></li>
+</ul>
+
+<p>In questo caso, un collettore da 8 vie basta per ospitare tutti i circuiti. Il massetto necessario supera le 6 tonnellate, un dato fondamentale per organizzare il cantiere e lo smaltimento dei materiali.</p>
 
 <h2>Errori comuni da evitare</h2>
+
+<p>Anche con un calcolatore affidabile, alcuni errori tipici possono compromettere il risultato finale. Ecco i più frequenti:</p>
+
 <ul>
-<li>Dimenticare di aggiungere un margine di scarto (5-10%) nell'ordine dei materiali.</li><li>Mescolare unità metriche e imperiali nello stesso progetto.</li>
+<li><strong>Inserire l'area lorda invece di quella netta</strong>: il calcolatore presuppone che tu inserisca la superficie effettivamente calpestabile e riscaldata. Se includi armadi, colonne o zone non calpestabili, sovrastimerai metri di tubo e massetto, con spreco di materiale e denaro.</li>
+<li><strong>Trascurare la lunghezza massima dei circuiti</strong>: non superare mai gli 80-100 metri per circuito, altrimenti le perdite di carico aumentano e l'impianto potrebbe non funzionare correttamente. Il calcolatore arrotonda automaticamente per eccesso, ma se forzi un valore troppo alto rischi di avere circuiti lunghi e squilibrati.</li>
+<li><strong>Usare un passo di posa non adatto alla zona climatica</strong>: in Italia, per zone con clima rigido (come le Alpi) si usano passi di 5-10 cm, mentre per climi miti (come il Sud) passi di 20-30 cm. Il calcolatore non conosce la tua località: sta a te scegliere il passo giusto in base al progetto termico.</li>
+<li><strong>Dimenticare il fattore di sicurezza del 10%</strong>: il calcolatore include già questo margine. Se aggiungi ulteriore scorta manualmente, rischi di ritrovarti con rotoli di tubo inutilizzati a fine cantiere.</li>
 </ul>
 
-<h2>Consiglio professionale per appaltatori</h2>
-<p>Ordina il 5-10% in più di materiale rispetto al calcolo per coprire tagli, rotture ed errori di misura.</p>
+<h2>Domande frequenti sul riscaldamento a pavimento</h2>
 
-<h2>Domande frequenti</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Quanto materiale extra devo ordinare?</button><div class="faq-a"><p>La maggior parte dei professionisti raccomanda di ordinare il 5-10% in più rispetto al calcolato per coprire tagli e sprechi.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Questa calcolatrice è precisa?</button><div class="faq-a"><p>Sì. La calcolatrice usa la formula standard: Calcolatore Scatola di Ispezione = f(Area M2, Separacion Cm, Circuitos Max M). I risultati sono matematicamente esatti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Posso usare questa calcolatrice sul telefono?</button><div class="faq-a"><p>Sì, la calcolatrice è completamente responsive e funziona su qualsiasi dispositivo. Nessuna installazione richiesta.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Come salvo o condivido il mio calcolo?</button><div class="faq-a"><p>Usa il pulsante <strong>Condividi</strong> per generare un URL con tutti i tuoi dati. Il pulsante <strong>Copia</strong> copia il risultato negli appunti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cosa fare se il risultato sembra sbagliato?</button><div class="faq-a"><p>Controlla prima i tuoi dati: valori nelle unità corrette e intervallo realistico. Verifica anche che la formula <em>Calcolatore Scatola di Ispezione = f(Area M2, Separacion Cm, Circuitos Max M)</em> si applichi esattamente alla tua situazione.</p></div></div>
-</div>
-</section>
+<h3>Posso utilizzare il calcolatore anche per impianti con passo variabile?</h3>
+<p>Il calcolatore assume un passo costante su tutta la superficie. Se il tuo progetto prevede zone con passo diverso (ad esempio 10 cm vicino alle finestre e 20 cm al centro), dovrai suddividere l'area in sottozone e calcolare ciascuna separatamente, sommando poi i risultati. In ogni caso, il calcolatore ti dà una stima accurata per superfici omogenee.</p>
+
+<h3>Il massetto autolivellante è obbligatorio per il riscaldamento a pavimento?</h3>
+<p>Non è obbligatorio, ma è fortemente consigliato. Il massetto tradizionale può funzionare, ma quello autolivellante garantisce uno spessore uniforme, una migliore conducibilità termica e una posa più rapida. La quantità stimata dal calcolatore (80 kg/m²) si riferisce a uno spessore medio di 5-6 cm. Se il tuo progetto prevede spessori diversi, regola il valore di conseguenza.</p>
+
+<h3>Cosa succede se il numero di circuiti supera la capacità di un singolo collettore?</h3>
+<p>Il calcolatore arrotonda automaticamente il numero di collettori al multiplo di 8 superiore. Se hai 10 circuiti, il risultato sarà 2 collettori: uno da 8 vie e uno da 2 vie (con 6 vie libere per future espansioni). In pratica, puoi anche usare un solo collettore da 10 vie, ma l'algoritmo segue lo standard di mercato che prevede moduli da 2 a 8 vie. Per configutazioni particolari, consulta un termotecnico.</p>

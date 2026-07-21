@@ -1,46 +1,98 @@
-<section class="long-content">
-<p>Usa la <strong>Roofing Tiles Calculator</strong> para calcular área real cubierta, tejas (+7%), rastreles de forma rápida y precisa.</p>
-<h2>Cómo funciona el cálculo</h2>
-<p>Los cálculos de construcción parecen sencillos hasta que consideras margen de desperdicio, conversiones de unidades y estándares regionales de materiales. Esta calculadora gestiona esos detalles automáticamente, para que te concentres en la obra y no en las matemáticas.</p>
-<p>Los cálculos de construcción parecen sencillos hasta que consideras margen de desperdicio, conversiones de unidades y estándares regionales de materiales. Esta calculadora gestiona esos detalles automáticamente, para que te concentres en la obra y no en las matemáticas.</p>
-<p>La fórmula detrás de este cálculo es <strong>Calculadora de Cubierta de Teja = f(Área en planta, Pendiente (%), Tipo de teja)</strong>. Comprender cómo se obtiene el resultado te ayuda a verificar la salida y detectar errores de entrada.</p>
+<p>Si estás buscando una forma rápida y fiable de calcular los materiales para tu tejado inclinado, la <strong>Calculadora de Cubierta de Teja</strong> es la herramienta que necesitas. Con ella, cualquier profesional o estudiante puede obtener al instante el número exacto de tejas árabes o planas, así como los metros lineales de rastreles, para su cubierta inclinada. Esta calculadora está diseñada para adaptarse a las unidades métricas y a las convenciones de construcción españolas, eliminando las conjeturas y los errores de cálculo.</p>
 
-<h2>Guía paso a paso para tu proyecto</h2>
-<p>Sigue estos pasos para obtener un resultado fiable:</p>
+<h2>¿Qué hace la Calculadora de Cubierta de Teja y cuándo usarla?</h2>
+
+<p>Esta calculadora está pensada para resolver una pregunta clave en cualquier proyecto de cubierta inclinada: ¿cuántas tejas y cuánto listón (rastrel) necesito comprar? A diferencia de las calculadoras de superficie plana, tiene en cuenta la pendiente del tejado, que aumenta la superficie real a cubrir respecto a la superficie en planta del edificio. Se usa principalmente:</p>
+
+<ul>
+<li><strong>En fase de presupuesto:</strong> para calcular el coste de materiales antes de comprar.</li>
+<li><strong>En obra:</strong> para verificar pedidos y evitar roturas o falta de stock.</li>
+<li><strong>En formación:</strong> por estudiantes de arquitectura, ingeniería o formación profesional para entender la relación entre pendiente y superficie.</li>
+</ul>
+
+<p>La herramienta funciona con dos tipos de teja muy comunes en España: la teja árabe (curva, de encaje) y la teja plana (tipo mixta o plana). Cada una tiene un consumo por metro cuadrado distinto, y la calculadora lo ajusta automáticamente según la selección que hagas.</p>
+
+<h2>Fórmula explicada: cómo se calcula el material</h2>
+
+<p>El motor de la calculadora se basa en una fórmula sencilla pero que integra varios conceptos geométricos. La desglosamos variable a variable para que entiendas cómo se obtiene cada resultado.</p>
+
+<h3>1. Factor de inclinación (factor_inc)</h3>
+<p>Es el corazón del cálculo. Se obtiene con la fórmula:</p>
+<p><strong>factor_inc = 1 / cos( arctan( pendiente_pct / 100 ) )</strong></p>
+<p>Donde <em>pendiente_pct</em> es el porcentaje de inclinación del tejado (por ejemplo, 30% significa que por cada 100 cm horizontales, el tejado sube 30 cm). Este factor convierte la superficie en planta (la que mide el suelo) en la superficie real del faldón inclinado. Por ejemplo, si tu planta mide 50 m² y la pendiente es del 30%, el factor de inclinación será aproximadamente 1.044, lo que da una superficie real de 52.2 m².</p>
+
+<h3>2. Área real (area_real)</h3>
+<p>Es simplemente la multiplicación del área en planta por el factor de inclinación:</p>
+<p><strong>Área real (m²) = Área planta (m²) × factor_inc</strong></p>
+
+<h3>3. Número de tejas (tejas_ud)</h3>
+<p>Depende del tipo de teja elegido:</p>
+<ul>
+<li><strong>Teja árabe:</strong> se consideran 30 tejas por m² (el valor estándar en España para este formato).</li>
+<li><strong>Teja plana:</strong> se consideran 20 tejas por m² (valor habitual para teja mixta o plana tipo Marsella).</li>
+</ul>
+<p>A ese consumo base se le añade un <strong>7% de desperdicio</strong> (multiplicar por 1.07), que cubre roturas en el transporte, cortes en bordes y solapes en limaoyas o limahoyas. Finalmente, se redondea al alza (Math.ceil) para asegurarte de que no falten piezas.</p>
+
+<h3>4. Metros lineales de rastrel (rastreles_ml)</h3>
+<p>Aquí se aplica una regla práctica muy extendida en la construcción de cubiertas inclinadas con rastreles de madera o metal: <strong>2.5 metros lineales de rastrel por cada metro cuadrado de superficie real</strong>. Este valor incluye la distancia entre rastreles (normalmente entre 25 y 30 cm) y la doble línea en bordes y cumbreras. No se redondea al alza sino que se deja con un decimal para que puedas ajustar al comprar rollos o barras.</p>
+
+<h2>Ejemplos prácticos paso a paso</h2>
+
+<p>Para que veas cómo se aplica la fórmula, aquí tienes dos casos reales con números concretos.</p>
+
+<h3>Ejemplo 1: Tejado a dos aguas con teja árabe</h3>
+<p><strong>Datos de entrada:</strong></p>
+<ul>
+<li>Área en planta: 80 m²</li>
+<li>Pendiente: 25%</li>
+<li>Tipo de teja: Árabe</li>
+</ul>
+<p><strong>Cálculos:</strong></p>
 <ol>
-<li><strong>Introduce tus datos:</strong> 60 m²; 30 %; arabe — ensure all values use a single consistent unit system.</li>
-<li><strong>La calculadora aplica la fórmula:</strong> <em>Calculadora de Cubierta de Teja = f(Área en planta, Pendiente (%), Tipo de teja)</em>.</li>
-<li><strong>Lee tu resultado:</strong> Área real cubierta, Tejas (+7%), Rastreles.</li>
-<li>Verifica: confirma que las unidades sean coherentes y los valores realistas antes de actuar en base al resultado.</li>
+<li><strong>Factor de inclinación:</strong> arctan(25/100) = arctan(0.25) ≈ 14.04°. Su coseno es 0.970, luego factor = 1/0.970 = 1.0309.</li>
+<li><strong>Área real:</strong> 80 m² × 1.0309 = 82.47 m² (redondeado a 82.47 m²).</li>
+<li><strong>Tejas árabes:</strong> 82.47 × 30 = 2474.1 tejas. Con desperdicio: 2474.1 × 1.07 = 2647.3. Redondeando al alza: <strong>2.648 tejas</strong>.</li>
+<li><strong>Rastreles:</strong> 82.47 m² × 2.5 = 206.2 metros lineales.</li>
 </ol>
+<p><strong>Resultado final:</strong> Para una cubierta de 80 m² con pendiente del 25% y teja árabe, necesitarás 2.648 tejas y 206.2 metros lineales de rastrel.</p>
 
-<h2>Usos prácticos en la obra</h2>
-<p>Esta calculadora es especialmente útil en las siguientes situaciones:</p>
+<h3>Ejemplo 2: Cubierta de cobertizo con teja plana</h3>
+<p><strong>Datos de entrada:</strong></p>
 <ul>
-<li>construcción de muros de ladrillo y bloque</li><li>estimación de materiales de mampostería</li><li>cálculos de área de muro y mortero</li><li>presupuestos de construcción</li>
+<li>Área en planta: 45 m²</li>
+<li>Pendiente: 35%</li>
+<li>Tipo de teja: Plana</li>
+</ul>
+<p><strong>Cálculos:</strong></p>
+<ol>
+<li><strong>Factor de inclinación:</strong> arctan(35/100) = arctan(0.35) ≈ 19.29°. cos(19.29°) = 0.944, luego factor = 1/0.944 = 1.059.</li>
+<li><strong>Área real:</strong> 45 × 1.059 = 47.66 m².</li>
+<li><strong>Tejas planas:</strong> 47.66 × 20 = 953.2 tejas. Con desperdicio: 953.2 × 1.07 = 1020.9. Redondeando al alza: <strong>1.021 tejas</strong>.</li>
+<li><strong>Rastreles:</strong> 47.66 × 2.5 = 119.2 metros lineales.</li>
+</ol>
+<p><strong>Comprobación:</strong> Si el tejado tiene forma de cobertizo (un solo faldón), la superficie real se calcula igual, pero recuerda que en limaoyas o cumbreras se necesita un rastrel doble, que ya está incluido en el factor 2.5.</p>
+
+<h2>Errores comunes al usar la calculadora</h2>
+
+<p>Incluso con una herramienta automática, se pueden cometer equivocaciones. Estos son los errores más frecuentes y cómo evitarlos:</p>
+
+<ul>
+<li><strong>Confundir el área en planta con el área real.</strong> El error más clásico: medir solo el suelo de la habitación y olvidar que el tejado inclinado tiene más superficie. Introduce siempre el área que ocuparía el tejado visto desde arriba, no la del faldón.</li>
+<li><strong>Poner la pendiente en grados en lugar de en porcentaje.</strong> La calculadora espera un porcentaje (ej: 30, no 30°). Si tienes la pendiente en grados, usa la fórmula: % = tan(ángulo) × 100. Por ejemplo, 30° equivalen a un 57.7%.</li>
+<li><strong>No incluir el desperdicio por cortes.</strong> Algunos usuarios creen que el 7% es opcional, pero la calculadora lo aplica siempre para cubrir roturas, solapes y piezas partidas en bordes. No lo reduzcas manualmente.</li>
+<li><strong>Olvidar que los rastreles se miden en metros lineales.</strong> No confundas con metros cuadrados. El resultado de 2.5 ml/m² es un estándar; si usas rastreles muy separados (más de 35 cm), consulta a tu proveedor, aunque el valor por defecto funciona para la mayoría de tejas.</li>
+<li><strong>Usar la calculadora para tejas de formatos especiales.</strong> La herramienta está ajustada a tejas árabes y planas españolas estándar. Para tejas de gran formato o tejas cerámicas específicas (como la teja curva de encaje), el consumo por m² puede variar. En esos casos, ajusta el número de tejas manualmente basándote en la ficha técnica del fabricante.</li>
 </ul>
 
-<h2>Cómo aplicar los resultados</h2>
-<p>Tu resultado muestra la cantidad teórica necesaria. Antes de pedir, aplica el factor de merma adecuado al material: 5–10&nbsp;% para hormigón y mortero, 10–15&nbsp;% para azulejo, piedra natural y ladrillo (para cubrir cortes, roturas y encaje de juntas), y 3–5&nbsp;% para acero y madera. Redondea siempre al alza a la siguiente unidad completa — saco, tonelada o palé — para evitar parar la obra por una segunda entrega.</p>
+<h2>Preguntas frecuentes (FAQ)</h2>
 
-<h2>Normas de construcción y buenas prácticas</h2>
-<p>Los proyectos de construcción dependen de estimaciones precisas de materiales para mantenerse dentro del presupuesto y el cronograma. Pedir demasiado poco detiene la obra y genera entregas de emergencia costosas; pedir demasiado desperdicia dinero y ocupa espacio en el sitio. Los estimadores profesionales suelen añadir un 5–10&nbsp;% de factor de merma sobre la cantidad teórica para cubrir cortes, recortes, roturas y pequeños errores de medición.</p><p>Los cálculos modernos de construcción siguen normas establecidas por organismos como ISO, DIN o UNE, que definen propiedades de materiales, tolerancias y márgenes de diseño. Conocer la norma detrás de una fórmula ayuda a adaptarla cuando las condiciones difieren del caso estándar — por ejemplo, al trabajar con materiales recuperados, dimensiones no estándar o sitios en altitud donde el fraguado del hormigón se comporta de forma diferente.</p>
+<h3>¿Por qué la calculadora da más tejas de las que esperaba?</h3>
+<p>Es normal si no habías considerado el desperdicio del 7%. Además, la superficie real siempre es mayor que la planta. Por ejemplo, para una pendiente del 40%, la superficie real es un 7.7% mayor que la planta. Si sumas el desperdicio, el total de tejas puede superar el 15% respecto a un cálculo simplificado. Es mejor que sobre a que falten, ya que las tejas de un mismo lote pueden variar de tono.</p>
 
-<h2>Errores comunes a evitar</h2>
-<ul>
-<li>Olvidar añadir un margen de desperdicio (típicamente 5-10%) al pedir materiales — redondear arriba evita una segunda entrega.</li><li>Mezclar unidades métricas e imperiales en el mismo proyecto. Mantén un sistema consistente.</li><li>Medir dimensiones exteriores en vez del área interior — la diferencia importa para suelos y azulejos.</li>
-</ul>
+<h3>¿Puedo usar la calculadora para un tejado a cuatro aguas o con buhardilla?</h3>
+<p>Sí, siempre que puedas medir el área en planta total (la proyección horizontal de todos los faldones). La calculadora no distingue formas, solo aplica la pendiente media. Si tienes faldones con distintas pendientes, lo mejor es calcular cada uno por separado usando la pendiente correspondiente y sumar los resultados al final.</p>
 
-<h2>Consejo profesional para contratistas</h2>
-<p>Pide un 5-10% más de material de lo que indica tu cálculo para cubrir cortes, roturas y errores de medición. Es más barato que una segunda entrega.</p>
+<h3>¿El resultado de rastreles incluye los de cumbrera y limaoyas?</h3>
+<p>Sí, el factor de 2.5 metros lineales por metro cuadrado ya tiene en cuenta los rastreles adicionales en cumbreras, bordes y encuentros. Sin embargo, si tu cubierta tiene muchas limahoyas (esquinas entrantes), considera añadir un 5-10% extra de rastrel para esos puntos singulares. Para una cubierta estándar a dos aguas, el valor es perfectamente válido.</p>
 
-<h2>Preguntas frecuentes</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Cuánto material extra debo pedir?</button><div class="faq-a"><p>La mayoría de profesionales recomiendan pedir un 5-10% más de lo calculado para cubrir cortes, desperdicio y errores de medición. Para piedra natural o azulejo cerámico, el factor de desperdicio puede ser del 10-15%.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Puedo usar esta calculadora con unidades métricas e imperiales?</button><div class="faq-a"><p>Sí. Selecciona tu sistema de unidades preferido en los campos de entrada y la calculadora convierte automáticamente.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Es precisa esta calculadora?</button><div class="faq-a"><p>Sí. La calculadora utiliza la fórmula estándar: Calculadora de Cubierta de Teja = f(Área en planta, Pendiente (%), Tipo de teja). Los resultados son matemáticamente exactos; la precisión final depende de los datos que introduzcas.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Puedo usar esta calculadora en el móvil?</button><div class="faq-a"><p>Sí, la calculadora es totalmente responsiva y funciona en cualquier dispositivo. No requiere instalación ni registro.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Cómo guardo o comparto mi cálculo?</button><div class="faq-a"><p>Usa el botón <strong>Compartir</strong> para generar una URL que codifica todos tus datos — quien abra el enlace verá los mismos valores y resultado. El botón <strong>Copiar</strong> copia el texto del resultado para pegarlo en una hoja de cálculo, correo o documento.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Qué hago si el resultado parece incorrecto?</button><div class="faq-a"><p>Primero revisa tus datos: comprueba que los valores estén en las unidades correctas y en un rango realista. Las causas más comunes son la mezcla de unidades métricas e imperiales, dígitos transpuestos o el uso de una calculadora equivocada. Si los datos parecen correctos y el resultado sigue siendo extraño, verifica que la fórmula <em>Calculadora de Cubierta de Teja = f(Área en planta, Pendiente (%), Tipo de teja)</em> se aplica exactamente a tu caso.</p></div></div>
-</div>
-</section>
+<p>En resumen, la <strong>Calculadora de Cubierta de Teja</strong> te ahorra tiempo y errores en la fase de planificación de tu obra. Con solo tres datos de entrada (área en planta, pendiente y tipo de teja) obtienes un desglose completo y fiable, listo para usar en tu presupuesto o en el pedido al almacén de materiales.</p>

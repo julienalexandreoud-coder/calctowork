@@ -1,44 +1,76 @@
-<section class="long-content">
-<p>Utilisez le <strong>Wooden Staircase Calculator</strong> pour calculer nombre de marches, giron (cm), longueur limon rapidement et avec précision.</p>
-<h2>Comment fonctionne le calcul</h2>
-<p>Que vous planifiiez des travaux de rénovation, estimiez des matériaux pour un chantier ou calculiez des dimensions pour un projet DIY, disposer des bons chiffres dès le départ fait gagner du temps et de l'argent.</p>
-<p>La formule derrière ce calcul est <strong>Calculateur Escalier Bois = f(Hauteur totale à gravir, Largeur escalier, Hauteur contremarche souhaitée)</strong>. Comprendre comment le résultat est obtenu vous aide à vérifier la sortie et à détecter les erreurs d'entrée.</p>
+<p>Le <strong>Calculateur Escalier Bois</strong> est un outil en ligne gratuit qui vous permet de dimensionner rapidement les éléments essentiels de votre futur escalier : marches, girons et limons. En quelques secondes, il transforme vos mesures en données techniques précises, idéales pour la rénovation ou la construction d'un escalier en bois dans le respect des normes françaises. Que vous soyez bricoleur averti ou professionnel, cet outil vous évite des calculs complexes et réduit les risques d'erreur lors de la découpe de vos matériaux.</p>
 
-<h2>Guide pas à pas pour votre projet</h2>
-<p>Suivez ces étapes pour obtenir un résultat fiable :</p>
+<h2>Qu'est-ce que le Calculateur Escalier Bois et quand l'utiliser ?</h2>
+
+<p>Le Calculateur Escalier Bois est spécifiquement conçu pour calculer le nombre de marches, la hauteur des contremarches (appelées aussi "contrehuelles"), le giron (profondeur de marche) et la longueur du limon (pièce inclinée supportant les marches). Il est particulièrement utile dans plusieurs situations :</p>
+<ul>
+<li>Lors de la construction d'un escalier droit en bois neuf.</li>
+<li>Pour la rénovation d'un escalier existant dont on souhaite modifier les dimensions.</li>
+<li>Pour vérifier la conformité d'un projet aux normes d'accessibilité (pente, hauteur de marche).</li>
+<li>Pour estimer la surface totale de bois nécessaire et les coûts associés.</li>
+</ul>
+<p>L'outil utilise le système métrique (mètres et centimètres) et ses résultats sont exprimés en unités françaises, ce qui le rend immédiatement opérationnel pour vos plans et commandes.</p>
+
+<h2>La formule expliquée variable par variable</h2>
+
+<p>Le calculateur s'appuie sur une relation mathématique classique, parfois appelée "formule de Blondel" adaptée. Voici comment chaque variable est utilisée dans le code :</p>
+<p><strong>Variables d'entrée :</strong></p>
+<ul>
+<li><strong>altura_total_m (H)</strong> : hauteur totale à franchir, saisie en mètres (ex : 2.60 m).</li>
+<li><strong>ancho_m (W)</strong> : largeur de l'escalier en mètres (valeur par défaut 0.9 m, soit 90 cm).</li>
+<li><strong>contrahuella_cm (ch)</strong> : hauteur souhaitée pour chaque contremarche, en centimètres (valeur par défaut 18 cm).</li>
+</ul>
+<p><strong>Variables calculées :</strong></p>
+<ul>
+<li><strong>peldanos</strong> : nombre de marches. Il est obtenu en divisant la hauteur totale (convertie en cm) par la hauteur de contremarche choisie, puis en arrondissant à l'entier supérieur (Math.ceil).</li>
+<li><strong>huella</strong> : giron (profondeur de marche) en centimètres. Calculé par la formule <em>63 - hauteur de contremarche</em>, arrondi à l'entier. Cette formule garantit un bon équilibre entre hauteur et profondeur pour une montée confortable.</li>
+<li><strong>zanca</strong> : longueur du limon (la pièce inclinée) en mètres. Elle est calculée avec le théorème de Pythagore : racine carrée de (hauteur totale au carré + (nombre de marches × giron en mètres) au carré).</li>
+<li><strong>m2_peldano</strong> : surface d'une seule marche en mètres carrés (largeur × giron en mètres).</li>
+<li><strong>m2_total</strong> : surface totale de bois pour toutes les marches (surface d'une marche × nombre de marches).</li>
+<li><strong>contrah_final</strong> : hauteur réelle de chaque contremarche après ajustement du nombre de marches, en centimètres (précision au dixième). Cette valeur peut différer légèrement de la hauteur saisie.</li>
+</ul>
+
+<h2>Deux exemples concrets avec chiffres</h2>
+
+<h3>Exemple 1 : Escalier standard pour maison individuelle</h3>
+<p>Vous souhaitez construire un escalier pour une hauteur de 2.70 mètres, avec une largeur de 0.90 mètre et des contremarches de 17 cm.</p>
 <ol>
-<li><strong>Saisissez vos valeurs:</strong> 2.8 m; 0.9 m; 18 cm — ensure all values use a single consistent unit system.</li>
-<li><strong>La calculatrice applique la formule:</strong> <em>Calculateur Escalier Bois = f(Hauteur totale à gravir, Largeur escalier, Hauteur contremarche souhaitée)</em>.</li>
-<li><strong>Lisez votre résultat:</strong> Nombre de marches, Giron (cm), Longueur limon.</li>
-<li>Vérifiez : confirmez que les unités sont cohérentes et les valeurs réalistes avant d'agir sur le résultat.</li>
+<li><strong>Nombre de marches :</strong> (2.70 × 100) / 17 = 15.88, arrondi à 16 marches.</li>
+<li><strong>Giron :</strong> 63 - 17 = 46 cm.</li>
+<li><strong>Hauteur réelle des contremarches :</strong> (2.70 × 100) / 16 = 16.9 cm.</li>
+<li><strong>Longueur du limon :</strong> Racine carrée de (2.70² + (16 × 0.46)²) = √(7.29 + (7.36)²) = √(7.29 + 54.17) = √61.46 ≈ 7.84 mètres.</li>
+<li><strong>Surface d'une marche :</strong> 0.90 × (46/100) = 0.414 m².</li>
+<li><strong>Surface totale :</strong> 0.414 × 16 = 6.62 m² de bois pour les marches.</li>
 </ol>
 
-<h2>Usages pratiques sur le chantier</h2>
-<p>Cette calculatrice est particulièrement utile dans les situations suivantes :</p>
+<h3>Exemple 2 : Escalier pour un petit mezzanine</h3>
+<p>Pour une hauteur de 2.20 mètres, une largeur de 0.80 mètre et des contremarches de 20 cm.</p>
+<ol>
+<li><strong>Nombre de marches :</strong> (2.20 × 100) / 20 = 11 marches exactement.</li>
+<li><strong>Giron :</strong> 63 - 20 = 43 cm.</li>
+<li><strong>Hauteur réelle des contremarches :</strong> 20.0 cm (identique à la saisie).</li>
+<li><strong>Longueur du limon :</strong> √(2.20² + (11 × 0.43)²) = √(4.84 + (4.73)²) = √(4.84 + 22.37) = √27.21 ≈ 5.22 mètres.</li>
+<li><strong>Surface d'une marche :</strong> 0.80 × 0.43 = 0.344 m².</li>
+<li><strong>Surface totale :</strong> 0.344 × 11 = 3.78 m².</li>
+</ol>
+
+<h2>Les erreurs courantes à éviter</h2>
+
+<p>L'utilisation du Calculateur Escalier Bois est simple, mais certaines erreurs fréquentes peuvent fausser les résultats :</p>
 <ul>
-<li>problèmes mathématiques quotidiens</li><li>budget et planification</li><li>cuisine et mesures domestiques</li><li>calculs de voyage et de temps</li>
+<li><strong>Confondre les unités :</strong> La hauteur totale est demandée en mètres, alors que la contremarche est en centimètres. Ne pas convertir correctement est la source la plus courante d'erreur. Par exemple, saisir 270 pour une hauteur de 2.70 m donne un résultat absurde.</li>
+<li><strong>Ignorer l'arrondi du nombre de marches :</strong> Le calculateur arrondit toujours à l'entier supérieur. Si vous voulez un nombre pair de marches (par exemple pour une symétrie), vous devrez ajuster manuellement la hauteur de contremarche dans le champ, puis recalculer.</li>
+<li><strong>Négliger l'épaisseur des marches :</strong> La formule ne tient pas compte de l'épaisseur du bois. Si vos marches sont très épaisses (plus de 3 cm), il faut retrancher cette épaisseur de la hauteur de contremarche réelle, car le pied repose sur la marche et non sur la contremarche.</li>
+<li><strong>Oublier la largeur effective :</strong> La largeur (ancho_m) doit être la largeur libre entre les limons ou les murs, et non la largeur totale de la volée si des garde-corps sont présents.</li>
 </ul>
 
-<h2>Interpréter et appliquer vos résultats</h2>
-<p>Votre résultat indique la quantité théorique requise. Ajoutez le facteur de perte approprié avant de commander : 5–10&nbsp;% pour le béton et le mortier, 10–15&nbsp;% pour les carreaux, la pierre naturelle et la brique, et 3–5&nbsp;% pour l'acier et le bois. Arrondissez toujours à l'unité supérieure — sac, tonne ou palette.</p>
+<h2>FAQ - Questions fréquentes</h2>
 
-<h2>Normes de construction et bonnes pratiques</h2>
-<p>Les projets de construction dépendent d'estimations précises des matériaux. Les professionnels ajoutent généralement 5–10&nbsp;% de marge de perte aux quantités théoriques pour les coupes, la casse et les erreurs de mesure. Les normes ISO et EN définissent les propriétés des matériaux et les tolérances utilisées dans ces formules.</p>
+<h3>Que faire si la hauteur de contremarche calculée est différente de celle que j'ai saisie ?</h3>
+<p>C'est tout à fait normal. Le calculateur ajuste la hauteur réelle de chaque contremarche en divisant la hauteur totale par le nombre exact de marches (arrondi). Par exemple, si vous entrez 18 cm, il se peut que le résultat final soit 17.5 cm ou 18.3 cm. Cette valeur est celle que vous devez utiliser pour la découpe de vos contremarches, car elle garantit une répartition parfaitement égale sur toute la hauteur.</p>
 
-<h2>Erreurs courantes à éviter</h2>
-<ul>
-<li>Oublier d'ajouter une marge de perte (5-10%) lors de la commande de matériaux.</li><li>Mélanger unités métriques et impériales dans un même projet.</li>
-</ul>
+<h3>Puis-je utiliser ce calculateur pour un escalier quart tournant ou balancé ?</h3>
+<p>Non, ce calculateur est conçu uniquement pour les escaliers droits. Pour un escalier avec un ou plusieurs quarts tournants, les calculs de limon et de giron sont plus complexes, car les marches ne sont pas toutes identiques. Vous aurez besoin d'un outil spécialisé ou d'un plan détaillé réalisé par un professionnel.</p>
 
-<h2>Conseil pro pour les entrepreneurs</h2>
-<p>Commandez 5-10% de matériel en plus que le calcul ne l'indique pour couper les pertes et les erreurs de mesure.</p>
-
-<h2>Questions fréquentes</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Combien de matériel supplémentaire dois-je commander?</button><div class="faq-a"><p>La plupart des professionnels recommandent de commander 5-10% de plus que le calcul pour couper les pertes et les erreurs de mesure.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cette calculatrice est-elle précise?</button><div class="faq-a"><p>Oui. La calculatrice utilise la formule standard : Calculateur Escalier Bois = f(Hauteur totale à gravir, Largeur escalier, Hauteur contremarche souhaitée). Les résultats sont mathématiquement exacts.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Puis-je utiliser cette calculatrice sur mobile?</button><div class="faq-a"><p>Oui, la calculatrice est entièrement responsive et fonctionne sur tout appareil. Aucune installation requise.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Comment sauvegarder ou partager mon calcul ?</button><div class="faq-a"><p>Utilisez le bouton <strong>Partager</strong> pour générer une URL qui encode toutes vos entrées. Le bouton <strong>Copier</strong> copie le résultat dans le presse-papiers.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Que faire si mon résultat semble incorrect ?</button><div class="faq-a"><p>Vérifiez d'abord vos entrées : valeurs dans les bonnes unités et plage réaliste. Vérifiez aussi que la formule <em>Calculateur Escalier Bois = f(Hauteur totale à gravir, Largeur escalier, Hauteur contremarche souhaitée)</em> s'applique exactement à votre situation.</p></div></div>
-</div>
-</section>
+<h3>Comment estimer le coût du bois à partir des résultats ?</h3>
+<p>Le calculateur vous donne la surface totale de bois nécessaire pour les marches (m2_total). Pour estimer le coût, multipliez cette surface par le prix au mètre carré de l'essence de bois choisie (par exemple, 60 €/m² pour du chêne massif, 25 €/m² pour du pin). N'oubliez pas d'ajouter le coût du limon (multipliez sa longueur par le prix au mètre linéaire) et des contremarches si vous choisissez de les réaliser en bois (surface = hauteur de contremarche × largeur × nombre de marches).</p>

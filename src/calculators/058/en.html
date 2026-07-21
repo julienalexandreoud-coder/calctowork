@@ -1,46 +1,54 @@
-<section class="long-content">
-<p>Use the <strong>Duct Sizing Calculator</strong> to calculate velocity (m/s), diameter (mm), section (m²) quickly and accurately.</p>
-<h2>How the calculation works</h2>
-<p>Construction calculations often seem straightforward until you factor in waste allowances, unit conversions, and regional material standards. This calculator handles those details automatically, letting you focus on the build instead of the math.</p>
-<p>Whether you're planning a home renovation, estimating materials for a job site, or calculating dimensions for a DIY project, having the right numbers upfront saves time and money. This tool gives you instant, reliable results so you can order materials confidently and avoid costly overages.</p>
-<p>The formula behind this calculation is <strong>HVAC Duct Sizing Calculator = f(Airflow (m³/h), Pressure drop (Pa/m))</strong>. Understanding how the result is derived helps you verify the output and spot input errors before they cascade into bad decisions.</p>
+<p>The Duct Sizing Calculator is a free online tool that simplifies the process of determining the correct circular duct diameter for HVAC systems. Whether you are a professional engineer, a contractor, or a student, this calculator provides an instant circular duct size based on your required airflow and acceptable pressure loss per meter of duct length. It uses standard metric units and produces results that are easy to interpret and apply directly to real-world ductwork design.</p>
 
-<h2>Step-by-step guide for your project</h2>
-<p>Follow these steps to get a reliable result:</p>
-<ol>
-<li><strong>Enter your values:</strong> 1000 m³/h; 1.5 Pa/m — ensure all values use a single consistent unit system.</li>
-<li><strong>The calculator applies the formula:</strong> <em>HVAC Duct Sizing Calculator = f(Airflow (m³/h), Pressure drop (Pa/m))</em>.</li>
-<li><strong>Read your result:</strong> Velocity (m/s), Diameter (mm), Section (m²).</li>
-<li>Verify: confirm units are consistent and the numbers are realistic for your context before acting on the result.</li>
-</ol>
+<h2>What the Duct Sizing Calculator Does and When to Use It</h2>
+<p>This calculator solves a core HVAC design problem: given a specific airflow rate and a chosen pressure drop per meter, what size round duct is needed? It automatically computes the required airflow velocity and the minimum circular duct diameter, then rounds that diameter up to the nearest standard nominal size (100 mm, 125 mm, 160 mm, 200 mm, 250 mm, or 315 mm). This ensures the result is practical and ready for procurement and installation.</p>
+<p>You should use this calculator whenever you need to size a new duct run, check an existing system, or compare different duct sizing scenarios. Common applications include designing supply air ducts for residential or light commercial HVAC systems, sizing exhaust ducts for kitchen or bathroom ventilation, and optimizing duct layouts to balance air velocity with acceptable noise levels. The tool is especially helpful in the early design phase, allowing you to quickly test what happens if you change the target pressure loss.</p>
 
-<h2>Practical uses on the job site</h2>
-<p>This calculator is particularly useful in the following situations:</p>
+<h2>The Formula Explained Variable by Variable</h2>
+<p>The calculator uses a standard fluid dynamics approach to find the duct diameter. The core calculations are performed in metric units (meters, seconds, Pascals, and kilograms per cubic meter). Here is a breakdown of each variable in the formula:</p>
 <ul>
-<li>everyday math problems</li><li>budgeting and planning</li><li>cooking and home measurements</li><li>travel and time calculations</li>
+<li><strong>Q (caudal_m3h):</strong> The airflow rate, entered in cubic meters per hour. This is the volume of air that must pass through the duct each hour. The calculator converts this to cubic meters per second (m³/s) by dividing by 3600.</li>
+<li><strong>dP (perdida_carga_pa_m):</strong> The desired pressure loss per meter of duct, entered in Pascals per meter (Pa/m). A typical value for low-velocity duct systems is between 0.5 and 2 Pa/m. The default is 1.5 Pa/m.</li>
+<li><strong>rho (ρ):</strong> Air density, fixed at 1.2 kg/m³ at standard conditions. This constant is used in the velocity calculation.</li>
+<li><strong>v (velocidad_ms):</strong> The calculated air velocity in meters per second (m/s). It is derived from the pressure loss equation. The formula used is: v = 2 * sqrt( (dP * 2 / ρ) * 0.5 ), which simplifies to v = sqrt( (4 * dP) / ρ ). This ensures the velocity delivers the specified friction loss.</li>
+<li><strong>A_m2:</strong> The required cross-sectional area of the duct in square meters (m²). It is found by dividing the airflow rate in m³/s by the velocity (A = Q / v).</li>
+<li><strong>D_mm:</strong> The calculated theoretical circular duct diameter in millimeters (mm), before rounding to a standard size. It is derived from the area using the formula for the diameter of a circle: D = √(4 * A / π).</li>
+<li><strong>D_norm:</strong> The final, practical duct diameter. The calculator rounds the theoretical diameter up to the nearest standard nominal size: 100, 125, 160, 200, 250, or 315 mm. This ensures the duct is always slightly larger than the theoretical minimum, providing a small safety margin.</li>
+</ul>
+<p>The calculator outputs three values: the velocity (m/s), the nominal diameter (mm), and the exact required area (m²).</p>
+
+<h2>Worked Examples with Concrete Numbers</h2>
+<h3>Example 1: Sizing a Main Supply Duct</h3>
+<p><strong>Inputs:</strong> Airflow (Q) = 800 m³/h, Pressure Loss (dP) = 1.0 Pa/m</p>
+<p><strong>Step 1:</strong> Convert airflow to m³/s: 800 / 3600 = 0.2222 m³/s.</p>
+<p><strong>Step 2:</strong> Calculate velocity: v = √( (4 * 1.0) / 1.2 ) = √(3.333) = 1.83 m/s.</p>
+<p><strong>Step 3:</strong> Calculate required area: A = 0.2222 / 1.83 = 0.1214 m².</p>
+<p><strong>Step 4:</strong> Calculate theoretical diameter: D = √(4 * 0.1214 / π) = √(0.1545) = 0.393 m = 393 mm.</p>
+<p><strong>Step 5:</strong> Round up to the nearest standard size: 393 mm rounds up to 400 mm? The calculator only uses nominal sizes up to 315 mm. Since 393 mm exceeds 315 mm, the calculator will output 315 mm (the largest size it handles). For this example, the correct nominal diameter within the tool's range is 315 mm. The velocity output will be 1.83 m/s, and the area 0.1214 m². If a larger duct is required, you would need to use multiple parallel ducts or a rectangular duct.</p>
+<p><strong>Result for this calculator:</strong> Velocity = 1.83 m/s, Diameter = 315 mm, Area = 0.1214 m².</p>
+
+<h3>Example 2: Sizing a Branch Duct</h3>
+<p><strong>Inputs:</strong> Airflow (Q) = 200 m³/h, Pressure Loss (dP) = 1.5 Pa/m (default)</p>
+<p><strong>Step 1:</strong> Convert airflow: 200 / 3600 = 0.0556 m³/s.</p>
+<p><strong>Step 2:</strong> Calculate velocity: v = √( (4 * 1.5) / 1.2 ) = √(5.0) = 2.24 m/s.</p>
+<p><strong>Step 3:</strong> Calculate required area: A = 0.0556 / 2.24 = 0.0248 m².</p>
+<p><strong>Step 4:</strong> Calculate theoretical diameter: D = √(4 * 0.0248 / π) = √(0.0316) = 0.178 m = 178 mm.</p>
+<p><strong>Step 5:</strong> Round up: 178 mm rounds up to 200 mm (the next size above 160 mm).</p>
+<p><strong>Result:</strong> Velocity = 2.24 m/s, Diameter = 200 mm, Area = 0.0248 m².</p>
+
+<h2>Common Mistakes When Using a Duct Sizing Calculator</h2>
+<p>Avoiding these errors will help you get accurate results and a better working system.</p>
+<ul>
+<li><strong>Ignoring the pressure loss per meter:</strong> Entering a value that is too low (e.g., 0.1 Pa/m) will result in an excessively large duct diameter, while a value that is too high (e.g., 5 Pa/m) will give a very small duct with high velocity and noise. Always use realistic friction loss targets based on system type. For standard ductwork, 0.8 to 2.0 Pa/m is common.</li>
+<li><strong>Forgetting to convert units:</strong> The calculator expects airflow in cubic meters per hour. If you have data in cubic feet per minute (CFM), multiply CFM by 1.699 to get m³/h. Likewise, pressure loss is in Pa/m; if you have inches of water gauge per 100 feet, convert carefully (1 in. w.g./100 ft ≈ 8.35 Pa/m).</li>
+<li><strong>Assuming the output diameter is exact:</strong> The calculator returns a nominal diameter, not a precise calculated diameter. This is intentional and correct. Do not try to order a custom 178 mm duct; use the 200 mm size the calculator suggests. Undersizing by even a few millimeters can increase system pressure drop and reduce airflow.</li>
+<li><strong>Applying circular duct results to rectangular ducts without conversion:</strong> This calculator is designed for round spiral or rigid ducts. If you need a rectangular or flat-oval duct, you cannot directly use the diameter value. You must use the calculated area (A_m2) and select a rectangular size with an equivalent cross-sectional area and acceptable aspect ratio (typically no higher than 4:1).</li>
 </ul>
 
-<h2>Interpreting and applying your results</h2>
-<p>Your result shows the theoretical quantity required. Before ordering, apply the appropriate waste factor for your material: 5–10&nbsp;% for concrete and mortar, 10–15&nbsp;% for ceramic tile, natural stone, and brick (to account for cuts, breakage, and pattern matching), and 3–5&nbsp;% for steel and timber. Always round up to the next full unit — bag, tonne, or pallet — to avoid halting work for a second delivery.</p>
-
-<h2>Construction standards and best practices</h2>
-<p>Construction projects live and die by accurate material estimates. Ordering too little halts the job and triggers costly emergency deliveries; ordering too much wastes money and clutters the site. Professional estimators typically add a 5–10&nbsp;% waste factor on top of the theoretical quantity to account for cuts, off-cuts, breakage, and minor measurement errors — a discipline built from hard-won job-site experience.</p><p>Modern construction calculations follow standards set by bodies like ISO, ASTM, or EN (European Norm), which define material properties, tolerances, and design allowances. Knowing the standard behind a formula helps you adapt it when conditions differ from the textbook — for example, when working with reclaimed materials, non-standard dimensions, or sites at altitude where concrete curing behaves differently.</p>
-
-<h2>Common mistakes to avoid</h2>
-<ul>
-<li>Forgetting to add a waste allowance (typically 5-10%) when ordering materials — rounding up saves a second delivery.</li><li>Mixing up metric and imperial units on the same project. Stick to one system throughout your calculation.</li><li>Measuring outline dimensions instead of interior surface area — the difference matters for flooring and tiling.</li><li>Not accounting for irregular shapes. Break complex areas into simpler rectangles and triangles before calculating.</li>
-</ul>
-
-<h2>Pro tip for contractors and builders</h2>
-<p>Order 5-10% more material than your calculation suggests to account for cuts, breakage, and measurement errors. It's cheaper to have a little left over than to halt work for a second delivery.</p>
-
-<h2>Frequently asked questions</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">How much extra material should I order?</button><div class="faq-a"><p>Most professionals recommend ordering 5-10% more than calculated to cover cuts, waste, and measurement errors. For natural stone or ceramic tile, the waste factor can be 10-15% due to breakage and pattern matching.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Can I use this calculator for both metric and imperial units?</button><div class="faq-a"><p>Yes. Select your preferred unit system in the input fields and the calculator converts automatically. All internal calculations are performed consistently to avoid mixed-unit errors.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Is this calculator accurate?</button><div class="faq-a"><p>Yes. The calculator uses the standard formula: HVAC Duct Sizing Calculator = f(Airflow (m³/h), Pressure drop (Pa/m)). Results are mathematically exact; final accuracy depends on the precision of the data you enter.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Can I use this calculator on my phone?</button><div class="faq-a"><p>Yes, the calculator is fully responsive and works on any device: computer, tablet, and mobile. No installation or registration required.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">How do I save or share my calculation?</button><div class="faq-a"><p>Use the <strong>Share</strong> button to generate a URL that encodes all your inputs — anyone who opens the link will see the same values and result. The <strong>Copy</strong> button copies the formatted result text to your clipboard for pasting into a spreadsheet, email, or document.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">What if my result seems wrong?</button><div class="faq-a"><p>First recheck your inputs: confirm the values are in the correct units and within a realistic range. Common causes include unit mismatch (mixing metric and imperial), transposed digits, or selecting the wrong calculator for the problem. If inputs look correct and the result still seems off, verify that the formula <em>HVAC Duct Sizing Calculator = f(Airflow (m³/h), Pressure drop (Pa/m))</em> applies to exactly the situation you are in — some calculators with similar names solve slightly different variants of the same problem.</p></div></div>
-</div>
-</section>
+<h2>Frequently Asked Questions</h2>
+<h3>Why does the calculator round up to the nearest standard size?</h3>
+<p>Rounding up is standard practice in HVAC design because standard duct sizes (100, 125, 160, 200, 250, 315 mm) are readily available from manufacturers. Using a slightly larger duct than theoretically required reduces system friction, which can compensate for minor installation imperfections and provides a small margin of safety. It also simplifies ordering and construction.</p>
+<h3>What if my required diameter is larger than 315 mm?</h3>
+<p>If the theoretical diameter exceeds 315 mm, the calculator will output 315 mm as the largest available size. For larger airflows, you have two options: either design the system using multiple parallel round ducts of 315 mm or smaller, or switch to a rectangular or oval duct that provides the necessary cross-sectional area. The area output (A_m2) can be used to size the rectangular duct.</p>
+<h3>Can I use this calculator for exhaust or return air ducts?</h3>
+<p>Yes, the same principles apply to exhaust and return air ducts. However, be aware that return air ducts often operate at slightly lower velocities to reduce noise, and exhaust ducts carrying moist or greasy air may require higher velocities to prevent condensation or grease buildup. Adjust the desired pressure loss per meter accordingly. For general ventilation, 1.5 Pa/m is a good starting point for supply and 1.0 Pa/m for return.</p>

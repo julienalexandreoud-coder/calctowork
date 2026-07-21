@@ -1,44 +1,185 @@
-<section class="long-content">
-<p>Utilisez le <strong>Joist and Slab Calculator</strong> pour calculer surface plancher, poutrelles, hourdis rapidement et avec précision.</p>
-<h2>Comment fonctionne le calcul</h2>
-<p>Que vous planifiiez des travaux de rénovation, estimiez des matériaux pour un chantier ou calculiez des dimensions pour un projet DIY, disposer des bons chiffres dès le départ fait gagner du temps et de l'argent.</p>
-<p>La formule derrière ce calcul est <strong>Calculateur Plancher Hourdis = f(Longueur plancher, Largeur plancher, Entraxe poutrelles, Hauteur plancher)</strong>. Comprendre comment le résultat est obtenu vous aide à vérifier la sortie et à détecter les erreurs d'entrée.</p>
+<p>Le <strong>Calculateur Plancher Hourdis</strong> est un outil en ligne conçu pour les professionnels et les particuliers qui souhaitent estimer rapidement les quantités de matériaux nécessaires à la réalisation d'un plancher à hourdis. En quelques clics, il calcule le nombre de poutrelles, le nombre d'entrevous (hourdis) et le volume de béton pour la dalle de compression, en se basant sur les dimensions de votre pièce et l'entraxe choisi.</p>
 
-<h2>Guide pas à pas pour votre projet</h2>
-<p>Suivez ces étapes pour obtenir un résultat fiable :</p>
+<h2>Qu'est-ce que le Calculateur Plancher Hourdis et quand l'utiliser ?</h2>
+
+<p>Le <strong>Calculateur Plancher Hourdis</strong> permet de dimensionner un plancher collaborant composé de poutrelles précontraintes ou en béton armé, d'entrevous en polystyrène, en terre cuite ou en béton, et d'une dalle de compression coulée sur place. Son utilisation est particulièrement recommandée lors de la phase de préparation d'un chantier de construction ou de rénovation, notamment pour :</p>
+<ul>
+<li>Établir une première estimation des besoins en matériaux avant un devis fournisseur.</li>
+<li>Vérifier la cohérence des quantités fournies par un bureau d'études.</li>
+<li>Comparer rapidement différents scénarios en modifiant l'entraxe ou l'épaisseur de la dalle.</li>
+<li>Optimiser le coût et les déchets en commandant juste le nécessaire.</li>
+</ul>
+<p>L'outil convient aux planchers d'étage, de toiture-terrasse ou de comble, pour des surfaces rectangulaires ou carrées. Il suppose que la longueur des poutrelles correspond à la dimension <em>L</em> (portée) et que la largeur <em>W</em> est perpendiculaire aux poutrelles.</p>
+
+<h2>La formule détaillée du calculateur</h2>
+
+<p>Le calcul repose sur quatre variables principales saisies par l'utilisateur :</p>
+<ul>
+<li><strong>L (largo)</strong> : longueur de la pièce (portée des poutrelles), en mètres.</li>
+<li><strong>W (ancho)</strong> : largeur de la pièce (direction perpendiculaire aux poutrelles), en mètres.</li>
+<li><strong>ie (intereje)</strong> : entraxe entre les poutrelles, en mètres. Par défaut 0,70 m.</li>
+<li><strong>cf (canto_forjado)</strong> : épaisseur totale du plancher (hauteur de la poutrelle + dalle de compression), en mètres. Par défaut 0,25 m.</li>
+</ul>
+<p>Voici les étapes du calcul :</p>
 <ol>
-<li><strong>Saisissez vos valeurs:</strong> 8 m; 6 m; 0.7 m; 0.25 m — ensure all values use a single consistent unit system.</li>
-<li><strong>La calculatrice applique la formule:</strong> <em>Calculateur Plancher Hourdis = f(Longueur plancher, Largeur plancher, Entraxe poutrelles, Hauteur plancher)</em>.</li>
-<li><strong>Lisez votre résultat:</strong> Surface plancher, Poutrelles, Hourdis.</li>
-<li>Vérifiez : confirmez que les unités sont cohérentes et les valeurs réalistes avant d'agir sur le résultat.</li>
+<li><strong>Surface de la pièce</strong> : <em>area = L × W</em>. Résultat en m².</li>
+<li><strong>Nombre de poutrelles (viguetas)</strong> : on divise la largeur par l'entraxe, on arrondit à l'entier supérieur, et on ajoute 1 (poutrelles de rive). Soit <em>viguetas = ceil(W / ie) + 1</em>.</li>
+<li><strong>Volume de la dalle de compression (vol_comp)</strong> : on considère une épaisseur de 4 cm (0,04 m) pour la couche de béton coulé au-dessus des entrevous. Donc <em>vol_comp = area × 0,04</em>. Résultat en m³, arrondi à 3 décimales.</li>
+<li><strong>Nombre d'entrevous (bovedillas)</strong> : chaque entrevous occupe une surface équivalente à <em>ie × 0,25 m</em> (longueur standard d'un hourdis). On calcule <em>bovedillas = ceil(area / (ie × 0,25))</em>. Ce nombre est une approximation pour une pose standard.</li>
+<li><strong>Nombre de sacs de ciment (sacos)</strong> : pour un dosage courant de 350 kg/m³, il faut environ 7 sacs de 25 kg par m³ de béton. Donc <em>sacos = ceil(vol_comp × 7)</em>.</li>
 </ol>
+<p>Ces résultats sont donnés à titre indicatif et doivent être ajustés en fonction des fournisseurs et des règles professionnelles (DTU 23.4).</p>
 
-<h2>Usages pratiques sur le chantier</h2>
-<p>Cette calculatrice est particulièrement utile dans les situations suivantes :</p>
+<h2>Deux exemples concrets</h2>
+
+<h3>Exemple 1 : chambre de 5 m × 4 m</h3>
+<p>Supposons une pièce de 5 mètres de long (L) sur 4 mètres de large (W). On choisit un entraxe classique de 0,60 m et une épaisseur totale de 0,25 m.</p>
+<table>
+<tr>
+<th>Variable</th>
+<th>Valeur</th>
+<th>Calcul</th>
+<th>Résultat</th>
+</tr>
+<tr>
+<td>L (largo)</td>
+<td>5 m</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>W (ancho)</td>
+<td>4 m</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>ie</td>
+<td>0,60 m</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>cf</td>
+<td>0,25 m</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Surface</td>
+<td>—</td>
+<td>5 × 4</td>
+<td>20,00 m²</td>
+</tr>
+<tr>
+<td>Poutrelles</td>
+<td>—</td>
+<td>ceil(4 / 0,60) + 1 = ceil(6,67) + 1 = 7 + 1</td>
+<td><strong>8 poutrelles</strong></td>
+</tr>
+<tr>
+<td>Volume dalle</td>
+<td>—</td>
+<td>20 × 0,04</td>
+<td><strong>0,800 m³</strong></td>
+</tr>
+<tr>
+<td>Entrevous</td>
+<td>—</td>
+<td>ceil(20 / (0,60 × 0,25)) = ceil(20 / 0,15) = ceil(133,33)</td>
+<td><strong>134 entrevous</strong></td>
+</tr>
+<tr>
+<td>Sacs ciment</td>
+<td>—</td>
+<td>ceil(0,800 × 7) = ceil(5,6)</td>
+<td><strong>6 sacs</strong></td>
+</tr>
+</table>
+<p>Pour cette chambre, il faudra commander environ 8 poutrelles de 5 mètres, 134 entrevous et 6 sacs de ciment pour la dalle de compression.</p>
+
+<h3>Exemple 2 : garage de 6 m × 3,5 m</h3>
+<p>Un garage rectangulaire de 6 mètres de long sur 3,5 mètres de large. On utilise un entraxe de 0,70 m (valeur par défaut) et une épaisseur de 0,25 m.</p>
+<table>
+<tr>
+<th>Variable</th>
+<th>Valeur</th>
+<th>Calcul</th>
+<th>Résultat</th>
+</tr>
+<tr>
+<td>L</td>
+<td>6 m</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>W</td>
+<td>3,5 m</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>ie</td>
+<td>0,70 m</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>cf</td>
+<td>0,25 m</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Surface</td>
+<td>—</td>
+<td>6 × 3,5</td>
+<td>21,00 m²</td>
+</tr>
+<tr>
+<td>Poutrelles</td>
+<td>—</td>
+<td>ceil(3,5 / 0,70) + 1 = ceil(5) + 1 = 5 + 1</td>
+<td><strong>6 poutrelles</strong></td>
+</tr>
+<tr>
+<td>Volume dalle</td>
+<td>—</td>
+<td>21 × 0,04</td>
+<td><strong>0,840 m³</strong></td>
+</tr>
+<tr>
+<td>Entrevous</td>
+<td>—</td>
+<td>ceil(21 / (0,70 × 0,25)) = ceil(21 / 0,175) = ceil(120)</td>
+<td><strong>120 entrevous</strong></td>
+</tr>
+<tr>
+<td>Sacs ciment</td>
+<td>—</td>
+<td>ceil(0,840 × 7) = ceil(5,88)</td>
+<td><strong>6 sacs</strong></td>
+</tr>
+</table>
+<p>Pour ce garage, le calcul indique 6 poutrelles de 6 mètres, 120 entrevous et 6 sacs de ciment.</p>
+
+<h2>Erreurs fréquentes à éviter</h2>
+<p>L'utilisation du <strong>Calculateur Plancher Hourdis</strong> est simple, mais certaines erreurs peuvent fausser les résultats :</p>
 <ul>
-<li>calculs de fondations résidentielles</li><li>commandes de béton pour projets de construction</li><li>estimation de matériaux structurels</li><li>planification de rénovations</li>
+<li><strong>Confondre la longueur et la largeur</strong> : la longueur (L) correspond à la portée des poutrelles (direction des poutres). Si vous inversez, le nombre de poutrelles sera incorrect.</li>
+<li><strong>Oublier d'ajouter les poutrelles de rive</strong> : le calcul inclut automatiquement une poutrelle supplémentaire (une en début et une en fin de rangée). Ne pas en tenir compte manuellement entraînerait un sous-dimensionnement.</li>
+<li><strong>Utiliser un entraxe trop grand ou trop petit</strong> : l'entraxe standard est généralement compris entre 0,50 m et 0,70 m. Au-delà, la dalle de compression doit être plus épaisse (vérifiez le DTU). En deçà, le coût des poutrelles augmente inutilement.</li>
+<li><strong>Confondre le volume de la dalle de compression avec le volume total du plancher</strong> : le calculateur ne prend en compte que les 4 cm de béton coulé au-dessus des hourdis. Le béton des poutrelles et des entrevous n'est pas inclus.</li>
 </ul>
 
-<h2>Interpréter et appliquer vos résultats</h2>
-<p>Votre résultat indique la quantité théorique requise. Ajoutez le facteur de perte approprié avant de commander : 5–10&nbsp;% pour le béton et le mortier, 10–15&nbsp;% pour les carreaux, la pierre naturelle et la brique, et 3–5&nbsp;% pour l'acier et le bois. Arrondissez toujours à l'unité supérieure — sac, tonne ou palette.</p>
+<h2>Foire aux questions (FAQ)</h2>
 
-<h2>Normes de construction et bonnes pratiques</h2>
-<p>Les projets de construction dépendent d'estimations précises des matériaux. Les professionnels ajoutent généralement 5–10&nbsp;% de marge de perte aux quantités théoriques pour les coupes, la casse et les erreurs de mesure. Les normes ISO et EN définissent les propriétés des matériaux et les tolérances utilisées dans ces formules.</p>
+<h3>Le calculateur prend-il en compte les chutes et les découpes ?</h3>
+<p>Non, les résultats sont donnés en quantités brutes. Pour un chantier réel, il est conseillé d'ajouter une marge de 5 à 10 % pour les entrevous (casse, découpe) et de prévoir un sac de ciment supplémentaire pour les finitions. Les poutrelles sont généralement fabriquées sur mesure, donc aucune marge n'est nécessaire.</p>
 
-<h2>Erreurs courantes à éviter</h2>
-<ul>
-<li>Oublier d'ajouter une marge de perte (5-10%) lors de la commande de matériaux.</li><li>Mélanger unités métriques et impériales dans un même projet.</li>
-</ul>
+<h3>Puis-je utiliser ce calculateur pour un plancher avec des hourdis en polystyrène ?</h3>
+<p>Oui, le calcul est indépendant du matériau des entrevous. Que vous utilisiez des hourdis en polystyrène, en terre cuite ou en béton, le nombre d'unités est le même, car il est basé sur la surface et l'entraxe. Seul le poids et le prix unitaire changeront.</p>
 
-<h2>Conseil pro pour les entrepreneurs</h2>
-<p>Commandez 5-10% de matériel en plus que le calcul ne l'indique pour couper les pertes et les erreurs de mesure.</p>
-
-<h2>Questions fréquentes</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Combien de matériel supplémentaire dois-je commander?</button><div class="faq-a"><p>La plupart des professionnels recommandent de commander 5-10% de plus que le calcul pour couper les pertes et les erreurs de mesure.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cette calculatrice est-elle précise?</button><div class="faq-a"><p>Oui. La calculatrice utilise la formule standard : Calculateur Plancher Hourdis = f(Longueur plancher, Largeur plancher, Entraxe poutrelles, Hauteur plancher). Les résultats sont mathématiquement exacts.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Puis-je utiliser cette calculatrice sur mobile?</button><div class="faq-a"><p>Oui, la calculatrice est entièrement responsive et fonctionne sur tout appareil. Aucune installation requise.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Comment sauvegarder ou partager mon calcul ?</button><div class="faq-a"><p>Utilisez le bouton <strong>Partager</strong> pour générer une URL qui encode toutes vos entrées. Le bouton <strong>Copier</strong> copie le résultat dans le presse-papiers.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Que faire si mon résultat semble incorrect ?</button><div class="faq-a"><p>Vérifiez d'abord vos entrées : valeurs dans les bonnes unités et plage réaliste. Vérifiez aussi que la formule <em>Calculateur Plancher Hourdis = f(Longueur plancher, Largeur plancher, Entraxe poutrelles, Hauteur plancher)</em> s'applique exactement à votre situation.</p></div></div>
-</div>
-</section>
+<h3>Que faire si mon plancher n'est pas rectangulaire ?</h3>
+<p>Ce calculateur est conçu pour des pièces rectangulaires ou carrées. Pour une forme complexe (en L, avec des décrochements), il est préférable de diviser la surface en rectangles, de calculer chaque partie séparément, puis d'additionner les résultats. Pour les parties non rectangulaires, consultez un professionnel.</p>

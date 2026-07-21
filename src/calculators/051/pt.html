@@ -1,44 +1,77 @@
-<section class="long-content">
-<p>Use a <strong>Earthing Calculator</strong> para calcular resistência por haste (ω), hastes necessárias, condutor (mm²) de forma rápida e precisa.</p>
-<h2>Como funciona o calculo</h2>
-<p>Seja para planejar uma reforma, estimar materiais para uma obra ou calcular dimensoes para um projeto DIY, ter os numeros certos desde o inicio economiza tempo e dinheiro.</p>
-<p>A formula por tras deste calculo e <strong>Calculadora de Aterramento Elétrico = f(Resistividade do solo (Ω·m), Resistência máxima (Ω), Tipo de haste)</strong>. Compreender como o resultado e obtido ajuda a verificar a saida e detectar erros de entrada.</p>
+<p>A <strong>Calculadora de Aterramento Elétrico</strong> é uma ferramenta essencial para engenheiros eletrotécnicos, instaladores e estudantes que precisam dimensionar sistemas de proteção contra descargas atmosféricas e falhas elétricas. Com base na resistividade do solo, esta calculadora determina rapidamente o número de hastes necessárias e a bitola do condutor de terra, seguindo as normas portuguesas (NP 4426 e RTIEBT). Seja para projetar uma instalação industrial ou verificar um quadro doméstico, esta ferramenta evita cálculos manuais propensos a erros e garante a segurança dos equipamentos e pessoas.</p>
 
-<h2>Guia passo a passo para seu projeto</h2>
-<p>Siga estes passos para obter um resultado confiável:</p>
+<h2>O que a Calculadora de Aterramento Elétrico faz e quando utilizá-la</h2>
+
+<p>A calculadora resolve o problema prático de quantas hastes de aterramento (picas) são necessárias para obter uma resistência de terra dentro dos limites exigidos pela regulamentação. Ela também sugere a secção mínima do condutor de cobre ou aço cobreado a ser enterrado. Deve ser utilizada sempre que se inicia um projeto de instalação elétrica nova, após medições de resistividade do solo no local, ou quando se suspeita que o aterramento existente está com resistência acima do máximo permitido (tipicamente 10 Ω para instalações residenciais e 5 Ω para postos de transformação, conforme a RTIEBT). A ferramenta é especialmente útil em solos arenosos, pedregosos ou com alta resistividade, onde o número de hastes pode ser elevado e o cálculo manual se torna complexo.</p>
+
+<h2>Fórmula explicada: variável por variável</h2>
+
+<p>O motor da calculadora baseia-se na seguinte expressão para estimar a resistência de uma única haste vertical (pica) de 2 metros:</p>
+
+<p><em>R<sub>pica</sub> = [ρ / (2πL)] × ln(4L / d)</em></p>
+
+<p>Onde:</p>
+<ul>
+    <li><strong>ρ (Resistividade do solo)</strong> – valor inserido no campo "resistividad_ohm_m". Unidade: Ohm·metro (Ω·m). Solos comuns variam entre 10 Ω·m (argila húmida) e 1000 Ω·m (granito seco). Quanto maior ρ, maior a resistência da haste.</li>
+    <li><strong>L (Comprimento da pica)</strong> – fixo em 2 metros, pois é o padrão comercial de hastes de aterramento em Portugal. A calculadora usa este valor constantemente.</li>
+    <li><strong>d (Diâmetro da haste)</strong> – assumido como 0,016 metros (16 mm), que é o diâmetro típico de uma pica de aço cobreado de 2 metros.</li>
+    <li><strong>ln(4L/d)</strong> – logaritmo natural que reflete a geometria cilíndrica da haste enterrada verticalmente. Para L=2 m e d=0,016 m, este termo vale aproximadamente ln(500) ≈ 6,21.</li>
+    <li><strong>R<sub>máx</sub> (Resistência máxima desejada)</strong> – valor inserido em "resistencia_max_ohm". Normalmente 10 Ω, mas pode ser menor (5 Ω) para sistemas críticos como data centers ou postos de carregamento de veículos elétricos.</li>
+    <li><strong>R<sub>pica</sub></strong> – resistência calculada de uma única haste. Se este valor for maior que R<sub>máx</sub>, são necessárias mais hastes em paralelo.</li>
+    <li><strong>Número de hastes (picas_nec)</strong> – arredondado sempre para cima (ceil) para garantir que a resistência total não ultrapasse o limite. Calculado como R<sub>pica</sub> / R<sub>máx</sub>.</li>
+    <li><strong>Condutor de terra (conductor_mm2)</strong> – se o tipo de pica selecionado for "cobre", a secção mínima do condutor de ligação é 16 mm²; para aço cobreado (ou outros), o valor sobe para 25 mm², conforme exigência da RTIEBT para condutores enterrados.</li>
+</ul>
+
+<h2>Exemplos práticos com números concretos</h2>
+
+<h3>Exemplo 1: Solo argiloso na região de Lisboa</h3>
+<ul>
+    <li><strong>Resistividade do solo (ρ):</strong> 50 Ω·m (solo argiloso húmido, comum no Vale do Tejo).</li>
+    <li><strong>Resistência máxima desejada (R<sub>máx</sub>):</strong> 10 Ω (padrão residencial).</li>
+    <li><strong>Tipo de pica:</strong> Cobre.</li>
+</ul>
+
 <ol>
-<li><strong>Insira seus dados:</strong> 100 Ω·m; 10 Ω; cobre — ensure all values use a single consistent unit system.</li>
-<li><strong>A calculadora aplica a fórmula:</strong> <em>Calculadora de Aterramento Elétrico = f(Resistividade do solo (Ω·m), Resistência máxima (Ω), Tipo de haste)</em>.</li>
-<li><strong>Leia seu resultado:</strong> Resistência por haste (Ω), Hastes necessárias, Condutor (mm²).</li>
-<li>Verifique: confirme que as unidades são consistentes e os valores realistas antes de agir com base no resultado.</li>
+    <li>Cálculo de R<sub>pica</sub>:</li>
+    <li>R<sub>pica</sub> = [50 / (2π × 2)] × ln(4×2 / 0,016) = [50 / 12,566] × ln(500) ≈ 3,978 × 6,215 = 24,7 Ω.</li>
+    <li>Número de hastes necessárias: 24,7 Ω / 10 Ω = 2,47 → arredondado para cima: <strong>3 hastes</strong>.</li>
+    <li>Condutor de terra: como é cobre, secção mínima = <strong>16 mm²</strong>.</li>
 </ol>
 
-<h2>Usos praticos na obra</h2>
-<p>Esta calculadora é especialmente útil nas seguintes situações:</p>
+<p>Resultado: Para uma moradia em Lisboa, com solo argiloso, o engenheiro deve instalar 3 hastes de 2 metros cada, ligadas com cabo de cobre de 16 mm², para obter uma resistência de aterramento inferior a 10 Ω.</p>
+
+<h3>Exemplo 2: Solo arenoso no Algarve</h3>
 <ul>
-<li>problemas matemáticos do dia a dia</li><li>orçamento e planejamento</li><li>culinária e medições domésticas</li><li>cálculos de viagem e tempo</li>
+    <li><strong>Resistividade do solo (ρ):</strong> 400 Ω·m (areia seca, comum em zonas costeiras algarvias).</li>
+    <li><strong>Resistência máxima desejada (R<sub>máx</sub>):</strong> 5 Ω (posto de transformação ou instalação industrial).</li>
+    <li><strong>Tipo de pica:</strong> Aço cobreado (não cobre).</li>
 </ul>
 
-<h2>Como aplicar os resultados</h2>
-<p>Seu resultado mostra a quantidade teórica necessária. Antes de pedir, aplique o fator de perda adequado: 5–10&nbsp;% para concreto e argamassa, 10–15&nbsp;% para cerâmica, pedra natural e tijolo, e 3–5&nbsp;% para aço e madeira. Sempre arredonde para cima à próxima unidade inteira — saco, tonelada ou palete.</p>
+<ol>
+    <li>Cálculo de R<sub>pica</sub>:</li>
+    <li>R<sub>pica</sub> = [400 / (12,566)] × 6,215 ≈ 31,83 × 6,215 = <strong>197,8 Ω</strong>.</li>
+    <li>Número de hastes: 197,8 Ω / 5 Ω = 39,56 → arredondado: <strong>40 hastes</strong>.</li>
+    <li>Condutor de terra: por não ser cobre, secção mínima = <strong>25 mm²</strong>.</li>
+</ol>
 
-<h2>Normas de construção e boas práticas</h2>
-<p>Projetos de construção dependem de estimativas precisas de materiais para cumprir orçamento e cronograma. Profissionais geralmente adicionam 5–10&nbsp;% de margem de perda sobre a quantidade teórica para cobrir cortes, quebras e erros de medição. As normas ISO e ABNT definem as propriedades dos materiais utilizadas nestas fórmulas.</p>
+<p>Resultado: Em solo arenoso no Algarve, com resistividade alta, serão necessárias 40 hastes de 2 metros ligadas com condutor de 25 mm². Na prática, o projetista poderia optar por hastes mais longas (3 m ou 4 m) para reduzir o número de hastes, mas a calculadora fixa L=2 m. Este valor deve ser visto como uma estimativa inicial; para solos muito áridos, é obrigatório fazer medições locais com o método de Wenner ou o telurómetro.</p>
 
-<h2>Erros comuns a evitar</h2>
+<h2>Erros comuns ao usar a calculadora</h2>
+
 <ul>
-<li>Esquecer de adicionar margem de desperdicio (5-10%) ao pedir materiais.</li><li>Misturar unidades metricas e imperiais no mesmo projeto.</li>
+    <li><strong>Confundir resistividade do solo com resistência de terra</strong>: Resistividade (Ω·m) é uma propriedade do terreno; resistência (Ω) é o resultado final. Inserir erroneamente o valor da resistência desejada no campo de resistividade distorce completamente o cálculo.</li>
+    <li><strong>Ignorar a influência da humidade e da temperatura</strong>: A calculadora assume um valor único de resistividade, mas o solo varia com a profundidade e a estação do ano. No verão, um solo seco pode ter resistividade 3× maior que no inverno. Use sempre um valor medido ou a pior condição esperada (maior resistividade).</li>
+    <li><strong>Arredondar o número de hastes para baixo</strong>: O número de hastes é sempre arredondado para cima (ceil na fórmula). Arredondar para baixo pode resultar numa resistência superior ao limite legal, colocando a instalação em risco de falha ou choque elétrico.</li>
+    <li><strong>Escolher o tipo de pica errado</strong>: A calculadora distingue entre cobre e aço cobreado. Se selecionar "cobre", o condutor sugerido é 16 mm²; para aço cobreado, 25 mm². Usar condutor de bitola inferior ao recomendado pode levar a sobreaquecimento e corrosão prematura.</li>
 </ul>
 
-<h2>Dica profissional para contratados</h2>
-<p>Peça 5-10% mais material do que o calculo indica para cobrir cortes, quebras e erros de medicao.</p>
+<h2>Perguntas Frequentes (FAQ)</h2>
 
-<h2>Perguntas frequentes</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Quanto material extra devo pedir?</button><div class="faq-a"><p>A maioria dos profissionais recomenda pedir 5-10% mais do que o calculado para cobrir cortes e desperdicio.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Esta calculadora e precisa?</button><div class="faq-a"><p>Sim. A calculadora usa a formula padrao: Calculadora de Aterramento Elétrico = f(Resistividade do solo (Ω·m), Resistência máxima (Ω), Tipo de haste). Os resultados sao matematicamente exatos.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Posso usar esta calculadora no celular?</button><div class="faq-a"><p>Sim, a calculadora e totalmente responsiva e funciona em qualquer dispositivo.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Como salvo ou compartilho meu cálculo?</button><div class="faq-a"><p>Use o botão <strong>Compartilhar</strong> para gerar uma URL com todos os seus dados. O botão <strong>Copiar</strong> copia o resultado para a área de transferência.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">O que fazer se o resultado parecer errado?</button><div class="faq-a"><p>Verifique suas entradas: valores nas unidades corretas e faixa realista. Confirme também que a fórmula <em>Calculadora de Aterramento Elétrico = f(Resistividade do solo (Ω·m), Resistência máxima (Ω), Tipo de haste)</em> se aplica exatamente à sua situação.</p></div></div>
-</div>
-</section>
+<h3>Posso usar a calculadora para dimensionar hastes de 3 metros?</h3>
+<p>A fórmula da calculadora está calibrada para hastes de 2 metros de comprimento, pois este é o padrão mais comum em Portugal (picas de 2 m × 16 mm). Se precisar de hastes maiores, o resultado do número de hastes será uma estimativa conservadora (ou seja, para uma haste de 3 m, a resistência individual será menor, e o número real de hastes será inferior ao calculado). Nesse caso, use o valor da calculadora como um limite superior e ajuste com cálculos manuais ou com uma ferramenta mais específica.</p>
+
+<h3>O que significa o resultado "conductor_mm2"? Devo usar este valor exato?</h3>
+<p>O condutor de terra (condutor de proteção enterrado) deve ter secção mínima de 16 mm² se for de cobre, ou 25 mm² se for de aço cobreado ou outro metal não cobre, conforme o RTIEBT. Estes são valores mínimos; pode usar secções maiores (ex: 35 mm²) se a distância ao quadro for muito longa ou a corrente de defeito esperada for elevada. O valor sugerido pela calculadora garante a conformidade com as normas portuguesas.</p>
+
+<h3>E se o meu solo tiver resistividade abaixo de 10 Ω·m?</h3>
+<p>Embora seja raro em Portugal (ocorre principalmente em solos pantanosos ou muito salinos), a calculadora funciona normalmente. Com ρ = 10 Ω·m e R<sub>máx</sub> = 10 Ω, o resultado será R<sub>pica</sub> = [10/12,566]×6,215 ≈ 4,95 Ω, e será necessário apenas 1 haste. Para valores de ρ inferiores a 10 Ω·m, o número de hastes será também 1, mas recomenda-se sempre confirmar in loco com um telurómetro, pois a resistência pode ser ainda menor que o esperado.</p>

@@ -1,46 +1,74 @@
-<section class="long-content">
-<p>Use the <strong>Electrical Panel Calculator</strong> to calculate maximum current, recommended main breaker (a), estimated circuits quickly and accurately.</p>
-<h2>How the calculation works</h2>
-<p>Accurate material estimation is the backbone of any successful build. A small error in your calculations can mean the difference between finishing on budget and paying for a second delivery. This tool removes the guesswork so you can plan with certainty.</p>
-<p>Construction calculations often seem straightforward until you factor in waste allowances, unit conversions, and regional material standards. This calculator handles those details automatically, letting you focus on the build instead of the math.</p>
-<p>The formula behind this calculation is <strong>Electrical Panel Calculator = f(Contracted power (kW), Voltage, Diversity factor)</strong>. Understanding how the result is derived helps you verify the output and spot input errors before they cascade into bad decisions.</p>
+<p>Planning an electrical installation requires careful calculation to ensure safety and efficiency, and the <strong>Electrical Panel Calculator</strong> is a free online tool that simplifies this critical task. This calculator quickly determines the maximum current, the recommended circuit breaker size (ICP), and the number of estimated circuits for your electrical panel, using just three key inputs.</p>
 
-<h2>Step-by-step guide for your project</h2>
-<p>Follow these steps to get a reliable result:</p>
+<h2>What the Electrical Panel Calculator Does and When to Use It</h2>
+
+<p>The Electrical Panel Calculator is designed for electricians, engineers, homeowners, and anyone involved in designing or upgrading electrical systems. It takes the guesswork out of panel sizing by converting your total connected power into actionable data. You simply enter the total power in kilowatts (kW), the system voltage (typically 230V for single-phase or 400V for three-phase), and a simultaneity factor (the percentage of loads likely operating at once). The calculator then outputs three essential figures:</p>
+
+<ul>
+<li><strong>Maximum Current (Imax):</strong> The highest current the system will draw under your given load conditions, measured in amperes (A).</li>
+<li><strong>Recommended ICP (Circuit Breaker Size):</strong> The standardized rating for the main disconnect or general overcurrent protection device (available sizes: 16A, 25A, 32A, 40A, 50A, or 63A).</li>
+<li><strong>Estimated Number of Circuits:</strong> The approximate number of 16A circuits needed to distribute the current safely, helping you plan your panel layout.</li>
+</ul>
+
+<p>Use this calculator when designing a new home or office panel, upgrading an existing service, or verifying that your planned electrical loads are within safe limits. It is particularly helpful during the initial planning phase to avoid undersized panels or overloaded circuits.</p>
+
+<h2>Formula Explained Variable by Variable</h2>
+
+<p>The calculator uses a straightforward yet powerful formula based on Ohm’s Law and power calculation principles. Here is the breakdown of each variable:</p>
+
+<table>
+<tr><th>Variable</th><th>Meaning</th><th>Unit</th><th>How It Works</th></tr>
+<tr><td><strong>P</strong></td><td>Total Power (potencia_kw)</td><td>Kilowatts (kW)</td><td>The sum of all connected loads you expect to run. The calculator multiplies this by 1000 to convert to watts (W).</td></tr>
+<tr><td><strong>V</strong></td><td>System Voltage (tension_v)</td><td>Volts (V)</td><td>The line-to-neutral or line-to-line voltage. The calculator uses 230V for single-phase calculations and switches to 400V (with a factor of √3) for three-phase systems.</td></tr>
+<tr><td><strong>fs</strong></td><td>Simultaneity Factor (factor_simultaneidad)</td><td>Decimal (0 to 1)</td><td>Accounts for the fact that not all devices run at full power simultaneously. A typical residential value is 0.7, meaning 70% of loads may be active at once.</td></tr>
+<tr><td><strong>Imax</strong></td><td>Maximum Current</td><td>Amperes (A)</td><td>Calculated as: <strong>(P × 1000 × fs) / (V × factor)</strong>. The factor is 1 for single-phase (V=230) or √3 (≈1.732) for three-phase (V=400). The result is rounded to one decimal place.</td></tr>
+<tr><td><strong>ICP</strong></td><td>Recommended Circuit Breaker Size</td><td>Amperes (A)</td><td>Selects the next standard breaker rating above Imax (16, 25, 32, 40, 50, or 63A). For example, if Imax is 27A, the calculator picks 32A.</td></tr>
+<tr><td><strong>RITI</strong></td><td>Estimated Number of Circuits</td><td>Count</td><td>Calculated as <strong>ceil(Imax / 16)</strong>, rounding up to the nearest whole number. This assumes 16A as the standard circuit rating.</td></tr>
+</table>
+
+<h2>Two Worked Examples with Real Numbers</h2>
+
+<h3>Example 1: Single-Phase Home Installation (230V)</h3>
+<p><strong>Scenario:</strong> You are wiring a small apartment with a total load of 8 kW. The system voltage is 230V single-phase, and you estimate a simultaneity factor of 0.7 (because not all appliances run at once).</p>
 <ol>
-<li><strong>Enter your values:</strong> 9.2 kW; 230; 0.7 — ensure all values use a single consistent unit system.</li>
-<li><strong>The calculator applies the formula:</strong> <em>Electrical Panel Calculator = f(Contracted power (kW), Voltage, Diversity factor)</em>.</li>
-<li><strong>Read your result:</strong> Maximum current, Recommended main breaker (A), Estimated circuits.</li>
-<li>Verify: confirm units are consistent and the numbers are realistic for your context before acting on the result.</li>
+<li><strong>Inputs:</strong> P = 8 kW, V = 230 V, fs = 0.7</li>
+<li><strong>Convert power to watts:</strong> 8 kW × 1000 = 8000 W</li>
+<li><strong>Calculate maximum current:</strong> Imax = (8000 × 0.7) / (230 × 1) = 5600 / 230 ≈ 24.35 A, rounded to <strong>24.4 A</strong></li>
+<li><strong>Choose ICP:</strong> The next standard breaker above 24.4A is <strong>25 A</strong></li>
+<li><strong>Estimate circuits:</strong> RITI = ceil(24.4 / 16) = ceil(1.525) = <strong>2 circuits</strong></li>
 </ol>
+<p><strong>Result:</strong> You need a 25A main breaker and plan for at least 2 circuits (e.g., one for lighting and one for outlets).</p>
 
-<h2>Practical uses on the job site</h2>
-<p>This calculator is particularly useful in the following situations:</p>
+<h3>Example 2: Three-Phase Commercial Installation (400V)</h3>
+<p><strong>Scenario:</strong> A small workshop has equipment totaling 30 kW, running on a 400V three-phase supply. Because several machines may run simultaneously, use a simultaneity factor of 0.85.</p>
+<ol>
+<li><strong>Inputs:</strong> P = 30 kW, V = 400 V (three-phase detected), fs = 0.85</li>
+<li><strong>Convert power to watts:</strong> 30 kW × 1000 = 30000 W</li>
+<li><strong>Calculate maximum current:</strong> Imax = (30000 × 0.85) / (400 × √3) = 25500 / (400 × 1.732) = 25500 / 692.8 ≈ 36.81 A, rounded to <strong>36.8 A</strong></li>
+<li><strong>Choose ICP:</strong> The next standard breaker above 36.8A is <strong>40 A</strong></li>
+<li><strong>Estimate circuits:</strong> RITI = ceil(36.8 / 16) = ceil(2.3) = <strong>3 circuits</strong></li>
+</ol>
+<p><strong>Result:</strong> A 40A three-phase main breaker is required, and the panel should accommodate at least 3 circuits (e.g., separate circuits for heavy machinery, lighting, and general outlets).</p>
+
+<h2>Common Mistakes When Using an Electrical Panel Calculator</h2>
+
+<p>Avoid these frequent errors to get accurate and safe results from the Electrical Panel Calculator:</p>
+
 <ul>
-<li>everyday math problems</li><li>budgeting and planning</li><li>cooking and home measurements</li><li>travel and time calculations</li>
+<li><strong>Entering power in watts instead of kilowatts.</strong> The calculator expects kilowatts (kW). If you have 5000 W, enter 5 kW, not 5000. This mistake can produce currents that are 1000 times too high.</li>
+<li><strong>Using the wrong voltage for your system type.</strong> Single-phase systems typically use 230V (common in residential setups), while three-phase uses 400V. Entering 400V for a single-phase system will significantly underestimate the current, risking undersized breakers.</li>
+<li><strong>Ignoring the simultaneity factor.</strong> Setting fs to 1 (100%) assumes every load runs at full power simultaneously. This is unrealistic for most installations and leads to oversized panels and unnecessary costs. Use a realistic factor (0.6–0.8 for residential, 0.7–0.9 for commercial).</li>
+<li><strong>Forgetting to round up the ICP.</strong> The calculator automatically selects the next standard breaker size, but beginners sometimes try to use a breaker rated below the calculated Imax, which violates electrical codes and creates a fire hazard.</li>
+<li><strong>Misinterpreting the estimated circuit count.</strong> The RITI value (circuits estimated) is a minimum guideline based on 16A circuits. If your actual loads require higher-rated circuits (e.g., 20A or 32A for heavy appliances), you must adjust your panel layout accordingly.</li>
 </ul>
 
-<h2>Interpreting and applying your results</h2>
-<p>Your result shows the theoretical quantity required. Before ordering, apply the appropriate waste factor for your material: 5–10&nbsp;% for concrete and mortar, 10–15&nbsp;% for ceramic tile, natural stone, and brick (to account for cuts, breakage, and pattern matching), and 3–5&nbsp;% for steel and timber. Always round up to the next full unit — bag, tonne, or pallet — to avoid halting work for a second delivery.</p>
+<h2>Frequently Asked Questions (FAQ)</h2>
 
-<h2>Construction standards and best practices</h2>
-<p>Construction projects live and die by accurate material estimates. Ordering too little halts the job and triggers costly emergency deliveries; ordering too much wastes money and clutters the site. Professional estimators typically add a 5–10&nbsp;% waste factor on top of the theoretical quantity to account for cuts, off-cuts, breakage, and minor measurement errors — a discipline built from hard-won job-site experience.</p><p>Modern construction calculations follow standards set by bodies like ISO, ASTM, or EN (European Norm), which define material properties, tolerances, and design allowances. Knowing the standard behind a formula helps you adapt it when conditions differ from the textbook — for example, when working with reclaimed materials, non-standard dimensions, or sites at altitude where concrete curing behaves differently.</p>
+<h3>Can I use the Electrical Panel Calculator for both single-phase and three-phase systems automatically?</h3>
+<p>Yes. The calculator detects the system type based on the voltage you enter. If you input 230V, it treats the system as single-phase and uses a factor of 1. If you input 400V (or any value above 230V), it switches to three-phase mode and applies the √3 factor for line-to-line voltage calculations. Simply enter your correct voltage, and the formula adjusts automatically.</p>
 
-<h2>Common mistakes to avoid</h2>
-<ul>
-<li>Forgetting to add a waste allowance (typically 5-10%) when ordering materials — rounding up saves a second delivery.</li><li>Mixing up metric and imperial units on the same project. Stick to one system throughout your calculation.</li><li>Measuring outline dimensions instead of interior surface area — the difference matters for flooring and tiling.</li><li>Not accounting for irregular shapes. Break complex areas into simpler rectangles and triangles before calculating.</li>
-</ul>
+<h3>What if my calculated maximum current falls exactly at a standard breaker rating, like 40A?</h3>
+<p>The calculator selects the next standard size that is <em>greater than or equal to</em> the Imax. For example, if Imax is exactly 40.0 A, the ICP recommended will be 40 A. This follows standard practice—a breaker should be rated for at least the full-load current. However, always verify with local electrical codes, as some regulations require a margin (e.g., a 125% safety factor for continuous loads).</p>
 
-<h2>Pro tip for contractors and builders</h2>
-<p>Order 5-10% more material than your calculation suggests to account for cuts, breakage, and measurement errors. It's cheaper to have a little left over than to halt work for a second delivery.</p>
-
-<h2>Frequently asked questions</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">How much extra material should I order?</button><div class="faq-a"><p>Most professionals recommend ordering 5-10% more than calculated to cover cuts, waste, and measurement errors. For natural stone or ceramic tile, the waste factor can be 10-15% due to breakage and pattern matching.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Can I use this calculator for both metric and imperial units?</button><div class="faq-a"><p>Yes. Select your preferred unit system in the input fields and the calculator converts automatically. All internal calculations are performed consistently to avoid mixed-unit errors.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Is this calculator accurate?</button><div class="faq-a"><p>Yes. The calculator uses the standard formula: Electrical Panel Calculator = f(Contracted power (kW), Voltage, Diversity factor). Results are mathematically exact; final accuracy depends on the precision of the data you enter.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Can I use this calculator on my phone?</button><div class="faq-a"><p>Yes, the calculator is fully responsive and works on any device: computer, tablet, and mobile. No installation or registration required.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">How do I save or share my calculation?</button><div class="faq-a"><p>Use the <strong>Share</strong> button to generate a URL that encodes all your inputs — anyone who opens the link will see the same values and result. The <strong>Copy</strong> button copies the formatted result text to your clipboard for pasting into a spreadsheet, email, or document.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">What if my result seems wrong?</button><div class="faq-a"><p>First recheck your inputs: confirm the values are in the correct units and within a realistic range. Common causes include unit mismatch (mixing metric and imperial), transposed digits, or selecting the wrong calculator for the problem. If inputs look correct and the result still seems off, verify that the formula <em>Electrical Panel Calculator = f(Contracted power (kW), Voltage, Diversity factor)</em> applies to exactly the situation you are in — some calculators with similar names solve slightly different variants of the same problem.</p></div></div>
-</div>
-</section>
+<h3>Do I still need a licensed electrician after using this calculator?</h3>
+<p>Absolutely. The Electrical Panel Calculator is a powerful <em>planning tool</em> that gives you a reliable starting point for panel sizing and circuit estimation. It does <strong>not</strong> replace professional judgment, on-site inspection, or compliance with local electrical codes (such as NEC, IEC, or BS 7671). Always consult a qualified electrician to verify calculations, select appropriate wires, and perform the final installation.</p>

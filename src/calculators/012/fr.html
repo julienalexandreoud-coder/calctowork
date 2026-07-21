@@ -1,44 +1,107 @@
-<section class="long-content">
-<p>Utilisez le <strong>Face Brick Calculator</strong> pour calculer surface brute, surface nette, briques de parement rapidement et avec précision.</p>
-<h2>Comment fonctionne le calcul</h2>
-<p>Que vous planifiiez des travaux de rénovation, estimiez des matériaux pour un chantier ou calculiez des dimensions pour un projet DIY, disposer des bons chiffres dès le départ fait gagner du temps et de l'argent.</p>
-<p>La formule derrière ce calcul est <strong>Calculateur Brique de Parement = f(Longueur mur, Hauteur mur, Déduire ouvertures)</strong>. Comprendre comment le résultat est obtenu vous aide à vérifier la sortie et à détecter les erreurs d'entrée.</p>
+<p>Vous rénovez une façade ou construisez un mur en briques de parement et vous voulez éviter les mauvaises surprises de fin de chantier ? Le <strong>Calculateur Brique de Parement</strong> est l'outil idéal pour estimer précisément le nombre de briques nécessaires, ainsi que les quantités de mortier et de coulis. Conçu pour les professionnels et les bricoleurs, il utilise des unités métriques adaptées au marché français et intègre une formule transparente pour vous permettre de comprendre chaque étape du calcul.</p>
 
-<h2>Guide pas à pas pour votre projet</h2>
-<p>Suivez ces étapes pour obtenir un résultat fiable :</p>
+<h2>Qu'est-ce que le Calculateur Brique de Parement et quand l'utiliser ?</h2>
+
+<p>Le Calculateur Brique de Parement est un outil en ligne qui vous aide à planifier vos achats de matériaux pour tout projet de parement mural. Il est particulièrement utile dans les cas suivants :</p>
+
+<ul>
+<li>Lorsque vous devez commander des briques pour un mur de façade, un mur de clôture ou une cheminée.</li>
+<li>Pour estimer le budget total d'un projet en connaissant le coût unitaire des briques et du mortier.</li>
+<li>Pour comparer différents types de briques (pleines, creuses, de parement) en ajustant les dimensions dans le calcul.</li>
+<li>En phase de devis, pour fournir une estimation fiable à un client ou à un artisan.</li>
+</ul>
+
+<p>L'outil prend en compte la surface brute totale, les ouvertures (comme les fenêtres ou portes) et applique les ratios standards français pour la pose en parement. Il vous suffit de renseigner trois valeurs : la longueur du mur, sa hauteur, et la surface totale des ouvertures à déduire. Le résultat inclut le nombre de briques (arrondi à l'unité supérieure avec une marge de 7 % de casse), la quantité de mortier en kg, et le volume de coulis en litres.</p>
+
+<h2>La formule expliquée variable par variable</h2>
+
+<p>Le calcul repose sur une logique simple mais rigoureuse, décomposable en plusieurs étapes. Voici chaque variable décryptée :</p>
+
+<h3>1. Surface brute (en m²)</h3>
+<p><strong>Formule :</strong> <code>Surface brute = Longueur × Hauteur</code></p>
+<p><strong>Variables :</strong></p>
+<ul>
+<li><strong>largeur (en mètres) :</strong> la longueur totale du mur, saisie dans le champ "largo".</li>
+<li><strong>hauteur (en mètres) :</strong> la hauteur du mur, saisie dans le champ "alto".</li>
+</ul>
+<p>Cette première multiplication donne la surface totale du mur avant déduction des ouvertures.</p>
+
+<h3>2. Surface nette (en m²)</h3>
+<p><strong>Formule :</strong> <code>Surface nette = max(0, Surface brute - Surface des ouvertures)</code></p>
+<p><strong>Variables :</strong></p>
+<ul>
+<li><strong>Surface des ouvertures (en m²) :</strong> saisie dans le champ "descontar_huecos". Il s'agit de la somme des surfaces de toutes les portes, fenêtres et autres vides. Si aucune ouverture, saisir 0.</li>
+</ul>
+<p>La fonction <code>max(0, …)</code> garantit que la surface nette ne soit jamais négative, même si vous saisissez accidentellement une valeur d'ouvertures trop élevée.</p>
+
+<h3>3. Nombre de briques (en unités)</h3>
+<p><strong>Formule :</strong> <code>Nombre de briques = ceil(Surface nette × 55 × 1,07)</code></p>
+<p><strong>Variables :</strong></p>
+<ul>
+<li><strong>55 :</strong> coefficient standard utilisé en France pour les briques de parement. Il correspond au nombre de briques classiques (dimensions moyennes 22 x 10,5 x 6,5 cm) nécessaires par m², en tenant compte des joints verticaux et horizontaux.</li>
+<li><strong>1,07 :</strong> marge de sécurité de 7 % pour la casse, les découpes et les éventuelles pertes.</li>
+<li><strong>ceil :</strong> arrondit le résultat à l'unité supérieure, car on ne peut pas commander une fraction de brique.</li>
+</ul>
+
+<h3>4. Quantité de mortier (en kg)</h3>
+<p><strong>Formule :</strong> <code>Mortier = Surface nette × 20</code></p>
+<p><strong>Variables :</strong></p>
+<ul>
+<li><strong>20 :</strong> coefficient représentant les kg de mortier sec (prêt à gâcher) nécessaires par m² de parement, pour un joint d'épaisseur standard (environ 1 cm).</li>
+</ul>
+
+<h3>5. Quantité de coulis (en litres)</h3>
+<p><strong>Formule :</strong> <code>Coulis = Surface nette × 0,5</code></p>
+<p><strong>Variables :</strong></p>
+<ul>
+<li><strong>0,5 :</strong> coefficient correspondant au volume de coulis (en litres) pour remplir les joints et assurer la finition esthétique du parement.</li>
+</ul>
+
+<h2>Deux exemples concrets d'utilisation</h2>
+
+<p>Pour mieux comprendre l'application, voici deux cas pratiques avec des chiffres réels.</p>
+
+<h3>Exemple 1 : Mur de façade sans ouverture</h3>
+<p><strong>Données :</strong> Longueur = 4 m, Hauteur = 2,5 m, Ouvertures = 0 m².</p>
 <ol>
-<li><strong>Saisissez vos valeurs:</strong> 8 m; 2.8 m; 4 m² — ensure all values use a single consistent unit system.</li>
-<li><strong>La calculatrice applique la formule:</strong> <em>Calculateur Brique de Parement = f(Longueur mur, Hauteur mur, Déduire ouvertures)</em>.</li>
-<li><strong>Lisez votre résultat:</strong> Surface brute, Surface nette, Briques de parement.</li>
-<li>Vérifiez : confirmez que les unités sont cohérentes et les valeurs réalistes avant d'agir sur le résultat.</li>
+<li><strong>Surface brute :</strong> 4 × 2,5 = 10,00 m².</li>
+<li><strong>Surface nette :</strong> 10,00 - 0 = 10,00 m².</li>
+<li><strong>Nombre de briques :</strong> ceil(10 × 55 × 1,07) = ceil(588,5) = <strong>589 briques</strong>.</li>
+<li><strong>Mortier :</strong> 10 × 20 = <strong>200,0 kg</strong>.</li>
+<li><strong>Coulis :</strong> 10 × 0,5 = <strong>5,0 litres</strong>.</li>
 </ol>
 
-<h2>Usages pratiques sur le chantier</h2>
-<p>Cette calculatrice est particulièrement utile dans les situations suivantes :</p>
+<h3>Exemple 2 : Mur avec une fenêtre et une porte</h3>
+<p><strong>Données :</strong> Longueur = 6 m, Hauteur = 3 m, Surface des ouvertures = 3,2 m² (fenêtre de 1,2 m x 1,2 m + porte de 0,8 m x 2,2 m).</p>
+<ol>
+<li><strong>Surface brute :</strong> 6 × 3 = 18,00 m².</li>
+<li><strong>Surface nette :</strong> 18 - 3,2 = 14,80 m².</li>
+<li><strong>Nombre de briques :</strong> ceil(14,80 × 55 × 1,07) = ceil(870,38) = <strong>871 briques</strong>.</li>
+<li><strong>Mortier :</strong> 14,80 × 20 = <strong>296,0 kg</strong>.</li>
+<li><strong>Coulis :</strong> 14,80 × 0,5 = <strong>7,4 litres</strong>.</li>
+</ol>
+
+<p>Dans les deux cas, le calculateur affiche également les surfaces brute et nette, ce qui permet de vérifier la cohérence des saisies.</p>
+
+<h2>Erreurs courantes à éviter avec ce calculateur</h2>
+
+<p>Bien que l'outil soit conçu pour être simple, certaines erreurs reviennent fréquemment et faussent les résultats :</p>
+
 <ul>
-<li>construction de murs en briques et parpaings</li><li>estimation de matériaux de maçonnerie</li><li>calculs de surface de mur et mortier</li><li>budgets de construction</li>
+<li><strong>Oublier de convertir les dimensions en mètres :</strong> Si vous saisissez des centimètres (par exemple 400 au lieu de 4 pour une longueur de 4 m), le résultat sera multiplié par 100, donnant un nombre de briques absurde. Vérifiez toujours que vos valeurs sont en mètres.</li>
+<li><strong>Confondre surface brute et surface des ouvertures :</strong> La case "descontar_huecos" attend la <em>surface totale</em> des ouvertures (par exemple 3,2 m²), pas leurs dimensions individuelles. Additionnez bien toutes les ouvertures avant de saisir.</li>
+<li><strong>Négliger la marge de 7 % :</strong> Certains utilisateurs suppriment mentalement les 7 % pour "économiser", mais cela entraîne souvent des ruptures de stock en cours de chantier. La marge est une estimation prudente, incluant les découpes et la casse inévitable.</li>
+<li><strong>Utiliser le calculateur pour des briques non standards :</strong> Le coefficient 55 par m² est adapté aux briques de parement classiques françaises. Si vous utilisez des briques de dimensions très différentes (par exemple des briques anciennes de 25 cm de long), le résultat sera inexact. Dans ce cas, il faut ajuster manuellement le coefficient.</li>
+<li><strong>Ignorer le type de mortier :</strong> Le calculateur donne une estimation pour un mortier standard. Si vous utilisez un mortier-colle pour briques minces ou un mortier de chaux, les quantités peuvent varier. Adaptez vos commandes en conséquence.</li>
 </ul>
 
-<h2>Interpréter et appliquer vos résultats</h2>
-<p>Votre résultat indique la quantité théorique requise. Ajoutez le facteur de perte approprié avant de commander : 5–10&nbsp;% pour le béton et le mortier, 10–15&nbsp;% pour les carreaux, la pierre naturelle et la brique, et 3–5&nbsp;% pour l'acier et le bois. Arrondissez toujours à l'unité supérieure — sac, tonne ou palette.</p>
+<h2>Foire aux questions (FAQ)</h2>
 
-<h2>Normes de construction et bonnes pratiques</h2>
-<p>Les projets de construction dépendent d'estimations précises des matériaux. Les professionnels ajoutent généralement 5–10&nbsp;% de marge de perte aux quantités théoriques pour les coupes, la casse et les erreurs de mesure. Les normes ISO et EN définissent les propriétés des matériaux et les tolérances utilisées dans ces formules.</p>
+<h3>Puis-je utiliser le calculateur pour des briques de dimensions différentes ?</h3>
+<p>Oui, mais avec prudence. Le coefficient de 55 briques par m² est basé sur une brique de parement standard de 22 cm x 10,5 cm (pose avec joints de 1 cm). Si vos briques sont plus grandes ou plus petites, vous devrez recalculer le nombre de briques par m² manuellement. Par exemple, pour une brique de 25 cm x 12 cm, le nombre par m² est d'environ 38 unités (hors joints). Vous pouvez alors utiliser le calculateur pour la surface nette et appliquer votre propre coefficient.</p>
 
-<h2>Erreurs courantes à éviter</h2>
-<ul>
-<li>Oublier d'ajouter une marge de perte (5-10%) lors de la commande de matériaux.</li><li>Mélanger unités métriques et impériales dans un même projet.</li>
-</ul>
+<h3>Le calculateur prend-il en compte l'épaisseur des joints ?</h3>
+<p>Oui, indirectement. Le coefficient 55 briques/m² intègre déjà une épaisseur de joint standard de 1 cm pour les joints horizontaux et verticaux. De même, les quantités de mortier (20 kg/m²) et de coulis (0,5 L/m²) sont calibrées pour cette épaisseur courante. Si vous prévoyez des joints plus larges (par exemple 1,5 cm pour un effet rustique), augmentez les quantités de mortier de 15 à 20 %.</p>
 
-<h2>Conseil pro pour les entrepreneurs</h2>
-<p>Commandez 5-10% de matériel en plus que le calcul ne l'indique pour couper les pertes et les erreurs de mesure.</p>
-
-<h2>Questions fréquentes</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Combien de matériel supplémentaire dois-je commander?</button><div class="faq-a"><p>La plupart des professionnels recommandent de commander 5-10% de plus que le calcul pour couper les pertes et les erreurs de mesure.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cette calculatrice est-elle précise?</button><div class="faq-a"><p>Oui. La calculatrice utilise la formule standard : Calculateur Brique de Parement = f(Longueur mur, Hauteur mur, Déduire ouvertures). Les résultats sont mathématiquement exacts.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Puis-je utiliser cette calculatrice sur mobile?</button><div class="faq-a"><p>Oui, la calculatrice est entièrement responsive et fonctionne sur tout appareil. Aucune installation requise.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Comment sauvegarder ou partager mon calcul ?</button><div class="faq-a"><p>Utilisez le bouton <strong>Partager</strong> pour générer une URL qui encode toutes vos entrées. Le bouton <strong>Copier</strong> copie le résultat dans le presse-papiers.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Que faire si mon résultat semble incorrect ?</button><div class="faq-a"><p>Vérifiez d'abord vos entrées : valeurs dans les bonnes unités et plage réaliste. Vérifiez aussi que la formule <em>Calculateur Brique de Parement = f(Longueur mur, Hauteur mur, Déduire ouvertures)</em> s'applique exactement à votre situation.</p></div></div>
-</div>
-</section>
+<h3>Que faire si mon mur a des formes complexes (angles, arrondis) ?</h3>
+<p>Le calculateur est conçu pour des murs rectangulaires simples. Pour les formes complexes, nous vous conseillons de décomposer le mur en plusieurs sections rectangulaires, de calculer chaque section séparément, puis de additionner les résultats. N'oubliez pas d'ajouter une marge supplémentaire de 5 à 10 % pour les découpes spéciales. Le calculateur peut également vous servir à estimer la surface totale, puis vous ajustez la quantité de briques manuellement.</p>
