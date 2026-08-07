@@ -7,22 +7,38 @@ const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const { google } = require("googleapis");
 
-// Read GSC credentials from Firebase Functions config
-function gscConfig() {
-  const cfg = functions.config().gsc || {};
-  return {
-    clientId: cfg.client_id || process.env.GSC_CLIENT_ID,
-    clientSecret: cfg.client_secret || process.env.GSC_CLIENT_SECRET,
-    refreshToken: cfg.refresh_token || process.env.GSC_REFRESH_TOKEN,
-    siteUrl: cfg.site_url || process.env.GSC_SITE_URL || "sc-domain:calcto.work",
-  };
-}
-
 const db = admin.firestore();
 
+// GSC credentials — primary source is Firestore (admin_prefs/gsc_config, managed
+// from the dashboard Settings tab), with env vars and legacy functions.config()
+// as fallbacks. functions.config() was shut down by Google, so deployments made
+// after that lost their runtime config — that is why Firestore is now primary.
+let _gscCfgCache = { cfg: null, at: 0 };
+async function gscConfig(force) {
+  if (!force && _gscCfgCache.cfg && Date.now() - _gscCfgCache.at < 300000) return _gscCfgCache.cfg;
+  let stored = {};
+  try {
+    const doc = await db.collection("admin_prefs").doc("gsc_config").get();
+    if (doc.exists) stored = doc.data() || {};
+  } catch (e) { console.warn("[GSC] Could not read admin_prefs/gsc_config:", e.message); }
+  let legacy = {};
+  try { legacy = functions.config().gsc || {}; } catch (e) { /* config API gone */ }
+  const cfg = {
+    clientId: stored.client_id || process.env.GSC_CLIENT_ID || legacy.client_id || "",
+    clientSecret: stored.client_secret || process.env.GSC_CLIENT_SECRET || legacy.client_secret || "",
+    refreshToken: stored.refresh_token || process.env.GSC_REFRESH_TOKEN || legacy.refresh_token || "",
+    siteUrl: stored.site_url || process.env.GSC_SITE_URL || legacy.site_url || "sc-domain:calcto.work",
+  };
+  _gscCfgCache = { cfg, at: Date.now() };
+  return cfg;
+}
+
 // GSC OAuth2 client
-function getSearchConsoleClient() {
-  const { clientId, clientSecret, refreshToken } = gscConfig();
+async function getSearchConsoleClient() {
+  const { clientId, clientSecret, refreshToken } = await gscConfig();
+  if (!clientId || !clientSecret || !refreshToken) {
+    throw new Error("GSC credentials not configured. Open the dashboard → Settings → Google Search Console and save your OAuth client ID, client secret and refresh token.");
+  }
   const oauth2Client = new google.auth.OAuth2(clientId, clientSecret);
   oauth2Client.setCredentials({ refresh_token: refreshToken });
   return google.searchconsole({ version: "v1", auth: oauth2Client });
@@ -37,7 +53,7 @@ function getSearchConsoleClient() {
  * @param {number} rowLimit - Max rows
  */
 async function queryGsc(siteUrl, startDate, endDate, dimensions, rowLimit = 25000) {
-  const sc = getSearchConsoleClient();
+  const sc = await getSearchConsoleClient();
   const body = {
     startDate,
     endDate,
@@ -181,32 +197,41 @@ async function storeSiteStats(siteUrl, startDate, endDate) {
  * Fetch coverage / indexation issues from GSC
  */
 async function storeCoverageData(siteUrl) {
-  console.log(`[GSC] Fetching coverage data for ${siteUrl}`);
+  // The old urlcrawlerrorssamples API was removed from Search Console years ago,
+  // so this now reports sitemap-level indexing issues (errors/warnings and
+  // submitted-vs-indexed counts) which is what the v1 API actually exposes.
+  console.log(`[GSC] Fetching sitemap coverage for ${siteUrl}`);
   try {
-    const sc = getSearchConsoleClient();
-    const res = await sc.urlcrawlerrorssamples.list({
-      siteUrl,
-      category: "all",
-      platform: "web",
-    });
-    const samples = res.data.urlCrawlErrorSamples || [];
+    const sc = await getSearchConsoleClient();
+    const res = await sc.sitemaps.list({ siteUrl });
+    const sitemaps = res.data.sitemap || [];
 
     const batch = db.batch();
-    for (const sample of samples) {
-      const docId = sample.pageUrl.replace(/[\/\.\#\$\[\]]/g, "_").slice(0, 100);
-      const docRef = db.collection("gsc_coverage").doc(docId);
-      batch.set(docRef, {
-        page_url: sample.pageUrl,
-        last_crawled: sample.lastCrawled || null,
-        response_code: sample.responseCode || null,
-        issue_type: sample.urlCrawlErrorDetails?.category || "unknown",
-        issue_detail: sample.urlCrawlErrorDetails?.platform || "",
+    let stored = 0;
+    for (const s of sitemaps) {
+      const contents = s.contents || [];
+      const submitted = contents.reduce((a, c) => a + (parseInt(c.submitted) || 0), 0);
+      const indexed = contents.reduce((a, c) => a + (parseInt(c.indexed) || 0), 0);
+      const errors = parseInt(s.errors) || 0;
+      const warnings = parseInt(s.warnings) || 0;
+      const docId = (s.path || "sitemap").replace(/[\/\.\#\$\[\]]/g, "_").slice(0, 100);
+      batch.set(db.collection("gsc_coverage").doc(docId), {
+        page_url: s.path || "",
+        last_crawled: s.lastDownloaded || null,
+        response_code: null,
+        issue_type: errors > 0 ? `${errors} sitemap error(s)` : warnings > 0 ? `${warnings} warning(s)` : "ok",
+        issue_detail: `${indexed}/${submitted} URLs indexed`,
+        submitted,
+        indexed,
+        errors,
+        warnings,
         site_url: siteUrl,
         fetched_at: admin.firestore.FieldValue.serverTimestamp(),
       });
+      stored++;
     }
-    await batch.commit();
-    console.log(`[GSC] Stored ${samples.length} coverage issues`);
+    if (stored > 0) await batch.commit();
+    console.log(`[GSC] Stored ${stored} sitemap coverage rows`);
   } catch (e) {
     console.error("[GSC] Coverage fetch failed:", e.message);
   }
@@ -222,7 +247,7 @@ exports.fetchGscData = functions
   .schedule("0 3 * * *")
   .timeZone("UTC")
   .onRun(async (context) => {
-    const siteUrl = gscConfig().siteUrl;
+    const siteUrl = (await gscConfig()).siteUrl;
     const today = new Date();
     const endDate = new Date(today - 3 * 86400000).toISOString().slice(0, 10); // GSC 3-day lag
     const startDate = new Date(today - 93 * 86400000).toISOString().slice(0, 10); // 90 days back
@@ -255,7 +280,7 @@ exports.fetchGscOnDemand = functions
     return res.status(204).send("");
   }
 
-  const siteUrl = req.query.site || gscConfig().siteUrl;
+  const siteUrl = req.query.site || (await gscConfig()).siteUrl;
   const days = parseInt(req.query.days) || 30;
   const today = new Date();
   const endDate = new Date(today - 3 * 86400000).toISOString().slice(0, 10);
@@ -287,7 +312,7 @@ exports.getGscData = functions.https.onRequest(async (req, res) => {
     const type = req.query.type || "queries";
     const days = parseInt(req.query.days) || 30;
     const cutoff = new Date(Date.now() - days * 86400000).toISOString().slice(0, 10);
-    const siteUrl = gscConfig().siteUrl || "sc-domain:calcto.work";
+    const siteUrl = (await gscConfig()).siteUrl || "sc-domain:calcto.work";
 
     if (type === "queries") {
       const snap = await db.collection("gsc_search_data")
@@ -350,7 +375,7 @@ exports.getGscData = functions.https.onRequest(async (req, res) => {
     }
 
     if (type === "pages") {
-      const siteUrl = gscConfig().siteUrl || "sc-domain:calcto.work";
+      const siteUrl = (await gscConfig()).siteUrl || "sc-domain:calcto.work";
       const snap = await db.collection("gsc_page_stats")
         .where("site_url", "==", siteUrl)
         .where("date", ">=", cutoff)
@@ -479,8 +504,8 @@ exports.getIndexCoverage = functions.https.onRequest(async (req, res) => {
     return res.status(204).send("");
   }
   try {
-    const siteUrl = gscConfig().siteUrl;
-    const sc = getSearchConsoleClient();
+    const siteUrl = (await gscConfig()).siteUrl;
+    const sc = await getSearchConsoleClient();
     const sitemapsRes = await sc.sitemaps.list({ siteUrl });
     const sitemaps = (sitemapsRes.data.sitemap || []).map(s => ({
       path: s.path,
@@ -505,6 +530,100 @@ exports.getIndexCoverage = functions.https.onRequest(async (req, res) => {
     return res.status(200).json(sitemaps);
   } catch (e) {
     res.status(500).json({ error: e.message });
+  }
+});
+
+/**
+ * saveGscConfig — stores GSC OAuth credentials in Firestore (admin_prefs/gsc_config)
+ * POST { client_id?, client_secret?, refresh_token?, site_url? } — only provided fields are updated
+ */
+exports.saveGscConfig = functions.https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+  if (req.method === "OPTIONS") return res.status(204).send("");
+  if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
+
+  try {
+    const { client_id, client_secret, refresh_token, site_url } = req.body || {};
+    const updates = {};
+    if (client_id !== undefined && client_id !== "") updates.client_id = String(client_id).trim();
+    if (client_secret !== undefined && client_secret !== "") updates.client_secret = String(client_secret).trim();
+    if (refresh_token !== undefined && refresh_token !== "") updates.refresh_token = String(refresh_token).trim();
+    if (site_url !== undefined && site_url !== "") updates.site_url = String(site_url).trim();
+    if (Object.keys(updates).length === 0) return res.status(400).json({ error: "No fields to save" });
+
+    updates.updated_at = admin.firestore.FieldValue.serverTimestamp();
+    await db.collection("admin_prefs").doc("gsc_config").set(updates, { merge: true });
+    await gscConfig(true); // refresh cache
+    return res.status(200).json({ saved: Object.keys(updates).filter(k => k !== "updated_at") });
+  } catch (e) {
+    return res.status(500).json({ error: e.message });
+  }
+});
+
+/**
+ * getGscStatus — reports which credentials are configured (masked) + data freshness
+ */
+exports.getGscStatus = functions.https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  if (req.method === "OPTIONS") {
+    res.set("Access-Control-Allow-Methods", "GET");
+    res.set("Access-Control-Allow-Headers", "Content-Type");
+    return res.status(204).send("");
+  }
+  try {
+    const cfg = await gscConfig(true);
+    const mask = v => v ? v.slice(0, 6) + "…" + v.slice(-4) : null;
+
+    // Data freshness: newest gsc_site_stats row
+    let lastDataDate = null;
+    try {
+      const snap = await db.collection("gsc_site_stats").orderBy("date", "desc").limit(1).get();
+      if (!snap.empty) lastDataDate = snap.docs[0].data().date || null;
+    } catch (e) {}
+
+    return res.status(200).json({
+      site_url: cfg.siteUrl,
+      client_id: mask(cfg.clientId),
+      client_secret_set: !!cfg.clientSecret,
+      refresh_token_set: !!cfg.refreshToken,
+      configured: !!(cfg.clientId && cfg.clientSecret && cfg.refreshToken),
+      last_data_date: lastDataDate,
+    });
+  } catch (e) {
+    return res.status(500).json({ error: e.message });
+  }
+});
+
+/**
+ * testGscConnection — runs a tiny live query against the Search Console API and
+ * returns either the row count or the exact error, so misconfiguration
+ * (expired refresh token, wrong site URL, missing permissions) is visible.
+ */
+exports.testGscConnection = functions.https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  if (req.method === "OPTIONS") {
+    res.set("Access-Control-Allow-Methods", "GET");
+    res.set("Access-Control-Allow-Headers", "Content-Type");
+    return res.status(204).send("");
+  }
+  try {
+    const cfg = await gscConfig(true);
+    if (!cfg.clientId || !cfg.clientSecret || !cfg.refreshToken) {
+      return res.status(200).json({ ok: false, error: "Credentials incomplete — save client ID, client secret and refresh token first." });
+    }
+    const endDate = new Date(Date.now() - 3 * 86400000).toISOString().slice(0, 10);
+    const startDate = new Date(Date.now() - 10 * 86400000).toISOString().slice(0, 10);
+    const rows = await queryGsc(cfg.siteUrl, startDate, endDate, ["date"], 10);
+    return res.status(200).json({ ok: true, site_url: cfg.siteUrl, rows: rows.length, sample: rows[0] || null });
+  } catch (e) {
+    const msg = e.message || String(e);
+    let hint = "";
+    if (/invalid_grant/i.test(msg)) hint = "Refresh token expired or revoked — generate a new one (OAuth consent screen in 'Testing' mode expires tokens after 7 days; publish the app to 'Production' to get long-lived tokens).";
+    else if (/insufficient|permission|403/i.test(msg)) hint = "The Google account that issued the refresh token has no access to this Search Console property, or the site URL is wrong (try sc-domain:calcto.work).";
+    else if (/invalid_client/i.test(msg)) hint = "Client ID / client secret are wrong.";
+    return res.status(200).json({ ok: false, error: msg, hint });
   }
 });
 

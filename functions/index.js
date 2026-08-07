@@ -121,6 +121,9 @@ exports.getGscData = gscCollector.getGscData;
 exports.getMovement = gscCollector.getMovement;
 exports.getIndexCoverage = gscCollector.getIndexCoverage;
 exports.sendWeeklyDigest = gscCollector.sendWeeklyDigest;
+exports.saveGscConfig = gscCollector.saveGscConfig;
+exports.getGscStatus = gscCollector.getGscStatus;
+exports.testGscConnection = gscCollector.testGscConnection;
 
 // ── Analytics Aggregation ──
 const aggregator = require("./aggregator");
@@ -156,6 +159,8 @@ exports.generateGrowthReport = calcPage.generateGrowthReport;
 exports.generateGrowthReportHttp = calcPage.generateGrowthReportHttp;
 exports.runAutoPilot = calcPage.runAutoPilot;
 exports.runAutoPilotHttp = calcPage.runAutoPilotHttp;
+exports.completeCalcHttp = calcPage.completeCalcHttp;
+exports.completeAllCalcsHttp = calcPage.completeAllCalcsHttp;
 
 // ── Growth Engine v2 ──
 exports.autoOptimizeCalcsHttp = calcPage.autoOptimizeCalcsHttp;
@@ -169,3 +174,16 @@ exports.autonomousGrowthLoop = calcPage.autonomousGrowthLoop;
 exports.toggleAutonomyHttp = calcPage.toggleAutonomyHttp;
 exports.getAutonomyStatusHttp = calcPage.getAutonomyStatusHttp;
 exports.dailyCoreRegeneration = calcPage.dailyCoreRegeneration;
+exports.regenerateCorePagesHttp = calcPage.regenerateCorePagesHttp;
+exports.syncStaticCalcsHttp = calcPage.syncStaticCalcsHttp;
+exports.generateAllSEOTitlesHttp = calcPage.generateAllSEOTitlesHttp;
+exports.generateOneSEOTitleHttp = calcPage.generateOneSEOTitleHttp;
+exports.backlinkHunterHttp = calcPage.backlinkHunterHttp;
+exports.weeklyBacklinkHunter = calcPage.weeklyBacklinkHunter;
+
+// ── AI Strategy Brain ──
+exports.generateStrategyPlanHttp = calcPage.generateStrategyPlanHttp;
+exports.reviewStrategyPlanHttp = calcPage.reviewStrategyPlanHttp;
+exports.getStrategyMemoryHttp = calcPage.getStrategyMemoryHttp;
+exports.saveStrategyMemoryHttp = calcPage.saveStrategyMemoryHttp;
+exports.auditCalcQualityHttp = calcPage.auditCalcQualityHttp;

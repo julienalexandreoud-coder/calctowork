@@ -361,26 +361,33 @@ async function savePrefsField(field, value) {
 }
 
 // ── TABS ──
+// Grouped navigation. Former tabs Traffic+Conversions merged into 'analytics',
+// CTR Boost merged into 'opportunities', Audit merged into 'content'.
 const TABS = [
-  { id:'overview', label:'Overview', icon:'📊' },
-  { id:'search', label:'Search Console', icon:'🔍' },
-  { id:'content', label:'Content', icon:'📝' },
-  { id:'ctr', label:'CTR Boost', icon:'🎯' },
-  { id:'audit', label:'Audit', icon:'🩺' },
-  { id:'traffic', label:'Traffic', icon:'📈' },
-  { id:'conversions', label:'Conversions', icon:'🎯' },
-  { id:'technical', label:'Technical SEO', icon:'⚙️' },
-  { id:'opportunities', label:'Opportunities', icon:'💡' },
-  { id:'alerts', label:'Alerts', icon:'🔔' },
+  { section:'Main' },
+  { id:'overview', label:'Command Center', icon:'🎯' },
+  { id:'publish', label:'Publish Center', icon:'🚀' },
   { id:'calculators', label:'Calculators', icon:'🧮' },
-  { id:'autopilot', label:'Autopilot', icon:'🚀' },
+  { section:'SEO & Growth' },
+  { id:'search', label:'Search Console', icon:'🔍' },
+  { id:'opportunities', label:'Opportunities & CTR', icon:'💡' },
+  { id:'backlinks', label:'Backlinks', icon:'🔗' },
+  { id:'autopilot', label:'Autopilot', icon:'🤖' },
+  { id:'strategy', label:'Strategy', icon:'🧠' },
   { id:'growthlab', label:'Growth Lab', icon:'🧪' },
-  { id:'ai', label:'AI Tools', icon:'🤖' },
+  { section:'Analytics' },
+  { id:'analytics', label:'Traffic & Conversions', icon:'📈' },
+  { id:'content', label:'Content & Audit', icon:'📝' },
+  { id:'technical', label:'Technical SEO', icon:'🛠️' },
+  { id:'alerts', label:'Alerts', icon:'🔔' },
+  { section:'System' },
+  { id:'ai', label:'AI Tools', icon:'💬' },
   { id:'settings', label:'Settings', icon:'⚙️' },
 ];
 
 function initDashboard() {
   document.getElementById('sidebar-nav').innerHTML = TABS.map(function(t) {
+    if (t.section) return '<div style="padding:.7rem .9rem .25rem;font-size:.62rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);opacity:.7">' + t.section + '</div>';
     var badge = '';
     if (t.id === 'alerts') badge = '<span class="badge-count" id="alert-badge" style="display:none">0</span>';
     if (t.id === 'calculators') badge = '<span class="badge-count" id="pipeline-badge" style="display:none">0</span>';
@@ -406,21 +413,34 @@ function switchTab(tabId) {
 
   switch (tabId) {
     case 'overview': renderOverview(area); break;
+    case 'publish': renderPublishCenter(area); break;
     case 'search': renderSearchConsole(area); break;
-    case 'content': renderContent(area); break;
-    case 'ctr': renderCTRBoost(area); break;
-    case 'audit': renderContentAudit(area); break;
-    case 'traffic': renderTraffic(area); break;
-    case 'conversions': renderConversions(area); break;
+    case 'content':
+    case 'audit': renderMerged(area, [renderContent, renderContentAudit]); break;
+    case 'opportunities':
+    case 'ctr': renderMerged(area, [renderOpportunities, renderCTRBoost]); break;
+    case 'analytics':
+    case 'traffic':
+    case 'conversions': renderMerged(area, [renderTraffic, renderConversions]); break;
+    case 'backlinks': renderBacklinks(area); break;
     case 'technical': renderTechnical(area); break;
-    case 'opportunities': renderOpportunities(area); break;
     case 'alerts': renderAlertsTab(area); break;
     case 'calculators': renderCalculatorCMS(area); break;
     case 'autopilot': renderAutopilot(area); break;
     case 'growthlab': renderGrowthLab(area); break;
+    case 'strategy': renderStrategy(area); break;
     case 'ai': renderAITools(area); break;
     case 'settings': renderSettings(area); break;
   }
+}
+
+// Renders several former standalone tabs stacked in one page (deduplicated nav)
+function renderMerged(area, renderers) {
+  area.innerHTML = renderers.map((_, i) => `<div id="merged-section-${i}" style="margin-bottom:1.5rem"></div>`).join('');
+  renderers.forEach((fn, i) => {
+    try { fn(document.getElementById('merged-section-' + i)); }
+    catch(e) { console.warn('merged render failed:', e.message); }
+  });
 }
 
 // ── TIME HELPERS ──
@@ -659,7 +679,11 @@ async function loadGscData(overrideDays, forceRefresh) {
     gscPages = Array.isArray(pRes) ? pRes : [];
     gscSiteStats = Array.isArray(sRes) ? sRes : [];
     gscCacheStore(d, gscQueries, gscPages, gscSiteStats, gscQueriesRaw);
-    clearGscError();
+    if (!gscQueries.length && !gscPages.length && !gscSiteStats.length) {
+      showGscError('No Search Console data stored. GSC collection is likely not configured — open Settings → Google Search Console, save credentials, use "Test Connection", then "Fetch GSC Data Now".');
+    } else {
+      clearGscError();
+    }
   } catch(e) {
     console.warn('GSC data not loaded:', e.message);
     showGscError(e.message);
@@ -687,7 +711,28 @@ async function loadAlerts() {
 // ── TAB 1: OVERVIEW ──
 function renderOverview(area) {
   area.innerHTML = `<div id="overview-content">
+
+    <!-- North-star strip: is the site growing toward 10k users/day? -->
+    <div class="card" style="margin-bottom:1rem;background:linear-gradient(135deg,rgba(249,115,22,.09),rgba(139,92,246,.07));border-color:rgba(249,115,22,.3)">
+      <div id="northstar-verdict" style="display:flex;align-items:center;gap:.6rem;font-size:1rem;font-weight:700;margin-bottom:.7rem">⏳ Checking site direction…</div>
+      <div class="kpi-grid" id="northstar-kpis" style="margin-bottom:.75rem"></div>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+        <button class="btn btn-sm" onclick="switchTab('publish')">🚀 Publish Center</button>
+        <button class="btn btn-sm btn-outline" onclick="triggerAutoPilot()">🤖 Run Autopilot Now</button>
+        <button class="btn btn-sm btn-outline" onclick="switchTab('calculators')">✨ Complete Content</button>
+        <button class="btn btn-sm btn-outline" onclick="switchTab('backlinks')">🔗 Backlinks</button>
+        <button class="btn btn-sm btn-outline" onclick="triggerGscFetch()">🔄 Fetch GSC</button>
+        <a href="${'https://calcto.work'}" target="_blank" class="btn btn-sm btn-outline">👁 View Site</a>
+      </div>
+    </div>
+
     <div class="kpi-grid" id="overview-kpis"></div>
+
+    <!-- Data-driven daily playbook: concrete next actions toward 10k -->
+    <div class="card" id="playbook-card" style="margin-bottom:1rem;border-color:rgba(34,197,94,.3)">
+      <div class="card-header"><span class="card-title">✅ Today's Growth Playbook</span><span style="font-size:.7rem;color:var(--muted)">auto-prioritised from your live data</span></div>
+      <div id="playbook-body"><div class="loading"><span class="spinner"></span> Analysing…</div></div>
+    </div>
 
     <div class="card" id="growth-brief-card" style="margin-bottom:1rem;background:linear-gradient(135deg,rgba(139,92,246,.08),rgba(99,102,241,.05));border-color:rgba(139,92,246,.25)">
       <div class="card-header">
@@ -750,7 +795,143 @@ function renderOverview(area) {
   loadGscData().then(() => {
     queryEvents(events => updateOverview(events));
   });
+  updateNorthStar();
+  updatePlaybook();
   startActivityFeed('activity-feed');
+}
+
+// ── GROWTH PLAYBOOK: concrete, prioritised next actions from live data ──
+async function updatePlaybook() {
+  const el = document.getElementById('playbook-body');
+  if (!el) return;
+  try {
+    if (!cmsCalcs.length) await loadCMSCalcs();
+    const [pages, blSnap] = await Promise.all([
+      fetch(`${CMS_BASE}/getGscData?type=pages&days=28&limit=500`).then(r => r.json()).catch(() => []),
+      db.collection('backlink_prospects').get().catch(() => null),
+    ]);
+
+    const actions = [];
+
+    // 1. Incomplete published content
+    const pub = cmsCalcs.filter(c => c.status === 'published');
+    const incomplete = pub.filter(c => cmsCompletenessScore(c) < 12).length;
+    if (incomplete > 0) actions.push({ icon: '✨', pri: incomplete > 50 ? 1 : 2,
+      text: `<strong>${incomplete} published calculators</strong> are missing content (articles/translations/FAQ). Google ranks complete pages higher.`,
+      cta: 'Complete content', tab: 'calculators' });
+
+    // 2. Drafts waiting to go live
+    const drafts = cmsCalcs.filter(c => c.status !== 'published').length;
+    if (drafts > 0) actions.push({ icon: '🚀', pri: 2,
+      text: `<strong>${drafts} draft calculator${drafts > 1 ? 's' : ''}</strong> not yet live — publishing adds indexable pages.`,
+      cta: 'Publish Center', tab: 'publish' });
+
+    // 3. Striking-distance keywords (pages at position 8-20 = one push from page 1)
+    const striking = (Array.isArray(pages) ? pages : []).filter(p => p.avg_position >= 8 && p.avg_position <= 20 && p.total_impressions >= 20);
+    if (striking.length > 0) actions.push({ icon: '🎯', pri: 1,
+      text: `<strong>${striking.length} pages rank in positions 8–20</strong> ("striking distance"). Improving titles/content can push them to page 1 for a big traffic jump.`,
+      cta: 'Opportunities & CTR', tab: 'opportunities' });
+
+    // 4. Low-CTR high-impression pages
+    const lowCtr = (Array.isArray(pages) ? pages : []).filter(p => p.total_impressions >= 100 && (p.avg_ctr || 0) < 0.02);
+    if (lowCtr.length > 0) actions.push({ icon: '📝', pri: 2,
+      text: `<strong>${lowCtr.length} pages get impressions but few clicks</strong> (CTR under 2%). Better SEO titles = more clicks with zero new traffic needed.`,
+      cta: 'Opportunities & CTR', tab: 'opportunities' });
+
+    // 5. Backlinks
+    let blLive = 0, blTodo = 0, blTotal = 0;
+    if (blSnap) blSnap.forEach(d => { blTotal++; const s = d.data().status; if (s === 'live') blLive++; if (s === 'todo') blTodo++; });
+    if (blTotal === 0) actions.push({ icon: '🔗', pri: 1,
+      text: `<strong>No backlinks tracked yet.</strong> Backlinks are the #1 off-page ranking factor. Generate a prospect list to start.`,
+      cta: 'Find backlinks', tab: 'backlinks' });
+    else if (blTodo > 0) actions.push({ icon: '🔗', pri: 3,
+      text: `<strong>${blTodo} backlink prospect${blTodo > 1 ? 's' : ''}</strong> waiting for outreach (${blLive} live so far).`,
+      cta: 'Backlinks', tab: 'backlinks' });
+
+    // 6. All good
+    if (actions.length === 0) actions.push({ icon: '🎉', pri: 5,
+      text: `Everything's in great shape — content complete, pages published, backlinks in progress. Keep creating new calculators for new keywords.`,
+      cta: 'New calculator', tab: 'calculators' });
+
+    actions.sort((a, b) => a.pri - b.pri);
+    el.innerHTML = actions.slice(0, 5).map(a => `
+      <div style="display:flex;align-items:center;gap:.7rem;padding:.6rem 0;border-bottom:1px solid var(--border)">
+        <span style="font-size:1.1rem">${a.icon}</span>
+        <span style="flex:1;font-size:.84rem;line-height:1.45">${a.text}</span>
+        <button class="btn btn-sm btn-outline" onclick="switchTab('${a.tab}')" style="white-space:nowrap">${a.cta} →</button>
+      </div>`).join('');
+  } catch (e) {
+    el.innerHTML = `<div style="color:var(--muted);font-size:.82rem">Could not build playbook: ${e.message}</div>`;
+  }
+}
+
+// ── NORTH STAR: growth verdict + trend KPIs (week-over-week) ──
+async function updateNorthStar() {
+  const kpisEl = document.getElementById('northstar-kpis');
+  const verdictEl = document.getElementById('northstar-verdict');
+  if (!kpisEl) return;
+  try {
+    // Independent 17-day site-stats fetch (covers this week + prior week with GSC lag)
+    const [siteStats, cmsLoaded, blSnap, usersSnap] = await Promise.all([
+      fetch(`${CMS_BASE}/getGscData?type=site_stats&days=17&limit=20`).then(r => r.json()).catch(() => []),
+      loadCMSCalcs().then(() => true).catch(() => false),
+      db.collection('backlink_prospects').get().catch(() => null),
+      db.collection('analytics_events').where('event_time', '>=', new Date(Date.now() - 86400000)).where('event_name', '==', 'page_view').limit(5000).get().catch(() => null),
+    ]);
+
+    const rows = (Array.isArray(siteStats) ? siteStats : []).slice().sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+    const last7 = rows.slice(-7), prior7 = rows.slice(-14, -7);
+    const sum = (arr, f) => arr.reduce((s, r) => s + (r[f] || 0), 0);
+    const avg = (arr, f) => arr.length ? arr.reduce((s, r) => s + (r[f] || 0), 0) / arr.length : 0;
+    const clicksNow = sum(last7, 'total_clicks'), clicksPrev = sum(prior7, 'total_clicks');
+    const imprNow = sum(last7, 'total_impressions'), imprPrev = sum(prior7, 'total_impressions');
+    const posNow = avg(last7, 'avg_position'), posPrev = avg(prior7, 'avg_position');
+    const pct = (a, b) => b > 0 ? ((a - b) / b * 100) : (a > 0 ? 100 : 0);
+    const clicksWoW = pct(clicksNow, clicksPrev), imprWoW = pct(imprNow, imprPrev);
+    const posDelta = posPrev > 0 ? posNow - posPrev : 0; // negative = better
+
+    // Users/day from real analytics (unique sessions in last 24h)
+    const sessions = new Set();
+    if (usersSnap) usersSnap.forEach(d => { const s = d.data().session_id; if (s) sessions.add(s); });
+    const usersDay = sessions.size;
+
+    // Content completeness
+    const pub = cmsCalcs.filter(c => c.status === 'published');
+    const complete = pub.filter(c => cmsCompletenessScore(c) >= 12).length;
+    const completePct = pub.length ? Math.round(complete / pub.length * 100) : 0;
+
+    // Backlinks
+    let blLive = 0, blTotal = 0;
+    if (blSnap) blSnap.forEach(d => { blTotal++; if (d.data().status === 'live') blLive++; });
+
+    const trend = (v, invert) => {
+      const good = invert ? v < 0 : v > 0;
+      const sign = v > 0 ? '+' : '';
+      const col = Math.abs(v) < 1 ? 'var(--muted)' : good ? '#22c55e' : '#ef4444';
+      const arrow = Math.abs(v) < 1 ? '→' : (v > 0 ? '▲' : '▼');
+      return `<span style="color:${col};font-weight:600">${arrow} ${sign}${v.toFixed(1)}${invert ? '' : '%'}</span>`;
+    };
+
+    kpisEl.innerHTML = [
+      { label: 'Organic clicks / wk', value: clicksNow.toLocaleString(), sub: trend(clicksWoW) + ' vs last wk' },
+      { label: 'Impressions / wk', value: imprNow.toLocaleString(), sub: trend(imprWoW) + ' vs last wk' },
+      { label: 'Avg position', value: posNow ? posNow.toFixed(1) : '—', sub: posPrev ? trend(posDelta, true) + ' vs last wk' : '' },
+      { label: 'Users / day', value: usersDay.toLocaleString(), sub: `${(usersDay / 10000 * 100).toFixed(1)}% of 10k goal` },
+      { label: 'Content complete', value: completePct + '%', sub: `${complete}/${pub.length} calcs at 12/12` },
+      { label: 'Backlinks live', value: blLive, sub: `${blTotal} prospects tracked` },
+    ].map(k => `<div class="kpi"><div class="kpi-label">${k.label}</div><div class="kpi-value">${k.value}</div><div class="kpi-sub">${k.sub}</div></div>`).join('');
+
+    // Verdict
+    let verdict, vcol;
+    if (!rows.length) { verdict = '❓ No Search Console data yet — configure GSC in Settings'; vcol = 'var(--muted)'; }
+    else if (clicksWoW > 5 && posDelta <= 0.5) { verdict = '📈 GROWING — clicks up ' + clicksWoW.toFixed(0) + '% week-over-week. Keep publishing + completing content.'; vcol = '#22c55e'; }
+    else if (clicksWoW < -10 || posDelta > 2) { verdict = '📉 LOSING GROUND — ' + (clicksWoW < -10 ? 'clicks down ' + Math.abs(clicksWoW).toFixed(0) + '%' : 'rankings slipping ' + posDelta.toFixed(1) + ' positions') + '. Check Opportunities & run Autopilot.'; vcol = '#ef4444'; }
+    else { verdict = '➡️ FLAT — no big change this week. Ship more content and hunt backlinks to break out.'; vcol = '#f59e0b'; }
+    verdictEl.innerHTML = `<span style="color:${vcol}">${verdict}</span>`;
+    verdictEl.title = `Progress to 10,000 users/day: ${usersDay.toLocaleString()} (${(usersDay/100).toFixed(1)}‰)`;
+  } catch (e) {
+    if (verdictEl) verdictEl.textContent = '⚠️ Could not compute site direction: ' + e.message;
+  }
 }
 
 let overviewCharts = {};
@@ -1706,6 +1887,18 @@ async function toggleAutoPublish() {
   } catch(e) { alert('Error: ' + e.message); }
 }
 
+async function runBacklinkHunter() {
+  const el = document.getElementById('autooptimize-results');
+  el.innerHTML = '<span class="spinner"></span> Hunting backlinks...';
+  try {
+    const res = await fetch('https://us-central1-calctowork.cloudfunctions.net/backlinkHunterHttp').then(r=>r.json());
+    const dirs = res.directories || [];
+    el.innerHTML = '<div style="color:var(--success);font-weight:600">🔗 Backlink Report</div>' +
+      dirs.map(d => '<div style="font-size:.72rem;margin:.15rem 0">' + d.name + ': <span style="color:'+(d.status==='exists'?'var(--success)':'var(--muted)')+'">' + d.status + '</span>' + (d.action ? ' - ' + d.action : '') + '</div>').join('') +
+      '<div style="margin-top:.5rem;font-size:.72rem;color:var(--muted)">💡 Embed: <code>&lt;script src="https://calcto.work/embed.js" data-calc="bmi-calculator"&gt;&lt;/script&gt;</code></div>';
+  } catch(e) { el.innerHTML = '<span style="color:var(--danger)">Error: ' + e.message + '</span>'; }
+}
+
 function regenerateAndDeploy() {
   if (confirm('This regenerates all pages with current source content. Deploy with: firebase deploy --only hosting\n\nRun now in terminal?')) {
     alert('Run in terminal:\ncd C:\\Microsaas\\obra\npy scripts\\generate_calctowork.py\nfirebase deploy --only hosting');
@@ -2643,12 +2836,32 @@ function renderSettings(area) {
       </div>
     </div>
 
-    <div class="card"><div class="card-header"><span class="card-title">Google Search Console</span></div>
-      <div class="kpi-grid">
-        <div class="kpi"><div class="kpi-label">Site URL</div><div class="kpi-value" style="font-size:1rem">sc-domain:calcto.work</div><div class="kpi-sub">Connected ✅</div></div>
-        <div class="kpi"><div class="kpi-label">GSC Data Fetcher</div><div class="kpi-value" style="font-size:1rem">Scheduled</div><div class="kpi-sub">Daily at 3 AM UTC</div></div>
-        <div class="kpi"><div class="kpi-label">Analytics Aggregator</div><div class="kpi-value" style="font-size:1rem">Scheduled</div><div class="kpi-sub">Daily at 2 AM UTC</div></div>
-        <div class="kpi"><div class="kpi-label">Alert Detector</div><div class="kpi-value" style="font-size:1rem">Scheduled</div><div class="kpi-sub">Daily at 4 AM UTC</div></div>
+    <div class="card"><div class="card-header"><span class="card-title">🔍 Google Search Console</span></div>
+      <div id="gsc-status-banner" style="margin-bottom:.85rem;padding:.6rem .9rem;border-radius:8px;background:var(--bg);border:1px solid var(--border);font-size:.82rem;color:var(--muted)">Checking GSC connection…</div>
+      <p style="color:var(--muted);font-size:.82rem;margin-bottom:1rem">Credentials are stored in Firestore (the old Firebase runtime config was shut down by Google). Create an OAuth client in Google Cloud Console with the <code>webmasters.readonly</code> scope, authorize it with the Google account that owns the Search Console property, and paste the values here. Leave a field empty to keep its saved value.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.75rem">
+        <div>
+          <label style="font-size:.75rem;color:var(--muted);display:block;margin-bottom:.2rem">OAuth Client ID</label>
+          <input id="gsc-client-id" type="text" placeholder="xxxx.apps.googleusercontent.com" style="width:100%;padding:.4rem .65rem;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.8rem;font-family:monospace">
+        </div>
+        <div>
+          <label style="font-size:.75rem;color:var(--muted);display:block;margin-bottom:.2rem">OAuth Client Secret</label>
+          <input id="gsc-client-secret" type="password" placeholder="GOCSPX-…" style="width:100%;padding:.4rem .65rem;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.8rem;font-family:monospace">
+        </div>
+        <div>
+          <label style="font-size:.75rem;color:var(--muted);display:block;margin-bottom:.2rem">Refresh Token</label>
+          <input id="gsc-refresh-token" type="password" placeholder="1//…" style="width:100%;padding:.4rem .65rem;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.8rem;font-family:monospace">
+        </div>
+        <div>
+          <label style="font-size:.75rem;color:var(--muted);display:block;margin-bottom:.2rem">Site URL (property)</label>
+          <input id="gsc-site-url" type="text" placeholder="sc-domain:calcto.work" style="width:100%;padding:.4rem .65rem;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.8rem;font-family:monospace">
+        </div>
+      </div>
+      <div style="display:flex;gap:.6rem;align-items:center;flex-wrap:wrap">
+        <button class="btn" onclick="saveGscConfigUI()">Save GSC Settings</button>
+        <button class="btn btn-outline" onclick="testGscConnectionUI()">🔌 Test Connection</button>
+        <button class="btn btn-outline" onclick="triggerGscFetch()">🔄 Fetch GSC Data Now</button>
+        <span id="gsc-config-out" style="font-size:.8rem"></span>
       </div>
     </div>
     <div class="card"><div class="card-header"><span class="card-title">Quick Actions</span></div>
@@ -2681,7 +2894,7 @@ function renderSettings(area) {
           <tr><td>6 AM</td><td style="color:var(--purple)">findKeywordOpportunities</td><td>5 draft calculators from GSC gaps</td><td><button class="btn btn-sm btn-outline" onclick="triggerPipeline()" style="font-size:.72rem">Run Now</button></td></tr>
           <tr><td>7 AM</td><td style="color:var(--purple)">generateSEOSuggestions</td><td>AI title/desc improvements</td><td><button class="btn btn-sm btn-outline" onclick="triggerSEOSuggestions()" style="font-size:.72rem">Run Now</button></td></tr>
           <tr><td>9 AM</td><td style="color:var(--purple)">generateGrowthReport</td><td>Weekly AI growth brief</td><td><button class="btn btn-sm btn-outline" onclick="generateGrowthBrief()" style="font-size:.72rem">Run Now</button></td></tr>
-          <tr><td>10 AM</td><td style="color:var(--purple)">runAutoPilot</td><td>Fill translations, fix meta descriptions</td><td><button class="btn btn-sm btn-outline" onclick="triggerAutoPilot()" style="font-size:.72rem">Run Now</button></td></tr>
+          <tr><td>10 AM <span class="badge badge-green" style="font-size:.6rem">daily</span></td><td style="color:var(--purple)">runAutoPilot</td><td>Completes calcs: missing inputs, long-form articles, FAQ, labels, ALL translations (incl. articles) + auto-deploys fixes</td><td><button class="btn btn-sm btn-outline" onclick="triggerAutoPilot()" style="font-size:.72rem">Run Now</button></td></tr>
         </tbody>
       </table>
     </div>
@@ -2696,7 +2909,72 @@ function renderSettings(area) {
       </p>
     </div>
   </div>`;
+    loadGscStatusUI();
   });
+}
+
+// ── GSC SETTINGS ──
+async function loadGscStatusUI() {
+  const banner = document.getElementById('gsc-status-banner');
+  if (!banner) return;
+  try {
+    const res = await fetch(`${CMS_BASE}/getGscStatus`);
+    const s = await res.json();
+    if (s.error) throw new Error(s.error);
+    const siteInput = document.getElementById('gsc-site-url');
+    if (siteInput && !siteInput.value) siteInput.value = s.site_url || '';
+    const freshness = s.last_data_date
+      ? `Last data: <strong>${s.last_data_date}</strong> ${(Date.now() - new Date(s.last_data_date).getTime()) > 5*86400000 ? '<span style="color:var(--danger)">(stale — fetcher may be failing, use Test Connection)</span>' : '<span style="color:var(--success)">(fresh)</span>'}`
+      : '<span style="color:var(--danger)">No GSC data stored yet.</span>';
+    banner.innerHTML = s.configured
+      ? `✅ Credentials configured — property <strong>${s.site_url}</strong>, client <code>${s.client_id||'?'}</code>. ${freshness}`
+      : `⚠️ <strong style="color:var(--danger)">GSC not configured.</strong> Search Console data collection is NOT running — the old Firebase config storage was shut down by Google, so credentials must be re-saved below. ${freshness}`;
+  } catch(e) {
+    banner.innerHTML = `⚠️ Could not read GSC status: ${e.message}. If this endpoint 404s, deploy the updated Cloud Functions first (<code>firebase deploy --only functions</code>).`;
+  }
+}
+
+async function saveGscConfigUI() {
+  const out = document.getElementById('gsc-config-out');
+  const payload = {
+    client_id: document.getElementById('gsc-client-id')?.value.trim(),
+    client_secret: document.getElementById('gsc-client-secret')?.value.trim(),
+    refresh_token: document.getElementById('gsc-refresh-token')?.value.trim(),
+    site_url: document.getElementById('gsc-site-url')?.value.trim(),
+  };
+  if (!payload.client_id && !payload.client_secret && !payload.refresh_token && !payload.site_url) {
+    if (out) out.innerHTML = '<span style="color:var(--danger)">Nothing to save — fill at least one field.</span>';
+    return;
+  }
+  if (out) out.textContent = 'Saving…';
+  try {
+    const res = await fetch(`${CMS_BASE}/saveGscConfig`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    if (out) out.innerHTML = `<span style="color:var(--success)">✓ Saved: ${data.saved.join(', ')}</span>`;
+    loadGscStatusUI();
+  } catch(e) {
+    if (out) out.innerHTML = `<span style="color:var(--danger)">Save failed: ${e.message}</span>`;
+  }
+}
+
+async function testGscConnectionUI() {
+  const out = document.getElementById('gsc-config-out');
+  if (out) out.textContent = 'Testing live connection to Search Console API…';
+  try {
+    const res = await fetch(`${CMS_BASE}/testGscConnection`);
+    const data = await res.json();
+    if (data.ok) {
+      if (out) out.innerHTML = `<span style="color:var(--success)">✅ Connected! ${data.rows} day(s) of data returned for ${data.site_url}.</span>`;
+    } else {
+      if (out) out.innerHTML = `<span style="color:var(--danger)">❌ ${data.error}</span>${data.hint ? `<br><span style="color:var(--muted)">💡 ${data.hint}</span>` : ''}`;
+    }
+  } catch(e) {
+    if (out) out.innerHTML = `<span style="color:var(--danger)">Test failed: ${e.message}</span>`;
+  }
 }
 
 // ── AI TOOLS TAB ──
@@ -3315,6 +3593,8 @@ function renderGrowthLab(area) {
           <button class="btn btn-outline btn-sm" onclick="runAutoOptimize(true)">Dry Run</button>
         </div>
         <p style="font-size:.7rem;color:var(--muted);margin-bottom:.5rem">Scans pages ranking in positions 1-99 with 10+ impressions. Dry run shows suggestions without saving.</p>
+        <button class="btn btn-sm" onclick="generateAllSEOTitles()" style="width:100%;margin-top:.25rem;background:linear-gradient(135deg,#8b5cf6,#6366f1);color:#fff;border:none">✨ Generate SEO Titles for ALL (bulk AI)</button>
+        <button class="btn btn-sm" onclick="auditCalcQuality()" style="width:100%;margin-top:.25rem;background:linear-gradient(135deg,#f97316,#ea580c);color:#fff;border:none">🛡 Audit Quality & Unpublish Bad Calcs</button>
         <button class="btn btn-sm" onclick="applyAllSEOSuggestions()" style="width:100%;margin-top:.25rem;background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;border:none">✅ Approve & Apply All Pending</button>
         <div id="autooptimize-results" style="margin-top:.75rem;font-size:.78rem;max-height:300px;overflow-y:auto"></div>
       </div>
@@ -3375,7 +3655,7 @@ function renderGrowthLab(area) {
         <button class="btn" onclick="runAutoOptimize(false)" style="text-align:center;padding:.6rem">🎯 Optimize Titles</button>
         <button class="btn btn-outline" onclick="switchTab('ctr')" style="text-align:center;padding:.6rem">📊 CTR Report</button>
         <button class="btn btn-outline" onclick="switchTab('audit')" style="text-align:center;padding:.6rem">🩺 Full Audit</button>
-        <button class="btn btn-outline" onclick="fetch('https://us-central1-calctowork.cloudfunctions.net/runAutoPilotHttp',{method:'POST'}).then(()=>alert('Autopilot triggered!'))" style="text-align:center;padding:.6rem">🚀 Run Autopilot</button>
+        <button class="btn btn-outline" onclick="runBacklinkHunter()" style="text-align:center;padding:.6rem">🔗 Hunt Backlinks</button>
         <button class="btn btn-outline" onclick="alert('Core pages and sitemaps regenerate automatically after each agent cycle + daily at 5 AM UTC. Manual regeneration not needed.')" style="text-align:center;padding:.6rem">🔄 Auto-Regeneration</button>
       </div>
     </div>
@@ -3438,6 +3718,43 @@ async function runAutoOptimize(dryRun) {
         <td style="font-size:.72rem;color:var(--success)">${r.new_title||'—'}</td>
       </tr>`).join('')}</tbody></table>
       ${!dryRun ? '<button class="btn btn-sm" style="margin-top:.5rem" onclick="applyAllSEOSuggestions()">✅ Apply All Now</button>' : ''}`;
+  } catch(e) {
+    el.innerHTML = `<span style="color:var(--danger)">Error: ${e.message}</span>`;
+  }
+}
+
+async function auditCalcQuality() {
+  const el = document.getElementById('autooptimize-results');
+  if (!confirm('This will score ALL calculators and unpublish any below 80/100 quality. Continue?')) return;
+  el.innerHTML = '<span class="spinner"></span> Auditing calculator quality...';
+  try {
+    const res = await fetch('https://us-central1-calctowork.cloudfunctions.net/auditCalcQualityHttp', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ autoFix:true, threshold:80 })
+    }).then(r=>r.json());
+    el.innerHTML = `<div style="color:var(--primary);font-weight:600">🛡 Quality Audit Complete</div>
+      <div style="font-size:.78rem;margin:.3rem 0">Scored: ${res.scored} | <span style="color:var(--success)">Passed: ${res.passed}</span> | <span style="color:var(--danger)">Failed: ${res.failed}</span> | Unpublished: ${res.unpublished}</div>
+      ${res.top_issues ? res.top_issues.slice(0,10).map(i => `<div style="font-size:.7rem;margin:.1rem 0;padding:.2rem .4rem;background:var(--card-hover);border-radius:4px"><strong>${i.slug}</strong>: ${i.score}/100 — ${(i.issues||[]).join(', ')}</div>`).join('') : ''}`;
+  } catch(e) { el.innerHTML = '<span style="color:var(--danger)">Error: '+e.message+'</span>'; }
+}
+
+async function generateAllSEOTitles() {
+  const el = document.getElementById('autooptimize-results');
+  el.innerHTML = '<span class="spinner" style="display:inline-block;width:14px;height:14px;border-width:2px"></span> AI generating SEO titles for all calculators missing them (this takes ~2 min)...';
+
+  try {
+    const base = `https://us-central1-calctowork.cloudfunctions.net`;
+    const res = await fetch(`${base}/generateAllSEOTitlesHttp`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ limit: 30, deploy: false })
+    }).then(r=>r.json());
+
+    if (res.error) { el.innerHTML = `<span style="color:var(--danger)">${res.error}</span>`; return; }
+
+    el.innerHTML = `<div style="color:var(--success);font-weight:600">✅ Generated SEO titles for ${res.generated} calculators</div>
+      <div style="color:var(--muted);font-size:.75rem">${res.skipped} already had good titles. ${res.deployed||0} auto-deployed.</div>
+      ${res.results ? res.results.slice(0,10).map(r => `<div style="font-size:.72rem;margin:.2rem 0;padding:.2rem .4rem;background:var(--card-hover);border-radius:4px"><strong>${r.slug}</strong>: ${r.title}</div>`).join('') : ''}
+      <button class="btn btn-sm" style="margin-top:.5rem" onclick="generateAllSEOTitles()">Generate 30 More</button>`;
   } catch(e) {
     el.innerHTML = `<span style="color:var(--danger)">Error: ${e.message}</span>`;
   }
@@ -3524,6 +3841,143 @@ async function addGapsToPipeline() {
   } catch(e) {
     alert('Error: ' + e.message);
   }
+}
+
+// ═══════════════════════════════════════════
+//  STRATEGY TAB — AI Brain: Plan → Review → Replan
+// ═══════════════════════════════════════════
+function renderStrategy(area) {
+  area.innerHTML = `<div id="strategy-tab">
+    <div class="grid-2" style="gap:1rem;margin-bottom:1rem">
+      <!-- CURRENT PLAN -->
+      <div class="card" style="background:linear-gradient(135deg,rgba(139,92,246,.08),rgba(99,102,241,.05));border-color:rgba(139,92,246,.25)">
+        <div class="card-header">
+          <span class="card-title">🧠 Current Plan</span>
+          <div style="display:flex;gap:.35rem">
+            <button class="btn btn-sm" onclick="generateStrategyPlan()">New Plan</button>
+            <button class="btn btn-sm btn-outline" onclick="reviewStrategyPlan()">Review</button>
+          </div>
+        </div>
+        <div id="current-plan"><div class="loading"><span class="spinner"></span> Loading...</div></div>
+      </div>
+
+      <!-- MEMORY & LEARNINGS -->
+      <div class="card">
+        <div class="card-header"><span class="card-title">📚 Long-term Memory</span></div>
+        <div id="strategy-memory"><div class="loading"><span class="spinner"></span> Loading...</div></div>
+      </div>
+    </div>
+
+    <!-- TIMELINE -->
+    <div class="card" style="margin-bottom:1rem">
+      <div class="card-header"><span class="card-title">📅 Historical Timeline</span><button class="btn btn-sm btn-outline" onclick="addStrategyNote()">+ Note</button></div>
+      <div id="strategy-timeline"><div class="loading"><span class="spinner"></span> Loading...</div></div>
+    </div>
+
+    <!-- QUICK NOTE -->
+    <div class="card">
+      <div class="card-header"><span class="card-title">💡 Add Insight</span></div>
+      <div style="display:flex;gap:.5rem">
+        <input id="strategy-insight" placeholder="e.g. Construction calculators get 10x more clicks than math ones" style="flex:1;padding:.5rem;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.82rem">
+        <button class="btn" onclick="saveStrategyNote()">Save</button>
+      </div>
+    </div>
+  </div>`;
+
+  loadStrategyMemory();
+}
+
+async function loadStrategyMemory() {
+  try {
+    const base = 'https://us-central1-calctowork.cloudfunctions.net';
+    const data = await fetch(`${base}/getStrategyMemoryHttp`).then(r=>r.json());
+
+    // Current plan
+    const plan = data.strategy?.current_plan;
+    const planEl = document.getElementById('current-plan');
+    if (plan && plan.headline) {
+      planEl.innerHTML = `<div style="font-size:.85rem;font-weight:600;color:var(--primary);margin-bottom:.5rem">${plan.headline}</div>
+        <div style="font-size:.78rem;color:var(--muted);margin-bottom:.5rem">Goal: ${plan.big_goal||''}</div>
+        ${(plan.phases||[]).map(p => `<div style="margin-bottom:.5rem;padding:.4rem .6rem;background:var(--card-hover);border-radius:6px;font-size:.75rem">
+          <div style="font-weight:600;color:var(--text)">Phase ${p.phase}: ${p.focus}</div>
+          ${(p.actions||[]).map(a => `<div style="color:var(--muted);margin-left:.5rem">• ${a}</div>`).join('')}
+          <div style="color:var(--success);font-size:.68rem;margin-top:.15rem">${p.success_criteria||''}</div>
+        </div>`).join('')}
+        ${plan.long_term_vision ? `<div style="font-size:.72rem;color:var(--muted);margin-top:.5rem;padding:.3rem .5rem;background:var(--bg);border-radius:4px">🎯 Vision: ${plan.long_term_vision}</div>` : ''}`;
+    } else {
+      planEl.innerHTML = '<div style="color:var(--muted)">No active plan. Click "New Plan" to generate one.</div>';
+    }
+
+    // Memory & learnings
+    const learn = data.learnings || {};
+    const memEl = document.getElementById('strategy-memory');
+    memEl.innerHTML = `<div style="margin-bottom:.75rem"><strong style="font-size:.75rem;color:var(--success)">✅ What Works:</strong>${(learn.what_works||[]).slice(0,5).map(w => `<div style="font-size:.72rem;margin:.1rem 0;padding:.15rem .4rem;background:rgba(34,197,94,.08);border-radius:4px">${w}</div>`).join('')||'<div style="font-size:.72rem;color:var(--muted)">Nothing yet</div>'}</div>
+      <div style="margin-bottom:.75rem"><strong style="font-size:.75rem;color:var(--danger)">❌ What Doesn't:</strong>${(learn.what_doesnt||[]).slice(0,5).map(w => `<div style="font-size:.72rem;margin:.1rem 0;padding:.15rem .4rem;background:rgba(239,68,68,.08);border-radius:4px">${w}</div>`).join('')||'<div style="font-size:.72rem;color:var(--muted)">Nothing yet</div>'}</div>
+      <div><strong style="font-size:.75rem;color:var(--info)">📊 Patterns:</strong>${(learn.site_patterns||[]).slice(0,5).map(w => `<div style="font-size:.72rem;margin:.1rem 0;padding:.15rem .4rem;background:rgba(59,130,246,.08);border-radius:4px">${w}</div>`).join('')||'<div style="font-size:.72rem;color:var(--muted)">Nothing yet</div>'}</div>`;
+
+    // Timeline
+    const memory = data.memory || {};
+    const timeline = memory.timeline || [];
+    const tlEl = document.getElementById('strategy-timeline');
+    tlEl.innerHTML = timeline.length ? timeline.slice(0,20).map(t => `<div style="display:flex;gap:.75rem;padding:.35rem 0;border-bottom:1px solid var(--border);font-size:.75rem">
+      <span style="color:var(--muted);white-space:nowrap;min-width:100px">${new Date(t.date).toLocaleDateString()}</span>
+      <span style="color:var(--text)">${t.event||''} ${t.headline? '— '+t.headline : ''} ${t.summary? '— '+t.summary.slice(0,100) : ''}</span>
+    </div>`).join('') : '<div style="color:var(--muted);font-size:.75rem">No timeline yet. Create a plan to start.</div>';
+  } catch(e) { console.warn('Strategy:', e.message); }
+}
+
+async function generateStrategyPlan() {
+  const el = document.getElementById('current-plan');
+  el.innerHTML = '<span class="spinner"></span> AI is analyzing site + memory and creating a 2-week plan...';
+  try {
+    const res = await fetch('https://us-central1-calctowork.cloudfunctions.net/generateStrategyPlanHttp').then(r=>r.json());
+    if (res.error) { el.innerHTML = `<span style="color:var(--danger)">${res.error}</span>`; return; }
+    loadStrategyMemory();
+  } catch(e) { el.innerHTML = `<span style="color:var(--danger)">Error: ${e.message}</span>`; }
+}
+
+async function reviewStrategyPlan() {
+  const el = document.getElementById('current-plan');
+  el.innerHTML = '<span class="spinner"></span> AI is reviewing progress vs plan...';
+  try {
+    const res = await fetch('https://us-central1-calctowork.cloudfunctions.net/reviewStrategyPlanHttp').then(r=>r.json());
+    if (res.error) { el.innerHTML = `<span style="color:var(--danger)">${res.error}</span>`; return; }
+    el.innerHTML = `<div style="font-size:.85rem;font-weight:600;color:var(--primary);margin-bottom:.5rem">📋 Review: ${res.summary||''}</div>
+      <div style="font-size:.78rem">
+        <div style="margin-bottom:.3rem"><span class="badge ${res.plan_status==='on_track'?'badge-green':'badge-orange'}">${res.plan_status||'pending'}</span> Confidence: ${res.confidence}/10</div>
+        ${res.what_worked ? '<div style="color:var(--success);font-size:.72rem">✅ '+res.what_worked.join(', ')+'</div>' : ''}
+        ${res.what_didnt ? '<div style="color:var(--danger);font-size:.72rem">❌ '+res.what_didnt.join(', ')+'</div>' : ''}
+        ${res.adjustments ? '<div style="color:var(--info);font-size:.72rem;margin-top:.25rem">🔄 Adjust: '+res.adjustments.join(', ')+'</div>' : ''}
+      </div>
+      <button class="btn btn-sm" style="margin-top:.5rem" onclick="generateStrategyPlan()">Create Adjusted Plan</button>`;
+    setTimeout(loadStrategyMemory, 1500);
+  } catch(e) { el.innerHTML = `<span style="color:var(--danger)">Error: ${e.message}</span>`; }
+}
+
+async function saveStrategyNote() {
+  const inp = document.getElementById('strategy-insight');
+  const text = inp.value.trim();
+  if (!text) return;
+  try {
+    await fetch('https://us-central1-calctowork.cloudfunctions.net/saveStrategyMemoryHttp', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ insight:text, event:text })
+    });
+    inp.value = '';
+    loadStrategyMemory();
+  } catch(e) { alert('Error: '+e.message); }
+}
+
+async function addStrategyNote() {
+  const note = prompt('Add a note or event to the timeline:');
+  if (!note) return;
+  try {
+    await fetch('https://us-central1-calctowork.cloudfunctions.net/saveStrategyMemoryHttp', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ event:note })
+    });
+    loadStrategyMemory();
+  } catch(e) { alert('Error: '+e.message); }
 }
 
 function renderAITools(area) {
@@ -4302,6 +4756,7 @@ function renderCMSList() {
         <div style="display:flex;gap:.5rem;align-items:center;flex:1;min-width:200px">
           <input type="text" placeholder="Search calculators…" value="${cmsSearch}" oninput="cmsSearch=this.value;renderCMSList()" style="flex:1;padding:.4rem .7rem;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.82rem">
           <button class="btn btn-outline" onclick="openAICreateModal()" style="background:linear-gradient(135deg,#8b5cf6,#6366f1);color:#fff;border:none">🤖 Create with AI</button>
+          <button class="btn btn-outline" id="complete-all-btn" onclick="completeAllCalcs()" title="Runs ✨ Complete on every calculator with missing content (article, FAQ, labels, translations) and deploys the fixes">✨ Complete all</button>
           <button class="btn" onclick="openCMSEditor(null)">+ New</button>
         </div>
       </div>
@@ -4353,6 +4808,7 @@ function renderCMSTable(calcs, cmsSlugs) {
         <td style="color:var(--muted);font-size:.75rem">${updated}</td>
         <td style="white-space:nowrap">
           <button onclick="openCMSEditor('${c.slug}')" class="btn btn-sm btn-outline" style="margin-right:.3rem">✏️ Edit</button>
+          ${qScore < 12 ? `<button id="complete-btn-${c.slug}" onclick="completeCalcRow('${c.slug}')" class="btn btn-sm" title="Generate everything that's missing: inputs, article, FAQ, labels + all translations — then deploy" style="margin-right:.3rem;background:linear-gradient(135deg,#8b5cf6,#6366f1);color:#fff;border:none">✨ Complete</button>` : ''}
           <a href="${SITE_BASE}/en/${c.slug}/" target="_blank" class="btn btn-sm btn-outline" style="margin-right:.3rem">👁</a>
           <button onclick="deleteCMSCalc('${c.slug}')" style="background:none;border:none;color:var(--danger);cursor:pointer;font-size:.85rem;padding:.2rem">🗑</button>
         </td>
@@ -4551,6 +5007,7 @@ function renderCMSEditor() {
       <span style="font-weight:700;font-size:.95rem;flex:1;min-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${name}">${name}</span>
       <span id="cms-save-indicator" style="font-size:.72rem;color:var(--muted)">${savedText}</span>
       <button class="btn btn-outline" onclick="saveCMSCalc('draft')" style="font-size:.8rem;padding:.35rem .8rem">Save Draft</button>
+      <button class="btn" onclick="cmsCompleteEverything()" id="cms-complete-btn" title="AI fills everything that's missing: inputs/formula, long-form article, FAQ, input labels + all 5 translations (incl. translated articles), then deploys" style="font-size:.8rem;padding:.35rem .8rem;background:linear-gradient(135deg,#8b5cf6,#6366f1)">✨ Complete everything</button>
       <button class="btn" onclick="saveCMSCalc('published')" style="font-size:.8rem;padding:.35rem .8rem">🚀 Publish</button>
       ${isStatic ? `<button class="btn" onclick="deployCalcToHosting()" id="cms-deploy-btn" style="font-size:.8rem;padding:.35rem .8rem;background:#22c55e">🌐 Deploy to Live</button>` : ''}
     </div>
@@ -5493,6 +5950,436 @@ async function deleteCMSCalc(slug) {
   } catch(e) { alert('Delete failed: ' + e.message); }
 }
 
+// ── ONE-CLICK COMPLETION ──
+// Server-side: generates missing inputs/formula, English article, FAQ, labels
+// and full translations (incl. translated articles), then deploys to hosting.
+function cmsCompletenessScore(c) {
+  const en = c.langs?.en || {};
+  const langScore = CMS_LANGS.filter(l => c.langs?.[l]?.name).length;
+  return langScore
+    + (en.long_content && en.long_content.length >= 800 ? 2 : 0)
+    + (en.faq && en.faq.length >= 3 ? 2 : 0)
+    + (en.seo_description ? 1 : 0)
+    + (en.inputs_labels ? 1 : 0);
+}
+
+async function completeCalcRow(slug) {
+  const btn = document.getElementById('complete-btn-' + slug);
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ Working…'; }
+  showToast(`✨ Completing ${slug} — article, FAQ, labels + all translations. Takes 2–5 min…`);
+  try {
+    const res = await fetch(`${CMS_BASE}/completeCalcHttp`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug, deploy: true }),
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    const r = data.results || {};
+    showToast(`✅ ${slug}: ${r.translations||0} translations, article ${r.longContentFixed?'generated':'ok'}, ${r.longContentTranslated||0} articles translated${data.deploy?.deployed ? ' — live!' : ''}`);
+    await loadCMSCalcs();
+    if (currentTab === 'calculators') renderCMSList();
+  } catch(e) {
+    showToast('❌ ' + slug + ': ' + e.message, 'error');
+    if (btn) { btn.disabled = false; btn.textContent = '✨ Complete'; }
+  }
+}
+
+async function cmsCompleteEverything() {
+  if (!cmsEditing?.langs?.en?.name) { alert('Fill in the English name first (Basic Info tab).'); return; }
+  const btn = document.getElementById('cms-complete-btn');
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ Generating… (2–5 min)'; }
+  try {
+    // Persist current edits first so the server completes the latest version
+    await saveCMSCalc(cmsEditing.status || 'draft', true);
+    const res = await fetch(`${CMS_BASE}/completeCalcHttp`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug: cmsEditing.slug, deploy: cmsEditing.status === 'published' }),
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    // Reload the completed doc into the editor
+    const docSnap = await db.collection('calc_cms').doc(cmsEditing.slug).get();
+    if (docSnap.exists) cmsEditing = { slug: cmsEditing.slug, ...docSnap.data() };
+    const r = data.results || {};
+    showToast(`✨ Done: ${r.mechanicsFixed?'inputs/formula generated, ':''}${r.longContentFixed?'article written, ':''}${r.translations||0} translations, ${r.longContentTranslated||0} articles translated${data.deploy?.deployed ? ' — deployed live' : ''}`);
+    const body = document.getElementById('cms-section-body');
+    if (body) body.innerHTML = renderCMSSection(cmsEditorSection);
+  } catch(e) {
+    showToast('❌ Completion failed: ' + e.message, 'error');
+  }
+  if (btn) { btn.disabled = false; btn.textContent = '✨ Complete everything'; }
+}
+
+// Server-side, resumable. Each call processes a batch on the server and returns
+// a cursor; we loop until done. Because progress persists server-side, closing
+// the tab just pauses it — reopening and pressing the button resumes.
+let completeAllRunning = false;
+async function completeAllCalcs(reset) {
+  if (completeAllRunning) { completeAllRunning = false; showToast('⏸ Stopping after current batch…'); return; }
+
+  // Immediate visible feedback + Stop control instead of a native confirm()
+  // dialog (browsers can silently suppress those, which looked like "nothing happens").
+  completeAllRunning = true;
+  const btn = document.getElementById('complete-all-btn');
+  if (btn) btn.textContent = '⏳ Starting…';
+  showToast('✨ Complete-All started — generating content for all calculators. Press the button again to stop.');
+  ensureProgressBar();
+  updateProgressBar(0, 'Starting… this runs server-side and uses AI credits. Press Stop to cancel.');
+  let totalUpdated = 0, totalDeployed = 0, totalProcessed = 0, grandTotal = 0, first = true;
+
+  while (completeAllRunning) {
+    try {
+      const res = await fetch(`${CMS_BASE}/completeAllCalcsHttp`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ reset: first && reset ? true : false, batch: 4 }),
+      });
+      first = false;
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      totalUpdated += data.updated_this_call || 0;
+      totalDeployed += data.deployed_this_call || 0;
+      totalProcessed = data.total_processed || totalProcessed;
+      grandTotal = data.total || grandTotal;
+      const pct = grandTotal ? Math.min(100, Math.round(totalProcessed / grandTotal * 100)) : 0;
+      updateProgressBar(pct, `Completing calculators… ${totalProcessed}/${grandTotal} scanned · ${totalUpdated} improved · ${totalDeployed} deployed`);
+      if (btn) btn.textContent = `⏹ Stop (${pct}%)`;
+      if (data.done) break;
+    } catch (e) {
+      updateProgressBar(null, '❌ ' + e.message);
+      showToast('Complete-all error: ' + e.message, 'error');
+      break;
+    }
+  }
+  const finished = completeAllRunning;
+  completeAllRunning = false;
+  if (btn) btn.textContent = '✨ Complete all';
+  updateProgressBar(100, `${finished ? '✅ Done' : '⏸ Paused'} — ${totalUpdated} calculators improved, ${totalDeployed} deployed live.`);
+  setTimeout(removeProgressBar, 6000);
+  showToast(`✨ ${finished ? 'Complete-all finished' : 'Paused'}: ${totalUpdated} improved, ${totalDeployed} deployed.`);
+  await loadCMSCalcs();
+  if (currentTab === 'calculators') renderCMSList();
+  if (currentTab === 'overview') { updateNorthStar(); updatePlaybook(); }
+}
+
+function ensureProgressBar() {
+  if (document.getElementById('global-progress')) return;
+  const bar = document.createElement('div');
+  bar.id = 'global-progress';
+  bar.style = 'position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--border);padding:.6rem 1rem;z-index:9998;box-shadow:0 -4px 20px rgba(0,0,0,.3)';
+  bar.innerHTML = `<div style="display:flex;align-items:center;gap:.75rem;max-width:900px;margin:0 auto">
+    <div style="flex:1"><div id="global-progress-msg" style="font-size:.8rem;color:var(--text);margin-bottom:.3rem">Starting…</div>
+    <div style="background:var(--bg);border-radius:999px;height:7px;overflow:hidden"><div id="global-progress-fill" style="height:7px;width:0%;background:linear-gradient(90deg,#f97316,#8b5cf6);transition:width .4s"></div></div></div>
+    <button onclick="completeAllCalcs()" style="background:none;border:1px solid var(--border);border-radius:6px;color:var(--muted);cursor:pointer;font-size:.72rem;padding:.3rem .6rem">Stop</button>
+  </div>`;
+  document.body.appendChild(bar);
+}
+function updateProgressBar(pct, msg) {
+  const fill = document.getElementById('global-progress-fill');
+  const m = document.getElementById('global-progress-msg');
+  if (fill && pct !== null) fill.style.width = pct + '%';
+  if (m && msg) m.textContent = msg;
+}
+function removeProgressBar() {
+  const b = document.getElementById('global-progress');
+  if (b) b.remove();
+}
+
+// ═══════════════ PUBLISH CENTER — WordPress-style publish & deploy ═══════════════
+async function renderPublishCenter(area) {
+  area.innerHTML = '<div class="loading"><span class="spinner"></span> Loading publish queue…</div>';
+  await loadCMSCalcs();
+  const drafts = cmsCalcs.filter(c => c.status !== 'published');
+  const recentPub = cmsCalcs.filter(c => c.status === 'published').slice(0, 12);
+
+  const draftRow = c => {
+    const name = c.langs?.en?.name || c.slug;
+    const q = cmsCompletenessScore(c);
+    const updated = c.updated_at ? new Date(c.updated_at.seconds ? c.updated_at.seconds * 1000 : c.updated_at).toLocaleDateString() : '—';
+    return `<tr>
+      <td style="font-weight:600">${name}</td>
+      <td style="font-family:monospace;font-size:.74rem;color:var(--muted)">${c.slug}</td>
+      <td><span style="color:${q >= 10 ? '#22c55e' : q >= 6 ? '#f97316' : '#ef4444'}">●</span> ${q}/12</td>
+      <td style="font-size:.75rem;color:var(--muted)">${updated}</td>
+      <td style="white-space:nowrap">
+        <button class="btn btn-sm btn-outline" onclick="openCMSEditor('${c.slug}')">✏️</button>
+        <button class="btn btn-sm" id="pub-btn-${c.slug}" onclick="publishAndDeployCalc('${c.slug}')" style="background:#22c55e">🚀 Publish & Go Live</button>
+      </td>
+    </tr>`;
+  };
+
+  area.innerHTML = `
+    <div class="card" style="margin-bottom:1rem;background:linear-gradient(135deg,rgba(34,197,94,.08),rgba(59,130,246,.05));border-color:rgba(34,197,94,.3)">
+      <div class="card-header"><span class="card-title">🚀 Publish Center</span></div>
+      <p style="font-size:.83rem;color:var(--muted);margin:0 0 .75rem">Works like WordPress: <strong>Draft → Publish & Go Live</strong>. Publishing builds the HTML for all languages and pushes it straight to Firebase Hosting — no terminal, no manual deploy.</p>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center">
+        <button class="btn" id="complete-all-btn" onclick="completeAllCalcs()" style="background:linear-gradient(135deg,#8b5cf6,#6366f1)">✨ Complete ALL calculators</button>
+        <span style="font-size:.78rem;color:var(--muted)">Fills every missing article, FAQ, label &amp; translation across all calculators, then deploys each. Runs server-side — safe to close the tab and resume later.</span>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:1rem">
+      <div class="card-header">
+        <span class="card-title">📝 Drafts (${drafts.length})</span>
+        ${drafts.length ? `<button class="btn btn-sm" id="pub-all-btn" onclick="publishAllDrafts()">🚀 Publish all drafts</button>` : ''}
+      </div>
+      ${drafts.length
+        ? `<div style="overflow-x:auto"><table class="data-table"><thead><tr><th>Name</th><th>Slug</th><th>Quality</th><th>Updated</th><th></th></tr></thead><tbody>${drafts.map(draftRow).join('')}</tbody></table></div>`
+        : '<div style="padding:1.25rem;color:var(--muted);font-size:.85rem">No drafts — everything is published. Create new calculators in the Calculators tab (🤖 Create with AI).</div>'}
+    </div>
+
+    <div class="grid-2" style="margin-bottom:1rem">
+      <div class="card">
+        <div class="card-header"><span class="card-title">🌍 Core pages</span></div>
+        <p style="font-size:.8rem;color:var(--muted)">Regenerates the homepage, category pages and sitemap so new calculators appear everywhere, then you can ping Google.</p>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center">
+          <button class="btn" id="regen-core-btn" onclick="regenCorePagesUI()">♻️ Regenerate homepage + sitemap</button>
+          <button class="btn btn-outline" onclick="pingSitemap()">📡 Ping Google</button>
+          <span id="sitemap-ping-out" style="font-size:.78rem;color:var(--muted)"></span>
+        </div>
+        <div id="regen-core-out" style="font-size:.78rem;color:var(--muted);margin-top:.5rem"></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="card-title">🔁 Recently published — redeploy</span></div>
+        <div style="max-height:260px;overflow-y:auto">
+        ${recentPub.map(c => `<div style="display:flex;align-items:center;gap:.5rem;padding:.4rem 0;border-bottom:1px solid var(--border);font-size:.8rem">
+          <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.langs?.en?.name || c.slug}</span>
+          <a href="${SITE_BASE}/en/${c.slug}/" target="_blank" style="color:var(--primary);font-size:.72rem">view ↗</a>
+          <button class="btn btn-sm btn-outline" id="redeploy-btn-${c.slug}" onclick="redeployCalc('${c.slug}')" style="font-size:.7rem">↻ Redeploy</button>
+        </div>`).join('') || '<div style="color:var(--muted);font-size:.8rem;padding:.5rem 0">Nothing published yet.</div>'}
+        </div>
+      </div>
+    </div>`;
+}
+
+async function publishAndDeployCalc(slug) {
+  const btn = document.getElementById('pub-btn-' + slug);
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ Publishing…'; }
+  try {
+    await db.collection('calc_cms').doc(slug).set({ status: 'published', published_at: new Date(), updated_at: new Date() }, { merge: true });
+    const res = await fetch(`${CMS_BASE}/publishCalcToHosting`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug }),
+    });
+    const data = await res.json();
+    if (!data.success && data.error) throw new Error(data.error);
+    showToast(`🚀 ${slug} is LIVE (${(data.pagesUpdated || []).length} pages). Completing missing content in background…`);
+    // Kick background completion (translations/articles) — fire and forget
+    fetch(`${CMS_BASE}/completeCalcHttp`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug, deploy: true }),
+    }).catch(() => {});
+    if (btn) { btn.textContent = '✅ Live'; }
+  } catch (e) {
+    showToast('❌ Publish failed for ' + slug + ': ' + e.message, 'error');
+    if (btn) { btn.disabled = false; btn.textContent = '🚀 Publish & Go Live'; }
+  }
+}
+
+async function publishAllDrafts() {
+  const drafts = cmsCalcs.filter(c => c.status !== 'published');
+  if (!drafts.length) return;
+  if (!confirm(`Publish and deploy ${drafts.length} draft(s)?`)) return;
+  const btn = document.getElementById('pub-all-btn');
+  let n = 0;
+  for (const c of drafts) {
+    n++;
+    if (btn) btn.textContent = `⏳ ${n}/${drafts.length}: ${c.slug}`;
+    await publishAndDeployCalc(c.slug);
+  }
+  if (btn) btn.textContent = '✅ All published';
+  await loadCMSCalcs();
+  if (currentTab === 'publish') renderPublishCenter(document.getElementById('content-area'));
+}
+
+async function redeployCalc(slug) {
+  const btn = document.getElementById('redeploy-btn-' + slug);
+  if (btn) { btn.disabled = true; btn.textContent = '⏳'; }
+  try {
+    const res = await fetch(`${CMS_BASE}/publishCalcToHosting`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug }),
+    });
+    const data = await res.json();
+    if (!data.success && data.error) throw new Error(data.error);
+    showToast(`↻ ${slug} redeployed (${(data.pagesUpdated || []).length} pages).`);
+    if (btn) btn.textContent = '✅';
+  } catch (e) {
+    showToast('❌ Redeploy failed: ' + e.message, 'error');
+    if (btn) { btn.disabled = false; btn.textContent = '↻ Redeploy'; }
+  }
+}
+
+async function regenCorePagesUI() {
+  const btn = document.getElementById('regen-core-btn');
+  const out = document.getElementById('regen-core-out');
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ Regenerating… (1–2 min)'; }
+  try {
+    const res = await fetch(`${CMS_BASE}/regenerateCorePagesHttp`, { method: 'POST' });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    if (out) out.innerHTML = '<span style="color:var(--success)">✅ Core pages regenerated and live.</span>';
+  } catch (e) {
+    if (out) out.innerHTML = `<span style="color:var(--danger)">❌ ${e.message}</span>`;
+  }
+  if (btn) { btn.disabled = false; btn.textContent = '♻️ Regenerate homepage + sitemap'; }
+}
+
+// ═══════════════ BACKLINKS — prospect finder, tracker, outreach ═══════════════
+let blProspects = [];
+async function renderBacklinks(area) {
+  area.innerHTML = `
+    <div class="card" style="margin-bottom:1rem">
+      <div class="card-header">
+        <span class="card-title">🔗 Backlink Builder</span>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn btn-sm" id="bl-find-btn" onclick="findBacklinksUI()">🔍 Find prospects (AI)</button>
+          <button class="btn btn-sm btn-outline" onclick="addProspectUI()">+ Add manually</button>
+        </div>
+      </div>
+      <div class="kpi-grid" id="bl-kpis" style="margin-bottom:0"></div>
+    </div>
+    <div class="card" style="margin-bottom:1rem">
+      <div class="card-header"><span class="card-title">📋 Prospects</span><span style="font-size:.72rem;color:var(--muted)">status and notes save automatically</span></div>
+      <div id="bl-table"><div class="loading"><span class="spinner"></span> Loading prospects…</div></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="card-title">🧲 Passive backlinks — let others link to you</span></div>
+      <p style="font-size:.8rem;color:var(--muted)">Share these snippets in forum answers, resource pages and partner sites. Every embed is a live backlink.</p>
+      <div class="grid-2">
+        <div>
+          <label style="font-size:.72rem;color:var(--muted);font-weight:600">Text link</label>
+          <textarea readonly rows="2" onclick="this.select()" style="width:100%;font-family:monospace;font-size:.72rem;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);padding:.5rem">&lt;a href="https://calcto.work"&gt;Free online calculators — CalcToWork&lt;/a&gt;</textarea>
+        </div>
+        <div>
+          <label style="font-size:.72rem;color:var(--muted);font-weight:600">Embed a calculator (iframe)</label>
+          <textarea readonly rows="2" onclick="this.select()" style="width:100%;font-family:monospace;font-size:.72rem;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);padding:.5rem">&lt;iframe src="https://calcto.work/en/YOUR-CALC-SLUG/" width="100%" height="600" style="border:0"&gt;&lt;/iframe&gt;&lt;br&gt;&lt;a href="https://calcto.work"&gt;Powered by CalcToWork&lt;/a&gt;</textarea>
+        </div>
+      </div>
+    </div>
+    <div id="bl-outreach-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999;align-items:center;justify-content:center" onclick="if(event.target===this)this.style.display='none'">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;max-width:640px;width:92%;padding:1.25rem;max-height:85vh;overflow-y:auto">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.7rem">
+          <strong>✉️ Outreach email</strong>
+          <button onclick="document.getElementById('bl-outreach-modal').style.display='none'" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:1.1rem">✕</button>
+        </div>
+        <textarea id="bl-outreach-text" rows="16" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.82rem;padding:.7rem"></textarea>
+        <button class="btn btn-sm" style="margin-top:.6rem" onclick="navigator.clipboard.writeText(document.getElementById('bl-outreach-text').value);showToast('Copied!')">📋 Copy</button>
+      </div>
+    </div>`;
+  loadBacklinkProspects();
+}
+
+async function loadBacklinkProspects() {
+  const tableEl = document.getElementById('bl-table');
+  try {
+    const snap = await db.collection('backlink_prospects').orderBy('created_at', 'desc').limit(300).get();
+    blProspects = [];
+    snap.forEach(d => blProspects.push({ id: d.id, ...d.data() }));
+  } catch (e) {
+    // Fallback: unordered (created_at may be missing on manual adds)
+    try {
+      const snap = await db.collection('backlink_prospects').limit(300).get();
+      blProspects = [];
+      snap.forEach(d => blProspects.push({ id: d.id, ...d.data() }));
+    } catch (e2) { if (tableEl) tableEl.innerHTML = '<div style="color:var(--danger);padding:1rem">Could not load: ' + e2.message + '</div>'; return; }
+  }
+
+  const counts = { todo: 0, submitted: 0, live: 0, rejected: 0 };
+  blProspects.forEach(p => { counts[p.status] = (counts[p.status] || 0) + 1; });
+  const kpiEl = document.getElementById('bl-kpis');
+  if (kpiEl) kpiEl.innerHTML = [
+    { label: 'Live backlinks', value: counts.live, bar: '#22c55e' },
+    { label: 'Submitted / waiting', value: counts.submitted, bar: '#f59e0b' },
+    { label: 'To do', value: counts.todo, bar: '#3b82f6' },
+    { label: 'Total prospects', value: blProspects.length, bar: '' },
+  ].map(k => `<div class="kpi" ${k.bar ? `style="--kpi-bar:${k.bar}"` : ''}><div class="kpi-label">${k.label}</div><div class="kpi-value">${k.value}</div></div>`).join('');
+
+  if (!tableEl) return;
+  if (!blProspects.length) {
+    tableEl.innerHTML = '<div style="padding:1.5rem;color:var(--muted);font-size:.85rem">No prospects yet. Click <strong>🔍 Find prospects (AI)</strong> to generate a starting list of directories, resource pages and forums.</div>';
+    return;
+  }
+  const statusColors = { todo: '#3b82f6', submitted: '#f59e0b', live: '#22c55e', rejected: '#64748b' };
+  tableEl.innerHTML = `<div style="overflow-x:auto"><table class="data-table"><thead><tr><th>Site</th><th>Type</th><th>DA</th><th>What to do</th><th>Status</th><th>Notes</th><th></th></tr></thead><tbody>
+    ${blProspects.map(p => `<tr>
+      <td><a href="${p.url}" target="_blank" style="color:var(--primary);font-weight:600">${p.site || p.domain} ↗</a></td>
+      <td style="font-size:.72rem">${p.type || '—'}${p.difficulty ? ` · ${p.difficulty}` : ''}</td>
+      <td class="num">${p.estimated_da || '—'}</td>
+      <td style="font-size:.75rem;max-width:260px">${p.action || ''}${p.relevant_calc ? `<br><span style="color:var(--muted)">→ pitch: ${p.relevant_calc}</span>` : ''}</td>
+      <td><select onchange="blSetStatus('${p.id}', this.value)" style="background:var(--bg);border:1px solid ${statusColors[p.status] || 'var(--border)'};border-radius:6px;color:${statusColors[p.status] || 'var(--text)'};font-size:.74rem;padding:.25rem">
+        ${['todo', 'submitted', 'live', 'rejected'].map(s => `<option value="${s}" ${p.status === s ? 'selected' : ''}>${s}</option>`).join('')}
+      </select></td>
+      <td><input value="${(p.notes || '').replace(/"/g, '&quot;')}" onchange="blSetNotes('${p.id}', this.value)" placeholder="notes…" style="width:120px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.72rem;padding:.25rem .4rem"></td>
+      <td style="white-space:nowrap">
+        <button class="btn btn-sm btn-outline" onclick="blOutreach('${p.id}')" title="AI writes the outreach email">✉️</button>
+        <button onclick="blDelete('${p.id}')" style="background:none;border:none;color:var(--danger);cursor:pointer">🗑</button>
+      </td>
+    </tr>`).join('')}
+  </tbody></table></div>`;
+}
+
+async function findBacklinksUI() {
+  const btn = document.getElementById('bl-find-btn');
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ Hunting… (~1 min)'; }
+  try {
+    const res = await fetch(`${CMS_BASE}/backlinkHunterHttp`);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    showToast(`🔗 Found ${data.opportunities_found || 0} opportunities, ${data.new_prospects || 0} new prospects added.`);
+    await loadBacklinkProspects();
+  } catch (e) { showToast('❌ ' + e.message, 'error'); }
+  if (btn) { btn.disabled = false; btn.textContent = '🔍 Find prospects (AI)'; }
+}
+
+async function blSetStatus(id, status) {
+  try { await db.collection('backlink_prospects').doc(id).set({ status }, { merge: true }); loadBacklinkProspects(); }
+  catch (e) { showToast('Save failed: ' + e.message, 'error'); }
+}
+async function blSetNotes(id, notes) {
+  try { await db.collection('backlink_prospects').doc(id).set({ notes }, { merge: true }); }
+  catch (e) { showToast('Save failed: ' + e.message, 'error'); }
+}
+async function blDelete(id) {
+  if (!confirm('Remove this prospect?')) return;
+  try { await db.collection('backlink_prospects').doc(id).delete(); loadBacklinkProspects(); }
+  catch (e) { showToast('Delete failed: ' + e.message, 'error'); }
+}
+async function addProspectUI() {
+  const url = prompt('Prospect URL (https://…):');
+  if (!url) return;
+  let domain; try { domain = new URL(url).hostname.replace(/^www\./, ''); } catch (e) { alert('Invalid URL'); return; }
+  const site = prompt('Site name:', domain) || domain;
+  try {
+    await db.collection('backlink_prospects').doc(domain.replace(/[\/\.\#\$\[\]]/g, '_')).set({
+      site, url, domain, type: 'manual', status: 'todo', notes: '', created_at: new Date(),
+    }, { merge: true });
+    loadBacklinkProspects();
+  } catch (e) { showToast('Add failed: ' + e.message, 'error'); }
+}
+
+async function blOutreach(id) {
+  const p = blProspects.find(x => x.id === id);
+  if (!p) return;
+  const modal = document.getElementById('bl-outreach-modal');
+  const ta = document.getElementById('bl-outreach-text');
+  modal.style.display = 'flex';
+  ta.value = '⏳ Writing outreach email with AI…';
+  try {
+    const res = await fetch(`${CMS_BASE}/callAI`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        maxTokens: 900,
+        messages: [{ role: 'user', content: `Write a short, personal outreach email (under 150 words) asking for a backlink/listing.
+Target site: ${p.site} (${p.url}), type: ${p.type}. Suggested action: ${p.action || 'get listed / linked'}.
+Our site: calcto.work — 460+ free online calculators in 6 languages (construction, finance, health, math, science). ${p.relevant_calc ? 'Most relevant tool to pitch: ' + p.relevant_calc + '.' : ''}
+Tone: human, specific, no marketing fluff, one clear ask. Include a subject line. Sign as "Julien, CalcToWork".` }],
+      }),
+    });
+    const data = await res.json();
+    ta.value = data.text || ('Error: ' + (data.error || 'empty response'));
+  } catch (e) { ta.value = 'Error: ' + e.message; }
+}
+
 // ── EXPORT ──
 
 function exportTable(tableId) {
@@ -6022,23 +6909,34 @@ async function triggerSEOSuggestions() {
 }
 
 async function autoTranslateMissingLangs(slug, langs) {
+  // Uses the server-side completion pipeline: it generates AND SAVES the missing
+  // translations (incl. translated long-form articles), missing article/FAQ/labels,
+  // then deploys — the old version called translateCalc, which only returned the
+  // translation without saving it, so nothing ever persisted.
   const missingLangs = ['es','fr','de','it','pt'].filter(l => !langs?.[l]?.name);
-  if (!missingLangs.length || !langs?.en?.name) return;
-  showToast(`🌐 Auto-translating to ${missingLangs.join(', ')}…`);
-  for (const lang of missingLangs) {
-    try {
-      const res = await fetch(`${CMS_BASE}/translateCalc`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ slug, targetLang: lang }),
-      });
-      const data = await res.json();
-      if (data.success) showToast(`✓ ${lang.toUpperCase()} translation done`);
-      await new Promise(r => setTimeout(r, 1200));
-    } catch(e) { console.warn('Auto-translate failed for', lang, e.message); }
+  const missingLong = !!langs?.en?.name && (!langs?.en?.long_content || langs.en.long_content.length < 800);
+  if ((!missingLangs.length && !missingLong) || !langs?.en?.name) return;
+  showToast(`🌐 Completing content in background (${missingLangs.length ? 'translating to ' + missingLangs.join(', ') : 'generating article'})… You can keep working.`);
+  try {
+    const res = await fetch(`${CMS_BASE}/completeCalcHttp`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug, deploy: true }),
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    const r = data.results || {};
+    showToast(`🌐 ${slug} complete: ${r.translations||0} translations, ${r.longContentTranslated||0} articles translated${data.deploy?.deployed ? ' — deployed live' : ''}`);
+    await loadCMSCalcs();
+    // Refresh the editor copy if it's still open on this calc
+    if (cmsEditing && cmsEditing.slug === slug) {
+      try {
+        const docSnap = await db.collection('calc_cms').doc(slug).get();
+        if (docSnap.exists) { cmsEditing = { slug, ...docSnap.data() }; }
+      } catch(e) {}
+    }
+  } catch(e) {
+    showToast('🌐 Background completion failed: ' + e.message, 'error');
   }
-  showToast('🌐 All translations complete!');
-  await loadCMSCalcs();
 }
 
 async function pingSitemap() {
@@ -6054,11 +6952,12 @@ async function pingSitemap() {
 }
 
 async function triggerAutoPilot() {
-  showToast('Running auto-pilot… fills translations + fixes meta descriptions. ~2 min.');
+  showToast('Running auto-pilot… fills missing inputs, articles, FAQ, labels + all translations, then deploys. Can take several minutes.');
   try {
     const res = await fetch(`${CMS_BASE}/runAutoPilotHttp`, { method: 'POST' });
     const data = await res.json();
-    showToast(`Done! ${data.translations||0} translations, ${data.metaFixed||0} meta descriptions fixed.`);
+    if (data.skipped) { showToast('Autopilot skipped — no AI API key configured (Settings → AI Provider).', 'error'); return; }
+    showToast(`Done! ${data.translations||0} translations, ${data.longContentFixed||0} articles written, ${data.longContentTranslated||0} articles translated, ${data.metaFixed||0} meta fixed, ${data.deployed||0} pages deployed.`);
   } catch(e) { showToast('Error: ' + e.message, 'error'); }
 }
 

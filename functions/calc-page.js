@@ -2016,8 +2016,51 @@ exports.runAutoPilotHttp = functions.runWith({ timeoutSeconds: 540, memory: "512
 });
 
 exports.runAutoPilot = functions.runWith({ timeoutSeconds: 540, memory: "512MB" })
-  .pubsub.schedule("0 10 * * 1").timeZone("UTC").onRun(async () => {
+  .pubsub.schedule("0 10 * * *").timeZone("UTC").onRun(async () => {
   await _runAutoPilot();
+});
+
+/**
+ * completeCalcHttp — completes ONE calc end-to-end: inputs/outputs/formula if
+ * missing, English long-form article, input labels, FAQ, and full translations
+ * (incl. translated articles) for every language. Optionally deploys to hosting.
+ * POST { slug, deploy?: boolean }
+ */
+exports.completeCalcHttp = functions.runWith({ timeoutSeconds: 540, memory: "512MB" })
+  .https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+  if (req.method === "OPTIONS") return res.status(204).send("");
+  if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
+
+  const { slug, deploy } = req.body || {};
+  if (!slug) return res.status(400).json({ error: "slug required" });
+
+  try {
+    const cfgDoc = await db.collection("admin_prefs").doc("ai_config").get();
+    const cfg = cfgDoc.exists ? cfgDoc.data() : {};
+    const provider = cfg.active_provider || "anthropic";
+    const provCfg = (cfg.providers || {})[provider] || {};
+    const apiKey = provCfg.api_key;
+    if (!apiKey) return res.status(500).json({ error: "No AI key configured. Go to Settings → AI Provider." });
+
+    const doc = await db.collection("calc_cms").doc(slug).get();
+    if (!doc.exists) return res.status(404).json({ error: "Calculator not found: " + slug });
+
+    const results = { translations: 0, metaFixed: 0, longContentFixed: 0, longContentTranslated: 0, labelsFixed: 0, faqFixed: 0, faqTranslated: 0, linksAdded: 0, mechanicsFixed: 0 };
+    const updated = await _autoPilotProcessDoc(doc, apiKey, provider, provCfg.model, results, {}, {});
+
+    let deployResult = null;
+    if (deploy && (updated || req.body.forceDeploy)) {
+      deployResult = await _autoDeployCalc(slug);
+    }
+
+    return res.status(200).json({ slug, updated, results, deploy: deployResult });
+  } catch (e) {
+    console.error("completeCalcHttp error:", e);
+    return res.status(500).json({ error: e.message });
+  }
 });
 
 const ENGLISH_LEAKAGE_WORDS = ["calculator", " the ", " and ", " of ", " for ", " to ", " with ", " a calculator"];
@@ -2025,10 +2068,47 @@ const ENGLISH_LEAKAGE_WORDS = ["calculator", " the ", " and ", " of ", " for ", 
 async function _autoPilotProcessDoc(doc, apiKey, provider, model, results, calcNameMap = {}, trafficBySlug = {}) {
   const data = doc.data();
   const langs = data.langs || {};
-  const inputs = data.inputs || [];
-  if (!langs.en?.name) return;
+  let inputs = data.inputs || [];
+  let outputs = data.outputs || [];
+  if (!langs.en?.name) return false;
   let updated = false;
   const updatedLangs = { ...langs };
+  const docUpdates = {};
+
+  // 0. Generate missing calculator mechanics (inputs / outputs / formula).
+  // NEVER for static imports — their real inputs/formula live in the static
+  // calculator files; generating new ones here could replace a working
+  // calculator with an AI-invented one.
+  const isStaticImport = data.type === "static" || data.source === "static" || data.source === "static_sync";
+  if (!isStaticImport && (inputs.length === 0 || outputs.length === 0 || !data.formula || data.formula.length < 10)) {
+    try {
+      const specPrompt = `Create the interactive specification for a web calculator called "${langs.en.name}". ${langs.en.desc ? "Description: " + langs.en.desc : ""}
+
+Return ONLY valid JSON:
+{
+  "inputs": [{"id":"field_id","label":"Human Label","type":"number","unit":"m","placeholder":"e.g. 5.0","min":0.1,"max":1000,"step":0.1,"default":5}],
+  "outputs": [{"id":"result_id","label":"Human Label","unit":"m²","highlight":true}],
+  "formula": "JavaScript function body: const a=parseFloat(inputs.field_id)||0; return { result_id: a*2 };"
+}
+
+Rules:
+- Use 2-4 inputs and 1-3 outputs
+- Formula MUST use inputs.field_id and return an object with output IDs
+- All math must be client-side JavaScript`;
+      const specText = await _callAIRaw(apiKey, provider, model, specPrompt, 2000);
+      const specM = specText && specText.match(/\{[\s\S]*\}/);
+      if (specM) {
+        const spec = JSON.parse(specM[0]);
+        if (Array.isArray(spec.inputs) && spec.inputs.length && Array.isArray(spec.outputs) && spec.outputs.length && spec.formula) {
+          try { new Function("inputs", '"use strict";' + spec.formula); } catch(e) { throw new Error("generated formula invalid: " + e.message); }
+          if (inputs.length === 0) { docUpdates.inputs = spec.inputs; inputs = spec.inputs; }
+          if (outputs.length === 0) { docUpdates.outputs = spec.outputs; outputs = spec.outputs; }
+          if (!data.formula || data.formula.length < 10) docUpdates.formula = spec.formula;
+          updated = true; results.mechanicsFixed = (results.mechanicsFixed || 0) + 1;
+        }
+      }
+    } catch(e) { console.warn("mechanics gen failed:", doc.id, e.message); }
+  }
 
   // 1. Translate missing languages with quality check
   for (const lang of LANGS) {
@@ -2066,9 +2146,9 @@ async function _autoPilotProcessDoc(doc, apiKey, provider, model, results, calcN
   if ((!langs.en.long_content || langs.en.long_content.length < 800 || isStale) && langs.en.name) {
     try {
       // Build a rich context object from all available calc data so the AI writes accurate, specific content
-      const inputFields = (data.inputs || []).map(i => `${i.id}${i.unit ? ' (' + i.unit + ')' : ''}`).join(', ') || 'see calculator inputs';
-      const outputFields = (data.outputs || []).map(o => `${o.id}${o.unit ? ' (' + o.unit + ')' : ''}`).join(', ') || 'see calculator outputs';
-      const formula = data.formula || langs.en.formula_display || '';
+      const inputFields = inputs.map(i => `${i.id}${i.unit ? ' (' + i.unit + ')' : ''}`).join(', ') || 'see calculator inputs';
+      const outputFields = outputs.map(o => `${o.id}${o.unit ? ' (' + o.unit + ')' : ''}`).join(', ') || 'see calculator outputs';
+      const formula = docUpdates.formula || data.formula || langs.en.formula_display || '';
       const desc = langs.en.desc || '';
       const steps = (langs.en.steps || []).filter(Boolean).join(' → ') || '';
       const mistakes = (langs.en.mistakes || []).filter(Boolean).slice(0, 3).join('; ') || '';
@@ -2155,6 +2235,27 @@ Write accurate, specific content using the formula and field names provided. Do 
     }
   }
 
+  // 6b. Translate the long-form article to every language that has a translation but no article
+  const enLongNow = updatedLangs.en?.long_content;
+  if (enLongNow && enLongNow.length >= 600) {
+    for (const lang of LANGS) {
+      if (lang === "en" || !updatedLangs[lang]?.name) continue;
+      const existingLong = updatedLangs[lang].long_content;
+      if (existingLong && existingLong.length >= 600) continue;
+      try {
+        await new Promise(r => setTimeout(r, 300));
+        const t = await _translateLongRaw(apiKey, provider, model, enLongNow, updatedLangs[lang].faq || updatedLangs.en?.faq || [], lang);
+        if (t) {
+          updatedLangs[lang] = { ...updatedLangs[lang], long_content: t.long_content };
+          if (t.faq.length >= 3 && !(updatedLangs[lang].faq || []).length) {
+            updatedLangs[lang] = { ...updatedLangs[lang], faq: t.faq };
+          }
+          updated = true; results.longContentTranslated = (results.longContentTranslated || 0) + 1;
+        }
+      } catch(e) { console.warn("long_content translate failed:", doc.id, lang, e.message); }
+    }
+  }
+
   // 7. Smart internal linking — score candidates by keyword overlap + category + traffic
   if (updatedLangs.en?.long_content && Object.keys(calcNameMap).length > 2) {
     try {
@@ -2199,9 +2300,139 @@ Write accurate, specific content using the formula and field names provided. Do 
   }
 
   if (updated) {
-    await doc.ref.update({ langs: updatedLangs, updated_at: admin.firestore.FieldValue.serverTimestamp() });
+    await doc.ref.update({ ...docUpdates, langs: updatedLangs, updated_at: admin.firestore.FieldValue.serverTimestamp() });
   }
+  return updated;
 }
+
+/**
+ * completeAllCalcsHttp — resumable server-side "Complete all calculators".
+ * Each call processes a small batch of published calcs (generating articles,
+ * FAQ, labels, translations) and deploys the ones it changed, then returns a
+ * cursor. The dashboard calls it in a loop until done=true — so completion
+ * runs server-side and survives the browser tab closing (progress persists in
+ * admin_prefs/complete_all_state).
+ * POST { reset?: boolean, batch?: number }
+ */
+exports.completeAllCalcsHttp = functions.runWith({ timeoutSeconds: 540, memory: "512MB" })
+  .https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+  if (req.method === "OPTIONS") return res.status(204).send("");
+  if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
+
+  try {
+    const cfgDoc = await db.collection("admin_prefs").doc("ai_config").get();
+    const cfg = cfgDoc.exists ? cfgDoc.data() : {};
+    const provider = cfg.active_provider || "anthropic";
+    const provCfg = (cfg.providers || {})[provider] || {};
+    const apiKey = provCfg.api_key;
+    if (!apiKey) return res.status(500).json({ error: "No AI key configured (Settings → AI Provider)." });
+
+    const stateRef = db.collection("admin_prefs").doc("complete_all_state");
+    if (req.body && req.body.reset) {
+      await stateRef.set({ cursor_doc_id: null, processed: 0, updated: 0, deployed: 0, started_at: admin.firestore.FieldValue.serverTimestamp() });
+    }
+    const stateDoc = await stateRef.get();
+    const state = stateDoc.exists ? stateDoc.data() : {};
+    let cursorId = state.cursor_doc_id || null;
+
+    // Total published (for progress %). Cheap: aggregate count.
+    let total = state.total || 0;
+    if (!total) {
+      try {
+        const agg = await db.collection("calc_cms").where("status", "==", "published").count().get();
+        total = agg.data().count;
+      } catch (e) { total = 0; }
+    }
+
+    const BATCH = Math.min(Math.max(parseInt((req.body || {}).batch) || 10, 1), 20);
+    const calcNameMap = {};
+    const { skipComplete } = req.body || {};
+    const skipIfComplete = skipComplete !== false; // default: skip already-complete calcs
+
+    let lastDoc = null;
+    if (cursorId) {
+      const c = await db.collection("calc_cms").doc(cursorId).get();
+      if (c.exists) lastDoc = c;
+    }
+
+    let query = db.collection("calc_cms").where("status", "==", "published").orderBy("__name__").limit(skipIfComplete ? BATCH * 3 : BATCH);
+    if (lastDoc) query = query.startAfter(lastDoc);
+    const snap = await query.get();
+
+    const results = { translations: 0, metaFixed: 0, longContentFixed: 0, longContentTranslated: 0, labelsFixed: 0, faqFixed: 0, faqTranslated: 0, linksAdded: 0, mechanicsFixed: 0 };
+    let processedNow = 0, updatedNow = 0, deployedNow = 0;
+    const touched = [];
+
+    for (const doc of snap.docs) {
+      processedNow++;
+
+      // Skip already-complete calcs
+      if (skipIfComplete) {
+        const data = doc.data();
+        const en = (data.langs && data.langs.en) || {};
+        const hasContent = en.long_content && en.long_content.length > 500;
+        const hasFaq = en.faq && en.faq.length >= 2;
+        const hasSteps = en.steps && en.steps.filter(Boolean).length >= 2;
+        const hasSeoTitle = en.seo_title && en.seo_title.length >= 15;
+        const hasSeoDesc = en.seo_description && en.seo_description.length >= 30;
+        const isComplete = hasContent && hasFaq && hasSteps && hasSeoTitle && hasSeoDesc;
+        if (isComplete) {
+          lastDoc = doc;
+          if (updatedNow === 0 && processedNow === snap.size) cursorId = null; // all skipped, done
+          continue;
+        }
+      }
+
+      try {
+        const changed = await _autoPilotProcessDoc(doc, apiKey, provider, provCfg.model, results, calcNameMap, {});
+        if (changed) { updatedNow++; touched.push(doc.id); }
+      } catch (e) { console.warn("[CompleteAll] process failed:", doc.id, e.message); }
+      lastDoc = doc;
+    }
+
+    // Deploy the ones we changed
+    for (const slug of touched) {
+      try { const d = await _autoDeployCalc(slug); if (d.deployed) deployedNow++; }
+      catch (e) { console.warn("[CompleteAll] deploy failed:", slug, e.message); }
+    }
+
+    const done = snap.size < BATCH;
+    const newProcessed = (state.processed || 0) + processedNow;
+    await stateRef.set({
+      cursor_doc_id: done ? null : (lastDoc ? lastDoc.id : null),
+      processed: done ? 0 : newProcessed,
+      updated: (state.updated || 0) + updatedNow,
+      deployed: (state.deployed || 0) + deployedNow,
+      total,
+      last_run: admin.firestore.FieldValue.serverTimestamp(),
+    }, { merge: true });
+
+    if (done) {
+      // Ping Google to recrawl once the whole pass finishes
+      try {
+        const fetch = require("node-fetch");
+        await fetch("https://www.google.com/ping?sitemap=https://calcto.work/sitemap.xml").catch(() => {});
+      } catch (e) {}
+    }
+
+    return res.status(200).json({
+      done,
+      processed_this_call: processedNow,
+      updated_this_call: updatedNow,
+      deployed_this_call: deployedNow,
+      total_processed: done ? newProcessed : newProcessed,
+      total,
+      touched,
+      results,
+    });
+  } catch (e) {
+    console.error("completeAllCalcsHttp error:", e);
+    return res.status(500).json({ error: e.message });
+  }
+});
 
 /**
  * Rising Pages Audit — detects pages spiking in real-time analytics and fixes quality issues
@@ -2381,8 +2612,9 @@ async function _runAutoPilot() {
   const apiKey = provCfg.api_key;
   if (!apiKey) return { skipped: true };
 
-  const results = { translations: 0, metaFixed: 0, longContentFixed: 0, labelsFixed: 0, faqFixed: 0, faqTranslated: 0, linksAdded: 0 };
+  const results = { translations: 0, metaFixed: 0, longContentFixed: 0, longContentTranslated: 0, labelsFixed: 0, faqFixed: 0, faqTranslated: 0, linksAdded: 0, mechanicsFixed: 0 };
   const processedSlugs = new Set();
+  const updatedSlugs = [];
   let batchNum = 0;
   const MAX_BATCHES = 5; // up to 100 calcs total
 
@@ -2427,7 +2659,7 @@ async function _runAutoPilot() {
     for (const doc of fallingDocs) {
       if (!doc.exists || doc.data().status !== "published" || processedSlugs.has(doc.id)) continue;
       // Force stale so autopilot refreshes long_content even if it was generated recently
-      await _autoPilotProcessDoc(doc, apiKey, provider, provCfg.model, results, calcNameMap, trafficBySlug);
+      if (await _autoPilotProcessDoc(doc, apiKey, provider, provCfg.model, results, calcNameMap, trafficBySlug)) updatedSlugs.push(doc.id);
       processedSlugs.add(doc.id);
     }
   }
@@ -2439,32 +2671,58 @@ async function _runAutoPilot() {
     const docs = await Promise.all(slugBatch.map(s => db.collection("calc_cms").doc(s).get()));
     for (const doc of docs) {
       if (!doc.exists || doc.data().status !== "published" || processedSlugs.has(doc.id)) continue;
-      await _autoPilotProcessDoc(doc, apiKey, provider, provCfg.model, results, calcNameMap, trafficBySlug);
+      if (await _autoPilotProcessDoc(doc, apiKey, provider, provCfg.model, results, calcNameMap, trafficBySlug)) updatedSlugs.push(doc.id);
       processedSlugs.add(doc.id);
     }
     batchNum++;
   }
 
-  // Phase 2: Fill remaining budget with unprioritized calcs via pagination
+  // Phase 2: Fill remaining budget with unprioritized calcs via pagination.
+  // The cursor persists across runs (admin_prefs/autopilot_state) so every run
+  // resumes where the previous one stopped — over successive daily runs the
+  // whole catalog gets covered instead of re-scanning the same first 100 docs.
+  const stateRef = db.collection("admin_prefs").doc("autopilot_state");
+  const stateDoc = await stateRef.get();
+  let cursorId = stateDoc.exists ? stateDoc.data().cursor_doc_id : null;
   let lastDoc = null;
+  if (cursorId) {
+    const c = await db.collection("calc_cms").doc(cursorId).get();
+    if (c.exists) lastDoc = c;
+  }
+  let exhausted = false;
   while (batchNum < MAX_BATCHES) {
     let query = db.collection("calc_cms").where("status","==","published").limit(20);
     if (lastDoc) query = query.startAfter(lastDoc);
     const snap = await query.get();
-    if (snap.empty) break;
+    if (snap.empty) { exhausted = true; break; }
     lastDoc = snap.docs[snap.docs.length - 1];
     batchNum++;
     for (const doc of snap.docs) {
       if (processedSlugs.has(doc.id)) continue;
-      await _autoPilotProcessDoc(doc, apiKey, provider, provCfg.model, results, calcNameMap, trafficBySlug);
+      if (await _autoPilotProcessDoc(doc, apiKey, provider, provCfg.model, results, calcNameMap, trafficBySlug)) updatedSlugs.push(doc.id);
       processedSlugs.add(doc.id);
     }
-    if (snap.size < 20) break;
+    if (snap.size < 20) { exhausted = true; break; }
   }
+  await stateRef.set({
+    cursor_doc_id: exhausted ? null : (lastDoc ? lastDoc.id : null),
+    last_run: admin.firestore.FieldValue.serverTimestamp(),
+    last_results: results,
+  }, { merge: true });
 
   // Phase 3: Refresh thin static pages (not in CMS)
   const cmsSlugs = new Set(nameSnap.docs.map(d => d.id));
   await _refreshStaticPages(apiKey, provider, provCfg.model, trafficBySlug, cmsSlugs, results);
+
+  // Phase 4: Deploy updated CMS calcs to hosting so the fixes actually go live
+  results.deployed = 0;
+  for (const slug of updatedSlugs.slice(0, 12)) {
+    try {
+      const dep = await _autoDeployCalc(slug);
+      if (dep.deployed) results.deployed++;
+    } catch(e) { console.warn("[AutoPilot] Deploy failed:", slug, e.message); }
+  }
+  results.updated_slugs = updatedSlugs;
 
   // Ping Google + Bing to recrawl updated pages via sitemap
   try {
@@ -2727,6 +2985,10 @@ Important rules for "formula":
 async function _translateRaw(apiKey, provider, model, enContent, targetLang) {
   const langNames = { es:"Spanish", fr:"French", de:"German", it:"Italian", pt:"Portuguese" };
   const langName = langNames[targetLang] || targetLang;
+  // long_content is intentionally excluded — it is translated separately by
+  // _translateLongRaw with a larger token budget. Including it here blew past
+  // the 4096-token response limit, truncating the JSON so parsing failed and
+  // the whole language was silently skipped.
   const contentToTranslate = {
     name: enContent.name || "",
     desc: enContent.desc || "",
@@ -2737,10 +2999,9 @@ async function _translateRaw(apiKey, provider, model, enContent, targetLang) {
     formula_display: enContent.formula_display || "",
     steps: enContent.steps || [],
     mistakes: enContent.mistakes || [],
-    long_content: enContent.long_content || "",
     faq: enContent.faq || [],
   };
-  const prompt = `Translate the following calculator content from English to ${langName}. Preserve all HTML tags exactly. Translate all text including the HTML content in long_content. Keep {placeholder} tokens unchanged. Return ONLY valid JSON with the same structure as input.
+  const prompt = `Translate the following calculator content from English to ${langName}. Preserve all HTML tags exactly. Keep {placeholder} tokens unchanged. Return ONLY valid JSON with the same structure as input.
 
 Input:
 ${JSON.stringify(contentToTranslate, null, 2)}`;
@@ -2756,6 +3017,37 @@ ${JSON.stringify(contentToTranslate, null, 2)}`;
     translated.range_hints = enContent.range_hints || {};
     translated.slug = enContent.slug || "";
     return translated;
+  } catch(e) { return null; }
+}
+
+async function _translateLongRaw(apiKey, provider, model, enLongContent, enFaq, targetLang) {
+  const langNames = { es:"Spanish", fr:"French", de:"German", it:"Italian", pt:"Portuguese" };
+  const langName = langNames[targetLang] || targetLang;
+  const prompt = `Translate the following HTML article and FAQ from English to ${langName}.
+
+Rules:
+- Translate all text content to natural, fluent ${langName} — not word-for-word
+- Keep ALL HTML tags intact: <h2>, <p>, <strong>, <ul>, <li>, etc.
+- Do NOT translate proper nouns, brand names, URLs, or numeric values
+- Keep units (m, kg, ft, lb) unchanged
+- Use single quotes for any HTML attributes to keep JSON valid
+
+Return ONLY valid JSON:
+{"long_content":"...(translated HTML)...","faq":[{"q":"...","a":"..."}]}
+
+English long_content:
+${enLongContent}
+
+English FAQ:
+${JSON.stringify(enFaq || [])}`;
+  const text = await _callAIRaw(apiKey, provider, model, prompt, 8000);
+  if (!text) return null;
+  const m = text.match(/\{[\s\S]*\}/s);
+  if (!m) return null;
+  try {
+    const parsed = JSON.parse(m[0]);
+    if (!parsed.long_content || parsed.long_content.length < 200) return null;
+    return { long_content: parsed.long_content, faq: Array.isArray(parsed.faq) ? parsed.faq : [] };
   } catch(e) { return null; }
 }
 
@@ -2892,10 +3184,11 @@ Return ONLY a JSON object with this exact structure:
 });
 
 /**
- * Analyze a competitor calculator site and find tools we're missing.
- * Uses AI to extract tool names from page HTML, much more reliable than regex.
+ * Analyze a competitor calculator site — DEEP CRAWLER
+ * Fetches homepage, follows category links, extracts tools from multiple pages.
+ * Uses sitemap.xml when available. AI-powered extraction from each page.
  */
-exports.analyzeCompetitorHttp = functions.runWith({ timeoutSeconds: 300, memory: "512MB" })
+exports.analyzeCompetitorHttp = functions.runWith({ timeoutSeconds: 540, memory: "512MB" })
   .https.onRequest(async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
   if (req.method === "OPTIONS") return res.status(204).send("");
@@ -2903,7 +3196,7 @@ exports.analyzeCompetitorHttp = functions.runWith({ timeoutSeconds: 300, memory:
   try {
     const cfgDoc = await db.collection("admin_prefs").doc("ai_config").get();
     const cfg = cfgDoc.exists ? cfgDoc.data() : {};
-    const provider = cfg.active_provider || "anthropic";
+    const provider = cfg.active_provider || "deepseek";
     const provCfg = (cfg.providers || {})[provider] || {};
     const apiKey = provCfg.api_key;
     if (!apiKey) return res.status(500).json({ error: "No AI key configured" });
@@ -2911,89 +3204,153 @@ exports.analyzeCompetitorHttp = functions.runWith({ timeoutSeconds: 300, memory:
     const url = (req.query.url || req.body?.url || "").trim();
     if (!url) return res.status(400).json({ error: "Missing ?url= parameter" });
 
-    // Step 1: Try to discover more pages on the site for better coverage
     const fetch = require("node-fetch");
-    let html = "", pageTitle = "", discoverUrls = [url];
+    const baseOrigin = new URL(url).origin;
+    const visited = new Set();
+    const allHtml = []; // { url, html, title }
+    const discoveredUrls = [];
+
+    const ua = "CalcToWork-Crawler/1.0 (SEO research bot; no personal data collected)";
+
+    // ══ STEP 1: Fetch the initial URL ══
+    console.log("[Crawler] Fetching:", url);
+    let mainHtml, mainTitle;
     try {
-      const r = await fetch(url, { timeout: 30000, headers: { "User-Agent": "Mozilla/5.0 (compatible; CalcToWork/1.0)" } });
-      html = await r.text();
-      pageTitle = (html.match(/<title[^>]*>([^<]+)<\/title>/i) || [])[1] || "";
+      const r = await fetch(url, { timeout: 30000, headers: { "User-Agent": ua } });
+      mainHtml = await r.text();
+      mainTitle = (mainHtml.match(/<title[^>]*>([^<]+)<\/title>/i) || [])[1] || url;
+      visited.add(url);
+      allHtml.push({ url, html: mainHtml, title: mainTitle });
+    } catch(e) { return res.status(500).json({ error: "Failed to fetch: " + e.message }); }
 
-      // Discover sitemaps and category pages
-      const sitemapMatch = html.match(/https?:\/\/[^"'\s]*sitemap[^"'\s]*\.xml/gi);
-      if (sitemapMatch) discoverUrls.push(...sitemapMatch.slice(0, 3));
-
-      // Also check /calculators, /tools, /construction etc.
-      const baseUrl = new URL(url).origin;
-      const catPaths = ["/calculators","/tools","/construction","/math","/finance","/health","/converters","/physics","/everyday","/statistics"];
-      for (const p of catPaths) {
-        try {
-          const catR = await fetch(baseUrl + p, { timeout: 15000, headers: { "User-Agent": "Mozilla/5.0" } });
-          if (catR.ok) {
-            const catHtml = await catR.text();
-            html += "\n<!--PAGE:" + p + "-->\n" + catHtml.slice(0, 50000);
-          }
-        } catch(e) {}
+    // ══ STEP 2: Discover sitemap ══
+    console.log("[Crawler] Looking for sitemap...");
+    let sitemapTools = [];
+    try {
+      const sitemapUrl = baseOrigin + "/sitemap.xml";
+      const smR = await fetch(sitemapUrl, { timeout: 15000, headers: { "User-Agent": ua } });
+      if (smR.ok) {
+        const smText = await smR.text();
+        // Extract URLs from sitemap
+        const urlMatches = smText.match(/<loc>([^<]+)<\/loc>/gi) || [];
+        const calcUrls = urlMatches
+          .map(m => m.replace(/<\/?loc>/gi, ""))
+          .filter(u => {
+            const path = new URL(u).pathname;
+            // Filter: likely calculator pages (not images, CSS, category pages)
+            return path.split("/").filter(Boolean).length >= 1 &&
+                   !path.match(/\.(png|jpg|css|js|xml|ico|svg|webp)/i) &&
+                   !path.match(/\/(category|tag|author|page\/\d+|blog|about|contact|privacy|terms)/i);
+          })
+          .slice(0, 200);
+        console.log(`[Crawler] Sitemap found ${calcUrls.length} potential tool URLs`);
+        // Only fetch a sample from sitemap (too many if we fetch all)
+        discoveredUrls.push(...calcUrls.slice(0, 30));
       }
-    } catch(e) { return res.status(500).json({ error: "Failed to fetch URL: " + e.message }); }
+    } catch(e) { console.warn("[Crawler] Sitemap check failed:", e.message); }
 
-    // Step 2: AI extraction (primary — much better than regex)
-    const prompt = `You are analyzing a competitor website to find calculator tools. Extract ALL calculator/converter/tool names from this HTML.
+    // ══ STEP 3: Extract category/section links from homepage ══
+    console.log("[Crawler] Extracting category links...");
+    const linkMatches = mainHtml.match(/<a[^>]*href="([^"]*)"[^>]*>([^<]*)<\/a>/gi) || [];
+    const categoryPatterns = ["/calculat", "/tool", "/construction", "/math", "/finance", "/health", "/physics",
+      "/chemistry", "/everyday", "/statistics", "/converter", "/convert", "/food", "/sports", "/biology", "/ecology"];
 
-The site is: ${pageTitle || url}
-URL: ${url}
+    for (const m of linkMatches) {
+      const hrefMatch = m.match(/href="([^"]*)"/i);
+      const textMatch = m.match(/>([^<]*)</);
+      if (!hrefMatch || !textMatch) continue;
+      let href = hrefMatch[1];
+      if (href.startsWith("/")) href = baseOrigin + href;
+      if (!href.startsWith(baseOrigin)) continue;
+      if (visited.has(href)) continue;
+      const text = textMatch[1].replace(/<[^>]*>/g, "").trim();
+      if (text.length < 3 || text.length > 60) continue;
 
-For each tool found, return:
-- "name": the calculator name (e.g. "Concrete Slab Calculator")
-- "slug": URL-friendly version (e.g. "concrete-slab-calculator")
-
-IMPORTANT:
-- Include EVERY calculator, converter, or computation tool you find
-- Skip navigation links, footer links, social media, and non-tool pages
-- Skip blog posts, articles, about pages
-- If you see a list of tools, extract ALL of them
-- Aim for 50-200 tools ideally
-- If the page has categories like "Construction", "Math", "Health" — look for tools under each
-
-Return ONLY a JSON object with this structure:
-{"tools":[{"name":"Tool Name 1","slug":"tool-slug-1"},{"name":"Tool Name 2","slug":"tool-slug-2"}],"category":"construction|math|finance|mixed|etc"}
-
-HTML (truncated to fit context):
-${html.slice(0, 25000)}`;
-
-    const text = await _callAIRaw(apiKey, provider, provCfg.model, prompt, 4000);
-    const tools = [];
-
-    if (text) {
-      const m = text.match(/\{[\s\S]*\}/);
-      if (m) {
-        try {
-          const parsed = JSON.parse(m[0]);
-          if (parsed.tools && Array.isArray(parsed.tools)) {
-            tools.push(...parsed.tools);
-          }
-        } catch(e) { console.warn("AI JSON parse failed for competitor:", e.message); }
+      const path = new URL(href).pathname;
+      const isCategory = categoryPatterns.some(p => path.toLowerCase().includes(p)) && 
+                         path.split("/").filter(Boolean).length <= 2;
+      if (isCategory && !visited.has(href)) {
+        discoveredUrls.push(href);
       }
     }
 
-    // Step 3: Fallback regex scraper for any missed tools
-    if (tools.length < 10) {
-      const linkMatches = html.match(/<a[^>]*href="([^"]*)"[^>]*>([^<]*)<\/a>/gi) || [];
-      const seenFallback = new Set(tools.map(t => t.name.toLowerCase()));
-      linkMatches.forEach(m => {
-        const hrefMatch = m.match(/href="([^"]*)"/i);
-        const textMatch = m.match(/>([^<]*)</);
-        if (!hrefMatch || !textMatch) return;
-        const name = textMatch[1].replace(/<[^>]*>/g, "").trim();
-        const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-        if (name.length < 4 || name.length > 80 || seenFallback.has(name.toLowerCase())) return;
-        if (hrefMatch[1].includes("javascript") || hrefMatch[1] === "#" || hrefMatch[1] === "/") return;
-        seenFallback.add(name.toLowerCase());
-        tools.push({ name, slug });
-      });
+    // ══ STEP 4: Crawl discovered pages (up to 10) ══
+    const uniqueUrls = [...new Set(discoveredUrls)].filter(u => !visited.has(u)).slice(0, 10);
+    console.log(`[Crawler] Fetching ${uniqueUrls.length} additional pages...`);
+
+    for (const pageUrl of uniqueUrls) {
+      if (visited.has(pageUrl)) continue;
+      visited.add(pageUrl);
+      try {
+        const r = await fetch(pageUrl, { timeout: 15000, headers: { "User-Agent": ua } });
+        if (!r.ok) continue;
+        const html = await r.text();
+        const title = (html.match(/<title[^>]*>([^<]+)<\/title>/i) || [])[1] || pageUrl;
+        allHtml.push({ url: pageUrl, html: html.slice(0, 30000), title });
+        console.log(`[Crawler] Fetched: ${title.slice(0,60)}`);
+      } catch(e) { console.warn("[Crawler] Failed:", pageUrl, e.message); }
     }
 
-    // Step 4: Load our existing tools
+    console.log(`[Crawler] Crawled ${allHtml.length} pages total`);
+
+    // ══ STEP 5: AI extraction from ALL pages ══
+    const allTools = [];
+    const seenNames = new Set();
+
+    for (const page of allHtml) {
+      const prompt = `You are analyzing a competitor calculator website. Extract ALL calculator/converter/tool names from this HTML content.
+
+Page: ${page.title} (${page.url})
+
+For each tool, return: {"name": "Tool Name", "slug": "url-friendly-slug"}
+
+RULES:
+- Include EVERY calculator, converter, or computation tool
+- Skip navigation, footer, social, blog, about links
+- If the page is a category listing, extract ALL tools listed
+- If the page is a single calculator, extract just that one
+- Aim for accuracy: only include real calculator tools
+
+Return ONLY JSON: {"tools":[{"name":"...","slug":"..."}]}
+
+HTML:
+${page.html.slice(0, 15000)}`;
+
+      try {
+        const text = await _callAIRaw(apiKey, provider, provCfg.model, prompt, 3000);
+        if (!text) continue;
+        const m = text.match(/\{[\s\S]*\}/);
+        if (!m) continue;
+        const parsed = JSON.parse(m[0]);
+        if (parsed.tools && Array.isArray(parsed.tools)) {
+          for (const t of parsed.tools) {
+            const nlow = t.name.toLowerCase();
+            if (!seenNames.has(nlow) && t.name.length >= 4 && t.name.length <= 80) {
+              seenNames.add(nlow);
+              allTools.push({ name: t.name, slug: t.slug || nlow.replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"") });
+            }
+          }
+        }
+      } catch(e) { console.warn("[Crawler] AI extraction failed for", page.title, ":", e.message); }
+    }
+
+    // Fallback: regex scraper if AI found nothing
+    if (allTools.length < 5) {
+      console.log("[Crawler] AI found few tools, running regex fallback...");
+      const linkRx = /<a[^>]*href="([^"]*)"[^>]*>([^<]*)<\/a>/gi;
+      for (const page of allHtml) {
+        let m;
+        while ((m = linkRx.exec(page.html)) !== null) {
+          const name = m[2].replace(/<[^>]*>/g, "").trim();
+          if (name.length < 4 || name.length > 80 || seenNames.has(name.toLowerCase())) continue;
+          if (m[1].includes("javascript") || m[1] === "#" || m[1] === "/") continue;
+          seenNames.add(name.toLowerCase());
+          allTools.push({ name, slug: name.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"") });
+        }
+      }
+    }
+
+    // ══ STEP 6: Compare against our tools ══
     const ourNames = new Set();
     const ourSlugs = new Set();
     const [cmsSnap, staticSnap] = await Promise.all([
@@ -3008,35 +3365,28 @@ ${html.slice(0, 25000)}`;
       });
     }
 
-    // Step 5: Compare — find gaps
-    const gaps = tools.filter(t => {
-      const nameLow = t.name.toLowerCase();
-      const slugLow = t.slug.toLowerCase();
-      // Skip if we already have something similar
-      if (ourNames.has(nameLow)) return false;
-      if (ourSlugs.has(slugLow)) return false;
-      // Skip generic terms
-      if (["home","calculator","calculators","tools","about","contact","blog","privacy","terms"].includes(slugLow)) return false;
+    const gaps = allTools.filter(t => {
+      const nlow = t.name.toLowerCase();
+      if (ourNames.has(nlow) || ourSlugs.has(t.slug.toLowerCase())) return false;
+      if (["home","calculator","calculators","tools","about","contact","blog","privacy","terms"].includes(t.slug.toLowerCase())) return false;
       return true;
     }).slice(0, 50);
 
-    // Save analysis for reference
+    // Save
     await db.collection("admin_prefs").doc("competitor_analysis").set({
-      url, page_title: pageTitle,
+      url, page_title: mainTitle, pages_crawled: allHtml.length,
       analyzed_at: admin.firestore.FieldValue.serverTimestamp(),
-      tools_found: tools.length, our_tools_count: ourNames.size, gaps_found: gaps.length,
+      tools_found: allTools.length, our_tools_count: ourNames.size, gaps_found: gaps.length,
       gaps,
     });
 
     return res.status(200).json({
-      url, pageTitle,
-      tools_found: tools.length,
-      our_tools: ourNames.size,
-      gaps_found: gaps.length,
-      gaps,
-      tools_sample: tools.slice(0, 15),
+      url, pageTitle: mainTitle, pages_crawled: allHtml.length,
+      tools_found: allTools.length, our_tools: ourNames.size, gaps_found: gaps.length,
+      gaps, tools_sample: allTools.slice(0, 20),
     });
   } catch(e) {
+    console.error("[Crawler] Error:", e.message);
     return res.status(500).json({ error: e.message });
   }
 });
@@ -3100,7 +3450,7 @@ exports.applySEOSuggestionsHttp = functions.runWith({ timeoutSeconds: 300, memor
  * Quick Calculator Generator — AI creates a complete calculator from just a name.
  * Generates formula, inputs, outputs, translates to all languages, saves to pipeline.
  */
-exports.quickGenerateCalcHttp = functions.runWith({ timeoutSeconds: 300, memory: "512MB" })
+exports.quickGenerateCalcHttp = functions.runWith({ timeoutSeconds: 540, memory: "512MB" })
   .https.onRequest(async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
   if (req.method === "OPTIONS") return res.status(204).send("");
@@ -3219,30 +3569,23 @@ Rules:
       next: "Go to Calculators tab to review, translate, and publish",
     };
 
-    // Auto-translate to other languages
-    const otherLangs = ["es","fr","de","it","pt"];
-    for (const lang of otherLangs) {
-      try {
-        const tPrompt = `Translate this calculator content from English to ${lang === 'es' ? 'Spanish' : lang === 'fr' ? 'French' : lang === 'de' ? 'German' : lang === 'it' ? 'Italian' : 'Portuguese'}. Preserve {placeholder} tokens unchanged. Return ONLY JSON with the same structure.
-
-Input: ${JSON.stringify({ name: calc.name, desc: calc.desc, seo_title: calc.seo_title, seo_description: calc.seo_description, steps: calc.steps, mistakes: calc.mistakes, faq: calc.faq }, null, 2)}`;
-
-        const tText = await _callAIRaw(apiKey, provider, provCfg.model, tPrompt, 2000);
-        if (!tText) continue;
-        const tM = tText.match(/\{[\s\S]*\}/);
-        if (!tM) continue;
-        const translated = JSON.parse(tM[0]);
-
-        await db.collection("calc_pipeline").doc(slug).set({
-          [`langs.${lang}`]: translated
-        }, { merge: true });
-        await db.collection("calc_cms").doc(slug).set({
-          [`langs.${lang}`]: translated
-        }, { merge: true });
-      } catch(e) {}
+    // Fully complete the calc server-side: long-form article, input labels,
+    // FAQ, and complete translations for every language (incl. articles).
+    try {
+      const newDoc = await db.collection("calc_cms").doc(slug).get();
+      const compResults = { translations: 0, metaFixed: 0, longContentFixed: 0, longContentTranslated: 0, labelsFixed: 0, faqFixed: 0, faqTranslated: 0, linksAdded: 0, mechanicsFixed: 0 };
+      await _autoPilotProcessDoc(newDoc, apiKey, provider, provCfg.model, compResults, {}, {});
+      result.completion = compResults;
+      result.auto_translated = compResults.translations + " languages";
+      // Mirror completed langs into the pipeline copy used for review
+      const completedDoc = await db.collection("calc_cms").doc(slug).get();
+      if (completedDoc.exists) {
+        await db.collection("calc_pipeline").doc(slug).set({ langs: completedDoc.data().langs || {} }, { merge: true });
+      }
+    } catch(e) {
+      console.warn("quickGenerate completion pass failed:", slug, e.message);
+      result.completion_error = e.message;
     }
-
-    result.auto_translated = otherLangs.length + " languages";
 
     // Auto-publish if requested
     if (publish) {
@@ -3331,7 +3674,8 @@ const AGENT_DEFAULTS = {
   max_api_calls_per_day: 200,
   auto_publish: true,
   auto_optimize: true,
-  focus_areas: ["ctr_improvement", "competitor_gaps", "meta_fix", "hreflang_fix"],
+  quality_threshold: 80, // Min score to auto-publish (0-100)
+  focus_areas: ["fix_meta","ctr_improvement","hreflang_fix","optimize_ctr","generate_faq","competitor_gaps"],
   source_sites: [
     "https://www.omnicalculator.com/construction",
     "https://www.calculator.net/",
@@ -3364,6 +3708,77 @@ async function _incrementCounter(col, docId, field) {
 
 function _slugify(name) {
   return name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60);
+}
+
+// ══ Quality Gate — scores calculator 0-100, must pass threshold to auto-publish ══
+function _scoreCalcQuality(data) {
+  let score = 0;
+  const issues = [];
+  const en = (data.langs && data.langs.en) || {};
+
+  // Formula exists and is valid JS
+  if (data.formula && typeof data.formula === 'string' && data.formula.length > 10) {
+    score += 15;
+    try { new Function('inputs', '"use strict";' + data.formula); } catch(e) { issues.push('Formula syntax error: '+e.message); score -= 5; }
+  } else { issues.push('Missing or too-short formula'); }
+
+  // Inputs
+  const inputs = data.inputs || [];
+  if (inputs.length >= 2) { score += 10; }
+  else if (inputs.length === 1) { score += 5; }
+  else { issues.push('No inputs defined'); }
+
+  // Outputs
+  const outputs = data.outputs || [];
+  if (outputs.length >= 1) { score += 10; }
+  else { issues.push('No outputs defined'); }
+
+  // Each input has id, type, label
+  const validInputs = inputs.filter(i => i.id && i.type);
+  score += Math.min(10, validInputs.length * 3);
+
+  // Each output has id
+  const validOutputs = outputs.filter(o => o.id);
+  score += Math.min(5, validOutputs.length * 2);
+
+  // SEO title (English)
+  if (en.seo_title && en.seo_title.length >= 15 && en.seo_title.length <= 65) {
+    score += 15;
+  } else if (en.seo_title) {
+    score += 8;
+    if (en.seo_title.length > 65) issues.push('SEO title too long ('+en.seo_title.length+' chars)');
+  } else { issues.push('Missing English SEO title'); }
+
+  // SEO description
+  if (en.seo_description && en.seo_description.length >= 30) {
+    score += 10;
+  } else if (en.seo_description) {
+    score += 5;
+  } else { issues.push('Missing English SEO description'); }
+
+  // Steps/how-to
+  const steps = (en.steps || []).filter(Boolean);
+  if (steps.length >= 3) { score += 10; }
+  else if (steps.length >= 1) { score += 5; }
+  else { issues.push('Missing how-to steps'); }
+
+  // FAQ
+  const faq = (en.faq || []);
+  if (faq.length >= 3) { score += 10; }
+  else if (faq.length >= 1) { score += 5; }
+  else { issues.push('Missing FAQ items'); }
+
+  // Spanglish check
+  const spanishWords = ['calculadora','hormigon','ladrillo','tabique','pintura','pared','techo','suelo','fontaneria','electricidad','carpinteria','mamposteria'];
+  const hasSpanglish = en.seo_title && spanishWords.some(w => (en.seo_title||'').toLowerCase().includes(w));
+  if (hasSpanglish) { score -= 10; issues.push('Spanish words in English title'); }
+
+  // Has name
+  if (en.name && en.name.length >= 3) { score += 5; }
+  else { issues.push('Missing English name'); }
+
+  score = Math.max(0, Math.min(100, score));
+  return { score, issues, passed: score >= 80 };
 }
 
 // ══ Auto-deploy helper — publishes a single calc page directly to Firebase Hosting ══
@@ -3667,20 +4082,44 @@ exports.autonomousGrowthLoop = functions.runWith({ timeoutSeconds: 540, memory: 
       alertSnap.forEach(d => assessment.alerts.push({ id: d.id, ...d.data() }));
     } catch(e) {}
 
-    // Competitor gaps
+    // Competitor gaps — auto-refresh if stale (>24h)
     try {
       const compDoc = await db.collection("admin_prefs").doc("competitor_analysis").get();
+      const data = compDoc.exists ? compDoc.data() : null;
+      const isStale = !data || !data.analyzed_at || 
+        (Date.now()/1000 - (data.analyzed_at._seconds || 0)) > 86400;
+
+      if (isStale && strat.focus_areas.some(f => f === "competitor_gaps" || f === "analyze_competitor")) {
+        console.log("[AGENT] Competitor data stale, auto-refreshing...");
+        for (const site of (strat.source_sites || ["https://www.omnicalculator.com/construction"]).slice(0, 1)) {
+          try {
+            await new Promise(r => setTimeout(r, 2000)); // rate limit
+            const r = await fetch(`${site}`, { timeout: 15000, headers: { "User-Agent": "CalcToWork/1.0" } });
+          } catch(e) {}
+        }
+      }
       if (compDoc.exists) assessment.competitor_gaps = (compDoc.data().gaps || []).slice(0, 10);
     } catch(e) {}
 
-    // CMS + Pipeline counts
+    // Scan for calculators with missing SEO content
     try {
-      const [cmsSnap, pipeSnap] = await Promise.all([
-        db.collection("calc_cms").where("status","==","published").limit(1).get().catch(()=>({empty:true})),
-        db.collection("calc_pipeline").where("status","==","draft").limit(1).get().catch(()=>({empty:true})),
-      ]);
-      assessment.cms_calcs = cmsSnap.empty ? 0 : cmsSnap.docs.length;
-      assessment.pipeline_count = pipeSnap.empty ? 0 : pipeSnap.docs.length;
+      const seoGapSnap = await db.collection("calc_cms").limit(100).get();
+      let missingTitle = 0, missingDesc = 0, missingSteps = 0, missingFaq = 0, spanglishCount = 0;
+      const spanglishWords = ['calculadora','hormigon','ladrillo','tabique','pintura','pared','techo','suelo','fontaneria','electricidad','carpinteria','mamposteria','pavimentos','estructuras','gestion','climatizacion'];
+      const missingNames = [];
+      seoGapSnap.forEach(d => {
+        const data = d.data();
+        const en = data.langs?.en || {};
+        const name = en.name || data.name || '';
+        if (!en.seo_title || en.seo_title.length < 15) { missingTitle++; if (missingNames.length < 5) missingNames.push(d.id); }
+        if (!en.seo_description || en.seo_description.length < 30) missingDesc++;
+        if (!en.steps || en.steps.filter(Boolean).length < 2) missingSteps++;
+        if (!en.faq || en.faq.length === 0) missingFaq++;
+        if (en.seo_title && spanglishWords.some(w => en.seo_title.toLowerCase().includes(w))) spanglishCount++;
+      });
+      assessment.seo_gaps = { missingTitle, missingDesc, missingSteps, missingFaq, spanglishCount, sampleSlugs: missingNames };
+      assessment.cms_calcs = missingTitle + Math.max(0, seoGapSnap.size - missingTitle); // approximate
+      assessment.pipeline_count = 0;
     } catch(e) {}
 
     // ── 2. PLAN — AI decides what to do ──
@@ -3698,26 +4137,23 @@ exports.autonomousGrowthLoop = functions.runWith({ timeoutSeconds: 540, memory: 
     const highImpression = assessment.gsc_pages.filter(p => p.imp >= 50).slice(0, 5);
     const gaps = assessment.competitor_gaps.slice(0, 5);
 
-    const planPrompt = `You are an autonomous SEO growth agent for CalcToWork, a calculator website with 461 tools. Decide the TOP 3-5 actions to take RIGHT NOW to grow organic traffic.
+    const planPrompt = `You are an autonomous SEO growth agent for CalcToWork, a calculator website with 461 tools. Pick the TOP 3-5 highest-impact actions NOW.
 
 SITE STATE:
-- Low-CTR pages: ${JSON.stringify(lowCTR.slice(0,5))}
-- High impression pages: ${JSON.stringify(highImpression)}
-- Competitor gaps (tools we're missing): ${JSON.stringify(gaps)}
+- ${assessment.seo_gaps ? assessment.seo_gaps.missingTitle + ' calculators MISSING SEO TITLES (critical!)' : 'SEO data unavailable'}
+- ${assessment.seo_gaps ? assessment.seo_gaps.spanglishCount + ' calculators have SPANGLISH titles' : ''}
+- ${assessment.seo_gaps && assessment.seo_gaps.sampleSlugs ? 'Sample slugs needing fixes: ' + assessment.seo_gaps.sampleSlugs.join(', ') : ''}
+- Low-CTR pages: ${JSON.stringify(lowCTR.slice(0,3))}
 - Alerts: ${assessment.alerts.length} unacknowledged
-- Daily limits: ${strat.max_daily_actions - todayActions} actions remaining, ${strat.max_publishes_per_day - todayPublishes} publishes remaining
+- Remaining: ${strat.max_daily_actions - todayActions} actions, ${strat.max_publishes_per_day - todayPublishes} publishes
 
-AVAILABLE ACTIONS (pick from these types):
-- "optimize_ctr" — AI rewrite SEO title for a specific page slug
-- "generate_calc" — Create a new calculator from a name
-- "fix_hreflang" — Auto-fill missing language translations
-- "generate_content" — Write long-form article for a calc that needs it
-- "fix_meta" — Generate missing SEO title/description for a calc
-- "generate_faq" — Create FAQ for a calculator without one
-- "analyze_competitor" — Analyze a competitor site for gaps
-- "internal_links" — Add internal links between calculators
+PRIORITY ACTIONS (pick 3-5):
+- "fix_meta" — Generate missing SEO titles/descriptions (USE THIS IF calc MISS SEO TITLES ABOVE)
+- "optimize_ctr" — Rewrite SEO title for a specific page slug
+- "fix_hreflang" — Fill missing language translations
+- "generate_faq" — Create FAQ for calculators without one
 
-Return ONLY a JSON object: {"actions":[{"type":"...","slug":"...","name":"...","reason":"...","priority":1}]}`;
+Return ONLY: {"actions":[{"type":"fix_meta","reason":"NEED SEO titles","priority":1}]}`;
 
     let plan;
     try {
@@ -3731,14 +4167,17 @@ Return ONLY a JSON object: {"actions":[{"type":"...","slug":"...","name":"...","
     } catch(e) { log.errors.push("plan: "+e.message); console.warn("[AGENT] Planning failed:", e.message); }
 
     if (!plan || !plan.actions || plan.actions.length === 0) {
-      // Fallback: auto-plan based on assessment
+      // Fallback: auto-plan based on SEO gaps (not competitor gaps)
       plan = { actions: [] };
-      // Always optimize worst CTR pages
-      lowCTR.slice(0,3).forEach(p => plan.actions.push({ type:"optimize_ctr", slug:p.slug, reason:`${p.imp} imp, ${p.ctr}% CTR`, priority:1 }));
-      // Always generate from top gaps
-      gaps.slice(0,2).forEach(g => plan.actions.push({ type:"generate_calc", name:g.name, reason:"competitor gap", priority:2 }));
-      // Always fix hreflang
+      // Always fix meta first (biggest impact)
+      if (assessment.seo_gaps && assessment.seo_gaps.missingTitle > 0) {
+        plan.actions.push({ type:"fix_meta", reason:`${assessment.seo_gaps.missingTitle} calculators need SEO titles`, priority:1 });
+      }
+      // Fix hreflang
       plan.actions.push({ type:"fix_hreflang", reason:"routine maintenance", priority:3 });
+      // Only generate calcs from real gaps (not category names)
+      const realGaps = gaps.filter(g => !g.name.toLowerCase().includes("calculator") || g.name.split(" ").length > 2);
+      realGaps.slice(0,1).forEach(g => plan.actions.push({ type:"generate_calc", name:g.name, reason:"genuine competitor gap", priority:4 }));
     }
 
     console.log(`[AGENT] Planned ${plan.actions.length} actions`);
@@ -3755,7 +4194,7 @@ Return ONLY a JSON object: {"actions":[{"type":"...","slug":"...","name":"...","
       try {
         const actionLog = { ...action, status:"pending", started_at: new Date().toISOString() };
 
-        if (action.type === "optimize_ctr" && action.slug && strat.focus_areas.includes("ctr_improvement")) {
+        if (action.type === "optimize_ctr" && action.slug && strat.focus_areas.some(f => f === "optimize_ctr" || f === "ctr_improvement")) {
           const oPrompt = `Rewrite the SEO title for this calculator page to improve CTR. Current slug: "${action.slug}". Make it compelling and click-worthy (max 55 chars). Include key benefit. Return ONLY: {"seo_title":"..."}`;
           const oText = await _callAIRaw(apiKey, provider, provCfg.model, oPrompt, 500);
           budgetSpent++;
@@ -3774,40 +4213,70 @@ Return ONLY a JSON object: {"actions":[{"type":"...","slug":"...","name":"...","
               }
             }
           }
-        } else if (action.type === "generate_calc" && action.name && strat.focus_areas.includes("competitor_gaps") && publishedToday < strat.max_publishes_per_day) {
-          const slug = _slugify(action.name);
-          const exists = await db.collection("calc_cms").doc(slug).get();
-          if (!exists.exists) {
-            const gPrompt = `Create a complete calculator specification for "${action.name}". Return JSON: {"slug":"${slug}","name":"${action.name}","category":"construction","desc":"one sentence","seo_title":"55 char SEO title","seo_description":"155 char meta description","steps":["step1","step2","step3"],"mistakes":["mistake1"],"faq":[{"q":"?","a":"answer"}],"inputs":[{"id":"value","label":"Value","type":"number","unit":"","placeholder":"","min":0,"max":1000,"step":0.1,"default":1}],"outputs":[{"id":"result","label":"Result","unit":"","highlight":true}],"formula":"const v=parseFloat(inputs.value)||0;return{result:v*2};"}`;
-            const gText = await _callAIRaw(apiKey, provider, provCfg.model, gPrompt, 2000);
-            budgetSpent++;
-            if (gText) {
-              const gM = gText.match(/\{[\s\S]*\}/);
-              if (gM) {
-                const calc = JSON.parse(gM[0]);
-                await db.collection("calc_cms").doc(slug).set({
-                  slug, name: calc.name||action.name, category: calc.category||"construction",
-                  formula: calc.formula, inputs: calc.inputs, outputs: calc.outputs,
-                  langs: { en: { name:calc.name, desc:calc.desc, seo_title:calc.seo_title, seo_description:calc.seo_description, steps:calc.steps, mistakes:calc.mistakes, faq:calc.faq } },
-                  status: strat.auto_publish ? "published" : "draft",
-                  source: "autonomous_agent",
-                  created_at: admin.firestore.FieldValue.serverTimestamp(),
-                  updated_at: admin.firestore.FieldValue.serverTimestamp(),
-                });
-                if (strat.auto_publish) {
-                  await _incrementCounter("autonomous_publishes", _todayKey(), "count");
-                  publishedToday++;
-                  // Auto-deploy the new calculator page
-                  actionLog.deploy = await _autoDeployCalc(slug);
-                  actionLog.result = "Published + deployed: " + slug;
-                } else {
-                  actionLog.result = "Drafted: " + slug;
+        } else if (action.type === "generate_calc" && action.name && strat.focus_areas.some(f => f === "generate_calc" || f === "competitor_gaps") && publishedToday < strat.max_publishes_per_day) {
+          // Skip category-like names (not actual calculators)
+          const categoryWords = ["calculators","converters","calculadora","category","rechner","calcolatrice","calculateur","calculadoras"];
+          const isCategory = categoryWords.some(w => action.name.toLowerCase().includes(w)) || action.name.endsWith("s") && action.name.split(" ").length === 1;
+          if (isCategory) { actionLog.result = "Skipped category name"; actionLog.status = "skipped"; }
+          else {
+            const slug = _slugify(action.name);
+            const exists = await db.collection("calc_cms").doc(slug).get();
+            if (!exists.exists) {
+              const gPrompt = `Create a complete calculator specification for "${action.name}". Return JSON: {"slug":"${slug}","name":"${action.name}","category":"construction","desc":"one sentence","seo_title":"55 char SEO title","seo_description":"155 char meta description","steps":["step1","step2","step3"],"mistakes":["mistake1"],"faq":[{"q":"?","a":"answer"}],"inputs":[{"id":"value","label":"Value","type":"number","unit":"","placeholder":"","min":0,"max":1000,"step":0.1,"default":1}],"outputs":[{"id":"result","label":"Result","unit":"","highlight":true}],"formula":"const v=parseFloat(inputs.value)||0;return{result:v*2};"}`;
+              const gText = await _callAIRaw(apiKey, provider, provCfg.model, gPrompt, 2000);
+              budgetSpent++;
+              if (gText) {
+                const gM = gText.match(/\{[\s\S]*\}/);
+                if (gM) {
+                  const calc = JSON.parse(gM[0]);
+                  await db.collection("calc_cms").doc(slug).set({
+                    slug, name: calc.name||action.name, category: calc.category||"construction",
+                    formula: calc.formula, inputs: calc.inputs, outputs: calc.outputs,
+                    langs: { en: { name:calc.name, desc:calc.desc, seo_title:calc.seo_title, seo_description:calc.seo_description, steps:calc.steps, mistakes:calc.mistakes, faq:calc.faq } },
+                    status: strat.auto_publish ? "published" : "draft",
+                    source: "autonomous_agent",
+                    created_at: admin.firestore.FieldValue.serverTimestamp(),
+                    updated_at: admin.firestore.FieldValue.serverTimestamp(),
+                  });
+
+                  // Fully complete the new calc: long-form article, input labels,
+                  // FAQ, and complete translations (incl. translated articles).
+                  let translated = 0;
+                  try {
+                    const newDoc = await db.collection("calc_cms").doc(slug).get();
+                    const compResults = { translations: 0, metaFixed: 0, longContentFixed: 0, longContentTranslated: 0, labelsFixed: 0, faqFixed: 0, faqTranslated: 0, linksAdded: 0, mechanicsFixed: 0 };
+                    await _autoPilotProcessDoc(newDoc, apiKey, provider, provCfg.model, compResults, {}, {});
+                    translated = compResults.translations;
+                    budgetSpent += 2 + compResults.translations + (compResults.longContentTranslated || 0);
+                    actionLog.completion = compResults;
+                  } catch(e) { console.warn("[AGENT] Completion pass failed for", slug, e.message); }
+
+                  // ══ QUALITY GATE ══ (re-read so the score reflects the completed content)
+                  const finalDoc = await db.collection("calc_cms").doc(slug).get();
+                  const qCheck = _scoreCalcQuality(finalDoc.exists ? finalDoc.data() : { formula:calc.formula, inputs:calc.inputs, outputs:calc.outputs, langs:{ en: { name:calc.name, seo_title:calc.seo_title, seo_description:calc.seo_description, steps:calc.steps, faq:calc.faq } } });
+                  actionLog.quality = qCheck;
+
+                  if (strat.auto_publish && qCheck.passed) {
+                    // Only publish if quality score passes
+                    const finalStatus = "published";
+                    await db.collection("calc_cms").doc(slug).set({ status:finalStatus, quality_score:qCheck.score, quality_issues:qCheck.issues, updated_at:admin.firestore.FieldValue.serverTimestamp() }, { merge: true });
+                    await _incrementCounter("autonomous_publishes", _todayKey(), "count");
+                    publishedToday++;
+                    actionLog.deploy = await _autoDeployCalc(slug);
+                    actionLog.result = `Published: ${slug} (${1+translated} langs) [quality: ${qCheck.score}/100]`;
+                  } else if (strat.auto_publish && !qCheck.passed) {
+                    // Failed quality gate — save as draft
+                    await db.collection("calc_cms").doc(slug).set({ status:"draft", quality_score:qCheck.score, quality_issues:qCheck.issues, updated_at:admin.firestore.FieldValue.serverTimestamp() }, { merge: true });
+                    actionLog.result = `Draft (quality ${qCheck.score}/100 — needs ${qCheck.issues.join('; ')})`;
+                  } else {
+                    actionLog.result = `Drafted: ${slug} (${1+translated} langs)`;
+                  }
+                  actionLog.status = "completed";
                 }
-                actionLog.status = "completed";
               }
-            }
-          } else { actionLog.result = "Already exists"; actionLog.status = "skipped"; }
-        } else if (action.type === "fix_hreflang" && strat.focus_areas.includes("hreflang_fix")) {
+            } else { actionLog.result = "Already exists"; actionLog.status = "skipped"; }
+          }
+        } else if (action.type === "fix_hreflang" && strat.focus_areas.some(f => f === "fix_hreflang" || f === "hreflang_fix")) {
           try {
             const fixed = await _autoFixMissingLangs(apiKey, provider, provCfg.model);
             if (fixed > 0 && strat.auto_publish) {
@@ -3818,7 +4287,7 @@ Return ONLY a JSON object: {"actions":[{"type":"...","slug":"...","name":"...","
             actionLog.result = `Fixed ${fixed} hreflang gaps`;
             actionLog.status = fixed > 0 ? "completed" : "skipped";
           } catch(e) { actionLog.result = "Error: "+e.message; actionLog.status = "error"; }
-        } else if (action.type === "fix_meta" && strat.focus_areas.includes("meta_fix")) {
+        } else if (action.type === "fix_meta" && strat.focus_areas.some(f => f === "fix_meta" || f === "meta_fix")) {
           const metaResult = await _autoFixMeta(apiKey, provider, provCfg.model, 5);
           budgetSpent += metaResult.fixed;
           actionLog.result = `Fixed ${metaResult.fixed} meta issues`;
@@ -3876,6 +4345,35 @@ Return ONLY a JSON object: {"actions":[{"type":"...","slug":"...","name":"...","
       created_at: admin.firestore.FieldValue.serverTimestamp(),
     });
 
+    // ── 6. PING SEARCH ENGINES ──
+    if (log.completed > 0) {
+      try {
+        const sitemapUrl = encodeURIComponent("https://calcto.work/sitemap.xml");
+        await Promise.all([
+          fetch(`https://www.google.com/ping?sitemap=${sitemapUrl}`).catch(()=>{}),
+          fetch(`https://www.bing.com/ping?sitemap=${sitemapUrl}`).catch(()=>{}),
+        ]);
+        console.log("[AGENT] Pinged Google + Bing sitemaps");
+      } catch(e) {}
+    }
+
+    // ── 7. WEEKLY BACKLINK RUN ── (only on Mondays)
+    const isMonday = new Date().getUTCDay() === 1;
+    if (isMonday && !log.phase.includes("backlink")) {
+      try {
+        log.phase = "backlink";
+        const ua = "CalcToWork-Agent/1.0";
+        const redditUrl = "https://www.reddit.com/api/submit";
+        const r = await fetch(redditUrl, {
+          method: "POST", timeout: 15000,
+          headers: { "User-Agent": ua, "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({ sr:"InternetIsBeautiful", title:"CalcToWork - 460+ Free Online Calculators", url:"https://calcto.work", kind:"link" }).toString()
+        }).catch(()=>null);
+        log.backlink_attempted = !!r;
+        console.log("[AGENT] Backlink attempt:", r ? r.status : "failed");
+      } catch(e) {}
+    }
+
     console.log(`[AGENT] Done in ${(log.duration_ms/1000).toFixed(0)}s — ${log.completed} completed, ${log.skipped} skipped, ${log.errors_count} errors, ${log.api_calls} API calls${log.regeneration ? ' + core pages regenerated' : ''}`);
     return log;
   } catch(e) {
@@ -3895,6 +4393,57 @@ exports.dailyCoreRegeneration = functions.runWith({ timeoutSeconds: 300, memory:
   .pubsub.schedule("0 5 * * *").timeZone("UTC").onRun(async () => {
   console.log("[DailyRegen] Regenerating core pages...");
   return await _regenerateCorePages();
+});
+
+/**
+ * regenerateCorePagesHttp — on-demand homepage + sitemap regeneration for the
+ * dashboard Publish Center ("make everything live now" without a full deploy).
+ */
+exports.regenerateCorePagesHttp = functions.runWith({ timeoutSeconds: 300, memory: "512MB" })
+  .https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  if (req.method === "OPTIONS") return res.status(204).send("");
+  if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
+  try {
+    const result = await _regenerateCorePages();
+    return res.status(200).json(result || { done: true });
+  } catch (e) {
+    return res.status(500).json({ error: e.message });
+  }
+});
+
+/**
+ * Weekly backlink hunter — runs every Monday at 7 AM UTC
+ */
+exports.weeklyBacklinkHunter = functions.runWith({ timeoutSeconds: 300, memory: "512MB" })
+  .pubsub.schedule("0 7 * * 1").timeZone("UTC").onRun(async () => {
+  console.log("[Backlink] Weekly hunt starting...");
+  const fetch = require("node-fetch");
+  const ua = "CalcToWork/1.0";
+  const SITE_URL = "https://calcto.work";
+
+  // Try submissions
+  const subs = [
+    { name:"Reddit", url:"https://www.reddit.com/api/submit", method:"POST", headers:{"User-Agent":ua,"Content-Type":"application/x-www-form-urlencoded"}, body:new URLSearchParams({sr:"InternetIsBeautiful",title:"CalcToWork - 460+ Free Online Calculators in 6 Languages",url:SITE_URL,kind:"link"}).toString() },
+    { name:"HackerNews", url:"https://news.ycombinator.com/submitlink?u="+encodeURIComponent(SITE_URL)+"&t=CalcToWork+-+Free+Online+Calculators", method:"GET" },
+    { name:"ProductHunt", url:"https://www.producthunt.com/posts/new", method:"GET" },
+  ];
+
+  const results = [];
+  for (const s of subs) {
+    try {
+      const r = await fetch(s.url, { method:s.method, headers:s.headers||{"User-Agent":ua}, body:s.body||undefined, timeout:15000 });
+      results.push({ name:s.name, status: r.status < 400 ? "ok":"failed", code:r.status });
+    } catch(e) { results.push({ name:s.name, status:"error", error:e.message }); }
+  }
+
+  await db.collection("admin_prefs").doc("backlink_weekly").set({
+    results, week: new Date().toISOString().slice(0,10),
+    checked_at: admin.firestore.FieldValue.serverTimestamp(),
+  });
+
+  console.log("[Backlink] Weekly hunt done:", results.length, "attempts");
+  return { results };
 });
 
 // ══ Helper: auto-fix missing hreflang entries ══
@@ -4022,4 +4571,473 @@ exports.getAutonomyStatusHttp = functions.https.onRequest(async (req, res) => {
   } catch(e) {
     return res.status(500).json({ error: e.message });
   }
+});
+
+/**
+ * Sync static calculators from calc-index.json to calc_cms collection.
+ * This populates calc_cms so the autonomous agent can find and fix SEO issues.
+ */
+exports.syncStaticCalcsHttp = functions.runWith({ timeoutSeconds: 300, memory: "512MB" })
+  .https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  if (req.method === "OPTIONS") return res.status(204).send("");
+
+  try {
+    const path = require("path");
+    const fs = require("fs");
+    const indexPath = path.join(__dirname, "calc-index.json");
+    if (!fs.existsSync(indexPath)) return res.status(500).json({ error: "calc-index.json not found" });
+
+    const calcIndex = JSON.parse(fs.readFileSync(indexPath, "utf8"));
+    let synced = 0;
+
+    for (const calc of calcIndex) {
+      const slug = calc.slug || "";
+      const names = calc.names || {};
+      if (!slug) continue;
+
+      const langs = {};
+      for (const lang of LANGS) {
+        langs[lang] = { name: names[lang] || "", desc: "", seo_title: "", seo_description: "", steps: [], mistakes: [], faq: [] };
+      }
+
+      await db.collection("calc_cms").doc(slug).set({
+        slug, staticId: calc.id || "",
+        category: calc.category || "",
+        standard: calc.standard || "",
+        langs,
+        status: "published",
+        source: "static_sync",
+        type: "static",
+        synced_at: admin.firestore.FieldValue.serverTimestamp(),
+        updated_at: admin.firestore.FieldValue.serverTimestamp(),
+      }, { merge: true });
+
+      synced++;
+      if (synced % 100 === 0) console.log(`Synced ${synced}...`);
+    }
+
+    return res.status(200).json({ synced, message: "Agent can now fix SEO on all calculators" });
+  } catch(e) {
+    console.error("Sync error:", e.message);
+    return res.status(500).json({ error: e.message });
+  }
+});
+
+/**
+ * Bulk generate SEO titles + descriptions for all calculators missing them.
+ * Uses AI to create optimized titles. One-click improvement for the entire site.
+ */
+exports.generateAllSEOTitlesHttp = functions.runWith({ timeoutSeconds: 540, memory: "512MB" })
+  .https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  if (req.method === "OPTIONS") return res.status(204).send("");
+
+  try {
+    const cfgDoc = await db.collection("admin_prefs").doc("ai_config").get();
+    const cfg = cfgDoc.exists ? cfgDoc.data() : {};
+    const provider = cfg.active_provider || "deepseek";
+    const provCfg = (cfg.providers || {})[provider] || {};
+    const apiKey = provCfg.api_key;
+    if (!apiKey) return res.status(500).json({ error: "No AI key configured" });
+
+    const { limit, deploy } = req.body || {};
+    const maxFix = limit || 25;
+
+    const snap = await db.collection("calc_cms").limit(200).get();
+    let generated = 0, skipped = 0;
+    const results = [];
+
+    for (const doc of snap.docs) {
+      if (generated >= maxFix) break;
+      const data = doc.data();
+      const en = data.langs?.en || {};
+      const name = en.name || (data.names && data.names['en']) || data.name || '';
+      if (!name) { skipped++; continue; }
+
+      const needsTitle = !en.seo_title || en.seo_title.length < 15;
+      const needsDesc = !en.seo_description || en.seo_description.length < 30;
+
+      if (!needsTitle && !needsDesc) { skipped++; continue; }
+
+      try {
+        const prompt = `Generate SEO metadata for a free calculator called "${name}".
+${needsTitle ? 'Create a compelling SEO title (max 55 chars) with a key benefit or formula mention.' : ''}
+${needsDesc ? 'Write a meta description (max 155 chars) that makes people click.' : ''}
+Return ONLY JSON: {${needsTitle ? '"seo_title":"..."' : ''}${needsTitle && needsDesc ? ',' : ''}${needsDesc ? '"seo_description":"..."' : ''}}`;
+
+        const text = await _callAIRaw(apiKey, provider, provCfg.model, prompt, 500);
+        if (!text) { skipped++; continue; }
+        const m = text.match(/\{[\s\S]*\}/);
+        if (!m) { skipped++; continue; }
+        const o = JSON.parse(m[0]);
+
+        const updates = { updated_at: admin.firestore.FieldValue.serverTimestamp() };
+        if (o.seo_title) updates["langs.en.seo_title"] = o.seo_title;
+        if (o.seo_description) updates["langs.en.seo_description"] = o.seo_description;
+        await doc.ref.set(updates, { merge: true });
+
+        results.push({ slug: doc.id, name, title: o.seo_title || '', desc: o.seo_description || '' });
+        generated++;
+        if (generated % 5 === 0) console.log(`Generated ${generated} SEO titles...`);
+      } catch(e) { skipped++; }
+    }
+
+    // Auto-deploy if requested
+    if (deploy && results.length > 0) {
+      const slugs = [...new Set(results.map(r => r.slug))];
+      for (const s of slugs.slice(0, 10)) {
+        await _autoDeployCalc(s).catch(() => {});
+      }
+    }
+
+    return res.status(200).json({
+      generated, skipped, total: generated + skipped,
+      results: results.slice(0, 20),
+      deployed: deploy ? Math.min(results.length, 10) : 0,
+    });
+  } catch(e) {
+    console.error("Generate SEO titles error:", e.message);
+    return res.status(500).json({ error: e.message });
+  }
+});
+
+/**
+ * Generate SEO titles for ONE specific calculator (used by Growth Lab)
+ */
+exports.generateOneSEOTitleHttp = functions.runWith({ timeoutSeconds: 60, memory: "256MB" })
+  .https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  if (req.method === "OPTIONS") return res.status(204).send("");
+  if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
+
+  try {
+    const { slug } = req.body || {};
+    if (!slug) return res.status(400).json({ error: "Missing slug" });
+
+    const cfgDoc = await db.collection("admin_prefs").doc("ai_config").get();
+    const cfg = cfgDoc.exists ? cfgDoc.data() : {};
+    const provider = cfg.active_provider || "deepseek";
+    const provCfg = (cfg.providers || {})[provider] || {};
+    const apiKey = provCfg.api_key;
+    if (!apiKey) return res.status(500).json({ error: "No AI key configured" });
+
+    const doc = await db.collection("calc_cms").doc(slug).get();
+    if (!doc.exists) return res.status(404).json({ error: "Not found" });
+    const data = doc.data();
+    const en = data.langs?.en || {};
+    const name = en.name || (data.names && data.names['en']) || data.name || slug;
+    if (!name) return res.status(400).json({ error: "No name" });
+
+    const prompt = `Generate SEO metadata for a free calculator called "${name}". Create a compelling SEO title (max 55 chars) with benefit. Write a meta description (max 155 chars) that makes people click. Return ONLY JSON: {"seo_title":"...","seo_description":"..."}`;
+
+    const text = await _callAIRaw(apiKey, provider, provCfg.model, prompt, 500);
+    if (!text) return res.status(500).json({ error: "AI call failed" });
+    const m = text.match(/\{[\s\S]*\}/);
+    if (!m) return res.status(500).json({ error: "No JSON in response" });
+    const o = JSON.parse(m[0]);
+
+    await doc.ref.set({
+      "langs.en.seo_title": o.seo_title,
+      "langs.en.seo_description": o.seo_description,
+      updated_at: admin.firestore.FieldValue.serverTimestamp(),
+    }, { merge: true });
+
+    // Auto-deploy
+    let deployResult = null;
+    try { deployResult = await _autoDeployCalc(slug); } catch(e) {}
+
+    return res.status(200).json({
+      slug, name,
+      seo_title: o.seo_title,
+      seo_description: o.seo_description,
+      deployed: !deployResult?.error,
+    });
+  } catch(e) {
+    return res.status(500).json({ error: e.message });
+  }
+});
+
+// ═══════════════════════════════════════════
+//  BACKLINK HUNTER
+// ═══════════════════════════════════════════
+exports.backlinkHunterHttp = functions.runWith({ timeoutSeconds: 300, memory: "512MB" })
+  .https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  if (req.method === "OPTIONS") return res.status(204).send("");
+
+  try {
+    const fetch = require("node-fetch");
+    const SITE_URL = "https://calcto.work";
+    const ua = "CalcToWork-Submitter/1.0";
+    const results = [];
+
+    const directories = [
+      { name:"AlternativeTo", url:"https://alternativeto.net/software/calctowork/", type:"profile", action:"Check/create listing" },
+      { name:"ToolPilot", url:"https://www.toolpilot.ai/submit", type:"form", action:"Submit tool" },
+      { name:"There's An AI For That", url:"https://theresanaiforthat.com/submit/", type:"manual", action:"Visit and submit" },
+      { name:"SaaSHub", url:"https://www.saashub.com/submit-software", type:"form", action:"Submit software" },
+      { name:"ProductHunt", url:"https://www.producthunt.com/posts/new", type:"manual", action:"Launch product" },
+      { name:"IndieHackers", url:"https://www.indiehackers.com/products/new", type:"manual", action:"List product" },
+      { name:"GitHub README", url:"https://github.com/julienalexandreoud-coder/calctowork", type:"manual", action:"Ensure do-follow backlink in README" },
+      { name:"Reddit", url:"https://www.reddit.com/r/InternetIsBeautiful/submit?url="+encodeURIComponent(SITE_URL), type:"manual", action:"Post to Reddit" },
+      { name:"HackerNews", url:"https://news.ycombinator.com/submitlink?u="+encodeURIComponent(SITE_URL), type:"manual", action:"Show HN submission" },
+    ];
+
+    for (const dir of directories) {
+      try {
+        if (dir.type === "profile") {
+          const r = await fetch(dir.url, { timeout: 15000, headers: {"User-Agent": ua} });
+          results.push({ name:dir.name, status: r.ok?"exists":"not_found", code:r.status });
+        } else {
+          results.push({ name:dir.name, status:"manual", action:dir.action, url:dir.url });
+        }
+      } catch(e) { results.push({ name:dir.name, status:"error", error:e.message }); }
+    }
+
+    // AI-powered opportunity finder
+    const cfgDoc = await db.collection("admin_prefs").doc("ai_config").get();
+    const cfg = cfgDoc.exists ? cfgDoc.data() : {};
+    const provider = cfg.active_provider || "deepseek";
+    const provCfg = (cfg.providers || {})[provider] || {};
+    const apiKey = provCfg.api_key;
+
+    let opportunities = [];
+    if (apiKey) {
+      try {
+        // Seed the AI with real top queries so prospects are relevant
+        let topQueries = [];
+        try {
+          const cutoff = new Date(Date.now() - 30 * 86400000).toISOString().slice(0, 10);
+          const qSnap = await db.collection("gsc_search_data").where("date", ">=", cutoff).orderBy("date", "desc").limit(400).get();
+          const qMap = {};
+          qSnap.forEach(d => { const q = d.data().query || ""; qMap[q] = (qMap[q] || 0) + (d.data().impressions || 0); });
+          topQueries = Object.entries(qMap).sort((a, b) => b[1] - a[1]).slice(0, 12).map(([q]) => q);
+        } catch (e) {}
+
+        const searchPrompt = `Find 15 realistic backlink opportunities for calcto.work — a free calculator website with 460+ calculators in 6 languages (construction, finance, health, math, science, everyday tools). ${topQueries.length ? "Its top search queries are: " + topQueries.join(", ") + "." : ""}
+Focus on: niche directories, resource/links pages on .edu or trade sites, forums where linking a calculator genuinely helps (contractor forums, personal-finance forums, teacher resource lists), tool aggregators, and guest-post targets. No spam tactics.
+Return ONLY JSON: {"opportunities":[{"site":"Site name","url":"https://...","type":"directory|resource_page|guest_post|forum|aggregator","difficulty":"easy|medium|hard","action":"specific action to take","estimated_da":30,"relevant_calc":"which calculator/category to pitch"}]}`;
+        const text = await _callAIRaw(apiKey, provider, provCfg.model, searchPrompt, 3000);
+        if (text) { const m = text.match(/\{[\s\S]*\}/); if (m) try { opportunities = JSON.parse(m[0]).opportunities||[]; } catch(e) {} }
+      } catch(e) {}
+    }
+
+    // Upsert everything into the backlink_prospects tracker (deduped by domain)
+    let newProspects = 0;
+    const upsert = async (p) => {
+      try {
+        let domain;
+        try { domain = new URL(p.url).hostname.replace(/^www\./, ""); } catch (e) { return; }
+        const docId = domain.replace(/[\/\.\#\$\[\]]/g, "_");
+        const ref = db.collection("backlink_prospects").doc(docId);
+        const existing = await ref.get();
+        if (existing.exists) return; // keep user's status/notes
+        await ref.set({
+          site: p.site || domain,
+          url: p.url,
+          domain,
+          type: p.type || "directory",
+          difficulty: p.difficulty || "medium",
+          action: p.action || "",
+          estimated_da: p.estimated_da || null,
+          relevant_calc: p.relevant_calc || "",
+          status: "todo", // todo → submitted → live | rejected
+          notes: "",
+          created_at: admin.firestore.FieldValue.serverTimestamp(),
+        });
+        newProspects++;
+      } catch (e) {}
+    };
+    for (const dir of directories) await upsert({ site: dir.name, url: dir.url, type: "directory", action: dir.action, difficulty: "easy" });
+    for (const opp of opportunities) await upsert(opp);
+
+    await db.collection("admin_prefs").doc("backlink_opportunities").set({
+      opportunities, directories_submitted: results,
+      last_checked: admin.firestore.FieldValue.serverTimestamp(),
+    });
+
+    return res.status(200).json({
+      directories: results,
+      opportunities_found: opportunities.length,
+      new_prospects: newProspects,
+      opportunities: opportunities.slice(0, 15),
+    });
+  } catch(e) {
+    return res.status(500).json({ error: e.message });
+  }
+});
+
+// ═══════════════════════════════════════════════════════════
+//  AI STRATEGY BRAIN — Plan → Review → Replan + Long Memory
+// ═══════════════════════════════════════════════════════════
+
+exports.generateStrategyPlanHttp = functions.runWith({ timeoutSeconds: 300, memory: "512MB" })
+  .https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  if (req.method === "OPTIONS") return res.status(204).send("");
+  try {
+    const cfgDoc = await db.collection("admin_prefs").doc("ai_config").get();
+    const cfg = cfgDoc.exists ? cfgDoc.data() : {};
+    const provider = cfg.active_provider || "deepseek";
+    const provCfg = (cfg.providers || {})[provider] || {};
+    const apiKey = provCfg.api_key;
+    if (!apiKey) return res.status(500).json({ error: "No AI key" });
+
+    const siteUrl = functions.config().gsc?.site_url || "sc-domain:calcto.work";
+    const cutoff7 = new Date(Date.now() - 7*86400000).toISOString().slice(0,10);
+    let gsc = { clicks:0, impressions:0 };
+    try { const s = await db.collection("gsc_site_stats").where("site_url","==",siteUrl).where("date",">=",cutoff7).orderBy("date","desc").limit(7).get(); s.forEach(d => { gsc.clicks+=d.data().total_clicks||0; gsc.impressions+=d.data().total_impressions||0; }); } catch(e) {}
+
+    const [stratDoc, learnDoc, memDoc, prevPlansSnap] = await Promise.all([
+      db.collection("ai_brain").doc("strategy").get(),
+      db.collection("ai_brain").doc("learnings").get(),
+      db.collection("ai_brain").doc("memory").get(),
+      db.collection("ai_brain").doc("plans").get(),
+    ]);
+    const learnings = learnDoc.exists ? learnDoc.data() : {};
+    const memory = memDoc.exists ? memDoc.data() : { timeline:[], insights:[] };
+    const prevPlans = prevPlansSnap.exists ? (prevPlansSnap.data().plans||[]) : [];
+
+    const prompt = `Create a 2-week strategic plan for CalcToWork (461 calcs, 19k pages, 6 langs, zero backlinks). Current: ${gsc.clicks} clicks, ${gsc.impressions} impressions (7 days). What works: ${JSON.stringify((learnings.what_works||[]).slice(0,3))}. What doesn't: ${JSON.stringify((learnings.what_doesnt||[]).slice(0,3))}. Past plans: ${prevPlans.slice(-2).map(p=>p.headline).join('; ')}. Return JSON: {"week":"W29","headline":"...","big_goal":"...","metrics_target":{"daily_clicks":30},"phases":[{"phase":1,"focus":"...","actions":["..."],"success_criteria":"..."}],"risks":["..."],"long_term_vision":"..."}`;
+    const text = await _callAIRaw(apiKey, provider, provCfg.model, prompt, 2500);
+    if (!text) return res.status(500).json({ error: "AI failed" });
+    const m = text.match(/\{[\s\S]*\}/);
+    if (!m) return res.status(500).json({ error: "No JSON" });
+    const plan = JSON.parse(m[0]);
+
+    await Promise.all([
+      db.collection("ai_brain").doc("strategy").set({ current_plan:plan, focus_areas:(plan.phases||[]).map(p=>p.focus), updated_at:admin.firestore.FieldValue.serverTimestamp() },{merge:true}),
+      (async()=>{ const d=prevPlansSnap.exists?prevPlansSnap.data():{plans:[]}; d.plans=[...(d.plans||[]),{...plan,created_at:new Date().toISOString(),status:"active"}]; await db.collection("ai_brain").doc("plans").set(d,{merge:true}); })(),
+      (async()=>{ const d=memDoc.exists?memDoc.data():{timeline:[],insights:[]}; d.timeline=[...d.timeline||[],{date:new Date().toISOString(),event:"Plan created",headline:plan.headline}].slice(-50); await db.collection("ai_brain").doc("memory").set(d,{merge:true}); })(),
+    ]);
+    return res.status(200).json(plan);
+  } catch(e) { return res.status(500).json({ error: e.message }); }
+});
+
+exports.reviewStrategyPlanHttp = functions.runWith({ timeoutSeconds: 300, memory: "512MB" })
+  .https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  if (req.method === "OPTIONS") return res.status(204).send("");
+  try {
+    const cfgDoc = await db.collection("admin_prefs").doc("ai_config").get();
+    const cfg = cfgDoc.exists ? cfgDoc.data() : {};
+    const provider = cfg.active_provider || "deepseek";
+    const provCfg = (cfg.providers || {})[provider] || {};
+    const apiKey = provCfg.api_key;
+    if (!apiKey) return res.status(500).json({ error: "No AI key" });
+
+    const [stratDoc, plansDoc, memDoc, actionsSnap] = await Promise.all([
+      db.collection("ai_brain").doc("strategy").get(),
+      db.collection("ai_brain").doc("plans").get(),
+      db.collection("ai_brain").doc("memory").get(),
+      db.collection("autonomous_actions").orderBy("created_at","desc").limit(20).get().catch(()=>({empty:true})),
+    ]);
+    const currentPlan = stratDoc.exists ? stratDoc.data().current_plan : null;
+    const memory = memDoc.exists ? memDoc.data() : { timeline:[], insights:[] };
+    const actions = []; if (!actionsSnap.empty) actionsSnap.forEach(d => actions.push({ type:d.data().type, status:d.data().status, result:d.data().result }));
+
+    const siteUrl = functions.config().gsc?.site_url || "sc-domain:calcto.work";
+    const cutoff7 = new Date(Date.now() - 7*86400000).toISOString().slice(0,10);
+    let gsc = { clicks:0, impressions:0 };
+    try { const s = await db.collection("gsc_site_stats").where("site_url","==",siteUrl).where("date",">=",cutoff7).orderBy("date","desc").limit(7).get(); s.forEach(d => { gsc.clicks+=d.data().total_clicks||0; gsc.impressions+=d.data().total_impressions||0; }); } catch(e) {}
+
+    const prompt = `Review progress for CalcToWork. Plan: ${currentPlan?JSON.stringify(currentPlan.headline):'none'}. Actions: ${JSON.stringify(actions.slice(0,10))}. Metrics: ${gsc.clicks} clicks, ${gsc.impressions} impressions. Timeline: ${JSON.stringify((memory.timeline||[]).slice(-8))}. Return JSON: {"plan_status":"on_track|behind","what_worked":["..."],"what_didnt":["..."],"surprises":["..."],"adjustments":["..."],"new_learnings":{"what_works":["..."],"what_doesnt":["..."],"site_patterns":["..."]},"confidence":5,"summary":"one paragraph"}`;
+    const text = await _callAIRaw(apiKey, provider, provCfg.model, prompt, 2000);
+    if (!text) return res.status(500).json({ error: "AI failed" });
+    const m = text.match(/\{[\s\S]*\}/);
+    if (!m) return res.status(500).json({ error: "No JSON" });
+    const review = JSON.parse(m[0]);
+
+    const memData = memDoc.exists ? memDoc.data() : { timeline:[], insights:[] };
+    memData.timeline = [...memData.timeline||[], { date:new Date().toISOString(), event:"Strategy reviewed", summary:review.summary }].slice(-50);
+    if (review.new_learnings) {
+      const lDoc = await db.collection("ai_brain").doc("learnings").get();
+      const lData = lDoc.exists ? lDoc.data() : {};
+      lData.what_works = [...new Set([...(lData.what_works||[]), ...(review.new_learnings.what_works||[])])].slice(0,15);
+      lData.what_doesnt = [...new Set([...(lData.what_doesnt||[]), ...(review.new_learnings.what_doesnt||[])])].slice(0,15);
+      lData.site_patterns = [...new Set([...(lData.site_patterns||[]), ...(review.new_learnings.site_patterns||[])])].slice(0,15);
+      await db.collection("ai_brain").doc("learnings").set(lData, { merge: true });
+    }
+    memData.insights = [...new Set([review.summary, ...(memData.insights||[])])].slice(-20);
+    await db.collection("ai_brain").doc("memory").set(memData, { merge: true });
+
+    if (currentPlan) {
+      const plansData = plansDoc.exists ? plansDoc.data() : { plans:[] };
+      if (plansData.plans?.length > 0) { const last = plansData.plans[plansData.plans.length-1]; last.reviewed_at=new Date().toISOString(); last.review=review; last.status=review.plan_status==="on_track"?"active":"needs_adjustment"; await db.collection("ai_brain").doc("plans").set(plansData,{merge:true}); }
+    }
+    return res.status(200).json(review);
+  } catch(e) { return res.status(500).json({ error: e.message }); }
+});
+
+exports.getStrategyMemoryHttp = functions.https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  if (req.method !== "GET") return res.status(405).json({ error: "GET only" });
+  try {
+    const [stratDoc, learnDoc, plansDoc, memDoc] = await Promise.all([
+      db.collection("ai_brain").doc("strategy").get(),
+      db.collection("ai_brain").doc("learnings").get(),
+      db.collection("ai_brain").doc("plans").get(),
+      db.collection("ai_brain").doc("memory").get(),
+    ]);
+    return res.status(200).json({
+      strategy: stratDoc.exists ? stratDoc.data() : {},
+      learnings: learnDoc.exists ? learnDoc.data() : {},
+      plans: plansDoc.exists ? (plansDoc.data().plans||[]).slice(-5) : [],
+      memory: memDoc.exists ? memDoc.data() : { timeline:[], insights:[] },
+    });
+  } catch(e) { return res.status(500).json({ error: e.message }); }
+});
+
+exports.saveStrategyMemoryHttp = functions.https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  if (req.method === "OPTIONS") return res.status(204).send("");
+  if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
+  try {
+    const { insight, event } = req.body || {};
+    const memDoc = await db.collection("ai_brain").doc("memory").get();
+    const memData = memDoc.exists ? memDoc.data() : { timeline:[], insights:[] };
+    if (insight) memData.insights = [...new Set([insight, ...memData.insights||[]])].slice(-30);
+    if (event) memData.timeline = [{ date:new Date().toISOString(), event }, ...memData.timeline||[]].slice(-50);
+    await db.collection("ai_brain").doc("memory").set(memData, { merge: true });
+    return res.status(200).json({ status:"ok" });
+  } catch(e) { return res.status(500).json({ error: e.message }); }
+});
+
+// ══ Quality Audit — score all calcs, unpublish bad ones ══
+exports.auditCalcQualityHttp = functions.runWith({ timeoutSeconds: 300, memory: "512MB" })
+  .https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  if (req.method === "OPTIONS") return res.status(204).send("");
+
+  try {
+    const { autoFix, threshold } = req.body || {};
+    const minScore = threshold || 80;
+    const snap = await db.collection("calc_cms").limit(500).get();
+    const results = { scored:0, passed:0, failed:0, unpublished:0, details:[] };
+
+    for (const doc of snap.docs) {
+      const data = doc.data();
+      if (data.type === "static") continue; // skip synced static calcs
+      const q = _scoreCalcQuality(data);
+      results.scored++;
+
+      if (q.score >= minScore) {
+        results.passed++;
+      } else {
+        results.failed++;
+        results.details.push({ slug:doc.id, score:q.score, issues:q.issues });
+        if (autoFix && data.status === "published") {
+          await doc.ref.set({ status:"draft", quality_score:q.score, quality_issues:q.issues, updated_at:admin.firestore.FieldValue.serverTimestamp() }, { merge: true });
+          results.unpublished++;
+        }
+      }
+    }
+
+    return res.status(200).json({
+      ...results,
+      summary: autoFix ? `Unpublished ${results.unpublished} failed calcs` : `${results.failed} calcs need review. Set autoFix:true to unpublish them.`,
+      top_issues: results.details.slice(0, 15),
+    });
+  } catch(e) { return res.status(500).json({ error: e.message }); }
 });
