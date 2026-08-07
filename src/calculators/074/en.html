@@ -1,46 +1,113 @@
-<section class="long-content">
-<p>Use the <strong>Textured Finish Calculator</strong> to calculate kg per m², total kg (+10%), 25kg bags quickly and accurately.</p>
-<h2>How the calculation works</h2>
-<p>Construction calculations often seem straightforward until you factor in waste allowances, unit conversions, and regional material standards. This calculator handles those details automatically, letting you focus on the build instead of the math.</p>
-<p>Construction calculations often seem straightforward until you factor in waste allowances, unit conversions, and regional material standards. This calculator handles those details automatically, letting you focus on the build instead of the math.</p>
-<p>The formula behind this calculation is <strong>Textured Finish Calculator = f(Area to texture, Texture type)</strong>. Understanding how the result is derived helps you verify the output and spot input errors before they cascade into bad decisions.</p>
+<p>Whether you are a professional plasterer or a weekend DIY enthusiast, estimating the right amount of material for a textured wall finish can be surprisingly tricky. This is exactly where the <strong>Textured Finish Calculator</strong> becomes an indispensable tool, helping you convert a wall's square meter area into the precise kilograms of coating needed and the number of 25 kg bags to purchase. By accounting for different application techniques and a 10% waste factor, this calculator takes the guesswork out of your project budget and material list.</p>
 
-<h2>Step-by-step guide for your project</h2>
-<p>Follow these steps to get a reliable result:</p>
-<ol>
-<li><strong>Enter your values:</strong> 80 m²; proyectado — ensure all values use a single consistent unit system.</li>
-<li><strong>The calculator applies the formula:</strong> <em>Textured Finish Calculator = f(Area to texture, Texture type)</em>.</li>
-<li><strong>Read your result:</strong> Kg per m², Total kg (+10%), 25kg bags.</li>
-<li>Verify: confirm units are consistent and the numbers are realistic for your context before acting on the result.</li>
-</ol>
+<h2>What the Textured Finish Calculator Does and When to Use It</h2>
 
-<h2>Practical uses on the job site</h2>
-<p>This calculator is particularly useful in the following situations:</p>
+<p>The <strong>Textured Finish Calculator</strong> is designed to compute the total weight of textured coating required for any interior or exterior wall project. It takes two key inputs: the total surface area in square meters and the type of texture finish you plan to apply. Based on these, it returns the coverage rate per square meter, the total kilograms of coating needed, and the number of standard 25 kg sacks you must buy.</p>
+
+<p>You should use this calculator in several common scenarios. First, when planning a new construction where you need to order materials in bulk. Second, when renovating a single room and you want to avoid buying too many half-empty sacks. Third, when comparing costs between different texture finishes—for example, deciding whether a sprayed "proyectado" finish or a rolled "rodillo_gota" finish is more economical for your specific wall area. Finally, it is perfect for budgeting, as knowing the exact number of bags prevents both shortages and expensive leftover material.</p>
+
+<h2>The Formula Explained Variable by Variable</h2>
+
+<p>The logic behind the calculator is straightforward but accounts for real-world conditions. Let us break down the JavaScript formula into plain English, variable by variable.</p>
+
+<p><strong>Step 1: Inputs and Base Coverage Rates</strong><br />
+The calculator starts with two inputs: <strong>area_m2</strong> (the wall area in square meters) and <strong>tipo_textura</strong> (the type of texture). For each texture type, a fixed consumption rate in kilograms per square meter (kg/m²) is assigned:</p>
+
 <ul>
-<li>everyday math problems</li><li>budgeting and planning</li><li>cooking and home measurements</li><li>travel and time calculations</li>
+<li><strong>Proyectado (sprayed):</strong> 1.5 kg/m²</li>
+<li><strong>Rodillo_gota (roller drop/stipple):</strong> 0.8 kg/m²</li>
+<li><strong>Veneciano (Venetian plaster):</strong> 1.2 kg/m²</li>
+<li><strong>Estuco (stucco):</strong> 1.0 kg/m²</li>
 </ul>
 
-<h2>Interpreting and applying your results</h2>
-<p>Your result shows the theoretical quantity required. Before ordering, apply the appropriate waste factor for your material: 5–10&nbsp;% for concrete and mortar, 10–15&nbsp;% for ceramic tile, natural stone, and brick (to account for cuts, breakage, and pattern matching), and 3–5&nbsp;% for steel and timber. Always round up to the next full unit — bag, tonne, or pallet — to avoid halting work for a second delivery.</p>
+<p><strong>Step 2: Validation</strong><br />
+If the area input is missing or zero, the formula returns an error. This ensures you cannot proceed without a valid wall size.</p>
 
-<h2>Construction standards and best practices</h2>
-<p>Construction projects live and die by accurate material estimates. Ordering too little halts the job and triggers costly emergency deliveries; ordering too much wastes money and clutters the site. Professional estimators typically add a 5–10&nbsp;% waste factor on top of the theoretical quantity to account for cuts, off-cuts, breakage, and minor measurement errors — a discipline built from hard-won job-site experience.</p><p>Modern construction calculations follow standards set by bodies like ISO, ASTM, or EN (European Norm), which define material properties, tolerances, and design allowances. Knowing the standard behind a formula helps you adapt it when conditions differ from the textbook — for example, when working with reclaimed materials, non-standard dimensions, or sites at altitude where concrete curing behaves differently.</p>
+<p><strong>Step 3: Total Material Calculation</strong><br />
+The core calculation is: <strong>total = area × kg/m² × 1.1</strong>. The multiplication by 1.1 adds a 10% waste factor. This accounts for material lost on tools, uneven application, drips, and the inevitable small corrections. The result is rounded to one decimal place using the <em>toFixed(1)</em> method, giving a practical weight in kilograms.</p>
 
-<h2>Common mistakes to avoid</h2>
+<p><strong>Step 4: Sacks Needed</strong><br />
+Finally, the formula divides the total kilograms by 25 (the standard sack size) and uses <strong>Math.ceil</strong> to round up to the nearest whole number. This means even if you need 25.1 kg, the calculator tells you to buy 2 sacks. It is always better to have a little extra than to run out mid-job.</p>
+
+<h2>Worked Examples with Concrete Numbers</h2>
+
+<p>To see the calculator in action, here are two realistic scenarios.</p>
+
+<h3>Example 1: Small Bathroom with Roller Finish</h3>
+<p>Imagine you are refinishing a bathroom wall. The total area to cover is 12 m², and you choose a roller stipple finish (rodillo_gota).</p>
+
 <ul>
-<li>Forgetting to add a waste allowance (typically 5-10%) when ordering materials — rounding up saves a second delivery.</li><li>Mixing up metric and imperial units on the same project. Stick to one system throughout your calculation.</li><li>Measuring outline dimensions instead of interior surface area — the difference matters for flooring and tiling.</li><li>Not accounting for irregular shapes. Break complex areas into simpler rectangles and triangles before calculating.</li>
+<li><strong>Area:</strong> 12 m²</li>
+<li><strong>Texture type:</strong> rodillo_gota (0.8 kg/m²)</li>
+<li><strong>Calculation:</strong> Total kg = 12 × 0.8 × 1.1 = 10.56 kg, rounded to <strong>10.6 kg</strong>.</li>
+<li><strong>Sacks needed:</strong> 10.6 ÷ 25 = 0.424, rounded up to <strong>1 sack</strong>.</li>
 </ul>
+<p>In this case, you only need a single 25 kg bag, and you will have plenty left over for touch-ups or a small accent wall.</p>
 
-<h2>Pro tip for contractors and builders</h2>
-<p>Order 5-10% more material than your calculation suggests to account for cuts, breakage, and measurement errors. It's cheaper to have a little left over than to halt work for a second delivery.</p>
+<h3>Example 2: Large Living Room with Sprayed Texture</h3>
+<p>Now consider a living room wall covering 45 m², where you plan a sprayed texture finish (proyectado).</p>
 
-<h2>Frequently asked questions</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">How much extra material should I order?</button><div class="faq-a"><p>Most professionals recommend ordering 5-10% more than calculated to cover cuts, waste, and measurement errors. For natural stone or ceramic tile, the waste factor can be 10-15% due to breakage and pattern matching.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Can I use this calculator for both metric and imperial units?</button><div class="faq-a"><p>Yes. Select your preferred unit system in the input fields and the calculator converts automatically. All internal calculations are performed consistently to avoid mixed-unit errors.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Is this calculator accurate?</button><div class="faq-a"><p>Yes. The calculator uses the standard formula: Textured Finish Calculator = f(Area to texture, Texture type). Results are mathematically exact; final accuracy depends on the precision of the data you enter.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Can I use this calculator on my phone?</button><div class="faq-a"><p>Yes, the calculator is fully responsive and works on any device: computer, tablet, and mobile. No installation or registration required.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">How do I save or share my calculation?</button><div class="faq-a"><p>Use the <strong>Share</strong> button to generate a URL that encodes all your inputs — anyone who opens the link will see the same values and result. The <strong>Copy</strong> button copies the formatted result text to your clipboard for pasting into a spreadsheet, email, or document.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">What if my result seems wrong?</button><div class="faq-a"><p>First recheck your inputs: confirm the values are in the correct units and within a realistic range. Common causes include unit mismatch (mixing metric and imperial), transposed digits, or selecting the wrong calculator for the problem. If inputs look correct and the result still seems off, verify that the formula <em>Textured Finish Calculator = f(Area to texture, Texture type)</em> applies to exactly the situation you are in — some calculators with similar names solve slightly different variants of the same problem.</p></div></div>
-</div>
-</section>
+<ul>
+<li><strong>Area:</strong> 45 m²</li>
+<li><strong>Texture type:</strong> proyectado (1.5 kg/m²)</li>
+<li><strong>Calculation:</strong> Total kg = 45 × 1.5 × 1.1 = 74.25 kg, rounded to <strong>74.3 kg</strong>.</li>
+<li><strong>Sacks needed:</strong> 74.3 ÷ 25 = 2.972, rounded up to <strong>3 sacks</strong>.</li>
+</ul>
+<p>Notice that while 74.3 kg would fit into two full 25 kg sacks (50 kg) and one partial sack, the calculator correctly tells you to purchase three full sacks. This ensures you have enough material to complete the job without interruption.</p>
+
+<h2>Common Mistakes to Avoid When Using the Calculator</h2>
+
+<p>Even with a great tool, mistakes happen. Here are the most frequent errors and how to avoid them.</p>
+
+<p><strong>Mistake 1: Measuring Area Incorrectly</strong><br />
+The most common error is entering the floor area instead of the wall area. Remember, this calculator works with wall surface area, not floor space. Measure the height and width of each wall, multiply them, and sum all sections. Do not forget to subtract windows and doors if you prefer a more precise estimate, though including them is acceptable for a conservative order.</p>
+
+<p><strong>Mistake 2: Confusing Texture Types</strong><br />
+Each texture has a very different consumption rate. Using "estuco" (1.0 kg/m²) when you actually plan a "proyectado" (1.5 kg/m²) finish will result in a 50% material shortage. Always double-check the name of your chosen finish against the calculator options. If you are unsure, test a small area first to measure your actual consumption.</p>
+
+<p><strong>Mistake 3: Forgetting the Waste Factor</strong><br />
+Some users think the 10% waste factor is unnecessary and manually reduce the result. This is risky. The 10% accounts for unavoidable losses. On textured finishes, especially sprayed ones, overspray and cleaning waste can exceed 10%. Trust the calculator's built-in margin.</p>
+
+<p><strong>Mistake 4: Using the Wrong Unit of Measurement</strong><br />
+The calculator expects area in square meters. If you are used to square feet, you must convert. One square meter is approximately 10.76 square feet. For quick reference, a wall that is 10 feet by 8 feet is 80 square feet, which equals about 7.4 m². Entering 80 instead of 7.4 would tell you that you need many times more material than necessary.</p>
+
+<h2>Frequently Asked Questions</h2>
+
+<h3>Q1: Can I use this calculator for exterior walls?</h3>
+<p>Yes, absolutely. The formula works for both interior and exterior applications as long as the texture type is consistent. However, for exterior walls, you may want to consider a thicker application or additional waterproofing layers. The calculator gives a base estimate; for exterior projects, it is wise to add an extra 5-10% for weather-related waste, but the standard 10% already built into the tool is a good starting point.</p>
+
+<h3>Q2: What if my wall has windows or doors? Should I subtract their area?</h3>
+<p>This is a matter of preference. The calculator is designed for simplicity. If you subtract windows and doors, you get a precise minimum material requirement. If you leave them in, you include a buffer for extra coverage and waste, which is safer for first-time users. Most professionals include the full wall area to ensure they have enough material for edges and spills. The choice is yours, but the calculator works correctly either way.</p>
+
+<h3>Q3: My texture coating comes in different bag sizes, like 20 kg or 30 kg. What should I do?</h3>
+<p>The calculator assumes a standard <strong>25 kg sack</strong>, which is the most common size for textured coatings in the metric system. If your supplier offers different sizes, use the total kilograms output as your guide. For example, if the calculator says you need 74.3 kg total, you can buy three 25 kg bags, or you might buy four 20 kg bags (80 kg total) for extra margin. Simply ignore the "sacos_25kg" result and divide the total kg by your actual bag weight.</p>
+
+<table>
+<tr>
+<th>Texture Type</th>
+<th>Consumption (kg/m²)</th>
+<th>Common Use</th>
+</tr>
+<tr>
+<td>Proyectado (Sprayed)</td>
+<td>1.5</td>
+<td>Large walls, quick application</td>
+</tr>
+<tr>
+<td>Rodillo_gota (Roller)</td>
+<td>0.8</td>
+<td>Small rooms, low texture depth</td>
+</tr>
+<tr>
+<td>Veneciano (Venetian)</td>
+<td>1.2</td>
+<td>Decorative, smooth-polished finish</td>
+</tr>
+<tr>
+<td>Estuco (Stucco)</td>
+<td>1.0</td>
+<td>Traditional, outdoor or rustic look</td>
+</tr>
+</table>
+
+<p>Using the <strong>Textured Finish Calculator</strong> removes the stress of material estimation, letting you focus on the actual work. Whether you are covering a small accent wall or a large commercial space, this tool gives you a reliable, data-backed answer in seconds. Simply enter your square meters, pick your texture, and order with confidence.</p>

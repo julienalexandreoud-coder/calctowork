@@ -1,44 +1,87 @@
-<section class="long-content">
-<p>Utilisez le <strong>Drip Irrigation Calculator</strong> pour calculer tuyaux (+15%), goutteurs, secteurs rapidement et avec précision.</p>
-<h2>Comment fonctionne le calcul</h2>
-<p>Que vous planifiiez des travaux de rénovation, estimiez des matériaux pour un chantier ou calculiez des dimensions pour un projet DIY, disposer des bons chiffres dès le départ fait gagner du temps et de l'argent.</p>
-<p>La formule derrière ce calcul est <strong>Calculateur Irrigation Goutte-à-Goutte = f(Surface à irriguer, Espacement goutteurs, Espacement rangées)</strong>. Comprendre comment le résultat est obtenu vous aide à vérifier la sortie et à détecter les erreurs d'entrée.</p>
+<p>Le <strong>Calculateur Irrigation Goutte-à-Goutte</strong> est un outil en ligne qui permet de dimensionner rapidement un système d'irrigation localisée. Que vous soyez un professionnel de l'aménagement paysager, un agriculteur ou un étudiant en agronomie, cet outil vous aide à planifier vos installations en quelques clics, en calculant la longueur de tuyau nécessaire, le nombre exact de goutteurs et le nombre de secteurs d'arrosage.</p>
 
-<h2>Guide pas à pas pour votre projet</h2>
-<p>Suivez ces étapes pour obtenir un résultat fiable :</p>
+<h2>Qu'est-ce que le Calculateur Irrigation Goutte-à-Goutte et quand l'utiliser ?</h2>
+
+<p>Ce calculateur est conçu pour simplifier le calcul des composants d'un réseau de goutte-à-goutte. Il prend en compte la surface à irriguer, l'espacement entre les goutteurs sur la ligne, et la distance entre les lignes de tuyau. L'outil est particulièrement utile dans les cas suivants :</p>
+
+<ul>
+<li>Lors de la création d'un nouveau jardin potager ou d'une serre.</li>
+<li>Pour convertir une zone de jardin classique en système d'irrigation goutte-à-goutte.</li>
+<li>Pour des projets agricoles de petite et moyenne surface, comme les cultures maraîchères en plein champ.</li>
+<li>Dans le cadre de travaux pratiques ou de projets d'études pour les étudiants en agronomie ou en paysagisme.</li>
+</ul>
+
+<p>Son interface en français et ses entrées en unités métriques (mètres, centimètres) le rendent parfaitement adapté au marché français. En quelques secondes, vous obtenez des résultats concrets : métrage de la conduite principale, nombre d'émetteurs, et nombre de secteurs recommandés pour une gestion optimale de l'eau.</p>
+
+<h2>Explication détaillée de la formule de calcul</h2>
+
+<p>Le calculateur utilise une série de formules logiques pour estimer les besoins. Voici comment chaque variable est traitée :</p>
+
+<h3>Les entrées utilisateur</h3>
+<ul>
+<li><strong>area_m2</strong> : La surface totale à irriguer, exprimée en mètres carrés (m²).</li>
+<li><strong>separacion_goteros_cm</strong> : L'espacement entre deux goutteurs consécutifs sur un même tuyau, en centimètres. La valeur par défaut est de 30 cm.</li>
+<li><strong>separacion_lineas_m</strong> : La distance entre deux lignes de tuyau parallèles, en mètres. La valeur par défaut est de 0,5 mètre (soit 50 cm).</li>
+</ul>
+
+<h3>Les résultats calculés</h3>
 <ol>
-<li><strong>Saisissez vos valeurs:</strong> 200 m²; 30 cm; 0.5 m — ensure all values use a single consistent unit system.</li>
-<li><strong>La calculatrice applique la formule:</strong> <em>Calculateur Irrigation Goutte-à-Goutte = f(Surface à irriguer, Espacement goutteurs, Espacement rangées)</em>.</li>
-<li><strong>Lisez votre résultat:</strong> Tuyaux (+15%), Goutteurs, Secteurs.</li>
-<li>Vérifiez : confirmez que les unités sont cohérentes et les valeurs réalistes avant d'agir sur le résultat.</li>
+<li><strong>Longueur des lignes de tuyau (lineas_tuberia_m)</strong> : Cette valeur est obtenue en multipliant la surface (A) par l'inverse de l'espacement entre les lignes (sl). La formule exacte est : <code>lineas_m = A / sl</code> (par exemple, 100 m² / 0,5 m = 200 mètres linéaires). Ce résultat est ensuite majoré de 15 % pour tenir compte des pertes de charge et de l'installation en bout de rang. Le calcul devient : <code>lineas_tuberia_m = lineas_m * 1.15</code>. Ce pourcentage est une marge de sécurité courante dans le métier.</li>
+<li><strong>Nombre de goutteurs (goteros_ud)</strong> : Le nombre d'émetteurs est déterminé en divisant la surface totale par le produit de l'espacement entre les goutteurs (converti en mètres) et l'espacement entre les lignes. La formule est : <code>goteros = ceil(A / ((sg/100) * sl))</code>. Par exemple, pour 100 m², avec 0,3 m entre les goutteurs et 0,5 m entre les lignes, on obtient : <code>100 / (0,3 * 0,5) = 666,67</code>, arrondi à l'unité supérieure, soit 667 goutteurs.</li>
+<li><strong>Nombre de secteurs (sectores)</strong> : Le calculateur estime le nombre de secteurs nécessaires pour gérer le débit. La règle est simple : un secteur couvre jusqu'à 500 m². La formule est : <code>sectores = ceil(A / 500)</code>. Pour une surface de 1 200 m², cela donne 3 secteurs (car 1 200 / 500 = 2,4, arrondi à 3).</li>
 </ol>
 
-<h2>Usages pratiques sur le chantier</h2>
-<p>Cette calculatrice est particulièrement utile dans les situations suivantes :</p>
+<h2>Deux exemples concrets avec des surfaces réelles</h2>
+
+<h3>Exemple 1 : Petit potager de 50 m²</h3>
+<p>Imaginons que vous souhaitez équiper un potager de 50 m². Vous choisissez un espacement de 25 cm entre les goutteurs et de 0,4 m entre les lignes.</p>
+<table>
+<tr><th>Entrée</th><th>Valeur</th></tr>
+<tr><td>Surface</td><td>50 m²</td></tr>
+<tr><td>Espacement goutteurs</td><td>25 cm</td></tr>
+<tr><td>Espacement lignes</td><td>0,4 m</td></tr>
+</table>
+<p><strong>Résultats :</strong></p>
 <ul>
-<li>problèmes mathématiques quotidiens</li><li>budget et planification</li><li>cuisine et mesures domestiques</li><li>calculs de voyage et de temps</li>
+<li>Longueur des lignes : <code>50 / 0,4 = 125 m</code>. Avec la marge de 15 % : <code>125 x 1,15 = 143,75 m</code> de tuyau.</li>
+<li>Nombre de goutteurs : <code>50 / (0,25 x 0,4) = 50 / 0,1 = 500 goutteurs</code>.</li>
+<li>Nombre de secteurs : <code>ceil(50 / 500) = 1 secteur</code>.</li>
+</ul>
+<p>Vous aurez donc besoin d'environ 144 mètres de tuyau, de 500 goutteurs, et d'un seul secteur pour alimenter ce potager.</p>
+
+<h3>Exemple 2 : Serre professionnelle de 800 m²</h3>
+<p>Pour une serre de 800 m², avec un espacement standard de 30 cm entre les goutteurs et de 0,5 m entre les lignes.</p>
+<table>
+<tr><th>Entrée</th><th>Valeur</th></tr>
+<tr><td>Surface</td><td>800 m²</td></tr>
+<tr><td>Espacement goutteurs</td><td>30 cm</td></tr>
+<tr><td>Espacement lignes</td><td>0,5 m</td></tr>
+</table>
+<p><strong>Résultats :</strong></p>
+<ul>
+<li>Longueur des lignes : <code>800 / 0,5 = 1 600 m</code>. Majoration : <code>1 600 x 1,15 = 1 840 m</code> de tuyau.</li>
+<li>Nombre de goutteurs : <code>800 / (0,3 x 0,5) = 800 / 0,15 = 5 333,33</code>, arrondi à <code>5 334 goutteurs</code>.</li>
+<li>Nombre de secteurs : <code>ceil(800 / 500) = 2 secteurs</code>.</li>
+</ul>
+<p>Ce calcul montre qu'avec 2 secteurs, vous pourrez limiter le débit simultané et utiliser un programmateur plus économique.</p>
+
+<h2>Les erreurs fréquentes à éviter lors de l'utilisation du calculateur</h2>
+
+<p>Même si l'outil est simple, certaines erreurs d'interprétation peuvent fausser les résultats. Voici les plus courantes :</p>
+
+<ul>
+<li><strong>Confondre les unités de mesure</strong> : L'entrée "separacion_goteros_cm" est en centimètres, tandis que "separacion_lineas_m" est en mètres. Une erreur classique est de saisir 0,5 m pour l'espacement des goutteurs, ce qui les rendrait 5 fois trop espacés. Vérifiez toujours que la valeur des goutteurs est comprise entre 15 et 60 cm.</li>
+<li><strong>Oublier la marge de 15 %</strong> : Le calculateur ajoute automatiquement 15 % à la longueur de tuyau. Certains utilisateurs pensent que le résultat est le métrage strict, ce qui peut mener à une sous-estimation des besoins en tuyau lors de la commande. Cette marge inclut les virages, les raccords et les pertes en bout de ligne.</li>
+<li><strong>Interpréter le nombre de secteurs comme un nombre de vannes</strong> : Le calculateur donne le nombre de secteurs pour respecter une limite de surface (500 m²). Ce n'est pas un nombre de vannes électriques. Par exemple, un petit jardin de 100 m² pourra être un seul secteur, mais avec une seule vanne manuelle. Pour les grandes surfaces, chaque secteur correspond idéalement à une électrovanne.</li>
 </ul>
 
-<h2>Interpréter et appliquer vos résultats</h2>
-<p>Votre résultat indique la quantité théorique requise. Ajoutez le facteur de perte approprié avant de commander : 5–10&nbsp;% pour le béton et le mortier, 10–15&nbsp;% pour les carreaux, la pierre naturelle et la brique, et 3–5&nbsp;% pour l'acier et le bois. Arrondissez toujours à l'unité supérieure — sac, tonne ou palette.</p>
+<h2>Foire aux questions (FAQ) sur le calculateur goutte-à-goutte</h2>
 
-<h2>Normes de construction et bonnes pratiques</h2>
-<p>Les projets de construction dépendent d'estimations précises des matériaux. Les professionnels ajoutent généralement 5–10&nbsp;% de marge de perte aux quantités théoriques pour les coupes, la casse et les erreurs de mesure. Les normes ISO et EN définissent les propriétés des matériaux et les tolérances utilisées dans ces formules.</p>
+<h3>Puis-je utiliser ce calculateur pour un système en surface de 10 000 m² ?</h3>
+<p>Oui, le calculateur fonctionne pour toutes les surfaces, mais il faut être conscient que les résultats sont une estimation théorique. Pour de très grandes surfaces (plus de 2 000 m²), il est conseillé de consulter un hydraulicien, car les pertes de charge dans les tuyaux deviennent significatives et nécessitent un dimensionnement plus précis des diamètres. Le calculateur donne une base fiable pour un avant-projet.</p>
 
-<h2>Erreurs courantes à éviter</h2>
-<ul>
-<li>Oublier d'ajouter une marge de perte (5-10%) lors de la commande de matériaux.</li><li>Mélanger unités métriques et impériales dans un même projet.</li>
-</ul>
+<h3>Que faire si mon espacement entre les lignes est différent de 0,5 mètre ?</h3>
+<p>Aucun problème. Vous pouvez saisir n'importe quelle valeur entre 0,2 mètre et 2 mètres pour l'espacement des lignes. Si vous cultivez des légumes en rangs serrés (comme des salades), une valeur de 0,3 mètre est plus adaptée. Pour des plantes en pot ou des arbres fruitiers, vous pouvez augmenter cet espacement jusqu'à 1,5 mètre ou plus. Le calculateur s'adapte automatiquement à votre saisie.</p>
 
-<h2>Conseil pro pour les entrepreneurs</h2>
-<p>Commandez 5-10% de matériel en plus que le calcul ne l'indique pour couper les pertes et les erreurs de mesure.</p>
-
-<h2>Questions fréquentes</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Combien de matériel supplémentaire dois-je commander?</button><div class="faq-a"><p>La plupart des professionnels recommandent de commander 5-10% de plus que le calcul pour couper les pertes et les erreurs de mesure.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cette calculatrice est-elle précise?</button><div class="faq-a"><p>Oui. La calculatrice utilise la formule standard : Calculateur Irrigation Goutte-à-Goutte = f(Surface à irriguer, Espacement goutteurs, Espacement rangées). Les résultats sont mathématiquement exacts.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Puis-je utiliser cette calculatrice sur mobile?</button><div class="faq-a"><p>Oui, la calculatrice est entièrement responsive et fonctionne sur tout appareil. Aucune installation requise.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Comment sauvegarder ou partager mon calcul ?</button><div class="faq-a"><p>Utilisez le bouton <strong>Partager</strong> pour générer une URL qui encode toutes vos entrées. Le bouton <strong>Copier</strong> copie le résultat dans le presse-papiers.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Que faire si mon résultat semble incorrect ?</button><div class="faq-a"><p>Vérifiez d'abord vos entrées : valeurs dans les bonnes unités et plage réaliste. Vérifiez aussi que la formule <em>Calculateur Irrigation Goutte-à-Goutte = f(Surface à irriguer, Espacement goutteurs, Espacement rangées)</em> s'applique exactement à votre situation.</p></div></div>
-</div>
-</section>
+<h3>Est-ce que le calculateur inclut le prix des équipements ?</h3>
+<p>Non, le <strong>Calculateur Irrigation Goutte-à-Goutte</strong> ne calcule que les métrages et les quantités. Il ne fournit pas d'estimation en euros. Cependant, une fois que vous avez le nombre de mètres de tuyau et le nombre de goutteurs, vous pouvez facilement estimer votre budget en multipliant par les prix unitaires de vos fournisseurs (environ 0,15 € à 0,30 € par mètre de tuyau et 0,10 € à 0,50 € par goutteur, selon les marques).</p>

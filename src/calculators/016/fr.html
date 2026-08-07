@@ -1,44 +1,134 @@
-<section class="long-content">
-<p>Utilisez le <strong>Sprayed Plaster Calculator</strong> pour calculer consommation par m², total kg (+10%), sacs de 25 kg rapidement et avec précision.</p>
-<h2>Comment fonctionne le calcul</h2>
-<p>Que vous planifiiez des travaux de rénovation, estimiez des matériaux pour un chantier ou calculiez des dimensions pour un projet DIY, disposer des bons chiffres dès le départ fait gagner du temps et de l'argent.</p>
-<p>La formule derrière ce calcul est <strong>Calculateur Enduit Projeté = f(Surface à enduire, Épaisseur d'application)</strong>. Comprendre comment le résultat est obtenu vous aide à vérifier la sortie et à détecter les erreurs d'entrée.</p>
+<p>Le <strong>Calculateur Enduit Projeté</strong> est un outil de calcul professionnel conçu pour estimer avec précision la quantité de mortier nécessaire pour la réalisation d'un enduit projeté sur murs et façades. Utilisé par des artisans, des architectes et des étudiants dans le monde entier, cet outil permet d'éviter les erreurs de dosage et les surplus de matériaux coûteux.</p>
 
-<h2>Guide pas à pas pour votre projet</h2>
-<p>Suivez ces étapes pour obtenir un résultat fiable :</p>
+<h2>Qu'est-ce que le calculateur d'enduit projeté et quand l'utiliser ?</h2>
+
+<p>Cet outil répond à une question simple mais cruciale : combien de kilos de mortier sec faut-il commander pour enduire une surface donnée ? En renseignant la surface à couvrir (en mètres carrés) et l'épaisseur souhaitée (en millimètres), le calculateur fournit instantanément le poids total de mortier nécessaire, ainsi que le nombre exact de sacs de 25 kg à prévoir.</p>
+
+<p>Son utilisation est recommandée dans plusieurs situations courantes :</p>
+<ul>
+  <li><strong>Sur chantier professionnel</strong> : pour préparer un devis ou commander le matériel avant une intervention sur une façade.</li>
+  <li><strong>Pour les étudiants en bâtiment</strong> : comme outil pédagogique pour comprendre les relations entre surface, épaisseur et consommation de mortier.</li>
+  <li><strong>En rénovation individuelle</strong> : pour un particulier souhaitant estimer le volume de fournitures avant de confier les travaux à un artisan.</li>
+  <li><strong>Pour le contrôle de qualité</strong> : vérifier que la quantité livrée correspond bien aux besoins réels du projet.</li>
+</ul>
+
+<p>L'outil utilise le système métrique et les conventions françaises, avec des résultats en kilos et en sacs, ce qui le rend parfaitement adapté au marché hexagonal.</p>
+
+<h2>La formule de calcul expliquée variable par variable</h2>
+
+<p>La formule intégrée au calculateur repose sur une logique simple mais rigoureuse. Voici le détail de chaque étape :</p>
+
 <ol>
-<li><strong>Saisissez vos valeurs:</strong> 50 m²; 15 mm — ensure all values use a single consistent unit system.</li>
-<li><strong>La calculatrice applique la formule:</strong> <em>Calculateur Enduit Projeté = f(Surface à enduire, Épaisseur d'application)</em>.</li>
-<li><strong>Lisez votre résultat:</strong> Consommation par m², Total kg (+10%), Sacs de 25 kg.</li>
-<li>Vérifiez : confirmez que les unités sont cohérentes et les valeurs réalistes avant d'agir sur le résultat.</li>
+  <li><strong>Variables d'entrée</strong> :
+    <ul>
+      <li><code>area (A)</code> : la surface à enduire, exprimée en mètres carrés (m²).</li>
+      <li><code>espesor_mm (E)</code> : l'épaisseur de l'enduit, en millimètres (mm). Par défaut, la valeur est fixée à 15 mm si aucune épaisseur n'est précisée.</li>
+    </ul>
+  </li>
+  <li><strong>Calcul de la consommation au m²</strong> :
+    <ul>
+      <li>La formule utilise le coefficient <strong>1,5 kg/m² par mm d'épaisseur</strong>. Ce coefficient est une norme courante dans le secteur du bâtiment pour les enduits projetés à base de mortier traditionnel.</li>
+      <li>Soit <code>kg_m2 = E × 1,5</code>. Par exemple, pour 15 mm d'épaisseur, la consommation est de 15 × 1,5 = 22,5 kg/m².</li>
+    </ul>
+  </li>
+  <li><strong>Calcul du poids total</strong> :
+    <ul>
+      <li>Le poids total sans pertes est : <code>kg_total_brut = A × kg_m2</code>.</li>
+      <li>Pour tenir compte des pertes inévitables (gaspillage, application irrégulière, finitions), le calculateur applique un coefficient de sécurité de <strong>10 %</strong>. Soit <code>kg_total = A × kg_m2 × 1,1</code>. Le résultat est arrondi à une décimale.</li>
+    </ul>
+  </li>
+  <li><strong>Conversion en sacs de 25 kg</strong> :
+    <ul>
+      <li>Les sacs de mortier étant généralement vendus en conditionnement de 25 kg, le nombre de sacs est calculé avec la fonction <code>Math.ceil()</code>, qui arrondit à l'unité supérieure. Ainsi, <code>sacos = ceil(kg_total / 25)</code>. Cela garantit que vous ne manquerez pas de matériau en cours de chantier.</li>
+    </ul>
+  </li>
 </ol>
 
-<h2>Usages pratiques sur le chantier</h2>
-<p>Cette calculatrice est particulièrement utile dans les situations suivantes :</p>
+<p>Si la surface n'est pas renseignée, le calculateur renvoie une erreur, ce qui évite tout résultat aberrant.</p>
+
+<h2>Deux exemples concrets avec des chiffres précis</h2>
+
+<p>Pour bien comprendre l'utilisation de l'outil, voici deux cas pratiques :</p>
+
+<h3>Exemple 1 : Façade de maison individuelle</h3>
 <ul>
-<li>construction de murs en briques et parpaings</li><li>estimation de matériaux de maçonnerie</li><li>calculs de surface de mur et mortier</li><li>budgets de construction</li>
+  <li><strong>Surface à enduire</strong> : 80 m²</li>
+  <li><strong>Épaisseur souhaitée</strong> : 15 mm (valeur par défaut, adaptée à un enduit de façade traditionnel)</li>
+</ul>
+<p><strong>Étapes du calcul :</strong></p>
+<table>
+  <tr>
+    <th>Variable</th>
+    <th>Calcul</th>
+    <th>Résultat</th>
+  </tr>
+  <tr>
+    <td>kg/m²</td>
+    <td>15 mm × 1,5</td>
+    <td>22,5 kg/m²</td>
+  </tr>
+  <tr>
+    <td>Poids total (avec 10 % de pertes)</td>
+    <td>80 m² × 22,5 × 1,1</td>
+    <td>1 980,0 kg</td>
+  </tr>
+  <tr>
+    <td>Nombre de sacs de 25 kg</td>
+    <td>1 980 / 25 = 79,2 → arrondi supérieur</td>
+    <td><strong>80 sacs</strong></td>
+  </tr>
+</table>
+<p><em>Résultat : pour cette façade de 80 m², il faudra commander 80 sacs de mortier de 25 kg, soit une marge de sécurité d'environ 20 kg par rapport au besoin théorique.</em></p>
+
+<h3>Exemple 2 : Petit mur intérieur en rénovation</h3>
+<ul>
+  <li><strong>Surface à enduire</strong> : 12 m²</li>
+  <li><strong>Épaisseur souhaitée</strong> : 10 mm (pour un rattrapage de planéité léger)</li>
+</ul>
+<table>
+  <tr>
+    <th>Variable</th>
+    <th>Calcul</th>
+    <th>Résultat</th>
+  </tr>
+  <tr>
+    <td>kg/m²</td>
+    <td>10 mm × 1,5</td>
+    <td>15,0 kg/m²</td>
+  </tr>
+  <tr>
+    <td>Poids total (avec 10 % de pertes)</td>
+    <td>12 m² × 15,0 × 1,1</td>
+    <td>198,0 kg</td>
+  </tr>
+  <tr>
+    <td>Nombre de sacs de 25 kg</td>
+    <td>198 / 25 = 7,92 → arrondi supérieur</td>
+    <td><strong>8 sacs</strong></td>
+  </tr>
+</table>
+<p><em>Résultat : pour ce petit mur, 8 sacs suffisent. Le calcul évite d'acheter un 9e sac inutilement.</em></p>
+
+<h2>Les erreurs courantes à éviter lors de l'utilisation du calculateur</h2>
+
+<p>Bien que l'outil soit simple, certaines erreurs reviennent fréquemment et faussent les résultats :</p>
+
+<ul>
+  <li><strong>Confondre surface de mur et surface de façade</strong> : la surface à enduire ne doit pas inclure les ouvertures (portes, fenêtres). Pensez à déduire ces surfaces de votre mesure. Par exemple, un mur de 10 m² avec une fenêtre de 2 m² donne une surface réelle de 8 m².</li>
+  <li><strong>Oublier de convertir les unités</strong> : l'épaisseur doit être saisie en millimètres, pas en centimètres. Une erreur classique consiste à entrer 1,5 cm alors que la valeur attendue est 15 mm.</li>
+  <li><strong>Négliger le coefficient de pertes</strong> : certains utilisateurs pensent que les 10 % supplémentaires sont facultatifs. En réalité, ils couvrent les chutes, les reprises et les irrégularités du support. Sans eux, vous risquez de manquer de mortier en fin de chantier.</li>
+  <li><strong>Saisir une surface trop petite ou trop grande</strong> : vérifiez toujours que votre mesure de surface est cohérente. Un mur standard de 10 m² est crédible, mais 0,5 m² ou 5 000 m² sans vérification préalable peut indiquer une erreur de saisie.</li>
 </ul>
 
-<h2>Interpréter et appliquer vos résultats</h2>
-<p>Votre résultat indique la quantité théorique requise. Ajoutez le facteur de perte approprié avant de commander : 5–10&nbsp;% pour le béton et le mortier, 10–15&nbsp;% pour les carreaux, la pierre naturelle et la brique, et 3–5&nbsp;% pour l'acier et le bois. Arrondissez toujours à l'unité supérieure — sac, tonne ou palette.</p>
+<p>Une bonne pratique consiste à mesurer chaque mur deux fois et à noter les dimensions sur un plan avant d'utiliser le calculateur.</p>
 
-<h2>Normes de construction et bonnes pratiques</h2>
-<p>Les projets de construction dépendent d'estimations précises des matériaux. Les professionnels ajoutent généralement 5–10&nbsp;% de marge de perte aux quantités théoriques pour les coupes, la casse et les erreurs de mesure. Les normes ISO et EN définissent les propriétés des matériaux et les tolérances utilisées dans ces formules.</p>
+<h2>Foire aux questions (FAQ)</h2>
 
-<h2>Erreurs courantes à éviter</h2>
-<ul>
-<li>Oublier d'ajouter une marge de perte (5-10%) lors de la commande de matériaux.</li><li>Mélanger unités métriques et impériales dans un même projet.</li>
-</ul>
+<h3>Ce calculateur fonctionne-t-il pour tous les types d'enduit projeté ?</h3>
+<p>Le coefficient de 1,5 kg/m² par mm d'épaisseur est une valeur moyenne utilisée pour les mortiers standards à base de ciment ou de chaux. Pour des enduits spécifiques (allégés, projetés mécaniquement avec des machines particulières), la consommation peut varier. Dans ce cas, ajustez manuellement l'épaisseur ou appliquez un facteur correctif. L'outil reste un excellent point de départ pour la majorité des chantiers en France.</p>
 
-<h2>Conseil pro pour les entrepreneurs</h2>
-<p>Commandez 5-10% de matériel en plus que le calcul ne l'indique pour couper les pertes et les erreurs de mesure.</p>
+<h3>Que faire si j'obtiens un nombre de sacs avec une décimale élevée ?</h3>
+<p>Le calculateur arrondit automatiquement au nombre de sacs supérieur. Si vous obtenez par exemple 15,1 sacs, l'outil indiquera 16 sacs. Cela correspond à la réalité des achats : on ne peut pas acheter un dixième de sac. Préférez toujours arrondir à l'unité supérieure pour éviter une rupture de stock en cours de travail.</p>
 
-<h2>Questions fréquentes</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Combien de matériel supplémentaire dois-je commander?</button><div class="faq-a"><p>La plupart des professionnels recommandent de commander 5-10% de plus que le calcul pour couper les pertes et les erreurs de mesure.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cette calculatrice est-elle précise?</button><div class="faq-a"><p>Oui. La calculatrice utilise la formule standard : Calculateur Enduit Projeté = f(Surface à enduire, Épaisseur d'application). Les résultats sont mathématiquement exacts.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Puis-je utiliser cette calculatrice sur mobile?</button><div class="faq-a"><p>Oui, la calculatrice est entièrement responsive et fonctionne sur tout appareil. Aucune installation requise.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Comment sauvegarder ou partager mon calcul ?</button><div class="faq-a"><p>Utilisez le bouton <strong>Partager</strong> pour générer une URL qui encode toutes vos entrées. Le bouton <strong>Copier</strong> copie le résultat dans le presse-papiers.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Que faire si mon résultat semble incorrect ?</button><div class="faq-a"><p>Vérifiez d'abord vos entrées : valeurs dans les bonnes unités et plage réaliste. Vérifiez aussi que la formule <em>Calculateur Enduit Projeté = f(Surface à enduire, Épaisseur d'application)</em> s'applique exactement à votre situation.</p></div></div>
-</div>
-</section>
+<h3>Pourquoi le résultat est-il donné en kilos totaux et en sacs ?</h3>
+<p>Les deux informations sont utiles. Le poids total (en kg) permet de commander du mortier en vrac si votre fournisseur propose cette option. Le nombre de sacs de 25 kg est plus pratique pour les achats en grande surface de bricolage ou chez les négoces de matériaux. Les professionnels utilisent souvent les deux données pour vérifier la cohérence de leur commande.</p>

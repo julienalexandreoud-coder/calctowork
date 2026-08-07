@@ -1,46 +1,81 @@
-<section class="long-content">
-<p>Use the <strong>Voltage Drop Calculator</strong> to calculate voltage drop (v), drop (%), within limits? quickly and accurately.</p>
-<h2>How the calculation works</h2>
-<p>Construction calculations often seem straightforward until you factor in waste allowances, unit conversions, and regional material standards. This calculator handles those details automatically, letting you focus on the build instead of the math.</p>
-<p>Whether you're planning a home renovation, estimating materials for a job site, or calculating dimensions for a DIY project, having the right numbers upfront saves time and money. This tool gives you instant, reliable results so you can order materials confidently and avoid costly overages.</p>
-<p>The formula behind this calculation is <strong>Voltage Drop Calculator = f(Cable section (mm²), Circuit length, Current (A), Voltage (V))</strong>. Understanding how the result is derived helps you verify the output and spot input errors before they cascade into bad decisions.</p>
+<p>When designing or troubleshooting an electrical installation, ensuring that the voltage at the end of a cable run remains within safe and functional limits is critical. Our <strong>Voltage Drop Calculator</strong> helps you quickly determine the expected voltage loss in a cable based on its length, cross-section, current, and system voltage, using the standard formula for copper conductors. This tool is essential for electricians, engineers, and DIY enthusiasts who need to verify compliance with regulations and avoid undersized cables.</p>
 
-<h2>Step-by-step guide for your project</h2>
-<p>Follow these steps to get a reliable result:</p>
-<ol>
-<li><strong>Enter your values:</strong> 2.5 mm²; 30 m; 16 A; 230 — ensure all values use a single consistent unit system.</li>
-<li><strong>The calculator applies the formula:</strong> <em>Voltage Drop Calculator = f(Cable section (mm²), Circuit length, Current (A), Voltage (V))</em>.</li>
-<li><strong>Read your result:</strong> Voltage drop (V), Drop (%), Within limits?.</li>
-<li>Verify: confirm units are consistent and the numbers are realistic for your context before acting on the result.</li>
-</ol>
+<h2>What the Voltage Drop Calculator Does and When to Use It</h2>
 
-<h2>Practical uses on the job site</h2>
-<p>This calculator is particularly useful in the following situations:</p>
+<p>The calculator solves for the voltage drop (in volts and as a percentage) across a two-wire copper cable circuit. It uses the fundamental DC resistance formula adapted for AC power distribution, assuming a resistive load and a conductor temperature typical for standard installations. The primary output is the percentage drop relative to the supply voltage, which is then checked against a common 3% threshold for branch circuits.</p>
+
+<p>You should use this calculator whenever you are sizing cables for fixed installations, such as:</p>
 <ul>
-<li>everyday math problems</li><li>budgeting and planning</li><li>cooking and home measurements</li><li>travel and time calculations</li>
+    <li>Running power to a sub-panel or outbuilding.</li>
+    <li>Wiring long runs for lighting circuits or heavy appliances.</li>
+<li>Verifying that an existing cable size is adequate for a new load.</li>
+<li>Performing compliance checks for regulations like the REBT (Spain) or similar international standards that limit voltage drop to 3% for lighting and 5% for other loads.</li>
 </ul>
 
-<h2>Interpreting and applying your results</h2>
-<p>Your result shows the theoretical quantity required. Before ordering, apply the appropriate waste factor for your material: 5–10&nbsp;% for concrete and mortar, 10–15&nbsp;% for ceramic tile, natural stone, and brick (to account for cuts, breakage, and pattern matching), and 3–5&nbsp;% for steel and timber. Always round up to the next full unit — bag, tonne, or pallet — to avoid halting work for a second delivery.</p>
+<h2>Formula Explained Variable by Variable</h2>
 
-<h2>Construction standards and best practices</h2>
-<p>Construction projects live and die by accurate material estimates. Ordering too little halts the job and triggers costly emergency deliveries; ordering too much wastes money and clutters the site. Professional estimators typically add a 5–10&nbsp;% waste factor on top of the theoretical quantity to account for cuts, off-cuts, breakage, and minor measurement errors — a discipline built from hard-won job-site experience.</p><p>Modern construction calculations follow standards set by bodies like ISO, ASTM, or EN (European Norm), which define material properties, tolerances, and design allowances. Knowing the standard behind a formula helps you adapt it when conditions differ from the textbook — for example, when working with reclaimed materials, non-standard dimensions, or sites at altitude where concrete curing behaves differently.</p>
-
-<h2>Common mistakes to avoid</h2>
+<p>The calculator applies the following formula to compute the voltage drop:</p>
+<p><strong>dV = (2 &times; L &times; I) / (σ &times; S)</strong></p>
+<p>Where:</p>
 <ul>
-<li>Forgetting to add a waste allowance (typically 5-10%) when ordering materials — rounding up saves a second delivery.</li><li>Mixing up metric and imperial units on the same project. Stick to one system throughout your calculation.</li><li>Measuring outline dimensions instead of interior surface area — the difference matters for flooring and tiling.</li><li>Not accounting for irregular shapes. Break complex areas into simpler rectangles and triangles before calculating.</li>
+    <li><strong>dV</strong> = Voltage drop in volts (the numerical result).</li>
+<li><strong>L</strong> = <em>longitud_m</em> – One-way length of the cable in meters. For a round trip, the formula doubles this distance.</li>
+<li><strong>I</strong> = <em>corriente_a</em> – Current flowing through the conductor in amperes.</li>
+<li><strong>σ</strong> = Conductivity of copper, set to 56 siemens per meter per square millimeter (S·m/mm²). This value accounts for the typical operating temperature of 70°C.</li>
+<li><strong>S</strong> = <em>seccion_mm2</em> – Cross-sectional area of the conductor in square millimeters.</li>
+</ul>
+<p>After calculating dV, the percentage drop is found by: <strong>dV_pct = (dV / V) × 100</strong>, where <strong>V</strong> is the system voltage (tension_v, default 230V). The tool then returns "SI" (Yes) if dV_pct is 3% or less, and "NO (>3%)" if it exceeds the limit.</p>
+
+<h2>Two Worked Examples with Concrete Numbers</h2>
+
+<h3>Example 1: Garden Lighting Circuit</h3>
+<p><strong>Scenario:</strong> You are installing a 30-meter run of cable from a 230V supply to power four 50W LED floodlights (total 200W, roughly 0.87A). You plan to use 1.5 mm² cable.</p>
+<p><strong>Inputs:</strong></p>
+<ul>
+    <li>seccion_mm2: 1.5</li>
+    <li>longitud_m: 30</li>
+    <li>corriente_a: 0.87</li>
+    <li>tension_v: 230</li>
+</ul>
+<p><strong>Calculation:</strong><br>dV = (2 × 30 × 0.87) / (56 × 1.5) = 52.2 / 84 = 0.62 V<br>dV_pct = (0.62 / 230) × 100 = 0.27%</p>
+<p><strong>Result:</strong> The voltage drop is only 0.27%, well under the 3% limit. The 1.5 mm² cable is more than adequate for this load.</p>
+
+<h3>Example 2: Heavy Equipment in a Workshop</h3>
+<p><strong>Scenario:</strong> A 7.5 kW single-phase motor (32A at 230V) needs to be supplied from a distribution board 45 meters away. You are considering 6 mm² cable.</p>
+<p><strong>Inputs:</strong></p>
+<ul>
+    <li>seccion_mm2: 6</li>
+    <li>longitud_m: 45</li>
+    <li>corriente_a: 32</li>
+    <li>tension_v: 230</li>
+</ul>
+<p><strong>Calculation:</strong><br>dV = (2 × 45 × 32) / (56 × 6) = 2880 / 336 = 8.57 V<br>dV_pct = (8.57 / 230) × 100 = 3.73%</p>
+<p><strong>Result:</strong> The voltage drop of 3.73% exceeds the 3% limit. The calculator would return "NO (>3%)". To fix this, you would need to increase the cable size to 10 mm² or reduce the circuit length.</p>
+
+<h2>Common Mistakes When Using the Calculator</h2>
+
+<p>Even with a simple tool, users often make errors that lead to incorrect results. Avoid these pitfalls:</p>
+<ul>
+    <li><strong>Using single-phase length without doubling:</strong> The formula automatically accounts for the fact that current must travel to the load and back to the source. Do not enter double the distance manually. Always enter the one-way length.</li>
+    <li><strong>Confusing cross-section units:</strong> The calculator expects the conductor cross-section in <em>square millimeters</em> (mm²). If you have American Wire Gauge (AWG) numbers, you must convert them first. For example, 10 AWG is approximately 5.26 mm², and 12 AWG is about 3.31 mm².</li>
+    <li><strong>Ignoring the impact of system voltage:</strong> The default voltage is 230V (common in Europe, Australia, and many other regions). If your system operates at 120V (USA standard) or 240V, you must change this value. A 2% drop on a 120V circuit is only 2.4V, but it represents the same percentage as on a 230V system.</li>
+    <li><strong>Using the calculator for aluminum cables:</strong> The formula uses a conductivity of 56 for copper. For aluminum, the conductivity is approximately 35 S·m/mm². If you are sizing aluminum conductors, the results will be inaccurate.</li>
+    <li><strong>Forgetting to round up cable sizes:</strong> The calculator gives a pass/fail based on exact numbers. In practice, you cannot use a cable that exactly meets a 3% drop; you must select the next standard size (e.g., 4 mm², 6 mm², 10 mm²).</li>
 </ul>
 
-<h2>Pro tip for contractors and builders</h2>
-<p>Order 5-10% more material than your calculation suggests to account for cuts, breakage, and measurement errors. It's cheaper to have a little left over than to halt work for a second delivery.</p>
+<h2>Frequently Asked Questions</h2>
 
-<h2>Frequently asked questions</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">How much extra material should I order?</button><div class="faq-a"><p>Most professionals recommend ordering 5-10% more than calculated to cover cuts, waste, and measurement errors. For natural stone or ceramic tile, the waste factor can be 10-15% due to breakage and pattern matching.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Can I use this calculator for both metric and imperial units?</button><div class="faq-a"><p>Yes. Select your preferred unit system in the input fields and the calculator converts automatically. All internal calculations are performed consistently to avoid mixed-unit errors.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Is this calculator accurate?</button><div class="faq-a"><p>Yes. The calculator uses the standard formula: Voltage Drop Calculator = f(Cable section (mm²), Circuit length, Current (A), Voltage (V)). Results are mathematically exact; final accuracy depends on the precision of the data you enter.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Can I use this calculator on my phone?</button><div class="faq-a"><p>Yes, the calculator is fully responsive and works on any device: computer, tablet, and mobile. No installation or registration required.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">How do I save or share my calculation?</button><div class="faq-a"><p>Use the <strong>Share</strong> button to generate a URL that encodes all your inputs — anyone who opens the link will see the same values and result. The <strong>Copy</strong> button copies the formatted result text to your clipboard for pasting into a spreadsheet, email, or document.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">What if my result seems wrong?</button><div class="faq-a"><p>First recheck your inputs: confirm the values are in the correct units and within a realistic range. Common causes include unit mismatch (mixing metric and imperial), transposed digits, or selecting the wrong calculator for the problem. If inputs look correct and the result still seems off, verify that the formula <em>Voltage Drop Calculator = f(Cable section (mm²), Circuit length, Current (A), Voltage (V))</em> applies to exactly the situation you are in — some calculators with similar names solve slightly different variants of the same problem.</p></div></div>
-</div>
-</section>
+<h3>Q1: Why does the formula multiply the length by 2?</h3>
+<p><strong>A:</strong> The factor of 2 accounts for the total circuit length. In a single-phase system, the current flows out through the live wire and returns through the neutral (or the second live wire in a 230V system). Both conductors contribute to the voltage drop. If you only enter the one-way distance, the doubling ensures the calculation reflects the actual round-trip resistance.</p>
+
+<h3>Q2: My installation uses 12V DC. Can I still use this calculator?</h3>
+<p><strong>A:</strong> Yes, you can, but with caution. The formula works for DC and AC circuits. However, the 3% pass/fail threshold is typically designed for AC mains voltage (230V/120V). For 12V systems, a 3% drop (0.36V) is extremely tight, and the cable would need to be very thick. For low-voltage systems, a 5% or 10% drop is often acceptable. Simply enter your system voltage and disregard the "Cumple REBT" warning; instead, focus on the absolute voltage drop value.</p>
+
+<h3>Q3: What should I do if the calculator says "NO (>3%)"?</h3>
+<p><strong>A:</strong> The most common solution is to increase the cross-sectional area of the cable (use a thicker wire). Other approaches include:</p>
+<ul>
+    <li>Reducing the length of the cable run (relocate the load or the source).</li>
+    <li>Splitting the load into two separate circuits.</li>
+    <li>Raising the system voltage (e.g., stepping up from 120V to 240V for large appliances).</li>
+</ul>
+<p>Re-enter the new parameters until you achieve a passing result.</p>

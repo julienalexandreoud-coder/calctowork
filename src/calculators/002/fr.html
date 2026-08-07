@@ -1,44 +1,96 @@
-<section class="long-content">
-<p>Utilisez le <strong>Reinforced Concrete Calculator</strong> pour calculer volume béton, sacs ciment (50 kg), sable rapidement et avec précision.</p>
-<h2>Comment fonctionne le calcul</h2>
-<p>Que vous planifiiez des travaux de rénovation, estimiez des matériaux pour un chantier ou calculiez des dimensions pour un projet DIY, disposer des bons chiffres dès le départ fait gagner du temps et de l'argent.</p>
-<p>La formule derrière ce calcul est <strong>Calculateur Béton Armé = f(Longueur, Largeur, Épaisseur, Acier (kg/m³))</strong>. Comprendre comment le résultat est obtenu vous aide à vérifier la sortie et à détecter les erreurs d'entrée.</p>
+<p>Le <strong>Calculateur Béton Armé</strong> est l&#8217;outil idéal pour tout professionnel ou particulier qui prépare un chantier de construction. Que vous couliez une dalle, une fondation ou un poteau, ce calculateur vous permet d&#8217;obtenir en un instant les quantités exactes de ciment, sable, gravier et acier d&#8217;armature nécessaires pour un béton armé de qualité. Avec lui, fini les approximations et le gaspillage : vous maîtrisez votre budget et votre approvisionnement.</p>
 
-<h2>Guide pas à pas pour votre projet</h2>
-<p>Suivez ces étapes pour obtenir un résultat fiable :</p>
-<ol>
-<li><strong>Saisissez vos valeurs:</strong> 5 m; 3 m; 0.25 m; 100 kg/m³ — ensure all values use a single consistent unit system.</li>
-<li><strong>La calculatrice applique la formule:</strong> <em>Calculateur Béton Armé = f(Longueur, Largeur, Épaisseur, Acier (kg/m³))</em>.</li>
-<li><strong>Lisez votre résultat:</strong> Volume béton, Sacs ciment (50 kg), Sable.</li>
-<li>Vérifiez : confirmez que les unités sont cohérentes et les valeurs réalistes avant d'agir sur le résultat.</li>
-</ol>
-
-<h2>Usages pratiques sur le chantier</h2>
-<p>Cette calculatrice est particulièrement utile dans les situations suivantes :</p>
+<h2>Qu&#8217;est-ce que le Calculateur Béton Armé et quand l&#8217;utiliser ?</h2>
+<p>Ce calculateur en ligne est conçu pour estimer les composants essentiels du béton armé à partir de dimensions simples. Il calcule automatiquement le volume de béton, le nombre de sacs de ciment (en sacs de 50 kg), le volume de sable et de gravier en mètres cubes, ainsi que le poids d&#8217;acier d&#8217;armature en kilogrammes.</p>
+<p>L&#8217;outil est particulièrement utile dans les cas suivants :</p>
 <ul>
-<li>calculs de fondations résidentielles</li><li>commandes de béton pour projets de construction</li><li>estimation de matériaux structurels</li><li>planification de rénovations</li>
+<li><strong>Dalle de terrasse ou de garage</strong> : vous entrez la longueur, la largeur et l&#8217;épaisseur, et vous obtenez les matériaux pour un béton dosé à 350 kg/m³.</li>
+<li><strong>Fondations linéaires ou semelles</strong> : idéal pour préparer vos commandes chez le fournisseur.</li>
+<li><strong>Poteaux ou poutres en béton armé</strong> : il intègre la quantité d&#8217;acier (kg par m³) que vous ajustez selon les plans.</li>
+<li><strong>Estimation rapide de budget</strong> : vous pouvez multiplier les résultats par les prix locaux pour obtenir un coût matière précis.</li>
+</ul>
+<p>Le calculateur utilise le système métrique (mètres pour les dimensions, m³ pour les volumes) et convient parfaitement aux chantiers en France où le ciment est vendu en sacs de 50 kg.</p>
+
+<h2>La formule expliquée variable par variable</h2>
+<p>Le calcul repose sur une logique simple mais rigoureuse, adaptée aux dosages standards du béton armé. Voici comment chaque variable est utilisée :</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Nom dans le calculateur</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>L</strong></td>
+<td>largo</td>
+<td>Longueur de l&#8217;élément en mètres (m)</td>
+</tr>
+<tr>
+<td><strong>W</strong></td>
+<td>ancho</td>
+<td>Largeur de l&#8217;élément en mètres (m)</td>
+</tr>
+<tr>
+<td><strong>H</strong></td>
+<td>espesor</td>
+<td>Épaisseur (ou hauteur) en mètres (m)</td>
+</tr>
+<tr>
+<td><strong>ka</strong></td>
+<td>kg_acero_m3</td>
+<td>Quantité d&#8217;acier par m³ de béton (kg/m³), par défaut 100 kg/m³</td>
+</tr>
+</tbody>
+</table>
+<p>Le volume de béton s&#8217;obtient par la formule : <strong>Volume (m³) = L × W × H</strong>. Ensuite, les quantités de matériaux sont déduites selon un dosage classique pour béton armé :</p>
+<ul>
+<li><strong>Ciment (sacs de 50 kg)</strong> : <em>Volume × 7</em> (car 1 m³ de béton nécessite environ 350 kg de ciment, soit 7 sacs de 50 kg). Le résultat est arrondi à l&#8217;unité supérieure avec <strong>Math.ceil</strong> pour éviter de manquer de ciment.</li>
+<li><strong>Sable (m³)</strong> : <em>Volume × 0,55</em>. Cette valeur correspond à un dosage équilibré pour obtenir une bonne ouvrabilité.</li>
+<li><strong>Gravier (m³)</strong> : <em>Volume × 0,80</em>. Le gravier représente la plus grande part granulométrique.</li>
+<li><strong>Acier (kg)</strong> : <em>Volume × ka</em>. Par défaut, 100 kg/m³ est une valeur courante pour des dalles ou fondations armées.</li>
 </ul>
 
-<h2>Interpréter et appliquer vos résultats</h2>
-<p>Votre résultat indique la quantité théorique requise. Ajoutez le facteur de perte approprié avant de commander : 5–10&nbsp;% pour le béton et le mortier, 10–15&nbsp;% pour les carreaux, la pierre naturelle et la brique, et 3–5&nbsp;% pour l'acier et le bois. Arrondissez toujours à l'unité supérieure — sac, tonne ou palette.</p>
-
-<h2>Normes de construction et bonnes pratiques</h2>
-<p>Les projets de construction dépendent d'estimations précises des matériaux. Les professionnels ajoutent généralement 5–10&nbsp;% de marge de perte aux quantités théoriques pour les coupes, la casse et les erreurs de mesure. Les normes ISO et EN définissent les propriétés des matériaux et les tolérances utilisées dans ces formules.</p>
-
-<h2>Erreurs courantes à éviter</h2>
+<h2>Deux exemples concrets pas à pas</h2>
+<h3>Exemple n°1 : Dalle de terrasse de 6 m × 4 m, épaisseur 0,15 m</h3>
+<p><strong>Données entrées :</strong> largo = 6, ancho = 4, espesor = 0,15, kg_acero_m3 = 100 (valeur par défaut).</p>
+<p><strong>Calcul :</strong> Volume = 6 × 4 × 0,15 = <strong>3,6 m³</strong>.</p>
 <ul>
-<li>Oublier d'ajouter une marge de perte (5-10%) lors de la commande de matériaux.</li><li>Mélanger unités métriques et impériales dans un même projet.</li>
+<li>Ciment : 3,6 × 7 = 25,2 → arrondi à <strong>26 sacs</strong> (Math.ceil).</li>
+<li>Sable : 3,6 × 0,55 = <strong>1,98 m³</strong>.</li>
+<li>Gravier : 3,6 × 0,80 = <strong>2,88 m³</strong>.</li>
+<li>Acier : 3,6 × 100 = <strong>360 kg</strong> (soit l&#8217;équivalent de 3,6 kg par m² de dalle).</li>
+</ul>
+<p><strong>Interprétation :</strong> Pour cette dalle, commandez 26 sacs de ciment (soit 1,3 tonne), environ 2 m³ de sable, 3 m³ de gravier et 360 kg d&#8217;acier en barres ou treillis soudé.</p>
+
+<h3>Exemple n°2 : Fondation linéaire de 12 m × 0,4 m × 0,5 m, avec acier renforcé (150 kg/m³)</h3>
+<p><strong>Données entrées :</strong> largo = 12, ancho = 0,4, espesor = 0,5, kg_acero_m3 = 150.</p>
+<p><strong>Calcul :</strong> Volume = 12 × 0,4 × 0,5 = <strong>2,4 m³</strong>.</p>
+<ul>
+<li>Ciment : 2,4 × 7 = 16,8 → <strong>17 sacs</strong>.</li>
+<li>Sable : 2,4 × 0,55 = <strong>1,32 m³</strong>.</li>
+<li>Gravier : 2,4 × 0,80 = <strong>1,92 m³</strong>.</li>
+<li>Acier : 2,4 × 150 = <strong>360 kg</strong> (acier plus dense, typique pour des fondations supportant des charges lourdes).</li>
+</ul>
+<p><strong>Remarque :</strong> L&#8217;augmentation du paramètre kg_acero_m3 à 150 influe directement sur le poids d&#8217;acier, mais pas sur les autres matériaux. Cela permet d&#8217;adapter l&#8217;outil à des plans d&#8217;armature spécifiques.</p>
+
+<h2>Erreurs fréquentes à éviter</h2>
+<p>L&#8217;utilisation d&#8217;un calculateur est simple, mais certaines erreurs peuvent fausser les résultats :</p>
+<ul>
+<li><strong>Confondre les unités</strong> : le calculateur attend des valeurs en mètres. Si vous entrez des centimètres (par exemple épaisseur = 15 au lieu de 0,15), le volume sera multiplié par 100 et les quantités seront totalement disproportionnées. Vérifiez toujours que l&#8217;épaisseur est en mètres (ex : 0,15 m pour 15 cm).</li>
+<li><strong>Oublier de modifier le paramètre acier</strong> : la valeur par défaut (100 kg/m³) convient à des dalles courantes, mais pour des poutres ou fondations, il faut souvent monter à 120-150 kg/m³ sous peine de sous-estimer l&#8217;armature.</li>
+<li><strong>Arrondir le ciment à l&#8217;inférieur</strong> : le calculateur arrondit déjà automatiquement à l&#8217;entier supérieur (Math.ceil). Ne réduisez pas manuellement ce nombre, car un béton sous-dosé en ciment perd en résistance.</li>
+<li><strong>Négliger le foisonnement du sable</strong> : les volumes de sable et gravier donnés sont des volumes en place. Si vous commandez du sable sec, prévoyez une marge de 10 à 15 % pour compenser le tassement.</li>
+<li><strong>Entrer des dimensions nulles ou négatives</strong> : le calculateur vérifie que largo, ancho et espesor sont positifs. Si l&#8217;un est à zéro, il retourne une erreur. Assurez-vous de remplir tous les champs.</li>
 </ul>
 
-<h2>Conseil pro pour les entrepreneurs</h2>
-<p>Commandez 5-10% de matériel en plus que le calcul ne l'indique pour couper les pertes et les erreurs de mesure.</p>
+<h2>Foire aux questions (FAQ)</h2>
+<h3>Puis-je utiliser ce calculateur pour du béton non armé ?</h3>
+<p>Oui, mais dans ce cas, mettez la valeur de kg_acero_m3 à 0. Le calcul du volume et des granulats reste valable. Attention cependant : pour du béton non armé (ex : dallage sans contrainte), le dosage en ciment peut être réduit à 300 kg/m³ (soit 6 sacs par m³). Notre calculateur utilise un dosage de 350 kg/m³ (7 sacs) qui reste compatible mais légèrement plus riche.</p>
 
-<h2>Questions fréquentes</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Combien de matériel supplémentaire dois-je commander?</button><div class="faq-a"><p>La plupart des professionnels recommandent de commander 5-10% de plus que le calcul pour couper les pertes et les erreurs de mesure.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cette calculatrice est-elle précise?</button><div class="faq-a"><p>Oui. La calculatrice utilise la formule standard : Calculateur Béton Armé = f(Longueur, Largeur, Épaisseur, Acier (kg/m³)). Les résultats sont mathématiquement exacts.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Puis-je utiliser cette calculatrice sur mobile?</button><div class="faq-a"><p>Oui, la calculatrice est entièrement responsive et fonctionne sur tout appareil. Aucune installation requise.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Comment sauvegarder ou partager mon calcul ?</button><div class="faq-a"><p>Utilisez le bouton <strong>Partager</strong> pour générer une URL qui encode toutes vos entrées. Le bouton <strong>Copier</strong> copie le résultat dans le presse-papiers.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Que faire si mon résultat semble incorrect ?</button><div class="faq-a"><p>Vérifiez d'abord vos entrées : valeurs dans les bonnes unités et plage réaliste. Vérifiez aussi que la formule <em>Calculateur Béton Armé = f(Longueur, Largeur, Épaisseur, Acier (kg/m³))</em> s'applique exactement à votre situation.</p></div></div>
-</div>
-</section>
+<h3>Les résultats incluent-ils les pertes et le gaspillage ?</h3>
+<p>Non, les calculs donnent des quantités théoriques. Pour un chantier, il est recommandé d&#8217;ajouter une marge de 5 à 10 % sur le sable, le gravier et l&#8217;acier, et d&#8217;arrondir le ciment à l&#8217;entier supérieur (déjà fait). Par exemple, pour l&#8217;exemple n°1 (3,6 m³), prévoyez 2,2 m³ de sable et 3,2 m³ de gravier en commande.</p>
+
+<h3>Comment convertir les résultats en euros pour mon budget ?</h3>
+<p>Multipliez chaque quantité par le prix unitaire en vigueur dans votre région. En France (2024), comptez environ : ciment 7-9 €/sac de 50 kg, sable 15-25 €/m³, gravier 20-30 €/m³, acier 800-1200 €/tonne. Par exemple, pour la dalle de 3,6 m³ : 26 sacs × 8 € = 208 €, sable 2 m³ × 20 € = 40 €, gravier 3 m³ × 25 € = 75 €, acier 360 kg × 1,00 €/kg = 360 €, soit un total matière d&#8217;environ 683 € hors livraison.</p>

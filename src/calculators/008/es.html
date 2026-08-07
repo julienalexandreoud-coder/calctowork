@@ -1,46 +1,62 @@
-<section class="long-content">
-<p>Usa la <strong>Concrete Slab Calculator</strong> para calcular área, volumen hormigón, sacos cemento de forma rápida y precisa.</p>
-<h2>Cómo funciona el cálculo</h2>
-<p>Los cálculos de construcción parecen sencillos hasta que consideras margen de desperdicio, conversiones de unidades y estándares regionales de materiales. Esta calculadora gestiona esos detalles automáticamente, para que te concentres en la obra y no en las matemáticas.</p>
-<p>Los cálculos de construcción parecen sencillos hasta que consideras margen de desperdicio, conversiones de unidades y estándares regionales de materiales. Esta calculadora gestiona esos detalles automáticamente, para que te concentres en la obra y no en las matemáticas.</p>
-<p>La fórmula detrás de este cálculo es <strong>Calculadora de Losa de Hormigón = f(Longitud, Ancho, Espesor losa, Acero (kg/m²))</strong>. Comprender cómo se obtiene el resultado te ayuda a verificar la salida y detectar errores de entrada.</p>
+<p>La <strong>Calculadora de Losa de Hormigón</strong> es una herramienta práctica para ingenieros, arquitectos y autoconstructores que necesitan calcular con precisión el volumen de hormigón y el acero necesario para losas macizas de hormigón armado. Esta calculadora está pensada para el mercado español, utilizando unidades métricas y considerando las prácticas habituales de construcción en España, incluyendo un factor de desperdicio para que tu pedido de materiales sea exacto y evites sorpresas en obra.</p>
 
-<h2>Guía paso a paso para tu proyecto</h2>
-<p>Sigue estos pasos para obtener un resultado fiable:</p>
+<h2>¿Qué calcula esta herramienta y cuándo usarla?</h2>
+<p>La calculadora determina dos valores fundamentales para cualquier losa de hormigón armado: el volumen total de hormigón en metros cúbicos (m³) y los kilogramos de acero necesarios en función del área de la losa. Además, convierte automáticamente el volumen de hormigón en sacos de cemento, considerando la proporción estándar de 1 m³ de hormigón por cada 7 sacos de cemento (mezcla típica para losas en España). El resultado incluye un redondeo por exceso en los sacos para cubrir posibles pérdidas o pequeños errores en la mezcla.</p>
+<p>Debes usar esta calculadora siempre que estés planificando una losa maciza de hormigón armado, ya sea para un forjado de vivienda, una solera de garaje, una base para maquinaria o cualquier superficie de hormigón que requiera refuerzo de acero. Es especialmente útil en la fase de presupuesto, cuando necesitas saber cuánto material pedir sin excederte ni quedarte corto. La herramienta también incorpora el parámetro <strong>kg_acero_m2</strong> (kilogramos de acero por metro cuadrado), que puedes ajustar según el tipo de malla o armadura que vayas a emplear.</p>
+
+<h2>La fórmula explicada variable por variable</h2>
+<p>El cálculo interno de la calculadora sigue una lógica sencilla pero precisa. A continuación, desglosamos cada variable y su función en la fórmula:</p>
+<ul>
+  <li><strong>Largo (L):</strong> Es la longitud de la losa en metros. Se introduce en el campo "largo". Si no se ingresa un valor válido, la calculadora muestra un error.</li>
+  <li><strong>Ancho (W):</strong> Es la anchura de la losa en metros. Se introduce en el campo "ancho". Junto con el largo, determina el área de la superficie.</li>
+  <li><strong>Espesor (E):</strong> Es el grosor de la losa en metros. Por ejemplo, una losa de 12 cm de espesor se introduce como 0.12 m. Es crucial para calcular el volumen.</li>
+  <li><strong>kg_acero_m2 (ka):</strong> Es la cantidad de acero en kilogramos por metro cuadrado de losa. El valor por defecto es 12 kg/m², que es un valor habitual para losas de viviendas con malla electrosoldada de 15x15 cm y diámetro 8 mm. Este parámetro lo puedes modificar si usas una armadura más ligera (por ejemplo, 8 kg/m²) o más pesada (por ejemplo, 16 kg/m²).</li>
+</ul>
+<p>La fórmula realiza los siguientes pasos:</p>
 <ol>
-<li><strong>Introduce tus datos:</strong> 6 m; 4 m; 0.2 m; 12 kg/m² — ensure all values use a single consistent unit system.</li>
-<li><strong>La calculadora aplica la fórmula:</strong> <em>Calculadora de Losa de Hormigón = f(Longitud, Ancho, Espesor losa, Acero (kg/m²))</em>.</li>
-<li><strong>Lee tu resultado:</strong> Área, Volumen hormigón, Sacos cemento.</li>
-<li>Verifica: confirma que las unidades sean coherentes y los valores realistas antes de actuar en base al resultado.</li>
+  <li><strong>Área (área):</strong> L × W. Este resultado se muestra en metros cuadrados (m²) y se utiliza para calcular el acero total.</li>
+  <li><strong>Volumen (vol):</strong> área × E. Se obtiene el volumen de hormigón en metros cúbicos (m³).</li>
+  <li><strong>Sacos de cemento (cemento_sacos):</strong> Se multiplica el volumen por 7 (relación estándar m³/sacos) y se redondea al alza mediante <em>Math.ceil</em>. Esto asegura que siempre tengas sacos suficientes para cubrir el pedido.</li>
+  <li><strong>Acero (acero_kg):</strong> área × ka. El resultado se redondea a cero decimales, dándote los kilogramos de acero necesarios.</li>
 </ol>
+<p>Esta estructura permite que el cálculo sea rápido y fiable, evitando errores manuales comunes al hacer las cuentas con lápiz y papel.</p>
 
-<h2>Usos prácticos en la obra</h2>
-<p>Esta calculadora es especialmente útil en las siguientes situaciones:</p>
+<h2>Ejemplos prácticos paso a paso</h2>
+<h3>Ejemplo 1: Losa para una terraza pequeña</h3>
+<p>Imagina que quieres construir una losa de hormigón para una terraza de 4 metros de largo por 3 metros de ancho, con un espesor de 10 centímetros (0.10 m). Planeas usar una malla estándar con 12 kg de acero por metro cuadrado.</p>
 <ul>
-<li>cálculos de cimentación residencial</li><li>pedidos de concreto para proyectos de construcción</li><li>estimación de materiales estructurales</li><li>planificación de mejoras del hogar</li>
+  <li><strong>Datos introducidos:</strong> Largo = 4, Ancho = 3, Espesor = 0.10, kg_acero_m2 = 12.</li>
+  <li><strong>Cálculo interno:</strong> Área = 4 × 3 = 12 m². Volumen = 12 × 0.10 = 1.200 m³. Sacos de cemento = 1.200 × 7 = 8.4, redondeado a 9 sacos. Acero = 12 × 12 = 144 kg.</li>
+  <li><strong>Resultados obtenidos:</strong> Área total: 12.00 m², Volumen de hormigón: 1.200 m³, Sacos de cemento necesarios: 9, Acero requerido: 144 kg.</li>
+</ul>
+<p>Con esta información, puedes pedir 1.25 m³ de hormigón (considerando un 5% de desperdicio) y 144 kg de acero en barras o mallas. El redondeo de los sacos a 9 te da un margen extra para la mezcla.</p>
+
+<h3>Ejemplo 2: Losa para un garaje grande</h3>
+<p>Ahora supón una losa para un garaje de 8 metros de largo por 5 metros de ancho, con un espesor de 15 centímetros (0.15 m). Para soportar el peso de vehículos, decides usar una armadura más robusta con 16 kg de acero por metro cuadrado.</p>
+<ul>
+  <li><strong>Datos introducidos:</strong> Largo = 8, Ancho = 5, Espesor = 0.15, kg_acero_m2 = 16.</li>
+  <li><strong>Cálculo interno:</strong> Área = 8 × 5 = 40 m². Volumen = 40 × 0.15 = 6.000 m³. Sacos de cemento = 6.000 × 7 = 42.0, redondeado a 42 sacos. Acero = 40 × 16 = 640 kg.</li>
+  <li><strong>Resultados obtenidos:</strong> Área total: 40.00 m², Volumen de hormigón: 6.000 m³, Sacos de cemento: 42, Acero requerido: 640 kg.</li>
+</ul>
+<p>En este caso, el redondeo de sacos no cambia (42 exactos), pero el acero es considerablemente mayor. Si pides hormigón premezclado, solicita 6.3 m³ para cubrir el desperdicio típico.</p>
+
+<h2>Errores comunes al usar la calculadora</h2>
+<p>Aunque la herramienta es sencilla, hay varios errores que se repiten con frecuencia y que pueden dar lugar a resultados incorrectos. Evítalos siguiendo estas pautas:</p>
+<ul>
+  <li><strong>Confundir centímetros con metros en el espesor:</strong> El espesor debe introducirse en metros. Por ejemplo, 12 centímetros = 0.12 m, no 12. Si introduces "12", la calculadora interpretará 12 metros de espesor, lo que daría un volumen disparatado.</li>
+  <li><strong>No ajustar el valor de kg_acero_m2:</strong> El valor por defecto es 12 kg/m², que es válido para usos generales, pero no para todos los casos. Si usas una malla más ligera (por ejemplo, para una acera peatonal) o más pesada (para un garaje con camiones), debes cambiarlo. Olvidarlo puede infravalorar o sobrevalorar el acero necesario.</li>
+  <li><strong>No considerar el desperdicio en el pedido:</strong> La calculadora ya redondea los sacos al alza, pero para el hormigón en m³, debes añadir manualmente un 5-10% de factor de desperdicio. Por ejemplo, si el volumen es 2.5 m³, pide 2.65 o 2.75 m³ para cubrir pérdidas en el transporte y la colocación.</li>
+  <li><strong>Dejar campos vacíos:</strong> La calculadora requiere que los campos largo, ancho y espesor tengan valores numéricos. Si alguno está vacío, la herramienta devuelve un error sin resultados. Asegúrate de rellenarlos todos, incluso si son cero, aunque el espesor nunca debe ser cero en una losa real.</li>
 </ul>
 
-<h2>Cómo aplicar los resultados</h2>
-<p>Tu resultado muestra la cantidad teórica necesaria. Antes de pedir, aplica el factor de merma adecuado al material: 5–10&nbsp;% para hormigón y mortero, 10–15&nbsp;% para azulejo, piedra natural y ladrillo (para cubrir cortes, roturas y encaje de juntas), y 3–5&nbsp;% para acero y madera. Redondea siempre al alza a la siguiente unidad completa — saco, tonelada o palé — para evitar parar la obra por una segunda entrega.</p>
+<h2>Preguntas frecuentes sobre la Calculadora de Losa de Hormigón</h2>
+<h3>¿Por qué el número de sacos de cemento se redondea al alza?</h3>
+<p>El redondeo se hace mediante <em>Math.ceil</em>, que lleva cualquier fracción al entero siguiente. Esto es intencionado, porque en la obra es mejor tener un saco de sobra que quedarse corto. Además, la mezcla de hormigón puede requerir pequeñas cantidades adicionales por la absorción de los moldes o la compactación. El redondeo no añade un sobrecoste significativo y evita parones en el trabajo.</p>
 
-<h2>Normas de construcción y buenas prácticas</h2>
-<p>Los proyectos de construcción dependen de estimaciones precisas de materiales para mantenerse dentro del presupuesto y el cronograma. Pedir demasiado poco detiene la obra y genera entregas de emergencia costosas; pedir demasiado desperdicia dinero y ocupa espacio en el sitio. Los estimadores profesionales suelen añadir un 5–10&nbsp;% de factor de merma sobre la cantidad teórica para cubrir cortes, recortes, roturas y pequeños errores de medición.</p><p>Los cálculos modernos de construcción siguen normas establecidas por organismos como ISO, DIN o UNE, que definen propiedades de materiales, tolerancias y márgenes de diseño. Conocer la norma detrás de una fórmula ayuda a adaptarla cuando las condiciones difieren del caso estándar — por ejemplo, al trabajar con materiales recuperados, dimensiones no estándar o sitios en altitud donde el fraguado del hormigón se comporta de forma diferente.</p>
+<h3>¿Puedo usar esta calculadora para losas aligeradas o con vigas?</h3>
+<p>No, esta calculadora está diseñada exclusivamente para losas macizas de hormigón armado, donde el volumen es homogéneo. En losas aligeradas (con bloques o casetones) o con vigas, la cantidad de hormigón es menor y la distribución del acero es diferente. Para esos casos, necesitarías una herramienta específica que considere los huecos y la geometría de la estructura.</p>
 
-<h2>Errores comunes a evitar</h2>
-<ul>
-<li>Olvidar añadir un margen de desperdicio (típicamente 5-10%) al pedir materiales — redondear arriba evita una segunda entrega.</li><li>Mezclar unidades métricas e imperiales en el mismo proyecto. Mantén un sistema consistente.</li><li>Medir dimensiones exteriores en vez del área interior — la diferencia importa para suelos y azulejos.</li>
-</ul>
+<h3>¿Qué hago si mi losa tiene una forma irregular (no rectangular)?</h3>
+<p>Si la losa no es rectangular, debes dividirla en secciones rectangulares, calcular cada una por separado con la calculadora y sumar los resultados. Por ejemplo, para una losa en forma de L, divídela en dos rectángulos, calcula el volumen y acero de cada uno, y luego súmalos. La herramienta asume una forma rectangular perfecta, por lo que para formas complejas es necesario este enfoque manual.</p>
 
-<h2>Consejo profesional para contratistas</h2>
-<p>Pide un 5-10% más de material de lo que indica tu cálculo para cubrir cortes, roturas y errores de medición. Es más barato que una segunda entrega.</p>
-
-<h2>Preguntas frecuentes</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Cuánto material extra debo pedir?</button><div class="faq-a"><p>La mayoría de profesionales recomiendan pedir un 5-10% más de lo calculado para cubrir cortes, desperdicio y errores de medición. Para piedra natural o azulejo cerámico, el factor de desperdicio puede ser del 10-15%.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Puedo usar esta calculadora con unidades métricas e imperiales?</button><div class="faq-a"><p>Sí. Selecciona tu sistema de unidades preferido en los campos de entrada y la calculadora convierte automáticamente.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Es precisa esta calculadora?</button><div class="faq-a"><p>Sí. La calculadora utiliza la fórmula estándar: Calculadora de Losa de Hormigón = f(Longitud, Ancho, Espesor losa, Acero (kg/m²)). Los resultados son matemáticamente exactos; la precisión final depende de los datos que introduzcas.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Puedo usar esta calculadora en el móvil?</button><div class="faq-a"><p>Sí, la calculadora es totalmente responsiva y funciona en cualquier dispositivo. No requiere instalación ni registro.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Cómo guardo o comparto mi cálculo?</button><div class="faq-a"><p>Usa el botón <strong>Compartir</strong> para generar una URL que codifica todos tus datos — quien abra el enlace verá los mismos valores y resultado. El botón <strong>Copiar</strong> copia el texto del resultado para pegarlo en una hoja de cálculo, correo o documento.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Qué hago si el resultado parece incorrecto?</button><div class="faq-a"><p>Primero revisa tus datos: comprueba que los valores estén en las unidades correctas y en un rango realista. Las causas más comunes son la mezcla de unidades métricas e imperiales, dígitos transpuestos o el uso de una calculadora equivocada. Si los datos parecen correctos y el resultado sigue siendo extraño, verifica que la fórmula <em>Calculadora de Losa de Hormigón = f(Longitud, Ancho, Espesor losa, Acero (kg/m²))</em> se aplica exactamente a tu caso.</p></div></div>
-</div>
-</section>
+<p>Recuerda que esta calculadora es una ayuda para la planificación, pero siempre debes consultar a un técnico competente (arquitecto o ingeniero) para el diseño estructural definitivo, especialmente en losas que soporten cargas importantes. Con los datos correctos y evitando los errores mencionados, podrás hacer un pedido de materiales ajustado y eficiente para tu proyecto.</p>

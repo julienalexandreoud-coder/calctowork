@@ -1,44 +1,88 @@
-<section class="long-content">
-<p>Utilisez le <strong>Roofing Tiles Calculator</strong> pour calculer surface réelle toiture, tuiles (+7%), liteaux rapidement et avec précision.</p>
-<h2>Comment fonctionne le calcul</h2>
-<p>Que vous planifiiez des travaux de rénovation, estimiez des matériaux pour un chantier ou calculiez des dimensions pour un projet DIY, disposer des bons chiffres dès le départ fait gagner du temps et de l'argent.</p>
-<p>La formule derrière ce calcul est <strong>Calculateur Couverture Tuiles = f(Surface en plan, Pente (%), Type de tuile)</strong>. Comprendre comment le résultat est obtenu vous aide à vérifier la sortie et à détecter les erreurs d'entrée.</p>
+<p>Le <strong>Calculateur Couverture Tuiles</strong> est un outil en ligne conçu pour estimer rapidement le nombre de tuiles et la longueur de liteaux nécessaires à la réalisation d'une toiture en pente. Utilisé par des professionnels du bâtiment et des étudiants en architecture, il permet de passer de la surface au sol d'une construction à la surface réelle du toit, en tenant compte de la pente et du type de tuile choisi.</p>
 
-<h2>Guide pas à pas pour votre projet</h2>
-<p>Suivez ces étapes pour obtenir un résultat fiable :</p>
-<ol>
-<li><strong>Saisissez vos valeurs:</strong> 60 m²; 30 %; arabe — ensure all values use a single consistent unit system.</li>
-<li><strong>La calculatrice applique la formule:</strong> <em>Calculateur Couverture Tuiles = f(Surface en plan, Pente (%), Type de tuile)</em>.</li>
-<li><strong>Lisez votre résultat:</strong> Surface réelle toiture, Tuiles (+7%), Liteaux.</li>
-<li>Vérifiez : confirmez que les unités sont cohérentes et les valeurs réalistes avant d'agir sur le résultat.</li>
-</ol>
+<h2>Qu’est-ce que le Calculateur Couverture Tuiles et quand l’utiliser ?</h2>
 
-<h2>Usages pratiques sur le chantier</h2>
-<p>Cette calculatrice est particulièrement utile dans les situations suivantes :</p>
+<p>Ce calculateur répond à un besoin pratique : déterminer les quantités exactes de matériaux pour couvrir un toit en pente. Il évite les approximations coûteuses et les commandes insuffisantes ou excessives. Il s’utilise dans plusieurs contextes :</p>
 <ul>
-<li>construction de murs en briques et parpaings</li><li>estimation de matériaux de maçonnerie</li><li>calculs de surface de mur et mortier</li><li>budgets de construction</li>
+<li><strong>Pour les professionnels</strong> : couvreurs, charpentiers et maçons qui doivent établir un devis précis ou commander des matériaux en lot complet.</li>
+<li><strong>Pour les étudiants</strong> en génie civil ou en architecture, lors d’exercices de dimensionnement de toiture.</li>
+<li><strong>Pour les particuliers</strong> qui souhaitent vérifier rapidement le nombre de tuiles nécessaires avant de consulter un artisan.</li>
+</ul>
+<p>L’outil est particulièrement adapté aux toitures de type tuile canal (tuile romane) ou tuile plate, qui sont les deux formats courants en France et en Europe du Sud.</p>
+
+<h2>La formule de calcul expliquée variable par variable</h2>
+
+<p>Le calcul repose sur une transformation géométrique simple, suivie d’une multiplication par le nombre de tuiles par mètre carré. Voici chaque étape avec sa variable correspondante :</p>
+
+<h3>1. Surface au sol (area_planta)</h3>
+<p>Il s’agit de la surface projetée au sol de la toiture, c’est-à-dire la surface que couvre le toit vu du dessus (généralement la surface du bâtiment). C’est la donnée de départ, exprimée en mètres carrés (m²).</p>
+
+<h3>2. Pente en pourcentage (pendiente_pct)</h3>
+<p>La pente est exprimée en pourcentage (exemple : 30 % signifie que pour 1 mètre horizontal, le toit monte de 0,30 mètre). Par défaut, la valeur est fixée à 30 %, une pente courante pour les tuiles canal.</p>
+
+<h3>3. Facteur d’inclinaison</h3>
+<p>Pour passer de la surface au sol à la surface réelle du toit, on applique un facteur d’inclinaison : <strong>facteur_inc = 1 / cos(arctan(pente / 100))</strong>. Ce coefficient tient compte de la pente. Plus la pente est forte, plus ce facteur est élevé.</p>
+
+<h3>4. Surface réelle du toit (area_real)</h3>
+<p>Elle se calcule en multipliant la surface au sol par le facteur d’inclinaison. Le résultat est arrondi à deux décimales.</p>
+
+<h3>5. Nombre de tuiles par m² (tejas_m2)</h3>
+<p>Ce paramètre dépend du type de tuile :<br/>
+- <strong>Tuile canal (arabe)</strong> : 30 tuiles par m² (en recouvrement standard).<br/>
+- <strong>Tuile plate</strong> : 20 tuiles par m² (format courant).</p>
+
+<h3>6. Nombre total de tuiles (tejas)</h3>
+<p>Formule : <strong>tejas = ceil(area_real × tejas_m2 × 1,07)</strong>. On multiplie la surface réelle par le nombre de tuiles au m², puis on ajoute une marge de sécurité de <strong>7 %</strong> (coefficient 1,07) pour la casse, les découpes et les chutes. Le résultat est arrondi à l’unité supérieure.</p>
+
+<h3>7. Longueur de liteaux (rastreles)</h3>
+<p>Les liteaux (ou rastreles) sont les lattes sur lesquelles les tuiles sont accrochées. La formule est : <strong>longueur = area_real × 2,5</strong>. Ce coefficient correspond à un espacement standard de 40 cm entre liteaux (soit environ 2,5 mètres linéaires par m² de toiture). Le résultat est donné en mètres.</p>
+
+<h2>Deux exemples concrets de calcul</h2>
+
+<h3>Exemple 1 : Toiture en tuile canal, pente 30 %</h3>
+<p><strong>Données d’entrée :</strong><br/>
+- Surface au sol : 80 m²<br/>
+- Pente : 30 %<br/>
+- Type de tuile : canal</p>
+<p><strong>Calcul :</strong><br/>
+- Facteur d’inclinaison = 1 / cos(arctan(30/100)) = 1 / cos(16,70°) ≈ 1,044<br/>
+- Surface réelle = 80 × 1,044 = 83,52 m²<br/>
+- Tuiles par m² = 30<br/>
+- Tuiles nécessaires = ceil(83,52 × 30 × 1,07) = ceil(2680,99) = <strong>2 681 tuiles</strong><br/>
+- Liteaux = 83,52 × 2,5 = <strong>208,8 mètres linéaires</strong></p>
+
+<h3>Exemple 2 : Toiture en tuile plate, pente 45 %</h3>
+<p><strong>Données d’entrée :</strong><br/>
+- Surface au sol : 120 m²<br/>
+- Pente : 45 %<br/>
+- Type de tuile : plate</p>
+<p><strong>Calcul :</strong><br/>
+- Facteur d’inclinaison = 1 / cos(arctan(45/100)) = 1 / cos(24,23°) ≈ 1,097<br/>
+- Surface réelle = 120 × 1,097 = 131,64 m²<br/>
+- Tuiles par m² = 20<br/>
+- Tuiles nécessaires = ceil(131,64 × 20 × 1,07) = ceil(2817,10) = <strong>2 818 tuiles</strong><br/>
+- Liteaux = 131,64 × 2,5 = <strong>329,1 mètres linéaires</strong></p>
+
+<h2>Erreurs fréquentes à éviter</h2>
+
+<p>Plusieurs erreurs peuvent fausser le résultat. Voici les plus courantes :</p>
+<ul>
+<li><strong>Oublier la marge de 7 %</strong> : sans ce coefficient, vous sous-estimez le nombre de tuiles. La casse pendant le transport, les découpes autour des cheminées ou des lucarnes justifient cette marge.</li>
+<li><strong>Confondre surface au sol et surface de toiture</strong> : la surface au sol est la surface vue du dessus, pas celle du toit incliné. L’application du facteur d’inclinaison est indispensable.</li>
+<li><strong>Mauvaise estimation de la pente</strong> : une pente exprimée en degrés au lieu de pourcentage (ou inversement) peut donner un facteur d’inclinaison erroné. Vérifiez l’unité de votre pente. Exemple : 30 % ne correspond pas à 30 degrés (c’est environ 16,7°).</li>
+<li><strong>Ignorer le type de tuile</strong> : utiliser 30 tuiles/m² pour des tuiles plates ou 20 tuiles/m² pour des tuiles canal mène à un écart de 50 % sur le nombre total.</li>
+<li><strong>Négliger les liteaux</strong> : certaines toitures complexes (plusieurs pans, arêtiers) nécessitent des longueurs supplémentaires de liteaux. Ce calculateur donne une estimation pour une surface simple de toiture.</li>
 </ul>
 
-<h2>Interpréter et appliquer vos résultats</h2>
-<p>Votre résultat indique la quantité théorique requise. Ajoutez le facteur de perte approprié avant de commander : 5–10&nbsp;% pour le béton et le mortier, 10–15&nbsp;% pour les carreaux, la pierre naturelle et la brique, et 3–5&nbsp;% pour l'acier et le bois. Arrondissez toujours à l'unité supérieure — sac, tonne ou palette.</p>
+<h2>Questions fréquentes (FAQ)</h2>
 
-<h2>Normes de construction et bonnes pratiques</h2>
-<p>Les projets de construction dépendent d'estimations précises des matériaux. Les professionnels ajoutent généralement 5–10&nbsp;% de marge de perte aux quantités théoriques pour les coupes, la casse et les erreurs de mesure. Les normes ISO et EN définissent les propriétés des matériaux et les tolérances utilisées dans ces formules.</p>
+<h3>1. Quelle est la différence entre tuile canal et tuile plate pour ce calcul ?</h3>
+<p>La tuile canal (ou tuile romane) a une forme incurvée et couvre une surface plus petite par unité : 30 tuiles par m² en pose standard. La tuile plate, plus large, nécessite environ 20 tuiles par m². Ce calculateur applique automatiquement ces densités selon le type choisi dans le champ <em>tipo_teja</em>.</p>
 
-<h2>Erreurs courantes à éviter</h2>
-<ul>
-<li>Oublier d'ajouter une marge de perte (5-10%) lors de la commande de matériaux.</li><li>Mélanger unités métriques et impériales dans un même projet.</li>
-</ul>
+<h3>2. Le calcul inclut-il les chutes et les tuiles de rive ?</h3>
+<p>Oui, partiellement. La marge de 7 % (coefficient 1,07) intègre les chutes dues aux découpes, à la casse et aux tuiles de rive (lorsque l’on coupe une tuile pour l’adapter au bord du toit). Pour des toitures complexes (multiples lucarnes, noues), prévoyez une marge supplémentaire de 10 à 15 %.</p>
 
-<h2>Conseil pro pour les entrepreneurs</h2>
-<p>Commandez 5-10% de matériel en plus que le calcul ne l'indique pour couper les pertes et les erreurs de mesure.</p>
+<h3>3. Puis-je utiliser ce calculateur pour une toiture en ardoise ou en bac acier ?</h3>
+<p>Non, ce calculateur est spécifiquement conçu pour les tuiles canal et les tuiles plates. Pour une couverture en ardoise, les densités sont différentes (environ 40 à 60 ardoises par m² selon le format). Pour un bac acier, le calcul se fait en nombre de plaques ou en m² de tôle, et les liteaux ne sont pas utilisés de la même manière.</p>
 
-<h2>Questions fréquentes</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Combien de matériel supplémentaire dois-je commander?</button><div class="faq-a"><p>La plupart des professionnels recommandent de commander 5-10% de plus que le calcul pour couper les pertes et les erreurs de mesure.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cette calculatrice est-elle précise?</button><div class="faq-a"><p>Oui. La calculatrice utilise la formule standard : Calculateur Couverture Tuiles = f(Surface en plan, Pente (%), Type de tuile). Les résultats sont mathématiquement exacts.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Puis-je utiliser cette calculatrice sur mobile?</button><div class="faq-a"><p>Oui, la calculatrice est entièrement responsive et fonctionne sur tout appareil. Aucune installation requise.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Comment sauvegarder ou partager mon calcul ?</button><div class="faq-a"><p>Utilisez le bouton <strong>Partager</strong> pour générer une URL qui encode toutes vos entrées. Le bouton <strong>Copier</strong> copie le résultat dans le presse-papiers.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Que faire si mon résultat semble incorrect ?</button><div class="faq-a"><p>Vérifiez d'abord vos entrées : valeurs dans les bonnes unités et plage réaliste. Vérifiez aussi que la formule <em>Calculateur Couverture Tuiles = f(Surface en plan, Pente (%), Type de tuile)</em> s'applique exactement à votre situation.</p></div></div>
-</div>
-</section>
+<p>Le <strong>Calculateur Couverture Tuiles</strong> vous aide à préparer votre chantier avec fiabilité, que vous soyez un couvreur expérimenté ou un étudiant qui découvre les techniques de toiture. Son utilisation est intuitive : saisissez la surface au sol, la pente et le type de tuile, et obtenez instantanément les quantités nécessaires en tuiles et en liteaux.</p>

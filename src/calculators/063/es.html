@@ -1,46 +1,99 @@
-<section class="long-content">
-<p>Usa la <strong>Sliding Door Calculator</strong> para calcular metros de carril, herrajes, m² total de forma rápida y precisa.</p>
-<h2>Cómo funciona el cálculo</h2>
-<p>Ya estés planificando una reforma, estimando materiales para una obra o calculando dimensiones para un proyecto DIY, tener los datos correctos desde el principio ahorra tiempo y dinero. Esta herramienta te da resultados instantáneos y fiables para pedir materiales con confianza y evitar sobrecostes.</p>
-<p>Los cálculos de construcción parecen sencillos hasta que consideras margen de desperdicio, conversiones de unidades y estándares regionales de materiales. Esta calculadora gestiona esos detalles automáticamente, para que te concentres en la obra y no en las matemáticas.</p>
-<p>La fórmula detrás de este cálculo es <strong>Calculadora de Puertas Correderas = f(Número de puertas, Ancho de hoja, Alto puerta)</strong>. Comprender cómo se obtiene el resultado te ayuda a verificar la salida y detectar errores de entrada.</p>
+<p>Si estás planificando la instalación de puertas correderas, ya sea para un armario empotrado, un vestidor o una división de ambientes, la <strong>Calculadora de Puertas Correderas</strong> es la herramienta que necesitas para evitar errores de medición y pedir exactamente los herrajes y carriles adecuados. Esta calculadora te permite obtener al instante la longitud total del carril, el número de herrajes necesarios, el peso estimado de las hojas y las fijaciones requeridas, todo en unidades métricas y adaptado a las convenciones de construcción españolas.</p>
 
-<h2>Guía paso a paso para tu proyecto</h2>
-<p>Sigue estos pasos para obtener un resultado fiable:</p>
+<h2>Qué hace la calculadora y cuándo utilizarla</h2>
+
+<p>La <strong>Calculadora de Puertas Correderas</strong> está diseñada para simplificar el cálculo de componentes esenciales en sistemas de puertas que se deslizan sobre un riel. A partir de tres datos básicos que introduces (número de puertas, ancho de cada hoja en metros y altura de la hoja en metros), la herramienta realiza de forma automática las siguientes operaciones:</p>
+
+<ul>
+<li><strong>Calcula el carril por puerta</strong>: determina la longitud de riel que necesita cada hoja para abrirse y cerrarse correctamente, considerando un solape estándar.</li>
+<li><strong>Obtiene el carril total</strong>: suma la longitud de riel requerida para todas las puertas del sistema.</li>
+<li><strong>Cuenta los herrajes</strong>: cada puerta necesita dos juegos de herrajes (carros, topes y guías), por lo que la calculadora los multiplica automáticamente.</li>
+<li><strong>Calcula los metros cuadrados totales</strong>: multiplicando ancho por alto y por número de puertas, obtienes la superficie total a cubrir.</li>
+<li><strong>Estima el peso</strong>: basándose en un peso medio de 12 kg por metro cuadrado (valor estándar para puertas de madera maciza o MDF de 18-22 mm), te da una cifra orientativa muy útil para elegir el carril adecuado.</li>
+<li><strong>Determina las fijaciones</strong>: calcula cuántos soportes o anclajes necesitas para el carril, asumiendo una separación máxima de 50 cm entre ellos.</li>
+</ul>
+
+<p>Debes utilizar esta calculadora <strong>en la fase de diseño o antes de comprar los materiales</strong>. Es ideal para profesionales de la carpintería, instaladores de puertas, decoradores de interiores y cualquier aficionado al bricolaje que quiera asegurarse de que su proyecto de puertas correderas salga bien a la primera. Evita visitas extras a la ferretería y devoluciones por piezas incorrectas.</p>
+
+<h2>La fórmula explicada variable por variable</h2>
+
+<p>La calculadora utiliza una lógica sencilla pero precisa, basada en las dimensiones reales de las hojas. A continuación, desglosamos cada variable y su fórmula correspondiente:</p>
+
+<h3>Variables de entrada</h3>
+<table>
+<tr><th>Variable</th><th>Descripción</th><th>Unidad</th></tr>
+<tr><td><strong>num_puertas (n)</strong></td><td>Número total de hojas de puerta que formarán el sistema corredero.</td><td>Número entero (≥1)</td></tr>
+<tr><td><strong>ancho_hoja_m (W)</strong></td><td>Ancho de cada hoja de puerta. Si no se indica, se toma por defecto 0.9 m.</td><td>Metros (m)</td></tr>
+<tr><td><strong>alto_m (H)</strong></td><td>Altura de cada hoja. Si no se indica, el valor por defecto es 2.1 m.</td><td>Metros (m)</td></tr>
+</table>
+
+<h3>Cálculos realizados</h3>
+<ul>
+<li><strong>Carril por puerta (rail_ud)</strong>: se calcula como <em>W × 2.1</em>. El factor 2.1 representa el solape necesario para que las puertas puedan deslizarse completamente una detrás de otra sin dejar espacios. Se redondea a 2 decimales. Ejemplo: para una hoja de 0.9 m de ancho, el carril necesario por puerta es 0.9 × 2.1 = 1.89 m.</li>
+<li><strong>Carril total (rail_total)</strong>: simplemente se multiplica el carril por puerta por el número de puertas: <em>rail_ud × n</em>.</li>
+<li><strong>Herrajes (herrajes_ud)</strong>: cada puerta necesita un juego de herrajes superior e inferior (carros y guías), por lo que el total es <em>n × 2</em>.</li>
+<li><strong>Metros cuadrados totales (m2_total)</strong>: se obtiene multiplicando ancho por alto por número de puertas: <em>W × H × n</em>.</li>
+<li><strong>Peso estimado (peso_est)</strong>: se multiplica la superficie total por 12 kg/m² (<em>m2_total × 12</em>), que es un peso medio para puertas de madera estándar. El resultado se redondea a 1 decimal.</li>
+<li><strong>Fijaciones (fijaciones)</strong>: para garantizar la estabilidad del carril, se necesitan soportes cada 0.5 metros. Se calcula como <em>ceil(rail_total / 0.5)</em>, es decir, se redondea hacia arriba al número entero más próximo.</li>
+</ul>
+
+<h2>Dos ejemplos trabajados con números concretos</h2>
+
+<h3>Ejemplo 1: Armario de dos puertas en un dormitorio</h3>
+<p>Imagina que quieres instalar un armario empotrado con dos puertas correderas. Cada hoja mide 1.2 metros de ancho y 2.1 metros de alto. Ingresas los datos en la calculadora:</p>
+<ul>
+<li>num_puertas = 2</li>
+<li>ancho_hoja_m = 1.2</li>
+<li>alto_m = 2.1</li>
+</ul>
+<p><strong>Resultados:</strong></p>
 <ol>
-<li><strong>Introduce tus datos:</strong> 3 ud; 0.9 m; 2.1 m — ensure all values use a single consistent unit system.</li>
-<li><strong>La calculadora aplica la fórmula:</strong> <em>Calculadora de Puertas Correderas = f(Número de puertas, Ancho de hoja, Alto puerta)</em>.</li>
-<li><strong>Lee tu resultado:</strong> Metros de carril, Herrajes, m² total.</li>
-<li>Verifica: confirma que las unidades sean coherentes y los valores realistas antes de actuar en base al resultado.</li>
+<li><strong>Carril por puerta:</strong> 1.2 × 2.1 = <strong>2.52 m</strong></li>
+<li><strong>Carril total:</strong> 2.52 × 2 = <strong>5.04 m</strong></li>
+<li><strong>Herrajes:</strong> 2 × 2 = <strong>4 unidades</strong></li>
+<li><strong>Metros cuadrados totales:</strong> 1.2 × 2.1 × 2 = <strong>5.04 m²</strong></li>
+<li><strong>Peso estimado:</strong> 5.04 × 12 = <strong>60.5 kg</strong> (redondeado)</li>
+<li><strong>Fijaciones:</strong> ceil(5.04 / 0.5) = ceil(10.08) = <strong>11 fijaciones</strong></li>
 </ol>
+<p>Con estos datos, podrías comprar un carril de 5.04 metros (normalmente se venden en tramos de 1 o 2 metros, por lo que necesitarías 5.1 o 6 metros lineales), 4 juegos de herrajes para puertas de hasta 60 kg, y al menos 11 soportes para fijar el riel al techo o al muro.</p>
 
-<h2>Usos prácticos en la obra</h2>
-<p>Esta calculadora es especialmente útil en las siguientes situaciones:</p>
+<h3>Ejemplo 2: Vestidor con tres puertas de gran tamaño</h3>
+<p>Supón que estás diseñando un vestidor con tres puertas correderas. Cada hoja mide 1.5 metros de ancho y 2.4 metros de alto. La calculadora recibe:</p>
 <ul>
-<li>problemas matemáticos cotidianos</li><li>presupuesto y planificación</li><li>cocina y mediciones del hogar</li><li>cálculos de viaje y tiempo</li>
+<li>num_puertas = 3</li>
+<li>ancho_hoja_m = 1.5</li>
+<li>alto_m = 2.4</li>
+</ul>
+<p><strong>Resultados:</strong></p>
+<ol>
+<li><strong>Carril por puerta:</strong> 1.5 × 2.1 = <strong>3.15 m</strong></li>
+<li><strong>Carril total:</strong> 3.15 × 3 = <strong>9.45 m</strong></li>
+<li><strong>Herrajes:</strong> 3 × 2 = <strong>6 unidades</strong></li>
+<li><strong>Metros cuadrados totales:</strong> 1.5 × 2.4 × 3 = <strong>10.80 m²</strong></li>
+<li><strong>Peso estimado:</strong> 10.80 × 12 = <strong>129.6 kg</strong></li>
+<li><strong>Fijaciones:</strong> ceil(9.45 / 0.5) = ceil(18.9) = <strong>19 fijaciones</strong></li>
+</ul>
+<p>Para este proyecto, necesitarías un carril de aproximadamente 9.5 metros (sería recomendable adquirir 10 metros lineales). Los herrajes deben ser de tipo pesado, capaces de soportar más de 130 kg totales. Las 19 fijaciones garantizarán que el riel no se combe con el peso.</p>
+
+<h2>Errores comunes al usar la calculadora (y cómo evitarlos)</h2>
+
+<p>Aunque la herramienta es muy intuitiva, estos son los fallos más frecuentes que comenten los usuarios:</p>
+
+<ul>
+<li><strong>No medir correctamente el ancho de la hoja</strong>: a veces se confunde el ancho del hueco con el ancho de la puerta. Recuerda que la puerta debe ser ligeramente más ancha que el vano para cubrirlo (unos 2-3 cm por lado). La calculadora asume que ya has decidido el ancho de la hoja definitivo.</li>
+<li><strong>Olvidar que el carril necesita solape</strong>: el factor 2.1 en la fórmula no es arbitrario. Si intentas usar un carril de la misma longitud que el ancho de la puerta, las hojas no podrán solaparse y no cerrarán bien. Siempre respeta el cálculo del carril por puerta.</li>
+<li><strong>Ignorar el peso estimado</strong>: algunos usuarios compran herrajes baratos sin comprobar si soportan el peso calculado. Si el peso estimado supera los 30-40 kg por hoja, debes elegir herrajes reforzados. La calculadora te da un valor orientativo: úsalo como referencia para tu compra.</li>
+<li><strong>Redondear incorrectamente las fijaciones</strong>: la calculadora redondea hacia arriba el número de fijaciones. No intentes ahorrar colocando menos: la separación máxima de 50 cm es necesaria para evitar que el carril se doble con el uso continuado.</li>
+<li><strong>Pensar que la altura de la hoja es igual a la altura del carril</strong>: el carril se installa en la parte superior (o inferior), y su longitud no depende de la altura de la puerta, sino del ancho y del número de puertas. La altura solo afecta al peso y a los metros cuadrados.</li>
 </ul>
 
-<h2>Cómo aplicar los resultados</h2>
-<p>Tu resultado muestra la cantidad teórica necesaria. Antes de pedir, aplica el factor de merma adecuado al material: 5–10&nbsp;% para hormigón y mortero, 10–15&nbsp;% para azulejo, piedra natural y ladrillo (para cubrir cortes, roturas y encaje de juntas), y 3–5&nbsp;% para acero y madera. Redondea siempre al alza a la siguiente unidad completa — saco, tonelada o palé — para evitar parar la obra por una segunda entrega.</p>
+<h2>Preguntas frecuentes sobre la Calculadora de Puertas Correderas</h2>
 
-<h2>Normas de construcción y buenas prácticas</h2>
-<p>Los proyectos de construcción dependen de estimaciones precisas de materiales para mantenerse dentro del presupuesto y el cronograma. Pedir demasiado poco detiene la obra y genera entregas de emergencia costosas; pedir demasiado desperdicia dinero y ocupa espacio en el sitio. Los estimadores profesionales suelen añadir un 5–10&nbsp;% de factor de merma sobre la cantidad teórica para cubrir cortes, recortes, roturas y pequeños errores de medición.</p><p>Los cálculos modernos de construcción siguen normas establecidas por organismos como ISO, DIN o UNE, que definen propiedades de materiales, tolerancias y márgenes de diseño. Conocer la norma detrás de una fórmula ayuda a adaptarla cuando las condiciones difieren del caso estándar — por ejemplo, al trabajar con materiales recuperados, dimensiones no estándar o sitios en altitud donde el fraguado del hormigón se comporta de forma diferente.</p>
+<h3>¿La calculadora sirve para cualquier tipo de puerta corredera, incluidas las de cristal?</h3>
+<p>La herramienta está pensada para puertas de madera, MDF o materiales similares con un peso medio de 12 kg/m². Si tus puertas son de cristal templado (que pesa aproximadamente 25-30 kg/m²) o de otros materiales más densos, el peso estimado será inferior al real. En esos casos, utiliza el cálculo de metros cuadrados y multiplica por el peso real de tu material para obtener un valor más exacto. El resto de cálculos (carril, herrajes, fijaciones) siguen siendo válidos.</p>
 
-<h2>Errores comunes a evitar</h2>
-<ul>
-<li>Olvidar añadir un margen de desperdicio (típicamente 5-10%) al pedir materiales — redondear arriba evita una segunda entrega.</li><li>Mezclar unidades métricas e imperiales en el mismo proyecto. Mantén un sistema consistente.</li><li>Medir dimensiones exteriores en vez del área interior — la diferencia importa para suelos y azulejos.</li>
-</ul>
+<h3>¿Qué hago si el carril total no es un número exacto de metros?</h3>
+<p>Los carriles suelen venderse en longitudes fijas (2 m, 3 m, 4 m, etc.) o en barras que se pueden cortar a medida. Si tu carril total es, por ejemplo, 5.04 m, deberás comprar un tramo de 6 m (o dos de 3 m) y ajustarlo al cortar. Siempre es mejor comprar un poco más y tener margen de error que quedarse corto. La calculadora te da la longitud exacta necesaria, pero en la práctica redondea al alza al tamaño comercial más próximo.</p>
 
-<h2>Consejo profesional para contratistas</h2>
-<p>Pide un 5-10% más de material de lo que indica tu cálculo para cubrir cortes, roturas y errores de medición. Es más barato que una segunda entrega.</p>
-
-<h2>Preguntas frecuentes</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Cuánto material extra debo pedir?</button><div class="faq-a"><p>La mayoría de profesionales recomiendan pedir un 5-10% más de lo calculado para cubrir cortes, desperdicio y errores de medición. Para piedra natural o azulejo cerámico, el factor de desperdicio puede ser del 10-15%.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Puedo usar esta calculadora con unidades métricas e imperiales?</button><div class="faq-a"><p>Sí. Selecciona tu sistema de unidades preferido en los campos de entrada y la calculadora convierte automáticamente.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Es precisa esta calculadora?</button><div class="faq-a"><p>Sí. La calculadora utiliza la fórmula estándar: Calculadora de Puertas Correderas = f(Número de puertas, Ancho de hoja, Alto puerta). Los resultados son matemáticamente exactos; la precisión final depende de los datos que introduzcas.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Puedo usar esta calculadora en el móvil?</button><div class="faq-a"><p>Sí, la calculadora es totalmente responsiva y funciona en cualquier dispositivo. No requiere instalación ni registro.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Cómo guardo o comparto mi cálculo?</button><div class="faq-a"><p>Usa el botón <strong>Compartir</strong> para generar una URL que codifica todos tus datos — quien abra el enlace verá los mismos valores y resultado. El botón <strong>Copiar</strong> copia el texto del resultado para pegarlo en una hoja de cálculo, correo o documento.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Qué hago si el resultado parece incorrecto?</button><div class="faq-a"><p>Primero revisa tus datos: comprueba que los valores estén en las unidades correctas y en un rango realista. Las causas más comunes son la mezcla de unidades métricas e imperiales, dígitos transpuestos o el uso de una calculadora equivocada. Si los datos parecen correctos y el resultado sigue siendo extraño, verifica que la fórmula <em>Calculadora de Puertas Correderas = f(Número de puertas, Ancho de hoja, Alto puerta)</em> se aplica exactamente a tu caso.</p></div></div>
-</div>
-</section>
+<h3>¿Puedo usar la calculadora si mis puertas no son todas del mismo ancho?</h3>
+<p>Esta versión de la calculadora asume que todas las puertas tienen el mismo ancho y la misma altura. Si tu proyecto tiene puertas de diferentes dimensiones, deberás realizar el cálculo por separado para cada grupo de puertas iguales y luego sumar los carriles y herrajes. Para la mayoría de los armarios y vestidores estándar, las hojas suelen ser iguales, por lo que la herramienta cubre la gran mayoría de casos prácticos.</p>

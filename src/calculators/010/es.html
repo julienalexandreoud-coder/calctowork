@@ -1,46 +1,75 @@
-<section class="long-content">
-<p>Usa la <strong>Excavation Volume Calculator</strong> para calcular volumen neto, volumen esponjado, camiones (8m³) de forma rápida y precisa.</p>
-<h2>Cómo funciona el cálculo</h2>
-<p>Los cálculos de construcción parecen sencillos hasta que consideras margen de desperdicio, conversiones de unidades y estándares regionales de materiales. Esta calculadora gestiona esos detalles automáticamente, para que te concentres en la obra y no en las matemáticas.</p>
-<p>Los cálculos de construcción parecen sencillos hasta que consideras margen de desperdicio, conversiones de unidades y estándares regionales de materiales. Esta calculadora gestiona esos detalles automáticamente, para que te concentres en la obra y no en las matemáticas.</p>
-<p>La fórmula detrás de este cálculo es <strong>Calculadora de Excavación de Tierra = f(Longitud, Ancho, Profundidad, Factor esponjamiento)</strong>. Comprender cómo se obtiene el resultado te ayuda a verificar la salida y detectar errores de entrada.</p>
+<p>La <strong>Calculadora de Excavación de Tierra</strong> es una herramienta esencial para calcular de forma precisa el volumen de tierra que se debe mover en una obra, ya sea para cimentaciones, zanjas, piscinas o nivelación de terrenos. Esta calculadora no solo te da el volumen neto del hoyo, sino que también considera el <em>esponjamiento</em> del material (el aumento de volumen al excavarlo) y te dice cuántos camiones de 8 m³ necesitarás para retirar la tierra sobrante, todo en unidades métricas y adaptado a las normas de construcción en España.</p>
 
-<h2>Guía paso a paso para tu proyecto</h2>
-<p>Sigue estos pasos para obtener un resultado fiable:</p>
+<h2>Qué hace esta calculadora y cuándo usarla</h2>
+<p>La <strong>Calculadora de Excavación de Tierra</strong> resuelve tres preguntas clave en cualquier proyecto de movimientos de tierras: ¿cuántos metros cúbicos de tierra hay que excavar (<em>volumen neto</em>)?, ¿cuánto ocupará esa tierra una vez removida (<em>volumen esponjado</em>)?, y ¿cuántos camiones de 8 m³ de capacidad se necesitan para evacuarla? Además, calcula el perímetro del talud (superficie de los laterales del hoyo), dato útil para calcular el encofrado o el revestimiento.</p>
+<p>Debes usar esta calculadora siempre que necesites pedir presupuestos de excavación, planificar la logística de camiones, o simplemente comprobar que la tierra excavada no te va a dar sorpresas. Es perfecta para arquitectos, ingenieros, constructores, autopromotores y cualquier persona que esté haciendo una obra en casa. Funciona con datos sencillos: largo, ancho y profundidad del hueco, y un factor de esponjamiento por defecto del 25 % (ajustable según el tipo de terreno).</p>
+
+<h2>Fórmula explicada variable por variable</h2>
+<p>La calculadora aplica una fórmula directa y transparente. Aquí te explicamos cada variable:</p>
+<ul>
+<li><strong>L (largo)</strong>: Es la longitud de la excavación en metros. Se introduce en el campo “largo”.</li>
+<li><strong>W (ancho)</strong>: El ancho de la excavación en metros. Corresponde al campo “ancho”.</li>
+<li><strong>H (profundidad)</strong>: La profundidad del hoyo, también en metros. Se escribe en el campo “profundidad”.</li>
+<li><strong>fe (factor de esponjamiento)</strong>: Es el factor que indica cuánto aumenta el volumen de la tierra al ser removida. Por defecto es 1.25 (es decir, un 25 % más), pero puedes cambiarlo en el campo “esponjamiento” según el tipo de terreno: tierras sueltas (1.15-1.20), medias (1.25-1.30) o rocas (1.40-1.60).</li>
+</ul>
+<p>Con estas variables, la calculadora ejecuta los siguientes cálculos:</p>
 <ol>
-<li><strong>Introduce tus datos:</strong> 10 m; 6 m; 1.5 m; 1.25 factor — ensure all values use a single consistent unit system.</li>
-<li><strong>La calculadora aplica la fórmula:</strong> <em>Calculadora de Excavación de Tierra = f(Longitud, Ancho, Profundidad, Factor esponjamiento)</em>.</li>
-<li><strong>Lee tu resultado:</strong> Volumen neto, Volumen esponjado, Camiones (8m³).</li>
-<li>Verifica: confirma que las unidades sean coherentes y los valores realistas antes de actuar en base al resultado.</li>
+<li><strong>Volumen neto (vol_neto_m3)</strong>: L × W × H. Es el volumen del hueco en estado natural, sin esponjar.</li>
+<li><strong>Volumen esponjado (vol_esponjado_m3)</strong>: vol_neto × fe. Es el volumen real que ocupará la tierra una vez excavada.</li>
+<li><strong>Número de camiones de 8 m³ (camiones_8m3)</strong>: Se calcula como Math.ceil(vol_esponjado_m3 / 8). Redondea siempre hacia arriba para que no falten camiones.</li>
+<li><strong>Perímetro del talud (perimetro_talud_m2)</strong>: 2 × (L + W) × H. Es la superficie de las paredes del hoyo, útil si necesitas entibar o encofrar los laterales.</li>
 </ol>
 
-<h2>Usos prácticos en la obra</h2>
-<p>Esta calculadora es especialmente útil en las siguientes situaciones:</p>
+<h2>Dos ejemplos prácticos con números concretos</h2>
+<h3>Ejemplo 1: Excavación para una piscina de obra</h3>
+<p>Imagina que quieres construir una piscina rectangular de 8 metros de largo, 4 metros de ancho y 1.5 metros de profundidad. El terreno es arcilloso, así que usaremos el factor de esponjamiento por defecto de 1.25.</p>
 <ul>
-<li>cálculos de cimentación residencial</li><li>pedidos de concreto para proyectos de construcción</li><li>estimación de materiales estructurales</li><li>planificación de mejoras del hogar</li>
+<li>Largo (L): 8 m</li>
+<li>Ancho (W): 4 m</li>
+<li>Profundidad (H): 1.5 m</li>
+<li>Factor de esponjamiento (fe): 1.25</li>
+</ul>
+<p><strong>Cálculos paso a paso:</strong></p>
+<table>
+<tr><th>Concepto</th><th>Operación</th><th>Resultado</th></tr>
+<tr><td>Volumen neto</td><td>8 × 4 × 1.5</td><td>48.00 m³</td></tr>
+<tr><td>Volumen esponjado</td><td>48 × 1.25</td><td>60.00 m³</td></tr>
+<tr><td>Camiones necesarios (8 m³)</td><td>Math.ceil(60 / 8)</td><td>8 camiones</td></tr>
+<tr><td>Perímetro del talud</td><td>2 × (8 + 4) × 1.5</td><td>36.00 m²</td></tr>
+</table>
+<p><strong>Interpretación:</strong> Necesitarás contratar 8 camiones para retirar la tierra. El perímetro del talud (36 m²) te servirá para pedir el material de encofrado o impermeabilización de los laterales.</p>
+
+<h3>Ejemplo 2: Zanja para cimentación corrida</h3>
+<p>Ahora, para una casa unifamiliar, se necesita una zanja de 12 metros de largo, 0.6 metros de ancho y 1 metro de profundidad. El terreno es de grava suelta, por lo que ajustamos el factor de esponjamiento a 1.15.</p>
+<ul>
+<li>Largo (L): 12 m</li>
+<li>Ancho (W): 0.6 m</li>
+<li>Profundidad (H): 1 m</li>
+<li>Factor de esponjamiento (fe): 1.15</li>
+</ul>
+<p><strong>Cálculos:</strong></p>
+<table>
+<tr><th>Concepto</th><th>Operación</th><th>Resultado</th></tr>
+<tr><td>Volumen neto</td><td>12 × 0.6 × 1</td><td>7.20 m³</td></tr>
+<tr><td>Volumen esponjado</td><td>7.2 × 1.15</td><td>8.28 m³</td></tr>
+<tr><td>Camiones necesarios (8 m³)</td><td>Math.ceil(8.28 / 8)</td><td>2 camiones</td></tr>
+<tr><td>Perímetro del talud</td><td>2 × (12 + 0.6) × 1</td><td>25.20 m²</td></tr>
+</table>
+<p><strong>Interpretación:</strong> Aunque el volumen esponjado es de 8.28 m³, con un camión no basta, necesitas 2 porque el cálculo redondea al alza. Ese pequeño exceso es normal y te asegura que no quede tierra sin retirar.</p>
+
+<h2>Errores comunes al calcular excavaciones</h2>
+<p>Incluso con una buena calculadora, los errores más frecuentes vienen de los datos de entrada. Evítalos:</p>
+<ul>
+<li><strong>Usar unidades incorrectas</strong>: Introduce siempre las medidas en metros. Si tienes centímetros, divídelos entre 100. Por ejemplo, 50 cm son 0.5 m.</li>
+<li><strong>No ajustar el factor de esponjamiento</strong>: Usar el 1.25 para todo es un error. La tierra vegetal esponja más que la roca compacta. Si pones un factor demasiado bajo, te faltarán camiones; si es demasiado alto, pagarás de más.</li>
+<li><strong>Olvidar el redondeo de camiones</strong>: No basta con dividir el volumen esponjado entre 8. La calculadora redondea hacia arriba, pero si tú lo haces mentalmente, puedes llevarte la sorpresa de que un camión no cabe. Siempre es mejor que sobre un poco a que falte.</li>
+<li><strong>No medir el perímetro del talud correctamente</strong>: El perímetro del talud es la superficie de los laterales, no la del fondo. Si vas a hacer un presupuesto de encofrado, este dato es clave y debes revisarlo.</li>
 </ul>
 
-<h2>Cómo aplicar los resultados</h2>
-<p>Tu resultado muestra la cantidad teórica necesaria. Antes de pedir, aplica el factor de merma adecuado al material: 5–10&nbsp;% para hormigón y mortero, 10–15&nbsp;% para azulejo, piedra natural y ladrillo (para cubrir cortes, roturas y encaje de juntas), y 3–5&nbsp;% para acero y madera. Redondea siempre al alza a la siguiente unidad completa — saco, tonelada o palé — para evitar parar la obra por una segunda entrega.</p>
-
-<h2>Normas de construcción y buenas prácticas</h2>
-<p>Los proyectos de construcción dependen de estimaciones precisas de materiales para mantenerse dentro del presupuesto y el cronograma. Pedir demasiado poco detiene la obra y genera entregas de emergencia costosas; pedir demasiado desperdicia dinero y ocupa espacio en el sitio. Los estimadores profesionales suelen añadir un 5–10&nbsp;% de factor de merma sobre la cantidad teórica para cubrir cortes, recortes, roturas y pequeños errores de medición.</p><p>Los cálculos modernos de construcción siguen normas establecidas por organismos como ISO, DIN o UNE, que definen propiedades de materiales, tolerancias y márgenes de diseño. Conocer la norma detrás de una fórmula ayuda a adaptarla cuando las condiciones difieren del caso estándar — por ejemplo, al trabajar con materiales recuperados, dimensiones no estándar o sitios en altitud donde el fraguado del hormigón se comporta de forma diferente.</p>
-
-<h2>Errores comunes a evitar</h2>
-<ul>
-<li>Olvidar añadir un margen de desperdicio (típicamente 5-10%) al pedir materiales — redondear arriba evita una segunda entrega.</li><li>Mezclar unidades métricas e imperiales en el mismo proyecto. Mantén un sistema consistente.</li><li>Medir dimensiones exteriores en vez del área interior — la diferencia importa para suelos y azulejos.</li>
-</ul>
-
-<h2>Consejo profesional para contratistas</h2>
-<p>Pide un 5-10% más de material de lo que indica tu cálculo para cubrir cortes, roturas y errores de medición. Es más barato que una segunda entrega.</p>
-
-<h2>Preguntas frecuentes</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Cuánto material extra debo pedir?</button><div class="faq-a"><p>La mayoría de profesionales recomiendan pedir un 5-10% más de lo calculado para cubrir cortes, desperdicio y errores de medición. Para piedra natural o azulejo cerámico, el factor de desperdicio puede ser del 10-15%.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Puedo usar esta calculadora con unidades métricas e imperiales?</button><div class="faq-a"><p>Sí. Selecciona tu sistema de unidades preferido en los campos de entrada y la calculadora convierte automáticamente.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Es precisa esta calculadora?</button><div class="faq-a"><p>Sí. La calculadora utiliza la fórmula estándar: Calculadora de Excavación de Tierra = f(Longitud, Ancho, Profundidad, Factor esponjamiento). Los resultados son matemáticamente exactos; la precisión final depende de los datos que introduzcas.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Puedo usar esta calculadora en el móvil?</button><div class="faq-a"><p>Sí, la calculadora es totalmente responsiva y funciona en cualquier dispositivo. No requiere instalación ni registro.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Cómo guardo o comparto mi cálculo?</button><div class="faq-a"><p>Usa el botón <strong>Compartir</strong> para generar una URL que codifica todos tus datos — quien abra el enlace verá los mismos valores y resultado. El botón <strong>Copiar</strong> copia el texto del resultado para pegarlo en una hoja de cálculo, correo o documento.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Qué hago si el resultado parece incorrecto?</button><div class="faq-a"><p>Primero revisa tus datos: comprueba que los valores estén en las unidades correctas y en un rango realista. Las causas más comunes son la mezcla de unidades métricas e imperiales, dígitos transpuestos o el uso de una calculadora equivocada. Si los datos parecen correctos y el resultado sigue siendo extraño, verifica que la fórmula <em>Calculadora de Excavación de Tierra = f(Longitud, Ancho, Profundidad, Factor esponjamiento)</em> se aplica exactamente a tu caso.</p></div></div>
-</div>
-</section>
+<h2>Preguntas frecuentes (FAQ)</h2>
+<h3>¿Qué hago si mi excavación no es un prisma perfecto (tiene forma irregular)?</h3>
+<p>Para formas irregulares, la calculadora te da una aproximación muy útil si tomas las medidas medias (largo medio, ancho medio y profundidad media). Es decir, sumas varios puntos de cada dimensión y divides entre el número de mediciones. Si la forma es muy compleja, lo mejor es dividir la excavación en varios prismas rectangulares y sumar los resultados de cada uno.</p>
+<h3>¿El factor de esponjamiento siempre es 1.25?</h3>
+<p>No. El 1.25 (25 % de aumento) es un valor estándar para tierras medias como la arcilla o el limo. Para arenas sueltas o tierra vegetal, el factor puede ser menor (1.15-1.20). Para roca compacta o terreno muy duro, puede llegar hasta 1.60 (60 % de aumento). Es importante que ajustes este valor según la experiencia o consultes a un profesional del terreno.</p>
+<h3>¿Puedo usar esta calculadora para calcular el volumen de un vertedero o un relleno?</h3>
+<p>Sí, pero ten en cuenta que en ese caso el factor de esponjamiento se usa al revés. Si estás calculando cuánta tierra necesitas para rellenar un hueco, tendrás que dividir el volumen del hueco por el factor de esponjamiento (para obtener la tierra en estado natural). La calculadora está diseñada para excavación, pero con la lógica inversa te sirve también para rellenos. Siempre es mejor hacer el cálculo dos veces para asegurarte.</p>

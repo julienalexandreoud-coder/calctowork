@@ -1,38 +1,53 @@
-<section class="long-content">
-<h2>Qu'est-ce qu'unn age calculator?</h2>
-<p>The <strong>age calculator</strong> computes your exact age in years, months, weeks, and days from your date of birth to any reference date (today by default). Beyond a simple year count, it tells you the day of the week you were born, how many days remain until your next birthday, and your total age expressed in days, hours, or minutes — details that are surprisingly useful in legal, medical, and financial contexts.</p>
-<p>While subtracting birth year from current year seems simple, an accurate age calculation must account for whether the birthday has passed yet this year, the variable lengths of months (28–31 days), and leap years. A manual calculation is error-prone; this calculator handles all edge cases automatically.</p>
+<p>Le <strong>Calculateur d'Âge</strong> vous permet de connaître votre âge exact en années, mois, semaines et jours, à partir de votre date de naissance jusqu'à n'importe quelle date de référence (aujourd'hui par défaut). Plus qu'un simple compteur d'anniversaires, cet outil vous révèle le jour de la semaine où vous êtes né, combien de jours il reste avant votre prochain anniversaire, et votre âge total en jours, heures ou minutes — des informations étonnamment utiles dans des contextes juridiques, médicaux ou financiers.</p>
 
-<h2>How exact age is calculated</h2>
-<p>The algorithm works in three steps:</p>
+<h2>À quoi sert un calculateur d'âge et quand l'utiliser ?</h2>
+<p>Ce calculateur est bien plus qu'un gadget. Il répond à des questions concrètes : ai-je l'âge minimum pour passer mon permis de conduire en France (18 ans) ou pour voter à une élection ? Mon enfant a-t-il atteint l'âge requis pour entrer en maternelle ? Quelle est mon âge exact au moment de la signature d'un contrat d'assurance ? Dans les administrations françaises, de nombreux formulaires demandent l'âge à une date précise, qui n'est pas forcément aujourd'hui. Par exemple, pour une demande de retraite, on calcule l'âge au 1er janvier de l'année de départ. Le calculateur gère automatiquement ces dates passées ou futures. Il est également utilisé dans le domaine médical : un pédiatre ajuste les doses de médicaments en fonction du poids et de l'âge exact de l'enfant, parfois au jour près. Enfin, les passionnés de course à pied ou de fitness peuvent l'utiliser pour calculer leur fréquence cardiaque maximale (grossièrement 220 - âge) ou leur indice de masse corporelle (IMC) précis.</p>
+
+<p>Contrairement à une simple soustraction d'années, un calcul fiable doit tenir compte des mois de 28 à 31 jours, des années bissextiles et du fait que l'anniversaire peut ne pas être encore passé cette année. Une erreur courante consiste à croire que 30 ans équivalent à 30 × 365 = 10 950 jours. En réalité, les années bissextiles (comme 2024, 2028, etc.) ajoutent des jours supplémentaires, ce qui modifie le total. Notre calculateur intègre toutes ces subtilités automatiquement.</p>
+
+<h2>La formule expliquée variable par variable</h2>
+<p>L'algorithme du calculateur repose sur trois étapes claires :</p>
 <ol>
-  <li><strong>Year difference:</strong> Subtract the birth year from the current year to get a preliminary age.</li>
-  <li><strong>Birthday check:</strong> If today's month/day is before the birth month/day, subtract 1 (the birthday hasn't occurred yet this year).</li>
-  <li><strong>Days elapsed:</strong> Count the total calendar days from the birth date to today, accounting for leap years (366 days instead of 365).</li>
+  <li><strong>Différence d'années (A) :</strong> On soustrait l'année de naissance de l'année de la date de référence. Par exemple, si vous êtes né en 1990 et que la date de référence est en 2025, la différence brute est de 35 ans.</li>
+  <li><strong>Vérification de l'anniversaire (B) :</strong> On compare le mois et le jour de la date de référence avec le mois et le jour de naissance. Si la date de référence est antérieure dans l'année (par exemple, le 15 mars pour un né le 20 avril), on soustrait 1. Sinon, on garde le résultat. L'âge en années = A - (0 ou 1).</li>
+  <li><strong>Nombre de jours total (J) :</strong> On compte tous les jours calendaires entre la date de naissance et la date de référence. Ce calcul inclut les jours des années bissextiles (29 février). Par exemple, entre le 1er janvier 2000 et le 1er janvier 2025, il y a 9 131 jours (car 2000, 2004, 2008, 2012, 2016, 2020 et 2024 sont bissextiles).</li>
+  <li><strong>Âge en mois et semaines :</strong> À partir du nombre de jours total, on calcule les mois complets (30 ou 31 jours selon les mois) et les semaines (7 jours par semaine). Le calculateur affiche ces valeurs pour donner une vision plus granulaire.</li>
 </ol>
-<p>The result in years is the legal age in most jurisdictions. The total days and hours figures are often surprising — a 30-year-old has lived more than 10,950 days.</p>
+<p>Ce calcul en années est celui reconnu par le droit français : l'âge légal est atteint la veille de l'anniversaire à minuit. Par exemple, une personne née le 15 juillet 2000 atteint 18 ans le 14 juillet 2018 à minuit.</p>
 
-<h2>Common uses</h2>
+<h2>Deux exemples concrets</h2>
+<h3>Exemple 1 : Marie, née le 12 mars 1992, quel âge au 1er septembre 2024 ?</h3>
+<p>Suivons les étapes :</p>
 <ul>
-  <li><strong>Legal and administrative:</strong> Proving minimum age for driving, voting, drinking, retirement, or inheritance. Many official forms require age at a specific reference date, not today.</li>
-  <li><strong>Medical:</strong> Physicians use exact age (often to the day) when calculating dosages for children, assessing developmental milestones, or computing gestational age for newborns.</li>
-  <li><strong>Insurance:</strong> Premiums and eligibility thresholds depend on age at the policy's effective date, which can differ from today's date.</li>
-  <li><strong>Fitness and nutrition:</strong> Many formulas — BMR (basal metabolic rate), VO₂ max, maximum heart rate — use exact age in years as an input.</li>
-  <li><strong>Personal milestones:</strong> Find out what day of the week you were born, when you hit 10,000 days old, or how many hours you've been alive.</li>
+  <li>Différence d'années : 2024 - 1992 = 32 ans.</li>
+  <li>Vérification : Le 1er septembre est après le 12 mars (l'anniversaire est déjà passé). Donc, pas de soustraction. Âge en années : 32 ans.</li>
+  <li>Jours total : Du 12 mars 1992 au 1er septembre 2024, il y a exactement 11 867 jours (incluant les années bissextiles 1992, 1996, 2000, 2004, 2008, 2012, 2016, 2020 et 2024). Soit 32 ans, 5 mois et 20 jours environ.</li>
+  <li>Résultat : Marie a 32 ans, 11 867 jours, ou 284 808 heures au 1er septembre 2024.</li>
 </ul>
 
-<h2>Age conventions around the world</h2>
-<p>Most Western countries count age from the birthday anniversary. However, conventions differ globally:</p>
+<h3>Exemple 2 : Ahmed, né le 29 février 2000 (année bissextile), quelle est sa situation le 1er mars 2023 ?</h3>
+<p>Ahmed est né un 29 février, ce qui pose un cas particulier. En 2023, année non bissextile, le 29 février n'existe pas. La convention française (et internationale) est de considérer le 28 février ou le 1er mars comme son anniversaire légal. Le calculateur choisit le 1er mars par défaut.</p>
 <ul>
-  <li><strong>South Korea (traditional system):</strong> Babies are born with age 1, and everyone gains a year on January 1st — so a baby born in December could be considered 2 years old just weeks after birth. South Korea officially moved to Western age counting in 2023 for legal and administrative purposes.</li>
-  <li><strong>East Asian lunisolar calendar:</strong> Some ceremonies and zodiac calculations use lunar birthday dates, which fall on different Gregorian calendar dates each year.</li>
-  <li><strong>Medical (gestational age):</strong> Premature infants are often assessed using "corrected age" — chronological age minus weeks of prematurity — to account for developmental milestones.</li>
+  <li>Différence d'années : 2023 - 2000 = 23 ans.</li>
+  <li>Vérification : La date de référence (1er mars) est exactement le jour de son anniversaire conventionnel. Donc, l'anniversaire est considéré comme passé. Âge en années : 23 ans.</li>
+  <li>Jours total : Du 29 février 2000 au 1er mars 2023, il y a 8 401 jours. Cela représente 23 ans, 0 mois et 1 jour (si l'on prend le 1er mars comme anniversaire).</li>
+  <li>Résultat : Ahmed a 23 ans au 1er mars 2023, même s'il n'a pas de date de naissance civile ce jour-là. C'est la solution adoptée par l'état civil français.</li>
 </ul>
 
-<h2>Questions fréquemment posées</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">How do I calculate age at a past or future date?</button><div class="faq-a"><p>Change the "as of" date in the calculator to any date — past or future. This is useful for legal documents that require your age on a specific reference date (like a contract signing date or an exam cutoff date).</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Why does the day count differ from years × 365?</button><div class="faq-a"><p>Leap years add an extra day every 4 years (with corrections for century years). Over 30 years, this adds roughly 7 extra days compared to a simple 30 × 365 = 10,950 calculation. The calculator counts actual calendar days, not estimated days.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Is this calculator accurate for legal age verification?</button><div class="faq-a"><p>Yes. The calculation matches the birthday-anniversary method used in most legal systems. For edge cases like being born on February 29th (leap day), most jurisdictions treat March 1st as the legal birthday in non-leap years — this calculator handles that convention correctly.</p></div></div>
-</div>
-</section>
+<h2>Erreurs fréquentes à éviter</h2>
+<ul>
+  <li><strong>Confondre "année civile" et "âge en années" :</strong> Une erreur classique est de calculer 2025 - 1990 = 35 ans, sans vérifier si l'anniversaire est passé. Si vous êtes né le 31 décembre 1990 et que nous sommes le 1er janvier 2025, vous n'avez pas encore 35 ans — vous avez 34 ans jusqu'au 30 décembre 2025 à minuit. Le calculateur corrige cela automatiquement.</li>
+  <li><strong>Oublier les années bissextiles :</strong> Multiplier simplement 30 ans par 365 jours donne 10 950 jours. Mais entre 1995 et 2025, il y a 7 années bissextiles (1996, 2000, 2004, 2008, 2012, 2016, 2020, 2024). Le vrai total est donc d'environ 10 957 jours. Cette différence peut être importante pour des calculs de salaires journaliers ou de prestations sociales.</li>
+  <li><strong>Utiliser la date de naissance comme point de départ pour le nombre de jours :</strong> Certains pensent que l'âge en jours est simplement la différence entre les dates, sans compter le jour de naissance. En réalité, la convention standard inclut le jour de naissance comme jour 0, et le premier anniversaire se produit au bout de 365 ou 366 jours. Notre calculateur suit cette norme.</li>
+  <li><strong>Croire que le 29 février disparaît :</strong> Pour une personne née le 29 février, la plupart des systèmes (comme la Sécurité sociale française) utilisent le 1er mars comme date d'anniversaire en année non bissextile. Ne pas utiliser cette règle génère des erreurs de deux jours par rapport à la convention officielle.</li>
+</ul>
+
+<h2>Foire aux questions (FAQ)</h2>
+<h3>Puis-je calculer mon âge à une date passée, par exemple pour un contrat signé en 2018 ?</h3>
+<p>Oui, il suffit de modifier la date de référence dans le calculateur pour la fixer au jour du contrat. Si vous êtes né le 15 juillet 2000 et que le contrat a été signé le 14 juillet 2018, vous étiez encore âgé de 17 ans (car votre anniversaire n'était pas encore passé). Le calculateur ajuste automatiquement l'âge en fonction de cette date.</p>
+
+<h3>Pourquoi le nombre de jours affiché ne correspond-il pas à 365 fois mon âge ?</h3>
+<p>Parce que les années bissextiles ajoutent un jour supplémentaire tous les 4 ans (sauf pour les années séculaires non divisibles par 400, comme 1900). Par exemple, une personne de 40 ans née en 1984 a vécu 10 années bissextiles (1984, 1988, 1992, 1996, 2000, 2004, 2008, 2012, 2016, 2020) — soit 10 jours de plus que le calcul simple 40 × 365 = 14 600 jours. Le vrai total est 14 610 jours. Le calculateur utilise le nombre exact de jours calendaires, pas une approximation.</p>
+
+<h3>Que faire si je suis né le 29 février et que je veux connaître mon âge légal en 2023 ?</h3>
+<p>Le calculateur suit la convention juridique française : en année non bissextile, votre anniversaire légal est le 1er mars. Ainsi, une personne née le 29 février 2000 sera considérée comme ayant 23 ans le 1er mars 2023. Si vous utilisez une date de référence antérieure au 1er mars (par exemple le 28 février 2023), l'âge affiché sera de 22 ans, car l'anniversaire n'est pas encore passé selon cette règle.</p>

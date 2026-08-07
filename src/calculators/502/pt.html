@@ -1,34 +1,71 @@
-<section class="long-content">
-<h2>O que é um date difference calculator for?</h2>
-<p>A <strong>date difference calculator</strong> precisely calculates the time elapsed between two dates: in exact days, full weeks, approximate months, and years. It's an essential tool in labor law (calculating seniority or severance), medicine (weeks of pregnancy, treatment duration), logistics (delivery deadlines), and personal planning (countdowns).</p>
+<p>A <strong>Calculadora de Diferença entre Datas</strong> é a ferramenta ideal para quem precisa saber exatamente quantos dias, semanas, meses ou anos separam duas datas do calendário. Seja para calcular prazos de projetos, determinar a idade de um documento, planear férias ou organizar eventos, esta calculadora simplifica o processo com resultados precisos e imediatos, bastando inserir o ano e o mês de cada data.</p>
 
-<h2>Como funciona o cálculo</h2>
-<p>The calculator counts the <strong>calendar days</strong> between both dates and converts them:</p>
+<h2>O que é a Calculadora de Diferença entre Datas e quando deve usá-la</h2>
+<p>Esta calculadora executa um cálculo temporal básico mas extremamente útil: a diferença absoluta entre dois momentos no tempo. Diferente de calculadoras de data com hora, esta ferramenta foca-se em intervalos mensais e anuais, sendo perfeita para situações em que a precisão do dia exato não é crítica, mas a visão geral do período é essencial. Utilize-a para:</p>
 <ul>
-  <li><strong>Exact days:</strong> direct count including leap years.</li>
-  <li><strong>Weeks:</strong> days ÷ 7 (full weeks plus remaining days).</li>
-  <li><strong>Months:</strong> full calendar months plus remaining days.</li>
-  <li><strong>Years:</strong> full years plus remaining months and days.</li>
+<li>Calcular o tempo decorrido entre a data de início e fim de um contrato de arrendamento.</li>
+<li>Determinar quantos meses faltam para o vencimento de uma prestação.</li>
+<li>Saber a duração de uma viagem planeada, em semanas.</li>
+<li>Estimar a idade de um bebé em meses completos.</li>
+<li>Organizar orçamentos anuais ou semestrais, dividindo o tempo em anos e meses.</li>
 </ul>
+<p>A ferramenta é particularmente útil para profissionais de recursos humanos, contabilidade, gestão de projetos e educação, onde prazos mensais e anuais são frequentes.</p>
 
-<h2>Step-by-step example</h2>
-<p><strong>How many days have you worked at your company if you started September 1, 2020?</strong></p>
-<ol>
-  <li>Start date: 09/01/2020</li>
-  <li>End date: today, 04/25/2026</li>
-  <li>Difference: <strong>2,062 days</strong> (accounting for leap year 2024)</li>
-  <li>Equivalent to: <strong>294 weeks and 4 days</strong>, or <strong>67 months and 24 days</strong>, or <strong>5 years and 7 months</strong></li>
-</ol>
-
-<h2>Most common uses</h2>
+<h2>A fórmula explicada: como o cálculo é feito passo a passo</h2>
+<p>O algoritmo da calculadora converte as entradas (ano e mês) em objetos de data, calcula a diferença em milissegundos e depois converte esse valor para as unidades solicitadas. Eis como funciona cada variável:</p>
+<h3>Entradas e validação</h3>
+<p><strong>anio1</strong> e <strong>anio2</strong>: os anos das duas datas. Se não forem fornecidos (valor 0 ou vazio), a calculadora retorna um erro. <strong>mes1</strong> e <strong>mes2</strong>: os meses (1 a 12). Se omitidos, assume-se o mês 1 (janeiro).</p>
+<h3>Conversão para milissegundos</h3>
+<p>O comando <code>new Date(y1, m1-1, 1)</code> cria uma data no primeiro dia do mês indicado (note que o mês em JavaScript começa em 0, por isso subtrai-se 1). A diferença <code>d2 - d1</code> resulta no número de milissegundos entre as duas datas. Para obter o valor absoluto (sempre positivo), usa-se <code>Math.abs</code>.</p>
+<h3>Cálculo das unidades</h3>
 <ul>
-  <li><strong>Labor law:</strong> Calculate exact seniority for severance pay, settlement, and service bonuses.</li>
-  <li><strong>Pregnancy:</strong> Determine weeks of gestation from the last menstrual period (LMP) and estimated due date.</li>
-  <li><strong>Legal and contractual deadlines:</strong> Verify if warranty periods, statutes of limitation, or contract expiration dates have elapsed.</li>
-  <li><strong>Event planning:</strong> Exact countdown for weddings, trips, exams, or project deadlines.</li>
-  <li><strong>Treatment tracking:</strong> Monitor how many days you've been following a medication, diet, or training regimen.</li>
+<li><strong>Dias</strong>: divide-se os milissegundos por 86.400.000 (número de ms num dia) e arredonda-se com <code>Math.round</code>.</li>
+<li><strong>Semanas</strong>: divide-se o total de dias por 7 e arredonda-se.</li>
+<li><strong>Meses</strong>: usa-se o fator médio de 30,44 dias por mês (365,25 dias / 12 meses). O resultado é arredondado para o número inteiro mais próximo.</li>
+<li><strong>Anos</strong>: divide-se os dias por 365,25 (considerando anos bissextos) e apresenta-se com duas casas decimais (<code>.toFixed(2)</code>).</li>
 </ul>
+<p>Esta abordagem garante que, mesmo para intervalos longos, o resultado em anos seja preciso, ao contrário de cálculos simples que ignoram os anos bissextos.</p>
 
-<h2>Leap years and date differences</h2>
-<p>A <strong>leap year</strong> has 366 days instead of 365. A year is a leap year if it's divisible by 4, except century years (divisible by 100), unless they're also divisible by 400. This affects calculations when the date range includes February of a leap year. Our calculator automatically accounts for all leap years in the selected range.</p>
-</section>
+<h2>Exemplos práticos com números concretos</h2>
+<p>Para entender melhor como a calculadora funciona, veja dois exemplos do dia a dia.</p>
+<h3>Exemplo 1: Prazo de um projeto de 15 meses</h3>
+<p>Imagine que um projeto começou em março de 2023 (mês 3) e terminou em junho de 2024 (mês 6). Inserindo os dados:</p>
+<p><strong>Data inicial</strong>: ano 2023, mês 3 (março)<br><strong>Data final</strong>: ano 2024, mês 6 (junho)</p>
+<p>A calculadora processa:</p>
+<ul>
+<li>Diferença em milissegundos: aproximadamente 39.830.400.000 ms</li>
+<li><strong>Dias</strong>: 461 dias</li>
+<li><strong>Semanas</strong>: 66 semanas (461 / 7 ≈ 65,86, arredondado para 66)</li>
+<li><strong>Meses</strong>: 15 meses (461 / 30,44 ≈ 15,15, arredondado para 15)</li>
+<li><strong>Anos</strong>: 1,26 anos (461 / 365,25 ≈ 1,26)</li>
+</ul>
+<p>Resultado: O projeto durou 461 dias, ou 15 meses completos, um valor esperado para um planeamento semestral.</p>
+<h3>Exemplo 2: Diferença entre anos consecutivos</h3>
+<p>Pretende saber o intervalo entre janeiro de 2022 (mês 1) e janeiro de 2023 (mês 1). Dados:</p>
+<p><strong>Data inicial</strong>: ano 2022, mês 1 (janeiro)<br><strong>Data final</strong>: ano 2023, mês 1 (janeiro)</p>
+<p>Cálculo:</p>
+<ul>
+<li><strong>Dias</strong>: 365 dias (ano normal, sem fevereiro bissexto a mais)</li>
+<li><strong>Semanas</strong>: 52 semanas (365 / 7 ≈ 52,14, arredondado)</li>
+<li><strong>Meses</strong>: 12 meses (365 / 30,44 ≈ 11,99, arredondado para 12)</li>
+<li><strong>Anos</strong>: 1,00 ano (365 / 365,25 ≈ 0,999, arredondado para 1,00)</li>
+</ul>
+<p>Este exemplo mostra como a calculadora lida com anos não bissextos, produzindo um resultado de 1 ano exato, como esperado.</p>
+
+<h2>Erros comuns ao usar a calculadora e como evitá-los</h2>
+<p>Embora a ferramenta seja simples, alguns enganos podem levar a resultados incorretos. Conheça os mais frequentes:</p>
+<ul>
+<li><strong>Esquecer que os meses são números de 1 a 12</strong>: Inserir "janeiro" em vez de "1" ou "dezembro" em vez de "12" causa erro. A calculadora espera valores numéricos.</li>
+<li><strong>Inverter as datas sem perceber o resultado</strong>: A calculadora usa valor absoluto, logo a ordem não altera o número de dias. No entanto, se o objetivo é saber se uma data é anterior à outra, esta ferramenta não indica a direção (positiva ou negativa).</li>
+<li><strong>Ignorar o arredondamento dos meses</strong>: O cálculo de meses usa uma média (30,44 dias). Para intervalos curtos (ex.: 30 dias), o resultado pode ser arredondado para 1 mês, quando na verdade são 30 dias (menos de um mês civil). Use a ferramenta com consciência de que meses não têm todos a mesma duração.</li>
+<li><strong>Não validar anos bissextos em cálculos manuais</strong>: A calculadora já inclui o fator 365,25, mas se estiver a verificar manualmente, lembre-se de que fevereiro de anos bissextos tem 29 dias, o que pode afetar diferenças que cruzem esse mês.</li>
+</ul>
+<p>Para maior precisão em intervalos curtos (dias), prefira a opção "dias" e ignore o valor dos meses.</p>
+
+<h2>Perguntas frequentes (FAQ)</h2>
+<h3>1. Como obtenho a diferença em dias exatos, sem arredondamento?</h3>
+<p>O campo <strong>dias</strong> na calculadora apresenta o valor arredondado (Math.round). Para diferenças exatas, o algoritmo usa milissegundos divididos por 86.400.000, mas o arredondamento pode alterar o resultado em 1 dia para valores próximos de meio dia. Se precisar de precisão ao segundo, esta ferramenta não é a mais adequada; recomenda-se uma calculadora com horas e minutos.</p>
+<h3>2. Posso calcular a diferença entre datas de anos muito distantes, como 1900 e 2100?</h3>
+<p>Sim. O JavaScript que alimenta a calculadora suporta uma vasta gama de anos (aproximadamente 100 milhões de dias antes e depois de 1970). No entanto, lembre-se de que o cálculo de meses e anos baseia-se em médias, e para intervalos muito longos (séculos), pequenas variações devido a anos bissextos podem acumular-se. Para a maioria dos usos comuns, a ferramenta é confiável.</p>
+<h3>3. A calculadora considera corretamente os anos bissextos?</h3>
+<p>Sim. Ao usar o divisor 365,25 para anos, a ferramenta já considera a média de anos bissextos a cada 4 anos. Contudo, para o cálculo de dias individuais, o JavaScript trata automaticamente os anos bissextos (como 2024, 2028), pois utiliza o calendário gregoriano. Assim, a diferença em dias entre 1 de janeiro de 2023 e 1 de janeiro de 2024 será 366 dias, porque 2024 é bissexto.</p>

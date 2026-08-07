@@ -1,46 +1,79 @@
-<section class="long-content">
-<p>Usa la <strong>Wall Tile Calculator</strong> para calcular área con merma (+15%), piezas, cajas de forma rápida y precisa.</p>
-<h2>Cómo funciona el cálculo</h2>
-<p>Los cálculos de construcción parecen sencillos hasta que consideras margen de desperdicio, conversiones de unidades y estándares regionales de materiales. Esta calculadora gestiona esos detalles automáticamente, para que te concentres en la obra y no en las matemáticas.</p>
-<p>Los cálculos de construcción parecen sencillos hasta que consideras margen de desperdicio, conversiones de unidades y estándares regionales de materiales. Esta calculadora gestiona esos detalles automáticamente, para que te concentres en la obra y no en las matemáticas.</p>
-<p>La fórmula detrás de este cálculo es <strong>Calculadora de Azulejo de Pared = f(Área a revestir, Tamaño pieza (lado), Piezas por caja)</strong>. Comprender cómo se obtiene el resultado te ayuda a verificar la salida y detectar errores de entrada.</p>
+<p>Planificar la instalación de azulejos en una pared puede ser complicado si no se calculan bien los materiales. La <strong>Calculadora de Azulejo de Pared</strong> resuelve este problema de forma rápida y precisa, permitiéndote estimar cuántos azulejos, adhesivo y lechada necesitas para tu proyecto. Con solo introducir tres datos básicos, esta herramienta evita compras de más o que falten materiales en mitad de la obra.</p>
 
-<h2>Guía paso a paso para tu proyecto</h2>
-<p>Sigue estos pasos para obtener un resultado fiable:</p>
+<h2>¿Qué hace esta calculadora y cuándo conviene usarla?</h2>
+
+<p>Esta calculadora está diseñada para reformas y construcciones en España, utilizando unidades métricas (metros cuadrados) y siguiendo las convenciones del sector de la construcción. Sirve para calcular tres elementos esenciales:</p>
+<ul>
+<li><strong>Número de azulejos</strong> y cajas necesarias, incluyendo un 15% de margen por recortes y roturas.</li>
+<li><strong>Cantidad de adhesivo</strong> (en kg) para fijar las piezas a la pared.</li>
+<li><strong>Cantidad de lechada</strong> (en kg) para rellenar las juntas entre azulejos.</li>
+</ul>
+<p>Es ideal para cualquier proyecto que implique revestir paredes con azulejos cerámicos, gres porcelánico o baldosas de formato cuadrado: reformas de baños, cocinas, salpicaderos, o incluso paredes decorativas. La usas cuando ya tienes claro el área de la pared (en m²) y conoces las dimensiones del azulejo que vas a instalar.</p>
+
+<h2>Fórmula explicada variable por variable</h2>
+
+<p>La calculadora funciona con una fórmula lógica que desglosamos a continuación para que entiendas de dónde sale cada resultado.</p>
+
+<h3>Variables de entrada</h3>
+<ul>
+<li><strong>area (A)</strong>: Superficie de la pared en metros cuadrados. Ejemplo: 12 m².</li>
+<li><strong>tam_pieza_cm (tam)</strong>: Lado del azulejo en centímetros (por defecto 30 cm). Como los azulejos suelen ser cuadrados, este valor representa tanto el ancho como el alto.</li>
+<li><strong>piezas_por_caja (pxc)</strong>: Número de piezas que trae cada caja comercial (por defecto 10 unidades).</li>
+</ul>
+
+<h3>Cálculos internos</h3>
 <ol>
-<li><strong>Introduce tus datos:</strong> 20 m²; 30 cm; 10 ud — ensure all values use a single consistent unit system.</li>
-<li><strong>La calculadora aplica la fórmula:</strong> <em>Calculadora de Azulejo de Pared = f(Área a revestir, Tamaño pieza (lado), Piezas por caja)</em>.</li>
-<li><strong>Lee tu resultado:</strong> Área con merma (+15%), Piezas, Cajas.</li>
-<li>Verifica: confirma que las unidades sean coherentes y los valores realistas antes de actuar en base al resultado.</li>
+<li><strong>Área con merma (area_merma)</strong>: Se multiplica el área original por 1.15 (el 15% extra). Así: <em>area_merma = A × 1.15</em>. Este margen cubre recortes, piezas rotas y ajustes inevitables.</li>
+<li><strong>Área de una pieza (pieza_m2)</strong>: Se convierte el lado de cm a metros y se calcula el área: <em>(tam/100) × (tam/100)</em>. Por ejemplo, para un azulejo de 30 cm: 0.30 m × 0.30 m = 0.09 m².</li>
+<li><strong>Piezas totales (piezas)</strong>: Se divide el área con merma entre el área de una pieza y se redondea hacia arriba (<em>Math.ceil</em>). Así: <em>piezas = techo(area_merma / pieza_m2)</em>.</li>
+<li><strong>Cajas necesarias (cajas)</strong>: Se divide el número de piezas entre las piezas por caja y se redondea al alza: <em>cajas = techo(piezas / pxc)</em>.</li>
+<li><strong>Adhesivo (adhesivo)</strong>: Se multiplica el área con merma por 4 kg/m² (consumo estándar para azulejos en pared): <em>adhesivo = area_merma × 4</em>.</li>
+<li><strong>Lechada (lechada)</strong>: Se multiplica el área con merma por 0.4 kg/m² (consumo orientativo para juntas de 2-3 mm): <em>lechada = area_merma × 0.4</em>.</li>
 </ol>
 
-<h2>Usos prácticos en la obra</h2>
-<p>Esta calculadora es especialmente útil en las siguientes situaciones:</p>
+<h2>Ejemplos prácticos con números concretos</h2>
+
+<h3>Ejemplo 1: Pared de baño estándar (6 m²)</h3>
+<p>Supón que quieres alicatar una pared de baño de 6 m² con azulejos cuadrados de 25 cm, y cada caja trae 12 piezas.</p>
 <ul>
-<li>problemas matemáticos cotidianos</li><li>presupuesto y planificación</li><li>cocina y mediciones del hogar</li><li>cálculos de viaje y tiempo</li>
+<li>Área con merma: 6 × 1.15 = <strong>6.90 m²</strong></li>
+<li>Área de una pieza: (25/100)² = 0.25 × 0.25 = <strong>0.0625 m²</strong></li>
+<li>Piezas necesarias: techo(6.90 / 0.0625) = techo(110.4) = <strong>111 piezas</strong></li>
+<li>Cajas: techo(111 / 12) = techo(9.25) = <strong>10 cajas</strong></li>
+<li>Adhesivo: 6.90 × 4 = <strong>27.6 kg</strong> (se redondea a 28 kg para pedidos)</li>
+<li>Lechada: 6.90 × 0.4 = <strong>2.76 kg</strong> (un saco de 3 kg suele bastar)</li>
 </ul>
 
-<h2>Cómo aplicar los resultados</h2>
-<p>Tu resultado muestra la cantidad teórica necesaria. Antes de pedir, aplica el factor de merma adecuado al material: 5–10&nbsp;% para hormigón y mortero, 10–15&nbsp;% para azulejo, piedra natural y ladrillo (para cubrir cortes, roturas y encaje de juntas), y 3–5&nbsp;% para acero y madera. Redondea siempre al alza a la siguiente unidad completa — saco, tonelada o palé — para evitar parar la obra por una segunda entrega.</p>
-
-<h2>Normas de construcción y buenas prácticas</h2>
-<p>Los proyectos de construcción dependen de estimaciones precisas de materiales para mantenerse dentro del presupuesto y el cronograma. Pedir demasiado poco detiene la obra y genera entregas de emergencia costosas; pedir demasiado desperdicia dinero y ocupa espacio en el sitio. Los estimadores profesionales suelen añadir un 5–10&nbsp;% de factor de merma sobre la cantidad teórica para cubrir cortes, recortes, roturas y pequeños errores de medición.</p><p>Los cálculos modernos de construcción siguen normas establecidas por organismos como ISO, DIN o UNE, que definen propiedades de materiales, tolerancias y márgenes de diseño. Conocer la norma detrás de una fórmula ayuda a adaptarla cuando las condiciones difieren del caso estándar — por ejemplo, al trabajar con materiales recuperados, dimensiones no estándar o sitios en altitud donde el fraguado del hormigón se comporta de forma diferente.</p>
-
-<h2>Errores comunes a evitar</h2>
+<h3>Ejemplo 2: Pared grande de cocina (15 m²)</h3>
+<p>Ahora imagina un salpicadero de cocina de 15 m², con azulejos de 30 cm y 10 piezas por caja.</p>
 <ul>
-<li>Olvidar añadir un margen de desperdicio (típicamente 5-10%) al pedir materiales — redondear arriba evita una segunda entrega.</li><li>Mezclar unidades métricas e imperiales en el mismo proyecto. Mantén un sistema consistente.</li><li>Medir dimensiones exteriores en vez del área interior — la diferencia importa para suelos y azulejos.</li>
+<li>Área con merma: 15 × 1.15 = <strong>17.25 m²</strong></li>
+<li>Área de una pieza: (30/100)² = 0.30 × 0.30 = <strong>0.09 m²</strong></li>
+<li>Piezas necesarias: techo(17.25 / 0.09) = techo(191.67) = <strong>192 piezas</strong></li>
+<li>Cajas: techo(192 / 10) = techo(19.2) = <strong>20 cajas</strong></li>
+<li>Adhesivo: 17.25 × 4 = <strong>69 kg</strong> (tres sacos de 25 kg aprox.)</li>
+<li>Lechada: 17.25 × 0.4 = <strong>6.9 kg</strong> (redondea a 7 u 8 kg por seguridad)</li>
 </ul>
 
-<h2>Consejo profesional para contratistas</h2>
-<p>Pide un 5-10% más de material de lo que indica tu cálculo para cubrir cortes, roturas y errores de medición. Es más barato que una segunda entrega.</p>
+<h2>Errores comunes al calcular azulejos para pared</h2>
 
-<h2>Preguntas frecuentes</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Cuánto material extra debo pedir?</button><div class="faq-a"><p>La mayoría de profesionales recomiendan pedir un 5-10% más de lo calculado para cubrir cortes, desperdicio y errores de medición. Para piedra natural o azulejo cerámico, el factor de desperdicio puede ser del 10-15%.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Puedo usar esta calculadora con unidades métricas e imperiales?</button><div class="faq-a"><p>Sí. Selecciona tu sistema de unidades preferido en los campos de entrada y la calculadora convierte automáticamente.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Es precisa esta calculadora?</button><div class="faq-a"><p>Sí. La calculadora utiliza la fórmula estándar: Calculadora de Azulejo de Pared = f(Área a revestir, Tamaño pieza (lado), Piezas por caja). Los resultados son matemáticamente exactos; la precisión final depende de los datos que introduzcas.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Puedo usar esta calculadora en el móvil?</button><div class="faq-a"><p>Sí, la calculadora es totalmente responsiva y funciona en cualquier dispositivo. No requiere instalación ni registro.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Cómo guardo o comparto mi cálculo?</button><div class="faq-a"><p>Usa el botón <strong>Compartir</strong> para generar una URL que codifica todos tus datos — quien abra el enlace verá los mismos valores y resultado. El botón <strong>Copiar</strong> copia el texto del resultado para pegarlo en una hoja de cálculo, correo o documento.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Qué hago si el resultado parece incorrecto?</button><div class="faq-a"><p>Primero revisa tus datos: comprueba que los valores estén en las unidades correctas y en un rango realista. Las causas más comunes son la mezcla de unidades métricas e imperiales, dígitos transpuestos o el uso de una calculadora equivocada. Si los datos parecen correctos y el resultado sigue siendo extraño, verifica que la fórmula <em>Calculadora de Azulejo de Pared = f(Área a revestir, Tamaño pieza (lado), Piezas por caja)</em> se aplica exactamente a tu caso.</p></div></div>
-</div>
-</section>
+<p>Incluso con una buena calculadora, algunos fallos frecuentes pueden arruinar la estimación. Evita estos errores:</p>
+<ul>
+<li><strong>No incluir el margen del 15%</strong>: Algunos piensan que solo deben calcular el área exacta, pero los recortes por esquinas, enchufes o desniveles siempre generan pérdidas. El 15% no es un lujo, es una necesidad.</li>
+<li><strong>Confundir unidades</strong>: Introducir el lado del azulejo en metros cuando la calculadora espera centímetros (o viceversa). Revisa siempre que el valor de <em>tam_pieza_cm</em> esté en cm. Si tu azulejo mide 0.30 m, debes escribir 30.</li>
+<li><strong>Omitir el redondeo hacia arriba</strong>: No se pueden comprar fracciones de pieza o de caja. La calculadora ya redondea al alza, pero si haces los cálculos manualmente, recuerda que necesitas números enteros.</li>
+<li><strong>Usar el mismo consumo de adhesivo y lechada para todos los casos</strong>: Los valores de 4 kg/m² para adhesivo y 0.4 kg/m² para lechada son estándar para azulejos de formato medio. Si usas piezas muy grandes (más de 60 cm) o muy pequeñas (menos de 10 cm), el consumo puede variar. Consulta con tu proveedor.</li>
+</ul>
+
+<h2>Preguntas frecuentes (FAQ)</h2>
+
+<h3>¿Por qué se añade un 15% extra de material?</h3>
+<p>El 15% es el margen estándar recomendado por albañiles y fabricantes para cubrir recortes inevitables al ajustar los azulejos a esquinas, bordes, tuberías o tomas de corriente. También compensa posibles roturas durante el transporte o la instalación. Sin este margen, es probable que te falten piezas a mitad del trabajo.</p>
+
+<h3>¿Sirve esta calculadora para azulejos rectangulares o de formato irregular?</h3>
+<p>No directamente. La fórmula está pensada para azulejos cuadrados, ya que pide un solo lado. Para piezas rectangulares, deberías introducir el lado más pequeño como referencia o calcular el área manualmente (largo × ancho en metros) y dividir después entre el área de una pieza. En ese caso, el cálculo de cajas sería orientativo.</p>
+
+<h3>¿Puedo usar la calculadora si el adhesivo se vende en sacos de 20 kg?</h3>
+<p>Sí. La cantidad de adhesivo se indica en kg totales. Una vez que obtengas el resultado, divide entre 20 kg para saber cuántos sacos necesitas. Por ejemplo, si te da 47.5 kg, necesitarás 2 sacos de 20 kg y uno de 10 kg (o 3 sacos de 20 kg si prefieres tener algo de sobra). Lo mismo aplica para la lechada.</p>
+
+<p>La <strong>Calculadora de Azulejo de Pared</strong> te ahorra tiempo, dinero y dolores de cabeza. Con solo tres datos, obtienes una estimación fiable que se ajusta a la realidad de cualquier obra en España. Úsala siempre antes de comprar los materiales y verás cómo tus reformas son más predecibles y eficientes.</p>

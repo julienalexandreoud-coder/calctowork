@@ -1,44 +1,85 @@
-<section class="long-content">
-<p>Utilizza il <strong>Water Supply Connection Calculator</strong> per calcolare caudal m3h, diametro calc mm, diametro normalizado mm in modo rapido e preciso.</p>
-<h2>Come funziona il calcolo</h2>
-<p>Che tu stia pianificando una ristrutturazione, stimando materiali per un cantiere o calcolando dimensioni per un progetto fai-da-te, avere i numeri giusti fin dall'inizio risparmia tempo e denaro.</p>
-<p>La formula alla base di questo calcolo è <strong>Calcolatore Acqua Calda Sanitaria = f(Caudal Lps, Lunghezza M)</strong>. Comprendere come si ottiene il risultato ti aiuta a verificare l'output e a rilevare errori di input.</p>
+<p>Il <strong>Water Supply Connection Calcolatore</strong> è uno strumento pratico e veloce pensato per chi deve progettare o verificare un impianto idrico-sanitario in ambito residenziale o commerciale. Questo calcolatore è specificamente progettato per determinare il diametro ottimale della tubazione di collegamento alla rete idrica, partendo dal fabbisogno giornaliero di acqua calda sanitaria (ACS) e dalla lunghezza della condotta. Utilizzando questo strumento, puoi evitare errori di sovradimensionamento o sottodimensionamento, assicurando portata e pressione adeguate per tutti i punti di erogazione.</p>
 
-<h2>Guida passo dopo passo per il tuo progetto</h2>
-<p>Segui questi passaggi per ottenere un risultato affidabile:</p>
+<h2>Cosa calcola e quando utilizzare il Water Supply Connection Calcolatore</h2>
+<p>Il calcolatore prende in input due parametri fondamentali: la <strong>portata istantanea</strong> richiesta (caudal_lps, in litri al secondo) e la <strong>lunghezza della tubazione</strong> (longitud_m, in metri). In base a questi dati, lo strumento calcola il diametro teorico del tubo necessario e lo arrotonda al diametro commerciale normalizzato più vicino (20, 25, 32, 40 o 50 mm). Questo è utile in diverse fasi del progetto:</p>
+<ul>
+<li><strong>Progettazione di nuovi impianti:</strong> durante la fase di dimensionamento della rete idrica, per calcolare il diametro del tubo di collegamento tra il contatore e l'impianto interno.</li>
+<li><strong>Ristrutturazioni e ampliamenti:</strong> se si aggiungono nuovi bagni, cucine o elettrodomestici che consumano ACS, per verificare se la tubazione esistente è sufficiente.</li>
+<li><strong>Verifica di conformità:</strong> per controllare che il diametro scelto rispetti le norme tecniche italiane (UNI 9182) e le esigenze di portata minima per ogni apparecchio.</li>
+</ul>
+<p>In pratica, lo strumento è indicato per idraulici, progettisti, termotecnici e privati che vogliono una stima rapida del diametro della tubazione di alimentazione dell'acqua calda sanitaria.</p>
+
+<h2>Spiegazione della formula: variabili e logica di calcolo</h2>
+<p>Il calcolatore utilizza una sequenza di passaggi matematici che partono dalla portata e dalla lunghezza per arrivare al diametro normalizzato. Ecco come funziona, variabile per variabile:</p>
+<ul>
+<li><strong>Q (caudal_lps)</strong>: è la portata istantanea richiesta, espressa in litri al secondo. Questo valore deve essere calcolato sommando le portate di tutti i punti di erogazione che possono funzionare contemporaneamente (ad esempio, doccia, lavandino, bidet). Un valore tipico per una casa con 2 bagni è 0,3-0,5 l/s.</li>
+<li><strong>L (longitud_m)</strong>: è la lunghezza della tubazione in metri dal punto di connessione alla rete (generalmente il contatore) fino all'ultimo punto di prelievo della ACS. Il valore predefinito è 15 m, ma può essere modificato in base al progetto.</li>
+<li><strong>v</strong>: è la velocità dell'acqua all'interno del tubo, fissata a <strong>1,5 m/s</strong>. Questo valore è un compromesso tra limitare le perdite di carico e ridurre il rumore dell'acqua che scorre.</li>
+<li><strong>A_m²</strong>: rappresenta l'area della sezione trasversale del tubo in metri quadrati, calcolata con la formula della portata Q = v * A. Quindi A_m2 = (Q in m³/s) / v. Poiché Q è in l/s, lo dividiamo per 1000 per convertirlo in m³/s.</li>
+<li><strong>D_m</strong>: è il diametro teorico in metri, ricavato dalla formula inversa dell'area del cerchio: D = sqrt(4*A/π).</li>
+<li><strong>D_mm</strong>: è il diametro teorico convertito in millimetri, arrotondato a un decimale.</li>
+<li><strong>D_norm</strong>: è il diametro normalizzato, cioè il diametro commerciale standard più vicino al valore calcolato (per eccesso). I diametri disponibili sono: 20 mm, 25 mm, 32 mm, 40 mm, 50 mm. Se il diametro calcolato è inferiore a 20 mm, si adotta comunque 20 mm come minimo.</li>
+</ul>
+<p><strong>Output del calcolatore:</strong></p>
+<ul>
+<li><strong>caudal_m3h</strong>: portata in metri cubi all'ora (Q * 3,6). Utile per dimensionare il boiler o lo scambiatore di calore.</li>
+<li><strong>diametro_calc_mm</strong>: diametro teorico calcolato (con un decimale).</li>
+<li><strong>diametro_normalizzato_mm</strong>: il diametro del tubo da acquistare, secondo le misure standard di mercato.</li>
+</ul>
+
+<h2>Esempi pratici di calcolo con numeri concreti</h2>
+<p>Vediamo due esempi tipici per una casa italiana, con ipotesi di portata e lunghezza realistiche.</p>
+
+<h3>Esempio 1: Appartamento con due bagni e cucina</h3>
+<p><strong>Dati di input:</strong></p>
+<ul>
+<li>Portata istantanea ACS (Q): 0,4 l/s (calcolata considerando una doccia da 0,2 l/s, un lavabo da 0,1 l/s e un lavello da 0,1 l/s in contemporanea).</li>
+<li>Lunghezza tubazione (L): 20 metri.</li>
+</ul>
+<p><strong>Calcoli passo passo:</strong></p>
 <ol>
-<li><strong>Inserisci i tuoi valori:</strong> 0.5 L/s; 15 m — ensure all values use a single consistent unit system.</li>
-<li><strong>La calcolatrice applica la formula:</strong> <em>Calcolatore Acqua Calda Sanitaria = f(Caudal Lps, Lunghezza M)</em>.</li>
-<li><strong>Leggi il tuo risultato:</strong> Caudal M3H, Diametro Calc Mm, Diametro Normalizado Mm.</li>
-<li>Verificate: confermate che le unità siano coerenti e i valori realistici prima di agire sul risultato.</li>
+<li>Portata in m³/s: Q = 0,4 / 1000 = 0,0004 m³/s.</li>
+<li>Velocità v = 1,5 m/s.</li>
+<li>Area A = 0,0004 / 1,5 = 0,0002667 m².</li>
+<li>Diametro D = sqrt(4 * 0,0002667 / π) = sqrt(0,0003395) = 0,01843 m = 18,4 mm.</li>
+<li>Diametro in mm = 18,4 mm → arrotondato a 18,4 mm.</li>
+<li>Diametro normalizzato: 18,4 ≤ 20 → viene scelto 20 mm.</li>
 </ol>
+<p><strong>Risultato finale:</strong> per un appartamento con 2 bagni e cucina, con tubazione di 20 m, il calcolatore fornisce un diametro normalizzato di <strong>20 mm</strong> (tubo da 3/4 di pollice circa) e una portata oraria di <strong>1,44 m³/h</strong>. Questo è sufficiente per la maggior parte degli usi domestici.</p>
 
-<h2>Usi pratici in cantiere</h2>
-<p>Questa calcolatrice è particolarmente utile nelle seguenti situazioni:</p>
+<h3>Esempio 2: Piccola palestra con spogliatoi e docce multiple</h3>
+<p><strong>Dati di input:</strong></p>
 <ul>
-<li>problemi matematici quotidiani</li><li>budget e pianificazione</li><li>cucina e misurazioni domestiche</li><li>calcoli di viaggio e tempo</li>
+<li>Portata istantanea ACS (Q): 1,2 l/s (supponendo 3 docce da 0,3 l/s ciascuna più 2 lavabi da 0,15 l/s).</li>
+<li>Lunghezza tubazione (L): 30 metri.</li>
+</ul>
+<p><strong>Calcoli passo passo:</strong></p>
+<ol>
+<li>Q = 1,2 / 1000 = 0,0012 m³/s.</li>
+<li>Area A = 0,0012 / 1,5 = 0,0008 m².</li>
+<li>Diametro D = sqrt(4 * 0,0008 / π) = sqrt(0,0010186) = 0,03192 m = 31,9 mm.</li>
+<li>Diametro in mm = 31,9 mm.</li>
+<li>Diametro normalizzato: 31,9 > 32? No, 31,9 è minore di 32, ma il calcolatore usa una scala di confronto: se ≤32, si sceglie 32 millimetri? Attenzione: la formula funziona in modo che se D_mm è compreso tra 25 e 32, il valore normalizzato sarà 32 mm (perché 31,9 è maggiore di 25 e minore di 32, quindi viene arrotondato a 32). In realtà, il codice imposta: D_norm = D_mm <= 20 ? 20 : D_mm <= 25 ? 25 : D_mm <= 32 ? 32 : D_mm <= 40 ? 40 : 50. Quindi per 31,9, D_norm è 32.</li>
+</ol>
+<p><strong>Risultato finale:</strong> per un impianto con portata di 1,2 l/s e lunghezza 30 m, il diametro normalizzato è <strong>32 mm</strong> (1 pollice e 1/4 circa) e la portata oraria è di <strong>4,32 m³/h</strong>. Questo diametro è adeguato per evitare perdite di carico eccessive.</p>
+
+<h2>Errori comuni da evitare nel dimensionamento della tubazione</h2>
+<p>Utilizzare un calcolatore è semplice, ma ci sono insidie frequenti che possono compromettere il risultato:</p>
+<ul>
+<li><strong>Sottostimare la portata contemporanea:</strong> molti utenti inseriscono la portata massima di un solo apparecchio, dimenticando che in cucina e in bagno si possono usare più rubinetti insieme. Il consiglio è di considerare almeno 2-3 punti di prelievo contemporanei per uso domestico.</li>
+<li><strong>Ignorare la lunghezza reale della tubazione:</strong> la lunghezza non è solo la distanza lineare, ma deve includere lo sviluppo verticale e le curve. Se la tubazione è molto lunga (oltre 50 m), il diametro calcolato potrebbe essere insufficiente e sarebbe consigliabile aumentare la velocità massima o aggiungere un secondo tubo.</li>
+<li><strong>Confondere litri al secondo con litri al minuto:</strong> il calcolatore richiede litri al secondo (l/s). Un rubinetto standard ha una portata di 0,1-0,2 l/s, mentre molti pensano in l/min (ad esempio, 12 l/min = 0,2 l/s). Verifica sempre l'unità di misura.</li>
+<li><strong>Non considerare le perdite di carico localizzate:</strong> la formula qui utilizzata è semplificata e non tiene conto di curve, valvole o riduzioni. In impianti complessi, è consigliabile verificare con un calcolo idraulico più dettagliato (ad esempio con il metodo di Darcy-Weisbach).</li>
+<li><strong>Arrotondare al diametro inferiore per risparmiare:</strong> se il diametro calcolato è di 24,5 mm, non si può usare un tubo da 20 mm perché la velocità supererebbe 1,5 m/s, causando rumore e usura precoce. Seguire sempre il diametro normalizzato superiore.</li>
 </ul>
 
-<h2>Come applicare i risultati</h2>
-<p>Il tuo risultato mostra la quantità teoricamente richiesta. Prima di ordinare, applica il fattore di scarto appropriato: 5–10&nbsp;% per calcestruzzo e malta, 10–15&nbsp;% per piastrelle, pietra naturale e mattoni, e 3–5&nbsp;% per acciaio e legname. Arrotonda sempre all'unità intera superiore — sacco, tonnellata o pallet.</p>
+<h2>Domande frequenti sul Water Supply Connection Calcolatore</h2>
 
-<h2>Norme di costruzione e buone pratiche</h2>
-<p>I progetti di costruzione dipendono da stime precise dei materiali. I professionisti aggiungono tipicamente il 5–10&nbsp;% di tolleranza per sfridi, rotture ed errori di misura. Le norme ISO, EN e UNI definiscono le proprietà dei materiali e le tolleranze alla base di queste formule.</p>
+<h3>1. Il calcolatore è adatto anche per l'acqua fredda?</h3>
+<p>Il calcolatore è stato progettato per l'acqua calda sanitaria (ACS), ma in linea di principio la formula è valida anche per l'acqua fredda. Tuttavia, per l'acqua fredda si possono ammettere velocità leggermente superiori (fino a 2,0 m/s) perché non c'è rischio di scottature o problemi di deposito di calcare. In caso di acqua fredda, il diametro calcolato potrebbe essere ridotto, ma per sicurezza si consiglia di utilizzare lo stesso valore per tutta la rete.</p>
 
-<h2>Errori comuni da evitare</h2>
-<ul>
-<li>Dimenticare di aggiungere un margine di scarto (5-10%) nell'ordine dei materiali.</li><li>Mescolare unità metriche e imperiali nello stesso progetto.</li>
-</ul>
+<h3>2. Cosa fare se il diametro normalizzato non corrisponde a nessun tubo disponibile in commercio?</h3>
+<p>I diametri normalizzati di 20, 25, 32, 40 e 50 mm coprono quasi tutte le esigenze di impianti domestici e commerciali. Se hai un diametro calcolato di 18 mm, puoi comunque usare un tubo da 20 mm senza problemi. Per diametri superiori a 50 mm (ad esempio per condomini), si devono utilizzare tubi di diametro maggiore, ma in questo caso il calcolatore va utilizzato solo come riferimento iniziale.</p>
 
-<h2>Consiglio professionale per appaltatori</h2>
-<p>Ordina il 5-10% in più di materiale rispetto al calcolo per coprire tagli, rotture ed errori di misura.</p>
-
-<h2>Domande frequenti</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Quanto materiale extra devo ordinare?</button><div class="faq-a"><p>La maggior parte dei professionisti raccomanda di ordinare il 5-10% in più rispetto al calcolato per coprire tagli e sprechi.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Questa calcolatrice è precisa?</button><div class="faq-a"><p>Sì. La calcolatrice usa la formula standard: Calcolatore Acqua Calda Sanitaria = f(Caudal Lps, Lunghezza M). I risultati sono matematicamente esatti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Posso usare questa calcolatrice sul telefono?</button><div class="faq-a"><p>Sì, la calcolatrice è completamente responsive e funziona su qualsiasi dispositivo. Nessuna installazione richiesta.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Come salvo o condivido il mio calcolo?</button><div class="faq-a"><p>Usa il pulsante <strong>Condividi</strong> per generare un URL con tutti i tuoi dati. Il pulsante <strong>Copia</strong> copia il risultato negli appunti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cosa fare se il risultato sembra sbagliato?</button><div class="faq-a"><p>Controlla prima i tuoi dati: valori nelle unità corrette e intervallo realistico. Verifica anche che la formula <em>Calcolatore Acqua Calda Sanitaria = f(Caudal Lps, Lunghezza M)</em> si applichi esattamente alla tua situazione.</p></div></div>
-</div>
-</section>
+<h3>3. Quanto è preciso il calcolatore rispetto a un software professionale?</h3>
+<p>Il calcolatore fornisce una stima rapida basata su una formula semplificata con velocità fissa di 1,5 m/s. Per impianti molto lunghi o con molti punti di prelievo, è necessario eseguire un calcolo delle perdite di carico che consideri anche il materiale del tubo (PVC, rame, acciaio) e le perdite localizzate. In ogni caso, questo strumento è eccellente per un primo dimensionamento e per evitare errori grossolani.</p>

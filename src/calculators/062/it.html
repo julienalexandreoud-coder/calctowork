@@ -1,44 +1,81 @@
-<section class="long-content">
-<p>Utilizza il <strong>Interior Door Calculator</strong> per calcolare m2 hoja, m2 total hojas, marcos ud in modo rapido e preciso.</p>
-<h2>Come funziona il calcolo</h2>
-<p>Che tu stia pianificando una ristrutturazione, stimando materiali per un cantiere o calcolando dimensioni per un progetto fai-da-te, avere i numeri giusti fin dall'inizio risparmia tempo e denaro.</p>
-<p>La formula alla base di questo calcolo è <strong>Calcolatore Perline/Perlinato = f(Num Puertas, Larghezza M, Alto M)</strong>. Comprendere come si ottiene il risultato ti aiuta a verificare l'output e a rilevare errori di input.</p>
+<p>L’Interior Door Calcolatore è uno strumento online progettato per chiunque debba rivestire porte interne con tavole di perlinato. Grazie a questo calcolatore, puoi ottenere immediatamente il numero di doghe necessarie, la metratura totale delle ante e le quantità di ferramenta come maniglie, marcos e cerniere, evitando errori di calcolo e sprechi di materiale.</p>
 
-<h2>Guida passo dopo passo per il tuo progetto</h2>
-<p>Segui questi passaggi per ottenere un risultato affidabile:</p>
-<ol>
-<li><strong>Inserisci i tuoi valori:</strong> 8 ud; 0.82 m; 2.03 m — ensure all values use a single consistent unit system.</li>
-<li><strong>La calcolatrice applica la formula:</strong> <em>Calcolatore Perline/Perlinato = f(Num Puertas, Larghezza M, Alto M)</em>.</li>
-<li><strong>Leggi il tuo risultato:</strong> M2 Hoja, M2 Total Hojas, Marcos Ud.</li>
-<li>Verificate: confermate che le unità siano coerenti e i valori realistici prima di agire sul risultato.</li>
-</ol>
+<h2>Cos’è l’Interior Door Calcolatore e quando utilizzarlo</h2>
 
-<h2>Usi pratici in cantiere</h2>
-<p>Questa calcolatrice è particolarmente utile nelle seguenti situazioni:</p>
+<p>L’Interior Door Calcolatore nasce per semplificare la fase di preventivazione e acquisto dei materiali per rivestire porte interne con perlinato. Quando si ristruttura una casa o si arreda un ufficio, spesso si scelgono pannelli in legno o MDF per rivestire le ante delle porte, ma calcolare a mano le quantità di tavole, la metratura e gli accessori può portare a errori. Questo strumento è utile in particolare per:</p>
+
 <ul>
-<li>problemi matematici quotidiani</li><li>budget e pianificazione</li><li>cucina e misurazioni domestiche</li><li>calcoli di viaggio e tempo</li>
+<li>Falegnami e artigiani che devono preparare un preventivo rapido per un cliente.</li>
+<li>Privati che desiderano ordinare il materiale per un progetto fai-da-te.</li>
+<li>Progettisti d’interni che vogliono confrontare diversi scenari di rivestimento.</li>
+<li>Rivenditori di materiali edili che assistono il cliente nella scelta della quantità giusta.</li>
 </ul>
 
-<h2>Come applicare i risultati</h2>
-<p>Il tuo risultato mostra la quantità teoricamente richiesta. Prima di ordinare, applica il fattore di scarto appropriato: 5–10&nbsp;% per calcestruzzo e malta, 10–15&nbsp;% per piastrelle, pietra naturale e mattoni, e 3–5&nbsp;% per acciaio e legname. Arrotonda sempre all'unità intera superiore — sacco, tonnellata o pallet.</p>
+<p>Lo strumento accetta tre input fondamentali: il numero di porte (<em>num_puertas</em>), la larghezza dell’anta in metri (<em>ancho_m</em>) e l’altezza dell’anta in metri (<em>alto_m</em>). I valori predefiniti per larghezza e altezza (0,825 m e 2,03 m) corrispondono alle dimensioni standard di una porta interna italiana, ma possono essere modificati per adattarsi a misure fuori standard.</p>
 
-<h2>Norme di costruzione e buone pratiche</h2>
-<p>I progetti di costruzione dipendono da stime precise dei materiali. I professionisti aggiungono tipicamente il 5–10&nbsp;% di tolleranza per sfridi, rotture ed errori di misura. Le norme ISO, EN e UNI definiscono le proprietà dei materiali e le tolleranze alla base di queste formule.</p>
+<h2>Formula spiegata variabile per variabile</h2>
 
-<h2>Errori comuni da evitare</h2>
+<p>Il calcolatore utilizza una serie di passaggi logici basati su geometria e proporzioni standard. Ecco come viene calcolato ogni risultato:</p>
+
 <ul>
-<li>Dimenticare di aggiungere un margine di scarto (5-10%) nell'ordine dei materiali.</li><li>Mescolare unità metriche e imperiali nello stesso progetto.</li>
+<li><strong>num_puertas (n)</strong>: numero di ante da rivestire. Se non viene inserito, il calcolatore restituisce un errore.</li>
+<li><strong>ancho_m (W)</strong> e <strong>alto_m (H)</strong>: larghezza e altezza di ogni anta in metri. Valori predefiniti rispettivamente 0,825 m e 2,03 m.</li>
+<li><strong>m2_ud</strong>: superficie di una singola anta, calcolata come W x H. Ad esempio, con i valori standard: 0,825 * 2,03 = 1,67 m² (arrotondato a due decimali).</li>
+<li><strong>m2_tot</strong>: superficie totale di tutte le ante, ovvero (W * H) * n. Per 3 porte standard: 1,67 * 3 = 5,01 m².</li>
+<li><strong>marcos_ud (marcos)</strong>: numero di telai o marcos necessari. Corrisponde a n, perché ogni porta richiede un telaio.</li>
+<li><strong>tiradores</strong>: maniglie per le ante. Il calcolo prevede 2 maniglie per porta, quindi n * 2.</li>
+<li><strong>bisagras</strong>: numero di cerniere. Si calcola arrotondando per eccesso il rapporto altezza / 0,3 metri. Per un’anta alta 2,03 m: Math.ceil(2,03 / 0,3) = 7 cerniere per porta, poi moltiplicato per n.</li>
+<li><strong>perimetro</strong>: perimetro di ogni anta maggiorato del 5% per sfridi e tagli. La formula è: 2 * (W + H) * 1,05 * n. Per una porta standard: 2 * (0,825 + 2,03) = 5,71 m, con il 5% di margine diventa 5,995 m per porta.</li>
+<li><strong>cerco</strong>: quantità di legno per il cerchio (listello di battuta), pari al 7% del perimetro totale. Serve per compensare le perdite durante la lavorazione.</li>
 </ul>
 
-<h2>Consiglio professionale per appaltatori</h2>
-<p>Ordina il 5-10% in più di materiale rispetto al calcolo per coprire tagli, rotture ed errori di misura.</p>
+<h2>Due esempi pratici con numeri concreti</h2>
 
-<h2>Domande frequenti</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Quanto materiale extra devo ordinare?</button><div class="faq-a"><p>La maggior parte dei professionisti raccomanda di ordinare il 5-10% in più rispetto al calcolato per coprire tagli e sprechi.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Questa calcolatrice è precisa?</button><div class="faq-a"><p>Sì. La calcolatrice usa la formula standard: Calcolatore Perline/Perlinato = f(Num Puertas, Larghezza M, Alto M). I risultati sono matematicamente esatti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Posso usare questa calcolatrice sul telefono?</button><div class="faq-a"><p>Sì, la calcolatrice è completamente responsive e funziona su qualsiasi dispositivo. Nessuna installazione richiesta.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Come salvo o condivido il mio calcolo?</button><div class="faq-a"><p>Usa il pulsante <strong>Condividi</strong> per generare un URL con tutti i tuoi dati. Il pulsante <strong>Copia</strong> copia il risultato negli appunti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cosa fare se il risultato sembra sbagliato?</button><div class="faq-a"><p>Controlla prima i tuoi dati: valori nelle unità corrette e intervallo realistico. Verifica anche che la formula <em>Calcolatore Perline/Perlinato = f(Num Puertas, Larghezza M, Alto M)</em> si applichi esattamente alla tua situazione.</p></div></div>
-</div>
-</section>
+<h3>Esempio 1: tre porte standard</h3>
+<p>Supponiamo di dover rivestire 3 porte interne, ciascuna con larghezza 0,825 m e altezza 2,03 m (misure italiane tipiche). Inserendo questi dati nel calcolatore:</p>
+<ul>
+<li>superficie di una porta: 0,825 * 2,03 = 1,67 m²</li>
+<li>superficie totale: 1,67 * 3 = 5,01 m²</li>
+<li>marcos: 3</li>
+<li>maniglie: 3 * 2 = 6</li>
+<li>cerniere: Math.ceil(2,03 / 0,3) = 7 per porta → 7 * 3 = 21</li>
+<li>perimetro totale con margine: 2 * (0,825 + 2,03) * 1,05 * 3 = 2 * 2,855 * 1,05 * 3 = 17,99 m</li>
+<li>cerchio (listelli): 17,99 * 0,07 = 1,26 m</li>
+</ul>
+<p>Questo significa che per tre porte dovrai acquistare circa 5 metri quadri di perlinato, 6 maniglie, 21 cerniere e circa 18 metri di listelli per il telaio, con quasi 1,3 metri di materiale extra per il cerchio.</p>
+
+<h3>Esempio 2: una porta fuori standard per un bagno</h3>
+<p>Immaginiamo una porta singola per un bagno, larga 0,70 m e alta 2,10 m. Inseriamo i dati: <em>num_puertas</em> = 1, <em>ancho_m</em> = 0,70, <em>alto_m</em> = 2,10.</p>
+<ul>
+<li>superficie di una porta: 0,70 * 2,10 = 1,47 m²</li>
+<li>superficie totale: 1,47 m²</li>
+<li>marcos: 1</li>
+<li>maniglie: 2</li>
+<li>cerniere: Math.ceil(2,10 / 0,3) = 7</li>
+<li>perimetro con margine: 2 * (0,70 + 2,10) * 1,05 = 2 * 2,80 * 1,05 = 5,88 m</li>
+<li>cerchio: 5,88 * 0,07 = 0,41 m</li>
+</ul>
+<p>In questo caso ti serviranno circa 1,5 m² di perlinato, 2 maniglie, 7 cerniere e poco più di mezzo metro di listelli per il cerchio. Nota come il numero di cerniere sia rimasto 7 nonostante l’altezza maggiore, perché il calcolo arrotonda all’intero superiore in base all’altezza.</p>
+
+<h2>Errori comuni nell’uso del calcolatore</h2>
+
+<p>Anche se lo strumento è semplice, alcuni errori possono falsare i risultati. Ecco i più frequenti:</p>
+
+<ul>
+<li><strong>Dimenticare di inserire il numero di porte</strong>: se il campo <em>num_puertas</em> viene lasciato vuoto o impostato a zero, il calcolatore restituisce un errore. Controlla sempre di aver inserito almeno 1.</li>
+<li><strong>Confondere larghezza e altezza</strong>: la larghezza (<em>ancho_m</em>) è la misura orizzontale, l’altezza (<em>alto_m</em>) è quella verticale. Invertirle porta a una superficie corretta, ma il calcolo del perimetro e delle cerniere sarebbe sbagliato perché il rapporto cambia.</li>
+<li><strong>Usare unità non metriche</strong>: il calcolatore accetta solo metri. Se inserisci centimetri (ad esempio 82,5 invece di 0,825), la superficie diventa irrealistica (82,5 * 2,03 = 167,47 m² per una singola porta).</li>
+<li><strong>Non considerare lo scarto di lavorazione</strong>: il margine del 5% sul perimetro e il 7% per il cerchio sono valori minimi consigliati. Se il tuo progetto prevede tagli complessi o materiale di recupero, potrebbe essere prudente aumentare fino al 10-15%.</li>
+<li><strong>Dimenticare che le cerniere sono stimate</strong>: il calcolo delle cerniere (Math.ceil(H / 0,3) * n) è una stima pratica. Per ante molto pesanti o in ambienti umidi (come un bagno), potrebbero servire cerniere aggiuntive (ad esempio 8 o 9 per porta).</li>
+</ul>
+
+<h2>Domande frequenti (FAQ)</h2>
+
+<h3>Il calcolatore include anche il costo in euro?</h3>
+<p>No, l’Interior Door Calcolatore non calcola il costo economico. Fornisce solo quantità fisiche (metri quadri, pezzi di ferramenta, metri lineari). Per ottenere il costo totale dovrai moltiplicare ogni quantità per il prezzo unitario del materiale scelto (perlinato, cerniere, maniglie).</p>
+
+<h3>Posso usare il calcolatore per porte scorrevoli o a libro?</h3>
+<p>Il calcolatore è ottimizzato per porte batienti standard. Per porte scorrevoli o a libro le misure e il numero di telai/cerniere possono variare: ad esempio, una porta a libro necessita di due ante e di un numero diverso di cerniere. In questi casi i risultati vanno interpretati con cautela, meglio rivolgersi a un professionista.</p>
+
+<h3>Quale spessore di perlinato devo scegliere per il rivestimento?</h3>
+<p>Il calcolatore non specifica lo spessore perché dipende dal tipo di perlinato (MDF, legno massello, compensato). In generale, per rivestimento di porte interne si usano tavole da 8 a 12 mm di spessore. Ricorda che lo spessore influenza la quantità di listelli per il cerchio e la robustezza del telaio.</p>

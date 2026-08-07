@@ -1,46 +1,71 @@
-<section class="long-content">
-<p>Usa la <strong>Wooden Staircase Calculator</strong> para calcular número de peldaños, huella (cm), longitud de zanca de forma rápida y precisa.</p>
-<h2>Cómo funciona el cálculo</h2>
-<p>Ya estés planificando una reforma, estimando materiales para una obra o calculando dimensiones para un proyecto DIY, tener los datos correctos desde el principio ahorra tiempo y dinero. Esta herramienta te da resultados instantáneos y fiables para pedir materiales con confianza y evitar sobrecostes.</p>
-<p>Los cálculos de construcción parecen sencillos hasta que consideras margen de desperdicio, conversiones de unidades y estándares regionales de materiales. Esta calculadora gestiona esos detalles automáticamente, para que te concentres en la obra y no en las matemáticas.</p>
-<p>La fórmula detrás de este cálculo es <strong>Calculadora de Escalera de Madera = f(Altura total a salvar, Ancho de escalera, Contrahuella deseada)</strong>. Comprender cómo se obtiene el resultado te ayuda a verificar la salida y detectar errores de entrada.</p>
+<p>La <strong>Calculadora de Escalera de Madera</strong> es una herramienta gratuita diseñada para arquitectos, carpinteros y aficionados al bricolaje que necesitan calcular con precisión los componentes de una escalera de madera. Con esta calculadora online, puedes obtener al instante el número de peldaños, la huella (profundidad) de cada escalón y la longitud de las zancas, ahorrando horas de cálculos manuales y evitando errores costosos en tus proyectos de construcción o reforma en España.</p>
 
-<h2>Guía paso a paso para tu proyecto</h2>
-<p>Sigue estos pasos para obtener un resultado fiable:</p>
+<h2>¿Qué calcula esta herramienta y cuándo usarla?</h2>
+<p>La <strong>Calculadora de Escalera de Madera</strong> resuelve tres parámetros esenciales para diseñar cualquier escalera recta de un solo tramo. En primer lugar, determina el número exacto de <strong>peldaños</strong> necesarios para salvar una altura total (desde el suelo de la planta baja hasta el suelo de la planta superior). En segundo lugar, calcula la <strong>huella</strong>, que es la profundidad horizontal de cada escalón, ajustándola a la normativa de confort (la conocida fórmula de la contrahuella ideal). Por último, obtiene la longitud de las <strong>zancas</strong>, que son las vigas inclinadas que sostienen los escalones.</p>
+<p>Debes usar esta calculadora siempre que estés planificando una escalera de madera para una vivienda, un altillo, un porche o cualquier espacio interior. Es especialmente útil cuando trabajas con metros y centímetros (sistema métrico) y quieres seguir las recomendaciones de la normativa española de habitabilidad, que sugiere contrahuellas de entre 16 y 18,5 cm y huellas de al menos 28 cm. La herramienta evita que tengas que hacer complejas raíces cuadradas o despejar fórmulas manualmente.</p>
+
+<h2>La fórmula explicada variable por variable</h2>
+<p>Para entender qué hace la calculadora, es importante conocer cada variable que interviene. El código interno utiliza estas entradas:</p>
+<ul>
+<li><strong>altura_total_m (H):</strong> Es la altura total que debe salvar la escalera, expresada en metros. Por ejemplo, si la distancia entre el suelo de la planta baja y el de la primera planta es de 2,70 metros, introduces 2.7.</li>
+<li><strong>ancho_m (W):</strong> Es el ancho útil de la escalera, también en metros. El valor por defecto es 0,9 m (90 cm), que es el ancho mínimo recomendado para escaleras de uso privado en España.</li>
+<li><strong>contrahuella_cm (ch):</strong> Es la altura deseada para cada contrahuella (la parte vertical del escalón), expresada en centímetros. El valor por defecto es 18 cm, que es el estándar más común.</li>
+</ul>
+<p>A partir de estos datos, el cálculo sigue estos pasos:</p>
 <ol>
-<li><strong>Introduce tus datos:</strong> 2.8 m; 0.9 m; 18 cm — ensure all values use a single consistent unit system.</li>
-<li><strong>La calculadora aplica la fórmula:</strong> <em>Calculadora de Escalera de Madera = f(Altura total a salvar, Ancho de escalera, Contrahuella deseada)</em>.</li>
-<li><strong>Lee tu resultado:</strong> Número de peldaños, Huella (cm), Longitud de zanca.</li>
-<li>Verifica: confirma que las unidades sean coherentes y los valores realistas antes de actuar en base al resultado.</li>
+<li><strong>Peldaños:</strong> La calculadora convierte la altura total a centímetros (H * 100) y la divide entre la contrahuella deseada (<strong>ch</strong>). Luego redondea hacia arriba con <strong>Math.ceil</strong> para garantizar que la escalera llegue exactamente al nivel superior. Por ejemplo, si H = 2,7 m y ch = 18 cm, hace (270 / 18) = 15, y como es exacto, el resultado es 15 peldaños.</li>
+<li><strong>Huella:</strong> Aplica la "fórmula del paso" (<strong>63 - contrahuella</strong>). Esta fórmula, muy extendida en España, establece que la suma de dos contrahuellas más una huella debe estar entre 63 y 65 cm. Para cumplirla, la calculadora resta la contrahuella de 63. Por ejemplo, si la contrahuella es 18 cm, la huella será 63 - 18 = 45 cm. Si el resultado no es un número entero, lo redondea a cero decimales (<strong>.toFixed(0)</strong>).</li>
+<li><strong>Zanca:</strong> Calcula la longitud de la zanca usando el teorema de Pitágoras. La hipotenusa es la raíz cuadrada de (altura total al cuadrado + recorrido horizontal al cuadrado). El recorrido horizontal se obtiene multiplicando el número de peldaños por la huella (en metros). El resultado se redondea a dos decimales (<strong>.toFixed(2)</strong>).</li>
+<li><strong>Contrahuella final:</strong> Como el redondeo de peldaños puede alterar ligeramente la altura de cada contrahuella, la calculadora ajusta este valor (<strong>H * 100 / peldaños</strong>) para que la suma de todas las contrahuellas sea exactamente la altura total.</li>
 </ol>
 
-<h2>Usos prácticos en la obra</h2>
-<p>Esta calculadora es especialmente útil en las siguientes situaciones:</p>
+<h2>Ejemplos prácticos con números concretos</h2>
+<p>A continuación, dos ejemplos típicos para una vivienda en España. Todos los resultados se expresan en metros o centímetros según corresponda.</p>
+
+<h3>Ejemplo 1: Escalera estándar para una altura de 2,70 m</h3>
+<p>Imagina que quieres construir una escalera de madera para salvar una altura de 2,70 metros, con un ancho de 0,90 m y una contrahuella deseada de 18 cm.</p>
+<table>
+<tr><th>Variable</th><th>Valor introducido</th><th>Resultado calculado</th></tr>
+<tr><td>altura_total_m</td><td>2.70</td><td>--</td></tr>
+<tr><td>ancho_m</td><td>0.90</td><td>--</td></tr>
+<tr><td>contrahuella_cm</td><td>18</td><td>--</td></tr>
+<tr><td>Peldaños</td><td>--</td><td>15</td></tr>
+<tr><td>Huella</td><td>--</td><td>45 cm</td></tr>
+<tr><td>Zanca</td><td>--</td><td>6,75 m</td></tr>
+<tr><td>Contrahuella final</td><td>--</td><td>18,0 cm</td></tr>
+</table>
+<p><strong>Interpretación:</strong> Necesitarás 15 peldaños con una huella de 45 cm. La zanca deberá tener 6,75 metros de longitud. El metro cuadrado de cada peldaño es 0,405 m² (ancho 0,9 m por huella 0,45 m), y la superficie total de madera para los peldaños es de 6,08 m². Dado que la contrahuella final coincide con la deseada, no hay ajuste que hacer.</p>
+
+<h3>Ejemplo 2: Altura de 2,60 m con contrahuella personalizada</h3>
+<p>Ahora supón que tu altura total es de 2,60 m, el ancho sigue siendo 0,90 m, pero prefieres una contrahuella de 17 cm para que los escalones sean más bajos y cómodos.</p>
+<table>
+<tr><th>Variable</th><th>Valor introducido</th><th>Resultado calculado</th></tr>
+<tr><td>altura_total_m</td><td>2.60</td><td>--</td></tr>
+<tr><td>ancho_m</td><td>0.90</td><td>--</td></tr>
+<tr><td>contrahuella_cm</td><td>17</td><td>--</td></tr>
+<tr><td>Peldaños</td><td>--</td><td>16</td></tr>
+<tr><td>Huella</td><td>--</td><td>46 cm</td></tr>
+<tr><td>Zanca</td><td>--</td><td>7,59 m</td></tr>
+<tr><td>Contrahuella final</td><td>--</td><td>16,3 cm</td></tr>
+</table>
+<p><strong>Interpretación:</strong> Al poner 16 peldaños (por el redondeo hacia arriba necesario para que la escalera llegue exactamente al nivel superior), la contrahuella final se ajusta a 16,25 cm (redondeado a 16,3 en la tabla). Esto es incluso mejor que la contrahuella deseada, ya que cumple con la norma española. La huella resultante es de 46 cm y la zanca mide 7,59 m. Observa que al aumentar el número de peldaños, la zanca se alarga ligeramente.</p>
+
+<h2>Errores comunes al calcular escaleras de madera</h2>
+<p>Aunque la herramienta es precisa, muchos usuarios cometen errores al introducir los datos o al interpretar los resultados. Estos son los más frecuentes:</p>
 <ul>
-<li>problemas matemáticos cotidianos</li><li>presupuesto y planificación</li><li>cocina y mediciones del hogar</li><li>cálculos de viaje y tiempo</li>
+<li><strong>Medir la altura total desde el suelo sin incluir el espesor del revestimiento:</strong> La altura total debe medirse desde el suelo terminado de la planta baja hasta el suelo terminado de la planta superior. Si mides desde el forjado sin contar el parquet o el mortero, la escalera no alcanzará el nivel deseado.</li>
+<li><strong>Usar una contrahuella demasiado grande o pequeña:</strong> En España, las contrahuellas de menos de 16 cm son incómodas para adultos mayores, y las de más de 18,5 cm resultan muy empinadas. La calculadora te permite personalizarla, pero es mejor mantenerla entre 16 y 18.</li>
+<li><strong>Ignorar el ancho mínimo legal:</strong> Para escaleras principales de viviendas unifamiliares en España, el ancho mínimo suele ser de 0,80 m, pero se recomienda 0,90 m. Si introduces un ancho menor, la calculadora te dará resultados, pero la escalera podría no cumplir la normativa local.</li>
+<li><strong>No considerar el espesor de la huella al cortar las zancas:</strong> La calculadora mide la zanca como la línea inclinada que une los vértices de los peldaños. Al construir, debes añadir el espesor de la madera de la huella (unos 3-4 cm) para que el escalón quede correctamente apoyado sobre la zanca.</li>
+<li><strong>Interpretar la huella como la profundidad total del escalón:</strong> La huella se mide desde el borde de la contrahuella inferior hasta el borde de la contrahuella superior. Si tu escalera tiene nariz (un saliente redondeado), la profundidad total útil será ligeramente mayor.</li>
 </ul>
 
-<h2>Cómo aplicar los resultados</h2>
-<p>Tu resultado muestra la cantidad teórica necesaria. Antes de pedir, aplica el factor de merma adecuado al material: 5–10&nbsp;% para hormigón y mortero, 10–15&nbsp;% para azulejo, piedra natural y ladrillo (para cubrir cortes, roturas y encaje de juntas), y 3–5&nbsp;% para acero y madera. Redondea siempre al alza a la siguiente unidad completa — saco, tonelada o palé — para evitar parar la obra por una segunda entrega.</p>
+<h2>Preguntas frecuentes (FAQ)</h2>
+<h3>¿Puedo usar esta calculadora para escaleras de caracol o con descanso?</h3>
+<p>No, la <strong>Calculadora de Escalera de Madera</strong> está diseñada exclusivamente para escaleras rectas de un solo tramo, sin giros ni descansos intermedios. Para escaleras de caracol, el cálculo es más complejo porque la huella varía a lo largo del radio. En el caso de escaleras con descanso, debes tratar cada tramo como una escalera independiente y sumar los resultados.</p>
 
-<h2>Normas de construcción y buenas prácticas</h2>
-<p>Los proyectos de construcción dependen de estimaciones precisas de materiales para mantenerse dentro del presupuesto y el cronograma. Pedir demasiado poco detiene la obra y genera entregas de emergencia costosas; pedir demasiado desperdicia dinero y ocupa espacio en el sitio. Los estimadores profesionales suelen añadir un 5–10&nbsp;% de factor de merma sobre la cantidad teórica para cubrir cortes, recortes, roturas y pequeños errores de medición.</p><p>Los cálculos modernos de construcción siguen normas establecidas por organismos como ISO, DIN o UNE, que definen propiedades de materiales, tolerancias y márgenes de diseño. Conocer la norma detrás de una fórmula ayuda a adaptarla cuando las condiciones difieren del caso estándar — por ejemplo, al trabajar con materiales recuperados, dimensiones no estándar o sitios en altitud donde el fraguado del hormigón se comporta de forma diferente.</p>
+<h3>¿Qué hago si la huella calculada es demasiado grande o demasiado pequeña?</h3>
+<p>Si la huella es mayor de 30 cm (muy larga para el espacio disponible) o menor de 26 cm (insuficiente para apoyar el pie completo), puedes ajustar la contrahuella que introduces. Por ejemplo, si pones una contrahuella de 17 cm, la huella será 46 cm; si pones 19 cm, la huella será 44 cm. Experimenta con valores hasta encontrar una combinación que se ajuste a tu espacio. Recuerda que la fórmula 63 - contrahuella es una recomendación, no una ley, pero es la base del confort en escaleras.</p>
 
-<h2>Errores comunes a evitar</h2>
-<ul>
-<li>Olvidar añadir un margen de desperdicio (típicamente 5-10%) al pedir materiales — redondear arriba evita una segunda entrega.</li><li>Mezclar unidades métricas e imperiales en el mismo proyecto. Mantén un sistema consistente.</li><li>Medir dimensiones exteriores en vez del área interior — la diferencia importa para suelos y azulejos.</li>
-</ul>
-
-<h2>Consejo profesional para contratistas</h2>
-<p>Pide un 5-10% más de material de lo que indica tu cálculo para cubrir cortes, roturas y errores de medición. Es más barato que una segunda entrega.</p>
-
-<h2>Preguntas frecuentes</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Cuánto material extra debo pedir?</button><div class="faq-a"><p>La mayoría de profesionales recomiendan pedir un 5-10% más de lo calculado para cubrir cortes, desperdicio y errores de medición. Para piedra natural o azulejo cerámico, el factor de desperdicio puede ser del 10-15%.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Puedo usar esta calculadora con unidades métricas e imperiales?</button><div class="faq-a"><p>Sí. Selecciona tu sistema de unidades preferido en los campos de entrada y la calculadora convierte automáticamente.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Es precisa esta calculadora?</button><div class="faq-a"><p>Sí. La calculadora utiliza la fórmula estándar: Calculadora de Escalera de Madera = f(Altura total a salvar, Ancho de escalera, Contrahuella deseada). Los resultados son matemáticamente exactos; la precisión final depende de los datos que introduzcas.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Puedo usar esta calculadora en el móvil?</button><div class="faq-a"><p>Sí, la calculadora es totalmente responsiva y funciona en cualquier dispositivo. No requiere instalación ni registro.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Cómo guardo o comparto mi cálculo?</button><div class="faq-a"><p>Usa el botón <strong>Compartir</strong> para generar una URL que codifica todos tus datos — quien abra el enlace verá los mismos valores y resultado. El botón <strong>Copiar</strong> copia el texto del resultado para pegarlo en una hoja de cálculo, correo o documento.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Qué hago si el resultado parece incorrecto?</button><div class="faq-a"><p>Primero revisa tus datos: comprueba que los valores estén en las unidades correctas y en un rango realista. Las causas más comunes son la mezcla de unidades métricas e imperiales, dígitos transpuestos o el uso de una calculadora equivocada. Si los datos parecen correctos y el resultado sigue siendo extraño, verifica que la fórmula <em>Calculadora de Escalera de Madera = f(Altura total a salvar, Ancho de escalera, Contrahuella deseada)</em> se aplica exactamente a tu caso.</p></div></div>
-</div>
-</section>
+<h3>¿Los resultados incluyen el desperdicio de material al cortar la madera?</h3>
+<p>No, la calculadora te da las dimensiones teóricas de los componentes. Al comprar madera, debes añadir un 10-15% extra para compensar cortes defectuosos, nudos o ajustes en obra. Por ejemplo, si los peldaños suman 6,08 m², compra al menos 7 m² de madera. También es recomendable adquirir las zancas con una longitud ligeramente superior a la calculada (unos 10 cm más) para poder realizar los cortes de inglete con precisión.</p>

@@ -1,46 +1,58 @@
-<section class="long-content">
-<p>Usa la <strong>Battery Autonomy Calculator</strong> para calcular kwh necesario, número de baterías, kwh instalado de forma rápida y precisa.</p>
-<h2>Cómo funciona el cálculo</h2>
-<p>Los cálculos de construcción parecen sencillos hasta que consideras margen de desperdicio, conversiones de unidades y estándares regionales de materiales. Esta calculadora gestiona esos detalles automáticamente, para que te concentres en la obra y no en las matemáticas.</p>
-<p>Los cálculos de construcción parecen sencillos hasta que consideras margen de desperdicio, conversiones de unidades y estándares regionales de materiales. Esta calculadora gestiona esos detalles automáticamente, para que te concentres en la obra y no en las matemáticas.</p>
-<p>La fórmula detrás de este cálculo es <strong>Calculadora de Baterías de Almacenamiento = f(Consumo diario (kWh), Días de autonomía, Capacidad batería (kWh))</strong>. Comprender cómo se obtiene el resultado te ayuda a verificar la salida y detectar errores de entrada.</p>
+<p>La Calculadora de Baterías de Almacenamiento es una herramienta esencial para dimensionar correctamente el sistema de almacenamiento en cualquier instalación solar de autoconsumo. Ya seas un profesional que diseña proyectos fotovoltaicos o un estudiante que aprende sobre energías renovables, esta calculadora te permite determinar rápidamente los kWh de almacenamiento necesarios y el número exacto de baterías para cubrir tu consumo diario.</p>
 
-<h2>Guía paso a paso para tu proyecto</h2>
-<p>Sigue estos pasos para obtener un resultado fiable:</p>
-<ol>
-<li><strong>Introduce tus datos:</strong> 10 kWh/día; 1 días; 5 kWh/bat — ensure all values use a single consistent unit system.</li>
-<li><strong>La calculadora aplica la fórmula:</strong> <em>Calculadora de Baterías de Almacenamiento = f(Consumo diario (kWh), Días de autonomía, Capacidad batería (kWh))</em>.</li>
-<li><strong>Lee tu resultado:</strong> kWh necesario, Número de baterías, kWh instalado.</li>
-<li>Verifica: confirma que las unidades sean coherentes y los valores realistas antes de actuar en base al resultado.</li>
-</ol>
+<h2>¿Qué calcula esta herramienta y cuándo deberías usarla?</h2>
+<p>La Calculadora de Baterías de Almacenamiento está diseñada para responder a tres preguntas fundamentales al planificar un sistema de autoconsumo con baterías: ¿cuánta energía necesito almacenar en kWh?, ¿cuántas baterías requiero comprar? y ¿cuál será la capacidad total instalada? Se utiliza en múltiples escenarios del mundo real: al dimensionar un banco de baterías para una vivienda unifamiliar en España que quiere maximizar el uso de su excedente solar, al calcular la autonomía necesaria para un refugio de montaña o al realizar estudios académicos sobre sistemas fotovoltaicos aislados. Es especialmente útil durante la fase de diseño, ya que evita comprar baterías insuficientes (que dejarían al usuario sin electricidad en días nublados) o sobredimensionadas (que encarecen innecesariamente la instalación). La herramienta asume una profundidad de descarga máxima del 80%, un estándar en baterías de litio y plomo-ácido de alta calidad.</p>
 
-<h2>Usos prácticos en la obra</h2>
-<p>Esta calculadora es especialmente útil en las siguientes situaciones:</p>
+<h2>La fórmula explicada variable por variable</h2>
+<p>El cálculo se basa en una fórmula sencilla pero efectiva que combina tres parámetros clave. A continuación, desglosamos cada variable:</p>
+
+<h3>Consumo diario (kWh / día)</h3>
+<p>Es la energía que consumes cada día en tu hogar o instalación, expresada en kilovatios-hora. Por ejemplo, una vivienda española media consume entre 8 y 12 kWh al día. Este dato se obtiene de tu factura eléctrica o de un monitor de consumo. La calculadora lo solicita como <em>consumo_diario_kwh</em>.</p>
+
+<h3>Días de autonomía (días)</h3>
+<p>Indica cuántos días consecutivos deseas que el sistema funcione sin recibir energía del sol. En zonas con inviernos nublados o para instalaciones críticas (como bombas de agua o sistemas médicos), se recomiendan 3 a 5 días. La calculadora usa esta variable como <em>dias_autonomia</em> y, por defecto, asume 1 día si no se introduce ningún valor.</p>
+
+<h3>Capacidad de la batería (kWh / unidad)</h3>
+<p>Es la capacidad nominal de cada batería individual, expresada en kWh. Las baterías solares modernas suelen tener capacidades de 2,5 kWh, 5 kWh, 10 kWh o más. En la calculadora, este campo es <em>capacidad_bateria_kwh</em> y tiene un valor predeterminado de 5 kWh, que corresponde a un modelo típico residencial.</p>
+
+<h3>Cálculo de la energía necesaria total</h3>
+<p>Primero, se multiplica el consumo diario por los días de autonomía. Luego, ese resultado se divide entre 0,8 (equivalente al 80% de profundidad de descarga máxima permitida para preservar la vida útil de la batería). El resultado se redondea a dos decimales: <strong>kWh_necesarios = (consumo_diario × días_autonomía) / 0,8</strong>.</p>
+
+<h3>Número de baterías y capacidad instalada</h3>
+<p>El número de baterías se obtiene dividiendo los kWh necesarios entre la capacidad de cada batería y redondeando al alza (función techo, <em>Math.ceil</em>). Finalmente, se multiplica el número de baterías por su capacidad individual para obtener los kWh totales instalados: <strong>baterías = techo(kWh_necesarios / capacidad_batería)</strong> y <strong>kWh_instalados = baterías × capacidad_batería</strong>.</p>
+
+<h2>Dos ejemplos prácticos con datos reales</h2>
+<p>Para entender mejor el funcionamiento, veamos dos casos concretos típicos en España:</p>
+
+<h3>Ejemplo 1: Vivienda unifamiliar en Madrid</h3>
+<p>Una familia consume 10 kWh al día y quiere tener autonomía para 3 días nublados. Utilizan baterías de 5 kWh cada una. Aplicamos la fórmula: primero, energía bruta necesaria = 10 kWh × 3 días = 30 kWh. Ajustamos por profundidad de descarga: 30 kWh / 0,8 = 37,50 kWh. Luego, baterías necesarias = techo(37,50 / 5) = techo(7,5) = 8 baterías. La capacidad instalada total es de 8 × 5 = 40 kWh. Esto significa que la familia tendrá suficiente almacenamiento para 3 días completos, protegiendo sus baterías al no descargarlas por debajo del 80%.</p>
+
+<h3>Ejemplo 2: Pequeña oficina en Barcelona</h3>
+<p>Un despacho consume 15 kWh al día y necesita respaldo solo para 1 día (por ejemplo, para cubrir cortes nocturnos). Las baterías disponibles son de 10 kWh. Cálculo: 15 kWh × 1 día = 15 kWh; ajuste por 0,8: 15 / 0,8 = 18,75 kWh. Baterías: techo(18,75 / 10) = techo(1,875) = 2 baterías. Capacidad instalada: 2 × 10 = 20 kWh. Con estas 2 baterías, la oficina almacena suficiente energía para pasar la noche y arrancar al día siguiente sin problemas.</p>
+
+<h2>Errores comunes al usar la calculadora y cómo evitarlos</h2>
+<p>Muchos usuarios cometen equivocaciones que desvirtúan los resultados. Estos son los más frecuentes:</p>
 <ul>
-<li>problemas matemáticos cotidianos</li><li>presupuesto y planificación</li><li>cocina y mediciones del hogar</li><li>cálculos de viaje y tiempo</li>
+<li><strong>Confundir kWh con kW</strong>: La calculadora trabaja con energía (kWh), no con potencia (kW). El consumo diario debe ser en kilovatios-hora, no en kilovatios. Por ejemplo, si un electrodoméstico consume 2 kW durante 3 horas, aporta 6 kWh, no 2 kW.</li>
+<li><strong>No considerar la profundidad de descarga real</strong>: La fórmula divide entre 0,8 como seguridad, pero algunas baterías de plomo-ácido solo permiten el 50% de descarga. En ese caso, habría que usar 0,5 en lugar de 0,8. La calculadora usa 0,8 como estándar para litio, pero el usuario debe ajustar el cálculo manualmente si usa baterías con otras especificaciones.</li>
+<li><strong>Introducir datos en unidades incorrectas</strong>: Asegúrate de que el consumo diario esté en kWh (no en Wh). Un error típico es poner 1500 Wh en lugar de 1,5 kWh. La calculadora interpreta los números tal cual, así que 1500 se tomaría como 1500 kWh, un valor desorbitado.</li>
+<li><strong>Olvidar que el número de baterías siempre se redondea al alza</strong>: Aunque el resultado sea 3,2 baterías, el sistema necesita 4 baterías completas. No se pueden comprar fracciones de batería, y redondear hacia abajo dejaría el sistema infra dimensionado.</li>
 </ul>
 
-<h2>Cómo aplicar los resultados</h2>
-<p>Tu resultado muestra la cantidad teórica necesaria. Antes de pedir, aplica el factor de merma adecuado al material: 5–10&nbsp;% para hormigón y mortero, 10–15&nbsp;% para azulejo, piedra natural y ladrillo (para cubrir cortes, roturas y encaje de juntas), y 3–5&nbsp;% para acero y madera. Redondea siempre al alza a la siguiente unidad completa — saco, tonelada o palé — para evitar parar la obra por una segunda entrega.</p>
+<h2>Preguntas frecuentes (FAQ)</h2>
+<h3>¿Puedo usar esta calculadora para baterías de coche o baterías de 12V?</h3>
+<p>Sí, siempre que conozcas la capacidad en kWh. Si tienes una batería de 12V y 100 Ah, su capacidad es de 12V × 100Ah = 1200 Wh, que equivale a 1,2 kWh. Introduce ese valor en el campo de capacidad de batería. La calculadora no distingue entre químicas ni voltajes; solo trabaja con energía en kWh.</p>
 
-<h2>Normas de construcción y buenas prácticas</h2>
-<p>Los proyectos de construcción dependen de estimaciones precisas de materiales para mantenerse dentro del presupuesto y el cronograma. Pedir demasiado poco detiene la obra y genera entregas de emergencia costosas; pedir demasiado desperdicia dinero y ocupa espacio en el sitio. Los estimadores profesionales suelen añadir un 5–10&nbsp;% de factor de merma sobre la cantidad teórica para cubrir cortes, recortes, roturas y pequeños errores de medición.</p><p>Los cálculos modernos de construcción siguen normas establecidas por organismos como ISO, DIN o UNE, que definen propiedades de materiales, tolerancias y márgenes de diseño. Conocer la norma detrás de una fórmula ayuda a adaptarla cuando las condiciones difieren del caso estándar — por ejemplo, al trabajar con materiales recuperados, dimensiones no estándar o sitios en altitud donde el fraguado del hormigón se comporta de forma diferente.</p>
-
-<h2>Errores comunes a evitar</h2>
-<ul>
-<li>Olvidar añadir un margen de desperdicio (típicamente 5-10%) al pedir materiales — redondear arriba evita una segunda entrega.</li><li>Mezclar unidades métricas e imperiales en el mismo proyecto. Mantén un sistema consistente.</li><li>Medir dimensiones exteriores en vez del área interior — la diferencia importa para suelos y azulejos.</li>
-</ul>
-
-<h2>Consejo profesional para contratistas</h2>
-<p>Pide un 5-10% más de material de lo que indica tu cálculo para cubrir cortes, roturas y errores de medición. Es más barato que una segunda entrega.</p>
-
-<h2>Preguntas frecuentes</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Cuánto material extra debo pedir?</button><div class="faq-a"><p>La mayoría de profesionales recomiendan pedir un 5-10% más de lo calculado para cubrir cortes, desperdicio y errores de medición. Para piedra natural o azulejo cerámico, el factor de desperdicio puede ser del 10-15%.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Puedo usar esta calculadora con unidades métricas e imperiales?</button><div class="faq-a"><p>Sí. Selecciona tu sistema de unidades preferido en los campos de entrada y la calculadora convierte automáticamente.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Es precisa esta calculadora?</button><div class="faq-a"><p>Sí. La calculadora utiliza la fórmula estándar: Calculadora de Baterías de Almacenamiento = f(Consumo diario (kWh), Días de autonomía, Capacidad batería (kWh)). Los resultados son matemáticamente exactos; la precisión final depende de los datos que introduzcas.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Puedo usar esta calculadora en el móvil?</button><div class="faq-a"><p>Sí, la calculadora es totalmente responsiva y funciona en cualquier dispositivo. No requiere instalación ni registro.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Cómo guardo o comparto mi cálculo?</button><div class="faq-a"><p>Usa el botón <strong>Compartir</strong> para generar una URL que codifica todos tus datos — quien abra el enlace verá los mismos valores y resultado. El botón <strong>Copiar</strong> copia el texto del resultado para pegarlo en una hoja de cálculo, correo o documento.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Qué hago si el resultado parece incorrecto?</button><div class="faq-a"><p>Primero revisa tus datos: comprueba que los valores estén en las unidades correctas y en un rango realista. Las causas más comunes son la mezcla de unidades métricas e imperiales, dígitos transpuestos o el uso de una calculadora equivocada. Si los datos parecen correctos y el resultado sigue siendo extraño, verifica que la fórmula <em>Calculadora de Baterías de Almacenamiento = f(Consumo diario (kWh), Días de autonomía, Capacidad batería (kWh))</em> se aplica exactamente a tu caso.</p></div></div>
-</div>
-</section>
+<h3>¿Qué significa realmente "días de autonomía" y cómo elijo el número correcto?</h3>
+<p>Los días de autonomía son los días que el sistema puede funcionar solo con baterías, sin recibir sol. Para la mayoría de viviendas en España, 2 o 3 días son suficientes. Si vives en una zona con mucha niebla invernal (como el norte de España) o tu instalación es crítica (nevera de medicamentos), usa 4 o 5 días. Cada día adicional multiplica el costo en baterías, así que elige el número mínimo que te dé tranquilidad.</p>
+<h3>¿Por qué la calculadora siempre me pide redondear el número de baterías al alza?</h3>
+<p>Porque no puedes instalar media batería. Si el cálculo arroja 4,3 baterías, comprar 4 te dejaría sin suficiente capacidad. Redondear al alza asegura que el sistema cumple con los kWh necesarios y respeta el límite del 80% de descarga. Es mejor tener un 5% más de capacidad que un 10% menos.</p>
+<table>
+<tr><th>Variable</th><th>Ejemplo 1</th><th>Ejemplo 2</th></tr>
+<tr><td>Consumo diario (kWh)</td><td>10</td><td>15</td></tr>
+<tr><td>Días de autonomía</td><td>3</td><td>1</td></tr>
+<tr><td>Capacidad batería (kWh)</td><td>5</td><td>10</td></tr>
+<tr><td>kWh necesarios</td><td>37,50</td><td>18,75</td></tr>
+<tr><td>Baterías necesarias</td><td>8</td><td>2</td></tr>
+<tr><td>kWh instalados</td><td>40</td><td>20</td></tr>
+</table>

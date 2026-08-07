@@ -1,33 +1,68 @@
-<section class="long-content">
-<h2>Weight and mass unit converter</h2>
-<p>The <strong>weight converter</strong> instantly transforms between kilograms, pounds, grams, ounces, metric tons, and more. It's essential for international shopping, cooking recipes in imperial units, body weight tracking with devices in pounds, postal shipping, and any context where the International System (SI) and imperial system coexist.</p>
+<p>Il <strong>Convertitore Peso</strong> è lo strumento online che ti permette di trasformare istantaneamente i chilogrammi in libbre, grammi, tonnellate, once e stone, con una precisione al centesimo. Perfetto per chi in Italia lavora con il sistema metrico decimale ma ha bisogno di confrontare pesi con paesi anglosassoni, questo calcolatore gratuito e senza registrazione esegue in un click tutte le conversioni fondamentali: da 75 kg ottieni 165,35 lb, 75.000 g e 0,075 t. </p>
 
-<h2>Weight conversion factors</h2>
+<h2>Cos’è il Convertitore Peso e quando usarlo</h2>
+<p>Il <strong>Convertitore Peso</strong> è un calcolatore online progettato per convertire il valore in chilogrammi (kg) in sei unità di misura differenti: grammi (g), milligrammi (mg), libbre (lb), once (oz), tonnellate (t) e stone (st). Il suo utilizzo è pensato per un pubblico italiano che, pur operando quotidianamente con kilogrammi e grammi, si trova spesso a dover interpretare pesi espressi nel sistema imperiale (libbre, once, stone) o a gestire quantità molto grandi o molto piccole.</p>
+<p>Ecco alcune situazioni pratiche in cui il convertitore risulta indispensabile:
 <ul>
-  <li>1 kilogram (kg) = 1,000 g = 2.2046 lb = 35.274 oz</li>
-  <li>1 pound (lb) = 453.592 g = 0.4536 kg = 16 oz</li>
-  <li>1 ounce (oz) = 28.3495 g = 0.0625 lb</li>
-  <li>1 metric ton (t) = 1,000 kg = 2,204.6 lb</li>
-  <li>1 US short ton = 907.185 kg = 2,000 lb</li>
+<li><strong>Cucina e ricette internazionali:</strong> quando una ricetta americana indica 2 libbre di farina, il convertitore ti dice in pochi secondi che equivalgono a circa 0,907 kg.</li>
+<li><strong>Spedizioni e logistica:</strong> per calcolare il peso di un pacco in tonnellate (utile per i corrieri) o in libbre (richiesto da alcuni spedizionieri esteri).</li>
+<li><strong>Fitness e nutrizione:</strong> per convertire il proprio peso corporeo da kg a stone (unità ancora usata nel Regno Unito) o a libbre per confrontare tabelle internazionali.</li>
+<li><strong>Scienza e laboratorio:</strong> per passare rapidamente da kg a mg senza errori di virgola, ad esempio in dosaggi o misure di precisione.</li>
+</ul>
+</p>
+
+<h2>La formula del Convertitore Peso spiegata variabile per variabile</h2>
+<p>Il cuore del calcolatore è una semplice funzione JavaScript che prende il valore inserito in chilogrammi e lo moltiplica (o divide) per fattori di conversione fissi. Ecco la formula completa, analizzata passo per passo:</p>
+<p><strong>var kg = parseFloat(inputs.valor_kg) || 0;</strong> – Questa riga prende il numero digitato dall’utente nel campo “valor_kg” e lo trasforma in un numero decimale. Se il campo è vuoto o non valido, il valore diventa 0, evitando errori.</p>
+<ul>
+<li><strong>g: +(kg * 1000).toFixed(4)</strong> – I chilogrammi vengono moltiplicati per 1000 per ottenere i grammi. Il risultato è arrotondato a 4 cifre decimali. Esempio: 1 kg diventa 1000.0000 g.</li>
+<li><strong>mg: +(kg * 1e6).toFixed(2)</strong> – Moltiplicando per 1.000.000 (1e6) si ottengono i milligrammi, arrotondati a 2 decimali. Utile per pesi molto piccoli: 0,001 kg = 1000,00 mg.</li>
+<li><strong>lb: +(kg * 2.20462).toFixed(6)</strong> – Il fattore di conversione da kg a libbre è 2,20462 (una libbra equivale esattamente a 0,453592 kg). L’arrotondamento a 6 decimali garantisce precisione anche per carichi pesanti.</li>
+<li><strong>oz: +(kg * 35.274).toFixed(4)</strong> – Per le once si usa il fattore 35,274 (1 kg = 35,274 once). Il risultato è mostrato con 4 decimali.</li>
+<li><strong>ton: +(kg / 1000).toFixed(6)</strong> – Per convertire in tonnellate si divide per 1000. Un valore di 5000 kg diventa 5.000000 t.</li>
+<li><strong>stone: +(kg / 6.35029).toFixed(6)</strong> – Una stone equivale a circa 6,35029 kg. Dividendo il peso in kg per questo fattore si ottiene il corrispettivo in stone, con 6 decimali.</li>
 </ul>
 
-<h2>Conversion examples</h2>
-<p><strong>75 kg to pounds (body weight):</strong><br>
-75 × 2.2046 = <strong>165.3 lb</strong></p>
-<p><strong>12 oz to grams (cooking recipe):</strong><br>
-12 × 28.3495 = <strong>340.2 g</strong></p>
-<p><strong>3 lb 5 oz to kilograms:</strong><br>
-(3 × 453.592 + 5 × 28.3495) / 1000 = <strong>1.502 kg</strong></p>
+<h2>Due esempi pratici con numeri concreti</h2>
+<p>Vediamo come il <strong>Convertitore Peso</strong> applica la formula a valori reali, per comprenderne l’utilità quotidiana.</p>
+<h3>Esempio 1: 75 kg (peso corporeo medio)</h3>
+<p>Inserendo 75 kg nel campo “valor_kg”, ecco i risultati:
+<table>
+<tr><th>Unità</th><th>Risultato</th><th>Calcolo</th></tr>
+<tr><td>Grammi (g)</td><td>75.000,0000 g</td><td>75 × 1000</td></tr>
+<tr><td>Milligrammi (mg)</td><td>75.000.000,00 mg</td><td>75 × 1.000.000</td></tr>
+<tr><td>Libbre (lb)</td><td>165,346500 lb</td><td>75 × 2,20462</td></tr>
+<tr><td>Once (oz)</td><td>2.645,5500 oz</td><td>75 × 35,274</td></tr>
+<tr><td>Tonnellate (t)</td><td>0,075000 t</td><td>75 ÷ 1000</td></tr>
+<tr><td>Stone (st)</td><td>11,810474 st</td><td>75 ÷ 6,35029</td></tr>
+</table>
+Questo esempio mostra come un peso familiare di 75 kg corrisponda a circa 165 libbre e 11,8 stone, perfetto per chi viaggia o si confronta con standard anglosassoni.</p>
+<h3>Esempio 2: 0,5 kg (500 grammi, ad esempio una confezione di pasta)</h3>
+<p>Con 0,5 kg nel calcolatore:
+<table>
+<tr><th>Unità</th><th>Risultato</th><th>Calcolo</th></tr>
+<tr><td>Grammi (g)</td><td>500,0000 g</td><td>0,5 × 1000</td></tr>
+<tr><td>Milligrammi (mg)</td><td>500.000,00 mg</td><td>0,5 × 1.000.000</td></tr>
+<tr><td>Libbre (lb)</td><td>1,102310 lb</td><td>0,5 × 2,20462</td></tr>
+<tr><td>Once (oz)</td><td>17,6370 oz</td><td>0,5 × 35,274</td></tr>
+<tr><td>Tonnellate (t)</td><td>0,000500 t</td><td>0,5 ÷ 1000</td></tr>
+<tr><td>Stone (st)</td><td>0,078737 st</td><td>0,5 ÷ 6,35029</td></tr>
+</table>
+Questo caso è ideale per cucina o piccole spedizioni: 500 grammi equivalgono a poco più di 1 libbra.</p>
 
-<h2>When you need to convert weight units</h2>
+<h2>Errori comuni da evitare con il Convertitore Peso</h2>
+<p>Anche se lo strumento è semplice, alcuni equivoci possono compromettere la precisione. Ecco i più frequenti:</p>
 <ul>
-  <li><strong>Anglo-American cooking:</strong> US and UK recipes use oz, lb, and cups. This calculator converts directly to grams without memorizing tables.</li>
-  <li><strong>International online shopping:</strong> Maximum shipping weight expressed in pounds on US sites, converted to kg to compare with your scale.</li>
-  <li><strong>Fitness and nutrition:</strong> Kitchen scales and apps like MyFitnessPal can show both grams and oz — convert instantly.</li>
-  <li><strong>Transport and logistics:</strong> Customs, courier services, and air freight mix kg and lb in their tariffs.</li>
-  <li><strong>Veterinary medicine:</strong> Drug doses expressed in mg/lb converted to mg/kg to calculate dosage from the animal's metric weight.</li>
+<li><strong>Confondere grammi e milligrammi:</strong> Un errore tipico è leggere “500 mg” pensando siano grammi. Ricorda: 1 g = 1000 mg. Il convertitore ti mostra entrambi i valori, ma devi interpretarli correttamente.</li>
+<li><strong>Dimenticare i decimali:</strong> Inserire “75” invece di “75,0” non cambia il risultato, ma trascurare i decimali in pesi piccoli (ad esempio 0,5 kg) può portare a fraintendimenti. Usa sempre il punto come separatore decimale, oppure la virgola se il tuo dispositivo lo supporta (il campo accetta entrambi).</li>
+<li><strong>Ignorare le tonnellate per carichi leggeri:</strong> Per pesi inferiori a 1 kg, la tonnellata mostrerà valori come 0,000500 t. Non confondere questo numero con 0,5 t: la differenza è enorme (0,0005 t = 0,5 kg).</li>
+<li><strong>Scambiare libbre con once:</strong> 1 lb = 16 oz. Se una ricetta richiede 10 once, non scrivere 10 nel campo “lb”: usa prima il convertitore per trasformare le once in kg (10 oz ÷ 35,274 = 0,2835 kg) e poi ottieni tutte le conversioni.</li>
 </ul>
 
-<h2>Mass vs Weight: the technical difference</h2>
-<p>Technically, <strong>mass</strong> (kg) is the amount of matter, while <strong>weight</strong> is the gravitational force on that mass (newtons). On Earth, 1 kg of mass has a weight of 9.81 N. In everyday language, however, "weight" refers to mass — and this calculator operates on that common convention.</p>
-</section>
+<h2>Domande frequenti sul Convertitore Peso</h2>
+<h3>Il calcolatore funziona anche con numeri decimali come 2,5 kg?</h3>
+<p>Sì, assolutamente. Puoi inserire qualsiasi numero decimale, usando il punto o la virgola come separatore. Ad esempio, 2,5 kg restituirà 2500 g, 5,51155 lb e così via. Lo strumento gestisce anche numeri molto piccoli (0,001 kg) o molto grandi (10000 kg) senza problemi, adattando automaticamente i decimali.</p>
+<h3>Qual è l’unità di misura più precisa tra quelle calcolate?</h3>
+<p>Tutte le conversioni sono basate su fattori standard internazionali, ma la precisione mostrata varia: grammi e once sono arrotondati a 4 decimali, milligrammi a 2 decimali, mentre libbre, tonnellate e stone arrivano a 6 decimali. Per la maggior parte degli usi domestici, 2-4 decimali sono più che sufficienti. Per laboratori o dosaggi farmaceutici, raccomandiamo di usare il valore in milligrammi, che offre un’ottima granularità.</p>
+<h3>Devo registrarmi o scaricare qualcosa per usare il convertitore?</h3>
+<p>No, il <strong>Convertitore Peso</strong> è completamente gratuito e non richiede alcuna registrazione. Funziona direttamente nel browser, senza installare app o plugin. Inserisci il valore in kg nel campo “valor_kg” e i risultati appaiono istantaneamente: tutto qui, senza trappole o limiti di utilizzo.</p>

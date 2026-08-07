@@ -1,46 +1,88 @@
-<section class="long-content">
-<p>Use the <strong>Wallpaper Calculator</strong> to calculate wall area, strips needed, rolls (+10%) quickly and accurately.</p>
-<h2>How the calculation works</h2>
-<p>Accurate material estimation is the backbone of any successful build. A small error in your calculations can mean the difference between finishing on budget and paying for a second delivery. This tool removes the guesswork so you can plan with certainty.</p>
-<p>Construction calculations often seem straightforward until you factor in waste allowances, unit conversions, and regional material standards. This calculator handles those details automatically, letting you focus on the build instead of the math.</p>
-<p>The formula behind this calculation is <strong>Wallpaper Calculator = f(Wall length, Wall height, Roll width, Roll length)</strong>. Understanding how the result is derived helps you verify the output and spot input errors before they cascade into bad decisions.</p>
+<p>If you are planning a wallpaper project, the Wallpaper Calculator is your essential tool for getting the job done without waste or surprise shortages. This free online calculator uses a simple formula to determine exactly how many rolls you need based on your wall dimensions and the specific roll size you plan to buy.</p>
 
-<h2>Step-by-step guide for your project</h2>
-<p>Follow these steps to get a reliable result:</p>
+<h2>What the Wallpaper Calculator Does and When to Use It</h2>
+
+<p>The Wallpaper Calculator quickly converts your wall measurements into the precise number of wallpaper rolls required. It eliminates guesswork and prevents the common problem of buying too little wallpaper, which can lead to mismatched dye lots, or too much, which wastes money. You should use this calculator any time you are preparing to wallpaper a single wall, an entire room, or even a large accent wall. It works for any standard wallpaper roll width and length, making it suitable for projects in homes, offices, and rental spaces.</p>
+
+<p>The calculator is especially useful when you have non-standard wall heights or multiple windows and doors, though it is most accurate for solid rectangular wall sections. The tool accounts for the fact that each roll produces a finite number of vertical strips, and it adds a 10% buffer for pattern matching, cutting errors, and waste. For metric users, the calculator operates with meters, but the same principles apply to imperial measurements such as feet and inches, which we cover in the examples below.</p>
+
+<h2>The Formula Explained Variable by Variable</h2>
+
+<p>The Wallpaper Calculator uses a straightforward four-step logic built into one formula. Understanding each variable helps you verify results and adapt the calculator to your specific rolls. The formula is written as follows:</p>
+
+<p><strong>var L = parseFloat(inputs.longitud_pared_m)||0,<br>H = parseFloat(inputs.altura_m)||2.6,<br>Wr = parseFloat(inputs.ancho_rollo_m)||0.53,<br>Lr = parseFloat(inputs.longitud_rollo_m)||10;</strong></p>
+
+<p>Here is what each variable means:</p>
+
+<ul>
+  <li><strong>L</strong> (longitud_pared_m) – This is the total length or width of the wall you are covering, measured in meters. For example, if your wall is 4.2 meters wide, you enter 4.2.</li>
+  <li><strong>H</strong> (altura_m) – This is the height of the wall from floor to ceiling, measured in meters. The calculator defaults to 2.6 meters if left empty, but you should always measure your own wall.</li>
+  <li><strong>Wr</strong> (ancho_rollo_m) – This is the width of a single wallpaper roll, typically 0.53 meters (53 centimeters) for standard metric rolls. For imperial rolls, the equivalent is often 21 inches (0.53 meters) or 27 inches (0.69 meters).</li>
+  <li><strong>Lr</strong> (longitud_rollo_m) – This is the length of a single wallpaper roll, commonly 10 meters for metric rolls. In imperial systems, rolls are often 33 feet long (about 10 meters).</li>
+</ul>
+
+<p>The internal logic then calculates these values:</p>
+
 <ol>
-<li><strong>Enter your values:</strong> 12 m; 2.6 m; 0.53 m; 10 m — ensure all values use a single consistent unit system.</li>
-<li><strong>The calculator applies the formula:</strong> <em>Wallpaper Calculator = f(Wall length, Wall height, Roll width, Roll length)</em>.</li>
-<li><strong>Read your result:</strong> Wall area, Strips needed, Rolls (+10%).</li>
-<li>Verify: confirm units are consistent and the numbers are realistic for your context before acting on the result.</li>
+  <li><strong>tiras_rollo</strong> = floor(Lr / H) – How many full vertical strips you can cut from one roll, given your wall height. If your roll is 10m and your height is 2.6m, you get 3 strips per roll (10 / 2.6 = 3.84, rounded down to 3).</li>
+  <li><strong>m2_pared</strong> = L * H – The total square meter area of the wall. This is shown for reference but is not used directly in the roll count.</li>
+  <li><strong>tiras_nec</strong> = ceil(L / Wr) – The number of vertical strips needed to cover the entire wall width. For a 4.2m wall and a 0.53m roll width, you need 8 strips (4.2 / 0.53 = 7.92, rounded up).</li>
+  <li><strong>rollos</strong> = ceil(tiras_nec / tiras_rollo * 1.1) – The final number of rolls required. It divides the total strips needed by the strips per roll, then multiplies by 1.1 to add a 10% waste buffer for pattern matching and trimming.</li>
 </ol>
 
-<h2>Practical uses on the job site</h2>
-<p>This calculator is particularly useful in the following situations:</p>
+<h2>Two Worked Examples with Concrete Numbers</h2>
+
+<h3>Example 1: Standard Metric Wall (Metric Units)</h3>
+
+<p>Imagine you have a wall that is 4.5 meters wide and 2.7 meters high. You are using standard metric wallpaper rolls that are 0.53 meters wide and 10 meters long. Enter these values into the Wallpaper Calculator:</p>
+
+<p><strong>Inputs:</strong> L = 4.5, H = 2.7, Wr = 0.53, Lr = 10</p>
+
+<p>Step-by-step calculation:</p>
 <ul>
-<li>everyday math problems</li><li>budgeting and planning</li><li>cooking and home measurements</li><li>travel and time calculations</li>
+  <li>Strips per roll: 10 / 2.7 = 3.70, rounded down to 3 strips.</li>
+  <li>Wall area: 4.5 * 2.7 = 12.15 square meters.</li>
+  <li>Strips needed: 4.5 / 0.53 = 8.49, rounded up to 9 strips.</li>
+  <li>Total rolls: 9 / 3 = 3, then 3 * 1.1 = 3.3, rounded up to 4 rolls.</li>
 </ul>
 
-<h2>Interpreting and applying your results</h2>
-<p>Your result shows the theoretical quantity required. Before ordering, apply the appropriate waste factor for your material: 5–10&nbsp;% for concrete and mortar, 10–15&nbsp;% for ceramic tile, natural stone, and brick (to account for cuts, breakage, and pattern matching), and 3–5&nbsp;% for steel and timber. Always round up to the next full unit — bag, tonne, or pallet — to avoid halting work for a second delivery.</p>
+<p><strong>Result:</strong> You need 4 rolls of wallpaper to cover this wall, allowing for waste and pattern matching. In practice, you would buy 4 full rolls.</p>
 
-<h2>Construction standards and best practices</h2>
-<p>Construction projects live and die by accurate material estimates. Ordering too little halts the job and triggers costly emergency deliveries; ordering too much wastes money and clutters the site. Professional estimators typically add a 5–10&nbsp;% waste factor on top of the theoretical quantity to account for cuts, off-cuts, breakage, and minor measurement errors — a discipline built from hard-won job-site experience.</p><p>Modern construction calculations follow standards set by bodies like ISO, ASTM, or EN (European Norm), which define material properties, tolerances, and design allowances. Knowing the standard behind a formula helps you adapt it when conditions differ from the textbook — for example, when working with reclaimed materials, non-standard dimensions, or sites at altitude where concrete curing behaves differently.</p>
+<h3>Example 2: Large Room with Imperial Measurements (Imperial Units)</h3>
 
-<h2>Common mistakes to avoid</h2>
+<p>Now consider a wall that is 12 feet wide and 8 feet high. You are using standard imperial wallpaper rolls that are 21 inches (1.75 feet) wide and 33 feet long. Because the calculator works in meters, you convert to metric: 1 foot = 0.3048 meters.</p>
+
+<p><strong>Converted Inputs:</strong> L = 12 * 0.3048 = 3.66 meters, H = 8 * 0.3048 = 2.44 meters, Wr = 21 inches = 0.5334 meters, Lr = 33 feet = 10.06 meters</p>
+
+<p>Step-by-step calculation:</p>
 <ul>
-<li>Forgetting to add a waste allowance (typically 5-10%) when ordering materials — rounding up saves a second delivery.</li><li>Mixing up metric and imperial units on the same project. Stick to one system throughout your calculation.</li><li>Measuring outline dimensions instead of interior surface area — the difference matters for flooring and tiling.</li><li>Not accounting for irregular shapes. Break complex areas into simpler rectangles and triangles before calculating.</li>
+  <li>Strips per roll: 10.06 / 2.44 = 4.12, rounded down to 4 strips.</li>
+  <li>Wall area: 3.66 * 2.44 = 8.93 square meters.</li>
+  <li>Strips needed: 3.66 / 0.5334 = 6.86, rounded up to 7 strips.</li>
+  <li>Total rolls: 7 / 4 = 1.75, then 1.75 * 1.1 = 1.925, rounded up to 2 rolls.</li>
 </ul>
 
-<h2>Pro tip for contractors and builders</h2>
-<p>Order 5-10% more material than your calculation suggests to account for cuts, breakage, and measurement errors. It's cheaper to have a little left over than to halt work for a second delivery.</p>
+<p><strong>Result:</strong> You need 2 rolls of wallpaper for this 12-by-8-foot wall. Note that the 10% buffer often covers the extra trimming needed for patterns with moderate repeats.</p>
 
-<h2>Frequently asked questions</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">How much extra material should I order?</button><div class="faq-a"><p>Most professionals recommend ordering 5-10% more than calculated to cover cuts, waste, and measurement errors. For natural stone or ceramic tile, the waste factor can be 10-15% due to breakage and pattern matching.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Can I use this calculator for both metric and imperial units?</button><div class="faq-a"><p>Yes. Select your preferred unit system in the input fields and the calculator converts automatically. All internal calculations are performed consistently to avoid mixed-unit errors.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Is this calculator accurate?</button><div class="faq-a"><p>Yes. The calculator uses the standard formula: Wallpaper Calculator = f(Wall length, Wall height, Roll width, Roll length). Results are mathematically exact; final accuracy depends on the precision of the data you enter.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Can I use this calculator on my phone?</button><div class="faq-a"><p>Yes, the calculator is fully responsive and works on any device: computer, tablet, and mobile. No installation or registration required.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">How do I save or share my calculation?</button><div class="faq-a"><p>Use the <strong>Share</strong> button to generate a URL that encodes all your inputs — anyone who opens the link will see the same values and result. The <strong>Copy</strong> button copies the formatted result text to your clipboard for pasting into a spreadsheet, email, or document.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">What if my result seems wrong?</button><div class="faq-a"><p>First recheck your inputs: confirm the values are in the correct units and within a realistic range. Common causes include unit mismatch (mixing metric and imperial), transposed digits, or selecting the wrong calculator for the problem. If inputs look correct and the result still seems off, verify that the formula <em>Wallpaper Calculator = f(Wall length, Wall height, Roll width, Roll length)</em> applies to exactly the situation you are in — some calculators with similar names solve slightly different variants of the same problem.</p></div></div>
-</div>
-</section>
+<h2>Common Mistakes When Using the Wallpaper Calculator</h2>
+
+<p>Even with a reliable calculator, small errors in measurement or interpretation can lead to incorrect roll counts. Here are the most frequent mistakes and how to avoid them:</p>
+
+<ul>
+  <li><strong>Measuring wall width instead of wall length.</strong> The "longitud_pared_m" field refers to the total horizontal distance you plan to cover, including any doors or windows only if you plan to wallpaper over them. Most people wallpaper solid wall sections separately, so measure the full width of the bare wall, not the floor length.</li>
+  <li><strong>Forgetting to account for pattern repeat.</strong> The calculator adds a generic 10% buffer, but heavy pattern repeats (for example, a repeat every 60 centimeters) may require more. If your wallpaper has a large pattern, consider buying an extra roll beyond the calculator recommendation.</li>
+  <li><strong>Using the wrong roll dimensions.</strong> Many wallpaper rolls vary slightly. Always check the label on your actual roll for exact width and length. Some "double rolls" contain two standard rolls in one, so verify the total length before entering it.</li>
+  <li><strong>Rounding incorrectly.</strong> The calculator automatically rounds up strips and rolls. Never round down, as even one missing strip means you cannot finish the wall. Always trust the calculator's rounded-up result.</li>
+  <li><strong>Ignoring waste from doors and windows.</strong> The calculator assumes a solid rectangular wall. If you have large windows or doors, you can subtract a rough estimate from the wall area, but the 10% buffer usually covers small openings. For accuracy, treat each wall section separately.</li>
+</ul>
+
+<h2>Frequently Asked Questions</h2>
+
+<h3>Can I use the Wallpaper Calculator for ceiling wallpaper?</h3>
+<p>Yes, you can use the same calculator for ceilings. Simply enter the ceiling length as the "longitud_pared_m" and the ceiling width as the "altura_m". The roll dimensions remain the same. However, ceilings often require different handling for pattern alignment, so make sure to add an extra 5% to 10% to the recommended rolls for safety.</p>
+
+<h3>What if my wall has multiple windows or doors?</h3>
+<p>The Wallpaper Calculator works best for solid walls without large obstructions. If your wall has one or two small windows, the 10% buffer in the formula usually covers the material saved from cutting around them. For walls with many large openings, measure each solid wall section separately and run the calculator for each section to get the most accurate total.</p>
+
+<h3>Does the calculator work for metric and imperial units?</h3>
+<p>Yes, but the calculator is programmed for metric units (meters). If you measure in feet and inches, you must convert your measurements to meters before entering them. One foot equals 0.3048 meters, and one inch equals 0.0254 meters. Alternatively, use the imperial equivalents provided in the examples above to guide your conversions. The final roll count will be correct regardless of the measurement system, as long as all inputs are in meters.</p>

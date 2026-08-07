@@ -1,44 +1,84 @@
-<section class="long-content">
-<p>Utilisez le <strong>Concrete Slab Calculator</strong> pour calculer surface, volume béton, sacs ciment rapidement et avec précision.</p>
-<h2>Comment fonctionne le calcul</h2>
-<p>Que vous planifiiez des travaux de rénovation, estimiez des matériaux pour un chantier ou calculiez des dimensions pour un projet DIY, disposer des bons chiffres dès le départ fait gagner du temps et de l'argent.</p>
-<p>La formule derrière ce calcul est <strong>Calculateur Dalle Pleine = f(Longueur, Largeur, Épaisseur dalle, Acier (kg/m²))</strong>. Comprendre comment le résultat est obtenu vous aide à vérifier la sortie et à détecter les erreurs d'entrée.</p>
+<p>Le <strong>Calculateur Dalle Pleine</strong> est un outil en ligne conçu pour estimer rapidement les quantités de béton et d'acier nécessaires à la réalisation d'une dalle pleine en béton armé. Que vous soyez maître d'œuvre, architecte ou particulier engagé dans un projet de construction, cet outil vous permet de calculer le volume de béton (en mètres cubes) et le poids d'acier (en kilogrammes) à partir de quelques dimensions clés, en suivant les conventions métriques françaises.</p>
 
-<h2>Guide pas à pas pour votre projet</h2>
-<p>Suivez ces étapes pour obtenir un résultat fiable :</p>
+<h2>À quoi sert le Calculateur Dalle Pleine et quand l'utiliser ?</h2>
+<p>Le <strong>Calculateur Dalle Pleine</strong> répond à un besoin fondamental du gros œuvre : déterminer les matériaux d'une dalle horizontale en béton armé coulée sur place. Il est particulièrement utile pour :</p>
+<ul>
+<li>Dimensionner une dalle de plancher entre deux niveaux d'une maison individuelle.</li>
+<li>Planifier une dalle de terrasse ou de garage.</li>
+<li>Évaluer le volume de béton pour une dalle sur sol (dalle flottante ou radier).</li>
+<li>Estimer les coûts de matière (béton livré par camion toupie et acier vendu au kilogramme).</li>
+</ul>
+<p>L'outil ne remplace pas un calcul de structure (moments fléchissants, armatures de flexion), mais constitue un pré-dimensionnement fiable pour la phase d'avant-projet ou de chiffrage rapide.</p>
+
+<h2>La formule expliquée variable par variable</h2>
+<p>Le calculateur utilise une séquence arithmétique simple, décomposable en trois étapes. Voici chaque variable et son rôle :</p>
+<h3>1. Surface de la dalle (en m²)</h3>
+<p><strong>Largo (L)</strong> : longueur de la dalle en mètres.<br>
+<strong>Ancho (W)</strong> : largeur de la dalle en mètres.<br>
+<strong>Calcul :</strong> <em>L × W = Surface en mètres carrés (m²)</em><br>
+Exemple : une dalle de 8 mètres de long sur 5 mètres de large donne 40 m².</p>
+<h3>2. Volume de béton (en m³)</h3>
+<p><strong>Espesor (E)</strong> : épaisseur de la dalle en mètres (attention à la conversion : 15 cm = 0,15 m).<br>
+<strong>Calcul :</strong> <em>Surface × Épaisseur = Volume en mètres cubes (m³)</em><br>
+Un volume de 40 m² × 0,15 m = 6 m³ de béton.</p>
+<h3>3. Quantité d'acier (en kg)</h3>
+<p><strong>kg_acero_m2</strong> : densité d'acier par mètre carré de dalle, exprimée en kg/m². La valeur par défaut est 12 kg/m² (correspondant à un treillis soudé standard ST 25C ou à un ferraillage léger type dalle de maison).<br>
+<strong>Calcul :</strong> <em>Surface × kg_acero_m2 = Poids total d'acier en kilogrammes (arrondi à l'unité)</em><br>
+Soit 40 m² × 12 kg/m² = 480 kg d'acier.</p>
+<h3>4. Nombre de sacs de ciment (calcul estimatif)</h3>
+<p>Le calculateur intègre une conversion forfaitaire : 1 m³ de béton nécessite environ 7 sacs de ciment (sacs de 35 kg, dosage standard 350 kg/m³). Le résultat est arrondi à l'unité supérieure (<em>Math.ceil</em>) pour éviter les manques. Pour 6 m³, cela donne 6 × 7 = 42 sacs.</p>
+
+<h2>Deux exemples concrets avec chiffres</h2>
+<h3>Exemple 1 : Dalle de garage</h3>
+<p><strong>Dimensions saisies :</strong></p>
+<ul>
+<li>Largo : 6,50 m</li>
+<li>Ancho : 4,00 m</li>
+<li>Espesor : 0,20 m (20 cm)</li>
+<li>kg_acero_m2 : 12 (valeur par défaut)</li>
+</ul>
+<p><strong>Résultats du calculateur :</strong></p>
+<table>
+<tr><th>Élément</th><th>Valeur</th></tr>
+<tr><td>Surface</td><td>26,00 m²</td></tr>
+<tr><td>Volume de béton</td><td>5,200 m³</td></tr>
+<tr><td>Acier nécessaire</td><td>312 kg</td></tr>
+<tr><td>Sacs de ciment (estimation)</td><td>37 sacs</td></tr>
+</table>
+<p><strong>Interprétation :</strong> Pour cette dalle de garage, commandez environ 5,2 m³ de béton prêt à l'emploi et prévoyez 312 kg d'acier (soit l'équivalent de 10 panneaux de treillis soudé de 3×2 mètres environ).</p>
+
+<h3>Exemple 2 : Dalle de terrasse légère</h3>
+<p><strong>Dimensions saisies :</strong></p>
+<ul>
+<li>Largo : 10,00 m</li>
+<li>Ancho : 3,50 m</li>
+<li>Espesor : 0,12 m (12 cm)</li>
+<li>kg_acero_m2 : 8 (réduction pour dalle non portante, terrasse sur sol stabilisé)</li>
+</ul>
+<p><strong>Résultats du calculateur :</strong></p>
+<table>
+<tr><th>Élément</th><th>Valeur</th></tr>
+<tr><td>Surface</td><td>35,00 m²</td></tr>
+<tr><td>Volume de béton</td><td>4,200 m³</td></tr>
+<tr><td>Acier nécessaire</td><td>280 kg</td></tr>
+<tr><td>Sacs de ciment</td><td>30 sacs</td></tr>
+</table>
+<p><strong>Remarque :</strong> En réduisant la densité d'acier à 8 kg/m² (au lieu de 12), on économise 140 kg d'acier, adapté à une dalle peu sollicitée. Vérifiez toujours cette valeur avec un bureau d'études si la dalle supporte une charge lourde.</p>
+
+<h2>Erreurs fréquentes à éviter</h2>
 <ol>
-<li><strong>Saisissez vos valeurs:</strong> 6 m; 4 m; 0.2 m; 12 kg/m² — ensure all values use a single consistent unit system.</li>
-<li><strong>La calculatrice applique la formule:</strong> <em>Calculateur Dalle Pleine = f(Longueur, Largeur, Épaisseur dalle, Acier (kg/m²))</em>.</li>
-<li><strong>Lisez votre résultat:</strong> Surface, Volume béton, Sacs ciment.</li>
-<li>Vérifiez : confirmez que les unités sont cohérentes et les valeurs réalistes avant d'agir sur le résultat.</li>
+<li><strong>Confondre centimètres et mètres pour l'épaisseur :</strong> Une dalle de 15 cm d'épaisseur doit être saisie comme 0,15 m, et non 15. Une erreur de facteur 100 multiplierait le volume par 100.</li>
+<li><strong>Négliger la densité d'acier par m² :</strong> La valeur par défaut (12 kg/m²) convient à une dalle standard de maison, mais pour une dalle de sous-sol ou de parking, il faut souvent monter à 16-20 kg/m². Inversement, une dalle très légère peut descendre à 8 kg/m².</li>
+<li><strong>Oublier les pertes :</strong> Le volume de béton calculé est théorique. Ajoutez 5 à 10 % pour les pertes lors du coulage, la planéité du sol ou les débordements. Pour les sacs de ciment, arrondissez toujours à l'unité supérieure.</li>
+<li><strong>Utiliser le résultat pour la commande sans vérification :</strong> Le calculateur est un outil d'estimation. Pour une dalle structurelle, faites vérifier vos armatures par un ingénieur en génie civil, surtout pour les portées supérieures à 5 mètres.</li>
 </ol>
 
-<h2>Usages pratiques sur le chantier</h2>
-<p>Cette calculatrice est particulièrement utile dans les situations suivantes :</p>
-<ul>
-<li>calculs de fondations résidentielles</li><li>commandes de béton pour projets de construction</li><li>estimation de matériaux structurels</li><li>planification de rénovations</li>
-</ul>
+<h2>Questions fréquentes (FAQ)</h2>
+<h3>Quelle est la différence entre une dalle pleine et une dalle alvéolée ?</h3>
+<p>Une dalle pleine est coulée en continu sur toute sa surface, sans vides. Elle est plus lourde et plus rigide qu'une dalle alvéolée (qui contient des gaines ou des poutrelles préfabriquées). Le <strong>Calculateur Dalle Pleine</strong> ne convient qu'aux dalles pleines classiques. Pour une dalle alvéolée ou un plancher collaborant, utilisez un outil spécifique.</p>
 
-<h2>Interpréter et appliquer vos résultats</h2>
-<p>Votre résultat indique la quantité théorique requise. Ajoutez le facteur de perte approprié avant de commander : 5–10&nbsp;% pour le béton et le mortier, 10–15&nbsp;% pour les carreaux, la pierre naturelle et la brique, et 3–5&nbsp;% pour l'acier et le bois. Arrondissez toujours à l'unité supérieure — sac, tonne ou palette.</p>
+<h3>Puis-je utiliser ce calculateur pour une dalle en béton armé sur sol ?</h3>
+<p>Oui, à condition de saisir l'épaisseur réelle de la dalle (hors couche de forme ou hérisson). Pour une dalle sur sol (radier ou dalle flottante), la densité d'acier peut être réduite (8-10 kg/m²) car le sol répartit une partie des charges. Consultez un professionnel pour l'épaisseur minimale (généralement 12 à 15 cm pour une maison).</p>
 
-<h2>Normes de construction et bonnes pratiques</h2>
-<p>Les projets de construction dépendent d'estimations précises des matériaux. Les professionnels ajoutent généralement 5–10&nbsp;% de marge de perte aux quantités théoriques pour les coupes, la casse et les erreurs de mesure. Les normes ISO et EN définissent les propriétés des matériaux et les tolérances utilisées dans ces formules.</p>
-
-<h2>Erreurs courantes à éviter</h2>
-<ul>
-<li>Oublier d'ajouter une marge de perte (5-10%) lors de la commande de matériaux.</li><li>Mélanger unités métriques et impériales dans un même projet.</li>
-</ul>
-
-<h2>Conseil pro pour les entrepreneurs</h2>
-<p>Commandez 5-10% de matériel en plus que le calcul ne l'indique pour couper les pertes et les erreurs de mesure.</p>
-
-<h2>Questions fréquentes</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Combien de matériel supplémentaire dois-je commander?</button><div class="faq-a"><p>La plupart des professionnels recommandent de commander 5-10% de plus que le calcul pour couper les pertes et les erreurs de mesure.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cette calculatrice est-elle précise?</button><div class="faq-a"><p>Oui. La calculatrice utilise la formule standard : Calculateur Dalle Pleine = f(Longueur, Largeur, Épaisseur dalle, Acier (kg/m²)). Les résultats sont mathématiquement exacts.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Puis-je utiliser cette calculatrice sur mobile?</button><div class="faq-a"><p>Oui, la calculatrice est entièrement responsive et fonctionne sur tout appareil. Aucune installation requise.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Comment sauvegarder ou partager mon calcul ?</button><div class="faq-a"><p>Utilisez le bouton <strong>Partager</strong> pour générer une URL qui encode toutes vos entrées. Le bouton <strong>Copier</strong> copie le résultat dans le presse-papiers.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Que faire si mon résultat semble incorrect ?</button><div class="faq-a"><p>Vérifiez d'abord vos entrées : valeurs dans les bonnes unités et plage réaliste. Vérifiez aussi que la formule <em>Calculateur Dalle Pleine = f(Longueur, Largeur, Épaisseur dalle, Acier (kg/m²))</em> s'applique exactement à votre situation.</p></div></div>
-</div>
-</section>
+<h3>Comment convertir des sacs de ciment en mètres cubes de béton ?</h3>
+<p>Le calculateur estime qu'un sac de 35 kg de ciment, avec les granulats et l'eau, produit environ 0,14 m³ de béton (1 sac pour 0,14 m³). La règle 7 sacs par m³ est une approximation courante en France. Pour un dosage précis, ajustez selon le type de ciment et la résistance visée (C25/30, C30/37, etc.). Le résultat en sacs est indicatif : pour une dalle de 5 m³, prévoyez 35 sacs, mais un camion toupie livrera du béton prêt à l'emploi directement en m³.</p>

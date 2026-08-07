@@ -1,44 +1,65 @@
-<section class="long-content">
-<p>Utilisez le <strong>Light Points Calculator</strong> pour calculer points lumineux, prises, lux recommandés rapidement et avec précision.</p>
-<h2>Comment fonctionne le calcul</h2>
-<p>Que vous planifiiez des travaux de rénovation, estimiez des matériaux pour un chantier ou calculiez des dimensions pour un projet DIY, disposer des bons chiffres dès le départ fait gagner du temps et de l'argent.</p>
-<p>La formule derrière ce calcul est <strong>Calculateur Points Lumineux par Pièce = f(Surface pièce, Type d'usage)</strong>. Comprendre comment le résultat est obtenu vous aide à vérifier la sortie et à détecter les erreurs d'entrée.</p>
+<p>Un éclairage bien conçu transforme une pièce, mais il est souvent difficile de savoir combien de points lumineux et de prises électriques sont réellement nécessaires. Le <strong>Calculateur Points Lumineux par Pièce</strong> vous permet d’estimer ces quantités en quelques secondes, en fonction de la surface de votre pièce et de son usage principal. Que vous rénoviez un salon, aménagiez un bureau ou construisiez une maison, cet outil pratique vous aide à planifier votre installation électrique sans vous perdre dans des calculs complexes.</p>
 
-<h2>Guide pas à pas pour votre projet</h2>
-<p>Suivez ces étapes pour obtenir un résultat fiable :</p>
-<ol>
-<li><strong>Saisissez vos valeurs:</strong> 15 m²; dormitorio — ensure all values use a single consistent unit system.</li>
-<li><strong>La calculatrice applique la formule:</strong> <em>Calculateur Points Lumineux par Pièce = f(Surface pièce, Type d'usage)</em>.</li>
-<li><strong>Lisez votre résultat:</strong> Points lumineux, Prises, Lux recommandés.</li>
-<li>Vérifiez : confirmez que les unités sont cohérentes et les valeurs réalistes avant d'agir sur le résultat.</li>
-</ol>
+<h2>Qu’est-ce que le Calculateur Points Lumineux par Pièce et quand l’utiliser ?</h2>
 
-<h2>Usages pratiques sur le chantier</h2>
-<p>Cette calculatrice est particulièrement utile dans les situations suivantes :</p>
+<p>Ce calculateur en ligne répond à une question simple mais essentielle : combien de luminaires et de prises faut-il prévoir pour une pièce donnée ? En entrant la superficie en mètres carrés et en sélectionnant le type de pièce (salon, chambre, cuisine, salle de bain, bureau ou garage), l’outil génère trois résultats clés : le nombre de points lumineux recommandés, le nombre de prises électriques, et le niveau d’éclairement conseillé en lux.</p>
+
+<p>Utilisez-le à chaque étape de votre projet électrique : avant de réaliser le plan d’implantation, pour valider un devis d’électricien, ou encore pour vérifier que votre installation respecte les normes de confort visuel. Il est particulièrement utile en France, où les règles de construction (comme la norme NF C 15-100) imposent des minimums pour le nombre de prises, mais ne détaillent pas toujours les besoins en éclairage par usage.</p>
+
+<h2>La formule expliquée : variables et logique du calcul</h2>
+
+<p>Le calcul repose sur une logique simple combinant la surface, l’usage et des coefficients standards. Voici comment chaque variable est utilisée :</p>
+
 <ul>
-<li>problèmes mathématiques quotidiens</li><li>budget et planification</li><li>cuisine et mesures domestiques</li><li>calculs de voyage et de temps</li>
+<li><strong>area_m2 (superficie en m²) :</strong> La surface au sol de la pièce, saisie par l’utilisateur. C’est la base de tous les calculs.</li>
+<li><strong>uso (usage de la pièce) :</strong> Chaque type de pièce reçoit un niveau d’éclairement recommandé (en lux) : salon (150 lux), chambre (100 lux), cuisine (300 lux), salle de bain (200 lux), bureau (400 lux), garage (150 lux). Ces valeurs sont extraites des recommandations européennes pour le confort visuel.</li>
+<li><strong>Nombre de points lumineux (puntos_luz) :</strong> Il est calculé comme <em>Math.max(1, Math.ceil(A / 10))</em>. Cela signifie un point lumineux par tranche de 10 m², avec un minimum de 1 point, même dans une petite pièce.</li>
+<li><strong>Nombre de prises (enchufes) :</strong> Formule <em>Math.max(2, Math.ceil(A / 4))</em>. Soit une prise par tranche de 4 m², avec un minimum de 2 prises pour garantir une utilisation de base.</li>
+<li><strong>Puissance LED estimée (w_led_estimados) :</strong> En multipliant le nombre de points lumineux par 12 watts, on obtient une estimation de la puissance totale recommandée pour des ampoules LED (soit environ 12 W par point).</li>
 </ul>
 
-<h2>Interpréter et appliquer vos résultats</h2>
-<p>Votre résultat indique la quantité théorique requise. Ajoutez le facteur de perte approprié avant de commander : 5–10&nbsp;% pour le béton et le mortier, 10–15&nbsp;% pour les carreaux, la pierre naturelle et la brique, et 3–5&nbsp;% pour l'acier et le bois. Arrondissez toujours à l'unité supérieure — sac, tonne ou palette.</p>
+<p>Le lux recommandé (lux_recomendados) est celui qui correspond à l’usage choisi. Il sert de référence pour choisir l’intensité des ampoules, mais n’est pas utilisé directement dans le calcul du nombre de points lumineux.</p>
 
-<h2>Normes de construction et bonnes pratiques</h2>
-<p>Les projets de construction dépendent d'estimations précises des matériaux. Les professionnels ajoutent généralement 5–10&nbsp;% de marge de perte aux quantités théoriques pour les coupes, la casse et les erreurs de mesure. Les normes ISO et EN définissent les propriétés des matériaux et les tolérances utilisées dans ces formules.</p>
+<h2>Deux exemples concrets pour comprendre</h2>
 
-<h2>Erreurs courantes à éviter</h2>
+<h3>Exemple 1 : Un salon de 25 m²</h3>
+<p>Vous aménagez un salon de 25 m². Dans le calculateur, vous entrez <em>area_m2 = 25</em> et <em>uso = “sala”</em> (salon).</p>
 <ul>
-<li>Oublier d'ajouter une marge de perte (5-10%) lors de la commande de matériaux.</li><li>Mélanger unités métriques et impériales dans un même projet.</li>
+<li>Points lumineux : <em>Math.ceil(25 / 10) = 3</em> (car 2,5 est arrondi à 3). Minimum 1, donc 3 points.</li>
+<li>Prises : <em>Math.ceil(25 / 4) = 7</em> (car 6,25 arrondi à 7). Minimum 2, donc 7 prises.</li>
+<li>Lux recommandé : 150 lux.</li>
+<li>Puissance LED estimée : 3 × 12 W = 36 W.</li>
+</ul>
+<p>Résultat : prévoyez 3 points lumineux (par exemple un plafonnier central et deux lampes sur les murs) et 7 prises réparties autour de la pièce pour brancher lampes, TV et appareils électroniques.</p>
+
+<h3>Exemple 2 : Une petite cuisine de 9 m²</h3>
+<p>Pour une cuisine de 9 m², avec <em>area_m2 = 9</em> et <em>uso = “cocina”</em> (cuisine).</p>
+<ul>
+<li>Points lumineux : <em>Math.ceil(9 / 10) = 1</em> (car 0,9 arrondi à 1). Minimum 1, donc 1 point.</li>
+<li>Prises : <em>Math.ceil(9 / 4) = 3</em> (car 2,25 arrondi à 3). Minimum 2, donc 3 prises.</li>
+<li>Lux recommandé : 300 lux (éclairage intense nécessaire pour la préparation des aliments).</li>
+<li>Puissance LED estimée : 1 × 12 W = 12 W.</li>
+</ul>
+<p>Résultat : un point lumineux central suffit, mais avec un éclairage puissant (300 lux). Prévoyez 3 prises pour le réfrigérateur, la plaque de cuisson et les petits appareils.</p>
+
+<h2>Erreurs fréquentes à éviter lors de l’utilisation du calculateur</h2>
+
+<p>Bien que l’outil soit simple, certaines erreurs peuvent fausser vos résultats :</p>
+<ul>
+<li><strong>Confondre la superficie totale avec la surface au sol :</strong> Le calculateur utilise la surface au sol (longueur × largeur). Ne saisissez pas la surface des murs ou le volume de la pièce.</li>
+<li><strong>Choisir un usage inadapté :</strong> Si vous utilisez “garage” pour un atelier de bricolage, le niveau de lux (150) sera insuffisant. Pour un travail de précision, optez pour “bureau” (400 lux) même dans un garage.</li>
+<li><strong>Oublier les spécificités des pièces humides :</strong> Le calculateur donne un nombre de prises, mais pour une salle de bain ou une cuisine, respectez les distances de sécurité (les prises doivent être à plus de 60 cm d’un point d’eau). Ces contraintes ne sont pas intégrées dans l’outil.</li>
+<li><strong>Négliger la répartition des points lumineux :</strong> Le nombre de points est une indication. Dans une grande pièce, mieux vaut multiplier les sources (spots, lampes) pour éviter les zones d’ombre, même si le total reste identique.</li>
+<li><strong>Utiliser une puissance LED trop faible :</strong> Si vous optez pour des ampoules de 8 W au lieu des 12 W estimés, l’éclairement réel sera inférieur au lux recommandé. Ajustez le nombre de points ou la puissance en conséquence.</li>
 </ul>
 
-<h2>Conseil pro pour les entrepreneurs</h2>
-<p>Commandez 5-10% de matériel en plus que le calcul ne l'indique pour couper les pertes et les erreurs de mesure.</p>
+<h2>Questions fréquentes sur le calcul des points lumineux</h2>
 
-<h2>Questions fréquentes</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Combien de matériel supplémentaire dois-je commander?</button><div class="faq-a"><p>La plupart des professionnels recommandent de commander 5-10% de plus que le calcul pour couper les pertes et les erreurs de mesure.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cette calculatrice est-elle précise?</button><div class="faq-a"><p>Oui. La calculatrice utilise la formule standard : Calculateur Points Lumineux par Pièce = f(Surface pièce, Type d'usage). Les résultats sont mathématiquement exacts.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Puis-je utiliser cette calculatrice sur mobile?</button><div class="faq-a"><p>Oui, la calculatrice est entièrement responsive et fonctionne sur tout appareil. Aucune installation requise.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Comment sauvegarder ou partager mon calcul ?</button><div class="faq-a"><p>Utilisez le bouton <strong>Partager</strong> pour générer une URL qui encode toutes vos entrées. Le bouton <strong>Copier</strong> copie le résultat dans le presse-papiers.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Que faire si mon résultat semble incorrect ?</button><div class="faq-a"><p>Vérifiez d'abord vos entrées : valeurs dans les bonnes unités et plage réaliste. Vérifiez aussi que la formule <em>Calculateur Points Lumineux par Pièce = f(Surface pièce, Type d'usage)</em> s'applique exactement à votre situation.</p></div></div>
-</div>
-</section>
+<h3>Le calculateur remplace-t-il l’avis d’un électricien professionnel ?</h3>
+<p>Non. L’outil fournit une estimation basée sur des moyennes, mais chaque installation doit respecter les normes électriques françaises (NF C 15-100) et les spécificités de votre logement (hauteur sous plafond, nombre de fenêtres, présence de meubles). Un électricien pourra ajuster le nombre de prises et de points lumineux en fonction de votre plan d’aménagement et des contraintes techniques.</p>
+
+<h3>Que faire si le résultat me semble trop élevé ou trop faible ?</h3>
+<p>Vérifiez d’abord votre saisie : la superficie en m² est-elle correcte ? L’usage choisi correspond-il vraiment à la pièce ? Par exemple, une chambre d’enfant peut nécessiter plus de lux qu’une chambre d’adulte (préférez 150 lux au lieu de 100). Si le nombre de points lumineux vous paraît excessif, sachez que la formule privilégie un minimum de confort. Vous pouvez réduire le nombre si la pièce bénéficie d’un grand apport de lumière naturelle, mais attention à ne pas tomber en dessous des recommandations pour les zones de travail (cuisine, bureau).</p>
+
+<h3>Puis-je utiliser ce calculateur pour une pièce de forme irrégulière ?</h3>
+<p>Oui, à condition de mesurer la surface réelle au sol (en additionnant les surfaces des différentes zones si la pièce n’est pas rectangulaire). Le calculateur ne tient pas compte de la forme, mais du nombre total de mètres carrés. Pour une pièce en L, par exemple, calculez la surface totale et saisissez-la. La répartition des points lumineux devra ensuite être adaptée (plus de points dans les zones sombres), mais le nombre total restera valable.</p>

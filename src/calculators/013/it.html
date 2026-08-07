@@ -1,44 +1,65 @@
-<section class="long-content">
-<p>Utilizza il <strong>Concrete Block Calculator</strong> per calcolare area neta, bloques ud, mortero kg in modo rapido e preciso.</p>
-<h2>Come funziona il calcolo</h2>
-<p>Che tu stia pianificando una ristrutturazione, stimando materiali per un cantiere o calcolando dimensioni per un progetto fai-da-te, avere i numeri giusti fin dall'inizio risparmia tempo e denaro.</p>
-<p>La formula alla base di questo calcolo è <strong>Calcolatore Intonaco = f(Lunghezza, Alto, Descontar Huecos)</strong>. Comprendere come si ottiene il risultato ti aiuta a verificare l'output e a rilevare errori di input.</p>
+<p>Il <strong>Calcolatore Blocchi in Calcestruzzo</strong> è lo strumento ideale per chiunque debba realizzare una muratura in blocchi di cemento, sia per un progetto fai-da-te che per un cantiere professionale. Questo calcolatore ti permette di ottenere istantaneamente il numero esatto di blocchi e la quantità di malta necessaria, partendo dalle dimensioni della parete e sottraendo eventuali vuoi come porte o finestre. Con pochi semplici dati, eviterai sprechi di materiale e acquisti insufficienti.</p>
 
-<h2>Guida passo dopo passo per il tuo progetto</h2>
-<p>Segui questi passaggi per ottenere un risultato affidabile:</p>
-<ol>
-<li><strong>Inserisci i tuoi valori:</strong> 10 m; 3 m; 3 m² — ensure all values use a single consistent unit system.</li>
-<li><strong>La calcolatrice applica la formula:</strong> <em>Calcolatore Intonaco = f(Lunghezza, Alto, Descontar Huecos)</em>.</li>
-<li><strong>Leggi il tuo risultato:</strong> Area Neta, Bloques Ud, Mortero Kg.</li>
-<li>Verificate: confermate che le unità siano coerenti e i valori realistici prima di agire sul risultato.</li>
-</ol>
+<h2>Cos’è il Calcolatore Blocchi in Calcestruzzo e quando usarlo</h2>
+<p>Questo calcolatore è stato progettato per calcolare con precisione i blocchi di calcestruzzo e la malta necessari per costruire una muratura dritta. Inserendo la larghezza e l’altezza della parete in metri, e l’area totale di eventuali vuoti (porte, finestre) da sottrarre, lo strumento restituisce tre valori fondamentali: l’area netta della muratura (in metri quadrati), il numero di blocchi necessari (considerando uno sfrido del 5%) e il quantitativo di malta in chilogrammi. È utile in tutte le fasi di progettazione e cantiere: per fare un preventivo, per ordinare i materiali al rivenditore, o per verificare la correttezza di un computo metrico. Le unità di misura sono metriche, in linea con le convenzioni italiane, e i risultati sono pronti per essere utilizzati con fornitori locali.</p>
 
-<h2>Usi pratici in cantiere</h2>
-<p>Questa calcolatrice è particolarmente utile nelle seguenti situazioni:</p>
+<h2>La formula spiegata variabile per variabile</h2>
+<p>Il calcolatore utilizza una formula semplice ma efficace, che tiene conto delle dimensioni standard dei blocchi italiani (12,5 blocchi per metro quadrato, considerando un blocco da 20x20x40 cm con giunti di malta). Ecco come funziona passo dopo passo:</p>
 <ul>
-<li>costruzione di muri in mattoni e blocchi</li><li>stima di materiali da muratura</li><li>calcoli di area murale e malta</li><li>budget di costruzione</li>
+<li><strong>L (largo)</strong>: la larghezza della parete in metri. Se non inserisci un valore valido, il calcolo si ferma e restituisce un errore.</li>
+<li><strong>H (alto)</strong>: l’altezza della parete in metri. Anche questo campo è obbligatorio.</li>
+<li><strong>Descontare huecos (area da sottrarre)</strong>: l’area totale in metri quadrati di porte, finestre o altri vuoti. Se non inserisci nulla, il valore predefinito è 0.</li>
+<li><strong>Area netta (area_neta)</strong>: si calcola come L × H – huecos. Se il risultato è negativo, il calcolatore lo porta a 0, evitando errori.</li>
+<li><strong>Blocchi (bloques_ud)</strong>: si moltiplica l’area netta per 12,5 (blocchi standard al mq) e poi per 1,05 (per un margine del 5% di sfrido e tagli). Il risultato viene arrotondato per eccesso con Math.ceil, così hai sempre blocchi interi.</li>
+<li><strong>Malta (mortero_kg)</strong>: si moltiplica l’area netta per 12 (kg di malta standard al mq). Il risultato viene arrotondato a un decimale con toFixed(1).</li>
 </ul>
+<p>La formula è pensata per blocchi di dimensioni 40x20x20 cm (un formato molto comune in Italia), con giunti di circa 1 cm. Se usi blocchi di altre dimensioni, i risultati potrebbero variare.</p>
 
-<h2>Come applicare i risultati</h2>
-<p>Il tuo risultato mostra la quantità teoricamente richiesta. Prima di ordinare, applica il fattore di scarto appropriato: 5–10&nbsp;% per calcestruzzo e malta, 10–15&nbsp;% per piastrelle, pietra naturale e mattoni, e 3–5&nbsp;% per acciaio e legname. Arrotonda sempre all'unità intera superiore — sacco, tonnellata o pallet.</p>
+<h2>Esempi pratici con numeri concreti</h2>
 
-<h2>Norme di costruzione e buone pratiche</h2>
-<p>I progetti di costruzione dipendono da stime precise dei materiali. I professionisti aggiungono tipicamente il 5–10&nbsp;% di tolleranza per sfridi, rotture ed errori di misura. Le norme ISO, EN e UNI definiscono le proprietà dei materiali e le tolleranze alla base di queste formule.</p>
+<h3>Esempio 1: Parete piena di un garage</h3>
+<p>Supponiamo di dover costruire una parete rettangolare per un garage, larga 6 metri e alta 3 metri. Non ci sono finestre né porte (nessun vuoto da sottrarre).</p>
+<ul>
+<li>Larghezza (L) = 6 m</li>
+<li>Altezza (H) = 3 m</li>
+<li>Vuoti = 0 mq</li>
+<li>Area netta = 6 × 3 – 0 = 18 mq</li>
+<li>Blocchi = Math.ceil(18 × 12,5 × 1,05) = Math.ceil(236,25) = 237 blocchi</li>
+<li>Malta = 18 × 12 = 216,0 kg</li>
+</ul>
+<p><strong>Risultato finale:</strong> per questa parete occorrono 237 blocchi e 216 kg di malta. Ordinando blocchi interi, anche se 236 sarebbero teorici, il 237 garantisce copertura per eventuali tagli.</p>
+
+<h3>Esempio 2: Parete di una casa con finestra e porta</h3>
+<p>Immaginiamo ora una parete di una stanza larga 8 metri e alta 2,7 metri, con una porta (2 mq) e una finestra (1,5 mq).</p>
+<ul>
+<li>Larghezza (L) = 8 m</li>
+<li>Altezza (H) = 2,7 m</li>
+<li>Vuoti = 2 + 1,5 = 3,5 mq</li>
+<li>Area netta = 8 × 2,7 – 3,5 = 21,6 – 3,5 = 18,1 mq</li>
+<li>Blocchi = Math.ceil(18,1 × 12,5 × 1,05) = Math.ceil(237,5625) = 238 blocchi</li>
+<li>Malta = 18,1 × 12 = 217,2 kg</li>
+</ul>
+<p><strong>Risultato finale:</strong> servono 238 blocchi e 217,2 kg di malta. Nota come la sottrazione dei vuoti riduca il numero di blocchi rispetto a una parete piena della stessa superficie lorda (che avrebbe richiesto 8 × 2,7 = 21,6 mq → 284 blocchi circa).</p>
 
 <h2>Errori comuni da evitare</h2>
+<p>Usare un calcolatore è facile, ma alcuni errori possono falsare i risultati. Ecco i più frequenti:</p>
 <ul>
-<li>Dimenticare di aggiungere un margine di scarto (5-10%) nell'ordine dei materiali.</li><li>Mescolare unità metriche e imperiali nello stesso progetto.</li>
+<li><strong>Non considerare i giunti di malta:</strong> Il calcolatore tiene già conto dei giunti standard, ma se usi giunti più spessi o più sottili, la quantità di malta e il numero di blocchi potrebbero variare. Per giunti da 1,5 cm, ad esempio, servono meno blocchi al mq.</li>
+<li><strong>Dimenticare lo sfrido del 5%:</strong> Il calcolatore include automaticamente un 5% di margine. Se lo elimini manualmente o raddoppi lo sfrido per errore, rischi di avere blocchi insufficienti o troppi. Fidati del parametro impostato.</li>
+<li><strong>Inserire misure in centimetri invece che in metri:</strong> Il calcolatore si aspetta metri. Se inserisci 300 cm come 300, otterresti un’area di 90.000 mq – un errore assurdo. Converti sempre: 3 metri = 3, non 300.</li>
+<li><strong>Sottrarre vuoti con forme irregolari:</strong> Il calcolatore richiede l’area totale dei vuoti in mq. Se una finestra è trapezoidale, calcola l’area precisa (base maggiore + base minore, diviso 2, per altezza) e inserisci quel valore. Non approssimare troppo.</li>
+<li><strong>Non considerare lo spessore della parete:</strong> Il calcolatore è valido per pareti di spessore pari alla larghezza di un blocco (20 cm circa). Per pareti a doppia fodera o con isolamento, i risultati non sono corretti.</li>
 </ul>
 
-<h2>Consiglio professionale per appaltatori</h2>
-<p>Ordina il 5-10% in più di materiale rispetto al calcolo per coprire tagli, rotture ed errori di misura.</p>
+<h2>Domande frequenti (FAQ)</h2>
 
-<h2>Domande frequenti</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Quanto materiale extra devo ordinare?</button><div class="faq-a"><p>La maggior parte dei professionisti raccomanda di ordinare il 5-10% in più rispetto al calcolato per coprire tagli e sprechi.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Questa calcolatrice è precisa?</button><div class="faq-a"><p>Sì. La calcolatrice usa la formula standard: Calcolatore Intonaco = f(Lunghezza, Alto, Descontar Huecos). I risultati sono matematicamente esatti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Posso usare questa calcolatrice sul telefono?</button><div class="faq-a"><p>Sì, la calcolatrice è completamente responsive e funziona su qualsiasi dispositivo. Nessuna installazione richiesta.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Come salvo o condivido il mio calcolo?</button><div class="faq-a"><p>Usa il pulsante <strong>Condividi</strong> per generare un URL con tutti i tuoi dati. Il pulsante <strong>Copia</strong> copia il risultato negli appunti.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Cosa fare se il risultato sembra sbagliato?</button><div class="faq-a"><p>Controlla prima i tuoi dati: valori nelle unità corrette e intervallo realistico. Verifica anche che la formula <em>Calcolatore Intonaco = f(Lunghezza, Alto, Descontar Huecos)</em> si applichi esattamente alla tua situazione.</p></div></div>
-</div>
-</section>
+<h3>Posso usare questo calcolatore per blocchi in cemento forati?</h3>
+<p>Sì, il calcolatore è pensato per blocchi pieni o forati di dimensioni standard (40x20x20 cm). Tuttavia, se i fori riducono il peso dei blocchi, la quantità di malta rimane la stessa perché si basa sull’area della parete, non sul volume del blocco. Per blocchi con dimensioni diverse, ti consigliamo di consultare un tecnico.</p>
+
+<h3>Come devo interpretare il risultato della malta? È già pronta all’uso?</h3>
+<p>Il valore in chilogrammi si riferisce alla malta secca premiscelata (ad esempio, malta bastarda o cementizia). Una volta acquistata, dovrai aggiungere acqua secondo le istruzioni del produttore. Per malta fatta in casa con sabbia e cemento, la quantità di componenti può variare: usa questo dato come riferimento per il volume totale di impasto.</p>
+
+<h3>E se la mia parete ha una forma irregolare (ad esempio, a L o inclinata)?</h3>
+<p>Il calcolatore è ottimizzato per pareti rettangolari. Per forme complesse, calcola l’area totale della parete (suddividendola in rettangoli) e inserisci quella come larghezza × altezza, oppure somma manualmente le aree e inserisci il risultato come area netta, lasciando i vuoti a 0. Per un risultato preciso, meglio rivolgersi a un geometra o architetto.</p>
+
+<p>Con il <strong>Calcolatore Blocchi in Calcestruzzo</strong>, pianificare la tua muratura diventa semplice e senza sorprese. Ricorda sempre di misurare accuratamente ogni dimensione e di considerare un margine per imprevisti. Buon lavoro!</p>

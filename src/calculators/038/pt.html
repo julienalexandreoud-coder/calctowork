@@ -1,44 +1,78 @@
-<section class="long-content">
-<p>Use a <strong>Underfloor Heating Calculator</strong> para calcular metros de tubo (+10%), circuitos, coletores de forma rápida e precisa.</p>
-<h2>Como funciona o calculo</h2>
-<p>Seja para planejar uma reforma, estimar materiais para uma obra ou calcular dimensoes para um projeto DIY, ter os numeros certos desde o inicio economiza tempo e dinheiro.</p>
-<p>A formula por tras deste calculo e <strong>Calculadora de Piso Radiante = f(Área aquecida, Espaçamento entre tubos, Comprimento máximo por circuito)</strong>. Compreender como o resultado e obtido ajuda a verificar a saida e detectar erros de entrada.</p>
+<p>A <strong>Calculadora de Piso Radiante</strong> é uma ferramenta prática que permite calcular, de forma rápida, a metragem de tubo necessária e o número de circuitos ideais para um sistema de aquecimento de piso radiante. Se está a planear uma instalação em sua casa ou projeto, esta calculadora ajuda a evitar desperdícios e garante que o sistema funcione com eficiência máxima.</p>
 
-<h2>Guia passo a passo para seu projeto</h2>
-<p>Siga estes passos para obter um resultado confiável:</p>
+<h2>O que a Calculadora de Piso Radiante faz e quando utilizá-la</h2>
+
+<p>Esta calculadora foi desenvolvida para simplificar o dimensionamento de sistemas de piso radiante, convertendo os dados da área do compartimento e o espaçamento entre os tubos em resultados concretos: metros lineares de tubo, número de circuitos, número de coletores e quilogramas de betonilha autonivelante. Utilize-a sempre que estiver na fase de planeamento de um novo sistema de aquecimento, especialmente se pretender otimizar materiais e custos. O cenário típico é quando já definiu a área a aquecer (em metros quadrados) e o espaçamento padrão entre os tubos (geralmente entre 15 cm e 25 cm), mas precisa de saber quantos circuitos serão necessários para não exceder o comprimento máximo por circuito (normalmente 80 metros).</p>
+
+<h2>Fórmula utilizada e variáveis explicadas</h2>
+
+<p>A calculadora baseia-se numa sequência lógica de cálculos que consideram as perdas e as limitações técnicas dos sistemas de piso radiante. As variáveis de entrada são três:</p>
+
+<ul>
+<li><strong>area_m2 (A)</strong>: Área total a aquecer, em metros quadrados. É o valor mais crítico, pois determina o volume de todos os outros materiais.</li>
+<li><strong>separacion_cm (sep)</strong>: Distância entre os tubos, em centímetros. O padrão mais comum é 20 cm, mas pode variar entre 15 cm para zonas muito frias e 25 cm para zonas mais amenizadas.</li>
+<li><strong>circuitos_max_m (cmax)</strong>: Comprimento máximo permitido por circuito, em metros. O valor padrão é 80 m, pois a maioria dos sistemas recomenda não ultrapassar este limite para garantir uma distribuição uniforme da temperatura.</li>
+</ul>
+
+<p><strong>Passo a passo do cálculo:</strong></p>
+
 <ol>
-<li><strong>Insira seus dados:</strong> 80 m²; 20 cm; 80 m/circuito — ensure all values use a single consistent unit system.</li>
-<li><strong>A calculadora aplica a fórmula:</strong> <em>Calculadora de Piso Radiante = f(Área aquecida, Espaçamento entre tubos, Comprimento máximo por circuito)</em>.</li>
-<li><strong>Leia seu resultado:</strong> Metros de tubo (+10%), Circuitos, Coletores.</li>
-<li>Verifique: confirme que as unidades são consistentes e os valores realistas antes de agir com base no resultado.</li>
+<li><strong>Metros lineares de tubo (ml_tubo):</strong> Fórmula: <em>A × (100 / sep) × 1.1</em>. Multiplica-se a área pelo fator de conversão de centímetros para metros (100 cm = 1 m) e depois aplica-se um fator de segurança de 10% (1.1) para compensar curvas, ligações e perdas de instalação. O resultado é arredondado a uma casa decimal.</li>
+<li><strong>Circuitos (circuitos):</strong> Divide-se o total de metros de tubo pelo comprimento máximo por circuito (<em>ml_tubo / cmax</em>) e arredonda-se para cima (<em>Math.ceil</em>). Isto garante que nenhum circuito excede o limite.</li>
+<li><strong>Coletores (colectores_ud):</strong> Divide-se o número de circuitos por 8 (já que cada coletor padrão tem 8 saídas) e arredonda-se para cima.</li>
+<li><strong>Betonilha autonivelante (mortero_autonivelante_kg):</strong> Multiplica-se a área por 80 kg (estimativa padrão para uma camada de betonilha de aproximadamente 5 cm de espessura). O resultado é dado em quilogramas, sem casas decimais.</li>
 </ol>
 
-<h2>Usos praticos na obra</h2>
-<p>Esta calculadora é especialmente útil nas seguintes situações:</p>
+<h2>Exemplos práticos com valores concretos</h2>
+
+<p><strong>Exemplo 1: Sala de 30 m² com espaçamento padrão</strong></p>
+<table>
+<tr><th>Variável</th><th>Valor</th></tr>
+<tr><td>Área (area_m2)</td><td>30 m²</td></tr>
+<tr><td>Espaçamento (separacion_cm)</td><td>20 cm</td></tr>
+<tr><td>Circuito máximo (circuitos_max_m)</td><td>80 m</td></tr>
+</table>
+<p><strong>Cálculo:</strong></p>
 <ul>
-<li>problemas matemáticos do dia a dia</li><li>orçamento e planejamento</li><li>culinária e medições domésticas</li><li>cálculos de viagem e tempo</li>
+<li>Tubo: 30 × (100 / 20) × 1.1 = 30 × 5 × 1.1 = 165,0 metros</li>
+<li>Circuitos: 165 / 80 = 2,0625 → arredondado para cima = <strong>3 circuitos</strong></li>
+<li>Coletores: 3 / 8 = 0,375 → arredondado para cima = <strong>1 coletor</strong></li>
+<li>Betonilha: 30 × 80 = <strong>2400 kg</strong> (cerca de 2,4 toneladas)</li>
+</ul>
+<p><strong>Interpretação:</strong> Para uma sala de 30 m² com tubos a cada 20 cm, precisará de 165 metros de tubo, distribuídos por 3 circuitos individuais (cada um com cerca de 55 metros), que serão ligados a um coletor de 8 vias. A quantidade de betonilha será suficiente para cobrir toda a área com uma camada de 5 cm de espessura.</p>
+
+<p><strong>Exemplo 2: Open space de 60 m² com espaçamento mais fechado</strong></p>
+<table>
+<tr><th>Variável</th><th>Valor</th></tr>
+<tr><td>Área (area_m2)</td><td>60 m²</td></tr>
+<tr><td>Espaçamento (separacion_cm)</td><td>15 cm</td></tr>
+<tr><td>Circuito máximo (circuitos_max_m)</td><td>80 m</td></tr>
+</table>
+<p><strong>Cálculo:</strong></p>
+<ul>
+<li>Tubo: 60 × (100 / 15) × 1.1 = 60 × 6,666... × 1.1 = 440,0 metros</li>
+<li>Circuitos: 440 / 80 = 5,5 → arredondado para cima = <strong>6 circuitos</strong></li>
+<li>Coletores: 6 / 8 = 0,75 → arredondado para cima = <strong>1 coletor</strong></li>
+<li>Betonilha: 60 × 80 = <strong>4800 kg</strong></li>
+</ul>
+<p><strong>Interpretação:</strong> Num espaço maior (60 m²) e com espaçamento mais apertado (15 cm) para garantir maior potência de aquecimento, o total de tubo sobe para 440 metros, exigindo 6 circuitos. Apesar de ser um coletor de 8 vias, este tem capacidade para todos os circuitos. A betonilha necessária duplica em relação ao exemplo anterior, para 4800 kg.</p>
+
+<h2>Erros comuns ao utilizar a calculadora</h2>
+
+<ul>
+<li><strong>Não considerar o fator de segurança (10%):</strong> Alguns utilizadores omitem este fator e depois ficam sem tubo suficiente para fazer as curvas e ligações ao coletor. O valor de 1.1 é uma margem de segurança essencial, especialmente em divisões com geometrias irregulares.</li>
+<li><strong>Ignorar o comprimento máximo por circuito:</strong>  É frequente tentar usar circuitos com mais de 100 metros para reduzir o número de coletores, mas isso provoca quedas de pressão e diferenças de temperatura no piso. A calculadora usa 80 m como padrão, mas pode ajustar este valor se o seu sistema permitir comprimentos maiores (consulte sempre o fabricante).</li>
+<li><strong>Arredondar incorretamente o número de circuitos:</strong>  O arredondamento é sempre para cima (Math.ceil), mas alguns fazem arredondamento normal. Isto pode resultar em circuitos demasiado longos ou num coletor subdimensionado.</li>
+<li><strong>Esquecer que a betonilha autonivelante é apenas uma estimativa:</strong> O cálculo de 80 kg/m² pressupõe uma espessura de 5 cm. Se o projeto exigir uma camada mais fina ou mais espessa, o peso real será diferente. A calculadora dá um valor base, mas ajuste sempre com o seu fornecedor de materiais.</li>
 </ul>
 
-<h2>Como aplicar os resultados</h2>
-<p>Seu resultado mostra a quantidade teórica necessária. Antes de pedir, aplique o fator de perda adequado: 5–10&nbsp;% para concreto e argamassa, 10–15&nbsp;% para cerâmica, pedra natural e tijolo, e 3–5&nbsp;% para aço e madeira. Sempre arredonde para cima à próxima unidade inteira — saco, tonelada ou palete.</p>
+<h2>Perguntas frequentes (FAQ)</h2>
 
-<h2>Normas de construção e boas práticas</h2>
-<p>Projetos de construção dependem de estimativas precisas de materiais para cumprir orçamento e cronograma. Profissionais geralmente adicionam 5–10&nbsp;% de margem de perda sobre a quantidade teórica para cobrir cortes, quebras e erros de medição. As normas ISO e ABNT definem as propriedades dos materiais utilizadas nestas fórmulas.</p>
+<h3>O que acontece se o espaçamento dos tubos for inferior a 15 cm?</h3>
+<p>Para espaçamentos muito apertados (menos de 15 cm), o fator de segurança de 10% pode não ser suficiente, pois as curvas são mais fechadas e o desperdício de tubo é maior. Nesse caso, recomenda-se usar um fator de 1,15 a 1,20 no cálculo manual. A calculadora usa 1.1 como valor médio seguro para a maioria das instalações residenciais.</p>
 
-<h2>Erros comuns a evitar</h2>
-<ul>
-<li>Esquecer de adicionar margem de desperdicio (5-10%) ao pedir materiais.</li><li>Misturar unidades metricas e imperiais no mesmo projeto.</li>
-</ul>
+<h3>Posso usar a calculadora para projetos com vários pisos?</h3>
+<p>Sim, mas deve calcular cada piso separadamente, pois cada andar pode ter necessidades de aquecimento diferentes (espaçamento, isolamento, etc.). Some depois os totais de tubo e circuitos. Lembre-se de que os coletores devem ser dimensionados individualmente para cada piso, e não somados.</p>
 
-<h2>Dica profissional para contratados</h2>
-<p>Peça 5-10% mais material do que o calculo indica para cobrir cortes, quebras e erros de medicao.</p>
-
-<h2>Perguntas frequentes</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Quanto material extra devo pedir?</button><div class="faq-a"><p>A maioria dos profissionais recomenda pedir 5-10% mais do que o calculado para cobrir cortes e desperdicio.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Esta calculadora e precisa?</button><div class="faq-a"><p>Sim. A calculadora usa a formula padrao: Calculadora de Piso Radiante = f(Área aquecida, Espaçamento entre tubos, Comprimento máximo por circuito). Os resultados sao matematicamente exatos.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Posso usar esta calculadora no celular?</button><div class="faq-a"><p>Sim, a calculadora e totalmente responsiva e funciona em qualquer dispositivo.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Como salvo ou compartilho meu cálculo?</button><div class="faq-a"><p>Use o botão <strong>Compartilhar</strong> para gerar uma URL com todos os seus dados. O botão <strong>Copiar</strong> copia o resultado para a área de transferência.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">O que fazer se o resultado parecer errado?</button><div class="faq-a"><p>Verifique suas entradas: valores nas unidades corretas e faixa realista. Confirme também que a fórmula <em>Calculadora de Piso Radiante = f(Área aquecida, Espaçamento entre tubos, Comprimento máximo por circuito)</em> se aplica exatamente à sua situação.</p></div></div>
-</div>
-</section>
+<h3>A calculadora considera o tipo de tubo (PE-X, PE-RT) ou o diâmetro?</h3>
+<p>Não. A fórmula é genérica para tubos de 16 mm ou 20 mm, que são os mais comuns em piso radiante. O comprimento máximo (circuitos_max_m) é o principal fator que muda com o diâmetro: tubos de 20 mm podem suportar circuitos mais longos (até 100-120 m), enquanto tubos de 16 mm devem ficar abaixo dos 80 m. Ajuste o valor de <strong>circuitos_max_m</strong> conforme o seu projeto.</p>

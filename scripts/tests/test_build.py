@@ -27,7 +27,11 @@ def test_sitemap_exists():
     print("[PASS] All sitemap files exist")
 
 def test_noindex_on_parametric():
-    """Verify parametric variant pages have noindex."""
+    """Verify parametric variant pages have noindex (AdSense-safe policy).
+
+    Parametric variants are inherently near-duplicate (same calc, different
+    numbers), so they stay noindex,follow — the base pages carry indexing.
+    """
     # Parametric pages are nested deeper: /lang/slug/param/index.html
     parametric_pages = []
     for lang_dir in PUBLIC.glob("*"):
@@ -92,8 +96,12 @@ def test_content_quality():
     thin = 0
     for lang, page in samples:
         content = page.read_text(encoding="utf-8")
-        # Extract long-content section
-        m = re.search(r'class="long-content"[^>]*>(.*?)</section>', content, re.DOTALL)
+        # Long-form article lives in <div class="long-content-wrap">…</div>,
+        # terminated by the in-article ad slot, author line, or FAQ block.
+        m = re.search(
+            r'class="long-content-wrap"[^>]*>(.*?)'
+            r'(?:<div class="ad-slot ad-slot-inarticle"|<p class="author-line"|<!-- FAQ|$)',
+            content, re.DOTALL)
         if not m:
             thin += 1
             continue

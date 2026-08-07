@@ -1,46 +1,137 @@
-<section class="long-content">
-<p>Usa la <strong>Laminate Flooring Calculator</strong> para calcular área con merma (+8%), cajas, sotobanda / underlay de forma rápida y precisa.</p>
-<h2>Cómo funciona el cálculo</h2>
-<p>Los cálculos de construcción parecen sencillos hasta que consideras margen de desperdicio, conversiones de unidades y estándares regionales de materiales. Esta calculadora gestiona esos detalles automáticamente, para que te concentres en la obra y no en las matemáticas.</p>
-<p>Los cálculos de construcción parecen sencillos hasta que consideras margen de desperdicio, conversiones de unidades y estándares regionales de materiales. Esta calculadora gestiona esos detalles automáticamente, para que te concentres en la obra y no en las matemáticas.</p>
-<p>La fórmula detrás de este cálculo es <strong>Calculadora de Suelo Laminado Flotante = f(Área a cubrir, m² por caja)</strong>. Comprender cómo se obtiene el resultado te ayuda a verificar la salida y detectar errores de entrada.</p>
+<p>La <strong>Calculadora de Suelo Laminado Flotante</strong> es una herramienta imprescindible para calcular con precisión cuántas cajas de suelo necesitas, junto con los metros de sotobanda y rodapié. Tanto profesionales como estudiantes de reformas y construcción en España confían en ella para evitar errores de compra y ajustarse al presupuesto real de su proyecto.</p>
 
-<h2>Guía paso a paso para tu proyecto</h2>
-<p>Sigue estos pasos para obtener un resultado fiable:</p>
+<h2>Qué hace la calculadora y cuándo usarla</h2>
+
+<p>Esta calculadora resuelve un problema habitual al instalar suelo laminado flotante: saber la cantidad exacta de material que debes adquirir, teniendo en cuenta pérdidas por cortes y desperdicios. En lugar de calcular a ojo o arriesgarte a comprar de menos, introduces dos datos básicos:</p>
+
+<ul>
+<li><strong>Área total de la estancia</strong> (en metros cuadrados, m²).</li>
+<li><strong>Metros cuadrados por caja</strong> de suelo laminado (valor estándar: 2,5 m²/caja).</li>
+</ul>
+
+<p>Con estos valores, la herramienta calcula al instante:</p>
+<ul>
+<li>Número de cajas necesarias (redondeado hacia arriba).</li>
+<li>Metros cuadrados de sotobanda (con un 5% extra de margen).</li>
+<li>Metros lineales de rodapié para cubrir el perímetro.</li>
+</ul>
+
+<p>Úsala siempre que vayas a reformar un suelo: en viviendas, oficinas, locales comerciales o proyectos universitarios. Especialmente útil cuando trabajas con metros cuadrados irregulares o estancias con muchos rincones, donde el porcentaje de merma (desperdicio) se incrementa.</p>
+
+<h2>Fórmula explicada variable por variable</h2>
+
+<p>El cálculo interno de la <strong>Calculadora de Suelo Laminado Flotante</strong> sigue una secuencia lógica basada en estándares del sector. Aquí desglosamos cada variable:</p>
+
+<table>
+<tr>
+<th>Variable</th>
+<th>Significado</th>
+<th>Valor o cálculo</th>
+</tr>
+<tr>
+<td><strong>A</strong></td>
+<td>Área total de la superficie a cubrir</td>
+<td>Introducida por el usuario en m²</td>
+</tr>
+<tr>
+<td><strong>mxc</strong></td>
+<td>Metros cuadrados por caja</td>
+<td>Valor por defecto: 2,5 m² (modificable)</td>
+</tr>
+<tr>
+<td><strong>area_merma</strong></td>
+<td>Área incluyendo desperdicio del 8%</td>
+<td>A × 1,08 (redondeado a 2 decimales)</td>
+</tr>
+<tr>
+<td><strong>cajas</strong></td>
+<td>Número de cajas enteras necesarias</td>
+<td>Math.ceil(area_merma / mxc)</td>
+</tr>
+<tr>
+<td><strong>sotobanda</strong></td>
+<td>Metros cuadrados de sotobanda con 5% extra</td>
+<td>area_merma × 1,05 (redondeado a 2 decimales)</td>
+</tr>
+<tr>
+<td><strong>rodc</strong></td>
+<td>Metros lineales de rodapié</td>
+<td>Math.ceil(area_merma / 15)</td>
+</tr>
+<tr>
+<td><strong>rodapie_ml</strong></td>
+<td>Rodapié estimado según perímetro</td>
+<td>√A × 4 (redondeado a 1 decimal)</td>
+</tr>
+</table>
+
+<p><strong>Explicación clave:</strong></p>
+<ul>
+<li><strong>area_merma = A × 1,08</strong>: el 8% extra es estándar en instalaciones de suelo laminado para compensar cortes y errores. En estancias con formas complejas (muchos ángulos o columnas), este porcentaje puede subir al 10-15%, pero aquí usamos el valor más común.</li>
+<li><strong>cajas = Math.ceil(area_merma / mxc)</strong>: se redondea siempre hacia arriba porque no puedes comprar fracciones de caja.</li>
+<li><strong>sotobanda = area_merma × 1,05</strong>: la sotobanda (lámina aislante bajo el laminado) necesita un 5% extra para cubrir solapamientos y ajustes.</li>
+<li><strong>rodapie_ml = √A × 4</strong>: estima el perímetro suponiendo una estancia cuadrada. Para habitaciones rectangulares o con formas irregulares, conviene medir el perímetro real. Este cálculo es orientativo.</li>
+</ul>
+
+<h2>Ejemplos prácticos con números concretos</h2>
+
+<h3>Ejemplo 1: Salón de 20 m² con cajas de 2,5 m²</h3>
 <ol>
-<li><strong>Introduce tus datos:</strong> 20 m²; 2.5 m²/caja — ensure all values use a single consistent unit system.</li>
-<li><strong>La calculadora aplica la fórmula:</strong> <em>Calculadora de Suelo Laminado Flotante = f(Área a cubrir, m² por caja)</em>.</li>
-<li><strong>Lee tu resultado:</strong> Área con merma (+8%), Cajas, Sotobanda / Underlay.</li>
-<li>Verifica: confirma que las unidades sean coherentes y los valores realistas antes de actuar en base al resultado.</li>
+<li><strong>Datos de entrada:</strong>
+<ul>
+<li>Área (A) = 20 m²</li>
+<li>mxc = 2,5 m²/caja</li>
+</ul>
+</li>
+<li><strong>Cálculo paso a paso:</strong>
+<ul>
+<li>area_merma = 20 × 1,08 = 21,60 m²</li>
+<li>cajas = Math.ceil(21,60 / 2,5) = Math.ceil(8,64) = 9 cajas</li>
+<li>sotobanda = 21,60 × 1,05 = 22,68 m²</li>
+<li>rodapie_ml = √20 × 4 = 4,472 × 4 = 17,9 metros (orientativo)</li>
+</ul>
+</li>
+<li><strong>Resultado:</strong> Comprarás 9 cajas de suelo, 22,68 m² de sotobanda, y necesitarás aproximadamente 18 metros lineales de rodapié (mide el perímetro real de la sala para mayor precisión).</li>
 </ol>
 
-<h2>Usos prácticos en la obra</h2>
-<p>Esta calculadora es especialmente útil en las siguientes situaciones:</p>
+<h3>Ejemplo 2: Habitación de 12,5 m² con cajas de 2 m²</h3>
+<ol>
+<li><strong>Datos de entrada:</strong>
 <ul>
-<li>problemas matemáticos cotidianos</li><li>presupuesto y planificación</li><li>cocina y mediciones del hogar</li><li>cálculos de viaje y tiempo</li>
+<li>Área (A) = 12,5 m²</li>
+<li>mxc = 2,0 m²/caja (por ejemplo, una marca específica)</li>
+</ul>
+</li>
+<li><strong>Cálculo paso a paso:</strong>
+<ul>
+<li>area_merma = 12,5 × 1,08 = 13,50 m²</li>
+<li>cajas = Math.ceil(13,50 / 2,0) = Math.ceil(6,75) = 7 cajas</li>
+<li>sotobanda = 13,50 × 1,05 = 14,18 m²</li>
+<li>rodapie_ml = √12,5 × 4 = 3,536 × 4 = 14,1 metros (orientativo)</li>
+</ul>
+</li>
+<li><strong>Resultado:</strong> Necesitas 7 cajas de suelo, 14,18 m² de sotobanda y unos 14 metros de rodapié.</li>
+</ol>
+
+<h2>Errores comunes al usar la calculadora</h2>
+
+<p>Aunque la herramienta es muy fiable, ciertos fallos frecuentes pueden alterar los resultados:</p>
+
+<ul>
+<li><strong>No incluir el área de huecos o columnas:</strong> La calculadora espera el área neta de suelo que vas a cubrir. Si introduces el área total de la habitación sin restar zonas que no se van a laminar (como pilares o armarios empotrados), el cálculo será incorrecto.</li>
+<li><strong>Olvidar que el 8% de merma es un mínimo:</strong> En estancias con formas irregulares (pasillos en L, ángulos de 45 grados, múltiples esquinas), el desperdicio real puede superar el 8%. En esos casos, añade manualmente un 10-12% a tu área antes de usar la calculadora, o compra una caja extra de margen.</li>
+<li><strong>Confundir los metros de rodapié:</strong> La fórmula √A × 4 solo es exacta para espacios cuadrados. Si tu habitación es muy alargada (por ejemplo, 2 m × 10 m = 20 m², con perímetro real de 24 metros lineales), el cálculo subestima el rodapié. Siempre mide el perímetro real con una cinta métrica.</li>
+<li><strong>No verificar los m² por caja:</strong> Algunas marcas ofrecen cajas con 1,98 m², otras con 2,13 m² o 2,80 m². Introduce siempre el valor exacto que aparece en la etiqueta del producto, no el estándar.</li>
+<li><strong>Redondear los decimales al introducir el área:</strong> Si tu habitación mide 18,7 m², escríbelo directamente. Redondear a 19 m² puede hacer que compres una caja de más o de menos.</li>
 </ul>
 
-<h2>Cómo aplicar los resultados</h2>
-<p>Tu resultado muestra la cantidad teórica necesaria. Antes de pedir, aplica el factor de merma adecuado al material: 5–10&nbsp;% para hormigón y mortero, 10–15&nbsp;% para azulejo, piedra natural y ladrillo (para cubrir cortes, roturas y encaje de juntas), y 3–5&nbsp;% para acero y madera. Redondea siempre al alza a la siguiente unidad completa — saco, tonelada o palé — para evitar parar la obra por una segunda entrega.</p>
+<h2>Preguntas frecuentes (FAQ)</h2>
 
-<h2>Normas de construcción y buenas prácticas</h2>
-<p>Los proyectos de construcción dependen de estimaciones precisas de materiales para mantenerse dentro del presupuesto y el cronograma. Pedir demasiado poco detiene la obra y genera entregas de emergencia costosas; pedir demasiado desperdicia dinero y ocupa espacio en el sitio. Los estimadores profesionales suelen añadir un 5–10&nbsp;% de factor de merma sobre la cantidad teórica para cubrir cortes, recortes, roturas y pequeños errores de medición.</p><p>Los cálculos modernos de construcción siguen normas establecidas por organismos como ISO, DIN o UNE, que definen propiedades de materiales, tolerancias y márgenes de diseño. Conocer la norma detrás de una fórmula ayuda a adaptarla cuando las condiciones difieren del caso estándar — por ejemplo, al trabajar con materiales recuperados, dimensiones no estándar o sitios en altitud donde el fraguado del hormigón se comporta de forma diferente.</p>
+<h3>¿Qué hago si el número de cajas no es exacto y me sobran muchas?</h3>
+<p>Es normal que sobre algo de material, especialmente si compraste una caja extra para seguridad. Guarda las cajas sin abrir y devuélvelas dentro del plazo de devolución de la tienda. Otra opción es conservar algunas tablas sueltas para futuras reparaciones, ya que el suelo laminado puede dañarse con el tiempo.</p>
 
-<h2>Errores comunes a evitar</h2>
-<ul>
-<li>Olvidar añadir un margen de desperdicio (típicamente 5-10%) al pedir materiales — redondear arriba evita una segunda entrega.</li><li>Mezclar unidades métricas e imperiales en el mismo proyecto. Mantén un sistema consistente.</li><li>Medir dimensiones exteriores en vez del área interior — la diferencia importa para suelos y azulejos.</li>
-</ul>
+<h3>¿La calculadora funciona para cualquier tipo de suelo laminado?</h3>
+<p>Sí, siempre que conozcas los metros cuadrados por caja. Sin embargo, ten en cuenta que el 8% de merma está pensado para instalaciones rectas. Si vas a colocar el suelo en espiga o con patrones diagonales, el desperdicio puede subir al 15-20%. En ese caso, introduce un área mayor (multiplica tu área real por 1,15 o 1,20) para obtener un resultado más realista.</p>
 
-<h2>Consejo profesional para contratistas</h2>
-<p>Pide un 5-10% más de material de lo que indica tu cálculo para cubrir cortes, roturas y errores de medición. Es más barato que una segunda entrega.</p>
-
-<h2>Preguntas frecuentes</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Cuánto material extra debo pedir?</button><div class="faq-a"><p>La mayoría de profesionales recomiendan pedir un 5-10% más de lo calculado para cubrir cortes, desperdicio y errores de medición. Para piedra natural o azulejo cerámico, el factor de desperdicio puede ser del 10-15%.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Puedo usar esta calculadora con unidades métricas e imperiales?</button><div class="faq-a"><p>Sí. Selecciona tu sistema de unidades preferido en los campos de entrada y la calculadora convierte automáticamente.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Es precisa esta calculadora?</button><div class="faq-a"><p>Sí. La calculadora utiliza la fórmula estándar: Calculadora de Suelo Laminado Flotante = f(Área a cubrir, m² por caja). Los resultados son matemáticamente exactos; la precisión final depende de los datos que introduzcas.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Puedo usar esta calculadora en el móvil?</button><div class="faq-a"><p>Sí, la calculadora es totalmente responsiva y funciona en cualquier dispositivo. No requiere instalación ni registro.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Cómo guardo o comparto mi cálculo?</button><div class="faq-a"><p>Usa el botón <strong>Compartir</strong> para generar una URL que codifica todos tus datos — quien abra el enlace verá los mismos valores y resultado. El botón <strong>Copiar</strong> copia el texto del resultado para pegarlo en una hoja de cálculo, correo o documento.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">¿Qué hago si el resultado parece incorrecto?</button><div class="faq-a"><p>Primero revisa tus datos: comprueba que los valores estén en las unidades correctas y en un rango realista. Las causas más comunes son la mezcla de unidades métricas e imperiales, dígitos transpuestos o el uso de una calculadora equivocada. Si los datos parecen correctos y el resultado sigue siendo extraño, verifica que la fórmula <em>Calculadora de Suelo Laminado Flotante = f(Área a cubrir, m² por caja)</em> se aplica exactamente a tu caso.</p></div></div>
-</div>
-</section>
+<h3>¿Puedo usar esta calculadora para presupuestos profesionales?</h3>
+<p>Absolutamente. Muchos instaladores en España la utilizan como punto de partida para generar presupuestos rápidos. Eso sí, para una oferta formal, siempre añade un margen de seguridad adicional (una caja extra) y verifica el perímetro del rodapié sobre plano. La calculadora te da una base sólida que luego ajustas con tu experiencia.</p>

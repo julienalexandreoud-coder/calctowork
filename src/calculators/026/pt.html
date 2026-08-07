@@ -1,44 +1,122 @@
-<section class="long-content">
-<p>Use a <strong>Terrazzo Calculator</strong> para calcular área com perda (+8%), peças, argamassa base de forma rápida e precisa.</p>
-<h2>Como funciona o calculo</h2>
-<p>Seja para planejar uma reforma, estimar materiais para uma obra ou calcular dimensoes para um projeto DIY, ter os numeros certos desde o inicio economiza tempo e dinheiro.</p>
-<p>A formula por tras deste calculo e <strong>Calculadora de Granilite e Pastilha = f(Área, Tamanho peça, Calcular argamassa base)</strong>. Compreender como o resultado e obtido ajuda a verificar a saida e detectar erros de entrada.</p>
+<p>A Calculadora de Granilite e Pastilha é uma ferramenta indispensável para profissionais de construção civil, arquitetos e estudantes que trabalham com revestimentos cerâmicos, pastilhas de vidro ou granilite. Com esta calculadora, você pode determinar rapidamente a quantidade exata de peças necessárias para o seu projeto, além de calcular a argamassa de base para assentamento em camada grossa, poupando tempo e evitando desperdícios desnecessários.</p>
 
-<h2>Guia passo a passo para seu projeto</h2>
-<p>Siga estes passos para obter um resultado confiável:</p>
+<h2>O que a Calculadora de Granilite e Pastilha faz e quando usá-la</h2>
+
+<p>Esta calculadora foi desenvolvida especificamente para calcular o número de peças (granilite, pastilhas ou ladrilhos) e a quantidade de argamassa base para assentamento em camada grossa. Ela é ideal para projetos onde as peças têm formato quadrado ou retangular e são assentadas com argamassa tradicional, como em áreas exteriores, piscinas, fachadas ou pavimentos industriais.</p>
+
+<p>Utilize a Calculadora de Granilite e Pastilha sempre que precisar:</p>
+<ul>
+  <li><strong>Orçamentar materiais:</strong> para comprar a quantidade certa de peças, evitando faltas ou sobras excessivas.</li>
+  <li><strong>Planear a obra:</strong> para calcular a argamassa necessária, considerando 30 kg por metro quadrado (padrão para camada grossa).</li>
+  <li><strong>Estudar projetos académicos:</strong> estudantes de engenharia civil e arquitetura utilizam-na para simulações rápidas e precisas.</li>
+  <li><strong>Comparar fornecedores:</strong> ao saber exatamente o que precisa, pode negociar melhor os preços dos materiais.</li>
+</ul>
+
+<p>A ferramenta já inclui uma margem de 8% para quebras e recortes (merma), valor padrão aceite na indústria portuguesa. Esta margem cobre pequenas falhas durante o corte, transporte ou assentamento, garantindo que não falte material no final da obra.</p>
+
+<h2>Fórmula explicada: variável por variável</h2>
+
+<p>A lógica da calculadora baseia-se numa fórmula simples, mas eficaz. Vejamos cada variável e o seu papel no cálculo:</p>
+
+<table>
+  <tr>
+    <th>Variável</th>
+    <th>Descrição</th>
+    <th>Exemplo prático</th>
+  </tr>
+  <tr>
+    <td><strong>A</strong></td>
+    <td>Área total a revestir, em metros quadrados (m²). É o valor inserido no campo "area".</td>
+    <td>Se a parede tem 10 m², insere 10.</td>
+  </tr>
+  <tr>
+    <td><strong>tam</strong></td>
+    <td>Tamanho da peça em centímetros (cm). Campo "tam_pieza_cm". Valor padrão: 40 cm.</td>
+    <td>Pastilha de 20x20 cm insere 20.</td>
+  </tr>
+  <tr>
+    <td><strong>area_merma</strong></td>
+    <td>Área com margem de 8% para quebras: A × 1,08.</td>
+    <td>10 m² × 1,08 = 10,80 m²</td>
+  </tr>
+  <tr>
+    <td><strong>pieza_m2</strong></td>
+    <td>Área de cada peça em m²: (tam/100) × (tam/100).</td>
+    <td>40 cm = 0,40 m; 0,40 × 0,40 = 0,16 m²</td>
+  </tr>
+  <tr>
+    <td><strong>piezas</strong></td>
+    <td>Número de peças: arredondado para cima (Math.ceil) de area_merma / pieza_m2.</td>
+    <td>10,80 / 0,16 = 67,5 → 68 peças</td>
+  </tr>
+  <tr>
+    <td><strong>mortero_kg</strong></td>
+    <td>Argamassa base em kg, calculada apenas se "incluye_mortero" = "sim". Fórmula: A × 30 (kg/m²).</td>
+    <td>10 m² × 30 = 300 kg</td>
+  </tr>
+</table>
+
+<p><strong>Fórmula completa:</strong> A calculadora primeiro verifica se a área (A) é válida. Caso contrário, retorna erro. Depois calcula a área com merma (8% adicional), determina quantas peças cabem nessa área (arredondando sempre para cima para não faltar material) e, opcionalmente, calcula a argamassa base (30 kg/m², padrão para camada grossa).</p>
+
+<h2>Exemplos práticos com números concretos</h2>
+
+<h3>Exemplo 1: Revestimento de parede com pastilha de 20 cm</h3>
+<p><strong>Dados inseridos:</strong></p>
+<ul>
+  <li>Área: 15 m² (parede de 5 m × 3 m)</li>
+  <li>Tamanho da peça: 20 cm</li>
+  <li>Incluir argamassa: Sim</li>
+</ul>
+
+<p><strong>Cálculos passo a passo:</strong></p>
 <ol>
-<li><strong>Insira seus dados:</strong> 30 m²; 40 cm; si — ensure all values use a single consistent unit system.</li>
-<li><strong>A calculadora aplica a fórmula:</strong> <em>Calculadora de Granilite e Pastilha = f(Área, Tamanho peça, Calcular argamassa base)</em>.</li>
-<li><strong>Leia seu resultado:</strong> Área com perda (+8%), Peças, Argamassa base.</li>
-<li>Verifique: confirme que as unidades são consistentes e os valores realistas antes de agir com base no resultado.</li>
+  <li>Área com merma: 15 × 1,08 = <strong>16,20 m²</strong></li>
+  <li>Área de cada peça: (20/100) × (20/100) = 0,20 × 0,20 = <strong>0,04 m²</strong></li>
+  <li>Peças necessárias: 16,20 / 0,04 = 405 → arredondado para cima = <strong>405 peças</strong></li>
+  <li>Argamassa base: 15 × 30 = <strong>450 kg</strong> (equivalente a 18 sacos de 25 kg)</li>
 </ol>
 
-<h2>Usos praticos na obra</h2>
-<p>Esta calculadora é especialmente útil nas seguintes situações:</p>
+<p><strong>Resultados finais:</strong> Necessita de 405 peças de pastilha (20×20 cm) e 450 kg de argamassa base para cobrir 15 m² com margem de segurança.</p>
+
+<h3>Exemplo 2: Pavimento exterior com granilite de 40 cm</h3>
+<p><strong>Dados inseridos:</strong></p>
 <ul>
-<li>problemas matemáticos do dia a dia</li><li>orçamento e planejamento</li><li>culinária e medições domésticas</li><li>cálculos de viagem e tempo</li>
+  <li>Área: 45 m² (pátio de 9 m × 5 m)</li>
+  <li>Tamanho da peça: 40 cm (padrão)</li>
+  <li>Incluir argamassa: Sim</li>
 </ul>
 
-<h2>Como aplicar os resultados</h2>
-<p>Seu resultado mostra a quantidade teórica necessária. Antes de pedir, aplique o fator de perda adequado: 5–10&nbsp;% para concreto e argamassa, 10–15&nbsp;% para cerâmica, pedra natural e tijolo, e 3–5&nbsp;% para aço e madeira. Sempre arredonde para cima à próxima unidade inteira — saco, tonelada ou palete.</p>
+<p><strong>Cálculos passo a passo:</strong></p>
+<ol>
+  <li>Área com merma: 45 × 1,08 = <strong>48,60 m²</strong></li>
+  <li>Área de cada peça: (40/100) × (40/100) = 0,40 × 0,40 = <strong>0,16 m²</strong></li>
+  <li>Peças necessárias: 48,60 / 0,16 = 303,75 → arredondado para cima = <strong>304 peças</strong></li>
+  <li>Argamassa base: 45 × 30 = <strong>1350 kg</strong> (54 sacos de 25 kg)</li>
+</ol>
 
-<h2>Normas de construção e boas práticas</h2>
-<p>Projetos de construção dependem de estimativas precisas de materiais para cumprir orçamento e cronograma. Profissionais geralmente adicionam 5–10&nbsp;% de margem de perda sobre a quantidade teórica para cobrir cortes, quebras e erros de medição. As normas ISO e ABNT definem as propriedades dos materiais utilizadas nestas fórmulas.</p>
+<p><strong>Resultados finais:</strong> Para o pátio de 45 m², precisa de 304 peças de granilite (40×40 cm) e 1350 kg de argamassa base.</p>
 
-<h2>Erros comuns a evitar</h2>
+<h2>Erros comuns ao utilizar a calculadora</h2>
+
+<p>Apesar de ser uma ferramenta intuitiva, alguns utilizadores cometem erros que comprometem os resultados. Evite os seguintes:</p>
+
 <ul>
-<li>Esquecer de adicionar margem de desperdicio (5-10%) ao pedir materiais.</li><li>Misturar unidades metricas e imperiais no mesmo projeto.</li>
+  <li><strong>Não considerar a margem de 8%:</strong> alguns profissionais, por economia, ignoram o acréscimo de 8% para quebras. Isto resulta em falta de peças no final da obra, especialmente quando há cortes em ângulos ou peças partidas durante o manuseamento.</li>
+  <li><strong>Medir a área incorretamente:</strong> medir a área em metros lineares em vez de metros quadrados. Por exemplo, se uma parede tem 5 m de comprimento e 3 m de altura, a área é 15 m², não 5 ou 3.</li>
+  <li><strong>Confundir centímetros com metros no tamanho da peça:</strong> a calculadora espera o valor em centímetros. Se inserir 0,4 em vez de 40 (para uma peça de 40 cm), o cálculo será drasticamente errado.</li>
+  <li><strong>Esquecer de selecionar "Sim" para argamassa:</strong> se a obra requer argamassa base, mas não ativar esta opção, o resultado da argamassa será zero, o que pode levar a subestimar a compra de material.</li>
+  <li><strong>Não arredondar para cima:</strong> o sistema já faz o arredondamento automático, mas se tentar usar um número exato de peças (ex: 303 em vez de 304), corre o risco de faltar uma peça.</li>
 </ul>
 
-<h2>Dica profissional para contratados</h2>
-<p>Peça 5-10% mais material do que o calculo indica para cobrir cortes, quebras e erros de medicao.</p>
+<p>Para evitar erros, sempre verifique as unidades (área em m², peça em cm) e confirme se a margem de 8% está ativa (por defeito está incluída).</p>
 
-<h2>Perguntas frequentes</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Quanto material extra devo pedir?</button><div class="faq-a"><p>A maioria dos profissionais recomenda pedir 5-10% mais do que o calculado para cobrir cortes e desperdicio.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Esta calculadora e precisa?</button><div class="faq-a"><p>Sim. A calculadora usa a formula padrao: Calculadora de Granilite e Pastilha = f(Área, Tamanho peça, Calcular argamassa base). Os resultados sao matematicamente exatos.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Posso usar esta calculadora no celular?</button><div class="faq-a"><p>Sim, a calculadora e totalmente responsiva e funciona em qualquer dispositivo.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Como salvo ou compartilho meu cálculo?</button><div class="faq-a"><p>Use o botão <strong>Compartilhar</strong> para gerar uma URL com todos os seus dados. O botão <strong>Copiar</strong> copia o resultado para a área de transferência.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">O que fazer se o resultado parecer errado?</button><div class="faq-a"><p>Verifique suas entradas: valores nas unidades corretas e faixa realista. Confirme também que a fórmula <em>Calculadora de Granilite e Pastilha = f(Área, Tamanho peça, Calcular argamassa base)</em> se aplica exatamente à sua situação.</p></div></div>
-</div>
-</section>
+<h2>Perguntas frequentes (FAQ)</h2>
+
+<h3>A calculadora serve para qualquer tipo de pastilha ou granilite?</h3>
+<p>Sim, desde que as peças sejam quadradas ou retangulares (a fórmula assume peças regulares). A ferramenta é compatível com granilite, pastilhas de vidro, cerâmica, porcelanato ou pedra natural, desde que insira o tamanho correto da peça em centímetros. Para formatos irregulares (como losangos), recomendamos consultar um técnico especializado.</p>
+
+<h3>Porque é que a calculadora usa 30 kg de argamassa por m²?</h3>
+<p>O valor de 30 kg/m² é o padrão da indústria para assentamento em camada grossa, utilizado em pavimentos e revestimentos exteriores. Este valor considera a espessura média da argamassa (cerca de 1 a 2 cm) e a densidade do material. Se estiver a usar argamassa específica para camada fina (ex: para pastilhas de vidro em paredes interiores), o consumo pode ser menor – nesse caso, não selecione a opção de argamassa.</p>
+
+<h3>O que fazer se o número de peças for muito alto ou muito baixo?</h3>
+<p>Se o resultado parecer irrealista, verifique as unidades inseridas: a área deve estar em metros quadrados (ex: 10 para 10 m²) e o tamanho da peça em centímetros (ex: 40 para 40 cm). Um erro comum é inserir a área em centímetros quadrados (ex: 100.000 cm² em vez de 10 m²). Além disso, confirme se o valor da peça corresponde ao tamanho real da pastilha ou granilite que vai utilizar.</p>

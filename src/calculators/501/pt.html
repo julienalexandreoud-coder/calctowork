@@ -1,38 +1,51 @@
-<section class="long-content">
-<h2>O que é umn age calculator?</h2>
-<p>The <strong>age calculator</strong> computes your exact age in years, months, weeks, and days from your date of birth to any reference date (today by default). Beyond a simple year count, it tells you the day of the week you were born, how many days remain until your next birthday, and your total age expressed in days, hours, or minutes — details that are surprisingly useful in legal, medical, and financial contexts.</p>
-<p>While subtracting birth year from current year seems simple, an accurate age calculation must account for whether the birthday has passed yet this year, the variable lengths of months (28–31 days), and leap years. A manual calculation is error-prone; this calculator handles all edge cases automatically.</p>
+<p>A <strong>Calculadora de Idade</strong> é uma ferramenta que determina com precisão o tempo decorrido entre uma data de nascimento e qualquer outra data de sua escolha, sendo o dia de hoje a opção predefinida. Mais do que simplesmente indicar quantos anos você tem, ela calcula meses, semanas, dias, horas e até minutos de vida, além de revelar o dia da semana em que nasceu e quantos dias faltam para o próximo aniversário. Esta precisão é essencial em situações legais, médicas e financeiras onde um cálculo manual, sujeito a erros de meses com tamanhos variáveis e anos bissextos, pode ter consequências reais.</p>
 
-<h2>How exact age is calculated</h2>
-<p>The algorithm works in three steps:</p>
+<h2>Para que serve a Calculadora de Idade?</h2>
+<p>A utilidade desta calculadora vai muito além da curiosidade pessoal. No dia a dia, precisamos da idade exata para:</p>
+<ul>
+  <li><strong>Atos legais e administrativos:</strong> Em Portugal, a idade conta para tirar a carta de condução (18 anos), votar (18 anos), candidatar-se à reforma (idade legal variável) ou assinar contratos. Muitos formulários oficiais, como os do IRS ou pedidos de nacionalidade, exigem a idade numa data específica, e não na data atual.</li>
+  <li><strong>Contexto médico:</strong> Pediatras calculam a idade exata em dias para ajustar doses de medicamentos ou avaliar o desenvolvimento infantil. Para bebés prematuros, usa-se a "idade corrigida", que subtrai as semanas de prematuridade da idade cronológica.</li>
+  <li><strong>Seguros e finanças:</strong> Os prémios de seguros de vida ou de saúde são calculados com base na idade no momento da subscrição da apólice. Um erro de um dia pode alterar o valor do prémio ou a elegibilidade para certas coberturas.</li>
+  <li><strong>Fitness e nutrição:</strong> Fórmulas como a Taxa Metabólica Basal (TMB) e a frequência cardíaca máxima dependem da idade exata. Um atleta de 35 anos tem necessidades calóricas diferentes de um de 36.</li>
+  <li><strong>Marcos pessoais:</strong> Descobrir o dia da semana do seu nascimento, calcular quando atingiu os 10.000 dias de vida ou saber quantas horas já viveu são formas interessantes de celebrar a vida.</li>
+</ul>
+
+<h2>Como é feito o cálculo exato? A fórmula explicada</h2>
+<p>O algoritmo da calculadora funciona em três passos lógicos, evitando as armadilhas dos calendários:</p>
 <ol>
-  <li><strong>Year difference:</strong> Subtract the birth year from the current year to get a preliminary age.</li>
-  <li><strong>Birthday check:</strong> If today's month/day is before the birth month/day, subtract 1 (the birthday hasn't occurred yet this year).</li>
-  <li><strong>Days elapsed:</strong> Count the total calendar days from the birth date to today, accounting for leap years (366 days instead of 365).</li>
+  <li><strong>Diferença de anos:</strong> Subtrai-se o ano de nascimento do ano alvo (por exemplo, 2025 - 1990 = 35 anos). Este é o valor provisório.</li>
+  <li><strong>Verificação do aniversário:</strong> Se o mês/dia atual for anterior ao mês/dia de nascimento, subtrai-se 1 do resultado anterior. Isto porque o aniversário ainda não ocorreu este ano. Exemplo: se nasceu a 15 de junho e a data alvo é 1 de abril, ainda não fez anos; a idade é 34 anos, não 35.</li>
+  <li><strong>Cálculo dos dias decorridos:</strong> Conta-se o número total de dias corridos entre as duas datas, considerando todos os anos bissextos (anos divisíveis por 4, exceto os centenários que não o são por 400). Isto garante que um período de 30 anos não é simplificado para 30 × 365 = 10.950 dias, mas sim para o valor real (cerca de 10.957 dias, dependendo dos bissextos).</li>
 </ol>
-<p>The result in years is the legal age in most jurisdictions. The total days and hours figures are often surprising — a 30-year-old has lived more than 10,950 days.</p>
+<p>A idade em anos obtida é a idade legal na maioria dos sistemas jurídicos, incluindo o português. O resultado em dias e horas é calculado pela diferença exata de timestamp entre as duas datas, o que inclui horas, minutos e segundos desde o momento do nascimento.</p>
 
-<h2>Common uses</h2>
+<h2>Exemplos práticos com números concretos</h2>
+
+<h3>Exemplo 1: Idade para a carta de condução</h3>
+<p><strong>Cenário:</strong> O João nasceu em 5 de março de 2008. Ele quer saber se pode inscrever-se para a carta de condução já, a 15 de junho de 2025.</p>
+<p><strong>Cálculo manual:</strong> 2025 - 2008 = 17 anos. Mas o aniversário de 18 anos do João é a 5 de março de 2026. A 15 de junho de 2025, ele ainda não completou 18 anos. A calculadora indica: <strong>17 anos, 3 meses e 10 dias</strong>. João terá de esperar até 5 de março de 2026.</p>
+
+<h3>Exemplo 2: Idade para a reforma</h3>
+<p><strong>Cenário:</strong> A D. Maria nasceu em 29 de fevereiro de 1960 (ano bissexto). Ela quer saber a idade que terá a 1 de janeiro de 2025, data para a qual precisa de apresentar um documento para a Segurança Social.</p>
+<p><strong>Cálculo pela calculadora:</strong> A calculadora trata corretamente a data de nascimento invulgar. De 29/02/1960 a 01/01/2025, a diferença é de <strong>64 anos, 10 meses e 3 dias</strong>. Isto porque, em anos não bissextos, o sistema legal português considera 1 de março como o dia de aniversário para quem nasceu a 29 de fevereiro. Como 1 de janeiro está antes de 1 de março, a idade legal é de 64 anos (não 65), pois o aniversário ainda não ocorreu em 2025.</p>
+
+<h2>Erros comuns ao calcular a idade manualmente</h2>
+<p>Mesmo com uma simples subtração, os portugueses cometem frequentemente estes erros:</p>
 <ul>
-  <li><strong>Legal and administrative:</strong> Proving minimum age for driving, voting, drinking, retirement, or inheritance. Many official forms require age at a specific reference date, not today.</li>
-  <li><strong>Medical:</strong> Physicians use exact age (often to the day) when calculating dosages for children, assessing developmental milestones, or computing gestational age for newborns.</li>
-  <li><strong>Insurance:</strong> Premiums and eligibility thresholds depend on age at the policy's effective date, which can differ from today's date.</li>
-  <li><strong>Fitness and nutrition:</strong> Many formulas — BMR (basal metabolic rate), VO₂ max, maximum heart rate — use exact age in years as an input.</li>
-  <li><strong>Personal milestones:</strong> Find out what day of the week you were born, when you hit 10,000 days old, or how many hours you've been alive.</li>
+  <li><strong>Ignorar o aniversário no ano corrente:</strong> O erro mais comum. Achar que, porque 2025 - 1990 = 35, a pessoa já tem 35 anos em janeiro, quando o aniversário é em dezembro. Na verdade, ela só fará 35 anos em dezembro.</li>
+  <li><strong>Esquecer os anos bissextos:</strong> Ao calcular o total de dias, muitas pessoas multiplicam os anos por 365. Isto subestima o total em cerca de 7 dias a cada 30 anos, o que pode ser relevante em contextos médicos (como a idade gestacional) ou legais (prazos de prescrição). Por exemplo, entre 1 de janeiro de 1990 e 1 de janeiro de 2020, há 10.957 dias, e não 10.950.</li>
+  <li><strong>Confundir meses com 30 dias:</strong> Para cálculos mentais rápidos, assume-se que todos os meses têm 30 dias, mas janeiro, março, maio, julho, agosto, outubro e dezembro têm 31 dias, e fevereiro tem 28 ou 29. Isto pode desviar o resultado em semanas.</li>
+  <li><strong>Não considerar a data de referência:</strong> Pedir a idade para um documento que exige a data de assinatura (por exemplo, um contrato) e usar a data de hoje em vez da data do documento. A calculadora permite alterar a data "a partir de" para qualquer dia no passado ou no futuro.</li>
+  <li><strong>Erro com nascidos a 29 de fevereiro:</strong> Em anos não bissextos, a data 29 de fevereiro não existe. Muitos sistemas tratam 28 de fevereiro ou 1 de março como aniversário. A nossa calculadora segue a convenção legal portuguesa de usar 1 de março nesses anos.</li>
 </ul>
 
-<h2>Age conventions around the world</h2>
-<p>Most Western countries count age from the birthday anniversary. However, conventions differ globally:</p>
-<ul>
-  <li><strong>South Korea (traditional system):</strong> Babies are born with age 1, and everyone gains a year on January 1st — so a baby born in December could be considered 2 years old just weeks after birth. South Korea officially moved to Western age counting in 2023 for legal and administrative purposes.</li>
-  <li><strong>East Asian lunisolar calendar:</strong> Some ceremonies and zodiac calculations use lunar birthday dates, which fall on different Gregorian calendar dates each year.</li>
-  <li><strong>Medical (gestational age):</strong> Premature infants are often assessed using "corrected age" — chronological age minus weeks of prematurity — to account for developmental milestones.</li>
-</ul>
+<h2>Perguntas frequentes (FAQ)</h2>
 
-<h2>Perguntas frequentes</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">How do I calculate age at a past or future date?</button><div class="faq-a"><p>Change the "as of" date in the calculator to any date — past or future. This is useful for legal documents that require your age on a specific reference date (like a contract signing date or an exam cutoff date).</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Why does the day count differ from years × 365?</button><div class="faq-a"><p>Leap years add an extra day every 4 years (with corrections for century years). Over 30 years, this adds roughly 7 extra days compared to a simple 30 × 365 = 10,950 calculation. The calculator counts actual calendar days, not estimated days.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Is this calculator accurate for legal age verification?</button><div class="faq-a"><p>Yes. The calculation matches the birthday-anniversary method used in most legal systems. For edge cases like being born on February 29th (leap day), most jurisdictions treat March 1st as the legal birthday in non-leap years — this calculator handles that convention correctly.</p></div></div>
-</div>
-</section>
+<h3>Como calcular a idade para uma data passada ou futura?</h3>
+<p>Na <strong>Calculadora de Idade</strong>, basta alterar o campo "data de referência" (ou "a partir de") para a data desejada. Isto é útil para documentos como contratos de arrendamento assinados no passado, testes de acesso a concursos públicos com data de corte futura, ou para saber a idade que terá numa data específica, como a data da sua reforma.</p>
+
+<h3>A calculadora é precisa para fins legais em Portugal?</h3>
+<p>Sim. O método utilizado corresponde ao critério do aniversário, que é o padrão legal em Portugal e na maioria dos países europeus. Para casos especiais, como pessoas nascidas a 29 de fevereiro, a calculadora segue a regra de considerar 1 de março como o dia de aniversário nos anos não bissextos, que é a prática comum nos tribunais e serviços públicos portugueses.</p>
+
+<h3>Por que é que o número total de dias não é igual a idade × 365?</h3>
+<p>Porque o calendário gregoriano tem anos bissextos a cada 4 anos (com exceção de anos seculares não divisíveis por 400). Por exemplo, uma pessoa com 30 anos de idade (nascida em 1995) terá vivido, em 2025, cerca de 10.957 dias, e não 10.950 (30 × 365). A diferença de 7 dias deve-se aos anos bissextos de 1996, 2000, 2004, 2008, 2012, 2016 e 2020. A calculadora conta os dias reais do calendário, não uma média simplificada.</p>

@@ -1,131 +1,135 @@
 # CalcToWork — Agent Guide
 
-## ⚠️ CRITICAL WARNINGS
+## Project Reality (updated 2026-07-21)
 
-### NEVER Delete `src/content/` Files
-The `src/content/{lang}/` directories contain **handcrafted, high-quality long-form articles** for each calculator. These are the site's most valuable SEO asset.
+**Repo:** `C:\Users\julie\calctowork` (canonical) — GitHub: `github.com/julienalexandreoud-coder/calctowork`
+**Live site:** https://calcto.work · **Dashboard:** https://calctowork.web.app/admin.html
+**Generator:** `scripts/generate_calctowork.py` → `public/` (19,362 URLs)
+**Python:** `C:\Users\julie\AppData\Local\Programs\Python\Python314\python.exe`
+**Deploy:** `firebase deploy --only hosting` / `firebase deploy --only functions` (from repo root)
 
-- **DO NOT** delete them to "regenerate" or "cache-bust".
-- **DO NOT** run bulk scripts that remove `.html` files from `src/content/`.
-- If a file is accidentally deleted, recover it immediately from Git history before running the build.
+> ⚠️ `C:\Microsaas\obra` is a STALE clone of the same repo. Do NOT build/deploy from it.
+> On 2026-07-21 its uncommitted work (full functions source incl. autopilot, Strategy tab,
+> noindex-on-parametric revert, sync scripts) was merged INTO this repo and pushed.
 
-> **Historical Note:** On 2026-04-29, commit `3e89b42` deleted 2,228 non-EN content files, causing AdSense rejection due to thin content. They were recovered from commit `2b8e748`.
+## Data Model (current)
 
-### Content Fallback Chain (Build-Time)
-The generator uses this priority for long-form content:
-1. `src/content/{lang}/{id}.html` — **PRIMARY** — Handcrafted articles
-2. `LONG_CONTENT` dict in `calc_content.py` — 107 entries, mostly `es`/`en`
-3. `CALC_FACTS` + `build_article_v2()` — **FALLBACK ONLY** — Category-based templates
+Each calculator = one directory `src/calculators/{id}/`:
+- `calc.json` — formula (JS), inputs, outputs, block
+- `{lang}.json` — per-language metadata: name, desc, seo_title, seo_description, input/output labels (langs: es, en, fr, de, it, pt)
+- `{lang}.html` — per-language long-form article (900–1,400 words). **461 calcs × 6 langs = 2,766 articles**
 
-**Rule:** If #1 exists, it is always used. Only delete or overwrite #1 if you have a BETTER replacement ready.
+Slugs + parametric variants: `scripts/tools_config.py` (TOOLS list).
 
-## Project Architecture
+## Content Fallback Chain (build-time)
 
-```
-C:\Microsaas\obra
-├── src/
-│   ├── calculators/
-│   │   └── calculators.json      # 441 calculator definitions (inputs, formulas, outputs)
-│   ├── content/
-│   │   ├── en/                   # 447 handcrafted EN articles (DO NOT DELETE)
-│   │   ├── es/                   # 447 handcrafted ES articles (DO NOT DELETE)
-│   │   ├── fr/                   # 447 handcrafted FR articles (DO NOT DELETE)
-│   │   ├── de/                   # 443 handcrafted DE articles (DO NOT DELETE)
-│   │   ├── it/                   # 447 handcrafted IT articles (DO NOT DELETE)
-│   │   └── pt/                   # 444 handcrafted PT articles (DO NOT DELETE)
-│   ├── i18n/
-│   │   └── {es,en,fr,de,it,pt}.json   # UI translations + calc metadata
-│   ├── templates/
-│   │   ├── calculator.html.j2    # Main calculator page template
-│   │   ├── index.html.j2         # Homepage template
-│   │   ├── block.html.j2         # Category listing template
-│   │   ├── static_page.html.j2   # Legal pages template
-│   │   ├── sitemap.xml.j2        # Sitemap template
-│   │   └── sitemap_index.xml.j2  # Sitemap index template
-│   ├── css/
-│   │   └── styles.css            # Global styles (dark mode supported)
-│   ├── js/
-│   │   ├── calculator.js         # Calculator engine v8.0
-│   │   ├── dark-mode.js          # Theme toggle
-│   │   └── favorites.js          # Favorites/bookmarks
-│   ├── robots.txt                # Crawler directives
-│   └── ads.txt                   # AdSense authorized sellers
-├── scripts/
-│   ├── generate_calctowork.py    # MAIN BUILD SCRIPT
-│   ├── calc_content.py           # Content generation module
-│   ├── tools_config.py           # Tool configurations + parametric variants
-│   ├── fix_i18n.py               # I18n mojibake + description fixer
-│   └── tests/                    # Automated tests
-├── public/                       # Build output (generated, ephemeral)
-├── firebase.json                 # Firebase Hosting config
-└── AGENTS.md                     # This file
-```
+`generate_calctowork.py` line ~1784:
+1. `src/calculators/{id}/{lang}.html` — **PRIMARY** (the articles)
+2. `long_content` inside `{lang}.json` — rare
+3. `generate_long_content()` in `calc_content.py` — **FALLBACK ONLY**, generic template
 
-## Build Process
+**Rule:** never delete `{lang}.html` files in bulk. Regenerate only with validation (see fix_content.py).
+
+## Content Quality & the Audit Pipeline
 
 ```bash
-# Python path (required — Python 3.11+)
-PYTHON = C:\Users\julie\AppData\Local\Programs\Python\Python314\python.exe
+# 1. Uniqueness audit (exact dup, near-dup jaccard, template groups, wrong-lang, thin, tpl markers)
+$PYTHON scripts/audit_uniqueness.py        # → audit/uniqueness_report.csv + uniqueness_summary.txt
 
-# 1. Install dependencies
-$PYTHON -m pip install -r requirements.txt
+# 2. Fix wrong-article / wrong-language files (translate correct sibling or generate fresh)
+$PYTHON scripts/fix_content.py --apply --workers 4
 
-# 2. Run the build
-$PYTHON scripts/generate_calctowork.py
-
-# 3. Verify output
-$PYTHON scripts/verify_build.py
-
-# 4. Deploy
-firebase deploy --only hosting
+# 3. Rewrite boilerplate-templated files (>=70% shared sentences)
+$PYTHON scripts/fix_content.py --boilerplate --apply --workers 4
 ```
 
-**Output:**
-- `public/` is wiped and regenerated
-- ~2,916 base pages (461 calculators × 6 languages + block pages + index)
-- ~16,422 parametric variant pages
-- 24 legal/static pages
-- ~19,362 total URLs across 6 per-language sitemaps
+`fix_content.py` calls the **`callAI` Cloud Function** (DeepSeek backend, key stays server-side in
+Firestore `admin_prefs/ai_config`). Every generation is validated (language purity, calc-name
+presence, 650–2,200 words, no `<h1>`/`formula-section`, jaccard-vs-source) before writing.
+Log: `audit/fix_log.jsonl` (resumable — FIXED entries are skipped on re-run).
 
-## Content Quality Tiers
+> ⚠️ **2026-07-21 status:** DeepSeek balance exhausted mid-run. 910/2,300 broken-or-templated
+> articles rewritten & deployed. Remainder resumes with `fix_content.py --boilerplate --apply`
+> after topping up DeepSeek (deepseek.com) or switching provider in dashboard AI Settings.
 
-| Tier | Source | Count | Quality | AdSense Risk |
-|------|--------|-------|---------|--------------|
-| A | `src/content/{lang}/` | ~2,680 files | Excellent, handcrafted, 1,000–3,000 words | Low |
-| B | `LONG_CONTENT` dict | 107 entries | Good, manually written | Low |
-| C | `build_article_v2()` | Fallback | Category-templated, ~800–1,100 words | Medium |
+## ⚠️ CRITICAL WARNINGS
 
-**Goal:** Maintain 100% Tier A coverage. Tier C should only be used for new calculators before their handcrafted article is ready.
+### Functions deploys can DELETE production functions
+The repo's `functions/` now contains the full source (51 exports, incl. autopilot/AI brain).
+If `firebase deploy --only functions` ever warns "the following functions will be deleted",
+**ABORT** — the local source is stale again. Recover from git history first.
 
-## AdSense Compliance Checklist
+### Policy: parametric variant pages are `noindex, follow`
+Variants are inherently near-duplicate (same calc, different numbers) — indexing them risks
+thin/doorway-page penalties (AdSense was rejected once for this). Template:
+`calculator.html.j2` line 9 — `{% if is_parametric_variant %}noindex, follow{% else %}index, follow{% endif %}`.
+`test_build.py` asserts this. Do not flip without an AdSense-safe reason.
 
-Before every deploy, verify:
-- [ ] `public/ads.txt` exists
-- [ ] `public/sitemap.xml` exists
-- [ ] Parametric variant pages have `<meta name="robots" content="noindex, follow">`
-- [ ] All `seo_description` fields are non-empty and > 50 characters
-- [ ] No double-encoded UTF-8 in i18n files
-- [ ] `build_article_v2()` fallback usage is < 1% of pages
+### Never commit secrets
+`firebase functions:config:get` shows live GSC OAuth credentials. `admin_prefs/ai_config`
+holds the DeepSeek key. Neither belongs in git.
 
-## Adding a New Calculator
+### Known open security issue
+`callAI` (and several `*Http` functions) are **publicly callable without auth** — anyone can
+burn the DeepSeek quota. Add a shared-secret header check when convenient.
 
-1. Add definition to `src/calculators/calculators.json`
-2. Add i18n metadata to `src/i18n/{lang}.json` for all 6 languages
-3. Write long-form article to `src/content/{lang}/{id}.html` for all 6 languages
-4. Run build and tests
-5. Deploy
+## Build & Test Process
 
-## Troubleshooting
+```bash
+PYTHON = C:\Users\julie\AppData\Local\Programs\Python\Python314\python.exe
 
-### "Low-value content" AdSense rejection
-- Check `src/content/` file counts per language
-- Run `python scripts/check_en_quality.py` to find templated files
-- If non-EN files are missing, restore from Git: `git checkout 2b8e748 -- src/content/{lang}/`
+$PYTHON -m pip install -r requirements.txt   # once
+$PYTHON scripts/generate_calctowork.py       # build → public/
+$PYTHON scripts/tests/test_build.py          # build verification (ads.txt, sitemaps, noindex, meta, content>400w)
+$PYTHON scripts/tests/test_encoding.py       # mojibake guard
+firebase deploy --only hosting               # site
+firebase deploy --only functions             # dashboard/autopilot backend
+firebase deploy --only firestore:indexes     # after changing firestore.indexes.json
+```
 
-### Broken characters (�, Ã, etc.)
-- Run `python scripts/fix_i18n.py`
-- Verify with `python scripts/tests/test_encoding.py`
+**Output:** ~2,916 base pages + 16,422 parametric variants + 24 static + 2,766 redirects = 19,362 URLs.
 
-### Missing ads.txt after build
-- Ensure `src/ads.txt` exists
-- Check `copy_assets()` in `generate_calctowork.py` includes `"ads.txt"`
+## Dashboard / Autogrowth Architecture
+
+- **Frontend:** `src/admin.html` (single-page, tabs: Overview, Search Console, Content, Traffic,
+  Conversions, Technical SEO, Opportunities, Alerts, Calculators CMS, Autopilot, Growth Lab,
+  Strategy, AI Tools, Settings). Copied to `public/admin.html` on build.
+- **Backend:** `functions/` — 51 Cloud Functions (Node 22):
+  - GSC pipeline: `fetchGscData` (daily 3AM), `fetchGscOnDemand`, `getGscData` (types: queries,
+    queries_raw, pages, site_stats, coverage), `getMovement`, `getIndexCoverage`
+  - Analytics: `analytics` (event intake), `aggregateDailyStats` (daily 2AM), `getAggregatedData`
+  - Alerts: `checkAlerts` (daily 4AM), `getAlerts`
+  - CMS: `calcPage`, `sitemap`, `getCalcData`, `translateCalc`, `generateLongContent`, …
+  - Autopilot brain: `runAutoPilot`, `autonomousGrowthLoop`, `dailyCoreRegeneration`,
+    `findKeywordOpportunities`, `generateAllSEOTitlesHttp`, `backlinkHunterHttp`, …
+- **Firestore collections:** `analytics_events`, `analytics_daily`, `gsc_search_data`,
+  `gsc_page_stats` (90-day snapshots stamped with **endDate** — readers must use the LATEST
+  snapshot only, never sum across dates), `gsc_site_stats`, `gsc_coverage`, `dashboard_alerts`,
+  `calc_cms`, `seo_suggestions`, `admin_prefs`.
+
+### Dashboard troubleshooting
+- `getGscData` 500 → missing Firestore composite index. Check `firestore.indexes.json`,
+  `firebase deploy --only firestore:indexes`.
+- Pages tab empty → `gsc_page_stats` must be stamped with endDate (fixed 2026-07-21).
+  Re-run `fetchGscOnDemand?days=30` after fixing.
+- GSC data looks "stale" → GSC API has a 2–3 day lag. Normal.
+- Hosting deploy 429 (storage quota) → Firebase Console → Hosting → Release settings →
+  retain last 5 versions. See `docs/REACTIVATE_DEPLOY.md`.
+
+## Duplicate Calculators (known, decision pending)
+
+83 pairs of calc IDs are the SAME tool under two URLs (e.g. 023 & 1107 = laminate flooring,
+200 & 501 & 932 = percentage). List: session of 2026-07-21, derivable from
+`audit/truly_wrong.json` analysis. SEO-safe fix: pick a canonical ID per pair, 301-redirect
+the other, remove from TOOLS. **Needs owner decision** — do not delete unilaterally.
+
+## Session Log (recent)
+
+### 2026-07-21 — Infrastructure + content uniqueness overhaul
+- Reconciled repo fork (`C:\Users\julie\calctowork` vs `C:\Microsaas\obra`); canonical = this repo
+- Fixed dashboard: added `gsc_site_stats` ASC index, fixed `gsc_page_stats` endDate stamping +
+  latest-snapshot reads, recovered full autopilot function source, deployed all 51 functions
+- Deployed Strategy-tab dashboard, noindex-on-parametric restored
+- Audited 2,766 articles: fixed 470 wrong-article/wrong-language files, rewrote 440
+  boilerplate articles (AI + validation). Remaining ~1,330 blocked on DeepSeek balance
+- Found 83 duplicate-calculator pairs (decision pending)

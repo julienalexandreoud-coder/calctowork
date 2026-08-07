@@ -1,44 +1,106 @@
-<section class="long-content">
-<p>Use a <strong>Metal Railing Calculator</strong> para calcular montantes, corrimão (m), balaústres de forma rápida e precisa.</p>
-<h2>Como funciona o calculo</h2>
-<p>Seja para planejar uma reforma, estimar materiais para uma obra ou calcular dimensoes para um projeto DIY, ter os numeros certos desde o inicio economiza tempo e dinheiro.</p>
-<p>A formula por tras deste calculo e <strong>Calculadora de Corrimão Metálico = f(Comprimento guarda-corpo, Altura guarda-corpo, Espaçamento montantes)</strong>. Compreender como o resultado e obtido ajuda a verificar a saida e detectar erros de entrada.</p>
+<p>Se está a planear a instalação de um guarda-corpo metálico, seja para uma varanda, escada ou mezanino, a <strong>Calculadora de Corrimão Metálico</strong> é a ferramenta ideal para si. Esta calculadora permite-lhe obter rapidamente o número exato de montantes, metros de corrimão e balaústres necessários, eliminando as suposições e reduzindo o desperdício de material. Com ela, transforma um cálculo complexo de estruturas metálicas numa tarefa simples de alguns segundos.</p>
 
-<h2>Guia passo a passo para seu projeto</h2>
-<p>Siga estes passos para obter um resultado confiável:</p>
+<h2>O que a Calculadora de Corrimão Metálico faz e quando utilizá-la</h2>
+
+<p>Esta ferramenta foi desenvolvida para profissionais da construção civil, serralheiros e até para particulares que desejam realizar um orçamento preciso de um guarda-corpo metálico. A <strong>Calculadora de Corrimão Metálico</strong> processa automaticamente as dimensões do vão que pretende proteger e o tipo de utilização do espaço, devolvendo-lhe:</p>
+<ul>
+<li><strong>Número de montantes (ud):</strong> os postes verticais que suportam a estrutura.</li>
+<li><strong>Metros lineares de corrimão (pasamanos):</strong> considerando uma margem de 5% para cortes e ajustes.</li>
+<li><strong>Quantidade de balaústres (barrotes):</strong> com espaçamento padrão de 10 cm entre eles.</li>
+<li><strong>Peso estimado em aço (kg):</strong> baseado numa densidade média de 9 kg/m² de guarda-corpo.</li>
+<li><strong>Área de relleno (m²):</strong> a área total que será preenchida pelos balaústres, descontando 30% de vazios.</li>
+</ul>
+<p>Utilize esta calculadora sempre que precisar de dimensionar um corrimão para <strong>uso residencial</strong> (altura mínima de 0,9 m), <strong>comercial</strong> (1,1 m) ou <strong>industrial</strong> (1,1 m), respeitando as normas de segurança portuguesas. É particularmente útil em projetos de reabilitação, construção nova ou na preparação de propostas comerciais.</p>
+
+<h2>Fórmula explicada variável por variável</h2>
+
+<p>A lógica da calculadora assenta numa fórmula simples mas eficaz, que considera as três variáveis de entrada e o tipo de uso. Veja como cada valor é calculado:</p>
+
+<table>
+<tr>
+<th>Variável de entrada</th>
+<th>Descrição</th>
+<th>Fórmula aplicada</th>
+</tr>
+<tr>
+<td><strong>longitud_m (L)</strong></td>
+<td>Comprimento total do vão a proteger (em metros)</td>
+<td>Valor base para todos os cálculos</td>
+</tr>
+<tr>
+<td><strong>altura_m (H)</strong></td>
+<td>Altura do guarda-corpo (em metros). Padrão: 1 m</td>
+<td>Usada no cálculo do peso e área de relleno</td>
+</tr>
+<tr>
+<td><strong>separacion_montantes_m (sep)</strong></td>
+<td>Distância entre montantes (em metros). Padrão: 1 m</td>
+<td>Usada para calcular o número de montantes</td>
+</tr>
+<tr>
+<td><strong>uso</strong></td>
+<td>Residencial (0,9 m), Comercial (1,1 m) ou Industrial (1,1 m)</td>
+<td>Define a altura mínima (hMin) e influencia indiretamente o peso</td>
+</tr>
+</table>
+
+<h3>Detalhamento dos cálculos</h3>
 <ol>
-<li><strong>Insira seus dados:</strong> 15 m; 1 m; 1 m — ensure all values use a single consistent unit system.</li>
-<li><strong>A calculadora aplica a fórmula:</strong> <em>Calculadora de Corrimão Metálico = f(Comprimento guarda-corpo, Altura guarda-corpo, Espaçamento montantes)</em>.</li>
-<li><strong>Leia seu resultado:</strong> Montantes, Corrimão (m), Balaústres.</li>
-<li>Verifique: confirme que as unidades são consistentes e os valores realistas antes de agir com base no resultado.</li>
+<li><strong>Montantes (ud):</strong> <code>Math.ceil(L / sep) + 1</code><br/>
+Exemplo: Para um vão de 5 m com espaçamento de 1 m entre montantes: ceil(5/1) + 1 = 5 + 1 = 6 montantes.</li>
+<li><strong>Corrimão (m):</strong> <code>+(L * 1.05).toFixed(1)</code><br/>
+Multiplica o comprimento por 1,05 (margem de 5%) e arredonda a uma casa decimal. Exemplo: 5 m × 1,05 = 5,3 m.</li>
+<li><strong>Balaústres (ud):</strong> <code>Math.ceil(L / 0.1)</code><br/>
+Divide o comprimento por 0,1 m (10 cm de espaçamento padrão). Exemplo: 5 m / 0,1 = 50 balaústres.</li>
+<li><strong>Peso em aço (kg):</strong> <code>+(L * H * 9).toFixed(1)</code><br/>
+Considera 9 kg de aço por metro quadrado de guarda-corpo (valor médio para perfis tubulares). Exemplo: 5 m × 1 m × 9 = 45,0 kg.</li>
+<li><strong>Área de relleno (m²):</strong> <code>+(L * H * 0.7).toFixed(2)</code><br/>
+Multiplica a área total (L × H) por 0,7, assumindo que 30% da área é vazia (entre balaústres). Exemplo: 5 m × 1 m × 0,7 = 3,50 m².</li>
 </ol>
 
-<h2>Usos praticos na obra</h2>
-<p>Esta calculadora é especialmente útil nas seguintes situações:</p>
+<h2>Dois exemplos práticos com valores concretos</h2>
+
+<h3>Exemplo 1: Varanda residencial em Lisboa</h3>
+<p><strong>Dados de entrada:</strong> L = 3,5 m | H = 0,9 m | sep = 0,8 m | uso = residencial</p>
+<table>
+<tr><th>Item</th><th>Cálculo passo a passo</th><th>Resultado</th></tr>
+<tr><td>Montantes</td><td>ceil(3,5 / 0,8) + 1 = ceil(4,375) + 1 = 5 + 1</td><td><strong>6 ud</strong></td></tr>
+<tr><td>Corrimão</td><td>3,5 × 1,05 = 3,675 → arredondado a 1 casa</td><td><strong>3,7 m</strong></td></tr>
+<tr><td>Balaústres</td><td>ceil(3,5 / 0,1) = ceil(35)</td><td><strong>35 ud</strong></td></tr>
+<tr><td>Peso aço</td><td>3,5 × 0,9 × 9 = 28,35</td><td><strong>28,4 kg</strong></td></tr>
+<tr><td>Área relleno</td><td>3,5 × 0,9 × 0,7 = 2,205</td><td><strong>2,21 m²</strong></td></tr>
+</table>
+<p><em>Interpretação:</em> Para esta varanda de 3,5 m, necessita de 6 montantes espaçados a 80 cm, 3,7 m de corrimão (incluindo desperdício), 35 balaústres e aproximadamente 28,4 kg de aço (perfil tubular).</p>
+
+<h3>Exemplo 2: Mezanino industrial no Porto</h3>
+<p><strong>Dados de entrada:</strong> L = 12 m | H = 1,1 m | sep = 1,2 m | uso = industrial</p>
+<table>
+<tr><th>Item</th><th>Cálculo passo a passo</th><th>Resultado</th></tr>
+<tr><td>Montantes</td><td>ceil(12 / 1,2) + 1 = ceil(10) + 1 = 10 + 1</td><td><strong>11 ud</strong></td></tr>
+<tr><td>Corrimão</td><td>12 × 1,05 = 12,6</td><td><strong>12,6 m</strong></td></tr>
+<tr><td>Balaústres</td><td>ceil(12 / 0,1) = ceil(120)</td><td><strong>120 ud</strong></td></tr>
+<tr><td>Peso aço</td><td>12 × 1,1 × 9 = 118,8</td><td><strong>118,8 kg</strong></td></tr>
+<tr><td>Área relleno</td><td>12 × 1,1 × 0,7 = 9,24</td><td><strong>9,24 m²</strong></td></tr>
+</table>
+<p><em>Interpretação:</em> Para um mezanino de 12 m com altura industrial de 1,1 m e montantes a cada 1,2 m, precisa de 11 montantes, 12,6 m de corrimão, 120 balaústres e 118,8 kg de aço. A área de relleno de 9,24 m² ajuda a calcular a tinta ou tratamento anticorrosivo necessário.</p>
+
+<h2>Erros comuns ao dimensionar guarda-corpos metálicos</h2>
+
+<p>Evitar estes erros pode poupar-lhe dinheiro e tempo, além de garantir a segurança da estrutura:</p>
 <ul>
-<li>problemas matemáticos do dia a dia</li><li>orçamento e planejamento</li><li>culinária e medições domésticas</li><li>cálculos de viagem e tempo</li>
+<li><strong>Ignorar a altura mínima regulamentar:</strong> Muitas pessoas utilizam sempre 1 m de altura, independentemente do uso. Em Portugal, para usos comercial e industrial, a altura mínima é de 1,1 m (110 cm). Usar 0,9 m nestes contextos pode levar a não conformidade com a lei.</li>
+<li><strong>Espaçamento excessivo entre montantes:</strong> Colocar montantes com mais de 1,5 m de distância pode comprometer a rigidez do corrimão. A calculadora considera o valor que insere, mas o recomendado é não ultrapassar 1,2 m para garantir estabilidade.</li>
+<li><strong>Não considerar desperdício no corrimão:</strong> O corrimão raramente é vendido em comprimentos exatos. A margem de 5% incluída na calculadora evita que fique a faltar material para curvas, uniões ou pequenos ajustes.</li>
+<li><strong>Esquecer os balaústres nos cantos:</strong> A fórmula conta balaústres para todo o comprimento, mas em cantos ou extremidades podem ser necessários balaústres adicionais para fechar o vão de forma segura. Verifique sempre o local.</li>
 </ul>
 
-<h2>Como aplicar os resultados</h2>
-<p>Seu resultado mostra a quantidade teórica necessária. Antes de pedir, aplique o fator de perda adequado: 5–10&nbsp;% para concreto e argamassa, 10–15&nbsp;% para cerâmica, pedra natural e tijolo, e 3–5&nbsp;% para aço e madeira. Sempre arredonde para cima à próxima unidade inteira — saco, tonelada ou palete.</p>
+<h2>Perguntas frequentes sobre a Calculadora de Corrimão Metálico</h2>
 
-<h2>Normas de construção e boas práticas</h2>
-<p>Projetos de construção dependem de estimativas precisas de materiais para cumprir orçamento e cronograma. Profissionais geralmente adicionam 5–10&nbsp;% de margem de perda sobre a quantidade teórica para cobrir cortes, quebras e erros de medição. As normas ISO e ABNT definem as propriedades dos materiais utilizadas nestas fórmulas.</p>
+<h3>Posso usar esta calculadora para guarda-corpos em aço inoxidável?</h3>
+<p>Sim. A fórmula para o peso em aço (9 kg/m²) é uma estimativa baseada em perfis de aço carbono comuns (tubo retangular de 40x40 mm ou 50x50 mm). Para aço inoxidável, o peso será semelhante, pois a densidade é próxima, mas o custo por kg será significativamente maior. A calculadora fornece o peso estimado; multiplique esse valor pelo preço do kg do material escolhido para obter o custo.</p>
 
-<h2>Erros comuns a evitar</h2>
-<ul>
-<li>Esquecer de adicionar margem de desperdicio (5-10%) ao pedir materiais.</li><li>Misturar unidades metricas e imperiais no mesmo projeto.</li>
-</ul>
+<h3>O que significa "relleno" e como é calculado?</h3>
+<p>"Relleno" refere-se à área preenchida pelos balaústres ou painéis entre os montantes. A calculadora assume que 70% da área total (L × H) será preenchida com material (balaústres, grelhas ou chapa) e 30% será vazio (espaço entre balaústres). Este valor (L × H × 0,7) é útil para estimar a quantidade de tinta, pintura eletrostática ou tratamento superficial necessário.</p>
 
-<h2>Dica profissional para contratados</h2>
-<p>Peça 5-10% mais material do que o calculo indica para cobrir cortes, quebras e erros de medicao.</p>
-
-<h2>Perguntas frequentes</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Quanto material extra devo pedir?</button><div class="faq-a"><p>A maioria dos profissionais recomenda pedir 5-10% mais do que o calculado para cobrir cortes e desperdicio.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Esta calculadora e precisa?</button><div class="faq-a"><p>Sim. A calculadora usa a formula padrao: Calculadora de Corrimão Metálico = f(Comprimento guarda-corpo, Altura guarda-corpo, Espaçamento montantes). Os resultados sao matematicamente exatos.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Posso usar esta calculadora no celular?</button><div class="faq-a"><p>Sim, a calculadora e totalmente responsiva e funciona em qualquer dispositivo.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Como salvo ou compartilho meu cálculo?</button><div class="faq-a"><p>Use o botão <strong>Compartilhar</strong> para gerar uma URL com todos os seus dados. O botão <strong>Copiar</strong> copia o resultado para a área de transferência.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">O que fazer se o resultado parecer errado?</button><div class="faq-a"><p>Verifique suas entradas: valores nas unidades corretas e faixa realista. Confirme também que a fórmula <em>Calculadora de Corrimão Metálico = f(Comprimento guarda-corpo, Altura guarda-corpo, Espaçamento montantes)</em> se aplica exatamente à sua situação.</p></div></div>
-</div>
-</section>
+<h3>A calculadora considera o peso dos montantes e do corrimão separadamente?</h3>
+<p>Não. O peso total indicado (kg_acero) é uma estimativa global que inclui montantes, corrimão e balaústres, baseada na área total do guarda-corpo (L × H) e no peso médio de 9 kg/m² para estruturas metálicas tubulares. Para um cálculo mais refinado, especialmente em projetos de grande escala, recomenda-se consultar um engenheiro ou serralheiro que possa calcular o peso exato de cada perfil.</p>

@@ -1,46 +1,62 @@
-<section class="long-content">
-<p>Use the <strong>Air Duct Calculator</strong> to calculate circular diameter (mm), equivalent square (mm), duct section (m²) quickly and accurately.</p>
-<h2>How the calculation works</h2>
-<p>Accurate material estimation is the backbone of any successful build. A small error in your calculations can mean the difference between finishing on budget and paying for a second delivery. This tool removes the guesswork so you can plan with certainty.</p>
-<p>Accurate material estimation is the backbone of any successful build. A small error in your calculations can mean the difference between finishing on budget and paying for a second delivery. This tool removes the guesswork so you can plan with certainty.</p>
-<p>The formula behind this calculation is <strong>Air Duct Calculator = f(Airflow (m³/h), Air velocity (m/s))</strong>. Understanding how the result is derived helps you verify the output and spot input errors before they cascade into bad decisions.</p>
+<p>Properly sizing air ducts is fundamental for efficient HVAC system performance, and the Air Duct Calculator is the perfect tool for this task. It takes the guesswork out of design by calculating the precise duct area, circular diameter, and rectangular side length needed based on your airflow rate and desired air velocity. Whether you are a professional engineer or a DIY homeowner, this calculator ensures your ductwork delivers the right amount of air without excessive noise or energy loss.</p>
 
-<h2>Step-by-step guide for your project</h2>
-<p>Follow these steps to get a reliable result:</p>
-<ol>
-<li><strong>Enter your values:</strong> 500 m³/h; 4 m/s — ensure all values use a single consistent unit system.</li>
-<li><strong>The calculator applies the formula:</strong> <em>Air Duct Calculator = f(Airflow (m³/h), Air velocity (m/s))</em>.</li>
-<li><strong>Read your result:</strong> Circular diameter (mm), Equivalent square (mm), Duct section (m²).</li>
-<li>Verify: confirm units are consistent and the numbers are realistic for your context before acting on the result.</li>
-</ol>
+<h2>What the Air Duct Calculator Does and When to Use It</h2>
+<p>The Air Duct Calculator solves a core engineering problem: determining the optimal duct size for a given volumetric airflow and air speed. It uses the fundamental flow rate formula to output three key metrics: the duct cross-sectional area in square meters, a standardized circular duct diameter in millimeters, and a practical square rectangular side length in millimeters. You should use this calculator during the design phase of any forced-air system, including central heating, ventilation, or air conditioning installations. It is particularly valuable when you are converting a round duct specification to a rectangular duct to fit within a wall cavity, or when you need to ensure that your air velocity stays within accepted comfort ranges (typically 2 to 5 m/s for main ducts and 1 to 3 m/s for branches) to avoid whistling or drafts. The tool is also indispensable for retrofitting old systems, where you need to match new duct sections to existing flow rates.</p>
 
-<h2>Practical uses on the job site</h2>
-<p>This calculator is particularly useful in the following situations:</p>
+<h2>Formula Explained: Variable by Variable</h2>
+<p>The calculator relies on the continuity equation for incompressible flow: Q = A * v. Here, <strong>Q</strong> is the volumetric flow rate, <strong>A</strong> is the cross-sectional area of the duct, and <strong>v</strong> is the air velocity. The calculator rearranges this to find area. Let us break down each step using the JavaScript logic behind the tool:</p>
 <ul>
-<li>everyday math problems</li><li>budgeting and planning</li><li>cooking and home measurements</li><li>travel and time calculations</li>
+<li><strong>Q (caudal_m3h):</strong> This is the airflow rate in cubic meters per hour. It is your primary input. If no value is entered, the calculator returns an error. A higher flow rate requires a larger duct area.</li>
+<li><strong>v (velocidad_ms):</strong> This is the air velocity in meters per second. The calculator defaults to 4 m/s if no value is provided, which is a standard design velocity for main ducts. Higher velocities allow smaller ducts but increase noise and friction loss.</li>
+<li><strong>A (area_conducto_m2):</strong> The area in square meters is calculated by first converting the flow rate from m³/h to m³/s (dividing by 3600), then dividing by velocity. The formula is: A = (Q / 3600) / v. The result is displayed to four decimal places.</li>
+<li><strong>D_circular (diametro_circular_mm):</strong> This is the diameter of an equivalent round duct. The calculator computes it from the area using the formula for a circle: D = sqrt(4 * A / π), then converts to millimeters (multiply by 1000) and rounds to a standard nominal size. The tool snaps to common metric sizes: 100, 125, 160, 200, 250, 315, or 400 mm. For example, if the calculated diameter is 178 mm, it rounds up to 200 mm.</li>
+<li><strong>L_rectangular (lado_rectangular_mm):</strong> This provides a side dimension for a square duct with the same cross-sectional area. It is simply the square root of the area (in m²) multiplied by 1000 to get millimeters. In practice, you can use this as one side of a rectangular duct and adjust the other side to maintain the same area (e.g., if one side is 300 mm, the other side would be A / 0.3 m).</li>
 </ul>
 
-<h2>Interpreting and applying your results</h2>
-<p>Your result shows the theoretical quantity required. Before ordering, apply the appropriate waste factor for your material: 5–10&nbsp;% for concrete and mortar, 10–15&nbsp;% for ceramic tile, natural stone, and brick (to account for cuts, breakage, and pattern matching), and 3–5&nbsp;% for steel and timber. Always round up to the next full unit — bag, tonne, or pallet — to avoid halting work for a second delivery.</p>
+<h2>Worked Examples with Concrete Numbers</h2>
+<p>Understanding the calculator in action is easier with hands-on examples. Below are two scenarios showing input and output values.</p>
 
-<h2>Construction standards and best practices</h2>
-<p>Construction projects live and die by accurate material estimates. Ordering too little halts the job and triggers costly emergency deliveries; ordering too much wastes money and clutters the site. Professional estimators typically add a 5–10&nbsp;% waste factor on top of the theoretical quantity to account for cuts, off-cuts, breakage, and minor measurement errors — a discipline built from hard-won job-site experience.</p><p>Modern construction calculations follow standards set by bodies like ISO, ASTM, or EN (European Norm), which define material properties, tolerances, and design allowances. Knowing the standard behind a formula helps you adapt it when conditions differ from the textbook — for example, when working with reclaimed materials, non-standard dimensions, or sites at altitude where concrete curing behaves differently.</p>
-
-<h2>Common mistakes to avoid</h2>
+<h3>Example 1: Residential Main Duct for a Small House</h3>
+<p><strong>Scenario:</strong> You need to size the main supply trunk for a system delivering 600 m³/h of air at a comfortable velocity of 3.5 m/s.</p>
+<p><strong>Inputs:</strong> caudal_m3h = 600, velocidad_ms = 3.5</p>
+<p><strong>Calculation:</strong></p>
 <ul>
-<li>Forgetting to add a waste allowance (typically 5-10%) when ordering materials — rounding up saves a second delivery.</li><li>Mixing up metric and imperial units on the same project. Stick to one system throughout your calculation.</li><li>Measuring outline dimensions instead of interior surface area — the difference matters for flooring and tiling.</li><li>Not accounting for irregular shapes. Break complex areas into simpler rectangles and triangles before calculating.</li>
+<li>Area (A) = (600 / 3600) / 3.5 = 0.1667 / 3.5 = 0.0476 m²</li>
+<li>Circular diameter (calculated) = sqrt(4 * 0.0476 / π) * 1000 = sqrt(0.0606) * 1000 = 0.2462 * 1000 = 246 mm</li>
+<li>Standard diameter snapped to 250 mm (since 246 > 200, it matches 250)</li>
+<li>Rectangular side = sqrt(0.0476) * 1000 = 0.2182 * 1000 = 218 mm</li>
+</ul>
+<p><strong>Outputs:</strong> area_conducto_m2 = 0.0476, diametro_circular_mm = 250, lado_rectangular_mm = 218. You would use a 250 mm round duct or a rectangular duct with one side approximately 218 mm (e.g., 218 x 218 mm square).</p>
+
+<h3>Example 2: Commercial Kitchen Exhaust with Higher Flow</h3>
+<p><strong>Scenario:</strong> A kitchen hood requires 2000 m³/h exhaust flow, and local code dictates a minimum velocity of 6 m/s to prevent grease buildup.</p>
+<p><strong>Inputs:</strong> caudal_m3h = 2000, velocidad_ms = 6</p>
+<p><strong>Calculation:</strong></p>
+<ul>
+<li>Area (A) = (2000 / 3600) / 6 = 0.5556 / 6 = 0.0926 m²</li>
+<li>Circular diameter (calculated) = sqrt(4 * 0.0926 / π) * 1000 = sqrt(0.1179) * 1000 = 0.3434 * 1000 = 343 mm</li>
+<li>Standard diameter snapped to 400 mm (since 343 > 315, it rounds to 400)</li>
+<li>Rectangular side = sqrt(0.0926) * 1000 = 0.3043 * 1000 = 304 mm</li>
+</ul>
+<p><strong>Outputs:</strong> area_conducto_m2 = 0.0926, diametro_circular_mm = 400, lado_rectangular_mm = 304. The calculator suggests a 400 mm round duct. For a rectangular profile, you could use a 304 x 304 mm square duct, or a 400 x 231 mm rectangle (since 0.0926 / 0.4 = 0.2315 m).</p>
+
+<h2>Common Mistakes When Using the Air Duct Calculator</h2>
+<p>Even with a precise tool, errors in input or interpretation can lead to system failure. Avoid these typical pitfalls:</p>
+<ul>
+<li><strong>Confusing flow rate units:</strong> The calculator expects cubic meters per hour (m³/h). If you mistakenly enter liters per second (L/s) or cubic feet per minute (CFM), the result will be wildly incorrect. Convert CFM to m³/h by multiplying by 1.699 (e.g., 100 CFM = 169.9 m³/h). Always double-check your unit.</li>
+<li><strong>Ignoring the velocity default:</strong> The calculator defaults to 4 m/s if no velocity is entered. While this is a common figure, it may not suit all applications. For example, supply ducts near bedrooms should use lower velocities (2-3 m/s) to reduce noise, while high-velocity systems for long runs may need values above 5 m/s. Never leave this blank without consideration.</li>
+<li><strong>Misinterpreting the rectangular side:</strong> The output "lado_rectangular_mm" is the side of a <em>square</em> duct. Many users think it is the only dimension. In practice, you can change the aspect ratio. For instance, if the side is 300 mm, you can use a 600 x 150 mm rectangle (since area remains 0.09 m²), but this increases friction. Always verify that the chosen rectangular dimensions provide the same cross-sectional area <strong>A</strong>.</li>
+<li><strong>Forgetting the standard diameter snap:</strong> The calculated diameter is rounded up to a standard size, not exact. If you use the exact calculated diameter (e.g., 246 mm from Example 1) instead of the nearest standard (250 mm), you may order custom ductwork that is unnecessary and expensive. Trust the snapped value for commercial availability.</li>
+<li><strong>Neglecting friction loss:</strong> The Air Duct Calculator provides area and size, but it does not account for duct length, elbows, or surface roughness. After sizing, you must use a ductulator or friction chart to ensure the total pressure drop is within your fan's capability. A common mistake is to use the calculator for the entire system without allowing for additional pressure losses from fittings.</li>
 </ul>
 
-<h2>Pro tip for contractors and builders</h2>
-<p>Order 5-10% more material than your calculation suggests to account for cuts, breakage, and measurement errors. It's cheaper to have a little left over than to halt work for a second delivery.</p>
+<h2>Frequently Asked Questions</h2>
 
-<h2>Frequently asked questions</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">How much extra material should I order?</button><div class="faq-a"><p>Most professionals recommend ordering 5-10% more than calculated to cover cuts, waste, and measurement errors. For natural stone or ceramic tile, the waste factor can be 10-15% due to breakage and pattern matching.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Can I use this calculator for both metric and imperial units?</button><div class="faq-a"><p>Yes. Select your preferred unit system in the input fields and the calculator converts automatically. All internal calculations are performed consistently to avoid mixed-unit errors.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Is this calculator accurate?</button><div class="faq-a"><p>Yes. The calculator uses the standard formula: Air Duct Calculator = f(Airflow (m³/h), Air velocity (m/s)). Results are mathematically exact; final accuracy depends on the precision of the data you enter.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Can I use this calculator on my phone?</button><div class="faq-a"><p>Yes, the calculator is fully responsive and works on any device: computer, tablet, and mobile. No installation or registration required.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">How do I save or share my calculation?</button><div class="faq-a"><p>Use the <strong>Share</strong> button to generate a URL that encodes all your inputs — anyone who opens the link will see the same values and result. The <strong>Copy</strong> button copies the formatted result text to your clipboard for pasting into a spreadsheet, email, or document.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">What if my result seems wrong?</button><div class="faq-a"><p>First recheck your inputs: confirm the values are in the correct units and within a realistic range. Common causes include unit mismatch (mixing metric and imperial), transposed digits, or selecting the wrong calculator for the problem. If inputs look correct and the result still seems off, verify that the formula <em>Air Duct Calculator = f(Airflow (m³/h), Air velocity (m/s))</em> applies to exactly the situation you are in — some calculators with similar names solve slightly different variants of the same problem.</p></div></div>
-</div>
-</section>
+<h3>Can I use this calculator for natural ventilation ducts?</h3>
+<p>Yes, but with caution. The tool is designed for forced-air systems where velocity is controlled by a fan. For natural ventilation (wind or stack effect), air velocity is highly variable and depends on temperature differences and opening sizes. While you can input a typical low velocity (e.g., 0.5 to 1.5 m/s), the resulting duct sizes may be very large. It is better to use specialized natural ventilation sizing equations that account for driving pressures.</p>
+
+<h3>What if my system uses imperial units like CFM and FPM?</h3>
+<p>The calculator works exclusively with metric units (m³/h and m/s). However, conversion is simple. For flow, 1 CFM = 1.699 m³/h. For velocity, 1 foot per minute (FPM) = 0.00508 m/s. Convert your values before entering them. Alternatively, you can use the rounded imperial equivalents: 1 m/s is roughly 197 FPM, and 1 m³/h is about 0.589 CFM. Always convert precisely to avoid sizing errors.</p>
+
+<h3>Why does the calculator snap the diameter to a larger size?</h3>
+<p>The snap to standard nominal sizes (100, 125, 160, 200, 250, 315, 400 mm) ensures that the calculator recommends commercially available ductwork. These sizes are common in the HVAC industry worldwide. Rounding up to the next size (e.g., from 246 mm to 250 mm) slightly increases the duct area, which reduces actual air velocity below your target. This is generally a safe design practice, as it provides a small safety margin for system resistance. If you need an exact size, you can use the calculated area to specify custom rectangular dimensions.</p>

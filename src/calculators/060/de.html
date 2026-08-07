@@ -1,44 +1,78 @@
-<section class="long-content">
-<p>Verwenden Sie den <strong>Refrigerant Charge Calculator</strong>, um grundfüllmenge gerät, zusatzmenge leitung, gesamte kältemittelmenge schnell und präzise zu berechnen.</p>
-<h2>So funktioniert die Berechnung</h2>
-<p>Ob Sie eine Renovierung planen, Materialien fur eine Baustelle schatzen oder Dimensionen fur ein DIY-Projekt berechnen — die richtigen Zahlen von Anfang an sparen Zeit und Geld.</p>
-<p>Die Formel hinter dieser Berechnung lautet <strong>Kältemittelfüllmengen-Rechner = f(Leitungslänge, Geräteleistung (kW), Kältemitteltyp)</strong>. Zu verstehen, wie das Ergebnis ermittelt wird, hilft Ihnen, die Ausgabe zu überprüfen und Eingabefehler zu erkennen.</p>
+<p>Der <strong>Kältemittelfüllmengen-Rechner</strong> ist ein unverzichtbares Online-Tool für Klimaanlagen- und Wärmepumpeninstallateure in Deutschland. Mit diesem Rechner ermitteln Sie sofort die korrekte Kältemittelfüllung für Gas refrigerant, basierend auf den drei entscheidenden Parametern: Rohrleitungslänge, Anlagenleistung und Kältemitteltyp. Der Rechner spart Zeit, reduziert Rechenfehler und stellt sicher, dass Ihre Installationen stets den F-Gase-Verordnungen entsprechen.</p>
 
-<h2>Schritt-fur-Schritt-Anleitung fur Ihr Projekt</h2>
-<p>Folgen Sie diesen Schritten für ein zuverlässiges Ergebnis:</p>
+<h2>Was der Kältemittelfüllmengen-Rechner berechnet und wann Sie ihn einsetzen</h2>
+
+<p>Der Rechner bestimmt die exakte Gesamtfüllmenge in Kilogramm für eine Kälte- oder Klimaanlage. Er wird immer dann benötigt, wenn Sie eine Split-Klimaanlage, eine Wärmepumpe oder ein Kältesystem installieren, bei dem die werksseitig vorgefüllte Grundmenge nicht ausreicht. Die Berechnung erfolgt in zwei Schritten: Zunächst wird die Grundfüllung basierend auf der Anlagenleistung (kW) ermittelt. Anschließend wird eine Zusatzfüllung für die Rohrleitungslänge über 5 Meter hinaus berechnet. Typische Einsatzfälle sind die Installation von Monoblock-Geräten, Multi-Split-Systemen oder gewerblichen Kühlanlagen in Deutschland.</p>
+
+<h2>Die Formel des Rechners – Schritt für Schritt erklärt</h2>
+
+<p>Die zugrunde liegende Berechnungsformel gliedert sich in drei Komponenten. Jeder Wert wird in Kilogramm (kg) ausgegeben, gemäß den in Deutschland üblichen metrischen Einheiten.</p>
+
+<h3>Variablen und ihre Bedeutung</h3>
+<ul>
+<li><strong>longitud_linea_m (L)</strong>: Die tatsächliche Länge der Kältemittelleitung in Metern. Gemessen wird die gesamte Rohrstrecke zwischen Außen- und Innengerät.</li>
+<li><strong>potencia_eq_kw (Pkw)</strong>: Die Kälteleistung oder Heizleistung des Geräts in Kilowatt. Dieser Wert steht typischerweise im Datenblatt des Herstellers.</li>
+<li><strong>tipo_gas (base_kg)</strong>: Der verwendete Kältemitteltyp. Die Basiswerte pro Meter Zusatzleitung sind: R32 mit 0,02 kg/m, R410A mit 0,025 kg/m und R22 mit 0,03 kg/m (obwohl R22 in Neuanlagen verboten ist, wird es für Wartungszwecke berücksichtigt).</li>
+</ul>
+
+<h3>Die Berechnung im Detail</h3>
 <ol>
-<li><strong>Geben Sie Ihre Werte ein:</strong> 5 m; 3.5 kW; R32 — ensure all values use a single consistent unit system.</li>
-<li><strong>Der Rechner wendet die Formel an:</strong> <em>Kältemittelfüllmengen-Rechner = f(Leitungslänge, Geräteleistung (kW), Kältemitteltyp)</em>.</li>
-<li><strong>Lesen Sie Ihr Ergebnis:</strong> Grundfüllmenge Gerät, Zusatzmenge Leitung, Gesamte Kältemittelmenge.</li>
-<li>Prüfen Sie: Bestätigen Sie, dass die Einheiten konsistent und die Werte realistisch sind, bevor Sie auf das Ergebnis reagieren.</li>
+<li><strong>Berechnung der Zusatzleitung (extra_m)</strong>: Die Formel <em>Math.max(0, L - 5)</em> prüft, ob die Leitung länger als 5 Meter ist. Nur der Überschuss wird berechnet. Bei einer 7-Meter-Leitung sind das 2 Meter Zusatz.</li>
+<li><strong>Berechnung der Zusatzfüllung (carga_extra)</strong>: Die überschüssigen Meter werden mit dem kältemittelspezifischen Basiswert multipliziert. Beispiel: 2 Meter × 0,02 kg (für R32) = 0,04 kg Zusatzfüllung.</li>
+<li><strong>Berechnung der Grundfüllung (carga_base)</strong>: Die Anlagenleistung wird mit 0,04 multipliziert (Formel: Pkw × 0,04). Bei 3,5 kW ergibt sich 3,5 × 0,04 = 0,140 kg Grundfüllung.</li>
+<li><strong>Berechnung der Gesamtfüllung (carga_total)</strong>: Abschließend werden Grund- und Zusatzfüllung addiert. Die Werte werden auf drei Dezimalstellen gerundet.</li>
 </ol>
 
-<h2>Praktische Anwendungen auf der Baustelle</h2>
-<p>Dieser Rechner ist besonders nützlich in folgenden Situationen:</p>
+<h2>Zwei konkrete Rechenbeispiele</h2>
+
+<p>Um die praktische Anwendung zu veranschaulichen, folgen zwei typische Szenarien aus der deutschen Installationspraxis.</p>
+
+<h3>Beispiel 1: Split-Klimaanlage mit R32 in einem Einfamilienhaus</h3>
+<table>
+<tr><th>Eingabewert</th><th>Wert</th></tr>
+<tr><td>Rohrleitungslänge (L)</td><td>12 Meter</td></tr>
+<tr><td>Anlagenleistung (Pkw)</td><td>5,0 kW</td></tr>
+<tr><td>Kältemitteltyp</td><td>R32 (Basiswert 0,02 kg/m)</td></tr>
+</table>
+<p><strong>Berechnung:</strong><br>
+Zusatzleitung: max(0, 12 - 5) = 7 Meter<br>
+Zusatzfüllung: 7 × 0,02 = 0,140 kg<br>
+Grundfüllung: 5,0 × 0,04 = 0,200 kg<br>
+Gesamtfüllung: 0,200 + 0,140 = <strong>0,340 kg</strong></p>
+
+<h3>Beispiel 2: Gewerbliche Kühlzelle mit R410A</h3>
+<table>
+<tr><th>Eingabewert</th><th>Wert</th></tr>
+<tr><td>Rohrleitungslänge (L)</td><td>25 Meter</td></tr>
+<tr><td>Anlagenleistung (Pkw)</td><td>12,0 kW</td></tr>
+<tr><td>Kältemitteltyp</td><td>R410A (Basiswert 0,025 kg/m)</td></tr>
+</table>
+<p><strong>Berechnung:</strong><br>
+Zusatzleitung: max(0, 25 - 5) = 20 Meter<br>
+Zusatzfüllung: 20 × 0,025 = 0,500 kg<br>
+Grundfüllung: 12,0 × 0,04 = 0,480 kg<br>
+Gesamtfüllung: 0,480 + 0,500 = <strong>0,980 kg</strong></p>
+<p>In beiden Fällen erhalten Sie sofort das Ergebnis in Kilogramm, das Sie für Ihre Dokumentation und zur Einhaltung der deutschen Kältemittelverordnung nutzen können.</p>
+
+<h2>Häufige Fehler bei der Berechnung der Kältemittelfüllmenge</h2>
+
+<p>Selbst erfahrene Monteure unterlaufen typische Fehler. Dieser Rechner hilft, diese zu vermeiden:</p>
 <ul>
-<li>alltägliche Mathematikprobleme</li><li>Budgetierung und Planung</li><li>Kochen und Heimessungen</li><li>Reise- und Zeitberechnungen</li>
+<li><strong>Falsche Rohrleitungslänge</strong>: Viele messen nur die Luftlinie statt der tatsächlichen Rohrverlegung. Der Rechner verwendet die exakte Länge in Metern – messen Sie daher immer die realen Rohrbögen und Steigungen mit.</li>
+<li><strong>Vergessen der 5-Meter-Grenze</strong>: Der Rechner berücksichtigt automatisch, dass die ersten 5 Meter Leitung in der werksseitigen Füllung enthalten sind. Tragen Sie dennoch die Gesamtlänge ein – das Tool zieht die 5 Meter korrekt ab.</li>
+<li><strong>Verwechslung der Kältemittelbasiswerte</strong>: R32 benötigt nur 0,02 kg/m, R410A 0,025 kg/m und R22 0,03 kg/m. Ein falscher Basiswert führt zu Über- oder Unterfüllung. Der Rechner wählt den richtigen Wert basierend auf Ihrer Auswahl.</li>
+<li><strong>Fehler bei der Leistungsangabe</strong>: Geben Sie die Kälteleistung in kW ein, nicht die elektrische Aufnahmeleistung. Prüfen Sie das Datenblatt des Herstellers.</li>
+<li><strong>Unit-Fehler</strong>: Der Rechner arbeitet ausschließlich mit Kilogramm. Achten Sie darauf, dass Ihre eingegebenen Meter und kW korrekt sind – das Ergebnis wird automatisch in kg ausgegeben.</li>
 </ul>
 
-<h2>Ergebnisse richtig anwenden</h2>
-<p>Ihr Ergebnis zeigt die theoretisch benötigte Menge. Rechnen Sie vor der Bestellung den passenden Verschnittzuschlag ein: 5–10&nbsp;% für Beton und Mörtel, 10–15&nbsp;% für Fliesen, Naturstein und Ziegel, und 3–5&nbsp;% für Stahl und Holz. Runden Sie stets auf die nächste volle Einheit — Sack, Tonne oder Palette.</p>
+<h2>Häufig gestellte Fragen (FAQ) zum Kältemittelfüllmengen-Rechner</h2>
 
-<h2>Baustandards und bewährte Praktiken</h2>
-<p>Bauprojekte hängen von genauen Materialschätzungen ab. Fachleute addieren typischerweise 5–10&nbsp;% Verschnittzuschlag auf die theoretische Menge für Schnitte, Bruch und Messfehler. DIN-, ISO- und EN-Normen definieren Materialeigenschaften und Toleranzen, die diesen Formeln zugrunde liegen.</p>
+<h3>1. Kann ich den Rechner auch für Altgeräte mit R22 verwenden?</h3>
+<p>Ja, in <strong>Deutschland</strong> ist R22 in Neuanlagen seit 2015 verboten, aber für Wartungen und Nachfüllungen bestehender Altgeräte ist der Rechner weiterhin gültig. Wählen Sie einfach den Typ "R22" aus – der Basiswert von 0,03 kg/m wird dann korrekt angewendet. Beachten Sie jedoch die strengen Auflagen der Chemikalien-Klimaschutzverordnung.</p>
 
-<h2>Haufige Fehler vermeiden</h2>
-<ul>
-<li>Vergessen, einen Verschnittzuschlag (5-10%) bei der Materialbestellung hinzuzufügen.</li><li>Métrische und imperiale Einheiten im selben Projekt zu mischen.</li>
-</ul>
+<h3>2. Warum beträgt die Grundfüllung immer das 0,04-Fache der Leistung?</h3>
+<p>Der Faktor 0,04 ist ein empirisch ermittelter Richtwert, der in der deutschen Kältetechnik für die meisten Split-Geräte bis 15 kW gilt. Er repräsentiert den durchschnittlichen Kältemittelbedarf des Verdampfers, Verflüssigers und der internen Leitungen pro kW Leistung. Bei Spezialgeräten oder Großanlagen sollten Sie die Herstellerangaben bevorzugen, für Standardinstallationen ist dieser Faktor jedoch praxiserprobt.</p>
 
-<h2>Profitipp fur Bauunternehmer</h2>
-<p>Bestellen Sie 5-10% mehr Material als berechnet, um Schnittverluste und Messfehler auszugleichen.</p>
-
-<h2>Haufig gestellte Fragen</h2>
-<div class="faq-list">
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Wie viel zusätzliches Material sollte ich bestellen?</button><div class="faq-a"><p>Die meisten Profis empfehlen, 5-10% mehr zu bestellen als berechnet, um Schnittverluste und Messfehler abzudecken.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Ist dieser Rechner genau?</button><div class="faq-a"><p>Ja. Der Rechner verwendet die Standardformel: Kältemittelfüllmengen-Rechner = f(Leitungslänge, Geräteleistung (kW), Kältemitteltyp). Die Ergebnisse sind mathematisch exakt.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Kann ich diesen Rechner auf dem Handy nutzen?</button><div class="faq-a"><p>Ja, der Rechner ist vollständig responsiv und funktioniert auf jedem Gerät. Keine Installation erforderlich.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Wie speichere oder teile ich meine Berechnung?</button><div class="faq-a"><p>Verwenden Sie die Schaltfläche <strong>Teilen</strong>, um eine URL mit allen Ihren Eingaben zu generieren. Die Schaltfläche <strong>Kopieren</strong> kopiert das Ergebnis in die Zwischenablage.</p></div></div>
-<div class="faq-item"><button class="faq-q" aria-expanded="false">Was tun, wenn das Ergebnis falsch erscheint?</button><div class="faq-a"><p>Überprüfen Sie zuerst Ihre Eingaben: Werte in den richtigen Einheiten und realistischem Bereich. Bestätigen Sie auch, dass die Formel <em>Kältemittelfüllmengen-Rechner = f(Leitungslänge, Geräteleistung (kW), Kältemitteltyp)</em> genau auf Ihre Situation zutrifft.</p></div></div>
-</div>
-</section>
+<h3>3. Was mache ich, wenn mein Ergebnis 0,000 kg beträgt?</h3>
+<p>Dies tritt auf, wenn Sie eine Leitungslänge von 5 Metern oder weniger eingegeben haben und die Leistung 0 kW beträgt (z. B. bei fehlender Eingabe). Der Rechner zeigt dann eine leere oder Null-Ergebnis an. Geben Sie stets eine Leistung über 0 kW ein – typische Werte liegen zwischen 2,0 und 15,0 kW. Bei kurzen Leitungen unter 5 Metern erhalten Sie trotzdem eine korrekte Grundfüllung, sofern die Leistung angegeben ist.</p>
+<p>Nutzen Sie den <strong>Kältemittelfüllmengen-Rechner</strong> für jede Installation – er minimiert manuelle Rechenfehler, spart Zeit und sorgt für rechtskonforme Dokumentation Ihrer Kälteanlagen in Deutschland.</p>
