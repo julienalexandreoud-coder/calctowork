@@ -5041,3 +5041,46 @@ exports.auditCalcQualityHttp = functions.runWith({ timeoutSeconds: 300, memory: 
     });
   } catch(e) { return res.status(500).json({ error: e.message }); }
 });
+
+// ══ PER-CALCULATOR BACKLINK GENERATOR ══
+exports.perCalcBacklinkHttp = functions.runWith({ timeoutSeconds: 300, memory: "512MB" })
+  .https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  if (req.method === "OPTIONS") return res.status(204).send("");
+  try {
+    const SITE_URL = "https://calcto.work";
+    const fetch = require("node-fetch");
+    const count = parseInt(req.query.count) || 10;
+    const snap = await db.collection("calc_cms").where("status","==","published").limit(count).get();
+    const calcs = [];
+    snap.forEach(d => { const data = d.data(); calcs.push({ slug:d.id, name:(data.langs?.en?.name||data.name||d.id) }); });
+    const results = [];
+
+    const catMap = {
+      "construction|estructuras|mamposteria|pavimentos|carpinteria|fontaneria|electricidad|climatizacion|gestion|pintura":"r/DIY,r/HomeImprovement,r/Construction",
+      "matematicas":"r/learnmath,r/math","salud":"r/Fitness,r/loseit,r/health",
+      "finanzas":"r/personalfinance,r/investing","ciencia|fisica|quimica":"r/Physics,r/askscience",
+    };
+
+    for (const calc of calcs.slice(0,5)) {
+      const calcUrl = SITE_URL+"/en/"+calc.slug+"/";
+      let subreddits = "r/InternetIsBeautiful";
+      for (const [p,s] of Object.entries(catMap)) { if (new RegExp(p,"i").test(calc.slug)) { subreddits=s; break; } }
+      results.push({
+        slug:calc.slug, name:calc.name, url:calcUrl,
+        embed_iframe: `<iframe src="${calcUrl}?embed=1" width="100%" height="600" frameborder="0" style="border:1px solid #ddd;border-radius:8px"></iframe><p style="text-align:center;font-size:11px">Powered by <a href="${calcUrl}">CalcToWork</a></p>`,
+        embed_script: `<script src="${SITE_URL}/embed.js" data-calc="${calc.slug}"></script>`,
+        submit_reddit: `https://www.reddit.com/submit?url=${encodeURIComponent(calcUrl)}&title=${encodeURIComponent(calc.name+' - Free Online Calculator')}`,
+        subreddits,
+        tip: `Embed creates backlink to THIS calculator. Share on ${subreddits}.`,
+      });
+    }
+
+    await db.collection("admin_prefs").doc("per_calc_backlinks").set({
+      generated:results.map(r=>r.slug), count:results.length,
+      generated_at:admin.firestore.FieldValue.serverTimestamp(),
+    },{merge:true});
+
+    return res.status(200).json({ calculators:results, embed_script:SITE_URL+"/embed.js", strategy:"Each embed = backlink to that calculator page." });
+  } catch(e) { return res.status(500).json({ error: e.message }); }
+});

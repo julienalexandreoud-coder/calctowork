@@ -1562,7 +1562,22 @@ def build_comparison_table(calc: dict, ci18n: dict, lang: str) -> dict | None:
     for preset in presets:
         display = []
         if has_label:
-            display.append(str(preset.get("_label", "")))
+            label = str(preset.get("_label", ""))
+            # Auto-translate Spanish preset labels to English
+            if lang == "en":
+                replacements = {
+                    "Triangulo":"Triangle","Cuadrado":"Square","Pentagono":"Pentagon","Hexagono":"Hexagon",
+                    "Octogono":"Octagon","Circulo":"Circle","Caso basico":"Basic case","Caso tipico":"Typical case",
+                    "Caso medio":"Medium case","Caso avanzado":"Advanced case","Caso extremo":"Extreme case",
+                    "lado":"side","muro":"wall","pared":"wall","techo":"ceiling","suelo":"floor",
+                    "pequeño":"small","mediano":"medium","grande":"large","alto":"tall",
+                    "habitacion":"room","cocina":"kitchen","baño":"bathroom","sala":"living room",
+                    "metro":"meter","metros":"meters","cm":"cm","m":"m",
+                }
+                for es, en in replacements.items():
+                    import re as _re
+                    label = _re.sub(r'\b' + es + r'\b', en, label, flags=_re.IGNORECASE)
+            display.append(label)
         for key in input_keys:
             val = preset.get(key, "")
             meta = input_meta.get(key, {})

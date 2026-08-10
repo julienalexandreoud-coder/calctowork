@@ -187,3 +187,4 @@ exports.reviewStrategyPlanHttp = calcPage.reviewStrategyPlanHttp;
 exports.getStrategyMemoryHttp = calcPage.getStrategyMemoryHttp;
 exports.saveStrategyMemoryHttp = calcPage.saveStrategyMemoryHttp;
 exports.auditCalcQualityHttp = calcPage.auditCalcQualityHttp;
+exports.perCalcBacklinkHttp = calcPage.perCalcBacklinkHttp;
