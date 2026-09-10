@@ -299,6 +299,28 @@ nav a:hover { color: #fff; background: rgba(255,255,255,.1); }
 [data-theme="dark"] .unit-select { background: #334155; }
 .unit-select:focus { outline: none; border-color: var(--primary); }
 
+/* ── Choice inputs (options/choices) — styled to match the number fields, since
+      they sit in the same form and previously rendered as number inputs. ── */
+.choice-select {
+  flex: 1 1 auto;
+  width: 100%;
+  padding: .7rem .9rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: .95rem;
+  color: var(--text);
+  background: var(--card-bg);
+  cursor: pointer;
+  transition: border-color .15s, box-shadow .15s;
+}
+.choice-select:hover { border-color: #cbd5e1; }
+.choice-select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(249,115,22,0.18);
+}
+[data-theme="dark"] .choice-select { background: #1e293b; color: #e2e8f0; border-color: #475569; }
+
 .btn-row { display: flex; gap: .6rem; margin-top: 1.25rem; }
 
 .btn {
@@ -359,6 +381,12 @@ nav a:hover { color: #fff; background: rgba(255,255,255,.1); }
 .results-panel .card-title::before {
   content: '📊';
   font-size: 1.2rem;
+  /* reset the base .card-title::before bar (4px orange box) so the emoji isn't
+     crammed into it and overlapping the title */
+  width: auto;
+  height: auto;
+  background: none;
+  border-radius: 0;
 }
 
 /* Result sections */
@@ -796,6 +824,10 @@ footer a:hover { text-decoration: underline; }
 .ad-slot-square { height: 250px; }
 .ad-slot-responsive { min-height: 90px; max-height: 280px; margin: 1rem 0; }
 .ad-slot-inarticle { min-height: 250px; margin: 2rem 0; }
+/* The ad <ins> must fill the slot's width — the slot is display:flex, so an
+   empty responsive <ins> collapsed to 0px, making AdSense report
+   "availableWidth=0" and refuse to render the ad. */
+.ad-slot > ins.adsbygoogle { display: block; width: 100%; min-width: 250px; flex: 1 1 100%; }
 /* Hide placeholder shell when ad hasn't loaded */
 .ad-slot:not(:has(> ins)) { border-style: dashed; }
 .ad-slot:has(> ins[data-ad-status="unfilled"]) { display: none; }
@@ -2769,4 +2801,95 @@ input.input-error:focus, select.input-error:focus {
 .back-to-top:hover {
   background: #ea580c;
   transform: translateY(-2px);
+}
+
+/* ── Verdict block: the reading of the user's own result ── */
+.verdict {
+  margin: 0 0 1rem;
+  padding: .9rem 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--tone, #64748b);
+  background: var(--card-bg);
+}
+.verdict--bad  { --tone: #dc2626; }
+.verdict--warn { --tone: #f59e0b; }
+.verdict--ok   { --tone: #0ea5e9; }
+.verdict--good { --tone: #16a34a; }
+.verdict--info { --tone: #64748b; }
+.verdict-head { display: flex; align-items: baseline; gap: .6rem; flex-wrap: wrap; }
+.verdict-chip {
+  font-weight: 700; font-size: .95rem; color: #fff;
+  background: var(--tone); padding: .18rem .6rem; border-radius: 999px;
+}
+.verdict-value { font-weight: 700; font-size: 1.05rem; color: var(--text); font-variant-numeric: tabular-nums; }
+.verdict-note { margin: .5rem 0 0; font-size: .92rem; line-height: 1.5; color: var(--text); }
+.verdict-note--lead { margin-top: 0; }
+.verdict-tip { margin: .45rem 0 0; font-size: .88rem; line-height: 1.45; color: var(--text-muted); }
+.verdict-tip::before { content: '\2192\00a0'; color: var(--tone); font-weight: 700; }
+.verdict-source { margin: .5rem 0 0; font-size: .76rem; color: var(--text-muted); }
+.verdict-scale { margin-top: .7rem; }
+.verdict-track { position: relative; height: 10px; border-radius: 999px; background: #e2e8f0; }
+.verdict-band { position: absolute; top: 0; height: 10px; opacity: .38; }
+.verdict-band.is-hit { opacity: 1; }
+.verdict-marker {
+  position: absolute; top: -4px; width: 3px; height: 18px; border-radius: 2px;
+  background: var(--text); transform: translateX(-1.5px);
+  box-shadow: 0 0 0 2px var(--card-bg);
+}
+.verdict-ends {
+  display: flex; justify-content: space-between;
+  font-size: .72rem; color: var(--text-muted); margin-top: .25rem;
+  font-variant-numeric: tabular-nums;
+}
+[data-theme="dark"] .verdict-track { background: #334155; }
+
+/* ── Result charts: a projection of the calc's own formula, or a breakdown of
+      its own outputs. Theme-aware, no chart library. ── */
+.calc-chart {
+  margin: 1rem 0 0;
+  padding: .85rem .9rem .7rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--card-bg);
+}
+.calc-chart-title {
+  font-size: .82rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  margin-bottom: .5rem;
+}
+.calc-chart-svg { width: 100%; height: auto; display: block; overflow: visible; }
+.calc-chart-x {
+  text-align: center;
+  font-size: .74rem;
+  color: var(--text-muted);
+  margin-top: .15rem;
+}
+.chart-grid { stroke: var(--border); stroke-width: 1; opacity: .55; }
+.chart-tick { fill: var(--text-muted); font-size: 10px; font-variant-numeric: tabular-nums; }
+.chart-line { fill: none; stroke: var(--primary); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.chart-dot { fill: var(--primary); stroke: var(--card-bg); stroke-width: 2.5; }
+.chart-endval { fill: var(--primary-dark, var(--primary)); font-size: 12px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.chart-grad-a { stop-color: var(--primary); stop-opacity: .28; }
+.chart-grad-b { stop-color: var(--primary); stop-opacity: .02; }
+
+.chart-bars { display: flex; flex-direction: column; gap: .45rem; }
+.chart-bar-row { display: grid; grid-template-columns: minmax(88px, 30%) 1fr auto; align-items: center; gap: .55rem; }
+.chart-bar-label { font-size: .82rem; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chart-bar-track { height: 12px; border-radius: 999px; background: var(--border); overflow: hidden; }
+.chart-bar-fill { display: block; height: 100%; border-radius: 999px; transition: width .45s ease; }
+.chart-bar-val { font-size: .78rem; color: var(--text-muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.chart-bar-val em { font-style: normal; font-weight: 700; color: var(--text); margin-left: .2rem; }
+.chart-c0 { background: #f97316; }
+.chart-c1 { background: #0ea5e9; }
+.chart-c2 { background: #16a34a; }
+.chart-c3 { background: #a855f7; }
+.chart-c4 { background: #f59e0b; }
+
+@media (max-width: 520px) {
+  .chart-bar-row { grid-template-columns: 1fr auto; }
+  .chart-bar-track { grid-column: 1 / -1; order: 3; }
 }

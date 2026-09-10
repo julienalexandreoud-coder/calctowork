@@ -3,6 +3,20 @@
   'use strict';
 
   var cfg    = window.CALC_CONFIG || {};
+  // Normalize outputs. The static-template pages provide outputs as an object
+  // { id: "Label" } plus output_units { id: "unit" }, which this engine expects.
+  // The CMS/buildPage renderer provides them as an array [{id,unit,label}].
+  // Convert the array form so results render on both. (Without this, Object.keys
+  // on the array yields "0","1" and NO result cards appear.)
+  if (Array.isArray(cfg.outputs)) {
+    var _outUnits = cfg.output_units || {};
+    var _outObj = {};
+    cfg.outputs.forEach(function (o) {
+      if (o && o.id) { _outObj[o.id] = o.label || o.id; if (o.unit != null) _outUnits[o.id] = o.unit; }
+    });
+    cfg.outputs = _outObj;
+    cfg.output_units = _outUnits;
+  }
   var i18n   = cfg.i18n || {};
   var form   = document.getElementById('calc-form');
   var resultsBox = document.getElementById('calc-results');
@@ -73,7 +87,35 @@
     digital_MB:   { MB: 1, KB: 0.0009766, GB: 1024, TB: 1048576, B: 9.5367e-7 },
     pressure_atm: { atm: 1, Pa: 9.869e-6, kPa: 0.009869, bar: 0.986923, psi: 0.068046, mmHg: 0.001316, torr: 0.001316 },
     time_h:       { h: 1, min: 0.016667, s: 2.7778e-4, d: 24, wk: 168 },
-    temp_c:       { '°C': 'special_c', '°F': 'special_c', K: 'special_c', C: 'special_c', F: 'special_c' }
+    temp_c:       { '°C': 'special_c', '°F': 'special_c', K: 'special_c', C: 'special_c', F: 'special_c' },
+    /* ── Phase 2 derived categories: base = a common non-SI default unit, so
+       fields that default to g / mL / ft / lb / kW … can still offer conversion. ── */
+    mass_g:       { g: 1, kg: 1000, mg: 0.001, lb: 453.592, oz: 28.3495 },
+    mass_mg:      { mg: 1, g: 1000, kg: 1e6, mcg: 0.001, 'µg': 0.001 },
+    mass_lb:      { lb: 1, kg: 2.20462, g: 0.00220462, oz: 0.0625, st: 14 },
+    volume_mL:    { mL: 1, L: 1000, 'cm³': 1, 'm³': 1e6, cL: 10, 'fl oz': 29.5735 },
+    length_ft:    { ft: 1, m: 3.28084, cm: 0.0328084, mm: 0.00328084, in: 0.0833333, yd: 3, km: 3280.84 },
+    length_in:    { in: 1, cm: 0.393701, mm: 0.0393701, m: 39.3701, ft: 12 },
+    power_kW:     { kW: 1, W: 0.001, MW: 1000, hp: 0.7457, 'BTU/h': 0.000293071 },
+    energy_kWh:   { kWh: 1, Wh: 0.001, J: 2.7778e-7, kJ: 2.7778e-4, MJ: 0.277778, cal: 1.16222e-6, kcal: 0.00116222 },
+    energy_kcal:  { kcal: 1, cal: 0.001, kJ: 0.239006, J: 0.000239006, Wh: 0.860421, kWh: 860.421 },
+    speed_mph:    { mph: 1, 'km/h': 0.621371, 'm/s': 2.23694, knot: 1.15078, 'ft/s': 0.681818 },
+    time_min:     { min: 1, s: 0.0166667, h: 60, d: 1440, wk: 10080 },
+    pressure_psi: { psi: 1, Pa: 0.000145038, kPa: 0.145038, MPa: 145.038, bar: 14.5038, atm: 14.6959, mmHg: 0.0193368 },
+    pressure_bar: { bar: 1, Pa: 1e-5, kPa: 0.01, MPa: 10, psi: 0.0689476, atm: 1.01325, mmHg: 0.00133322 },
+    /* Added: formulas that expect L / kW / mL / mA / yr / mo / km-h / GB / Mbps as the base.
+       Without these the value was converted to the SI base (e.g. 20 yr -> 630720000 s) and
+       the formula produced wrong results or "Cannot calculate". */
+    volume_l:     { L: 1, 'm³': 1000, mL: 0.001, 'cm³': 0.001, 'ft³': 28.3168, 'gal(us)': 3.78541, 'gal(uk)': 4.54609, qt: 0.946353 },
+    volume_ml:    { mL: 1, 'm³': 1000000, L: 1000, 'cm³': 1, 'ft³': 28316.8, 'gal(us)': 3785.41, 'gal(uk)': 4546.09, qt: 946.353 },
+    power_kw:     { kW: 1, W: 0.001, MW: 1000, hp: 0.7457, 'BTU/h': 0.000293071 },
+    current_ma:   { mA: 1, A: 1000, kA: 1000000 },
+    time_yr:      { yr: 1, s: 3.1709792e-8, min: 1.90258752e-6, h: 0.000114155251, d: 0.00273972603, wk: 0.0191780822, mo: 0.0821917808 },
+    time_mo:      { mo: 1, s: 3.85802469e-7, min: 2.31481481e-5, h: 0.00138888889, d: 0.0333333333, wk: 0.233333333, yr: 12.1666667 },
+    velocity_kmh: { 'km/h': 1, 'm/s': 3.6, mph: 1.60934271, knot: 1.85199692, 'ft/s': 1.09727912 },
+    digital_gb:   { GB: 1, B: 9.31322575e-10, KB: 9.53674316e-7, MB: 0.0009765625, TB: 1024 },
+    data_mbps:    { Mbps: 1, bps: 0.000001, Kbps: 0.001, Gbps: 1000 },
+    pressure_mmHg:{ mmHg: 1, Pa: 0.00750062, kPa: 7.50062, atm: 760, psi: 51.7149, bar: 750.062 }
   };
 
   function toKelvin(val, unit) {
@@ -142,10 +184,13 @@
   }
 
   function allFilled() {
-    var fields = form.querySelectorAll('input[name]:not([name="desperdicio_merma"])');
+    // Choice and free-text fields hold words ("cemento"), not numbers, so only
+    // number inputs are required to parse as a float. A <select> always has a value.
+    var fields = form.querySelectorAll('input[name]:not([name="desperdicio_merma"]), select[name]:not(.unit-select)');
     for (var i = 0; i < fields.length; i++) {
       var v = fields[i].value.trim();
-      if (v === '' || isNaN(parseFloat(v))) return false;
+      if (v === '') return false;
+      if (fields[i].tagName === 'INPUT' && fields[i].type === 'number' && isNaN(parseFloat(v))) return false;
     }
     return fields.length > 0;
   }
@@ -237,9 +282,15 @@
     var html = esc(template);
     Object.keys(results).forEach(function(k) {
       if (k === 'table' || k === 'error') return;
-      html = html.replace(new RegExp('\\{' + k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\}', 'g'),
+      // Match {id} AND {{id}} (some AI text used double braces).
+      html = html.replace(new RegExp('\\{\\{?' + k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\}?\\}', 'g'),
         '<strong>' + esc(String(fmt(results[k]))) + '</strong>');
     });
+    // If any placeholder is still unresolved, the AI text referenced a name that
+    // doesn't match the output ids (e.g. {{volume}} vs id "volumen"). Rather than
+    // show a broken "({{volume}})", drop the whole summary — the result cards
+    // already show every value clearly.
+    if (/\{\{?[a-zA-Z_][^{}]*\}?\}/.test(html)) return '';
     if (html === esc(template)) return '';
     return '<div class="result-context">' + html + '</div>';
   }
@@ -361,7 +412,7 @@
   }
 
   /* ── SVG Gauge Renderer ── */
-  function renderGauge(value, min, max, label, unit) {
+  function renderGauge(value, min, max, label, unit, zones) {
     if (!gaugeEl) return;
     if (value === null || value === undefined || isNaN(parseFloat(value))) {
       gaugeEl.innerHTML = '';
@@ -376,7 +427,6 @@
     var nx = cx + r * Math.cos(rad);
     var ny = cy + r * Math.sin(rad);
 
-    var greenStart = 0.25, greenEnd = 0.55;
     function arcPath(startPct, endPct, color) {
       var a1 = (startPct * 180 - 180) * Math.PI / 180;
       var a2 = (endPct * 180 - 180) * Math.PI / 180;
@@ -385,14 +435,25 @@
       var large = (endPct - startPct) > 0.5 ? 1 : 0;
       return '<path d="M' + x1 + ',' + y1 + ' A' + r + ',' + r + ' 0 ' + large + ' 1 ' + x2 + ',' + y2 + '" fill="none" stroke="' + color + '" stroke-width="14" stroke-linecap="round"/>';
     }
+    // Colored zones ONLY when the calc supplies calibrated thresholds; otherwise the gauge
+    // is a neutral position indicator (no misleading good/bad band).
+    var zoneArcs = '';
+    if (Array.isArray(zones) && zones.length && max > min) {
+      var prev = min;
+      for (var zi = 0; zi < zones.length; zi++) {
+        var zmax = (zones[zi] && zones[zi].max != null) ? zones[zi].max : max;
+        var sp = Math.max(0, Math.min(1, (prev - min) / (max - min)));
+        var ep = Math.max(0, Math.min(1, (zmax - min) / (max - min)));
+        if (ep > sp) zoneArcs += arcPath(sp, ep, (zones[zi] && zones[zi].color) || '#94a3b8');
+        prev = zmax;
+      }
+    }
 
     gaugeEl.style.display = '';
     gaugeEl.innerHTML =
       '<svg viewBox="0 0 240 130" class="gauge-svg">' +
         '<path d="M' + (cx - r) + ',' + cy + ' A' + r + ',' + r + ' 0 0 1 ' + (cx + r) + ',' + cy + '" fill="none" stroke="#e2e8f0" stroke-width="14" stroke-linecap="round"/>' +
-        arcPath(0, greenStart, '#ef4444') +
-        arcPath(greenStart, greenEnd, '#22c55e') +
-        arcPath(greenEnd, 1, '#ef4444') +
+        zoneArcs +
         '<line x1="' + cx + '" y1="' + cy + '" x2="' + nx + '" y2="' + ny + '" stroke="' + 'var(--secondary)' + '" stroke-width="3" stroke-linecap="round" style="transition:all .5s ease"/>' +
         '<circle cx="' + cx + '" cy="' + cy + '" r="5" fill="' + 'var(--secondary)' + '"/>' +
         '<text x="' + cx + '" y="' + (cy + 30) + '" text-anchor="middle" font-size="22" font-weight="800" fill="' + 'var(--primary-dark)' + '">' + esc(fmt(value)) + '</text>' +
@@ -403,7 +464,344 @@
       '</svg>';
   }
 
-  function renderResults(results, wastePct) {
+  /* ── Verdict: what THIS number actually means ──────────────────────────────
+     A calculator that prints "7" and then explains the pH scale in the abstract
+     has not answered the question. cfg.interpretation turns the value into a
+     reading: which band it falls in, what that band means in concrete terms,
+     and where it sits on the scale.
+
+     Shape (output required; then either bands+scale, or insight):
+       interpretation: {
+         output: "ph", unit: "",
+         scale: { min: 0, max: 14 },
+         bands: [ { max: 3, label: "Strongly acidic", tone: "bad|warn|ok|good|info",
+                    note: "concrete, comparative sentence" }, ... ],
+         insight: "sentence with {output_id} placeholders",
+         tip: "one practical next step",
+         source: "IUPAC pH scale at 25 C"
+       }
+  ------------------------------------------------------------------------- */
+  var VERDICT_TONES = { bad: '#dc2626', warn: '#f59e0b', ok: '#0ea5e9', good: '#16a34a', info: '#64748b' };
+
+  function findBand(value, bands) {
+    for (var i = 0; i < bands.length; i++) {
+      var m = bands[i] && bands[i].max;
+      if (m === null || m === undefined || value <= m) return { band: bands[i], index: i };
+    }
+    return { band: bands[bands.length - 1], index: bands.length - 1 };
+  }
+
+  function renderScaleStrip(value, scale, bands, hitIndex) {
+    if (!scale || typeof scale.min !== 'number' || typeof scale.max !== 'number' || scale.max <= scale.min) return '';
+    var span = scale.max - scale.min;
+    var segs = '', prev = scale.min;
+    for (var i = 0; i < bands.length; i++) {
+      var bmax = (bands[i].max === null || bands[i].max === undefined) ? scale.max : Math.min(bands[i].max, scale.max);
+      var left = ((prev - scale.min) / span) * 100;
+      var width = ((bmax - prev) / span) * 100;
+      if (width > 0) {
+        var color = VERDICT_TONES[bands[i].tone] || VERDICT_TONES.info;
+        segs += '<span class="verdict-band' + (i === hitIndex ? ' is-hit' : '') + '"' +
+          ' style="left:' + left.toFixed(2) + '%;width:' + width.toFixed(2) + '%;background:' + color + '"' +
+          ' title="' + esc(bands[i].label || '') + '"></span>';
+      }
+      prev = bmax;
+    }
+    var pct = Math.max(0, Math.min(100, ((parseFloat(value) - scale.min) / span) * 100));
+    return '<div class="verdict-scale">' +
+        '<div class="verdict-track">' + segs +
+          '<span class="verdict-marker" style="left:' + pct.toFixed(2) + '%"></span>' +
+        '</div>' +
+        '<div class="verdict-ends"><span>' + esc(String(fmt(scale.min))) + '</span><span>' + esc(String(fmt(scale.max))) + '</span></div>' +
+      '</div>';
+  }
+
+  /* Fill {output_id} placeholders from the real results. Returns empty if any
+     placeholder is left unresolved, so a broken template never reaches a reader. */
+  function fillTemplate(tpl, results) {
+    var out = esc(String(tpl));
+    Object.keys(results).forEach(function (k) {
+      if (k === 'table' || k === 'error') return;
+      var v = '<strong>' + esc(String(fmt(results[k]))) + '</strong>';
+      out = out.split('{{' + k + '}}').join(v).split('{' + k + '}').join(v);
+    });
+    if (/{[a-zA-Z_][^{}]*}/.test(out)) return '';
+    return out;
+  }
+
+  function renderVerdict(results, cfg) {
+    var it = cfg.interpretation;
+    if (!it || !it.output) return '';
+    var raw = results[it.output];
+    if (raw === undefined || raw === null) return '';
+
+    var html = '', tone = 'info';
+    var bands = Array.isArray(it.bands) ? it.bands : null;
+    var num = parseFloat(raw);
+
+    if (bands && bands.length && !isNaN(num)) {
+      var hit = findBand(num, bands);
+      if (!hit.band) return '';
+      tone = hit.band.tone || 'info';
+      html += '<div class="verdict-head">' +
+          (hit.band.label ? '<span class="verdict-chip">' + esc(hit.band.label) + '</span>' : '') +
+          '<span class="verdict-value">' + esc(String(fmt(raw))) + (it.unit ? ' ' + esc(it.unit) : '') + '</span>' +
+        '</div>';
+      if (hit.band.note) html += '<p class="verdict-note">' + esc(hit.band.note) + '</p>';
+      html += renderScaleStrip(num, it.scale, bands, hit.index);
+    } else if (it.insight) {
+      var filled = fillTemplate(it.insight, results);
+      if (!filled) return '';
+      html += '<p class="verdict-note verdict-note--lead">' + filled + '</p>';
+    } else {
+      return '';
+    }
+
+    if (it.tip) html += '<p class="verdict-tip">' + esc(it.tip) + '</p>';
+    if (it.source) html += '<p class="verdict-source">' + esc(it.source) + '</p>';
+    return '<div class="verdict verdict--' + esc(tone) + '">' + html + '</div>';
+  }
+
+  /* ── Charts derived from the calculator itself ────────────────────────────
+     Nothing here is authored per calculator and nothing is invented. A projection
+     is this calc's OWN formula re-run across its own time input; a breakdown is
+     its own outputs. If neither shape is present, no chart is drawn.
+  ------------------------------------------------------------------------- */
+  var CHART_TIME_IDS = /^(a[nñ]os|anos|years?|months?|meses|mes|plazo|term|periodo|period|duracion|duration|tiempo|n_?periodos?|nper)$/i;
+  var CHART_TIME_WORDS = /\b(year|years|month|months|term|period|a[nñ]o|a[nñ]os|mes|meses|plazo|periodo|duraci[oó]n)\b/i;
+
+  function chartLabelFor(id) {
+    var lab = document.querySelector('label[for="input-' + id + '"]');
+    return lab ? lab.textContent.trim() : id;
+  }
+
+  /* The input that represents elapsed time, if the calc has one. */
+  function findTimeInput() {
+    var list = cfg.inputs || [];
+    for (var i = 0; i < list.length; i++) {
+      var inp = list[i];
+      if (inp.options || inp.type === 'date' || inp.type === 'text') continue;
+      if (CHART_TIME_IDS.test(inp.id) || CHART_TIME_WORDS.test(chartLabelFor(inp.id))) return inp;
+    }
+    return null;
+  }
+
+  /* The output worth plotting: the first finite number that is not a count of
+     periods and not the time input echoed back. */
+  function primaryNumericKey(results) {
+    var keys = Object.keys(cfg.outputs || {});
+    for (var i = 0; i < keys.length; i++) {
+      var v = parseFloat(results[keys[i]]);
+      if (isFinite(v) && Math.abs(v) > 0) return keys[i];
+    }
+    return null;
+  }
+
+  function fmtCompact(n) {
+    var a = Math.abs(n);
+    if (a >= 1000000) return (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+    if (a >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+    if (a >= 100) return String(Math.round(n));
+    return String(Math.round(n * 100) / 100);
+  }
+
+  /* Re-run the real formula for t = 1..N. */
+  function buildProjection(baseInputs, timeId, n, key) {
+    var pts = [];
+    var step = n > 40 ? Math.ceil(n / 40) : 1;
+    for (var t = step; t <= n; t += step) {
+      var probe = {};
+      for (var k in baseInputs) probe[k] = baseInputs[k];
+      probe[timeId] = t;
+      var r;
+      try { r = calcFn(probe); } catch (e) { return null; }
+      if (!r || r.error) continue;
+      var v = parseFloat(r[key]);
+      if (!isFinite(v)) continue;
+      pts.push({ t: t, v: v });
+    }
+    if (pts.length && pts[pts.length - 1].t !== n) {
+      var probeN = {};
+      for (var k2 in baseInputs) probeN[k2] = baseInputs[k2];
+      probeN[timeId] = n;
+      try {
+        var rn = calcFn(probeN);
+        var vn = rn && !rn.error ? parseFloat(rn[key]) : NaN;
+        if (isFinite(vn)) pts.push({ t: n, v: vn });
+      } catch (e) {}
+    }
+    return pts.length >= 3 ? pts : null;
+  }
+
+  function renderLineChart(pts, title, unit, xLabel) {
+    var W = 640, H = 220, PL = 52, PR = 16, PT = 18, PB = 30;
+    var iw = W - PL - PR, ih = H - PT - PB;
+    var vs = pts.map(function (p) { return p.v; });
+    var vmax = Math.max.apply(null, vs), vmin = Math.min.apply(null, vs);
+    if (vmin > 0) vmin = 0;                       // money charts read better from zero
+    if (vmax === vmin) vmax = vmin + 1;
+    var tmin = pts[0].t, tmax = pts[pts.length - 1].t;
+    var X = function (t) { return PL + (tmax === tmin ? iw : ((t - tmin) / (tmax - tmin)) * iw); };
+    var Y = function (v) { return PT + ih - ((v - vmin) / (vmax - vmin)) * ih; };
+
+    var line = '', area = '';
+    for (var i = 0; i < pts.length; i++) {
+      line += (i ? ' L' : 'M') + X(pts[i].t).toFixed(1) + ',' + Y(pts[i].v).toFixed(1);
+    }
+    area = line + ' L' + X(tmax).toFixed(1) + ',' + Y(vmin).toFixed(1) +
+                  ' L' + X(tmin).toFixed(1) + ',' + Y(vmin).toFixed(1) + ' Z';
+
+    var grid = '', ticks = 4;
+    for (var g = 0; g <= ticks; g++) {
+      var gv = vmin + (vmax - vmin) * (g / ticks);
+      var gy = Y(gv).toFixed(1);
+      grid += '<line x1="' + PL + '" y1="' + gy + '" x2="' + (W - PR) + '" y2="' + gy + '" class="chart-grid"/>' +
+              '<text x="' + (PL - 8) + '" y="' + (parseFloat(gy) + 4) + '" text-anchor="end" class="chart-tick">' + esc(fmtCompact(gv)) + '</text>';
+    }
+    var xt = '';
+    var xn = Math.min(6, pts.length);
+    for (var xi = 0; xi < xn; xi++) {
+      var p = pts[Math.round(xi * (pts.length - 1) / (xn - 1 || 1))];
+      xt += '<text x="' + X(p.t).toFixed(1) + '" y="' + (H - 8) + '" text-anchor="middle" class="chart-tick">' + esc(String(p.t)) + '</text>';
+    }
+    var last = pts[pts.length - 1];
+
+    return '<div class="calc-chart">' +
+      '<div class="calc-chart-title">' + esc(title) + '</div>' +
+      '<svg viewBox="0 0 ' + W + ' ' + H + '" class="calc-chart-svg" role="img" aria-label="' + esc(title) + '">' +
+        '<defs><linearGradient id="cchg" x1="0" y1="0" x2="0" y2="1">' +
+          '<stop offset="0%" class="chart-grad-a"/><stop offset="100%" class="chart-grad-b"/>' +
+        '</linearGradient></defs>' +
+        grid +
+        '<path d="' + area + '" fill="url(#cchg)"/>' +
+        '<path d="' + line + '" class="chart-line"/>' +
+        '<circle cx="' + X(last.t).toFixed(1) + '" cy="' + Y(last.v).toFixed(1) + '" r="4" class="chart-dot"/>' +
+        '<text x="' + X(last.t).toFixed(1) + '" y="' + Math.max(PT + 10, Y(last.v) - 10).toFixed(1) + '" text-anchor="end" class="chart-endval">' + esc(fmtCompact(last.v)) + (unit ? ' ' + esc(unit) : '') + '</text>' +
+        xt +
+      '</svg>' +
+      (xLabel ? '<div class="calc-chart-x">' + esc(xLabel) + '</div>' : '') +
+    '</div>';
+  }
+
+  /* Components that add up to a total, or a small set of comparable numbers. */
+  function sameUnitKeys(results) {
+    // Group the positive numeric outputs by unit; only same-unit values can be parts
+    // of the same whole. Ratios and multipliers ("x", "%") are never components.
+    var groups = {};
+    Object.keys(cfg.outputs || {}).forEach(function (k) {
+      var v = parseFloat(results[k]);
+      if (!isFinite(v) || v <= 0) return;
+      var u = String((cfg.output_units && cfg.output_units[k]) || '').trim().toLowerCase();
+      if (u === 'x' || u === '%' || u === 'ratio') return;
+      (groups[u] = groups[u] || []).push(k);
+    });
+    return groups;
+  }
+
+  function findBreakdown(results) {
+    var groups = sameUnitKeys(results);
+    var best = null;
+    Object.keys(groups).forEach(function (u) {
+      var keys = groups[u];
+      if (keys.length < 3) return;
+      for (var i = 0; i < keys.length; i++) {
+        var total = parseFloat(results[keys[i]]);
+        var rest = keys.filter(function (k) { return k !== keys[i]; });
+        var sum = rest.reduce(function (a, k) { return a + parseFloat(results[k]); }, 0);
+        if (total > 0 && Math.abs(sum - total) / total < 0.02 && rest.length >= 2) {
+          if (!best || rest.length > best.parts.length) best = { totalKey: keys[i], parts: rest };
+        }
+      }
+    });
+    return best;
+  }
+
+  function renderBreakdownChart(results, bd) {
+    var unitOf = function (k) { return (cfg.output_units && cfg.output_units[k]) || ''; };
+    var total = parseFloat(results[bd.totalKey]);
+    var rows = bd.parts.map(function (k) {
+      var v = parseFloat(results[k]);
+      return { key: k, label: (cfg.outputs || {})[k] || k, v: v, pct: total > 0 ? (v / total) * 100 : 0 };
+    }).sort(function (a, b) { return b.v - a.v; });
+
+    var bars = rows.map(function (r, i) {
+      return '<div class="chart-bar-row">' +
+          '<span class="chart-bar-label">' + esc(r.label) + '</span>' +
+          '<span class="chart-bar-track"><span class="chart-bar-fill chart-c' + (i % 5) + '" style="width:' + Math.max(1, r.pct).toFixed(1) + '%"></span></span>' +
+          '<span class="chart-bar-val">' + esc(String(fmt(r.v))) + ' ' + esc(unitOf(r.key)) + ' <em>' + r.pct.toFixed(0) + '%</em></span>' +
+        '</div>';
+    }).join('');
+
+    return '<div class="calc-chart">' +
+      '<div class="calc-chart-title">' + esc((cfg.outputs || {})[bd.totalKey] || bd.totalKey) + ': ' + esc(String(fmt(total))) + ' ' + esc(unitOf(bd.totalKey)) + '</div>' +
+      '<div class="chart-bars">' + bars + '</div>' +
+    '</div>';
+  }
+
+  function findComparison(results) {
+    var groups = sameUnitKeys(results);
+    var best = null;
+    Object.keys(groups).forEach(function (u) {
+      if (!u) return;                       // unitless numbers are not comparable
+      var keys = groups[u];
+      if (keys.length < 2 || keys.length > 6) return;
+      if (!best || keys.length > best.keys.length) best = { unit: u, keys: keys };
+    });
+    return best;
+  }
+
+  function renderComparisonChart(results, cmp) {
+    var unitOf = function (k) { return (cfg.output_units && cfg.output_units[k]) || ''; };
+    var rows = cmp.keys.map(function (k) {
+      return { key: k, label: (cfg.outputs || {})[k] || k, v: parseFloat(results[k]) };
+    }).sort(function (a, b) { return b.v - a.v; });
+    var max = rows[0].v;
+    if (!(max > 0)) return '';
+
+    var bars = rows.map(function (r, i) {
+      var pct = (r.v / max) * 100;
+      return '<div class="chart-bar-row">' +
+          '<span class="chart-bar-label">' + esc(r.label) + '</span>' +
+          '<span class="chart-bar-track"><span class="chart-bar-fill chart-c' + (i % 5) + '" style="width:' + Math.max(1, pct).toFixed(1) + '%"></span></span>' +
+          '<span class="chart-bar-val">' + esc(String(fmt(r.v))) + ' ' + esc(unitOf(r.key)) + '</span>' +
+        '</div>';
+    }).join('');
+    return '<div class="calc-chart"><div class="calc-chart-title">' +
+      esc(i18n.compare_title || 'Quantities compared') + '</div>' +
+      '<div class="chart-bars">' + bars + '</div></div>';
+  }
+
+  function renderCharts(results) {
+    var html = '';
+    try {
+      var bd = findBreakdown(results);
+      if (bd) html += renderBreakdownChart(results, bd);
+      else {
+        var cmp = findComparison(results);
+        if (cmp) html += renderComparisonChart(results, cmp);
+      }
+
+      var timeInp = findTimeInput();
+      var key = primaryNumericKey(results);
+      if (timeInp && key && window._lastInputs) {
+        var n = parseFloat(window._lastInputs[timeInp.id]);
+        if (isFinite(n) && n >= 3 && n <= 1000) {
+          var pts = buildProjection(window._lastInputs, timeInp.id, n, key);
+          // Only worth a chart if the value actually moves over time.
+          if (pts) {
+            var first = pts[0].v, lastv = pts[pts.length - 1].v;
+            if (Math.abs(lastv - first) > Math.abs(first || 1) * 0.01) {
+              html += renderLineChart(pts, (cfg.outputs || {})[key] || key,
+                (cfg.output_units && cfg.output_units[key]) || '', chartLabelFor(timeInp.id));
+            }
+          }
+        }
+      }
+    } catch (e) { return ''; }
+    return html;
+  }
+
+  function renderResults(results, wastePct, scroll) {
     if (!results || results.error) {
       resultsBox.innerHTML = '<div class="result-placeholder">' + esc(i18n.result_placeholder || 'Enter values and press Calculate') + '</div>';
       if (copyBtn) copyBtn.style.display = 'none'; if (shareBtn) shareBtn.style.display = 'none';
@@ -439,13 +837,17 @@
     var gaugeBlocks = ['estructuras','mamposteria','pavimentos','fontaneria','carpinteria','pintura','salud'];
     var showGauge = gaugeConfig && firstVal !== undefined && gaugeBlocks.indexOf(cfg.block_slug) !== -1;
     if (showGauge) {
-      renderGauge(firstVal, gaugeConfig.min, gaugeConfig.max, gaugeConfig.label || '', gaugeConfig.unit || '');
+      renderGauge(firstVal, gaugeConfig.min, gaugeConfig.max, gaugeConfig.label || '', gaugeConfig.unit || '', gaugeConfig.zones);
     } else if (gaugeEl) {
       gaugeEl.innerHTML = ''; gaugeEl.style.display = 'none';
     }
 
     /* ── STEP 2: Result summary (natural language) ── */
-    html += buildResultSummary(results, cfg);
+    var verdictHtml = renderVerdict(results, cfg);
+    html += verdictHtml;
+    // The generic one-liner only adds noise once a real verdict is shown.
+    if (!verdictHtml) html += buildResultSummary(results, cfg);
+    html += renderCharts(results);
 
     /* ── STEP 3: Layout-specific rendering ── */
     switch (calcType) {
@@ -515,7 +917,10 @@
     if (shareBtn) shareBtn.style.display = '';
     if (socialShare) showSocialShare();
 
-    if (!isInitialLoad) {
+    // Only scroll to results on an EXPLICIT calculate (submit / button / unit change),
+    // never on live-typing recalcs — otherwise every keystroke yanks the page down
+    // to the results box on mobile (block:'start'), jumping away from the input.
+    if (!isInitialLoad && scroll) {
       resultsBox.scrollIntoView({ behavior: 'smooth', block: window.innerWidth < 768 ? 'start' : 'nearest' });
     }
 
@@ -936,7 +1341,7 @@
     } catch (e) {}
   }
 
-  function calculate() {
+  function calculate(scroll) {
     var inputs  = collectInputs();
     var wastePct = parseFloat(inputs.desperdicio_merma) || 0;
     var submitBtn = form.querySelector('button[type="submit"]');
@@ -954,7 +1359,7 @@
     }
     window._lastResults = results;
     window._lastInputs = inputs;
-    renderResults(results, wastePct);
+    renderResults(results, wastePct, scroll);
     if (submitBtn) {
       submitBtn.disabled = false;
       submitBtn.removeAttribute('aria-busy');
@@ -985,18 +1390,18 @@
   function onInputChange() {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(function () {
-      calculate();
+      calculate(false);
     }, 300);
   }
 
-  form.addEventListener('submit', function (e) { e.preventDefault(); window._userModified = true; calculate(); });
+  form.addEventListener('submit', function (e) { e.preventDefault(); window._userModified = true; calculate(true); });
   form.addEventListener('input', function() { window._userModified = true; onInputChange(); });
   var submitBtn = form.querySelector('button[type="submit"]');
   if (submitBtn) {
     submitBtn.addEventListener('click', function (e) {
       e.preventDefault();
       if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
-      calculate();
+      calculate(true);
     });
   }
 
@@ -1043,7 +1448,7 @@
   /* ── Unit select changes trigger recalculation ── */
   form.querySelectorAll('.unit-select').forEach(function (sel) {
     sel.addEventListener('change', function () {
-      if (hasAnyInput()) calculate();
+      if (hasAnyInput()) calculate(true);
     });
   });
 
@@ -1549,8 +1954,22 @@
     var backdrop = document.getElementById('embed-modal-backdrop');
     if (!modal || !codeArea) return;
 
-    var url = window.location.origin + window.location.pathname;
-    var code = '<iframe src="' + url + '?embed=1" width="100%" height="520" frameborder="0" loading="lazy" title="' + esc(i18n.calc_name || document.title) + '"></iframe>';
+    // Use the CANONICAL url (the SEO slug), not the current path (which may be an
+    // alias). The attribution links MUST sit in the PARENT page's HTML — outside
+    // the iframe — or the backlink passes no value. Keyword-rich anchor = the
+    // calculator's name, which strengthens topical relevance for that keyword.
+    var canonEl = document.querySelector('link[rel="canonical"]');
+    var url = (canonEl && canonEl.href) || (window.location.origin + window.location.pathname);
+    var home = window.location.origin + '/';
+    var name = (i18n.calc_name || (document.title || 'Calculator').replace(/\s*[—|:].*$/, '')).trim();
+    var code =
+      '<!-- ' + name + ' — by CalcToWork -->\n' +
+      '<div style="max-width:680px;margin:1em auto;font-family:system-ui,-apple-system,sans-serif">\n' +
+      '  <iframe src="' + url + '?embed=1" width="100%" height="560" style="border:1px solid #e5e7eb;border-radius:12px;width:100%" frameborder="0" loading="lazy" title="' + esc(name) + '"></iframe>\n' +
+      '  <p style="font-size:13px;text-align:center;margin:8px 0;color:#555">\n' +
+      '    <a href="' + url + '" target="_blank" rel="noopener">' + esc(name) + '</a> by <a href="' + home + '" target="_blank" rel="noopener">CalcToWork</a>\n' +
+      '  </p>\n' +
+      '</div>';
     codeArea.value = code;
     modal.style.display = '';
 

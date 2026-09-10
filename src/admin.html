@@ -144,6 +144,7 @@ a{color:var(--primary);text-decoration:none}
 @media(max-width:768px){
   .sidebar{width:60px}
   .sidebar-brand span,.sidebar-nav a span,.sidebar-nav a .badge-count,.sidebar-footer button span{display:none}
+  .sidebar-nav .nav-section{display:none}
   .sidebar-nav a{justify-content:center;padding:.65rem}
   .main{margin-left:60px}
   .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
@@ -172,7 +173,7 @@ a{color:var(--primary);text-decoration:none}
 
 <!-- LOGIN — standalone script, no Firebase dependency -->
 <script>
-const PASS_HASH = '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9';
+const PASS_HASH = 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3'; // SHA-256 of "123"
 async function doLogin() {
   const pass = document.getElementById('login-password').value;
   const errEl = document.getElementById('login-error');
@@ -369,25 +370,23 @@ const TABS = [
   { id:'publish', label:'Publish Center', icon:'🚀' },
   { id:'calculators', label:'Calculators', icon:'🧮' },
   { section:'SEO & Growth' },
+  { id:'page1', label:'Page-1 Tracker', icon:'🚩' },
   { id:'search', label:'Search Console', icon:'🔍' },
   { id:'opportunities', label:'Opportunities & CTR', icon:'💡' },
   { id:'backlinks', label:'Backlinks', icon:'🔗' },
-  { id:'autopilot', label:'Autopilot', icon:'🤖' },
-  { id:'strategy', label:'Strategy', icon:'🧠' },
-  { id:'growthlab', label:'Growth Lab', icon:'🧪' },
+  { id:'growthlab', label:'Growth Engine', icon:'🧪' },
+  { id:'technical', label:'Technical SEO', icon:'🛠️' },
   { section:'Analytics' },
   { id:'analytics', label:'Traffic & Conversions', icon:'📈' },
   { id:'content', label:'Content & Audit', icon:'📝' },
-  { id:'technical', label:'Technical SEO', icon:'🛠️' },
   { id:'alerts', label:'Alerts', icon:'🔔' },
   { section:'System' },
-  { id:'ai', label:'AI Tools', icon:'💬' },
   { id:'settings', label:'Settings', icon:'⚙️' },
 ];
 
 function initDashboard() {
   document.getElementById('sidebar-nav').innerHTML = TABS.map(function(t) {
-    if (t.section) return '<div style="padding:.7rem .9rem .25rem;font-size:.62rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);opacity:.7">' + t.section + '</div>';
+    if (t.section) return '<div class="nav-section" style="padding:.7rem .9rem .25rem;font-size:.62rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);opacity:.7;white-space:nowrap;overflow:hidden">' + t.section + '</div>';
     var badge = '';
     if (t.id === 'alerts') badge = '<span class="badge-count" id="alert-badge" style="display:none">0</span>';
     if (t.id === 'calculators') badge = '<span class="badge-count" id="pipeline-badge" style="display:none">0</span>';
@@ -414,9 +413,11 @@ function switchTab(tabId) {
   switch (tabId) {
     case 'overview': renderOverview(area); break;
     case 'publish': renderPublishCenter(area); break;
+    case 'page1': renderStrikingDistance(area); break;
     case 'search': renderSearchConsole(area); break;
     case 'content':
-    case 'audit': renderMerged(area, [renderContent, renderContentAudit]); break;
+    case 'audit':
+    case 'scorecard': renderMerged(area, [renderContent, renderContentAudit, renderScorecard]); break;
     case 'opportunities':
     case 'ctr': renderMerged(area, [renderOpportunities, renderCTRBoost]); break;
     case 'analytics':
@@ -426,12 +427,279 @@ function switchTab(tabId) {
     case 'technical': renderTechnical(area); break;
     case 'alerts': renderAlertsTab(area); break;
     case 'calculators': renderCalculatorCMS(area); break;
-    case 'autopilot': renderAutopilot(area); break;
-    case 'growthlab': renderGrowthLab(area); break;
-    case 'strategy': renderStrategy(area); break;
-    case 'ai': renderAITools(area); break;
+    case 'growthlab':
+    case 'strategy': renderMerged(area, [renderGrowthLab, renderStrategy]); break;
     case 'settings': renderSettings(area); break;
   }
+}
+
+// ── PAGE-1 TRACKER (Striking Distance) ──
+// Every calc × language ranked by opportunity; per-page checklist, notes, backlink
+// logger + suggested backlink destinations. Data fetched from /data/sd-tracker.json
+// (compact array-of-arrays). Progress persists in localStorage 'sd_tracker_v2'.
+let SD_CACHE=null, sdState=null, sdFilter='all', sdShown=100, sdByKey={}, sdRows=[], SD_BL={}, sdFixed={};
+const SD_KEY='sd_tracker_v2';
+const SD_CHECKS=[["ai","AI-reviewed the page & content"],["onpage","Fixed on-page (title, meta, content)"],["verified","Verified live — works, right language, no bugs"],["links","Added internal links to related calcs"],["backlinks","Created backlink(s)"]];
+const SD_FLAG={en:"EN",es:"ES",pt:"PT",fr:"FR",de:"DE",it:"IT"};
+const SD_GRPNAME={build:"Construction",finance:"Finance",health:"Health",science:"Sci/Math",general:"General"};
+const SD_STYLE=`<style id="sd-styles">
+#sd-root{--sd-soft-brand:var(--primary-glow);--sd-good:#22c55e;--sd-good-soft:rgba(34,197,94,.15);--sd-warn:#f59e0b;--sd-warn-soft:rgba(245,158,11,.15);--sd-far:#ef4444;--sd-far-soft:rgba(239,68,68,.15);color:var(--text)}
+#sd-root a{color:var(--primary)}
+#sd-root .sd-sub{color:var(--muted);margin:6px 0 0;max-width:70ch;font-size:.86rem}
+#sd-root .sd-eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--primary)}
+#sd-root .sd-head{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-end;justify-content:space-between;margin-top:6px}
+#sd-root .sd-stats{display:flex;gap:10px;flex-wrap:wrap}
+#sd-root .sd-stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 14px;min-width:96px}
+#sd-root .sd-stat .n{font-size:1.5rem;font-weight:700;font-variant-numeric:tabular-nums;line-height:1}
+#sd-root .sd-stat .l{font-size:.7rem;color:var(--muted);margin-top:3px}
+#sd-root .sd-bar{height:9px;border-radius:99px;background:var(--border);overflow:hidden;margin-top:14px}
+#sd-root .sd-bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--sd-good));width:0;transition:width .4s ease}
+#sd-root details.sd-play{background:var(--card);border:1px solid var(--border);border-radius:12px;margin-top:18px;overflow:hidden}
+#sd-root details.sd-play>summary{cursor:pointer;padding:12px 16px;font-weight:600;list-style:none;display:flex;align-items:center;gap:10px}
+#sd-root details.sd-play>summary::-webkit-details-marker{display:none}
+#sd-root details.sd-play>summary::before{content:"▸";color:var(--primary);transition:transform .2s}
+#sd-root details.sd-play[open]>summary::before{transform:rotate(90deg)}
+#sd-root .sd-play-body{padding:4px 18px 18px;border-top:1px solid var(--border)}
+#sd-root .sd-pcols{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px;margin-top:12px}
+#sd-root .sd-pcol h4{margin:0 0 8px;font-size:.88rem}
+#sd-root .sd-pcol ol,#sd-root .sd-pcol ul{margin:0;padding-left:18px}
+#sd-root .sd-pcol li{margin:5px 0;font-size:.84rem;color:var(--text)}
+#sd-root .sd-controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:18px 0 6px}
+#sd-root .sd-controls .grow{flex:1;min-width:150px}
+#sd-root .sd-chip{border:1px solid var(--border);background:var(--card);color:var(--muted);padding:6px 12px;border-radius:99px;font-size:.8rem;font-weight:500;cursor:pointer}
+#sd-root .sd-chip[aria-pressed="true"]{background:var(--primary);border-color:var(--primary);color:#fff}
+#sd-root select,#sd-root .sd-btn{border:1px solid var(--border);background:var(--card);color:var(--text);padding:6px 10px;border-radius:9px;font:inherit;font-size:.8rem;cursor:pointer}
+#sd-root .sd-btn:hover{border-color:var(--primary)}
+#sd-root input[type=search],#sd-root input[type=url]{border:1px solid var(--border);background:var(--card);color:var(--text);padding:7px 12px;border-radius:9px;font:inherit;font-size:.84rem}
+#sd-root .sd-count{color:var(--muted);font-size:.78rem;margin:2px 0 12px}
+#sd-root .sd-list{display:flex;flex-direction:column;gap:7px}
+#sd-root .sd-row{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+#sd-root .sd-row.done{opacity:.55}
+#sd-root .sd-rowhead{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;padding:11px 14px;cursor:pointer}
+#sd-root .sd-rank{font-variant-numeric:tabular-nums;color:var(--muted);font-size:.82rem;text-align:center}
+#sd-root .sd-rname{font-weight:600;font-size:.94rem;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+#sd-root .sd-flag{font-size:.62rem;font-weight:700;letter-spacing:.05em;background:var(--card-hover);border:1px solid var(--border);border-radius:5px;padding:1px 6px;color:var(--muted)}
+#sd-root .sd-grpchip{font-size:.6rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--primary);background:var(--sd-soft-brand);border-radius:5px;padding:1px 6px}
+#sd-root .sd-fixed{font-size:.6rem;font-weight:600;letter-spacing:.03em;color:var(--sd-good);background:var(--sd-good-soft);border-radius:5px;padding:1px 6px;white-space:nowrap}
+#sd-root .sd-rslug{font-size:.73rem;color:var(--muted);font-family:ui-monospace,monospace;margin-top:2px}
+#sd-root .sd-rmeta{display:flex;gap:12px;align-items:center}
+#sd-root .sd-pos{font-variant-numeric:tabular-nums;font-weight:600;font-size:.78rem;padding:3px 9px;border-radius:7px}
+#sd-root .sd-pos.p1{background:var(--sd-good-soft);color:var(--sd-good)}
+#sd-root .sd-pos.p2{background:var(--sd-warn-soft);color:var(--sd-warn)}
+#sd-root .sd-pos.p3{background:var(--sd-far-soft);color:var(--sd-far)}
+#sd-root .sd-pos.pn{background:var(--card-hover);color:var(--muted);border:1px solid var(--border)}
+#sd-root .sd-impr{font-variant-numeric:tabular-nums;font-size:.78rem;color:var(--muted);text-align:right;min-width:74px}
+#sd-root .sd-impr b{color:var(--text);font-weight:600}
+#sd-root .sd-spill{font-size:.64rem;font-weight:600;padding:2px 8px;border-radius:99px;white-space:nowrap}
+#sd-root .sd-spill.todo{background:var(--card-hover);color:var(--muted);border:1px solid var(--border)}
+#sd-root .sd-spill.wip{background:var(--sd-warn-soft);color:var(--sd-warn)}
+#sd-root .sd-spill.done{background:var(--sd-good-soft);color:var(--sd-good)}
+#sd-root .sd-detail{border-top:1px solid var(--border);padding:16px;background:var(--card-hover)}
+#sd-root .sd-dgrid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:680px){#sd-root .sd-dgrid{grid-template-columns:1fr}#sd-root .sd-rmeta .sd-impr{display:none}}
+#sd-root .sd-checks{display:flex;flex-direction:column;gap:7px}
+#sd-root .sd-check{display:flex;gap:9px;align-items:flex-start;font-size:.85rem;cursor:pointer;padding:2px 0}
+#sd-root .sd-check input{margin-top:3px;accent-color:var(--primary);width:15px;height:15px}
+#sd-root .sd-dh{font-size:.7rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+#sd-root textarea{width:100%;border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:9px;padding:9px;font:inherit;font-size:.84rem;resize:vertical;min-height:60px}
+#sd-root .sd-bldest{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:4px}
+#sd-root .sd-bldest li{font-size:.81rem;display:flex;gap:7px;align-items:baseline}
+#sd-root .sd-bldest li::before{content:"→";color:var(--primary);font-weight:700}
+#sd-root .sd-blrow{display:flex;gap:6px;margin-top:10px}
+#sd-root .sd-blrow input{flex:1;min-width:0}
+#sd-root .sd-bllist{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:4px}
+#sd-root .sd-bllist li{display:flex;gap:8px;align-items:center;font-size:.8rem;background:var(--card);border:1px solid var(--border);border-radius:7px;padding:5px 8px}
+#sd-root .sd-bllist li a{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#sd-root .sd-bllist li button{border:none;background:none;color:var(--sd-far);cursor:pointer;font-size:1rem;line-height:1}
+#sd-root .sd-dactions{display:flex;gap:10px;margin-top:14px;grid-column:1/-1;flex-wrap:wrap;align-items:center}
+#sd-root .sd-btn.primary{background:var(--primary);border-color:var(--primary);color:#fff;font-weight:600}
+#sd-root .sd-btn.primary.is-done{background:var(--sd-good);border-color:var(--sd-good)}
+#sd-root .sd-more{display:block;margin:16px auto 0;padding:9px 20px}
+#sd-root .sd-foot{margin-top:22px;color:var(--muted);font-size:.78rem}
+</style>`;
+const SD_MARKUP=`
+  <div class="sd-eyebrow">CalcToWork · Page-1 mission control</div>
+  <div class="sd-head">
+    <div>
+      <p class="sd-sub">Every calculator, every language — ranked by opportunity. Work top-down: tick the checklist, note what you changed, and log a backlink using the suggested places for that page's language and topic. Goal: each one on page one.</p>
+    </div>
+    <div class="sd-stats">
+      <div class="sd-stat"><div class="n" id="sd-s-done">0</div><div class="l">completed</div></div>
+      <div class="sd-stat"><div class="n" id="sd-s-wip">0</div><div class="l">in progress</div></div>
+      <div class="sd-stat"><div class="n" id="sd-s-bl">0</div><div class="l">backlinks logged</div></div>
+      <div class="sd-stat"><div class="n" id="sd-s-ai">0</div><div class="l">AI-fixed</div></div>
+    </div>
+  </div>
+  <div class="sd-bar"><i id="sd-bar"></i></div>
+  <details class="sd-play"><summary>📋 The Page-1 playbook — read once, use every day</summary>
+    <div class="sd-play-body">
+      <div style="background:var(--card-hover);border-left:3px solid var(--primary);border-radius:8px;padding:10px 14px;margin:0 0 14px;font-size:.9rem"><b style="color:var(--primary)">The one question that matters:</b> would the searcher get exactly what they came for — and <i>not</i> click back to Google for a better result?</div>
+      <div class="sd-pcols">
+      <div class="sd-pcol"><h4>① Daily rhythm</h4><ol><li>Filter to <b>Has data → To do</b>, work the top rows.</li><li>Open the live page, run the 9 checks.</li><li>Fix what's wrong; note it.</li><li>Create <b>1–2 backlinks</b> from the suggested places; log the URLs.</li><li>Mark <b>Done</b>. Re-check position in ~2 weeks.</li></ol></div>
+      <div class="sd-pcol"><h4>② Is this page good? — the 9 checks</h4><ol><li>Fully answers the search — <b>no second tab needed</b>.</li><li>Calculator works, correct language, no <code>{{ }}</code> / raw IDs.</li><li>Presets fit the tool; handles zero / negative inputs.</li><li>800+ words original; formula + a worked example.</li><li>Result text explains what the number <i>means</i>.</li><li>Native copy in all 6 languages; one FAQ.</li><li>Title = exact phrase; meta &lt;155; canonical + hreflang.</li><li>One quotable answer; formula as text (AI-search).</li><li>Fast, mobile, indexed, AdSense-safe.</li></ol></div>
+      <div class="sd-pcol"><h4>③ Golden rule for backlinks</h4><ul><li>Post in the <b>page's own language</b> — a PT page needs PT backlinks.</li><li>Be genuinely helpful; drop the link as the answer, never spam.</li><li>ES/PT/IT/FR communities are far less contested than EN.</li><li>A <b>Dev.to/Medium "how to" post</b> with canonical → your page works for any calc.</li><li>Never buy bulk links — one relevant link beats 500 toxic ones.</li></ul></div>
+      </div>
+      <div style="margin-top:12px;font-size:.82rem;color:var(--muted)">Whatever you can't honestly tick <b>yes</b> is the fix list for that page. Can't fix the copy yourself? Open a row and hit <b style="color:var(--primary)">✨ Fix with AI</b> — it checks every field and rewrites <b>only what's broken</b> (result copy, form labels, preset labels, name/description, SEO title/meta, steps, mistakes, article, FAQ), fixes unit mojibake (m²), in just the languages that need it, then republishes. It never changes the calculator math. If nothing's broken it says so.</div>
+    </div>
+  </details>
+  <div class="sd-controls">
+    <button class="sd-chip" data-f="all" aria-pressed="true">All</button>
+    <button class="sd-chip" data-f="data" aria-pressed="false">Has data</button>
+    <button class="sd-chip" data-f="todo" aria-pressed="false">To do</button>
+    <button class="sd-chip" data-f="wip" aria-pressed="false">In progress</button>
+    <button class="sd-chip" data-f="done" aria-pressed="false">Done</button>
+    <input type="search" id="sd-q" placeholder="Search…" class="grow">
+    <select id="sd-lang"><option value="">All langs</option><option>en</option><option>es</option><option>pt</option><option>fr</option><option>de</option><option>it</option></select>
+    <select id="sd-grp"><option value="">All topics</option><option value="build">Construction</option><option value="finance">Finance</option><option value="health">Health</option><option value="science">Science/Math</option><option value="general">General</option></select>
+    <select id="sd-sort"><option value="opp">Priority</option><option value="pos">Position</option><option value="impr">Impressions</option></select>
+    <button class="sd-btn" id="sd-export">⭳ Backup</button>
+    <button class="sd-btn" id="sd-import">⭱ Restore</button>
+  </div>
+  <div class="sd-count" id="sd-count"></div>
+  <div class="sd-list" id="sd-list"></div>
+  <button class="sd-btn sd-more" id="sd-more" hidden>Show more</button>
+  <p class="sd-foot">Progress saves in this browser (this admin) — hit <b>Backup</b> often. Metrics are the last Search Console pull (90-day avg); "—" means no impressions recorded yet.</p>`;
+
+function sdLoadState(){ try{ return JSON.parse(localStorage.getItem(SD_KEY)) || (JSON.parse(localStorage.getItem("sd_tracker_v1"))||{}); }catch(e){ return {}; } }
+function sdSave(){ try{ localStorage.setItem(SD_KEY, JSON.stringify(sdState)); }catch(e){} }
+function sdId(c){ return c.lang+":"+c.slug; }
+function sdSt(c){ const k=sdId(c); return sdState[k]||(sdState[k]={checks:{},notes:"",bl:[],done:false}); }
+function sdStatus(c){ const s=sdState[sdId(c)]; if(!s)return"todo"; if(s.done)return"done"; return (Object.values(s.checks||{}).some(Boolean)||s.notes||(s.bl||[]).length)?"wip":"todo"; }
+function sdPosC(p){ return p==null?"pn":p<=10?"p1":p<=20?"p2":"p3"; }
+function sdPosL(p){ return p==null?"no data":p<=10?"Pg1·"+p:p<=20?"Pg2·"+p:"Pg"+Math.ceil(p/10)+"·"+p; }
+function sdEsc(s){return String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+function sdBacklinks(c){ const lang=SD_BL.lang[c.lang]||[], grp=(SD_BL.grp[c.grp]&&SD_BL.grp[c.grp][c.lang])||[], uni=SD_BL.universal||[]; return [...grp, ...lang, ...uni]; }
+function sdFiltered(root){
+  const q=(root.querySelector("#sd-q").value||"").toLowerCase().trim();
+  const lf=root.querySelector("#sd-lang").value, gf=root.querySelector("#sd-grp").value, sort=root.querySelector("#sd-sort").value;
+  let rows=sdRows.filter(c=>{
+    if(lf&&c.lang!==lf)return false;
+    if(gf&&c.grp!==gf)return false;
+    if(sdFilter==="data"&&c.impr==null)return false;
+    if(["todo","wip","done"].includes(sdFilter)&&sdStatus(c)!==sdFilter)return false;
+    if(q&&!(c.name.toLowerCase().includes(q)||c.slug.includes(q)))return false;
+    return true;
+  });
+  if(sort==="pos")rows.sort((a,b)=>(a.pos==null?999:a.pos)-(b.pos==null?999:b.pos));
+  else if(sort==="impr")rows.sort((a,b)=>(b.impr||0)-(a.impr||0));
+  else rows.sort((a,b)=>a.rank-b.rank);
+  return rows;
+}
+function sdRowHead(c){
+  const s=sdStatus(c);
+  return `<div class="sd-rowhead" data-toggle>
+    <div class="sd-rank">${c.rank}</div>
+    <div><div class="sd-rname">${sdEsc(c.name)} <span class="sd-flag">${SD_FLAG[c.lang]||c.lang}</span> <span class="sd-grpchip">${SD_GRPNAME[c.grp]||c.grp}</span>${sdFixed[sdId(c)]?' <span class="sd-fixed" title="AI-fixed '+sdEsc(sdFixed[sdId(c)].when||'')+'">🤖 AI-fixed</span>':''}</div>
+      <div class="sd-rslug">/${c.lang}/${sdEsc(c.slug)}/</div></div>
+    <div class="sd-rmeta">
+      <span class="sd-pos ${sdPosC(c.pos)}">${sdPosL(c.pos)}</span>
+      <span class="sd-impr">${c.impr!=null?"<b>"+c.impr.toLocaleString()+"</b> impr":"—"}</span>
+      <span class="sd-spill ${s}">${s==="done"?"Done":s==="wip"?"In progress":"To do"}</span>
+    </div></div>`;
+}
+function sdDetail(c){
+  const s=sdSt(c);
+  const dest=sdBacklinks(c).map(d=>`<li>${d[1]?`<a href="${sdEsc(d[1])}" target="_blank" rel="noopener">${sdEsc(d[0])}</a>`:sdEsc(d[0])}</li>`).join("");
+  return `<div class="sd-detail"><div class="sd-dgrid">
+    <div><p class="sd-dh">Checklist</p>
+      <div class="sd-checks">${SD_CHECKS.map(([k,l])=>`<label class="sd-check"><input type="checkbox" data-check="${k}" ${s.checks[k]?"checked":""}><span>${l}</span></label>`).join("")}</div>
+      <div style="margin-top:12px"><a href="${sdEsc(c.url)}" target="_blank" rel="noopener" style="font-weight:600;font-size:.84rem">↗ Open live page</a>${c.impr!=null?` &nbsp;·&nbsp; <span class="sd-impr" style="color:var(--muted)">${c.clicks} clicks · ${c.ctr}% CTR</span>`:""}</div>
+      <p class="sd-dh" style="margin-top:16px">Changes we made</p>
+      <textarea data-notes placeholder="e.g. rewrote title, fixed presets, added 3 internal links">${sdEsc(s.notes)}</textarea></div>
+    <div><p class="sd-dh">Where to publish backlinks (${SD_FLAG[c.lang]} · ${SD_GRPNAME[c.grp]})</p>
+      <ul class="sd-bldest">${dest}</ul>
+      <p class="sd-dh" style="margin-top:14px">Backlinks I created</p>
+      <div class="sd-blrow"><input type="url" data-bl placeholder="Paste the URL after you post it"><button class="sd-btn" data-bladd>Add</button></div>
+      <ul class="sd-bllist">${(s.bl||[]).map((u,i)=>`<li><a href="${sdEsc(u)}" target="_blank" rel="noopener">${sdEsc(u)}</a><button data-bldel="${i}">✕</button></li>`).join("")}</ul></div>
+    <div class="sd-dactions"><button class="sd-btn primary ${s.done?"is-done":""}" data-done>${s.done?"✓ Completed — reopen":"Mark as done"}</button><button class="sd-btn" data-aifix title="Check every field and regenerate only what's broken — result copy, form labels, preset labels, name/description, SEO title/meta, steps, mistakes, article, FAQ — in the languages that need it, fix unit mojibake, then republish. Never changes the calculator math.">✨ Fix with AI</button><span class="sd-aistatus" style="font-size:.82rem;color:var(--muted)"></span></div>
+  </div></div>`;
+}
+function sdRender(root){
+  const rows=sdFiltered(root); const slice=rows.slice(0,sdShown);
+  root.querySelector("#sd-list").innerHTML = slice.map(c=>`<div class="sd-row ${sdState[sdId(c)]&&sdState[sdId(c)].done?"done":""}" data-k="${sdEsc(sdId(c))}">${sdRowHead(c)}</div>`).join("")
+    || `<p style="color:var(--muted);text-align:center;padding:30px">No calculators match.</p>`;
+  root.querySelector("#sd-count").textContent = rows.length+" calculators"+(rows.length>sdShown?` · showing ${sdShown}`:"");
+  root.querySelector("#sd-more").hidden = rows.length<=sdShown;
+  sdUpdateStats(root);
+}
+function sdUpdateStats(root){
+  let d=0,w=0,b=0;
+  for(const k in sdState){const s=sdState[k];if(s.done)d++;else if(Object.values(s.checks||{}).some(Boolean)||s.notes||(s.bl||[]).length)w++;b+=(s.bl||[]).length;}
+  root.querySelector("#sd-s-done").textContent=d;
+  root.querySelector("#sd-s-wip").textContent=w;
+  root.querySelector("#sd-s-bl").textContent=b;
+  const aiEl=root.querySelector("#sd-s-ai"); if(aiEl) aiEl.textContent=Object.keys(sdFixed).filter(k=>sdByKey[k]).length;
+  root.querySelector("#sd-bar").style.width=(d/(sdRows.length||1)*100)+"%";
+}
+function sdMount(root){
+  root.innerHTML = SD_STYLE + SD_MARKUP;
+  const list=root.querySelector("#sd-list");
+  list.addEventListener("click",e=>{
+    const row=e.target.closest(".sd-row"); if(!row)return; const k=row.dataset.k, c=sdByKey[k]; const s=sdState[k]||(sdState[k]={checks:{},notes:"",bl:[],done:false});
+    if(e.target.closest("[data-toggle]")&&!e.target.closest("a")){ const open=row.querySelector(".sd-detail"); if(open){open.remove();}else{row.insertAdjacentHTML("beforeend", sdDetail(c));} return; }
+    if(e.target.dataset.check!==undefined){ s.checks[e.target.dataset.check]=e.target.checked; sdSave(); row.querySelector(".sd-spill").outerHTML=sdRowHead(c).match(/<span class="sd-spill[^>]*>[^<]*<\/span>/)[0]; sdUpdateStats(root); return; }
+    if(e.target.dataset.done!==undefined){ s.done=!s.done; sdSave(); row.classList.toggle("done",s.done); const dt=row.querySelector(".sd-detail"); if(dt)dt.outerHTML=sdDetail(c); row.querySelector(".sd-spill").outerHTML=sdRowHead(c).match(/<span class="sd-spill[^>]*>[^<]*<\/span>/)[0]; sdUpdateStats(root); return; }
+    if(e.target.dataset.bladd!==undefined){ const inp=row.querySelector("[data-bl]"); const v=(inp.value||"").trim(); if(v){ s.bl.push(v); sdSave(); row.querySelector(".sd-detail").outerHTML=sdDetail(c); sdUpdateStats(root); } return; }
+    if(e.target.dataset.bldel!==undefined){ s.bl.splice(+e.target.dataset.bldel,1); sdSave(); row.querySelector(".sd-detail").outerHTML=sdDetail(c); sdUpdateStats(root); return; }
+    if(e.target.dataset.aifix!==undefined){
+      const btn=e.target, statusEl=row.querySelector(".sd-aistatus"); if(btn.disabled)return;
+      const orig=btn.textContent; btn.disabled=true; btn.textContent="✨ Checking…"; if(statusEl)statusEl.textContent="checking every field, fixing only what's broken… (up to ~2 min)";
+      fetch("https://us-central1-calctowork.cloudfunctions.net/aiFixCalcHttp",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({slug:c.slug,targeted:true})})
+        .then(r=>r.json()).then(j=>{
+          if(j&&j.ok){
+            if(j.alreadyClean){ btn.textContent="✓ Already clean"; var w=(j.engine&&j.engine.compute&&j.engine.compute.ok===false)?" · ⚠ math check FAILED ("+j.engine.compute.msg+")":((j.engine&&j.engine.genericUnits&&j.engine.genericUnits.length)?" · ⚠ generic units":""); if(statusEl)statusEl.textContent="✓ all fields checked — nothing broken"+w; }
+            else {
+              btn.textContent="✓ Fixed with AI";
+              var parts=[]; if(j.rcWrote)parts.push(j.rcWrote+" copy"); if(j.uiWrote)parts.push(j.uiWrote+" labels"); if(j.metaWrote)parts.push(j.metaWrote+" title/steps"); if(j.contentLangs)parts.push(j.contentLangs+" article+FAQ"); if(j.engine&&j.engine.relatedFilled)parts.push(j.engine.relatedFilled+" links"); if(j.engine&&j.engine.presetsFixed)parts.push(j.engine.presetsFixed+" presets");
+              var warn=(j.engine&&j.engine.compute&&j.engine.compute.ok===false)?" · ⚠ math check FAILED ("+j.engine.compute.msg+")":((j.engine&&j.engine.genericUnits&&j.engine.genericUnits.length)?" · ⚠ generic units":"");
+              if(statusEl)statusEl.textContent=(j.deployed?"republished live · ":"saved · ")+"fixed "+(parts.join(" · ")||"content")+warn;
+              sdFixed[k]={when:new Date().toISOString().slice(0,10),rc:j.rcWrote,meta:j.metaWrote,content:j.contentLangs};
+              const rn=row.querySelector('.sd-rname'); if(rn && !rn.querySelector('.sd-fixed')) rn.insertAdjacentHTML('beforeend',' <span class="sd-fixed" title="AI-fixed">🤖 AI-fixed</span>');
+            }
+            s.checks.ai=true; s.checks.onpage=true; sdSave();
+            const ab=row.querySelector('input[data-check="ai"]'); if(ab)ab.checked=true;
+            const ob=row.querySelector('input[data-check="onpage"]'); if(ob)ob.checked=true;
+            const sp=row.querySelector(".sd-spill"); if(sp)sp.outerHTML=sdRowHead(c).match(/<span class="sd-spill[^>]*>[^<]*<\/span>/)[0];
+            sdUpdateStats(root);
+          } else { btn.disabled=false; btn.textContent=orig; if(statusEl)statusEl.textContent="⚠ "+((j&&j.error)||"failed"); }
+        }).catch(err=>{ btn.disabled=false; btn.textContent=orig; if(statusEl)statusEl.textContent="⚠ "+err.message; });
+      return;
+    }
+  });
+  list.addEventListener("input",e=>{ if(e.target.hasAttribute("data-notes")){ const k=e.target.closest(".sd-row").dataset.k; (sdState[k]||(sdState[k]={checks:{},notes:"",bl:[],done:false})).notes=e.target.value; sdSave(); } });
+  root.querySelectorAll(".sd-chip").forEach(ch=>ch.addEventListener("click",()=>{ root.querySelectorAll(".sd-chip").forEach(c=>c.setAttribute("aria-pressed","false")); ch.setAttribute("aria-pressed","true"); sdFilter=ch.dataset.f; sdShown=100; sdRender(root); }));
+  ["sd-q","sd-lang","sd-grp","sd-sort"].forEach(x=>root.querySelector("#"+x).addEventListener("input",()=>{sdShown=100;sdRender(root);}));
+  root.querySelector("#sd-more").addEventListener("click",()=>{sdShown+=200;sdRender(root);});
+  root.querySelector("#sd-export").addEventListener("click",e=>{ const t=JSON.stringify(sdState,null,2),b=e.target,o=b.textContent; const ok=()=>{b.textContent="✓ Copied";setTimeout(()=>b.textContent=o,2200);}; const fb=()=>window.prompt("Copy your backup (Ctrl+C):",t); if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,fb);}else fb(); });
+  root.querySelector("#sd-import").addEventListener("click",()=>{ const t=window.prompt("Paste a backup to restore:"); if(!t)return; try{const p=JSON.parse(t); if(typeof p!=="object")throw 0; sdState=p; sdSave(); sdRender(root);}catch(err){alert("That doesn't look like a valid backup.");} });
+  sdRender(root);
+}
+async function sdLoadFixed(){
+  // Build a map of "lang:translatedSlug" -> fix info from the ai_fixes collection,
+  // so every language row of an AI-fixed calc gets the badge.
+  sdFixed={};
+  try{
+    const snap=await db.collection('ai_fixes').get();
+    snap.forEach(d=>{ const x=d.data(); const L=x.langs||{}; let when=''; try{ when=x.at&&x.at.toDate?x.at.toDate().toISOString().slice(0,10):''; }catch(e){}
+      Object.keys(L).forEach(lang=>{ if(L[lang]) sdFixed[lang+':'+L[lang]]={when, rc:x.rc||0, meta:x.meta||0, content:x.content||0}; }); });
+  }catch(e){ sdFixed={}; }
+}
+async function sdBoot(root){
+  sdRows = SD_CACHE.data.map(r=>({lang:r[0],slug:r[1],name:r[2],grp:r[3],clicks:r[4],impr:r[5],pos:r[6],ctr:r[7],opp:r[8],url:"https://calcto.work/"+r[0]+"/"+r[1]+"/"}));
+  const ranked=[...sdRows].sort((a,b)=>(b.opp||0)-(a.opp||0)); ranked.forEach((c,i)=>c.rank=i+1);
+  sdByKey={}; sdRows.forEach(c=>sdByKey[sdId(c)]=c);
+  SD_BL = SD_CACHE.bl||{universal:[],lang:{},grp:{}};
+  await sdLoadFixed();
+  sdMount(root);
+}
+function renderStrikingDistance(area){
+  area.innerHTML = '<div id="sd-root"><div class="loading" style="padding:30px"><span class="spinner"></span> Loading tracker…</div></div>';
+  const root=area.querySelector('#sd-root');
+  if(sdState===null) sdState=sdLoadState();
+  if(SD_CACHE){ sdBoot(root); return; }
+  fetch('/data/sd-tracker.json',{cache:'no-cache'}).then(r=>{ if(!r.ok)throw new Error(r.status); return r.json(); })
+    .then(j=>{ SD_CACHE=j; sdBoot(root); })
+    .catch(err=>{ root.innerHTML='<div class="card" style="padding:20px;color:var(--danger)">Could not load tracker data (/data/sd-tracker.json): '+sdEsc(err.message)+'</div>'; });
 }
 
 // Renders several former standalone tabs stacked in one page (deduplicated nav)
@@ -876,7 +1144,10 @@ async function updateNorthStar() {
       fetch(`${CMS_BASE}/getGscData?type=site_stats&days=17&limit=20`).then(r => r.json()).catch(() => []),
       loadCMSCalcs().then(() => true).catch(() => false),
       db.collection('backlink_prospects').get().catch(() => null),
-      db.collection('analytics_events').where('event_time', '>=', new Date(Date.now() - 86400000)).where('event_name', '==', 'page_view').limit(5000).get().catch(() => null),
+      // Single-field filter only — the two-field version (event_time + event_name)
+      // needs a composite index that isn't defined, so it failed silently and
+      // Users/day always showed 0. Filter event_name client-side instead.
+      db.collection('analytics_events').where('event_time', '>=', new Date(Date.now() - 86400000)).limit(8000).get().catch(() => null),
     ]);
 
     const rows = (Array.isArray(siteStats) ? siteStats : []).slice().sort((a, b) => (a.date || '').localeCompare(b.date || ''));
@@ -895,9 +1166,11 @@ async function updateNorthStar() {
     if (usersSnap) usersSnap.forEach(d => { const s = d.data().session_id; if (s) sessions.add(s); });
     const usersDay = sessions.size;
 
-    // Content completeness
+    // Content completeness — measured as "has a real article" (the SEO/AdSense
+    // bar). The strict 12/12 score also demanded input-labels many pages lack,
+    // which under-reported real progress (showed 4% when ~1/3 had full articles).
     const pub = cmsCalcs.filter(c => c.status === 'published');
-    const complete = pub.filter(c => cmsCompletenessScore(c) >= 12).length;
+    const complete = pub.filter(c => (c.langs?.en?.long_content || '').length >= 800).length;
     const completePct = pub.length ? Math.round(complete / pub.length * 100) : 0;
 
     // Backlinks
@@ -917,15 +1190,24 @@ async function updateNorthStar() {
       { label: 'Impressions / wk', value: imprNow.toLocaleString(), sub: trend(imprWoW) + ' vs last wk' },
       { label: 'Avg position', value: posNow ? posNow.toFixed(1) : '—', sub: posPrev ? trend(posDelta, true) + ' vs last wk' : '' },
       { label: 'Users / day', value: usersDay.toLocaleString(), sub: `${(usersDay / 10000 * 100).toFixed(1)}% of 10k goal` },
-      { label: 'Content complete', value: completePct + '%', sub: `${complete}/${pub.length} calcs at 12/12` },
+      { label: 'Pages with article', value: completePct + '%', sub: `${complete}/${pub.length} have full articles` },
       { label: 'Backlinks live', value: blLive, sub: `${blTotal} prospects tracked` },
     ].map(k => `<div class="kpi"><div class="kpi-label">${k.label}</div><div class="kpi-value">${k.value}</div><div class="kpi-sub">${k.sub}</div></div>`).join('');
 
-    // Verdict
+    // Verdict — clicks are the true outcome. Rising impressions naturally drag
+    // average position DOWN (you rank for many more keywords, most at lower
+    // spots), so a slipping avg position while clicks + impressions climb is
+    // healthy expansion, NOT losing ground. Only call it losing when clicks
+    // actually fall.
     let verdict, vcol;
     if (!rows.length) { verdict = '❓ No Search Console data yet — configure GSC in Settings'; vcol = 'var(--muted)'; }
-    else if (clicksWoW > 5 && posDelta <= 0.5) { verdict = '📈 GROWING — clicks up ' + clicksWoW.toFixed(0) + '% week-over-week. Keep publishing + completing content.'; vcol = '#22c55e'; }
-    else if (clicksWoW < -10 || posDelta > 2) { verdict = '📉 LOSING GROUND — ' + (clicksWoW < -10 ? 'clicks down ' + Math.abs(clicksWoW).toFixed(0) + '%' : 'rankings slipping ' + posDelta.toFixed(1) + ' positions') + '. Check Opportunities & run Autopilot.'; vcol = '#ef4444'; }
+    else if (clicksWoW < -10) { verdict = '📉 LOSING GROUND — organic clicks down ' + Math.abs(clicksWoW).toFixed(0) + '% week-over-week. Check Opportunities & run Autopilot.'; vcol = '#ef4444'; }
+    else if (clicksWoW > 5 || imprWoW > 15) {
+      const bits = [];
+      if (clicksWoW > 5) bits.push('clicks up ' + clicksWoW.toFixed(0) + '%');
+      if (imprWoW > 15) bits.push('impressions up ' + imprWoW.toFixed(0) + '%');
+      verdict = '📈 GROWING — ' + bits.join(', ') + ' week-over-week' + (posDelta > 2 ? ' (avg position dipped as you rank for more keywords — normal during expansion)' : '') + '. Keep publishing + completing content.'; vcol = '#22c55e';
+    }
     else { verdict = '➡️ FLAT — no big change this week. Ship more content and hunt backlinks to break out.'; vcol = '#f59e0b'; }
     verdictEl.innerHTML = `<span style="color:${vcol}">${verdict}</span>`;
     verdictEl.title = `Progress to 10,000 users/day: ${usersDay.toLocaleString()} (${(usersDay/100).toFixed(1)}‰)`;
@@ -952,7 +1234,7 @@ function updateOverview(events) {
     if(e.event_name==='calculation_completed') calculations++;
     if(e.event_name==='copy_results') copies++;
     if(e.event_name==='share_clicked') shares++;
-    if(e.seconds){ timeTotal+=e.seconds; timeCount++; }
+    if(e.seconds>0 && e.seconds<=1800){ timeTotal+=e.seconds; timeCount++; } // cap at 30min — ignore abandoned tabs left open for hours (were inflating avg to absurd values)
   });
 
   let bounced=0;
@@ -1484,7 +1766,7 @@ function updateContent(events) {
   Object.values(contentCharts).forEach(c=>{try{c.destroy();}catch(e){}}); contentCharts={};
 
   const calcStats={};
-  events.forEach(e=>{const slug=e.calc_slug||'unknown';if(!calcStats[slug])calcStats[slug]={slug,id:e.calc_id||'',views:0,calcs:0,copies:0,shares:0,times:[],sessions:new Set(),sessionEvents:{}};const s=calcStats[slug];if(e.session_id){s.sessions.add(e.session_id);if(!s.sessionEvents[e.session_id])s.sessionEvents[e.session_id]=[];s.sessionEvents[e.session_id].push(e.event_name);}if(e.event_name==='page_view')s.views++;if(e.event_name==='calculation_completed')s.calcs++;if(e.event_name==='copy_results')s.copies++;if(e.event_name==='share_clicked')s.shares++;if(e.seconds)s.times.push(e.seconds);});
+  events.forEach(e=>{const slug=e.calc_slug||'unknown';if(!calcStats[slug])calcStats[slug]={slug,id:e.calc_id||'',views:0,calcs:0,copies:0,shares:0,times:[],sessions:new Set(),sessionEvents:{}};const s=calcStats[slug];if(e.session_id){s.sessions.add(e.session_id);if(!s.sessionEvents[e.session_id])s.sessionEvents[e.session_id]=[];s.sessionEvents[e.session_id].push(e.event_name);}if(e.event_name==='page_view')s.views++;if(e.event_name==='calculation_completed')s.calcs++;if(e.event_name==='copy_results')s.copies++;if(e.event_name==='share_clicked')s.shares++;if(e.seconds>0 && e.seconds<=1800)s.times.push(e.seconds);});
 
   const pageMap={};
   gscPages.forEach(p=>{const slug=p.page?p.page.split('/').filter(Boolean).pop()||p.page:p.page;if(!pageMap[slug])pageMap[slug]={clicks:0,impr:0,pos:0};pageMap[slug].clicks+=p.total_clicks||0;pageMap[slug].impr+=p.total_impressions||0;pageMap[slug].pos=Math.max(pageMap[slug].pos,p.avg_position||0);});
@@ -2804,6 +3086,20 @@ async function testAIConnection() {
   btn.textContent = 'Test Connection'; btn.disabled = false;
 }
 
+// ── SCORECARD TAB ──
+function renderScorecard(area) {
+  area.innerHTML = '<div id="scorecard-tab"><div class="card"><div class="card-header"><span class="card-title">Calculator Scorecard — All Languages</span><button class="btn btn-sm" onclick="loadScorecard()">Refresh</button></div><div id="scorecard-summary"></div><div style="overflow-x:auto"><table class="data-table"><thead><tr><th>#</th><th>Calculator</th><th class="num">Score</th><th>R</th><th class="num">🌐</th><th class="num">📝T</th><th class="num">📄A</th><th class="num">❓F</th><th class="num">👁</th><th class="num">👆</th><th>Missing</th></tr></thead><tbody id="scorecard-tbody"><tr><td colspan="10"><div class="loading"><span class="spinner"></span> Loading...</div></td></tr></tbody></table></div></div></div>';
+  loadScorecard();
+}
+async function loadScorecard() {
+  try {
+    const data = await fetch("https://us-central1-calctowork.cloudfunctions.net/getScorecardHttp").then(r=>r.json());
+    const s=data.summary; const sc=data.scorecard||[];
+    document.getElementById("scorecard-summary").innerHTML = '<div class="kpi-grid" style="margin-bottom:.5rem"><div class="kpi" style="--kpi-bar:#22c55e"><div class="kpi-label">A</div><div class="kpi-value">'+(s.a||0)+'</div></div><div class="kpi" style="--kpi-bar:#3b82f6"><div class="kpi-label">B</div><div class="kpi-value">'+(s.b||0)+'</div></div><div class="kpi" style="--kpi-bar:#f59e0b"><div class="kpi-label">C</div><div class="kpi-value">'+(s.c||0)+'</div></div><div class="kpi" style="--kpi-bar:#f97316"><div class="kpi-label">D</div><div class="kpi-value">'+(s.d||0)+'</div></div><div class="kpi" style="--kpi-bar:#ef4444"><div class="kpi-label">F</div><div class="kpi-value">'+(s.f||0)+'</div></div></div><div style="font-size:.75rem;color:var(--muted);display:flex;gap:1rem;flex-wrap:wrap"><span>Avg: <strong>'+(s.avg||0)+'/100</strong></span><span>Complete all 6: <strong>'+(s.complete_all_langs||0)+'/'+(s.total||0)+'</strong></span><span>Need titles: <strong>'+(s.need_title||0)+'</strong></span><span>Need FAQ: <strong>'+(s.need_faq||0)+'</strong></span><span>Need Articles: <strong>'+(s.need_article||0)+'</strong></span><span>Need Languages: <strong>'+(s.need_languages||0)+'</strong></span><span>Impressions: <strong>'+(s.total_impressions||0).toLocaleString()+'</strong></span><span>Clicks: <strong>'+(s.total_clicks||0).toLocaleString()+'</strong></span></div>';
+    document.getElementById("scorecard-tbody").innerHTML = sc.map((c,i) => '<tr><td>'+(i+1)+'</td><td style="color:var(--primary);font-size:.75rem;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(c.name||c.slug)+'</td><td class="num" style="font-weight:700;color:'+(c.score>=70?'var(--success)':c.score>=50?'var(--warning)':'var(--danger)')+'">'+c.score+'</td><td><span class="badge '+(c.rating==="A"?"badge-green":c.rating==="B"?"badge-blue":"badge-orange")+'">'+c.rating+'</span></td><td class="num" style="color:'+(c.has_all_langs?'var(--success)':'var(--muted)')+'">'+(c.languages||0)+'/6</td><td class="num">'+(c.title_langs||0)+'</td><td class="num">'+(c.article_langs||0)+'</td><td class="num">'+(c.faq_langs||0)+'</td><td class="num">'+(c.impressions||0).toLocaleString()+'</td><td class="num">'+(c.clicks||0)+'</td><td style="font-size:.65rem;color:var(--muted)">'+(c.missing||[]).join(", ")+'</td></tr>').join("");
+  } catch(e) { document.getElementById("scorecard-tbody").innerHTML = '<tr><td colspan="10" style="color:var(--danger)">Click Refresh</td></tr>'; }
+}
+
 function renderSettings(area) {
   loadAIConfig().then(cfg => {
     const activeProvider = cfg.active_provider || 'anthropic';
@@ -3662,13 +3958,11 @@ function renderGrowthLab(area) {
     <!-- QUICK ACTIONS -->
     <div class="card">
       <div class="card-header"><span class="card-title">⚡ Quick Actions</span></div>
-      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem">
         <button class="btn" onclick="runAutoOptimize(false)" style="text-align:center;padding:.6rem">🎯 Optimize Titles</button>
-        <button class="btn btn-outline" onclick="switchTab('ctr')" style="text-align:center;padding:.6rem">📊 CTR Report</button>
-        <button class="btn btn-outline" onclick="switchTab('audit')" style="text-align:center;padding:.6rem">🩺 Full Audit</button>
+        <button class="btn btn-outline" onclick="switchTab('content')" style="text-align:center;padding:.6rem">🩺 Content Audit</button>
         <button class="btn btn-outline" onclick="runBacklinkHunter()" style="text-align:center;padding:.6rem">🔗 Hunt Backlinks</button>
         <button class="btn btn-outline" onclick="runPerCalcBacklinks()" style="text-align:center;padding:.6rem">📐 Per-Calc Backlinks</button>
-        <button class="btn btn-outline" onclick="alert('Core pages and sitemaps regenerate automatically after each agent cycle + daily at 5 AM UTC. Manual regeneration not needed.')" style="text-align:center;padding:.6rem">🔄 Auto-Regeneration</button>
       </div>
     </div>
   </div>`;
@@ -6149,6 +6443,10 @@ async function renderPublishCenter(area) {
           <span id="sitemap-ping-out" style="font-size:.78rem;color:var(--muted)"></span>
         </div>
         <div id="regen-core-out" style="font-size:.78rem;color:var(--muted);margin-top:.5rem"></div>
+        <div style="border-top:1px solid var(--border);margin:.85rem 0 .6rem"></div>
+        <p style="font-size:.8rem;color:var(--muted);margin-bottom:.4rem">Push <strong>every</strong> calculator's latest content live in one atomic sweep — use this if content was generated but pages still look thin.</p>
+        <button class="btn" id="deploy-all-btn" onclick="deployAllLive()" style="background:#22c55e">🚀 Deploy ALL content live</button>
+        <div id="deploy-all-out" style="font-size:.78rem;color:var(--muted);margin-top:.5rem"></div>
       </div>
       <div class="card">
         <div class="card-header"><span class="card-title">🔁 Recently published — redeploy</span></div>
@@ -6234,6 +6532,35 @@ async function regenCorePagesUI() {
     if (out) out.innerHTML = `<span style="color:var(--danger)">❌ ${e.message}</span>`;
   }
   if (btn) { btn.disabled = false; btn.textContent = '♻️ Regenerate homepage + sitemap'; }
+}
+
+let deployAllRunning = false;
+async function deployAllLive() {
+  if (deployAllRunning) { deployAllRunning = false; return; }
+  deployAllRunning = true;
+  const btn = document.getElementById('deploy-all-btn');
+  const out = document.getElementById('deploy-all-out');
+  let total = 0, first = true;
+  try {
+    while (deployAllRunning) {
+      if (btn) btn.textContent = `⏳ Deploying… (${total} live)`;
+      const res = await fetch(`${CMS_BASE}/deployAllCalcsHttp`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ reset: first, batch: 25 }),
+      });
+      first = false;
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      total += data.deployed_calcs || 0;
+      if (out) out.innerHTML = `<span style="color:var(--muted)">Deploying… ${total} calculators pushed live so far</span>`;
+      if (data.done) break;
+    }
+    if (out) out.innerHTML = `<span style="color:var(--success)">✅ Done — ${total} calculators deployed live with latest content.</span>`;
+  } catch (e) {
+    if (out) out.innerHTML = `<span style="color:var(--danger)">❌ ${e.message}</span>`;
+  }
+  deployAllRunning = false;
+  if (btn) { btn.textContent = '🚀 Deploy ALL content live'; }
 }
 
 // ═══════════════ BACKLINKS — prospect finder, tracker, outreach ═══════════════

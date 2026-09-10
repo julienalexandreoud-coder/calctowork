@@ -11,6 +11,204 @@ const LANGS = ["en", "es", "fr", "de", "it", "pt"];
 
 const LANG_LABELS = { en:"EN", es:"ES", fr:"FR", de:"DE", it:"IT", pt:"PT" };
 
+// Localised UI chrome for the calculator pages. Previously every calculator in
+// every language showed English labels (Inputs, Result, Calculate…), which read
+// as broken/low-quality (and is an AdSense red flag). Keyed by language.
+const UI_I18N = {
+  en: { inputs:"Inputs", result:"Result", calculate:"Calculate", reset:"Reset", enterValues:"Enter values and press Calculate", copyResults:"Copy results", share:"Share", embed:"Embed", helpful:"Was this helpful?", examples:"Common Examples — Click to Fill", faq:"FAQ", howToUse:"How to use it", mistakes:"Common mistakes", workedExample:"Worked example", formula:"Formula", inputGuide:"Input guide", field:"Field", typicalRange:"Typical range" },
+  es: { inputs:"Datos", result:"Resultado", calculate:"Calcular", reset:"Reiniciar", enterValues:"Ingresa los valores y pulsa Calcular", copyResults:"Copiar resultados", share:"Compartir", embed:"Insertar", helpful:"¿Te resultó útil?", examples:"Ejemplos comunes — Haz clic para rellenar", faq:"Preguntas frecuentes", howToUse:"Cómo usarla", mistakes:"Errores comunes", workedExample:"Ejemplo resuelto", formula:"Fórmula", inputGuide:"Guía de valores", field:"Campo", typicalRange:"Rango típico" },
+  fr: { inputs:"Données", result:"Résultat", calculate:"Calculer", reset:"Réinitialiser", enterValues:"Saisissez les valeurs et cliquez sur Calculer", copyResults:"Copier les résultats", share:"Partager", embed:"Intégrer", helpful:"Est-ce utile ?", examples:"Exemples courants — Cliquez pour remplir", faq:"Questions fréquentes", howToUse:"Comment l'utiliser", mistakes:"Erreurs courantes", workedExample:"Exemple résolu", formula:"Formule", inputGuide:"Guide de saisie", field:"Champ", typicalRange:"Plage typique" },
+  de: { inputs:"Eingaben", result:"Ergebnis", calculate:"Berechnen", reset:"Zurücksetzen", enterValues:"Werte eingeben und auf Berechnen klicken", copyResults:"Ergebnisse kopieren", share:"Teilen", embed:"Einbetten", helpful:"War das hilfreich?", examples:"Häufige Beispiele — Zum Ausfüllen klicken", faq:"Häufige Fragen", howToUse:"So funktioniert's", mistakes:"Häufige Fehler", workedExample:"Rechenbeispiel", formula:"Formel", inputGuide:"Eingabehilfe", field:"Feld", typicalRange:"Typischer Bereich" },
+  it: { inputs:"Dati", result:"Risultato", calculate:"Calcola", reset:"Reimposta", enterValues:"Inserisci i valori e premi Calcola", copyResults:"Copia risultati", share:"Condividi", embed:"Incorpora", helpful:"È stato utile?", examples:"Esempi comuni — Clicca per compilare", faq:"Domande frequenti", howToUse:"Come usarlo", mistakes:"Errori comuni", workedExample:"Esempio pratico", formula:"Formula", inputGuide:"Guida ai valori", field:"Campo", typicalRange:"Intervallo tipico" },
+  pt: { inputs:"Dados", result:"Resultado", calculate:"Calcular", reset:"Limpar", enterValues:"Insira os valores e clique em Calcular", copyResults:"Copiar resultados", share:"Compartilhar", embed:"Incorporar", helpful:"Isto foi útil?", examples:"Exemplos comuns — Clique para preencher", faq:"Perguntas frequentes", howToUse:"Como usar", mistakes:"Erros comuns", workedExample:"Exemplo resolvido", formula:"Fórmula", inputGuide:"Guia de valores", field:"Campo", typicalRange:"Intervalo típico" },
+};
+const _uiFor = (lang) => UI_I18N[lang] || UI_I18N.en;
+// Does an article already contain its own FAQ heading? If so, we must not append
+// a second structured FAQ block (that produced two FAQs on every page).
+const _ARTICLE_HAS_FAQ = /faq|frequently asked|preguntas frecuentes|perguntas frequentes|questions fréquentes|häufig(e)?\s*(gestellte)?\s*fragen|domande frequenti/i;
+
+// Result units are often English WORDS ("days", "years", "people") that the
+// UI-chrome localisation didn't cover, so a Spanish result read "20,698 days".
+// Translate the common word-units; leave symbols (kg, m, %, $, m/s²) untouched.
+const UNIT_WORD_I18N = {
+  days:{es:"días",fr:"jours",de:"Tage",it:"giorni",pt:"dias"}, day:{es:"día",fr:"jour",de:"Tag",it:"giorno",pt:"dia"},
+  years:{es:"años",fr:"ans",de:"Jahre",it:"anni",pt:"anos"}, year:{es:"año",fr:"an",de:"Jahr",it:"anno",pt:"ano"},
+  months:{es:"meses",fr:"mois",de:"Monate",it:"mesi",pt:"meses"}, month:{es:"mes",fr:"mois",de:"Monat",it:"mese",pt:"mês"},
+  weeks:{es:"semanas",fr:"semaines",de:"Wochen",it:"settimane",pt:"semanas"}, week:{es:"semana",fr:"semaine",de:"Woche",it:"settimana",pt:"semana"},
+  hours:{es:"horas",fr:"heures",de:"Stunden",it:"ore",pt:"horas"}, hour:{es:"hora",fr:"heure",de:"Stunde",it:"ora",pt:"hora"},
+  minutes:{es:"minutos",fr:"minutes",de:"Minuten",it:"minuti",pt:"minutos"}, seconds:{es:"segundos",fr:"secondes",de:"Sekunden",it:"secondi",pt:"segundos"},
+  people:{es:"personas",fr:"personnes",de:"Personen",it:"persone",pt:"pessoas"}, persons:{es:"personas",fr:"personnes",de:"Personen",it:"persone",pt:"pessoas"}, person:{es:"persona",fr:"personne",de:"Person",it:"persona",pt:"pessoa"},
+  units:{es:"unidades",fr:"unités",de:"Einheiten",it:"unità",pt:"unidades"}, times:{es:"veces",fr:"fois",de:"mal",it:"volte",pt:"vezes"},
+  calories:{es:"calorías",fr:"calories",de:"Kalorien",it:"calorie",pt:"calorias"}, bags:{es:"sacos",fr:"sacs",de:"Säcke",it:"sacchi",pt:"sacos"},
+  bricks:{es:"ladrillos",fr:"briques",de:"Ziegel",it:"mattoni",pt:"tijolos"}, liters:{es:"litros",fr:"litres",de:"Liter",it:"litri",pt:"litros"},
+  pieces:{es:"piezas",fr:"pièces",de:"Stück",it:"pezzi",pt:"peças"}, blocks:{es:"bloques",fr:"blocs",de:"Blöcke",it:"blocchi",pt:"blocos"},
+  pasadas:{es:"pasadas",fr:"passes",de:"Durchgänge",it:"passate",pt:"demãos"}, capas:{es:"capas",fr:"couches",de:"Schichten",it:"strati",pt:"camadas"}, manos:{es:"manos",fr:"couches",de:"Anstriche",it:"mani",pt:"demãos"},
+};
+// Units are STORED in whatever language the calc was authored in — mostly Spanish. The
+// old _localizeUnit returned early for English, so an English page showed "años" and
+// "veces/año". Canonicalise any known word back to its English key first, then localise:
+// that makes the mapping bidirectional (es->en as well as en->es).
+const _UNIT_CANON = (() => {
+  const m = {};
+  for (const [en, tr] of Object.entries(UNIT_WORD_I18N)) {
+    m[en] = en;
+    for (const w of Object.values(tr)) m[String(w).toLowerCase()] = en;
+  }
+  return m;
+})();
+function _localizeUnitWord(word, lang) {
+  const key = _UNIT_CANON[String(word).trim().toLowerCase()];
+  if (!key) return word;
+  if (lang === "en") return key;
+  const tr = UNIT_WORD_I18N[key];
+  return (tr && tr[lang]) ? tr[lang] : key;
+}
+function _localizeUnit(unit, lang) {
+  if (!unit) return unit;
+  const raw = String(unit).trim();
+  // Compound units like "veces/año" or "kWh/día" translate part by part.
+  if (raw.includes("/")) {
+    const parts = raw.split("/");
+    const out = parts.map(p => _localizeUnitWord(p.trim(), lang));
+    // Only rewrite when at least one part was actually recognised.
+    if (out.some((p, i) => p !== parts[i].trim())) return out.join("/");
+    return raw;
+  }
+  return _localizeUnitWord(raw, lang);
+}
+
+// Repair UTF-8-as-Latin1 mojibake (e.g. "m²" stored as "mÂ²", "30°" as "30Â°").
+// Applied at render to units/labels/presets so display is clean regardless of the
+// double-encoded source; the raw stored value (used for unit conversion) is untouched.
+const _CP1252 = { 0x20AC:0x80,0x201A:0x82,0x0192:0x83,0x201E:0x84,0x2026:0x85,0x2020:0x86,0x2021:0x87,0x02C6:0x88,0x2030:0x89,0x0160:0x8A,0x2039:0x8B,0x0152:0x8C,0x017D:0x8E,0x2018:0x91,0x2019:0x92,0x201C:0x93,0x201D:0x94,0x2022:0x95,0x2013:0x96,0x2014:0x97,0x02DC:0x98,0x2122:0x99,0x0161:0x9A,0x203A:0x9B,0x0153:0x9C,0x017E:0x9E,0x0178:0x9F };
+// Any char that could be a mis-decoded UTF-8 lead byte (0xC2-0xF4 as Latin-1/cp1252).
+// Must be this wide: Greek/subscripts mojibake to leads like "Î" (Δ), "Ï" (τ), "á" (ᵦ).
+// Safe because the run decode below only substitutes when the bytes are valid UTF-8.
+const _MOJI_LEAD = /[Â-ô]/;
+function _hiByte(ch) {
+  const cp = ch.codePointAt(0);
+  if (cp >= 0x80 && cp <= 0xFF) return cp;
+  if (_CP1252[cp] != null) return _CP1252[cp];
+  return null;
+}
+// Repair each RUN of mis-decoded high bytes independently (so mixed strings like
+// "â‚¬/m²" — mojibake euro + an already-correct ² — are fixed without clobbering the
+// good part). Runs that don't decode as valid UTF-8 are left exactly as they were.
+function _deMojibake(s) {
+  if (typeof s !== "string" || !_MOJI_LEAD.test(s)) return s;
+  let out = "", i = 0;
+  while (i < s.length) {
+    if (_hiByte(s[i]) === null) { out += s[i++]; continue; }
+    let j = i; const bytes = [];
+    while (j < s.length) { const b = _hiByte(s[j]); if (b === null) break; bytes.push(b); j++; }
+    let dec = null;
+    try { const t = Buffer.from(bytes).toString("utf8"); if (!t.includes("�")) dec = t; } catch (e) {}
+    out += (dec !== null ? dec : s.slice(i, j));
+    i = j;
+  }
+  return out;
+}
+
+// Comparison-preset labels were wrong (Spanish "Cubo pequeno" shapes on a
+// Some generated articles contain LaTeX ( \( FV = P \times \frac{a}{b} \) ). Pages built
+// here don't load a math renderer, so it showed up as literal backslash soup — including
+// inside <meta description>. Convert it to plain Unicode maths, which reads correctly
+// everywhere (page, search snippet, screen reader) and needs no client JS.
+const _TEX_SYM = {
+  times:"×", cdot:"·", div:"÷", pm:"±", mp:"∓", le:"≤", leq:"≤", ge:"≥", geq:"≥",
+  neq:"≠", ne:"≠", approx:"≈", equiv:"≡", propto:"∝", infty:"∞", sum:"∑", prod:"∏",
+  int:"∫", partial:"∂", nabla:"∇", degree:"°", circ:"°", ldots:"…", dots:"…",
+  cdots:"⋯", rightarrow:"→", to:"→", leftarrow:"←", Rightarrow:"⇒", leftrightarrow:"↔",
+  alpha:"α", beta:"β", gamma:"γ", delta:"δ", epsilon:"ε", varepsilon:"ε", zeta:"ζ",
+  eta:"η", theta:"θ", lambda:"λ", mu:"μ", nu:"ν", xi:"ξ", pi:"π", rho:"ρ", sigma:"σ",
+  tau:"τ", phi:"φ", varphi:"φ", chi:"χ", psi:"ψ", omega:"ω",
+  Gamma:"Γ", Delta:"Δ", Theta:"Θ", Lambda:"Λ", Pi:"Π", Sigma:"Σ", Phi:"Φ", Omega:"Ω",
+};
+const _SUP = { "0":"⁰","1":"¹","2":"²","3":"³","4":"⁴","5":"⁵","6":"⁶","7":"⁷","8":"⁸","9":"⁹","+":"⁺","-":"⁻","n":"ⁿ","i":"ⁱ" };
+const _SUB = { "0":"₀","1":"₁","2":"₂","3":"₃","4":"₄","5":"₅","6":"₆","7":"₇","8":"₈","9":"₉","+":"₊","-":"₋" };
+function _deLatex(s) {
+  if (typeof s !== "string" || !/\\[a-zA-Z(\[]|\$\$/.test(s)) return s;
+  // Only text that actually carries math delimiters may have unknown "\command"
+  // backslashes stripped — otherwise a Windows path would be mangled into prose.
+  const isMath = /\\\(|\\\)|\\\[|\\\]|\$\$|\\frac|\\times|\\sqrt|\\text\{/.test(s);
+  let t = s;
+  t = t.replace(/\\\[([\s\S]*?)\\\]/g, (m, x) => " " + x.trim() + " ")
+       .replace(/\\\(([\s\S]*?)\\\)/g, (m, x) => x.trim())
+       .replace(/\$\$([\s\S]*?)\$\$/g, (m, x) => " " + x.trim() + " ");
+  t = t.replace(/\\(?:text|mathrm|mathbf|mathit|operatorname|textbf|textit)\s*\{([^{}]*)\}/g, "$1");
+  // Sub/superscripts BEFORE fractions: \frac{I_{hi}}{I_{lo}} has nested braces that a
+  // flat {…} match cannot span, so collapse the inner ones first.
+  t = t.replace(/\^\{([^{}]+)\}/g, (m, e) => [...e].every(c => _SUP[c]) ? [...e].map(c => _SUP[c]).join("") : "^" + e);
+  t = t.replace(/\^(-?\w)/g, (m, e) => _SUP[e] || "^" + e);
+  t = t.replace(/_\{([^{}]+)\}/g, (m, e) => [...e].every(c => _SUB[c]) ? [...e].map(c => _SUB[c]).join("") : "_" + e);
+  t = t.replace(/_(\w)/g, (m, e) => _SUB[e] || "_" + e);
+  for (let i = 0; i < 4; i++) {                                     // nested fractions
+    const before = t;
+    t = t.replace(/\\[dt]?frac\s*\{([^{}]*)\}\s*\{([^{}]*)\}/g, (m, a, b) =>
+      (/[+\-\s]/.test(a.trim()) ? `(${a.trim()})` : a.trim()) + "/" +
+      (/[+\-\s]/.test(b.trim()) ? `(${b.trim()})` : b.trim()));
+    if (t === before) break;
+  }
+  t = t.replace(/\\sqrt\s*\[\s*3\s*\]\s*\{([^{}]*)\}/g, "∛($1)").replace(/\\sqrt\s*\{([^{}]*)\}/g, "√($1)");
+  t = t.replace(/\\left\s*|\\right\s*/g, "").replace(/\\,|\\;|\\!|\\quad|\\qquad/g, " ");
+  t = t.replace(/\\([a-zA-Z]+)/g, (m, w) => _TEX_SYM[w] !== undefined ? _TEX_SYM[w] : (isMath ? w : m));
+  t = t.replace(/\\([%$&#_{}])/g, "$1");
+  // A meta description is truncated to ~155 chars, which can cut off the closing \) and
+  // leave the opener stranded. Drop any unpaired delimiter rather than print it.
+  if (isMath) t = t.replace(/\\[()[\]]/g, "");
+  return t.replace(/[ \t]{2,}/g, " ").replace(/\s+([.,;:!?)])/g, "$1");
+}
+// Prose that reaches a reader: fix encoding damage first, then LaTeX.
+const _prose = s => _deLatex(_deMojibake(s));
+
+// A field label. Translations sometimes keep the id's underscore ("côté_c",
+// "taille_échantillon"), which reads as a variable name rather than a label.
+function _niceLabel(s) {
+  const t = _deMojibake(String(s == null ? "" : s));
+  if (!t.includes("_")) return t;
+  const spaced = t.replace(/_+/g, " ").replace(/\s{2,}/g, " ").trim();
+  return spaced.charAt(0).toUpperCase() + spaced.slice(1);
+}
+
+// cylinder). They've been normalised to English size tiers in the configs;
+// translate those tiers to the page language here so they read natively.
+const PRESET_TIER_I18N = {
+  "small":     {es:"Pequeño",fr:"Petit",de:"Klein",it:"Piccolo",pt:"Pequeno"},
+  "medium":    {es:"Mediano",fr:"Moyen",de:"Mittel",it:"Medio",pt:"Médio"},
+  "large":     {es:"Grande",fr:"Grand",de:"Groß",it:"Grande",pt:"Grande"},
+  "x-large":   {es:"Extra grande",fr:"Très grand",de:"Sehr groß",it:"Molto grande",pt:"Extra grande"},
+  "xx-large":  {es:"Máximo",fr:"Maximum",de:"Maximal",it:"Massimo",pt:"Máximo"},
+  "maximum":   {es:"Máximo",fr:"Maximum",de:"Maximum",it:"Massimo",pt:"Máximo"},
+};
+const _EXAMPLE_WORD = {en:"Example",es:"Ejemplo",fr:"Exemple",de:"Beispiel",it:"Esempio",pt:"Exemplo"};
+function _localizePreset(label, lang) {
+  if (!label || lang === "en") return label;
+  const key = String(label).trim().toLowerCase();
+  const m = PRESET_TIER_I18N[key];
+  if (m && m[lang]) return m[lang];
+  const ex = label.match(/^Example\s+(\d+)$/i);
+  if (ex) return (_EXAMPLE_WORD[lang] || "Example") + " " + ex[1];
+  return label;
+}
+
+// Choice inputs store raw option values ("cemento", "si", "230"). Turn one into
+// something readable: a translated label if the calc has one, else a known yes/no
+// word, else the humanized value.
+const _YESNO_I18N = {
+  si:  { en:"Yes", es:"Sí",  fr:"Oui", de:"Ja",   it:"Sì",  pt:"Sim" },
+  yes: { en:"Yes", es:"Sí",  fr:"Oui", de:"Ja",   it:"Sì",  pt:"Sim" },
+  no:  { en:"No",  es:"No",  fr:"Non", de:"Nein", it:"No",  pt:"Não" },
+};
+function _localizeOption(inputId, value, langData, lang) {
+  const v = String(value);
+  const custom = ((langData && langData.option_labels) || {})[inputId];
+  if (custom && custom[v]) return String(custom[v]);
+  const yn = _YESNO_I18N[v.toLowerCase()];
+  if (yn) return yn[lang] || yn.en;
+  if (/^-?\d+(\.\d+)?$/.test(v)) return v;          // numeric codes stay as-is
+  return humanizeId(v);
+}
+
 const CATEGORY_LABELS = {
   estructuras:"Structures", mamposteria:"Masonry", pavimentos:"Flooring",
   fontaneria:"Plumbing", electricidad:"Electrical", climatizacion:"HVAC",
@@ -25,6 +223,83 @@ const CATEGORY_LABELS = {
 const SITE = "https://calcto.work";
 const GA_ID = "G-FBFV87HD35";
 const ADSENSE_ID = "ca-pub-3048983871829953";
+// Authorised seller line, derived from ADSENSE_ID so the two can never disagree.
+// f08c47fec0942fa0 is Google's fixed certification authority id.
+const ADS_TXT_LINE = "google.com, " + ADSENSE_ID.replace(/^ca-/, "") + ", DIRECT, f08c47fec0942fa0";
+
+// Content-Security-Policy for the whole site. AdSense needs its ad + consent
+// (Funding Choices) + telemetry hosts allowed, or the browser blocks them and
+// the console fills with CSP errors. Kept in code so every incremental deploy
+// re-applies it (the deploy clones the live version's config).
+const SITE_CSP = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.googletagmanager.com https://*.google-analytics.com https://pagead2.googlesyndication.com https://*.googlesyndication.com https://adservice.google.com https://fundingchoicesmessages.google.com https://cdn.jsdelivr.net https://www.gstatic.com https://cdnjs.cloudflare.com https://contextual.media.net https://cdn.carbonads.com https://ayyknrom.com https://*.effectivecpmnetwork.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' data: https://cdn.jsdelivr.net https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.googleapis.com https://*.google-analytics.com https://*.cloudfunctions.net https://csi.gstatic.com https://pagead2.googlesyndication.com https://*.googlesyndication.com https://googleads.g.doubleclick.net https://*.g.doubleclick.net https://fundingchoicesmessages.google.com https://adservice.google.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google; frame-src https://googleads.g.doubleclick.net https://*.googlesyndication.com https://fundingchoicesmessages.google.com https:; object-src 'none'; base-uri 'self'";
+
+// Return a copy of a hosting version config with the CSP header value replaced
+// by SITE_CSP. Only touches Content-Security-Policy; everything else is intact.
+function _patchConfigCSP(config) {
+  if (!config || !Array.isArray(config.headers)) return config;
+  const c = JSON.parse(JSON.stringify(config));
+  for (const rule of c.headers) {
+    if (!rule || !rule.headers || typeof rule.headers !== "object") continue;
+    if (Array.isArray(rule.headers)) {
+      // firebase.json style: [ { key, value } ]
+      for (const h of rule.headers) { if (h && h.key === "Content-Security-Policy") h.value = SITE_CSP; }
+    } else if ("Content-Security-Policy" in rule.headers) {
+      // Hosting REST version-config style: { "Content-Security-Policy": "..." }
+      rule.headers["Content-Security-Policy"] = SITE_CSP;
+    }
+  }
+  return c;
+}
+
+// Authoritative per-language slug map, loaded once from calc-index.json.
+// Keyed by BOTH the primary slug and the numeric id so lookups always hit.
+// This is the single source of truth for the translated URL each language uses
+// (e.g. aceleracion -> {en:"acceleration", de:"beschleunigung", ...}). Without
+// it, every language page was written at the Spanish slug, creating duplicate
+// URLs alongside the real indexed translated-slug pages.
+let _SLUG_INDEX = null;
+let _OLD_SLUG_INDEX = null;
+function _loadSlugIndexes() {
+  if (_SLUG_INDEX) return;
+  _SLUG_INDEX = {};
+  _OLD_SLUG_INDEX = {};
+  try {
+    const raw = require("./calc-index.json");
+    const arr = Array.isArray(raw) ? raw : (raw.calcs || raw.items || Object.values(raw));
+    for (const c of arr) {
+      if (!c || !c.slugs) continue;
+      if (c.slug) _SLUG_INDEX[c.slug] = c.slugs;
+      if (c.id != null) _SLUG_INDEX[String(c.id)] = c.slugs;
+      if (c.old_slugs) {
+        if (c.slug) _OLD_SLUG_INDEX[c.slug] = c.old_slugs;
+        if (c.id != null) _OLD_SLUG_INDEX[String(c.id)] = c.old_slugs;
+      }
+    }
+  } catch (e) {
+    console.warn("calc-index.json slug map unavailable:", e.message);
+  }
+}
+function _getSlugIndex() { _loadSlugIndexes(); return _SLUG_INDEX; }
+// Prior slugs kept so their URLs still serve (with canonical -> the new SEO
+// slug), consolidating the migration without hard redirects.
+function _getOldSlugIndex() { _loadSlugIndexes(); return _OLD_SLUG_INDEX; }
+
+// Ensure data.langs[lang].slug holds the authoritative translated slug for every
+// language, so canonical/hreflang/lang-switcher and the deploy path all agree.
+// Returns a NEW data object (langs cloned); never mutates the caller's copy.
+function _applyLangSlugs(slug, data) {
+  const idx = _getSlugIndex();
+  const map = idx[slug] || (data && idx[String(data.id)]) || null;
+  if (!map) return data;
+  const langs = { ...(data.langs || {}) };
+  for (const l of LANGS) {
+    if (!map[l]) continue;
+    if (!langs[l]) continue; // don't invent a language the calc doesn't have
+    if (langs[l].slug === map[l]) continue;
+    langs[l] = { ...langs[l], slug: map[l] };
+  }
+  return { ...data, langs };
+}
 
 function esc(str) {
   if (!str) return "";
@@ -35,13 +310,58 @@ function esc(str) {
     .replace(/"/g, "&quot;");
 }
 
+// Build an SEO title that targets the "how to calculate X" search intent per
+// language, e.g. "How to Calculate Acceleration — Free Calculator".
+const _HOWTO = { en: "How to Calculate", es: "Cómo Calcular", fr: "Comment Calculer", de: "Berechnung von", it: "Come Calcolare", pt: "Como Calcular" };
+const _FREECALC = { en: "Free Calculator", es: "Calculadora Gratis", fr: "Calculateur Gratuit", de: "Kostenloser Rechner", it: "Calcolatore Gratis", pt: "Calculadora Grátis" };
+const _CALC_WORD_RE = /\b(calculators?|calculadoras?|calculateur|calculatrice|calcolatrice|calcolatore|calcolatori)\b/ig;
+// German compounds the calc word into the noun (Beschleunigungsrechner). Strip
+// it as a suffix, then drop the linking "s" it leaves behind: -srechner -> "".
+const _DE_CALC_SUFFIX_RE = /s?(rechner|kalkulator)\b/ig;
+const _ALREADY_HOWTO = /how to|cómo calc|como calc|comment calc|berechnung|come calcol/i;
+function buildSeoTitle(lang, langData, name) {
+  const existing = (langData && langData.seo_title || "").trim();
+  if (existing && _ALREADY_HOWTO.test(existing)) return existing; // already how-to optimized
+  let topic = (name || "").replace(_CALC_WORD_RE, "");
+  if (lang === "de") topic = topic.replace(_DE_CALC_SUFFIX_RE, "");
+  else topic = topic.replace(/\brechner\b/ig, "");
+  topic = topic.replace(/[-–—:|]\s*$/, "").replace(/\s{2,}/g, " ").trim();
+  // Drop a leading connector left behind by stripping the calc word, e.g.
+  // "Calculadora de Aceleración" -> "de Aceleración" -> "Aceleración".
+  topic = topic.replace(/^(de la|della|del|des|de|d['’]|du|da|do|di|of|for|per|para|pour)\s+/i, "").trim();
+  // If stripping produced a broken fragment (too short, or a lone trailing
+  // linking-s), fall back to a safe title rather than emitting garbage.
+  if (topic.length < 3) return existing || `${name} — CalcToWork`;
+  const howto = _HOWTO[lang] || _HOWTO.en;
+  const free = _FREECALC[lang] || _FREECALC.en;
+  let t = `${howto} ${topic} — ${free}`;
+  if (t.length > 62) t = `${howto} ${topic}`; // keep it within a sensible title length
+  return t;
+}
+
+// Turn a raw field id into a readable label as a LAST resort when no proper
+// label exists: "final_velocity" -> "Final velocity", "neck" -> "Neck".
+function humanizeId(id) {
+  if (!id) return "";
+  var s = String(id).replace(/_/g, " ").replace(/([a-z])([A-Z])/g, "$1 $2").trim();
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
 function buildHreflang(slug, data) {
-  return LANGS.map(l => {
+  const tags = LANGS.map(l => {
     const lData = data.langs && data.langs[l];
     if (!lData) return "";
     const lSlug = lData.slug || slug;
     return `  <link rel="alternate" hreflang="${l}" href="${SITE}/${l}/${lSlug}/">`;
-  }).filter(Boolean).join("\n");
+  }).filter(Boolean);
+  // x-default points to the English version (Google's recommended fallback for
+  // multilingual pages) — was missing, flagged in the SEO audit.
+  const enData = data.langs && data.langs.en;
+  if (enData) {
+    const enSlug = enData.slug || slug;
+    tags.push(`  <link rel="alternate" hreflang="x-default" href="${SITE}/en/${enSlug}/">`);
+  }
+  return tags.join("\n");
 }
 
 function buildLangSwitcher(slug, currentLang, data) {
@@ -54,28 +374,68 @@ function buildLangSwitcher(slug, currentLang, data) {
   }).filter(Boolean).join("\n        ");
 }
 
-function renderInputsForm(inputs, langData) {
+function renderInputsForm(inputs, langData, lang) {
   const labels = (langData && langData.inputs_labels) || {};
   return inputs.map(inp => {
-    const label = esc(labels[inp.id] || inp.id);
+    const rawLabel = labels[inp.id];
+    const label = esc(_niceLabel(rawLabel && rawLabel !== inp.id ? rawLabel : humanizeId(inp.id)));
     const unitOpts = (inp.unit_options || [inp.unit]).filter(Boolean);
+    const uDisp = u => esc(_deMojibake(_localizeUnit(u, lang)));
+    // data-input + data-category are REQUIRED by calculator.js collectInputs() to
+    // convert the entered value to the formula's base unit. Without them, picking
+    // a different unit (g instead of kg) was silently ignored — wrong result.
     const unitSel = unitOpts.length > 1
-      ? `<select class="unit-select" name="${esc(inp.id)}_unit" aria-label="Unit for ${label}">
-          ${unitOpts.map(u => `<option value="${esc(u)}"${u === inp.unit ? " selected" : ""}>${esc(u)}</option>`).join("")}
+      ? `<select class="unit-select" data-input="${esc(inp.id)}" data-category="${esc(inp.unit_category || "")}" name="${esc(inp.id)}_unit" aria-label="Unit for ${label}">
+          ${unitOpts.map(u => `<option value="${esc(u)}"${u === inp.unit ? " selected" : ""}>${uDisp(u)}</option>`).join("")}
         </select>`
-      : (inp.unit ? `<span class="unit-label">${esc(inp.unit)}</span>` : "");
-    return `
-        <div class="form-group">
-          <label for="input-${esc(inp.id)}">${label}</label>
-          <div class="input-with-unit">
-            <input type="number" id="input-${esc(inp.id)}" name="${esc(inp.id)}"
+      : (inp.unit ? `<span class="unit-label">${uDisp(inp.unit)}</span>` : "");
+    // Choice and free-text inputs used to render as type="number" too, which made them
+    // impossible to fill in ("cemento" cannot be typed into a number box) and silently
+    // pushed the formula down its fallback branch. collectInputs() in calculator.js
+    // already reads select[name] and non-number inputs as raw strings.
+    const rawOpts = inp.options || inp.choices;
+    // Only a plain number field carries a unit selector.
+    const isNumericField = !(rawOpts && rawOpts.length) && inp.type !== "date" && inp.type !== "text" && inp.type !== "string";
+    const field = (() => {
+      if (Array.isArray(rawOpts) && rawOpts.length) {
+        const opts = rawOpts.map(o => (o && typeof o === "object" && o.value !== undefined) ? o : { value: o });
+        return `<select id="input-${esc(inp.id)}" name="${esc(inp.id)}" class="choice-select">
+              ${opts.map(o => {
+                const v = String(o.value);
+                const oLabel = o.label ? String(o.label) : _localizeOption(inp.id, v, langData, lang);
+                const sel = (inp.default !== undefined && String(inp.default) === v) ? " selected" : "";
+                return `<option value="${esc(v)}"${sel}>${esc(_deMojibake(oLabel))}</option>`;
+              }).join("")}
+            </select>`;
+      }
+      // Date calcs (age in days, due date, ovulation) fed a date string into a number
+      // box, so they could never be filled in at all.
+      if (inp.type === "date") {
+        return `<input type="date" id="input-${esc(inp.id)}" name="${esc(inp.id)}"
+              ${inp.min !== undefined ? `min="${esc(String(inp.min))}"` : ""}
+              ${inp.max !== undefined ? `max="${esc(String(inp.max))}"` : ""}
+              ${inp.default !== undefined ? `value="${esc(String(inp.default))}"` : ""}>`;
+      }
+      if (inp.type === "text" || inp.type === "string") {
+        return `<input type="text" id="input-${esc(inp.id)}" name="${esc(inp.id)}"
+              ${inp.placeholder ? `placeholder="${esc(inp.placeholder)}"` : ""}
+              ${inp.default !== undefined ? `value="${esc(String(inp.default))}"` : ""}
+              autocomplete="off">`;
+      }
+      return `<input type="number" id="input-${esc(inp.id)}" name="${esc(inp.id)}"
               inputmode="decimal"
               ${inp.min !== undefined ? `min="${inp.min}"` : ""}
               ${inp.max !== undefined ? `max="${inp.max}"` : ""}
               ${inp.step !== undefined ? `step="${inp.step}"` : 'step="any"'}
               ${inp.default !== undefined ? `value="${inp.default}"` : ""}
-              autocomplete="off">
-            ${unitSel}
+              autocomplete="off">`;
+    })();
+    return `
+        <div class="form-group">
+          <label for="input-${esc(inp.id)}">${label}</label>
+          <div class="input-with-unit">
+            ${field}
+            ${isNumericField ? unitSel : ""}
           </div>
         </div>`;
   }).join("\n");
@@ -84,12 +444,15 @@ function renderInputsForm(inputs, langData) {
 function renderResults(outputs, langData) {
   const labels = (langData && langData.outputs_labels) || {};
   return outputs.map(out => {
-    const label = esc(labels[out.id] || out.id);
+    // Output labels and units carry currency and exponent characters (€, m³) that were
+    // stored mojibake'd. Every other render path repairs them; this one did not, so the
+    // results panel showed "IVA (â‚¬)" and "Volumen (mÂ³)".
+    const label = esc(_niceLabel(labels[out.id] || humanizeId(out.id)));
     const cls = out.highlight ? "result-item result-highlight" : "result-item";
     return `<div class="${cls}" id="out-${esc(out.id)}" style="display:none">
         <span class="result-label">${label}</span>
         <span class="result-value" data-out="${esc(out.id)}">—</span>
-        ${out.unit ? `<span class="result-unit">${esc(out.unit)}</span>` : ""}
+        ${out.unit ? `<span class="result-unit">${esc(_deMojibake(String(out.unit)))}</span>` : ""}
       </div>`;
   }).join("\n");
 }
@@ -101,49 +464,133 @@ function renderArticle(lang, langData, inputs) {
   const hints = langData.range_hints || {};
   const faqItems = langData.faq || [];
 
+  const ui = _uiFor(lang);
   // Prefer pre-rendered long_content HTML when available
   if (langData.long_content) {
-    const faqHtml = faqItems.length
-      ? `<section class="faq-section"><h2>FAQ</h2>${faqItems.map(f =>
-          `<details class="faq-item"><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`
+    // Only append the structured FAQ if the article doesn't already contain one
+    // — otherwise the page shows two FAQ sections.
+    const faqHtml = (faqItems.length && !_ARTICLE_HAS_FAQ.test(langData.long_content))
+      ? `<section class="faq-section"><h2>${esc(ui.faq)}</h2>${faqItems.map(f =>
+          `<details class="faq-item"><summary>${esc(_prose(f.q))}</summary><p>${esc(_prose(f.a))}</p></details>`
         ).join("")}</section>` : "";
-    return `<div class="long-content">${langData.long_content}${faqHtml}</div>`;
+    return `<div class="long-content">${_prose(langData.long_content)}${faqHtml}</div>`;
   }
 
   // Fallback: render from structured fields
   const stepsHtml = steps.length
-    ? `<h2>How to use it</h2><ol>${steps.map(s => `<li>${esc(s)}</li>`).join("")}</ol>` : "";
+    ? `<h2>${esc(ui.howToUse)}</h2><ol>${steps.map(s => `<li>${esc(_prose(s))}</li>`).join("")}</ol>` : "";
 
   const mistakesHtml = mistakes.length
-    ? `<h2>Common mistakes</h2><ul>${mistakes.map(m => `<li>⚠️ ${esc(m)}</li>`).join("")}</ul>` : "";
+    ? `<h2>${esc(ui.mistakes)}</h2><ul>${mistakes.map(m => `<li>⚠️ ${esc(_prose(m))}</li>`).join("")}</ul>` : "";
 
   const exampleHtml = langData.example_label
-    ? `<h2>Worked example</h2><p>${esc(langData.example_label)}</p>${
-        langData.result_context ? `<p><em>${esc(langData.result_context)}</em></p>` : ""
+    ? `<h2>${esc(ui.workedExample)}</h2><p>${esc(_prose(langData.example_label))}</p>${
+        langData.result_context ? `<p><em>${esc(_prose(langData.result_context))}</em></p>` : ""
       }` : "";
 
   const formulaHtml = langData.formula_display
-    ? `<h2>Formula</h2><p><code>${esc(langData.formula_display)}</code></p>` : "";
+    ? `<h2>${esc(ui.formula)}</h2><p><code>${esc(_prose(langData.formula_display))}</code></p>` : "";
 
   const hintRows = Object.entries(hints);
   const hintsHtml = hintRows.length
-    ? `<h2>Input guide</h2><table class="comparison-table"><thead><tr><th>Field</th><th>Typical range</th></tr></thead><tbody>
+    ? `<h2>${esc(ui.inputGuide)}</h2><table class="comparison-table"><thead><tr><th>${esc(ui.field)}</th><th>${esc(ui.typicalRange)}</th></tr></thead><tbody>
         ${hintRows.map(([k, v]) => `<tr><td>${esc(k)}</td><td>${esc(v)}</td></tr>`).join("")}
       </tbody></table>` : "";
 
   const faqHtml = faqItems.length
-    ? `<section class="faq-section"><h2>FAQ</h2>${faqItems.map(f =>
+    ? `<section class="faq-section"><h2>${esc(ui.faq)}</h2>${faqItems.map(f =>
         `<details class="faq-item"><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`
       ).join("")}</section>` : "";
 
   return `<div class="long-content">${stepsHtml}${mistakesHtml}${exampleHtml}${formulaHtml}${hintsHtml}${faqHtml}</div>`;
 }
 
+// Build a UNIQUE meta description per calculator/language. Google penalizes
+// duplicate/templated meta descriptions; a bulk template had stamped every calc
+// with the same "get precise results in seconds…" boilerplate. We derive a
+// unique one from each calc's own article/desc instead.
+const _GENERIC_META = /get precise results in seconds|resultados exactos en segundos|no registration required|sin registro|résultats précis en quelques secondes|ohne registrierung|risultati precisi in pochi secondi|resultados precisos em segundos/i;
+// Trailing function words across the six site languages. A snippet that stops on one
+// ("…round up to the…") reads as broken text in the search result and costs clicks.
+const _SNIPPET_STOP = new Set([
+  "the","a","an","of","to","and","or","for","in","on","at","is","are","be","by","with","from",
+  "that","this","as","its","your","you","it","per","into","than","so","if","when","which","but",
+  "not","we","our","each","every","then","about","use","using",
+  "el","la","los","las","un","una","de","del","y","o","en","por","para","con","que","se","su",
+  "sus","al","lo","como","entre","cada","sobre",
+  "le","les","une","des","du","et","ou","dans","pour","avec","qui","sur","aux","ce","cette","par",
+  "der","die","das","den","dem","ein","eine","einen","und","oder","mit","von","zum","zur","im",
+  "auf","für","ist","sind","bei","aus","dabei","sie",
+  "il","gli","uno","dei","delle","nel","nella","che","sul","alla",
+  "os","um","uma","dos","das","no","na","pelo","pela","ao",
+]);
+
+// Cut a snippet at a boundary a reader recognises: a whole sentence if one fits, else a
+// clause, else a word boundary with any dangling function words trimmed off.
+function _snippet(text, max) {
+  const t = String(text || "").trim();
+  if (t.length <= max) return t;
+  const win = t.slice(0, max + 1);
+
+  const sent = win.match(/^[\s\S]*[.!?](?=\s|$)/);
+  if (sent && sent[0].trim().length >= 90) return sent[0].trim();
+
+  const clause = win.match(/^[\s\S]*[,;:](?=\s)/);
+  let d;
+  if (clause && clause[0].trim().length >= 95) d = clause[0].replace(/[\s,;:]+$/, "");
+  else d = win.slice(0, win.lastIndexOf(" "));
+
+  // Drop dangling function words ("…of the", "…dabei die") whichever branch produced d.
+  let parts = d.replace(/[\s,;:.]+$/, "").split(/\s+/);
+  for (let i = 0; i < 4 && parts.length > 4; i++) {
+    const last = parts[parts.length - 1].replace(/[.,;:()]+$/, "").toLowerCase();
+    if (_SNIPPET_STOP.has(last)) parts.pop(); else break;
+  }
+  return parts.join(" ").replace(/[\s,;:.]+$/, "") + "…";
+}
+
+function buildMetaDescription(langData, name) {
+  // 1. Derive from the article's opening (always unique per calculator).
+  // De-LaTeX BEFORE truncating: slicing at 158 chars can cut a \frac{…}{…} in half,
+  // after which no converter can recover it and the snippet shows raw markup.
+  const lc = _deLatex(langData.long_content || "");
+  if (lc.length > 200) {
+    let t = lc.replace(/<[^>]+>/g, " ").replace(/&[a-z]+;/g, " ").replace(/\s+/g, " ").trim();
+    t = t.replace(/^TL;?\s*DR:?\s*/i, "");
+    if (t.length > 70) {
+      return _snippet(t, 158);
+    }
+  }
+  // 2. Stored SEO description, only if it is NOT the generic template
+  const sd = _prose((langData.seo_description || "").trim());
+  if (sd && !_GENERIC_META.test(sd)) return sd;
+  // 3. Unique fallback built from this calc's own one-line desc
+  const d = _deMojibake((langData.desc || "").trim());
+  if (d) return _snippet(`${name}: ${d}`, 158);
+  return `${name} — instant, accurate results online, free.`;
+}
+
+// Fingerprint of the bundled front-end assets, appended to their URLs so a deploy is a
+// new URL. Without it the immutable 7-day cache keeps returning visitors on the old JS.
+const _ASSET_VER = (() => {
+  try {
+    const crypto = require("crypto"), fsx = require("fs"), pathx = require("path");
+    const h = crypto.createHash("sha256");
+    for (const f of ["calculator.js", "styles.css", "analytics-tracker.js"]) {
+      try { h.update(fsx.readFileSync(pathx.join(__dirname, "assets", f))); } catch (e) {}
+    }
+    return h.digest("hex").slice(0, 10);
+  } catch (e) { return String(Date.now()); }
+})();
+
 function buildPage(slug, lang, data) {
+  data = _applyLangSlugs(slug, data); // authoritative translated slugs for URLs
+  const ui = _uiFor(lang); // localised UI chrome (Inputs/Result/Calculate…)
   const langData = (data.langs && data.langs[lang]) || {};
-  const name = esc(langData.name || data.slug || slug);
-  const desc = esc(langData.seo_description || langData.desc || "");
-  const seoTitle = esc(langData.seo_title || `${name} — CalcToWork`);
+  const rawName = _prose(langData.name || data.slug || slug);
+  const name = esc(rawName);
+  const desc = esc(_prose(buildMetaDescription(langData, rawName)));
+  const seoTitle = esc(_prose(buildSeoTitle(lang, langData, rawName)));
   const category = data.category || "matematicas";
   const categoryLabel = esc(CATEGORY_LABELS[category] || category);
   const canonicalSlug = langData.slug || slug;
@@ -183,6 +630,19 @@ function buildPage(slug, lang, data) {
     text: s,
   }));
 
+  // Outputs must be an OBJECT { id: label } plus output_units { id: unit } — this
+  // is the format the client engine (calculator.js) reads with Object.keys. The
+  // old array form left results blank because Object.keys(array) yields indices.
+  const outLabels = langData.outputs_labels || {};
+  const outObj = {};
+  const outUnits = {};
+  outputs.forEach(o => {
+    if (!o || !o.id) return;
+    const ol = outLabels[o.id];
+    outObj[o.id] = _deMojibake((ol && ol !== o.id) ? ol : (o.label && o.label !== o.id ? o.label : humanizeId(o.id)));
+    if (o.unit != null && o.unit !== "") outUnits[o.id] = _deMojibake(_localizeUnit(o.unit, lang));
+  });
+
   const calcConfig = {
     slug,
     lang,
@@ -192,9 +652,36 @@ function buildPage(slug, lang, data) {
       unit_options: i.unit_options || [i.unit],
       unit_category: i.unit_category,
     })),
-    outputs: outputs.map(o => ({ id: o.id, unit: o.unit, highlight: o.highlight })),
+    outputs: outObj,
+    output_units: outUnits,
     formula: data.formula || "return {}",
   };
+  // Visual gauge/meter (e.g. BMI category bar) — carry it through if the calc has one.
+  if (data.gauge) calcConfig.gauge = data.gauge;
+  if (langData.result_context) calcConfig.result_context = _prose(langData.result_context);
+  // Result interpretation: structure (scale/tone/thresholds) is language-neutral and
+  // lives at the doc root; the wording lives per language. Merge them by index so a
+  // missing translation degrades to no verdict rather than to English on a Spanish page.
+  if (data.interpretation && data.interpretation.output) {
+    const it = data.interpretation;
+    const txt = langData.interpretation_text;
+    if (txt) {
+      const merged = { output: it.output, unit: it.unit || "" };
+      if (it.mode === "bands" && Array.isArray(it.bands) && Array.isArray(txt.bands) && it.bands.length === txt.bands.length) {
+        merged.scale = it.scale;
+        merged.bands = it.bands.map((bd, i) => ({
+          max: bd.max, tone: bd.tone,
+          label: _prose(txt.bands[i].label), note: _prose(txt.bands[i].note),
+        }));
+        if (txt.source) merged.source = _prose(txt.source);
+        calcConfig.interpretation = merged;
+      } else if (it.mode === "insight" && txt.insight) {
+        merged.insight = _prose(txt.insight);
+        if (txt.tip) merged.tip = _prose(txt.tip);
+        calcConfig.interpretation = merged;
+      }
+    }
+  }
 
   return `<!DOCTYPE html>
 <html lang="${lang}">
@@ -210,8 +697,8 @@ function buildPage(slug, lang, data) {
   <meta name="description" content="${desc}">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#f97316">
-  <link rel="preload" as="style" href="/css/styles.css">
-  <link rel="preload" as="script" href="/js/calculator.js">
+  <link rel="preload" as="style" href="/css/styles.css?v=${_ASSET_VER}">
+  <link rel="preload" as="script" href="/js/calculator.js?v=${_ASSET_VER}">
   <link rel="canonical" href="${canonicalUrl}">
 ${buildHreflang(slug, data)}
   <meta property="og:title" content="${seoTitle}">
@@ -230,14 +717,16 @@ ${buildHreflang(slug, data)}
   {"@context":"https://schema.org","@type":"HowTo","name":"${name}","description":"${desc}","step":${JSON.stringify(howToSteps)}}
   </script>` : ""}
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+  <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/manifest.json">
-  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/styles.css?v=${_ASSET_VER}">
   <link rel="preconnect" href="https://pagead2.googlesyndication.com">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_ID}" crossorigin="anonymous"></script>
   <script>if(localStorage.getItem('ctw-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
   <script>window.COOKIE_CONSENT_I18N={"privacy_path":"/${lang}/privacy/"};</script>
-  <script src="/js/cookie-consent.js" defer></script>
+  <script src="/js/cookie-consent.js?v=${_ASSET_VER}" defer></script>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -268,8 +757,8 @@ ${buildHreflang(slug, data)}
 </script>
 
 <div class="container">
-  <div class="ad-slot ad-slot-banner"><ins class="adsbygoogle" style="display:block" data-ad-client="${ADSENSE_ID}" data-ad-format="auto" data-full-width-responsive="true"></ins>
-  <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></div>
+  <div class="ad-slot ad-slot-banner"><ins class="adsbygoogle" style="display:block;width:100%;min-width:250px" data-ad-client="${ADSENSE_ID}" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>(function(s){var d=s.parentNode;function go(){try{var i=d.querySelector('ins.adsbygoogle');if(!i)return;if(i.getAttribute('data-adsbygoogle-status')||i.getAttribute('data-ad-status'))return;if(!i.offsetWidth)return;(adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){}}function arm(){setTimeout(go,400);}if(document.readyState==='complete')arm();else window.addEventListener('load',arm);})(document.currentScript);</script></div>
 </div>
 
 <main class="container" id="main-content">
@@ -288,34 +777,34 @@ ${buildHreflang(slug, data)}
     </div>
   </div>
 
-  ${langData.desc ? `<div class="calc-intro"><strong>${name}</strong> — ${esc(langData.desc)}</div>` : ""}
+  ${langData.desc ? `<div class="calc-intro"><strong>${name}</strong> — ${esc(_deMojibake(langData.desc))}</div>` : ""}
 
   <div class="content-main">
     <div class="calc-layout">
       <div class="card">
-        <div class="card-title">Inputs</div>
+        <div class="card-title">${esc(ui.inputs)}</div>
         <form id="calc-form" novalidate>
-          ${renderInputsForm(inputs, langData)}
+          ${renderInputsForm(inputs, langData, lang)}
           <div class="btn-row">
-            <button type="submit" class="btn btn-primary">Calculate</button>
-            <button type="button" class="btn btn-secondary" id="btn-reset">Reset</button>
+            <button type="submit" class="btn btn-primary">${esc(ui.calculate)}</button>
+            <button type="button" class="btn btn-secondary" id="btn-reset">${esc(ui.reset)}</button>
           </div>
         </form>
       </div>
 
       <div class="card results-panel">
-        <div class="card-title">Result</div>
+        <div class="card-title">${esc(ui.result)}</div>
         <div id="calc-results" aria-live="polite">
-          <div class="result-placeholder">Enter values and press Calculate</div>
+          <div class="result-placeholder">${esc(ui.enterValues)}</div>
           ${renderResults(outputs, langData)}
         </div>
         <div class="results-actions">
-          <button class="btn btn-secondary copy-btn" id="btn-copy" style="display:none;">Copy results</button>
-          <button class="btn btn-secondary share-btn" id="btn-share" style="display:none;">🔗 Share</button>
-          <button class="btn btn-secondary embed-btn" id="btn-embed" title="Embed this calculator">&#60;/&#62; Embed</button>
+          <button class="btn btn-secondary copy-btn" id="btn-copy" style="display:none;">${esc(ui.copyResults)}</button>
+          <button class="btn btn-secondary share-btn" id="btn-share" style="display:none;">🔗 ${esc(ui.share)}</button>
+          <button class="btn btn-secondary embed-btn" id="btn-embed" title="${esc(ui.embed)}">&#60;/&#62; ${esc(ui.embed)}</button>
         </div>
         <div class="feedback-wrap">
-          <span class="feedback-label">Was this helpful?</span>
+          <span class="feedback-label">${esc(ui.helpful)}</span>
           <button class="feedback-btn" data-val="yes" aria-label="Yes">&#128077;</button>
           <button class="feedback-btn" data-val="no" aria-label="No">&#128078;</button>
         </div>
@@ -324,14 +813,28 @@ ${buildHreflang(slug, data)}
 
     ${(data.comparison_presets || []).length ? `
     <div class="comparison-table-wrap" tabindex="0" role="region" aria-label="Comparison presets">
-      <div class="comparison-table-title">Common Examples — Click to Fill</div>
+      <div class="comparison-table-title">${esc(ui.examples)}</div>
       <table class="comparison-table" id="comparison-table">
-        <thead><tr><th></th>${inputs.map(i => `<th>${esc((langData.inputs_labels || {})[i.id] || i.id)}</th>`).join("")}</tr></thead>
+        <thead><tr><th></th>${inputs.map(i => { const il = (langData.inputs_labels || {})[i.id]; return `<th>${esc(_niceLabel(il && il !== i.id ? il : humanizeId(i.id)))}</th>`; }).join("")}</tr></thead>
         <tbody>
-          ${(data.comparison_presets || []).map(p => `<tr data-prefill='${JSON.stringify(p.inputs || {})}'>
-            <td class="preset-label-cell">${esc(p.label || "")}</td>
-            ${inputs.map(i => `<td>${p.inputs && p.inputs[i.id] !== undefined ? p.inputs[i.id] : "—"}</td>`).join("")}
-          </tr>`).join("")}
+          ${(data.comparison_presets || []).map((p, _pi) => {
+            // Support both shapes: CMS { label, inputs:{id:val} } and the static
+            // flat form { _label, id1:val1, id2:val2 } (values at top level).
+            const pv = (p.inputs && typeof p.inputs === "object")
+              ? p.inputs
+              : Object.fromEntries(Object.entries(p).filter(([k]) => k !== "label" && k !== "_label" && k !== "inputs"));
+            // Prefer a per-language translated preset label when present, else localize tiers.
+            const _plLoc = Array.isArray(langData.preset_labels) ? langData.preset_labels[_pi] : null;
+            const pl = _deMojibake((_plLoc && String(_plLoc)) || _localizePreset(p.label || p._label || "", lang));
+            return `<tr data-prefill='${esc(JSON.stringify(pv))}'>
+            <td class="preset-label-cell">${esc(pl)}</td>
+            ${inputs.map(i => {
+              if (pv[i.id] === undefined) return "<td>—</td>";
+              const hasOpts = Array.isArray(i.options || i.choices) && (i.options || i.choices).length;
+              return `<td>${esc(hasOpts ? _localizeOption(i.id, pv[i.id], langData, lang) : String(pv[i.id]))}</td>`;
+            }).join("")}
+          </tr>`;
+          }).join("")}
         </tbody>
       </table>
     </div>` : ""}
@@ -369,8 +872,8 @@ ${buildHreflang(slug, data)}
       <button class="embed-modal-close" id="embed-modal-close" aria-label="Close">&times;</button>
     </div>
     <div class="embed-modal-body">
-      <p class="embed-modal-desc">Copy the code below to embed this calculator on your website.</p>
-      <textarea class="embed-modal-code" id="embed-modal-code" readonly></textarea>
+      <p class="embed-modal-desc">Copy this code to add the free calculator to your site. It's fully responsive and always up to date. Please keep the small credit link — it's what lets you use it for free.</p>
+      <textarea class="embed-modal-code" id="embed-modal-code" readonly rows="7"></textarea>
       <button class="btn btn-primary embed-modal-copy" id="embed-modal-copy">Copy embed code</button>
     </div>
   </div>
@@ -378,8 +881,20 @@ ${buildHreflang(slug, data)}
 <script>
 window.CALC_CONFIG = ${JSON.stringify(calcConfig)};
 </script>
-<script src="/js/calculator.js" defer></script>
-<script src="/js/theme.js" defer></script>
+<!-- Firebase SDK + first-party analytics tracker. buildPage previously omitted
+     these, which silently killed page_view/calculation tracking across the whole
+     catalog once every page was server-rendered. -->
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+<script>
+window.firebaseConfig = {apiKey:"AIzaSyBmjGOakF8HneBc2cnmt6WeEfU4JWgJFw8",authDomain:"calctowork.firebaseapp.com",projectId:"calctowork",storageBucket:"calctowork.firebasestorage.app",messagingSenderId:"538330151764",appId:"1:538330151764:web:175e3ff0f7d87f706b66c1",measurementId:"G-FBFV87HD35"};
+try { firebase.initializeApp(window.firebaseConfig); } catch(e) {}
+</script>
+<script src="/js/analytics-tracker.js?v=${_ASSET_VER}"></script>
+<script src="/js/calculator.js?v=${_ASSET_VER}" defer></script>
+<script src="/js/dark-mode.js?v=${_ASSET_VER}" defer></script>
+<script src="/js/favorites.js?v=${_ASSET_VER}" defer></script>
+<script src="/js/history.js?v=${_ASSET_VER}" defer></script>
 </body>
 </html>`;
 }
@@ -515,6 +1030,679 @@ ${JSON.stringify({
     return res.status(200).json({ translated });
   } catch (e) {
     console.error("translateCalc error:", e);
+    return res.status(500).json({ error: e.message });
+  }
+});
+
+/**
+ * regenResultContextHttp — batch-regenerates langs[lang].result_context for calcs whose
+ * copy is broken (machine-translation leakage, raw output-ids as words, wrong placeholder
+ * ids). Generates native-quality one-line copy in all 6 langs via the configured LLM,
+ * validates that placeholders reference ONLY the real output ids, writes calc_cms, and
+ * republishes the processed slugs in ONE _deployPagesToHosting call.
+ * POST { items:[{slug,name,outputs:[{id,unit}],labels:{id:label},en_seed}], republish:bool }
+ */
+exports.regenResultContextHttp = functions.runWith({ timeoutSeconds: 540, memory: "512MB" })
+  .https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+  if (req.method === "OPTIONS") return res.status(204).send("");
+  if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
+  try {
+    const items = (req.body && req.body.items) || [];
+    const republish = !!(req.body && req.body.republish);
+    if (!items.length) return res.status(400).json({ error: "No items" });
+
+    const cfgDoc = await db.collection("admin_prefs").doc("ai_config").get();
+    const cfg = cfgDoc.exists ? cfgDoc.data() : {};
+    const provider = cfg.active_provider || "anthropic";
+    const provCfg = (cfg.providers || {})[provider] || {};
+    const apiKey = provCfg.api_key || (functions.config().anthropic && functions.config().anthropic.key);
+    if (!apiKey) return res.status(500).json({ error: `No API key for provider ${provider}` });
+
+    const LANG_NAMES = { en: "English", es: "Spanish", fr: "French", de: "German", it: "Italian", pt: "Portuguese" };
+    async function callAI(prompt) {
+      let text;
+      if (provider === "anthropic" || !cfg.active_provider) {
+        const r = await fetch("https://api.anthropic.com/v1/messages", {
+          method: "POST",
+          headers: { "x-api-key": apiKey, "anthropic-version": "2023-06-01", "content-type": "application/json" },
+          body: JSON.stringify({ model: provCfg.model || "claude-haiku-4-5-20251001", max_tokens: 1500, messages: [{ role: "user", content: prompt }] }),
+        });
+        if (!r.ok) throw new Error("AI error: " + await r.text());
+        const d = await r.json();
+        text = d.content && d.content[0] && d.content[0].text;
+      } else {
+        const baseUrl = provider === "deepseek" ? "https://api.deepseek.com/v1" : "https://api.openai.com/v1";
+        const model = provCfg.model || (provider === "deepseek" ? "deepseek-chat" : "gpt-4o-mini");
+        const r = await fetch(`${baseUrl}/chat/completions`, {
+          method: "POST",
+          headers: { "Authorization": "Bearer " + apiKey, "Content-Type": "application/json" },
+          body: JSON.stringify({ model, messages: [{ role: "user", content: prompt }], max_tokens: 1500 }),
+        });
+        if (!r.ok) throw new Error("AI error: " + await r.text());
+        const d = await r.json();
+        text = d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content;
+      }
+      const m = text && text.match(/\{[\s\S]*\}/);
+      if (!m) throw new Error("No JSON in AI response");
+      return JSON.parse(m[0]);
+    }
+
+    const results = [];
+    const filesToDeploy = {};
+    for (const it of items) {
+      const outIds = (it.outputs || []).map(o => o.id).filter(Boolean);
+      if (!it.slug || !outIds.length) { results.push({ slug: it.slug, ok: false, reason: "no slug/outputs" }); continue; }
+      const outLines = (it.outputs || []).map(o => {
+        const lbl = (it.labels && it.labels[o.id]) || o.id;
+        return `- {${o.id}} = the ${lbl}${o.unit ? ` (unit: ${o.unit})` : ""}`;
+      }).join("\n");
+      const prompt = `You write result-explanation microcopy for an online calculator, in 6 languages.
+
+Calculator: "${it.name}"
+It outputs these values. Use these EXACT ids as placeholders in curly braces:
+${outLines}
+
+Reference meaning (English, may be low quality — use only to understand intent): "${it.en_seed || ""}"
+
+Write ONE short sentence (max ~28 words) per language explaining what the output value(s) mean to a user who just saw a result. Rules:
+- Native and natural in each target language — no English words leaking into non-English languages, no translationese.
+- Name each output with a human phrase, then its value in parentheses, e.g. "the volume ({${outIds[0]}})".
+- Use ONLY these placeholders: ${outIds.map(x => "{" + x + "}").join(", ")}. Never invent other {tokens}. NEVER write a raw id like "${outIds[0]}" as a plain word.
+- No markdown, no surrounding quotes.
+
+Return ONLY a JSON object: {"en":"...","es":"...","fr":"...","de":"...","it":"...","pt":"..."}`;
+
+      let gen;
+      try { gen = await callAI(prompt); } catch (e) { results.push({ slug: it.slug, ok: false, reason: "ai:" + e.message.slice(0, 80) }); continue; }
+
+      // validate + build langs patch
+      const langsPatch = {};
+      // Only flag snake_case ids (e.g. area_lateral) as raw-id-as-word — single common-word
+      // ids like "dot"/"area" are legitimate prose, so don't reject sentences that contain them.
+      const rawIds = outIds.filter(x => x.includes("_"));
+      const rawIdRe = rawIds.length ? new RegExp("(^|[\\s;(])(" + rawIds.map(x => x.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|") + ")(?![^(]*\\))") : null;
+      let wrote = 0;
+      for (const l of Object.keys(LANG_NAMES)) {
+        let s = gen[l];
+        if (!s || typeof s !== "string") continue;
+        s = s.trim().replace(/^"+|"+$/g, "");
+        const tokens = (s.match(/\{([^}]+)\}/g) || []).map(t => t.slice(1, -1));
+        const badTok = tokens.some(t => !outIds.includes(t));
+        const rawId = rawIdRe ? rawIdRe.test(s.replace(/\{[^}]*\}/g, "")) : false;
+        if (badTok || rawId || !tokens.length) continue; // skip invalid — never make it worse
+        langsPatch[l] = { result_context: s };
+        wrote++;
+      }
+      if (!wrote) { results.push({ slug: it.slug, ok: false, reason: "all langs failed validation" }); continue; }
+
+      await db.collection("calc_cms").doc(it.slug).set({ langs: langsPatch }, { merge: true });
+      results.push({ slug: it.slug, ok: true, langsWritten: wrote });
+
+      if (republish) {
+        try {
+          const dsnap = await db.collection("calc_cms").doc(it.slug).get();
+          if (dsnap.exists && dsnap.data().status === "published") {
+            const f = await _buildCalcFiles(it.slug, dsnap.data());
+            Object.assign(filesToDeploy, f);
+          }
+        } catch (e) { /* build failure is non-fatal for the write */ }
+      }
+    }
+
+    let deploy = null;
+    if (republish && Object.keys(filesToDeploy).length) {
+      const r = await _deployPagesToHosting(filesToDeploy, `[RegenRC] ${results.filter(x => x.ok).length} calcs`);
+      deploy = r.error ? { error: r.error } : { deployed: true, files: Object.keys(filesToDeploy).length };
+    }
+    return res.status(200).json({ processed: items.length, ok: results.filter(x => x.ok).length, results, deploy });
+  } catch (e) {
+    console.error("regenResultContextHttp error:", e);
+    return res.status(500).json({ error: e.message });
+  }
+});
+
+/**
+ * aiFixCalcHttp — ONE-CLICK per-calc AI fix used by the Page-1 Tracker "Fix with AI"
+ * button. Accepts any slug (base OR a translated per-language slug), resolves it to the
+ * calc, regenerates native-quality result_context in all 6 langs (validated placeholders),
+ * writes calc_cms, and republishes the calc. POST { slug }
+ */
+exports.aiFixCalcHttp = functions.runWith({ timeoutSeconds: 540, memory: "512MB" })
+  .https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+  if (req.method === "OPTIONS") return res.status(204).send("");
+  if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
+  try {
+    const path = require("path"), fs = require("fs");
+    const inSlug = (req.body && req.body.slug || "").trim();
+    // content:false skips the (slower) long-form article + FAQ regen; default = full fix.
+    const doContent = !(req.body && req.body.content === false);
+    // targeted:true → inspect every field and regenerate ONLY the broken langs/fields.
+    const targeted = !!(req.body && req.body.targeted);
+    if (!inSlug) return res.status(400).json({ error: "Missing slug" });
+
+    // Resolve to the base calc (calc_cms doc id) from any base/translated slug.
+    let index = [];
+    try { const raw = require(path.join(__dirname, "calc-index.json")); index = Array.isArray(raw) ? raw : (raw.calcs || Object.values(raw)); } catch (e) {}
+    let entry = index.find(e => e.slug === inSlug) || index.find(e => e.slugs && Object.values(e.slugs).includes(inSlug));
+    const baseSlug = entry ? entry.slug : inSlug;
+    const id = entry ? String(entry.id) : null;
+
+    // Gather outputs (ids/units), name, formula/inputs and English seed from static calc files
+    // (the engine config lives in static calc.json, NOT in calc_cms).
+    let outputs = [], name = baseSlug, seed = "", labels = {}, engFormula = "", engInputs = 0, engPresets = 0;
+    let engInputsArr = [], engExampleInputs = null, engPresetsArr = [], engRelated = [];
+    if (id) {
+      try {
+        const cj = JSON.parse(fs.readFileSync(path.join(__dirname, "calcs", id, "calc.json"), "utf8"));
+        outputs = (cj.outputs || []).map(o => ({ id: o.id, unit: o.unit }));
+        name = cj.name || name;
+        engFormula = cj.formula || ""; engInputs = (cj.inputs || []).length; engPresets = (cj.comparison_presets || []).length;
+        engInputsArr = cj.inputs || []; engExampleInputs = cj.example_inputs || null; engPresetsArr = cj.comparison_presets || []; engRelated = cj.related || [];
+      } catch (e) {}
+      try { const en = JSON.parse(fs.readFileSync(path.join(__dirname, "calcs", id, "en.json"), "utf8")); name = en.name || name; seed = en.result_context || ""; labels = en.outputs || {}; } catch (e) {}
+    }
+    // Load the static per-language files — the canonical source for name/labels/hints,
+    // since calc_cms usually lacks inputs/inputs_labels (those live only in the static files).
+    const staticLangs = {};
+    if (id) { for (const L of ["en", "es", "fr", "de", "it", "pt"]) { try { staticLangs[L] = JSON.parse(fs.readFileSync(path.join(__dirname, "calcs", id, L + ".json"), "utf8")); } catch (e) {} } }
+    // Fall back to calc_cms outputs if static had none.
+    const docRef = db.collection("calc_cms").doc(baseSlug);
+    const snap0 = await docRef.get();
+    if (!snap0.exists) return res.status(404).json({ error: "Calc not found: " + baseSlug });
+    const doc0 = snap0.data();
+    if (!outputs.length && Array.isArray(doc0.outputs)) outputs = doc0.outputs.map(o => ({ id: o.id, unit: o.unit }));
+    if (!seed) seed = (doc0.langs && doc0.langs.en && doc0.langs.en.result_context) || "";
+    const outIds = outputs.map(o => o.id).filter(Boolean);
+    if (!outIds.length) return res.status(400).json({ error: "No outputs to reference for " + baseSlug });
+
+    // Configured LLM.
+    const cfgDoc = await db.collection("admin_prefs").doc("ai_config").get();
+    const cfg = cfgDoc.exists ? cfgDoc.data() : {};
+    const provider = cfg.active_provider || "anthropic";
+    const provCfg = (cfg.providers || {})[provider] || {};
+    const apiKey = provCfg.api_key || (functions.config().anthropic && functions.config().anthropic.key);
+    if (!apiKey) return res.status(500).json({ error: `No API key for provider ${provider}` });
+
+    // Reusable LLM call → parsed JSON object.
+    async function ai(prompt, maxTokens) {
+      let t;
+      if (provider === "anthropic" || !cfg.active_provider) {
+        const r = await fetch("https://api.anthropic.com/v1/messages", {
+          method: "POST",
+          headers: { "x-api-key": apiKey, "anthropic-version": "2023-06-01", "content-type": "application/json" },
+          body: JSON.stringify({ model: provCfg.model || "claude-haiku-4-5-20251001", max_tokens: maxTokens, messages: [{ role: "user", content: prompt }] }),
+        });
+        if (!r.ok) throw new Error("AI error: " + await r.text());
+        const d = await r.json(); t = d.content && d.content[0] && d.content[0].text;
+      } else {
+        const baseUrl = provider === "deepseek" ? "https://api.deepseek.com/v1" : "https://api.openai.com/v1";
+        const model = provCfg.model || (provider === "deepseek" ? "deepseek-chat" : "gpt-4o-mini");
+        const r = await fetch(`${baseUrl}/chat/completions`, {
+          method: "POST",
+          headers: { "Authorization": "Bearer " + apiKey, "Content-Type": "application/json" },
+          body: JSON.stringify({ model, messages: [{ role: "user", content: prompt }], max_tokens: maxTokens }),
+        });
+        if (!r.ok) throw new Error("AI error: " + await r.text());
+        const d = await r.json(); t = d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content;
+      }
+      const mm = t && t.match(/\{[\s\S]*\}/);
+      if (!mm) throw new Error("No JSON in AI response");
+      return JSON.parse(mm[0]);
+    }
+
+    const outLines = outputs.map(o => `- {${o.id}} = the ${(labels[o.id] || o.id)}${o.unit ? ` (unit: ${o.unit})` : ""}`).join("\n");
+    const prompt = `You write result-explanation microcopy for an online calculator, in 6 languages.
+
+Calculator: "${name}"
+It outputs these values. Use these EXACT ids as placeholders in curly braces:
+${outLines}
+
+Reference meaning (English, may be low quality — use only to understand intent): "${seed}"
+
+Write ONE short sentence (max ~28 words) per language explaining what the output value(s) mean to a user who just saw a result. Rules:
+- Native and natural in each target language — no English words leaking into non-English languages, no translationese.
+- Name each output with a human phrase, then its value in parentheses, e.g. "the volume ({${outIds[0]}})".
+- Use ONLY these placeholders: ${outIds.map(x => "{" + x + "}").join(", ")}. Never invent other {tokens}. NEVER write a raw id like "${outIds[0]}" as a plain word.
+- No markdown, no surrounding quotes.
+
+Return ONLY a JSON object: {"en":"...","es":"...","fr":"...","de":"...","it":"...","pt":"..."}`;
+
+    // ── Detection helpers (targeted mode fixes only what's broken) ──
+    const LANGS6 = ["en", "es", "fr", "de", "it", "pt"];
+    const NAMES = { en: "English", es: "Spanish", fr: "French", de: "German", it: "Italian", pt: "Portuguese" };
+    // Only snake_case ids (area_lateral) count as raw-id-as-word; single common words (dot) are fine.
+    const rawIds = outIds.filter(x => x.includes("_"));
+    const rawIdRe = rawIds.length ? new RegExp("(^|[\\s;(])(" + rawIds.map(x => x.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|") + ")(?![^(]*\\))") : null;
+    const strip = h => String(h || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+    // Distinctive function words per language — used to detect the WRONG language leaking in.
+    const LW = {
+      en: /\b(the|and|with|of|is|for|this|your|value|result|output|calculated|how|use)\b/gi,
+      es: /\b(el|la|los|las|del|con|para|una|un|número|cálculo|cómo|resultado|valor|incluye|soporte|cantidad)\b/gi,
+      pt: /\b(o|os|as|do|da|dos|com|para|uma|número|cálculo|como|resultado|valor|você|são|não|é|quantidade)\b/gi,
+      fr: /\b(le|les|des|avec|pour|une|votre|nombre|calcul|comment|résultat|valeur|est)\b/gi,
+      de: /\b(der|die|das|und|mit|für|eine|ihre|zahl|berechnung|wie|ergebnis|wert|ist)\b/gi,
+      it: /\b(il|gli|con|per|una|numero|calcolo|come|risultato|valore|è|di)\b/gi,
+    };
+    const score = (t, l) => { const m = String(t || "").match(LW[l]); return m ? m.length : 0; };
+    function wrongLang(t, target) {
+      t = String(t || ""); if (t.length < 12) return false;
+      const sc = {}; LANGS6.forEach(l => sc[l] = score(t, l));
+      const best = LANGS6.slice().sort((a, b) => sc[b] - sc[a])[0];
+      return sc[best] >= 2 && best !== target && sc[best] > (sc[target] || 0) + 1;
+    }
+    function rcBroken(t, lang) {
+      if (!t || typeof t !== "string") return true;
+      const tokens = (t.match(/\{([^}]+)\}/g) || []).map(x => x.slice(1, -1));
+      if (!tokens.length) return true;
+      if (tokens.some(x => !outIds.includes(x))) return true;
+      if (rawIdRe && rawIdRe.test(t.replace(/\{[^}]*\}/g, ""))) return true;
+      if (lang !== "en" && wrongLang(t, lang)) return true;
+      return false;
+    }
+    const txtBroken = (t, lang, minLen) => !t || typeof t !== "string" || t.trim().length < (minLen || 1) || (lang !== "en" && wrongLang(t, lang));
+    const arrBroken = (a, lang) => !Array.isArray(a) || a.length < 2 || (lang !== "en" && wrongLang(a.join(" "), lang));
+    function lcBroken(html, faq, lang) {
+      const txt = strip(html);
+      if (txt.length < 400) return true;
+      if (!Array.isArray(faq) || faq.length < 2) return true;
+      if (lang !== "en" && wrongLang(txt.slice(0, 600), lang)) return true;
+      return false;
+    }
+
+    const langs0 = doc0.langs || {};
+    // Per-field broken sets. In FULL mode everything is flagged for regeneration.
+    const brk = { rc: {}, meta: {}, steps: {}, mistakes: {}, lc: {} };
+    for (const l of LANGS6) {
+      const L = langs0[l] || {};
+      brk.rc[l]       = targeted ? rcBroken(L.result_context, l) : true;
+      brk.meta[l]     = targeted ? (txtBroken(L.seo_title, l, 10) || txtBroken(L.seo_description, l, 30)) : true;
+      brk.steps[l]    = targeted ? arrBroken(L.steps, l) : true;
+      brk.mistakes[l] = targeted ? arrBroken(L.mistakes, l) : true;
+      brk.lc[l]       = targeted ? lcBroken(L.long_content, L.faq, l) : true;
+    }
+
+    // ── Engine / functional CHECKS (report only; the math config is never modified,
+    // except `related` internal links which we top up when too few). ──
+    const inputsArr = engInputsArr.length ? engInputsArr : (doc0.inputs || []);
+    const outputsArr = outputs.length ? outputs : (doc0.outputs || []);
+    // Prefer calc_cms presets (may hold prior auto-repairs) so re-runs are idempotent.
+    const presetsArr = (Array.isArray(doc0.comparison_presets) && doc0.comparison_presets.length) ? doc0.comparison_presets : engPresetsArr;
+    const formulaStr = engFormula || doc0.formula || "";
+    const outIdList = outputsArr.map(o => o.id).filter(Boolean);
+    const inpOptions = i => i.options || i.choices || (Array.isArray(i.unit_options) && i.type !== "number" ? i.unit_options : null);
+    function synthInputs() {
+      // Best-guess inputs when a calc lacks defaults: select→first option, numeric→default/mid/min/1.
+      const s = {};
+      inputsArr.forEach(i => {
+        if (i.default != null) { s[i.id] = i.default; return; }
+        const opts = inpOptions(i);
+        if (opts && opts.length) { s[i.id] = (opts[0] && opts[0].value != null) ? opts[0].value : opts[0]; return; }
+        if (typeof i.min === "number" && typeof i.max === "number" && i.max < 1e9) s[i.id] = i.min > 0 ? +(i.min + (i.max - i.min) * 0.4).toPrecision(4) : +((i.max) * 0.4).toPrecision(4);
+        else if (typeof i.min === "number" && i.min > 0) s[i.id] = i.min;
+        else s[i.id] = 10;
+      });
+      return s;
+    }
+    // Valid = a finite number, any string (incl. optional-empty "nota"), or an array/object
+    // (e.g. an amortization "schedule"). Only undefined/null/NaN/Infinity is a real failure.
+    const validOut = v => v !== undefined && v !== null && !(typeof v === "number" && !isFinite(v));
+    const allValid = r => r && !r.error && outIdList.length && outIdList.every(id => validOut(r[id]));
+    // Whether the calc has REAL sample inputs (author-provided), vs only synthesized guesses.
+    const hasRealInputs = !!(engExampleInputs && Object.keys(engExampleInputs).length) || presetsArr.length > 0 || inputsArr.some(i => i.default != null);
+    // #1 does the math actually compute? + #6 verified example numbers for the article.
+    let compute = { ok: null, msg: "no formula" };
+    let hasInterpretation = !!doc0.gauge; // gauge config counts as interpretation
+    const CAT_KEY = /^(categor|category|categorie|categoria_imc|nivel|rating|clasific|estado|status|zona\d?|zone\d?|z\d)$/i;
+    const verified = [];
+    if (formulaStr) {
+      let fn = null;
+      try { fn = new Function("inputs", '"use strict";' + formulaStr); } catch (e) { compute = { ok: false, msg: "syntax: " + e.message.slice(0, 80) }; }
+      if (fn) {
+        try {
+          // Try several input sets; the calc "computes" if ANY real set yields valid outputs.
+          const trials = [];
+          if (engExampleInputs && Object.keys(engExampleInputs).length) trials.push({ real: true, iv: Object.assign(synthInputs(), engExampleInputs) });
+          presetsArr.slice(0, 3).forEach(p => { const pv = (p.inputs && typeof p.inputs === "object") ? p.inputs : Object.fromEntries(Object.entries(p).filter(([k]) => !["label", "_label", "inputs"].includes(k))); trials.push({ real: true, iv: Object.assign(synthInputs(), pv) }); });
+          trials.push({ real: hasRealInputs, iv: synthInputs() });
+          let passed = false, anyReal = false, sawError = false;
+          for (const t of trials) {
+            let rr; try { rr = fn(t.iv); } catch (e) { continue; }
+            if (rr && typeof rr === "object" && Object.keys(rr).some(k => CAT_KEY.test(k))) hasInterpretation = true;
+            if (t.real) anyReal = true;
+            if (rr && rr.error) sawError = true;
+            if (allValid(rr)) { passed = true; if (verified.length < 3) verified.push(`inputs {${Object.entries(t.iv).slice(0, 6).map(([k, v]) => k + ":" + v).join(", ")}} → ${outIdList.map(id => id + "=" + (typeof rr[id] === "object" ? "[…]" : rr[id])).join(", ")}`); }
+          }
+          if (passed) compute = { ok: true, msg: "ok" };
+          else if (anyReal) compute = { ok: false, msg: sawError ? "returns error for sample inputs" : "non-finite/missing output" };
+          else compute = { ok: null, msg: "untested (no defaults/example inputs)" };
+        } catch (e) { compute = { ok: false, msg: "threw: " + e.message.slice(0, 80) }; }
+      }
+    }
+    // #2 preset input values within each input's min/max (and present + numeric).
+    const presetIssues = [];
+    presetsArr.forEach((p, pi) => {
+      const pv = (p.inputs && typeof p.inputs === "object") ? p.inputs : Object.fromEntries(Object.entries(p).filter(([k]) => !["label", "_label", "inputs"].includes(k)));
+      inputsArr.forEach(inp => {
+        // Only sanity-check NUMERIC inputs; select/text inputs (options) hold non-numeric values.
+        const isNumeric = (inp.type ? inp.type === "number" : true) && !(inp.options || inp.choices);
+        if (!isNumeric) return;
+        const v = pv[inp.id];
+        if (v === undefined || v === null || v === "") { presetIssues.push(`#${pi} missing ${inp.id}`); return; }
+        const n = parseFloat(v);
+        if (isNaN(n)) presetIssues.push(`#${pi} ${inp.id} not numeric`);
+        else if (typeof inp.min === "number" && n < inp.min) presetIssues.push(`#${pi} ${inp.id}<min`);
+        else if (typeof inp.max === "number" && inp.max < 1e11 && n > inp.max) presetIssues.push(`#${pi} ${inp.id}>max`);
+      });
+    });
+    // #2b auto-repair preset values that are out of range only because of a clean unit-scale
+    // error (e.g. block_height 0.2 in metres sitting in a cm field with min 10 → ×100 = 20).
+    let presetsFixed = 0;
+    if (presetIssues.length && presetsArr.length) {
+      const FACTORS = [100, 1000, 10, 0.1, 0.01, 0.001];
+      const repaired = presetsArr.map(p => {
+        const isFlat = !(p.inputs && typeof p.inputs === "object");
+        const pv = isFlat ? Object.fromEntries(Object.entries(p).filter(([k]) => !["label", "_label", "inputs"].includes(k))) : { ...p.inputs };
+        let touched = false;
+        for (const inp of inputsArr) {
+          const isNumeric = (inp.type ? inp.type === "number" : true) && !(inp.options || inp.choices);
+          if (!isNumeric) continue;
+          const v = parseFloat(pv[inp.id]); if (isNaN(v)) continue;
+          const lo = typeof inp.min === "number" ? inp.min : -Infinity;
+          const hi = (typeof inp.max === "number" && inp.max < 1e11) ? inp.max : Infinity;
+          if (v >= lo && v <= hi) continue;
+          let done = false;
+          for (const f of FACTORS) { const nv = +(v * f).toPrecision(6); if (nv >= lo && nv <= hi) { pv[inp.id] = nv; touched = true; done = true; break; } }
+          // Not a clean unit-scale error → clamp into the valid range so the example still works.
+          if (!done && isFinite(lo) && isFinite(hi)) { pv[inp.id] = v < lo ? lo : hi; touched = true; }
+        }
+        if (!touched) return p;
+        presetsFixed++;
+        return isFlat ? { ...(p._label ? { _label: p._label } : {}), ...(p.label ? { label: p.label } : {}), ...pv } : { ...p, inputs: pv };
+      });
+      if (presetsFixed) await docRef.set({ comparison_presets: repaired }, { merge: true });
+    }
+    // #4 generic/placeholder output units.
+    const genericUnits = outputsArr.filter(o => ["u", "u2", "u3", "u²", "u³", ""].includes(String(o.unit || "").trim())).map(o => o.id);
+    // #4b preset examples that DON'T produce a valid result (e.g. pH with H+=0 → log(0)),
+    // plus junk presets (all-zero / generic "Caso N" labels). Report-only for now.
+    let badPresets = 0, junkPresetLabels = 0;
+    if (formulaStr && presetsArr.length) {
+      let pfn = null; try { pfn = new Function("inputs", '"use strict";' + formulaStr); } catch (e) {}
+      const getPv = p => (p.inputs && typeof p.inputs === "object") ? p.inputs : Object.fromEntries(Object.entries(p).filter(([k]) => !["label", "_label", "inputs"].includes(k)));
+      // Simulate what actually happens when a user clicks the preset: its values fill the
+      // form, other fields keep their DEFAULT (no synthetic guesses). Catches presets that
+      // don't set the needed inputs (pH: presets don't provide H+ → empty → log(0) broken).
+      const defsOnly = {}; inputsArr.forEach(i => { if (i.default != null) defsOnly[i.id] = i.default; });
+      if (pfn) presetsArr.forEach(p => { try { if (!allValid(pfn(Object.assign({}, defsOnly, getPv(p))))) badPresets++; } catch (e) { badPresets++; } });
+      junkPresetLabels = presetsArr.filter(p => /^(caso|case|ejemplo|example|preset)\s*\d+$/i.test(String(p._label || p.label || "").trim())).length;
+    }
+    // #5 internal links — top up `related` to >=3 from same block/category if short.
+    let relatedCount = (Array.isArray(doc0.related) && doc0.related.length) || (engRelated && engRelated.length) || 0;
+    let relatedFilled = 0;
+    if (relatedCount < 3 && entry && index.length) {
+      try {
+        const block = entry.block || entry.block_slug || entry.category;
+        const cur = new Set((Array.isArray(doc0.related) && doc0.related.length ? doc0.related : engRelated).map(String));
+        for (const e of index) { if (cur.size >= 4) break; if (!e || String(e.id) === String(id)) continue; if ((e.block && block && e.block === block) || (e.category && entry.category && e.category === entry.category)) cur.add(String(e.id)); }
+        const merged = [...cur];
+        if (merged.length > relatedCount) { await docRef.set({ related: merged }, { merge: true }); relatedFilled = merged.length - relatedCount; relatedCount = merged.length; }
+      } catch (e) {}
+    }
+    const engineReport = {
+      formula: formulaStr ? "present" : "MISSING",
+      inputs: inputsArr.length, outputs: outputsArr.length, presets: presetsArr.length,
+      compute, presetIssues, presetsFixed, badPresets, junkPresetLabels, genericUnits, relatedCount, relatedFilled, hasInterpretation,
+      needsExample: !(engExampleInputs && Object.keys(engExampleInputs).length) && !inputsArr.some(i => i.default != null),
+      mathUntouched: true,
+    };
+
+    // ── FIX 1: result_context (one call for all needed langs, write only broken ones) ──
+    const langsPatch = {}; let rcWrote = 0;
+    const needRC = LANGS6.filter(l => brk.rc[l]);
+    if (needRC.length) {
+      const gen = await ai(prompt, 1500);
+      for (const l of needRC) {
+        let s = gen[l]; if (!s || typeof s !== "string") continue;
+        s = s.trim().replace(/^"+|"+$/g, "");
+        const tokens = (s.match(/\{([^}]+)\}/g) || []).map(t => t.slice(1, -1));
+        if (!tokens.length || tokens.some(t => !outIds.includes(t)) || (rawIdRe && rawIdRe.test(s.replace(/\{[^}]*\}/g, "")))) continue;
+        (langsPatch[l] = langsPatch[l] || {}).result_context = s; rcWrote++;
+      }
+    }
+
+    // ── FIX 2: SEO title/meta + steps + mistakes (per broken lang) ──
+    let metaWrote = 0;
+    const needMeta = LANGS6.filter(l => brk.meta[l] || brk.steps[l] || brk.mistakes[l]);
+    for (const l of needMeta) {
+      try {
+        const mp = `You are writing calculator microcontent in ${NAMES[l]} for "${name}". Return ONLY JSON:
+{"seo_title":"...","seo_description":"...","steps":["...","...","..."],"mistakes":["...","...","..."]}
+Rules: native ${NAMES[l]} with no other language leaking in. seo_title <= 60 chars, phrased like a real search (e.g. "how to calculate ..."). seo_description <= 155 chars and include a number. steps = 3-5 short imperative how-to steps. mistakes = 3-4 common mistakes to avoid. No markdown, no extra keys.`;
+        const g = await ai(mp, 1200);
+        const patch = langsPatch[l] || {};
+        if (brk.meta[l]) {
+          if (g.seo_title && !wrongLang(g.seo_title, l)) patch.seo_title = String(g.seo_title).trim();
+          if (g.seo_description && !wrongLang(g.seo_description, l)) patch.seo_description = String(g.seo_description).trim();
+        }
+        if (brk.steps[l] && Array.isArray(g.steps) && g.steps.length >= 2) patch.steps = g.steps.map(x => String(x));
+        if (brk.mistakes[l] && Array.isArray(g.mistakes) && g.mistakes.length >= 2) patch.mistakes = g.mistakes.map(x => String(x));
+        if (Object.keys(patch).length) { langsPatch[l] = patch; metaWrote++; }
+      } catch (e) { /* skip a lang that fails */ }
+    }
+
+    // ── FIX 2.5: UI strings — calc name, short desc, input/output labels, preset labels ──
+    // (the form labels a visitor reads first; translate from the English canonical). ──
+    let uiWrote = 0;
+    const sEn = staticLangs.en || {};
+    const enL = langs0.en || {};
+    let enName = sEn.name || enL.name || name;
+    let enDesc = sEn.description || sEn.desc || enL.desc || enL.description || "";
+    // English canonical label maps come from the static en.json (inputs/outputs), which is
+    // where they actually live; fall back to humanized ids from the static inputs/outputs.
+    let enInLabels = (sEn.inputs && Object.keys(sEn.inputs).length) ? sEn.inputs
+      : (enL.inputs_labels && Object.keys(enL.inputs_labels).length) ? enL.inputs_labels
+      : Object.fromEntries(inputsArr.map(i => [i.id, humanizeId(i.id)]));
+    let enOutLabels = (sEn.outputs && Object.keys(sEn.outputs).length) ? sEn.outputs
+      : (enL.outputs_labels && Object.keys(enL.outputs_labels).length) ? enL.outputs_labels
+      : Object.fromEntries(outputsArr.map(o => [o.id, (labels[o.id] || humanizeId(o.id))]));
+    const presetLabelsEN = presetsArr.map(p => p._label || p.label || "");
+    const enExampleLabel = sEn.example_label || enL.example_label || "";
+    const enRangeHints = (sEn.range_hints && typeof sEn.range_hints === "object" && !Array.isArray(sEn.range_hints)) ? sEn.range_hints : {};
+    // The labels a visitor actually sees for lang l = calc_cms override if present, else static {l}.json.
+    function curLabels(l, kind) { const L = langs0[l] || {}, S = staticLangs[l] || {}; const cms = kind === "in" ? L.inputs_labels : L.outputs_labels; if (cms && Object.keys(cms).length) return cms; return (kind === "in" ? S.inputs : S.outputs) || {}; }
+    // Spanish-specific construction/measurement nouns that must NOT appear in other languages
+    // (this site's source is Spanish, so leaks are almost always Spanish). High-precision list.
+    const SPANISH_LEAK = /\b(encimera|salpicadero|espesor|anchura|profundidad|recortes|hueco|ladrillo|desperdicio|montantes?|barrotes?|pasamanos|tabique|pared|muro|caudal|losa|masillar|pasadas?|acometida|forjado|vigueta|sifón|sumidero|zócalo|rejilla|difusor|ahorro|mensual|anual|tama[nñ]o|muestra|confianza|plazo|cuota|ingreso|gasto|deuda|precio|cantidad|consumo|superficie|velocidad|distancia|energia|energía|potencia|aceleraci[oó]n|volumen|peso|altura|ancho|largo|alto|a[nñ]os|meses|dias|días|horas|tasa)\b/i;
+    // A single string value is BAD for lang l if: identical to the English canonical
+    // (untranslated), majority-foreign (wrongLang), or contains a Spanish noun leak.
+    // A model told to strip Spanish from an English string sometimes "fixes" the letters
+    // "es" INSIDE a word: Zones -> "Zon is", Series -> "Seri is", Calories -> "Calori is".
+    // That reaches the <title> and <h1>, so reject it. Only for short label/name values
+    // with no sentence punctuation — real prose may legitimately contain " is ".
+    const MANGLED_WORD = /(?!^)[A-Z][a-z]{2,}s+(?:is|es|as|os)/;
+    const looksMangled = v => {
+      const t = String(v || '').trim();
+      if (!t || t.length > 60 || /[.!?]/.test(t)) return false;
+      return MANGLED_WORD.test(t);
+    };
+    function badVal(v, l, enV) {
+      if (!v || typeof v !== "string") return false;
+      const t = v.trim(); if (!t) return false;
+      if (looksMangled(t)) return true;
+      if (l !== "en" && enV && t.toLowerCase() === String(enV).trim().toLowerCase()) return true;
+      if (l !== "en" && wrongLang(t, l)) return true;
+      if (l !== "es" && SPANISH_LEAK.test(t)) return true;
+      return false;
+    }
+    const mapBad = (cur, en, l) => Object.keys(en).some(id => badVal((cur || {})[id], l, en[id])) || (Object.keys(en).length && !Object.keys(cur || {}).length);
+    function uiBrokenFor(l) {
+      if (!targeted) return l !== "en";
+      const L = langs0[l] || {}, S = staticLangs[l] || {};
+      if (Object.keys(enInLabels).length && mapBad(curLabels(l, "in"), enInLabels, l)) return true;
+      if (Object.keys(enOutLabels).length && mapBad(curLabels(l, "out"), enOutLabels, l)) return true;
+      if (badVal(L.name || S.name, l, enName)) return true;
+      if (badVal(L.desc || S.description || S.desc, l, enDesc)) return true;
+      if (presetLabelsEN.some(Boolean) && !(Array.isArray(L.preset_labels) && L.preset_labels.length)) return true;
+      if (enExampleLabel && badVal(L.example_label || S.example_label, l, enExampleLabel)) return true;
+      return false;
+    }
+    // ── FIX 2.4: repair the ENGLISH canonical FIRST. English labels are often just the raw
+    // (Spanish) input id — e.g. {"ahorro_mensual":"ahorro_mensual"} renders as "Ahorro mensual"
+    // on the English page. Everything else translates FROM English, so fix it before FIX 2.5. ──
+    let enFixed = 0;
+    const isRawId = (v, k) => !v || String(v).trim() === k || String(v).trim().toLowerCase() === String(k).toLowerCase().replace(/_/g, " ");
+    const enBad = (v, k) => isRawId(v, k) || SPANISH_LEAK.test(String(v || "")) || _MOJI_LEAD.test(String(v || ""));
+    const badIn = Object.keys(enInLabels).filter(k => enBad(enInLabels[k], k));
+    const badOut = Object.keys(enOutLabels).filter(k => enBad(enOutLabels[k], k));
+    const nameBad = SPANISH_LEAK.test(enName) || _MOJI_LEAD.test(enName);
+    const descBad = !enDesc || /Free online calculator with formula, examples and step-by-step guide/i.test(enDesc) || SPANISH_LEAK.test(enDesc) || _MOJI_LEAD.test(enDesc);
+    if (badIn.length || badOut.length || nameBad || descBad) {
+      try {
+        const unitOf = id => { const i = inputsArr.find(x => x.id === id) || outputsArr.find(x => x.id === id); return i && i.unit ? " (unit: " + i.unit + ")" : ""; };
+        const ep = `You are naming the UI fields of an online calculator, in ENGLISH.
+
+Calculator: "${enName}"
+Formula (for context): ${String(formulaStr).slice(0, 400) || "n/a"}
+
+Give a short, natural ENGLISH label for each field id below. The ids are often Spanish — translate their MEANING, never keep the raw id, never keep Spanish words. Keep unit symbols out of the label.
+INPUT ids: ${JSON.stringify(badIn.length ? badIn : Object.keys(enInLabels))}${badIn.map(id => "\n  - " + id + unitOf(id)).join("")}
+OUTPUT ids: ${JSON.stringify(badOut.length ? badOut : Object.keys(enOutLabels))}${badOut.map(id => "\n  - " + id + unitOf(id)).join("")}
+
+Also give: "name" = the calculator's English name, and "desc" = ONE specific sentence (max 20 words) describing what it calculates (NOT a generic template).
+
+Return ONLY JSON: {"inputs_labels":{"<id>":"<English label>"},"outputs_labels":{"<id>":"<English label>"},"name":"...","desc":"..."}`;
+        const g = await ai(ep, 1200);
+        const patch = {};
+        if (g.inputs_labels && typeof g.inputs_labels === "object") {
+          const m = {}; for (const k of badIn) { const v = g.inputs_labels[k]; if (v && !enBad(v, k)) m[k] = String(v).trim(); }
+          if (Object.keys(m).length) { enInLabels = Object.assign({}, enInLabels, m); patch.inputs_labels = enInLabels; enFixed += Object.keys(m).length; }
+        }
+        if (g.outputs_labels && typeof g.outputs_labels === "object") {
+          const m = {}; for (const k of badOut) { const v = g.outputs_labels[k]; if (v && !enBad(v, k)) m[k] = String(v).trim(); }
+          if (Object.keys(m).length) { enOutLabels = Object.assign({}, enOutLabels, m); patch.outputs_labels = enOutLabels; enFixed += Object.keys(m).length; }
+        }
+        if (nameBad && g.name && !SPANISH_LEAK.test(g.name)) { enName = String(g.name).trim(); patch.name = enName; enFixed++; }
+        if (descBad && g.desc && !SPANISH_LEAK.test(g.desc)) { enDesc = String(g.desc).trim(); patch.desc = enDesc; enFixed++; }
+        if (Object.keys(patch).length) langsPatch.en = Object.assign(langsPatch.en || {}, patch);
+      } catch (e) { /* EN repair is best-effort */ }
+    }
+
+    const needUI = LANGS6.filter(l => l !== "en" && uiBrokenFor(l));
+    for (const l of needUI) {
+      try {
+        const extra = (enExampleLabel || Object.keys(enRangeHints).length)
+          ? `,"example_label":${JSON.stringify(enExampleLabel)},"range_hints":${JSON.stringify(enRangeHints)}` : "";
+        const up = `Translate these calculator UI strings for "${enName}" into ${NAMES[l]}. Keep the JSON keys and array order identical; translate only the human-readable values into natural ${NAMES[l]} with no English or other language left in. Keep unit symbols (m², kg, mm) and any numbers as-is. Return ONLY JSON with this exact shape:
+{"name":${JSON.stringify(enName)},"desc":${JSON.stringify(enDesc || enName)},"inputs_labels":${JSON.stringify(enInLabels)},"outputs_labels":${JSON.stringify(enOutLabels)},"preset_labels":${JSON.stringify(presetLabelsEN)}${extra}}`;
+        const g = await ai(up, 1500);
+        const patch = langsPatch[l] || {};
+        if (g.name && !badVal(g.name, l, enName)) patch.name = String(g.name).trim();
+        if (g.desc && !badVal(g.desc, l, enDesc)) patch.desc = String(g.desc).trim();
+        // Merge label maps but drop any value the AI left bad (untranslated/leaked).
+        const cleanMap = (m, en) => { const o = {}; for (const k of Object.keys(m || {})) { const v = String(m[k]); if (!badVal(v, l, en[k])) o[k] = v; } return o; };
+        if (g.inputs_labels && typeof g.inputs_labels === "object" && !Array.isArray(g.inputs_labels)) { const cm = cleanMap(g.inputs_labels, enInLabels); if (Object.keys(cm).length) patch.inputs_labels = cm; }
+        if (g.outputs_labels && typeof g.outputs_labels === "object" && !Array.isArray(g.outputs_labels)) { const cm = cleanMap(g.outputs_labels, enOutLabels); if (Object.keys(cm).length) patch.outputs_labels = cm; }
+        if (Array.isArray(g.preset_labels) && g.preset_labels.length) patch.preset_labels = g.preset_labels.map(x => String(x));
+        if (g.example_label && !badVal(g.example_label, l, enExampleLabel)) patch.example_label = String(g.example_label).trim();
+        if (g.range_hints && typeof g.range_hints === "object" && !Array.isArray(g.range_hints)) patch.range_hints = g.range_hints;
+        if (Object.keys(patch).length) { langsPatch[l] = patch; uiWrote++; }
+      } catch (e) { /* skip a lang that fails */ }
+    }
+
+    if (Object.keys(langsPatch).length) await docRef.set({ langs: langsPatch }, { merge: true });
+
+    // ── FIX 3: long-form article + FAQ (EN source reused if clean, translate broken langs) ──
+    let contentLangs = 0;
+    const needLC = LANGS6.filter(l => brk.lc[l]);
+    if (doContent && needLC.length) {
+      try {
+        const inputsList = (doc0.inputs || []).map(i => i.id + (i.unit ? " (" + i.unit + ")" : "")).join(", ");
+        const outputsList = outputs.map(o => o.id + (o.unit ? " (" + o.unit + ")" : "")).join(", ");
+        const formula = doc0.formula || "";
+        const cPatch = {};
+        let enLong = (langs0.en && langs0.en.long_content) || "";
+        let enFaq = (langs0.en && Array.isArray(langs0.en.faq)) ? langs0.en.faq : [];
+        const enClean = !brk.lc.en && strip(enLong).length >= 400;
+        if (!enClean) {
+          const genPrompt = `You are writing high-quality calculator content in English for a calculator website.
+
+Calculator: "${name}"
+Formula: ${formula || "n/a"}
+Inputs: ${inputsList || "n/a"}
+Outputs: ${outputsList || "n/a"}
+
+Write a complete long-form article in English with:
+- A TL;DR first sentence directly answering how to use this calculator
+- 6 H2 sections: "How to Use", "Formula Explained", "Practical Examples" (3 real examples with numbers), "When to Use This Calculator", "Tips and Common Mistakes", "Understanding the Results"
+- Each section at least 2 full paragraphs
+- Total 800-1200 words
+- Use single quotes for any HTML attributes
+${verified.length ? `\nIMPORTANT — in "Practical Examples" use ONLY these VERIFIED calculations (computed by the real formula; do not invent other numbers):\n${verified.join("\n")}\n` : ""}
+Also write 4 FAQ items in English that users would realistically search for. Double-check every number you write is arithmetically correct.
+
+Return ONLY valid JSON: {"long_content":"<h2>...</h2><p>...</p>","faq":[{"q":"...","a":"..."},{"q":"...","a":"..."},{"q":"...","a":"..."},{"q":"...","a":"..."}]}`;
+          const enC = await ai(genPrompt, 6000);
+          enLong = (enC.long_content || "").trim();
+          enFaq = Array.isArray(enC.faq) ? enC.faq : [];
+          if (enLong && brk.lc.en) { cPatch.en = { long_content: enLong, faq: enFaq }; contentLangs++; }
+        }
+        if (enLong) {
+          for (const l of needLC.filter(x => x !== "en")) {
+            try {
+              const tPrompt = `Translate this calculator article and its FAQ from English into ${NAMES[l]}. Keep the HTML structure and tags identical — translate only the human-readable text. Use single quotes for HTML attributes. Natural, native ${NAMES[l]} with no English left over.
+
+ARTICLE_HTML: ${enLong}
+
+FAQ_JSON: ${JSON.stringify(enFaq)}
+
+Return ONLY valid JSON: {"long_content":"<h2>...</h2>...","faq":[{"q":"...","a":"..."}]}`;
+              const t = await ai(tPrompt, 6000);
+              if (t.long_content) { cPatch[l] = { long_content: String(t.long_content).trim(), faq: Array.isArray(t.faq) ? t.faq : enFaq }; contentLangs++; }
+            } catch (e) { /* skip a language that fails */ }
+          }
+        }
+        if (Object.keys(cPatch).length) await docRef.set({ langs: cPatch }, { merge: true });
+      } catch (e) { console.warn("aiFixCalcHttp content regen skipped:", e.message); }
+    }
+
+    const changed = rcWrote + metaWrote + uiWrote + enFixed + contentLangs + (engineReport.relatedFilled || 0) + (engineReport.presetsFixed || 0);
+    // Republish only when something actually changed and the calc is published.
+    let deployed = false;
+    if (changed) {
+      const snap1 = await docRef.get();
+      if (snap1.exists && snap1.data().status === "published") {
+        const files = await _buildCalcFiles(baseSlug, snap1.data());
+        if (Object.keys(files).length) { const r = await _deployPagesToHosting(files, `[AIFix] ${baseSlug}`); deployed = !r.error; }
+      }
+    }
+    // Record this run in Firestore so the dashboard Page-1 Tracker can show it
+    // (keyed by base slug; stores the per-language translated slugs so the tracker
+    // can badge every language row of this calc).
+    if (changed) {
+      try {
+        await db.collection("ai_fixes").doc(baseSlug).set({
+          base: baseSlug, name,
+          at: admin.firestore.FieldValue.serverTimestamp(),
+          mode: targeted ? "targeted" : "full",
+          rc: rcWrote, meta: metaWrote, ui: uiWrote, content: contentLangs, deployed,
+          langs: (entry && entry.slugs) ? entry.slugs : {},
+        }, { merge: true });
+      } catch (e) { /* logging is best-effort */ }
+    }
+
+    return res.status(200).json({
+      ok: true, slug: baseSlug, mode: targeted ? "targeted" : "full",
+      changed: changed > 0, alreadyClean: targeted && changed === 0,
+      rcWrote, metaWrote, uiWrote, enFixed, contentLangs, deployed, engine: engineReport,
+    });
+  } catch (e) {
+    console.error("aiFixCalcHttp error:", e);
     return res.status(500).json({ error: e.message });
   }
 });
@@ -1057,106 +2245,21 @@ exports.publishCalcToHosting = functions.runWith({ timeoutSeconds: 300, memory: 
     const data = doc.data();
     if (data.status !== "published") return res.status(400).json({ error: "Calculator must be published first" });
 
-    // 2. Generate HTML for all available languages
-    const newFiles = {}; // { "/en/slug/": htmlBuffer, ... }
-    for (const lang of LANGS) {
-      if (!data.langs || !data.langs[lang] || !data.langs[lang].name) continue;
-      const langSlug = (data.langs[lang] && data.langs[lang].slug) || slug;
-      const html = buildPage(slug, lang, data);
-      const gzipped = await gzip(Buffer.from(html, "utf8"));
-      const hash = crypto.createHash("sha256").update(gzipped).digest("hex");
-      newFiles[`/${lang}/${langSlug}/`] = { gzipped, hash };
-    }
+    // 2. Generate HTML for all available languages (via the shared builder,
+    // which restores static calcs' inputs/formula so the calculator works).
+    const newFiles = await _buildCalcFiles(slug, data);
 
     if (Object.keys(newFiles).length === 0) {
       return res.status(400).json({ error: "No language content available to publish" });
     }
 
-    // 3. Get OAuth token
-    const tokenResult = await admin.app().options.credential.getAccessToken();
-    const token = tokenResult.access_token;
-    const headers = { "Authorization": "Bearer " + token, "Content-Type": "application/json" };
+    // Deploy via the shared chunked helper (handles the 15k-file populateFiles
+    // limit + full-manifest cloning so the rest of the site is preserved).
+    const result = await _deployPagesToHosting(newFiles, `Publish: ${slug}`);
+    if (result.error) throw new Error(result.error);
 
-    // 4. Get current release to clone its version
-    const releasesRes = await fetch(`${HOSTING_BASE}/sites/${SITE}/releases?pageSize=1`, { headers });
-    if (!releasesRes.ok) throw new Error("Failed to get releases: " + await releasesRes.text());
-    const releasesData = await releasesRes.json();
-    const currentVersionName = releasesData.releases && releasesData.releases[0] && releasesData.releases[0].version && releasesData.releases[0].version.name;
-    if (!currentVersionName) throw new Error("Could not determine current version");
-    const currentConfig = releasesData.releases[0].version.config || {};
-
-    // 5. Collect ALL current file hashes (paginated)
-    const allCurrentFiles = {};
-    let pageToken = null;
-    do {
-      const url = `${HOSTING_BASE}/${currentVersionName}/files?pageSize=1000${pageToken ? "&pageToken=" + pageToken : ""}`;
-      const filesRes = await fetch(url, { headers });
-      if (!filesRes.ok) throw new Error("Failed to list files: " + await filesRes.text());
-      const filesData = await filesRes.json();
-      (filesData.files || []).forEach(f => { allCurrentFiles[f.path] = f.hash; });
-      pageToken = filesData.nextPageToken || null;
-    } while (pageToken);
-
-    // 6. Build merged file map: old files + new CMS pages (overwrite old static ones)
-    const mergedFiles = { ...allCurrentFiles };
-    for (const [path, { hash }] of Object.entries(newFiles)) {
-      mergedFiles[path] = hash;
-      // Also remove trailing-slash variant if present (Firebase uses both)
-      const withoutSlash = path.replace(/\/$/, "");
-      if (withoutSlash !== path && mergedFiles[withoutSlash]) mergedFiles[withoutSlash] = hash;
-    }
-
-    // 7. Create new version with same config
-    const createRes = await fetch(`${HOSTING_BASE}/sites/${SITE}/versions`, {
-      method: "POST",
-      headers,
-      body: JSON.stringify({ config: currentConfig }),
-    });
-    if (!createRes.ok) throw new Error("Failed to create version: " + await createRes.text());
-    const newVersion = await createRes.json();
-    const newVersionName = newVersion.name;
-
-    // 8. Populate files
-    const populateRes = await fetch(`${HOSTING_BASE}/${newVersionName}:populateFiles`, {
-      method: "POST",
-      headers,
-      body: JSON.stringify({ files: mergedFiles }),
-    });
-    if (!populateRes.ok) throw new Error("Failed to populate files: " + await populateRes.text());
-    const populateData = await populateRes.json();
-    const uploadUrl = populateData.uploadUrl;
-    const uploadRequired = populateData.uploadRequiredHashes || [];
-
-    // 9. Upload only the new files that Firebase doesn't have cached
-    for (const [path, { gzipped, hash }] of Object.entries(newFiles)) {
-      if (!uploadRequired.includes(hash)) continue;
-      const uploadRes = await fetch(`${uploadUrl}/${hash}`, {
-        method: "POST",
-        headers: { "Authorization": "Bearer " + token, "Content-Type": "application/octet-stream" },
-        body: gzipped,
-      });
-      if (!uploadRes.ok) throw new Error(`Failed to upload ${path}: ${await uploadRes.text()}`);
-    }
-
-    // 10. Finalize version
-    const finalizeRes = await fetch(`${HOSTING_BASE}/${newVersionName}?update_mask=status`, {
-      method: "PATCH",
-      headers,
-      body: JSON.stringify({ status: "FINALIZED" }),
-    });
-    if (!finalizeRes.ok) throw new Error("Failed to finalize version: " + await finalizeRes.text());
-
-    // 11. Create release
-    const releaseRes = await fetch(`${HOSTING_BASE}/sites/${SITE}/releases?versionName=${newVersionName}`, {
-      method: "POST",
-      headers,
-      body: JSON.stringify({}),
-    });
-    if (!releaseRes.ok) throw new Error("Failed to create release: " + await releaseRes.text());
-
-    const pagesUpdated = Object.keys(newFiles);
-    console.log("publishCalcToHosting success:", slug, pagesUpdated);
-    return res.status(200).json({ success: true, pagesUpdated, versionName: newVersionName });
+    console.log("publishCalcToHosting success:", slug, result.pagesUpdated);
+    return res.status(200).json({ success: true, pagesUpdated: result.pagesUpdated, versionName: result.versionName });
 
   } catch (e) {
     console.error("publishCalcToHosting error:", e);
@@ -1186,11 +2289,14 @@ exports.sitemap = functions.https.onRequest(async (req, res) => {
     const urls = [];
 
     // CMS calcs (priority 0.9 — freshly generated, autopilot-maintained)
+    const slugIdx = _getSlugIndex();
     for (const calc of cmsCalcs) {
       const updated = calc.updated_at ? new Date(calc.updated_at.seconds * 1000).toISOString().slice(0, 10) : now;
+      const smap = slugIdx[calc.slug] || slugIdx[String(calc.id)] || null;
       for (const lang of LANGS) {
-        const lSlug = calc.langs?.[lang]?.slug || calc.slug;
-        if (!lSlug || !calc.langs?.[lang]?.name) continue;
+        if (!calc.langs?.[lang]?.name) continue;
+        const lSlug = (smap && smap[lang]) || calc.langs?.[lang]?.slug || calc.slug;
+        if (!lSlug) continue;
         urls.push(`  <url><loc>${SITE}/${lang}/${lSlug}/</loc><lastmod>${updated}</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>`);
       }
     }
@@ -2213,46 +3319,46 @@ Write accurate, specific content using the formula and field names provided. Do 
     } catch(e) { console.warn("FAQ gen failed:", doc.id, e.message); }
   }
 
-  // 6. Translate FAQ to langs that have a translation but no FAQ yet
+  // 6. Translate FAQ to langs that have a translation but no FAQ yet (concurrent)
   const enFaqNow = updatedLangs.en?.faq;
   if (enFaqNow && enFaqNow.length >= 3) {
     const langNames = { es:"Spanish", fr:"French", de:"German", it:"Italian", pt:"Portuguese" };
-    for (const lang of LANGS) {
-      if (lang === "en" || !updatedLangs[lang]?.name || (updatedLangs[lang].faq && updatedLangs[lang].faq.length >= 3)) continue;
+    const faqNeed = LANGS.filter(lang => lang !== "en" && updatedLangs[lang]?.name &&
+      !(updatedLangs[lang].faq && updatedLangs[lang].faq.length >= 3));
+    const faqRes = await Promise.all(faqNeed.map(async lang => {
       try {
-        await new Promise(r => setTimeout(r, 300));
         const raw = await _callAIRaw(apiKey, provider, model,
           `Translate these FAQ items to ${langNames[lang]}. Return only a JSON array with the same structure: ${JSON.stringify(enFaqNow)}`, 800);
         const m = raw && raw.replace(/<think>[\s\S]*?<\/think>/g,"").match(/\[[\s\S]*\]/);
-        if (m) {
-          const translatedFaq = JSON.parse(m[0]);
-          if (Array.isArray(translatedFaq) && translatedFaq.length >= 3) {
-            updatedLangs[lang] = { ...updatedLangs[lang], faq: translatedFaq };
-            updated = true; results.faqTranslated = (results.faqTranslated || 0) + 1;
-          }
-        }
+        if (m) { const f = JSON.parse(m[0]); if (Array.isArray(f) && f.length >= 3) return { lang, faq: f }; }
       } catch(e) { console.warn("FAQ translate failed:", doc.id, lang, e.message); }
+      return { lang, faq: null };
+    }));
+    for (const { lang, faq } of faqRes) {
+      if (faq) { updatedLangs[lang] = { ...updatedLangs[lang], faq }; updated = true; results.faqTranslated = (results.faqTranslated || 0) + 1; }
     }
   }
 
-  // 6b. Translate the long-form article to every language that has a translation but no article
+  // 6b. Translate the long-form article to every language that needs one.
+  // Run all languages CONCURRENTLY (was sequential — 5×~35s each = the single
+  // biggest per-calc time sink, pushing batches past the 540s function limit).
   const enLongNow = updatedLangs.en?.long_content;
   if (enLongNow && enLongNow.length >= 600) {
-    for (const lang of LANGS) {
-      if (lang === "en" || !updatedLangs[lang]?.name) continue;
-      const existingLong = updatedLangs[lang].long_content;
-      if (existingLong && existingLong.length >= 600) continue;
+    const needLangs = LANGS.filter(lang => lang !== "en" && updatedLangs[lang]?.name &&
+      !((updatedLangs[lang].long_content || "").length >= 600));
+    const translated = await Promise.all(needLangs.map(async lang => {
       try {
-        await new Promise(r => setTimeout(r, 300));
         const t = await _translateLongRaw(apiKey, provider, model, enLongNow, updatedLangs[lang].faq || updatedLangs.en?.faq || [], lang);
-        if (t) {
-          updatedLangs[lang] = { ...updatedLangs[lang], long_content: t.long_content };
-          if (t.faq.length >= 3 && !(updatedLangs[lang].faq || []).length) {
-            updatedLangs[lang] = { ...updatedLangs[lang], faq: t.faq };
-          }
-          updated = true; results.longContentTranslated = (results.longContentTranslated || 0) + 1;
-        }
-      } catch(e) { console.warn("long_content translate failed:", doc.id, lang, e.message); }
+        return { lang, t };
+      } catch(e) { console.warn("long_content translate failed:", doc.id, lang, e.message); return { lang, t: null }; }
+    }));
+    for (const { lang, t } of translated) {
+      if (!t) continue;
+      updatedLangs[lang] = { ...updatedLangs[lang], long_content: t.long_content };
+      if (t.faq.length >= 3 && !(updatedLangs[lang].faq || []).length) {
+        updatedLangs[lang] = { ...updatedLangs[lang], faq: t.faq };
+      }
+      updated = true; results.longContentTranslated = (results.longContentTranslated || 0) + 1;
     }
   }
 
@@ -2314,6 +3420,70 @@ Write accurate, specific content using the formula and field names provided. Do 
  * admin_prefs/complete_all_state).
  * POST { reset?: boolean, batch?: number }
  */
+/**
+ * deployAllCalcsHttp — resumable, ATOMIC deploy of every published calc that has
+ * content. Each call builds ~25 calcs' pages and deploys them in ONE release
+ * (no per-calc race). Cursor persists in admin_prefs/deploy_all_state. Use this
+ * to push already-generated content live correctly.
+ * POST { reset?: boolean, batch?: number }
+ */
+exports.deployAllCalcsHttp = functions.runWith({ timeoutSeconds: 540, memory: "512MB" })
+  .https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+  if (req.method === "OPTIONS") return res.status(204).send("");
+  if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
+
+  try {
+    const stateRef = db.collection("admin_prefs").doc("deploy_all_state");
+    if (req.body && req.body.reset) await stateRef.set({ cursor_doc_id: null, deployed: 0 });
+    const stateDoc = await stateRef.get();
+    const state = stateDoc.exists ? stateDoc.data() : {};
+    const BATCH = Math.min(Math.max(parseInt((req.body || {}).batch) || 25, 5), 40);
+
+    let query = db.collection("calc_cms").where("status", "==", "published").orderBy("__name__").limit(BATCH);
+    if (state.cursor_doc_id) {
+      const c = await db.collection("calc_cms").doc(state.cursor_doc_id).get();
+      if (c.exists) query = query.startAfter(c);
+    }
+    const snap = await query.get();
+
+    const allFiles = {};
+    let calcsWithContent = 0;
+    let lastId = null;
+    for (const doc of snap.docs) {
+      lastId = doc.id;
+      const data = doc.data();
+      const en = (data.langs && data.langs.en) || {};
+      if (!en.long_content || en.long_content.length < 300) continue; // skip still-thin
+      const f = await _buildCalcFiles(doc.id, data);
+      Object.assign(allFiles, f);
+      calcsWithContent++;
+    }
+
+    let deployRes = { deployed: false };
+    if (Object.keys(allFiles).length > 0) {
+      deployRes = await _deployPagesToHosting(allFiles, `[DeployAll] ${calcsWithContent} calcs`);
+    }
+
+    const done = snap.size < BATCH;
+    await stateRef.set({
+      cursor_doc_id: done ? null : lastId,
+      deployed: (state.deployed || 0) + (deployRes.deployed ? calcsWithContent : 0),
+      last_run: admin.firestore.FieldValue.serverTimestamp(),
+    }, { merge: true });
+
+    return res.status(200).json({
+      done, scanned: snap.size, deployed_calcs: deployRes.deployed ? calcsWithContent : 0,
+      total_files: Object.keys(allFiles).length, error: deployRes.error || null,
+    });
+  } catch (e) {
+    console.error("deployAllCalcsHttp error:", e);
+    return res.status(500).json({ error: e.message });
+  }
+});
+
 exports.completeAllCalcsHttp = functions.runWith({ timeoutSeconds: 540, memory: "512MB" })
   .https.onRequest(async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
@@ -2372,13 +3542,18 @@ exports.completeAllCalcsHttp = functions.runWith({ timeoutSeconds: 540, memory: 
       // Skip already-complete calcs
       if (skipIfComplete) {
         const data = doc.data();
-        const en = (data.langs && data.langs.en) || {};
+        const langs = data.langs || {};
+        const en = langs.en || {};
         const hasContent = en.long_content && en.long_content.length > 500;
         const hasFaq = en.faq && en.faq.length >= 2;
         const hasSteps = en.steps && en.steps.filter(Boolean).length >= 2;
         const hasSeoTitle = en.seo_title && en.seo_title.length >= 15;
         const hasSeoDesc = en.seo_description && en.seo_description.length >= 30;
-        const isComplete = hasContent && hasFaq && hasSteps && hasSeoTitle && hasSeoDesc;
+        // Also require every present language to have its TRANSLATED article,
+        // otherwise calcs with a full EN article but missing es/fr/de/it/pt
+        // translations were wrongly treated as "done" and skipped forever.
+        const langsComplete = LANGS.every(l => l === "en" || !langs[l]?.name || (langs[l].long_content || "").length >= 600);
+        const isComplete = hasContent && hasFaq && hasSteps && hasSeoTitle && hasSeoDesc && langsComplete;
         if (isComplete) {
           lastDoc = doc;
           if (updatedNow === 0 && processedNow === snap.size) cursorId = null; // all skipped, done
@@ -2393,10 +3568,24 @@ exports.completeAllCalcsHttp = functions.runWith({ timeoutSeconds: 540, memory: 
       lastDoc = doc;
     }
 
-    // Deploy the ones we changed
-    for (const slug of touched) {
-      try { const d = await _autoDeployCalc(slug); if (d.deployed) deployedNow++; }
-      catch (e) { console.warn("[CompleteAll] deploy failed:", slug, e.message); }
+    // Deploy the changed calcs in ONE atomic release — but ONLY when explicitly
+    // requested (deploy:true). Cloning the full 22k-file manifest every batch is
+    // the slow part; for a full run it's far faster to generate all content
+    // first (content persists in Firestore) and push it live once at the end via
+    // deployAllCalcsHttp. So generation is decoupled from deployment by default.
+    if (req.body && req.body.deploy && touched.length > 0) {
+      try {
+        const allFiles = {};
+        for (const slug of touched) {
+          const f = await _buildCalcFiles(slug);
+          Object.assign(allFiles, f);
+        }
+        if (Object.keys(allFiles).length > 0) {
+          const dep = await _deployPagesToHosting(allFiles, `[CompleteAll] ${touched.length} calcs`);
+          if (dep.deployed) deployedNow = touched.length;
+          else console.warn("[CompleteAll] batch deploy failed:", dep.error);
+        }
+      } catch (e) { console.warn("[CompleteAll] batch deploy error:", e.message); }
     }
 
     const done = snap.size < BATCH;
@@ -2710,8 +3899,17 @@ async function _runAutoPilot() {
     last_results: results,
   }, { merge: true });
 
-  // Phase 3: Refresh thin static pages (not in CMS)
-  const cmsSlugs = new Set(nameSnap.docs.map(d => d.id));
+  // Phase 3: Refresh thin static pages (not in CMS). cmsSlugs must include every
+  // slug a CMS calc is reachable at — primary AND all translated slugs — or a
+  // CMS calc's canonical page (e.g. /en/acceleration-calculator/) would leak into
+  // the legacy regex-patcher and be edited outside the buildPage pipeline.
+  const cmsSlugs = new Set();
+  const _slugIdx = _getSlugIndex();
+  for (const d of nameSnap.docs) {
+    cmsSlugs.add(d.id);
+    const smap = _slugIdx[d.id] || _slugIdx[String((d.data() || {}).id)] || null;
+    if (smap) for (const l of LANGS) if (smap[l]) cmsSlugs.add(smap[l]);
+  }
   await _refreshStaticPages(apiKey, provider, provCfg.model, trafficBySlug, cmsSlugs, results);
 
   // Phase 4: Deploy updated CMS calcs to hosting so the fixes actually go live
@@ -2812,71 +4010,17 @@ Write accurate, helpful content — do not invent features. Minimum 800 words.`;
 
   if (Object.keys(patchedFiles).length === 0) return;
 
-  // Publish patches via Firebase Hosting REST API (same pattern as publishCalcToHosting)
+  // Publish patches via the shared chunked deploy helper (handles the 15k-file
+  // populateFiles limit and clones the full manifest so nothing is dropped).
   try {
-    const tokenResult = await admin.app().options.credential.getAccessToken();
-    const token = tokenResult.access_token;
-    const headers = { "Authorization": "Bearer " + token, "Content-Type": "application/json" };
-
-    const releasesRes = await fetch(`${HOSTING_BASE}/sites/${SITE}/releases?pageSize=1`, { headers });
-    if (!releasesRes.ok) throw new Error("releases fetch failed");
-    const releasesData = await releasesRes.json();
-    const currentVersionName = releasesData.releases?.[0]?.version?.name;
-    const currentConfig = releasesData.releases?.[0]?.version?.config || {};
-    if (!currentVersionName) throw new Error("no current version");
-
-    // Collect all current file hashes (paginated)
-    const allCurrentFiles = {};
-    let pageToken = null;
-    do {
-      const url = `${HOSTING_BASE}/${currentVersionName}/files?pageSize=1000${pageToken ? "&pageToken=" + pageToken : ""}`;
-      const filesRes = await fetch(url, { headers });
-      if (!filesRes.ok) throw new Error("files list failed");
-      const filesData = await filesRes.json();
-      (filesData.files || []).forEach(f => { allCurrentFiles[f.path] = f.hash; });
-      pageToken = filesData.nextPageToken || null;
-    } while (pageToken);
-
-    // Gzip new files and compute hashes
-    const newFileData = {};
+    const newFiles = {};
     for (const [path, html] of Object.entries(patchedFiles)) {
-      const gz = await gzip(Buffer.from(html, "utf8"));
-      const hash = crypto.createHash("sha256").update(gz).digest("hex");
-      newFileData[path] = { gz, hash };
+      const gzipped = await gzip(Buffer.from(html, "utf8"));
+      const hash = crypto.createHash("sha256").update(gzipped).digest("hex");
+      newFiles[path] = { gzipped, hash };
     }
-
-    const mergedFiles = { ...allCurrentFiles };
-    for (const [path, { hash }] of Object.entries(newFileData)) mergedFiles[path] = hash;
-
-    const createRes = await fetch(`${HOSTING_BASE}/sites/${SITE}/versions`, {
-      method: "POST", headers, body: JSON.stringify({ config: currentConfig }),
-    });
-    if (!createRes.ok) throw new Error("create version failed");
-    const { name: newVersionName } = await createRes.json();
-
-    const populateRes = await fetch(`${HOSTING_BASE}/${newVersionName}:populateFiles`, {
-      method: "POST", headers, body: JSON.stringify({ files: mergedFiles }),
-    });
-    if (!populateRes.ok) throw new Error("populate files failed");
-    const populateData = await populateRes.json();
-    const uploadUrl = populateData.uploadUrl;
-    const uploadRequired = populateData.uploadRequiredHashes || [];
-
-    for (const [, { gz, hash }] of Object.entries(newFileData)) {
-      if (!uploadRequired.includes(hash)) continue;
-      await fetch(`${uploadUrl}/${hash}`, {
-        method: "POST",
-        headers: { "Authorization": "Bearer " + token, "Content-Type": "application/octet-stream" },
-        body: gz,
-      });
-    }
-
-    await fetch(`${HOSTING_BASE}/${newVersionName}?update_mask=status`, {
-      method: "PATCH", headers, body: JSON.stringify({ status: "FINALIZED" }),
-    });
-    await fetch(`${HOSTING_BASE}/sites/${SITE}/releases?versionName=${newVersionName}`, {
-      method: "POST", headers, body: JSON.stringify({}),
-    });
+    const result = await _deployPagesToHosting(newFiles, "[Agent] Static page refresh");
+    if (result.error) throw new Error(result.error);
     console.log(`[AutoPilot] Static pages published: ${Object.keys(patchedFiles).join(", ")}`);
   } catch(e) { console.warn("[AutoPilot] Static publish failed:", e.message); }
 }
@@ -3784,90 +4928,311 @@ function _scoreCalcQuality(data) {
 // ══ Auto-deploy helper — publishes a single calc page directly to Firebase Hosting ══
 const _deployCache = { currentVersion: null, currentFiles: null, fetchAt: 0 };
 
-async function _autoDeployCalc(slug) {
-  if (!slug) return { error: "No slug" };
+/**
+ * _deployPagesToHosting — the ONE correct incremental deploy path.
+ *
+ * Firebase Hosting versions do NOT inherit files from the previous version, and
+ * a single populateFiles call is capped at 15,000 files (the site has 22k+). So
+ * we must: (1) clone the FULL current file manifest, (2) overlay the changed
+ * pages, (3) create a fresh version, (4) populate the manifest in chunks under
+ * the limit (populateFiles is additive across calls on the same version — this
+ * is how the CLI deploys large sites), (5) upload only the changed bodies,
+ * (6) finalize + release.
+ *
+ * The old code either sent all 22k files in one call (publishCalcToHosting →
+ * "exceeds 15000 file limit") or populated ONLY the new files onto an empty
+ * version (_autoDeployCalc → would drop the site to a handful of pages). Both
+ * are replaced by this helper.
+ *
+ * @param {Object} newFiles  { "/en/slug/": { gzipped: Buffer, hash: string }, ... }
+ * @param {string} message   release message
+ */
+const HOSTING_SITE = "calctowork";
+const HOSTING_API = "https://firebasehosting.googleapis.com/v1beta1";
+const POPULATE_CHUNK = 8000; // safely under the 15k per-call limit
+
+// Fingerprint of THIS source file, computed once per container at cold start. Returned
+// by the maintenance endpoints so a response can be attributed to a specific build —
+// otherwise a warm instance serving the previous bundle is indistinguishable from a bug.
+const _BUILD_ID = (() => {
+  try {
+    const c = require("crypto"), f = require("fs");
+    return c.createHash("sha256").update(f.readFileSync(__filename)).digest("hex").slice(0, 8);
+  } catch (e) { return "unknown"; }
+})();
+async function _deployPagesToHosting(newFiles, message) {
+  if (!newFiles || Object.keys(newFiles).length === 0) return { error: "No files to deploy" };
+
+  const tokenResult = await admin.app().options.credential.getAccessToken();
+  const token = tokenResult.access_token;
+  const headers = { "Authorization": "Bearer " + token, "Content-Type": "application/json" };
+
+  // 1. Current release → version name + config
+  const releasesRes = await fetch(`${HOSTING_API}/sites/${HOSTING_SITE}/releases?pageSize=1`, { headers });
+  if (!releasesRes.ok) return { error: "Failed to get releases: " + await releasesRes.text() };
+  const releasesData = await releasesRes.json();
+  const currentVersionName = releasesData.releases?.[0]?.version?.name;
+  const currentConfig = releasesData.releases?.[0]?.version?.config || {};
+  if (!currentVersionName) return { error: "No current version to clone from" };
+
+  // 2. Clone the FULL current file manifest (paginated)
+  const merged = {};
+  let pageToken = null;
+  do {
+    const url = `${HOSTING_API}/${currentVersionName}/files?pageSize=1000${pageToken ? "&pageToken=" + pageToken : ""}`;
+    const filesRes = await fetch(url, { headers });
+    if (!filesRes.ok) return { error: "Failed to list current files: " + await filesRes.text() };
+    const filesData = await filesRes.json();
+    (filesData.files || []).forEach(f => { if (f.path && f.hash) merged[f.path] = f.hash; });
+    pageToken = filesData.nextPageToken || null;
+  } while (pageToken);
+
+  const clonedCount = Object.keys(merged).length;
+
+  // Core files that must survive every incremental deploy. A clone missing any of
+  // these is a stale manifest, not a legitimate state.
+  const CRITICAL_HOSTING_PATHS = ["/robots.txt", "/sitemap.xml", "/index.html", "/ads.txt"];
+  const missingCritical = CRITICAL_HOSTING_PATHS.filter(p => !merged[p]);
+
+  // Files we can rebuild from the bundle are restored rather than aborted on.
+  const RESTORABLE = { "/favicon.ico": "icon-192.png" };
+  const restored = [];
+  for (const [hostPath, assetFile] of Object.entries(RESTORABLE)) {
+    if (merged[hostPath]) continue;
+    try {
+      const pathx = require("path"), fsx = require("fs");
+      const zlibx = require("zlib"), utilx = require("util"), cryptox = require("crypto");
+      const gzipx = utilx.promisify(zlibx.gzip);
+      const src = pathx.join(__dirname, "assets", assetFile);
+      if (!fsx.existsSync(src)) continue;
+      const gz = await gzipx(fsx.readFileSync(src));
+      const h = cryptox.createHash("sha256").update(gz).digest("hex");
+      newFiles[hostPath] = { gzipped: gz, hash: h };
+      restored.push(hostPath);
+    } catch (e) { console.warn("[Deploy] could not restore " + hostPath + ": " + e.message); }
+  }
+  // Also restore the IndexNow ownership key: it is generated text, and losing it makes
+  // every subsequent ping fail with 403 for no visible reason.
+  // restore ads.txt: losing it silently stops AdSense from recognising the site.
+  try {
+    if (!merged["/ads.txt"] && !newFiles["/ads.txt"]) {
+      const zlibA = require("zlib"), utilA = require("util"), cryptoA = require("crypto");
+      const gzipA = utilA.promisify(zlibA.gzip);
+      const gz = await gzipA(Buffer.from(ADS_TXT_LINE + "\n", "utf8"));
+      newFiles["/ads.txt"] = { gzipped: gz, hash: cryptoA.createHash("sha256").update(gz).digest("hex") };
+      restored.push("/ads.txt");
+    }
+  } catch (e) { console.warn("[Deploy] could not restore ads.txt: " + e.message); }
+
+  try {
+    const keyPath = "/" + INDEXNOW_KEY + ".txt";
+    if (!merged[keyPath] && !newFiles[keyPath]) {
+      const zlibk = require("zlib"), utilk = require("util"), cryptok = require("crypto");
+      const gzipk = utilk.promisify(zlibk.gzip);
+      const gz = await gzipk(Buffer.from(INDEXNOW_KEY, "utf8"));
+      newFiles[keyPath] = { gzipped: gz, hash: cryptok.createHash("sha256").update(gz).digest("hex") };
+      restored.push(keyPath);
+    }
+  } catch (e) { console.warn("[Deploy] could not restore IndexNow key: " + e.message); }
+
+  if (restored.length) console.warn("[Deploy] restored missing core files: " + restored.join(", "));
+
+  if (missingCritical.length) {
+    return { error: "Refusing to deploy: cloned manifest is missing core files (" +
+      missingCritical.join(", ") + "). This means a stale release was read; releasing it " +
+      "would delete them from the live site." };
+  }
+  if (clonedCount < 1000) {
+    // Safety net: if we somehow got a near-empty manifest, refuse — releasing it
+    // would wipe the live site. Better to fail loudly than to nuke 22k pages.
+    return { error: `Refusing to deploy: only ${clonedCount} existing files cloned (expected 20k+). Aborting to protect the live site.` };
+  }
+
+  // 3. Overlay the changed pages (both trailing-slash variants Firebase serves).
+  // Guard against empty keys: stripping the trailing slash from "/" yields "",
+  // which populateFiles rejects ("key must be defined and not empty").
+  for (const [path, { hash }] of Object.entries(newFiles)) {
+    if (!path) continue;
+    merged[path] = hash;
+    const noSlash = path.replace(/\/$/, "");
+    if (noSlash && noSlash !== path) merged[noSlash] = hash;
+  }
+  // Final safety: never send an empty-string key to the API
+  delete merged[""];
+
+  // 4. Create new version
+  const createRes = await fetch(`${HOSTING_API}/sites/${HOSTING_SITE}/versions`, {
+    method: "POST", headers, body: JSON.stringify({ config: _patchConfigCSP(currentConfig) }),
+  });
+  if (!createRes.ok) return { error: "Failed to create version: " + await createRes.text() };
+  const newVersionName = (await createRes.json()).name;
+
+  // 5. populateFiles in chunks (additive); collect required uploads + upload URL
+  const entries = Object.entries(merged);
+  const uploadRequired = new Set();
+  let uploadUrl = null;
+  for (let i = 0; i < entries.length; i += POPULATE_CHUNK) {
+    const chunk = Object.fromEntries(entries.slice(i, i + POPULATE_CHUNK));
+    const populateRes = await fetch(`${HOSTING_API}/${newVersionName}:populateFiles`, {
+      method: "POST", headers, body: JSON.stringify({ files: chunk }),
+    });
+    if (!populateRes.ok) return { error: `populateFiles chunk ${i} failed: ` + await populateRes.text() };
+    const pd = await populateRes.json();
+    if (pd.uploadUrl) uploadUrl = pd.uploadUrl;
+    (pd.uploadRequiredHashes || []).forEach(h => uploadRequired.add(h));
+  }
+
+  // 6. Upload only the changed file bodies Firebase doesn't already have
+  if (uploadUrl) {
+    for (const { gzipped, hash } of Object.values(newFiles)) {
+      if (!uploadRequired.has(hash)) continue;
+      const up = await fetch(`${uploadUrl}/${hash}`, {
+        method: "POST", headers: { "Authorization": "Bearer " + token, "Content-Type": "application/octet-stream" },
+        body: gzipped,
+      });
+      if (!up.ok) return { error: `Upload failed for hash ${hash}: ` + await up.text() };
+    }
+  }
+
+  // 7. Finalize + release
+  const fin = await fetch(`${HOSTING_API}/${newVersionName}?update_mask=status`, {
+    method: "PATCH", headers, body: JSON.stringify({ status: "FINALIZED" }),
+  });
+  if (!fin.ok) return { error: "Finalize failed: " + await fin.text() };
+  const rel = await fetch(`${HOSTING_API}/sites/${HOSTING_SITE}/releases?versionName=${newVersionName}`, {
+    method: "POST", headers, body: JSON.stringify({ message: message || "Incremental deploy" }),
+  });
+  if (!rel.ok) return { error: "Release failed: " + await rel.text() };
+
+  return { deployed: true, versionName: newVersionName, pagesUpdated: Object.keys(newFiles), totalFiles: Object.keys(merged).length };
+}
+
+// Build the gzipped HTML files for one calc (all languages) WITHOUT deploying.
+// Returns { "/en/slug/": {gzipped, hash}, ... }. Used so many calcs can be
+// deployed in a SINGLE atomic release (deploying per-calc races against
+// Firebase release propagation and reverts earlier calcs).
+// Static calculators keep their inputs/outputs/formula in bundled static files
+// (functions/calcs/<id>/calc.json), NOT in Firestore — only their translated
+// CONTENT is synced to calc_cms. Deploying such a calc through buildPage (which
+// reads the calculator config from the doc) produced a page with the article but
+// an EMPTY, non-working calculator. This loads the real config so the deployed
+// page keeps a functioning calculator.
+function _loadStaticConfig(staticId, slugForLookup) {
+  const fs = require("fs");
+  const path = require("path");
+  const ids = [];
+  if (staticId) ids.push(String(staticId));
+  // Fallback: resolve the real static id from the calc index by slug (guards
+  // against a corrupted/placeholder staticId in the doc).
+  if (slugForLookup) {
+    try {
+      const idx = require("./calc-index.json");
+      const list = Array.isArray(idx) ? idx : Object.values(idx);
+      const hit = list.find(c => c.slug === slugForLookup || c.id === slugForLookup);
+      if (hit && hit.id && !ids.includes(String(hit.id))) ids.push(String(hit.id));
+    } catch(e) {}
+  }
+  for (const id of ids) {
+    for (const dir of [path.join(__dirname, "calcs", id), path.join(__dirname, "..", "src", "calculators", id)]) {
+      try {
+        const p = path.join(dir, "calc.json");
+        if (fs.existsSync(p)) { const c = JSON.parse(fs.readFileSync(p, "utf8")); c._dir = dir; return c; }
+      } catch(e) {}
+    }
+  }
+  return null;
+}
+
+// Load a static calc's per-language label file (inputs/outputs human labels etc.)
+function _loadStaticLang(dir, lang) {
+  if (!dir) return null;
+  const fs = require("fs");
+  const path = require("path");
+  try {
+    const p = path.join(dir, lang + ".json");
+    if (fs.existsSync(p)) return JSON.parse(fs.readFileSync(p, "utf8"));
+  } catch(e) {}
+  return null;
+}
+
+async function _buildCalcFiles(slug, dataArg) {
   const crypto = require("crypto");
   const zlib = require("zlib");
   const util = require("util");
   const gzip = util.promisify(zlib.gzip);
-  const SITE = "calctowork";
-  const HOSTING_BASE = "https://firebasehosting.googleapis.com/v1beta1";
-
-  try {
+  let data = dataArg;
+  if (!data) {
     const doc = await db.collection("calc_cms").doc(slug).get();
-    if (!doc.exists) return { error: "Not found: " + slug };
-    const data = doc.data();
+    if (!doc.exists) return {};
+    data = doc.data();
+  }
+  // Always merge the static calc's config (if it has one) — not only when
+  // inputs/formula are missing. Otherwise calcs that DO have inputs in Firestore
+  // still lost their gauge, presets and per-language labels, which live only in
+  // the static files. Each field is merged only when the doc lacks it.
+  {
+    const sc = _loadStaticConfig(data.staticId, slug);
+    if (sc) {
+      data = { ...data };
+      if (!(data.inputs || []).length && Array.isArray(sc.inputs)) data.inputs = sc.inputs;
+      if (!(data.outputs || []).length && Array.isArray(sc.outputs)) data.outputs = sc.outputs;
+      if (!data.formula || data.formula.length < 10) data.formula = sc.formula;
+      if (!data.comparison_presets && sc.comparison_presets) data.comparison_presets = sc.comparison_presets;
+      if (!data.gauge && sc.gauge) data.gauge = sc.gauge;
 
-    // Generate HTML for all available languages
-    const newFiles = {};
-    for (const lang of LANGS) {
-      if (!data.langs || !data.langs[lang] || !data.langs[lang].name) continue;
-      const langSlug = (data.langs[lang] && data.langs[lang].slug) || slug;
-      const html = buildPage(slug, lang, data);
-      const gzipped = await gzip(Buffer.from(html, "utf8"));
-      const hash = crypto.createHash("sha256").update(gzipped).digest("hex");
-      newFiles[`/${lang}/${langSlug}/`] = { gzipped, hash };
+      // Merge per-language human labels (inputs/outputs) from the static lang
+      // files so the calculator shows "Initial velocity" instead of raw ids
+      // like "vi"/"tiempo" (which was also leaking Spanish onto other languages).
+      const langsCopy = { ...(data.langs || {}) };
+      for (const lang of LANGS) {
+        const lf = _loadStaticLang(sc._dir, lang);
+        if (!lf) continue;
+        const ld = { ...(langsCopy[lang] || {}) };
+        // Only take static labels that are REAL labels, not the raw id repeated
+        // (some static lang files contain e.g. {"glucosa_mgdl":"glucosa_mgdl"}).
+        const clean = obj => { const o = {}; for (const [k, v] of Object.entries(obj || {})) { if (v && typeof v === "string" && v !== k) o[k] = v; } return o; };
+        if ((!ld.inputs_labels || !Object.keys(ld.inputs_labels).length) && lf.inputs && typeof lf.inputs === "object" && !Array.isArray(lf.inputs)) {
+          const g = clean(lf.inputs); if (Object.keys(g).length) ld.inputs_labels = g;
+        }
+        if ((!ld.outputs_labels || !Object.keys(ld.outputs_labels).length) && lf.outputs && typeof lf.outputs === "object" && !Array.isArray(lf.outputs)) {
+          const g = clean(lf.outputs); if (Object.keys(g).length) ld.outputs_labels = g;
+        }
+        langsCopy[lang] = ld;
+      }
+      data.langs = langsCopy;
     }
+  }
+  data = _applyLangSlugs(slug, data); // deploy each lang at its translated slug
+  const oldMap = _getOldSlugIndex()[slug] || _getOldSlugIndex()[String(data.id)] || null;
+  const files = {};
+  for (const lang of LANGS) {
+    if (!data.langs || !data.langs[lang] || !data.langs[lang].name) continue;
+    const langSlug = (data.langs[lang] && data.langs[lang].slug) || slug;
+    const html = buildPage(slug, lang, data);
+    const gzipped = await gzip(Buffer.from(html, "utf8"));
+    const hash = crypto.createHash("sha256").update(gzipped).digest("hex");
+    files[`/${lang}/${langSlug}/`] = { gzipped, hash };
+    // Keep every historical URL for this calc alive, serving the SAME html whose
+    // canonical points to the new SEO slug — so old links and any prior Google
+    // indexation consolidate onto the new slug (no hard redirect needed):
+    //   • the primary (Spanish) slug — from the old dual-URL bug
+    //   • the previous translated slug — from the SEO slug migration
+    const aliases = new Set([slug]);
+    if (oldMap && oldMap[lang]) aliases.add(oldMap[lang]);
+    for (const a of aliases) {
+      if (a && a !== langSlug) files[`/${lang}/${a}/`] = { gzipped, hash };
+    }
+  }
+  return files;
+}
 
+async function _autoDeployCalc(slug) {
+  if (!slug) return { error: "No slug" };
+  try {
+    const newFiles = await _buildCalcFiles(slug);
     if (Object.keys(newFiles).length === 0) return { error: "No language content" };
-
-    const tokenResult = await admin.app().options.credential.getAccessToken();
-    const token = tokenResult.access_token;
-    const headers = { "Authorization": "Bearer " + token, "Content-Type": "application/json" };
-
-    // Cache current release (5 min TTL)
-    if (Date.now() - _deployCache.fetchAt > 300000) {
-      const releasesRes = await fetch(`${HOSTING_BASE}/sites/${SITE}/releases?pageSize=1`, { headers });
-      const releasesData = await releasesRes.json();
-      _deployCache.currentVersion = releasesData.releases?.[0]?.version?.name;
-      _deployCache.currentConfig = releasesData.releases?.[0]?.version?.config || {};
-      _deployCache.fetchAt = Date.now();
-    }
-    if (!_deployCache.currentVersion) return { error: "No current version" };
-
-    // Create new version
-    const createRes = await fetch(`${HOSTING_BASE}/sites/${SITE}/versions`, {
-      method: "POST", headers,
-      body: JSON.stringify({ config: _deployCache.currentConfig }),
-    });
-    const newVersion = await createRes.json();
-    const newVersionName = newVersion.name;
-
-    // Populate with new files
-    const fileMap = {};
-    for (const [path, { hash }] of Object.entries(newFiles)) {
-      fileMap[path] = hash;
-      fileMap[path.replace(/\/$/, "")] = hash;
-    }
-
-    const populateRes = await fetch(`${HOSTING_BASE}/${newVersionName}:populateFiles`, {
-      method: "POST", headers,
-      body: JSON.stringify({ files: fileMap }),
-    });
-    const populateData = await populateRes.json();
-    const uploadUrl = populateData.uploadUrl;
-    const uploadRequired = populateData.uploadRequiredHashes || [];
-
-    // Upload new files
-    for (const [path, { gzipped, hash }] of Object.entries(newFiles)) {
-      if (!uploadRequired.includes(hash)) continue;
-      await fetch(`${uploadUrl}/${hash}`, {
-        method: "POST", headers: { ...headers, "Content-Type": "application/octet-stream" },
-        body: gzipped,
-      });
-    }
-
-    // Finalize and release
-    await fetch(`${HOSTING_BASE}/${newVersionName}:finalize`, { method: "PATCH", headers, body: JSON.stringify({ status: "FINALIZED" }) });
-    await fetch(`${HOSTING_BASE}/sites/${SITE}/releases`, {
-      method: "POST", headers,
-      body: JSON.stringify({ message: `[Agent] Auto-deploy: ${slug}`, version: { name: newVersionName } }),
-    });
-
-    // Update cache
-    _deployCache.currentVersion = newVersionName;
-    _deployCache.fetchAt = Date.now();
-
+    const result = await _deployPagesToHosting(newFiles, `[Agent] Auto-deploy: ${slug}`);
+    if (result.error) { console.error("[Deploy] Failed for", slug, ":", result.error); return result; }
     console.log(`[Deploy] Published ${slug} in ${Object.keys(newFiles).length} languages`);
     return { deployed: true, slug, languages: Object.keys(newFiles).length };
   } catch(e) {
@@ -3882,26 +5247,108 @@ async function _regenerateCorePages() {
   const zlib = require("zlib");
   const util = require("util");
   const gzip = util.promisify(zlib.gzip);
-  const SITE = "calctowork";
-  const HOSTING_BASE = "https://firebasehosting.googleapis.com/v1beta1";
+  // Full public origin — was "calctowork" (the Firebase site NAME), which
+  // produced malformed URLs like https://calctowork/en/... in the sitemap,
+  // canonicals and robots.txt, so Google rejected every URL. Must be the domain.
+  const SITE = "https://calcto.work";
 
   try {
     console.log("[Regen] Generating core pages...");
 
-    // Get all published calcs
-    const snap = await db.collection("calc_cms").where("status","==","published").limit(500).get();
+    // Get all published calcs (no limit — the whole catalog must be in the
+    // sitemap and homepage; a 500 cap silently dropped ~35 calcs).
+    const snap = await db.collection("calc_cms").where("status","==","published").get();
     if (snap.empty) return { error: "No published calcs" };
 
     const calcs = [];
     snap.forEach(d => calcs.push({ id: d.id, ...d.data() }));
     const newFiles = {};
+    const slugIdxHome = _getSlugIndex();
 
     // ── HOMEPAGE (per language) ──
+    // Category display metadata (icon + label). Falls back to a generic bucket.
+    const CAT_META = {
+      estructuras:["🏗️","Structures"], construccion:["🏠","Construction"], mamposteria:["🧱","Masonry"],
+      pavimentos:["🪵","Flooring"], fontaneria:["🚿","Plumbing"], electricidad:["⚡","Electrical"],
+      climatizacion:["❄️","HVAC"], carpinteria:["🪚","Carpentry"], pintura:["🎨","Painting"],
+      gestion:["📋","Management"], matematicas:["➗","Mathematics"], ciencia:["🔬","Science"],
+      salud:["❤️","Health"], finanzas:["💰","Finance"], cotidiano:["📅","Everyday"],
+      quimica:["⚗️","Chemistry"], electronica:["🔌","Electronics"], clima:["🌦️","Climate"],
+      utilidades:["🛠️","Utilities"], fotografia:["📷","Photography"], transporte:["🚗","Transport"],
+      fisica:["🧲","Physics"], musica:["🎵","Music"], industria:["🏭","Industry"],
+    };
+    // The stored `category` field is inconsistent (mixed languages, underscores,
+    // near-duplicates like Health/Health_fitness/Fitness/Medical). Fold every
+    // raw value into one canonical bucket so the homepage shows ~20 clean
+    // categories instead of 45 messy ones.
+    const CAT_ALIAS = {
+      // health
+      health:"salud", health_fitness:"salud", fitness:"salud", medical:"salud", deportes:"salud", sports:"salud", nutricion:"salud", nutrition:"salud",
+      // math & stats
+      math:"matematicas", mathematics:"matematicas", estadistica:"matematicas", statistics:"matematicas", geometry:"matematicas", geometria:"matematicas", volume:"matematicas",
+      // structures / engineering
+      structures:"estructuras", engineering:"estructuras", ingenieria:"estructuras", engenharia:"estructuras", engenharia_estrutural:"estructuras",
+      // construction / renovation / home
+      construction:"construccion", constructie:"construccion", renovation:"construccion", home_improvement:"construccion", bau:"construccion", bau_rechner:"construccion", obra:"construccion",
+      // materials / masonry
+      materials:"mamposteria", materiaux:"mamposteria", materiales:"mamposteria", masonry:"mamposteria",
+      // hvac / climate
+      hvac:"climatizacion", climate:"clima", weather:"clima", meteo:"clima",
+      // finance / real estate
+      finance:"finanzas", real_estate:"finanzas", realestate:"finanzas", inmobiliaria:"finanzas", loans:"finanzas",
+      // energy / electrical / electronics
+      energy:"electricidad", energy_conversion:"electricidad", electrical:"electricidad", electronics:"electronica",
+      // everyday / date / time / calendar / conversion / geo
+      date:"cotidiano", calendar:"cotidiano", time:"cotidiano", conversion:"utilidades", converter:"utilidades", geospatial:"utilidades", geo:"utilidades", tools:"utilidades",
+      // science-ish
+      science:"ciencia", biology:"ciencia", physics:"fisica", chemistry:"quimica",
+    };
+    const _normCat = (raw) => {
+      let k = String(raw || "").toLowerCase().trim().replace(/[\s\-]+/g, "_").replace(/[^a-z_]/g, "");
+      // strip a trailing "_rechner"/"_calculator" etc. that leaked into the field
+      k = k.replace(/_(rechner|calculator|calculadora|calculateur)$/,"");
+      if (CAT_META[k]) return k;            // already canonical
+      if (CAT_ALIAS[k]) return CAT_ALIAS[k]; // known alias
+      return "utilidades";                   // everything unrecognised → Utilities
+    };
+    // Minimal per-language UI strings for the homepage chrome.
+    const HOME_I18N = {
+      en:{h1:"Free Online Calculators",tag:"Instant, accurate calculators for construction, finance, health, math & science — no signup.",browse:"Browse by Category",search:"Search calculators…",none:"No calculators found.",rights:"All rights reserved.",disc:"Results are estimates — verify before relying on them.",more:"See all"},
+      es:{h1:"Calculadoras en Línea Gratis",tag:"Calculadoras instantáneas y precisas de construcción, finanzas, salud, matemáticas y ciencia — sin registro.",browse:"Explorar por Categoría",search:"Buscar calculadoras…",none:"No se encontraron calculadoras.",rights:"Todos los derechos reservados.",disc:"Los resultados son estimaciones — verifícalos antes de usarlos.",more:"Ver todas"},
+      fr:{h1:"Calculateurs en Ligne Gratuits",tag:"Calculateurs instantanés et précis : construction, finance, santé, maths et sciences — sans inscription.",browse:"Parcourir par Catégorie",search:"Rechercher des calculateurs…",none:"Aucun calculateur trouvé.",rights:"Tous droits réservés.",disc:"Les résultats sont des estimations — vérifiez-les avant utilisation.",more:"Voir tout"},
+      de:{h1:"Kostenlose Online-Rechner",tag:"Sofortige, präzise Rechner für Bau, Finanzen, Gesundheit, Mathe & Wissenschaft — ohne Anmeldung.",browse:"Nach Kategorie durchsuchen",search:"Rechner suchen…",none:"Keine Rechner gefunden.",rights:"Alle Rechte vorbehalten.",disc:"Ergebnisse sind Schätzungen — vor Gebrauch prüfen.",more:"Alle ansehen"},
+      it:{h1:"Calcolatori Online Gratuiti",tag:"Calcolatori istantanei e precisi per edilizia, finanza, salute, matematica e scienza — senza registrazione.",browse:"Sfoglia per Categoria",search:"Cerca calcolatori…",none:"Nessun calcolatore trovato.",rights:"Tutti i diritti riservati.",disc:"I risultati sono stime — verifica prima di usarli.",more:"Vedi tutti"},
+      pt:{h1:"Calculadoras Online Grátis",tag:"Calculadoras instantâneas e precisas de construção, finanças, saúde, matemática e ciência — sem cadastro.",browse:"Explorar por Categoria",search:"Buscar calculadoras…",none:"Nenhuma calculadora encontrada.",rights:"Todos os direitos reservados.",disc:"Os resultados são estimativas — verifique antes de usar.",more:"Ver todas"},
+    };
     for (const lang of LANGS) {
-      const toolsHtml = calcs.map(c => {
-        const name = (c.langs?.[lang]?.name || c.langs?.en?.name || c.slug || c.id);
-        const slug = c.slug || c.id;
-        return `<li><a href="/${lang}/${slug}/">${esc(name)}</a></li>`;
+      const T = HOME_I18N[lang] || HOME_I18N.en;
+      // Group calcs by category, de-duplicating by display name.
+      const groups = {}; const seen = new Set();
+      for (const c of calcs) {
+        if (!c.langs?.[lang]?.name) continue;
+        const name = c.langs[lang].name;
+        const smap = slugIdxHome[c.slug] || slugIdxHome[String(c.id)] || null;
+        const slug = (smap && smap[lang]) || c.langs?.[lang]?.slug || c.slug || c.id;
+        const cat = _normCat(c.category || c.block_slug || c.block);
+        const key = cat + "|" + name.toLowerCase();
+        if (seen.has(key)) continue; seen.add(key);
+        (groups[cat] = groups[cat] || []).push({ name, slug });
+      }
+      const totalTools = Object.values(groups).reduce((n, a) => n + a.length, 0);
+      // Sort categories by size (biggest first) so the page leads with substance.
+      const orderedCats = Object.keys(groups).sort((a, b) => groups[b].length - groups[a].length);
+      // Build the category cards using the site's real stylesheet classes
+      // (.blocks-grid / .block-card / .calc-list) — yesterday's design.
+      const blocksHtml = orderedCats.map(cat => {
+        const [icon, label] = CAT_META[cat] || ["🧮", (cat.charAt(0).toUpperCase() + cat.slice(1))];
+        const items = groups[cat]
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map(t => `<li><a href="/${lang}/${t.slug}/">${esc(t.name)}</a></li>`)
+          .join("");
+        return `<div class="block-card">
+  <div class="block-card-header"><div class="block-icon">${icon}</div><div class="block-title">${esc(label)}</div></div>
+  <ul class="calc-list">${items}</ul>
+</div>`;
       }).join("\n");
 
       const html = `<!DOCTYPE html>
@@ -3909,38 +5356,102 @@ async function _regenerateCorePages() {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="index, follow">
-<title>CalcToWork — Free Online Calculators</title>
-<meta name="description" content="Free online calculators for construction, math, finance, health, science and more. ${calcs.length}+ tools available.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="theme-color" content="#f97316">
+<meta name="google-adsense-account" content="${ADSENSE_ID}">
+<link rel="preconnect" href="https://pagead2.googlesyndication.com">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_ID}" crossorigin="anonymous"></script>
+<title>CalcToWork — ${totalTools}+ ${esc(T.h1)}</title>
+<meta name="description" content="${esc(T.tag)} ${totalTools}+ tools.">
 <link rel="canonical" href="${SITE}/${lang}/">
-<link rel="stylesheet" href="/css/styles.css">
-<script async src="/js/calculator.js"></script>
+${LANGS.map(l => `<link rel="alternate" hreflang="${l}" href="${SITE}/${l}/">`).join("\n")}
+<link rel="alternate" hreflang="x-default" href="${SITE}/en/">
+<meta property="og:title" content="CalcToWork — ${esc(T.h1)}">
+<meta property="og:description" content="${esc(T.tag)}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="${SITE}/${lang}/">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"CalcToWork","url":"${SITE}/","inLanguage":"${lang}"}</script>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="stylesheet" href="/css/styles.css?v=${_ASSET_VER}">
+<script>if(localStorage.getItem('ctw-theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');}</script>
 </head>
 <body>
-<header><nav><a href="/${lang}/">CalcToWork</a></nav></header>
-<main>
-<h1>Free Online Calculators</h1>
-<p>${calcs.length}+ free calculators. Updated automatically.</p>
-<ul style="columns:3;column-gap:2rem">${toolsHtml}</ul>
+<a href="#main-content" class="skip-link">Skip to content</a>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/${lang}/"><img src="/favicon.svg" alt="" class="logo-icon" width="32" height="32">Calc<span>To</span>Work</a>
+    <div class="nav-wrapper" id="nav-wrapper">
+      <div class="lang-switcher" aria-label="Language">
+        ${LANGS.map(l => `<a href="/${l}/"${l === lang ? ' class="active"' : ""}>${l.toUpperCase()}</a>`).join("")}
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">&#9790;</button>
+      </div>
+    </div>
+  </div>
+</header>
+<section class="hero">
+  <h1>${esc(T.h1)}</h1>
+  <p>${esc(T.tag)}</p>
+</section>
+<main class="container" id="main-content">
+  <div class="text-center mt-2"><div class="section-title">${esc(T.browse)}</div></div>
+  <div class="search-box-wrap">
+    <input type="search" id="calc-search" class="calc-search-input" placeholder="${esc(T.search)}" autocomplete="off" spellcheck="false" aria-label="${esc(T.search)}">
+    <div id="search-no-results" class="search-no-results" style="display:none;">${esc(T.none)}</div>
+  </div>
+  <div class="blocks-grid" id="blocks-grid">
+${blocksHtml}
+  </div>
 </main>
-<footer><p>CalcToWork — Free Online Calculators</p></footer>
+<footer>
+  <div class="footer-inner">
+    <div>© <span id="yr"></span> CalcToWork — ${esc(T.rights)}</div>
+    <div class="mt-1" style="font-size:.8rem;">${esc(T.disc)}</div>
+    <div class="footer-links">${LANGS.map(l => `<a href="/${l}/">${l.toUpperCase()}</a>`).join("")}</div>
+  </div>
+</footer>
+<script>
+document.getElementById('yr').textContent=new Date().getFullYear();
+(function(){
+  var s=document.getElementById('calc-search'),nr=document.getElementById('search-no-results'),g=document.getElementById('blocks-grid');
+  if(!s||!g)return;
+  function f(){var q=s.value.trim().toLowerCase(),tv=0;
+    g.querySelectorAll('.block-card').forEach(function(card){var cv=0;
+      card.querySelectorAll('.calc-list a').forEach(function(a){var sh=!q||a.textContent.trim().toLowerCase().indexOf(q)!==-1;a.parentElement.style.display=sh?'':'none';if(sh)cv++;});
+      card.style.display=cv>0?'':'none';tv+=cv;});
+    if(nr)nr.style.display=(q&&tv===0)?'':'none';}
+  s.addEventListener('input',f);s.addEventListener('search',f);
+})();
+document.addEventListener('keydown',function(e){if(e.key==='/'&&document.activeElement===document.body){e.preventDefault();var s=document.getElementById('calc-search');if(s)s.focus();}});
+</script>
+<script src="/js/dark-mode.js?v=${_ASSET_VER}"></script>
 </body>
 </html>`;
       const gzipped = await gzip(Buffer.from(html, "utf8"));
       const hash = crypto.createHash("sha256").update(gzipped).digest("hex");
-      newFiles[lang === "en" ? `/${lang}/` : `/${lang}/`] = { gzipped, hash };
+      newFiles[`/${lang}/`] = { gzipped, hash };
       // Root redirect
       if (lang === "en") newFiles["/"] = { gzipped, hash };
     }
 
     // ── SITEMAPS ──
+    const slugIdx = _getSlugIndex();
     const sitemapUrls = calcs.map(c => {
       const enSlug = c.slug || c.id;
-      const enName = c.langs?.en?.name || enSlug;
+      const smap = slugIdx[c.slug] || slugIdx[String(c.id)] || null;
       let xml = "";
       for (const lang of LANGS) {
-        const lSlug = (c.langs?.[lang]?.slug) || enSlug;
-        xml += `  <url><loc>https://${SITE}/${lang}/${lSlug}/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>\n`;
+        // Only list a language the calc actually has (has a name), and always
+        // use the authoritative translated slug so the sitemap matches the
+        // canonical URLs — never the primary-slug duplicate.
+        if (!c.langs?.[lang]?.name) continue;
+        const lSlug = (smap && smap[lang]) || c.langs?.[lang]?.slug || enSlug;
+        // Real modification date so Google re-crawls what changed, not everything.
+        const _lm = c.updated_at || c.updatedAt || c.last_modified || null;
+        const lastmod = (_lm && _lm.toDate) ? _lm.toDate().toISOString().slice(0, 10)
+          : (typeof _lm === "string" && _lm.length >= 10 ? _lm.slice(0, 10) : null);
+        xml += `  <url><loc>${SITE}/${lang}/${lSlug}/</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ""}<changefreq>monthly</changefreq><priority>0.7</priority></url>\n`;
       }
       return xml;
     }).join("");
@@ -3953,67 +5464,75 @@ ${sitemapUrls}
     const smHash = crypto.createHash("sha256").update(smGzipped).digest("hex");
     newFiles["/sitemap.xml"] = { gzipped: smGzipped, hash: smHash };
 
-    // robots.txt
-    const robotsTxt = `User-agent: *\nAllow: /\nSitemap: https://${SITE}/sitemap.xml`;
+    // ── llms.txt — curated site map for AI search engines / LLMs (llmstxt.org).
+    // Helps ChatGPT, Claude, Perplexity, Gemini etc. understand and cite the site.
+    const llmsByCat = {};
+    for (const c of calcs) {
+      if (!c.langs?.en?.name) continue;
+      const smap = slugIdx[c.slug] || slugIdx[String(c.id)] || null;
+      const enSlug = (smap && smap.en) || c.langs?.en?.slug || c.slug || c.id;
+      const cat = _normCat(c.category);
+      (llmsByCat[cat] = llmsByCat[cat] || []).push({ name: c.langs.en.name, url: `${SITE}/en/${enSlug}/` });
+    }
+    let llmsTxt = `# CalcToWork\n\n> ${calcs.length}+ free online calculators for construction, finance, health, mathematics and science. Every tool runs instantly in the browser with no signup, and each page explains the formula with worked examples. Available in English, Spanish, French, German, Italian and Portuguese.\n\n`;
+    llmsTxt += `## About\n\n`;
+    llmsTxt += `- The English pages are listed below. For another language, swap \`/en/\` for \`/es/\`, \`/fr/\`, \`/de/\`, \`/it/\` or \`/pt/\` (each language has its own translated URL slug).\n`;
+    llmsTxt += `- Every calculator page answers the question directly, shows the formula, gives example values, and includes an FAQ.\n`;
+    llmsTxt += `- Full sitemap: ${SITE}/sitemap.xml\n\n`;
+    for (const cat of Object.keys(llmsByCat).sort()) {
+      const meta = CAT_META[cat] || ["", cat];
+      llmsTxt += `## ${meta[1]}\n\n`;
+      for (const it of llmsByCat[cat].sort((a, b) => a.name.localeCompare(b.name))) {
+        llmsTxt += `- [${it.name}](${it.url})\n`;
+      }
+      llmsTxt += `\n`;
+    }
+    const llmsGz = await gzip(Buffer.from(llmsTxt, "utf8"));
+    const llmsHash = crypto.createHash("sha256").update(llmsGz).digest("hex");
+    newFiles["/llms.txt"] = { gzipped: llmsGz, hash: llmsHash };
+
+    // robots.txt — allow everyone, and explicitly welcome the major AI crawlers
+    // (a named user-agent block overrides the `*` block, so each gets its own Allow).
+    const AI_BOTS = ["GPTBot","OAI-SearchBot","ChatGPT-User","ClaudeBot","Claude-Web","anthropic-ai","PerplexityBot","Perplexity-User","Google-Extended","Applebot-Extended","Amazonbot","CCBot","cohere-ai","Meta-ExternalAgent","DuckAssistBot","YouBot","Bingbot"];
+    let robotsTxt = `User-agent: *\nAllow: /\n\n`;
+    robotsTxt += `# AI search engines & assistants are welcome to crawl and cite CalcToWork\n`;
+    robotsTxt += AI_BOTS.map(b => `User-agent: ${b}\nAllow: /`).join("\n\n");
+    robotsTxt += `\n\nSitemap: ${SITE}/sitemap.xml`;
     const rbGzipped = await gzip(Buffer.from(robotsTxt, "utf8"));
     const rbHash = crypto.createHash("sha256").update(rbGzipped).digest("hex");
     newFiles["/robots.txt"] = { gzipped: rbGzipped, hash: rbHash };
 
-    // ── Deploy via Hosting API ──
-    const tokenResult = await admin.app().options.credential.getAccessToken();
-    const token = tokenResult.access_token;
-    const headers = { "Authorization": "Bearer " + token, "Content-Type": "application/json" };
+    // IndexNow ownership proof: a text file at the site root whose body is the key.
+    // Bing/Yandex fetch this to verify we control the host before accepting pings.
+    const inGz = await gzip(Buffer.from(INDEXNOW_KEY, "utf8"));
+    const inHash = crypto.createHash("sha256").update(inGz).digest("hex");
+    newFiles["/" + INDEXNOW_KEY + ".txt"] = { gzipped: inGz, hash: inHash };
 
-    // Get current release
-    const releasesRes = await fetch(`${HOSTING_BASE}/sites/${SITE}/releases?pageSize=1`, { headers });
-    const releasesData = await releasesRes.json();
-    const currentVersionName = releasesData.releases?.[0]?.version?.name;
-    const currentConfig = releasesData.releases?.[0]?.version?.config || {};
-    if (!currentVersionName) return { error: "No current version" };
+    // ads.txt, written every time rather than merely inherited from the previous
+    // manifest — inheritance is exactly how it could vanish unnoticed.
+    const adsGz = await gzip(Buffer.from(ADS_TXT_LINE + "\n", "utf8"));
+    const adsHash = crypto.createHash("sha256").update(adsGz).digest("hex");
+    newFiles["/ads.txt"] = { gzipped: adsGz, hash: adsHash };
 
-    // Create new version
-    const createRes = await fetch(`${HOSTING_BASE}/sites/${SITE}/versions`, {
-      method: "POST", headers,
-      body: JSON.stringify({ config: currentConfig }),
-    });
-    const newVersion = await createRes.json();
+    // /favicon.ico is the fallback path crawlers try before reading any <link> tag.
+    // It was 404, so Google had no icon to show beside a result.
+    try {
+      const pathx = require("path"), fsx = require("fs");
+      const icoSrc = pathx.join(__dirname, "assets", "icon-192.png");
+      const icoBuf = fsx.existsSync(icoSrc) ? fsx.readFileSync(icoSrc) : null;
+      if (icoBuf) {
+        const icoGz = await gzip(icoBuf);
+        const icoHash = crypto.createHash("sha256").update(icoGz).digest("hex");
+        newFiles["/favicon.ico"] = { gzipped: icoGz, hash: icoHash };
+      }
+    } catch (e) { console.warn("favicon.ico not published:", e.message); }
 
-    // Build file map
-    const fileMap = {};
-    for (const [path, { hash }] of Object.entries(newFiles)) {
-      fileMap[path] = hash;
-      if (!path.endsWith("/")) fileMap[path + "/"] = hash;
-    }
-
-    // Populate
-    const populateRes = await fetch(`${HOSTING_BASE}/${newVersion.name}:populateFiles`, {
-      method: "POST", headers,
-      body: JSON.stringify({ files: fileMap }),
-    });
-    const populateData = await populateRes.json();
-    const uploadUrl = populateData.uploadUrl;
-    const uploadRequired = populateData.uploadRequiredHashes || [];
-
-    // Upload new files
-    for (const [path, { gzipped, hash }] of Object.entries(newFiles)) {
-      if (!uploadRequired.includes(hash)) continue;
-      await fetch(`${uploadUrl}/${hash}`, {
-        method: "POST", headers: { ...headers, "Content-Type": "application/octet-stream" },
-        body: gzipped,
-      });
-    }
-
-    // Finalize + release
-    await fetch(`${HOSTING_BASE}/${newVersion.name}:finalize`, {
-      method: "PATCH", headers,
-      body: JSON.stringify({ status: "FINALIZED" }),
-    });
-    await fetch(`${HOSTING_BASE}/sites/${SITE}/releases`, {
-      method: "POST", headers,
-      body: JSON.stringify({ message: "[Agent] Core pages regeneration", version: { name: newVersion.name } }),
-    });
-
-    console.log(`[Regen] Core pages deployed: homepage (6 langs), sitemap, robots.txt`);
+    // ── Deploy via the shared chunked helper (clones full manifest so calc
+    // pages are preserved; old code populated ONLY core files and would have
+    // 404'd the entire catalog). ──
+    const result = await _deployPagesToHosting(newFiles, "[Agent] Core pages regeneration");
+    if (result.error) { console.error("[Regen] Failed:", result.error); return result; }
+    console.log(`[Regen] Core pages deployed: homepage (6 langs), sitemap, robots.txt, llms.txt`);
     return { deployed: true, files: Object.keys(newFiles).length };
   } catch(e) {
     console.error("[Regen] Failed:", e.message);
@@ -4137,23 +5656,23 @@ exports.autonomousGrowthLoop = functions.runWith({ timeoutSeconds: 540, memory: 
     const highImpression = assessment.gsc_pages.filter(p => p.imp >= 50).slice(0, 5);
     const gaps = assessment.competitor_gaps.slice(0, 5);
 
-    const planPrompt = `You are an autonomous SEO growth agent for CalcToWork, a calculator website with 461 tools. Pick the TOP 3-5 highest-impact actions NOW.
+    const planPrompt = `You are the autonomous SEO agent for CalcToWork (461 calculators). Pick 3-5 highest-priority actions.
 
-SITE STATE:
-- ${assessment.seo_gaps ? assessment.seo_gaps.missingTitle + ' calculators MISSING SEO TITLES (critical!)' : 'SEO data unavailable'}
-- ${assessment.seo_gaps ? assessment.seo_gaps.spanglishCount + ' calculators have SPANGLISH titles' : ''}
-- ${assessment.seo_gaps && assessment.seo_gaps.sampleSlugs ? 'Sample slugs needing fixes: ' + assessment.seo_gaps.sampleSlugs.join(', ') : ''}
-- Low-CTR pages: ${JSON.stringify(lowCTR.slice(0,3))}
-- Alerts: ${assessment.alerts.length} unacknowledged
+CRITICAL SITE STATE:
+- ${assessment.seo_gaps ? assessment.seo_gaps.missingTitle + ' calcs MISSING SEO titles' : 'unknown'}
+- ${assessment.seo_gaps ? assessment.seo_gaps.missingFaq + ' calcs NEED FAQ schema (0 have it!)' : 'unknown'}
+- ${assessment.seo_gaps ? assessment.seo_gaps.spanglishCount + ' calcs have SPANGLISH titles' : ''}
+- ALL 461 calcs need long-form articles (>500 chars) for AdSense approval
+- ALL 461 calcs need FAQ items for rich snippets
 - Remaining: ${strat.max_daily_actions - todayActions} actions, ${strat.max_publishes_per_day - todayPublishes} publishes
 
-PRIORITY ACTIONS (pick 3-5):
-- "fix_meta" — Generate missing SEO titles/descriptions (USE THIS IF calc MISS SEO TITLES ABOVE)
-- "optimize_ctr" — Rewrite SEO title for a specific page slug
+BEST ACTIONS NOW:
+- "generate_faq" — Add FAQ schema to calculators (needed for rich snippets + AdSense)
+- "generate_content" — Write long-form articles (needed for AdSense unique content requirement)
+- "fix_meta" — Fix missing/broken SEO titles
 - "fix_hreflang" — Fill missing language translations
-- "generate_faq" — Create FAQ for calculators without one
 
-Return ONLY: {"actions":[{"type":"fix_meta","reason":"NEED SEO titles","priority":1}]}`;
+Return ONLY: {"actions":[{"type":"generate_faq","reason":"0 calcs have FAQ","priority":1},{"type":"generate_content","reason":"0 calcs have articles","priority":2}]}`;
 
     let plan;
     try {
@@ -4167,17 +5686,13 @@ Return ONLY: {"actions":[{"type":"fix_meta","reason":"NEED SEO titles","priority
     } catch(e) { log.errors.push("plan: "+e.message); console.warn("[AGENT] Planning failed:", e.message); }
 
     if (!plan || !plan.actions || plan.actions.length === 0) {
-      // Fallback: auto-plan based on SEO gaps (not competitor gaps)
+      // Fallback: prioritize FAQ + content (biggest gap for AdSense)
       plan = { actions: [] };
-      // Always fix meta first (biggest impact)
-      if (assessment.seo_gaps && assessment.seo_gaps.missingTitle > 0) {
-        plan.actions.push({ type:"fix_meta", reason:`${assessment.seo_gaps.missingTitle} calculators need SEO titles`, priority:1 });
-      }
-      // Fix hreflang
-      plan.actions.push({ type:"fix_hreflang", reason:"routine maintenance", priority:3 });
-      // Only generate calcs from real gaps (not category names)
-      const realGaps = gaps.filter(g => !g.name.toLowerCase().includes("calculator") || g.name.split(" ").length > 2);
-      realGaps.slice(0,1).forEach(g => plan.actions.push({ type:"generate_calc", name:g.name, reason:"genuine competitor gap", priority:4 }));
+      plan.actions.push({ type:"generate_faq", reason:"0 calcs have FAQ — needed for rich snippets + AdSense", priority:1 });
+      plan.actions.push({ type:"generate_content", reason:"0 calcs have articles — needed for AdSense unique content", priority:2 });
+      plan.actions.push({ type:"fix_meta", reason:"Fix remaining SEO gaps", priority:3 });
+      plan.actions.push({ type:"request_indexing", reason:"Check indexing + submit unindexed pages to Google", priority:4 });
+      plan.actions.push({ type:"fix_hreflang", reason:"routine maintenance", priority:5 });
     }
 
     console.log(`[AGENT] Planned ${plan.actions.length} actions`);
@@ -4297,6 +5812,101 @@ Return ONLY: {"actions":[{"type":"fix_meta","reason":"NEED SEO titles","priority
           if (strat.auto_publish && metaResult.slugs) {
             for (const s of metaResult.slugs) { await _autoDeployCalc(s).catch(()=>{}); }
           }
+        } else if (action.type === "generate_faq" && strat.focus_areas.some(f => f === "generate_faq" || f === "faq")) {
+          // Generate FAQ for ALL languages where missing
+          const snap = await db.collection("calc_cms").limit(30).get();
+          let faqCount = 0, langCount = 0;
+          const allLangs = ["en","es","fr","de","it","pt"];
+          const langNames = {en:"English",es:"Spanish",fr:"French",de:"German",it:"Italian",pt:"Portuguese"};
+
+          for (const doc of snap.docs) {
+            if (faqCount >= 8) break;
+            const data = doc.data();
+            const en = (data.langs?.en) || {};
+            const name = en.name || data.name || doc.id;
+            if (!name) continue;
+
+            // Check which languages need FAQ
+            for (const lang of allLangs) {
+              if (faqCount >= 8) break;
+              const langData = (data.langs || {})[lang] || {};
+              if (langData.faq && langData.faq.length >= 2) continue; // already has FAQ in this lang
+              const langName = langNames[lang] || lang;
+
+              try {
+                const faqPrompt = `Create 3-4 FAQ items (question + answer) for a free calculator called "${name}". Write in ${langName}. Each FAQ should address a common user question. Keep answers clear (50-150 words). Return ONLY JSON: {"faq":[{"q":"Question in ${langName}?","a":"Answer in ${langName}."}]}`;
+                const fText = await _callAIRaw(apiKey, provider, provCfg.model, faqPrompt, 1000);
+                budgetSpent++;
+                if (fText) {
+                  const fM = fText.match(/\{[\s\S]*\}/);
+                  if (fM) {
+                    const parsed = JSON.parse(fM[0]);
+                    if (parsed.faq && parsed.faq.length > 0) {
+                      await doc.ref.set({ [`langs.${lang}.faq`]: parsed.faq, updated_at: admin.firestore.FieldValue.serverTimestamp() }, { merge: true });
+                      faqCount++; langCount++;
+                    }
+                  }
+                }
+              } catch(e) { console.warn("[Agent] FAQ failed:", doc.id, lang, e.message); }
+            }
+            if (strat.auto_publish && faqCount > 0) { await _autoDeployCalc(doc.id).catch(()=>{}); }
+          }
+          actionLog.result = `Generated FAQ: ${faqCount} items across ${langCount} languages`;
+          actionLog.status = faqCount > 0 ? "completed" : "skipped";
+        } else if (action.type === "generate_content" && strat.focus_areas.some(f => f === "generate_content" || f === "long_content")) {
+          // Generate long-form article per calculator (English base, then translate)
+          const snap = await db.collection("calc_cms").limit(20).get();
+          let contentCount = 0;
+          for (const doc of snap.docs) {
+            if (contentCount >= 2) break;
+            const data = doc.data();
+            const en = (data.langs?.en) || {};
+            const name = en.name || data.name || doc.id;
+            if (!name) continue;
+            if (en.long_content && en.long_content.length > 500) continue;
+
+            try {
+              const contentPrompt = `Write a comprehensive long-form article (800-1500 words) about a free online calculator called "${name}". Include: 1) What it does and who uses it. 2) The formula explained simply. 3) Step-by-step worked example. 4) Common mistakes to avoid. 5) Practical applications. Use <h2>, <p>, <ul>, <li> HTML tags. Write in clear, helpful English. Return the full HTML content.`;
+              const cText = await _callAIRaw(apiKey, provider, provCfg.model, contentPrompt, 3000);
+              budgetSpent++;
+              if (cText && cText.length > 200) {
+                await doc.ref.set({ "langs.en.long_content": cText, updated_at: admin.firestore.FieldValue.serverTimestamp() }, { merge: true });
+                contentCount++;
+                if (strat.auto_publish) { await _autoDeployCalc(doc.id).catch(()=>{}); }
+              }
+            } catch(e) { console.warn("[Agent] Content failed:", doc.id, e.message); }
+          }
+          actionLog.result = `Generated ${contentCount} articles`;
+          actionLog.status = contentCount > 0 ? "completed" : "skipped";
+        } else if (action.type === "request_indexing" && strat.focus_areas.some(f => f === "request_indexing" || f === "index")) {
+          // Request Google indexing for pages not yet indexed
+          const siteUrl = functions.config().gsc?.site_url || "sc-domain:calcto.work";
+          const snapshot = await db.collection("calc_cms").limit(50).get();
+          let indexed = 0, unindexed = 0, requested = 0;
+
+          // Check GSC page stats
+          let gscSlugs = new Set();
+          try {
+            const gscSnap = await db.collection("gsc_page_stats").where("site_url","==",siteUrl).where("date",">=",(new Date(Date.now()-30*86400000)).toISOString().slice(0,10)).limit(500).get();
+            gscSnap.forEach(d => { const s = (d.data().page||"").split("/").filter(Boolean).pop()||""; gscSlugs.add(s); });
+          } catch(e) {}
+
+          for (const doc of snapshot.docs) {
+            const slug = doc.id;
+            if (gscSlugs.has(slug)) { indexed++; continue; }
+            unindexed++;
+            if (requested >= 10) continue;
+
+            // Submit to Google via sitemap ping
+            try {
+              const url = "https://calcto.work/en/" + slug + "/";
+              await fetch(`https://www.google.com/ping?sitemap=${encodeURIComponent(url)}`).catch(()=>{});
+              requested++;
+            } catch(e) {}
+          }
+
+          actionLog.result = `Index check: ${indexed} indexed, ${unindexed} not indexed, ${requested} submitted`;
+          actionLog.status = requested > 0 ? "completed" : (unindexed === 0 ? "completed" : "skipped");
         } else {
           actionLog.status = "skipped";
           actionLog.result = "Not in focus areas or limits reached";
@@ -4393,6 +6003,58 @@ exports.dailyCoreRegeneration = functions.runWith({ timeoutSeconds: 300, memory:
   .pubsub.schedule("0 5 * * *").timeZone("UTC").onRun(async () => {
   console.log("[DailyRegen] Regenerating core pages...");
   return await _regenerateCorePages();
+});
+
+/**
+ * Daily autocomplete — processes a few incomplete calculators each day at 6 AM UTC.
+ * Skips already-complete calcs. Slowly fills in missing content over time.
+ */
+exports.dailyAutoComplete = functions.runWith({ timeoutSeconds: 540, memory: "512MB" })
+  .pubsub.schedule("0 6 * * *").timeZone("UTC").onRun(async () => {
+  console.log("[DailyComplete] Starting...");
+  const cfgDoc = await db.collection("admin_prefs").doc("ai_config").get();
+  const cfg = cfgDoc.exists ? cfgDoc.data() : {};
+  const provider = cfg.active_provider || "deepseek";
+  const provCfg = (cfg.providers || {})[provider] || {};
+  const apiKey = provCfg.api_key;
+  if (!apiKey) { console.log("[DailyComplete] No AI key"); return { error: "No AI key" }; }
+
+  const stateRef = db.collection("admin_prefs").doc("daily_complete_state");
+  const stateDoc = await stateRef.get();
+  const state = stateDoc.exists ? stateDoc.data() : {};
+  let cursorId = state.cursor_doc_id || null;
+  let lastDoc = null;
+  if (cursorId) { const c = await db.collection("calc_cms").doc(cursorId).get(); if (c.exists) lastDoc = c; }
+
+  let query = db.collection("calc_cms").where("status","==","published").orderBy("__name__").limit(30);
+  if (lastDoc) query = query.startAfter(lastDoc);
+  const snap = await query.get();
+  if (snap.empty) { await stateRef.set({ cursor_doc_id: null, processed: 0 }, { merge: true }); return { done: true }; }
+
+  const results = { translations:0, metaFixed:0, longContentFixed:0, faqFixed:0, linksAdded:0 };
+  let updated = 0, processed = 0, lastProcessed = null;
+
+  for (const doc of snap.docs) {
+    lastProcessed = doc.id;
+    const data = doc.data();
+    const en = (data.langs && data.langs.en) || {};
+    const hasContent = en.long_content && en.long_content.length > 500;
+    const hasFaq = en.faq && en.faq.length >= 2;
+    const hasSteps = en.steps && en.steps.filter(Boolean).length >= 2;
+    if (hasContent && hasFaq && hasSteps) { processed++; continue; }
+
+    try {
+      const changed = await _autoPilotProcessDoc(doc, apiKey, provider, provCfg.model, results, {}, {});
+      if (changed) { updated++; try { await _autoDeployCalc(doc.id); } catch(e) {} }
+    } catch(e) { console.warn("[DailyComplete] failed:", doc.id, e.message); }
+    processed++;
+  }
+
+  const newTotal = (state.processed || 0) + processed;
+  await stateRef.set({ cursor_doc_id: lastProcessed, processed: newTotal, updated: (state.updated||0)+updated, last_run: admin.firestore.FieldValue.serverTimestamp() }, { merge: true });
+
+  console.log(`[DailyComplete] Done: ${processed} scanned, ${updated} updated`);
+  return { processed, updated };
 });
 
 /**
@@ -5043,6 +6705,511 @@ exports.auditCalcQualityHttp = functions.runWith({ timeoutSeconds: 300, memory: 
 });
 
 // ══ PER-CALCULATOR BACKLINK GENERATOR ══
+// Remove junk/empty calc docs (test rows, drafts with no real definition).
+// SAFE BY DEFAULT: without {confirm:true} it only reports what it WOULD delete.
+// When confirming, every doc is copied to `calc_cms_deleted_backup` first, so a
+// deletion is always recoverable.
+exports.cleanupJunkCalcsHttp = functions.runWith({ timeoutSeconds: 120, memory: "256MB" })
+  .https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+  if (req.method === "OPTIONS") return res.status(204).send("");
+  if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
+  try {
+    const confirm = !!(req.body && req.body.confirm);
+    const snap = await db.collection("calc_cms").get();
+    const junk = [];
+    snap.forEach(d => {
+      const data = d.data();
+      const en = (data.langs && data.langs.en) || {};
+      const hasName = !!(en.name && en.name.trim());
+      const formulaLen = (data.formula || "").length;
+      const inputsLen = (data.inputs || []).length;
+      const article = (en.long_content || "").length;
+      // Junk = no real definition: needs a name AND (a usable formula OR inputs)
+      // AND some content. Anything with real substance is never touched.
+      const isJunk = (!hasName) || (formulaLen < 5 && inputsLen === 0 && article < 200);
+      if (isJunk) junk.push({ id: d.id, name: en.name || "(no name)", status: data.status || "?", formulaLen, inputsLen, article });
+    });
+
+    let deleted = 0;
+    if (confirm) {
+      for (const j of junk) {
+        const ref = db.collection("calc_cms").doc(j.id);
+        const cur = await ref.get();
+        if (!cur.exists) continue;
+        // back up before deleting
+        await db.collection("calc_cms_deleted_backup").doc(j.id).set({
+          ...cur.data(), _deleted_at: admin.firestore.FieldValue.serverTimestamp(), _deleted_by: "cleanupJunkCalcsHttp",
+        });
+        await ref.delete();
+        deleted++;
+      }
+    }
+    return res.status(200).json({
+      dryRun: !confirm, junkCount: junk.length, deleted,
+      junk: junk.slice(0, 50),
+      note: confirm ? `Deleted ${deleted} junk docs (backed up to calc_cms_deleted_backup).` : "DRY RUN — nothing deleted. POST {confirm:true} to delete (with backup).",
+    });
+  } catch (e) { return res.status(500).json({ error: e.message }); }
+});
+
+// Deploy bundled static assets (JS/CSS) to hosting INCREMENTALLY via the shared
+// manifest-cloning helper. This is the safe way to update /js/calculator.js etc.
+// — a full `firebase deploy --only hosting` would revert the whole catalog to
+// the stale local public/ build. Assets ship inside functions/assets/.
+exports.deployAssetsHttp = functions.runWith({ timeoutSeconds: 300, memory: "512MB" })
+  .https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+  if (req.method === "OPTIONS") return res.status(204).send("");
+  if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
+  try {
+    const zlib = require("zlib"), util = require("util"), fs = require("fs"), path = require("path");
+    const crypto = require("crypto");
+    const gzip = util.promisify(zlib.gzip);
+    const ASSETS = { "/js/calculator.js": "assets/calculator.js", "/js/analytics-tracker.js": "assets/analytics-tracker.js", "/css/styles.css": "assets/styles.css" };
+    const files = {};
+    for (const [hostPath, rel] of Object.entries(ASSETS)) {
+      const full = path.join(__dirname, rel);
+      if (!fs.existsSync(full)) continue;
+      const gzipped = await gzip(fs.readFileSync(full));
+      const hash = crypto.createHash("sha256").update(gzipped).digest("hex");
+      files[hostPath] = { gzipped, hash };
+    }
+    if (!Object.keys(files).length) return res.status(400).json({ error: "No bundled assets found." });
+    const result = await _deployPagesToHosting(files, "[Assets] deploy bundled JS/CSS");
+    return res.status(200).json({ deployed: !result.error, paths: Object.keys(files), versionName: result.versionName || null, error: result.error || null });
+  } catch (e) { return res.status(500).json({ error: e.message }); }
+});
+
+// deployAdminHttp — ships the admin dashboard (/admin.html) and the Page-1 Tracker
+// dataset (/data/sd-tracker.json) to hosting via the safe incremental helper, WITHOUT
+// a full `firebase deploy --only hosting` (which would clobber server-generated calc
+// pages that aren't in local public/). Source of truth: functions/assets/*.
+// patchCalcFormulaHttp — safely replace a broken calc formula. HARD GUARD: the new
+// formula must parse AND compute valid (finite/valid) outputs for sample inputs before it
+// is saved; otherwise it is REJECTED. Used to fix genuinely broken calcs (e.g. formulas
+// whose //-comments got flattened and ate the return). POST { slug, formula }
+exports.patchCalcFormulaHttp = functions.runWith({ timeoutSeconds: 300, memory: "512MB" })
+  .https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+  if (req.method === "OPTIONS") return res.status(204).send("");
+  if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
+  try {
+    const path = require("path"), fs = require("fs");
+    const inSlug = (req.body && req.body.slug || "").trim();
+    const formula = (req.body && req.body.formula || "").trim();
+    // Optional: replace the input definitions too (e.g. turn a mislabelled number box
+    // into a text or choice field). Ids must match the existing set — this endpoint
+    // fixes a calc's shape, it does not redesign it.
+    const newInputs = Array.isArray(req.body && req.body.inputs) ? req.body.inputs : null;
+    const newOutputs = Array.isArray(req.body && req.body.outputs) ? req.body.outputs : null;
+    // Optional: human labels for coded option values ({gender:{"0":"Male","1":"Female"}}),
+    // written to every language so a dropdown never shows a bare code.
+    const optionLabels = (req.body && req.body.option_labels && typeof req.body.option_labels === "object")
+      ? req.body.option_labels : null;
+    if (!inSlug || !formula) return res.status(400).json({ error: "slug and formula required" });
+    if (/\/\/[^\n]/.test(formula) && !formula.includes("\n")) return res.status(400).json({ error: "Refusing: single-line formula with // comment (fragile). Use /* */ or newlines." });
+
+    let index = [];
+    try { const raw = require(path.join(__dirname, "calc-index.json")); index = Array.isArray(raw) ? raw : (raw.calcs || Object.values(raw)); } catch (e) {}
+    const entry = index.find(e => e.slug === inSlug) || index.find(e => e.slugs && Object.values(e.slugs).includes(inSlug));
+    const baseSlug = entry ? entry.slug : inSlug;
+    const id = entry ? String(entry.id) : null;
+
+    const docRef = db.collection("calc_cms").doc(baseSlug);
+    const snap = await docRef.get();
+    if (!snap.exists) return res.status(404).json({ error: "Calc not found: " + baseSlug });
+    const doc = snap.data();
+
+    // Gather inputs/outputs to validate against, using the SAME precedence the renderer
+    // uses (calc_cms first, static only to fill gaps). Preferring static here meant that
+    // when the two disagreed we validated against a shape the live page never renders.
+    let inputsArr = doc.inputs || [], outputsArr = doc.outputs || [], example = doc.example_inputs || null;
+    if (id) { try { const cj = JSON.parse(fs.readFileSync(path.join(__dirname, "calcs", id, "calc.json"), "utf8")); if (!inputsArr.length && (cj.inputs || []).length) inputsArr = cj.inputs; if (!outputsArr.length && (cj.outputs || []).length) outputsArr = cj.outputs; example = example || cj.example_inputs; } catch (e) {} }
+    if (newOutputs) {
+      if (!newOutputs.every(o => o && o.id)) return res.status(400).json({ error: "outputs[] entries need ids" });
+      outputsArr = newOutputs;
+    }
+    const outIds = outputsArr.map(o => o.id).filter(Boolean);
+    if (!outIds.length) return res.status(400).json({ error: "No outputs to validate against" });
+
+    if (newInputs) {
+      const oldIds = inputsArr.map(i => i.id).sort().join(",");
+      const gotIds = newInputs.map(i => i && i.id).filter(Boolean).sort().join(",");
+      if (!gotIds) return res.status(400).json({ error: "inputs[] entries need ids" });
+      const allowNew = !!(req.body && req.body.allow_new_inputs);
+      if (oldIds && gotIds !== oldIds && !allowNew) {
+        return res.status(400).json({ error: `inputs[] ids must match the existing set. have: ${oldIds} | got: ${gotIds} (pass allow_new_inputs:true to change the field set on purpose)` });
+      }
+      if (allowNew && oldIds) {
+        // Adding fields is fine; silently DROPPING one would break saved links and
+        // anything that references it, so require the existing ids to survive.
+        const gone = oldIds.split(",").filter(id => id && !newInputs.some(i => i.id === id));
+        if (gone.length) return res.status(400).json({ error: "allow_new_inputs may add fields but not remove: " + gone.join(",") });
+      }
+      inputsArr = newInputs;
+      example = null;   // an old example keyed to the old shape would mask a broken one
+    }
+
+    // HARD GUARD: parse + compute must yield valid outputs.
+    let fn; try { fn = new Function("inputs", '"use strict";' + formula); } catch (e) { return res.status(422).json({ error: "Formula syntax error: " + e.message }); }
+    const validOut = v => v !== undefined && v !== null && !(typeof v === "number" && !isFinite(v));
+    const si = {}; inputsArr.forEach(i => { si[i.id] = (i.default != null) ? i.default : (i.options && i.options[0] != null ? (i.options[0].value != null ? i.options[0].value : i.options[0]) : (typeof i.min === "number" ? (i.min > 0 ? i.min : 1) : 1)); });
+    if (example) Object.assign(si, example);
+    let r; try { r = fn(si); } catch (e) { return res.status(422).json({ error: "Formula threw: " + e.message, sampleInputs: si }); }
+    if (!r || r.error || !outIds.every(x => validOut(r[x]))) return res.status(422).json({ error: "Formula does not produce valid outputs for sample inputs — NOT saved", result: r, sampleInputs: si });
+
+    const writePatch = { formula };
+    if (newInputs) writePatch.inputs = inputsArr;
+    if (newOutputs) writePatch.outputs = outputsArr;
+    // Optional: per-language input/output labels, e.g. to replace a Spanish id that was
+    // being humanized onto the English page ("Peso est kg").
+    // POST { labels: { en: { inputs: {...}, outputs: {...} }, ... } }
+    const labelPatch = (req.body && req.body.labels && typeof req.body.labels === "object") ? req.body.labels : null;
+    if (labelPatch) {
+      const lp = {};
+      for (const [l, v] of Object.entries(labelPatch)) {
+        if (!LANGS.includes(l) || !v || typeof v !== "object") continue;
+        const e = {};
+        if (v.inputs && typeof v.inputs === "object") e.inputs_labels = v.inputs;
+        if (v.outputs && typeof v.outputs === "object") e.outputs_labels = v.outputs;
+        // name feeds the <h1> and the SEO <title>, so it is the highest-value string
+        // on the page — repairable here when a generation pass corrupted it.
+        if (typeof v.name === "string" && v.name.trim()) e.name = v.name.trim();
+        if (typeof v.desc === "string" && v.desc.trim()) e.desc = v.desc.trim();
+        if (Object.keys(e).length) lp[l] = e;
+      }
+      if (Object.keys(lp).length) writePatch.langs = lp;
+    }
+    if (optionLabels) {
+      // English gets the labels as given; the other languages inherit them until a
+      // translation pass replaces them — a readable English word still beats "0".
+      // Merge rather than assign: `labels` above may already have set writePatch.langs.
+      writePatch.langs = writePatch.langs || {};
+      for (const l of LANGS) writePatch.langs[l] = { ...(writePatch.langs[l] || {}), option_labels: optionLabels };
+    }
+    await docRef.set(writePatch, { merge: true });
+    let deployed = false;
+    if (doc.status === "published") {
+      const s2 = await docRef.get();
+      const files = await _buildCalcFiles(baseSlug, s2.data());
+      if (Object.keys(files).length) { const dr = await _deployPagesToHosting(files, `[FormulaFix] ${baseSlug}`); deployed = !dr.error; }
+    }
+    return res.status(200).json({ saved: true, slug: baseSlug, computeOk: true, result: r, deployed });
+  } catch (e) { console.error("patchCalcFormulaHttp error:", e); return res.status(500).json({ error: e.message }); }
+});
+
+/**
+ * regenPresetsHttp — replace meaningless example presets ("Small/Medium/Large",
+ * "Caso 1..5", all-zero rows, rows that make the formula divide by zero) with named
+ * real-world scenarios, and give inputs sensible defaults so the page never loads blank.
+ *
+ * HARD GUARD, same contract as patchCalcFormulaHttp: nothing is written unless every
+ * generated scenario actually computes valid outputs through the calc's own formula.
+ * A calc whose presets can't be validated is left exactly as it was and reported.
+ *
+ * POST { slug, republish?:bool, want?:number, fixDefaults?:bool, force?:bool }
+ */
+exports.regenPresetsHttp = functions.runWith({ timeoutSeconds: 540, memory: "512MB" })
+  .https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+  if (req.method === "OPTIONS") return res.status(204).send("");
+  if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
+  try {
+    const path = require("path"), fs = require("fs");
+    const b = req.body || {};
+    const inSlug = String(b.slug || "").trim();
+    if (!inSlug) return res.status(400).json({ error: "slug required" });
+    const want = Math.min(6, Math.max(3, Number(b.want) || 4));
+    const republish = b.republish !== false;
+    const fixDefaults = b.fixDefaults !== false;
+
+    let index = [];
+    try { const raw = require(path.join(__dirname, "calc-index.json")); index = Array.isArray(raw) ? raw : (raw.calcs || Object.values(raw)); } catch (e) {}
+    const entry = index.find(e => e.slug === inSlug) || index.find(e => e.slugs && Object.values(e.slugs).includes(inSlug));
+    const baseSlug = entry ? entry.slug : inSlug;
+    const id = entry ? String(entry.id) : null;
+
+    const docRef = db.collection("calc_cms").doc(baseSlug);
+    const snap = await docRef.get();
+    if (!snap.exists) return res.status(404).json({ error: "Calc not found: " + baseSlug });
+    const doc = snap.data();
+
+    // ── gather the calc's real shape (CMS wins, static fills gaps) ──
+    let inputsArr = (doc.inputs || []).length ? doc.inputs : [];
+    let outputsArr = (doc.outputs || []).length ? doc.outputs : [];
+    let formula = doc.formula && doc.formula.length > 10 ? doc.formula : "";
+    let staticLang = null;
+    if (id) {
+      try {
+        const cj = JSON.parse(fs.readFileSync(path.join(__dirname, "calcs", id, "calc.json"), "utf8"));
+        if (!inputsArr.length && (cj.inputs || []).length) inputsArr = cj.inputs;
+        if (!outputsArr.length && (cj.outputs || []).length) outputsArr = cj.outputs;
+        if (!formula) formula = cj.formula || "";
+      } catch (e) {}
+      try { staticLang = JSON.parse(fs.readFileSync(path.join(__dirname, "calcs", id, "en.json"), "utf8")); } catch (e) {}
+    }
+    if (!inputsArr.length) return res.status(400).json({ error: "Calc has no inputs" });
+    if (!formula) return res.status(400).json({ error: "Calc has no formula" });
+    const outIds = outputsArr.map(o => o.id).filter(Boolean);
+    if (!outIds.length) return res.status(400).json({ error: "Calc has no outputs" });
+
+    let fn;
+    try { fn = new Function("inputs", '"use strict";' + formula); }
+    catch (e) { return res.status(422).json({ error: "Existing formula does not parse: " + e.message }); }
+
+    const enLang = (doc.langs && doc.langs.en) || {};
+    const inLabels = Object.assign({}, (staticLang && staticLang.inputs) || {}, enLang.inputs_labels || {});
+    const outLabels = Object.assign({}, (staticLang && staticLang.outputs) || {}, enLang.outputs_labels || {});
+    const name = enLang.name || doc.name_en || doc.name || baseSlug;
+    const desc = enLang.desc || doc.desc_en || "";
+
+    const optsOf = i => i.options || i.choices || (Array.isArray(i.unit_options) && i.type !== "number" ? i.unit_options : null);
+    const optVals = i => { const o = optsOf(i); return o ? o.map(x => (x && x.value !== undefined ? x.value : x)) : null; };
+
+    // ── describe the inputs to the model precisely enough to get usable values ──
+    const inLines = inputsArr.map(i => {
+      const ov = optVals(i);
+      const bits = [`id "${i.id}"`, `label "${inLabels[i.id] || humanizeId(i.id)}"`];
+      if (i.unit) bits.push(`unit ${i.unit}`);
+      if (ov) {
+        // Show what each coded value MEANS, or the model answers "male" for a field
+        // whose only legal values are 0 and 1 and every scenario gets rejected.
+        const om = ((enLang.option_labels || {})[i.id]) || null;
+        bits.push(`CHOICE, use exactly one of these values: ${
+          om ? ov.map(o => `${JSON.stringify(String(o))} (means "${om[String(o)] || o}")`).join(", ") : JSON.stringify(ov)}`);
+      }
+      else if (i.type === "date") bits.push('DATE — give a calendar date as a "YYYY-MM-DD" string, never a number');
+      else if (i.type === "text" || i.type === "string") bits.push(`TEXT — give a string${i.placeholder ? ` in the style of: ${i.placeholder}` : ""}, never a bare number`);
+      else {
+        if (typeof i.min === "number") bits.push(`min ${i.min}`);
+        if (typeof i.max === "number") bits.push(`max ${i.max}`);
+        bits.push("numeric");
+      }
+      return "- " + bits.join(", ");
+    }).join("\n");
+    const outLine = outIds.map(o => `"${outLabels[o] || o}"`).join(", ");
+
+    const prompt = `You are preparing the "common examples" table for an online calculator.
+
+Calculator: "${name}"
+${desc ? `What it does: ${desc}\n` : ""}It computes: ${outLine}
+
+Its inputs:
+${inLines}
+
+Produce ${want} DISTINCT, realistic scenarios that a real user of this calculator would recognise.
+
+Rules — these matter:
+1. Each scenario needs a SPECIFIC, self-explanatory name describing the real situation, in English, 2-5 words. Good: "Lemon juice", "Family bathroom", "30-year fixed mortgage", "Adult male, moderate activity". FORBIDDEN: "Small", "Medium", "Large", "X-Large", "Case 1", "Example 2", "Option A", or any size tier or bare number.
+2. Give a value for EVERY input id listed above. Never omit one. Never use 0 unless 0 is genuinely meaningful for that field (it almost never is — a concentration, length, price or count of 0 makes the calculation meaningless).
+3. Numbers must be plain JSON numbers within the stated min/max. Choice inputs must use one of the exact allowed values.
+4. The ${want} scenarios must have genuinely different values and span the realistic range — not the same number repeated.
+5. Values must be physically/financially plausible for the named scenario, so the computed result is correct and useful.
+
+Also give "defaults": the single most typical set of values to pre-fill the calculator with on page load (same rules — every input id, no zeros).
+
+Return ONLY JSON:
+{"scenarios":[{"label":"...","values":{${inputsArr.slice(0, 3).map(i => `"${i.id}":<v>`).join(",")}${inputsArr.length > 3 ? ",..." : ""}}}],"defaults":{${inputsArr.slice(0, 3).map(i => `"${i.id}":<v>`).join(",")}${inputsArr.length > 3 ? ",..." : ""}}}`;
+
+    // ── AI plumbing (same provider config as the other endpoints) ──
+    const cfgSnap = await db.collection("admin_prefs").doc("ai_config").get();
+    const cfg = cfgSnap.exists ? cfgSnap.data() : {};
+    const provider = cfg.active_provider || "anthropic";
+    const provCfg = (cfg.providers || {})[provider] || {};
+    const apiKey = provCfg.api_key || (functions.config().anthropic && functions.config().anthropic.key);
+    if (!apiKey) return res.status(500).json({ error: `No API key for provider ${provider}` });
+    async function ai(p, maxTokens) {
+      let t;
+      if (provider === "anthropic" || !cfg.active_provider) {
+        const r = await fetch("https://api.anthropic.com/v1/messages", {
+          method: "POST",
+          headers: { "x-api-key": apiKey, "anthropic-version": "2023-06-01", "content-type": "application/json" },
+          body: JSON.stringify({ model: provCfg.model || "claude-haiku-4-5-20251001", max_tokens: maxTokens, messages: [{ role: "user", content: p }] }),
+        });
+        if (!r.ok) throw new Error("AI error: " + await r.text());
+        const d = await r.json(); t = d.content && d.content[0] && d.content[0].text;
+      } else {
+        const baseUrl = provider === "deepseek" ? "https://api.deepseek.com/v1" : "https://api.openai.com/v1";
+        const model = provCfg.model || (provider === "deepseek" ? "deepseek-chat" : "gpt-4o-mini");
+        const r = await fetch(`${baseUrl}/chat/completions`, {
+          method: "POST",
+          headers: { "Authorization": "Bearer " + apiKey, "Content-Type": "application/json" },
+          body: JSON.stringify({ model, messages: [{ role: "user", content: p }], max_tokens: maxTokens }),
+        });
+        if (!r.ok) throw new Error("AI error: " + await r.text());
+        const d = await r.json(); t = d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content;
+      }
+      const mm = t && t.match(/\{[\s\S]*\}/);
+      if (!mm) throw new Error("No JSON in AI response");
+      return JSON.parse(mm[0]);
+    }
+
+    // ── validation: coerce to the input's declared domain, then actually compute ──
+    const BAD_LABEL = /^\s*(x{0,2}[\s-]*(small|medium|large|extra[\s-]?large|tiny|huge)|(case|caso|example|ejemplo|option|opci[oó]n|scenario)\s*\d+|[a-z]|\d+)\s*$/i;
+    const validOut = v => v !== undefined && v !== null && !(typeof v === "number" && !isFinite(v));
+    function coerce(vals) {
+      const out = {};
+      for (const i of inputsArr) {
+        let v = vals[i.id];
+        if (v === undefined || v === null || v === "") return null;      // must cover every input
+        const ov = optVals(i);
+        if (ov) {
+          const hit = ov.find(o => String(o) === String(v));
+          if (hit === undefined) return null;                            // invalid choice
+          out[i.id] = hit;
+        } else if (i.type === "date") {
+          // A date field must get a real calendar date. Without this check a model
+          // answering 2005 for "birth date" passes as a finite number and the preset
+          // silently means 1970-01-01T00:00:02.
+          const s = String(v).trim();
+          if (!/^\d{4}-\d{2}-\d{2}$/.test(s) || isNaN(new Date(s).getTime())) return null;
+          out[i.id] = s;
+        } else if (i.type === "text" || i.type === "string") {
+          const s = String(v).trim();
+          if (!s || /^-?\d+(\.\d+)?$/.test(s)) return null;               // a bare number is not text
+          out[i.id] = s;
+        } else {
+          // Accept "3.5%", "1,200", "28 days" — the number is right, only the wrapping
+          // is chatty, and rejecting those wastes a whole generation round.
+          const n = typeof v === "number" ? v
+            : Number(String(v).replace(/[\s%]/g, "").replace(/,(?=\d{3}\b)/g, "").replace(/[^\d.eE+-].*$/, ""));
+          if (!isFinite(n)) return null;
+          if (typeof i.min === "number" && n < i.min) return null;
+          if (typeof i.max === "number" && n > i.max) return null;
+          out[i.id] = n;
+        }
+      }
+      return out;
+    }
+    function computes(vals) {
+      let r; try { r = fn(vals); } catch (e) { return false; }
+      return !!(r && typeof r === "object" && !r.error && outIds.every(k => validOut(r[k])));
+    }
+
+    // Two attempts: the retry tells the model exactly which scenarios failed and why.
+    let scenarios = [], defaults = null, lastErr = null;
+    for (let attempt = 0; attempt < 2 && scenarios.length < 3; attempt++) {
+      let gen;
+      try { gen = await ai(attempt === 0 ? prompt : prompt + `\n\nYour previous answer was rejected: ${lastErr}. Fix it — every input id present, values inside min/max, no zeros, no size-tier or numbered labels.`, 2500); }
+      catch (e) { lastErr = e.message; continue; }
+
+      const kept = [], rejected = [];
+      for (const s of (gen.scenarios || [])) {
+        const label = String(s.label || "").trim();
+        if (!label || BAD_LABEL.test(label)) { rejected.push(`"${label}" is a forbidden generic label`); continue; }
+        const vals = coerce(s.values || {});
+        if (!vals) { rejected.push(`"${label}" has a missing/out-of-range value`); continue; }
+        if (!computes(vals)) { rejected.push(`"${label}" does not compute a valid result`); continue; }
+        if (kept.some(k => JSON.stringify(k.inputs) === JSON.stringify(vals))) { rejected.push(`"${label}" duplicates another scenario`); continue; }
+        kept.push({ label, inputs: vals });
+      }
+      const d = coerce(gen.defaults || {});
+      if (d && computes(d)) defaults = d;
+      else if (kept.length) defaults = kept[0].inputs;                    // fall back to a verified scenario
+
+      if (kept.length >= 3) { scenarios = kept; break; }
+      scenarios = kept.length > scenarios.length ? kept : scenarios;
+      lastErr = rejected.slice(0, 4).join("; ") || "too few usable scenarios";
+    }
+
+    if (scenarios.length < 3) {
+      return res.status(422).json({ error: "Could not generate validated presets — nothing written", slug: baseSlug, got: scenarios.length, detail: lastErr });
+    }
+    // Refuse a set that is uniform in every field: that is the bug we're fixing.
+    if (new Set(scenarios.map(s => JSON.stringify(s.inputs))).size === 1) {
+      return res.status(422).json({ error: "All generated scenarios identical — nothing written", slug: baseSlug });
+    }
+
+    // ── translate the labels ──
+    // The renderer localizes generic tiers ("Small") on its own, but these new labels are
+    // specific prose, so each language needs its own copy in langs[lang].preset_labels
+    // (an array positionally matching comparison_presets). Without this the ES/FR/DE/IT/PT
+    // pages would show English scenario names.
+    const OTHER = ["es", "fr", "de", "it", "pt"];
+    const enLabels = scenarios.map(s => s.label);
+    const langsPatch = { en: { preset_labels: enLabels } };
+    try {
+      const tr = await ai(`Translate each of these short calculator example-scenario names into Spanish, French, German, Italian and Portuguese.
+They label rows in the "common examples" table of a calculator called "${name}".
+Keep them short and natural in each language — how a native speaker would name that situation, not a literal word-for-word translation. Preserve the order exactly.
+
+Names: ${JSON.stringify(enLabels)}
+
+Return ONLY JSON with one array of ${enLabels.length} strings per language:
+{"es":[...],"fr":[...],"de":[...],"it":[...],"pt":[...]}`, 1500);
+      for (const l of OTHER) {
+        const arr = tr[l];
+        if (Array.isArray(arr) && arr.length === enLabels.length && arr.every(x => x && typeof x === "string")) {
+          langsPatch[l] = { preset_labels: arr.map(String) };
+        }
+      }
+    } catch (e) { /* translation is best-effort; English labels still beat "Small/Medium/Large" */ }
+
+    // ── write ──
+    // Nested maps (not dotted keys — set/merge would treat "langs.en.x" as a literal
+    // field name). set with merge:true merges nested maps recursively, so the other
+    // fields under langs.<l> survive.
+    const patch = { comparison_presets: scenarios, langs: langsPatch };
+    let defaultsWritten = 0;
+    if (fixDefaults && defaults) {
+      const hadDefaults = inputsArr.some(i => i.default !== undefined && i.default !== null && i.default !== "");
+      if (!hadDefaults || b.force) {
+        // Write the FULL inputs array (CMS inputs replace static wholesale, so a
+        // partial write would drop min/max/units).
+        patch.inputs = inputsArr.map(i => ({ ...i, default: defaults[i.id] !== undefined ? defaults[i.id] : i.default }));
+        defaultsWritten = Object.keys(defaults).length;
+      }
+    }
+    await docRef.set(patch, { merge: true });
+
+    let deployed = false;
+    if (republish && doc.status === "published") {
+      const s2 = await docRef.get();
+      const files = await _buildCalcFiles(baseSlug, s2.data());
+      if (Object.keys(files).length) { const dr = await _deployPagesToHosting(files, `[Presets] ${baseSlug}`); deployed = !dr.error; }
+    }
+    return res.status(200).json({
+      ok: true, slug: baseSlug, presets: scenarios.length, defaultsWritten, deployed,
+      langs: Object.keys(langsPatch).length, labels: scenarios.map(s => s.label),
+    });
+  } catch (e) { console.error("regenPresetsHttp error:", e); return res.status(500).json({ error: e.message }); }
+});
+
+exports.deployAdminHttp = functions.runWith({ timeoutSeconds: 300, memory: "512MB" })
+  .https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+  if (req.method === "OPTIONS") return res.status(204).send("");
+  if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
+  try {
+    const zlib = require("zlib"), util = require("util"), fs = require("fs"), path = require("path");
+    const crypto = require("crypto");
+    const gzip = util.promisify(zlib.gzip);
+    const ASSETS = { "/admin.html": "assets/admin.html", "/data/sd-tracker.json": "assets/sd-tracker.json" };
+    const files = {};
+    for (const [hostPath, rel] of Object.entries(ASSETS)) {
+      const full = path.join(__dirname, rel);
+      if (!fs.existsSync(full)) continue;
+      const gzipped = await gzip(fs.readFileSync(full));
+      const hash = crypto.createHash("sha256").update(gzipped).digest("hex");
+      files[hostPath] = { gzipped, hash };
+    }
+    if (!Object.keys(files).length) return res.status(400).json({ error: "No admin assets found in functions/assets/." });
+    const result = await _deployPagesToHosting(files, "[Admin] deploy dashboard + tracker data");
+    return res.status(200).json({ deployed: !result.error, paths: Object.keys(files), versionName: result.versionName || null, error: result.error || null });
+  } catch (e) { return res.status(500).json({ error: e.message }); }
+});
+
 exports.perCalcBacklinkHttp = functions.runWith({ timeoutSeconds: 300, memory: "512MB" })
   .https.onRequest(async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
@@ -5083,4 +7250,1108 @@ exports.perCalcBacklinkHttp = functions.runWith({ timeoutSeconds: 300, memory: "
 
     return res.status(200).json({ calculators:results, embed_script:SITE_URL+"/embed.js", strategy:"Each embed = backlink to that calculator page." });
   } catch(e) { return res.status(500).json({ error: e.message }); }
+});
+
+// ═══════════════════════════════════════════
+//  AUTO BACKLINK ENGINE — 4 Techniques
+// ═══════════════════════════════════════════
+exports.autoBacklinkEngineHttp = functions.runWith({ timeoutSeconds: 540, memory: "512MB" })
+  .https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  if (req.method === "OPTIONS") return res.status(204).send("");
+  const fetch = require("node-fetch");
+  const ua = "CalcToWork/1.0";
+  const SITE_URL = "https://calcto.work";
+  const report = { techniques: {}, summary: {} };
+
+  try {
+    const mode = req.query.mode || "all";
+    const calcSlug = req.query.slug || "mass-concrete-calculator";
+    const calcUrl = SITE_URL + "/en/" + calcSlug + "/";
+
+    // ═══ TECHNIQUE 1: Profile Creator ═══
+    if (mode === "all" || mode === "profiles") {
+      console.log("[Backlink] Creating profiles...");
+      const profiles = [
+        { name:"GitHub", url:"https://github.com/julienalexandreoud-coder/calctowork", type:"existing", status:"exists", tip:"Add calcto.work link to repo description + README" },
+        { name:"Dev.to", checkUrl:"https://dev.to/settings/profile", type:"manual", tip:"Add calcto.work to profile website field" },
+        { name:"Hashnode", checkUrl:"https://hashnode.com/settings", type:"manual", tip:"Add calcto.work to blog profile" },
+        { name:"Medium", checkUrl:"https://medium.com/me/settings", type:"manual", tip:"Add calcto.work to profile" },
+        { name:"ProductHunt", checkUrl:"https://www.producthunt.com/settings", type:"manual", tip:"Add calcto.work to maker profile" },
+        { name:"IndieHackers", checkUrl:"https://www.indiehackers.com/settings", type:"manual", tip:"Add calcto.work to product listing" },
+        { name:"AlternativeTo", checkUrl:"https://alternativeto.net/settings/", type:"manual", tip:"List calcto.work as software" },
+        { name:"CodePen", checkUrl:"https://codepen.io/settings/profile", type:"manual", tip:"Create pen with link to calcto.work" },
+        { name:"Replit", checkUrl:"https://replit.com/", type:"manual", tip:"Create repl with calcto.work link" },
+        { name:"StackOverflow", checkUrl:"https://stackoverflow.com/users/edit/", type:"manual", tip:"Add calcto.work to profile website" },
+        { name:"Twitter/X", checkUrl:"https://x.com/settings/profile", type:"manual", tip:"Add calcto.work to bio/website" },
+        { name:"LinkedIn", checkUrl:"https://www.linkedin.com/in/", type:"manual", tip:"Add calcto.work to contact info" },
+        { name:"Reddit", checkUrl:"https://www.reddit.com/settings/profile", type:"manual", tip:"Mention in relevant subreddit comments" },
+        { name:"HackerNews", checkUrl:"https://news.ycombinator.com/user?id=", type:"manual", tip:"Submit as Show HN post" },
+        { name:"YouTube", checkUrl:"https://www.youtube.com/", type:"manual", tip:"Create calculator tutorial videos with link" },
+      ];
+
+      const profileResults = [];
+      for (const p of profiles) {
+        try {
+          if (p.checkUrl) {
+            const r = await fetch(p.checkUrl, { timeout:10000, headers:{"User-Agent":ua} }).catch(()=>null);
+            profileResults.push({ ...p, accessible: !!r && r.status < 500 });
+          } else {
+            profileResults.push({ ...p, accessible: true });
+          }
+        } catch(e) { profileResults.push({ ...p, accessible:false }); }
+      }
+      report.techniques.profiles = { count: profileResults.length, results: profileResults };
+    }
+
+    // ═══ TECHNIQUE 2: Archive Submitter ═══
+    if (mode === "all" || mode === "archive") {
+      console.log("[Backlink] Archiving pages...");
+      const pages = [
+        SITE_URL, calcUrl,
+        SITE_URL + "/en/concrete-slab-calculator/",
+        SITE_URL + "/en/circle-area/",
+        SITE_URL + "/en/pythagorean-theorem-calculator/",
+        SITE_URL + "/es/calculadora-hormigon-masa/",
+      ];
+
+      const archiveResults = [];
+      for (const page of pages) {
+        const waybackUrl = "https://web.archive.org/save/" + page;
+        const archiveTodayUrl = "https://archive.today/submit/?url=" + encodeURIComponent(page);
+        try {
+          const wb = await fetch(waybackUrl, { timeout:15000, headers:{"User-Agent":ua} }).catch(()=>null);
+          archiveResults.push({ page, wayback: wb ? wb.status : "failed", wayback_url: waybackUrl });
+        } catch(e) { archiveResults.push({ page, wayback:"error", wayback_url:waybackUrl }); }
+      }
+      report.techniques.archive = { submitted: archiveResults.length, results: archiveResults };
+    }
+
+    // ═══ TECHNIQUE 3: Broken Link Finder ═══
+    if (mode === "all" || mode === "broken") {
+      console.log("[Backlink] Finding broken links...");
+      const targets = [
+        "https://www.thisoldhouse.com/",
+        "https://www.familyhandyman.com/",
+        "https://www.bobvila.com/",
+        "https://www.archtoolbox.com/",
+        "https://www.engineersedge.com/",
+      ];
+
+      const brokenResults = [];
+      for (const site of targets) {
+        try {
+          const r = await fetch(site, { timeout:15000, headers:{"User-Agent":ua} });
+          if (r.ok) {
+            brokenResults.push({ site, status:"live", tip:"Find resource pages with broken links. Suggest calcto.work as replacement." });
+          } else {
+            brokenResults.push({ site, status:"unreachable", code:r.status });
+          }
+        } catch(e) { brokenResults.push({ site, status:"error", error:e.message }); }
+      }
+      report.techniques.broken_links = { sites_checked: brokenResults.length, results: brokenResults };
+    }
+
+    // ═══ TECHNIQUE 4: Competitor Link Scraper ═══
+    if (mode === "all" || mode === "competitor") {
+      console.log("[Backlink] Analyzing competitor links...");
+      const competitors = [
+        { name:"OmniCalculator", site:"omnicalculator.com" },
+        { name:"Calculator.net", site:"calculator.net" },
+        { name:"GigaCalculator", site:"gigacalculator.com" },
+      ];
+
+      const compResults = [];
+      for (const comp of competitors) {
+        try {
+          // Check if competitor is indexed and has backlinks we can replicate
+          const r = await fetch(`https://${comp.site}/`, { timeout:15000, headers:{"User-Agent":ua} });
+          compResults.push({
+            name: comp.name,
+            site: comp.site,
+            accessible: r && r.ok,
+            action: `Search Google for "link:${comp.site}" to find their backlinks. Then target the same sites with calcto.work.`,
+            tip: `Check Ahrefs/Semrush free trial to export ${comp.name} backlinks, then replicate for calcto.work.`
+          });
+        } catch(e) { compResults.push({ name:comp.name, site:comp.site, accessible:false }); }
+      }
+
+      // AI suggestion for link building
+      const cfgDoc = await db.collection("admin_prefs").doc("ai_config").get();
+      const cfg = cfgDoc.exists ? cfgDoc.data() : {};
+      const provider = cfg.active_provider || "deepseek";
+      const provCfg = (cfg.providers || {})[provider] || {};
+      const apiKey = provCfg.api_key;
+
+      if (apiKey) {
+        try {
+          const aiPrompt = `List 10 specific websites where we can get free backlinks for calcto.work (free calculator site with 461 tools in 6 languages). Focus on construction, math, finance, health niches. For each, give the exact URL to submit to and the expected domain authority. Return JSON: {"opportunities":[{"site":"...","url":"...","type":"directory|profile|forum|resource","da":30,"action":"..."}]}`;
+          const text = await _callAIRaw(apiKey, provider, provCfg.model, aiPrompt, 2000);
+          if (text) { const m = text.match(/\{[\s\S]*\}/); if (m) try { report.techniques.competitor = { ...JSON.parse(m[0]), sources:compResults }; } catch(e){} }
+        } catch(e) {}
+      }
+      if (!report.techniques.competitor) report.techniques.competitor = { sources:compResults };
+    }
+
+    report.summary = {
+      profiles: report.techniques.profiles?.results?.filter(r=>r.type==="manual").length || 0,
+      archived: report.techniques.archive?.submitted || 0,
+      broken_sites: report.techniques.broken_links?.sites_checked || 0,
+      competitors: report.techniques.competitor?.sources?.length || 0,
+    };
+
+    await db.collection("admin_prefs").doc("auto_backlink_report").set({
+      report, timestamp: admin.firestore.FieldValue.serverTimestamp(),
+    });
+
+    return res.status(200).json(report);
+  } catch(e) { return res.status(500).json({ error: e.message }); }
+});
+
+/**
+ * Daily backlink engine — archives pages + pings search engines at 7 AM UTC
+ */
+exports.dailyBacklinkEngine = functions.runWith({ timeoutSeconds: 300, memory: "256MB" })
+  .pubsub.schedule("0 7 * * *").timeZone("UTC").onRun(async () => {
+  const fetch = require("node-fetch");
+  const ua = "CalcToWork/1.0";
+  const SITE_URL = "https://calcto.work";
+  let archived = 0;
+  try {
+    const pages = [SITE_URL, SITE_URL+"/en/mass-concrete-calculator/", SITE_URL+"/en/bmi-calculator/", SITE_URL+"/en/percentage-calculator/", SITE_URL+"/en/circle-area/"];
+    for (const p of pages) {
+      await fetch("https://web.archive.org/save/"+p, { timeout:15000, headers:{"User-Agent":ua} }).catch(()=>{});
+      archived++;
+    }
+    const sm = encodeURIComponent(SITE_URL+"/sitemap.xml");
+    await fetch(`https://www.google.com/ping?sitemap=${sm}`).catch(()=>{});
+    console.log("[BacklinkDaily] Archived", archived, "pages + pinged sitemap");
+  } catch(e) {}
+  return { archived };
+});
+
+// ═══════════════════════════════════════════
+//  CALCULATOR SCORECARD — simplified version
+// ═══════════════════════════════════════════
+exports.calcScorecardHttp = functions.runWith({ timeoutSeconds: 120, memory: "256MB" })
+  .https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  if (req.method === "OPTIONS") return res.status(204).send("");
+
+  try {
+    const snap = await db.collection("calc_cms").limit(500).get();
+    const scorecard = [];
+    const spanish = ['calculadora','hormigon','ladrillo','tabique','pintura','pared','techo','suelo','fontaneria','electricidad','carpinteria','mamposteria'];
+
+    for (const doc of snap.docs) {
+      const c = doc.data();
+      const en = (c.langs?.en) || {};
+      const name = en.name || c.name || doc.id;
+      let score = 0;
+      const checks = {};
+
+      // SEO Title
+      checks.title = !!(en.seo_title && en.seo_title.length >= 15);
+      if (checks.title) score += 12;
+      else if (en.seo_title) score += 5;
+
+      // SEO Description
+      checks.desc = !!(en.seo_description && en.seo_description.length >= 30);
+      if (checks.desc) score += 10;
+      else if (en.seo_description) score += 5;
+
+      // Long-form article
+      checks.article = !!(en.long_content && en.long_content.length > 500);
+      if (checks.article) score += 15;
+
+      // FAQ
+      checks.faq = !!(en.faq && en.faq.length >= 2);
+      if (checks.faq) score += 10;
+
+      // Steps
+      checks.steps = !!(en.steps && en.steps.filter(Boolean).length >= 3);
+      if (checks.steps) score += 8;
+      else if (en.steps?.filter(Boolean).length >= 1) score += 4;
+
+      // Hreflang
+      const totalLangs = ["en","es","fr","de","it","pt"].filter(l => (c.langs||{})[l]?.name).length;
+      checks.languages = totalLangs;
+      if (totalLangs >= 6) score += 10;
+      else if (totalLangs >= 4) score += 7;
+      else if (totalLangs >= 2) score += 4;
+
+      // Spanglish detection
+      checks.spanglish = spanish.some(w => (en.seo_title||'').toLowerCase().includes(w));
+      if (checks.spanglish) score -= 5;
+
+      // FAQ per language
+      const faqLangs = ["en","es","fr","de","it","pt"].filter(l => ((c.langs||{})[l]?.faq||[]).length >= 2);
+      checks.faq_languages = faqLangs.length;
+
+      // Article per language
+      const articleLangs = ["en","es","fr","de","it","pt"].filter(l => ((c.langs||{})[l]?.long_content||'').length > 500);
+      checks.article_languages = articleLangs.length;
+
+      score = Math.max(0, Math.min(100, score));
+      const rating = score >= 85 ? "A" : score >= 70 ? "B" : score >= 50 ? "C" : score >= 30 ? "D" : "F";
+
+      scorecard.push({ slug:doc.id, name, score, rating, languages:totalLangs,
+        faq_langs:faqLangs.length, article_langs:articleLangs.length,
+        title:checks.title, desc:checks.desc, article:checks.article, faq:checks.faq, steps:checks.steps,
+        spanglish:checks.spanglish,
+        missing: [!checks.title&&'title',!checks.desc&&'desc',!checks.article&&'article',!checks.faq&&'faq',!checks.steps&&'steps',checks.spanglish&&'spanglish',totalLangs<6&&'hreflang'].filter(Boolean)
+      });
+    }
+
+    scorecard.sort((a,b) => a.score - b.score);
+    const summary = {
+      total: scorecard.length,
+      a: scorecard.filter(s=>s.rating==="A").length,
+      b: scorecard.filter(s=>s.rating==="B").length,
+      c: scorecard.filter(s=>s.rating==="C").length,
+      d: scorecard.filter(s=>s.rating==="D").length,
+      f: scorecard.filter(s=>s.rating==="F").length,
+      avg_score: Math.round(scorecard.reduce((s,c)=>s+c.score,0)/scorecard.length),
+      need_faq: scorecard.filter(s=>!s.faq).length,
+      need_article: scorecard.filter(s=>!s.article).length,
+      need_title: scorecard.filter(s=>!s.title).length,
+      need_hreflang: scorecard.filter(s=>s.languages<6).length,
+      daily_target: Math.ceil(scorecard.filter(s=>s.score<70).length/30),
+    };
+
+    return res.status(200).json({ summary, scorecard });
+  } catch(e) { return res.status(500).json({ error: e.message }); }
+});
+
+/**
+ * Bulk sync — accepts batch calculator data via POST and writes to Firestore
+ * Used by deep_sync.py to sync all source file content into calc_cms
+ */
+exports.bulkSyncCalcsHttp = functions.runWith({ timeoutSeconds: 300, memory: "512MB" })
+  .https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  if (req.method === "OPTIONS") return res.status(204).send("");
+  if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
+
+  try {
+    const batch = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
+    if (!batch || typeof batch !== 'object') return res.status(400).json({ error: "Invalid batch data" });
+
+    const entries = Object.entries(batch).filter(([slug, data]) => slug && data && data.langs);
+
+    // Read existing docs first so the sync NEVER destroys richer content.
+    // The static-file sync sends empty long_content/faq for every language;
+    // a blind merge would overwrite AI-generated articles with "". We keep the
+    // existing value whenever the incoming one is empty. This is the fix for the
+    // recurring "completed content disappears" / thin-page bug.
+    const existingDocs = await Promise.all(entries.map(([slug]) => db.collection("calc_cms").doc(slug).get()));
+
+    // Fields whose existing (richer) value must survive an empty incoming value
+    const PRESERVE = ['long_content','faq','steps','mistakes','seo_title','seo_description','desc','example_label','result_context','inputs_labels','outputs_labels','range_hints','slug'];
+    const isEmpty = v => v === undefined || v === null || v === '' ||
+      (Array.isArray(v) && v.length === 0) ||
+      (v && typeof v === 'object' && !Array.isArray(v) && Object.keys(v).length === 0);
+
+    let count = 0, preserved = 0;
+    const dbBatch = db.batch();
+
+    for (let i = 0; i < entries.length; i++) {
+      const [slug, data] = entries[i];
+      const existing = existingDocs[i];
+      const exLangs = (existing.exists && existing.data().langs) || {};
+      const mergedLangs = {};
+
+      for (const lang of LANGS) {
+        const inc = { ...(data.langs[lang] || {}) };
+        const ex = exLangs[lang] || {};
+        for (const field of PRESERVE) {
+          if (isEmpty(inc[field]) && !isEmpty(ex[field])) { inc[field] = ex[field]; preserved++; }
+        }
+        mergedLangs[lang] = inc;
+      }
+
+      const ref = db.collection("calc_cms").doc(slug);
+      const writeData = { ...data, langs: mergedLangs, synced_at: admin.firestore.FieldValue.serverTimestamp(), updated_at: admin.firestore.FieldValue.serverTimestamp() };
+      // Never let the static sync clobber existing calculator mechanics either
+      if (existing.exists) {
+        const ed = existing.data();
+        if (isEmpty(data.formula) && !isEmpty(ed.formula)) writeData.formula = ed.formula;
+        if (isEmpty(data.inputs) && !isEmpty(ed.inputs)) writeData.inputs = ed.inputs;
+        if (isEmpty(data.outputs) && !isEmpty(ed.outputs)) writeData.outputs = ed.outputs;
+      }
+      dbBatch.set(ref, writeData, { merge: true });
+      count++;
+    }
+
+    await dbBatch.commit();
+    console.log(`[BulkSync] Synced ${count} calculators (preserved ${preserved} existing content fields)`);
+    return res.status(200).json({ synced: count, preserved });
+  } catch(e) {
+    console.error("[BulkSync] Error:", e.message);
+    return res.status(500).json({ error: e.message });
+  }
+});
+
+exports.getScorecardHttp = functions.https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  if (req.method === "OPTIONS") { res.set("Access-Control-Allow-Methods", "GET"); return res.status(204).send(""); }
+  try {
+    const doc = await db.collection("admin_prefs").doc("calc_scorecard").get();
+    const forceRefresh = req.query.force === "true";
+    const isFresh = !forceRefresh && doc.exists && doc.data().generated_at && 
+      (Date.now()/1000 - (doc.data().generated_at._seconds||0)) < 3600;
+
+    let scorecard, summary;
+
+    if (isFresh) {
+      ({ scorecard, summary } = doc.data());
+    } else {
+      // Generate fresh scorecard with per-language checks
+      const snap = await db.collection("calc_cms").limit(500).get();
+      const sc = [];
+      const allLangs = ["en","es","fr","de","it","pt"];
+      let siteFaqLangs = 0, siteArticleLangs = 0, siteTitleLangs = 0, siteHasAllLangs = 0;
+
+      for (const d of snap.docs) {
+        const c = d.data(); const langs = c.langs || {};
+        const en = langs.en || {};
+        const n = en.name || c.name || d.id;
+
+        // Per-language checks
+        const hasName = l => !!(langs[l]?.name);
+        const hasFaq = l => !!(langs[l]?.faq && langs[l].faq.length >= 2);
+        const hasArticle = l => !!(langs[l]?.long_content && langs[l].long_content.length > 500);
+        const hasTitle = l => !!(langs[l]?.seo_title && langs[l].seo_title.length >= 15);
+        const hasSteps = l => !!(langs[l]?.steps && langs[l].steps.filter(Boolean).length >= 3);
+
+        const totalLangs = allLangs.filter(hasName).length;
+        const faqLangs = allLangs.filter(hasFaq).length;
+        const articleLangs = allLangs.filter(hasArticle).length;
+        const titleLangs = allLangs.filter(hasTitle).length;
+        if (totalLangs >= 6) siteHasAllLangs++;
+
+        // Score calculation (weighted by language completeness)
+        let s = 0;
+        if (titleLangs >= 6) s += 12; else if (titleLangs >= 3) s += 8; else if (titleLangs >= 1) s += 4;
+        if (articleLangs >= 3) s += 15; else if (articleLangs >= 1) s += 8;
+        if (faqLangs >= 3) s += 12; else if (faqLangs >= 1) s += 6;
+        if (allLangs.filter(hasSteps).length >= 3) s += 8; else if (en.steps?.filter(Boolean).length >= 1) s += 4;
+        if (totalLangs >= 6) s += 10; else if (totalLangs >= 4) s += 7; else if (totalLangs >= 2) s += 4;
+
+        // Spanglish penalty
+        const es = ['calculadora','hormigon','ladrillo','tabique'];
+        if (es.some(w => (en.seo_title||'').toLowerCase().includes(w))) s -= 5;
+
+        s = Math.max(0, Math.min(100, s));
+        const r = s>=85?"A":s>=70?"B":s>=50?"C":s>=30?"D":"F";
+
+        const missing = [];
+        if (titleLangs < 6) missing.push(`${6-titleLangs} lang need title`);
+        if (faqLangs < 6) missing.push(`${6-faqLangs} lang need FAQ`);
+        if (articleLangs < 6) missing.push(`${6-articleLangs} lang need article`);
+        if (totalLangs < 6) missing.push(`${6-totalLangs} lang missing`);
+
+        siteFaqLangs += faqLangs; siteArticleLangs += articleLangs; siteTitleLangs += titleLangs;
+
+        sc.push({slug:d.id,name:n,score:s,rating:r,
+          languages:totalLangs, faq_langs:faqLangs, article_langs:articleLangs, title_langs:titleLangs,
+          title:titleLangs>=1, article:articleLangs>=1, faq:faqLangs>=1,
+          has_all_langs:totalLangs>=6,
+          missing:missing.slice(0,4)});
+      }
+      sc.sort((a,b)=>a.score-b.score);
+      summary = {
+        total:sc.length,
+        a:sc.filter(x=>x.rating==="A").length, b:sc.filter(x=>x.rating==="B").length,
+        c:sc.filter(x=>x.rating==="C").length, d:sc.filter(x=>x.rating==="D").length,
+        f:sc.filter(x=>x.rating==="F").length,
+        avg:Math.round(sc.reduce((x,c)=>x+c.score,0)/sc.length),
+        need_faq:sc.filter(x=>x.faq_langs<6).length,
+        need_article:sc.filter(x=>x.article_langs<6).length,
+        need_title:sc.filter(x=>x.title_langs<6).length,
+        need_languages:sc.filter(x=>x.languages<6).length,
+        // Per-language totals
+        total_faq_entries: siteFaqLangs,
+        total_article_entries: siteArticleLangs,
+        total_title_entries: siteTitleLangs,
+        complete_all_langs: siteHasAllLangs,
+        completion_pct: Math.round(sc.reduce((x,c)=>x+c.score,0)/sc.length),
+      };
+      scorecard = sc;
+      await db.collection("admin_prefs").doc("calc_scorecard").set({summary,scorecard,generated_at:admin.firestore.FieldValue.serverTimestamp()});
+    }
+
+    // ── Add GSC usage data (impressions, clicks) ──
+    const siteUrl = functions.config().gsc?.site_url || "sc-domain:calcto.work";
+    let gscData = {};
+
+    // Build reverse lookup: English slug → primary slug from calc-index
+    const slugMap = {}; // en_slug → primary_slug
+    try {
+      const idxPath = require("path").join(__dirname, "calc-index.json");
+      if (require("fs").existsSync(idxPath)) {
+        const idx = JSON.parse(require("fs").readFileSync(idxPath, "utf8"));
+        for (const c of idx) {
+          const enSlug = (c.slugs?.en) || c.slug;
+          if (enSlug && enSlug !== c.slug) slugMap[enSlug] = c.slug;
+          // Also map all language slugs
+          for (const [lang, lSlug] of Object.entries(c.slugs || {})) {
+            if (lSlug && lSlug !== c.slug) slugMap[lSlug] = c.slug;
+          }
+        }
+      }
+    } catch(e) {}
+
+    try {
+      const gscSnap = await db.collection("gsc_page_stats")
+        .where("site_url","==",siteUrl).where("date",">=",(new Date(Date.now()-30*86400000)).toISOString().slice(0,10))
+        .orderBy("date","desc").limit(1000).get();
+      gscSnap.forEach(d => {
+        let p = (d.data().page||"").split("/").filter(Boolean).pop()||"";
+        // Map English slug to primary slug
+        if (slugMap[p]) p = slugMap[p];
+        if (!gscData[p]) gscData[p] = { imp:0, clicks:0 };
+        gscData[p].imp += d.data().total_impressions||0;
+        gscData[p].clicks += d.data().total_clicks||0;
+      });
+    } catch(e) {}
+
+    // ── Merge GSC data into scorecard ──
+    let totalImp = 0, totalClicks = 0;
+    for (const c of scorecard) {
+      const g = gscData[c.slug] || { imp:0, clicks:0 };
+      c.impressions = g.imp;
+      c.clicks = g.clicks;
+      c.indexed = g.imp > 0;
+      totalImp += g.imp;
+      totalClicks += g.clicks;
+    }
+
+    summary.total_impressions = totalImp;
+    summary.total_clicks = totalClicks;
+    summary.indexed_count = scorecard.filter(c=>c.indexed).length;
+
+    return res.status(200).json({ summary, scorecard });
+  } catch(e) { return res.status(500).json({ error: e.message }); }
+});
+
+/**
+ * genInterpretationHttp — give a calculator a real reading of the user's result.
+ *
+ * Most calcs printed a number plus a sentence restating the rules in the abstract
+ * ("your pH indicates acidity if under 7, neutrality at exactly 7..."). This builds
+ * a per-calculator `interpretation`: either calibrated BANDS (the value sits on a
+ * meaningful scale — pH, BMI, body fat) or an INSIGHT sentence computed from the
+ * user's own numbers (quantities, costs), plus one practical tip.
+ *
+ * HARD GUARD, same contract as the other writers: nothing is stored unless the
+ * bands are ordered, cover the scale, and every preset the calc ships actually
+ * lands inside a band. Bands must also name a real published source.
+ *
+ * POST { slug, republish?:bool, force?:bool }
+ */
+exports.genInterpretationHttp = functions.runWith({ timeoutSeconds: 540, memory: "512MB" })
+  .https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+  if (req.method === "OPTIONS") return res.status(204).send("");
+  if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
+  try {
+    const path = require("path"), fs = require("fs");
+    const b = req.body || {};
+    const inSlug = String(b.slug || "").trim();
+    if (!inSlug) return res.status(400).json({ error: "slug required" });
+    const republish = b.republish !== false;
+
+    let index = [];
+    try { const raw = require(path.join(__dirname, "calc-index.json")); index = Array.isArray(raw) ? raw : (raw.calcs || Object.values(raw)); } catch (e) {}
+    const entry = index.find(e => e.slug === inSlug) || index.find(e => e.slugs && Object.values(e.slugs).includes(inSlug));
+    const baseSlug = entry ? entry.slug : inSlug;
+    const id = entry ? String(entry.id) : null;
+
+    const docRef = db.collection("calc_cms").doc(baseSlug);
+    const snap = await docRef.get();
+    if (!snap.exists) return res.status(404).json({ error: "Calc not found: " + baseSlug });
+    const doc = snap.data();
+    if (doc.interpretation && !b.force) {
+      return res.status(200).json({ ok: true, slug: baseSlug, skipped: "already has an interpretation (pass force:true to regenerate)" });
+    }
+
+    let inputsArr = (doc.inputs || []).length ? doc.inputs : [];
+    let outputsArr = (doc.outputs || []).length ? doc.outputs : [];
+    let formula = doc.formula && doc.formula.length > 10 ? doc.formula : "";
+    let staticLang = null;
+    if (id) {
+      try {
+        const cj = JSON.parse(fs.readFileSync(path.join(__dirname, "calcs", id, "calc.json"), "utf8"));
+        if (!inputsArr.length && (cj.inputs || []).length) inputsArr = cj.inputs;
+        if (!outputsArr.length && (cj.outputs || []).length) outputsArr = cj.outputs;
+        if (!formula) formula = cj.formula || "";
+      } catch (e) {}
+      try { staticLang = JSON.parse(fs.readFileSync(path.join(__dirname, "calcs", id, "en.json"), "utf8")); } catch (e) {}
+    }
+    if (!formula || !inputsArr.length || !outputsArr.length) {
+      return res.status(400).json({ error: "Calc lacks formula/inputs/outputs" });
+    }
+
+    let fn;
+    try { fn = new Function("inputs", '"use strict";' + formula); }
+    catch (e) { return res.status(422).json({ error: "Formula does not parse: " + e.message }); }
+
+    const enLang = (doc.langs && doc.langs.en) || {};
+    const outLabels = Object.assign({}, (staticLang && staticLang.outputs) || {}, enLang.outputs_labels || {});
+    const name = enLang.name || doc.name_en || doc.name || baseSlug;
+    const desc = enLang.desc || doc.desc_en || "";
+    const outIds = outputsArr.map(o => o.id).filter(Boolean);
+
+    // Sample the calc across its own presets + defaults so the model sees the real
+    // output range, and so we can verify every shipped example lands in a band.
+    const defaults = {};
+    for (const i of inputsArr) {
+      let v = i.default;
+      if (v === undefined || v === null || v === "") {
+        const opts = i.options || i.choices;
+        if (opts && opts.length) v = (opts[0] && opts[0].value !== undefined ? opts[0].value : opts[0]);
+        else if (typeof i.min === "number" && typeof i.max === "number") v = (i.min + i.max) / 2;
+        else v = 1;
+      }
+      defaults[i.id] = v;
+    }
+    const corner = pick => {
+      const o = {};
+      for (const i of inputsArr) {
+        const opts = i.options || i.choices;
+        if (opts && opts.length) { o[i.id] = (opts[0] && opts[0].value !== undefined ? opts[0].value : opts[0]); continue; }
+        const v = pick(i);
+        o[i.id] = (v === undefined || v === null) ? defaults[i.id] : v;
+      }
+      return o;
+    };
+    const samples = [
+      defaults,
+      corner(i => (typeof i.min === "number" ? i.min : undefined)),
+      corner(i => (typeof i.max === "number" ? i.max : undefined)),
+    ];
+    for (const p of (doc.comparison_presets || [])) {
+      const pv = (p && p.inputs && typeof p.inputs === "object") ? p.inputs : null;
+      if (pv) samples.push(Object.assign({}, defaults, pv));
+    }
+    const observed = {};
+    for (const s of samples) {
+      let r; try { r = fn(s); } catch (e) { continue; }
+      if (!r || r.error || typeof r !== "object") continue;
+      for (const k of outIds) {
+        const v = parseFloat(r[k]);
+        if (isFinite(v)) { (observed[k] = observed[k] || []).push(v); }
+      }
+    }
+    const numericOuts = Object.keys(observed).filter(k => observed[k].length);
+    if (!numericOuts.length) return res.status(400).json({ error: "No numeric output could be sampled" });
+
+    const rangeLines = numericOuts.map(k => {
+      const vs = observed[k];
+      return '- "' + k + '" (' + (outLabels[k] || k) + '): observed ' + Math.min.apply(null, vs) + " to " + Math.max.apply(null, vs);
+    }).join("\n");
+
+    const cfgSnap = await db.collection("admin_prefs").doc("ai_config").get();
+    const cfg = cfgSnap.exists ? cfgSnap.data() : {};
+    const provider = cfg.active_provider || "anthropic";
+    const provCfg = (cfg.providers || {})[provider] || {};
+    const apiKey = provCfg.api_key || (functions.config().anthropic && functions.config().anthropic.key);
+    if (!apiKey) return res.status(500).json({ error: "No API key for provider " + provider });
+    async function ai(p, maxTokens) {
+      let t;
+      if (provider === "anthropic" || !cfg.active_provider) {
+        const r = await fetch("https://api.anthropic.com/v1/messages", {
+          method: "POST",
+          headers: { "x-api-key": apiKey, "anthropic-version": "2023-06-01", "content-type": "application/json" },
+          body: JSON.stringify({ model: provCfg.model || "claude-haiku-4-5-20251001", max_tokens: maxTokens, messages: [{ role: "user", content: p }] }),
+        });
+        if (!r.ok) throw new Error("AI error: " + await r.text());
+        const d = await r.json(); t = d.content && d.content[0] && d.content[0].text;
+      } else {
+        const baseUrl = provider === "deepseek" ? "https://api.deepseek.com/v1" : "https://api.openai.com/v1";
+        const model = provCfg.model || (provider === "deepseek" ? "deepseek-chat" : "gpt-4o-mini");
+        const r = await fetch(baseUrl + "/chat/completions", {
+          method: "POST",
+          headers: { "Authorization": "Bearer " + apiKey, "Content-Type": "application/json" },
+          body: JSON.stringify({ model, messages: [{ role: "user", content: p }], max_tokens: maxTokens }),
+        });
+        if (!r.ok) throw new Error("AI error: " + await r.text());
+        const d = await r.json(); t = d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content;
+      }
+      const mm = t && t.match(/{[\s\S]*}/);
+      if (!mm) throw new Error("No JSON in AI response");
+      return JSON.parse(mm[0]);
+    }
+
+    const prompt = [
+      'You are writing the "what your result means" panel for an online calculator.',
+      "",
+      'Calculator: "' + name + '"',
+      desc ? "What it does: " + desc : "",
+      "Outputs it can show:",
+      rangeLines,
+      "",
+      "Decide which ONE output a reader most wants interpreted, then choose EXACTLY ONE mode.",
+      "",
+      'MODE "bands" — REQUIRED whenever that output sits on a recognised scale with named',
+      'regions. If the output is pH, pOH, BMI, body-fat percentage, blood pressure, a',
+      'heart-rate zone, an efficiency or energy rating, water hardness, a risk index, or',
+      'any bounded index whose regions have standard names, you MUST use bands.',
+      "The regions must come from a real published standard issued by a recognised body",
+      "(WHO, IUPAC, NIH, CDC, ACSM, AHA, ISO, EN, DIN, ASHRAE, ASTM, EPA, USDA, Eurocode...).",
+      "If no such standard names the regions, DO NOT invent one - use insight mode instead.",
+      'Return: {"mode":"bands","output":"<id>","unit":"<short unit or empty>",',
+      '"scale":{"min":<number>,"max":<number>},',
+      '"bands":[{"max":<upper bound, ascending, last must be >= scale.max>,',
+      '"label":"<2-3 words>","tone":"bad|warn|ok|good|info",',
+      '"note":"<ONE sentence saying what this band means in concrete, comparable terms>"}],',
+      '"source":"<the actual published standard, e.g. WHO BMI classification>"}',
+      "Rules: 3-6 bands, tiling the whole scale with no gaps. The scale must span the FULL",
+      "range the standard defines (pH is 0-14, not 0-7) even if the observed samples only",
+      "cover part of it - a reader can enter any value the form allows. Every note must be specific",
+      'and comparative ("about as acidic as stomach acid"), never a restatement of the rule',
+      '("under 7 is acidic"). Describe, never advise: no diagnosis, no treatment, no',
+      '"see a doctor".',
+      "",
+      'MODE "insight" — for everything else (quantities, costs, areas, conversions).',
+      'Return: {"mode":"insight","output":"<id>",',
+      '"insight":"<ONE sentence that reads the result back using {output_id} placeholders',
+      'and says what it means in practice>",',
+      '"tip":"<ONE practical sentence a person acts on: rounding to purchasable units, a',
+      "typical benchmark to compare against, or the mistake that changes this number most>\"}",
+      "Rules: use at least one {placeholder}; only these ids exist: " + outIds.join(", ") + ".",
+      "Be concrete and specific to THIS calculator. No filler, no restating the inputs.",
+      "The insight must READ THE VALUE BACK, not teach the topic. Never write a stand-in",
+      "letter like X or N for a number you cannot know - use a {placeholder} or leave it out.",
+      "Never list examples (no 'for example', no 'e.g.'). Keep it under 240 characters.",
+      "Every number and every ratio in the sentence MUST come from a {placeholder}. Do not",
+      "write a fixed figure like 'over 30 years' or 'about half' - those are true only for",
+      "the default inputs and become wrong as soon as the reader changes one.",
+      "",
+      "Return ONLY the JSON object.",
+    ].filter(Boolean).join("\n");
+
+    const TONES = ["bad", "warn", "ok", "good", "info"];
+    const ADVICE = ["diagnos", "treatment", "cure", "prescri", "see a doctor", "consult your doctor", "medical advice"];
+    const hasAdvice = s => { const t = String(s || "").toLowerCase(); return ADVICE.some(w => t.indexOf(w) !== -1); };
+
+    function validate(g) {
+      if (!g || typeof g !== "object") return "not an object";
+      const out = String(g.output || "");
+      if (!outIds.includes(out)) return 'output "' + out + '" is not one of ' + outIds.join(",");
+
+      if (g.mode === "bands") {
+        const sc = g.scale || {};
+        if (typeof sc.min !== "number" || typeof sc.max !== "number" || !(sc.max > sc.min)) return "bad scale";
+        const bands = Array.isArray(g.bands) ? g.bands : [];
+        if (bands.length < 3 || bands.length > 6) return "need 3-6 bands, got " + bands.length;
+        let prev = -Infinity;
+        for (const bd of bands) {
+          if (typeof bd.max !== "number" || !(bd.max > prev)) return "band maxima must ascend";
+          prev = bd.max;
+          if (!bd.label || String(bd.label).length > 32) return "band label missing or too long";
+          if (!bd.note || String(bd.note).length < 15) return "band note missing or too short";
+          if (!TONES.includes(bd.tone)) return 'bad tone "' + bd.tone + '"';
+          if (hasAdvice(bd.note)) return "note gives medical or treatment advice";
+        }
+        if (prev < sc.max) return "bands do not cover the top of the scale";
+        if (!g.source || String(g.source).length < 4) return "a bands interpretation must name its source";
+        const srcLower = String(g.source).toLowerCase();
+        const RECOGNISED = ["who", "world health", "iupac", "nih", "cdc", "acsm", "american heart",
+          "aha", "american diabetes", "navy", "jackson", "pollock", "karvonen", "tanaka",
+          "harris-benedict", "mifflin", "katch", "ashrae", "iso ", "iso-", "en 1", "din ", "nfpa",
+          "aci ", "eurocode", "usda", "epa", "fda", "efsa", "nhs", "beaufort", "mohs", "richter",
+          "saffir", "seer", "energy star", "epc", "cie ", "osha", "niosh", "ieee", "astm", "bs ",
+          "iec ", "ansi", "framingham", "apgar", "glasgow", "ph scale", "water hardness",
+          "langelier", "body mass index", "bmi classification", "blood pressure", "aqi",
+          "air quality index", "uv index", "decibel", "beaufort scale", "nutrition"];
+        if (!RECOGNISED.some(k => srcLower.indexOf(k) !== -1)) {
+          return "source \"" + g.source + "\" is not a recognised published standard - use insight mode instead";
+        }
+        // Every value this calc actually produces must land inside the scale.
+        const vs = observed[out] || [];
+        if (!vs.length) return 'output "' + out + '" produced no numeric sample';
+        for (const v of vs) {
+          if (v < sc.min || v > sc.max) return "sampled value " + v + " falls outside scale " + sc.min + ".." + sc.max;
+        }
+        return null;
+      }
+
+      if (g.mode === "insight") {
+        const ins = String(g.insight || "");
+        if (ins.length < 25) return "insight too short";
+        if (ins.length > 280) return "insight too long - it should read the value back, not teach the topic";
+        const lower = ins.toLowerCase();
+        for (const tell of ["for example", "e.g.", "such as", "typically ranges"]) {
+          if (lower.indexOf(tell) !== -1) return "insight lists examples instead of reading the value (" + tell + ")";
+        }
+        if (/(^| )[XN]( |-)/.test(ins)) return "insight contains a stand-in letter instead of a value";
+        const bare = ins.replace(/{[a-zA-Z_][a-zA-Z0-9_]*}/g, "");
+        const CONSTANTS = ["0", "1", "2", "7", "10", "12", "24", "60", "100", "1000", "1,000", "360", "365"];
+        const nums = bare.match(/(?:^|[^A-Za-z0-9])([0-9]+(?:[.,][0-9]+)?)(?![A-Za-z0-9])/g) || [];
+        for (const raw of nums) {
+          const n = raw.replace(/[^0-9.,]/g, "");
+          if (CONSTANTS.indexOf(n) === -1) {
+            return "insight hardcodes " + n + ", which changes with the inputs - use a {placeholder}";
+          }
+        }
+        for (const ratio of ["half of", "about half", "twice ", "double ", "a third", "two thirds", "10x", "10 times"]) {
+          if (lower.indexOf(ratio) !== -1) return "insight asserts a ratio (" + ratio.trim() + ") that changes with the inputs";
+        }
+        const found = ins.match(/{[a-zA-Z_][a-zA-Z0-9_]*}/g) || [];
+        if (!found.length) return "insight has no placeholder";
+        for (const ph of found) {
+          const key = ph.slice(1, -1);
+          if (!outIds.includes(key)) return "insight references unknown output " + ph;
+        }
+        if (g.tip && String(g.tip).length < 15) return "tip too short";
+        if (hasAdvice(ins) || hasAdvice(g.tip)) return "gives medical or treatment advice";
+        return null;
+      }
+      return 'unknown mode "' + g.mode + '"';
+    }
+
+    let gen = null, why = null;
+    for (let attempt = 0; attempt < 2 && !gen; attempt++) {
+      let g;
+      try { g = await ai(attempt === 0 ? prompt : prompt + "\n\nYour previous answer was rejected because: " + why + ". Fix exactly that.", 2000); }
+      catch (e) { why = e.message; continue; }
+      const err = validate(g);
+      if (err) { why = err; continue; }
+      gen = g;
+    }
+    if (!gen) return res.status(422).json({ error: "Could not generate a valid interpretation — nothing written", slug: baseSlug, detail: why });
+
+    // Numbers live at the doc root; the words live per language.
+    const root = { output: gen.output, mode: gen.mode };
+    if (gen.mode === "bands") {
+      root.unit = gen.unit || "";
+      root.scale = { min: gen.scale.min, max: gen.scale.max };
+      root.bands = gen.bands.map(x => ({ max: x.max, tone: x.tone }));
+    }
+    const enText = gen.mode === "bands"
+      ? { bands: gen.bands.map(x => ({ label: x.label, note: x.note })), source: gen.source }
+      : { insight: gen.insight, tip: gen.tip || "" };
+
+    const OTHER = ["es", "fr", "de", "it", "pt"];
+    const langsPatch = { en: { interpretation_text: enText } };
+    try {
+      const tr = await ai([
+        "Translate this calculator result-explanation into Spanish, French, German, Italian and Portuguese.",
+        "Keep every field, the same JSON shape and the same array order. Natural and native in each",
+        "language, not word-for-word. Keep it equally concrete. Leave any {placeholder} exactly as it is.",
+        "",
+        JSON.stringify(enText),
+        "",
+        'Return ONLY: {"es":{...},"fr":{...},"de":{...},"it":{...},"pt":{...}}',
+      ].join("\n"), 2500);
+      for (const l of OTHER) {
+        const v = tr[l];
+        if (!v) continue;
+        if (gen.mode === "bands") {
+          if (Array.isArray(v.bands) && v.bands.length === enText.bands.length && v.bands.every(x => x && x.label && x.note)) {
+            langsPatch[l] = { interpretation_text: { bands: v.bands.map(x => ({ label: String(x.label), note: String(x.note) })), source: String(v.source || enText.source) } };
+          }
+        } else if (v.insight && String(v.insight).indexOf("{") !== -1) {
+          langsPatch[l] = { interpretation_text: { insight: String(v.insight), tip: String(v.tip || "") } };
+        }
+      }
+    } catch (e) { /* best effort: English still beats a generic sentence */ }
+
+    await docRef.set({ interpretation: root, langs: langsPatch }, { merge: true });
+
+    let deployed = false;
+    if (republish && doc.status === "published") {
+      const s2 = await docRef.get();
+      const files = await _buildCalcFiles(baseSlug, s2.data());
+      if (Object.keys(files).length) { const dr = await _deployPagesToHosting(files, "[Interp] " + baseSlug); deployed = !dr.error; }
+    }
+    return res.status(200).json({
+      ok: true, slug: baseSlug, mode: gen.mode, output: gen.output,
+      bands: gen.mode === "bands" ? gen.bands.map(x => x.label) : undefined,
+      insight: gen.mode === "insight" ? gen.insight : undefined,
+      langs: Object.keys(langsPatch).length, deployed,
+    });
+  } catch (e) { console.error("genInterpretationHttp error:", e); return res.status(500).json({ error: e.message }); }
+});
+
+/* ── IndexNow (indexnow.org) ────────────────────────────────────────────────
+   One POST tells Bing, Yandex, Seznam and Naver that a URL changed, instead of
+   waiting for them to re-crawl. Google does not participate, so this is purely
+   additive — it cannot affect Google rankings either way.
+
+   The key must be served as a text file whose body is the key itself; search
+   engines fetch it to prove we own the host. Verify at /<key>.txt after deploy.
+------------------------------------------------------------------------- */
+const INDEXNOW_KEY = "c6b802c0939d6de8cf05d9afb96b7c79";
+const INDEXNOW_KEY_URL = `${SITE}/${INDEXNOW_KEY}.txt`;
+
+/**
+ * Submit up to 10,000 URLs per request. Returns a per-chunk status list.
+ * Never throws: indexing is a nice-to-have and must not fail a publish.
+ */
+async function _indexNowSubmit(urls) {
+  const list = [...new Set((urls || []).filter(u => typeof u === "string" && u.startsWith(SITE)))];
+  if (!list.length) return { submitted: 0, results: [] };
+  const host = SITE.replace(/^https?:\/\//, "");
+  const results = [];
+  for (let i = 0; i < list.length; i += 10000) {
+    const chunk = list.slice(i, i + 10000);
+    try {
+      const r = await fetch("https://api.indexnow.org/indexnow", {
+        method: "POST",
+        headers: { "Content-Type": "application/json; charset=utf-8" },
+        body: JSON.stringify({ host, key: INDEXNOW_KEY, keyLocation: INDEXNOW_KEY_URL, urlList: chunk }),
+      });
+      // 200 = accepted, 202 = accepted with key validation pending. Both are fine.
+      results.push({ count: chunk.length, status: r.status, ok: r.status === 200 || r.status === 202 });
+    } catch (e) {
+      results.push({ count: chunk.length, status: 0, ok: false, error: e.message });
+    }
+  }
+  return { submitted: list.length, results };
+}
+
+/**
+ * indexNowHttp — ping IndexNow for changed URLs.
+ * POST { urls: [...] }            submit an explicit list
+ * POST { all: true }              submit every URL in the sitemap
+ * POST { slug: "x", langs: [...] } submit one calculator in the given languages
+ *
+ * Submitting the WHOLE site repeatedly looks like spam and can earn a 429, so
+ * `all` is a deliberate manual action, not something the republish sweep does.
+ */
+exports.indexNowHttp = functions.runWith({ timeoutSeconds: 300, memory: "512MB" })
+  .https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+  if (req.method === "OPTIONS") return res.status(204).send("");
+  if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
+  try {
+    const b = req.body || {};
+    let urls = [];
+
+    if (Array.isArray(b.urls) && b.urls.length) {
+      urls = b.urls;
+    } else if (b.all) {
+      // Pull straight from the live sitemap so we submit exactly what we publish.
+      const xml = await fetch(`${SITE}/sitemap.xml`).then(r => r.text());
+      urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
+    } else if (b.slug) {
+      const langs = Array.isArray(b.langs) && b.langs.length ? b.langs : LANGS;
+      const snap = await db.collection("calc_cms").doc(String(b.slug)).get();
+      const data = snap.exists ? _applyLangSlugs(String(b.slug), snap.data()) : null;
+      urls = langs.map(l => {
+        const ls = (data && data.langs && data.langs[l] && data.langs[l].slug) || b.slug;
+        return `${SITE}/${l}/${ls}/`;
+      });
+    } else {
+      return res.status(400).json({ error: "pass urls[], slug, or all:true" });
+    }
+
+    const out = await _indexNowSubmit(urls);
+    return res.status(200).json({ ok: true, build: _BUILD_ID, keyUrl: INDEXNOW_KEY_URL, ...out });
+  } catch (e) {
+    console.error("indexNowHttp error:", e);
+    return res.status(500).json({ error: e.message });
+  }
+});
+
+/* ── Category page repair ───────────────────────────────────────────────────
+   The 120 category pages (20 categories x 6 languages) are stale static files
+   that no current code path regenerates. Two problems, both visible in real
+   search results:
+
+   1. Every one carried the same half-English template description
+      ("Mampostería y Cerramientos – free online calculators."). Google ignored
+      it and wrote its own snippet.
+   2. Each calculator card starts with a decorative index, "#011". Because that
+      is the first text in the card, Google's generated snippet became
+      "#011 · Calcula ladrillos... #012 · ..." — which reads as broken.
+
+   Rather than redesign the pages, rewrite exactly those two things and republish
+   through the normal incremental deploy. The description is built from the
+   calculators actually listed on the page, so it is specific and truthful.
+------------------------------------------------------------------------- */
+const CAT_SLUGS = ["estructuras","mamposteria","pavimentos","fontaneria","electricidad",
+  "climatizacion","carpinteria","pintura","gestion","matematicas","ciencia","salud",
+  "finanzas","cotidiano","quimica","electronica","clima","utilidades","fotografia",
+  "transporte","fisica","musica","industria"];
+
+// Per-language sentence shapes. Written out rather than machine-translated: this is
+// the text a searcher reads before deciding whether to click.
+const CAT_DESC_TPL = {
+  en: (label, list, n) => `${label} calculators: ${list}. ${n} free tools with formulas, worked examples and instant results.`,
+  es: (label, list, n) => `Calculadoras de ${label}: ${list}. ${n} herramientas gratuitas con fórmulas, ejemplos resueltos y resultados al instante.`,
+  fr: (label, list, n) => `Calculateurs ${label} : ${list}. ${n} outils gratuits avec formules, exemples résolus et résultats instantanés.`,
+  de: (label, list, n) => `${label} berechnen: ${list}. ${n} kostenlose Rechner mit Formeln, Beispielen und sofortigen Ergebnissen.`,
+  it: (label, list, n) => `Calcolatori ${label}: ${list}. ${n} strumenti gratuiti con formule, esempi svolti e risultati immediati.`,
+  pt: (label, list, n) => `Calculadoras de ${label}: ${list}. ${n} ferramentas gratuitas com fórmulas, exemplos e resultados instantâneos.`,
+};
+
+// Every listed name ends in "Calculator" / "Calculadora de ...", which makes the
+// sentence read "calculators: X Calculator, Y Calculator". Drop the repeated word so
+// the snippet names the SUBJECT, which is what a searcher scans for.
+const _CALC_WORD = /[\s-]*(calculators?|calculadoras?|calculateurs?|calculatrices?|rechner|calcolatori?|calcolatrici?|calcolatrice)\s*(\([^)]*\))?\s*$|^\s*(calculadora de|calculadora del|calculadora|calculateur de|calculateur du|calculateur|calculatrice de|calculatrice|calcolatore di|calcolatore del|calcolatore|calcolatrice di|calcolatrice|calculo de|cálculo de)\s+/gi;
+function _stripCalcWord(n) {
+  const out = String(n || "").replace(_CALC_WORD, "").trim();
+  return out.length >= 3 ? out : String(n || "").trim();
+}
+
+// Visible intro line, in the page language. Shorter than the meta description because
+// a reader sees it directly under the heading.
+const CAT_INTRO_TPL = {
+  en: (label, n) => `${n} free ${label.toLowerCase()} calculators. Enter your numbers and get the result instantly, with the formula and a worked example on every page.`,
+  es: (label, n) => `${n} calculadoras de ${label.toLowerCase()} gratuitas. Introduce tus datos y obtén el resultado al instante, con la fórmula y un ejemplo resuelto en cada página.`,
+  fr: (label, n) => `${n} calculateurs ${label.toLowerCase()} gratuits. Saisissez vos valeurs et obtenez le résultat immédiatement, avec la formule et un exemple résolu sur chaque page.`,
+  de: (label, n) => `${n} kostenlose Rechner für ${label}. Werte eingeben und sofort das Ergebnis erhalten – mit Formel und Rechenbeispiel auf jeder Seite.`,
+  it: (label, n) => `${n} calcolatori ${label.toLowerCase()} gratuiti. Inserisci i tuoi dati e ottieni subito il risultato, con la formula e un esempio svolto in ogni pagina.`,
+  pt: (label, n) => `${n} calculadoras de ${label.toLowerCase()} gratuitas. Introduza os seus dados e obtenha o resultado na hora, com a fórmula e um exemplo resolvido em cada página.`,
+};
+function _catDescription(lang, label, names) {
+  const n = names.length;
+  // Name three real calculators, then trim to a length Google will show whole.
+  const clean = names.map(_stripCalcWord);
+  const build = k => {
+    const list = clean.slice(0, k).join(", ");
+    return (CAT_DESC_TPL[lang] || CAT_DESC_TPL.en)(label, list, n);
+  };
+  for (let k = 3; k >= 1; k--) {
+    const d = build(k);
+    if (d.length <= 158) return d;
+  }
+  return build(1).slice(0, 155).replace(/[\s,;:.]+$/, "") + "…";
+}
+
+/**
+ * fixCategoryPagesHttp — rewrite the description and drop the decorative card
+ * numbers on every category page, then republish them together.
+ * POST { dryRun?: true }
+ */
+exports.fixCategoryPagesHttp = functions.runWith({ timeoutSeconds: 540, memory: "512MB" })
+  .https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+  if (req.method === "OPTIONS") return res.status(204).send("");
+  if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
+  try {
+    const zlib = require("zlib"), util = require("util"), crypto = require("crypto");
+    const gzip = util.promisify(zlib.gzip);
+    const dryRun = !!(req.body && req.body.dryRun);
+
+    const files = {};
+    const report = [];
+    for (const lang of LANGS) {
+      for (const cat of CAT_SLUGS) {
+        const url = `${SITE}/${lang}/${cat}/`;
+        let html;
+        try {
+          const r = await fetch(url);
+          if (!r.ok) continue;
+          html = await r.text();
+        } catch (e) { continue; }
+
+        // The localized label lives in the <title>: "Mampostería y Cerramientos – CalcToWork".
+        const title = (html.match(/<title>([^<]*)<\/title>/) || [])[1] || "";
+        const label = title.split(/\s[–—-]\s/)[0].trim() || cat;
+        const names = [...html.matchAll(/<h3[^>]*>([^<]+)<\/h3>/g)].map(m => m[1].trim()).filter(Boolean);
+        if (!names.length) continue;
+
+        const desc = _catDescription(lang, label, names);
+        let out = html;
+
+        // Replace the meta + OpenGraph descriptions.
+        out = out.replace(/(<meta name="description" content=")[^"]*(")/, (m, a, b) => a + esc(desc) + b);
+        out = out.replace(/(<meta property="og:description" content=")[^"]*(")/, (m, a, b) => a + esc(desc) + b);
+        out = out.replace(/(<meta name="twitter:description" content=")[^"]*(")/, (m, a, b) => a + esc(desc) + b);
+
+        // Empty the decorative index so it is no longer the card's first text.
+        // The element stays for layout; only the scrapeable text goes.
+        out = out.replace(/<div class="calc-thumb-num">[^<]*<\/div>/g, '<div class="calc-thumb-num" aria-hidden="true"></div>');
+
+        // The visible intro used the same half-English template as the meta tag.
+        const intro = (CAT_INTRO_TPL[lang] || CAT_INTRO_TPL.en)(label, names.length);
+        out = out.replace(/<p>[^<]*free online calculators\.?<\/p>/i, () => `<p>${esc(intro)}</p>`);
+
+        report.push({ lang, cat, calcs: names.length, desc });
+        if (!dryRun) {
+          const gz = await gzip(Buffer.from(out, "utf8"));
+          files[`/${lang}/${cat}/index.html`] = { gzipped: gz, hash: crypto.createHash("sha256").update(gz).digest("hex") };
+        }
+      }
+    }
+
+    if (dryRun) return res.status(200).json({ build: _BUILD_ID, dryRun: true, pages: report.length, sample: report.slice(0, 6) });
+    if (!Object.keys(files).length) return res.status(400).json({ error: "no category pages could be rebuilt" });
+
+    const dep = await _deployPagesToHosting(files, `[CategoryFix] ${Object.keys(files).length} pages`);
+    return res.status(200).json({
+      ok: true, build: _BUILD_ID, pages: Object.keys(files).length, deployed: !dep.error,
+      error: dep.error || null, sample: report.slice(0, 4),
+    });
+  } catch (e) {
+    console.error("fixCategoryPagesHttp error:", e);
+    return res.status(500).json({ error: e.message });
+  }
+});
+
+/**
+ * hostingHistoryHttp — list recent hosting releases with their file counts.
+ *
+ * Written after an impressions collapse whose most plausible cause was a release that
+ * shipped with pages missing: the deploy path clones "the current release", and a stale
+ * read can drop files while still passing the >1000-file guard. Without this, "did a bad
+ * version go live?" was unanswerable after the fact — the manifest is the only record.
+ *
+ * A sudden dip in fileCount between consecutive releases is the fingerprint of that bug.
+ * GET (no body needed). Optional ?limit=N
+ */
+exports.hostingHistoryHttp = functions.runWith({ timeoutSeconds: 120, memory: "256MB" })
+  .https.onRequest(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  try {
+    const tokenResult = await admin.app().options.credential.getAccessToken();
+    const headers = { "Authorization": "Bearer " + tokenResult.access_token };
+    const limit = Math.min(100, parseInt(req.query.limit, 10) || 40);
+
+    const r = await fetch(`${HOSTING_API}/sites/${HOSTING_SITE}/releases?pageSize=${limit}`, { headers });
+    if (!r.ok) return res.status(500).json({ error: "releases fetch failed: " + await r.text() });
+    const data = await r.json();
+
+    const rows = (data.releases || []).map(rel => ({
+      time: rel.releaseTime,
+      files: Number((rel.version && rel.version.fileCount) || 0),
+      message: (rel.message || "").slice(0, 60),
+      version: (rel.version && rel.version.name || "").split("/").pop(),
+    }));
+
+    // Flag any release that shipped materially fewer files than the one before it
+    // (releases come back newest-first, so "before it" is the NEXT element).
+    const suspicious = [];
+    for (let i = 0; i < rows.length - 1; i++) {
+      const cur = rows[i], prev = rows[i + 1];
+      if (prev.files > 1000 && cur.files < prev.files * 0.97) {
+        suspicious.push({
+          time: cur.time, message: cur.message,
+          droppedFiles: prev.files - cur.files,
+          from: prev.files, to: cur.files,
+        });
+      }
+    }
+
+    return res.status(200).json({
+      build: _BUILD_ID,
+      current: rows[0] || null,
+      suspiciousReleases: suspicious,
+      releases: rows,
+    });
+  } catch (e) {
+    console.error("hostingHistoryHttp error:", e);
+    return res.status(500).json({ error: e.message });
+  }
 });

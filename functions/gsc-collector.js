@@ -249,7 +249,7 @@ exports.fetchGscData = functions
   .onRun(async (context) => {
     const siteUrl = (await gscConfig()).siteUrl;
     const today = new Date();
-    const endDate = new Date(today - 3 * 86400000).toISOString().slice(0, 10); // GSC 3-day lag
+    const endDate = new Date(today - 1 * 86400000).toISOString().slice(0, 10); // reach for yesterday; days with no data yet simply return no rows
     const startDate = new Date(today - 93 * 86400000).toISOString().slice(0, 10); // 90 days back
 
     console.log(`[GSC] Starting collection: ${startDate} to ${endDate} for ${siteUrl}`);
@@ -283,8 +283,11 @@ exports.fetchGscOnDemand = functions
   const siteUrl = req.query.site || (await gscConfig()).siteUrl;
   const days = parseInt(req.query.days) || 30;
   const today = new Date();
-  const endDate = new Date(today - 3 * 86400000).toISOString().slice(0, 10);
-  const startDate = new Date(today - (days + 3) * 86400000).toISOString().slice(0, 10);
+  // Reach for yesterday: Search Analytics usually has data through today-1 or
+  // today-2, and a day with no data simply returns no rows. Stopping at today-3
+  // meant the dashboard could never show whether a recent dip was real.
+  const endDate = new Date(today - 1 * 86400000).toISOString().slice(0, 10);
+  const startDate = new Date(today - (days + 1) * 86400000).toISOString().slice(0, 10);
 
   try {
     await storeQueryData(siteUrl, startDate, endDate);

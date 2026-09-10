@@ -73,6 +73,9 @@ exports.analytics = functions.https.onRequest((req, res) => {
           calc_slug: event.calc_slug || null,
           referrer: event.referrer || null,
           user_agent: event.user_agent || null,
+          traffic_source: event.traffic_source || null,
+          browser: event.browser || null,
+          device_type: event.device_type || null,
           language: event.language || null,
           is_bot: event.is_bot || false,
           screen_width: event.screen_width || null,
@@ -125,6 +128,14 @@ exports.saveGscConfig = gscCollector.saveGscConfig;
 exports.getGscStatus = gscCollector.getGscStatus;
 exports.testGscConnection = gscCollector.testGscConnection;
 
+// ── Bing Webmaster Tools Integration ──
+const bingCollector = require("./bing-collector");
+exports.fetchBingData = bingCollector.fetchBingData;
+exports.fetchBingOnDemand = bingCollector.fetchBingOnDemand;
+exports.getBingData = bingCollector.getBingData;
+exports.getBingStatus = bingCollector.getBingStatus;
+exports.saveBingConfig = bingCollector.saveBingConfig;
+
 // ── Analytics Aggregation ──
 const aggregator = require("./aggregator");
 exports.aggregateDailyStats = aggregator.aggregateDailyStats;
@@ -160,6 +171,7 @@ exports.generateGrowthReportHttp = calcPage.generateGrowthReportHttp;
 exports.runAutoPilot = calcPage.runAutoPilot;
 exports.runAutoPilotHttp = calcPage.runAutoPilotHttp;
 exports.completeCalcHttp = calcPage.completeCalcHttp;
+exports.deployAllCalcsHttp = calcPage.deployAllCalcsHttp;
 exports.completeAllCalcsHttp = calcPage.completeAllCalcsHttp;
 
 // ── Growth Engine v2 ──
@@ -174,12 +186,14 @@ exports.autonomousGrowthLoop = calcPage.autonomousGrowthLoop;
 exports.toggleAutonomyHttp = calcPage.toggleAutonomyHttp;
 exports.getAutonomyStatusHttp = calcPage.getAutonomyStatusHttp;
 exports.dailyCoreRegeneration = calcPage.dailyCoreRegeneration;
+exports.dailyAutoComplete = calcPage.dailyAutoComplete;
 exports.regenerateCorePagesHttp = calcPage.regenerateCorePagesHttp;
 exports.syncStaticCalcsHttp = calcPage.syncStaticCalcsHttp;
 exports.generateAllSEOTitlesHttp = calcPage.generateAllSEOTitlesHttp;
 exports.generateOneSEOTitleHttp = calcPage.generateOneSEOTitleHttp;
 exports.backlinkHunterHttp = calcPage.backlinkHunterHttp;
 exports.weeklyBacklinkHunter = calcPage.weeklyBacklinkHunter;
+exports.dailyBacklinkEngine = calcPage.dailyBacklinkEngine;
 
 // ── AI Strategy Brain ──
 exports.generateStrategyPlanHttp = calcPage.generateStrategyPlanHttp;
@@ -188,3 +202,18 @@ exports.getStrategyMemoryHttp = calcPage.getStrategyMemoryHttp;
 exports.saveStrategyMemoryHttp = calcPage.saveStrategyMemoryHttp;
 exports.auditCalcQualityHttp = calcPage.auditCalcQualityHttp;
 exports.perCalcBacklinkHttp = calcPage.perCalcBacklinkHttp;
+exports.cleanupJunkCalcsHttp = calcPage.cleanupJunkCalcsHttp;
+exports.deployAssetsHttp = calcPage.deployAssetsHttp;
+exports.deployAdminHttp = calcPage.deployAdminHttp;
+exports.patchCalcFormulaHttp = calcPage.patchCalcFormulaHttp;
+exports.regenPresetsHttp = calcPage.regenPresetsHttp;
+exports.genInterpretationHttp = calcPage.genInterpretationHttp;
+exports.indexNowHttp = calcPage.indexNowHttp;
+exports.fixCategoryPagesHttp = calcPage.fixCategoryPagesHttp;
+exports.hostingHistoryHttp = calcPage.hostingHistoryHttp;
+exports.regenResultContextHttp = calcPage.regenResultContextHttp;
+exports.aiFixCalcHttp = calcPage.aiFixCalcHttp;
+exports.autoBacklinkEngineHttp = calcPage.autoBacklinkEngineHttp;
+exports.calcScorecardHttp = calcPage.calcScorecardHttp;
+exports.getScorecardHttp = calcPage.getScorecardHttp;
+exports.bulkSyncCalcsHttp = calcPage.bulkSyncCalcsHttp;
