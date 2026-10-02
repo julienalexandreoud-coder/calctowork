@@ -221,3 +221,7 @@ exports.bulkSyncCalcsHttp = calcPage.bulkSyncCalcsHttp;
 // ── Cost audit (read-only Cloud Monitoring query) ──
 const costAudit = require("./cost-audit");
 exports.costAuditHttp = costAudit.costAuditHttp;
+
+// ── Hosting version reclamation ──
+const cleanup = require("./cleanup");
+exports.cleanupHostingVersionsHttp = cleanup.cleanupHostingVersionsHttp;
