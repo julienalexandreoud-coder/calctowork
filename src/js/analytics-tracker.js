@@ -123,13 +123,15 @@
     const pdfBtn = document.getElementById('btn-pdf');
     if (pdfBtn) pdfBtn.addEventListener('click', () => track('pdf_export', getCalcContext()));
 
+    // One event per session, not one per field interaction. Per-field events were
+    // ~70% of all analytics writes and told us nothing we act on.
     const inputs = document.querySelectorAll('#calc-form input, #calc-form select');
+    let formEngaged = false;
     inputs.forEach(input => {
-      input.addEventListener('focus', () => {
-        track('input_focus', { ...getCalcContext(), field_id: input.id, field_name: input.name });
-      });
       input.addEventListener('change', () => {
-        track('input_changed', { ...getCalcContext(), field_id: input.id, field_name: input.name, has_value: !!input.value });
+        if (formEngaged) return;
+        formEngaged = true;
+        track('form_engaged', { ...getCalcContext(), fields_total: inputs.length });
       });
     });
 
@@ -138,9 +140,7 @@
       const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
       if (scrollPercent > maxScroll) {
         maxScroll = scrollPercent;
-        if (scrollPercent >= 25) trackScrollDepth(25);
         if (scrollPercent >= 50) trackScrollDepth(50);
-        if (scrollPercent >= 75) trackScrollDepth(75);
         if (scrollPercent >= 100) trackScrollDepth(100);
       }
     });
@@ -148,7 +148,7 @@
     // Engagement heartbeat — fire only at a few milestones, then stop, and never
     // while the tab is hidden. Previously this fired every 10s forever, flooding
     // Firestore with hundreds of time_on_page writes per session (huge cost at scale).
-    const PING_MILESTONES = [15, 30, 60, 120, 300, 600];
+    const PING_MILESTONES = [30, 120, 600];
     let nextPing = 0;
     const pingTimer = setInterval(() => {
       if (nextPing >= PING_MILESTONES.length) { clearInterval(pingTimer); return; }

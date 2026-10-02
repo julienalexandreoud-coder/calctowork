@@ -217,3 +217,7 @@ exports.autoBacklinkEngineHttp = calcPage.autoBacklinkEngineHttp;
 exports.calcScorecardHttp = calcPage.calcScorecardHttp;
 exports.getScorecardHttp = calcPage.getScorecardHttp;
 exports.bulkSyncCalcsHttp = calcPage.bulkSyncCalcsHttp;
+
+// ── Cost audit (read-only Cloud Monitoring query) ──
+const costAudit = require("./cost-audit");
+exports.costAuditHttp = costAudit.costAuditHttp;
