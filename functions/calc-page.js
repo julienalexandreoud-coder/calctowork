@@ -2321,6 +2321,7 @@ exports.sitemap = functions.https.onRequest(async (req, res) => {
  */
 exports.findKeywordOpportunities = functions.runWith({ timeoutSeconds: 540, memory: "512MB" })
   .pubsub.schedule("0 6 * * 1").timeZone("UTC").onRun(async () => {
+  if (await _cronHalted("findKeywordOpportunities")) return null;
   await _findKeywordOpportunities();
 });
 
@@ -2541,6 +2542,7 @@ Return JSON array only: [{"prompt":"describe the calculator in 1 sentence","cate
  */
 exports.generateSEOSuggestions = functions.runWith({ timeoutSeconds: 300, memory: "256MB" })
   .pubsub.schedule("0 7 * * 1").timeZone("UTC").onRun(async () => {
+  if (await _cronHalted("generateSEOSuggestions")) return null;
   await _generateSEOSuggestions();
 });
 
@@ -2737,6 +2739,7 @@ Return JSON only: {"title":"new title","description":"new description","reasonin
  */
 exports.generateGrowthReport = functions.runWith({ timeoutSeconds: 540, memory: "512MB" })
   .pubsub.schedule("0 9 * * 1").timeZone("UTC").onRun(async () => {
+  if (await _cronHalted("generateGrowthReport")) return null;
   await _generateGrowthReport();
 });
 
@@ -3123,7 +3126,11 @@ exports.runAutoPilotHttp = functions.runWith({ timeoutSeconds: 540, memory: "512
 
 exports.runAutoPilot = functions.runWith({ timeoutSeconds: 540, memory: "512MB" })
   .pubsub.schedule("0 10 * * *").timeZone("UTC").onRun(async () => {
-  await _runAutoPilot();
+  if (await _cronHalted("runAutoPilot")) return null;
+  // One release for the whole run, not one per calculator.
+  _beginDeployBatch();
+  try { await _runAutoPilot(); } finally { await _flushDeployBatch(); }
+  return null;
 });
 
 /**
@@ -3790,6 +3797,7 @@ exports.auditRisingPagesHttp = functions.runWith({ timeoutSeconds: 300, memory: 
 // Run daily at 14:00 UTC — catches morning traffic spikes with enough data
 exports.auditRisingPages = functions.runWith({ timeoutSeconds: 300, memory: "256MB" })
   .pubsub.schedule("0 14 * * *").timeZone("UTC").onRun(async () => {
+  if (await _cronHalted("auditRisingPages")) return null;
   await _auditRisingPages();
 });
 
@@ -4834,6 +4842,56 @@ async function _getStrategy() {
   return doc.exists ? { ...AGENT_DEFAULTS, ...doc.data() } : AGENT_DEFAULTS;
 }
 
+// Every scheduled job funnels through this. Previously only autonomousGrowthLoop
+// consulted the switch, so "pausing autonomy" left nine cron jobs publishing —
+// 12-49 full-site hosting versions a day for three weeks.
+async function _cronHalted(jobName) {
+  try {
+    const strat = await _getStrategy();
+    if (strat.emergency_stop) { console.log("[Cron] " + jobName + " halted: emergency_stop"); return true; }
+    if (!strat.enabled) { console.log("[Cron] " + jobName + " halted: agent disabled"); return true; }
+    return false;
+  } catch (e) {
+    // Fail closed. If the switch cannot be read we must not run billable work.
+    console.error("[Cron] " + jobName + " halted: cannot read kill switch: " + e.message);
+    return true;
+  }
+}
+
+// Publishing ONE calculator clones the entire ~36k-file manifest into a new
+// retained hosting version, so a per-calc publish loop is extremely expensive.
+// Cap automated releases so a future bug costs a budget instead of a bill.
+// Manual/admin deploys are never capped — only messages tagged [Agent].
+const MAX_AGENT_RELEASES_PER_DAY = 6;
+async function _consumeAgentReleaseBudget() {
+  const ref = db.collection("admin_prefs").doc("hosting_release_budget");
+  const today = _todayKey();
+  return await db.runTransaction(async t => {
+    const d = await t.get(ref);
+    const cur = d.exists ? d.data() : {};
+    const count = (cur.date === today) ? (cur.count || 0) : 0;
+    if (count >= MAX_AGENT_RELEASES_PER_DAY) return { ok: false, count };
+    t.set(ref, { date: today, count: count + 1, updated_at: admin.firestore.FieldValue.serverTimestamp() }, { merge: true });
+    return { ok: true, count: count + 1 };
+  });
+}
+
+// Batch mode: while active, _autoDeployCalc accumulates pages instead of cutting
+// a hosting version per calculator. Scheduled functions run one invocation per
+// instance, so module-level state is safe here.
+let _deployBuffer = null;
+function _beginDeployBatch() { _deployBuffer = { files: {}, slugs: [] }; }
+async function _flushDeployBatch() {
+  const buf = _deployBuffer;
+  _deployBuffer = null;
+  if (!buf || !buf.slugs.length) return { deployed: false, reason: "nothing buffered" };
+  const msg = "[Agent] Batch: " + buf.slugs.length + " calcs";
+  const result = await _deployPagesToHosting(buf.files, msg);
+  if (result && result.error) { console.error("[Deploy] Batch failed: " + result.error); return result; }
+  console.log("[Deploy] Batch published " + buf.slugs.length + " calcs in ONE release");
+  return { deployed: true, slugs: buf.slugs };
+}
+
 async function _countToday(col) {
   const snap = await db.collection(col)
     .where("date", "==", _todayKey())
@@ -5231,6 +5289,12 @@ async function _autoDeployCalc(slug) {
   try {
     const newFiles = await _buildCalcFiles(slug);
     if (Object.keys(newFiles).length === 0) return { error: "No language content" };
+    // In batch mode, accumulate and let the caller cut a single release.
+    if (_deployBuffer) {
+      Object.assign(_deployBuffer.files, newFiles);
+      _deployBuffer.slugs.push(slug);
+      return { buffered: true, slug, languages: Object.keys(newFiles).length };
+    }
     const result = await _deployPagesToHosting(newFiles, `[Agent] Auto-deploy: ${slug}`);
     if (result.error) { console.error("[Deploy] Failed for", slug, ":", result.error); return result; }
     console.log(`[Deploy] Published ${slug} in ${Object.keys(newFiles).length} languages`);
@@ -6001,6 +6065,7 @@ Return ONLY: {"actions":[{"type":"generate_faq","reason":"0 calcs have FAQ","pri
  */
 exports.dailyCoreRegeneration = functions.runWith({ timeoutSeconds: 300, memory: "512MB" })
   .pubsub.schedule("0 5 * * *").timeZone("UTC").onRun(async () => {
+  if (await _cronHalted("dailyCoreRegeneration")) return null;
   console.log("[DailyRegen] Regenerating core pages...");
   return await _regenerateCorePages();
 });
@@ -6011,6 +6076,7 @@ exports.dailyCoreRegeneration = functions.runWith({ timeoutSeconds: 300, memory:
  */
 exports.dailyAutoComplete = functions.runWith({ timeoutSeconds: 540, memory: "512MB" })
   .pubsub.schedule("0 6 * * *").timeZone("UTC").onRun(async () => {
+  if (await _cronHalted("dailyAutoComplete")) return null;
   console.log("[DailyComplete] Starting...");
   const cfgDoc = await db.collection("admin_prefs").doc("ai_config").get();
   const cfg = cfgDoc.exists ? cfgDoc.data() : {};
@@ -6079,6 +6145,7 @@ exports.regenerateCorePagesHttp = functions.runWith({ timeoutSeconds: 300, memor
  */
 exports.weeklyBacklinkHunter = functions.runWith({ timeoutSeconds: 300, memory: "512MB" })
   .pubsub.schedule("0 7 * * 1").timeZone("UTC").onRun(async () => {
+  if (await _cronHalted("weeklyBacklinkHunter")) return null;
   console.log("[Backlink] Weekly hunt starting...");
   const fetch = require("node-fetch");
   const ua = "CalcToWork/1.0";
@@ -7413,6 +7480,7 @@ exports.autoBacklinkEngineHttp = functions.runWith({ timeoutSeconds: 540, memory
  */
 exports.dailyBacklinkEngine = functions.runWith({ timeoutSeconds: 300, memory: "256MB" })
   .pubsub.schedule("0 7 * * *").timeZone("UTC").onRun(async () => {
+  if (await _cronHalted("dailyBacklinkEngine")) return null;
   const fetch = require("node-fetch");
   const ua = "CalcToWork/1.0";
   const SITE_URL = "https://calcto.work";
