@@ -529,6 +529,123 @@
     return out;
   }
 
+
+  // ══ Partner offers ══════════════════════════════════════════════════
+  // Fill in PARTNER_IDS once the affiliate accounts are approved. Until an id
+  // is set the whole block stays hidden, so nothing half-configured ever ships.
+  var PARTNER_IDS = {
+    manomano_awin: '',   // Awin publisher id (ManoMano ES/DE/FR/IT, 5-7% per sale)
+    habitissimo:   '',   // TradeDoubler/Awin id (habitissimo ES, cost-per-lead)
+    amazon_es:     '',   // Amazon Associates ES tracking id
+    amazon_de:     ''    // Amazon Associates DE tracking id
+  };
+
+  // Which calculators sell what. Matched against the slug, longest rule wins.
+  var OFFER_RULES = [
+    { match: /andamio|geruest|scaffold/,                               kind: 'rental'    },
+    { match: /ventana|fenster|window|puerta|tuer|door/,                kind: 'quote'     },
+    { match: /reforma|renovation|presupuesto|kitchen|cocina|bano|bad/, kind: 'quote'     },
+    { match: /mamposteria|piedra|ladrillo|block|stein|brick|marmol|granito|azulejo|tile|fliesen/, kind: 'materials' },
+    { match: /hormigon|beton|concrete|cemento|mortero|zapata|forjado|viga|pilar|losa|muro/,       kind: 'materials' },
+    { match: /gelaender|railing|barandilla|valla|fence|zaun|terrassen|decking/,                   kind: 'materials' },
+    { match: /pintura|paint|farbe|lija|abrasivo|masilla|filler|silicona/,                         kind: 'materials' },
+    { match: /conducto|rejilla|difusor|ventilacion|klima|hvac|refrigerante|caldera|calentador/,   kind: 'tools'     },
+    { match: /electric|cuadro|cable|tierra|trifasica|solar|panel/,                                kind: 'tools'     },
+    { match: /estructura|metalica|acero|steel|stahl|perfil/,                                     kind: 'materials' },
+    { match: /acometida|tuberia|fontaneria|pipe|rohr|sanitar|presion-agua|bomba|pump/,           kind: 'materials' },
+    { match: /footing|cimentacion|fundament|aislamiento|insulation|daemmung/,                    kind: 'materials' }
+  ];
+
+  var OFFER_COPY = {
+    es: {
+      materials: ['Compra los materiales', 'Compara precios de materiales para esta obra'],
+      tools:     ['Compra el material', 'Encuentra el equipo y los recambios que necesitas'],
+      rental:    ['Pide presupuesto de alquiler', 'Compara precios de alquiler en tu zona'],
+      quote:     ['Pide 4 presupuestos gratis', 'Profesionales de tu zona te envian presupuesto sin compromiso'],
+      note: 'Enlace de afiliado. Si compras, ganamos una comision sin coste adicional para ti.'
+    },
+    de: {
+      materials: ['Material kaufen', 'Materialpreise fuer dieses Projekt vergleichen'],
+      tools:     ['Material kaufen', 'Passende Geraete und Ersatzteile finden'],
+      rental:    ['Mietangebot anfordern', 'Mietpreise in Ihrer Naehe vergleichen'],
+      quote:     ['Kostenlose Angebote anfordern', 'Fachbetriebe aus Ihrer Region melden sich bei Ihnen'],
+      note: 'Affiliate-Link. Bei einem Kauf erhalten wir eine Provision, fuer Sie ohne Mehrkosten.'
+    },
+    en: {
+      materials: ['Buy the materials', 'Compare material prices for this job'],
+      tools:     ['Buy the equipment', 'Find the tools and spares you need'],
+      rental:    ['Get rental quotes', 'Compare hire prices in your area'],
+      quote:     ['Get 4 free quotes', 'Local professionals send you a quote, no obligation'],
+      note: 'Affiliate link. If you buy, we earn a commission at no extra cost to you.'
+    }
+  };
+  OFFER_COPY.fr = OFFER_COPY.en; OFFER_COPY.it = OFFER_COPY.en; OFFER_COPY.pt = OFFER_COPY.en;
+
+  function partnerLink(kind, lang) {
+    // habitissimo is cost-per-lead and only operates in ES; everything else
+    // goes to ManoMano, which covers ES/DE/FR/IT.
+    if (kind === 'quote' && lang === 'es' && PARTNER_IDS.habitissimo) {
+      return 'https://www.habitissimo.es/presupuesto?utm_source=calctowork&aff=' + encodeURIComponent(PARTNER_IDS.habitissimo);
+    }
+    if (PARTNER_IDS.manomano_awin) {
+      var tld = { es: 'es', de: 'de', fr: 'fr', it: 'it' }[lang] || 'es';
+      return 'https://www.awin1.com/cread.php?awinmid=17547&awinaffid='
+        + encodeURIComponent(PARTNER_IDS.manomano_awin)
+        + '&ued=' + encodeURIComponent('https://www.manomano.' + tld + '/');
+    }
+    return '';
+  }
+
+  function renderPartnerOffer(results) {
+    var host = document.getElementById('ctw-partner');
+    if (!host) {
+      var box = document.getElementById('calc-results');
+      if (!box || !box.parentNode) return;
+      host = document.createElement('div');
+      host.id = 'ctw-partner';
+      box.parentNode.insertBefore(host, box.nextSibling);
+    }
+    host.innerHTML = '';
+    if (!results || results.error) return;
+
+    var slug = String((cfg && cfg.slug) || '');
+    var lang = String((cfg && cfg.lang) || document.documentElement.lang || 'en').slice(0, 2);
+    var rule = null;
+    for (var i = 0; i < OFFER_RULES.length; i++) {
+      if (OFFER_RULES[i].match.test(slug)) { rule = OFFER_RULES[i]; break; }
+    }
+    if (!rule) return;
+
+    var href = partnerLink(rule.kind, lang);
+    if (!href) return; // no affiliate id configured yet — render nothing
+
+    var copy = OFFER_COPY[lang] || OFFER_COPY.en;
+    var text = copy[rule.kind] || copy.materials;
+
+    var a = document.createElement('a');
+    a.className = 'ctw-partner-cta';
+    a.href = href;
+    a.target = '_blank';
+    a.rel = 'sponsored nofollow noopener';
+    a.innerHTML = '<span class="ctw-partner-title"></span><span class="ctw-partner-sub"></span>';
+    a.querySelector('.ctw-partner-title').textContent = text[0];
+    a.querySelector('.ctw-partner-sub').textContent = text[1];
+    a.addEventListener('click', function () {
+      try {
+        if (window.CTWAnalytics) {
+          window.CTWAnalytics.track('partner_click', { calc_slug: slug, kind: rule.kind, lang: lang });
+        }
+      } catch (e) {}
+    });
+
+    var note = document.createElement('p');
+    note.className = 'ctw-partner-note';
+    note.textContent = copy.note;
+
+    host.appendChild(a);
+    host.appendChild(note);
+  }
+
   function renderVerdict(results, cfg) {
     var it = cfg.interpretation;
     if (!it || !it.output) return '';
@@ -1360,6 +1477,7 @@
     window._lastResults = results;
     window._lastInputs = inputs;
     renderResults(results, wastePct, scroll);
+    try { renderPartnerOffer(results); } catch (e) { console.warn('[CalcToWork] partner offer:', e); }
     if (submitBtn) {
       submitBtn.disabled = false;
       submitBtn.removeAttribute('aria-busy');

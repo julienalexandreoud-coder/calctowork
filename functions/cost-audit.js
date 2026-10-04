@@ -97,3 +97,31 @@ exports.costAuditHttp = functions.runWith({ timeoutSeconds: 300, memory: "256MB"
       return res.status(500).json({ error: e.message });
     }
   });
+
+/**
+ * trafficSourcesHttp — read the daily source/browser/device rollup.
+ *
+ * Exists to answer "where do ~50 visitors a day come from when Google sends
+ * ~1 click a day". analytics_daily_sources is written by the aggregator and
+ * counts by UNIQUE SESSION, so it is not inflated by per-event rows.
+ * GET ?days=14
+ */
+exports.trafficSourcesHttp = functions.runWith({ timeoutSeconds: 120, memory: "256MB" })
+  .https.onRequest(async (req, res) => {
+    res.set("Access-Control-Allow-Origin", "*");
+    try {
+      const days = Math.min(60, parseInt(req.query.days, 10) || 14);
+      const start = new Date(Date.now() - days * 86400000).toISOString().slice(0, 10);
+      const db = admin.firestore();
+      const snap = await db.collection("analytics_daily_sources")
+        .where(admin.firestore.FieldPath.documentId(), ">=", start)
+        .get();
+      const rows = [];
+      snap.forEach(d => rows.push({ date: d.id, ...d.data() }));
+      rows.sort((a, b) => a.date.localeCompare(b.date));
+      return res.status(200).json({ days, count: rows.length, rows });
+    } catch (e) {
+      console.error("trafficSourcesHttp:", e);
+      return res.status(500).json({ error: e.message });
+    }
+  });

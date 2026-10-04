@@ -71,6 +71,7 @@ exports.analytics = functions.https.onRequest((req, res) => {
           page_title: event.page_title || null,
           calc_id: event.calc_id || null,
           calc_slug: event.calc_slug || null,
+          offer_kind: event.kind || null,   // which partner offer type was clicked
           referrer: event.referrer || null,
           user_agent: event.user_agent || null,
           traffic_source: event.traffic_source || null,
@@ -225,3 +226,5 @@ exports.costAuditHttp = costAudit.costAuditHttp;
 // ── Hosting version reclamation ──
 const cleanup = require("./cleanup");
 exports.cleanupHostingVersionsHttp = cleanup.cleanupHostingVersionsHttp;
+
+exports.trafficSourcesHttp = costAudit.trafficSourcesHttp;
