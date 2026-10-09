@@ -537,7 +537,9 @@
     manomano_awin: '',   // Awin publisher id (ManoMano ES/DE/FR/IT, 5-7% per sale)
     habitissimo:   '',   // TradeDoubler/Awin id (habitissimo ES, cost-per-lead)
     amazon_es:     '',   // Amazon Associates ES tracking id
-    amazon_de:     ''    // Amazon Associates DE tracking id
+    amazon_de:     '',   // Amazon Associates DE tracking id
+    amazon_fr:     '',   // Amazon Associates FR tracking id
+    amazon_it:     ''    // Amazon Associates IT tracking id
   };
 
   // Which calculators sell what. Matched against the slug, longest rule wins.
@@ -581,7 +583,47 @@
   };
   OFFER_COPY.fr = OFFER_COPY.en; OFFER_COPY.it = OFFER_COPY.en; OFFER_COPY.pt = OFFER_COPY.en;
 
-  function partnerLink(kind, lang) {
+  var AMAZON_TLD = { es: 'es', de: 'de', fr: 'fr', it: 'it' };
+
+  // Keyword per trade, so the visitor lands on the product they just sized up
+  // rather than a generic storefront.
+  var SLUG_TERMS = [
+    [/lija|abrasivo/,            { es: 'lija abrasivo',        de: 'schleifpapier',     fr: 'papier abrasif',   it: 'carta abrasiva' }],
+    [/masilla|filler/,           { es: 'masilla reparadora',   de: 'spachtelmasse',     fr: 'enduit rebouchage',it: 'stucco' }],
+    [/pintura|paint|farbe/,      { es: 'pintura pared',        de: 'wandfarbe',         fr: 'peinture mur',     it: 'pittura murale' }],
+    [/silicona/,                 { es: 'silicona sellador',    de: 'silikon dichtstoff',fr: 'silicone joint',   it: 'silicone' }],
+    [/marmol|granito/,           { es: 'sellador piedra',      de: 'steinversiegelung', fr: 'hydrofuge pierre', it: 'sigillante pietra' }],
+    [/azulejo|tile|fliesen/,     { es: 'adhesivo azulejos',    de: 'fliesenkleber',     fr: 'colle carrelage',  it: 'colla piastrelle' }],
+    [/gelaender|railing|barandilla/, { es: 'barandilla',       de: 'gelaender',         fr: 'garde corps',      it: 'ringhiera' }],
+    [/valla|fence|zaun/,         { es: 'valla jardin',         de: 'gartenzaun',        fr: 'cloture jardin',   it: 'recinzione' }],
+    [/rejilla|difusor/,          { es: 'rejilla ventilacion',  de: 'lueftungsgitter',   fr: 'grille ventilation', it: 'griglia aerazione' }],
+    [/conducto|ventilacion/,     { es: 'conducto aire',        de: 'lueftungsrohr',     fr: 'gaine ventilation',it: 'tubo aerazione' }],
+    [/refrigerante|klima/,       { es: 'manometro refrigerante',de:'klima manometer',   fr: 'manometre clim',   it: 'manometro clima' }],
+    [/calentador|caldera/,       { es: 'termo electrico',      de: 'warmwasserspeicher',fr: 'chauffe eau',      it: 'scaldabagno' }],
+    [/cable|electric|cuadro/,    { es: 'cable electrico',      de: 'installationskabel',fr: 'cable electrique', it: 'cavo elettrico' }],
+    [/tierra|puesta/,            { es: 'pica toma tierra',     de: 'erdungsstab',       fr: 'piquet terre',     it: 'dispersore terra' }],
+    [/tuberia|pipe|rohr|fontaneria/, { es: 'tuberia pvc',      de: 'pvc rohr',          fr: 'tuyau pvc',        it: 'tubo pvc' }],
+    [/hormigon|beton|concrete|cemento|mortero/, { es: 'cemento saco', de: 'zement sack', fr: 'ciment sac',      it: 'cemento sacco' }],
+    [/aislamiento|insulation|daemmung/, { es: 'aislante termico', de: 'daemmplatten',   fr: 'isolant thermique',it: 'isolante termico' }],
+    [/ventana|fenster|window/,   { es: 'burlete ventana',      de: 'fensterdichtung',   fr: 'joint fenetre',    it: 'guarnizione finestra' }]
+  ];
+  var KIND_TERMS = {
+    materials: { es: 'material construccion', de: 'baumaterial', fr: 'materiaux construction', it: 'materiale edile' },
+    tools:     { es: 'herramientas obra',     de: 'werkzeug',    fr: 'outillage',              it: 'utensili' }
+  };
+
+  function amazonTerm(slug, kind, lang) {
+    for (var i = 0; i < SLUG_TERMS.length; i++) {
+      if (SLUG_TERMS[i][0].test(slug)) {
+        var t = SLUG_TERMS[i][1][lang];
+        if (t) return t;
+      }
+    }
+    var k = KIND_TERMS[kind];
+    return (k && k[lang]) || '';
+  }
+
+  function partnerLink(kind, lang, slug) {
     // habitissimo is cost-per-lead and only operates in ES; everything else
     // goes to ManoMano, which covers ES/DE/FR/IT.
     if (kind === 'quote' && lang === 'es' && PARTNER_IDS.habitissimo) {
@@ -592,6 +634,16 @@
       return 'https://www.awin1.com/cread.php?awinmid=17547&awinaffid='
         + encodeURIComponent(PARTNER_IDS.manomano_awin)
         + '&ued=' + encodeURIComponent('https://www.manomano.' + tld + '/');
+    }
+    // Amazon Associates: approved fastest, so often the only live programme.
+    var amzId = PARTNER_IDS['amazon_' + lang];
+    var tld = AMAZON_TLD[lang];
+    if (amzId && tld && kind !== 'quote' && kind !== 'rental') {
+      var term = amazonTerm(slug, kind, lang);
+      if (term) {
+        return 'https://www.amazon.' + tld + '/s?k=' + encodeURIComponent(term)
+          + '&tag=' + encodeURIComponent(amzId);
+      }
     }
     return '';
   }
@@ -616,7 +668,7 @@
     }
     if (!rule) return;
 
-    var href = partnerLink(rule.kind, lang);
+    var href = partnerLink(rule.kind, lang, slug);
     if (!href) return; // no affiliate id configured yet — render nothing
 
     var copy = OFFER_COPY[lang] || OFFER_COPY.en;
