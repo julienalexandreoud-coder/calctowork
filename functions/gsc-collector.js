@@ -93,7 +93,10 @@ async function storeQueryData(siteUrl, startDate, endDate) {
 
   for (const row of rows) {
     const keys = row.keys || [];
-    const docId = `${startDate}_${keys.join("_")}`.replace(/[\/\.\#\$\[\]]/g, "_");
+    // Key on the row's own date, never the window start, so a re-fetch of the
+    // same day overwrites rather than creating a parallel copy.
+    const rowDate = keys[4] || startDate;
+    const docId = `${rowDate}_${keys.slice(0, 4).join("_")}`.replace(/[\/\.\#\$\[\]]/g, "_");
     if (seen.has(docId)) continue;
     seen.add(docId);
 
@@ -131,19 +134,23 @@ async function storeQueryData(siteUrl, startDate, endDate) {
  */
 async function storePageStats(siteUrl, startDate, endDate) {
   console.log(`[GSC] Fetching page stats for ${siteUrl}`);
-  const rows = await queryGsc(siteUrl, startDate, endDate, ["page"], 10000);
+  // Request the date dimension so every row knows which day it belongs to.
+  // Without it every row was stamped with the window start, which both broke
+  // date-filtered reads and made each run write a fresh set of documents.
+  const rows = await queryGsc(siteUrl, startDate, endDate, ["date", "page"], 10000);
 
   let batch = db.batch();
   let count = 0;
   let batchCount = 0;
 
   for (const row of rows) {
-    const page = (row.keys || [])[0] || "";
-    const docId = `${startDate}_${page.replace(/[\/\.\#\$\[\]]/g, "_")}`;
+    const rowDate = (row.keys || [])[0] || startDate;
+    const page = (row.keys || [])[1] || "";
+    const docId = `${rowDate}_${page.replace(/[\/\.\#\$\[\]]/g, "_")}`;
     const docRef = db.collection("gsc_page_stats").doc(docId);
 
     batch.set(docRef, {
-      date: startDate,
+      date: rowDate,
       page,
       total_clicks: row.clicks || 0,
       total_impressions: row.impressions || 0,
@@ -250,7 +257,10 @@ exports.fetchGscData = functions
     const siteUrl = (await gscConfig()).siteUrl;
     const today = new Date();
     const endDate = new Date(today - 1 * 86400000).toISOString().slice(0, 10); // reach for yesterday; days with no data yet simply return no rows
-    const startDate = new Date(today - 93 * 86400000).toISOString().slice(0, 10); // 90 days back
+    // GSC only revises roughly the last three days, so re-pulling 93 days daily
+    // bought nothing and cost ~50k writes a run. Backfill stays available
+    // on demand via fetchGscOnDemand?days=N.
+    const startDate = new Date(today - 7 * 86400000).toISOString().slice(0, 10);
 
     console.log(`[GSC] Starting collection: ${startDate} to ${endDate} for ${siteUrl}`);
 
