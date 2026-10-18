@@ -228,3 +228,7 @@ const cleanup = require("./cleanup");
 exports.cleanupHostingVersionsHttp = cleanup.cleanupHostingVersionsHttp;
 
 exports.trafficSourcesHttp = costAudit.trafficSourcesHttp;
+
+// ── GSC duplicate-row purge (allowlisted collections only) ──
+const purgeGsc = require("./purge-gsc");
+exports.purgeGscHttp = purgeGsc.purgeGscHttp;
