@@ -113,6 +113,10 @@ async function storeQueryData(siteUrl, startDate, endDate) {
       position: row.position || 0,
       site_url: siteUrl,
       fetched_at: admin.firestore.FieldValue.serverTimestamp(),
+      // Firestore TTL deletes the row once this passes. Without it these
+      // collections grow forever: the collector only ever touches the last
+      // 7 days, so older date partitions are never revisited.
+      expires_at: admin.firestore.Timestamp.fromMillis(Date.now() + 120 * 86400000),
     });
     count++;
     batchCount++;
@@ -158,6 +162,10 @@ async function storePageStats(siteUrl, startDate, endDate) {
       avg_position: row.position || 0,
       site_url: siteUrl,
       fetched_at: admin.firestore.FieldValue.serverTimestamp(),
+      // Firestore TTL deletes the row once this passes. Without it these
+      // collections grow forever: the collector only ever touches the last
+      // 7 days, so older date partitions are never revisited.
+      expires_at: admin.firestore.Timestamp.fromMillis(Date.now() + 120 * 86400000),
     });
     count++;
     batchCount++;
@@ -190,6 +198,10 @@ async function storeSiteStats(siteUrl, startDate, endDate) {
       avg_ctr: row.ctr || 0,
       avg_position: row.position || 0,
       fetched_at: admin.firestore.FieldValue.serverTimestamp(),
+      // Firestore TTL deletes the row once this passes. Without it these
+      // collections grow forever: the collector only ever touches the last
+      // 7 days, so older date partitions are never revisited.
+      expires_at: admin.firestore.Timestamp.fromMillis(Date.now() + 120 * 86400000),
     });
     count++;
     batchCount++;
@@ -234,6 +246,11 @@ async function storeCoverageData(siteUrl) {
         warnings,
         site_url: siteUrl,
         fetched_at: admin.firestore.FieldValue.serverTimestamp(),
+        expires_at: admin.firestore.Timestamp.fromMillis(Date.now() + 120 * 86400000),
+      // Firestore TTL deletes the row once this passes. Without it these
+      // collections grow forever: the collector only ever touches the last
+      // 7 days, so older date partitions are never revisited.
+      expires_at: admin.firestore.Timestamp.fromMillis(Date.now() + 120 * 86400000),
       });
       stored++;
     }
@@ -538,6 +555,10 @@ exports.getIndexCoverage = functions.https.onRequest(async (req, res) => {
       date: today,
       sitemaps,
       fetched_at: admin.firestore.FieldValue.serverTimestamp(),
+      // Firestore TTL deletes the row once this passes. Without it these
+      // collections grow forever: the collector only ever touches the last
+      // 7 days, so older date partitions are never revisited.
+      expires_at: admin.firestore.Timestamp.fromMillis(Date.now() + 120 * 86400000),
     });
 
     return res.status(200).json(sitemaps);

@@ -98,6 +98,9 @@ exports.analytics = functions.https.onRequest((req, res) => {
           has_value: event.has_value || null,
           percent: event.percent || null,
           created_at: now,
+          // TTL: raw events are aggregated nightly into analytics_daily, so the
+          // originals need not be kept indefinitely.
+          expires_at: admin.firestore.Timestamp.fromMillis(Date.now() + 120 * 86400000),
         };
 
         batch.set(eventRef, eventData);
@@ -232,3 +235,7 @@ exports.trafficSourcesHttp = costAudit.trafficSourcesHttp;
 // ── GSC duplicate-row purge (allowlisted collections only) ──
 const purgeGsc = require("./purge-gsc");
 exports.purgeGscHttp = purgeGsc.purgeGscHttp;
+
+// ── Firestore TTL policies (one-time setup) ──
+const ttlSetup = require("./ttl-setup");
+exports.setTtlHttp = ttlSetup.setTtlHttp;
