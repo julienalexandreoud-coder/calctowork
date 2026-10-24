@@ -239,3 +239,7 @@ exports.purgeGscHttp = purgeGsc.purgeGscHttp;
 // ── Firestore TTL policies (one-time setup) ──
 const ttlSetup = require("./ttl-setup");
 exports.setTtlHttp = ttlSetup.setTtlHttp;
+
+// ── Hand-tuned SEO titles/descriptions (one page at a time) ──
+const seoTune = require("./seo-tune");
+exports.setSeoHttp = seoTune.setSeoHttp;

@@ -321,6 +321,9 @@ const _DE_CALC_SUFFIX_RE = /s?(rechner|kalkulator)\b/ig;
 const _ALREADY_HOWTO = /how to|cómo calc|como calc|comment calc|berechnung|come calcol/i;
 function buildSeoTitle(lang, langData, name) {
   const existing = (langData && langData.seo_title || "").trim();
+  // A hand-written title beats the template. Opt-in per page via seo_locked so
+  // that pages nobody has tuned keep rendering exactly as they do today.
+  if (existing && langData && langData.seo_locked) return existing;
   if (existing && _ALREADY_HOWTO.test(existing)) return existing; // already how-to optimized
   let topic = (name || "").replace(_CALC_WORD_RE, "");
   if (lang === "de") topic = topic.replace(_DE_CALC_SUFFIX_RE, "");
@@ -550,6 +553,13 @@ function _snippet(text, max) {
 }
 
 function buildMetaDescription(langData, name) {
+  // 0. A hand-written description, when the page is locked. Checked before the
+  // article opening because that path truncates at 158 chars and leaves a
+  // dangling ellipsis, which is what is killing click-through in Bing.
+  if (langData && langData.seo_locked) {
+    const locked = _prose((langData.seo_description || "").trim());
+    if (locked) return locked;
+  }
   // 1. Derive from the article's opening (always unique per calculator).
   // De-LaTeX BEFORE truncating: slicing at 158 chars can cut a \frac{…}{…} in half,
   // after which no converter can recover it and the snippet shows raw markup.
