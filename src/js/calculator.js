@@ -539,11 +539,18 @@
     amazon_es:     '',   // Amazon Associates ES tracking id
     amazon_de:     '',   // Amazon Associates DE tracking id
     amazon_fr:     '',   // Amazon Associates FR tracking id
-    amazon_it:     ''    // Amazon Associates IT tracking id
+    amazon_it:     '',   // Amazon Associates IT tracking id
+    insurance_de:  '',   // CHECK24 / Tarifcheck partner id (DE business liability)
+    insurance_es:  '',   // Spanish insurance comparison partner id
+    finance_de:    '',   // equipment / machine finance broker id (DE)
+    finance_en:    ''    // equipment finance broker id (EN/ES)
   };
 
   // Which calculators sell what. Matched against the slug, longest rule wins.
   var OFFER_RULES = [
+    // Highest value per lead, so matched first.
+    { match: /haftpflicht|versicherung|seguro|insurance|assurance|assicurazione/, kind: 'insurance' },
+    { match: /kredit|prestamo|loan|finanzierung|leasing|amortizacion|financement/, kind: 'finance'   },
     { match: /andamio|geruest|scaffold/,                               kind: 'rental'    },
     { match: /ventana|fenster|window|puerta|tuer|door/,                kind: 'quote'     },
     { match: /reforma|renovation|presupuesto|kitchen|cocina|bano|bad/, kind: 'quote'     },
@@ -564,6 +571,8 @@
       tools:     ['Compra el material', 'Encuentra el equipo y los recambios que necesitas'],
       rental:    ['Pide presupuesto de alquiler', 'Compara precios de alquiler en tu zona'],
       quote:     ['Pide 4 presupuestos gratis', 'Profesionales de tu zona te envian presupuesto sin compromiso'],
+      insurance: ['Compara seguros', 'Recibe presupuestos de varias aseguradoras sin compromiso'],
+      finance:   ['Compara financiacion', 'Solicita condiciones para tu equipo o maquinaria'],
       note: 'Enlace de afiliado. Si compras, ganamos una comision sin coste adicional para ti.'
     },
     de: {
@@ -571,6 +580,8 @@
       tools:     ['Material kaufen', 'Passende Geraete und Ersatzteile finden'],
       rental:    ['Mietangebot anfordern', 'Mietpreise in Ihrer Naehe vergleichen'],
       quote:     ['Kostenlose Angebote anfordern', 'Fachbetriebe aus Ihrer Region melden sich bei Ihnen'],
+      insurance: ['Versicherungen vergleichen', 'Angebote mehrerer Versicherer unverbindlich erhalten'],
+      finance:   ['Finanzierung vergleichen', 'Konditionen fuer Maschine oder Geraet anfragen'],
       note: 'Affiliate-Link. Bei einem Kauf erhalten wir eine Provision, fuer Sie ohne Mehrkosten.'
     },
     en: {
@@ -578,6 +589,8 @@
       tools:     ['Buy the equipment', 'Find the tools and spares you need'],
       rental:    ['Get rental quotes', 'Compare hire prices in your area'],
       quote:     ['Get 4 free quotes', 'Local professionals send you a quote, no obligation'],
+      insurance: ['Compare insurance', 'Get quotes from several insurers, no obligation'],
+      finance:   ['Compare finance', 'Request terms for your equipment or machinery'],
       note: 'Affiliate link. If you buy, we earn a commission at no extra cost to you.'
     }
   };
@@ -635,10 +648,24 @@
         + encodeURIComponent(PARTNER_IDS.manomano_awin)
         + '&ued=' + encodeURIComponent('https://www.manomano.' + tld + '/');
     }
+    // Lead-generation verticals. These pay per qualified enquiry rather than
+    // per sale, which is worth 20-80x a materials commission at this traffic.
+    if (kind === 'insurance') {
+      var insId = PARTNER_IDS['insurance_' + lang] || PARTNER_IDS.insurance_de;
+      if (insId) return 'https://www.check24.de/gewerbeversicherung/?partner=' + encodeURIComponent(insId);
+      return '';
+    }
+    if (kind === 'finance') {
+      var finId = PARTNER_IDS['finance_' + lang] || PARTNER_IDS.finance_en;
+      if (finId) return 'https://www.compeon.de/finanzierung/?partner=' + encodeURIComponent(finId);
+      return '';
+    }
+
     // Amazon Associates: approved fastest, so often the only live programme.
     var amzId = PARTNER_IDS['amazon_' + lang];
     var tld = AMAZON_TLD[lang];
-    if (amzId && tld && kind !== 'quote' && kind !== 'rental') {
+    if (amzId && tld && kind !== 'quote' && kind !== 'rental'
+        && kind !== 'insurance' && kind !== 'finance') {
       var term = amazonTerm(slug, kind, lang);
       if (term) {
         return 'https://www.amazon.' + tld + '/s?k=' + encodeURIComponent(term)

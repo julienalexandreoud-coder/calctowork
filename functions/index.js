@@ -243,3 +243,7 @@ exports.setTtlHttp = ttlSetup.setTtlHttp;
 // ── Hand-tuned SEO titles/descriptions (one page at a time) ──
 const seoTune = require("./seo-tune");
 exports.setSeoHttp = seoTune.setSeoHttp;
+
+// ── Event counts (what people actually click) ──
+const eventStats = require("./event-stats");
+exports.eventStatsHttp = eventStats.eventStatsHttp;
