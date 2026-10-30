@@ -547,6 +547,11 @@
   };
 
   // Which calculators sell what. Matched against the slug, longest rule wins.
+  // Ninguna oferta de producto en páginas médicas o de salud, pase lo que pase.
+  // Se comprueba antes que las reglas de producto porque algunos slugs de salud
+  // contienen palabras de obra ("agua-por-peso", "deposito").
+  var MED_EXCLUDE = /salud|health|bmi|imc|glucos|a1c|colesterol|cholesterol|ldl|chemo|dosing|dosis|creatinina|cardiac|heart|renal|gfr|bsa|embarazo|pregnan|ovulacion|menstrual|calorias|calorie|proteina|protein|grasa-corporal|body-fat|bmr|harris-benedict|katch|agua-diaria|agua-por-peso|hidrat|sueno|sleep|alcohol|nicotin|blood-pressure|presion-arterial|frecuencia-cardiaca|vo2|insulin|apgar|peso-ideal|whr|cintura/;
+
   var OFFER_RULES = [
     // Highest value per lead, so matched first.
     { match: /haftpflicht|versicherung|seguro|insurance|assurance|assicurazione/, kind: 'insurance' },
@@ -562,7 +567,18 @@
     { match: /electric|cuadro|cable|tierra|trifasica|solar|panel/,                                kind: 'tools'     },
     { match: /estructura|metalica|acero|steel|stahl|perfil/,                                     kind: 'materials' },
     { match: /acometida|tuberia|fontaneria|pipe|rohr|sanitar|presion-agua|bomba|pump/,           kind: 'materials' },
-    { match: /footing|cimentacion|fundament|aislamiento|insulation|daemmung/,                    kind: 'materials' }
+    { match: /footing|cimentacion|fundament|aislamiento|insulation|daemmung/,                    kind: 'materials' },
+    // Huecos detectados al medir la cobertura real contra el sitemap.
+    { match: /adhesivo|ceramic|rodapie|baseboard|drywall|pladur|yeso|placa|tabique/,              kind: 'materials' },
+    { match: /barniz|madera|wood|parquet|laminado|vinilo|moqueta|carpet|suelo-|floor/,            kind: 'materials' },
+    { match: /tejado|techo|roof|teja|telha|dach|impermeabil|canalon|gutter/,                      kind: 'materials' },
+    { match: /encimera|countertop|escalera|stair|mueble|armario|persiana|toldo|pergola/,          kind: 'materials' },
+    { match: /grava|arena|asfalto|asphalt|excavacion|aushub|zanja|hormigonera/,                   kind: 'materials' },
+    { match: /btu|aire-acondicionado|climatiz|radiador|bomba-calor|chimenea|estufa/,              kind: 'tools'     },
+    { match: /deposito-agua|cisterna|fosa|septic|alcantarill|desague|grifo|ducha|inodoro|lavabo/, kind: 'materials' },
+    { match: /iluminacion|luminaria|interruptor|enchufe|domotica|alarma|cerradura/,               kind: 'tools'     },
+    { match: /riego|cesped|piscina|pool|invernadero|huerto|seto|fertiliz|abono/,                  kind: 'materials' },
+    { match: /contenedor|container/,                                                              kind: 'rental'    }
   ];
 
   var OFFER_COPY = {
@@ -641,7 +657,7 @@
   var _partnersPromise = null;
   function loadPartnerIds() {
     if (_partnersPromise) return _partnersPromise;
-    _partnersPromise = fetch('/partners.json', { credentials: 'omit' })
+    _partnersPromise = fetch('/partners.json', { credentials: 'omit', cache: 'no-cache' })
       .then(function (r) { return r.ok ? r.json() : {}; })
       .then(function (j) {
         if (j && typeof j === 'object') {
@@ -714,6 +730,7 @@
 
     var slug = String((cfg && cfg.slug) || '');
     var lang = String((cfg && cfg.lang) || document.documentElement.lang || 'en').slice(0, 2);
+    if (MED_EXCLUDE.test(slug)) return; // salud: nunca una oferta de producto
     var rule = null;
     for (var i = 0; i < OFFER_RULES.length; i++) {
       if (OFFER_RULES[i].match.test(slug)) { rule = OFFER_RULES[i]; break; }
