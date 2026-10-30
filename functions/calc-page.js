@@ -8433,3 +8433,7 @@ exports.hostingHistoryHttp = functions.runWith({ timeoutSeconds: 120, memory: "2
     return res.status(500).json({ error: e.message });
   }
 });
+
+// Exported so partner-ids.js can publish a single file through the same
+// guarded path (manifest clone + critical-file checks) instead of its own.
+exports._deployPagesToHosting = _deployPagesToHosting;

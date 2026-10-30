@@ -247,3 +247,7 @@ exports.setSeoHttp = seoTune.setSeoHttp;
 // ── Event counts (what people actually click) ──
 const eventStats = require("./event-stats");
 exports.eventStatsHttp = eventStats.eventStatsHttp;
+
+// ── Affiliate ids, published without a code deploy ──
+const partnerIds = require("./partner-ids");
+exports.setPartnerIdHttp = partnerIds.setPartnerIdHttp;

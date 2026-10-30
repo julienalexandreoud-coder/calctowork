@@ -636,6 +636,26 @@
     return (k && k[lang]) || '';
   }
 
+  // Ids come from /partners.json so a new programme needs no deploy. Resolved
+  // once per page; the result is cached by the browser like any static file.
+  var _partnersPromise = null;
+  function loadPartnerIds() {
+    if (_partnersPromise) return _partnersPromise;
+    _partnersPromise = fetch('/partners.json', { credentials: 'omit' })
+      .then(function (r) { return r.ok ? r.json() : {}; })
+      .then(function (j) {
+        if (j && typeof j === 'object') {
+          for (var k in j) {
+            if (Object.prototype.hasOwnProperty.call(PARTNER_IDS, k) && typeof j[k] === 'string') {
+              PARTNER_IDS[k] = j[k];
+            }
+          }
+        }
+      })
+      .catch(function () { /* stay empty; the block then renders nothing */ });
+    return _partnersPromise;
+  }
+
   function partnerLink(kind, lang, slug) {
     // habitissimo is cost-per-lead and only operates in ES; everything else
     // goes to ManoMano, which covers ES/DE/FR/IT.
@@ -676,6 +696,11 @@
   }
 
   function renderPartnerOffer(results) {
+    // Ids may not have arrived yet on the first calculation; re-run once they do.
+    loadPartnerIds().then(function () { renderPartnerOfferNow(results); });
+  }
+
+  function renderPartnerOfferNow(results) {
     var host = document.getElementById('ctw-partner');
     if (!host) {
       var box = document.getElementById('calc-results');
