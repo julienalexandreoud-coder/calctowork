@@ -617,6 +617,12 @@
   // Keyword per trade, so the visitor lands on the product they just sized up
   // rather than a generic storefront.
   var SLUG_TERMS = [
+    [/presion-agua|grupo-presion/,   { es: 'grupo de presion agua', de: 'hauswasserwerk',      fr: 'surpresseur eau',   it: 'autoclave acqua' }],
+    [/caldera/,                      { es: 'caldera de gas',        de: 'gastherme',           fr: 'chaudiere gaz',     it: 'caldaia a gas' }],
+    [/estructura|metalica|perfil/,   { es: 'perfil acero estructural', de: 'stahlprofil',      fr: 'profile acier',     it: 'profilo acciaio' }],
+    [/mamposteria|piedra/,           { es: 'mortero albanileria',   de: 'mauermoertel',        fr: 'mortier maconnerie',it: 'malta muratura' }],
+    [/adhesivo|ceramic/,             { es: 'cemento cola',          de: 'fliesenkleber',       fr: 'colle carrelage',   it: 'colla piastrelle' }],
+    [/forjado|vigueta|bovedilla/,    { es: 'bovedilla forjado',     de: 'deckenziegel',        fr: 'entrevous plancher',it: 'pignatte solaio' }],
     [/lija|abrasivo/,            { es: 'lija abrasivo',        de: 'schleifpapier',     fr: 'papier abrasif',   it: 'carta abrasiva' }],
     [/masilla|filler/,           { es: 'masilla reparadora',   de: 'spachtelmasse',     fr: 'enduit rebouchage',it: 'stucco' }],
     [/pintura|paint|farbe/,      { es: 'pintura pared',        de: 'wandfarbe',         fr: 'peinture mur',     it: 'pittura murale' }],
@@ -716,6 +722,26 @@
     loadPartnerIds().then(function () { renderPartnerOfferNow(results); });
   }
 
+  // "Ver lijas y abrasivos en Amazon" convierte mejor que "Compra los
+  // materiales": nombra el producto y el comercio, así el usuario sabe qué
+  // encontrará antes de pulsar.
+  var CTA_TPL = {
+    es: function (t, m) { return 'Ver ' + t + ' en ' + m; },
+    de: function (t, m) { return t + ' bei ' + m + ' ansehen'; },
+    fr: function (t, m) { return 'Voir ' + t + ' sur ' + m; },
+    it: function (t, m) { return 'Vedi ' + t + ' su ' + m; },
+    pt: function (t, m) { return 'Ver ' + t + ' na ' + m; },
+    en: function (t, m) { return 'See ' + t + ' on ' + m; }
+  };
+  function ctaConcreta(kind, lang, slug, merchant) {
+    // Solo para ofertas de producto: un presupuesto o un seguro no se "ve en Amazon".
+    if (kind !== 'materials' && kind !== 'tools') return null;
+    var term = amazonTerm(slug, kind, lang);
+    if (!term) return null;
+    var tpl = CTA_TPL[lang] || CTA_TPL.en;
+    return tpl(term, merchant);
+  }
+
   function renderPartnerOfferNow(results) {
     var host = document.getElementById('ctw-partner');
     if (!host) {
@@ -749,7 +775,9 @@
     a.target = '_blank';
     a.rel = 'sponsored nofollow noopener';
     a.innerHTML = '<span class="ctw-partner-title"></span><span class="ctw-partner-sub"></span>';
-    a.querySelector('.ctw-partner-title').textContent = text[0];
+    var merchant = /amazon\./.test(href) ? 'Amazon' : (/manomano/.test(href) ? 'ManoMano' : '');
+    var concreto = merchant ? ctaConcreta(rule.kind, lang, slug, merchant) : null;
+    a.querySelector('.ctw-partner-title').textContent = concreto || text[0];
     a.querySelector('.ctw-partner-sub').textContent = text[1];
     a.addEventListener('click', function () {
       try {

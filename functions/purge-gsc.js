@@ -45,23 +45,19 @@ exports.purgeGscHttp = functions.runWith({ timeoutSeconds: 540, memory: "512MB" 
       const ref = db.collection(col);
 
       if (!apply) {
-        // Count by paging ids only — cheap relative to reading documents.
-        let seen = 0, last = null, guard = 0;
-        while (guard++ < 200) {
-          let q = ref.orderBy(admin.firestore.FieldPath.documentId()).limit(1000);
-          if (last) q = q.startAfter(last);
-          const snap = await q.get();
-          if (snap.empty) break;
-          seen += snap.size;
-          last = snap.docs[snap.docs.length - 1].id;
-          if (snap.size < 1000) break;
-        }
+        // count() aggregation: billed as one read per 1000 index entries.
+        // The previous version paged through documents to count them, which
+        // Firestore bills as one read PER DOCUMENT even when only the id is
+        // used — up to 200,000 reads per call. That mistake is a real part of
+        // October's Firestore bill.
+        const agg = await ref.count().get();
+        const seen = agg.data().count;
         const sample = await ref.limit(1).get();
         return res.status(200).json({
           dryRun: true,
           collection: col,
           documentsFound: seen,
-          countComplete: guard < 200,
+          countComplete: true,
           sampleDoc: sample.empty ? null : { id: sample.docs[0].id },
           note: "pass &apply=1 to delete",
         });
